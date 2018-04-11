@@ -1,5 +1,6 @@
 package com.controllerface.edeps.ui;
 
+import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.enums.materials.Material;
 import com.controllerface.edeps.data.ProcurementRecipeItem;
 import javafx.scene.control.Label;
@@ -16,9 +17,9 @@ import java.util.function.Function;
  */
 public class RecipeNameCell extends TableCell<ProcurementRecipeItem, ProcurementRecipeItem>
 {
-    private final Function<Material, Integer> checkInventory;
+    private final Function<ProcurementCost, Integer> checkInventory;
 
-    public RecipeNameCell(Function<Material, Integer> checkInventory)
+    public RecipeNameCell(Function<ProcurementCost, Integer> checkInventory)
     {
         this.checkInventory = checkInventory;
     }
@@ -49,8 +50,8 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeItem, Procurement
         item.asPair().getValue().costStream()
                 .map(c->
                 {
-                    Label next = new Label(c.getQuantity() + "x " + c.getMaterial().getLocalizedName());
-                    boolean hasEnough = checkInventory.apply(c.getMaterial()) >= c.getQuantity() * item.getCount();
+                    Label next = new Label(c.getQuantity() + "x " + c.getCost().getLocalizedName());
+                    boolean hasEnough = checkInventory.apply(c.getCost()) >= c.getQuantity() * item.getCount();
                     next.setTextFill(hasEnough ? Color.BLUE : Color.RED);
                     return next;
                 })

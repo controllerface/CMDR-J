@@ -1,4 +1,4 @@
-package com.controllerface.edeps.enums.modifications;
+package com.controllerface.edeps.enums.effects;
 
 /**
  * Created by Stephen on 4/6/2018.

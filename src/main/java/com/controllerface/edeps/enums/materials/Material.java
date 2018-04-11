@@ -1,11 +1,13 @@
 package com.controllerface.edeps.enums.materials;
 
+import com.controllerface.edeps.ProcurementCost;
+
 /**
  * An enumeration of all the crafting materials in Elite: Dangerous
  *
  * Created by Stephen on 3/20/2018.
  */
-public enum Material
+public enum Material implements ProcurementCost
 {
     //RAW:,
     //----,
@@ -179,10 +181,8 @@ public enum Material
     Thargoid_Material_Composition_Data(MaterialGrade.GRADE_3),
     Thargoid_Ship_Signature(MaterialGrade.GRADE_3),
     Thargoid_Residue_Data(MaterialGrade.GRADE_4),
-    Thargoid_Wake_Data(MaterialGrade.GRADE_4),
-;
+    Thargoid_Wake_Data(MaterialGrade.GRADE_4);
 
-    private MaterialType type;
     private final MaterialGrade grade;
     private String localizedName = toString();
 

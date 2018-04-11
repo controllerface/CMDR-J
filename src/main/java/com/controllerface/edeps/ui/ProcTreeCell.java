@@ -1,5 +1,6 @@
 package com.controllerface.edeps.ui;
 
+import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.MaterialCostData;
 import com.controllerface.edeps.data.ProcTreeItem;
 import com.controllerface.edeps.enums.materials.Material;
@@ -26,9 +27,9 @@ import java.util.stream.Collectors;
 public class ProcTreeCell extends TreeCell<ProcTreeItem>
 {
     private final Consumer<ProcTreeItem> addMod;
-    private final Function<Material, Integer> checkMat;
+    private final Function<ProcurementCost, Integer> checkMat;
 
-    public ProcTreeCell(Consumer<ProcTreeItem> addMod, Function<Material, Integer> checkMat)
+    public ProcTreeCell(Consumer<ProcTreeItem> addMod, Function<ProcurementCost, Integer> checkMat)
     {
         this.addMod = addMod;
         this.checkMat = checkMat;
@@ -96,7 +97,7 @@ public class ProcTreeCell extends TreeCell<ProcTreeItem>
             AtomicInteger good = new AtomicInteger(0);
             data.forEach(d->
             {
-                if(checkMat.apply(d.getMaterial())>=d.getQuantity())
+                if(checkMat.apply(d.getCost())>=d.getQuantity())
                 {
                     good.incrementAndGet();
                 }
@@ -113,7 +114,7 @@ public class ProcTreeCell extends TreeCell<ProcTreeItem>
                     innerGood.set(0);
                     data.forEach(m->
                     {
-                        if(checkMat.apply(m.getMaterial()) >= (m.getQuantity()* loops.get() + 1))
+                        if(checkMat.apply(m.getCost()) >= (m.getQuantity()* loops.get() + 1))
                         {
                             innerGood.incrementAndGet();
                         }
@@ -124,7 +125,7 @@ public class ProcTreeCell extends TreeCell<ProcTreeItem>
             {
                 data.forEach(m ->
                 {
-                    int ch = checkMat.apply(m.getMaterial());
+                    int ch = checkMat.apply(m.getCost());
                     if(ch < m.getQuantity())
                     {
                         missingSet.add(m);
@@ -150,8 +151,8 @@ public class ProcTreeCell extends TreeCell<ProcTreeItem>
                         progressIndicator.setPrefWidth(w);
                         progressIndicator.setStyle("-fx-progress-color: #6677ff;");
                         String msg = data.stream()
-                                .map(d-> checkMat.apply(d.getMaterial()) + " x " +
-                                        d.getMaterial().getLocalizedName()).collect(Collectors.joining("\n","\n","\n"));
+                                .map(d-> checkMat.apply(d.getCost()) + " x " +
+                                        d.getCost().getLocalizedName()).collect(Collectors.joining("\n","\n","\n"));
 
                         progressIndicator.setTooltip(new Tooltip("You can craft " + loops.get() + " of this mod" + msg));
                     }
@@ -160,7 +161,7 @@ public class ProcTreeCell extends TreeCell<ProcTreeItem>
                         String suffix = missingSet.size() > 1 ? "s" : "";
                         String missingMessage = "You need the following material" + suffix + " to craft this mod:" +
                                 missingSet.stream()
-                                        .map(x-> x.getQuantity()+ " x " + x.getMaterial().getLocalizedName())
+                                        .map(x-> x.getQuantity()+ " x " + x.getCost().getLocalizedName())
                                         .collect(Collectors.joining("\n","\n","\n"));
                         progressIndicator.setStyle(" -fx-progress-color: #ee5555;");
                         progressIndicator.setTooltip(new Tooltip(missingMessage));

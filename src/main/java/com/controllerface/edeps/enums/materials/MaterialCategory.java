@@ -1,5 +1,8 @@
 package com.controllerface.edeps.enums.materials;
 
+import com.controllerface.edeps.ProcurementCategory;
+import com.controllerface.edeps.ProcurementCost;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,7 +12,7 @@ import java.util.stream.Collectors;
  *
  * Created by Stephen on 3/20/2018.
  */
-public enum MaterialCategory
+public enum MaterialCategory implements ProcurementCategory
 {
     // Raw Elements
     Raw_Elements_1(Material.CARBON,
@@ -200,8 +203,10 @@ public enum MaterialCategory
         return materials.contains(material);
     }
 
-    public static MaterialCategory findMatchingCategory(Material material)
+    public static ProcurementCategory findMatchingCategory(ProcurementCost cost)
     {
+        if (!(cost instanceof Material)) return UNKNOWN;
+        Material material = ((Material) cost);
         return Arrays.stream(values())
                 .filter(category->category.hasMaterial(material))
                 .findFirst().orElse(UNKNOWN);

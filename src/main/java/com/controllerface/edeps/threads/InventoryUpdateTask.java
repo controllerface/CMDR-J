@@ -1,7 +1,7 @@
-package com.controllerface.edeps.tasks;
+package com.controllerface.edeps.threads;
 
+import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.MaterialInventory;
-import com.controllerface.edeps.enums.materials.Material;
 import javafx.util.Pair;
 
 import java.util.concurrent.BlockingQueue;
@@ -15,12 +15,12 @@ import java.util.function.Consumer;
 public class InventoryUpdateTask implements Runnable
 {
     private final MaterialInventory inventory;
-    private final BlockingQueue<Pair<Material, Integer>> transactions;
+    private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
     private final Consumer<Void> updateFunction;
 
     public InventoryUpdateTask(Consumer<Void> updateFunction,
                         MaterialInventory inventory,
-                        BlockingQueue<Pair<Material, Integer>> transactions)
+                        BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
     {
         this.updateFunction = updateFunction;
         this.inventory = inventory;
@@ -41,7 +41,7 @@ public class InventoryUpdateTask implements Runnable
             }
 
             // get the next inventory transaction
-            Pair<Material, Integer> nextTransaction;
+            Pair<ProcurementCost, Integer> nextTransaction;
             try
             {
                 // this call blocks until a transaction is ready
@@ -54,7 +54,7 @@ public class InventoryUpdateTask implements Runnable
                 continue;
             }
 
-            inventory.adjustMat(nextTransaction.getKey(), nextTransaction.getValue());
+            inventory.adjustItem(nextTransaction.getKey(), nextTransaction.getValue());
             updateFunction.accept(null);
         }
     }

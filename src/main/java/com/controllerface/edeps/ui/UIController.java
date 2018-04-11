@@ -1,5 +1,6 @@
 package com.controllerface.edeps.ui;
 
+import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.*;
@@ -7,8 +8,8 @@ import com.controllerface.edeps.enums.experimentals.ExperimentalCategory;
 import com.controllerface.edeps.enums.materials.Material;
 import com.controllerface.edeps.enums.materials.MaterialCategory;
 import com.controllerface.edeps.enums.modifications.ModificationCategory;
-import com.controllerface.edeps.tasks.DiskMonitorTask;
-import com.controllerface.edeps.tasks.InventoryUpdateTask;
+import com.controllerface.edeps.threads.DiskMonitorTask;
+import com.controllerface.edeps.threads.InventoryUpdateTask;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -51,25 +52,25 @@ public class UIController
      */
 
     // Raw materials
-    @FXML private TableView<MaterialInventoryData> rawTable;
-    @FXML private TableColumn<MaterialInventoryData, String> rawCategoryColumn;
-    @FXML private TableColumn<MaterialInventoryData, String> rawGradeColumn;
-    @FXML private TableColumn<MaterialInventoryData, String> rawMaterialColumn;
-    @FXML private TableColumn<MaterialInventoryData, Number> rawQuantityColumn;
+    @FXML private TableView<InventoryData> rawTable;
+    @FXML private TableColumn<InventoryData, String> rawCategoryColumn;
+    @FXML private TableColumn<InventoryData, String> rawGradeColumn;
+    @FXML private TableColumn<InventoryData, String> rawMaterialColumn;
+    @FXML private TableColumn<InventoryData, Number> rawQuantityColumn;
 
     // Manufactured materials
-    @FXML private TableView<MaterialInventoryData> manufacturedTable;
-    @FXML private TableColumn<MaterialInventoryData, String> manufacturedCategoryColumn;
-    @FXML private TableColumn<MaterialInventoryData, String> manufacturedGradeColumn;
-    @FXML private TableColumn<MaterialInventoryData, String> manufacturedMaterialColumn;
-    @FXML private TableColumn<MaterialInventoryData, Number> manufacturedQuantityColumn;
+    @FXML private TableView<InventoryData> manufacturedTable;
+    @FXML private TableColumn<InventoryData, String> manufacturedCategoryColumn;
+    @FXML private TableColumn<InventoryData, String> manufacturedGradeColumn;
+    @FXML private TableColumn<InventoryData, String> manufacturedMaterialColumn;
+    @FXML private TableColumn<InventoryData, Number> manufacturedQuantityColumn;
 
     // Data materials
-    @FXML private TableView<MaterialInventoryData> dataTable;
-    @FXML private TableColumn<MaterialInventoryData, String>dataCategoryColumn;
-    @FXML private TableColumn<MaterialInventoryData, String>dataGradeColumn;
-    @FXML private TableColumn<MaterialInventoryData, String>dataMaterialColumn;
-    @FXML private TableColumn<MaterialInventoryData, Number>dataQuantityColumn;
+    @FXML private TableView<InventoryData> dataTable;
+    @FXML private TableColumn<InventoryData, String>dataCategoryColumn;
+    @FXML private TableColumn<InventoryData, String>dataGradeColumn;
+    @FXML private TableColumn<InventoryData, String>dataMaterialColumn;
+    @FXML private TableColumn<InventoryData, Number>dataQuantityColumn;
 
     // Mod tree
     @FXML private TreeView<ProcTreeItem> modTree;
@@ -97,7 +98,7 @@ public class UIController
     private boolean initialzed = false;
 
     private final MaterialInventory materialInventory = new MaterialInventory();
-    private final BlockingQueue<Pair<Material, Integer>> transactionQueue = new LinkedBlockingQueue<>();
+    private final BlockingQueue<Pair<ProcurementCost, Integer>> transactionQueue = new LinkedBlockingQueue<>();
 
     private final Map<Pair<ProcurementType, ProcurementRecipe>, Integer> procurementRecipeMap = new HashMap<>();
 
@@ -160,35 +161,35 @@ public class UIController
      */
 
     // simple string for material category name
-    private final Callback<TableColumn.CellDataFeatures<MaterialInventoryData, String>, ObservableValue<String>>
+    private final Callback<TableColumn.CellDataFeatures<InventoryData, String>, ObservableValue<String>>
             inventoryCategoryCellFactory =
             (materialData) ->
             {
-                Material material = materialData.getValue().getMaterial();
+                ProcurementCost material = materialData.getValue().getItem();
                 String category = MaterialCategory.findMatchingCategory(material).toString();
                 return new SimpleStringProperty(category);
             };
 
     // simple string for material grade
-    private final Callback<TableColumn.CellDataFeatures<MaterialInventoryData, String>, ObservableValue<String>>
+    private final Callback<TableColumn.CellDataFeatures<InventoryData, String>, ObservableValue<String>>
             inventoryGradeCellFactory =
             (materialData) ->
             {
-                String grade = materialData.getValue().getMaterial().getGrade().toString();
+                String grade = materialData.getValue().getItem().getGrade().toString();
                 return new SimpleStringProperty(grade);
             };
 
     // simple string for material name
-    private final Callback<TableColumn.CellDataFeatures<MaterialInventoryData, String>, ObservableValue<String>>
+    private final Callback<TableColumn.CellDataFeatures<InventoryData, String>, ObservableValue<String>>
             inventoryMaterialCellFactory =
             (materialData) ->
             {
-                String materialName = materialData.getValue().getMaterial().getLocalizedName();
+                String materialName = materialData.getValue().getItem().getLocalizedName();
                 return new SimpleStringProperty(materialName);
             };
 
     // simple integer for material count
-    private final Callback<TableColumn.CellDataFeatures<MaterialInventoryData, Number>, ObservableValue<Number>>
+    private final Callback<TableColumn.CellDataFeatures<InventoryData, Number>, ObservableValue<Number>>
             inventoryQuantityCellFactory =
             (materialData) ->
             {
@@ -281,7 +282,7 @@ public class UIController
         int missing = procurementRecipeItem.asPair().getValue().costStream()
                 .mapToInt(cost->
                 {
-                    int banked = materialInventory.hasMat(cost.getMaterial());
+                    int banked = materialInventory.hasMat(cost.getCost());
                     int surplus = banked - (cost.getQuantity() * count);
                     return surplus < 0
                             ? -1 * surplus
@@ -308,16 +309,16 @@ public class UIController
     Material sorting comparators
      */
 
-    // sort MaterialInventoryData objects alphabetically by category name
-    private final Comparator<MaterialInventoryData> materialByCategory =
+    // sort InventoryData objects alphabetically by category name
+    private final Comparator<InventoryData> materialByCategory =
             (a, b) -> a.getCategory().compareTo(b.getCategory());
 
-    // sort MaterialInventoryData objects numerically by grade, lowest to highest
-    private final Comparator<MaterialInventoryData> materialByGrade =
+    // sort InventoryData objects numerically by grade, lowest to highest
+    private final Comparator<InventoryData> materialByGrade =
             (a, b) ->
             {
-                int aGrade = Integer.parseInt(a.getMaterial().getGrade().toString());
-                int bGrade = Integer.parseInt(b.getMaterial().getGrade().toString());
+                int aGrade = Integer.parseInt(a.getItem().getGrade().toString());
+                int bGrade = Integer.parseInt(b.getItem().getGrade().toString());
                 return aGrade - bGrade;
             };
 
@@ -402,7 +403,7 @@ public class UIController
         initialzed = true;
     }
 
-    private TreeItem<ProcTreeItem> makeMods()
+    private TreeItem<ProcTreeItem> makeModTree()
     {
         TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Modifications"));
         modifications.setExpanded(true);
@@ -500,7 +501,7 @@ public class UIController
         TreeItem<ProcTreeItem> root = new TreeItem<>(new ProcTreeItem("root"));
         root.setExpanded(true);
 
-        TreeItem<ProcTreeItem> modifications = makeMods();
+        TreeItem<ProcTreeItem> modifications = makeModTree();
         TreeItem<ProcTreeItem> experiments = makeExperimentTree();
 
         root.getChildren().add(modifications);
@@ -586,7 +587,7 @@ public class UIController
                     {
                         AtomicBoolean matFound = new AtomicBoolean(false);
                         procurementMaterialsTable.getItems().stream()
-                                .filter(m -> m.matches(mat.getMaterial()))
+                                .filter(m -> m.matches(mat.getCost()))
                                 .findFirst()
                                 .ifPresent(m ->
                                 {
@@ -597,7 +598,7 @@ public class UIController
 
                         if (!matFound.get())
                         {
-                            ModMaterialItem newItem = new ModMaterialItem(mat.getMaterial(), this.materialInventory::hasMat);
+                            ModMaterialItem newItem = new ModMaterialItem(mat.getCost(), this.materialInventory::hasMat);
                             newItem.setCount(mat.getQuantity() * count);
                             procurementMaterialsTable.getItems().add(newItem);
                         }
@@ -621,7 +622,7 @@ public class UIController
         });
     }
 
-    private final Function<Material, Integer> checkMat = this.materialInventory::hasMat;
+    private final Function<ProcurementCost, Integer> checkMat = this.materialInventory::hasMat;
 
     @FXML
     private void clearProcurementList()
@@ -629,7 +630,6 @@ public class UIController
         procurementRecipeMap.clear();
         syncUI();
     }
-
 
     private void localizeData()
     {
@@ -657,7 +657,8 @@ public class UIController
         }
         data.entrySet().forEach(e->
         {
-            Material material = Material.valueOf(e.getKey());
+            // todo: generify this a bit too
+            ProcurementCost material = Material.valueOf(e.getKey());
             material.setLocalizedName(((String) e.getValue()));
         });
     }

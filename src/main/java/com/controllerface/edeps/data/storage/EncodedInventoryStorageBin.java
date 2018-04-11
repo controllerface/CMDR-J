@@ -1,5 +1,6 @@
-package com.controllerface.edeps.data;
+package com.controllerface.edeps.data.storage;
 
+import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.enums.materials.Material;
 import com.controllerface.edeps.enums.materials.MaterialType;
 
@@ -8,12 +9,13 @@ import com.controllerface.edeps.enums.materials.MaterialType;
  *
  * Created by Stephen on 3/21/2018.
  */
-public class EncodedMaterialStorageBin extends MaterialStorageBin
+public class EncodedInventoryStorageBin extends InventoryStorageBin
 {
     @Override
-    public boolean check(Material material)
+    public boolean check(ProcurementCost material)
     {
-        return MaterialType.ENCODED.hasMaterial(material);
+        return material instanceof Material &&
+                MaterialType.ENCODED.hasMaterial(((Material) material));
     }
 
     @Override
@@ -21,6 +23,6 @@ public class EncodedMaterialStorageBin extends MaterialStorageBin
     {
         MaterialType.ENCODED.getCategories().stream()
                 .flatMap(category -> category.getMaterials().stream())
-                .forEach(material -> addMat(material,0));
+                .forEach(material -> addItem(material,0));
     }
 }

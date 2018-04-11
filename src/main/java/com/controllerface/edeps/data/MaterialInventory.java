@@ -1,5 +1,10 @@
 package com.controllerface.edeps.data;
 
+import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.data.storage.EncodedInventoryStorageBin;
+import com.controllerface.edeps.data.storage.InventoryStorageBin;
+import com.controllerface.edeps.data.storage.ManufacturedInventoryStorageBin;
+import com.controllerface.edeps.data.storage.RawInventoryStorageBin;
 import com.controllerface.edeps.enums.materials.Material;
 import com.controllerface.edeps.enums.materials.MaterialType;
 
@@ -10,23 +15,23 @@ import java.util.stream.Stream;
  */
 public class MaterialInventory
 {
-    private final MaterialStorageBin rawMats = new RawMaterialStorageBin();
-    private final MaterialStorageBin dataMats = new EncodedMaterialStorageBin();
-    private final MaterialStorageBin mfdMats = new ManufacturedMaterialStorageBin();
+    private final InventoryStorageBin rawMats = new RawInventoryStorageBin();
+    private final InventoryStorageBin dataMats = new EncodedInventoryStorageBin();
+    private final InventoryStorageBin mfdMats = new ManufacturedInventoryStorageBin();
 
-    public Stream<MaterialInventoryData> rawMaterialStream()
+    public Stream<InventoryData> rawMaterialStream()
     {
-        return rawMats.materialStream();
+        return rawMats.inventory();
     }
 
-    public Stream<MaterialInventoryData> manufacturedMaterialStream()
+    public Stream<InventoryData> manufacturedMaterialStream()
     {
-        return mfdMats.materialStream();
+        return mfdMats.inventory();
     }
 
-    public Stream<MaterialInventoryData> dataMaterialStream()
+    public Stream<InventoryData> dataMaterialStream()
     {
-        return dataMats.materialStream();
+        return dataMats.inventory();
     }
 
     public void clear()
@@ -36,44 +41,38 @@ public class MaterialInventory
         dataMats.clear();
     }
 
-    public void adjustMat(Material material, int adjustment)
+    public void adjustItem(ProcurementCost material, int adjustment)
     {
-        MaterialType type = MaterialType.findMatchingType(material);
+        if (!(material instanceof Material)) return;
+
+        MaterialType type = MaterialType.findMatchingType(((Material) material));
 
         switch (type)
         {
-            case RAW:
-                rawMats.addMat(material, adjustment);
+            case RAW: rawMats.addItem(material, adjustment);
                 break;
 
-            case MANUFACTURED:
-                mfdMats.addMat(material, adjustment);
+            case MANUFACTURED: mfdMats.addItem(material, adjustment);
                 break;
 
-            case ENCODED:
-                dataMats.addMat(material, adjustment);
+            case ENCODED: dataMats.addItem(material, adjustment);
                 break;
         }
     }
 
-    public int hasMat(Material material)
+    public int hasMat(ProcurementCost material)
     {
-        int count = 0;
-        MaterialType type = MaterialType.findMatchingType(material);
-        switch (type)
+        if (!(material instanceof Material)) return -1;
+
+        switch (MaterialType.findMatchingType(((Material) material)))
         {
-            case RAW:
-                count = rawMats.hasMat(material);
-                break;
+            case RAW: return rawMats.hasItem(material);
 
-            case MANUFACTURED:
-                count = mfdMats.hasMat(material);
-                break;
+            case MANUFACTURED: return mfdMats.hasItem(material);
 
-            case ENCODED:
-                count = dataMats.hasMat(material);
-                break;
+            case ENCODED: return dataMats.hasItem(material);
+
+            default: return -1;
         }
-        return count;
     }
 }

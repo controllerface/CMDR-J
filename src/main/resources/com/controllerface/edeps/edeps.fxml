@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <AnchorPane prefHeight="909.0" prefWidth="1074.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllerface.edeps.ui.UIController">
    <children>
       <GridPane alignment="TOP_CENTER" prefHeight="543.0" prefWidth="918.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -77,6 +79,18 @@
                                 </TableView>
                             </content>
                          </Tab>
+                        <Tab text="Cargo">
+                           <content>
+                              <TableView fx:id="dataTable1" prefHeight="371.0" prefWidth="551.0">
+                                 <columns>
+                                    <TableColumn fx:id="dataCategoryColumn1" editable="false" prefWidth="150.0" resizable="false" text="Category" />
+                                    <TableColumn fx:id="dataGradeColumn1" editable="false" prefWidth="50.0" resizable="false" text="Grade" />
+                                    <TableColumn fx:id="dataMaterialColumn1" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="343.0" resizable="false" text="Material" />
+                                    <TableColumn fx:id="dataQuantityColumn1" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </Tab>
                      </tabs>
                   </TabPane>
                </children>

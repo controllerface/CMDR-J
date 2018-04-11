@@ -28,7 +28,7 @@ public class ProcurementRecipeItem
     {
         return type.toString() + " : " + recipe.toString() + "\n" +
                 recipe.costStream()
-                        .map(c-> " - " + c.getMaterial().getLocalizedName())
+                        .map(c-> " - " + c.getCost().getLocalizedName())
                         .collect(Collectors.joining("\n"));
     }
 

@@ -1,22 +1,26 @@
 package com.controllerface.edeps.data;
 
+import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.enums.materials.Material;
 import com.controllerface.edeps.enums.materials.MaterialCategory;
 
 /**
  * Created by Stephen on 3/27/2018.
  */
-public class MaterialInventoryData
+public class InventoryData
 {
     private final String category;
     private int quantity;
 
-    private final Material material;
+    private final ProcurementCost material;
 
-    public MaterialInventoryData(Material material, int quantity)
+    public InventoryData(ProcurementCost material, int quantity)
     {
         this.material = material;
+
+        // todo: stop needing category here, do a runtime lookup instead
         this.category = MaterialCategory.findMatchingCategory(material).toString();
+
         this.quantity = quantity;
     }
 
@@ -31,7 +35,7 @@ public class MaterialInventoryData
         return category;
     }
 
-    public Material getMaterial()
+    public ProcurementCost getItem()
     {
         return material;
     }
@@ -41,8 +45,9 @@ public class MaterialInventoryData
         return quantity;
     }
 
-    public void adjustCount(int adjustment)
+    public boolean adjustCount(int adjustment)
     {
         this.quantity += adjustment;
+        return quantity >= 0;
     }
 }

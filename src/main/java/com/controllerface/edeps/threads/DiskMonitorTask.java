@@ -1,5 +1,6 @@
-package com.controllerface.edeps.tasks;
+package com.controllerface.edeps.threads;
 
+import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.MaterialInventory;
 import com.controllerface.edeps.enums.materials.Material;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -57,7 +58,7 @@ public class DiskMonitorTask implements Runnable
     private final AtomicReference<String> currentJournalFile = new AtomicReference<>("");
     private final AtomicInteger lastLine = new AtomicInteger(0);
     private final MaterialInventory materialInventory;
-    private final BlockingQueue<Pair<Material, Integer>> transactions;
+    private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
     private File journalFolder;
     private Path journalPath;
 
@@ -70,7 +71,7 @@ public class DiskMonitorTask implements Runnable
     };
 
     public DiskMonitorTask(MaterialInventory materialInventory,
-                    BlockingQueue<Pair<Material, Integer>> transactions)
+                    BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
     {
         this.materialInventory = materialInventory;
         this.transactions = transactions;
@@ -292,18 +293,24 @@ public class DiskMonitorTask implements Runnable
         materialInventory.clear();
 
         ((List<Map<String, Object>>) data.get("Raw")).stream()
-                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(), item.get("Count").toString()))
-                .map(sitem -> new Pair<>(Material.valueOf(sitem.getKey()), Integer.parseInt(sitem.getValue())))
+                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
+                        item.get("Count").toString()))
+                .map(sitem -> new Pair<>(((ProcurementCost) Material.valueOf(sitem.getKey())),
+                        Integer.parseInt(sitem.getValue())))
                 .forEach(transactions::add);
 
         ((List<Map<String, Object>>) data.get("Manufactured")).stream()
-                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(), item.get("Count").toString()))
-                .map(sitem -> new Pair<>(Material.valueOf(sitem.getKey()), Integer.parseInt(sitem.getValue())))
+                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
+                        item.get("Count").toString()))
+                .map(sitem -> new Pair<>(((ProcurementCost) Material.valueOf(sitem.getKey())),
+                        Integer.parseInt(sitem.getValue())))
                 .forEach(transactions::add);
 
         ((List<Map<String, Object>>) data.get("Encoded")).stream()
-                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(), item.get("Count").toString()))
-                .map(sitem -> new Pair<>(Material.valueOf(sitem.getKey()), Integer.parseInt(sitem.getValue())))
+                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
+                        item.get("Count").toString()))
+                .map(sitem -> new Pair<>(((ProcurementCost) Material.valueOf(sitem.getKey())),
+                        Integer.parseInt(sitem.getValue())))
                 .forEach(transactions::add);
     }
 

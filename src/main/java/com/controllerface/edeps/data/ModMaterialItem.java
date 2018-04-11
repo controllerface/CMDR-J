@@ -1,5 +1,6 @@
 package com.controllerface.edeps.data;
 
+import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.enums.materials.Material;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -10,11 +11,11 @@ import java.util.function.Function;
  */
 public class ModMaterialItem
 {
-    private final Material material;
-    private final Function<Material, Integer> checkInventory;
+    private final ProcurementCost material;
+    private final Function<ProcurementCost, Integer> checkInventory;
     private final AtomicInteger count = new AtomicInteger(0);
 
-    public ModMaterialItem(Material material, Function<Material, Integer> checkInventory)
+    public ModMaterialItem(ProcurementCost material, Function<ProcurementCost, Integer> checkInventory)
     {
         this.material = material;
         this.checkInventory = checkInventory;
@@ -40,7 +41,7 @@ public class ModMaterialItem
         this.count.addAndGet(amount);
     }
 
-    public Material getMaterial()
+    public ProcurementCost getMaterial()
     {
         return material;
     }
@@ -51,7 +52,7 @@ public class ModMaterialItem
         return material.getLocalizedName();
     }
 
-    public boolean matches(Material material)
+    public boolean matches(ProcurementCost material)
     {
         return material == this.material;
     }

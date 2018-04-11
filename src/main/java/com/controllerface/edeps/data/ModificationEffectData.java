@@ -1,6 +1,6 @@
 package com.controllerface.edeps.data;
 
-import com.controllerface.edeps.enums.modifications.ModificationEffect;
+import com.controllerface.edeps.enums.effects.ModificationEffect;
 import javafx.util.Pair;
 
 import java.util.Arrays;

@@ -2,8 +2,8 @@ package com.controllerface.edeps.enums.modifications;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.MaterialCostData;
+import com.controllerface.edeps.enums.effects.ModificationEffect;
 import com.controllerface.edeps.enums.materials.Material;
-import com.controllerface.edeps.data.MaterialCostData;
 import com.controllerface.edeps.data.ModificationEffectData;
 import javafx.util.Pair;
 

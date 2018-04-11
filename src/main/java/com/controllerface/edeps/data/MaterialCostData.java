@@ -1,5 +1,6 @@
 package com.controllerface.edeps.data;
 
+import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.enums.materials.Material;
 import com.controllerface.edeps.enums.materials.MaterialCategory;
 
@@ -11,9 +12,9 @@ public class MaterialCostData
     private final String category;
     private final int quantity;
 
-    private final Material material;
+    private final ProcurementCost material;
 
-    public MaterialCostData(Material material, int quantity)
+    public MaterialCostData(ProcurementCost material, int quantity)
     {
         this.material = material;
         this.category = MaterialCategory.findMatchingCategory(material).toString();
@@ -31,7 +32,7 @@ public class MaterialCostData
         return category;
     }
 
-    public Material getMaterial()
+    public ProcurementCost getCost()
     {
         return material;
     }
