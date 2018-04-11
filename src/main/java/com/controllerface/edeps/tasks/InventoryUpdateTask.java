@@ -54,7 +54,6 @@ public class InventoryUpdateTask implements Runnable
                 continue;
             }
 
-
             inventory.adjustMat(nextTransaction.getKey(), nextTransaction.getValue());
             updateFunction.accept(null);
         }

@@ -20,8 +20,6 @@ import java.util.function.BiFunction;
  */
 public class ModControlCell extends TableCell<ProcurementRecipeItem, Pair<ProcurementType, ProcurementRecipe>>
 {
-//    private final Button deduct = new Button("-");
-//    private final Button add = new Button("+");
     private final Button remove = new Button("x");
     private final HBox controls = new HBox(remove);
 
@@ -39,8 +37,6 @@ public class ModControlCell extends TableCell<ProcurementRecipeItem, Pair<Procur
 
         if (!empty)
         {
-
-
             Line line = new Line();
             line.setStroke(Color.WHITE);
             line.setStrokeWidth(3);

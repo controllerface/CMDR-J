@@ -7,12 +7,8 @@ import javafx.scene.control.TableCell;
 /**
  * Created by Stephen on 4/2/2018.
  */
-public class ModRecipeProgressCell extends TableCell<ProcurementRecipeItem, ProgressIndicator>
+public class TaskProgressCell extends TableCell<ProcurementRecipeItem, ProgressIndicator>
 {
-    public ModRecipeProgressCell()
-    {
-    }
-
     @Override
     protected void updateItem(ProgressIndicator item, boolean empty)
     {

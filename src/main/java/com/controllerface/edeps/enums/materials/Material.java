@@ -196,16 +196,6 @@ public enum Material
         return grade;
     }
 
-    public void setType(MaterialType type)
-    {
-        this.type = type;
-    }
-
-    public MaterialType getType()
-    {
-        return type;
-    }
-
     public void setLocalizedName(String localizedName)
     {
         this.localizedName = localizedName;

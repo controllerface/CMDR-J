@@ -2,7 +2,9 @@ package com.controllerface.edeps.data;
 
 import com.controllerface.edeps.enums.materials.Material;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -15,7 +17,7 @@ import java.util.stream.Stream;
  */
 public abstract class MaterialStorageBin
 {
-    private final Map<Material, Integer> mats = new HashMap<>();
+    private final List<MaterialInventoryData> materials = new ArrayList<>();
 
     public abstract boolean check(Material material);
 
@@ -28,12 +30,12 @@ public abstract class MaterialStorageBin
 
     public Stream<MaterialInventoryData> materialStream()
     {
-        return mats.entrySet().stream().map(e->new MaterialInventoryData(e.getKey(),e.getValue()));
+        return materials.stream();
     }
 
     public void clear()
     {
-        mats.clear();
+        materials.clear();
         init();
     }
 
@@ -41,7 +43,9 @@ public abstract class MaterialStorageBin
     {
         if (check(material))
         {
-            return mats.computeIfAbsent(material, m -> 0);
+            return materials.stream().filter(d->d.getMaterial() == material)
+                    .map(MaterialInventoryData::getQuantity)
+                    .findFirst().orElse(0);
         }
         return -1;
     }
@@ -50,8 +54,15 @@ public abstract class MaterialStorageBin
     {
         if (check(material))
         {
-            mats.computeIfPresent(material,(m, c) -> c + count);
-            mats.computeIfAbsent(material, m -> count);
+            MaterialInventoryData data = materials.stream()
+                    .filter(m->m.getMaterial()==material)
+                    .findFirst().orElse(null);
+            if (data != null) data.adjustCount(count);
+            else
+            {
+                data = new MaterialInventoryData(material, 0);
+                materials.add(data);
+            }
             return true;
         }
         return false;

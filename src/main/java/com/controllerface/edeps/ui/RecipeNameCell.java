@@ -14,11 +14,11 @@ import java.util.function.Function;
 /**
  * Created by Stephen on 4/8/2018.
  */
-public class ModNameCell extends TableCell<ProcurementRecipeItem, ProcurementRecipeItem>
+public class RecipeNameCell extends TableCell<ProcurementRecipeItem, ProcurementRecipeItem>
 {
     private final Function<Material, Integer> checkInventory;
 
-    public ModNameCell(Function<Material, Integer> checkInventory)
+    public RecipeNameCell(Function<Material, Integer> checkInventory)
     {
         this.checkInventory = checkInventory;
     }

@@ -72,7 +72,7 @@ public class UIController
     @FXML private TableColumn<MaterialInventoryData, Number>dataQuantityColumn;
 
     // Mod tree
-    @FXML private TreeView<ModTreeItem> modTree;
+    @FXML private TreeView<ProcTreeItem> modTree;
 
     // procurement list
     @FXML private TableView<ProcurementRecipeItem> procurementRecipeTable;
@@ -136,10 +136,10 @@ public class UIController
             };
 
     /*
-    Consumer function that accepts a ModTreeItem and adds it to the procurement list. If the mod already exists in the
-    list, this effectively increments the roll count of that mod by 1
+    Consumer function that accepts a ProcTreeItem and adds it to the procurement list. If the task already exists in the
+    list, this effectively increments the count of that by 1
      */
-    private final Consumer<ModTreeItem> addModToProcurementList =
+    private final Consumer<ProcTreeItem> addTaskToProcurementList =
             (mod)->
             {
                 Pair<ProcurementType, ProcurementRecipe> ref = new Pair<>(mod.getType(), mod.getRecipe());
@@ -205,7 +205,7 @@ public class UIController
 
     // simple integer for number of rolls
     private final Callback<TableColumn<ProcurementRecipeItem, ProcurementRecipeItem>, TableCell<ProcurementRecipeItem, ProcurementRecipeItem>>
-            modRollCellFactory = (modRecipe) -> new ModRollCell(procurementListUpdate);
+            modRollCellFactory = (modRecipe) -> new TaskCountCell(procurementListUpdate);
 
 
     // simple string for blueprint/recipe name
@@ -214,7 +214,7 @@ public class UIController
 
     // simple string for blueprint/recipe name
     private final Callback<TableColumn<ProcurementRecipeItem, ProcurementRecipeItem>, TableCell<ProcurementRecipeItem, ProcurementRecipeItem>>
-            modNameCellFactory = (modRecipe) -> new ModNameCell(materialInventory::hasMat);
+            modNameCellFactory = (modRecipe) -> new RecipeNameCell(materialInventory::hasMat);
 
     // wrapper object for recipe pair object
     private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeItem, Pair<ProcurementType, ProcurementRecipe>>, ObservableValue<Pair<ProcurementType, ProcurementRecipe>>>
@@ -264,7 +264,7 @@ public class UIController
 
     // custom cell object creates display for the progress indicator
     private final Callback<TableColumn<ProcurementRecipeItem, ProgressIndicator>, TableCell<ProcurementRecipeItem, ProgressIndicator>>
-            recipeProgressCellFactory = (modRecipeItem) -> new ModRecipeProgressCell();
+            recipeProgressCellFactory = (modRecipeItem) -> new TaskProgressCell();
 
     // wrapper object for progress indicator object
     private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeItem, ProgressIndicator>, ObservableValue<ProgressIndicator>>
@@ -397,27 +397,27 @@ public class UIController
         materialProgressColumn.setComparator(indicatorByProgress);
         recipeProgressColumn.setComparator(indicatorByProgress);
 
-        makeModTree();
+        makeProcurementTree();
 
         initialzed = true;
     }
 
-    private TreeItem<ModTreeItem> makeMods()
+    private TreeItem<ProcTreeItem> makeMods()
     {
-        TreeItem<ModTreeItem> modifications = new TreeItem<>(new ModTreeItem("Modifications"));
+        TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Modifications"));
         modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(ModificationCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ModTreeItem> categoryItem = new TreeItem<>(new ModTreeItem(category.toString()));
+            TreeItem<ProcTreeItem> categoryItem = new TreeItem<>(new ProcTreeItem(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ModTreeItem> typeItem = new TreeItem<>(new ModTreeItem(type.toString()));
+                TreeItem<ProcTreeItem> typeItem = new TreeItem<>(new ProcTreeItem(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
@@ -426,14 +426,14 @@ public class UIController
                     String r = blueprint.toString() + " " + typeItem.getValue().toString();
 
                     // add a collapsible blueprint label
-                    TreeItem<ModTreeItem> bluePrintItem =
-                            new TreeItem<>(new ModTreeItem(r));
+                    TreeItem<ProcTreeItem> bluePrintItem =
+                            new TreeItem<>(new ProcTreeItem(r));
 
                     // for this blueprint, loop through all recipes it contains
                     blueprint.recipeStream().forEach(recipe->
                     {
                         // add a button allowing the user to add the recipe to their procurement list
-                        TreeItem<ModTreeItem> recipeItem = new TreeItem<>(new ModTreeItem(type, recipe));
+                        TreeItem<ProcTreeItem> recipeItem = new TreeItem<>(new ProcTreeItem(type, recipe));
 
                         // add the recipe button to this blueprint
                         bluePrintItem.getChildren().add(recipeItem);
@@ -454,29 +454,29 @@ public class UIController
         return modifications;
     }
 
-    private TreeItem<ModTreeItem> makeExperiements()
+    private TreeItem<ProcTreeItem> makeExperimentTree()
     {
-        TreeItem<ModTreeItem> experiments = new TreeItem<>(new ModTreeItem("Experimental Effects"));
+        TreeItem<ProcTreeItem> experiments = new TreeItem<>(new ProcTreeItem("Experimental Effects"));
         experiments.setExpanded(true);
 
-        // loop through all mod categories
+        // loop through all experimental categories
         Arrays.stream(ExperimentalCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ModTreeItem> categoryItem = new TreeItem<>(new ModTreeItem(category.toString()));
+            TreeItem<ProcTreeItem> categoryItem = new TreeItem<>(new ProcTreeItem(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ModTreeItem> typeItem = new TreeItem<>(new ModTreeItem(type.toString()));
+                TreeItem<ProcTreeItem> typeItem = new TreeItem<>(new ProcTreeItem(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.recipeStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ModTreeItem> bluePrintItem =
-                            new TreeItem<>(new ModTreeItem(type, blueprint));
+                    TreeItem<ProcTreeItem> bluePrintItem =
+                            new TreeItem<>(new ProcTreeItem(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -493,16 +493,15 @@ public class UIController
         return experiments;
     }
 
-    // Builds the "Mod Tree" from which the user can select mods to add to their procurement list
-    private void makeModTree()
+    // Builds the "Procurement Tree" from which the user can select tasks to add to their procurement list
+    private void makeProcurementTree()
     {
-        TreeItem<ModTreeItem> root = new TreeItem<>(new ModTreeItem("root"));
+        // create an root object for procurements
+        TreeItem<ProcTreeItem> root = new TreeItem<>(new ProcTreeItem("root"));
         root.setExpanded(true);
 
-        // create an root object for mods
-        TreeItem<ModTreeItem> modifications = makeMods();
-        TreeItem<ModTreeItem> experiments = makeExperiements();
-
+        TreeItem<ProcTreeItem> modifications = makeMods();
+        TreeItem<ProcTreeItem> experiments = makeExperimentTree();
 
         root.getChildren().add(modifications);
         root.getChildren().add(experiments);
@@ -511,7 +510,7 @@ public class UIController
         modTree.setRoot(root);
 
         // use a custom cell factory so we can have more useful tree cells
-        modTree.setCellFactory(param -> new ModTreeCell(addModToProcurementList, checkMat));
+        modTree.setCellFactory(param -> new ProcTreeCell(addTaskToProcurementList, checkMat));
 
         // hide the root, showing just it's children in the tree view (which are the mod categories)
         modTree.setShowRoot(false);

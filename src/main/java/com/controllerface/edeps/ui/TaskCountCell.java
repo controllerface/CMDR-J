@@ -19,7 +19,7 @@ import java.util.function.BiFunction;
 /**
  * Created by Stephen on 4/8/2018.
  */
-public class ModRollCell extends TableCell<ProcurementRecipeItem, ProcurementRecipeItem>
+public class TaskCountCell extends TableCell<ProcurementRecipeItem, ProcurementRecipeItem>
 {
     private final Label countLabel = new Label();
     private final Button subtractButton = new Button("-");
@@ -28,7 +28,7 @@ public class ModRollCell extends TableCell<ProcurementRecipeItem, ProcurementRec
 
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate;
 
-    public ModRollCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
+    public TaskCountCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
     {
         this.inventoryUpdate = inventoryUpdate;
     }

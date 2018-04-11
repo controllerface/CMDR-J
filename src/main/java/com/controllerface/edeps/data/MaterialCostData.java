@@ -6,14 +6,14 @@ import com.controllerface.edeps.enums.materials.MaterialCategory;
 /**
  * Created by Stephen on 3/27/2018.
  */
-public class MaterialInventoryData
+public class MaterialCostData
 {
     private final String category;
-    private int quantity;
+    private final int quantity;
 
     private final Material material;
 
-    public MaterialInventoryData(Material material, int quantity)
+    public MaterialCostData(Material material, int quantity)
     {
         this.material = material;
         this.category = MaterialCategory.findMatchingCategory(material).toString();
@@ -41,8 +41,4 @@ public class MaterialInventoryData
         return quantity;
     }
 
-    public void adjustCount(int adjustment)
-    {
-        this.quantity += adjustment;
-    }
 }

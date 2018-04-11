@@ -1,8 +1,8 @@
 package com.controllerface.edeps.ui;
 
-import com.controllerface.edeps.data.MaterialInventoryData;
+import com.controllerface.edeps.data.MaterialCostData;
+import com.controllerface.edeps.data.ProcTreeItem;
 import com.controllerface.edeps.enums.materials.Material;
-import com.controllerface.edeps.data.ModTreeItem;
 import com.sun.javafx.scene.control.skin.ProgressIndicatorSkin;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -23,19 +23,19 @@ import java.util.stream.Collectors;
 /**
  * Created by Stephen on 4/1/2018.
  */
-public class ModTreeCell extends TreeCell<ModTreeItem>
+public class ProcTreeCell extends TreeCell<ProcTreeItem>
 {
-    private final Consumer<ModTreeItem> addMod;
+    private final Consumer<ProcTreeItem> addMod;
     private final Function<Material, Integer> checkMat;
 
-    public ModTreeCell(Consumer<ModTreeItem> addMod, Function<Material, Integer> checkMat)
+    public ProcTreeCell(Consumer<ProcTreeItem> addMod, Function<Material, Integer> checkMat)
     {
         this.addMod = addMod;
         this.checkMat = checkMat;
     }
 
     @Override
-    protected void updateItem(ModTreeItem item, boolean empty)
+    protected void updateItem(ProcTreeItem item, boolean empty)
     {
         super.updateItem(item, empty);
 
@@ -87,7 +87,7 @@ public class ModTreeCell extends TreeCell<ModTreeItem>
             button.setGraphic(textBox);
             ProgressIndicator progressIndicator = new ProgressIndicator(0);
 
-            List<MaterialInventoryData> data = this.getItem()
+            List<MaterialCostData> data = this.getItem()
                     .getRecipe()
                     .costStream()
                     .collect(Collectors.toList());
@@ -103,7 +103,7 @@ public class ModTreeCell extends TreeCell<ModTreeItem>
             });
 
             AtomicInteger loops = new AtomicInteger(0);
-            Set<MaterialInventoryData> missingSet = new HashSet<>();
+            Set<MaterialCostData> missingSet = new HashSet<>();
             if (good.get() == count)
             {
                 AtomicInteger innerGood = new AtomicInteger(count);

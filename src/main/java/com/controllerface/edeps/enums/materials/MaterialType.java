@@ -49,10 +49,6 @@ public enum MaterialType
     MaterialType(MaterialCategory ... categories)
     {
         this.categories = Arrays.stream(categories).collect(Collectors.toList());
-
-        this.categories
-                .forEach(c->c.getMaterials()
-                .forEach(m->m.setType(this)));
     }
 
     public List<MaterialCategory> getCategories()
