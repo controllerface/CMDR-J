@@ -7,17 +7,15 @@ import com.controllerface.edeps.enums.materials.MaterialCategory;
 /**
  * Created by Stephen on 3/27/2018.
  */
-public class MaterialCostData
+public class CostData
 {
-    private final String category;
     private final int quantity;
 
     private final ProcurementCost material;
 
-    public MaterialCostData(ProcurementCost material, int quantity)
+    public CostData(ProcurementCost material, int quantity)
     {
         this.material = material;
-        this.category = MaterialCategory.findMatchingCategory(material).toString();
         this.quantity = quantity;
     }
 
@@ -25,11 +23,6 @@ public class MaterialCostData
     public String toString()
     {
         return material + " : " + quantity;
-    }
-
-    public String getCategory()
-    {
-        return category;
     }
 
     public ProcurementCost getCost()

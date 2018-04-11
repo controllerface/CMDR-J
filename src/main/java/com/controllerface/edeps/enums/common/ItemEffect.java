@@ -1,9 +1,9 @@
-package com.controllerface.edeps.enums.effects;
+package com.controllerface.edeps.enums.common;
 
 /**
  * Created by Stephen on 4/6/2018.
  */
-public enum ModificationEffect
+public enum ItemEffect
 {
     All_Resistances(true),
     Ammo_Capacity(true),
@@ -88,7 +88,7 @@ public enum ModificationEffect
 
     private final boolean moreIsGood;
 
-    ModificationEffect(boolean moreIsGood)
+    ItemEffect(boolean moreIsGood)
     {
         this.moreIsGood = moreIsGood;
     }

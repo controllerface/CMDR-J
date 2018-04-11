@@ -1,25 +1,25 @@
 package com.controllerface.edeps.threads;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.data.MaterialInventory;
+import com.controllerface.edeps.data.PlayerInventory;
 import javafx.util.Pair;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.function.Consumer;
 
 /**
- * Task thread that keeps a MaterialInventory synchronized by executing transactions that modify it
+ * Task thread that keeps a PlayerInventory synchronized by executing transactions that modify it
  *
  * Created by Stephen on 4/4/2018.
  */
 public class InventoryUpdateTask implements Runnable
 {
-    private final MaterialInventory inventory;
+    private final PlayerInventory inventory;
     private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
     private final Consumer<Void> updateFunction;
 
     public InventoryUpdateTask(Consumer<Void> updateFunction,
-                        MaterialInventory inventory,
+                        PlayerInventory inventory,
                         BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
     {
         this.updateFunction = updateFunction;

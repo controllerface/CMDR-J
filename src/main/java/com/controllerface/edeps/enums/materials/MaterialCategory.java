@@ -6,6 +6,7 @@ import com.controllerface.edeps.ProcurementCost;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * An enumeration of all the crafting material categories in Elite: Dangerous
@@ -186,21 +187,22 @@ public enum MaterialCategory implements ProcurementCategory
 
     UNKNOWN();
 
-    private final List<Material> materials;
+    private final Material[] materials;
 
     MaterialCategory(Material ... materials)
     {
-        this.materials = Arrays.stream(materials).collect(Collectors.toList());
+        this.materials = materials;
     }
 
-    public List<Material> getMaterials()
+    public Stream<Material> materials()
     {
-        return materials;
+        return Arrays.stream(materials);
     }
 
     public boolean hasMaterial(Material material)
     {
-        return materials.contains(material);
+        return materials()
+                .anyMatch(m -> m == material);
     }
 
     public static ProcurementCategory findMatchingCategory(ProcurementCost cost)

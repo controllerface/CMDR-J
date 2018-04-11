@@ -1,11 +1,11 @@
-package com.controllerface.edeps.enums.materials;
+package com.controllerface.edeps.enums.common;
 
 /**
  * An enumeration of all the crafting material grades in Elite: Dangerous
  *
  * Created by Stephen on 3/20/2018.
  */
-public enum MaterialGrade
+public enum ItemGrade
 {
     GRADE_1,
     GRADE_2,

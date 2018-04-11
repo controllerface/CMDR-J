@@ -2,6 +2,7 @@ package com.controllerface.edeps.data.storage;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.enums.materials.Material;
+import com.controllerface.edeps.enums.materials.MaterialCategory;
 import com.controllerface.edeps.enums.materials.MaterialType;
 
 /**
@@ -21,8 +22,8 @@ public class RawInventoryStorageBin extends InventoryStorageBin
     @Override
     public void init()
     {
-        MaterialType.RAW.getCategories().stream()
-                .flatMap(category -> category.getMaterials().stream())
+        MaterialType.RAW.categories()
+                .flatMap(MaterialCategory::materials)
                 .forEach(material -> addItem(material,0));
     }
 }

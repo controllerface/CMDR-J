@@ -1,6 +1,6 @@
 package com.controllerface.edeps;
 
-import com.controllerface.edeps.data.MaterialCostData;
+import com.controllerface.edeps.data.CostData;
 import com.controllerface.edeps.data.ModificationEffectData;
 
 import java.util.stream.Stream;
@@ -10,7 +10,7 @@ import java.util.stream.Stream;
  */
 public interface ProcurementRecipe
 {
-    Stream<MaterialCostData> costStream();
+    Stream<CostData> costStream();
     String getGrade();
     ModificationEffectData effects();
 }

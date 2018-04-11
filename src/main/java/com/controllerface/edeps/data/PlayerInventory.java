@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 /**
  * Created by Stephen on 4/4/2018.
  */
-public class MaterialInventory
+public class PlayerInventory
 {
     private final InventoryStorageBin rawMats = new RawInventoryStorageBin();
     private final InventoryStorageBin dataMats = new EncodedInventoryStorageBin();
@@ -60,7 +60,7 @@ public class MaterialInventory
         }
     }
 
-    public int hasMat(ProcurementCost material)
+    public int hasItem(ProcurementCost material)
     {
         if (!(material instanceof Material)) return -1;
 

@@ -97,7 +97,7 @@ public class UIController
 
     private boolean initialzed = false;
 
-    private final MaterialInventory materialInventory = new MaterialInventory();
+    private final PlayerInventory playerInventory = new PlayerInventory();
     private final BlockingQueue<Pair<ProcurementCost, Integer>> transactionQueue = new LinkedBlockingQueue<>();
 
     private final Map<Pair<ProcurementType, ProcurementRecipe>, Integer> procurementRecipeMap = new HashMap<>();
@@ -215,7 +215,7 @@ public class UIController
 
     // simple string for blueprint/recipe name
     private final Callback<TableColumn<ProcurementRecipeItem, ProcurementRecipeItem>, TableCell<ProcurementRecipeItem, ProcurementRecipeItem>>
-            modNameCellFactory = (modRecipe) -> new RecipeNameCell(materialInventory::hasMat);
+            modNameCellFactory = (modRecipe) -> new RecipeNameCell(playerInventory::hasItem);
 
     // wrapper object for recipe pair object
     private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeItem, Pair<ProcurementType, ProcurementRecipe>>, ObservableValue<Pair<ProcurementType, ProcurementRecipe>>>
@@ -282,7 +282,7 @@ public class UIController
         int missing = procurementRecipeItem.asPair().getValue().costStream()
                 .mapToInt(cost->
                 {
-                    int banked = materialInventory.hasMat(cost.getCost());
+                    int banked = playerInventory.hasItem(cost.getCost());
                     int surplus = banked - (cost.getQuantity() * count);
                     return surplus < 0
                             ? -1 * surplus
@@ -310,8 +310,7 @@ public class UIController
      */
 
     // sort InventoryData objects alphabetically by category name
-    private final Comparator<InventoryData> materialByCategory =
-            (a, b) -> a.getCategory().compareTo(b.getCategory());
+    private final Comparator<InventoryData> materialByCategory = Comparator.comparing(InventoryData::getCategory);
 
     // sort InventoryData objects numerically by grade, lowest to highest
     private final Comparator<InventoryData> materialByGrade =
@@ -335,13 +334,13 @@ public class UIController
         localizeData();
 
         // transaction processor
-        Runnable inventoryUpdateTask = new InventoryUpdateTask((x) -> syncUI(), materialInventory, transactionQueue);
+        Runnable inventoryUpdateTask = new InventoryUpdateTask((x) -> syncUI(), playerInventory, transactionQueue);
         Thread transactionThread = new Thread(inventoryUpdateTask);
         transactionThread.setDaemon(true);
         transactionThread.start();
 
         // disk monitor
-        Runnable diskMonitorTask = new DiskMonitorTask(materialInventory, transactionQueue);
+        Runnable diskMonitorTask = new DiskMonitorTask(playerInventory, transactionQueue);
         Thread diskMonitorThread = new Thread(diskMonitorTask);
         diskMonitorThread.setDaemon(true);
         diskMonitorThread.start();
@@ -524,13 +523,13 @@ public class UIController
         manufacturedTable.getItems().clear();
         dataTable.getItems().clear();
 
-        materialInventory.rawMaterialStream()
+        playerInventory.rawMaterialStream()
                 .forEach(m -> rawTable.getItems().add(m));
 
-        materialInventory.manufacturedMaterialStream()
+        playerInventory.manufacturedMaterialStream()
                 .forEach(m -> manufacturedTable.getItems().add(m));
 
-        materialInventory.dataMaterialStream()
+        playerInventory.dataMaterialStream()
                 .forEach(m -> dataTable.getItems().add(m));
 
         rawTable.refresh();
@@ -598,7 +597,7 @@ public class UIController
 
                         if (!matFound.get())
                         {
-                            ModMaterialItem newItem = new ModMaterialItem(mat.getCost(), this.materialInventory::hasMat);
+                            ModMaterialItem newItem = new ModMaterialItem(mat.getCost(), this.playerInventory::hasItem);
                             newItem.setCount(mat.getQuantity() * count);
                             procurementMaterialsTable.getItems().add(newItem);
                         }
@@ -622,7 +621,7 @@ public class UIController
         });
     }
 
-    private final Function<ProcurementCost, Integer> checkMat = this.materialInventory::hasMat;
+    private final Function<ProcurementCost, Integer> checkMat = this.playerInventory::hasItem;
 
     @FXML
     private void clearProcurementList()

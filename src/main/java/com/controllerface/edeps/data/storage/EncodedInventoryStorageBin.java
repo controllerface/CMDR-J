@@ -2,6 +2,7 @@ package com.controllerface.edeps.data.storage;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.enums.materials.Material;
+import com.controllerface.edeps.enums.materials.MaterialCategory;
 import com.controllerface.edeps.enums.materials.MaterialType;
 
 /**
@@ -21,8 +22,8 @@ public class EncodedInventoryStorageBin extends InventoryStorageBin
     @Override
     public void init()
     {
-        MaterialType.ENCODED.getCategories().stream()
-                .flatMap(category -> category.getMaterials().stream())
+        MaterialType.ENCODED.categories()
+                .flatMap(MaterialCategory::materials)
                 .forEach(material -> addItem(material,0));
     }
 }

@@ -1,9 +1,8 @@
 package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.data.MaterialCostData;
+import com.controllerface.edeps.data.CostData;
 import com.controllerface.edeps.data.ProcTreeItem;
-import com.controllerface.edeps.enums.materials.Material;
 import com.sun.javafx.scene.control.skin.ProgressIndicatorSkin;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -88,7 +87,7 @@ public class ProcTreeCell extends TreeCell<ProcTreeItem>
             button.setGraphic(textBox);
             ProgressIndicator progressIndicator = new ProgressIndicator(0);
 
-            List<MaterialCostData> data = this.getItem()
+            List<CostData> data = this.getItem()
                     .getRecipe()
                     .costStream()
                     .collect(Collectors.toList());
@@ -104,7 +103,7 @@ public class ProcTreeCell extends TreeCell<ProcTreeItem>
             });
 
             AtomicInteger loops = new AtomicInteger(0);
-            Set<MaterialCostData> missingSet = new HashSet<>();
+            Set<CostData> missingSet = new HashSet<>();
             if (good.get() == count)
             {
                 AtomicInteger innerGood = new AtomicInteger(count);

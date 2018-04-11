@@ -3,6 +3,7 @@ package com.controllerface.edeps.enums.materials;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * An enumeration of all the crafting material types in Elite: Dangerous
@@ -44,32 +45,29 @@ public enum MaterialType
 
     UNKNOWN();
 
-    private final List<MaterialCategory> categories;
+    private final MaterialCategory[] categories;
 
     MaterialType(MaterialCategory ... categories)
     {
-        this.categories = Arrays.stream(categories).collect(Collectors.toList());
+        this.categories = categories;
     }
 
-    public List<MaterialCategory> getCategories()
+    public Stream<MaterialCategory> categories()
     {
-        return categories;
+        return Arrays.stream(categories);
     }
 
     public static MaterialType findMatchingType(Material material)
     {
         return Arrays.stream(values())
-                .filter(type -> type.categories.stream()
-                        .filter(category -> category
-                                .hasMaterial(material))
-                        .findFirst().isPresent())
+                .filter(type -> type.categories()
+                        .anyMatch(category -> category.hasMaterial(material)))
                 .findFirst().orElse(UNKNOWN);
     }
 
     public boolean hasMaterial(Material material)
     {
-        return categories.stream()
-                .filter(category -> category.hasMaterial(material))
-                .findAny().isPresent();
+        return categories()
+                .anyMatch(category -> category.hasMaterial(material));
     }
 }

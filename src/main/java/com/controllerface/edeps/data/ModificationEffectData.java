@@ -1,6 +1,6 @@
 package com.controllerface.edeps.data;
 
-import com.controllerface.edeps.enums.effects.ModificationEffect;
+import com.controllerface.edeps.enums.common.ItemEffect;
 import javafx.util.Pair;
 
 import java.util.Arrays;
@@ -11,14 +11,14 @@ import java.util.stream.Stream;
  */
 public class ModificationEffectData
 {
-    private final Pair<ModificationEffect, Double>[] effects;
+    private final Pair<ItemEffect, Double>[] effects;
 
-    public ModificationEffectData(Pair<ModificationEffect, Double> ... effectPairs)
+    public ModificationEffectData(Pair<ItemEffect, Double> ... effectPairs)
     {
         this.effects = effectPairs;
     }
 
-    public Stream<Pair<ModificationEffect, Double>> pairStream()
+    public Stream<Pair<ItemEffect, Double>> pairStream()
     {
         return Arrays.stream(effects);
     }
