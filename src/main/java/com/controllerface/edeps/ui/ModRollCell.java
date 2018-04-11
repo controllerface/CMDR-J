@@ -1,8 +1,8 @@
 package com.controllerface.edeps.ui;
 
-import com.controllerface.edeps.enums.modifications.ModificationRecipe;
-import com.controllerface.edeps.enums.modifications.ModificationType;
-import com.controllerface.edeps.data.ModRecipeItem;
+import com.controllerface.edeps.ProcurementRecipe;
+import com.controllerface.edeps.ProcurementType;
+import com.controllerface.edeps.data.ProcurementRecipeItem;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -19,22 +19,22 @@ import java.util.function.BiFunction;
 /**
  * Created by Stephen on 4/8/2018.
  */
-public class ModRollCell extends TableCell<ModRecipeItem, ModRecipeItem>
+public class ModRollCell extends TableCell<ProcurementRecipeItem, ProcurementRecipeItem>
 {
     private final Label countLabel = new Label();
     private final Button subtractButton = new Button("-");
     private final Button addButton = new Button("+");
     private final HBox buttonBox =  new HBox(subtractButton,countLabel, addButton);
 
-    private final BiFunction<Integer, Pair<ModificationType, ModificationRecipe>, Integer> inventoryUpdate;
+    private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate;
 
-    public ModRollCell(BiFunction<Integer, Pair<ModificationType, ModificationRecipe>, Integer> inventoryUpdate)
+    public ModRollCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
     {
         this.inventoryUpdate = inventoryUpdate;
     }
 
     @Override
-    protected void updateItem(ModRecipeItem item, boolean empty)
+    protected void updateItem(ProcurementRecipeItem item, boolean empty)
     {
         super.updateItem(item, empty);
 

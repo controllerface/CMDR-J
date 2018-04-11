@@ -1,13 +1,13 @@
 package com.controllerface.edeps.ui;
 
-import com.controllerface.edeps.data.ModRecipeItem;
+import com.controllerface.edeps.data.ProcurementRecipeItem;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 
 /**
  * Created by Stephen on 4/2/2018.
  */
-public class ModRecipeProgressCell extends TableCell<ModRecipeItem, ProgressIndicator>
+public class ModRecipeProgressCell extends TableCell<ProcurementRecipeItem, ProgressIndicator>
 {
     public ModRecipeProgressCell()
     {

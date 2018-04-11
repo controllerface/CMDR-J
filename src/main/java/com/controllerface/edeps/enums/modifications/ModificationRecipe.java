@@ -1,5 +1,6 @@
 package com.controllerface.edeps.enums.modifications;
 
+import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.enums.materials.Material;
 import com.controllerface.edeps.data.MaterialInventoryData;
 import com.controllerface.edeps.data.ModificationEffectData;
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
  * Created by Stephen on 3/31/2018.
  */
 @SuppressWarnings("unchecked")
-public enum ModificationRecipe
+public enum ModificationRecipe implements ProcurementRecipe
 {
     /*
     Efficient

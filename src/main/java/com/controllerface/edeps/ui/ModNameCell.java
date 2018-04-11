@@ -1,7 +1,7 @@
 package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.enums.materials.Material;
-import com.controllerface.edeps.data.ModRecipeItem;
+import com.controllerface.edeps.data.ProcurementRecipeItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.VBox;
@@ -14,7 +14,7 @@ import java.util.function.Function;
 /**
  * Created by Stephen on 4/8/2018.
  */
-public class ModNameCell extends TableCell<ModRecipeItem, ModRecipeItem>
+public class ModNameCell extends TableCell<ProcurementRecipeItem, ProcurementRecipeItem>
 {
     private final Function<Material, Integer> checkInventory;
 
@@ -25,7 +25,7 @@ public class ModNameCell extends TableCell<ModRecipeItem, ModRecipeItem>
 
 
     @Override
-    protected void updateItem(ModRecipeItem item, boolean empty)
+    protected void updateItem(ProcurementRecipeItem item, boolean empty)
     {
         super.updateItem(item, empty);
         if (item == null || empty)
@@ -34,20 +34,28 @@ public class ModNameCell extends TableCell<ModRecipeItem, ModRecipeItem>
             return;
         }
         VBox vBox = new VBox();
+
+        // Recipe name in the recipe list
         Label nameLabel = new Label(item.asPair().getKey().toString() + " :: " + item.asPair().getValue().toString());
+
+        // Make the font bold
         Font existingFont = nameLabel.getFont();
         Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize());
         nameLabel.setFont(boldFont);
+
+        // ad the label to the display box
         vBox.getChildren().add(nameLabel);
+
         item.asPair().getValue().costStream()
                 .map(c->
                 {
-                    Label next = new Label(" - " + c.getMaterial().getLocalizedName());
+                    Label next = new Label(c.getQuantity() + "x " + c.getMaterial().getLocalizedName());
                     boolean hasEnough = checkInventory.apply(c.getMaterial()) >= c.getQuantity() * item.getCount();
                     next.setTextFill(hasEnough ? Color.BLUE : Color.RED);
                     return next;
                 })
                 .forEach(label -> vBox.getChildren().add(label));
+
         setGraphic(vBox);
     }
 }

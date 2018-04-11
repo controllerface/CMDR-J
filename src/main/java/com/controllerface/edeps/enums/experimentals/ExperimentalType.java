@@ -1,103 +1,200 @@
 package com.controllerface.edeps.enums.experimentals;
 
+import com.controllerface.edeps.ProcurementType;
+
 import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
  * Created by Stephen on 3/31/2018.
  */
-public enum ExperimentalType
+public enum ExperimentalType implements ProcurementType
 {
     // weapons
-    Beam_Laser(),
+    Beam_Laser(ExperimentalRecipe.Concordant_Sequence,
+            ExperimentalRecipe.Double_Braced_Weapon,
+            ExperimentalRecipe.Flow_Control_Weapon,
+            ExperimentalRecipe.Oversized,
+            ExperimentalRecipe.Regeneration_Sequence,
+            ExperimentalRecipe.Stripped_Down_Weapon,
+            ExperimentalRecipe.Thermal_Conduit,
+            ExperimentalRecipe.Thermal_Shock,
+            ExperimentalRecipe.Thermal_Vent),
 
-    Burst_Laser(),
+    Burst_Laser(ExperimentalRecipe.Concordant_Sequence,
+            ExperimentalRecipe.Double_Braced_Weapon,
+            ExperimentalRecipe.Flow_Control_Weapon,
+            ExperimentalRecipe.Inertial_Impact,
+            ExperimentalRecipe.Multi_Servos,
+            ExperimentalRecipe.Oversized,
+            ExperimentalRecipe.Phasing_Sequence,
+            ExperimentalRecipe.Scramble_Spectrum,
+            ExperimentalRecipe.Stripped_Down_Weapon,
+            ExperimentalRecipe.Thermal_Shock),
 
-    Pulse_Laser(),
+    Pulse_Laser(ExperimentalRecipe.Concordant_Sequence,
+            ExperimentalRecipe.Double_Braced_Weapon,
+            ExperimentalRecipe.Emissive_Munitions,
+            ExperimentalRecipe.Flow_Control_Weapon,
+            ExperimentalRecipe.Multi_Servos,
+            ExperimentalRecipe.Oversized,
+            ExperimentalRecipe.Phasing_Sequence,
+            ExperimentalRecipe.Scramble_Spectrum,
+            ExperimentalRecipe.Stripped_Down_Weapon,
+            ExperimentalRecipe.Thermal_Shock),
 
-    Cannon(),
+    Cannon(ExperimentalRecipe.Auto_Loader,
+            ExperimentalRecipe.Dispersal_Field,
+            ExperimentalRecipe.Double_Braced_Weapon,
+            ExperimentalRecipe.Flow_Control_Weapon,
+            ExperimentalRecipe.Force_Shell,
+            ExperimentalRecipe.High_Yield_Shell,
+            ExperimentalRecipe.Multi_Servos,
+            ExperimentalRecipe.Oversized,
+            ExperimentalRecipe.Smart_Rounds,
+            ExperimentalRecipe.Stripped_Down_Weapon,
+            ExperimentalRecipe.Thermal_Cascade),
 
-    Multi_Cannon(),
+    Multi_Cannon(ExperimentalRecipe.Auto_Loader,
+            ExperimentalRecipe.Corrosive_Shell,
+            ExperimentalRecipe.Double_Braced_Weapon,
+            ExperimentalRecipe.Emissive_Munitions,
+            ExperimentalRecipe.Flow_Control_Weapon,
+            ExperimentalRecipe.Incendiary_Rounds,
+            ExperimentalRecipe.Multi_Servos,
+            ExperimentalRecipe.Oversized,
+            ExperimentalRecipe.Smart_Rounds,
+            ExperimentalRecipe.Stripped_Down_Weapon,
+            ExperimentalRecipe.Thermal_Shock),
 
-    Fragment_Cannon(),
+    Fragment_Cannon(ExperimentalRecipe.Corrosive_Shell,
+            ExperimentalRecipe.Dazzle_Shell,
+            ExperimentalRecipe.Double_Braced_Weapon,
+            ExperimentalRecipe.Drag_Munitions,
+            ExperimentalRecipe.Flow_Control_Weapon,
+            ExperimentalRecipe.Incendiary_Rounds,
+            ExperimentalRecipe.Multi_Servos,
+            ExperimentalRecipe.Oversized,
+            ExperimentalRecipe.Screening_Shell,
+            ExperimentalRecipe.Stripped_Down_Weapon),
 
-    Missile_Rack(),
+    Missile_Rack(ExperimentalRecipe.Emissive_Munitions,
+            ExperimentalRecipe.FSD_Interrupt,
+            ExperimentalRecipe.Overload_Munitions,
+            ExperimentalRecipe.Penetrator_Munitions,
+            ExperimentalRecipe.Thermal_Cascade),
 
-    Seeker_Missile_Rack(),
+    Seeker_Missile_Rack(ExperimentalRecipe.Drag_Munitions,
+            ExperimentalRecipe.Emissive_Munitions,
+            ExperimentalRecipe.Overload_Munitions,
+            ExperimentalRecipe.Thermal_Cascade),
 
-    Torpedo_Pylon(),
+    Torpedo_Pylon(ExperimentalRecipe.Double_Braced_Weapon,
+            ExperimentalRecipe.Flow_Control_Weapon,
+            ExperimentalRecipe.Mass_Lock_Munition,
+            ExperimentalRecipe.Oversized,
+            ExperimentalRecipe.Penetrator_Payload,
+            ExperimentalRecipe.Reverberating_Cascade,
+            ExperimentalRecipe.Stripped_Down_Weapon),
 
-    Mine_Launcher(),
+    Mine_Launcher(ExperimentalRecipe.Double_Braced_Weapon,
+            ExperimentalRecipe.Emissive_Munitions,
+            ExperimentalRecipe.Flow_Control_Weapon,
+            ExperimentalRecipe.Ion_Disruption,
+            ExperimentalRecipe.Overload_Munitions,
+            ExperimentalRecipe.Oversized,
+            ExperimentalRecipe.Radiant_Canister,
+            ExperimentalRecipe.Reverberating_Cascade,
+            ExperimentalRecipe.Shift_lock_Canister,
+            ExperimentalRecipe.Stripped_Down_Weapon),
 
-    Plasma_Accelerator(),
+    Plasma_Accelerator(ExperimentalRecipe.Dazzle_Shell,
+            ExperimentalRecipe.Dispersal_Field,
+            ExperimentalRecipe.Double_Braced_Weapon,
+            ExperimentalRecipe.Flow_Control_Weapon,
+            ExperimentalRecipe.Multi_Servos,
+            ExperimentalRecipe.Oversized,
+            ExperimentalRecipe.Phasing_Sequence,
+            ExperimentalRecipe.Plasma_Slug_Plasma_Accelerator,
+            ExperimentalRecipe.Stripped_Down_Weapon,
+            ExperimentalRecipe.Target_Lock_Breaker,
+            ExperimentalRecipe.Thermal_Conduit),
 
-    Rail_Gun(),
+    Rail_Gun(ExperimentalRecipe.Double_Braced_Weapon,
+            ExperimentalRecipe.Feedback_Cascade,
+            ExperimentalRecipe.Flow_Control_Weapon,
+            ExperimentalRecipe.Multi_Servos,
+            ExperimentalRecipe.Oversized,
+            ExperimentalRecipe.Plasma_Slug_Rail_Gun,
+            ExperimentalRecipe.Stripped_Down_Weapon,
+            ExperimentalRecipe.Super_Penetrator),
 
     // util
-    Chaff_Launcher(),
-
-    Heat_Sink_Launcher(),
-
-    Point_Defense(),
-
-    Electronic_Countermeasures(),
-
-    Frame_Shift_Wake_Scanner(),
-
-    Kill_Warrant_Scanner(),
-
-    Manifest_Scanner(),
-
-    Shield_Booster(),
+    Shield_Booster(ExperimentalRecipe.Blast_Block,
+            ExperimentalRecipe.Double_Braced_Booster,
+            ExperimentalRecipe.Flow_Control_Booster,
+            ExperimentalRecipe.Force_Block_Booster,
+            ExperimentalRecipe.Super_Capacitors,
+            ExperimentalRecipe.Thermo_Block_Booster),
 
     // optional
-    Auto_Field_Maintenence_Unit(),
+    Hull_Reinforcement_Package(ExperimentalRecipe.Angled_Plating_Hull,
+            ExperimentalRecipe.Deep_Plating_Hull,
+            ExperimentalRecipe.Layered_Plating_Hull,
+            ExperimentalRecipe.Reflective_Plating_Hull),
 
-    Hull_Reinforcement_Package(),
+    Shield_Cell_Bank(ExperimentalRecipe.Boss_Cells,
+            ExperimentalRecipe.Double_Braced_Shield_Cell,
+            ExperimentalRecipe.Flow_Control_Shield_Cell,
+            ExperimentalRecipe.Recycling_Cell,
+            ExperimentalRecipe.Stripped_Down_Shield_Cell),
 
-    Detailed_Surface_Scanner(),
-
-    Refinery(),
-
-    Frame_Shift_Drive_Interdictor(),
-
-    Fuel_Scoop(),
-
-    Collector_Limpet_Controller(),
-
-    Prospector_Limpet_Controller(),
-
-    Fuel_Transfer_Limpet(),
-
-    Hatch_Breaker_Limpet(),
-
-    Shield_Cell_Bank(),
-
-    Shield_Generator(),
+    Shield_Generator(ExperimentalRecipe.Double_Braced_Shield,
+            ExperimentalRecipe.Fast_Charge,
+            ExperimentalRecipe.Force_Block_Shield,
+            ExperimentalRecipe.Hi_Cap,
+            ExperimentalRecipe.Lo_Draw,
+            ExperimentalRecipe.Multi_weave,
+            ExperimentalRecipe.Stripped_Down_Shield,
+            ExperimentalRecipe.Thermo_Block_Shield),
 
     // core
-    Frame_Shift_Drive(),
+    Frame_Shift_Drive(ExperimentalRecipe.Deep_Charge,
+            ExperimentalRecipe.Double_Braced_FSD,
+            ExperimentalRecipe.Mass_Manager,
+            ExperimentalRecipe.Stripped_Down_FSD,
+            ExperimentalRecipe.Thermal_Spread_FSD),
 
-    Life_Support(),
+    Power_Distributor(ExperimentalRecipe.Cluster_Capacitors,
+            ExperimentalRecipe.Double_Braced_Distributor,
+            ExperimentalRecipe.Flow_Control_Distributor,
+            ExperimentalRecipe.Stripped_Down_Distributor,
+            ExperimentalRecipe.Super_Conduits),
 
-    Power_Distributor(),
+    Power_Plant(ExperimentalRecipe.Double_Braced_Power_Plant,
+            ExperimentalRecipe.Monstered,
+            ExperimentalRecipe.Stripped_Down_Power_Plant,
+            ExperimentalRecipe.Thermal_Spread_Power_Plant),
 
-    Power_Plant(),
+    Thrusters(ExperimentalRecipe.Double_Braced_Thrusters,
+            ExperimentalRecipe.Drag_Drives,
+            ExperimentalRecipe.Drive_Distributors,
+            ExperimentalRecipe.Stripped_Down_Thrusters,
+            ExperimentalRecipe.Thermal_Spread_Thrusters),
 
-    Sensors(),
+    Bulkheads(ExperimentalRecipe.Angled_Plating_Armor,
+            ExperimentalRecipe.Deep_Plating_Armor,
+            ExperimentalRecipe.Layered_Plating_Armor,
+            ExperimentalRecipe.Reflective_Plating_Armor);
 
-    Thrusters(),
+    private final ExperimentalRecipe[] blueprints;
 
-    Bulkheads();
-
-    private final ExperimentalBlueprint[] blueprints;
-
-    ExperimentalType(ExperimentalBlueprint... blueprints)
+    ExperimentalType(ExperimentalRecipe... blueprints)
     {
         this.blueprints = blueprints;
     }
 
-    public Stream<ExperimentalBlueprint> blueprintStream()
+    public Stream<ExperimentalRecipe> recipeStream()
     {
         return Arrays.stream(blueprints);
     }

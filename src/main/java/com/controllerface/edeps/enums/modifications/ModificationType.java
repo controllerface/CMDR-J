@@ -1,12 +1,14 @@
 package com.controllerface.edeps.enums.modifications;
 
+import com.controllerface.edeps.ProcurementType;
+
 import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
  * Created by Stephen on 3/31/2018.
  */
-public enum ModificationType
+public enum ModificationType implements ProcurementType
 {
     // weapons
     Beam_Laser(ModificationBlueprint.Efficient,

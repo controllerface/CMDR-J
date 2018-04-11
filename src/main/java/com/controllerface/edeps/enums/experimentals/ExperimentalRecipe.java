@@ -1,15 +1,20 @@
 package com.controllerface.edeps.enums.experimentals;
 
+import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.MaterialInventoryData;
 import com.controllerface.edeps.data.ModificationEffectData;
 import com.controllerface.edeps.enums.materials.Material;
 import com.controllerface.edeps.enums.modifications.ModificationEffect;
 import javafx.util.Pair;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 /**
  * Created by Stephen on 4/10/2018.
  */
-public enum ExperimentalBlueprint
+@SuppressWarnings("unchecked")
+public enum ExperimentalRecipe implements ProcurementRecipe
 {
     Angled_Plating_Armor(new ModificationEffectData
             (
@@ -30,10 +35,9 @@ public enum ExperimentalBlueprint
             new MaterialInventoryData(Material.CARBON, 5),
             new MaterialInventoryData(Material.HIGHDENSITYCOMPOSITES, 3)),
 
-
     Auto_Loader(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Auto_Reload_While_Firing, 1d)
+                    new Pair<>(ModificationEffect.Auto_Reload_While_Firing, 0d)
             ),
             new MaterialInventoryData(Material.MECHANICALEQUIPMENT, 4),
             new MaterialInventoryData(Material.MECHANICALCOMPONENTS, 3),
@@ -73,7 +77,7 @@ public enum ExperimentalBlueprint
 
     Concordant_Sequence(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Wing_Shield_Regeneration_Increased, 1d),
+                    new Pair<>(ModificationEffect.Wing_Shield_Regeneration_Increased, 0d),
                     new Pair<>(ModificationEffect.Thermal_Load, 50d)
             ),
             new MaterialInventoryData(Material.FOCUSCRYSTALS, 5),
@@ -82,7 +86,7 @@ public enum ExperimentalBlueprint
 
     Corrosive_Shell(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Armor_Hardness_Reduced, 1d),
+                    new Pair<>(ModificationEffect.Target_Armor_Hardness_Reduced, 0d),
                     new Pair<>(ModificationEffect.Ammo_Capacity, -20d)
             ),
             new MaterialInventoryData(Material.CHEMICALSTORAGEUNITS, 5),
@@ -91,7 +95,7 @@ public enum ExperimentalBlueprint
 
     Dazzle_Shell(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Sensor_Acuity_Reduced, 1d)
+                    new Pair<>(ModificationEffect.Target_Sensor_Acuity_Reduced, 0d)
             ),
             new MaterialInventoryData(Material.MECHANICALSCRAP, 5),
             new MaterialInventoryData(Material.MANGANESE, 4),
@@ -130,7 +134,7 @@ public enum ExperimentalBlueprint
 
     Dispersal_Field(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Tracking_Reduced, 1d)
+                    new Pair<>(ModificationEffect.Target_Tracking_Reduced, 0d)
             ),
             new MaterialInventoryData(Material.CONDUCTIVECOMPONENTS, 5),
             new MaterialInventoryData(Material.HYBRIDCAPACITORS, 5),
@@ -214,7 +218,7 @@ public enum ExperimentalBlueprint
 
     Drag_Munitions(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Speed_Reduced, 1d)
+                    new Pair<>(ModificationEffect.Target_Speed_Reduced, 0d)
             ),
             new MaterialInventoryData(Material.CARBON, 5),
             new MaterialInventoryData(Material.GRIDRESISTORS, 5),
@@ -230,7 +234,7 @@ public enum ExperimentalBlueprint
 
     Emissive_Munitions(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Signature_Increased, 1d),
+                    new Pair<>(ModificationEffect.Target_Signature_Increased, 0d),
                     new Pair<>(ModificationEffect.Thermal_Load, 100d)
             ),
             new MaterialInventoryData(Material.MECHANICALEQUIPMENT, 5),
@@ -252,7 +256,7 @@ public enum ExperimentalBlueprint
 
     Feedback_Cascade(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Shield_Cell_Disrupted, 1d),
+                    new Pair<>(ModificationEffect.Target_Shield_Cell_Disrupted, 0d),
                     new Pair<>(ModificationEffect.Damage, -20d),
                     new Pair<>(ModificationEffect.Thermal_Load, -40d)
             ),
@@ -313,7 +317,7 @@ public enum ExperimentalBlueprint
 
     Force_Shell(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Pushed_Off_Course, 1d),
+                    new Pair<>(ModificationEffect.Target_Pushed_Off_Course, 0d),
                     new Pair<>(ModificationEffect.Shot_Speed, -17d)
             ),
             new MaterialInventoryData(Material.MECHANICALSCRAP, 5),
@@ -323,7 +327,7 @@ public enum ExperimentalBlueprint
 
     FSD_Interrupt(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_FSD_Reboot, 1d),
+                    new Pair<>(ModificationEffect.Target_FSD_Reboot, 0d),
                     new Pair<>(ModificationEffect.Damage, -30d),
                     new Pair<>(ModificationEffect.Rate_Of_Fire, -50d)
             ),
@@ -344,7 +348,7 @@ public enum ExperimentalBlueprint
 
     High_Yield_Shell(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Damage_Partially_Explosive, 1d),
+                    new Pair<>(ModificationEffect.Damage_Partially_Explosive, 0d),
                     new Pair<>(ModificationEffect.Rate_Of_Fire, -10d)
             ),
             new MaterialInventoryData(Material.MECHANICALSCRAP, 5),
@@ -354,7 +358,7 @@ public enum ExperimentalBlueprint
 
     Incendiary_Rounds(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Damage_Partially_Thermal, 1d),
+                    new Pair<>(ModificationEffect.Damage_Partially_Thermal, 0d),
                     new Pair<>(ModificationEffect.Rate_Of_Fire, -5d),
                     new Pair<>(ModificationEffect.Thermal_Load, 200d)
             ),
@@ -365,7 +369,7 @@ public enum ExperimentalBlueprint
 
     Inertial_Impact(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Damage_Partially_Kinetic, 1d),
+                    new Pair<>(ModificationEffect.Damage_Partially_Kinetic, 0d),
                     new Pair<>(ModificationEffect.Damage, 50d),
                     new Pair<>(ModificationEffect.Jitter, 3d)
             ),
@@ -375,7 +379,7 @@ public enum ExperimentalBlueprint
 
     Ion_Disruption(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Thrusters_Reboot, 1d)
+                    new Pair<>(ModificationEffect.Target_Thrusters_Reboot, 0d)
             ),
             new MaterialInventoryData(Material.SULPHUR, 5),
             new MaterialInventoryData(Material.PHOSPHORUS, 5),
@@ -400,7 +404,7 @@ public enum ExperimentalBlueprint
             new MaterialInventoryData(Material.SHIELDINGSENSORS, 3),
             new MaterialInventoryData(Material.TUNGSTEN, 3)),
 
-    Lo_draw(new ModificationEffectData
+    Lo_Draw(new ModificationEffectData
             (
                     new Pair<>(ModificationEffect.Power_Draw, -20d),
                     new Pair<>(ModificationEffect.Optimal_Multiplier, -2d),
@@ -415,7 +419,7 @@ public enum ExperimentalBlueprint
 
     Mass_Lock_Munition(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_FSD_Inhibited, 1d)
+                    new Pair<>(ModificationEffect.Target_FSD_Inhibited, 0d)
             ),
             new MaterialInventoryData(Material.MECHANICALEQUIPMENT, 5),
             new MaterialInventoryData(Material.HIGHDENSITYCOMPOSITES, 3),
@@ -439,7 +443,7 @@ public enum ExperimentalBlueprint
             new MaterialInventoryData(Material.VANADIUM, 3),
             new MaterialInventoryData(Material.POLYMERCAPACITORS, 1)),
 
-    Multi_servos(new ModificationEffectData
+    Multi_Servos(new ModificationEffectData
             (
                     new Pair<>(ModificationEffect.Power_Draw, 5d),
                     new Pair<>(ModificationEffect.Rate_Of_Fire, 3d)
@@ -463,7 +467,7 @@ public enum ExperimentalBlueprint
 
     Overload_Munitions(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Damage_Partially_Thermal, 1d)
+                    new Pair<>(ModificationEffect.Damage_Partially_Thermal, 0d)
             ),
             new MaterialInventoryData(Material.FILAMENTCOMPOSITES, 5),
             new MaterialInventoryData(Material.ENCRYPTIONCODES, 4),
@@ -481,7 +485,7 @@ public enum ExperimentalBlueprint
 
     Penetrator_Munitions(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Module_Damage, 1d)
+                    new Pair<>(ModificationEffect.Target_Module_Damage, 0d)
             ),
             new MaterialInventoryData(Material.GALVANISINGALLOYS, 5),
             new MaterialInventoryData(Material.ELECTROCHEMICALARRAYS, 3),
@@ -489,7 +493,7 @@ public enum ExperimentalBlueprint
 
     Penetrator_Payload(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Module_Damage, 1d)
+                    new Pair<>(ModificationEffect.Target_Module_Damage, 0d)
             ),
             new MaterialInventoryData(Material.MECHANICALCOMPONENTS, 3),
             new MaterialInventoryData(Material.TUNGSTEN, 3),
@@ -498,7 +502,7 @@ public enum ExperimentalBlueprint
 
     Phasing_Sequence(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Part_Of_Damage_Through_Shields, 1d),
+                    new Pair<>(ModificationEffect.Part_Of_Damage_Through_Shields, 0d),
                     new Pair<>(ModificationEffect.Damage, -10d)
             ),
             new MaterialInventoryData(Material.FOCUSCRYSTALS, 5),
@@ -508,7 +512,7 @@ public enum ExperimentalBlueprint
 
     Plasma_Slug_Plasma_Accelerator(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Reload_From_Ship_Fuel, 1d),
+                    new Pair<>(ModificationEffect.Reload_From_Ship_Fuel, 0d),
                     new Pair<>(ModificationEffect.Damage, -10d),
                     new Pair<>(ModificationEffect.Ammo_Capacity, -100d)
             ),
@@ -519,7 +523,7 @@ public enum ExperimentalBlueprint
 
     Plasma_Slug_Rail_Gun(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Reload_From_Ship_Fuel, 1d),
+                    new Pair<>(ModificationEffect.Reload_From_Ship_Fuel, 0d),
                     new Pair<>(ModificationEffect.Damage, -10d),
                     new Pair<>(ModificationEffect.Thermal_Load, -40d),
                     new Pair<>(ModificationEffect.Ammo_Capacity, -100d)
@@ -531,7 +535,7 @@ public enum ExperimentalBlueprint
 
     Radiant_Canister(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Area_Heat_Increased_Sensors_Disrupted, 1d)
+                    new Pair<>(ModificationEffect.Area_Heat_Increased_Sensors_Disrupted, 0d)
             ),
             new MaterialInventoryData(Material.POLONIUM, 1),
             new MaterialInventoryData(Material.PHASEALLOYS, 3),
@@ -567,7 +571,7 @@ public enum ExperimentalBlueprint
 
     Regeneration_Sequence(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Wing_Shield_Regeneration, 1d),
+                    new Pair<>(ModificationEffect.Target_Wing_Shield_Regeneration, 0d),
                     new Pair<>(ModificationEffect.Damage, -10d)
             ),
             new MaterialInventoryData(Material.REFINEDFOCUSCRYSTALS, 3),
@@ -576,7 +580,7 @@ public enum ExperimentalBlueprint
 
     Reverberating_Cascade(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Shield_Generator_Damaged, 1d)
+                    new Pair<>(ModificationEffect.Target_Shield_Generator_Damaged, 0d)
             ),
             new MaterialInventoryData(Material.CONFIGURABLECOMPONENTS, 2),
             new MaterialInventoryData(Material.SCANDATABANKS, 3),
@@ -585,7 +589,7 @@ public enum ExperimentalBlueprint
 
     Scramble_Spectrum(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Module_Malfunction, 1d),
+                    new Pair<>(ModificationEffect.Target_Module_Malfunction, 0d),
                     new Pair<>(ModificationEffect.Rate_Of_Fire, -10d)
             ),
             new MaterialInventoryData(Material.CRYSTALSHARDS, 5),
@@ -594,7 +598,7 @@ public enum ExperimentalBlueprint
 
     Screening_Shell(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Effectiveness_Increase_Against_Munitions, 1d),
+                    new Pair<>(ModificationEffect.Effectiveness_Increase_Against_Munitions, 0d),
                     new Pair<>(ModificationEffect.Reload_Time, -50d)
             ),
             new MaterialInventoryData(Material.MECHANICALSCRAP, 5),
@@ -604,7 +608,7 @@ public enum ExperimentalBlueprint
 
     Shift_lock_Canister(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Area_FSD_Reboot, 1d)
+                    new Pair<>(ModificationEffect.Area_FSD_Reboot, 0d)
             ),
             new MaterialInventoryData(Material.TEMPEREDALLOYS, 5),
             new MaterialInventoryData(Material.WAKESOLUTIONS, 3),
@@ -612,7 +616,7 @@ public enum ExperimentalBlueprint
 
     Smart_Rounds(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.No_Damage_To_Untargeted_Ships, 1d)
+                    new Pair<>(ModificationEffect.No_Damage_To_Untargeted_Ships, 0d)
             ),
             new MaterialInventoryData(Material.MECHANICALSCRAP, 5),
             new MaterialInventoryData(Material.SECURITYFIRMWARE, 3),
@@ -701,7 +705,7 @@ public enum ExperimentalBlueprint
 
     Super_Penetrator(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Module_Damage, 1d),
+                    new Pair<>(ModificationEffect.Target_Module_Damage, 0d),
                     new Pair<>(ModificationEffect.Thermal_Load, -40d),
                     new Pair<>(ModificationEffect.Reload_Time, 50d)
             ),
@@ -712,7 +716,7 @@ public enum ExperimentalBlueprint
 
     Target_Lock_Breaker(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Loses_Target_Lock, 1d)
+                    new Pair<>(ModificationEffect.Target_Loses_Target_Lock, 0d)
             ),
             new MaterialInventoryData(Material.SELENIUM, 5),
             new MaterialInventoryData(Material.SECURITYFIRMWARE, 3),
@@ -720,7 +724,7 @@ public enum ExperimentalBlueprint
 
     Thermal_Cascade(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Shielded_Target_Heat_Increased, 1d)
+                    new Pair<>(ModificationEffect.Shielded_Target_Heat_Increased, 0d)
             ),
             new MaterialInventoryData(Material.HEATCONDUCTIONWIRING, 5),
             new MaterialInventoryData(Material.HYBRIDCAPACITORS, 4),
@@ -729,7 +733,7 @@ public enum ExperimentalBlueprint
 
     Thermal_Conduit(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Damage_Increases_With_Heat_Level, 1d)
+                    new Pair<>(ModificationEffect.Damage_Increases_With_Heat_Level, 0d)
             ),
             new MaterialInventoryData(Material.HEATDISPERSIONPLATE, 5),
             new MaterialInventoryData(Material.SULPHUR, 5),
@@ -737,7 +741,7 @@ public enum ExperimentalBlueprint
 
     Thermal_Shock(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Target_Heat_Increased, 1d),
+                    new Pair<>(ModificationEffect.Target_Heat_Increased, 0d),
                     new Pair<>(ModificationEffect.Damage, -10d)
             ),
             new MaterialInventoryData(Material.UNCUTFOCUSCRYSTALS, 5),
@@ -773,7 +777,7 @@ public enum ExperimentalBlueprint
 
     Thermal_Vent(new ModificationEffectData
             (
-                    new Pair<>(ModificationEffect.Heat_Reduced_When_Striking_Target, 1d)
+                    new Pair<>(ModificationEffect.Heat_Reduced_When_Striking_Target, 0d)
             ),
             new MaterialInventoryData(Material.UNCUTFOCUSCRYSTALS, 5),
             new MaterialInventoryData(Material.CONDUCTIVEPOLYMERS, 3),
@@ -801,9 +805,31 @@ public enum ExperimentalBlueprint
     private final MaterialInventoryData[] cost;
     private final ModificationEffectData effects;
 
-    ExperimentalBlueprint(ModificationEffectData effects, MaterialInventoryData ... cost)
+    ExperimentalRecipe(ModificationEffectData effects, MaterialInventoryData ... cost)
     {
         this.cost = cost;
         this.effects = effects;
+    }
+
+    public Stream<MaterialInventoryData> costStream()
+    {
+        return Arrays.stream(cost);
+    }
+
+    public ModificationEffectData effects()
+    {
+        return effects;
+    }
+
+    @Override
+    public String toString()
+    {
+        return super.toString().replace("_", " ");
+    }
+
+    @Override
+    public String getGrade()
+    {
+        return toString();
     }
 }

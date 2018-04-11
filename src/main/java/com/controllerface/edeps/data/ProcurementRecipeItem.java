@@ -1,7 +1,7 @@
 package com.controllerface.edeps.data;
 
-import com.controllerface.edeps.enums.modifications.ModificationRecipe;
-import com.controllerface.edeps.enums.modifications.ModificationType;
+import com.controllerface.edeps.ProcurementRecipe;
+import com.controllerface.edeps.ProcurementType;
 import javafx.util.Pair;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 /**
  * Created by Stephen on 4/2/2018.
  */
-public class ModRecipeItem
+public class ProcurementRecipeItem
 {
-    private final ModificationType type;
-    private final ModificationRecipe recipe;
+    private final ProcurementType type;
+    private final ProcurementRecipe recipe;
     private final AtomicInteger count;
 
-    public ModRecipeItem(ModificationType type, ModificationRecipe recipe, int count)
+    public ProcurementRecipeItem(ProcurementType type, ProcurementRecipe recipe, int count)
     {
         this.type = type;
         this.recipe = recipe;
@@ -37,7 +37,7 @@ public class ModRecipeItem
         count.set(amount);
     }
 
-    public Pair<ModificationType, ModificationRecipe> asPair()
+    public Pair<ProcurementType, ProcurementRecipe> asPair()
     {
         return new Pair<>(type, recipe);
     }
@@ -47,7 +47,7 @@ public class ModRecipeItem
         return count.get();
     }
 
-    public boolean matches(Pair<ModificationType,ModificationRecipe> pair)
+    public boolean matches(Pair<ProcurementType, ProcurementRecipe> pair)
     {
         return recipe == pair.getValue() && type == pair.getKey();
     }

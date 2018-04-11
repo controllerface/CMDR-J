@@ -62,12 +62,15 @@ public class ModTreeCell extends TreeCell<ModTreeItem>
                     .map(p ->
                     {
                         boolean moreIsGood = p.getKey().isMoreGood();
-                        boolean valueIsPositive = p.getValue() > 0;
+                        boolean valueIsPositive = p.getValue() >= 0;
                         boolean markGood = moreIsGood == valueIsPositive;
                         String buf = ((valueIsPositive ? "+" : "")
                                 + p.getValue() + " "
                                 + p.getKey().toString())
                                 .replace(".0 ", " ");
+
+                        // for on/off effects, the value will be 0, so just remove it form the text
+                        buf = buf.replace("+0","");
                         Label nextLabel = new Label(buf);
                         nextLabel.setTextFill(markGood ? Color.BLUE : Color.RED);
                         return nextLabel;

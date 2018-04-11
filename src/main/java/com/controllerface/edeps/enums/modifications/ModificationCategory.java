@@ -58,7 +58,7 @@ public enum ModificationCategory
         this.modificationTypes = modificationTypes;
     }
 
-    public Stream<ModificationType> modTypeStream()
+    public Stream<ModificationType> typeStream()
     {
         return Arrays.stream(modificationTypes);
     }
