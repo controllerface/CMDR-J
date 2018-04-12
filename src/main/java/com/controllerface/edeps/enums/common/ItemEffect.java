@@ -5,6 +5,11 @@ package com.controllerface.edeps.enums.common;
  */
 public enum ItemEffect
 {
+    Rearm(true),
+    Refill(true),
+    Repair_Speed(true),
+    Damage_Boost(true),
+
     Corrosion_Resistance(true),
     Enzyme_Munitions(true),
     Meta_Alloy_Reinforcement(true),

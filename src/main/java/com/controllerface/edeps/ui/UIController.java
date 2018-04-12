@@ -121,7 +121,7 @@ public class UIController
 
     /*
     ========================
-    === Utility Functions ===
+    === Ship Functions ===
     ========================
      */
 
@@ -774,14 +774,12 @@ public class UIController
 
         materials.entrySet().forEach(e->
         {
-            // todo: generify this a bit too
             ProcurementCost material = Material.valueOf(e.getKey());
             material.setLocalizedName(((String) e.getValue()));
         });
 
         commodities.entrySet().forEach(e->
         {
-            // todo: generify this a bit too
             ProcurementCost commodity = Commodity.valueOf(e.getKey());
             commodity.setLocalizedName(((String) e.getValue()));
         });

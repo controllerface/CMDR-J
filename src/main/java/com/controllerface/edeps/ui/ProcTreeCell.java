@@ -64,13 +64,14 @@ public class ProcTreeCell extends TreeCell<ProcTreeItem>
                         boolean moreIsGood = p.getKey().isMoreGood();
                         boolean valueIsPositive = p.getValue() >= 0;
                         boolean markGood = moreIsGood == valueIsPositive;
-                        String buf = ((valueIsPositive ? "+" : "")
-                                + p.getValue() + " "
-                                + p.getKey().toString())
-                                .replace(".0 ", " ");
+                        String buf = p.getKey().toString()
+                                + ((valueIsPositive ? " +" : " ")
+                                + p.getValue());
 
                         // for on/off effects, the value will be 0, so just remove it form the text
-                        buf = buf.replace("+0","");
+                        buf = buf.replace(".0","");
+                        if (buf.contains("-") || buf.contains("+")) buf += "%";
+                        buf = buf.replace("+0%","");
                         Label nextLabel = new Label(buf);
                         nextLabel.setTextFill(markGood ? Color.BLUE : Color.RED);
                         return nextLabel;

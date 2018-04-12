@@ -63,7 +63,7 @@ public class DiskMonitorTask implements Runnable
             (event, line) -> line.contains("\"event\":\"" + event + "\"");
 
     /**
-     * Utility function used to filter in JSON event lines that changes to the player's inventory
+     * Ship function used to filter in JSON event lines that changes to the player's inventory
      */
     private Predicate<String> hasMatEvent =
             (line) -> inventoryEvents.stream()
@@ -420,6 +420,14 @@ public class DiskMonitorTask implements Runnable
         transactions.add(new Pair<>(commodity, count));
     }
 
+    private void processCargoAdd_NameVariant(Map<String, Object> data)
+    {
+        String name = ((String) data.get("Name")).toUpperCase();
+        int count = ((int) data.get("Count"));
+        Commodity commodity = Commodity.valueOf(name);
+        transactions.add(new Pair<>(commodity, count));
+    }
+
     private void processPowerPlayCollectEvent(Map<String, Object> data)
     {
         String name = ((String) data.get("Type")).toUpperCase();
@@ -493,9 +501,9 @@ public class DiskMonitorTask implements Runnable
             transactions.add(new Pair<>(material, quantity));
         }
 
-        if (data.get("COMMODITY") != null)
+        if (data.get("Commodity") != null)
         {
-            String name = ((String) data.get("COMMODITY")).toUpperCase();
+            String name = ((String) data.get("Commodity")).toUpperCase();
             Commodity commodity = Commodity.valueOf(name);
             int quantity = (-1) * ((int) data.get("Quantity"));
             transactions.add(new Pair<>(commodity, quantity));
@@ -515,9 +523,7 @@ public class DiskMonitorTask implements Runnable
         {
             @SuppressWarnings("unchecked")
             List<Map<String, Object>> commodities = ((List<Map<String, Object>>) data.get("Commodities"));
-
-            // todo: make commoidty generic method
-            //reward.forEach(this::processMaterialCollectedEvent);
+            commodities.forEach(this::processCargoAdd_NameVariant);
         }
     }
 
@@ -551,9 +557,7 @@ public class DiskMonitorTask implements Runnable
         {
             @SuppressWarnings("unchecked")
             List<Map<String, Object>> reward = ((List<Map<String, Object>>) data.get("CommodityReward"));
-
-            // todo: make commoidty generic method
-            //reward.forEach(this::processMaterialCollectedEvent);
+            reward.forEach(this::processCargoAdd_NameVariant);
         }
 
     }
