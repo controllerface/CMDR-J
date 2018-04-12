@@ -404,7 +404,7 @@ public enum ModificationBlueprint
             ModificationRecipe.Specialised_4),
 
     // shield generator
-    Enhanced_Low_Power("Enhanced Low FACTION",
+    Enhanced_Low_Power("Enhanced Low Power",
             ModificationRecipe.Enhanced_Low_Power_1,
             ModificationRecipe.Enhanced_Low_Power_2,
             ModificationRecipe.Enhanced_Low_Power_3,

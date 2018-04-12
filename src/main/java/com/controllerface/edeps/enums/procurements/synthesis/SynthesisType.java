@@ -1,5 +1,6 @@
 package com.controllerface.edeps.enums.procurements.synthesis;
 
+import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyBlueprint;
 
 import java.util.Arrays;
@@ -8,7 +9,7 @@ import java.util.stream.Stream;
 /**
  * Created by Stephen on 4/12/2018.
  */
-public enum SynthesisType
+public enum SynthesisType implements ProcurementType
 {
     Standard(SynthesisBlueprint.Small_Calibre_Munitions,
             SynthesisBlueprint.Large_Calibre_Munitions,

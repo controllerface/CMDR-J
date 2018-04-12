@@ -11,6 +11,7 @@ import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalCat
 import com.controllerface.edeps.enums.costs.materials.Material;
 import com.controllerface.edeps.enums.costs.materials.MaterialCategory;
 import com.controllerface.edeps.enums.procurements.modifications.ModificationCategory;
+import com.controllerface.edeps.enums.procurements.synthesis.SynthesisCategory;
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyCategory;
 import com.controllerface.edeps.threads.DiskMonitorTask;
 import com.controllerface.edeps.threads.InventoryUpdateTask;
@@ -538,7 +539,6 @@ public class UIController
         return experiments;
     }
 
-
     private TreeItem<ProcTreeItem> makeTechnologyTree()
     {
         TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Technology"));
@@ -591,6 +591,54 @@ public class UIController
         return modifications;
     }
 
+    private TreeItem<ProcTreeItem> makeSynthesisTree()
+    {
+        TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Synthesis"));
+        modifications.setExpanded(true);
+
+        // loop through all mod categories
+        Arrays.stream(SynthesisCategory.values()).forEach(category ->
+        {
+            // add a collapsible category label
+            TreeItem<ProcTreeItem> categoryItem = new TreeItem<>(new ProcTreeItem(category.toString()));
+
+            // for this category, loop through all mod types it contains
+            category.typeStream().forEach(type ->
+            {
+                // add a collapsible mod type label
+                TreeItem<ProcTreeItem> typeItem = new TreeItem<>(new ProcTreeItem(type.toString()));
+
+                // for this mod type, loop through all blueprints it contains
+                type.blueprintStream().forEach(blueprint ->
+                {
+                    // add a collapsible blueprint label
+                    TreeItem<ProcTreeItem> bluePrintItem = new TreeItem<>(new ProcTreeItem(blueprint.toString()));
+
+                    // for this blueprint, loop through all recipes it contains
+                    blueprint.recipeStream().forEach(recipe->
+                    {
+                        // add a button allowing the user to add the recipe to their procurement list
+                        TreeItem<ProcTreeItem> recipeItem = new TreeItem<>(new ProcTreeItem(type, recipe));
+
+                        // add the recipe button to this blueprint
+                        bluePrintItem.getChildren().add(recipeItem);
+                    });
+
+                    // add the blueprint item to this mod type
+                    typeItem.getChildren().add(bluePrintItem);
+                });
+
+                // add the type item to this category
+                categoryItem.getChildren().add(typeItem);
+            });
+
+            // add this category to the root
+            modifications.getChildren().add(categoryItem);
+        });
+
+        return modifications;
+    }
+
     // Builds the "Procurement Tree" from which the user can select tasks to add to their procurement list
     private void makeProcurementTree()
     {
@@ -601,11 +649,13 @@ public class UIController
         TreeItem<ProcTreeItem> modifications = makeModTree();
         TreeItem<ProcTreeItem> experiments = makeExperimentTree();
         TreeItem<ProcTreeItem> technology = makeTechnologyTree();
+        TreeItem<ProcTreeItem> synthesis = makeSynthesisTree();
 
 
         root.getChildren().add(modifications);
         root.getChildren().add(experiments);
         root.getChildren().add(technology);
+        root.getChildren().add(synthesis);
 
         // now that the root object has been filled with mods, add it to the tree
         modTree.setRoot(root);

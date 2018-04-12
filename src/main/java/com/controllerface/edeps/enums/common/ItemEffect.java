@@ -6,9 +6,17 @@ package com.controllerface.edeps.enums.common;
 public enum ItemEffect
 {
     Rearm(true),
+    Refuel(true),
+    Repair(true),
     Refill(true),
     Repair_Speed(true),
     Damage_Boost(true),
+    Chaff_Duration(true),
+    FSD_Range_Boost(true),
+    Fuel_Efficiency(true),
+    Hull_Strength(true),
+    Heat_Dissipation(false),
+
 
     Corrosion_Resistance(true),
     Enzyme_Munitions(true),
