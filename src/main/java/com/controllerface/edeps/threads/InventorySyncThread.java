@@ -20,11 +20,12 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 /**
- * Task thread that keeps a PlayerInventory synchronized by executing transactions that modify it
+ * Task thread that keeps a PlayerInventory synchronized by monitoring the player's journal entries,
+ * adding transactions to the transaction queue that modify the inventory when relevant events occur.
  *
  * Created by Stephen on 4/4/2018.
  */
-public class DiskMonitorTask implements Runnable
+public class InventorySyncThread implements Runnable
 {
     private static final String JOURNAL_FOLDER = System.getProperty("user.home")
             + File.separator + "Saved Games"
@@ -32,23 +33,30 @@ public class DiskMonitorTask implements Runnable
             + File.separator + "Elite Dangerous";
 
     /**
-     * Events that may contain updates for the player's material inventory
+     * Events that may contain updates for the player's inventory
      */
 
     private static Set<String> inventoryEvents = new HashSet<>();
     static
     {
+        // these are the main startup events that contain the player's starting inventory
+        inventoryEvents.add("Cargo");
+        inventoryEvents.add("Materials");
+
+        // common events
         inventoryEvents.add("EngineerContribution");
         inventoryEvents.add("MissionCompleted");
         inventoryEvents.add("TechnologyBroker");
-        inventoryEvents.add("Materials");
+
+        // material events
         inventoryEvents.add("MaterialCollected");
         inventoryEvents.add("MaterialDiscarded");
         inventoryEvents.add("EngineerCraft");
         inventoryEvents.add("MaterialTrade");
         inventoryEvents.add("Synthesis");
         inventoryEvents.add("ScientificResearch");
-        inventoryEvents.add("Cargo");
+
+        // cargo events
         inventoryEvents.add("CollectCargo");
         inventoryEvents.add("EjectCargo");
         inventoryEvents.add("MarketBuy");
@@ -86,8 +94,8 @@ public class DiskMonitorTask implements Runnable
         @Override public Type getType() {return HashMap.class;}
     };
 
-    public DiskMonitorTask(PlayerInventory playerInventory,
-                    BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
+    public InventorySyncThread(PlayerInventory playerInventory,
+                               BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
     {
         this.playerInventory = playerInventory;
         this.transactions = transactions;

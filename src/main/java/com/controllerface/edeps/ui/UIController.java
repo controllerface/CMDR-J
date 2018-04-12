@@ -13,7 +13,7 @@ import com.controllerface.edeps.enums.costs.materials.MaterialCategory;
 import com.controllerface.edeps.enums.procurements.modifications.ModificationCategory;
 import com.controllerface.edeps.enums.procurements.synthesis.SynthesisCategory;
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyCategory;
-import com.controllerface.edeps.threads.DiskMonitorTask;
+import com.controllerface.edeps.threads.InventorySyncThread;
 import com.controllerface.edeps.threads.InventoryUpdateTask;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -374,7 +374,7 @@ public class UIController
         transactionThread.start();
 
         // disk monitor
-        Runnable diskMonitorTask = new DiskMonitorTask(playerInventory, transactionQueue);
+        Runnable diskMonitorTask = new InventorySyncThread(playerInventory, transactionQueue);
         Thread diskMonitorThread = new Thread(diskMonitorTask);
         diskMonitorThread.setDaemon(true);
         diskMonitorThread.start();
@@ -685,7 +685,7 @@ public class UIController
                 .forEach(m -> dataTable.getItems().add(m));
 
         playerInventory.cargoStream()
-                //.filter(m->m.getQuantity() > 0)
+                .filter(m->m.getQuantity() > 0)
                 .forEach(m -> cargoTable.getItems().add(m));
 
         rawTable.refresh();
@@ -808,7 +808,7 @@ public class UIController
         Map<String, Object> data;
         try
         {
-            data = objectMapper.readValue(reader, DiskMonitorTask.mapTypeReference);
+            data = objectMapper.readValue(reader, InventorySyncThread.mapTypeReference);
         }
         catch (IOException ioe)
         {
