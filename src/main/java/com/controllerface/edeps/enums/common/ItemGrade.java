@@ -11,7 +11,14 @@ public enum ItemGrade
     GRADE_2,
     GRADE_3,
     GRADE_4,
-    GRADE_5;
+    GRADE_5,
+    Space, // rare
+    Rare, // mission reward
+    Mining, // mission reward
+    Planet, // surface markets only
+    POI, // surface collection only
+    Mission,
+    Faction; // power play only
 
     @Override
     public String toString()

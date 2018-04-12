@@ -1,33 +1,36 @@
 package com.controllerface.edeps.enums.commodities;
 
+import com.controllerface.edeps.enums.materials.Material;
+import com.controllerface.edeps.enums.materials.MaterialType;
+
 import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by Stephen on 4/11/2018.
  */
 public enum CommodityType
 {
-    Common(CommodityCategory.CHEMICALS,
-            CommodityCategory.CONSUMER_ITEMS,
-            CommodityCategory.LEGAL_DRUGS,
-            CommodityCategory.FOODS,
-            CommodityCategory.INDUSTRIAL_MATERIALS,
-            CommodityCategory.MACHINERY,
-            CommodityCategory.MEDICINES,
-            CommodityCategory.METALS,
-            CommodityCategory.MINERALS,
-            CommodityCategory.SALVAGE,
-            CommodityCategory.SLAVES,
-            CommodityCategory.TECHNOLOGY,
-            CommodityCategory.TEXTILES,
-            CommodityCategory.WASTE,
-            CommodityCategory.WEAPONS,
-            CommodityCategory.DRONES),
+    COMMODITY(CommodityCategory.Chemicals,
+            CommodityCategory.Consumer_Items,
+            CommodityCategory.Legal_Drugs,
+            CommodityCategory.Foods,
+            CommodityCategory.Industrial_Materials,
+            CommodityCategory.Machinery,
+            CommodityCategory.Medicines,
+            CommodityCategory.Metals,
+            CommodityCategory.Minerals,
+            CommodityCategory.Salvage,
+            CommodityCategory.Slaves,
+            CommodityCategory.Technology,
+            CommodityCategory.Textiles,
+            CommodityCategory.Waste,
+            CommodityCategory.Weapons,
+            CommodityCategory.Drones),
 
-    Rare(CommodityCategory.RARES),
+    FACTION(CommodityCategory.Power_Play),
 
-    Powerplay(CommodityCategory.POWERPLAY);
+    UNKNOWN();
 
     private final CommodityCategory[] categories;
 
@@ -35,4 +38,18 @@ public enum CommodityType
     {
         this.categories = categories;
     }
+
+    public Stream<CommodityCategory> categories()
+    {
+        return Arrays.stream(categories);
+    }
+
+    public static CommodityType findMatchingType(Commodity commodity)
+    {
+        return Arrays.stream(values())
+                .filter(type -> type.categories()
+                        .anyMatch(category -> category.hasCommodity(commodity)))
+                .findFirst().orElse(UNKNOWN);
+    }
+
 }

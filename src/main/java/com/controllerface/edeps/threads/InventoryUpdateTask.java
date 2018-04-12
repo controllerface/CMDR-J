@@ -1,7 +1,7 @@
 package com.controllerface.edeps.threads;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.data.PlayerInventory;
+import com.controllerface.edeps.data.storage.PlayerInventory;
 import javafx.util.Pair;
 
 import java.util.concurrent.BlockingQueue;

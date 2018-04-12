@@ -4,6 +4,9 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.*;
+import com.controllerface.edeps.data.storage.PlayerInventory;
+import com.controllerface.edeps.enums.commodities.Commodity;
+import com.controllerface.edeps.enums.commodities.CommodityCategory;
 import com.controllerface.edeps.enums.experimentals.ExperimentalCategory;
 import com.controllerface.edeps.enums.materials.Material;
 import com.controllerface.edeps.enums.materials.MaterialCategory;
@@ -71,6 +74,13 @@ public class UIController
     @FXML private TableColumn<InventoryData, String>dataGradeColumn;
     @FXML private TableColumn<InventoryData, String>dataMaterialColumn;
     @FXML private TableColumn<InventoryData, Number>dataQuantityColumn;
+
+    // Cargo
+    @FXML private TableView<InventoryData> cargoTable;
+    @FXML private TableColumn<InventoryData, String>cargoCategoryColumn;
+    @FXML private TableColumn<InventoryData, String>cargoGradeColumn;
+    @FXML private TableColumn<InventoryData, String>cargoMaterialColumn;
+    @FXML private TableColumn<InventoryData, Number>cargoQuantityColumn;
 
     // Mod tree
     @FXML private TreeView<ProcTreeItem> modTree;
@@ -166,8 +176,18 @@ public class UIController
             (materialData) ->
             {
                 ProcurementCost material = materialData.getValue().getItem();
-                String category = MaterialCategory.findMatchingCategory(material).toString();
-                return new SimpleStringProperty(category);
+                SimpleStringProperty categoryValue = null;
+                if (material instanceof Material)
+                {
+                    String category = MaterialCategory.findMatchingCategory(material).toString();
+                    categoryValue =  new SimpleStringProperty(category);
+                }
+                else if (material instanceof Commodity)
+                {
+                    String category = CommodityCategory.findMatchingCategory(material).toString();
+                    categoryValue =  new SimpleStringProperty(category);
+                }
+                return categoryValue;
             };
 
     // simple string for material grade
@@ -310,16 +330,15 @@ public class UIController
      */
 
     // sort InventoryData objects alphabetically by category name
-    private final Comparator<InventoryData> materialByCategory = Comparator.comparing(InventoryData::getCategory);
+    private final Comparator<InventoryData> costByCategory = Comparator.comparing(InventoryData::getCategory);
 
     // sort InventoryData objects numerically by grade, lowest to highest
     private final Comparator<InventoryData> materialByGrade =
-            (a, b) ->
-            {
-                int aGrade = Integer.parseInt(a.getItem().getGrade().toString());
-                int bGrade = Integer.parseInt(b.getItem().getGrade().toString());
-                return aGrade - bGrade;
-            };
+            (a, b) -> a.getItem().getGrade().toString().compareTo(b.getItem().getGrade().toString());
+
+    // sort InventoryData objects numerically by count, highest to lowest
+    private final Comparator<InventoryData> cargoByCount =
+            (a, b) -> b.getQuantity() - a.getQuantity();
 
     // sort ProgressIndicator objects by numerical progress, lowest to highest
     private final Comparator<ProgressIndicator> indicatorByProgress =
@@ -365,14 +384,21 @@ public class UIController
         rawGradeColumn.setCellValueFactory(inventoryGradeCellFactory);
         rawMaterialColumn.setCellValueFactory(inventoryMaterialCellFactory);
         rawQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+
         manufacturedCategoryColumn.setCellValueFactory(inventoryCategoryCellFactory);
         manufacturedGradeColumn.setCellValueFactory(inventoryGradeCellFactory);
         manufacturedMaterialColumn.setCellValueFactory(inventoryMaterialCellFactory);
         manufacturedQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+
         dataCategoryColumn.setCellValueFactory(inventoryCategoryCellFactory);
         dataGradeColumn.setCellValueFactory(inventoryGradeCellFactory);
         dataMaterialColumn.setCellValueFactory(inventoryMaterialCellFactory);
         dataQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+
+        cargoCategoryColumn.setCellValueFactory(inventoryCategoryCellFactory);
+        cargoGradeColumn.setCellValueFactory(inventoryGradeCellFactory);
+        cargoMaterialColumn.setCellValueFactory(inventoryMaterialCellFactory);
+        cargoQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
 
         // set the cell and cell value factories for the procurement recipe list
         recipeRollColumn.setCellValueFactory(modRollCellValueFactory);
@@ -522,6 +548,7 @@ public class UIController
         rawTable.getItems().clear();
         manufacturedTable.getItems().clear();
         dataTable.getItems().clear();
+        cargoTable.getItems().clear();
 
         playerInventory.rawMaterialStream()
                 .forEach(m -> rawTable.getItems().add(m));
@@ -532,9 +559,14 @@ public class UIController
         playerInventory.dataMaterialStream()
                 .forEach(m -> dataTable.getItems().add(m));
 
+        playerInventory.cargoStream()
+                .filter(m->m.getQuantity() > 0)
+                .forEach(m -> cargoTable.getItems().add(m));
+
         rawTable.refresh();
         manufacturedTable.refresh();
         dataTable.refresh();
+        cargoTable.refresh();
 
         // sort pass 1, numerically by grade
         rawTable.getItems().sort(materialByGrade);
@@ -542,9 +574,13 @@ public class UIController
         dataTable.getItems().sort(materialByGrade);
 
         // sort pass 2, alphabetically, by category name
-        rawTable.getItems().sort(materialByCategory);
-        manufacturedTable.getItems().sort(materialByCategory);
-        dataTable.getItems().sort(materialByCategory);
+        rawTable.getItems().sort(costByCategory);
+        manufacturedTable.getItems().sort(costByCategory);
+        dataTable.getItems().sort(costByCategory);
+
+        // Cargo sorts a bit differently,
+        cargoTable.getItems().sort(materialByGrade);
+        cargoTable.getItems().sort(cargoByCount);
     }
 
     private void syncUI()
@@ -654,11 +690,25 @@ public class UIController
             ioe.printStackTrace();
             throw new RuntimeException("Error reading localization data", ioe );
         }
-        data.entrySet().forEach(e->
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> materials = ((Map<String, Object>) data.get("materials"));
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> commodities = ((Map<String, Object>) data.get("commodities"));
+
+        materials.entrySet().forEach(e->
         {
             // todo: generify this a bit too
             ProcurementCost material = Material.valueOf(e.getKey());
             material.setLocalizedName(((String) e.getValue()));
+        });
+
+        commodities.entrySet().forEach(e->
+        {
+            // todo: generify this a bit too
+            ProcurementCost commodity = Commodity.valueOf(e.getKey());
+            commodity.setLocalizedName(((String) e.getValue()));
         });
     }
 }

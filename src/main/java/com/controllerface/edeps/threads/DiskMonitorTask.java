@@ -1,7 +1,8 @@
 package com.controllerface.edeps.threads;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.data.PlayerInventory;
+import com.controllerface.edeps.data.storage.PlayerInventory;
+import com.controllerface.edeps.enums.commodities.Commodity;
 import com.controllerface.edeps.enums.materials.Material;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +16,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 /**
@@ -32,28 +34,42 @@ public class DiskMonitorTask implements Runnable
     /**
      * Events that may contain updates for the player's material inventory
      */
-    private static Set<String> matEvents = new HashSet<>();
+
+    private static Set<String> inventoryEvents = new HashSet<>();
     static
     {
-        matEvents.add("Materials");
-        matEvents.add("MaterialCollected");
-        matEvents.add("MaterialDiscarded");
-        matEvents.add("EngineerContribution");
-        matEvents.add("EngineerCraft");
-        matEvents.add("MaterialTrade");
-        matEvents.add("MissionCompleted");
-        matEvents.add("TechnologyBroker");
-        matEvents.add("Synthesis");
-        matEvents.add("ScientificResearch");
+        inventoryEvents.add("EngineerContribution");
+        inventoryEvents.add("MissionCompleted");
+        inventoryEvents.add("TechnologyBroker");
+        inventoryEvents.add("Materials");
+        inventoryEvents.add("MaterialCollected");
+        inventoryEvents.add("MaterialDiscarded");
+        inventoryEvents.add("EngineerCraft");
+        inventoryEvents.add("MaterialTrade");
+        inventoryEvents.add("Synthesis");
+        inventoryEvents.add("ScientificResearch");
+        inventoryEvents.add("Cargo");
+        inventoryEvents.add("CollectCargo");
+        inventoryEvents.add("EjectCargo");
+        inventoryEvents.add("MarketBuy");
+        inventoryEvents.add("MarketSell");
+        inventoryEvents.add("MiningRefined");
+        inventoryEvents.add("CargoDepot");
+        inventoryEvents.add("PowerplayCollect");
+        inventoryEvents.add("PowerplayDeliver");
     }
 
+    private BiPredicate<String, String> hasEvent =
+            (event, line) -> line.contains("\"event\":\"" + event + "\"");
+
     /**
-     * Utility function used to filter in JSON event lines that changes to the player's material inventory
+     * Utility function used to filter in JSON event lines that changes to the player's inventory
      */
     private Predicate<String> hasMatEvent =
-            (line) -> matEvents.stream()
-                    .filter(event -> line.contains("\"event\":\"" + event + "\""))
+            (line) -> inventoryEvents.stream()
+                    .filter(event -> hasEvent.test(event, line))
                     .findAny().isPresent();
+
 
     private final AtomicReference<String> currentJournalFile = new AtomicReference<>("");
     private final AtomicInteger lastLine = new AtomicInteger(0);
@@ -240,12 +256,48 @@ public class DiskMonitorTask implements Runnable
 
         switch (eventName)
         {
+            case "Cargo":
+                processMainCargoEvent(data);
+                break;
+
+            case "CollectCargo":
+                processCollectCargoEvent(data);
+                break;
+
             case "EngineerContribution":
                 processEngineerContributionEvent(data);
                 break;
 
             case "EngineerCraft":
                 processEngineerCraftEvent(data);
+                break;
+
+            case "EjectCargo":
+                processEjectCargoEvent(data);
+                break;
+
+            case "MarketBuy":
+                processMarketBuyEvent(data);
+                break;
+
+            case "MarketSell":
+                processMarketSellEvent(data);
+                break;
+
+            case "MiningRefined":
+                processMiningRefinedEvent(data);
+                break;
+
+            case "CargoDepot":
+                processCargoDepotEvent(data);
+                break;
+
+            case "PowerplayCollect":
+                processPowerPlayCollectEvent(data);
+                break;
+
+            case "PowerplayDeliver":
+                processPowerPlayDeliverEvent(data);
                 break;
 
             case "Materials":
@@ -314,12 +366,81 @@ public class DiskMonitorTask implements Runnable
                 .forEach(transactions::add);
     }
 
+    @SuppressWarnings("unchecked")
+    private void processMainCargoEvent(Map<String, Object> data)
+    {
+        System.out.println("cargo!");
+        ((List<Map<String, Object>>) data.get("Inventory")).stream()
+                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
+                        item.get("Count").toString()))
+                .map(sitem -> new Pair<>(((ProcurementCost) Commodity.valueOf(sitem.getKey())),
+                        Integer.parseInt(sitem.getValue())))
+                .forEach(transactions::add);
+    }
+
+
+    private void processCargoDepotEvent(Map<String, Object> data)
+    {
+        String updateType = ((String) data.get("UpdateType"));
+
+        int modifier = 0;
+
+        switch (updateType)
+        {
+            case "Deliver":
+                modifier = -1;
+                break;
+
+            case "Collect":
+                modifier = 1;
+                break;
+
+            case "WingUpdate":
+                return;
+        }
+
+        String name = ((String) data.get("CargoType")).toUpperCase();
+        int count = ((int) data.get("Count")) * modifier;
+        Commodity commodity = Commodity.valueOf(name);
+        transactions.add(new Pair<>(commodity, count));
+    }
+
     private void processMaterialCollectedEvent(Map<String, Object> data)
     {
         String name = ((String) data.get("Name")).toUpperCase();
         int count = ((int) data.get("Count"));
         Material material = Material.valueOf(name);
         transactions.add(new Pair<>(material, count));
+    }
+
+    private void processMarketBuyEvent(Map<String, Object> data)
+    {
+        String name = ((String) data.get("Type")).toUpperCase();
+        int count = ((int) data.get("Count"));
+        Commodity commodity = Commodity.valueOf(name);
+        transactions.add(new Pair<>(commodity, count));
+    }
+
+    private void processPowerPlayCollectEvent(Map<String, Object> data)
+    {
+        String name = ((String) data.get("Type")).toUpperCase();
+        int count = ((int) data.get("Count"));
+        Commodity commodity = Commodity.valueOf(name);
+        transactions.add(new Pair<>(commodity, count));
+    }
+
+    private void processCollectCargoEvent(Map<String, Object> data)
+    {
+        String name = ((String) data.get("Type")).toUpperCase();
+        Commodity commodity = Commodity.valueOf(name);
+        transactions.add(new Pair<>(commodity, 1));
+    }
+
+    private void processMiningRefinedEvent(Map<String, Object> data)
+    {
+        String name = ((String) data.get("Type")).toUpperCase();
+        Commodity commodity = Commodity.valueOf(name);
+        transactions.add(new Pair<>(commodity, 1));
     }
 
     private void processMaterialDiscardedEvent(Map<String, Object> data)
@@ -330,6 +451,32 @@ public class DiskMonitorTask implements Runnable
         transactions.add(new Pair<>(material, count));
     }
 
+    private void processEjectCargoEvent(Map<String, Object> data)
+    {
+        String name = ((String) data.get("Type")).toUpperCase();
+        int count = (-1) * ((int) data.get("Count"));
+        Commodity commodity = Commodity.valueOf(name);
+        transactions.add(new Pair<>(commodity, count));
+    }
+
+    private void processPowerPlayDeliverEvent(Map<String, Object> data)
+    {
+        String name = ((String) data.get("Type")).toUpperCase();
+        int count = (-1) * ((int) data.get("Count"));
+        Commodity commodity = Commodity.valueOf(name);
+        transactions.add(new Pair<>(commodity, count));
+    }
+
+
+    private void processMarketSellEvent(Map<String, Object> data)
+    {
+        String name = ((String) data.get("Type")).toUpperCase();
+        int count = (-1) * ((int) data.get("Count"));
+        Commodity commodity = Commodity.valueOf(name);
+        transactions.add(new Pair<>(commodity, count));
+    }
+
+
     private void processEngineerCraftEvent(Map<String, Object> data)
     {
         @SuppressWarnings("unchecked")
@@ -339,21 +486,40 @@ public class DiskMonitorTask implements Runnable
 
     private void processEngineerContributionEvent(Map<String, Object> data)
     {
-        if (data.get("Material") == null) return;
+        if (data.get("Material") != null)
+        {
+            String name = ((String) data.get("Material")).toUpperCase();
+            Material material = Material.valueOf(name);
+            int quantity = (-1) * ((int) data.get("Quantity"));
+            transactions.add(new Pair<>(material, quantity));
+        }
 
-        String name = ((String) data.get("Material")).toUpperCase();
-        Material material = Material.valueOf(name);
-        int quantity = (-1) * ((int) data.get("Quantity"));
-        transactions.add(new Pair<>(material, quantity));
+        if (data.get("COMMODITY") != null)
+        {
+            String name = ((String) data.get("COMMODITY")).toUpperCase();
+            Commodity commodity = Commodity.valueOf(name);
+            int quantity = (-1) * ((int) data.get("Quantity"));
+            transactions.add(new Pair<>(commodity, quantity));
+        }
     }
 
     private void processTechnologyBrokerEvent(Map<String, Object> data)
     {
-        if (data.get("Materials") == null) return;
+        if (data.get("Materials") != null)
+        {
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> materials = ((List<Map<String, Object>>) data.get("Materials"));
+            materials.forEach(this::processMaterialDiscardedEvent);
+        }
 
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> materials = ((List<Map<String, Object>>) data.get("Materials"));
-        materials.forEach(this::processMaterialDiscardedEvent);
+        if (data.get("Commodities") != null)
+        {
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> commodities = ((List<Map<String, Object>>) data.get("Commodities"));
+
+            // todo: make commoidty generic method
+            //reward.forEach(this::processMaterialCollectedEvent);
+        }
     }
 
     private void processSynthesisEvent(Map<String, Object> data)
@@ -375,11 +541,22 @@ public class DiskMonitorTask implements Runnable
 
     private void processMissionCompletedEvent(Map<String, Object> data)
     {
-        if (data.get("MaterialsReward") == null) return;
+        if (data.get("MaterialsReward") != null)
+        {
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> reward = ((List<Map<String, Object>>) data.get("MaterialsReward"));
+            reward.forEach(this::processMaterialCollectedEvent);
+        }
 
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> reward = ((List<Map<String, Object>>) data.get("MaterialsReward"));
-        reward.forEach(this::processMaterialCollectedEvent);
+        if (data.get("CommodityReward") != null)
+        {
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> reward = ((List<Map<String, Object>>) data.get("CommodityReward"));
+
+            // todo: make commoidty generic method
+            //reward.forEach(this::processMaterialCollectedEvent);
+        }
+
     }
 
     private void processMaterialTradeEvent(Map<String, Object> data)

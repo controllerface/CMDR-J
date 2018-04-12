@@ -2531,7 +2531,7 @@ public enum ModificationRecipe implements ProcurementRecipe
 
 
     /*
-    Enhanced Low Power
+    Enhanced Low FACTION
      */
 
     Enhanced_Low_Power_1(new ModificationEffectData

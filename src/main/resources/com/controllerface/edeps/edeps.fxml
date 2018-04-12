@@ -81,12 +81,12 @@
                          </Tab>
                         <Tab text="Cargo">
                            <content>
-                              <TableView fx:id="dataTable1" prefHeight="371.0" prefWidth="551.0">
+                              <TableView fx:id="cargoTable" prefHeight="371.0" prefWidth="551.0">
                                  <columns>
-                                    <TableColumn fx:id="dataCategoryColumn1" editable="false" prefWidth="150.0" resizable="false" text="Category" />
-                                    <TableColumn fx:id="dataGradeColumn1" editable="false" prefWidth="50.0" resizable="false" text="Grade" />
-                                    <TableColumn fx:id="dataMaterialColumn1" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="343.0" resizable="false" text="Material" />
-                                    <TableColumn fx:id="dataQuantityColumn1" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
+                                    <TableColumn fx:id="cargoCategoryColumn" editable="false" prefWidth="150.0" resizable="false" text="Category" />
+                                    <TableColumn fx:id="cargoGradeColumn" editable="false" prefWidth="50.0" resizable="false" text="Type" />
+                                    <TableColumn fx:id="cargoMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="343.0" resizable="false" text="Commodity" />
+                                    <TableColumn fx:id="cargoQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
                                  </columns>
                               </TableView>
                            </content>
@@ -95,8 +95,8 @@
                   </TabPane>
                </children>
             </StackPane>
-            <Label style="-fx-font-weight: bold;" styleClass="top_label" text="Materials Needed" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Label style="-fx-font-weight: bold;" styleClass="top_label" text="Material Inventory" GridPane.halignment="CENTER" />
+            <Label style="-fx-font-weight: bold;" styleClass="top_label" text="Items Needed" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Label style="-fx-font-weight: bold;" styleClass="top_label" text="Player Inventory" GridPane.halignment="CENTER" />
             <AnchorPane maxWidth="1.7976931348623157E308" prefHeight="327.0" prefWidth="414.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <TableView fx:id="procurementMaterialsTable" layoutX="-2.0" maxWidth="1.7976931348623157E308" prefHeight="327.0" prefWidth="436.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
