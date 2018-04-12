@@ -1,11 +1,9 @@
-package com.controllerface.edeps.enums.materials;
+package com.controllerface.edeps.enums.costs.materials;
 
 import com.controllerface.edeps.ProcurementCategory;
 import com.controllerface.edeps.ProcurementCost;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**

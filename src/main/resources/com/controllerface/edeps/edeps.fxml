@@ -8,8 +8,8 @@
    <children>
       <GridPane alignment="TOP_CENTER" prefHeight="543.0" prefWidth="918.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="364.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="701.0" prefWidth="701.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="544.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="525.0" prefWidth="530.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints fillHeight="false" maxHeight="177.0" minHeight="3.0" prefHeight="27.0" valignment="CENTER" />
@@ -21,8 +21,8 @@
               <columns>
                   <TableColumn fx:id="recipeProgressColumn" maxWidth="40.0" prefWidth="40.0" text="Done" />
                 <TableColumn fx:id="recipeRollColumn" editable="false" maxWidth="80.0" minWidth="60.0" resizable="false" sortable="false" text="Count" />
-                <TableColumn fx:id="recipeModColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="225.0" prefWidth="541.0" resizable="false" sortable="false" text="Task" />
-                  <TableColumn fx:id="recipeControlsColumn" editable="false" maxWidth="27.0" minWidth="27.0" prefWidth="27.0" resizable="false" sortable="false" />
+                <TableColumn fx:id="recipeModColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="225.0" prefWidth="356.0" resizable="false" sortable="false" text="Task" />
+                  <TableColumn fx:id="recipeControlsColumn" editable="false" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" resizable="false" sortable="false" />
               </columns>
             </TableView>
             <Label prefHeight="17.0" prefWidth="81.0" style="-fx-font-weight: bold;" text="Procurements" GridPane.valignment="CENTER" />
@@ -31,8 +31,8 @@
       </GridPane>
       <GridPane layoutY="543.0" prefHeight="351.0" prefWidth="918.0" styleClass="main" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="601.0" prefWidth="601.0" />
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="410.0" prefWidth="464.0" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="545.0" prefWidth="545.0" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="410.0" prefWidth="529.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="240.0" minHeight="10.0" prefHeight="24.0" valignment="CENTER" />
@@ -49,7 +49,7 @@
                                     <columns>
                                         <TableColumn fx:id="rawCategoryColumn" editable="false" maxWidth="150.0" minWidth="50.0" prefWidth="150.0" resizable="false" text="Category" />
                                         <TableColumn fx:id="rawGradeColumn" editable="false" maxWidth="50.0" minWidth="25.0" prefWidth="50.0" resizable="false" text="Grade" />
-                                        <TableColumn fx:id="rawMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="343.0" text="Material" />
+                                        <TableColumn fx:id="rawMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" text="Material" />
                                         <TableColumn fx:id="rawQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
                                     </columns>
                                 </TableView>
@@ -61,7 +61,7 @@
                                     <columns>
                                         <TableColumn fx:id="manufacturedCategoryColumn" editable="false" prefWidth="150.0" resizable="false" text="Category" />
                                         <TableColumn fx:id="manufacturedGradeColumn" editable="false" prefWidth="50.0" resizable="false" text="Grade" />
-                                        <TableColumn fx:id="manufacturedMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="343.0" resizable="false" text="Material" />
+                                        <TableColumn fx:id="manufacturedMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
                                         <TableColumn fx:id="manufacturedQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
                                     </columns>
                                 </TableView>
@@ -73,7 +73,7 @@
                                     <columns>
                                         <TableColumn fx:id="dataCategoryColumn" editable="false" prefWidth="150.0" resizable="false" text="Category" />
                                         <TableColumn fx:id="dataGradeColumn" editable="false" prefWidth="50.0" resizable="false" text="Grade" />
-                                        <TableColumn fx:id="dataMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="343.0" resizable="false" text="Material" />
+                                        <TableColumn fx:id="dataMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
                                         <TableColumn fx:id="dataQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
                                     </columns>
                                 </TableView>
@@ -85,7 +85,7 @@
                                  <columns>
                                     <TableColumn fx:id="cargoCategoryColumn" editable="false" prefWidth="150.0" resizable="false" text="Category" />
                                     <TableColumn fx:id="cargoGradeColumn" editable="false" prefWidth="50.0" resizable="false" text="Type" />
-                                    <TableColumn fx:id="cargoMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="343.0" resizable="false" text="Commodity" />
+                                    <TableColumn fx:id="cargoMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Commodity" />
                                     <TableColumn fx:id="cargoQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
                                  </columns>
                               </TableView>
@@ -104,7 +104,8 @@
                         <TableColumn fx:id="materialProgressColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" text="Done" />
                         <TableColumn fx:id="materialNeedColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Need" />
                         <TableColumn fx:id="materialHaveColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
-                        <TableColumn fx:id="materialNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="300.0" text="Material" />
+                        <TableColumn fx:id="materialNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="308.0" text="Item" />
+                        <TableColumn fx:id="materialTypeColumn" prefWidth="82.0" text="Type" />
                     </columns>
                   </TableView>
                </children>

@@ -1,8 +1,6 @@
 package com.controllerface.edeps.data;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.enums.materials.Material;
-import com.controllerface.edeps.enums.materials.MaterialCategory;
 
 /**
  * Created by Stephen on 3/27/2018.

@@ -1,4 +1,4 @@
-package com.controllerface.edeps.enums.modifications;
+package com.controllerface.edeps.enums.procurements.modifications;
 
 import java.util.Arrays;
 import java.util.stream.Stream;

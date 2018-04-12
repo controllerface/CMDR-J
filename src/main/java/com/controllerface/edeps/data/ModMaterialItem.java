@@ -1,7 +1,7 @@
 package com.controllerface.edeps.data;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.enums.materials.Material;
+import com.controllerface.edeps.enums.costs.materials.Material;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;

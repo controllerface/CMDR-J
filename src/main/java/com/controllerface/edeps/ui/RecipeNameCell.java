@@ -1,7 +1,6 @@
 package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.enums.materials.Material;
 import com.controllerface.edeps.data.ProcurementRecipeItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;

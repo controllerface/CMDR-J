@@ -2,8 +2,8 @@ package com.controllerface.edeps.threads;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.storage.PlayerInventory;
-import com.controllerface.edeps.enums.commodities.Commodity;
-import com.controllerface.edeps.enums.materials.Material;
+import com.controllerface.edeps.enums.costs.commodities.Commodity;
+import com.controllerface.edeps.enums.costs.materials.Material;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
@@ -369,7 +369,6 @@ public class DiskMonitorTask implements Runnable
     @SuppressWarnings("unchecked")
     private void processMainCargoEvent(Map<String, Object> data)
     {
-        System.out.println("cargo!");
         ((List<Map<String, Object>>) data.get("Inventory")).stream()
                 .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
                         item.get("Count").toString()))

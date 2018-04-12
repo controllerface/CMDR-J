@@ -1,9 +1,9 @@
-package com.controllerface.edeps.enums.modifications;
+package com.controllerface.edeps.enums.procurements.modifications;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.CostData;
 import com.controllerface.edeps.enums.common.ItemEffect;
-import com.controllerface.edeps.enums.materials.Material;
+import com.controllerface.edeps.enums.costs.materials.Material;
 import com.controllerface.edeps.data.ModificationEffectData;
 import javafx.util.Pair;
 
@@ -3261,7 +3261,7 @@ public enum ModificationRecipe implements ProcurementRecipe
         return super.toString().replace("_"," ");
     }
 
-    public String getGrade()
+    public String getLabel()
     {
         String g = Arrays.stream(name().split("_")).reduce((a, b) -> b).orElse("?");
         return "Grade " + g;

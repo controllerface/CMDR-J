@@ -1,4 +1,4 @@
-package com.controllerface.edeps.enums.experimentals;
+package com.controllerface.edeps.enums.procurements.experimentals;
 
 import java.util.Arrays;
 import java.util.stream.Stream;

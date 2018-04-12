@@ -11,6 +11,6 @@ import java.util.stream.Stream;
 public interface ProcurementRecipe
 {
     Stream<CostData> costStream();
-    String getGrade();
+    String getLabel();
     ModificationEffectData effects();
 }

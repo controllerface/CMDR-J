@@ -1,9 +1,9 @@
-package com.controllerface.edeps.enums.experimentals;
+package com.controllerface.edeps.enums.procurements.experimentals;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.CostData;
 import com.controllerface.edeps.data.ModificationEffectData;
-import com.controllerface.edeps.enums.materials.Material;
+import com.controllerface.edeps.enums.costs.materials.Material;
 import com.controllerface.edeps.enums.common.ItemEffect;
 import javafx.util.Pair;
 
@@ -828,8 +828,12 @@ public enum ExperimentalRecipe implements ProcurementRecipe
     }
 
     @Override
-    public String getGrade()
+    public String getLabel()
     {
-        return toString();
+        return Arrays.stream(ExperimentalBlueprint.values())
+                .filter(blueprint -> blueprint.recipeStream()
+                        .anyMatch(recipe -> recipe.name().equals(name())))
+                .map(ExperimentalBlueprint::toString)
+                .findFirst().orElse("unknown");
     }
 }

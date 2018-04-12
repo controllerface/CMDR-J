@@ -50,7 +50,7 @@ public class ProcTreeCell extends TreeCell<ProcTreeItem>
         {
             HBox cellBox = new HBox(10);
             VBox textBox = new VBox(1);
-            Label gradeLabel = new Label(item.getRecipe().getGrade());
+            Label gradeLabel = new Label(item.getRecipe().getLabel());
 
             Font existingFont = gradeLabel.getFont();
             Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize());

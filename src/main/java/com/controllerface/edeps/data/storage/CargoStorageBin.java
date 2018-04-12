@@ -1,12 +1,9 @@
 package com.controllerface.edeps.data.storage;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.enums.commodities.Commodity;
-import com.controllerface.edeps.enums.commodities.CommodityCategory;
-import com.controllerface.edeps.enums.commodities.CommodityType;
-import com.controllerface.edeps.enums.materials.Material;
-import com.controllerface.edeps.enums.materials.MaterialCategory;
-import com.controllerface.edeps.enums.materials.MaterialType;
+import com.controllerface.edeps.enums.costs.commodities.Commodity;
+import com.controllerface.edeps.enums.costs.commodities.CommodityCategory;
+import com.controllerface.edeps.enums.costs.commodities.CommodityType;
 
 import java.util.Arrays;
 

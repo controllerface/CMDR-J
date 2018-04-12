@@ -1,7 +1,4 @@
-package com.controllerface.edeps.enums.commodities;
-
-import com.controllerface.edeps.enums.materials.Material;
-import com.controllerface.edeps.enums.materials.MaterialType;
+package com.controllerface.edeps.enums.costs.commodities;
 
 import java.util.Arrays;
 import java.util.stream.Stream;

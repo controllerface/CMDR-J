@@ -2,10 +2,10 @@ package com.controllerface.edeps.data.storage;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.InventoryData;
-import com.controllerface.edeps.enums.commodities.Commodity;
-import com.controllerface.edeps.enums.commodities.CommodityType;
-import com.controllerface.edeps.enums.materials.Material;
-import com.controllerface.edeps.enums.materials.MaterialType;
+import com.controllerface.edeps.enums.costs.commodities.Commodity;
+import com.controllerface.edeps.enums.costs.commodities.CommodityType;
+import com.controllerface.edeps.enums.costs.materials.Material;
+import com.controllerface.edeps.enums.costs.materials.MaterialType;
 
 import java.util.stream.Stream;
 

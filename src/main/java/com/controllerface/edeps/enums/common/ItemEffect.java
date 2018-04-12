@@ -5,6 +5,17 @@ package com.controllerface.edeps.enums.common;
  */
 public enum ItemEffect
 {
+    Corrosion_Resistance(true),
+    Enzyme_Munitions(true),
+    Meta_Alloy_Reinforcement(true),
+    Remote_Release_Shell(true),
+    Shock_Shell(true),
+    FSD_Boost(true),
+    Gauss_Shell(true),
+    Hybrid_Power(true),
+    Plasma_Weapon(true),
+    Shard_Shell(true),
+
     All_Resistances(true),
     Ammo_Capacity(true),
     Area_FSD_Reboot(true),

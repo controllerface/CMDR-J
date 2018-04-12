@@ -1,4 +1,4 @@
-package com.controllerface.edeps.enums.commodities;
+package com.controllerface.edeps.enums.costs.commodities;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.enums.common.ItemGrade;
