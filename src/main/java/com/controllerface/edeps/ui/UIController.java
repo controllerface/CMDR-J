@@ -28,6 +28,7 @@ import javafx.util.Pair;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -793,13 +794,13 @@ public class UIController
 
     private void localizeData()
     {
-        FileReader reader = null;
+        InputStream inputStream = null;
         try
         {
-            URL file = UIController.class.getResource("eng.json");
-            reader = new FileReader(file.getFile());
+            URL file = getClass().getResource("/localization/eng.json");
+            inputStream = file.openStream();
         }
-        catch (FileNotFoundException e)
+        catch (IOException e)
         {
             e.printStackTrace();
         }
@@ -808,7 +809,7 @@ public class UIController
         Map<String, Object> data;
         try
         {
-            data = objectMapper.readValue(reader, InventorySyncThread.mapTypeReference);
+            data = objectMapper.readValue(inputStream, InventorySyncThread.mapTypeReference);
         }
         catch (IOException ioe)
         {

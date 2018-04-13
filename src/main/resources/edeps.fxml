@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="909.0" prefWidth="1074.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllerface.edeps.ui.UIController">
+<AnchorPane prefHeight="909.0" prefWidth="1074.0"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.controllerface.edeps.ui.UIController">
    <children>
       <GridPane alignment="TOP_CENTER" prefHeight="543.0" prefWidth="918.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <columnConstraints>

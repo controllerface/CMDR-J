@@ -23,7 +23,7 @@ public class EDEPS extends Application
     {
         try
         {
-            InputStream file = getClass().getResourceAsStream("edeps.fxml");
+            InputStream file = getClass().getResourceAsStream("/edeps.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader();
             return fxmlLoader.load(file);
         }
