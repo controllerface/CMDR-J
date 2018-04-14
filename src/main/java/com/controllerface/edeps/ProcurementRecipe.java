@@ -1,7 +1,7 @@
 package com.controllerface.edeps;
 
 import com.controllerface.edeps.data.CostData;
-import com.controllerface.edeps.data.ModificationEffectData;
+import com.controllerface.edeps.data.ItemEffectData;
 
 import java.util.stream.Stream;
 
@@ -12,5 +12,5 @@ public interface ProcurementRecipe
 {
     Stream<CostData> costStream();
     String getLabel();
-    ModificationEffectData effects();
+    ItemEffectData effects();
 }

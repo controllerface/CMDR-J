@@ -55,7 +55,7 @@ public class UIController
      */
 
     // Procurement tree
-    @FXML private TreeView<ProcTreeItem> procurementTree;
+    @FXML private TreeView<ProcTreeData> procurementTree;
 
     // Raw materials
     @FXML private TableView<InventoryData> rawTable;
@@ -86,19 +86,19 @@ public class UIController
     @FXML private TableColumn<InventoryData, Number> cargoQuantityColumn;
 
     // Procurement task table
-    @FXML private TableView<ProcurementRecipeItem> procurementRecipeTable;
-    @FXML private TableColumn<ProcurementRecipeItem, ProcurementRecipeItem> recipeCountColumn;
-    @FXML private TableColumn<ProcurementRecipeItem, ProgressIndicator> recipeProgressColumn;
-    @FXML private TableColumn<ProcurementRecipeItem, ProcurementRecipeItem> recipeNameColumn;
-    @FXML private TableColumn<ProcurementRecipeItem, Pair<ProcurementType, ProcurementRecipe>> recipeRemoveColumn;
+    @FXML private TableView<ProcurementRecipeData> procurementRecipeTable;
+    @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> recipeCountColumn;
+    @FXML private TableColumn<ProcurementRecipeData, ProgressIndicator> recipeProgressColumn;
+    @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> recipeNameColumn;
+    @FXML private TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>> recipeRemoveColumn;
 
     // Procurement cost table
-    @FXML private TableView<ModMaterialItem> procurementCostTable;
-    @FXML private TableColumn<ModMaterialItem, ProgressIndicator> costProgressColumn;
-    @FXML private TableColumn<ModMaterialItem, Number> costNeedColumn;
-    @FXML private TableColumn<ModMaterialItem, Number> costHaveColumn;
-    @FXML private TableColumn<ModMaterialItem, String> costNameColumn;
-    @FXML private TableColumn<ModMaterialItem, String> costTypeColumn;
+    @FXML private TableView<ItemCostData> procurementCostTable;
+    @FXML private TableColumn<ItemCostData, ProgressIndicator> costProgressColumn;
+    @FXML private TableColumn<ItemCostData, Number> costNeedColumn;
+    @FXML private TableColumn<ItemCostData, Number> costHaveColumn;
+    @FXML private TableColumn<ItemCostData, String> costNameColumn;
+    @FXML private TableColumn<ItemCostData, String> costTypeColumn;
 
     /*
     =======================
@@ -147,10 +147,10 @@ public class UIController
             };
 
     /*
-    Consumer function that accepts a ProcTreeItem and adds it to the procurement list. If the task already exists in the
+    Consumer function that accepts a ProcTreeData and adds it to the procurement list. If the task already exists in the
     list, this effectively increments the count of that by 1
      */
-    private final Consumer<ProcTreeItem> addTaskToProcurementList =
+    private final Consumer<ProcTreeData> addTaskToProcurementList =
             (mod)->
             {
                 Pair<ProcurementType, ProcurementRecipe> ref = new Pair<>(mod.getType(), mod.getRecipe());
@@ -221,28 +221,28 @@ public class UIController
      procurement List: Roll/Mod Blueprint
      */
 
-    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeItem, ProcurementRecipeItem>, ObservableValue<ProcurementRecipeItem>>
+    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProcurementRecipeData>, ObservableValue<ProcurementRecipeData>>
             modRollCellValueFactory = (modRecipe) -> new ReadOnlyObjectWrapper<>(modRecipe.getValue());
 
     // simple integer for number of rolls
-    private final Callback<TableColumn<ProcurementRecipeItem, ProcurementRecipeItem>, TableCell<ProcurementRecipeItem, ProcurementRecipeItem>>
+    private final Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>
             modRollCellFactory = (modRecipe) -> new TaskCountCell(procurementListUpdate);
 
 
     // simple string for blueprint/recipe name
-    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeItem, ProcurementRecipeItem>, ObservableValue<ProcurementRecipeItem>>
+    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProcurementRecipeData>, ObservableValue<ProcurementRecipeData>>
             modNameCellValueFactory = (modRecipe) ->new ReadOnlyObjectWrapper<>(modRecipe.getValue());
 
     // simple string for blueprint/recipe name
-    private final Callback<TableColumn<ProcurementRecipeItem, ProcurementRecipeItem>, TableCell<ProcurementRecipeItem, ProcurementRecipeItem>>
+    private final Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>
             modNameCellFactory = (modRecipe) -> new RecipeNameCell(playerInventory::hasItem);
 
     // wrapper object for recipe pair object
-    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeItem, Pair<ProcurementType, ProcurementRecipe>>, ObservableValue<Pair<ProcurementType, ProcurementRecipe>>>
+    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, ObservableValue<Pair<ProcurementType, ProcurementRecipe>>>
             modControlCellValueFactory = (modRecipe) -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair());
 
     // custom cell object creates display for the controls
-    private final Callback<TableColumn<ProcurementRecipeItem, Pair<ProcurementType, ProcurementRecipe>>, TableCell<ProcurementRecipeItem, Pair<ProcurementType, ProcurementRecipe>>>
+    private final Callback<TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>>
             modControlCellFactory = (modRecipe) -> new ModControlCell(procurementListUpdate);
 
     /*
@@ -250,18 +250,18 @@ public class UIController
      */
 
     // simple integer for the need count
-    private final Callback<TableColumn.CellDataFeatures<ModMaterialItem, Number>, ObservableValue<Number>>
+    private final Callback<TableColumn.CellDataFeatures<ItemCostData, Number>, ObservableValue<Number>>
             materialNeedCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getNeed());
 
     // simple integer for the have count
-    private final Callback<TableColumn.CellDataFeatures<ModMaterialItem, Number>, ObservableValue<Number>>
+    private final Callback<TableColumn.CellDataFeatures<ItemCostData, Number>, ObservableValue<Number>>
             materialHaveCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getHave());
 
     // simple string for the material name
-    private final Callback<TableColumn.CellDataFeatures<ModMaterialItem, String>, ObservableValue<String>>
+    private final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
             materialNameCellFactory = (modMaterial) -> new SimpleStringProperty(modMaterial.getValue().toString());
 
-    private final Callback<TableColumn.CellDataFeatures<ModMaterialItem, String>, ObservableValue<String>>
+    private final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
             materialTypeCellFactory = (modMaterial) ->
     {
         ProcurementCost cost = modMaterial.getValue().getMaterial();
@@ -273,11 +273,11 @@ public class UIController
     };
 
     // custom cell object creates display for the progress indicator
-    private final Callback<TableColumn<ModMaterialItem, ProgressIndicator>, TableCell<ModMaterialItem, ProgressIndicator>>
+    private final Callback<TableColumn<ItemCostData, ProgressIndicator>, TableCell<ItemCostData, ProgressIndicator>>
             materialProgressCellFactory = (modMaterial) -> new MaterialProgressCell();
 
     // wrapper object for progress indicator object
-    private final Callback<TableColumn.CellDataFeatures<ModMaterialItem, ProgressIndicator>, ObservableValue<ProgressIndicator>>
+    private final Callback<TableColumn.CellDataFeatures<ItemCostData, ProgressIndicator>, ObservableValue<ProgressIndicator>>
             matProgressCellValueFactory = (modMaterial) ->
     {
         double progress = ((double) modMaterial.getValue().getHave()) / ((double) modMaterial.getValue().getNeed());
@@ -295,22 +295,22 @@ public class UIController
 
 
     // custom cell object creates display for the progress indicator
-    private final Callback<TableColumn<ProcurementRecipeItem, ProgressIndicator>, TableCell<ProcurementRecipeItem, ProgressIndicator>>
+    private final Callback<TableColumn<ProcurementRecipeData, ProgressIndicator>, TableCell<ProcurementRecipeData, ProgressIndicator>>
             recipeProgressCellFactory = (modRecipeItem) -> new TaskProgressCell();
 
     // wrapper object for progress indicator object
-    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeItem, ProgressIndicator>, ObservableValue<ProgressIndicator>>
+    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProgressIndicator>, ObservableValue<ProgressIndicator>>
             recipeProgressCellValueFactory = (modRecipe) ->
     {
-        ProcurementRecipeItem procurementRecipeItem = modRecipe.getValue();
+        ProcurementRecipeData procurementRecipeData = modRecipe.getValue();
 
-        int count = procurementRecipeItem.getCount();
+        int count = procurementRecipeData.getCount();
 
-        int total = procurementRecipeItem.asPair().getValue().costStream()
+        int total = procurementRecipeData.asPair().getValue().costStream()
                 .mapToInt(c -> c.getQuantity() * count)
                 .sum();
 
-        int missing = procurementRecipeItem.asPair().getValue().costStream()
+        int missing = procurementRecipeData.asPair().getValue().costStream()
                 .mapToInt(cost->
                 {
                     int banked = playerInventory.hasItem(cost.getCost());
@@ -445,34 +445,34 @@ public class UIController
         initialzed = true;
     }
 
-    private TreeItem<ProcTreeItem> makeSynthesisTree()
+    private TreeItem<ProcTreeData> makeSynthesisTree()
     {
-        TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Synthesis"));
+        TreeItem<ProcTreeData> modifications = new TreeItem<>(new ProcTreeData("Synthesis"));
         modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(SynthesisCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcTreeItem> categoryItem = new TreeItem<>(new ProcTreeItem(category.toString()));
+            TreeItem<ProcTreeData> categoryItem = new TreeItem<>(new ProcTreeData(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcTreeItem> typeItem = new TreeItem<>(new ProcTreeItem(type.toString()));
+                TreeItem<ProcTreeData> typeItem = new TreeItem<>(new ProcTreeData(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ProcTreeItem> bluePrintItem = new TreeItem<>(new ProcTreeItem(blueprint.toString()));
+                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(blueprint.toString()));
 
                     // for this blueprint, loop through all recipes it contains
                     blueprint.recipeStream().forEach(recipe->
                     {
                         // add a button allowing the user to add the recipe to their procurement list
-                        TreeItem<ProcTreeItem> recipeItem = new TreeItem<>(new ProcTreeItem(type, recipe));
+                        TreeItem<ProcTreeData> recipeItem = new TreeItem<>(new ProcTreeData(type, recipe));
 
                         // add the recipe button to this blueprint
                         bluePrintItem.getChildren().add(recipeItem);
@@ -493,22 +493,22 @@ public class UIController
         return modifications;
     }
 
-    private TreeItem<ProcTreeItem> makeModTree()
+    private TreeItem<ProcTreeData> makeModTree()
     {
-        TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Engineering Modifications"));
+        TreeItem<ProcTreeData> modifications = new TreeItem<>(new ProcTreeData("Engineering Modifications"));
         modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(ModificationCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcTreeItem> categoryItem = new TreeItem<>(new ProcTreeItem(category.toString()));
+            TreeItem<ProcTreeData> categoryItem = new TreeItem<>(new ProcTreeData(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcTreeItem> typeItem = new TreeItem<>(new ProcTreeItem(type.toString()));
+                TreeItem<ProcTreeData> typeItem = new TreeItem<>(new ProcTreeData(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
@@ -517,14 +517,14 @@ public class UIController
                     String r = blueprint.toString() + " " + typeItem.getValue().toString();
 
                     // add a collapsible blueprint label
-                    TreeItem<ProcTreeItem> bluePrintItem =
-                            new TreeItem<>(new ProcTreeItem(r));
+                    TreeItem<ProcTreeData> bluePrintItem =
+                            new TreeItem<>(new ProcTreeData(r));
 
                     // for this blueprint, loop through all recipes it contains
                     blueprint.recipeStream().forEach(recipe->
                     {
                         // add a button allowing the user to add the recipe to their procurement list
-                        TreeItem<ProcTreeItem> recipeItem = new TreeItem<>(new ProcTreeItem(type, recipe));
+                        TreeItem<ProcTreeData> recipeItem = new TreeItem<>(new ProcTreeData(type, recipe));
 
                         // add the recipe button to this blueprint
                         bluePrintItem.getChildren().add(recipeItem);
@@ -545,22 +545,22 @@ public class UIController
         return modifications;
     }
 
-    private TreeItem<ProcTreeItem> makeExperimentTree()
+    private TreeItem<ProcTreeData> makeExperimentTree()
     {
-        TreeItem<ProcTreeItem> experiments = new TreeItem<>(new ProcTreeItem("Experimental Effects"));
+        TreeItem<ProcTreeData> experiments = new TreeItem<>(new ProcTreeData("Experimental Effects"));
         experiments.setExpanded(true);
 
         // loop through all experimental categories
         Arrays.stream(ExperimentalCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcTreeItem> categoryItem = new TreeItem<>(new ProcTreeItem(category.toString()));
+            TreeItem<ProcTreeData> categoryItem = new TreeItem<>(new ProcTreeData(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcTreeItem> typeItem = new TreeItem<>(new ProcTreeItem(type.toString()));
+                TreeItem<ProcTreeData> typeItem = new TreeItem<>(new ProcTreeData(type.toString()));
 
                 // for this experiment type, loop through all blueprints it contains
                 type.bluePrintStream().forEach(blueprint ->
@@ -569,7 +569,7 @@ public class UIController
                     blueprint.recipeStream().forEach(recipe->
                     {
                         // add a button allowing the user to add the recipe to their procurement list
-                        TreeItem<ProcTreeItem> recipeItem = new TreeItem<>(new ProcTreeItem(type, recipe));
+                        TreeItem<ProcTreeData> recipeItem = new TreeItem<>(new ProcTreeData(type, recipe));
 
                         // add the recipe button to this blueprint
                         typeItem.getChildren().add(recipeItem);
@@ -587,34 +587,34 @@ public class UIController
         return experiments;
     }
 
-    private TreeItem<ProcTreeItem> makeTechnologyTree()
+    private TreeItem<ProcTreeData> makeTechnologyTree()
     {
-        TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Tech Brokers"));
+        TreeItem<ProcTreeData> modifications = new TreeItem<>(new ProcTreeData("Tech Brokers"));
         modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(TechnologyCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcTreeItem> categoryItem = new TreeItem<>(new ProcTreeItem(category.toString()));
+            TreeItem<ProcTreeData> categoryItem = new TreeItem<>(new ProcTreeData(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcTreeItem> typeItem = new TreeItem<>(new ProcTreeItem(type.toString()));
+                TreeItem<ProcTreeData> typeItem = new TreeItem<>(new ProcTreeData(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ProcTreeItem> bluePrintItem = new TreeItem<>(new ProcTreeItem(blueprint.toString()));
+                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(blueprint.toString()));
 
                     // for this blueprint, loop through all recipes it contains
                     blueprint.recipeStream().forEach(recipe->
                     {
                         // add a button allowing the user to add the recipe to their procurement list
-                        TreeItem<ProcTreeItem> recipeItem = new TreeItem<>(new ProcTreeItem(type, recipe));
+                        TreeItem<ProcTreeData> recipeItem = new TreeItem<>(new ProcTreeData(type, recipe));
 
                         // add the recipe button to this blueprint
                         bluePrintItem.getChildren().add(recipeItem);
@@ -639,13 +639,13 @@ public class UIController
     private void makeProcurementTree()
     {
         // create an root object for procurements
-        TreeItem<ProcTreeItem> root = new TreeItem<>(new ProcTreeItem("root"));
+        TreeItem<ProcTreeData> root = new TreeItem<>(new ProcTreeData("root"));
         root.setExpanded(true);
 
-        TreeItem<ProcTreeItem> synthesis = makeSynthesisTree();
-        TreeItem<ProcTreeItem> modifications = makeModTree();
-        TreeItem<ProcTreeItem> experiments = makeExperimentTree();
-        TreeItem<ProcTreeItem> technology = makeTechnologyTree();
+        TreeItem<ProcTreeData> synthesis = makeSynthesisTree();
+        TreeItem<ProcTreeData> modifications = makeModTree();
+        TreeItem<ProcTreeData> experiments = makeExperimentTree();
+        TreeItem<ProcTreeData> technology = makeTechnologyTree();
 
         root.getChildren().add(synthesis);
         root.getChildren().add(modifications);
@@ -734,7 +734,7 @@ public class UIController
 
             if (!found.get())
             {
-                ProcurementRecipeItem newItem = new ProcurementRecipeItem(pair.getKey(), pair.getValue(), count);
+                ProcurementRecipeData newItem = new ProcurementRecipeData(pair.getKey(), pair.getValue(), count);
                 procurementRecipeTable.getItems().add(newItem);
             }
 
@@ -754,7 +754,7 @@ public class UIController
 
                         if (!matFound.get())
                         {
-                            ModMaterialItem newItem = new ModMaterialItem(mat.getCost(), this.playerInventory::hasItem);
+                            ItemCostData newItem = new ItemCostData(mat.getCost(), this.playerInventory::hasItem);
                             newItem.setCount(mat.getQuantity() * count);
                             procurementCostTable.getItems().add(newItem);
                         }

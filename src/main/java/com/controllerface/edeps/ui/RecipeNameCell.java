@@ -1,7 +1,7 @@
 package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.data.ProcurementRecipeItem;
+import com.controllerface.edeps.data.ProcurementRecipeData;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.VBox;
@@ -14,7 +14,7 @@ import java.util.function.Function;
 /**
  * Created by Stephen on 4/8/2018.
  */
-public class RecipeNameCell extends TableCell<ProcurementRecipeItem, ProcurementRecipeItem>
+public class RecipeNameCell extends TableCell<ProcurementRecipeData, ProcurementRecipeData>
 {
     private final Function<ProcurementCost, Integer> checkInventory;
 
@@ -25,7 +25,7 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeItem, Procurement
 
 
     @Override
-    protected void updateItem(ProcurementRecipeItem item, boolean empty)
+    protected void updateItem(ProcurementRecipeData item, boolean empty)
     {
         super.updateItem(item, empty);
         if (item == null || empty)

@@ -2,7 +2,7 @@ package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
-import com.controllerface.edeps.data.ProcurementRecipeItem;
+import com.controllerface.edeps.data.ProcurementRecipeData;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
@@ -18,7 +18,7 @@ import java.util.function.BiFunction;
 /**
  * Created by Stephen on 4/2/2018.
  */
-public class ModControlCell extends TableCell<ProcurementRecipeItem, Pair<ProcurementType, ProcurementRecipe>>
+public class ModControlCell extends TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>
 {
     private final Button remove = new Button("x");
     private final HBox controls = new HBox(remove);

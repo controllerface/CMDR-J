@@ -66,7 +66,7 @@ public class InventorySyncTask implements Runnable
         inventoryEvents.add("MissionCompleted");
         inventoryEvents.add("TechnologyBroker");
 
-        // material events
+        // material specific events
         inventoryEvents.add("MaterialCollected");
         inventoryEvents.add("MaterialDiscarded");
         inventoryEvents.add("EngineerCraft");
@@ -74,7 +74,7 @@ public class InventorySyncTask implements Runnable
         inventoryEvents.add("Synthesis");
         inventoryEvents.add("ScientificResearch");
 
-        // cargo events
+        // cargo specific events
         inventoryEvents.add("CollectCargo");
         inventoryEvents.add("EjectCargo");
         inventoryEvents.add("MarketBuy");

@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 /**
  * Created by Stephen on 4/2/2018.
  */
-public class ProcurementRecipeItem
+public class ProcurementRecipeData
 {
     private final ProcurementType type;
     private final ProcurementRecipe recipe;
     private final AtomicInteger count;
 
-    public ProcurementRecipeItem(ProcurementType type, ProcurementRecipe recipe, int count)
+    public ProcurementRecipeData(ProcurementType type, ProcurementRecipe recipe, int count)
     {
         this.type = type;
         this.recipe = recipe;

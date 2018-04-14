@@ -9,11 +9,11 @@ import java.util.stream.Stream;
 /**
  * Created by Stephen on 4/6/2018.
  */
-public class ModificationEffectData
+public class ItemEffectData
 {
     private final Pair<ItemEffect, Double>[] effects;
 
-    public ModificationEffectData(Pair<ItemEffect, Double> ... effectPairs)
+    public ItemEffectData(Pair<ItemEffect, Double> ... effectPairs)
     {
         this.effects = effectPairs;
     }

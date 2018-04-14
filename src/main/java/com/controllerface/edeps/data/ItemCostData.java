@@ -9,13 +9,13 @@ import java.util.function.Function;
 /**
  * Created by Stephen on 4/2/2018.
  */
-public class ModMaterialItem
+public class ItemCostData
 {
     private final ProcurementCost material;
     private final Function<ProcurementCost, Integer> checkInventory;
     private final AtomicInteger count = new AtomicInteger(0);
 
-    public ModMaterialItem(ProcurementCost material, Function<ProcurementCost, Integer> checkInventory)
+    public ItemCostData(ProcurementCost material, Function<ProcurementCost, Integer> checkInventory)
     {
         this.material = material;
         this.checkInventory = checkInventory;

@@ -1,13 +1,13 @@
 package com.controllerface.edeps.ui;
 
-import com.controllerface.edeps.data.ProcurementRecipeItem;
+import com.controllerface.edeps.data.ProcurementRecipeData;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 
 /**
  * Created by Stephen on 4/2/2018.
  */
-public class TaskProgressCell extends TableCell<ProcurementRecipeItem, ProgressIndicator>
+public class TaskProgressCell extends TableCell<ProcurementRecipeData, ProgressIndicator>
 {
     @Override
     protected void updateItem(ProgressIndicator item, boolean empty)

@@ -2,7 +2,7 @@ package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
-import com.controllerface.edeps.data.ProcurementRecipeItem;
+import com.controllerface.edeps.data.ProcurementRecipeData;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -19,7 +19,7 @@ import java.util.function.BiFunction;
 /**
  * Created by Stephen on 4/8/2018.
  */
-public class TaskCountCell extends TableCell<ProcurementRecipeItem, ProcurementRecipeItem>
+public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementRecipeData>
 {
     private final Label countLabel = new Label();
     private final Button subtractButton = new Button("-");
@@ -34,7 +34,7 @@ public class TaskCountCell extends TableCell<ProcurementRecipeItem, ProcurementR
     }
 
     @Override
-    protected void updateItem(ProcurementRecipeItem item, boolean empty)
+    protected void updateItem(ProcurementRecipeData item, boolean empty)
     {
         super.updateItem(item, empty);
 

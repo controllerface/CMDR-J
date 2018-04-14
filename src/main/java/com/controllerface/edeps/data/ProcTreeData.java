@@ -7,18 +7,18 @@ import javafx.util.Pair;
 /**
  * Created by Stephen on 3/31/2018.
  */
-public class ProcTreeItem
+public class ProcTreeData
 {
     private final String text;
     private final Pair<ProcurementType, ProcurementRecipe> dataPair;
 
-    public ProcTreeItem(String text)
+    public ProcTreeData(String text)
     {
         this.dataPair = null;
         this.text = text;
     }
 
-    public ProcTreeItem(ProcurementType type, ProcurementRecipe recipe)
+    public ProcTreeData(ProcurementType type, ProcurementRecipe recipe)
     {
         this.dataPair = new Pair<>(type, recipe);
         this.text = recipe.toString();

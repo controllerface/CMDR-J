@@ -2,7 +2,7 @@ package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.CostData;
-import com.controllerface.edeps.data.ProcTreeItem;
+import com.controllerface.edeps.data.ProcTreeData;
 import com.sun.javafx.scene.control.skin.ProgressIndicatorSkin;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -23,19 +23,19 @@ import java.util.stream.Collectors;
 /**
  * Created by Stephen on 4/1/2018.
  */
-public class ProcTreeCell extends TreeCell<ProcTreeItem>
+public class ProcTreeCell extends TreeCell<ProcTreeData>
 {
-    private final Consumer<ProcTreeItem> addMod;
+    private final Consumer<ProcTreeData> addMod;
     private final Function<ProcurementCost, Integer> checkMat;
 
-    public ProcTreeCell(Consumer<ProcTreeItem> addMod, Function<ProcurementCost, Integer> checkMat)
+    public ProcTreeCell(Consumer<ProcTreeData> addMod, Function<ProcurementCost, Integer> checkMat)
     {
         this.addMod = addMod;
         this.checkMat = checkMat;
     }
 
     @Override
-    protected void updateItem(ProcTreeItem item, boolean empty)
+    protected void updateItem(ProcTreeData item, boolean empty)
     {
         super.updateItem(item, empty);
 
@@ -67,8 +67,6 @@ public class ProcTreeCell extends TreeCell<ProcTreeItem>
                         String buf = p.getKey().toString()
                                 + ((valueIsPositive ? " +" : " ")
                                 + p.getValue());
-
-                        // for on/off effects, the value will be 0, so just remove it form the text
                         buf = buf.replace(".0","");
                         if (buf.contains("-") || buf.contains("+")) buf += "%";
                         buf = buf.replace("+0%","");
@@ -137,7 +135,7 @@ public class ProcTreeCell extends TreeCell<ProcTreeItem>
             ProgressIndicatorSkin indicatorSkin = new ProgressIndicatorSkin(progressIndicator);
             progressIndicator.applyCss();
 
-            // add a listener that modified the display of the percentage
+            // add a listener that modifies the display of the percentage counter
             progressIndicator.progressProperty().addListener((ov, t, newValue) ->
             {
                 // If progress is 100% then show Text

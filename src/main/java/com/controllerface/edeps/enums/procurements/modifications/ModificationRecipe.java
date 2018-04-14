@@ -4,7 +4,7 @@ import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.CostData;
 import com.controllerface.edeps.enums.common.ItemEffect;
 import com.controllerface.edeps.enums.costs.materials.Material;
-import com.controllerface.edeps.data.ModificationEffectData;
+import com.controllerface.edeps.data.ItemEffectData;
 import javafx.util.Pair;
 
 import java.util.Arrays;
@@ -20,14 +20,14 @@ public enum ModificationRecipe implements ProcurementRecipe
     Efficient
      */
 
-    Efficient_1(new ModificationEffectData
+    Efficient_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 8d),
                     new Pair<>(ItemEffect.Thermal_Load, -38d)
             ),
             new CostData(Material.SULPHUR, 1)),
 
-    Efficient_2(new ModificationEffectData
+    Efficient_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 12d),
                     new Pair<>(ItemEffect.Power_Draw, -12d),
@@ -37,7 +37,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SULPHUR, 1),
             new CostData(Material.HEATDISPERSIONPLATE, 1)),
 
-    Efficient_3(new ModificationEffectData
+    Efficient_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 16d),
                     new Pair<>(ItemEffect.Power_Draw, -24d),
@@ -48,7 +48,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 1),
             new CostData(Material.HEATEXCHANGERS, 1)),
 
-    Efficient_4(new ModificationEffectData
+    Efficient_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 20d),
                     new Pair<>(ItemEffect.Power_Draw, -36d),
@@ -59,7 +59,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SELENIUM, 1),
             new CostData(Material.HEATVANES, 1)),
 
-    Efficient_5(new ModificationEffectData
+    Efficient_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 24d),
                     new Pair<>(ItemEffect.Power_Draw, -48d),
@@ -74,7 +74,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     /*
     Light Weight
      */
-    Lightweight_Bulkheads_1(new ModificationEffectData
+    Lightweight_Bulkheads_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.All_Resistances, 3d),
                     new Pair<>(ItemEffect.Hull_Boost, -1d),
@@ -82,7 +82,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    Lightweight_Bulkheads_2(new ModificationEffectData
+    Lightweight_Bulkheads_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.All_Resistances, 6d),
                     new Pair<>(ItemEffect.Hull_Boost, -2d),
@@ -91,7 +91,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Lightweight_Bulkheads_3(new ModificationEffectData
+    Lightweight_Bulkheads_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.All_Resistances, 9d),
                     new Pair<>(ItemEffect.Hull_Boost, -3d),
@@ -101,7 +101,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECOMPONENTS, 1),
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1)),
 
-    Lightweight_Bulkheads_4(new ModificationEffectData
+    Lightweight_Bulkheads_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.All_Resistances, 12d),
                     new Pair<>(ItemEffect.Hull_Boost, -4d),
@@ -111,7 +111,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECERAMICS, 1),
             new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1)),
 
-    Lightweight_Bulkheads_5(new ModificationEffectData
+    Lightweight_Bulkheads_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.All_Resistances, 15d),
                     new Pair<>(ItemEffect.Hull_Boost, -5d),
@@ -122,7 +122,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MILITARYGRADEALLOYS, 1)),
 
 
-    Lightweight_Sensors_1(new ModificationEffectData
+    Lightweight_Sensors_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -5d),
                     new Pair<>(ItemEffect.Integrity, -10d),
@@ -130,7 +130,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    Lightweight_Sensors_2(new ModificationEffectData
+    Lightweight_Sensors_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -10d),
                     new Pair<>(ItemEffect.Integrity, -20d),
@@ -139,7 +139,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SALVAGEDALLOYS, 1),
             new CostData(Material.MANGANESE, 1)),
 
-    Lightweight_Sensors_3(new ModificationEffectData
+    Lightweight_Sensors_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -15d),
                     new Pair<>(ItemEffect.Integrity, -30d),
@@ -149,7 +149,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MANGANESE, 1),
             new CostData(Material.CONDUCTIVECERAMICS, 1)),
 
-    Lightweight_Sensors_4(new ModificationEffectData
+    Lightweight_Sensors_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -20d),
                     new Pair<>(ItemEffect.Integrity, -40d),
@@ -159,7 +159,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PHASEALLOYS, 1),
             new CostData(Material.PROTOLIGHTALLOYS, 1)),
 
-    Lightweight_Sensors_5(new ModificationEffectData
+    Lightweight_Sensors_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -25d),
                     new Pair<>(ItemEffect.Integrity, -50d),
@@ -170,14 +170,14 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PROTORADIOLICALLOYS, 1)),
 
 
-    Lightweight_Utility_1(new ModificationEffectData
+    Lightweight_Utility_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -10d),
                     new Pair<>(ItemEffect.Mass, -45d)
             ),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    Lightweight_Utility_2(new ModificationEffectData
+    Lightweight_Utility_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -20d),
                     new Pair<>(ItemEffect.Mass, -56d)
@@ -185,7 +185,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SALVAGEDALLOYS, 1),
             new CostData(Material.MANGANESE, 1)),
 
-    Lightweight_Utility_3(new ModificationEffectData
+    Lightweight_Utility_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -30d),
                     new Pair<>(ItemEffect.Mass, -65d)
@@ -194,7 +194,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MANGANESE, 1),
             new CostData(Material.CONDUCTIVECERAMICS, 1)),
 
-    Lightweight_Utility_4(new ModificationEffectData
+    Lightweight_Utility_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -40d),
                     new Pair<>(ItemEffect.Mass, -75d)
@@ -203,7 +203,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PHASEALLOYS, 1),
             new CostData(Material.PROTOLIGHTALLOYS, 1)),
 
-    Lightweight_Utility_5(new ModificationEffectData
+    Lightweight_Utility_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -50d),
                     new Pair<>(ItemEffect.Mass, -85d)
@@ -213,14 +213,14 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PROTORADIOLICALLOYS, 1)),
 
 
-    Lightweight_Weapon_1(new ModificationEffectData
+    Lightweight_Weapon_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -20d),
                     new Pair<>(ItemEffect.Mass, -30d)
             ),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    Lightweight_Weapon_2(new ModificationEffectData
+    Lightweight_Weapon_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -10d),
                     new Pair<>(ItemEffect.Integrity, -30d),
@@ -230,7 +230,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SALVAGEDALLOYS, 1),
             new CostData(Material.MANGANESE, 1)),
 
-    Lightweight_Weapon_3(new ModificationEffectData
+    Lightweight_Weapon_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -20d),
                     new Pair<>(ItemEffect.Integrity, -40d),
@@ -241,7 +241,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MANGANESE, 1),
             new CostData(Material.CONDUCTIVECERAMICS, 1)),
 
-    Lightweight_Weapon_4(new ModificationEffectData
+    Lightweight_Weapon_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -30d),
                     new Pair<>(ItemEffect.Integrity, -50d),
@@ -252,7 +252,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PHASEALLOYS, 1),
             new CostData(Material.PROTOLIGHTALLOYS, 1)),
 
-    Lightweight_Weapon_5(new ModificationEffectData
+    Lightweight_Weapon_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -40d),
                     new Pair<>(ItemEffect.Integrity, -60d),
@@ -268,7 +268,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Long Range
      */
 
-    Long_Range_Weapon_1(new ModificationEffectData
+    Long_Range_Weapon_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 3d),
                     new Pair<>(ItemEffect.Maximum_Range, 20d),
@@ -277,7 +277,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SULPHUR, 1)),
 
-    Long_Range_Weapon_2(new ModificationEffectData
+    Long_Range_Weapon_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 6d),
                     new Pair<>(ItemEffect.Maximum_Range, 40d),
@@ -287,7 +287,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SULPHUR, 1),
             new CostData(Material.CONSUMERFIRMWARE, 1)),
 
-    Long_Range_Weapon_3(new ModificationEffectData
+    Long_Range_Weapon_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 9d),
                     new Pair<>(ItemEffect.Maximum_Range, 60d),
@@ -298,7 +298,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONSUMERFIRMWARE, 1),
             new CostData(Material.FOCUSCRYSTALS, 1)),
 
-    Long_Range_Weapon_4(new ModificationEffectData
+    Long_Range_Weapon_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 12d),
                     new Pair<>(ItemEffect.Maximum_Range, 80d),
@@ -309,7 +309,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 1),
             new CostData(Material.CONDUCTIVEPOLYMERS, 1)),
 
-    Long_Range_Weapon_5(new ModificationEffectData
+    Long_Range_Weapon_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 15d),
                     new Pair<>(ItemEffect.Maximum_Range, 100d),
@@ -321,7 +321,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.BIOTECHCONDUCTORS, 1)),
 
 
-    Long_Range_Large_Calibre_1(new ModificationEffectData
+    Long_Range_Large_Calibre_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 3d),
                     new Pair<>(ItemEffect.Maximum_Range, 20d),
@@ -331,7 +331,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SULPHUR, 1)),
 
-    Long_Range_Large_Calibre_2(new ModificationEffectData
+    Long_Range_Large_Calibre_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 6d),
                     new Pair<>(ItemEffect.Maximum_Range, 40d),
@@ -342,7 +342,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SULPHUR, 1),
             new CostData(Material.CONSUMERFIRMWARE, 1)),
 
-    Long_Range_Large_Calibre_3(new ModificationEffectData
+    Long_Range_Large_Calibre_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 9d),
                     new Pair<>(ItemEffect.Maximum_Range, 60d),
@@ -354,7 +354,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONSUMERFIRMWARE, 1),
             new CostData(Material.FOCUSCRYSTALS, 1)),
 
-    Long_Range_Large_Calibre_4(new ModificationEffectData
+    Long_Range_Large_Calibre_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 12d),
                     new Pair<>(ItemEffect.Maximum_Range, 80d),
@@ -366,7 +366,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 1),
             new CostData(Material.CONDUCTIVEPOLYMERS, 1)),
 
-    Long_Range_Large_Calibre_5(new ModificationEffectData
+    Long_Range_Large_Calibre_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 15d),
                     new Pair<>(ItemEffect.Maximum_Range, 100d),
@@ -379,7 +379,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.BIOTECHCONDUCTORS, 1)),
 
 
-    Long_Range_Scan_1(new ModificationEffectData
+    Long_Range_Scan_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -10d),
                     new Pair<>(ItemEffect.Scan_Range, 24d),
@@ -387,7 +387,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    Long_Range_Scan_2(new ModificationEffectData
+    Long_Range_Scan_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -15d),
                     new Pair<>(ItemEffect.Scan_Range, 48d),
@@ -396,7 +396,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 1),
             new CostData(Material.HYBRIDCAPACITORS, 1)),
 
-    Long_Range_Scan_3(new ModificationEffectData
+    Long_Range_Scan_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -20d),
                     new Pair<>(ItemEffect.Scan_Range, 72d),
@@ -406,7 +406,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.EMISSIONDATA, 1)),
 
-    Long_Range_Scan_4(new ModificationEffectData
+    Long_Range_Scan_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -25d),
                     new Pair<>(ItemEffect.Scan_Range, 96d),
@@ -416,7 +416,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ELECTROCHEMICALARRAYS, 1),
             new CostData(Material.DECODEDEMISSIONDATA, 1)),
 
-    Long_Range_Scan_5(new ModificationEffectData
+    Long_Range_Scan_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -30d),
                     new Pair<>(ItemEffect.Scan_Range, 120d),
@@ -427,7 +427,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.COMPACTEMISSIONSDATA, 1)),
 
 
-    Long_Range_Sensors_1(new ModificationEffectData
+    Long_Range_Sensors_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -10d),
                     new Pair<>(ItemEffect.Range, 15d),
@@ -435,7 +435,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    Long_Range_Sensors_2(new ModificationEffectData
+    Long_Range_Sensors_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -15d),
                     new Pair<>(ItemEffect.Range, 30d),
@@ -444,7 +444,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 1),
             new CostData(Material.HYBRIDCAPACITORS, 1)),
 
-    Long_Range_Sensors_3(new ModificationEffectData
+    Long_Range_Sensors_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -20d),
                     new Pair<>(ItemEffect.Range, 45d),
@@ -454,7 +454,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.EMISSIONDATA, 1)),
 
-    Long_Range_Sensors_4(new ModificationEffectData
+    Long_Range_Sensors_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -25d),
                     new Pair<>(ItemEffect.Range, 60d),
@@ -464,7 +464,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.POLYMERCAPACITORS, 1),
             new CostData(Material.DECODEDEMISSIONDATA, 1)),
 
-    Long_Range_Sensors_5(new ModificationEffectData
+    Long_Range_Sensors_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, -30d),
                     new Pair<>(ItemEffect.Range, 75d),
@@ -475,7 +475,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.COMPACTEMISSIONSDATA, 1)),
 
 
-    Long_Range_Interdictor_1(new ModificationEffectData
+    Long_Range_Interdictor_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 10d),
                     new Pair<>(ItemEffect.Range, 20d),
@@ -484,7 +484,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.ENCRYPTEDFILES, 1)),
 
-    Long_Range_Interdictor_2(new ModificationEffectData
+    Long_Range_Interdictor_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 20d),
                     new Pair<>(ItemEffect.Range, 30d),
@@ -494,7 +494,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.DISRUPTEDWAKEECHOES, 1),
             new CostData(Material.ENCRYPTIONCODES, 1)),
 
-    Long_Range_Interdictor_3(new ModificationEffectData
+    Long_Range_Interdictor_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 30d),
                     new Pair<>(ItemEffect.Range, 40d),
@@ -505,7 +505,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FSDTELEMETRY, 1),
             new CostData(Material.SYMMETRICKEYS, 1)),
 
-    Long_Range_Interdictor_4(new ModificationEffectData
+    Long_Range_Interdictor_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 40d),
                     new Pair<>(ItemEffect.Range, 50d),
@@ -516,7 +516,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.WAKESOLUTIONS, 1),
             new CostData(Material.ENCRYPTIONARCHIVES, 1)),
 
-    Long_Range_Interdictor_5(new ModificationEffectData
+    Long_Range_Interdictor_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 50d),
                     new Pair<>(ItemEffect.Range, 60d),
@@ -528,14 +528,14 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ADAPTIVEENCRYPTORS, 1)),
 
 
-    Long_Range_Surface_Scan_1(new ModificationEffectData
+    Long_Range_Surface_Scan_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Range, 40d),
                     new Pair<>(ItemEffect.Mass, 20d)
             ),
             new CostData(Material.IRON, 1)),
 
-    Long_Range_Surface_Scan_2(new ModificationEffectData
+    Long_Range_Surface_Scan_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Range, 80d),
                     new Pair<>(ItemEffect.Mass, 40d)
@@ -543,7 +543,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 1),
             new CostData(Material.HYBRIDCAPACITORS, 1)),
 
-    Long_Range_Surface_Scan_3(new ModificationEffectData
+    Long_Range_Surface_Scan_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Range, 120d),
                     new Pair<>(ItemEffect.Mass, 60d)
@@ -552,7 +552,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.EMISSIONDATA, 1)),
 
-    Long_Range_Surface_Scan_4(new ModificationEffectData
+    Long_Range_Surface_Scan_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Range, 160d),
                     new Pair<>(ItemEffect.Mass, 80d)
@@ -561,7 +561,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ELECTROCHEMICALARRAYS, 1),
             new CostData(Material.DECODEDEMISSIONDATA, 1)),
 
-    Long_Range_Surface_Scan_5(new ModificationEffectData
+    Long_Range_Surface_Scan_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Range, 200d),
                     new Pair<>(ItemEffect.Mass, 100d)
@@ -575,7 +575,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Overcharged
      */
 
-    Overcharged_1(new ModificationEffectData
+    Overcharged_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 30d),
                     new Pair<>(ItemEffect.Distributor_Draw, 15d),
@@ -583,7 +583,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.NICKEL, 1)),
 
-    Overcharged_2(new ModificationEffectData
+    Overcharged_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 40d),
                     new Pair<>(ItemEffect.Distributor_Draw, 25d),
@@ -592,7 +592,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NICKEL, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Overcharged_3(new ModificationEffectData
+    Overcharged_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 50d),
                     new Pair<>(ItemEffect.Distributor_Draw, 25d),
@@ -602,7 +602,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECOMPONENTS, 1),
             new CostData(Material.ELECTROCHEMICALARRAYS, 1)),
 
-    Overcharged_4(new ModificationEffectData
+    Overcharged_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 60d),
                     new Pair<>(ItemEffect.Distributor_Draw, 30d),
@@ -612,7 +612,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECERAMICS, 1),
             new CostData(Material.POLYMERCAPACITORS, 1)),
 
-    Overcharged_5(new ModificationEffectData
+    Overcharged_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 70d),
                     new Pair<>(ItemEffect.Distributor_Draw, 35d),
@@ -623,7 +623,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.EMBEDDEDFIRMWARE, 1)),
 
 
-    Overcharged_Multi_Cannon_1(new ModificationEffectData
+    Overcharged_Multi_Cannon_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Clip_Size, -3d),
                     new Pair<>(ItemEffect.Damage, 30d),
@@ -632,7 +632,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.NICKEL, 1)),
 
-    Overcharged_Multi_Cannon_2(new ModificationEffectData
+    Overcharged_Multi_Cannon_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Clip_Size, -6d),
                     new Pair<>(ItemEffect.Damage, 40d),
@@ -642,7 +642,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NICKEL, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Overcharged_Multi_Cannon_3(new ModificationEffectData
+    Overcharged_Multi_Cannon_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Clip_Size, -9d),
                     new Pair<>(ItemEffect.Damage, 50d),
@@ -653,7 +653,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECOMPONENTS, 1),
             new CostData(Material.ELECTROCHEMICALARRAYS, 1)),
 
-    Overcharged_Multi_Cannon_4(new ModificationEffectData
+    Overcharged_Multi_Cannon_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Clip_Size, -12d),
                     new Pair<>(ItemEffect.Damage, 60d),
@@ -664,7 +664,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECERAMICS, 1),
             new CostData(Material.POLYMERCAPACITORS, 1)),
 
-    Overcharged_Multi_Cannon_5(new ModificationEffectData
+    Overcharged_Multi_Cannon_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Clip_Size, -15d),
                     new Pair<>(ItemEffect.Damage, 70d),
@@ -681,7 +681,7 @@ public enum ModificationRecipe implements ProcurementRecipe
 
 
 
-    Overcharged_Power_Plant_1(new ModificationEffectData
+    Overcharged_Power_Plant_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -5d),
                     new Pair<>(ItemEffect.Heat_Efficiency, 5d),
@@ -689,7 +689,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SULPHUR, 1)),
 
-    Overcharged_Power_Plant_2(new ModificationEffectData
+    Overcharged_Power_Plant_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -10d),
                     new Pair<>(ItemEffect.Heat_Efficiency, 10d),
@@ -698,7 +698,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HEATCONDUCTIONWIRING, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Overcharged_Power_Plant_3(new ModificationEffectData
+    Overcharged_Power_Plant_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -15d),
                     new Pair<>(ItemEffect.Heat_Efficiency, 15d),
@@ -708,7 +708,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECOMPONENTS, 1),
             new CostData(Material.SELENIUM, 1)),
 
-    Overcharged_Power_Plant_4(new ModificationEffectData
+    Overcharged_Power_Plant_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -20d),
                     new Pair<>(ItemEffect.Heat_Efficiency, 20d),
@@ -718,7 +718,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECERAMICS, 1),
             new CostData(Material.CADMIUM, 1)),
 
-    Overcharged_Power_Plant_5(new ModificationEffectData
+    Overcharged_Power_Plant_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -25d),
                     new Pair<>(ItemEffect.Heat_Efficiency, 25d),
@@ -738,14 +738,14 @@ public enum ModificationRecipe implements ProcurementRecipe
     Short Range
      */
 
-    Short_Range_1(new ModificationEffectData
+    Short_Range_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 27d),
                     new Pair<>(ItemEffect.Maximum_Range, -10d)
             ),
             new CostData(Material.NICKEL, 1)),
 
-    Short_Range_2(new ModificationEffectData
+    Short_Range_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 39d),
                     new Pair<>(ItemEffect.Maximum_Range, -20d),
@@ -754,7 +754,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NICKEL, 1),
             new CostData(Material.CONSUMERFIRMWARE, 1)),
 
-    Short_Range_3(new ModificationEffectData
+    Short_Range_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 51d),
                     new Pair<>(ItemEffect.Maximum_Range, -30d),
@@ -764,7 +764,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONSUMERFIRMWARE, 1),
             new CostData(Material.ELECTROCHEMICALARRAYS, 1)),
 
-    Short_Range_4(new ModificationEffectData
+    Short_Range_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 63d),
                     new Pair<>(ItemEffect.Maximum_Range, -40d),
@@ -774,7 +774,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ELECTROCHEMICALARRAYS, 1),
             new CostData(Material.CONDUCTIVEPOLYMERS, 1)),
 
-    Short_Range_5(new ModificationEffectData
+    Short_Range_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, 75d),
                     new Pair<>(ItemEffect.Maximum_Range, -50d),
@@ -789,7 +789,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sturdy
      */
 
-    Sturdy_1(new ModificationEffectData
+    Sturdy_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 100d),
                     new Pair<>(ItemEffect.Thermal_Load, -10d),
@@ -798,7 +798,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.NICKEL, 1)),
 
-    Sturdy_2(new ModificationEffectData
+    Sturdy_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 150d),
                     new Pair<>(ItemEffect.Thermal_Load, -15d),
@@ -808,7 +808,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NICKEL, 1),
             new CostData(Material.SHIELDEMITTERS, 1)),
 
-    Sturdy_3(new ModificationEffectData
+    Sturdy_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 200d),
                     new Pair<>(ItemEffect.Thermal_Load, -20d),
@@ -819,7 +819,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDEMITTERS, 1),
             new CostData(Material.TUNGSTEN, 1)),
 
-    Sturdy_4(new ModificationEffectData
+    Sturdy_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 250d),
                     new Pair<>(ItemEffect.Thermal_Load, -25d),
@@ -830,7 +830,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.TUNGSTEN, 1),
             new CostData(Material.MOLYBDENUM, 1)),
 
-    Sturdy_5(new ModificationEffectData
+    Sturdy_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 300d),
                     new Pair<>(ItemEffect.Thermal_Load, -30d),
@@ -846,7 +846,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Focused
      */
 
-    Focused_1(new ModificationEffectData
+    Focused_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Maximum_Range, 36d),
                     new Pair<>(ItemEffect.Armour_Piercing, 40d),
@@ -854,7 +854,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    Focused_2(new ModificationEffectData
+    Focused_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Maximum_Range, 52d),
                     new Pair<>(ItemEffect.Armour_Piercing, 60d),
@@ -863,7 +863,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Focused_3(new ModificationEffectData
+    Focused_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Maximum_Range, 68d),
                     new Pair<>(ItemEffect.Armour_Piercing, 80d),
@@ -873,7 +873,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 1),
             new CostData(Material.CONDUCTIVECERAMICS, 1)),
 
-    Focused_4(new ModificationEffectData
+    Focused_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Maximum_Range, 84d),
                     new Pair<>(ItemEffect.Armour_Piercing, 100d),
@@ -883,7 +883,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 1),
             new CostData(Material.POLYMERCAPACITORS, 1)),
 
-    Focused_5(new ModificationEffectData
+    Focused_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Maximum_Range, 100d),
                     new Pair<>(ItemEffect.Armour_Piercing, 120d),
@@ -898,7 +898,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Rapid Fire
      */
 
-    Rapid_Fire_1(new ModificationEffectData
+    Rapid_Fire_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, -1d),
                     new Pair<>(ItemEffect.Reload_Time, -25d),
@@ -907,7 +907,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Rapid_Fire_2(new ModificationEffectData
+    Rapid_Fire_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, -2d),
                     new Pair<>(ItemEffect.Reload_Time, -35d),
@@ -917,7 +917,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALSCRAP, 1),
             new CostData(Material.HEATDISPERSIONPLATE, 1)),
 
-    Rapid_Fire_3(new ModificationEffectData
+    Rapid_Fire_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, -3d),
                     new Pair<>(ItemEffect.Reload_Time, -45d),
@@ -929,7 +929,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALEQUIPMENT, 1),
             new CostData(Material.PRECIPITATEDALLOYS, 1)),
 
-    Rapid_Fire_4(new ModificationEffectData
+    Rapid_Fire_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, -4d),
                     new Pair<>(ItemEffect.Reload_Time, -56d),
@@ -941,7 +941,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALCOMPONENTS, 1),
             new CostData(Material.THERMICALLOYS, 1)),
 
-    Rapid_Fire_5(new ModificationEffectData
+    Rapid_Fire_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Damage, -5d),
                     new Pair<>(ItemEffect.Reload_Time, -65d),
@@ -958,7 +958,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     High Capacity
      */
 
-    High_Capacity_1(new ModificationEffectData
+    High_Capacity_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Clip_Size, 36d),
                     new Pair<>(ItemEffect.Power_Draw, 4d),
@@ -968,7 +968,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    High_Capacity_2(new ModificationEffectData
+    High_Capacity_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Clip_Size, 52d),
                     new Pair<>(ItemEffect.Power_Draw, 8d),
@@ -979,7 +979,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALSCRAP, 1),
             new CostData(Material.VANADIUM, 1)),
 
-    High_Capacity_3(new ModificationEffectData
+    High_Capacity_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Clip_Size, 68d),
                     new Pair<>(ItemEffect.Power_Draw, 12d),
@@ -991,7 +991,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.VANADIUM, 1),
             new CostData(Material.NIOBIUM, 1)),
 
-    High_Capacity_4(new ModificationEffectData
+    High_Capacity_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Clip_Size, 84d),
                     new Pair<>(ItemEffect.Power_Draw, 16d),
@@ -1003,7 +1003,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1),
             new CostData(Material.TIN, 1)),
 
-    High_Capacity_5(new ModificationEffectData
+    High_Capacity_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Clip_Size, 100d),
                     new Pair<>(ItemEffect.Power_Draw, 20d),
@@ -1020,7 +1020,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Double Shot
      */
 
-    Double_Shot_1(new ModificationEffectData
+    Double_Shot_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Burst_Rate_Of_Fire, 600d),
                     new Pair<>(ItemEffect.Maximum_Range, -2d),
@@ -1029,7 +1029,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.CARBON, 1)),
 
-    Double_Shot_2(new ModificationEffectData
+    Double_Shot_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Burst_Rate_Of_Fire, 800d),
                     new Pair<>(ItemEffect.Maximum_Range, -4d),
@@ -1039,7 +1039,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 1),
             new CostData(Material.MECHANICALEQUIPMENT, 1)),
 
-    Double_Shot_3(new ModificationEffectData
+    Double_Shot_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Burst_Rate_Of_Fire, 1000d),
                     new Pair<>(ItemEffect.Maximum_Range, -6d),
@@ -1050,7 +1050,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALEQUIPMENT, 1),
             new CostData(Material.INDUSTRIALFIRMWARE, 1)),
 
-    Double_Shot_4(new ModificationEffectData
+    Double_Shot_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Burst_Rate_Of_Fire, 1200d),
                     new Pair<>(ItemEffect.Maximum_Range, -8d),
@@ -1061,7 +1061,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALCOMPONENTS, 1),
             new CostData(Material.SECURITYFIRMWARE, 1)),
 
-    Double_Shot_5(new ModificationEffectData
+    Double_Shot_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Burst_Rate_Of_Fire, 1400d),
                     new Pair<>(ItemEffect.Maximum_Range, -10d),
@@ -1076,7 +1076,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Ammo Capacity
      */
 
-    Ammo_Capacity_1(new ModificationEffectData
+    Ammo_Capacity_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Reload_Time, 10d),
                     new Pair<>(ItemEffect.Ammo_Capacity, 50d),
@@ -1089,14 +1089,14 @@ public enum ModificationRecipe implements ProcurementRecipe
     Reinforced
      */
 
-    Reinforced_1(new ModificationEffectData
+    Reinforced_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 60d),
                     new Pair<>(ItemEffect.Mass, 30d)
             ),
             new CostData(Material.NICKEL, 1)),
 
-    Reinforced_2(new ModificationEffectData
+    Reinforced_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 120d),
                     new Pair<>(ItemEffect.Mass, 60d)
@@ -1104,7 +1104,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NICKEL, 1),
             new CostData(Material.SHIELDEMITTERS, 1)),
 
-    Reinforced_3(new ModificationEffectData
+    Reinforced_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 180d),
                     new Pair<>(ItemEffect.Mass, 90d)
@@ -1113,7 +1113,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDEMITTERS, 1),
             new CostData(Material.TUNGSTEN, 1)),
 
-    Reinforced_4(new ModificationEffectData
+    Reinforced_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 240d),
                     new Pair<>(ItemEffect.Mass, 120d)
@@ -1122,7 +1122,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.TUNGSTEN, 1),
             new CostData(Material.MOLYBDENUM, 1)),
 
-    Reinforced_5(new ModificationEffectData
+    Reinforced_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 300d),
                     new Pair<>(ItemEffect.Mass, 150d)
@@ -1132,7 +1132,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.TECHNETIUM, 1)),
 
 
-    Reinforced_Thrusters_1(new ModificationEffectData
+    Reinforced_Thrusters_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Thermal_Load, -10d),
                     new Pair<>(ItemEffect.Integrity, 30d),
@@ -1140,7 +1140,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.CARBON, 1)),
 
-    Reinforced_Thrusters_2(new ModificationEffectData
+    Reinforced_Thrusters_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Thermal_Load, -20d),
                     new Pair<>(ItemEffect.Integrity, 50d),
@@ -1149,7 +1149,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HEATCONDUCTIONWIRING, 1),
             new CostData(Material.VANADIUM, 1)),
 
-    Reinforced_Thrusters_3(new ModificationEffectData
+    Reinforced_Thrusters_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Thermal_Load, -30d),
                     new Pair<>(ItemEffect.Integrity, 70d),
@@ -1159,7 +1159,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.VANADIUM, 1),
             new CostData(Material.SHIELDINGSENSORS, 1)),
 
-    Reinforced_Thrusters_4(new ModificationEffectData
+    Reinforced_Thrusters_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Thermal_Load, -40d),
                     new Pair<>(ItemEffect.Integrity, 90d),
@@ -1169,7 +1169,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1),
             new CostData(Material.COMPOUNDSHIELDING, 1)),
 
-    Reinforced_Thrusters_5(new ModificationEffectData
+    Reinforced_Thrusters_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Thermal_Load, -50d),
                     new Pair<>(ItemEffect.Integrity, 110d),
@@ -1180,7 +1180,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IMPERIALSHIELDING, 1)),
 
 
-    Reinforced_Shield_1(new ModificationEffectData
+    Reinforced_Shield_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Distributor_Draw, 4d),
                     new Pair<>(ItemEffect.Optimal_Strength, 14d),
@@ -1189,7 +1189,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    Reinforced_Shield_2(new ModificationEffectData
+    Reinforced_Shield_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Distributor_Draw, 6d),
                     new Pair<>(ItemEffect.Optimal_Strength, 20d),
@@ -1199,7 +1199,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PHOSPHORUS, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Reinforced_Shield_3(new ModificationEffectData
+    Reinforced_Shield_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Distributor_Draw, 8d),
                     new Pair<>(ItemEffect.Optimal_Strength, 26d),
@@ -1211,7 +1211,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECOMPONENTS, 1),
             new CostData(Material.MECHANICALCOMPONENTS, 1)),
 
-    Reinforced_Shield_4(new ModificationEffectData
+    Reinforced_Shield_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Distributor_Draw, 10d),
                     new Pair<>(ItemEffect.Optimal_Strength, 32d),
@@ -1223,7 +1223,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECERAMICS, 1),
             new CostData(Material.CONFIGURABLECOMPONENTS, 1)),
 
-    Reinforced_Shield_5(new ModificationEffectData
+    Reinforced_Shield_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Distributor_Draw, 12d),
                     new Pair<>(ItemEffect.Optimal_Strength, 38d),
@@ -1240,14 +1240,14 @@ public enum ModificationRecipe implements ProcurementRecipe
     Shielded
      */
 
-    Shielded_1(new ModificationEffectData
+    Shielded_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 20d),
                     new Pair<>(ItemEffect.Integrity, 60d)
             ),
             new CostData(Material.WORNSHIELDEMITTERS, 1)),
 
-    Shielded_2(new ModificationEffectData
+    Shielded_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 40d),
                     new Pair<>(ItemEffect.Integrity, 120d)
@@ -1255,7 +1255,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 1),
             new CostData(Material.SHIELDEMITTERS, 1)),
 
-    Shielded_3(new ModificationEffectData
+    Shielded_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 60d),
                     new Pair<>(ItemEffect.Integrity, 180d)
@@ -1264,7 +1264,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDEMITTERS, 1),
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1)),
 
-    Shielded_4(new ModificationEffectData
+    Shielded_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 80d),
                     new Pair<>(ItemEffect.Integrity, 240d)
@@ -1273,7 +1273,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDINGSENSORS, 1),
             new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1)),
 
-    Shielded_5(new ModificationEffectData
+    Shielded_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 100d),
                     new Pair<>(ItemEffect.Integrity, 300d)
@@ -1283,7 +1283,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FEDCORECOMPOSITES, 1)),
 
 
-    Shielded_FSD_1(new ModificationEffectData
+    Shielded_FSD_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Optimal_Mass, 3d),
                     new Pair<>(ItemEffect.Integrity, 25d),
@@ -1292,7 +1292,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.NICKEL, 1)),
 
-    Shielded_FSD_2(new ModificationEffectData
+    Shielded_FSD_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Optimal_Mass, 6d),
                     new Pair<>(ItemEffect.Integrity, 50d),
@@ -1302,7 +1302,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 1),
             new CostData(Material.SHIELDEMITTERS, 1)),
 
-    Shielded_FSD_3(new ModificationEffectData
+    Shielded_FSD_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Optimal_Mass, 9d),
                     new Pair<>(ItemEffect.Integrity, 75d),
@@ -1313,7 +1313,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ZINC, 1),
             new CostData(Material.SHIELDINGSENSORS, 1)),
 
-    Shielded_FSD_4(new ModificationEffectData
+    Shielded_FSD_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Optimal_Mass, 12d),
                     new Pair<>(ItemEffect.Integrity, 100d),
@@ -1324,7 +1324,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1),
             new CostData(Material.COMPOUNDSHIELDING, 1)),
 
-    Shielded_FSD_5(new ModificationEffectData
+    Shielded_FSD_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Optimal_Mass, 15d),
                     new Pair<>(ItemEffect.Integrity, 125d),
@@ -1336,7 +1336,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IMPERIALSHIELDING, 1)),
 
 
-    Shielded_Distributor_1(new ModificationEffectData
+    Shielded_Distributor_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -10d),
                     new Pair<>(ItemEffect.Integrity, 40d),
@@ -1344,7 +1344,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.WORNSHIELDEMITTERS, 1)),
 
-    Shielded_Distributor_2(new ModificationEffectData
+    Shielded_Distributor_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -15d),
                     new Pair<>(ItemEffect.Integrity, 80d),
@@ -1353,7 +1353,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 1),
             new CostData(Material.SHIELDEMITTERS, 1)),
 
-    Shielded_Distributor_3(new ModificationEffectData
+    Shielded_Distributor_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -20d),
                     new Pair<>(ItemEffect.Integrity, 120d),
@@ -1363,7 +1363,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDEMITTERS, 1),
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1)),
 
-    Shielded_Distributor_4(new ModificationEffectData
+    Shielded_Distributor_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -25d),
                     new Pair<>(ItemEffect.Integrity, 160d),
@@ -1373,7 +1373,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDINGSENSORS, 1),
             new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1)),
 
-    Shielded_Distributor_5(new ModificationEffectData
+    Shielded_Distributor_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -30d),
                     new Pair<>(ItemEffect.Integrity, 200d),
@@ -1388,7 +1388,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Fast Scan
      */
 
-    Fast_Scan_1(new ModificationEffectData
+    Fast_Scan_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -10d),
                     new Pair<>(ItemEffect.Scan_Range, -5d),
@@ -1396,7 +1396,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    Fast_Scan_2(new ModificationEffectData
+    Fast_Scan_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity,  -20d),
                     new Pair<>(ItemEffect.Scan_Range,  -10d),
@@ -1405,7 +1405,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PHOSPHORUS, 1),
             new CostData(Material.UNCUTFOCUSCRYSTALS, 1)),
 
-    Fast_Scan_3(new ModificationEffectData
+    Fast_Scan_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -30d),
                     new Pair<>(ItemEffect.Scan_Range, -15d),
@@ -1415,7 +1415,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
             new CostData(Material.SYMMETRICKEYS, 1)),
 
-    Fast_Scan_4(new ModificationEffectData
+    Fast_Scan_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -40d),
                     new Pair<>(ItemEffect.Scan_Range, -20d),
@@ -1425,7 +1425,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 1),
             new CostData(Material.ENCRYPTIONARCHIVES, 1)),
 
-    Fast_Scan_5(new ModificationEffectData
+    Fast_Scan_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -50d),
                     new Pair<>(ItemEffect.Scan_Range, -25d),
@@ -1436,14 +1436,14 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ADAPTIVEENCRYPTORS, 1)),
 
 
-    Fast_Surface_Scan_1(new ModificationEffectData
+    Fast_Surface_Scan_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Rate, 20d),
                     new Pair<>(ItemEffect.Mass, 20d)
             ),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    Fast_Surface_Scan_2(new ModificationEffectData
+    Fast_Surface_Scan_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Rate, 35d),
                     new Pair<>(ItemEffect.Mass, 40d)
@@ -1451,7 +1451,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PHOSPHORUS, 1),
             new CostData(Material.UNCUTFOCUSCRYSTALS, 1)),
 
-    Fast_Surface_Scan_3(new ModificationEffectData
+    Fast_Surface_Scan_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Rate, 50d),
                     new Pair<>(ItemEffect.Mass, 60d)
@@ -1460,7 +1460,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
             new CostData(Material.SYMMETRICKEYS, 1)),
 
-    Fast_Surface_Scan_4(new ModificationEffectData
+    Fast_Surface_Scan_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Rate, 65d),
                     new Pair<>(ItemEffect.Mass, 80d)
@@ -1469,7 +1469,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 1),
             new CostData(Material.ENCRYPTIONARCHIVES, 1)),
 
-    Fast_Surface_Scan_5(new ModificationEffectData
+    Fast_Surface_Scan_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Rate, 80d),
                     new Pair<>(ItemEffect.Mass, 100d)
@@ -1483,7 +1483,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Wide Angle
      */
 
-    Wide_Angle_1(new ModificationEffectData
+    Wide_Angle_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 40d),
                     new Pair<>(ItemEffect.Scan_Time, 10d),
@@ -1491,7 +1491,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Wide_Angle_2(new ModificationEffectData
+    Wide_Angle_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 80d),
                     new Pair<>(ItemEffect.Scan_Time, 20d),
@@ -1500,7 +1500,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALSCRAP, 1),
             new CostData(Material.GERMANIUM, 1)),
 
-    Wide_Angle_3(new ModificationEffectData
+    Wide_Angle_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 120d),
                     new Pair<>(ItemEffect.Scan_Time, 30d),
@@ -1510,7 +1510,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.CLASSIFIEDSCANDATA, 1)),
 
-    Wide_Angle_4(new ModificationEffectData
+    Wide_Angle_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 160d),
                     new Pair<>(ItemEffect.Scan_Time, 40d),
@@ -1520,7 +1520,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NIOBIUM, 1),
             new CostData(Material.ENCODEDSCANDATA, 1)),
 
-    Wide_Angle_5(new ModificationEffectData
+    Wide_Angle_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 200d),
                     new Pair<>(ItemEffect.Scan_Time, 50d),
@@ -1531,14 +1531,14 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CLASSIFIEDSCANDATA, 1)),
 
 
-    Wide_Angle_Surface_Scanner_1(new ModificationEffectData
+    Wide_Angle_Surface_Scanner_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 40d),
                     new Pair<>(ItemEffect.Mass, 20d)
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Wide_Angle_Surface_Scanner_2(new ModificationEffectData
+    Wide_Angle_Surface_Scanner_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 80d),
                     new Pair<>(ItemEffect.Mass, 40d)
@@ -1546,7 +1546,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALSCRAP, 1),
             new CostData(Material.GERMANIUM, 1)),
 
-    Wide_Angle_Surface_Scanner_3(new ModificationEffectData
+    Wide_Angle_Surface_Scanner_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 120d),
                     new Pair<>(ItemEffect.Mass, 60d)
@@ -1555,7 +1555,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.CLASSIFIEDSCANDATA, 1)),
 
-    Wide_Angle_Surface_Scanner_4(new ModificationEffectData
+    Wide_Angle_Surface_Scanner_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 160d),
                     new Pair<>(ItemEffect.Mass, 80d)
@@ -1564,7 +1564,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NIOBIUM, 1),
             new CostData(Material.ENCODEDSCANDATA, 1)),
 
-    Wide_Angle_Surface_Scanner_5(new ModificationEffectData
+    Wide_Angle_Surface_Scanner_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 200d),
                     new Pair<>(ItemEffect.Mass, 100d)
@@ -1574,7 +1574,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CLASSIFIEDSCANDATA, 1)),
 
 
-    Wide_Angle_Sensors_1(new ModificationEffectData
+    Wide_Angle_Sensors_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 40d),
                     new Pair<>(ItemEffect.Power_Draw, 10d),
@@ -1582,7 +1582,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Wide_Angle_Sensors_2(new ModificationEffectData
+    Wide_Angle_Sensors_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 80d),
                     new Pair<>(ItemEffect.Power_Draw, 20d),
@@ -1591,7 +1591,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALSCRAP, 1),
             new CostData(Material.GERMANIUM, 1)),
 
-    Wide_Angle_Sensors_3(new ModificationEffectData
+    Wide_Angle_Sensors_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 120d),
                     new Pair<>(ItemEffect.Power_Draw, 30d),
@@ -1601,7 +1601,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.CLASSIFIEDSCANDATA, 1)),
 
-    Wide_Angle_Sensors_4(new ModificationEffectData
+    Wide_Angle_Sensors_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 160d),
                     new Pair<>(ItemEffect.Power_Draw, 40d),
@@ -1611,7 +1611,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NIOBIUM, 1),
             new CostData(Material.ENCODEDSCANDATA, 1)),
 
-    Wide_Angle_Sensors_5(new ModificationEffectData
+    Wide_Angle_Sensors_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Scan_Angle, 200d),
                     new Pair<>(ItemEffect.Power_Draw, 50d),
@@ -1626,7 +1626,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Blast Resistant
      */
 
-    Blast_Resistant_Hull_1(new ModificationEffectData
+    Blast_Resistant_Hull_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 12d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -2d),
@@ -1635,7 +1635,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.NICKEL, 1)),
 
-    Blast_Resistant_Hull_2(new ModificationEffectData
+    Blast_Resistant_Hull_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 19d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -4d),
@@ -1645,7 +1645,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 1),
             new CostData(Material.ZINC, 1)),
 
-    Blast_Resistant_Hull_3(new ModificationEffectData
+    Blast_Resistant_Hull_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 26d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -6d),
@@ -1656,7 +1656,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.VANADIUM, 1),
             new CostData(Material.ZIRCONIUM, 1)),
 
-    Blast_Resistant_Hull_4(new ModificationEffectData
+    Blast_Resistant_Hull_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 33d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -8d),
@@ -1667,7 +1667,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.TUNGSTEN, 1),
             new CostData(Material.MERCURY, 1)),
 
-    Blast_Resistant_Hull_5(new ModificationEffectData
+    Blast_Resistant_Hull_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 40d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -8d),
@@ -1679,7 +1679,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.RUTHENIUM, 1)),
 
 
-    Blast_Resistant_Shield_Booster_1(new ModificationEffectData
+    Blast_Resistant_Shield_Booster_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 8d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -1d),
@@ -1687,7 +1687,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    Blast_Resistant_Shield_Booster_2(new ModificationEffectData
+    Blast_Resistant_Shield_Booster_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 12d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -1d),
@@ -1696,7 +1696,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Blast_Resistant_Shield_Booster_3(new ModificationEffectData
+    Blast_Resistant_Shield_Booster_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 17d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -2d),
@@ -1706,7 +1706,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECOMPONENTS, 1),
             new CostData(Material.FOCUSCRYSTALS, 1)),
 
-    Blast_Resistant_Shield_Booster_4(new ModificationEffectData
+    Blast_Resistant_Shield_Booster_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 22d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -3d),
@@ -1716,7 +1716,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDDENSITYREPORTS, 1),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 1)),
 
-    Blast_Resistant_Shield_Booster_5(new ModificationEffectData
+    Blast_Resistant_Shield_Booster_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 27d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -4d),
@@ -1727,7 +1727,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.EXQUISITEFOCUSCRYSTALS, 1)),
 
 
-    Blast_Resistant_Armor_1(new ModificationEffectData
+    Blast_Resistant_Armor_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 8d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -1d),
@@ -1735,7 +1735,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.NICKEL, 1)),
 
-    Blast_Resistant_Armor_2(new ModificationEffectData
+    Blast_Resistant_Armor_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 12d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -1d),
@@ -1744,7 +1744,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 1),
             new CostData(Material.ZINC, 1)),
 
-    Blast_Resistant_Armor_3(new ModificationEffectData
+    Blast_Resistant_Armor_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 17d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -2d),
@@ -1754,7 +1754,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.VANADIUM, 1),
             new CostData(Material.ZIRCONIUM, 1)),
 
-    Blast_Resistant_Armor_4(new ModificationEffectData
+    Blast_Resistant_Armor_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 22d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -3d),
@@ -1764,7 +1764,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.TUNGSTEN, 1),
             new CostData(Material.MERCURY, 1)),
 
-    Blast_Resistant_Armor_5(new ModificationEffectData
+    Blast_Resistant_Armor_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, 27d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -4d),
@@ -1779,7 +1779,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Heavy Duty
      */
 
-    Heavy_Duty_Shield_Booster_1(new ModificationEffectData
+    Heavy_Duty_Shield_Booster_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 5d),
                     new Pair<>(ItemEffect.Integrity, 3d),
@@ -1788,7 +1788,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.GRIDRESISTORS, 1)),
 
-    Heavy_Duty_Shield_Booster_2(new ModificationEffectData
+    Heavy_Duty_Shield_Booster_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 10d),
                     new Pair<>(ItemEffect.Integrity, 6d),
@@ -1798,7 +1798,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDCYCLERECORDINGS, 1),
             new CostData(Material.HYBRIDCAPACITORS, 1)),
 
-    Heavy_Duty_Shield_Booster_3(new ModificationEffectData
+    Heavy_Duty_Shield_Booster_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 15d),
                     new Pair<>(ItemEffect.Integrity, 9d),
@@ -1809,7 +1809,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.NIOBIUM, 1)),
 
-    Heavy_Duty_Shield_Booster_4(new ModificationEffectData
+    Heavy_Duty_Shield_Booster_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 20d),
                     new Pair<>(ItemEffect.Integrity, 12d),
@@ -1820,7 +1820,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ELECTROCHEMICALARRAYS, 1),
             new CostData(Material.TIN, 1)),
 
-    Heavy_Duty_Shield_Booster_5(new ModificationEffectData
+    Heavy_Duty_Shield_Booster_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 25d),
                     new Pair<>(ItemEffect.Integrity, 15d),
@@ -1832,7 +1832,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ANTIMONY, 1)),
 
 
-    Heavy_Duty_Hull_Reinforcement_1(new ModificationEffectData
+    Heavy_Duty_Hull_Reinforcement_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Hull_Reinforcement, 24d),
                     new Pair<>(ItemEffect.All_Resistances, 3d),
@@ -1840,7 +1840,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.CARBON, 1)),
 
-    Heavy_Duty_Hull_Reinforcement_2(new ModificationEffectData
+    Heavy_Duty_Hull_Reinforcement_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Hull_Reinforcement, 36d),
                     new Pair<>(ItemEffect.All_Resistances, 6d),
@@ -1849,7 +1849,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 1),
             new CostData(Material.SHIELDEMITTERS, 1)),
 
-    Heavy_Duty_Hull_Reinforcement_3(new ModificationEffectData
+    Heavy_Duty_Hull_Reinforcement_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Hull_Reinforcement, 48d),
                     new Pair<>(ItemEffect.All_Resistances, 9d),
@@ -1859,7 +1859,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDEMITTERS, 1),
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1)),
 
-    Heavy_Duty_Hull_Reinforcement_4(new ModificationEffectData
+    Heavy_Duty_Hull_Reinforcement_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Hull_Reinforcement, 60d),
                     new Pair<>(ItemEffect.All_Resistances, 12d),
@@ -1869,7 +1869,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDINGSENSORS, 1),
             new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1)),
 
-    Heavy_Duty_Hull_Reinforcement_5(new ModificationEffectData
+    Heavy_Duty_Hull_Reinforcement_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Hull_Reinforcement, 72d),
                     new Pair<>(ItemEffect.All_Resistances, 15d),
@@ -1880,7 +1880,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FEDCORECOMPOSITES, 1)),
 
 
-    Heavy_Duty_Armor_1(new ModificationEffectData
+    Heavy_Duty_Armor_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.All_Resistances, 1d),
                     new Pair<>(ItemEffect.Hull_Boost, 12d),
@@ -1888,7 +1888,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
                 new CostData(Material.CARBON, 1)),
 
-    Heavy_Duty_Armor_2(new ModificationEffectData
+    Heavy_Duty_Armor_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.All_Resistances, 2d),
                     new Pair<>(ItemEffect.Hull_Boost, 17d),
@@ -1897,7 +1897,7 @@ public enum ModificationRecipe implements ProcurementRecipe
                 new CostData(Material.CARBON, 1),
                 new CostData(Material.SHIELDEMITTERS, 1)),
 
-    Heavy_Duty_Armor_3(new ModificationEffectData
+    Heavy_Duty_Armor_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.All_Resistances, 3d),
                     new Pair<>(ItemEffect.Hull_Boost, 22d),
@@ -1907,7 +1907,7 @@ public enum ModificationRecipe implements ProcurementRecipe
                 new CostData(Material.SHIELDEMITTERS, 1),
                 new CostData(Material.HIGHDENSITYCOMPOSITES, 1)),
 
-    Heavy_Duty_Armor_4(new ModificationEffectData
+    Heavy_Duty_Armor_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.All_Resistances, 4d),
                     new Pair<>(ItemEffect.Hull_Boost, 27d),
@@ -1917,7 +1917,7 @@ public enum ModificationRecipe implements ProcurementRecipe
                 new CostData(Material.SHIELDINGSENSORS, 1),
                 new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1)),
 
-    Heavy_Duty_Armor_5(new ModificationEffectData
+    Heavy_Duty_Armor_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.All_Resistances, 5d),
                     new Pair<>(ItemEffect.Hull_Boost, 32d),
@@ -1932,7 +1932,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Kinetic Resistant
      */
 
-    Kinetic_Resistant_Hull_1(new ModificationEffectData
+    Kinetic_Resistant_Hull_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -2d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -2d),
@@ -1941,7 +1941,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.NICKEL, 1)),
 
-    Kinetic_Resistant_Hull_2(new ModificationEffectData
+    Kinetic_Resistant_Hull_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -4d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -4d),
@@ -1951,7 +1951,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NICKEL, 1),
             new CostData(Material.VANADIUM, 1)),
 
-    Kinetic_Resistant_Hull_3(new ModificationEffectData
+    Kinetic_Resistant_Hull_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -6d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -6d),
@@ -1962,7 +1962,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.VANADIUM, 1),
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1)),
 
-    Kinetic_Resistant_Hull_4(new ModificationEffectData
+    Kinetic_Resistant_Hull_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -8d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -8d),
@@ -1973,7 +1973,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.TUNGSTEN, 1),
             new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1)),
 
-    Kinetic_Resistant_Hull_5(new ModificationEffectData
+    Kinetic_Resistant_Hull_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -10d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -10d),
@@ -1985,7 +1985,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FEDCORECOMPOSITES, 1)),
 
 
-    Kinetic_Resistant_Armor_1(new ModificationEffectData
+    Kinetic_Resistant_Armor_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -4d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -4d),
@@ -1993,7 +1993,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.NICKEL, 1)),
 
-    Kinetic_Resistant_Armor_2(new ModificationEffectData
+    Kinetic_Resistant_Armor_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -6d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -6d),
@@ -2002,7 +2002,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NICKEL, 1),
             new CostData(Material.VANADIUM, 1)),
 
-    Kinetic_Resistant_Armor_3(new ModificationEffectData
+    Kinetic_Resistant_Armor_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -8d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -8d),
@@ -2012,7 +2012,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.VANADIUM, 1),
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1)),
 
-    Kinetic_Resistant_Armor_4(new ModificationEffectData
+    Kinetic_Resistant_Armor_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -10d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -10d),
@@ -2022,7 +2022,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.TUNGSTEN, 1),
             new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1)),
 
-    Kinetic_Resistant_Armor_5(new ModificationEffectData
+    Kinetic_Resistant_Armor_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -12d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -12d),
@@ -2033,7 +2033,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FEDCORECOMPOSITES, 1)),
 
 
-    Kinetic_Resistant_Booster_1(new ModificationEffectData
+    Kinetic_Resistant_Booster_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, 8d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -1d),
@@ -2041,7 +2041,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    Kinetic_Resistant_Booster_2(new ModificationEffectData
+    Kinetic_Resistant_Booster_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, 12d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -1d),
@@ -2050,7 +2050,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GRIDRESISTORS, 1),
             new CostData(Material.GERMANIUM, 1)),
 
-    Kinetic_Resistant_Booster_3(new ModificationEffectData
+    Kinetic_Resistant_Booster_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, 17d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -2d),
@@ -2060,7 +2060,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.FOCUSCRYSTALS, 1)),
 
-    Kinetic_Resistant_Booster_4(new ModificationEffectData
+    Kinetic_Resistant_Booster_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, 22d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -3d),
@@ -2070,7 +2070,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDDENSITYREPORTS, 1),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 1)),
 
-    Kinetic_Resistant_Booster_5(new ModificationEffectData
+    Kinetic_Resistant_Booster_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, 27d),
                     new Pair<>(ItemEffect.Thermal_Resistance, -4d),
@@ -2081,7 +2081,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.EXQUISITEFOCUSCRYSTALS, 1)),
 
 
-    Kinetic_Resistant_Shield_1(new ModificationEffectData
+    Kinetic_Resistant_Shield_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, 10d),
                     new Pair<>(ItemEffect.Integrity, 20d),
@@ -2089,7 +2089,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SHIELDCYCLERECORDINGS, 1)),
 
-    Kinetic_Resistant_Shield_2(new ModificationEffectData
+    Kinetic_Resistant_Shield_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, 20d),
                     new Pair<>(ItemEffect.Integrity, 25d),
@@ -2098,7 +2098,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDCYCLERECORDINGS, 1),
             new CostData(Material.CONSUMERFIRMWARE, 1)),
 
-    Kinetic_Resistant_Shield_3(new ModificationEffectData
+    Kinetic_Resistant_Shield_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, 30d),
                     new Pair<>(ItemEffect.Integrity, 30d),
@@ -2108,7 +2108,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONSUMERFIRMWARE, 1),
             new CostData(Material.SELENIUM, 1)),
 
-    Kinetic_Resistant_Shield_4(new ModificationEffectData
+    Kinetic_Resistant_Shield_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, 40d),
                     new Pair<>(ItemEffect.Integrity, 35d),
@@ -2118,7 +2118,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 1),
             new CostData(Material.MERCURY, 1)),
 
-    Kinetic_Resistant_Shield_5(new ModificationEffectData
+    Kinetic_Resistant_Shield_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, 50d),
                     new Pair<>(ItemEffect.Integrity, 40d),
@@ -2133,7 +2133,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Resistance Augmented
      */
 
-    Resistance_Augmented_1(new ModificationEffectData
+    Resistance_Augmented_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 5d),
                     new Pair<>(ItemEffect.Integrity, -4d),
@@ -2141,7 +2141,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    Resistance_Augmented_2(new ModificationEffectData
+    Resistance_Augmented_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 10d),
                     new Pair<>(ItemEffect.Integrity, -6d),
@@ -2150,7 +2150,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PHOSPHORUS, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Resistance_Augmented_3(new ModificationEffectData
+    Resistance_Augmented_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 15d),
                     new Pair<>(ItemEffect.Integrity, -8d),
@@ -2160,7 +2160,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECOMPONENTS, 1),
             new CostData(Material.FOCUSCRYSTALS, 1)),
 
-    Resistance_Augmented_4(new ModificationEffectData
+    Resistance_Augmented_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 20d),
                     new Pair<>(ItemEffect.Integrity, -10d),
@@ -2170,7 +2170,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECERAMICS, 1),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 1)),
 
-    Resistance_Augmented_5(new ModificationEffectData
+    Resistance_Augmented_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 25d),
                     new Pair<>(ItemEffect.Integrity, -12d),
@@ -2185,7 +2185,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Thermal Resistant
      */
 
-    Thermal_Resistant_Hull_1(new ModificationEffectData
+    Thermal_Resistant_Hull_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -2d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 12d),
@@ -2194,7 +2194,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.HEATCONDUCTIONWIRING, 1)),
 
-    Thermal_Resistant_Hull_2(new ModificationEffectData
+    Thermal_Resistant_Hull_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -4d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 19d),
@@ -2204,7 +2204,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NICKEL, 1),
             new CostData(Material.HEATDISPERSIONPLATE, 1)),
 
-    Thermal_Resistant_Hull_3(new ModificationEffectData
+    Thermal_Resistant_Hull_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -6d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 26d),
@@ -2215,7 +2215,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.VANADIUM, 1),
             new CostData(Material.HEATEXCHANGERS, 1)),
 
-    Thermal_Resistant_Hull_4(new ModificationEffectData
+    Thermal_Resistant_Hull_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -8d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 33d),
@@ -2226,7 +2226,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.TUNGSTEN, 1),
             new CostData(Material.HEATVANES, 1)),
 
-    Thermal_Resistant_Hull_5(new ModificationEffectData
+    Thermal_Resistant_Hull_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -10d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 40d),
@@ -2238,7 +2238,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PROTOHEATRADIATORS, 1)),
 
 
-    Thermal_Resistant_Armor_1(new ModificationEffectData
+    Thermal_Resistant_Armor_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -4d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 12d),
@@ -2246,7 +2246,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.HEATCONDUCTIONWIRING, 1)),
 
-    Thermal_Resistant_Armor_2(new ModificationEffectData
+    Thermal_Resistant_Armor_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -6d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 19d),
@@ -2255,7 +2255,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NICKEL, 1),
             new CostData(Material.HEATDISPERSIONPLATE, 1)),
 
-    Thermal_Resistant_Armor_3(new ModificationEffectData
+    Thermal_Resistant_Armor_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -8d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 19d),
@@ -2265,7 +2265,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.VANADIUM, 1),
             new CostData(Material.HEATEXCHANGERS, 1)),
 
-    Thermal_Resistant_Armor_4(new ModificationEffectData
+    Thermal_Resistant_Armor_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -10d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 33d),
@@ -2275,7 +2275,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.TUNGSTEN, 1),
             new CostData(Material.HEATVANES, 1)),
 
-    Thermal_Resistant_Armor_5(new ModificationEffectData
+    Thermal_Resistant_Armor_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Explosive_Resitance, -12d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 40d),
@@ -2286,7 +2286,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PROTOHEATRADIATORS, 1)),
 
 
-    Thermal_Resistant_Booster_1(new ModificationEffectData
+    Thermal_Resistant_Booster_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, -1d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 8d),
@@ -2294,7 +2294,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    Thermal_Resistant_Booster_2(new ModificationEffectData
+    Thermal_Resistant_Booster_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, -1d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 12d),
@@ -2303,7 +2303,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HEATCONDUCTIONWIRING, 1),
             new CostData(Material.GERMANIUM, 1)),
 
-    Thermal_Resistant_Booster_3(new ModificationEffectData
+    Thermal_Resistant_Booster_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, -2d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 17d),
@@ -2313,7 +2313,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HEATDISPERSIONPLATE, 1),
             new CostData(Material.FOCUSCRYSTALS, 1)),
 
-    Thermal_Resistant_Booster_4(new ModificationEffectData
+    Thermal_Resistant_Booster_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, -3d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 22d),
@@ -2323,7 +2323,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDDENSITYREPORTS, 1),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 1)),
 
-    Thermal_Resistant_Booster_5(new ModificationEffectData
+    Thermal_Resistant_Booster_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, -4d),
                     new Pair<>(ItemEffect.Thermal_Resistance, 27d),
@@ -2334,7 +2334,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.EXQUISITEFOCUSCRYSTALS, 1)),
 
 
-    Thermal_Resistant_Shield_1(new ModificationEffectData
+    Thermal_Resistant_Shield_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, -4d),
                     new Pair<>(ItemEffect.Integrity, 20d),
@@ -2342,7 +2342,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SHIELDCYCLERECORDINGS, 1)),
 
-    Thermal_Resistant_Shield_2(new ModificationEffectData
+    Thermal_Resistant_Shield_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, -8d),
                     new Pair<>(ItemEffect.Integrity, 25d),
@@ -2351,7 +2351,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDCYCLERECORDINGS, 1),
             new CostData(Material.GERMANIUM, 1)),
 
-    Thermal_Resistant_Shield_3(new ModificationEffectData
+    Thermal_Resistant_Shield_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, -12d),
                     new Pair<>(ItemEffect.Integrity, 30d),
@@ -2361,7 +2361,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.SELENIUM, 1)),
 
-    Thermal_Resistant_Shield_4(new ModificationEffectData
+    Thermal_Resistant_Shield_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, -16d),
                     new Pair<>(ItemEffect.Integrity, 35d),
@@ -2371,7 +2371,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 1),
             new CostData(Material.MERCURY, 1)),
 
-    Thermal_Resistant_Shield_5(new ModificationEffectData
+    Thermal_Resistant_Shield_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Kinetic_Resistance, -20d),
                     new Pair<>(ItemEffect.Integrity, 40d),
@@ -2386,7 +2386,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Expanded Capture Arc
      */
 
-    Expanded_Capture_Arc_1(new ModificationEffectData
+    Expanded_Capture_Arc_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 10d),
                     new Pair<>(ItemEffect.Facing_Limit, 40d),
@@ -2394,7 +2394,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Expanded_Capture_Arc_2(new ModificationEffectData
+    Expanded_Capture_Arc_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 20d),
                     new Pair<>(ItemEffect.Facing_Limit, 60d),
@@ -2403,7 +2403,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ENCRYPTEDFILES, 1),
             new CostData(Material.MECHANICALEQUIPMENT, 1)),
 
-    Expanded_Capture_Arc_3(new ModificationEffectData
+    Expanded_Capture_Arc_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 30d),
                     new Pair<>(ItemEffect.Facing_Limit, 80d),
@@ -2413,7 +2413,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ENCRYPTIONCODES, 1),
             new CostData(Material.MECHANICALCOMPONENTS, 1)),
 
-    Expanded_Capture_Arc_4(new ModificationEffectData
+    Expanded_Capture_Arc_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 40d),
                     new Pair<>(ItemEffect.Facing_Limit, 100d),
@@ -2423,7 +2423,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.WAKESOLUTIONS, 1),
             new CostData(Material.ENCODEDSCANDATA, 1)),
 
-    Expanded_Capture_Arc_5(new ModificationEffectData
+    Expanded_Capture_Arc_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 50d),
                     new Pair<>(ItemEffect.Facing_Limit, 120d),
@@ -2438,7 +2438,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Rapid Charge
      */
 
-    Rapid_Charge_1(new ModificationEffectData
+    Rapid_Charge_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Duration, -6d),
                     new Pair<>(ItemEffect.Spin_Up_Time, -10d),
@@ -2447,7 +2447,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SULPHUR, 1)),
 
-    Rapid_Charge_2(new ModificationEffectData
+    Rapid_Charge_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Duration, -12d),
                     new Pair<>(ItemEffect.Spin_Up_Time, -20d),
@@ -2457,7 +2457,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GRIDRESISTORS, 1),
             new CostData(Material.CHROMIUM, 1)),
 
-    Rapid_Charge_3(new ModificationEffectData
+    Rapid_Charge_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Duration, -18d),
                     new Pair<>(ItemEffect.Spin_Up_Time, -30d),
@@ -2468,7 +2468,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.PRECIPITATEDALLOYS, 1)),
 
-    Rapid_Charge_4(new ModificationEffectData
+    Rapid_Charge_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Duration, -24d),
                     new Pair<>(ItemEffect.Spin_Up_Time, -40d),
@@ -2484,7 +2484,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Specialised
      */
 
-    Specialised_1(new ModificationEffectData
+    Specialised_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 10d),
                     new Pair<>(ItemEffect.Integrity, -5d),
@@ -2494,7 +2494,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.LEGACYFIRMWARE, 1)),
 
-    Specialised_2(new ModificationEffectData
+    Specialised_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 15d),
                     new Pair<>(ItemEffect.Integrity, -10d),
@@ -2505,7 +2505,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.LEGACYFIRMWARE, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Specialised_3(new ModificationEffectData
+    Specialised_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 20d),
                     new Pair<>(ItemEffect.Integrity, -15d),
@@ -2517,7 +2517,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECOMPONENTS, 1),
             new CostData(Material.INDUSTRIALFIRMWARE, 1)),
 
-    Specialised_4(new ModificationEffectData
+    Specialised_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 25d),
                     new Pair<>(ItemEffect.Integrity, -20d),
@@ -2534,7 +2534,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Enhanced Low FACTION
      */
 
-    Enhanced_Low_Power_1(new ModificationEffectData
+    Enhanced_Low_Power_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -20d),
                     new Pair<>(ItemEffect.Optimal_Strength, 3d),
@@ -2544,7 +2544,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SHIELDCYCLERECORDINGS, 1)),
 
-    Enhanced_Low_Power_2(new ModificationEffectData
+    Enhanced_Low_Power_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -25d),
                     new Pair<>(ItemEffect.Optimal_Strength, 6d),
@@ -2556,7 +2556,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.PRECIPITATEDALLOYS, 1)),
 
-    Enhanced_Low_Power_3(new ModificationEffectData
+    Enhanced_Low_Power_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -30d),
                     new Pair<>(ItemEffect.Optimal_Strength, 9d),
@@ -2568,7 +2568,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.PRECIPITATEDALLOYS, 1)),
 
-    Enhanced_Low_Power_4(new ModificationEffectData
+    Enhanced_Low_Power_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -35d),
                     new Pair<>(ItemEffect.Optimal_Strength, 12d),
@@ -2580,7 +2580,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NIOBIUM, 1),
             new CostData(Material.THERMICALLOYS, 1)),
 
-    Enhanced_Low_Power_5(new ModificationEffectData
+    Enhanced_Low_Power_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, -40d),
                     new Pair<>(ItemEffect.Optimal_Strength, 15d),
@@ -2596,7 +2596,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Faster Boot Sequence
      */
 
-    Faster_Boot_Sequence_1(new ModificationEffectData
+    Faster_Boot_Sequence_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Optimal_Mass, 3d),
                     new Pair<>(ItemEffect.Integrity, -3d),
@@ -2605,7 +2605,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.GRIDRESISTORS, 1)),
 
-    Faster_Boot_Sequence_2(new ModificationEffectData
+    Faster_Boot_Sequence_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Optimal_Mass, 6d),
                     new Pair<>(ItemEffect.Integrity, -6d),
@@ -2615,7 +2615,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GRIDRESISTORS, 1),
             new CostData(Material.CHROMIUM, 1)),
 
-    Faster_Boot_Sequence_3(new ModificationEffectData
+    Faster_Boot_Sequence_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Optimal_Mass, 9d),
                     new Pair<>(ItemEffect.Integrity, -9d),
@@ -2626,7 +2626,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HEATDISPERSIONPLATE, 1),
             new CostData(Material.SELENIUM, 1)),
 
-    Faster_Boot_Sequence_4(new ModificationEffectData
+    Faster_Boot_Sequence_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Optimal_Mass, 12d),
                     new Pair<>(ItemEffect.Integrity, -12d),
@@ -2637,7 +2637,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HEATEXCHANGERS, 1),
             new CostData(Material.CADMIUM, 1)),
 
-    Faster_Boot_Sequence_5(new ModificationEffectData
+    Faster_Boot_Sequence_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Optimal_Mass, 15d),
                     new Pair<>(ItemEffect.Integrity, -15d),
@@ -2653,7 +2653,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Increased Range
      */
 
-    Increased_Range_1(new ModificationEffectData
+    Increased_Range_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 3d),
                     new Pair<>(ItemEffect.Optimal_Mass, 15d),
@@ -2662,7 +2662,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.DISRUPTEDWAKEECHOES, 1)),
 
-    Increased_Range_2(new ModificationEffectData
+    Increased_Range_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 6d),
                     new Pair<>(ItemEffect.Optimal_Mass, 25d),
@@ -2672,7 +2672,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.DISRUPTEDWAKEECHOES, 1),
             new CostData(Material.CHEMICALPROCESSORS, 1)),
 
-    Increased_Range_3(new ModificationEffectData
+    Increased_Range_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 9d),
                     new Pair<>(ItemEffect.Optimal_Mass, 35d),
@@ -2683,7 +2683,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CHEMICALPROCESSORS, 1),
             new CostData(Material.WAKESOLUTIONS, 1)),
 
-    Increased_Range_4(new ModificationEffectData
+    Increased_Range_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 12d),
                     new Pair<>(ItemEffect.Optimal_Mass, 45d),
@@ -2694,7 +2694,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CHEMICALDISTILLERY, 1),
             new CostData(Material.HYPERSPACETRAJECTORIES, 1)),
 
-    Increased_Range_5(new ModificationEffectData
+    Increased_Range_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 15d),
                     new Pair<>(ItemEffect.Optimal_Mass, 55d),
@@ -2710,14 +2710,14 @@ public enum ModificationRecipe implements ProcurementRecipe
     Charge Enhanced
      */
 
-    Charge_Enhanced_1(new ModificationEffectData
+    Charge_Enhanced_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Capacity, -1d),
                     new Pair<>(ItemEffect.Power_Recharge, 9d)
             ),
             new CostData(Material.LEGACYFIRMWARE, 1)),
 
-    Charge_Enhanced_2(new ModificationEffectData
+    Charge_Enhanced_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Capacity, -2d),
                     new Pair<>(ItemEffect.Power_Recharge, 18d)
@@ -2725,7 +2725,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.LEGACYFIRMWARE, 1),
             new CostData(Material.CHEMICALPROCESSORS, 1)),
 
-    Charge_Enhanced_3(new ModificationEffectData
+    Charge_Enhanced_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Capacity, -3d),
                     new Pair<>(ItemEffect.Power_Recharge, 27d)
@@ -2734,7 +2734,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONSUMERFIRMWARE, 1),
             new CostData(Material.CHEMICALDISTILLERY, 1)),
 
-    Charge_Enhanced_4(new ModificationEffectData
+    Charge_Enhanced_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Capacity, -4d),
                     new Pair<>(ItemEffect.Power_Recharge, 36d)
@@ -2743,7 +2743,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.INDUSTRIALFIRMWARE, 1),
             new CostData(Material.CHEMICALMANIPULATORS, 1)),
 
-    Charge_Enhanced_5(new ModificationEffectData
+    Charge_Enhanced_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Capacity, -5d),
                     new Pair<>(ItemEffect.Power_Recharge, 45d)
@@ -2757,7 +2757,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Engine Focused
      */
 
-    Engine_Focused_1(new ModificationEffectData
+    Engine_Focused_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, -3d),
                     new Pair<>(ItemEffect.Weapons_Recharge, -3d),
@@ -2768,7 +2768,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SULPHUR, 1)),
 
-    Engine_Focused_2(new ModificationEffectData
+    Engine_Focused_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, -6d),
                     new Pair<>(ItemEffect.Weapons_Recharge, -6d),
@@ -2780,7 +2780,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SULPHUR, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Engine_Focused_3(new ModificationEffectData
+    Engine_Focused_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, -9d),
                     new Pair<>(ItemEffect.Weapons_Recharge, -9d),
@@ -2793,7 +2793,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 1),
             new CostData(Material.ELECTROCHEMICALARRAYS, 1)),
 
-    Engine_Focused_4(new ModificationEffectData
+    Engine_Focused_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, -12d),
                     new Pair<>(ItemEffect.Weapons_Recharge, -12d),
@@ -2806,7 +2806,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SELENIUM, 1),
             new CostData(Material.POLYMERCAPACITORS, 1)),
 
-    Engine_Focused_5(new ModificationEffectData
+    Engine_Focused_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, -15d),
                     new Pair<>(ItemEffect.Weapons_Recharge, -15d),
@@ -2824,7 +2824,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     High Charge Capacity
      */
 
-    High_Charge_Capacity_1(new ModificationEffectData
+    High_Charge_Capacity_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Recharge, -2d),
                     new Pair<>(ItemEffect.Integrity, 10d),
@@ -2832,7 +2832,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SULPHUR, 1)),
 
-    High_Charge_Capacity_2(new ModificationEffectData
+    High_Charge_Capacity_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Recharge, -6d),
                     new Pair<>(ItemEffect.Integrity, 15d),
@@ -2841,7 +2841,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.LEGACYFIRMWARE, 1),
             new CostData(Material.CHROMIUM, 1)),
 
-    High_Charge_Capacity_3(new ModificationEffectData
+    High_Charge_Capacity_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Recharge, -10d),
                     new Pair<>(ItemEffect.Integrity, 20d),
@@ -2851,7 +2851,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 1),
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1)),
 
-    High_Charge_Capacity_4(new ModificationEffectData
+    High_Charge_Capacity_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Recharge, -15d),
                     new Pair<>(ItemEffect.Integrity, 25d),
@@ -2861,7 +2861,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SELENIUM, 1),
             new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1)),
 
-    High_Charge_Capacity_5(new ModificationEffectData
+    High_Charge_Capacity_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Recharge, -18d),
                     new Pair<>(ItemEffect.Integrity, 30d),
@@ -2876,7 +2876,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     System Focused
      */
 
-    System_Focused_1(new ModificationEffectData
+    System_Focused_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, -3d),
                     new Pair<>(ItemEffect.Systems_Recharge, 16d),
@@ -2887,7 +2887,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SULPHUR, 1)),
 
-    System_Focused_2(new ModificationEffectData
+    System_Focused_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, -6d),
                     new Pair<>(ItemEffect.Systems_Recharge, 23d),
@@ -2899,7 +2899,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SULPHUR, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    System_Focused_3(new ModificationEffectData
+    System_Focused_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, -9d),
                     new Pair<>(ItemEffect.Systems_Recharge, 30d),
@@ -2912,7 +2912,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 1),
             new CostData(Material.ELECTROCHEMICALARRAYS, 1)),
 
-    System_Focused_4(new ModificationEffectData
+    System_Focused_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, -12d),
                     new Pair<>(ItemEffect.Systems_Recharge, 37d),
@@ -2925,7 +2925,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SELENIUM, 1),
             new CostData(Material.POLYMERCAPACITORS, 1)),
 
-    System_Focused_5(new ModificationEffectData
+    System_Focused_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, -15d),
                     new Pair<>(ItemEffect.Systems_Recharge, 44d),
@@ -2943,7 +2943,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Weapon Focused
      */
 
-    Weapon_Focused_1(new ModificationEffectData
+    Weapon_Focused_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, 20d),
                     new Pair<>(ItemEffect.Systems_Recharge, -1d),
@@ -2954,7 +2954,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SULPHUR, 1)),
 
-    Weapon_Focused_2(new ModificationEffectData
+    Weapon_Focused_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, 30d),
                     new Pair<>(ItemEffect.Systems_Recharge, -2d),
@@ -2966,7 +2966,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SULPHUR, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Weapon_Focused_3(new ModificationEffectData
+    Weapon_Focused_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, 40d),
                     new Pair<>(ItemEffect.Systems_Recharge, -3d),
@@ -2979,7 +2979,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.SELENIUM, 1)),
 
-    Weapon_Focused_4(new ModificationEffectData
+    Weapon_Focused_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, 50d),
                     new Pair<>(ItemEffect.Systems_Recharge, -4d),
@@ -2992,7 +2992,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ELECTROCHEMICALARRAYS, 1),
             new CostData(Material.CADMIUM, 1)),
 
-    Weapon_Focused_5(new ModificationEffectData
+    Weapon_Focused_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Weapons_Capacity, 60d),
                     new Pair<>(ItemEffect.Systems_Recharge, -5d),
@@ -3010,7 +3010,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Armoured
      */
 
-    Armoured_1(new ModificationEffectData
+    Armoured_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Systems_Capacity, 4d),
                     new Pair<>(ItemEffect.Engines_Capacity, 40d),
@@ -3019,7 +3019,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.WORNSHIELDEMITTERS, 1)),
 
-    Armoured_2(new ModificationEffectData
+    Armoured_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Systems_Capacity, 6d),
                     new Pair<>(ItemEffect.Engines_Capacity, 60d),
@@ -3029,7 +3029,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 1),
             new CostData(Material.SHIELDEMITTERS, 1)),
 
-    Armoured_3(new ModificationEffectData
+    Armoured_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Systems_Capacity, 8d),
                     new Pair<>(ItemEffect.Engines_Capacity, 80d),
@@ -3040,7 +3040,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDEMITTERS, 1),
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1)),
 
-    Armoured_4(new ModificationEffectData
+    Armoured_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Systems_Capacity, 10d),
                     new Pair<>(ItemEffect.Engines_Capacity, 100d),
@@ -3051,7 +3051,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDINGSENSORS, 1),
             new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1)),
 
-    Armoured_5(new ModificationEffectData
+    Armoured_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Systems_Capacity, 12d),
                     new Pair<>(ItemEffect.Engines_Capacity, 120d),
@@ -3067,7 +3067,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Low Emissions
      */
 
-    Low_Emissions_1(new ModificationEffectData
+    Low_Emissions_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Heat_Efficiency, -25d),
@@ -3075,7 +3075,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    Low_Emissions_2(new ModificationEffectData
+    Low_Emissions_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Heat_Efficiency, -35d),
@@ -3084,7 +3084,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 1),
             new CostData(Material.ARCHIVEDEMISSIONDATA, 1)),
 
-    Low_Emissions_3(new ModificationEffectData
+    Low_Emissions_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 12d),
                     new Pair<>(ItemEffect.Heat_Efficiency, -45d),
@@ -3094,7 +3094,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ARCHIVEDEMISSIONDATA, 1),
             new CostData(Material.HEATEXCHANGERS, 1)),
 
-    Low_Emissions_4(new ModificationEffectData
+    Low_Emissions_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Heat_Efficiency, -56d),
@@ -3104,7 +3104,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.EMISSIONDATA, 1),
             new CostData(Material.HEATVANES, 1)),
 
-    Low_Emissions_5(new ModificationEffectData
+    Low_Emissions_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Heat_Efficiency, -65d),
@@ -3119,7 +3119,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Clean
      */
 
-    Clean_1(new ModificationEffectData
+    Clean_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Thermal_Load, -20d),
                     new Pair<>(ItemEffect.Optimal_Multiplier, 8d),
@@ -3127,7 +3127,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SULPHUR, 1)),
 
-    Clean_2(new ModificationEffectData
+    Clean_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 4d),
                     new Pair<>(ItemEffect.Integrity, -4d),
@@ -3138,7 +3138,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.LEGACYFIRMWARE, 1),
             new CostData(Material.CONDUCTIVECOMPONENTS, 1)),
 
-    Clean_3(new ModificationEffectData
+    Clean_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 8d),
                     new Pair<>(ItemEffect.Integrity, -8d),
@@ -3150,7 +3150,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECOMPONENTS, 1),
             new CostData(Material.EMISSIONDATA, 1)),
 
-    Clean_4(new ModificationEffectData
+    Clean_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 12d),
                     new Pair<>(ItemEffect.Integrity, -12d),
@@ -3162,7 +3162,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECERAMICS, 1),
             new CostData(Material.DECODEDEMISSIONDATA, 1)),
 
-    Clean_5(new ModificationEffectData
+    Clean_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 16d),
                     new Pair<>(ItemEffect.Integrity, -16d),
@@ -3179,7 +3179,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Dirty
      */
 
-    Dirty_1(new ModificationEffectData
+    Dirty_1(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 4d),
                     new Pair<>(ItemEffect.Integrity, -3d),
@@ -3189,7 +3189,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.LEGACYFIRMWARE, 1)),
 
-    Dirty_2(new ModificationEffectData
+    Dirty_2(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 6d),
                     new Pair<>(ItemEffect.Integrity, -6d),
@@ -3200,7 +3200,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.LEGACYFIRMWARE, 1),
             new CostData(Material.MECHANICALEQUIPMENT, 1)),
 
-    Dirty_3(new ModificationEffectData
+    Dirty_3(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 8d),
                     new Pair<>(ItemEffect.Integrity, -9d),
@@ -3212,7 +3212,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 1),
             new CostData(Material.MECHANICALCOMPONENTS, 1)),
 
-    Dirty_4(new ModificationEffectData
+    Dirty_4(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 10d),
                     new Pair<>(ItemEffect.Integrity, -12d),
@@ -3224,7 +3224,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SELENIUM, 1),
             new CostData(Material.CONFIGURABLECOMPONENTS, 1)),
 
-    Dirty_5(new ModificationEffectData
+    Dirty_5(new ItemEffectData
             (
                     new Pair<>(ItemEffect.Power_Draw, 12d),
                     new Pair<>(ItemEffect.Integrity, -15d),
@@ -3237,9 +3237,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PHARMACEUTICALISOLATORS, 1));
 
     private final CostData[] cost;
-    private final ModificationEffectData effects;
+    private final ItemEffectData effects;
 
-    ModificationRecipe(ModificationEffectData effects, CostData... cost)
+    ModificationRecipe(ItemEffectData effects, CostData... cost)
     {
         this.effects = effects;
         this.cost = cost;
@@ -3250,7 +3250,7 @@ public enum ModificationRecipe implements ProcurementRecipe
         return Arrays.stream(cost);
     }
 
-    public ModificationEffectData effects()
+    public ItemEffectData effects()
     {
         return effects;
     }
