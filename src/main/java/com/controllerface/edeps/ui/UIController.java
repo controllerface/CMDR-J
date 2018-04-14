@@ -37,7 +37,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * UI Controller class for Elite Dangerous Engineer Procurement System
@@ -55,6 +54,9 @@ public class UIController
     =============================
      */
 
+    // Procurement tree
+    @FXML private TreeView<ProcTreeItem> procurementTree;
+
     // Raw materials
     @FXML private TableView<InventoryData> rawTable;
     @FXML private TableColumn<InventoryData, String> rawCategoryColumn;
@@ -71,35 +73,32 @@ public class UIController
 
     // Data materials
     @FXML private TableView<InventoryData> dataTable;
-    @FXML private TableColumn<InventoryData, String>dataCategoryColumn;
-    @FXML private TableColumn<InventoryData, String>dataGradeColumn;
-    @FXML private TableColumn<InventoryData, String>dataMaterialColumn;
-    @FXML private TableColumn<InventoryData, Number>dataQuantityColumn;
+    @FXML private TableColumn<InventoryData, String> dataCategoryColumn;
+    @FXML private TableColumn<InventoryData, String> dataGradeColumn;
+    @FXML private TableColumn<InventoryData, String> dataMaterialColumn;
+    @FXML private TableColumn<InventoryData, Number> dataQuantityColumn;
 
     // Cargo
     @FXML private TableView<InventoryData> cargoTable;
-    @FXML private TableColumn<InventoryData, String>cargoCategoryColumn;
-    @FXML private TableColumn<InventoryData, String>cargoGradeColumn;
-    @FXML private TableColumn<InventoryData, String>cargoMaterialColumn;
-    @FXML private TableColumn<InventoryData, Number>cargoQuantityColumn;
+    @FXML private TableColumn<InventoryData, String> cargoCategoryColumn;
+    @FXML private TableColumn<InventoryData, String> cargoGradeColumn;
+    @FXML private TableColumn<InventoryData, String> cargoMaterialColumn;
+    @FXML private TableColumn<InventoryData, Number> cargoQuantityColumn;
 
-    // Mod tree
-    @FXML private TreeView<ProcTreeItem> modTree;
-
-    // procurement list
+    // Procurement task table
     @FXML private TableView<ProcurementRecipeItem> procurementRecipeTable;
-    @FXML private TableColumn<ProcurementRecipeItem, ProcurementRecipeItem> recipeRollColumn;
+    @FXML private TableColumn<ProcurementRecipeItem, ProcurementRecipeItem> recipeCountColumn;
     @FXML private TableColumn<ProcurementRecipeItem, ProgressIndicator> recipeProgressColumn;
-    @FXML private TableColumn<ProcurementRecipeItem, ProcurementRecipeItem> recipeModColumn;
-    @FXML private TableColumn<ProcurementRecipeItem, Pair<ProcurementType, ProcurementRecipe>> recipeControlsColumn;
+    @FXML private TableColumn<ProcurementRecipeItem, ProcurementRecipeItem> recipeNameColumn;
+    @FXML private TableColumn<ProcurementRecipeItem, Pair<ProcurementType, ProcurementRecipe>> recipeRemoveColumn;
 
-    @FXML private TableView<ModMaterialItem> procurementMaterialsTable;
-    @FXML private TableColumn<ModMaterialItem, ProgressIndicator> materialProgressColumn;
-    @FXML private TableColumn<ModMaterialItem, Number> materialNeedColumn;
-    @FXML private TableColumn<ModMaterialItem, Number> materialHaveColumn;
-    @FXML private TableColumn<ModMaterialItem, String> materialNameColumn;
-    @FXML private TableColumn<ModMaterialItem, String> materialTypeColumn;
-
+    // Procurement cost table
+    @FXML private TableView<ModMaterialItem> procurementCostTable;
+    @FXML private TableColumn<ModMaterialItem, ProgressIndicator> costProgressColumn;
+    @FXML private TableColumn<ModMaterialItem, Number> costNeedColumn;
+    @FXML private TableColumn<ModMaterialItem, Number> costHaveColumn;
+    @FXML private TableColumn<ModMaterialItem, String> costNameColumn;
+    @FXML private TableColumn<ModMaterialItem, String> costTypeColumn;
 
     /*
     =======================
@@ -393,7 +392,7 @@ public class UIController
 
         // set placeholder labels shown when the procurement list is empty
         procurementRecipeTable.setPlaceholder(recipeTableEmpty);
-        procurementMaterialsTable.setPlaceholder(materialTableEmpty);
+        procurementCostTable.setPlaceholder(materialTableEmpty);
 
         // set the cell value factories for the player inventory tabs
         rawCategoryColumn.setCellValueFactory(inventoryCategoryCellFactory);
@@ -417,28 +416,28 @@ public class UIController
         cargoQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
 
         // set the cell and cell value factories for the procurement recipe list
-        recipeRollColumn.setCellValueFactory(modRollCellValueFactory);
-        recipeRollColumn.setCellFactory(modRollCellFactory);
-        recipeRollColumn.setStyle( "-fx-alignment: CENTER;");
+        recipeCountColumn.setCellValueFactory(modRollCellValueFactory);
+        recipeCountColumn.setCellFactory(modRollCellFactory);
+        recipeCountColumn.setStyle( "-fx-alignment: CENTER;");
 
-        recipeModColumn.setCellValueFactory(modNameCellValueFactory);
-        recipeModColumn.setCellFactory(modNameCellFactory);
-        recipeControlsColumn.setCellValueFactory(modControlCellValueFactory);
-        recipeControlsColumn.setCellFactory(modControlCellFactory);
+        recipeNameColumn.setCellValueFactory(modNameCellValueFactory);
+        recipeNameColumn.setCellFactory(modNameCellFactory);
+        recipeRemoveColumn.setCellValueFactory(modControlCellValueFactory);
+        recipeRemoveColumn.setCellFactory(modControlCellFactory);
         recipeProgressColumn.setCellValueFactory(recipeProgressCellValueFactory);
         recipeProgressColumn.setCellFactory(recipeProgressCellFactory);
 
         // set the cell and cell value factories for the procurement material list
-        materialProgressColumn.setCellValueFactory(matProgressCellValueFactory);
-        materialProgressColumn.setCellFactory(materialProgressCellFactory);
-        materialNeedColumn.setCellValueFactory(materialNeedCellFactory);
-        materialHaveColumn.setCellValueFactory(materialHaveCellFactory);
-        materialNameColumn.setCellValueFactory(materialNameCellFactory);
-        materialTypeColumn.setCellValueFactory(materialTypeCellFactory);
+        costProgressColumn.setCellValueFactory(matProgressCellValueFactory);
+        costProgressColumn.setCellFactory(materialProgressCellFactory);
+        costNeedColumn.setCellValueFactory(materialNeedCellFactory);
+        costHaveColumn.setCellValueFactory(materialHaveCellFactory);
+        costNameColumn.setCellValueFactory(materialNameCellFactory);
+        costTypeColumn.setCellValueFactory(materialTypeCellFactory);
 
 
         // set the sorting comparator for the material progress column of the procurement list
-        materialProgressColumn.setComparator(indicatorByProgress);
+        costProgressColumn.setComparator(indicatorByProgress);
         recipeProgressColumn.setComparator(indicatorByProgress);
 
         makeProcurementTree();
@@ -654,13 +653,14 @@ public class UIController
         root.getChildren().add(technology);
 
         // now that the root object has been filled with mods, add it to the tree
-        modTree.setRoot(root);
+        procurementTree.setRoot(root);
 
         // use a custom cell factory so we can have more useful tree cells
-        modTree.setCellFactory(param -> new ProcTreeCell(addTaskToProcurementList, checkMat));
+        procurementTree
+                .setCellFactory(param -> new ProcTreeCell(addTaskToProcurementList, this.playerInventory::hasItem));
 
         // hide the root, showing just it's children in the tree view (which are the mod categories)
-        modTree.setShowRoot(false);
+        procurementTree.setShowRoot(false);
     }
 
     private void syncInventory()
@@ -708,13 +708,13 @@ public class UIController
     {
         if (!initialzed) return;
 
-        modTree.refresh();
+        procurementTree.refresh();
 
         syncInventory();
 
         // reset the counts since we will be recalculating them
         procurementRecipeTable.getItems().clear();
-        procurementMaterialsTable.getItems().clear();
+        procurementCostTable.getItems().clear();
 
 
         //
@@ -742,21 +742,21 @@ public class UIController
                     .forEach(mat->
                     {
                         AtomicBoolean matFound = new AtomicBoolean(false);
-                        procurementMaterialsTable.getItems().stream()
+                        procurementCostTable.getItems().stream()
                                 .filter(m -> m.matches(mat.getCost()))
                                 .findFirst()
                                 .ifPresent(m ->
                                 {
                                     matFound.set(true);
                                     m.add(mat.getQuantity() * count);
-                                    procurementMaterialsTable.refresh();
+                                    procurementCostTable.refresh();
                                 });
 
                         if (!matFound.get())
                         {
                             ModMaterialItem newItem = new ModMaterialItem(mat.getCost(), this.playerInventory::hasItem);
                             newItem.setCount(mat.getQuantity() * count);
-                            procurementMaterialsTable.getItems().add(newItem);
+                            procurementCostTable.getItems().add(newItem);
                         }
                     });
         });
@@ -769,22 +769,13 @@ public class UIController
                     return as.compareTo(bs);
                 });
 
-        procurementMaterialsTable.getItems().sort((a, b)->
+        procurementCostTable.getItems().sort((a, b)->
         {
             double ad = ((double)a.getHave() / (double)a.getNeed());
             double bd = ((double)b.getHave() / (double)b.getNeed());
             if (ad == bd) return 0;
             else return ad > bd ? 1 : -1;
         });
-    }
-
-    private final Function<ProcurementCost, Integer> checkMat = this.playerInventory::hasItem;
-
-    @FXML
-    private void clearProcurementList()
-    {
-        procurementRecipeMap.clear();
-        syncUI();
     }
 
     private void localizeData()

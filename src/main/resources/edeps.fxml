@@ -17,13 +17,13 @@
             <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="516.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <TreeView fx:id="modTree" maxWidth="1.7976931348623157E308" prefHeight="516.0" prefWidth="415.0" GridPane.rowIndex="1" />
+            <TreeView fx:id="procurementTree" maxWidth="1.7976931348623157E308" prefHeight="516.0" prefWidth="415.0" GridPane.rowIndex="1" />
             <TableView fx:id="procurementRecipeTable" prefHeight="516.0" prefWidth="792.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <columns>
                   <TableColumn fx:id="recipeProgressColumn" maxWidth="40.0" prefWidth="40.0" text="Done" />
-                <TableColumn fx:id="recipeRollColumn" editable="false" maxWidth="80.0" minWidth="60.0" resizable="false" sortable="false" text="Count" />
-                <TableColumn fx:id="recipeModColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="225.0" prefWidth="427.0" resizable="false" sortable="false" text="Task" />
-                  <TableColumn fx:id="recipeControlsColumn" editable="false" maxWidth="99.0" minWidth="23.0" prefWidth="28.0" resizable="false" sortable="false" />
+                <TableColumn fx:id="recipeCountColumn" editable="false" maxWidth="80.0" minWidth="60.0" resizable="false" sortable="false" text="Count" />
+                <TableColumn fx:id="recipeNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="225.0" prefWidth="427.0" resizable="false" sortable="false" text="Task" />
+                  <TableColumn fx:id="recipeRemoveColumn" editable="false" maxWidth="99.0" minWidth="23.0" prefWidth="28.0" resizable="false" sortable="false" />
               </columns>
             </TableView>
             <Label prefHeight="17.0" prefWidth="81.0" style="-fx-font-weight: bold;" text="Procurements" GridPane.valignment="CENTER" />
@@ -100,13 +100,13 @@
             <Label style="-fx-font-weight: bold;" styleClass="top_label" text="Player Inventory" GridPane.halignment="CENTER" />
             <AnchorPane maxWidth="1.7976931348623157E308" prefHeight="327.0" prefWidth="414.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TableView fx:id="procurementMaterialsTable" layoutX="-2.0" maxWidth="1.7976931348623157E308" prefHeight="327.0" prefWidth="436.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TableView fx:id="procurementCostTable" layoutX="-2.0" maxWidth="1.7976931348623157E308" prefHeight="327.0" prefWidth="436.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn fx:id="materialProgressColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" text="Done" />
-                        <TableColumn fx:id="materialNeedColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Need" />
-                        <TableColumn fx:id="materialHaveColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
-                        <TableColumn fx:id="materialNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="308.0" text="Item" />
-                        <TableColumn fx:id="materialTypeColumn" prefWidth="82.0" text="Type" />
+                        <TableColumn fx:id="costProgressColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" text="Done" />
+                        <TableColumn fx:id="costNeedColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Need" />
+                        <TableColumn fx:id="costHaveColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
+                        <TableColumn fx:id="costNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="308.0" text="Item" />
+                        <TableColumn fx:id="costTypeColumn" prefWidth="82.0" text="Type" />
                     </columns>
                   </TableView>
                </children>
