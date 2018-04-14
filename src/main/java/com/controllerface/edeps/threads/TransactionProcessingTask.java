@@ -15,15 +15,15 @@ import java.util.concurrent.BlockingQueue;
  *
  * Created by Stephen on 4/4/2018.
  */
-public class InventoryUpdateTask implements Runnable
+public class TransactionProcessingTask implements Runnable
 {
     private final Procedure updateFunction;
     private final PlayerInventory inventory;
     private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
 
-    public InventoryUpdateTask(Procedure updateFunction,
-                        PlayerInventory inventory,
-                        BlockingQueue<Pair<ProcurementCost, Integer>> transactionQueue)
+    public TransactionProcessingTask(Procedure updateFunction,
+                                     PlayerInventory inventory,
+                                     BlockingQueue<Pair<ProcurementCost, Integer>> transactionQueue)
     {
         this.updateFunction = updateFunction;
         this.inventory = inventory;

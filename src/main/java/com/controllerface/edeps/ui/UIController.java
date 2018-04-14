@@ -13,8 +13,8 @@ import com.controllerface.edeps.enums.costs.materials.MaterialCategory;
 import com.controllerface.edeps.enums.procurements.modifications.ModificationCategory;
 import com.controllerface.edeps.enums.procurements.synthesis.SynthesisCategory;
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyCategory;
-import com.controllerface.edeps.threads.InventorySyncThread;
-import com.controllerface.edeps.threads.InventoryUpdateTask;
+import com.controllerface.edeps.threads.InventorySyncTask;
+import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -25,8 +25,6 @@ import javafx.scene.control.*;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -103,7 +101,6 @@ public class UIController
     @FXML private TableColumn<ModMaterialItem, String> materialTypeColumn;
 
 
-
     /*
     =======================
     === Raw Data Objects ===
@@ -113,7 +110,6 @@ public class UIController
     private boolean initialzed = false;
 
     private final PlayerInventory playerInventory = new PlayerInventory();
-    private final BlockingQueue<Pair<ProcurementCost, Integer>> transactionQueue = new LinkedBlockingQueue<>();
 
     private final Map<Pair<ProcurementType, ProcurementRecipe>, Integer> procurementRecipeMap = new HashMap<>();
 
@@ -368,17 +364,21 @@ public class UIController
     {
         localizeData();
 
+        // this is the transaction queue the transaction processor and inventory threads will use to keep the UI
+        // and player inventory in sync
+        BlockingQueue<Pair<ProcurementCost, Integer>> transactionQueue = new LinkedBlockingQueue<>();
+
         // transaction processor
-        Runnable inventoryUpdateTask = new InventoryUpdateTask(this::syncUI, playerInventory, transactionQueue);
-        Thread transactionThread = new Thread(inventoryUpdateTask);
+        Runnable transactionProcessingTask = new TransactionProcessingTask(this::syncUI, playerInventory, transactionQueue);
+        Thread transactionThread = new Thread(transactionProcessingTask);
         transactionThread.setDaemon(true);
         transactionThread.start();
 
         // disk monitor
-        Runnable diskMonitorTask = new InventorySyncThread(playerInventory, transactionQueue);
-        Thread diskMonitorThread = new Thread(diskMonitorTask);
-        diskMonitorThread.setDaemon(true);
-        diskMonitorThread.start();
+        Runnable inventorySyncTask = new InventorySyncTask(playerInventory, transactionQueue);
+        Thread inventoryThread = new Thread(inventorySyncTask);
+        inventoryThread.setDaemon(true);
+        inventoryThread.start();
     }
 
     /**
@@ -446,9 +446,57 @@ public class UIController
         initialzed = true;
     }
 
+    private TreeItem<ProcTreeItem> makeSynthesisTree()
+    {
+        TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Synthesis"));
+        modifications.setExpanded(true);
+
+        // loop through all mod categories
+        Arrays.stream(SynthesisCategory.values()).forEach(category ->
+        {
+            // add a collapsible category label
+            TreeItem<ProcTreeItem> categoryItem = new TreeItem<>(new ProcTreeItem(category.toString()));
+
+            // for this category, loop through all mod types it contains
+            category.typeStream().forEach(type ->
+            {
+                // add a collapsible mod type label
+                TreeItem<ProcTreeItem> typeItem = new TreeItem<>(new ProcTreeItem(type.toString()));
+
+                // for this mod type, loop through all blueprints it contains
+                type.blueprintStream().forEach(blueprint ->
+                {
+                    // add a collapsible blueprint label
+                    TreeItem<ProcTreeItem> bluePrintItem = new TreeItem<>(new ProcTreeItem(blueprint.toString()));
+
+                    // for this blueprint, loop through all recipes it contains
+                    blueprint.recipeStream().forEach(recipe->
+                    {
+                        // add a button allowing the user to add the recipe to their procurement list
+                        TreeItem<ProcTreeItem> recipeItem = new TreeItem<>(new ProcTreeItem(type, recipe));
+
+                        // add the recipe button to this blueprint
+                        bluePrintItem.getChildren().add(recipeItem);
+                    });
+
+                    // add the blueprint item to this mod type
+                    typeItem.getChildren().add(bluePrintItem);
+                });
+
+                // add the type item to this category
+                categoryItem.getChildren().add(typeItem);
+            });
+
+            // add this category to the root
+            modifications.getChildren().add(categoryItem);
+        });
+
+        return modifications;
+    }
+
     private TreeItem<ProcTreeItem> makeModTree()
     {
-        TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Modifications"));
+        TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Engineering Modifications"));
         modifications.setExpanded(true);
 
         // loop through all mod categories
@@ -542,63 +590,11 @@ public class UIController
 
     private TreeItem<ProcTreeItem> makeTechnologyTree()
     {
-        TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Technology"));
+        TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Tech Brokers"));
         modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(TechnologyCategory.values()).forEach(category ->
-        {
-            // add a collapsible category label
-            TreeItem<ProcTreeItem> categoryItem = new TreeItem<>(new ProcTreeItem(category.toString()));
-
-            // for this category, loop through all mod types it contains
-            category.typeStream().forEach(type ->
-            {
-                // add a collapsible mod type label
-                TreeItem<ProcTreeItem> typeItem = new TreeItem<>(new ProcTreeItem(type.toString()));
-
-                // for this mod type, loop through all blueprints it contains
-                type.blueprintStream().forEach(blueprint ->
-                {
-
-                    String r = blueprint.toString();
-
-                    // add a collapsible blueprint label
-                    TreeItem<ProcTreeItem> bluePrintItem =
-                            new TreeItem<>(new ProcTreeItem(r));
-
-                    // for this blueprint, loop through all recipes it contains
-                    blueprint.recipeStream().forEach(recipe->
-                    {
-                        // add a button allowing the user to add the recipe to their procurement list
-                        TreeItem<ProcTreeItem> recipeItem = new TreeItem<>(new ProcTreeItem(type, recipe));
-
-                        // add the recipe button to this blueprint
-                        bluePrintItem.getChildren().add(recipeItem);
-                    });
-
-                    // add the blueprint item to this mod type
-                    typeItem.getChildren().add(bluePrintItem);
-                });
-
-                // add the type item to this category
-                categoryItem.getChildren().add(typeItem);
-            });
-
-            // add this category to the root
-            modifications.getChildren().add(categoryItem);
-        });
-
-        return modifications;
-    }
-
-    private TreeItem<ProcTreeItem> makeSynthesisTree()
-    {
-        TreeItem<ProcTreeItem> modifications = new TreeItem<>(new ProcTreeItem("Synthesis"));
-        modifications.setExpanded(true);
-
-        // loop through all mod categories
-        Arrays.stream(SynthesisCategory.values()).forEach(category ->
         {
             // add a collapsible category label
             TreeItem<ProcTreeItem> categoryItem = new TreeItem<>(new ProcTreeItem(category.toString()));
@@ -647,16 +643,15 @@ public class UIController
         TreeItem<ProcTreeItem> root = new TreeItem<>(new ProcTreeItem("root"));
         root.setExpanded(true);
 
+        TreeItem<ProcTreeItem> synthesis = makeSynthesisTree();
         TreeItem<ProcTreeItem> modifications = makeModTree();
         TreeItem<ProcTreeItem> experiments = makeExperimentTree();
         TreeItem<ProcTreeItem> technology = makeTechnologyTree();
-        TreeItem<ProcTreeItem> synthesis = makeSynthesisTree();
 
-
+        root.getChildren().add(synthesis);
         root.getChildren().add(modifications);
         root.getChildren().add(experiments);
         root.getChildren().add(technology);
-        root.getChildren().add(synthesis);
 
         // now that the root object has been filled with mods, add it to the tree
         modTree.setRoot(root);
@@ -809,7 +804,7 @@ public class UIController
         Map<String, Object> data;
         try
         {
-            data = objectMapper.readValue(inputStream, InventorySyncThread.mapTypeReference);
+            data = objectMapper.readValue(inputStream, InventorySyncTask.mapTypeReference);
         }
         catch (IOException ioe)
         {

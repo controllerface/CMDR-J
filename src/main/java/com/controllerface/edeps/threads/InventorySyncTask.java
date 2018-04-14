@@ -25,12 +25,30 @@ import java.util.function.Predicate;
  *
  * Created by Stephen on 4/4/2018.
  */
-public class InventorySyncThread implements Runnable
+public class InventorySyncTask implements Runnable
 {
     private static final String JOURNAL_FOLDER = System.getProperty("user.home")
             + File.separator + "Saved Games"
             + File.separator + "Frontier Developments"
             + File.separator + "Elite Dangerous";
+
+    /**
+     * Comparator used when starting up to locate the newest journal file on disk
+     */
+    private static final Comparator<File> newestJournalFile =
+            (file1, file2) ->
+            {
+                String name1 = file1.toPath().getFileName().toString();
+                String[] n1a = name1.split("\\.");
+
+                String name2 = file2.toPath().getFileName().toString();
+                String[] n2a = name2.split("\\.");
+
+                long timestamp1 = Long.parseLong(n1a[1]);
+                long timestamp2 = Long.parseLong(n2a[1]);
+
+                return (int) (timestamp2 - timestamp1);
+            };
 
     /**
      * Events that may contain updates for the player's inventory
@@ -73,7 +91,7 @@ public class InventorySyncThread implements Runnable
     /**
      * Ship function used to filter in JSON event lines that changes to the player's inventory
      */
-    private Predicate<String> hasMatEvent =
+    private Predicate<String> hasInventoryEvent =
             (line) -> inventoryEvents.stream()
                     .filter(event -> hasEvent.test(event, line))
                     .findAny().isPresent();
@@ -83,19 +101,15 @@ public class InventorySyncThread implements Runnable
     private final AtomicInteger lastLine = new AtomicInteger(0);
     private final PlayerInventory playerInventory;
     private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
-    private File journalFolder;
     private Path journalPath;
-
-    private WatchKey watchKey;
-    private WatchService watchService;
 
     public static final TypeReference<Map> mapTypeReference = new TypeReference<Map>()
     {
         @Override public Type getType() {return HashMap.class;}
     };
 
-    public InventorySyncThread(PlayerInventory playerInventory,
-                               BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
+    public InventorySyncTask(PlayerInventory playerInventory,
+                             BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
     {
         this.playerInventory = playerInventory;
         this.transactions = transactions;
@@ -106,6 +120,8 @@ public class InventorySyncThread implements Runnable
     {
         initializeJournalData();
 
+        WatchKey watchKey;
+        WatchService watchService;
         try
         {
             watchService = FileSystems.getDefault().newWatchService();
@@ -113,7 +129,8 @@ public class InventorySyncThread implements Runnable
                     StandardWatchEventKinds.ENTRY_CREATE,
                     StandardWatchEventKinds.ENTRY_MODIFY,
                     StandardWatchEventKinds.OVERFLOW);
-
+            System.out.println("Journal Folder : " + watchKey.watchable());
+            System.out.println("Journal File: " + currentJournalFile.get());
         }
         catch (IOException e)
         {
@@ -123,7 +140,10 @@ public class InventorySyncThread implements Runnable
         boolean go = true;
         while (go)
         {
-            try {watchKey = watchService.poll(1, TimeUnit.SECONDS);}
+            try
+            {
+                watchKey = watchService.poll(1, TimeUnit.SECONDS);
+            }
             catch (InterruptedException e)
             {
                 go = false;
@@ -174,7 +194,7 @@ public class InventorySyncThread implements Runnable
                                 {
                                     if (currentLine.incrementAndGet() > lastLine.get())
                                     {
-                                        if (hasMatEvent.test(rawEvent)) processJSONEvent(rawEvent);
+                                        if (hasInventoryEvent.test(rawEvent)) processJSONEvent(rawEvent);
                                     }
                                 });
                                 lastLine.set(currentLine.get());
@@ -197,29 +217,16 @@ public class InventorySyncThread implements Runnable
     private void initializeJournalData()
     {
         // todo: maybe this should be configurable
-        journalFolder = new File(JOURNAL_FOLDER);
+        File journalFolder = new File(JOURNAL_FOLDER);
         journalPath = journalFolder.toPath();
         List<String> journalLines = new ArrayList<>();
 
         Arrays.stream(journalFolder.listFiles((x, y) -> y.startsWith("Journal")))
-                .sorted((file1, file2) ->
-                {
-                    String name1= file1.toPath().getFileName().toString();
-                    String[] n1a = name1.split("\\.");
-
-                    String name2= file2.toPath().getFileName().toString();
-                    String[] n2a = name2.split("\\.");
-
-                    long timestamp1 = Long.parseLong(n1a[1]);
-                    long timestamp2 = Long.parseLong(n2a[1]);
-
-                    return (int) (timestamp2 - timestamp1);
-                })
+                .sorted(newestJournalFile)
                 .limit(1).findAny()
                 .ifPresent(file ->
                 {
                     currentJournalFile.set(file.getName());
-                    System.out.println(currentJournalFile.get());
                     try
                     {
                         FileReader reader = new FileReader(file);
@@ -238,7 +245,7 @@ public class InventorySyncThread implements Runnable
                 });
 
         journalLines.stream()
-                .filter(hasMatEvent)
+                .filter(hasInventoryEvent)
                 .forEach(this::processJSONEvent);
     }
 
