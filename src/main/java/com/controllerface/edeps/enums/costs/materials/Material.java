@@ -10,8 +10,7 @@ import com.controllerface.edeps.enums.common.ItemGrade;
  */
 public enum Material implements ProcurementCost
 {
-    //RAW:,
-    //----,
+    // RAW
 
     CARBON(ItemGrade.GRADE_1),
     PHOSPHORUS(ItemGrade.GRADE_1),
@@ -46,8 +45,8 @@ public enum Material implements ProcurementCost
     POLONIUM(ItemGrade.GRADE_4),
     ANTIMONY(ItemGrade.GRADE_4),
 
-    //Manufactured:,
-    //-------------,
+
+    // Manufactured
 
     CHEMICALSTORAGEUNITS(ItemGrade.GRADE_1),
     TEMPEREDALLOYS(ItemGrade.GRADE_1),
@@ -105,8 +104,7 @@ public enum Material implements ProcurementCost
     PROTORADIOLICALLOYS(ItemGrade.GRADE_5),
 
 
-    //ENCODED:,
-    //-----,
+    // Encoded
 
     SCRAMBLEDEMISSIONDATA(ItemGrade.GRADE_1),
     DISRUPTEDWAKEECHOES(ItemGrade.GRADE_1),
@@ -144,45 +142,43 @@ public enum Material implements ProcurementCost
     EMBEDDEDFIRMWARE(ItemGrade.GRADE_5),
 
 
-    //Alien Manufactured:,
-    //-----,
+    // Alien Manufactured
 
-    Guardian_Power_Cell(ItemGrade.GRADE_1),
-    Guardian_Sentinel_Wreckage_Components(ItemGrade.GRADE_1),
-    Guardian_Power_Conduit(ItemGrade.GRADE_2),
-    Guardian_Sentinel_Weapon_Parts(ItemGrade.GRADE_3),
-    Guardian_Technology_Component(ItemGrade.GRADE_3),
+    GUARDIAN_POWERCELL(ItemGrade.GRADE_1),
+    GUARDIAN_SENTINEL_WRECKAGECOMPONENTS(ItemGrade.GRADE_1),
+    GUARDIAN_POWERCONDUIT(ItemGrade.GRADE_2),
+    GUARDIAN_SENTINEL_WEAPONPARTS(ItemGrade.GRADE_3),
+    GUARDIAN_TECHCOMPONENT(ItemGrade.GRADE_3),
 
-    Thargoid_Carapace(ItemGrade.GRADE_2),
-    Bio_Mechanical_Conduits(ItemGrade.GRADE_3),
-    Propulsion_Elements(ItemGrade.GRADE_3),
-    Thargoid_Energy_Cell(ItemGrade.GRADE_3),
-    Weapon_Parts(ItemGrade.GRADE_3),
-    Wreckage_Components(ItemGrade.GRADE_3),
-    Thargoid_Technological_Components(ItemGrade.GRADE_4),
-    Sensor_Fragment(ItemGrade.GRADE_5),
-    Thargoid_Organic_Circuitry(ItemGrade.GRADE_5),
+    UNKNOWNCARAPACE(ItemGrade.GRADE_2),
+    UNKNOWNENERGYCELL(ItemGrade.GRADE_3),
+    UNKNOWNTECHNOLOGYCOMPONENTS(ItemGrade.GRADE_4),
+    UNKNOWNENERGYSOURCE(ItemGrade.GRADE_5),
+    UNKNOWNORGANICCIRCUITRY(ItemGrade.GRADE_5),
+    TG_BIOMECHANICALCONDUITS(ItemGrade.GRADE_3),
+    TG_PROPULSIONELEMENT(ItemGrade.GRADE_3),
+    TG_WEAPONPARTS(ItemGrade.GRADE_3),
+    TG_WRECKAGECOMPONENTS(ItemGrade.GRADE_3),
 
 
-    //Alien ENCODED:,
-    //-----,
+    // Alien Encoded
 
-    Pattern_Gamma_Obelisk_Data(ItemGrade.GRADE_1),
-    Pattern_Beta_Obelisk_Data(ItemGrade.GRADE_2),
-    Pattern_Alpha_Obelisk_Data(ItemGrade.GRADE_3),
-    Pattern_Delta_Obelisk_Data(ItemGrade.GRADE_4),
-    Pattern_Epsilon_Obelisk_Data(ItemGrade.GRADE_5),
-    Guardian_Module_Blueprint_Segment(ItemGrade.GRADE_4),
-    Guardian_Vessel_Blueprint_Segment(ItemGrade.GRADE_4),
-    Guardian_Weapon_Blueprint_Segment(ItemGrade.GRADE_4),
+    ANCIENTHISTORICALDATA(ItemGrade.GRADE_1), // gamma
+    ANCIENTCULTURALDATA(ItemGrade.GRADE_2), // beta
+    ANCIENTBIOLOGICALDATA(ItemGrade.GRADE_3), // alpha
+    ANCIENTLANGUAGEDATA(ItemGrade.GRADE_4), // delta
+    ANCIENTTECHNOLOGICALDATA(ItemGrade.GRADE_5), // epsilon
+    GUARDIAN_MODULEBLUEPRINT(ItemGrade.GRADE_4),
+    GUARDIAN_VESSELBLUEPRINT(ItemGrade.GRADE_4),
+    GUARDIAN_WEAPONBLUEPRINT(ItemGrade.GRADE_4),
 
-    Thargoid_Structural_Data(ItemGrade.GRADE_2),
-    Ship_Flight_Data(ItemGrade.GRADE_3),
-    Ship_Systems_Data(ItemGrade.GRADE_3),
-    Thargoid_Material_Composition_Data(ItemGrade.GRADE_3),
-    Thargoid_Ship_Signature(ItemGrade.GRADE_3),
-    Thargoid_Residue_Data(ItemGrade.GRADE_4),
-    Thargoid_Wake_Data(ItemGrade.GRADE_4);
+    UNKNOWNSHIPSIGNATURE(ItemGrade.GRADE_3),
+    UNKNOWNWAKEDATA(ItemGrade.GRADE_4),
+    TG_STRUCTURALDATA(ItemGrade.GRADE_2),
+    TG_SHIPFLIGHTDATA(ItemGrade.GRADE_3),
+    TG_SHIPSYSTEMSDATA(ItemGrade.GRADE_3),
+    TG_COMPOSITIONDATA(ItemGrade.GRADE_3),
+    TG_RESIDUEDATA(ItemGrade.GRADE_4);
 
     private final ItemGrade grade;
     private String localizedName = toString();

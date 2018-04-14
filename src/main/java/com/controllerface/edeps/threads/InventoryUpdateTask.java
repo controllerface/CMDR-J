@@ -1,30 +1,33 @@
 package com.controllerface.edeps.threads;
 
+import com.controllerface.edeps.Procedure;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.storage.PlayerInventory;
 import javafx.util.Pair;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.function.Consumer;
 
 /**
- * Task thread that keeps a PlayerInventory synchronized by executing transactions that modify it
+ * Task thread that keeps a PlayerInventory synchronized by executing transactions that modify it.
+ * As transactions are put into the transaction queue, this thread will execute them, in the order
+ * in which they are queued. When there are no transactions, this thread will block until one is
+ * queued, avoiding unnecessary CPU usage.
  *
  * Created by Stephen on 4/4/2018.
  */
 public class InventoryUpdateTask implements Runnable
 {
+    private final Procedure updateFunction;
     private final PlayerInventory inventory;
     private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
-    private final Consumer<Void> updateFunction;
 
-    public InventoryUpdateTask(Consumer<Void> updateFunction,
+    public InventoryUpdateTask(Procedure updateFunction,
                         PlayerInventory inventory,
-                        BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
+                        BlockingQueue<Pair<ProcurementCost, Integer>> transactionQueue)
     {
         this.updateFunction = updateFunction;
         this.inventory = inventory;
-        this.transactions = transactions;
+        this.transactions = transactionQueue;
     }
 
     @Override
@@ -49,13 +52,16 @@ public class InventoryUpdateTask implements Runnable
             }
             catch (InterruptedException e)
             {
-                // interruption wh8le waiting for a transaction also triggers an exit
+                // interruption while waiting for a transaction also triggers an exit
                 go = false;
                 continue;
             }
 
+            // perform the transaction
             inventory.adjustItem(nextTransaction.getKey(), nextTransaction.getValue());
-            updateFunction.accept(null);
+
+            // call the update procedure to signal that the inventory has changed
+            updateFunction.call();
         }
     }
 }

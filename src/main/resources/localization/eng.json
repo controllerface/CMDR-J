@@ -1,6 +1,6 @@
 {
-  "commodities": {
-
+  "commodities":
+  {
     "EXPLOSIVES" : "Explosives",
     "HYDROGENFUEL" : "Hydrogen Fuel",
     "HYDROGENPEROXIDE" : "Hydrogen Peroxide",
@@ -381,7 +381,8 @@
     "GROMCOUNTERINTELLIGENCE" : "Grom Counter Intelligence",
     "GROMWARTROPHIES" : "Grom War Trophies"
   },
-  "materials": {
+  "materials":
+  {
     "ADAPTIVEENCRYPTORS": "Adaptive Encryptors Capture",
     "ARCHIVEDEMISSIONDATA": "Irregular Emission Data",
     "BULKSCANDATA": "Anomalous Bulk Scan Data",
@@ -489,6 +490,35 @@
     "VANADIUM": "Vanadium (V)",
     "YTTRIUM": "Yttrium (Y)",
     "ZINC": "Zinc (Zn)",
-    "ZIRCONIUM": "Zirconium (Zr)"
+    "ZIRCONIUM": "Zirconium (Zr)",
+    "ANCIENTBIOLOGICALDATA" : "Pattern Alpha Obelisk Data",
+    "ANCIENTCULTURALDATA" : "Pattern Beta Obelisk Data",
+    "ANCIENTLANGUAGEDATA" : "Pattern Delta Obelisk Data",
+    "ANCIENTTECHNOLOGICALDATA" : "Pattern Epsilon Obelisk Data",
+    "ANCIENTHISTORICALDATA" : "Pattern Gamma Obelisk Data",
+    "GUARDIAN_MODULEBLUEPRINT" : "Guardian Module Blueprint Segment",
+    "GUARDIAN_VESSELBLUEPRINT" : "Guardian Vessel Blueprint Segment",
+    "GUARDIAN_WEAPONBLUEPRINT" : "Guardian Weapon Blueprint Segment",
+    "TG_STRUCTURALDATA" : "Thargoid Structural Data",
+    "TG_SHIPFLIGHTDATA" : "Ship Flight Data",
+    "TG_SHIPSYSTEMSDATA" : "Ship Systems Data",
+    "TG_COMPOSITIONDATA" : "Thargoid Material Composition Data",
+    "UNKNOWNSHIPSIGNATURE" : "Thargoid Ship Signature",
+    "TG_RESIDUEDATA" : "Thargoid Residue Data",
+    "UNKNOWNWAKEDATA" : "Thargoid Wake Data",
+    "GUARDIAN_POWERCELL" : "Guardian Power Cell",
+    "GUARDIAN_SENTINEL_WRECKAGECOMPONENTS" : "Guardian Sentinel Wreckage Components",
+    "GUARDIAN_POWERCONDUIT" : "Guardian Power Conduit",
+    "GUARDIAN_SENTINEL_WEAPONPARTS" : "Guardian Sentinel Weapon Parts",
+    "GUARDIAN_TECHCOMPONENT" : "Guardian Technology Component",
+    "UNKNOWNCARAPACE" : "Thargoid Carapace",
+    "TG_BIOMECHANICALCONDUITS" : "Bio Mechanical Conduits",
+    "TG_PROPULSIONELEMENT" : "Propulsion Elements",
+    "UNKNOWNENERGYCELL" : "Thargoid Energy Cell",
+    "TG_WEAPONPARTS" : "Weapon Parts",
+    "TG_WRECKAGECOMPONENTS" : "Wreckage Components",
+    "UNKNOWNTECHNOLOGYCOMPONENTS" : "Thargoid Technological Components",
+    "UNKNOWNENERGYSOURCE" : "Sensor Fragment",
+    "UNKNOWNORGANICCIRCUITRY" : "Thargoid Organic Circuitry"
   }
 }

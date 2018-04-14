@@ -369,7 +369,7 @@ public class UIController
         localizeData();
 
         // transaction processor
-        Runnable inventoryUpdateTask = new InventoryUpdateTask((x) -> syncUI(), playerInventory, transactionQueue);
+        Runnable inventoryUpdateTask = new InventoryUpdateTask(this::syncUI, playerInventory, transactionQueue);
         Thread transactionThread = new Thread(inventoryUpdateTask);
         transactionThread.setDaemon(true);
         transactionThread.start();

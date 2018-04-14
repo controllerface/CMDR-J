@@ -7,18 +7,25 @@ package com.controllerface.edeps.enums.common;
  */
 public enum ItemGrade
 {
+    /*
+    Material Grades
+     */
     GRADE_1,
     GRADE_2,
     GRADE_3,
     GRADE_4,
     GRADE_5,
-    Space, // rare
-    Rare, // mission reward
-    Mining, // mission reward
-    Planet, // surface markets only
-    POI, // surface collection only
-    Mission,
-    Faction; // power play only
+
+    /*
+    Cargo Types
+     */
+    Space,   // standard commodities and salvage
+    Rare,    // rare commodities, from specific star ports
+    Mining,  // attainable by mining only
+    Planet,  // only available at planetary ports
+    POI,     // must be found at planetary POI
+    Mission, // mission reward exclusive
+    Faction; // power play specific items
 
     @Override
     public String toString()

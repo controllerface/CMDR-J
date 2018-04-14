@@ -33,8 +33,8 @@ public enum TechnologyRecipe implements ProcurementRecipe
                     new Pair<>(ItemEffect.Enzyme_Munitions, 0d)
             ),
             new CostData(Material.TUNGSTEN, 35),
-            new CostData(Material.Thargoid_Energy_Cell, 30),
-            new CostData(Material.Thargoid_Organic_Circuitry, 36),
+            new CostData(Material.UNKNOWNENERGYCELL, 30),
+            new CostData(Material.UNKNOWNORGANICCIRCUITRY, 36),
             new CostData(Material.MOLYBDENUM, 34),
             new CostData(Commodity.RADIATIONBAFFLE, 6)),
 
@@ -105,9 +105,9 @@ public enum TechnologyRecipe implements ProcurementRecipe
             (
                     new Pair<>(ItemEffect.FSD_Boost, 0d)
             ),
-            new CostData(Material.Guardian_Module_Blueprint_Segment, 8),
-            new CostData(Material.Guardian_Power_Cell, 42),
-            new CostData(Material.Guardian_Technology_Component, 42),
+            new CostData(Material.GUARDIAN_MODULEBLUEPRINT, 8),
+            new CostData(Material.GUARDIAN_POWERCELL, 42),
+            new CostData(Material.GUARDIAN_TECHCOMPONENT, 42),
             new CostData(Material.FOCUSCRYSTALS, 24),
             new CostData(Commodity.HNSHOCKMOUNT, 8)),
 
@@ -115,9 +115,9 @@ public enum TechnologyRecipe implements ProcurementRecipe
             (
                     new Pair<>(ItemEffect.Gauss_Shell, 0d)
             ),
-            new CostData(Material.Guardian_Weapon_Blueprint_Segment, 4),
-            new CostData(Material.Guardian_Power_Cell, 36),
-            new CostData(Material.Guardian_Technology_Component, 42),
+            new CostData(Material.GUARDIAN_WEAPONBLUEPRINT, 4),
+            new CostData(Material.GUARDIAN_POWERCELL, 36),
+            new CostData(Material.GUARDIAN_TECHCOMPONENT, 42),
             new CostData(Material.MANGANESE, 30),
             new CostData(Commodity.MAGNETICEMITTERCOIL, 10)),
 
@@ -125,9 +125,9 @@ public enum TechnologyRecipe implements ProcurementRecipe
             (
                     new Pair<>(ItemEffect.Hybrid_Power, 0d)
             ),
-            new CostData(Material.Guardian_Module_Blueprint_Segment, 4),
-            new CostData(Material.Pattern_Alpha_Obelisk_Data, 27),
-            new CostData(Material.Guardian_Power_Cell, 45),
+            new CostData(Material.GUARDIAN_MODULEBLUEPRINT, 4),
+            new CostData(Material.ANCIENTBIOLOGICALDATA, 27),
+            new CostData(Material.GUARDIAN_POWERCELL, 45),
             new CostData(Material.PHASEALLOYS, 36),
             new CostData(Commodity.HEATSINKINTERLINK, 6)),
 
@@ -135,9 +135,9 @@ public enum TechnologyRecipe implements ProcurementRecipe
             (
                     new Pair<>(ItemEffect.Hybrid_Power, 0d)
             ),
-            new CostData(Material.Guardian_Module_Blueprint_Segment, 4),
-            new CostData(Material.Guardian_Power_Conduit, 36),
-            new CostData(Material.Pattern_Epsilon_Obelisk_Data, 42),
+            new CostData(Material.GUARDIAN_MODULEBLUEPRINT, 4),
+            new CostData(Material.GUARDIAN_POWERCONDUIT, 36),
+            new CostData(Material.ANCIENTTECHNOLOGICALDATA, 42),
             new CostData(Material.HEATRESISTANTCERAMICS, 30),
             new CostData(Commodity.ENERGYGRIDASSEMBLY, 10)),
 
@@ -145,9 +145,9 @@ public enum TechnologyRecipe implements ProcurementRecipe
             (
                     new Pair<>(ItemEffect.Plasma_Weapon, 0d)
             ),
-            new CostData(Material.Guardian_Weapon_Blueprint_Segment, 8),
-            new CostData(Material.Guardian_Power_Conduit, 38),
-            new CostData(Material.Guardian_Sentinel_Weapon_Parts, 34),
+            new CostData(Material.GUARDIAN_WEAPONBLUEPRINT, 8),
+            new CostData(Material.GUARDIAN_POWERCONDUIT, 38),
+            new CostData(Material.GUARDIAN_SENTINEL_WEAPONPARTS, 34),
             new CostData(Material.CHROMIUM, 28),
             new CostData(Commodity.MICROWEAVECOOLINGHOSES, 12)),
 
@@ -155,9 +155,9 @@ public enum TechnologyRecipe implements ProcurementRecipe
             (
                     new Pair<>(ItemEffect.Plasma_Weapon, 0d)
             ),
-            new CostData(Material.Guardian_Weapon_Blueprint_Segment, 10),
-            new CostData(Material.Guardian_Power_Conduit, 42),
-            new CostData(Material.Guardian_Sentinel_Weapon_Parts, 42),
+            new CostData(Material.GUARDIAN_WEAPONBLUEPRINT, 10),
+            new CostData(Material.GUARDIAN_POWERCONDUIT, 42),
+            new CostData(Material.GUARDIAN_SENTINEL_WEAPONPARTS, 42),
             new CostData(Material.CHROMIUM, 33),
             new CostData(Commodity.ARTICULATIONMOTORS, 10)),
 
@@ -165,9 +165,9 @@ public enum TechnologyRecipe implements ProcurementRecipe
             (
                     new Pair<>(ItemEffect.Shard_Shell, 0d)
             ),
-            new CostData(Material.Guardian_Weapon_Blueprint_Segment, 8),
-            new CostData(Material.Guardian_Sentinel_Wreckage_Components, 40),
-            new CostData(Material.Guardian_Technology_Component, 36),
+            new CostData(Material.GUARDIAN_WEAPONBLUEPRINT, 8),
+            new CostData(Material.GUARDIAN_SENTINEL_WRECKAGECOMPONENTS, 40),
+            new CostData(Material.GUARDIAN_TECHCOMPONENT, 36),
             new CostData(Material.CARBON, 35),
             new CostData(Commodity.POWERTRANSFERBUS, 12)),
 
@@ -175,9 +175,9 @@ public enum TechnologyRecipe implements ProcurementRecipe
             (
                     new Pair<>(ItemEffect.Shard_Shell, 0d)
             ),
-            new CostData(Material.Guardian_Weapon_Blueprint_Segment, 10),
-            new CostData(Material.Guardian_Sentinel_Wreckage_Components, 28),
-            new CostData(Material.Guardian_Technology_Component, 40),
+            new CostData(Material.GUARDIAN_WEAPONBLUEPRINT, 10),
+            new CostData(Material.GUARDIAN_SENTINEL_WRECKAGECOMPONENTS, 28),
+            new CostData(Material.GUARDIAN_TECHCOMPONENT, 40),
             new CostData(Material.CARBON, 30),
             new CostData(Commodity.MICROCONTROLLERS, 12));
 

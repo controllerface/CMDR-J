@@ -64,7 +64,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 3),
             new CostData(Material.NICKEL, 3),
             new CostData(Material.CARBON, 4),
-            new CostData(Material.Propulsion_Elements, 3)),
+            new CostData(Material.TG_PROPULSIONELEMENT, 3)),
 
     AX_Explosive_Munitions_Standard("Standard", new ModificationEffectData
             (
@@ -75,8 +75,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.SULPHUR, 6),
             new CostData(Material.PHOSPHORUS, 6),
             new CostData(Material.MERCURY, 2),
-            new CostData(Material.Thargoid_Organic_Circuitry, 4),
-            new CostData(Material.Propulsion_Elements, 4)),
+            new CostData(Material.UNKNOWNORGANICCIRCUITRY, 4),
+            new CostData(Material.TG_PROPULSIONELEMENT, 4)),
 
     AX_Explosive_Munitions_Premium("Premium", new ModificationEffectData
             (
@@ -87,9 +87,9 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.TUNGSTEN, 5),
             new CostData(Material.MERCURY, 4),
             new CostData(Material.POLONIUM, 2),
-            new CostData(Material.Bio_Mechanical_Conduits, 5),
-            new CostData(Material.Propulsion_Elements, 5),
-            new CostData(Material.Ship_Flight_Data, 6)),
+            new CostData(Material.TG_BIOMECHANICALCONDUITS, 5),
+            new CostData(Material.TG_PROPULSIONELEMENT, 5),
+            new CostData(Material.TG_SHIPFLIGHTDATA, 6)),
 
     /*
     AX Remote Flak Munitions
@@ -112,8 +112,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.TIN, 2),
             new CostData(Material.ZINC, 3),
             new CostData(Material.ARSENIC, 1),
-            new CostData(Material.Thargoid_Technological_Components, 3),
-            new CostData(Material.Wreckage_Components, 2)),
+            new CostData(Material.UNKNOWNTECHNOLOGYCOMPONENTS, 3),
+            new CostData(Material.TG_WRECKAGECOMPONENTS, 2)),
 
     AX_Remote_Flak_Munitions_Premium("Premium",new ModificationEffectData
             (
@@ -124,9 +124,9 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.ZINC, 8),
             new CostData(Material.TUNGSTEN, 2),
             new CostData(Material.ARSENIC, 1),
-            new CostData(Material.Sensor_Fragment, 3),
-            new CostData(Material.Thargoid_Technological_Components, 4),
-            new CostData(Material.Weapon_Parts, 1)),
+            new CostData(Material.UNKNOWNENERGYSOURCE, 3),
+            new CostData(Material.UNKNOWNTECHNOLOGYCOMPONENTS, 4),
+            new CostData(Material.TG_WEAPONPARTS, 1)),
 
     /*
     AX Small Calibre Munitions
@@ -139,7 +139,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 2),
             new CostData(Material.NICKEL, 1),
             new CostData(Material.SULPHUR, 1),
-            new CostData(Material.Weapon_Parts, 2)),
+            new CostData(Material.TG_WEAPONPARTS, 2)),
 
     AX_Small_Calibre_Munitions_Standard("Standard",new ModificationEffectData
             (
@@ -149,8 +149,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 2),
             new CostData(Material.PHOSPHORUS, 2),
             new CostData(Material.ZIRCONIUM, 2),
-            new CostData(Material.Sensor_Fragment, 3),
-            new CostData(Material.Weapon_Parts, 4)),
+            new CostData(Material.UNKNOWNENERGYSOURCE, 3),
+            new CostData(Material.TG_WEAPONPARTS, 4)),
 
     AX_Small_Calibre_Munitions_Premium("Premium",new ModificationEffectData
             (
@@ -160,9 +160,9 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 3),
             new CostData(Material.PHOSPHORUS, 2),
             new CostData(Material.ZIRCONIUM, 2),
-            new CostData(Material.Sensor_Fragment, 4),
-            new CostData(Material.Thargoid_Carapace, 2),
-            new CostData(Material.Weapon_Parts, 6)),
+            new CostData(Material.UNKNOWNENERGYSOURCE, 4),
+            new CostData(Material.UNKNOWNCARAPACE, 2),
+            new CostData(Material.TG_WEAPONPARTS, 6)),
 
     /*
     Enzyme Missile Munitions
@@ -174,9 +174,9 @@ public enum SynthesisRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 3),
             new CostData(Material.SULPHUR, 3),
-            new CostData(Material.Bio_Mechanical_Conduits, 4),
-            new CostData(Material.Propulsion_Elements, 3),
-            new CostData(Material.Weapon_Parts, 3),
+            new CostData(Material.TG_BIOMECHANICALCONDUITS, 4),
+            new CostData(Material.TG_PROPULSIONELEMENT, 3),
+            new CostData(Material.TG_WEAPONPARTS, 3),
             new CostData(Material.LEAD, 2)),
 
     Enzyme_Missile_Munitions_Standard("Standard",new ModificationEffectData
@@ -186,9 +186,9 @@ public enum SynthesisRecipe implements ProcurementRecipe
             ),
             new CostData(Material.SULPHUR, 6),
             new CostData(Material.TUNGSTEN, 4),
-            new CostData(Material.Bio_Mechanical_Conduits, 5),
-            new CostData(Material.Propulsion_Elements, 6),
-            new CostData(Material.Weapon_Parts, 4),
+            new CostData(Material.TG_BIOMECHANICALCONDUITS, 5),
+            new CostData(Material.TG_PROPULSIONELEMENT, 6),
+            new CostData(Material.TG_WEAPONPARTS, 4),
             new CostData(Material.LEAD, 4)),
 
     Enzyme_Missile_Munitions_Premium("Premium",new ModificationEffectData
@@ -198,9 +198,9 @@ public enum SynthesisRecipe implements ProcurementRecipe
             ),
             new CostData(Material.PHOSPHORUS, 5),
             new CostData(Material.TUNGSTEN, 4),
-            new CostData(Material.Bio_Mechanical_Conduits, 6),
-            new CostData(Material.Propulsion_Elements, 6),
-            new CostData(Material.Weapon_Parts, 5),
+            new CostData(Material.TG_BIOMECHANICALCONDUITS, 6),
+            new CostData(Material.TG_PROPULSIONELEMENT, 6),
+            new CostData(Material.TG_WEAPONPARTS, 5),
             new CostData(Material.LEAD, 6)),
 
     /*
@@ -313,8 +313,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
             ),
             new CostData(Material.MANGANESE, 3),
             new CostData(Material.FOCUSCRYSTALS, 2),
-            new CostData(Material.Guardian_Power_Conduit, 2),
-            new CostData(Material.Guardian_Sentinel_Wreckage_Components, 4)),
+            new CostData(Material.GUARDIAN_POWERCONDUIT, 2),
+            new CostData(Material.GUARDIAN_SENTINEL_WRECKAGECOMPONENTS, 4)),
 
 
     Guardian_Gauss_Cannon_Munitions_Standard("Standard",new ModificationEffectData
@@ -325,8 +325,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.MANGANESE, 5),
             new CostData(Material.HEATRESISTANTCERAMICS, 3),
             new CostData(Material.FOCUSCRYSTALS, 5),
-            new CostData(Material.Guardian_Power_Conduit, 4),
-            new CostData(Material.Guardian_Sentinel_Weapon_Parts, 3)),
+            new CostData(Material.GUARDIAN_POWERCONDUIT, 4),
+            new CostData(Material.GUARDIAN_SENTINEL_WEAPONPARTS, 3)),
 
     Guardian_Gauss_Cannon_Munitions_Premium("Premium",new ModificationEffectData
             (
@@ -348,8 +348,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
             ),
             new CostData(Material.CHROMIUM, 3),
             new CostData(Material.HEATDISPERSIONPLATE, 2),
-            new CostData(Material.Guardian_Power_Conduit, 3),
-            new CostData(Material.Guardian_Sentinel_Wreckage_Components, 4)),
+            new CostData(Material.GUARDIAN_POWERCONDUIT, 3),
+            new CostData(Material.GUARDIAN_SENTINEL_WRECKAGECOMPONENTS, 4)),
 
     Guardian_Plasma_Charger_Munitions_Standard("Standard",new ModificationEffectData
             (
@@ -359,8 +359,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 4),
             new CostData(Material.HEATEXCHANGERS, 2),
             new CostData(Material.PHASEALLOYS, 2),
-            new CostData(Material.Guardian_Power_Cell, 2),
-            new CostData(Material.Guardian_Technology_Component, 2)),
+            new CostData(Material.GUARDIAN_POWERCELL, 2),
+            new CostData(Material.GUARDIAN_TECHCOMPONENT, 2)),
 
     Guardian_Plasma_Charger_Munitions_Premium("Premium",new ModificationEffectData
             (
@@ -371,8 +371,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.ZIRCONIUM, 2),
             new CostData(Material.HEATEXCHANGERS, 4),
             new CostData(Material.PHASEALLOYS, 6),
-            new CostData(Material.Guardian_Power_Cell, 4),
-            new CostData(Material.Guardian_Sentinel_Weapon_Parts, 3)),
+            new CostData(Material.GUARDIAN_POWERCELL, 4),
+            new CostData(Material.GUARDIAN_SENTINEL_WEAPONPARTS, 3)),
 
     /*
     Guardian Shard Cannon Munitions
@@ -385,8 +385,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 3),
             new CostData(Material.VANADIUM, 2),
             new CostData(Material.CRYSTALSHARDS, 3),
-            new CostData(Material.Guardian_Power_Cell, 3),
-            new CostData(Material.Guardian_Sentinel_Wreckage_Components, 5)),
+            new CostData(Material.GUARDIAN_POWERCELL, 3),
+            new CostData(Material.GUARDIAN_SENTINEL_WRECKAGECOMPONENTS, 5)),
 
     Guardian_Shard_Cannon_Munitions_Standard("Standard",new ModificationEffectData
             (
@@ -394,8 +394,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
                     new Pair<>(ItemEffect.Damage_Boost, 15d)
             ),
             new CostData(Material.CRYSTALSHARDS, 4),
-            new CostData(Material.Guardian_Power_Cell, 2),
-            new CostData(Material.Guardian_Sentinel_Weapon_Parts, 2)),
+            new CostData(Material.GUARDIAN_POWERCELL, 2),
+            new CostData(Material.GUARDIAN_SENTINEL_WEAPONPARTS, 2)),
 
     Guardian_Shard_Cannon_Munitions_Premium("Premium",new ModificationEffectData
             (
