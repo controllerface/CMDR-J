@@ -21,3 +21,7 @@ jar {
                 'Class-Path': configurations.runtime.files.collect { "lib/$it.name" }.join(' ')
     }
 }
+
+startScripts{
+    defaultJvmOpts = ["-Xmx128m"]
+}
