@@ -1,5 +1,9 @@
+
 apply plugin: 'java'
 apply plugin: 'java-library-distribution'
+apply plugin: 'application'
+
+mainClassName = "com.controllerface.edeps.EDEPS"
 
 repositories {
     mavenCentral()

@@ -81,6 +81,9 @@ public class InventorySyncTask implements Runnable
         inventoryEvents.add("MarketSell");
         inventoryEvents.add("MiningRefined");
         inventoryEvents.add("CargoDepot");
+        inventoryEvents.add("BuyDrones");
+        inventoryEvents.add("SellDrones");
+        inventoryEvents.add("LaunchDrone");
         inventoryEvents.add("PowerplayCollect");
         inventoryEvents.add("PowerplayDeliver");
     }
@@ -279,6 +282,20 @@ public class InventorySyncTask implements Runnable
                 processCollectCargoEvent(data);
                 break;
 
+
+            case "BuyDrones":
+                processBuyDronesEvent(data);
+                break;
+
+            case "SellDrones":
+                processSellDronesEvent(data);
+                break;
+
+            case "LaunchDrone":
+                processLaunchDroneEvent(data);
+                break;
+
+
             case "EngineerContribution":
                 processEngineerContributionEvent(data);
                 break;
@@ -433,6 +450,25 @@ public class InventorySyncTask implements Runnable
         int count = ((int) data.get("Count"));
         Commodity commodity = Commodity.valueOf(name);
         transactions.add(new Pair<>(commodity, count));
+    }
+
+    private void processBuyDronesEvent(Map<String, Object> data)
+    {
+        int count = ((int) data.get("Count"));
+        transactions.add(new Pair<>(Commodity.DRONES, count));
+    }
+
+    private void processSellDronesEvent(Map<String, Object> data)
+    {
+        int count = (-1) * ((int) data.get("Count"));
+        transactions.add(new Pair<>(Commodity.DRONES, count));
+    }
+
+    private void processLaunchDroneEvent(Map<String, Object> data)
+    {
+        String name = ((String) data.get("Type")).toUpperCase();
+        System.out.println("Launched " + name + " Drone");
+        transactions.add(new Pair<>(Commodity.DRONES, -1));
     }
 
     private void processCargoAdd_NameVariant(Map<String, Object> data)
