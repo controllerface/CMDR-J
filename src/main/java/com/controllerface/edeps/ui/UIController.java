@@ -166,7 +166,6 @@ public class UIController
     @FXML
     private void fromJson()
     {
-
         File file = new File("data.json");
         if (!file.exists())
         {
@@ -506,6 +505,19 @@ public class UIController
         inventoryThread.start();
     }
 
+    @FXML
+    public void stop()
+    {
+        try
+        {
+            toJson(null);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Reflectively called by JavaFX after this class is instantiated. This is where the UI components are filled with
      * their respective data.
@@ -569,6 +581,8 @@ public class UIController
         makeProcurementTree();
 
         initialzed = true;
+
+        fromJson();
     }
 
     private TreeItem<ProcTreeData> makeSynthesisTree()

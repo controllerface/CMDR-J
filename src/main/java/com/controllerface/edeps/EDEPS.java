@@ -3,6 +3,7 @@
  */
 package com.controllerface.edeps;
 
+import com.controllerface.edeps.ui.UIController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,7 @@ public class EDEPS extends Application
     {
         launch(args);
     }
+    UIController controller;
 
     private Parent loadRoot()
     {
@@ -25,7 +27,9 @@ public class EDEPS extends Application
         {
             InputStream file = getClass().getResourceAsStream("/edeps.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader();
-            return fxmlLoader.load(file);
+            Parent parent = fxmlLoader.load(file);
+            controller = fxmlLoader.getController();
+            return parent;
         }
         catch (IOException e)
         {
@@ -47,5 +51,13 @@ public class EDEPS extends Application
         primaryStage.setTitle("Elite Dangerous Engineering Procurement System");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+    }
+
+    @Override
+    public void stop() throws Exception
+    {
+        super.stop();
+        controller.stop();
     }
 }
