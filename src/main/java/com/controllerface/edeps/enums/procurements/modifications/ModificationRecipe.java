@@ -3266,4 +3266,10 @@ public enum ModificationRecipe implements ProcurementRecipe
         String g = Arrays.stream(name().split("_")).reduce((a, b) -> b).orElse("?");
         return "Grade " + g;
     }
+
+    @Override
+    public String getName()
+    {
+        return name();
+    }
 }

@@ -213,4 +213,10 @@ public enum TechnologyRecipe implements ProcurementRecipe
     {
         return label;
     }
+
+    @Override
+    public String getName()
+    {
+        return name();
+    }
 }

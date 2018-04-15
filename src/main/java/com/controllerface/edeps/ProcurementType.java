@@ -6,4 +6,5 @@ package com.controllerface.edeps;
  */
 public interface ProcurementType
 {
+    String getName();
 }

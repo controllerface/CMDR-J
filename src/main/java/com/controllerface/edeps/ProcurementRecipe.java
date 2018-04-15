@@ -13,4 +13,5 @@ public interface ProcurementRecipe
     Stream<CostData> costStream();
     String getLabel();
     ItemEffectData effects();
+    String getName();
 }

@@ -750,4 +750,12 @@ public enum SynthesisRecipe implements ProcurementRecipe
     public String getLabel()
     {
         return label;
-    }}
+    }
+
+    @Override
+    public String getName()
+    {
+        return name();
+    }
+}
+

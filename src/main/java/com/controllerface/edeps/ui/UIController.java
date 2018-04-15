@@ -10,33 +10,43 @@ import com.controllerface.edeps.enums.costs.commodities.CommodityCategory;
 import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalCategory;
 import com.controllerface.edeps.enums.costs.materials.Material;
 import com.controllerface.edeps.enums.costs.materials.MaterialCategory;
+import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalRecipe;
+import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalType;
 import com.controllerface.edeps.enums.procurements.modifications.ModificationCategory;
+import com.controllerface.edeps.enums.procurements.modifications.ModificationRecipe;
+import com.controllerface.edeps.enums.procurements.modifications.ModificationType;
 import com.controllerface.edeps.enums.procurements.synthesis.SynthesisCategory;
+import com.controllerface.edeps.enums.procurements.synthesis.SynthesisRecipe;
+import com.controllerface.edeps.enums.procurements.synthesis.SynthesisType;
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyCategory;
+import com.controllerface.edeps.enums.procurements.technologies.TechnologyRecipe;
+import com.controllerface.edeps.enums.procurements.technologies.TechnologyType;
 import com.controllerface.edeps.threads.InventorySyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * UI Controller class for Elite Dangerous Engineer Procurement System
@@ -111,6 +121,122 @@ public class UIController
     private final PlayerInventory playerInventory = new PlayerInventory();
 
     private final Map<Pair<ProcurementType, ProcurementRecipe>, Integer> procurementRecipeMap = new HashMap<>();
+
+
+    @FXML
+    protected void toJson(ActionEvent event) throws IOException
+    {
+        // serialize procurementRecipeMap to JSON
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+
+        Map<String, Object> data = new HashMap<>();
+
+        List<Map<String, Object>> tasks = procurementRecipeMap.entrySet().stream()
+                .map(e->
+                {
+                    Pair<ProcurementType, ProcurementRecipe> pair = e.getKey();
+                    ProcurementType type = pair.getKey();
+                    ProcurementRecipe recipe = pair.getValue();
+                    Integer count = e.getValue();
+
+                    String procType = type.getClass().getSimpleName();
+                    String procName = type.getName();
+
+                    String recipeType = recipe.getClass().getSimpleName();
+                    String recipeName = recipe.getName();
+
+                    Map<String, Object> procTypedata = new LinkedHashMap<>();
+                    procTypedata.put(procType, procName);
+                    procTypedata.put(recipeType, recipeName);
+                    procTypedata.put("Count", count);
+
+                    return procTypedata;
+                }).collect(Collectors.toList());
+
+        data.put("tasks", tasks);
+
+        File file = new File("data.json");
+        if (!file.exists() && !file.createNewFile()) throw new RuntimeException("Could not create file");
+        OutputStream outputStream = new FileOutputStream(file);
+        writer.writeValue(outputStream, data);
+        outputStream.close();
+    }
+
+    @FXML
+    private void fromJson()
+    {
+
+        File file = new File("data.json");
+        if (!file.exists())
+        {
+            System.err.println("data.json File not found");
+            return;
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> data;
+        try
+        {
+            data = objectMapper.readValue(file, InventorySyncTask.mapTypeReference);
+        }
+        catch (IOException ioe)
+        {
+            ioe.printStackTrace();
+            throw new RuntimeException("Error reading localization data", ioe );
+        }
+
+        procurementRecipeMap.clear();
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> tasks = ((List<Map<String, Object>>) data.get("tasks"));
+        tasks.forEach(task ->
+        {
+            AtomicReference<ProcurementType> procType = new AtomicReference<>();
+            AtomicReference<ProcurementRecipe> recipeType = new AtomicReference<>();
+            AtomicInteger count = new AtomicInteger(0);
+
+            task.entrySet().stream()
+                    .forEach(entry ->
+                    {
+                        switch (entry.getKey())
+                        {
+                            case "ExperimentalType" :
+                                procType.set(ExperimentalType.valueOf(((String) entry.getValue())));
+                                break;
+                            case "ModificationType" :
+                                procType.set(ModificationType.valueOf(((String) entry.getValue())));
+                                break;
+                            case "SynthesisType" :
+                                procType.set(SynthesisType.valueOf(((String) entry.getValue())));
+                                break;
+                            case "TechnologyType" :
+                                procType.set(TechnologyType.valueOf(((String) entry.getValue())));
+                                break;
+
+                            case "ExperimentalRecipe" :
+                                recipeType.set(ExperimentalRecipe.valueOf(((String) entry.getValue())));
+                                break;
+                            case "ModificationRecipe" :
+                                recipeType.set(ModificationRecipe.valueOf(((String) entry.getValue())));
+                                break;
+                            case "SynthesisRecipe" :
+                                recipeType.set(SynthesisRecipe.valueOf(((String) entry.getValue())));
+                                break;
+                            case "TechnologyRecipe" :
+                                recipeType.set(TechnologyRecipe.valueOf(((String) entry.getValue())));
+                                break;
+
+                            case "Count" :
+                                count.set(((Integer) entry.getValue()));
+                                break;
+                        }
+                    });
+
+            procurementRecipeMap.put(new Pair<>(procType.get(), recipeType.get()), count.get());
+            syncUI();
+        });
+
+    }
 
     private static final Label recipeTableEmpty = new Label("Use the \"Procurements\" menu to select tasks");
     private static final Label materialTableEmpty = new Label("Materials needed for selected recipes will appear here");

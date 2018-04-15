@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="909.0" prefWidth="1074.0"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.controllerface.edeps.ui.UIController">
+<AnchorPane prefHeight="909.0" prefWidth="1074.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.controllerface.edeps.ui.UIController">
    <children>
       <GridPane alignment="TOP_CENTER" prefHeight="543.0" prefWidth="918.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="477.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="525.0" prefWidth="597.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="525.0" prefWidth="597.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints fillHeight="false" maxHeight="177.0" minHeight="3.0" prefHeight="27.0" valignment="CENTER" />
@@ -27,7 +26,13 @@
               </columns>
             </TableView>
             <Label prefHeight="17.0" prefWidth="81.0" style="-fx-font-weight: bold;" text="Procurements" GridPane.valignment="CENTER" />
-            <Label style="-fx-font-weight: bold;" text="Selected Tasks " GridPane.columnIndex="1" />
+            <Pane GridPane.columnIndex="1">
+               <children>
+                  <Button layoutX="555.0" onAction="#fromJson" mnemonicParsing="false" text="Load" textAlignment="CENTER" GridPane.columnIndex="1" />
+                  <Label layoutX="256.0" layoutY="4.0" style="-fx-font-weight: bold;" text="Selected Tasks " />
+                  <Button layoutX="514.0" onAction="#toJson" mnemonicParsing="false" text="Save" />
+               </children>
+            </Pane>
          </children>
       </GridPane>
       <GridPane layoutY="543.0" prefHeight="351.0" prefWidth="918.0" styleClass="main" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

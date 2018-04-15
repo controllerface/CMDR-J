@@ -43,4 +43,10 @@ public enum TechnologyType implements ProcurementType
     {
         return super.toString().replace("_"," ");
     }
+
+    @Override
+    public String getName()
+    {
+        return name();
+    }
 }

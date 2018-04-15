@@ -836,4 +836,10 @@ public enum ExperimentalRecipe implements ProcurementRecipe
                 .map(ExperimentalBlueprint::toString)
                 .findFirst().orElse("unknown");
     }
+
+    @Override
+    public String getName()
+    {
+        return name();
+    }
 }
