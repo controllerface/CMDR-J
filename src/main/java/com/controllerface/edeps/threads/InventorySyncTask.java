@@ -479,6 +479,18 @@ public class InventorySyncTask implements Runnable
         transactions.add(new Pair<>(commodity, count));
     }
 
+    private void processCargoAdd_NameSuffixVariant(Map<String, Object> data)
+    {
+        String name = ((String) data.get("Commodity"))
+                .replace("$","")
+                .replace("_Name;","")
+                .toUpperCase();
+
+        int count = (-1) * ((int) data.get("Count"));
+        Commodity commodity = Commodity.valueOf(name);
+        transactions.add(new Pair<>(commodity, count));
+    }
+
     private void processPowerPlayCollectEvent(Map<String, Object> data)
     {
         String name = ((String) data.get("Type")).toUpperCase();
@@ -609,6 +621,11 @@ public class InventorySyncTask implements Runnable
             @SuppressWarnings("unchecked")
             List<Map<String, Object>> reward = ((List<Map<String, Object>>) data.get("CommodityReward"));
             reward.forEach(this::processCargoAdd_NameVariant);
+        }
+
+        if (data.get("Commodity") != null)
+        {
+            processCargoAdd_NameSuffixVariant(data);
         }
 
     }

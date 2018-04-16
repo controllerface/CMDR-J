@@ -577,12 +577,11 @@ public class UIController
         // set the sorting comparator for the material progress column of the procurement list
         costProgressColumn.setComparator(indicatorByProgress);
         recipeProgressColumn.setComparator(indicatorByProgress);
+        fromJson();
 
         makeProcurementTree();
 
         initialzed = true;
-
-        fromJson();
     }
 
     private TreeItem<ProcTreeData> makeSynthesisTree()
