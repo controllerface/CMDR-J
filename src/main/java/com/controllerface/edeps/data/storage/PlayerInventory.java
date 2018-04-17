@@ -7,6 +7,8 @@ import com.controllerface.edeps.enums.costs.commodities.CommodityType;
 import com.controllerface.edeps.enums.costs.materials.Material;
 import com.controllerface.edeps.enums.costs.materials.MaterialType;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 /**
@@ -18,6 +20,8 @@ public class PlayerInventory
     private final InventoryStorageBin dataMats = new EncodedInventoryStorageBin();
     private final InventoryStorageBin mfdMats = new ManufacturedInventoryStorageBin();
     private final InventoryStorageBin cargo = new CargoStorageBin();
+
+    private final Map<String, String> stats = new LinkedHashMap<>();
 
 
     public Stream<InventoryData> rawMaterialStream()
@@ -46,6 +50,21 @@ public class PlayerInventory
         mfdMats.clear();
         dataMats.clear();
         cargo.clear();
+    }
+
+    public String getStat(String key)
+    {
+        return stats.get(key);
+    }
+
+    public String setStat(String key, String stat)
+    {
+        return stats.put(key, stat);
+    }
+
+    public Map<String, String> getStats()
+    {
+        return stats;
     }
 
     public void adjustItem(ProcurementCost cost, int adjustment)

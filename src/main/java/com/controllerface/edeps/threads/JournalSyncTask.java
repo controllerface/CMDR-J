@@ -1,5 +1,6 @@
 package com.controllerface.edeps.threads;
 
+import com.controllerface.edeps.Procedure;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.storage.PlayerInventory;
 import com.controllerface.edeps.enums.costs.commodities.Commodity;
@@ -11,6 +12,7 @@ import javafx.util.Pair;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.*;
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -18,6 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Task thread that keeps a PlayerInventory synchronized by monitoring the player's journal entries,
@@ -25,7 +28,7 @@ import java.util.function.Predicate;
  *
  * Created by Stephen on 4/4/2018.
  */
-public class InventorySyncTask implements Runnable
+public class JournalSyncTask implements Runnable
 {
     private static final String JOURNAL_FOLDER = System.getProperty("user.home")
             + File.separator + "Saved Games"
@@ -54,39 +57,9 @@ public class InventorySyncTask implements Runnable
      * Events that may contain updates for the player's inventory
      */
 
-    private static Set<String> inventoryEvents = new HashSet<>();
-    static
-    {
-        // these are the main startup events that contain the player's starting inventory
-        inventoryEvents.add("Cargo");
-        inventoryEvents.add("Materials");
-
-        // common events
-        inventoryEvents.add("EngineerContribution");
-        inventoryEvents.add("MissionCompleted");
-        inventoryEvents.add("TechnologyBroker");
-
-        // material specific events
-        inventoryEvents.add("MaterialCollected");
-        inventoryEvents.add("MaterialDiscarded");
-        inventoryEvents.add("EngineerCraft");
-        inventoryEvents.add("MaterialTrade");
-        inventoryEvents.add("Synthesis");
-        inventoryEvents.add("ScientificResearch");
-
-        // cargo specific events
-        inventoryEvents.add("CollectCargo");
-        inventoryEvents.add("EjectCargo");
-        inventoryEvents.add("MarketBuy");
-        inventoryEvents.add("MarketSell");
-        inventoryEvents.add("MiningRefined");
-        inventoryEvents.add("CargoDepot");
-        inventoryEvents.add("BuyDrones");
-        inventoryEvents.add("SellDrones");
-        inventoryEvents.add("LaunchDrone");
-        inventoryEvents.add("PowerplayCollect");
-        inventoryEvents.add("PowerplayDeliver");
-    }
+    private static Set<String> inventoryEvents = Arrays.stream(JournalEvent.values())
+            .map(Enum::name)
+            .collect(Collectors.toSet());
 
     private BiPredicate<String, String> hasEvent =
             (event, line) -> line.contains("\"event\":\"" + event + "\"");
@@ -100,20 +73,24 @@ public class InventorySyncTask implements Runnable
                     .findAny().isPresent();
 
 
-    private final AtomicReference<String> currentJournalFile = new AtomicReference<>("");
-    private final AtomicInteger lastLine = new AtomicInteger(0);
     private final PlayerInventory playerInventory;
     private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
+
     private Path journalPath;
+    private final AtomicInteger lastLine = new AtomicInteger(0);
+    private final AtomicReference<String> currentJournalFile = new AtomicReference<>("");
+
+    private final Procedure updateFunction;
 
     public static final TypeReference<Map> mapTypeReference = new TypeReference<Map>()
     {
         @Override public Type getType() {return HashMap.class;}
     };
 
-    public InventorySyncTask(PlayerInventory playerInventory,
-                             BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
+    public JournalSyncTask(Procedure updateFunction, PlayerInventory playerInventory,
+                           BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
     {
+        this.updateFunction = updateFunction;
         this.playerInventory = playerInventory;
         this.transactions = transactions;
     }
@@ -271,103 +248,183 @@ public class InventorySyncTask implements Runnable
             throw new RuntimeException("Error reading journal data", e);
         }
         String eventName = ((String) data.get("event"));
+        JournalEvent event = JournalEvent.valueOf(eventName);
+        System.out.println("Processing event: " + event);
 
-        switch (eventName)
+        switch (event)
         {
-            case "Cargo":
+            case LoadGame:
+                processLoadGameEvent(data);
+                break;
+
+
+            case Cargo:
                 processMainCargoEvent(data);
                 break;
 
-            case "CollectCargo":
+            case CollectCargo:
                 processCollectCargoEvent(data);
                 break;
 
 
-            case "BuyDrones":
+            case BuyDrones:
                 processBuyDronesEvent(data);
                 break;
 
-            case "SellDrones":
+            case SellDrones:
                 processSellDronesEvent(data);
                 break;
 
-            case "LaunchDrone":
+            case LaunchDrone:
                 processLaunchDroneEvent(data);
                 break;
 
 
-            case "EngineerContribution":
+            case EngineerContribution:
                 processEngineerContributionEvent(data);
                 break;
 
-            case "EngineerCraft":
+            case EngineerCraft:
                 processEngineerCraftEvent(data);
                 break;
 
-            case "EjectCargo":
+            case EjectCargo:
                 processEjectCargoEvent(data);
                 break;
 
-            case "MarketBuy":
+            case MarketBuy:
                 processMarketBuyEvent(data);
                 break;
 
-            case "MarketSell":
+            case MarketSell:
                 processMarketSellEvent(data);
                 break;
 
-            case "MiningRefined":
+            case MiningRefined:
                 processMiningRefinedEvent(data);
                 break;
 
-            case "CargoDepot":
+            case CargoDepot:
                 processCargoDepotEvent(data);
                 break;
 
-            case "PowerplayCollect":
+            case PowerplayCollect:
                 processPowerPlayCollectEvent(data);
                 break;
 
-            case "PowerplayDeliver":
+            case PowerplayDeliver:
                 processPowerPlayDeliverEvent(data);
                 break;
 
-            case "Materials":
+            case Materials:
                 processMainMaterialEvent(data);
                 break;
 
-            case "MaterialCollected":
+            case MaterialCollected:
                 processMaterialCollectedEvent(data);
                 break;
 
-            case "MaterialDiscarded":
+            case MaterialDiscarded:
                 processMaterialDiscardedEvent(data);
                 break;
 
-            case "MaterialTrade":
+            case MaterialTrade:
                 processMaterialTradeEvent(data);
                 break;
 
-            case "MissionCompleted":
+            case MissionCompleted:
                 processMissionCompletedEvent(data);
                 break;
 
-            case "ScientificResearch":
+            case ScientificResearch:
                 processScientificResearchEvent(data);
                 break;
 
-            case "Synthesis":
+            case Synthesis:
                 processSynthesisEvent(data);
                 break;
 
-            case "TechnologyBroker":
+            case TechnologyBroker:
                 processTechnologyBrokerEvent(data);
                 break;
 
+            case Rank:
+                processRankEvent(data);
+                break;
+
+            case Progress:
+                processProgressEvent(data);
+                break;
+
+            case Reputation:
+                processReputationEvent(data);
+                break;
+
             default:
-                System.out.println("NOPE!" + eventName);
+                System.out.println("unsupported event:" + eventName);
                 break;
         }
+    }
+
+    private void processRankEvent(Map<String, Object> data)
+    {
+        playerInventory.setStat("Rank: Combat", String.valueOf((int) data.get("Combat")));
+        playerInventory.setStat("Rank: Trade", String.valueOf((int) data.get("Trade")));
+        playerInventory.setStat("Rank: Explore", String.valueOf((int) data.get("Explore")));
+        playerInventory.setStat("Rank: Empire", String.valueOf((int) data.get("Empire")));
+        playerInventory.setStat("Rank: Federation", String.valueOf((int) data.get("Federation")));
+        playerInventory.setStat("Rank: CQC", String.valueOf((int) data.get("CQC")));
+        updateFunction.call();
+    }
+
+    private void processProgressEvent(Map<String, Object> data)
+    {
+        playerInventory.setStat("Progress: Combat", String.valueOf((int) data.get("Combat")));
+        playerInventory.setStat("Progress: Trade", String.valueOf((int) data.get("Trade")));
+        playerInventory.setStat("Progress: Explore", String.valueOf((int) data.get("Explore")));
+        playerInventory.setStat("Progress: Empire", String.valueOf((int) data.get("Empire")));
+        playerInventory.setStat("Progress: Federation", String.valueOf((int) data.get("Federation")));
+        playerInventory.setStat("Progress: CQC", String.valueOf((int) data.get("CQC")));
+        updateFunction.call();
+    }
+
+    private void processReputationEvent(Map<String, Object> data)
+    {
+        playerInventory.setStat("Reputation: Empire", String.valueOf((double) data.get("Empire")));
+        playerInventory.setStat("Reputation: Federation", String.valueOf((double) data.get("Federation")));
+        playerInventory.setStat("Reputation: Alliance", String.valueOf((double) data.get("Alliance")));
+        playerInventory.setStat("Reputation: Independent", String.valueOf((double) data.get("Independent")));
+        updateFunction.call();
+    }
+
+    private void processLoadGameEvent(Map<String, Object> data)
+    {
+        playerInventory.setStat("Commander", (String) data.get("Commander"));
+
+        playerInventory.setStat("Game Mode", (String) data.get("GameMode"));
+        if (data.get("Group") != null)
+        {
+            playerInventory.setStat("Private Group", (String) data.get("Group"));
+        }
+
+        playerInventory.setStat("Credits", NumberFormat.getInstance().format(data.get("Credits")));
+
+        if (data.get("Loan") != null && ((int) data.get("Loan")) != 0)
+        {
+            playerInventory.setStat("Loan", NumberFormat.getInstance().format(data.get("Loan")));
+        }
+
+        playerInventory.setStat("Ship", (String) data.get("Ship"));
+        playerInventory.setStat("Ship ID", ((String) data.get("ShipIdent")).toUpperCase());
+        playerInventory.setStat("Ship Name", ((String) data.get("ShipName")).toUpperCase());
+        playerInventory.setStat("Fuel Level", String.valueOf((double) data.get("FuelLevel")));
+        playerInventory.setStat("Fuel Capacity", String.valueOf((double) data.get("FuelCapacity")));
+
+
+
+
+
+        updateFunction.call();
     }
 
     @SuppressWarnings("unchecked")
@@ -466,8 +523,6 @@ public class InventorySyncTask implements Runnable
 
     private void processLaunchDroneEvent(Map<String, Object> data)
     {
-        String name = ((String) data.get("Type")).toUpperCase();
-        System.out.println("Launched " + name + " Drone");
         transactions.add(new Pair<>(Commodity.DRONES, -1));
     }
 

@@ -21,7 +21,7 @@ import com.controllerface.edeps.enums.procurements.synthesis.SynthesisType;
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyCategory;
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyRecipe;
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyType;
-import com.controllerface.edeps.threads.InventorySyncTask;
+import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -110,6 +110,12 @@ public class UIController
     @FXML private TableColumn<ItemCostData, String> costNameColumn;
     @FXML private TableColumn<ItemCostData, String> costTypeColumn;
 
+    // player stats
+    @FXML private TableView<Pair<String, String>> statTable;
+    @FXML private TableColumn<Pair<String, String>, String> statNameColumn;
+    @FXML private TableColumn<Pair<String, String>, String> statValueColumn;
+
+
     /*
     =======================
     === Raw Data Objects ===
@@ -177,7 +183,7 @@ public class UIController
         Map<String, Object> data;
         try
         {
-            data = objectMapper.readValue(file, InventorySyncTask.mapTypeReference);
+            data = objectMapper.readValue(file, JournalSyncTask.mapTypeReference);
         }
         catch (IOException ioe)
         {
@@ -499,7 +505,7 @@ public class UIController
         transactionThread.start();
 
         // disk monitor
-        Runnable inventorySyncTask = new InventorySyncTask(playerInventory, transactionQueue);
+        Runnable inventorySyncTask = new JournalSyncTask(this::syncUI, playerInventory, transactionQueue);
         Thread inventoryThread = new Thread(inventorySyncTask);
         inventoryThread.setDaemon(true);
         inventoryThread.start();
@@ -573,15 +579,16 @@ public class UIController
         costNameColumn.setCellValueFactory(materialNameCellFactory);
         costTypeColumn.setCellValueFactory(materialTypeCellFactory);
 
+        statNameColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getKey()));
+        statValueColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getValue()));
 
         // set the sorting comparator for the material progress column of the procurement list
         costProgressColumn.setComparator(indicatorByProgress);
         recipeProgressColumn.setComparator(indicatorByProgress);
-        fromJson();
 
         makeProcurementTree();
-
         initialzed = true;
+        fromJson();
     }
 
     private TreeItem<ProcTreeData> makeSynthesisTree()
@@ -854,6 +861,7 @@ public class UIController
         // reset the counts since we will be recalculating them
         procurementRecipeTable.getItems().clear();
         procurementCostTable.getItems().clear();
+        statTable.getItems().clear();
 
 
         //
@@ -915,6 +923,11 @@ public class UIController
             if (ad == bd) return 0;
             else return ad > bd ? 1 : -1;
         });
+
+        playerInventory.getStats()
+                .entrySet().stream()
+                .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
+                .forEach(pair -> statTable.getItems().add(pair));
     }
 
     private void localizeData()
@@ -934,7 +947,7 @@ public class UIController
         Map<String, Object> data;
         try
         {
-            data = objectMapper.readValue(inputStream, InventorySyncTask.mapTypeReference);
+            data = objectMapper.readValue(inputStream, JournalSyncTask.mapTypeReference);
         }
         catch (IOException ioe)
         {
