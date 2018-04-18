@@ -6,6 +6,7 @@ import com.controllerface.edeps.enums.costs.commodities.Commodity;
 import com.controllerface.edeps.enums.costs.commodities.CommodityType;
 import com.controllerface.edeps.enums.costs.materials.Material;
 import com.controllerface.edeps.enums.costs.materials.MaterialType;
+import com.controllerface.edeps.threads.PlayerStat;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class PlayerInventory
     private final InventoryStorageBin mfdMats = new ManufacturedInventoryStorageBin();
     private final InventoryStorageBin cargo = new CargoStorageBin();
 
-    private final Map<String, String> stats = new LinkedHashMap<>();
+    private final Map<PlayerStat, String> stats = new LinkedHashMap<>();
 
 
     public Stream<InventoryData> rawMaterialStream()
@@ -57,12 +58,13 @@ public class PlayerInventory
         return stats.get(key);
     }
 
-    public String setStat(String key, String stat)
+    public String setStat(PlayerStat key, String stat)
     {
+        System.out.println("Set Stat: " + key);
         return stats.put(key, stat);
     }
 
-    public Map<String, String> getStats()
+    public Map<PlayerStat, String> getStats()
     {
         return stats;
     }

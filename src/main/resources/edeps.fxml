@@ -34,12 +34,51 @@
                   <Label layoutX="235.0" layoutY="4.0" style="-fx-font-weight: bold;" text="Selected Tasks " />
                </children>
             </Pane>
-            <TableView fx:id="statTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-              <columns>
-                <TableColumn fx:id="statNameColumn" prefWidth="172.0" text="Stat" />
-                <TableColumn fx:id="statValueColumn" prefWidth="189.0" text="Value" />
-              </columns>
-            </TableView>
+            <Accordion GridPane.columnIndex="2" GridPane.rowIndex="1">
+              <panes>
+                <TitledPane animated="false" text="Commander Stats">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="statTable" prefHeight="437.0" prefWidth="385.0">
+                                <columns>
+                                  <TableColumn fx:id="statNameColumn" prefWidth="172.0" text="Stat" />
+                                  <TableColumn fx:id="statValueColumn" prefWidth="189.0" text="Value" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="Rank and Reputation">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="rankTable" prefHeight="437.0" prefWidth="385.0">
+                                 <columns>
+                                    <TableColumn fx:id="rankNameColumn" prefWidth="172.0" text="Stat" />
+                                    <TableColumn fx:id="rankValueColumn" prefWidth="189.0" text="Value" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="Ship">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="shipTable" prefHeight="437.0" prefWidth="385.0">
+                                 <columns>
+                                    <TableColumn fx:id="shipNameColumn" prefWidth="172.0" text="Stat" />
+                                    <TableColumn fx:id="shipValueColumn" prefWidth="189.0" text="Value" />
+                                 </columns>
+                              </TableView>
+                           </children></AnchorPane>
+                  </content>
+                </TitledPane>
+              </panes>
+            </Accordion>
          </children>
       </GridPane>
       <GridPane layoutY="543.0" prefHeight="351.0" prefWidth="918.0" styleClass="main" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

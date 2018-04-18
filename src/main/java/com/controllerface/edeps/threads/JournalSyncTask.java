@@ -366,63 +366,59 @@ public class JournalSyncTask implements Runnable
         }
     }
 
+
+    private void setStatFromData(PlayerStat stat, Map<String, Object> data)
+    {
+        playerInventory.setStat(stat, stat.format(data.get(stat.getKey())));
+    }
+
+
     private void processRankEvent(Map<String, Object> data)
     {
-        playerInventory.setStat("Rank: Combat", String.valueOf((int) data.get("Combat")));
-        playerInventory.setStat("Rank: Trade", String.valueOf((int) data.get("Trade")));
-        playerInventory.setStat("Rank: Explore", String.valueOf((int) data.get("Explore")));
-        playerInventory.setStat("Rank: Empire", String.valueOf((int) data.get("Empire")));
-        playerInventory.setStat("Rank: Federation", String.valueOf((int) data.get("Federation")));
-        playerInventory.setStat("Rank: CQC", String.valueOf((int) data.get("CQC")));
+        setStatFromData(PlayerStat.Rank_Combat, data);
+        setStatFromData(PlayerStat.Rank_Trade, data);
+        setStatFromData(PlayerStat.Rank_Explore, data);
+        setStatFromData(PlayerStat.Rank_Empire, data);
+        setStatFromData(PlayerStat.Rank_Federation, data);
+        setStatFromData(PlayerStat.Rank_CQC, data);
         updateFunction.call();
     }
 
     private void processProgressEvent(Map<String, Object> data)
     {
-        playerInventory.setStat("Progress: Combat", String.valueOf((int) data.get("Combat")));
-        playerInventory.setStat("Progress: Trade", String.valueOf((int) data.get("Trade")));
-        playerInventory.setStat("Progress: Explore", String.valueOf((int) data.get("Explore")));
-        playerInventory.setStat("Progress: Empire", String.valueOf((int) data.get("Empire")));
-        playerInventory.setStat("Progress: Federation", String.valueOf((int) data.get("Federation")));
-        playerInventory.setStat("Progress: CQC", String.valueOf((int) data.get("CQC")));
+        setStatFromData(PlayerStat.Progress_Combat, data);
+        setStatFromData(PlayerStat.Progress_Trade, data);
+        setStatFromData(PlayerStat.Progress_Explore, data);
+        setStatFromData(PlayerStat.Progress_Empire, data);
+        setStatFromData(PlayerStat.Progress_Federation, data);
+        setStatFromData(PlayerStat.Progress_CQC, data);
         updateFunction.call();
     }
 
     private void processReputationEvent(Map<String, Object> data)
     {
-        playerInventory.setStat("Reputation: Empire", String.valueOf((double) data.get("Empire")));
-        playerInventory.setStat("Reputation: Federation", String.valueOf((double) data.get("Federation")));
-        playerInventory.setStat("Reputation: Alliance", String.valueOf((double) data.get("Alliance")));
-        playerInventory.setStat("Reputation: Independent", String.valueOf((double) data.get("Independent")));
+        setStatFromData(PlayerStat.Reputation_Empire, data);
+        setStatFromData(PlayerStat.Reputation_Federation, data);
+        setStatFromData(PlayerStat.Reputation_Alliance, data);
+        setStatFromData(PlayerStat.Reputation_Indpendent, data);
         updateFunction.call();
     }
 
     private void processLoadGameEvent(Map<String, Object> data)
     {
-        playerInventory.setStat("Commander", (String) data.get("Commander"));
+        setStatFromData(PlayerStat.Commander, data);
+        setStatFromData(PlayerStat.Credits, data);
 
-        playerInventory.setStat("Game Mode", (String) data.get("GameMode"));
-        if (data.get("Group") != null)
-        {
-            playerInventory.setStat("Private Group", (String) data.get("Group"));
-        }
+        setStatFromData(PlayerStat.Game_Mode, data);
+        if (data.get("Group") != null) setStatFromData(PlayerStat.Private_Group, data);
 
-        playerInventory.setStat("Credits", NumberFormat.getInstance().format(data.get("Credits")));
+        if (data.get("Loan") != null && ((int) data.get("Loan")) != 0) setStatFromData(PlayerStat.Loan, data);
 
-        if (data.get("Loan") != null && ((int) data.get("Loan")) != 0)
-        {
-            playerInventory.setStat("Loan", NumberFormat.getInstance().format(data.get("Loan")));
-        }
-
-        playerInventory.setStat("Ship", (String) data.get("Ship"));
-        playerInventory.setStat("Ship ID", ((String) data.get("ShipIdent")).toUpperCase());
-        playerInventory.setStat("Ship Name", ((String) data.get("ShipName")).toUpperCase());
-        playerInventory.setStat("Fuel Level", String.valueOf((double) data.get("FuelLevel")));
-        playerInventory.setStat("Fuel Capacity", String.valueOf((double) data.get("FuelCapacity")));
-
-
-
-
+        setStatFromData(PlayerStat.Ship, data);
+        setStatFromData(PlayerStat.Ship_Name, data);
+        setStatFromData(PlayerStat.Ship_ID, data);
+        setStatFromData(PlayerStat.Fuel_Level, data);
+        setStatFromData(PlayerStat.Fuel_Capacity, data);
 
         updateFunction.call();
     }

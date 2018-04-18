@@ -7,6 +7,7 @@ import com.controllerface.edeps.data.*;
 import com.controllerface.edeps.data.storage.PlayerInventory;
 import com.controllerface.edeps.enums.costs.commodities.Commodity;
 import com.controllerface.edeps.enums.costs.commodities.CommodityCategory;
+import com.controllerface.edeps.enums.costs.materials.MaterialType;
 import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalCategory;
 import com.controllerface.edeps.enums.costs.materials.Material;
 import com.controllerface.edeps.enums.costs.materials.MaterialCategory;
@@ -22,6 +23,7 @@ import com.controllerface.edeps.enums.procurements.technologies.TechnologyCatego
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyRecipe;
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyType;
 import com.controllerface.edeps.threads.JournalSyncTask;
+import com.controllerface.edeps.threads.PlayerStat;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -111,9 +113,15 @@ public class UIController
     @FXML private TableColumn<ItemCostData, String> costTypeColumn;
 
     // player stats
-    @FXML private TableView<Pair<String, String>> statTable;
-    @FXML private TableColumn<Pair<String, String>, String> statNameColumn;
-    @FXML private TableColumn<Pair<String, String>, String> statValueColumn;
+    @FXML private TableView<Pair<PlayerStat, String>> statTable;
+    @FXML private TableColumn<Pair<PlayerStat, String>, String> statNameColumn;
+    @FXML private TableColumn<Pair<PlayerStat, String>, String> statValueColumn;
+    @FXML private TableView<Pair<PlayerStat, String>> rankTable;
+    @FXML private TableColumn<Pair<PlayerStat, String>, String> rankNameColumn;
+    @FXML private TableColumn<Pair<PlayerStat, String>, String> rankValueColumn;
+    @FXML private TableView<Pair<PlayerStat, String>> shipTable;
+    @FXML private TableColumn<Pair<PlayerStat, String>, String> shipNameColumn;
+    @FXML private TableColumn<Pair<PlayerStat, String>, String> shipValueColumn;
 
 
     /*
@@ -397,8 +405,8 @@ public class UIController
     {
         ProcurementCost cost = modMaterial.getValue().getMaterial();
         String type;
-        if (cost instanceof Material) type = "Material";
-        else if (cost instanceof Commodity) type = "Commodity";
+        if (cost instanceof Material) type = MaterialType.findMatchingType(((Material) cost)).name().toLowerCase();
+        else if (cost instanceof Commodity) type = "commodity";
         else type = "Unknown";
         return new SimpleStringProperty(type);
     };
@@ -579,8 +587,12 @@ public class UIController
         costNameColumn.setCellValueFactory(materialNameCellFactory);
         costTypeColumn.setCellValueFactory(materialTypeCellFactory);
 
-        statNameColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getKey()));
+        statNameColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getKey().getText()));
         statValueColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getValue()));
+        rankNameColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getKey().getText()));
+        rankValueColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getValue()));
+        shipNameColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getKey().getText()));
+        shipValueColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getValue()));
 
         // set the sorting comparator for the material progress column of the procurement list
         costProgressColumn.setComparator(indicatorByProgress);
@@ -858,11 +870,13 @@ public class UIController
 
         syncInventory();
 
-        // reset the counts since we will be recalculating them
+        // Whenever we sync the UI, we always clear out the data structures first, as everything will be re-calculated
+        // according to the current state of the player's inventory and stats
         procurementRecipeTable.getItems().clear();
         procurementCostTable.getItems().clear();
         statTable.getItems().clear();
-
+        rankTable.getItems().clear();
+        shipTable.getItems().clear();
 
         //
         procurementRecipeMap.forEach((pair, count)->
@@ -876,7 +890,6 @@ public class UIController
                     {
                         x.setCount(count);
                         found.set(true);
-                        procurementRecipeTable.refresh();
                     });
 
             if (!found.get())
@@ -896,7 +909,6 @@ public class UIController
                                 {
                                     matFound.set(true);
                                     m.add(mat.getQuantity() * count);
-                                    procurementCostTable.refresh();
                                 });
 
                         if (!matFound.get())
@@ -924,10 +936,63 @@ public class UIController
             else return ad > bd ? 1 : -1;
         });
 
+
+        Set<PlayerStat> playerStats = new HashSet<>();
+        playerStats.add(PlayerStat.Commander);
+        playerStats.add(PlayerStat.Credits);
+        playerStats.add(PlayerStat.Game_Mode);
+        playerStats.add(PlayerStat.Private_Group);
+        playerStats.add(PlayerStat.Loan);
+
+        Set<PlayerStat> rankStats = new HashSet<>();
+        rankStats.add(PlayerStat.Rank_Combat);
+        rankStats.add(PlayerStat.Rank_Trade);
+        rankStats.add(PlayerStat.Rank_Explore);
+        rankStats.add(PlayerStat.Rank_Empire);
+        rankStats.add(PlayerStat.Rank_Federation);
+        rankStats.add(PlayerStat.Rank_CQC);
+        rankStats.add(PlayerStat.Progress_Combat);
+        rankStats.add(PlayerStat.Progress_Trade);
+        rankStats.add(PlayerStat.Progress_Explore);
+        rankStats.add(PlayerStat.Progress_Empire);
+        rankStats.add(PlayerStat.Progress_Federation);
+        rankStats.add(PlayerStat.Progress_CQC);
+        rankStats.add(PlayerStat.Reputation_Empire);
+        rankStats.add(PlayerStat.Reputation_Federation);
+        rankStats.add(PlayerStat.Reputation_Alliance);
+        rankStats.add(PlayerStat.Reputation_Indpendent);
+
+        Set<PlayerStat> shipStats = new HashSet<>();
+        shipStats.add(PlayerStat.Ship);
+        shipStats.add(PlayerStat.Ship_ID);
+        shipStats.add(PlayerStat.Ship_Name);
+        shipStats.add(PlayerStat.Fuel_Level);
+        shipStats.add(PlayerStat.Fuel_Capacity);
+
+
         playerInventory.getStats()
                 .entrySet().stream()
+                .filter(e->playerStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> statTable.getItems().add(pair));
+
+        playerInventory.getStats()
+                .entrySet().stream()
+                .filter(e->rankStats.contains(e.getKey()))
+                .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
+                .forEach(pair -> rankTable.getItems().add(pair));
+
+        playerInventory.getStats()
+                .entrySet().stream()
+                .filter(e->shipStats.contains(e.getKey()))
+                .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
+                .forEach(pair -> shipTable.getItems().add(pair));
+
+        procurementRecipeTable.refresh();
+        procurementCostTable.refresh();
+        statTable.refresh();
+        rankTable.refresh();
+        shipTable.refresh();
     }
 
     private void localizeData()
