@@ -3,11 +3,13 @@ package com.controllerface.edeps.ui;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
+import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.*;
 import com.controllerface.edeps.data.storage.PlayerInventory;
 import com.controllerface.edeps.enums.costs.commodities.Commodity;
 import com.controllerface.edeps.enums.costs.commodities.CommodityCategory;
 import com.controllerface.edeps.enums.costs.materials.MaterialType;
+import com.controllerface.edeps.enums.equipment.ships.InternalSlot;
 import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalCategory;
 import com.controllerface.edeps.enums.costs.materials.Material;
 import com.controllerface.edeps.enums.costs.materials.MaterialCategory;
@@ -113,15 +115,15 @@ public class UIController
     @FXML private TableColumn<ItemCostData, String> costTypeColumn;
 
     // player stats
-    @FXML private TableView<Pair<PlayerStat, String>> statTable;
-    @FXML private TableColumn<Pair<PlayerStat, String>, String> statNameColumn;
-    @FXML private TableColumn<Pair<PlayerStat, String>, String> statValueColumn;
-    @FXML private TableView<Pair<PlayerStat, String>> rankTable;
-    @FXML private TableColumn<Pair<PlayerStat, String>, String> rankNameColumn;
-    @FXML private TableColumn<Pair<PlayerStat, String>, String> rankValueColumn;
-    @FXML private TableView<Pair<PlayerStat, String>> shipTable;
-    @FXML private TableColumn<Pair<PlayerStat, String>, String> shipNameColumn;
-    @FXML private TableColumn<Pair<PlayerStat, String>, String> shipValueColumn;
+    @FXML private TableView<Pair<Statistic, String>> statTable;
+    @FXML private TableColumn<Pair<Statistic, String>, String> statNameColumn;
+    @FXML private TableColumn<Pair<Statistic, String>, String> statValueColumn;
+    @FXML private TableView<Pair<Statistic, String>> rankTable;
+    @FXML private TableColumn<Pair<Statistic, String>, String> rankNameColumn;
+    @FXML private TableColumn<Pair<Statistic, String>, String> rankValueColumn;
+    @FXML private TableView<Pair<Statistic, String>> shipTable;
+    @FXML private TableColumn<Pair<Statistic, String>, String> shipNameColumn;
+    @FXML private TableColumn<Pair<Statistic, String>, String> shipValueColumn;
 
 
     /*
@@ -246,9 +248,9 @@ public class UIController
                     });
 
             procurementRecipeMap.put(new Pair<>(procType.get(), recipeType.get()), count.get());
-            syncUI();
         });
 
+        if (initialzed) syncUI();
     }
 
     private static final Label recipeTableEmpty = new Label("Use the \"Procurements\" menu to select tasks");
@@ -599,8 +601,9 @@ public class UIController
         recipeProgressColumn.setComparator(indicatorByProgress);
 
         makeProcurementTree();
-        initialzed = true;
         fromJson();
+        initialzed = true;
+
     }
 
     private TreeItem<ProcTreeData> makeSynthesisTree()
@@ -821,7 +824,7 @@ public class UIController
         procurementTree.setShowRoot(false);
     }
 
-    private void syncInventory()
+    private synchronized void syncInventory()
     {
         // fill the inventory display tables with the player inventory items
         rawTable.getItems().clear();
@@ -920,31 +923,37 @@ public class UIController
                     });
         });
 
-        procurementRecipeTable.getItems()
-                .sort((a, b) ->
-                {
-                    String as = a.asPair().getKey().toString() + a.asPair().getValue().toString();
-                    String bs = b.asPair().getKey().toString() + b.asPair().getValue().toString();
-                    return as.compareTo(bs);
-                });
 
-        procurementCostTable.getItems().sort((a, b)->
+        if (procurementRecipeTable.getItems().size() > 0)
         {
-            double ad = ((double)a.getHave() / (double)a.getNeed());
-            double bd = ((double)b.getHave() / (double)b.getNeed());
-            if (ad == bd) return 0;
-            else return ad > bd ? 1 : -1;
-        });
+            procurementRecipeTable.getItems().sort((a, b) ->
+            {
+                String as = a.asPair().getKey().toString() + a.asPair().getValue().toString();
+                String bs = b.asPair().getKey().toString() + b.asPair().getValue().toString();
+                return as.compareTo(bs);
+            });
+        }
+
+        if (procurementCostTable.getItems().size() > 0)
+        {
+            procurementCostTable.getItems().sort((a, b)->
+            {
+                double ad = ((double)a.getHave() / (double)a.getNeed());
+                double bd = ((double)b.getHave() / (double)b.getNeed());
+                if (ad == bd) return 0;
+                else return ad > bd ? 1 : -1;
+            });
+        }
 
 
-        Set<PlayerStat> playerStats = new HashSet<>();
+        Set<Statistic> playerStats = new HashSet<>();
         playerStats.add(PlayerStat.Commander);
         playerStats.add(PlayerStat.Credits);
         playerStats.add(PlayerStat.Game_Mode);
         playerStats.add(PlayerStat.Private_Group);
         playerStats.add(PlayerStat.Loan);
 
-        Set<PlayerStat> rankStats = new HashSet<>();
+        Set<Statistic> rankStats = new HashSet<>();
         rankStats.add(PlayerStat.Rank_Combat);
         rankStats.add(PlayerStat.Rank_Trade);
         rankStats.add(PlayerStat.Rank_Explore);
@@ -962,12 +971,55 @@ public class UIController
         rankStats.add(PlayerStat.Reputation_Alliance);
         rankStats.add(PlayerStat.Reputation_Indpendent);
 
-        Set<PlayerStat> shipStats = new HashSet<>();
+        Set<Statistic> shipStats = new HashSet<>();
         shipStats.add(PlayerStat.Ship);
         shipStats.add(PlayerStat.Ship_ID);
         shipStats.add(PlayerStat.Ship_Name);
         shipStats.add(PlayerStat.Fuel_Level);
         shipStats.add(PlayerStat.Fuel_Capacity);
+
+        shipStats.add(InternalSlot.ShipCockpit);
+        shipStats.add(InternalSlot.CargoHatch);
+        shipStats.add(InternalSlot.LargeHardpoint1);
+        shipStats.add(InternalSlot.LargeHardpoint2);
+        shipStats.add(InternalSlot.LargeHardpoint3);
+        shipStats.add(InternalSlot.MediumHardpoint1);
+        shipStats.add(InternalSlot.MediumHardpoint2);
+        shipStats.add(InternalSlot.TinyHardpoint1);
+        shipStats.add(InternalSlot.TinyHardpoint2);
+        shipStats.add(InternalSlot.TinyHardpoint3);
+        shipStats.add(InternalSlot.TinyHardpoint4);
+        shipStats.add(InternalSlot.PaintJob);
+        shipStats.add(InternalSlot.Decal1);
+        shipStats.add(InternalSlot.Decal2);
+        shipStats.add(InternalSlot.Decal3);
+        shipStats.add(InternalSlot.ShipName0);
+        shipStats.add(InternalSlot.ShipName1);
+        shipStats.add(InternalSlot.Armour);
+        shipStats.add(InternalSlot.PowerPlant);
+        shipStats.add(InternalSlot.MainEngines);
+        shipStats.add(InternalSlot.FrameShiftDrive);
+        shipStats.add(InternalSlot.LifeSupport);
+        shipStats.add(InternalSlot.PowerDistributor);
+        shipStats.add(InternalSlot.Radar);
+        shipStats.add(InternalSlot.FuelTank);
+        shipStats.add(InternalSlot.Slot01_Size6);
+        shipStats.add(InternalSlot.Slot02_Size6);
+        shipStats.add(InternalSlot.Slot03_Size6);
+        shipStats.add(InternalSlot.Slot04_Size5);
+        shipStats.add(InternalSlot.Slot05_Size5);
+        shipStats.add(InternalSlot.Slot06_Size4);
+        shipStats.add(InternalSlot.Slot07_Size3);
+        shipStats.add(InternalSlot.Slot08_Size3);
+        shipStats.add(InternalSlot.Slot09_Size2);
+        shipStats.add(InternalSlot.PlanetaryApproachSuite);
+        shipStats.add(InternalSlot.ShipKitSpoiler);
+        shipStats.add(InternalSlot.ShipKitWings);
+        shipStats.add(InternalSlot.ShipKitTail);
+        shipStats.add(InternalSlot.WeaponColour);
+        shipStats.add(InternalSlot.EngineColour);
+        shipStats.add(InternalSlot.VesselVoice);
+
 
 
         playerInventory.getStats()

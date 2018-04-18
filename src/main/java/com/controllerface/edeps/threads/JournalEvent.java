@@ -38,5 +38,8 @@ public enum JournalEvent
     LoadGame,
     Rank,
     Progress,
-    Reputation
+    Reputation,
+    Loadout,
+
+    ;
 }

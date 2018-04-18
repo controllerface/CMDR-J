@@ -1,12 +1,14 @@
 package com.controllerface.edeps.threads;
 
+import com.controllerface.edeps.Statistic;
+
 import java.text.NumberFormat;
 import java.util.function.Function;
 
 /**
  * Created by Stephen on 4/17/2018.
  */
-public enum PlayerStat
+public enum PlayerStat implements Statistic
 {
     Rank_Combat("Combat", "Combat Rank", (o) -> String.valueOf((int) o)),
     Rank_Trade("Trade", "Trade Rank", (o)-> String.valueOf((int) o)),

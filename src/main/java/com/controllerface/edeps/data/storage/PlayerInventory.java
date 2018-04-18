@@ -1,6 +1,7 @@
 package com.controllerface.edeps.data.storage;
 
 import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.InventoryData;
 import com.controllerface.edeps.enums.costs.commodities.Commodity;
 import com.controllerface.edeps.enums.costs.commodities.CommodityType;
@@ -22,7 +23,7 @@ public class PlayerInventory
     private final InventoryStorageBin mfdMats = new ManufacturedInventoryStorageBin();
     private final InventoryStorageBin cargo = new CargoStorageBin();
 
-    private final Map<PlayerStat, String> stats = new LinkedHashMap<>();
+    private final Map<Statistic, String> stats = new LinkedHashMap<>();
 
 
     public Stream<InventoryData> rawMaterialStream()
@@ -58,13 +59,13 @@ public class PlayerInventory
         return stats.get(key);
     }
 
-    public String setStat(PlayerStat key, String stat)
+    public String setStat(Statistic key, String stat)
     {
         System.out.println("Set Stat: " + key);
         return stats.put(key, stat);
     }
 
-    public Map<PlayerStat, String> getStats()
+    public Map<Statistic, String> getStats()
     {
         return stats;
     }

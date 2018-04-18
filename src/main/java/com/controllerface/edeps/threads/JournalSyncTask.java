@@ -5,6 +5,7 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.storage.PlayerInventory;
 import com.controllerface.edeps.enums.costs.commodities.Commodity;
 import com.controllerface.edeps.enums.costs.materials.Material;
+import com.controllerface.edeps.enums.equipment.ships.InternalSlot;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
@@ -12,7 +13,6 @@ import javafx.util.Pair;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.*;
-import java.text.NumberFormat;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -253,6 +253,11 @@ public class JournalSyncTask implements Runnable
 
         switch (event)
         {
+            case Loadout:
+                processLoadoutEvent(data);
+                break;
+
+
             case LoadGame:
                 processLoadGameEvent(data);
                 break;
@@ -372,6 +377,28 @@ public class JournalSyncTask implements Runnable
         playerInventory.setStat(stat, stat.format(data.get(stat.getKey())));
     }
 
+    private void setSlotFromData(Map<String, Object> data)
+    {
+        String slotName = ((String) data.get("Slot"));
+        String itemName = ((String) data.get("Item"));
+        InternalSlot internalSlot = InternalSlot.valueOf(slotName);
+        playerInventory.setStat(internalSlot, itemName);
+
+    }
+
+
+
+    private void processLoadoutEvent(Map<String, Object> data)
+    {
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> modules = ((List<Map<String, Object>>) data.get("Modules"));
+
+        modules.stream()
+                .forEach(module ->
+                {
+                    setSlotFromData(module);
+                });
+    }
 
     private void processRankEvent(Map<String, Object> data)
     {
