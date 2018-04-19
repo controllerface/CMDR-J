@@ -541,8 +541,8 @@ public class UIController
     @FXML
     public void initialize()
     {
-        // fill the inventory display tables with the player inventory items
-        syncInventory();
+
+
 
         // set placeholder labels shown when the procurement list is empty
         procurementRecipeTable.setPlaceholder(recipeTableEmpty);
@@ -600,10 +600,20 @@ public class UIController
         costProgressColumn.setComparator(indicatorByProgress);
         recipeProgressColumn.setComparator(indicatorByProgress);
 
+
+
+
+        // fill the inventory display tables with the player inventory items
+        syncInventory();
+
         makeProcurementTree();
+
+        // load the auto-save data from disk
         fromJson();
+
         initialzed = true;
 
+        syncUI();
     }
 
     private TreeItem<ProcTreeData> makeSynthesisTree()

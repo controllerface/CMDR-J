@@ -50,6 +50,7 @@ public class EDEPS extends Application
 
         primaryStage.setTitle("Elite Dangerous Engineering Procurement System");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }

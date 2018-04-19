@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="909.0" prefWidth="1267.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllerface.edeps.ui.UIController">
+<AnchorPane prefHeight="836.0" prefWidth="1119.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllerface.edeps.ui.UIController">
    <children>
-      <GridPane alignment="TOP_CENTER" prefHeight="543.0" prefWidth="918.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="318.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="295.0" prefWidth="549.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="174.0" prefWidth="378.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints fillHeight="false" maxHeight="177.0" minHeight="3.0" prefHeight="27.0" valignment="CENTER" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="516.0" vgrow="ALWAYS" />
-        </rowConstraints>
+      <VBox layoutX="9.0" layoutY="-1.0" prefHeight="849.0" prefWidth="567.0">
          <children>
-            <TreeView fx:id="procurementTree" maxWidth="1.7976931348623157E308" prefHeight="516.0" prefWidth="415.0" GridPane.rowIndex="1" />
-            <TableView fx:id="procurementRecipeTable" prefHeight="516.0" prefWidth="559.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TreeView fx:id="procurementTree" maxWidth="1.7976931348623157E308" prefHeight="280.0" prefWidth="576.0" />
+            <TableView fx:id="procurementRecipeTable" prefHeight="307.0" prefWidth="576.0">
               <columns>
                   <TableColumn fx:id="recipeProgressColumn" maxWidth="40.0" prefWidth="40.0" text="Done" />
                 <TableColumn fx:id="recipeCountColumn" editable="false" maxWidth="80.0" minWidth="60.0" resizable="false" sortable="false" text="Count" />
@@ -26,21 +18,78 @@
                   <TableColumn fx:id="recipeRemoveColumn" editable="false" maxWidth="133.0" minWidth="23.0" prefWidth="31.0" resizable="false" sortable="false" />
               </columns>
             </TableView>
-            <Label prefHeight="17.0" prefWidth="81.0" style="-fx-font-weight: bold;" text="Procurements" GridPane.valignment="CENTER" />
-            <Pane GridPane.columnIndex="1">
-               <children>
-                  <Button layoutX="512.0" mnemonicParsing="false" onAction="#fromJson" text="Load" textAlignment="CENTER" GridPane.columnIndex="1" />
-                  <Button mnemonicParsing="false" onAction="#toJson" text="Save" />
-                  <Label layoutX="235.0" layoutY="4.0" style="-fx-font-weight: bold;" text="Selected Tasks " />
-               </children>
-            </Pane>
-            <Accordion GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <TableView fx:id="procurementCostTable" layoutX="-2.0" layoutY="32.0" maxWidth="1.7976931348623157E308" prefHeight="318.0" prefWidth="576.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <columns>
+                  <TableColumn fx:id="costProgressColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" text="Done" />
+                  <TableColumn fx:id="costNeedColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Need" />
+                  <TableColumn fx:id="costHaveColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
+                  <TableColumn fx:id="costNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="308.0" text="Item" />
+                  <TableColumn fx:id="costTypeColumn" prefWidth="82.0" text="Type" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+      <VBox layoutX="576.0" layoutY="1.0" prefHeight="849.0" prefWidth="543.0">
+         <children>
+            <TabPane maxWidth="1.7976931348623157E308" prefHeight="259.0" prefWidth="543.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                   <Tab text="Raw">
+                      <content>
+                          <TableView fx:id="rawTable" maxWidth="1.7976931348623157E308" prefHeight="189.0" prefWidth="815.0">
+                              <columns>
+                                  <TableColumn fx:id="rawCategoryColumn" editable="false" maxWidth="150.0" minWidth="50.0" prefWidth="150.0" resizable="false" text="Category" />
+                                  <TableColumn fx:id="rawGradeColumn" editable="false" maxWidth="50.0" minWidth="25.0" prefWidth="50.0" resizable="false" text="Grade" />
+                                  <TableColumn fx:id="rawMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" text="Material" />
+                                  <TableColumn fx:id="rawQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
+                              </columns>
+                          </TableView>
+                      </content>
+                   </Tab>
+                   <Tab text="Manufactured">
+                      <content>
+                          <TableView fx:id="manufacturedTable" prefHeight="200.0" prefWidth="200.0">
+                              <columns>
+                                  <TableColumn fx:id="manufacturedCategoryColumn" editable="false" prefWidth="150.0" resizable="false" text="Category" />
+                                  <TableColumn fx:id="manufacturedGradeColumn" editable="false" prefWidth="50.0" resizable="false" text="Grade" />
+                                  <TableColumn fx:id="manufacturedMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
+                                  <TableColumn fx:id="manufacturedQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
+                              </columns>
+                          </TableView>
+                      </content>
+                   </Tab>
+                   <Tab text="Data">
+                      <content>
+                          <TableView fx:id="dataTable" prefHeight="371.0" prefWidth="551.0">
+                              <columns>
+                                  <TableColumn fx:id="dataCategoryColumn" editable="false" prefWidth="150.0" resizable="false" text="Category" />
+                                  <TableColumn fx:id="dataGradeColumn" editable="false" prefWidth="50.0" resizable="false" text="Grade" />
+                                  <TableColumn fx:id="dataMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
+                                  <TableColumn fx:id="dataQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
+                              </columns>
+                          </TableView>
+                      </content>
+                   </Tab>
+                  <Tab text="Cargo">
+                     <content>
+                        <TableView fx:id="cargoTable" prefHeight="371.0" prefWidth="551.0">
+                           <columns>
+                              <TableColumn fx:id="cargoCategoryColumn" editable="false" prefWidth="150.0" resizable="false" text="Category" />
+                              <TableColumn fx:id="cargoGradeColumn" editable="false" prefWidth="50.0" resizable="false" text="Type" />
+                              <TableColumn fx:id="cargoMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Commodity" />
+                              <TableColumn fx:id="cargoQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+            <Accordion prefHeight="516.0" prefWidth="543.0">
               <panes>
                 <TitledPane animated="false" text="Commander Stats">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="statTable" prefHeight="437.0" prefWidth="385.0">
+                              <TableView fx:id="statTable" prefHeight="568.0" prefWidth="543.0">
                                 <columns>
                                   <TableColumn fx:id="statNameColumn" prefWidth="172.0" text="Stat" />
                                   <TableColumn fx:id="statValueColumn" prefWidth="189.0" text="Value" />
@@ -54,7 +103,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="rankTable" prefHeight="437.0" prefWidth="385.0">
+                              <TableView fx:id="rankTable" prefHeight="567.0" prefWidth="543.0">
                                  <columns>
                                     <TableColumn fx:id="rankNameColumn" prefWidth="172.0" text="Stat" />
                                     <TableColumn fx:id="rankValueColumn" prefWidth="189.0" text="Value" />
@@ -64,105 +113,26 @@
                         </AnchorPane>
                   </content>
                 </TitledPane>
-                <TitledPane animated="false" text="Ship">
+                <TitledPane animated="false" expanded="false" text="Ship">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="shipTable" prefHeight="437.0" prefWidth="385.0">
+                              <TableView fx:id="shipTable" prefHeight="569.0" prefWidth="543.0">
                                  <columns>
                                     <TableColumn fx:id="shipNameColumn" prefWidth="172.0" text="Stat" />
                                     <TableColumn fx:id="shipValueColumn" prefWidth="189.0" text="Value" />
                                  </columns>
                               </TableView>
-                           </children></AnchorPane>
+                           </children>
+                        </AnchorPane>
                   </content>
                 </TitledPane>
               </panes>
             </Accordion>
          </children>
-      </GridPane>
-      <GridPane layoutY="543.0" prefHeight="351.0" prefWidth="918.0" styleClass="main" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="545.0" prefWidth="545.0" />
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="410.0" prefWidth="529.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="240.0" minHeight="10.0" prefHeight="24.0" valignment="CENTER" />
-          <RowConstraints maxHeight="350.0" minHeight="300.0" prefHeight="300.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <StackPane maxWidth="1.7976931348623157E308" prefWidth="640.0" GridPane.rowIndex="1">
-               <children>
-                  <TabPane maxWidth="1.7976931348623157E308" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE">
-                     <tabs>
-                         <Tab text="Raw">
-                            <content>
-                                <TableView fx:id="rawTable" maxWidth="1.7976931348623157E308" prefHeight="310.0" prefWidth="640.0">
-                                    <columns>
-                                        <TableColumn fx:id="rawCategoryColumn" editable="false" maxWidth="150.0" minWidth="50.0" prefWidth="150.0" resizable="false" text="Category" />
-                                        <TableColumn fx:id="rawGradeColumn" editable="false" maxWidth="50.0" minWidth="25.0" prefWidth="50.0" resizable="false" text="Grade" />
-                                        <TableColumn fx:id="rawMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" text="Material" />
-                                        <TableColumn fx:id="rawQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
-                                    </columns>
-                                </TableView>
-                            </content>
-                         </Tab>
-                         <Tab text="Manufactured">
-                            <content>
-                                <TableView fx:id="manufacturedTable" prefHeight="200.0" prefWidth="200.0">
-                                    <columns>
-                                        <TableColumn fx:id="manufacturedCategoryColumn" editable="false" prefWidth="150.0" resizable="false" text="Category" />
-                                        <TableColumn fx:id="manufacturedGradeColumn" editable="false" prefWidth="50.0" resizable="false" text="Grade" />
-                                        <TableColumn fx:id="manufacturedMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
-                                        <TableColumn fx:id="manufacturedQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
-                                    </columns>
-                                </TableView>
-                            </content>
-                         </Tab>
-                         <Tab text="Data">
-                            <content>
-                                <TableView fx:id="dataTable" prefHeight="371.0" prefWidth="551.0">
-                                    <columns>
-                                        <TableColumn fx:id="dataCategoryColumn" editable="false" prefWidth="150.0" resizable="false" text="Category" />
-                                        <TableColumn fx:id="dataGradeColumn" editable="false" prefWidth="50.0" resizable="false" text="Grade" />
-                                        <TableColumn fx:id="dataMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
-                                        <TableColumn fx:id="dataQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
-                                    </columns>
-                                </TableView>
-                            </content>
-                         </Tab>
-                        <Tab text="Cargo">
-                           <content>
-                              <TableView fx:id="cargoTable" prefHeight="371.0" prefWidth="551.0">
-                                 <columns>
-                                    <TableColumn fx:id="cargoCategoryColumn" editable="false" prefWidth="150.0" resizable="false" text="Category" />
-                                    <TableColumn fx:id="cargoGradeColumn" editable="false" prefWidth="50.0" resizable="false" text="Type" />
-                                    <TableColumn fx:id="cargoMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Commodity" />
-                                    <TableColumn fx:id="cargoQuantityColumn" editable="false" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
-                                 </columns>
-                              </TableView>
-                           </content>
-                        </Tab>
-                     </tabs>
-                  </TabPane>
-               </children>
-            </StackPane>
-            <Label style="-fx-font-weight: bold;" styleClass="top_label" text="Items Needed" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Label style="-fx-font-weight: bold;" styleClass="top_label" text="Player Inventory" GridPane.halignment="CENTER" />
-            <AnchorPane maxWidth="1.7976931348623157E308" prefHeight="327.0" prefWidth="414.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <TableView fx:id="procurementCostTable" layoutX="-2.0" maxWidth="1.7976931348623157E308" prefHeight="327.0" prefWidth="436.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <columns>
-                        <TableColumn fx:id="costProgressColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" text="Done" />
-                        <TableColumn fx:id="costNeedColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Need" />
-                        <TableColumn fx:id="costHaveColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
-                        <TableColumn fx:id="costNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="308.0" text="Item" />
-                        <TableColumn fx:id="costTypeColumn" prefWidth="82.0" text="Type" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-         </children>
-      </GridPane>
+      </VBox>
    </children>
+   <rotationAxis>
+      <Point3D />
+   </rotationAxis>
 </AnchorPane>
