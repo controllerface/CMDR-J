@@ -7,7 +7,6 @@ import com.sun.javafx.scene.control.skin.ProgressIndicatorSkin;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -59,26 +58,8 @@ public class ProcTreeCell extends TreeCell<ProcTreeData>
             textBox.getChildren().add(gradeLabel);
 
             item.getRecipe().effects().pairStream()
-                    .map(p ->
-                    {
-                        boolean moreIsGood = p.getKey().isMoreGood();
-                        boolean valueIsPositive = p.getValue() >= 0;
-                        boolean markGood = moreIsGood == valueIsPositive;
-                        String buf = p.getKey().toString()
-                                + ((valueIsPositive ? " +" : " ")
-                                + p.getValue());
-                        buf = buf.replace(".0","");
-                        if (buf.contains("-") || buf.contains("+")) buf += "%";
-                        buf = buf.replace("+0%","");
-                        Label nextLabel = new Label(buf);
-                        nextLabel.setTextFill(markGood ? Color.BLUE : Color.RED);
-                        return nextLabel;
-                    })
-                    .sorted((a,b)->a.getTextFill() == b.getTextFill() // do the text fill styles match?
-                            ? 0 // if so, return 0 indicating they are equal
-                            : a.getTextFill() == Color.BLUE // is a green?
-                                    ? -1 // if so return -1 for green first
-                                    : 1) // otherwise, return 1 for red last
+                    .map(UIFunctions.Convert.effectToLabel)
+                    .sorted(UIFunctions.Sort.byGoodness)
                     .forEach(l->textBox.getChildren().add(l));
 
             Button button = new Button();

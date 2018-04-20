@@ -4,6 +4,7 @@
 package com.controllerface.edeps;
 
 import com.controllerface.edeps.ui.UIController;
+import com.oracle.jrockit.jfr.Producer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.SecureRandom;
+import java.util.Random;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class EDEPS extends Application
 {
@@ -50,7 +57,7 @@ public class EDEPS extends Application
 
         primaryStage.setTitle("Elite Dangerous Engineering Procurement System");
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         primaryStage.show();
 
     }

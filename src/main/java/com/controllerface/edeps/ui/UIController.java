@@ -218,12 +218,15 @@ public class UIController
                             case "ExperimentalType" :
                                 procType.set(ExperimentalType.valueOf(((String) entry.getValue())));
                                 break;
+
                             case "ModificationType" :
                                 procType.set(ModificationType.valueOf(((String) entry.getValue())));
                                 break;
+
                             case "SynthesisType" :
                                 procType.set(SynthesisType.valueOf(((String) entry.getValue())));
                                 break;
+
                             case "TechnologyType" :
                                 procType.set(TechnologyType.valueOf(((String) entry.getValue())));
                                 break;
@@ -231,12 +234,15 @@ public class UIController
                             case "ExperimentalRecipe" :
                                 recipeType.set(ExperimentalRecipe.valueOf(((String) entry.getValue())));
                                 break;
+
                             case "ModificationRecipe" :
                                 recipeType.set(ModificationRecipe.valueOf(((String) entry.getValue())));
                                 break;
+
                             case "SynthesisRecipe" :
                                 recipeType.set(SynthesisRecipe.valueOf(((String) entry.getValue())));
                                 break;
+
                             case "TechnologyRecipe" :
                                 recipeType.set(TechnologyRecipe.valueOf(((String) entry.getValue())));
                                 break;
@@ -252,9 +258,6 @@ public class UIController
 
         if (initialzed) syncUI();
     }
-
-    private static final Label recipeTableEmpty = new Label("Use the \"Procurements\" menu to select tasks");
-    private static final Label materialTableEmpty = new Label("Materials needed for selected recipes will appear here");
 
 
     /*
@@ -307,199 +310,6 @@ public class UIController
                 syncUI();
             };
 
-    /*
-    Inventory display values
-     */
-
-    // simple string for material category name
-    private final Callback<TableColumn.CellDataFeatures<InventoryData, String>, ObservableValue<String>>
-            inventoryCategoryCellFactory =
-            (materialData) ->
-            {
-                ProcurementCost material = materialData.getValue().getItem();
-                SimpleStringProperty categoryValue = null;
-                if (material instanceof Material)
-                {
-                    String category = MaterialCategory.findMatchingCategory(material).toString();
-                    categoryValue =  new SimpleStringProperty(category);
-                }
-                else if (material instanceof Commodity)
-                {
-                    String category = CommodityCategory.findMatchingCategory(material).toString();
-                    categoryValue =  new SimpleStringProperty(category);
-                }
-                return categoryValue;
-            };
-
-    // simple string for material grade
-    private final Callback<TableColumn.CellDataFeatures<InventoryData, String>, ObservableValue<String>>
-            inventoryGradeCellFactory =
-            (materialData) ->
-            {
-                String grade = materialData.getValue().getItem().getGrade().toString();
-                return new SimpleStringProperty(grade);
-            };
-
-    // simple string for material name
-    private final Callback<TableColumn.CellDataFeatures<InventoryData, String>, ObservableValue<String>>
-            inventoryMaterialCellFactory =
-            (materialData) ->
-            {
-                String materialName = materialData.getValue().getItem().getLocalizedName();
-                return new SimpleStringProperty(materialName);
-            };
-
-    // simple integer for material count
-    private final Callback<TableColumn.CellDataFeatures<InventoryData, Number>, ObservableValue<Number>>
-            inventoryQuantityCellFactory =
-            (materialData) ->
-            {
-                int quantity = materialData.getValue().getQuantity();
-                return new SimpleIntegerProperty(quantity);
-            };
-
-    /*
-     procurement List: Roll/Mod Blueprint
-     */
-
-    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProcurementRecipeData>, ObservableValue<ProcurementRecipeData>>
-            modRollCellValueFactory = (modRecipe) -> new ReadOnlyObjectWrapper<>(modRecipe.getValue());
-
-    // simple integer for number of rolls
-    private final Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>
-            modRollCellFactory = (modRecipe) -> new TaskCountCell(procurementListUpdate);
-
-
-    // simple string for blueprint/recipe name
-    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProcurementRecipeData>, ObservableValue<ProcurementRecipeData>>
-            modNameCellValueFactory = (modRecipe) ->new ReadOnlyObjectWrapper<>(modRecipe.getValue());
-
-    // simple string for blueprint/recipe name
-    private final Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>
-            modNameCellFactory = (modRecipe) -> new RecipeNameCell(playerInventory::hasItem);
-
-    // wrapper object for recipe pair object
-    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, ObservableValue<Pair<ProcurementType, ProcurementRecipe>>>
-            modControlCellValueFactory = (modRecipe) -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair());
-
-    // custom cell object creates display for the controls
-    private final Callback<TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>>
-            modControlCellFactory = (modRecipe) -> new ModControlCell(procurementListUpdate);
-
-    /*
-     procurement List: Material Need/Have, Progress information
-     */
-
-    // simple integer for the need count
-    private final Callback<TableColumn.CellDataFeatures<ItemCostData, Number>, ObservableValue<Number>>
-            materialNeedCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getNeed());
-
-    // simple integer for the have count
-    private final Callback<TableColumn.CellDataFeatures<ItemCostData, Number>, ObservableValue<Number>>
-            materialHaveCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getHave());
-
-    // simple string for the material name
-    private final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
-            materialNameCellFactory = (modMaterial) -> new SimpleStringProperty(modMaterial.getValue().toString());
-
-    private final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
-            materialTypeCellFactory = (modMaterial) ->
-    {
-        ProcurementCost cost = modMaterial.getValue().getMaterial();
-        String type;
-        if (cost instanceof Material) type = MaterialType.findMatchingType(((Material) cost)).name().toLowerCase();
-        else if (cost instanceof Commodity) type = "commodity";
-        else type = "Unknown";
-        return new SimpleStringProperty(type);
-    };
-
-    // custom cell object creates display for the progress indicator
-    private final Callback<TableColumn<ItemCostData, ProgressIndicator>, TableCell<ItemCostData, ProgressIndicator>>
-            materialProgressCellFactory = (modMaterial) -> new MaterialProgressCell();
-
-    // wrapper object for progress indicator object
-    private final Callback<TableColumn.CellDataFeatures<ItemCostData, ProgressIndicator>, ObservableValue<ProgressIndicator>>
-            matProgressCellValueFactory = (modMaterial) ->
-    {
-        double progress = ((double) modMaterial.getValue().getHave()) / ((double) modMaterial.getValue().getNeed());
-
-        ProgressIndicator progressIndicator = new ProgressIndicator(progress);
-
-        if (progress >= 1.0)
-        {
-            progressIndicator.setStyle("-fx-progress-color: #6677ff ");
-        }
-        else progressIndicator.setStyle("-fx-progress-color: #ee5555 ");
-
-        return new ReadOnlyObjectWrapper<>(progressIndicator);
-    };
-
-
-    // custom cell object creates display for the progress indicator
-    private final Callback<TableColumn<ProcurementRecipeData, ProgressIndicator>, TableCell<ProcurementRecipeData, ProgressIndicator>>
-            recipeProgressCellFactory = (modRecipeItem) -> new TaskProgressCell();
-
-    // wrapper object for progress indicator object
-    private final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProgressIndicator>, ObservableValue<ProgressIndicator>>
-            recipeProgressCellValueFactory = (modRecipe) ->
-    {
-        ProcurementRecipeData procurementRecipeData = modRecipe.getValue();
-
-        int count = procurementRecipeData.getCount();
-
-        int total = procurementRecipeData.asPair().getValue().costStream()
-                .mapToInt(c -> c.getQuantity() * count)
-                .sum();
-
-        int missing = procurementRecipeData.asPair().getValue().costStream()
-                .mapToInt(cost->
-                {
-                    int banked = playerInventory.hasItem(cost.getCost());
-                    int surplus = banked - (cost.getQuantity() * count);
-                    return surplus < 0
-                            ? -1 * surplus
-                            : 0;
-                })
-                .sum();
-
-        double progress = missing > 0
-                ? (double) total / (double)(total + missing)
-                : 1;
-
-        ProgressIndicator progressIndicator = new ProgressIndicator(progress);
-
-        if (progress >= 1.0)
-        {
-            progressIndicator.setStyle("-fx-progress-color: #6677ff ");
-        }
-        else progressIndicator.setStyle("-fx-progress-color: #ee5555 ");
-
-        return new ReadOnlyObjectWrapper<>(progressIndicator);
-    };
-
-    /*
-    Material sorting comparators
-     */
-
-    // sort InventoryData objects alphabetically by category name
-    private final Comparator<InventoryData> costByCategory = Comparator.comparing(InventoryData::getCategory);
-
-    // sort InventoryData objects numerically by grade, lowest to highest
-    private final Comparator<InventoryData> materialByGrade =
-            (a, b) -> a.getItem().getGrade().toString().compareTo(b.getItem().getGrade().toString());
-
-    // sort InventoryData objects numerically by count, highest to lowest
-    private final Comparator<InventoryData> cargoByCount =
-            (a, b) -> b.getQuantity() - a.getQuantity();
-
-    // sort ProgressIndicator objects by numerical progress, lowest to highest
-    private final Comparator<ProgressIndicator> indicatorByProgress =
-            (a, b) -> a.getProgress() == b.getProgress()
-                    ? 0
-                    : a.getProgress() > b.getProgress()
-                            ? 1
-                            : -1;
-
     public UIController()
     {
         localizeData();
@@ -542,77 +352,76 @@ public class UIController
     public void initialize()
     {
 
-
-
         // set placeholder labels shown when the procurement list is empty
-        procurementRecipeTable.setPlaceholder(recipeTableEmpty);
-        procurementCostTable.setPlaceholder(materialTableEmpty);
+        procurementRecipeTable.setPlaceholder(new Label("Use the \"Procurements\" menu to select tasks"));
+        procurementCostTable.setPlaceholder(new Label("Materials needed for selected recipes will appear here"));
 
         // set the cell value factories for the player inventory tabs
-        rawCategoryColumn.setCellValueFactory(inventoryCategoryCellFactory);
-        rawGradeColumn.setCellValueFactory(inventoryGradeCellFactory);
-        rawMaterialColumn.setCellValueFactory(inventoryMaterialCellFactory);
-        rawQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+        rawCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
+        rawGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        rawMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
+        rawQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
 
-        manufacturedCategoryColumn.setCellValueFactory(inventoryCategoryCellFactory);
-        manufacturedGradeColumn.setCellValueFactory(inventoryGradeCellFactory);
-        manufacturedMaterialColumn.setCellValueFactory(inventoryMaterialCellFactory);
-        manufacturedQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+        manufacturedCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
+        manufacturedGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        manufacturedMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
+        manufacturedQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
 
-        dataCategoryColumn.setCellValueFactory(inventoryCategoryCellFactory);
-        dataGradeColumn.setCellValueFactory(inventoryGradeCellFactory);
-        dataMaterialColumn.setCellValueFactory(inventoryMaterialCellFactory);
-        dataQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+        dataCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
+        dataGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        dataMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
+        dataQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
 
-        cargoCategoryColumn.setCellValueFactory(inventoryCategoryCellFactory);
-        cargoGradeColumn.setCellValueFactory(inventoryGradeCellFactory);
-        cargoMaterialColumn.setCellValueFactory(inventoryMaterialCellFactory);
-        cargoQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+        cargoCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
+        cargoGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        cargoMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
+        cargoQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
 
         // set the cell and cell value factories for the procurement recipe list
-        recipeCountColumn.setCellValueFactory(modRollCellValueFactory);
-        recipeCountColumn.setCellFactory(modRollCellFactory);
+        recipeCountColumn.setCellFactory(UIFunctions.Data.makeModRollCellFactory.apply(procurementListUpdate));
+        recipeCountColumn.setCellValueFactory(UIFunctions.Data.modRollCellValueFactory);
         recipeCountColumn.setStyle( "-fx-alignment: CENTER;");
 
-        recipeNameColumn.setCellValueFactory(modNameCellValueFactory);
-        recipeNameColumn.setCellFactory(modNameCellFactory);
-        recipeRemoveColumn.setCellValueFactory(modControlCellValueFactory);
-        recipeRemoveColumn.setCellFactory(modControlCellFactory);
-        recipeProgressColumn.setCellValueFactory(recipeProgressCellValueFactory);
-        recipeProgressColumn.setCellFactory(recipeProgressCellFactory);
+        recipeNameColumn.setCellFactory(UIFunctions.Data.makeModNameCellFactory.apply(playerInventory::hasItem));
+        recipeNameColumn.setCellValueFactory(UIFunctions.Data.modNameCellValueFactory);
+        recipeRemoveColumn.setCellFactory(UIFunctions.Data.makeModControlCellFactory.apply(procurementListUpdate));
+        recipeRemoveColumn.setCellValueFactory(UIFunctions.Data.modControlCellValueFactory);
+        recipeProgressColumn.setCellFactory(UIFunctions.Data.recipeProgressCellFactory);
+        recipeProgressColumn.setCellValueFactory(UIFunctions.Data.makeRecipeProgressCellValuefactory.apply(playerInventory));
+
 
         // set the cell and cell value factories for the procurement material list
-        costProgressColumn.setCellValueFactory(matProgressCellValueFactory);
-        costProgressColumn.setCellFactory(materialProgressCellFactory);
-        costNeedColumn.setCellValueFactory(materialNeedCellFactory);
-        costHaveColumn.setCellValueFactory(materialHaveCellFactory);
-        costNameColumn.setCellValueFactory(materialNameCellFactory);
-        costTypeColumn.setCellValueFactory(materialTypeCellFactory);
+        costProgressColumn.setCellFactory(UIFunctions.Data.materialProgressCellFactory);
+        costProgressColumn.setCellValueFactory(UIFunctions.Data.matProgressCellValueFactory);
+        costNeedColumn.setCellValueFactory(UIFunctions.Data.materialNeedCellFactory);
+        costHaveColumn.setCellValueFactory(UIFunctions.Data.materialHaveCellFactory);
+        costNameColumn.setCellValueFactory(UIFunctions.Data.materialNameCellFactory);
+        costTypeColumn.setCellValueFactory(UIFunctions.Data.materialTypeCellFactory);
 
-        statNameColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getKey().getText()));
-        statValueColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getValue()));
-        rankNameColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getKey().getText()));
-        rankValueColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getValue()));
-        shipNameColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getKey().getText()));
-        shipValueColumn.setCellValueFactory((v)->new SimpleStringProperty(v.getValue().getValue()));
+        statNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
+        statValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
+        rankNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
+        rankValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
+        shipNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
+        shipValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
 
         // set the sorting comparator for the material progress column of the procurement list
-        costProgressColumn.setComparator(indicatorByProgress);
-        recipeProgressColumn.setComparator(indicatorByProgress);
+        costProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
+        recipeProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
 
-
-
+        // build the tree to select procurement tasks from
+        makeProcurementTree();
 
         // fill the inventory display tables with the player inventory items
         syncInventory();
 
-        makeProcurementTree();
-
         // load the auto-save data from disk
         fromJson();
 
+        // set initialzed flag
         initialzed = true;
 
+        // sync the UI now that everything is set up
         syncUI();
     }
 
@@ -807,28 +616,27 @@ public class UIController
     }
 
     // Builds the "Procurement Tree" from which the user can select tasks to add to their procurement list
+    @SuppressWarnings("unchecked")
     private void makeProcurementTree()
     {
         // create an root object for procurements
         TreeItem<ProcTreeData> root = new TreeItem<>(new ProcTreeData("root"));
+
+        // create and add the various procurement sub-trees to the root object
+        root.getChildren().addAll(makeSynthesisTree(),
+                makeModTree(),
+                makeExperimentTree(),
+                makeTechnologyTree());
+
+        // set the root as expanded by default
         root.setExpanded(true);
 
-        TreeItem<ProcTreeData> synthesis = makeSynthesisTree();
-        TreeItem<ProcTreeData> modifications = makeModTree();
-        TreeItem<ProcTreeData> experiments = makeExperimentTree();
-        TreeItem<ProcTreeData> technology = makeTechnologyTree();
-
-        root.getChildren().add(synthesis);
-        root.getChildren().add(modifications);
-        root.getChildren().add(experiments);
-        root.getChildren().add(technology);
-
-        // now that the root object has been filled with mods, add it to the tree
+        // now that the root object has been filled with sub-trees, add it to the tree
         procurementTree.setRoot(root);
 
         // use a custom cell factory so we can have more useful tree cells
-        procurementTree
-                .setCellFactory(param -> new ProcTreeCell(addTaskToProcurementList, this.playerInventory::hasItem));
+        procurementTree.setCellFactory(param ->
+                new ProcTreeCell(addTaskToProcurementList, this.playerInventory::hasItem));
 
         // hide the root, showing just it's children in the tree view (which are the mod categories)
         procurementTree.setShowRoot(false);
@@ -843,36 +651,36 @@ public class UIController
         cargoTable.getItems().clear();
 
         playerInventory.rawMaterialStream()
-                .forEach(m -> rawTable.getItems().add(m));
+                .forEach(material -> rawTable.getItems().add(material));
 
         playerInventory.manufacturedMaterialStream()
-                .forEach(m -> manufacturedTable.getItems().add(m));
+                .forEach(material -> manufacturedTable.getItems().add(material));
 
         playerInventory.dataMaterialStream()
-                .forEach(m -> dataTable.getItems().add(m));
+                .forEach(material -> dataTable.getItems().add(material));
 
         playerInventory.cargoStream()
-                .filter(m->m.getQuantity() > 0)
-                .forEach(m -> cargoTable.getItems().add(m));
+                .filter(commodity -> commodity.getQuantity() > 0)
+                .forEach(commodity -> cargoTable.getItems().add(commodity));
+
+        // sort pass 1, numerically by grade
+        rawTable.getItems().sort(UIFunctions.Sort.materialByGrade);
+        manufacturedTable.getItems().sort(UIFunctions.Sort.materialByGrade);
+        dataTable.getItems().sort(UIFunctions.Sort.materialByGrade);
+
+        // sort pass 2, alphabetically, by category name
+        rawTable.getItems().sort(UIFunctions.Sort.costByCategory);
+        manufacturedTable.getItems().sort(UIFunctions.Sort.costByCategory);
+        dataTable.getItems().sort(UIFunctions.Sort.costByCategory);
+
+        // Cargo sorts a bit differently,
+        cargoTable.getItems().sort(UIFunctions.Sort.materialByGrade);
+        cargoTable.getItems().sort(UIFunctions.Sort.cargoByCount);
 
         rawTable.refresh();
         manufacturedTable.refresh();
         dataTable.refresh();
         cargoTable.refresh();
-
-        // sort pass 1, numerically by grade
-        rawTable.getItems().sort(materialByGrade);
-        manufacturedTable.getItems().sort(materialByGrade);
-        dataTable.getItems().sort(materialByGrade);
-
-        // sort pass 2, alphabetically, by category name
-        rawTable.getItems().sort(costByCategory);
-        manufacturedTable.getItems().sort(costByCategory);
-        dataTable.getItems().sort(costByCategory);
-
-        // Cargo sorts a bit differently,
-        cargoTable.getItems().sort(materialByGrade);
-        cargoTable.getItems().sort(cargoByCount);
     }
 
     private void syncUI()

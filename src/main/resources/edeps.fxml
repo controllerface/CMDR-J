@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="836.0" prefWidth="1119.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllerface.edeps.ui.UIController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="1130.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllerface.edeps.ui.UIController">
    <children>
-      <VBox layoutX="9.0" layoutY="-1.0" prefHeight="849.0" prefWidth="567.0">
+      <VBox layoutX="14.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TreeView fx:id="procurementTree" maxWidth="1.7976931348623157E308" prefHeight="280.0" prefWidth="576.0" />
-            <TableView fx:id="procurementRecipeTable" prefHeight="307.0" prefWidth="576.0">
+            <TreeView fx:id="procurementTree" maxHeight="1.7976931348623157E308" />
+            <TableView fx:id="procurementRecipeTable" maxHeight="1.7976931348623157E308">
               <columns>
                   <TableColumn fx:id="recipeProgressColumn" maxWidth="40.0" prefWidth="40.0" text="Done" />
                 <TableColumn fx:id="recipeCountColumn" editable="false" maxWidth="80.0" minWidth="60.0" resizable="false" sortable="false" text="Count" />
@@ -18,7 +19,7 @@
                   <TableColumn fx:id="recipeRemoveColumn" editable="false" maxWidth="133.0" minWidth="23.0" prefWidth="31.0" resizable="false" sortable="false" />
               </columns>
             </TableView>
-            <TableView fx:id="procurementCostTable" layoutX="-2.0" layoutY="32.0" maxWidth="1.7976931348623157E308" prefHeight="318.0" prefWidth="576.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TableView fx:id="procurementCostTable" maxHeight="1.7976931348623157E308" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <columns>
                   <TableColumn fx:id="costProgressColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" text="Done" />
                   <TableColumn fx:id="costNeedColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Need" />
@@ -29,13 +30,13 @@
             </TableView>
          </children>
       </VBox>
-      <VBox layoutX="576.0" layoutY="1.0" prefHeight="849.0" prefWidth="543.0">
+      <VBox layoutX="574.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="550.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TabPane maxWidth="1.7976931348623157E308" prefHeight="259.0" prefWidth="543.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE">
                <tabs>
                    <Tab text="Raw">
                       <content>
-                          <TableView fx:id="rawTable" maxWidth="1.7976931348623157E308" prefHeight="189.0" prefWidth="815.0">
+                          <TableView fx:id="rawTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                               <columns>
                                   <TableColumn fx:id="rawCategoryColumn" editable="false" maxWidth="150.0" minWidth="50.0" prefWidth="150.0" resizable="false" text="Category" />
                                   <TableColumn fx:id="rawGradeColumn" editable="false" maxWidth="50.0" minWidth="25.0" prefWidth="50.0" resizable="false" text="Grade" />
@@ -83,13 +84,13 @@
                   </Tab>
                </tabs>
             </TabPane>
-            <Accordion prefHeight="516.0" prefWidth="543.0">
+            <Accordion maxHeight="1.7976931348623157E308" prefHeight="771.0" prefWidth="572.0">
               <panes>
                 <TitledPane animated="false" text="Commander Stats">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane prefWidth="550.0">
                            <children>
-                              <TableView fx:id="statTable" prefHeight="568.0" prefWidth="543.0">
+                              <TableView fx:id="statTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
                                   <TableColumn fx:id="statNameColumn" prefWidth="172.0" text="Stat" />
                                   <TableColumn fx:id="statValueColumn" prefWidth="189.0" text="Value" />
@@ -101,9 +102,9 @@
                 </TitledPane>
                 <TitledPane animated="false" text="Rank and Reputation">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane prefWidth="550.0">
                            <children>
-                              <TableView fx:id="rankTable" prefHeight="567.0" prefWidth="543.0">
+                              <TableView fx:id="rankTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columns>
                                     <TableColumn fx:id="rankNameColumn" prefWidth="172.0" text="Stat" />
                                     <TableColumn fx:id="rankValueColumn" prefWidth="189.0" text="Value" />
@@ -115,9 +116,9 @@
                 </TitledPane>
                 <TitledPane animated="false" expanded="false" text="Ship">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane>
                            <children>
-                              <TableView fx:id="shipTable" prefHeight="569.0" prefWidth="543.0">
+                              <TableView fx:id="shipTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columns>
                                     <TableColumn fx:id="shipNameColumn" prefWidth="172.0" text="Stat" />
                                     <TableColumn fx:id="shipValueColumn" prefWidth="189.0" text="Value" />
