@@ -9,15 +9,35 @@ public enum InternalSlot implements Statistic
 {
     ShipCockpit,
     CargoHatch,
+
+    SmallHardpoint1,
+    SmallHardpoint2,
+    SmallHardpoint3,
+    SmallHardpoint4,
+
+    MediumHardpoint1,
+    MediumHardpoint2,
+    MediumHardpoint3,
+    MediumHardpoint4,
+    MediumHardpoint5,
+
     LargeHardpoint1,
     LargeHardpoint2,
     LargeHardpoint3,
-    MediumHardpoint1,
-    MediumHardpoint2,
+    LargeHardpoint4,
+
+    HugeHardpoint1,
+    HugeHardpoint2,
+
     TinyHardpoint1,
     TinyHardpoint2,
     TinyHardpoint3,
     TinyHardpoint4,
+    TinyHardpoint5,
+    TinyHardpoint6,
+    TinyHardpoint7,
+    TinyHardpoint8,
+
     PaintJob,
     Decal1,
     Decal2,
@@ -32,6 +52,7 @@ public enum InternalSlot implements Statistic
     PowerDistributor,
     Radar,
     FuelTank,
+
     Slot01_Size6,
     Slot01_Size5,
     Slot02_Size6,
@@ -52,7 +73,11 @@ public enum InternalSlot implements Statistic
     Slot07_Size2,
     Slot08_Size3,
     Slot09_Size2,
+
     Military01,
+    Military02,
+    Military03,
+
     PlanetaryApproachSuite,
     ShipKitSpoiler,
     ShipKitWings,

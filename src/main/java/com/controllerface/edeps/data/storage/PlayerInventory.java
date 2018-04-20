@@ -65,6 +65,11 @@ public class PlayerInventory
         return stats.put(key, stat);
     }
 
+    public void removeStat(Statistic stat)
+    {
+        stats.remove(stat);
+    }
+
     public Map<Statistic, String> getStats()
     {
         return stats;

@@ -2,6 +2,7 @@ package com.controllerface.edeps.threads;
 
 import com.controllerface.edeps.Procedure;
 import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.storage.PlayerInventory;
 import com.controllerface.edeps.enums.costs.commodities.Commodity;
 import com.controllerface.edeps.enums.costs.materials.Material;
@@ -52,6 +53,80 @@ public class JournalSyncTask implements Runnable
 
                 return (int) (timestamp2 - timestamp1);
             };
+
+    public static Set<Statistic> shipStats = new HashSet<>();
+    static
+    {
+        shipStats.add(PlayerStat.Ship);
+        shipStats.add(PlayerStat.Ship_ID);
+        shipStats.add(PlayerStat.Ship_Name);
+        shipStats.add(PlayerStat.Fuel_Level);
+        shipStats.add(PlayerStat.Fuel_Capacity);
+
+        shipStats.add(InternalSlot.SmallHardpoint1);
+        shipStats.add(InternalSlot.SmallHardpoint2);
+        shipStats.add(InternalSlot.SmallHardpoint3);
+        shipStats.add(InternalSlot.SmallHardpoint4);
+
+        shipStats.add(InternalSlot.LargeHardpoint1);
+        shipStats.add(InternalSlot.LargeHardpoint2);
+        shipStats.add(InternalSlot.LargeHardpoint3);
+        shipStats.add(InternalSlot.LargeHardpoint4);
+
+        shipStats.add(InternalSlot.MediumHardpoint1);
+        shipStats.add(InternalSlot.MediumHardpoint2);
+        shipStats.add(InternalSlot.MediumHardpoint3);
+        shipStats.add(InternalSlot.MediumHardpoint4);
+        shipStats.add(InternalSlot.MediumHardpoint5);
+
+        shipStats.add(InternalSlot.HugeHardpoint1);
+        shipStats.add(InternalSlot.HugeHardpoint2);
+
+        shipStats.add(InternalSlot.TinyHardpoint1);
+        shipStats.add(InternalSlot.TinyHardpoint2);
+        shipStats.add(InternalSlot.TinyHardpoint3);
+        shipStats.add(InternalSlot.TinyHardpoint4);
+        shipStats.add(InternalSlot.TinyHardpoint5);
+        shipStats.add(InternalSlot.TinyHardpoint6);
+        shipStats.add(InternalSlot.TinyHardpoint7);
+        shipStats.add(InternalSlot.TinyHardpoint8);
+
+        shipStats.add(InternalSlot.Armour);
+        shipStats.add(InternalSlot.PowerPlant);
+        shipStats.add(InternalSlot.MainEngines);
+        shipStats.add(InternalSlot.FrameShiftDrive);
+        shipStats.add(InternalSlot.LifeSupport);
+        shipStats.add(InternalSlot.PowerDistributor);
+        shipStats.add(InternalSlot.Radar);
+        shipStats.add(InternalSlot.FuelTank);
+        shipStats.add(InternalSlot.Slot01_Size6);
+        shipStats.add(InternalSlot.Slot02_Size6);
+        shipStats.add(InternalSlot.Slot03_Size6);
+        shipStats.add(InternalSlot.Slot04_Size5);
+        shipStats.add(InternalSlot.Slot05_Size5);
+        shipStats.add(InternalSlot.Slot06_Size4);
+        shipStats.add(InternalSlot.Slot07_Size3);
+        shipStats.add(InternalSlot.Slot08_Size3);
+        shipStats.add(InternalSlot.Slot09_Size2);
+
+        shipStats.add(InternalSlot.PlanetaryApproachSuite);
+        shipStats.add(InternalSlot.ShipCockpit);
+        shipStats.add(InternalSlot.CargoHatch);
+
+        shipStats.add(InternalSlot.PaintJob);
+        shipStats.add(InternalSlot.Decal1);
+        shipStats.add(InternalSlot.Decal2);
+        shipStats.add(InternalSlot.Decal3);
+        shipStats.add(InternalSlot.ShipName0);
+        shipStats.add(InternalSlot.ShipName1);
+        shipStats.add(InternalSlot.ShipKitSpoiler);
+        shipStats.add(InternalSlot.ShipKitWings);
+        shipStats.add(InternalSlot.ShipKitTail);
+        shipStats.add(InternalSlot.WeaponColour);
+        shipStats.add(InternalSlot.EngineColour);
+        shipStats.add(InternalSlot.VesselVoice);
+    }
+
 
     /**
      * Events that may contain updates for the player's inventory
@@ -390,14 +465,15 @@ public class JournalSyncTask implements Runnable
 
     private void processLoadoutEvent(Map<String, Object> data)
     {
+        shipStats.forEach(playerInventory::removeStat);
+
+        setStatFromData(PlayerStat.Ship, data);
+        setStatFromData(PlayerStat.Ship_Name, data);
+        setStatFromData(PlayerStat.Ship_ID, data);
+
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> modules = ((List<Map<String, Object>>) data.get("Modules"));
-
-        modules.stream()
-                .forEach(module ->
-                {
-                    setSlotFromData(module);
-                });
+        modules.stream().forEach(this::setSlotFromData);
     }
 
     private void processRankEvent(Map<String, Object> data)
@@ -441,9 +517,9 @@ public class JournalSyncTask implements Runnable
 
         if (data.get("Loan") != null && ((int) data.get("Loan")) != 0) setStatFromData(PlayerStat.Loan, data);
 
-        setStatFromData(PlayerStat.Ship, data);
-        setStatFromData(PlayerStat.Ship_Name, data);
-        setStatFromData(PlayerStat.Ship_ID, data);
+//        setStatFromData(PlayerStat.Ship, data);
+//        setStatFromData(PlayerStat.Ship_Name, data);
+//        setStatFromData(PlayerStat.Ship_ID, data);
         setStatFromData(PlayerStat.Fuel_Level, data);
         setStatFromData(PlayerStat.Fuel_Capacity, data);
 
