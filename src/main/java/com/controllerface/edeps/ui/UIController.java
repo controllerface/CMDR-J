@@ -736,7 +736,6 @@ public class UIController
                     });
         });
 
-
         if (procurementRecipeTable.getItems().size() > 0)
         {
             procurementRecipeTable.getItems().sort((a, b) ->

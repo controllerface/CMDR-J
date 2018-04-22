@@ -3,6 +3,19 @@ package com.controllerface.edeps.enums.equipment.ships;
 import com.controllerface.edeps.Statistic;
 
 /**
+ * Optional Internal Slots
+ *
+ * Note: The JSON structure of the journal API is somewhat problematic in the way it treats internal slots. For every
+ * ship, there is a "slot" number, appended to the compartment size. IN essense, the slot number is irrelevant, but it
+ * is required to ensure cases where there may be more than one slot of the same size, they can have different keys.
+ * Because of this, the only way to ensure that any possible combination is supported, this enum must contain all
+ * possible index/size combinations.
+ *
+ * Since the maximum number of total compartments is 12, and the maximum compartment size is 8, this equates to 96
+ * values. This does mean many of these enum values will likely never be used, but also makes it easier to read the
+ * JSON data for these compartment slots in the same manner as all of the other JSON objects, and should be somewhat
+ * resistant to API changes whereby an index number changes.
+ *
  * Created by Stephen on 4/18/2018.
  */
 public enum OptionalInternalSlot implements Statistic
