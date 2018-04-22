@@ -11,7 +11,6 @@ import com.controllerface.edeps.data.ProcurementRecipeData;
 import com.controllerface.edeps.data.storage.PlayerInventory;
 import com.controllerface.edeps.enums.costs.commodities.Commodity;
 import com.controllerface.edeps.enums.costs.materials.Material;
-import com.controllerface.edeps.enums.equipment.ships.InternalSlot;
 import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalCategory;
 import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalRecipe;
 import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalType;
@@ -25,7 +24,7 @@ import com.controllerface.edeps.enums.procurements.technologies.TechnologyCatego
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyRecipe;
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyType;
 import com.controllerface.edeps.threads.JournalSyncTask;
-import com.controllerface.edeps.threads.PlayerStat;
+import com.controllerface.edeps.enums.equipment.ships.PlayerStat;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -759,119 +758,21 @@ public class UIController
             });
         }
 
-
-        Set<Statistic> playerStats = new HashSet<>();
-        playerStats.add(PlayerStat.Commander);
-        playerStats.add(PlayerStat.Credits);
-        playerStats.add(PlayerStat.Game_Mode);
-        playerStats.add(PlayerStat.Private_Group);
-        playerStats.add(PlayerStat.Loan);
-
-        Set<Statistic> rankStats = new HashSet<>();
-        rankStats.add(PlayerStat.Rank_Combat);
-        rankStats.add(PlayerStat.Rank_Trade);
-        rankStats.add(PlayerStat.Rank_Explore);
-        rankStats.add(PlayerStat.Rank_Empire);
-        rankStats.add(PlayerStat.Rank_Federation);
-        rankStats.add(PlayerStat.Rank_CQC);
-        rankStats.add(PlayerStat.Progress_Combat);
-        rankStats.add(PlayerStat.Progress_Trade);
-        rankStats.add(PlayerStat.Progress_Explore);
-        rankStats.add(PlayerStat.Progress_Empire);
-        rankStats.add(PlayerStat.Progress_Federation);
-        rankStats.add(PlayerStat.Progress_CQC);
-        rankStats.add(PlayerStat.Reputation_Empire);
-        rankStats.add(PlayerStat.Reputation_Federation);
-        rankStats.add(PlayerStat.Reputation_Alliance);
-        rankStats.add(PlayerStat.Reputation_Indpendent);
-
-        Set<Statistic> shipStats = new HashSet<>();
-        shipStats.add(PlayerStat.Ship);
-        shipStats.add(PlayerStat.Ship_ID);
-        shipStats.add(PlayerStat.Ship_Name);
-        shipStats.add(PlayerStat.Fuel_Level);
-        shipStats.add(PlayerStat.Fuel_Capacity);
-
-        shipStats.add(InternalSlot.SmallHardpoint1);
-        shipStats.add(InternalSlot.SmallHardpoint2);
-        shipStats.add(InternalSlot.SmallHardpoint3);
-        shipStats.add(InternalSlot.SmallHardpoint4);
-
-        shipStats.add(InternalSlot.LargeHardpoint1);
-        shipStats.add(InternalSlot.LargeHardpoint2);
-        shipStats.add(InternalSlot.LargeHardpoint3);
-        shipStats.add(InternalSlot.LargeHardpoint4);
-
-        shipStats.add(InternalSlot.MediumHardpoint1);
-        shipStats.add(InternalSlot.MediumHardpoint2);
-        shipStats.add(InternalSlot.MediumHardpoint3);
-        shipStats.add(InternalSlot.MediumHardpoint4);
-        shipStats.add(InternalSlot.MediumHardpoint5);
-
-        shipStats.add(InternalSlot.HugeHardpoint1);
-        shipStats.add(InternalSlot.HugeHardpoint2);
-
-        shipStats.add(InternalSlot.TinyHardpoint1);
-        shipStats.add(InternalSlot.TinyHardpoint2);
-        shipStats.add(InternalSlot.TinyHardpoint3);
-        shipStats.add(InternalSlot.TinyHardpoint4);
-        shipStats.add(InternalSlot.TinyHardpoint5);
-        shipStats.add(InternalSlot.TinyHardpoint6);
-        shipStats.add(InternalSlot.TinyHardpoint7);
-        shipStats.add(InternalSlot.TinyHardpoint8);
-
-        shipStats.add(InternalSlot.Armour);
-        shipStats.add(InternalSlot.PowerPlant);
-        shipStats.add(InternalSlot.MainEngines);
-        shipStats.add(InternalSlot.FrameShiftDrive);
-        shipStats.add(InternalSlot.LifeSupport);
-        shipStats.add(InternalSlot.PowerDistributor);
-        shipStats.add(InternalSlot.Radar);
-        shipStats.add(InternalSlot.FuelTank);
-        shipStats.add(InternalSlot.Slot01_Size6);
-        shipStats.add(InternalSlot.Slot02_Size6);
-        shipStats.add(InternalSlot.Slot03_Size6);
-        shipStats.add(InternalSlot.Slot04_Size5);
-        shipStats.add(InternalSlot.Slot05_Size5);
-        shipStats.add(InternalSlot.Slot06_Size4);
-        shipStats.add(InternalSlot.Slot07_Size3);
-        shipStats.add(InternalSlot.Slot08_Size3);
-        shipStats.add(InternalSlot.Slot09_Size2);
-
-        shipStats.add(InternalSlot.PlanetaryApproachSuite);
-        shipStats.add(InternalSlot.ShipCockpit);
-        shipStats.add(InternalSlot.CargoHatch);
-
-        shipStats.add(InternalSlot.PaintJob);
-        shipStats.add(InternalSlot.Decal1);
-        shipStats.add(InternalSlot.Decal2);
-        shipStats.add(InternalSlot.Decal3);
-        shipStats.add(InternalSlot.ShipName0);
-        shipStats.add(InternalSlot.ShipName1);
-        shipStats.add(InternalSlot.ShipKitSpoiler);
-        shipStats.add(InternalSlot.ShipKitWings);
-        shipStats.add(InternalSlot.ShipKitTail);
-        shipStats.add(InternalSlot.WeaponColour);
-        shipStats.add(InternalSlot.EngineColour);
-        shipStats.add(InternalSlot.VesselVoice);
-
-
-
         playerInventory.getStats()
                 .entrySet().stream()
-                .filter(e->playerStats.contains(e.getKey()))
+                .filter(e -> JournalSyncTask.playerStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> statTable.getItems().add(pair));
 
         playerInventory.getStats()
                 .entrySet().stream()
-                .filter(e->rankStats.contains(e.getKey()))
+                .filter(e -> JournalSyncTask.rankStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> rankTable.getItems().add(pair));
 
         playerInventory.getStats()
                 .entrySet().stream()
-                .filter(e->shipStats.contains(e.getKey()))
+                .filter(e -> JournalSyncTask.shipStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> shipTable.getItems().add(pair));
 

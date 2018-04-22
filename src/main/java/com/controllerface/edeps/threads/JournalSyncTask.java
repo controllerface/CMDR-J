@@ -4,9 +4,10 @@ import com.controllerface.edeps.Procedure;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.storage.PlayerInventory;
+import com.controllerface.edeps.enums.common.JournalEvent;
 import com.controllerface.edeps.enums.costs.commodities.Commodity;
 import com.controllerface.edeps.enums.costs.materials.Material;
-import com.controllerface.edeps.enums.equipment.ships.InternalSlot;
+import com.controllerface.edeps.enums.equipment.ships.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
@@ -63,68 +64,31 @@ public class JournalSyncTask implements Runnable
         shipStats.add(PlayerStat.Fuel_Level);
         shipStats.add(PlayerStat.Fuel_Capacity);
 
-        shipStats.add(InternalSlot.SmallHardpoint1);
-        shipStats.add(InternalSlot.SmallHardpoint2);
-        shipStats.add(InternalSlot.SmallHardpoint3);
-        shipStats.add(InternalSlot.SmallHardpoint4);
+        Arrays.stream(CoreInternalSlot.values())
+                .forEach(s->shipStats.add(s));
 
-        shipStats.add(InternalSlot.LargeHardpoint1);
-        shipStats.add(InternalSlot.LargeHardpoint2);
-        shipStats.add(InternalSlot.LargeHardpoint3);
-        shipStats.add(InternalSlot.LargeHardpoint4);
+        Arrays.stream(CosmeticSlot.values())
+                .forEach(s->shipStats.add(s));
 
-        shipStats.add(InternalSlot.MediumHardpoint1);
-        shipStats.add(InternalSlot.MediumHardpoint2);
-        shipStats.add(InternalSlot.MediumHardpoint3);
-        shipStats.add(InternalSlot.MediumHardpoint4);
-        shipStats.add(InternalSlot.MediumHardpoint5);
+        Arrays.stream(HardpointSlot.values())
+                .forEach(s->shipStats.add(s));
 
-        shipStats.add(InternalSlot.HugeHardpoint1);
-        shipStats.add(InternalSlot.HugeHardpoint2);
+        Arrays.stream(OptionalInternalSlot.values())
+                .forEach(s->shipStats.add(s));
+    }
 
-        shipStats.add(InternalSlot.TinyHardpoint1);
-        shipStats.add(InternalSlot.TinyHardpoint2);
-        shipStats.add(InternalSlot.TinyHardpoint3);
-        shipStats.add(InternalSlot.TinyHardpoint4);
-        shipStats.add(InternalSlot.TinyHardpoint5);
-        shipStats.add(InternalSlot.TinyHardpoint6);
-        shipStats.add(InternalSlot.TinyHardpoint7);
-        shipStats.add(InternalSlot.TinyHardpoint8);
+    public static Set<Statistic> rankStats = new HashSet<>();
+    static
+    {
+        Arrays.stream(RankStat.values())
+                .forEach(stat -> rankStats.add(stat));
+    }
 
-        shipStats.add(InternalSlot.Armour);
-        shipStats.add(InternalSlot.PowerPlant);
-        shipStats.add(InternalSlot.MainEngines);
-        shipStats.add(InternalSlot.FrameShiftDrive);
-        shipStats.add(InternalSlot.LifeSupport);
-        shipStats.add(InternalSlot.PowerDistributor);
-        shipStats.add(InternalSlot.Radar);
-        shipStats.add(InternalSlot.FuelTank);
-        shipStats.add(InternalSlot.Slot01_Size6);
-        shipStats.add(InternalSlot.Slot02_Size6);
-        shipStats.add(InternalSlot.Slot03_Size6);
-        shipStats.add(InternalSlot.Slot04_Size5);
-        shipStats.add(InternalSlot.Slot05_Size5);
-        shipStats.add(InternalSlot.Slot06_Size4);
-        shipStats.add(InternalSlot.Slot07_Size3);
-        shipStats.add(InternalSlot.Slot08_Size3);
-        shipStats.add(InternalSlot.Slot09_Size2);
-
-        shipStats.add(InternalSlot.PlanetaryApproachSuite);
-        shipStats.add(InternalSlot.ShipCockpit);
-        shipStats.add(InternalSlot.CargoHatch);
-
-        shipStats.add(InternalSlot.PaintJob);
-        shipStats.add(InternalSlot.Decal1);
-        shipStats.add(InternalSlot.Decal2);
-        shipStats.add(InternalSlot.Decal3);
-        shipStats.add(InternalSlot.ShipName0);
-        shipStats.add(InternalSlot.ShipName1);
-        shipStats.add(InternalSlot.ShipKitSpoiler);
-        shipStats.add(InternalSlot.ShipKitWings);
-        shipStats.add(InternalSlot.ShipKitTail);
-        shipStats.add(InternalSlot.WeaponColour);
-        shipStats.add(InternalSlot.EngineColour);
-        shipStats.add(InternalSlot.VesselVoice);
+    public static Set<Statistic> playerStats = new HashSet<>();
+    static
+    {
+        Arrays.stream(PlayerStat.values())
+                .forEach(stat -> playerStats.add(stat));
     }
 
 
@@ -447,18 +411,46 @@ public class JournalSyncTask implements Runnable
     }
 
 
-    private void setStatFromData(PlayerStat stat, Map<String, Object> data)
+    private void setStatFromData(Statistic stat, Map<String, Object> data)
     {
         playerInventory.setStat(stat, stat.format(data.get(stat.getKey())));
+    }
+
+
+    private Statistic determineStatType(String statName)
+    {
+        Statistic statistic;
+
+        try {statistic = CoreInternalSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        if (statistic != null) return statistic;
+
+        try {statistic = CosmeticSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        if (statistic != null) return statistic;
+
+        try {statistic = HardpointSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        if (statistic != null) return statistic;
+
+        try {statistic = OptionalInternalSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        if (statistic != null) return statistic;
+
+        return null;
     }
 
     private void setSlotFromData(Map<String, Object> data)
     {
         String slotName = ((String) data.get("Slot"));
         String itemName = ((String) data.get("Item"));
-        InternalSlot internalSlot = InternalSlot.valueOf(slotName);
-        playerInventory.setStat(internalSlot, itemName);
-
+        Statistic statistic = determineStatType(slotName);
+        if (statistic == null)
+        {
+            System.err.println("Error, unknown slot: " + slotName);
+            return;
+        }
+        playerInventory.setStat(statistic, itemName);
     }
 
 
@@ -478,32 +470,32 @@ public class JournalSyncTask implements Runnable
 
     private void processRankEvent(Map<String, Object> data)
     {
-        setStatFromData(PlayerStat.Rank_Combat, data);
-        setStatFromData(PlayerStat.Rank_Trade, data);
-        setStatFromData(PlayerStat.Rank_Explore, data);
-        setStatFromData(PlayerStat.Rank_Empire, data);
-        setStatFromData(PlayerStat.Rank_Federation, data);
-        setStatFromData(PlayerStat.Rank_CQC, data);
+        setStatFromData(RankStat.Rank_Combat, data);
+        setStatFromData(RankStat.Rank_Trade, data);
+        setStatFromData(RankStat.Rank_Explore, data);
+        setStatFromData(RankStat.Rank_Empire, data);
+        setStatFromData(RankStat.Rank_Federation, data);
+        setStatFromData(RankStat.Rank_CQC, data);
         updateFunction.call();
     }
 
     private void processProgressEvent(Map<String, Object> data)
     {
-        setStatFromData(PlayerStat.Progress_Combat, data);
-        setStatFromData(PlayerStat.Progress_Trade, data);
-        setStatFromData(PlayerStat.Progress_Explore, data);
-        setStatFromData(PlayerStat.Progress_Empire, data);
-        setStatFromData(PlayerStat.Progress_Federation, data);
-        setStatFromData(PlayerStat.Progress_CQC, data);
+        setStatFromData(RankStat.Progress_Combat, data);
+        setStatFromData(RankStat.Progress_Trade, data);
+        setStatFromData(RankStat.Progress_Explore, data);
+        setStatFromData(RankStat.Progress_Empire, data);
+        setStatFromData(RankStat.Progress_Federation, data);
+        setStatFromData(RankStat.Progress_CQC, data);
         updateFunction.call();
     }
 
     private void processReputationEvent(Map<String, Object> data)
     {
-        setStatFromData(PlayerStat.Reputation_Empire, data);
-        setStatFromData(PlayerStat.Reputation_Federation, data);
-        setStatFromData(PlayerStat.Reputation_Alliance, data);
-        setStatFromData(PlayerStat.Reputation_Indpendent, data);
+        setStatFromData(RankStat.Reputation_Empire, data);
+        setStatFromData(RankStat.Reputation_Federation, data);
+        setStatFromData(RankStat.Reputation_Alliance, data);
+        setStatFromData(RankStat.Reputation_Indpendent, data);
         updateFunction.call();
     }
 

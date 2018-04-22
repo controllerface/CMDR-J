@@ -7,4 +7,5 @@ public interface Statistic
 {
     String getKey();
     String getText();
+    String format(Object raw);
 }

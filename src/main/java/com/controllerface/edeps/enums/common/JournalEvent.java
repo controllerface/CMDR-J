@@ -1,4 +1,4 @@
-package com.controllerface.edeps.threads;
+package com.controllerface.edeps.enums.common;
 
 /**
  * Created by Stephen on 4/16/2018.

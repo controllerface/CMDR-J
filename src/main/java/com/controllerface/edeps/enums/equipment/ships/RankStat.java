@@ -1,4 +1,4 @@
-package com.controllerface.edeps.threads;
+package com.controllerface.edeps.enums.equipment.ships;
 
 import com.controllerface.edeps.Statistic;
 
@@ -8,7 +8,7 @@ import java.util.function.Function;
 /**
  * Created by Stephen on 4/17/2018.
  */
-public enum PlayerStat implements Statistic
+public enum RankStat implements Statistic
 {
     Rank_Combat("Combat", "Combat Rank", (o) -> String.valueOf((int) o)),
     Rank_Trade("Trade", "Trade Rank", (o)-> String.valueOf((int) o)),
@@ -29,25 +29,13 @@ public enum PlayerStat implements Statistic
     Reputation_Alliance("Alliance", "Alliance Reputation", (o)-> String.valueOf((double) o)),
     Reputation_Indpendent("Independent", "Independent Reputation", (o)-> String.valueOf((double) o)),
 
-    Commander("Commander", "Commander", (o) -> ((String) o)),
-    Credits("Credits", "Credits", (o) -> NumberFormat.getInstance().format(((int) o))),
-    Game_Mode("GameMode", "Game Mode", (o) -> ((String) o)),
-    Private_Group("Group","Private Group", (o) -> ((String) o)),
-    Loan("Loan", "Loan", (o) -> NumberFormat.getInstance().format(o)),
-
-    Ship("Ship", "Ship", (o) -> ((String) o)),
-    Ship_ID("ShipIdent","Ship ID", (o) -> ((String) o).toUpperCase()),
-    Ship_Name("ShipName","Ship Name", (o) -> ((String) o).toUpperCase()),
-    Fuel_Level("FuelLevel","Fuel Level", (o) -> String.valueOf((double) o)),
-    Fuel_Capacity("FuelCapacity","Fuel Capacity", (o) -> String.valueOf((double) o)),
-
     ;
 
     private final String key;
     private final String text;
     private final Function<Object, String> formatFunction;
 
-    PlayerStat(String key, String text, Function<Object, String> formatFunction)
+    RankStat(String key, String text, Function<Object, String> formatFunction)
     {
         this.key = key;
         this.text = text;
