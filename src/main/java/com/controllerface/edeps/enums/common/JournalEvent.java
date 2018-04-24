@@ -35,15 +35,8 @@ public enum JournalEvent
         setStatFromData(context, PlayerStat.Credits);
         setStatFromData(context, PlayerStat.Game_Mode);
 
-        if (context.getRawData().get("Group") != null)
-        {
-            setStatFromData(context, PlayerStat.Private_Group);
-        }
-
-        if (context.getRawData().get("Loan") != null && ((int) context.getRawData().get("Loan")) != 0)
-        {
-            setStatFromData(context, PlayerStat.Loan);
-        }
+        if (context.getRawData().get("Group") != null) setStatFromData(context, PlayerStat.Private_Group);
+        if (context.getRawData().get("Loan") != null) setStatFromData(context, PlayerStat.Loan);
 
         setStatFromData(context, PlayerStat.Fuel_Level);
         setStatFromData(context, PlayerStat.Fuel_Capacity);
@@ -60,6 +53,8 @@ public enum JournalEvent
 
         ((List<Map<String, Object>>) context.getRawData().get("Inventory")).stream()
                 .forEach(item -> adjustCommodityCount(context, item));
+
+        context.getUpdateFunction().call();
     }),
 
     /**
@@ -80,6 +75,7 @@ public enum JournalEvent
         ((List<Map<String, Object>>) data.get("Encoded")).stream()
                 .forEach(item -> adjustMaterialCount(context, item));
 
+        context.getUpdateFunction().call();
     }),
 
     /**
@@ -180,8 +176,8 @@ public enum JournalEvent
                     .replace("_Name;","")
                     .toUpperCase();
 
-            Pair<String, Integer> pair = new Pair<>(name, ((int) data.get("Count")));
-            adjustDown(context, pair, AdjustmentType.COMMODITY);
+            Integer count = ((Integer) data.get("Count"));
+            adjustDown(context, new Pair<>(name, count), AdjustmentType.COMMODITY);
         }
     }),
 
@@ -224,11 +220,8 @@ public enum JournalEvent
      */
     MaterialTrade((context) ->
     {
-        Map<String, Object> paid = ((Map<String, Object>) context.getRawData().get("Paid"));
-        adjustMaterialQuantityDown(context, paid);
-
-        Map<String, Object> received = ((Map<String, Object>) context.getRawData().get("Received"));
-        adjustMaterialQuantity(context, received);
+        adjustMaterialQuantity(context, ((Map<String, Object>) context.getRawData().get("Received")));
+        adjustMaterialQuantityDown(context, ((Map<String, Object>) context.getRawData().get("Paid")));
     }),
 
     /**
@@ -248,8 +241,7 @@ public enum JournalEvent
     CollectCargo((context) ->
     {
         String name = ((String) context.getRawData().get("Type")).toUpperCase();
-        Pair<String, Integer> pair = new Pair<>(name, 1);
-        adjust(context, pair, AdjustmentType.COMMODITY);
+        adjust(context, new Pair<>(name, 1), AdjustmentType.COMMODITY);
     }),
 
     /**
@@ -273,8 +265,7 @@ public enum JournalEvent
     MiningRefined((context) ->
     {
         String name = ((String) context.getRawData().get("Type")).toUpperCase();
-        Pair<String, Integer> pair = new Pair<>(name, 1);
-        adjust(context, pair, AdjustmentType.COMMODITY);
+        adjust(context, new Pair<>(name, 1), AdjustmentType.COMMODITY);
     }),
 
     /**
