@@ -1,5 +1,6 @@
 package com.controllerface.edeps.threads;
 
+import com.controllerface.edeps.EventProcessingContext;
 import com.controllerface.edeps.Procedure;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.Statistic;
@@ -23,6 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Task thread that keeps a PlayerInventory synchronized by monitoring the player's journal entries,
@@ -55,48 +57,42 @@ public class JournalSyncTask implements Runnable
                 return (int) (timestamp2 - timestamp1);
             };
 
-    public static Set<Statistic> shipStats = new HashSet<>();
-    static
-    {
-        shipStats.add(PlayerStat.Ship);
-        shipStats.add(PlayerStat.Ship_ID);
-        shipStats.add(PlayerStat.Ship_Name);
-        shipStats.add(PlayerStat.Fuel_Level);
-        shipStats.add(PlayerStat.Fuel_Capacity);
 
-        Arrays.stream(CoreInternalSlot.values())
-                .forEach(s->shipStats.add(s));
+    /**
+     * Defines all of the relevant stats for the Commander tab. This consists of all the values of the PlayerStat enum
+     */
+    public static Set<Statistic> playerStats = Arrays.stream(PlayerStat.values()).collect(Collectors.toSet());
 
-        Arrays.stream(CosmeticSlot.values())
-                .forEach(s->shipStats.add(s));
 
-        Arrays.stream(HardpointSlot.values())
-                .forEach(s->shipStats.add(s));
+    /**
+     * Defines all of the relevant stats for the Rank tab. This consists of all the values of the RankStat enum
+     */
+    public static Set<Statistic> rankStats = Arrays.stream(RankStat.values()).collect(Collectors.toSet());
 
-        Arrays.stream(OptionalInternalSlot.values())
-                .forEach(s->shipStats.add(s));
-    }
 
-    public static Set<Statistic> rankStats = new HashSet<>();
-    static
-    {
-        Arrays.stream(RankStat.values())
-                .forEach(stat -> rankStats.add(stat));
-    }
+    /**
+     * For ship stats, we want to combine several groups of stats together, and add a couple of "player" stats as well
+     * that are useful for the ship tab. In this set, we want all values in the CoreInternalSlot, CosmeticSlot,
+     * HardpointSlot, and OptionalInternalSlot enums. We also want to add the Ship, Ship_ID, Ship_Name, Fuel_Level and
+     * Fuel_Capacity values from the PlayerStat enum.
+     */
+    public static Set<Statistic> shipStats = Stream.concat(Arrays.stream(CoreInternalSlot.values()), // Core modules
+            Stream.concat(Arrays.stream(CosmeticSlot.values()), // Cosmetics
+                    Stream.concat(Arrays.stream(HardpointSlot.values()),  // Weapons
+                            Stream.concat(Arrays.stream(OptionalInternalSlot.values()), // Optional Internals
 
-    public static Set<Statistic> playerStats = new HashSet<>();
-    static
-    {
-        Arrays.stream(PlayerStat.values())
-                .forEach(stat -> playerStats.add(stat));
-    }
-
+                                    // we want to show these particular player stats on the ship page as well
+                                    Stream.of(PlayerStat.Ship,
+                                            PlayerStat.Ship_ID,
+                                            PlayerStat.Ship_Name,
+                                            PlayerStat.Fuel_Level,
+                                            PlayerStat.Fuel_Capacity)))))
+            .collect(Collectors.toSet());
 
     /**
      * Events that may contain updates for the player's inventory
      */
-
-    private static Set<String> inventoryEvents = Arrays.stream(JournalEvent.values())
+    private static Set<String> journalEvents = Arrays.stream(JournalEvent.values())
             .map(Enum::name)
             .collect(Collectors.toSet());
 
@@ -104,10 +100,10 @@ public class JournalSyncTask implements Runnable
             (event, line) -> line.contains("\"event\":\"" + event + "\"");
 
     /**
-     * Ship function used to filter in JSON event lines that changes to the player's inventory
+     * Function used to filter in JSON event lines that we explicitly support
      */
-    private Predicate<String> hasInventoryEvent =
-            (line) -> inventoryEvents.stream()
+    private Predicate<String> hasSupportedEvent =
+            (line) -> journalEvents.stream()
                     .filter(event -> hasEvent.test(event, line))
                     .findAny().isPresent();
 
@@ -213,7 +209,7 @@ public class JournalSyncTask implements Runnable
                                 {
                                     if (currentLine.incrementAndGet() > lastLine.get())
                                     {
-                                        if (hasInventoryEvent.test(rawEvent)) processJSONEvent(rawEvent);
+                                        if (hasSupportedEvent.test(rawEvent)) processJSONEvent(rawEvent);
                                     }
                                 });
                                 lastLine.set(currentLine.get());
@@ -233,38 +229,38 @@ public class JournalSyncTask implements Runnable
         }
     }
 
+    private Stream<String> readJournalLines(File file)
+    {
+        List<String> journalLines = new ArrayList<>();
+        currentJournalFile.set(file.getName());
+        try
+        {
+            FileReader reader = new FileReader(file);
+            BufferedReader buf = new BufferedReader(reader);
+
+            buf.lines().forEach((e) ->
+            {
+                lastLine.incrementAndGet();
+                journalLines.add(e);
+            });
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        return journalLines.stream();
+    }
+
     private void initializeJournalData()
     {
         // todo: maybe this should be configurable
         File journalFolder = new File(JOURNAL_FOLDER);
         journalPath = journalFolder.toPath();
-        List<String> journalLines = new ArrayList<>();
 
         Arrays.stream(journalFolder.listFiles((x, y) -> y.startsWith("Journal")))
                 .sorted(newestJournalFile)
-                .limit(1).findAny()
-                .ifPresent(file ->
-                {
-                    currentJournalFile.set(file.getName());
-                    try
-                    {
-                        FileReader reader = new FileReader(file);
-                        BufferedReader buf = new BufferedReader(reader);
-
-                        buf.lines().forEach((e) ->
-                        {
-                            lastLine.incrementAndGet();
-                            journalLines.add(e);
-                        });
-                    }
-                    catch (FileNotFoundException e)
-                    {
-                        e.printStackTrace();
-                    }
-                });
-
-        journalLines.stream()
-                .filter(hasInventoryEvent)
+                .limit(1).flatMap(this::readJournalLines)
+                .filter(hasSupportedEvent)
                 .forEach(this::processJSONEvent);
     }
 
@@ -276,522 +272,22 @@ public class JournalSyncTask implements Runnable
     private void processJSONEvent(String json)
     {
         ObjectMapper objectMapper = new ObjectMapper();
+        JournalEvent event;
         Map<String, Object> data;
         try
         {
             data = objectMapper.readValue(json, mapTypeReference);
+            String eventName = ((String) data.get("event"));
+            event = JournalEvent.valueOf(eventName);
+            System.out.println("Processing event: " + event);
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             e.printStackTrace();
             throw new RuntimeException("Error reading journal data", e);
         }
-        String eventName = ((String) data.get("event"));
-        JournalEvent event = JournalEvent.valueOf(eventName);
-        System.out.println("Processing event: " + event);
 
-        switch (event)
-        {
-            case Loadout:
-                processLoadoutEvent(data);
-                break;
-
-
-            case LoadGame:
-                processLoadGameEvent(data);
-                break;
-
-
-            case Cargo:
-                processMainCargoEvent(data);
-                break;
-
-            case CollectCargo:
-                processCollectCargoEvent(data);
-                break;
-
-
-            case BuyDrones:
-                processBuyDronesEvent(data);
-                break;
-
-            case SellDrones:
-                processSellDronesEvent(data);
-                break;
-
-            case LaunchDrone:
-                processLaunchDroneEvent(data);
-                break;
-
-
-            case EngineerContribution:
-                processEngineerContributionEvent(data);
-                break;
-
-            case EngineerCraft:
-                processEngineerCraftEvent(data);
-                break;
-
-            case EjectCargo:
-                processEjectCargoEvent(data);
-                break;
-
-            case MarketBuy:
-                processMarketBuyEvent(data);
-                break;
-
-            case MarketSell:
-                processMarketSellEvent(data);
-                break;
-
-            case MiningRefined:
-                processMiningRefinedEvent(data);
-                break;
-
-            case CargoDepot:
-                processCargoDepotEvent(data);
-                break;
-
-            case PowerplayCollect:
-                processPowerPlayCollectEvent(data);
-                break;
-
-            case PowerplayDeliver:
-                processPowerPlayDeliverEvent(data);
-                break;
-
-            case Materials:
-                processMainMaterialEvent(data);
-                break;
-
-            case MaterialCollected:
-                processMaterialCollectedEvent(data);
-                break;
-
-            case MaterialDiscarded:
-                processMaterialDiscardedEvent(data);
-                break;
-
-            case MaterialTrade:
-                processMaterialTradeEvent(data);
-                break;
-
-            case MissionCompleted:
-                processMissionCompletedEvent(data);
-                break;
-
-            case ScientificResearch:
-                processScientificResearchEvent(data);
-                break;
-
-            case Synthesis:
-                processSynthesisEvent(data);
-                break;
-
-            case TechnologyBroker:
-                processTechnologyBrokerEvent(data);
-                break;
-
-            case Rank:
-                processRankEvent(data);
-                break;
-
-            case Progress:
-                processProgressEvent(data);
-                break;
-
-            case Reputation:
-                processReputationEvent(data);
-                break;
-
-            default:
-                System.out.println("unsupported event:" + eventName);
-                break;
-        }
-    }
-
-
-    private void setStatFromData(Statistic stat, Map<String, Object> data)
-    {
-        playerInventory.setStat(stat, stat.format(data.get(stat.getKey())));
-    }
-
-
-    private Statistic determineStatType(String statName)
-    {
-        Statistic statistic;
-
-        try {statistic = CoreInternalSlot.valueOf(statName);}
-        catch (Exception e) {statistic = null;}
-        if (statistic != null) return statistic;
-
-        try {statistic = CosmeticSlot.valueOf(statName);}
-        catch (Exception e) {statistic = null;}
-        if (statistic != null) return statistic;
-
-        try {statistic = HardpointSlot.valueOf(statName);}
-        catch (Exception e) {statistic = null;}
-        if (statistic != null) return statistic;
-
-        try {statistic = OptionalInternalSlot.valueOf(statName);}
-        catch (Exception e) {statistic = null;}
-        if (statistic != null) return statistic;
-
-        return null;
-    }
-
-    private void setSlotFromData(Map<String, Object> data)
-    {
-        String slotName = ((String) data.get("Slot"));
-        String itemName = ((String) data.get("Item"));
-        Statistic statistic = determineStatType(slotName);
-        if (statistic == null)
-        {
-            System.err.println("Error, unknown slot: " + slotName);
-            return;
-        }
-        playerInventory.setStat(statistic, itemName);
-    }
-
-
-
-    private void processLoadoutEvent(Map<String, Object> data)
-    {
-        shipStats.forEach(playerInventory::removeStat);
-
-        setStatFromData(PlayerStat.Ship, data);
-        setStatFromData(PlayerStat.Ship_Name, data);
-        setStatFromData(PlayerStat.Ship_ID, data);
-
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> modules = ((List<Map<String, Object>>) data.get("Modules"));
-        modules.stream().forEach(this::setSlotFromData);
-    }
-
-    private void processRankEvent(Map<String, Object> data)
-    {
-        setStatFromData(RankStat.Rank_Combat, data);
-        setStatFromData(RankStat.Rank_Trade, data);
-        setStatFromData(RankStat.Rank_Explore, data);
-        setStatFromData(RankStat.Rank_Empire, data);
-        setStatFromData(RankStat.Rank_Federation, data);
-        setStatFromData(RankStat.Rank_CQC, data);
-        updateFunction.call();
-    }
-
-    private void processProgressEvent(Map<String, Object> data)
-    {
-        setStatFromData(RankStat.Progress_Combat, data);
-        setStatFromData(RankStat.Progress_Trade, data);
-        setStatFromData(RankStat.Progress_Explore, data);
-        setStatFromData(RankStat.Progress_Empire, data);
-        setStatFromData(RankStat.Progress_Federation, data);
-        setStatFromData(RankStat.Progress_CQC, data);
-        updateFunction.call();
-    }
-
-    private void processReputationEvent(Map<String, Object> data)
-    {
-        setStatFromData(RankStat.Reputation_Empire, data);
-        setStatFromData(RankStat.Reputation_Federation, data);
-        setStatFromData(RankStat.Reputation_Alliance, data);
-        setStatFromData(RankStat.Reputation_Indpendent, data);
-        updateFunction.call();
-    }
-
-    private void processLoadGameEvent(Map<String, Object> data)
-    {
-        setStatFromData(PlayerStat.Commander, data);
-        setStatFromData(PlayerStat.Credits, data);
-
-        setStatFromData(PlayerStat.Game_Mode, data);
-        if (data.get("Group") != null) setStatFromData(PlayerStat.Private_Group, data);
-
-        if (data.get("Loan") != null && ((int) data.get("Loan")) != 0) setStatFromData(PlayerStat.Loan, data);
-
-//        setStatFromData(PlayerStat.Ship, data);
-//        setStatFromData(PlayerStat.Ship_Name, data);
-//        setStatFromData(PlayerStat.Ship_ID, data);
-        setStatFromData(PlayerStat.Fuel_Level, data);
-        setStatFromData(PlayerStat.Fuel_Capacity, data);
-
-        updateFunction.call();
-    }
-
-    @SuppressWarnings("unchecked")
-    private void processMainMaterialEvent(Map<String, Object> data)
-    {
-        transactions.clear();
-        playerInventory.clear();
-
-        ((List<Map<String, Object>>) data.get("Raw")).stream()
-                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
-                        item.get("Count").toString()))
-                .map(sitem -> new Pair<>(((ProcurementCost) Material.valueOf(sitem.getKey())),
-                        Integer.parseInt(sitem.getValue())))
-                .forEach(transactions::add);
-
-        ((List<Map<String, Object>>) data.get("Manufactured")).stream()
-                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
-                        item.get("Count").toString()))
-                .map(sitem -> new Pair<>(((ProcurementCost) Material.valueOf(sitem.getKey())),
-                        Integer.parseInt(sitem.getValue())))
-                .forEach(transactions::add);
-
-        ((List<Map<String, Object>>) data.get("Encoded")).stream()
-                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
-                        item.get("Count").toString()))
-                .map(sitem -> new Pair<>(((ProcurementCost) Material.valueOf(sitem.getKey())),
-                        Integer.parseInt(sitem.getValue())))
-                .forEach(transactions::add);
-    }
-
-    @SuppressWarnings("unchecked")
-    private void processMainCargoEvent(Map<String, Object> data)
-    {
-        ((List<Map<String, Object>>) data.get("Inventory")).stream()
-                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
-                        item.get("Count").toString()))
-                .map(sitem -> new Pair<>(((ProcurementCost) Commodity.valueOf(sitem.getKey())),
-                        Integer.parseInt(sitem.getValue())))
-                .forEach(transactions::add);
-    }
-
-
-    private void processCargoDepotEvent(Map<String, Object> data)
-    {
-        String updateType = ((String) data.get("UpdateType"));
-
-        int modifier = 0;
-
-        switch (updateType)
-        {
-            case "Deliver":
-                modifier = -1;
-                break;
-
-            case "Collect":
-                modifier = 1;
-                break;
-
-            case "WingUpdate":
-                return;
-        }
-
-        String name = ((String) data.get("CargoType")).toUpperCase();
-        int count = ((int) data.get("Count")) * modifier;
-        Commodity commodity = Commodity.valueOf(name);
-        transactions.add(new Pair<>(commodity, count));
-    }
-
-    private void processMaterialCollectedEvent(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Name")).toUpperCase();
-        int count = ((int) data.get("Count"));
-        Material material = Material.valueOf(name);
-        transactions.add(new Pair<>(material, count));
-    }
-
-    private void processMarketBuyEvent(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Type")).toUpperCase();
-        int count = ((int) data.get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        transactions.add(new Pair<>(commodity, count));
-    }
-
-    private void processBuyDronesEvent(Map<String, Object> data)
-    {
-        int count = ((int) data.get("Count"));
-        transactions.add(new Pair<>(Commodity.DRONES, count));
-    }
-
-    private void processSellDronesEvent(Map<String, Object> data)
-    {
-        int count = (-1) * ((int) data.get("Count"));
-        transactions.add(new Pair<>(Commodity.DRONES, count));
-    }
-
-    private void processLaunchDroneEvent(Map<String, Object> data)
-    {
-        transactions.add(new Pair<>(Commodity.DRONES, -1));
-    }
-
-    private void processCargoAdd_NameVariant(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Name")).toUpperCase();
-        int count = ((int) data.get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        transactions.add(new Pair<>(commodity, count));
-    }
-
-    private void processCargoAdd_NameSuffixVariant(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Commodity"))
-                .replace("$","")
-                .replace("_Name;","")
-                .toUpperCase();
-
-        int count = (-1) * ((int) data.get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        transactions.add(new Pair<>(commodity, count));
-    }
-
-    private void processPowerPlayCollectEvent(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Type")).toUpperCase();
-        int count = ((int) data.get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        transactions.add(new Pair<>(commodity, count));
-    }
-
-    private void processCollectCargoEvent(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Type")).toUpperCase();
-        Commodity commodity = Commodity.valueOf(name);
-        transactions.add(new Pair<>(commodity, 1));
-    }
-
-    private void processMiningRefinedEvent(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Type")).toUpperCase();
-        Commodity commodity = Commodity.valueOf(name);
-        transactions.add(new Pair<>(commodity, 1));
-    }
-
-    private void processMaterialDiscardedEvent(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Name")).toUpperCase();
-        int count = (-1) * ((int) data.get("Count"));
-        Material material = Material.valueOf(name);
-        transactions.add(new Pair<>(material, count));
-    }
-
-    private void processEjectCargoEvent(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Type")).toUpperCase();
-        int count = (-1) * ((int) data.get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        transactions.add(new Pair<>(commodity, count));
-    }
-
-    private void processPowerPlayDeliverEvent(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Type")).toUpperCase();
-        int count = (-1) * ((int) data.get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        transactions.add(new Pair<>(commodity, count));
-    }
-
-
-    private void processMarketSellEvent(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Type")).toUpperCase();
-        int count = (-1) * ((int) data.get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        transactions.add(new Pair<>(commodity, count));
-    }
-
-
-    private void processEngineerCraftEvent(Map<String, Object> data)
-    {
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> ingredients = ((List<Map<String, Object>>) data.get("Ingredients"));
-        ingredients.forEach(this::processMaterialDiscardedEvent);
-    }
-
-    private void processEngineerContributionEvent(Map<String, Object> data)
-    {
-        if (data.get("Material") != null)
-        {
-            String name = ((String) data.get("Material")).toUpperCase();
-            Material material = Material.valueOf(name);
-            int quantity = (-1) * ((int) data.get("Quantity"));
-            transactions.add(new Pair<>(material, quantity));
-        }
-
-        if (data.get("Commodity") != null)
-        {
-            String name = ((String) data.get("Commodity")).toUpperCase();
-            Commodity commodity = Commodity.valueOf(name);
-            int quantity = (-1) * ((int) data.get("Quantity"));
-            transactions.add(new Pair<>(commodity, quantity));
-        }
-    }
-
-    private void processTechnologyBrokerEvent(Map<String, Object> data)
-    {
-        if (data.get("Materials") != null)
-        {
-            @SuppressWarnings("unchecked")
-            List<Map<String, Object>> materials = ((List<Map<String, Object>>) data.get("Materials"));
-            materials.forEach(this::processMaterialDiscardedEvent);
-        }
-
-        if (data.get("Commodities") != null)
-        {
-            @SuppressWarnings("unchecked")
-            List<Map<String, Object>> commodities = ((List<Map<String, Object>>) data.get("Commodities"));
-            commodities.forEach(this::processCargoAdd_NameVariant);
-        }
-    }
-
-    private void processSynthesisEvent(Map<String, Object> data)
-    {
-        if (data.get("Materials") == null) return;
-
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> materials = ((List<Map<String, Object>>) data.get("Materials"));
-        materials.forEach(this::processMaterialDiscardedEvent);
-    }
-
-    private void processScientificResearchEvent(Map<String, Object> data)
-    {
-        String name = ((String) data.get("Name")).toUpperCase();
-        int count = ((int) data.get("Count"));
-        Material material = Material.valueOf(name);
-        transactions.add(new Pair<>(material, count));
-    }
-
-    private void processMissionCompletedEvent(Map<String, Object> data)
-    {
-        if (data.get("MaterialsReward") != null)
-        {
-            @SuppressWarnings("unchecked")
-            List<Map<String, Object>> reward = ((List<Map<String, Object>>) data.get("MaterialsReward"));
-            reward.forEach(this::processMaterialCollectedEvent);
-        }
-
-        if (data.get("CommodityReward") != null)
-        {
-            @SuppressWarnings("unchecked")
-            List<Map<String, Object>> reward = ((List<Map<String, Object>>) data.get("CommodityReward"));
-            reward.forEach(this::processCargoAdd_NameVariant);
-        }
-
-        if (data.get("Commodity") != null)
-        {
-            processCargoAdd_NameSuffixVariant(data);
-        }
-
-    }
-
-    private void processMaterialTradeEvent(Map<String, Object> data)
-    {
-        @SuppressWarnings("unchecked")
-        Map<String, Object> paid = ((Map<String, Object>) data.get("Paid"));
-        String paidName = ((String) paid.get("Material")).toUpperCase();
-        Material paidMaterial = Material.valueOf(paidName);
-        int paidQuantity = (-1) * ((int) paid.get("Quantity"));
-
-        transactions.add(new Pair<>(paidMaterial, paidQuantity));
-
-        @SuppressWarnings("unchecked")
-        Map<String, Object> received = ((Map<String, Object>) data.get("Received"));
-        String receivedName = ((String) received.get("Material")).toUpperCase();
-        Material receivedMaterial = Material.valueOf(receivedName);
-        int receivedQuantity = ((int) received.get("Quantity"));
-
-        transactions.add(new Pair<>(receivedMaterial, receivedQuantity));
+        EventProcessingContext context = new EventProcessingContext(data, transactions, playerInventory, updateFunction);
+        event.processEvent(context);
     }
 }
