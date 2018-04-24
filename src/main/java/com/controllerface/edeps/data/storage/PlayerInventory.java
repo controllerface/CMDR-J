@@ -45,14 +45,6 @@ public class PlayerInventory
         return cargo.inventory();
     }
 
-    public void clearAll()
-    {
-        rawMats.clear();
-        mfdMats.clear();
-        dataMats.clear();
-        cargo.clear();
-    }
-
     public void clearMaterials()
     {
         rawMats.clear();
@@ -65,14 +57,8 @@ public class PlayerInventory
         cargo.clear();
     }
 
-    public String getStat(String key)
-    {
-        return stats.get(key);
-    }
-
     public String setStat(Statistic key, String stat)
     {
-        System.out.println("Set Stat: " + key);
         return stats.put(key, stat);
     }
 

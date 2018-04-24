@@ -22,6 +22,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
@@ -78,12 +79,14 @@ class UIFunctions
                 };
 
         // simple integer for material count
-        static final Callback<TableColumn.CellDataFeatures<InventoryData, Number>, ObservableValue<Number>>
+        static final Callback<TableColumn.CellDataFeatures<InventoryData, Label>, ObservableValue<Label>>
                 inventoryQuantityCellFactory =
                 (materialData) ->
                 {
                     int quantity = materialData.getValue().getQuantity();
-                    return new SimpleIntegerProperty(quantity);
+                    Label label = new Label(String.valueOf(quantity));
+                    if (quantity == 0) label.setTextFill(Color.RED);
+                    return new ReadOnlyObjectWrapper<>(label);
                 };
 
     /*
@@ -94,15 +97,9 @@ class UIFunctions
                 modRollCellValueFactory = (modRecipe) -> new ReadOnlyObjectWrapper<>(modRecipe.getValue());
 
 
-
         static final Function<BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer>,
             Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>>
         makeModRollCellFactory = (func) -> (modRecipe) -> new TaskCountCell(func);
-
-
-        // simple integer for number of rolls
-//        static final Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>
-//                modRollCellFactory = (modRecipe) -> new TaskCountCell(procurementListUpdate);
 
 
         // simple string for blueprint/recipe name
@@ -110,31 +107,17 @@ class UIFunctions
                 modNameCellValueFactory = (modRecipe) ->new ReadOnlyObjectWrapper<>(modRecipe.getValue());
 
 
-
-
         static final Function<Function<ProcurementCost, Integer>,
                 Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>>
                 makeModNameCellFactory = (func) -> (modRecipe) -> new RecipeNameCell(func);
-
-
-
-
-        // simple string for blueprint/recipe name
-//        static final Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>
-//                modNameCellFactory = (modRecipe) -> new RecipeNameCell(playerInventory::hasItem);
 
         // wrapper object for recipe pair object
         static final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, ObservableValue<Pair<ProcurementType, ProcurementRecipe>>>
                 modControlCellValueFactory = (modRecipe) -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair());
 
-
         static final Function<BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer>,
             Callback<TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>>>
         makeModControlCellFactory = (updateFunction) -> (modRecipe) -> new ModControlCell(updateFunction);
-
-        // custom cell object creates display for the controls
-//        static final Callback<TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>>
-//                modControlCellFactory = (modRecipe) -> new ModControlCell(procurementListUpdate);
 
     /*
      procurement List: Material Need/Have, Progress information
@@ -190,9 +173,6 @@ class UIFunctions
                 recipeProgressCellFactory = (modRecipeItem) -> new TaskProgressCell();
 
 
-
-
-
         static final Function<PlayerInventory,
             Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProgressIndicator>, ObservableValue<ProgressIndicator>>>
         makeRecipeProgressCellValuefactory = (playerInventory) -> (modRecipe) ->
@@ -230,49 +210,6 @@ class UIFunctions
 
             return new ReadOnlyObjectWrapper<>(progressIndicator);
         };
-
-
-
-
-
-        // wrapper object for progress indicator object
-//        static final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProgressIndicator>, ObservableValue<ProgressIndicator>>
-//                recipeProgressCellValueFactory = (modRecipe) ->
-//        {
-//            ProcurementRecipeData procurementRecipeData = modRecipe.getValue();
-//
-//            int count = procurementRecipeData.getCount();
-//
-//            int total = procurementRecipeData.asPair().getValue().costStream()
-//                    .mapToInt(c -> c.getQuantity() * count)
-//                    .sum();
-//
-//            int missing = procurementRecipeData.asPair().getValue().costStream()
-//                    .mapToInt(cost->
-//                    {
-//                        int banked = playerInventory.hasItem(cost.getCost());
-//                        int surplus = banked - (cost.getQuantity() * count);
-//                        return surplus < 0
-//                                ? -1 * surplus
-//                                : 0;
-//                    })
-//                    .sum();
-//
-//            double progress = missing > 0
-//                    ? (double) total / (double)(total + missing)
-//                    : 1;
-//
-//            ProgressIndicator progressIndicator = new ProgressIndicator(progress);
-//
-//            if (progress >= 1.0)
-//            {
-//                progressIndicator.setStyle("-fx-progress-color: #6677ff ");
-//            }
-//            else progressIndicator.setStyle("-fx-progress-color: #ee5555 ");
-//
-//            return new ReadOnlyObjectWrapper<>(progressIndicator);
-//        };
-
     }
 
     /**
@@ -327,5 +264,8 @@ class UIFunctions
                         : a.getProgress() > b.getProgress()
                                 ? 1
                                 : -1;
+
+        static final Comparator<Label> quantityByNumericValue =
+                (a, b) -> Integer.parseInt(a.getText()) - Integer.parseInt(b.getText());
     }
 }

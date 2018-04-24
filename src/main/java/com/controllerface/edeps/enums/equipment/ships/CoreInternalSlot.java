@@ -7,6 +7,9 @@ import com.controllerface.edeps.Statistic;
  */
 public enum CoreInternalSlot implements Statistic
 {
+    Ship("Ship"),
+    ShipIdent("Ship ID"),
+    ShipName("Ship Name"),
     ShipCockpit("Cockpit"),
     CargoHatch("Cargo Hatch"),
     Armour("Armor"),

@@ -24,7 +24,6 @@ import com.controllerface.edeps.enums.procurements.technologies.TechnologyCatego
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyRecipe;
 import com.controllerface.edeps.enums.procurements.technologies.TechnologyType;
 import com.controllerface.edeps.threads.JournalSyncTask;
-import com.controllerface.edeps.enums.equipment.ships.PlayerStat;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -71,28 +70,28 @@ public class UIController
     @FXML private TableColumn<InventoryData, String> rawCategoryColumn;
     @FXML private TableColumn<InventoryData, String> rawGradeColumn;
     @FXML private TableColumn<InventoryData, String> rawMaterialColumn;
-    @FXML private TableColumn<InventoryData, Number> rawQuantityColumn;
+    @FXML private TableColumn<InventoryData, Label> rawQuantityColumn;
 
     // Manufactured materials
     @FXML private TableView<InventoryData> manufacturedTable;
     @FXML private TableColumn<InventoryData, String> manufacturedCategoryColumn;
     @FXML private TableColumn<InventoryData, String> manufacturedGradeColumn;
     @FXML private TableColumn<InventoryData, String> manufacturedMaterialColumn;
-    @FXML private TableColumn<InventoryData, Number> manufacturedQuantityColumn;
+    @FXML private TableColumn<InventoryData, Label> manufacturedQuantityColumn;
 
     // Data materials
     @FXML private TableView<InventoryData> dataTable;
     @FXML private TableColumn<InventoryData, String> dataCategoryColumn;
     @FXML private TableColumn<InventoryData, String> dataGradeColumn;
     @FXML private TableColumn<InventoryData, String> dataMaterialColumn;
-    @FXML private TableColumn<InventoryData, Number> dataQuantityColumn;
+    @FXML private TableColumn<InventoryData, Label> dataQuantityColumn;
 
     // Cargo
     @FXML private TableView<InventoryData> cargoTable;
     @FXML private TableColumn<InventoryData, String> cargoCategoryColumn;
     @FXML private TableColumn<InventoryData, String> cargoGradeColumn;
     @FXML private TableColumn<InventoryData, String> cargoMaterialColumn;
-    @FXML private TableColumn<InventoryData, Number> cargoQuantityColumn;
+    @FXML private TableColumn<InventoryData, Label> cargoQuantityColumn;
 
     // Procurement task table
     @FXML private TableView<ProcurementRecipeData> procurementRecipeTable;
@@ -113,9 +112,11 @@ public class UIController
     @FXML private TableView<Pair<Statistic, String>> statTable;
     @FXML private TableColumn<Pair<Statistic, String>, String> statNameColumn;
     @FXML private TableColumn<Pair<Statistic, String>, String> statValueColumn;
+
     @FXML private TableView<Pair<Statistic, String>> rankTable;
     @FXML private TableColumn<Pair<Statistic, String>, String> rankNameColumn;
     @FXML private TableColumn<Pair<Statistic, String>, String> rankValueColumn;
+
     @FXML private TableView<Pair<Statistic, String>> shipTable;
     @FXML private TableColumn<Pair<Statistic, String>, String> shipNameColumn;
     @FXML private TableColumn<Pair<Statistic, String>, String> shipValueColumn;
@@ -356,21 +357,25 @@ public class UIController
         rawGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
         rawMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
         rawQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
+        rawQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
 
         manufacturedCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
         manufacturedGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
         manufacturedMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
         manufacturedQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
+        manufacturedQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
 
         dataCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
         dataGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
         dataMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
         dataQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
+        dataQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
 
         cargoCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
         cargoGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
         cargoMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
         cargoQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
+        cargoQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
 
         // set the cell and cell value factories for the procurement recipe list
         recipeCountColumn.setCellFactory(UIFunctions.Data.makeModRollCellFactory.apply(procurementListUpdate));
@@ -383,7 +388,6 @@ public class UIController
         recipeRemoveColumn.setCellValueFactory(UIFunctions.Data.modControlCellValueFactory);
         recipeProgressColumn.setCellFactory(UIFunctions.Data.recipeProgressCellFactory);
         recipeProgressColumn.setCellValueFactory(UIFunctions.Data.makeRecipeProgressCellValuefactory.apply(playerInventory));
-
 
         // set the cell and cell value factories for the procurement material list
         costProgressColumn.setCellFactory(UIFunctions.Data.materialProgressCellFactory);
@@ -413,7 +417,7 @@ public class UIController
         // load the auto-save data from disk
         fromJson();
 
-        // set initialzed flag
+        // set initialized flag
         initialzed = true;
 
         // sync the UI now that everything is set up
@@ -655,7 +659,7 @@ public class UIController
                 .forEach(material -> dataTable.getItems().add(material));
 
         playerInventory.cargoStream()
-                .filter(commodity -> commodity.getQuantity() > 0)
+                //.filter(commodity -> commodity.getQuantity() > 0)
                 .forEach(commodity -> cargoTable.getItems().add(commodity));
 
         // sort pass 1, numerically by grade
@@ -782,13 +786,14 @@ public class UIController
         shipTable.refresh();
     }
 
+    @SuppressWarnings("unchecked")
     private void localizeData()
     {
         InputStream inputStream = null;
         try
         {
-            URL file = getClass().getResource("/localization/eng.json");
-            inputStream = file.openStream();
+            URL localizationData = getClass().getResource("/localization/eng.json");
+            inputStream = localizationData.openStream();
         }
         catch (IOException e)
         {
@@ -807,22 +812,18 @@ public class UIController
             throw new RuntimeException("Error reading localization data", ioe );
         }
 
-        @SuppressWarnings("unchecked")
-        Map<String, Object> materials = ((Map<String, Object>) data.get("materials"));
+        ((Map<String, Object>) data.get("materials")).entrySet()
+                .forEach(materialEntry ->
+                {
+                    ProcurementCost material = Material.valueOf(materialEntry.getKey());
+                    material.setLocalizedName(((String) materialEntry.getValue()));
+                });
 
-        @SuppressWarnings("unchecked")
-        Map<String, Object> commodities = ((Map<String, Object>) data.get("commodities"));
-
-        materials.entrySet().forEach(e->
-        {
-            ProcurementCost material = Material.valueOf(e.getKey());
-            material.setLocalizedName(((String) e.getValue()));
-        });
-
-        commodities.entrySet().forEach(e->
-        {
-            ProcurementCost commodity = Commodity.valueOf(e.getKey());
-            commodity.setLocalizedName(((String) e.getValue()));
-        });
+        ((Map<String, Object>) data.get("commodities")).entrySet()
+                .forEach(commodityEntry ->
+                {
+                    ProcurementCost commodity = Commodity.valueOf(commodityEntry.getKey());
+                    commodity.setLocalizedName(((String) commodityEntry.getValue()));
+                });
     }
 }

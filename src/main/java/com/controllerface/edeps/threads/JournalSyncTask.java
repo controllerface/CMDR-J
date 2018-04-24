@@ -55,7 +55,6 @@ public class JournalSyncTask implements Runnable
                 return (int) (timestamp2 - timestamp1);
             };
 
-
     /**
      * Defines all of the relevant stats for the Commander tab. This consists of all the values of the PlayerStat enum
      */
@@ -71,20 +70,13 @@ public class JournalSyncTask implements Runnable
     /**
      * For ship stats, we want to combine several groups of stats together, and add a couple of "player" stats as well
      * that are useful for the ship tab. In this set, we want all values in the CoreInternalSlot, CosmeticSlot,
-     * HardpointSlot, and OptionalInternalSlot enums. We also want to add the Ship, Ship_ID, Ship_Name, Fuel_Level and
-     * Fuel_Capacity values from the PlayerStat enum.
+     * HardpointSlot, and OptionalInternalSlot enums.
      */
-    public static Set<Statistic> shipStats = Stream.concat(Arrays.stream(CoreInternalSlot.values()), // Core modules
-            Stream.concat(Arrays.stream(CosmeticSlot.values()), // Cosmetics
-                    Stream.concat(Arrays.stream(HardpointSlot.values()),  // Weapons
-                            Stream.concat(Arrays.stream(OptionalInternalSlot.values()), // Optional Internals
-
-                                    // we want to show these particular player stats on the ship page as well
-                                    Stream.of(PlayerStat.Ship,
-                                            PlayerStat.Ship_ID,
-                                            PlayerStat.Ship_Name,
-                                            PlayerStat.Fuel_Level,
-                                            PlayerStat.Fuel_Capacity)))))
+    public static Set<Statistic> shipStats =
+            Stream.concat(Arrays.stream(CoreInternalSlot.values()),                 // Core Modules
+                    Stream.concat(Arrays.stream(CosmeticSlot.values()),             // Cosmetics
+                            Stream.concat(Arrays.stream(HardpointSlot.values()),    // Weapons
+                                    Arrays.stream(OptionalInternalSlot.values())))) // Optional Internals
             .collect(Collectors.toSet());
 
     /**
@@ -147,7 +139,7 @@ public class JournalSyncTask implements Runnable
         }
         catch (IOException e)
         {
-            throw new RuntimeException("BROKEN",e);
+            throw new RuntimeException("BROKEN", e);
         }
 
         boolean go = true;
@@ -255,7 +247,7 @@ public class JournalSyncTask implements Runnable
         File journalFolder = new File(JOURNAL_FOLDER);
         journalPath = journalFolder.toPath();
 
-        Arrays.stream(journalFolder.listFiles((x, y) -> y.startsWith("Journal")))
+        Arrays.stream(journalFolder.listFiles((directory, file) -> file.startsWith("Journal")))
                 .sorted(newestJournalFile)
                 .limit(1).flatMap(this::readJournalLines)
                 .filter(hasSupportedEvent)
@@ -277,7 +269,6 @@ public class JournalSyncTask implements Runnable
             data = objectMapper.readValue(json, mapTypeReference);
             String eventName = ((String) data.get("event"));
             event = JournalEvent.valueOf(eventName);
-            System.out.println("Processing event: " + event);
         }
         catch (Exception e)
         {

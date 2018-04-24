@@ -17,7 +17,7 @@ public enum PlayerStat implements Statistic
     Loan("Loan", "Loan", (o) -> NumberFormat.getInstance().format(o)),
 
     Ship("Ship", "Ship Type", (o) -> ((String) o)),
-    Ship_ID("ShipIdent","Ship ID", (o) -> ((String) o)),
+    Ship_Ident("ShipIdent","Ship ID", (o) -> ((String) o)),
     Ship_Name("ShipName","Ship Name", (o) -> ((String) o)),
     Fuel_Level("FuelLevel","Fuel Level", (o) -> String.valueOf((double) o)),
     Fuel_Capacity("FuelCapacity","Fuel Capacity", (o) -> String.valueOf((double) o)),

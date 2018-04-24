@@ -41,6 +41,10 @@ public enum JournalEvent
         setStatFromData(context, PlayerStat.Fuel_Level);
         setStatFromData(context, PlayerStat.Fuel_Capacity);
 
+        setStatFromData(context, PlayerStat.Ship);
+        setStatFromData(context, PlayerStat.Ship_Name);
+        setStatFromData(context, PlayerStat.Ship_Ident);
+
         context.getUpdateFunction().call();
     }),
 
@@ -128,9 +132,9 @@ public enum JournalEvent
     {
         JournalSyncTask.shipStats.forEach(context.getPlayerInventory()::removeStat);
 
-        setStatFromData(context, PlayerStat.Ship);
-        setStatFromData(context, PlayerStat.Ship_Name);
-        setStatFromData(context, PlayerStat.Ship_ID);
+        setStatFromData(context, CoreInternalSlot.Ship);
+        setStatFromData(context, CoreInternalSlot.ShipName);
+        setStatFromData(context, CoreInternalSlot.ShipIdent);
 
         ((List<Map<String, Object>>) context.getRawData().get("Modules")).stream()
                 .forEach(module -> setSlotFromData(context, module));
