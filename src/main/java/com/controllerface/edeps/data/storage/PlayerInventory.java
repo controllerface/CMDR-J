@@ -45,11 +45,23 @@ public class PlayerInventory
         return cargo.inventory();
     }
 
-    public void clear()
+    public void clearAll()
     {
         rawMats.clear();
         mfdMats.clear();
         dataMats.clear();
+        cargo.clear();
+    }
+
+    public void clearMaterials()
+    {
+        rawMats.clear();
+        mfdMats.clear();
+        dataMats.clear();
+    }
+
+    public void clearCargo()
+    {
         cargo.clear();
     }
 

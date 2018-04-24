@@ -6,8 +6,6 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.storage.PlayerInventory;
 import com.controllerface.edeps.enums.common.JournalEvent;
-import com.controllerface.edeps.enums.costs.commodities.Commodity;
-import com.controllerface.edeps.enums.costs.materials.Material;
 import com.controllerface.edeps.enums.equipment.ships.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -288,6 +286,6 @@ public class JournalSyncTask implements Runnable
         }
 
         EventProcessingContext context = new EventProcessingContext(data, transactions, playerInventory, updateFunction);
-        event.processEvent(context);
+        event.process(context);
     }
 }

@@ -14,308 +14,21 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 /**
+ * This enum defines all of the Journal API events that are currently supported. By convention, enum value names are
+ * exact alphabetical matches for the JSON value string for the event it handles. This is a convenience that allows
+ * support for an arbitrary event to be determined by using the valueOf() enum method. Internally, each enum value
+ * contains the required processing logic for an event by defining a EventProcessingContext consumer function that
+ * is executed on calls to the process() method.
+ *
  * Created by Stephen on 4/16/2018.
  */
+
+@SuppressWarnings("unchecked")
 public enum JournalEvent
 {
-    @SuppressWarnings("unchecked")
-    Cargo((context)-> ((List<Map<String, Object>>) context.getRawData().get("Inventory")).stream()
-            .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
-                    item.get("Count").toString()))
-            .map(sitem -> new Pair<>(((ProcurementCost) Commodity.valueOf(sitem.getKey())),
-                    Integer.parseInt(sitem.getValue())))
-            .forEach(context.getTransactions()::add)),
-
-    @SuppressWarnings("unchecked")
-    Materials((context)->
-    {
-        context.getPlayerInventory().clear();
-
-        Map<String, Object> data = context.getRawData();
-
-        ((List<Map<String, Object>>) data.get("Raw")).stream()
-                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
-                        item.get("Count").toString()))
-                .map(sitem -> new Pair<>(((ProcurementCost) Material.valueOf(sitem.getKey())),
-                        Integer.parseInt(sitem.getValue())))
-                .forEach(context.getTransactions()::add);
-
-        ((List<Map<String, Object>>) data.get("Manufactured")).stream()
-                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
-                        item.get("Count").toString()))
-                .map(sitem -> new Pair<>(((ProcurementCost) Material.valueOf(sitem.getKey())),
-                        Integer.parseInt(sitem.getValue())))
-                .forEach(context.getTransactions()::add);
-
-        ((List<Map<String, Object>>) data.get("Encoded")).stream()
-                .map(item-> new Pair<>(item.get("Name").toString().toUpperCase(),
-                        item.get("Count").toString()))
-                .map(sitem -> new Pair<>(((ProcurementCost) Material.valueOf(sitem.getKey())),
-                        Integer.parseInt(sitem.getValue())))
-                .forEach(context.getTransactions()::add);
-    }),
-
-    // common events
-    EngineerContribution((context)->
-    {
-        Map<String, Object> data = context.getRawData();
-        if (data.get("Material") != null)
-        {
-            String name = ((String) data.get("Material")).toUpperCase();
-            Material material = Material.valueOf(name);
-            int quantity = (-1) * ((int) data.get("Quantity"));
-            context.getTransactions().add(new Pair<>(material, quantity));
-        }
-
-        if (data.get("Commodity") != null)
-        {
-            String name = ((String) data.get("Commodity")).toUpperCase();
-            Commodity commodity = Commodity.valueOf(name);
-            int quantity = (-1) * ((int) data.get("Quantity"));
-            context.getTransactions().add(new Pair<>(commodity, quantity));
-        }
-    }),
-
-    MissionCompleted((context)->
-    {
-        Map<String, Object> data = context.getRawData();
-        if (data.get("MaterialsReward") != null)
-        {
-            @SuppressWarnings("unchecked")
-            List<Map<String, Object>> rewards = ((List<Map<String, Object>>) data.get("MaterialsReward"));
-            rewards.forEach(reward->
-            {
-                String name = ((String) reward.get("Name")).toUpperCase();
-                int count = ((int) reward.get("Count"));
-                Material material = Material.valueOf(name);
-                context.getTransactions().add(new Pair<>(material, count));
-            });
-        }
-
-        if (data.get("CommodityReward") != null)
-        {
-            @SuppressWarnings("unchecked")
-            List<Map<String, Object>> rewards = ((List<Map<String, Object>>) data.get("CommodityReward"));
-            rewards.forEach(reward ->
-            {
-                String name = ((String) data.get("Name")).toUpperCase();
-                int count = ((int) data.get("Count"));
-                Commodity commodity = Commodity.valueOf(name);
-                context.getTransactions().add(new Pair<>(commodity, count));
-            });
-        }
-
-        if (data.get("Commodity") != null)
-        {
-            String name = ((String) data.get("Commodity"))
-                    .replace("$","")
-                    .replace("_Name;","")
-                    .toUpperCase();
-
-            int count = (-1) * ((int) data.get("Count"));
-            Commodity commodity = Commodity.valueOf(name);
-            context.getTransactions().add(new Pair<>(commodity, count));
-        }
-    }),
-
-    TechnologyBroker((context)->
-    {
-        if (context.getRawData().get("Materials") != null)
-        {
-            @SuppressWarnings("unchecked")
-            List<Map<String, Object>> materials = ((List<Map<String, Object>>) context.getRawData().get("Materials"));
-            materials.forEach(materialCost ->
-            {
-                String name = ((String) materialCost.get("Name")).toUpperCase();
-                int count = (-1) * ((int) materialCost.get("Count"));
-                Material material = Material.valueOf(name);
-                context.getTransactions().add(new Pair<>(material, count));
-            });
-        }
-
-        if (context.getRawData().get("Commodities") != null)
-        {
-            @SuppressWarnings("unchecked")
-            List<Map<String, Object>> commodityCosts = ((List<Map<String, Object>>) context.getRawData().get("Commodities"));
-            commodityCosts.forEach(commodityCost ->
-            {
-                String name = ((String) commodityCost.get("Name")).toUpperCase();
-                int count = ((int) commodityCost.get("Count"));
-                Commodity commodity = Commodity.valueOf(name);
-                context.getTransactions().add(new Pair<>(commodity, count));
-            });
-        }
-    }),
-
-    // material specific events
-    MaterialCollected((context)->
-    {
-        String name = ((String) context.getRawData().get("Name")).toUpperCase();
-        int count = ((int) context.getRawData().get("Count"));
-        Material material = Material.valueOf(name);
-        context.getTransactions().add(new Pair<>(material, count));
-    }),
-
-    MaterialDiscarded((context)->
-    {
-        String name = ((String) context.getRawData().get("Name")).toUpperCase();
-        int count = (-1) * ((int) context.getRawData().get("Count"));
-        Material material = Material.valueOf(name);
-        context.getTransactions().add(new Pair<>(material, count));
-    }),
-
-    EngineerCraft((context)->
-    {
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> ingredients = ((List<Map<String, Object>>) context.getRawData().get("Ingredients"));
-        ingredients.forEach(ingredient ->
-        {
-            String name = ((String) ingredient.get("Name")).toUpperCase();
-            int count = (-1) * ((int) ingredient.get("Count"));
-            Material material = Material.valueOf(name);
-            context.getTransactions().add(new Pair<>(material, count));
-        });
-    }),
-
-    MaterialTrade((context)->
-    {
-        @SuppressWarnings("unchecked")
-        Map<String, Object> paid = ((Map<String, Object>) context.getRawData().get("Paid"));
-        String paidName = ((String) paid.get("Material")).toUpperCase();
-        Material paidMaterial = Material.valueOf(paidName);
-        int paidQuantity = (-1) * ((int) paid.get("Quantity"));
-
-        context.getTransactions().add(new Pair<>(paidMaterial, paidQuantity));
-
-        @SuppressWarnings("unchecked")
-        Map<String, Object> received = ((Map<String, Object>) context.getRawData().get("Received"));
-        String receivedName = ((String) received.get("Material")).toUpperCase();
-        Material receivedMaterial = Material.valueOf(receivedName);
-        int receivedQuantity = ((int) received.get("Quantity"));
-
-        context.getTransactions().add(new Pair<>(receivedMaterial, receivedQuantity));
-    }),
-
-    Synthesis((context)->
-    {
-        if (context.getRawData().get("Materials") == null) return;
-
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> materials = ((List<Map<String, Object>>) context.getRawData().get("Materials"));
-        materials.forEach(material->
-        {
-            String name = ((String) material.get("Name")).toUpperCase();
-            int count = (-1) * ((int) material.get("Count"));
-            Material mat = Material.valueOf(name);
-            context.getTransactions().add(new Pair<>(mat, count));
-        });
-    }),
-
-    ScientificResearch((context)->
-    {
-        String name = ((String) context.getRawData().get("Name")).toUpperCase();
-        int count = ((int) context.getRawData().get("Count"));
-        Material material = Material.valueOf(name);
-        context.getTransactions().add(new Pair<>(material, count));
-    }),
-
-    // cargo specific events
-    CollectCargo((context) ->
-    {
-        String name = ((String) context.getRawData().get("Type")).toUpperCase();
-        Commodity commodity = Commodity.valueOf(name);
-        context.getTransactions().add(new Pair<>(commodity, 1));
-    }),
-
-    EjectCargo((context)->
-    {
-        String name = ((String) context.getRawData().get("Type")).toUpperCase();
-        int count = (-1) * ((int) context.getRawData().get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        context.getTransactions().add(new Pair<>(commodity, count));
-    }),
-
-    MarketBuy((context)->
-    {
-        String name = ((String) context.getRawData().get("Type")).toUpperCase();
-        int count = ((int) context.getRawData().get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        context.getTransactions().add(new Pair<>(commodity, count));
-    }),
-
-    MarketSell((context)->
-    {
-        String name = ((String) context.getRawData().get("Type")).toUpperCase();
-        int count = (-1) * ((int) context.getRawData().get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        context.getTransactions().add(new Pair<>(commodity, count));
-    }),
-
-    MiningRefined((context)->
-    {
-        String name = ((String) context.getRawData().get("Type")).toUpperCase();
-        Commodity commodity = Commodity.valueOf(name);
-        context.getTransactions().add(new Pair<>(commodity, 1));
-    }),
-
-    CargoDepot((context)->
-    {
-        Map<String, Object> data = context.getRawData();
-        String updateType = ((String) data.get("UpdateType"));
-
-        int modifier = 0;
-
-        switch (updateType)
-        {
-            case "Deliver":
-                modifier = -1;
-                break;
-
-            case "Collect":
-                modifier = 1;
-                break;
-
-            case "WingUpdate":
-                return;
-        }
-
-        String name = ((String) data.get("CargoType")).toUpperCase();
-        int count = ((int) data.get("Count")) * modifier;
-        Commodity commodity = Commodity.valueOf(name);
-        context.getTransactions().add(new Pair<>(commodity, count));
-    }),
-
-    BuyDrones((context)->
-    {
-        int count = ((int) context.getRawData().get("Count"));
-        context.getTransactions().add(new Pair<>(Commodity.DRONES, count));
-    }),
-
-    SellDrones((context)->
-    {
-        int count = (-1) * ((int) context.getRawData().get("Count"));
-        context.getTransactions().add(new Pair<>(Commodity.DRONES, count));
-    }),
-
-    LaunchDrone((context)-> context.getTransactions().add(new Pair<>(Commodity.DRONES, -1))),
-
-    PowerplayCollect((context)->
-    {
-        String name = ((String) context.getRawData().get("Type")).toUpperCase();
-        int count = ((int) context.getRawData().get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        context.getTransactions().add(new Pair<>(commodity, count));
-    }),
-
-    PowerplayDeliver((context)->
-    {
-        String name = ((String) context.getRawData().get("Type")).toUpperCase();
-        int count = (-1) * ((int) context.getRawData().get("Count"));
-        Commodity commodity = Commodity.valueOf(name);
-        context.getTransactions().add(new Pair<>(commodity, count));
-    }),
-
-    // stats
+    /**
+     * Main game load event: written at startup, when loading from main menu
+     */
     LoadGame((context) ->
     {
         setStatFromData(context, PlayerStat.Commander);
@@ -338,7 +51,41 @@ public enum JournalEvent
         context.getUpdateFunction().call();
     }),
 
-    Rank((context)->
+    /**
+     * Main cargo event: written at startup, when loading from main menu
+     */
+    Cargo((context) ->
+    {
+        context.getPlayerInventory().clearCargo();
+
+        ((List<Map<String, Object>>) context.getRawData().get("Inventory")).stream()
+                .forEach(item -> adjustCommodityCount(context, item));
+    }),
+
+    /**
+     * Main material storage event: written at startup, when loading from main menu
+     */
+    Materials((context)->
+    {
+        context.getPlayerInventory().clearMaterials();
+
+        Map<String, Object> data = context.getRawData();
+
+        ((List<Map<String, Object>>) data.get("Raw")).stream()
+                .forEach(item -> adjustMaterialCount(context, item));
+
+        ((List<Map<String, Object>>) data.get("Manufactured")).stream()
+                .forEach(item -> adjustMaterialCount(context, item));
+
+        ((List<Map<String, Object>>) data.get("Encoded")).stream()
+                .forEach(item -> adjustMaterialCount(context, item));
+
+    }),
+
+    /**
+     * Rank event: written at startup, when loading from main menu
+     */
+    Rank((context) ->
     {
         setStatFromData(context, RankStat.Rank_Combat);
         setStatFromData(context, RankStat.Rank_Trade);
@@ -346,10 +93,14 @@ public enum JournalEvent
         setStatFromData(context, RankStat.Rank_Empire);
         setStatFromData(context, RankStat.Rank_Federation);
         setStatFromData(context, RankStat.Rank_CQC);
+
         context.getUpdateFunction().call();
     }),
 
-    Progress((context)->
+    /**
+     * Rank progress event: written at startup, when loading from main menu
+     */
+    Progress((context) ->
     {
         setStatFromData(context, RankStat.Progress_Combat);
         setStatFromData(context, RankStat.Progress_Trade);
@@ -357,19 +108,27 @@ public enum JournalEvent
         setStatFromData(context, RankStat.Progress_Empire);
         setStatFromData(context, RankStat.Progress_Federation);
         setStatFromData(context, RankStat.Progress_CQC);
+
         context.getUpdateFunction().call();
     }),
 
-    Reputation((context)->
+    /**
+     * Reputation event: written at startup, when loading from main menu
+     */
+    Reputation((context) ->
     {
         setStatFromData(context, RankStat.Reputation_Empire);
         setStatFromData(context, RankStat.Reputation_Federation);
         setStatFromData(context, RankStat.Reputation_Alliance);
         setStatFromData(context, RankStat.Reputation_Indpendent);
+
         context.getUpdateFunction().call();
     }),
 
-    Loadout((context)->
+    /**
+     * Loadout event: written at startup, when loading from main menu
+     */
+    Loadout((context) ->
     {
         JournalSyncTask.shipStats.forEach(context.getPlayerInventory()::removeStat);
 
@@ -377,16 +136,230 @@ public enum JournalEvent
         setStatFromData(context, PlayerStat.Ship_Name);
         setStatFromData(context, PlayerStat.Ship_ID);
 
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> modules = ((List<Map<String, Object>>) context.getRawData().get("Modules"));
-        modules.stream().forEach(module -> setSlotFromData(context, module));
+        ((List<Map<String, Object>>) context.getRawData().get("Modules")).stream()
+                .forEach(module -> setSlotFromData(context, module));
+
+        context.getUpdateFunction().call();
     }),
+
+    /**
+     * Written when contributing items to an engineer in order to gain their favor
+     */
+    EngineerContribution((context)->
+    {
+        Map<String, Object> data = context.getRawData();
+
+        if (data.get("Material") != null) adjustMaterialQuantityDown(context, data);
+
+        if (data.get("Commodity") != null) adjustCommodityQuantityDown(context, data);
+    }),
+
+    /**
+     * Written when a mission is completed
+     */
+    MissionCompleted((context)->
+    {
+        Map<String, Object> data = context.getRawData();
+
+        if (data.get("MaterialsReward") != null)
+        {
+            ((List<Map<String, Object>>) data.get("MaterialsReward"))
+                    .forEach(reward -> adjustMaterialCount(context, reward));
+        }
+
+        if (data.get("CommodityReward") != null)
+        {
+            ((List<Map<String, Object>>) data.get("CommodityReward"))
+                    .forEach(reward -> adjustCommodityCount(context, reward));
+        }
+
+        if (data.get("Commodity") != null)
+        {
+            String name = ((String) data.get("Commodity"))
+                    .replace("$","")
+                    .replace("_Name;","")
+                    .toUpperCase();
+
+            Pair<String, Integer> pair = new Pair<>(name, ((int) data.get("Count")));
+            adjustDown(context, pair, AdjustmentType.COMMODITY);
+        }
+    }),
+
+    /**
+     * Written when unlocking an item from a tech broker
+     */
+    TechnologyBroker((context)->
+    {
+        if (context.getRawData().get("Materials") != null)
+        {
+            ((List<Map<String, Object>>) context.getRawData().get("Materials"))
+                    .forEach(materialCost -> adjustMaterialCountDown(context, materialCost));
+        }
+
+        if (context.getRawData().get("Commodities") != null)
+        {
+            ((List<Map<String, Object>>) context.getRawData().get("Commodities"))
+                    .forEach(commodityCost -> adjustCommodityCountDown(context, commodityCost));
+        }
+    }),
+
+    /**
+     * Written when materials are collected
+     */
+    MaterialCollected((context)-> adjustMaterialCount(context, context.getRawData())),
+
+    /**
+     * Written when materials are discarded
+     */
+    MaterialDiscarded((context)-> adjustMaterialCountDown(context, context.getRawData())),
+
+    /**
+     * Written when a engineering mod or experimental effect is crafted
+     */
+    EngineerCraft((context)-> ((List<Map<String, Object>>) context.getRawData().get("Ingredients"))
+            .forEach(ingredient -> adjustMaterialCountDown(context, ingredient))),
+
+    /**
+     * Written when using a material trader to trade one type of material for another
+     */
+    MaterialTrade((context) ->
+    {
+        Map<String, Object> paid = ((Map<String, Object>) context.getRawData().get("Paid"));
+        adjustMaterialQuantityDown(context, paid);
+
+        Map<String, Object> received = ((Map<String, Object>) context.getRawData().get("Received"));
+        adjustMaterialQuantity(context, received);
+    }),
+
+    /**
+     * Written when synthesizing items
+     */
+    Synthesis((context) -> ((List<Map<String, Object>>) context.getRawData().get("Materials"))
+            .forEach(material -> adjustMaterialCountDown(context, material))),
+
+    /**
+     * Written when contributing materials to a community goal
+     */
+    ScientificResearch((context) -> adjustMaterialCountDown(context, context.getRawData())),
+
+    /**
+     * Written when collecting commodity items
+     */
+    CollectCargo((context) ->
+    {
+        String name = ((String) context.getRawData().get("Type")).toUpperCase();
+        Pair<String, Integer> pair = new Pair<>(name, 1);
+        adjust(context, pair, AdjustmentType.COMMODITY);
+    }),
+
+    /**
+     * Written when ejecting commodities from cargo
+     */
+    EjectCargo((context) -> adjustCommodityTypeDown(context, context.getRawData())),
+
+    /**
+     * Written when buying commodities from a market
+     */
+    MarketBuy((context) -> adjustCommodityType(context, context.getRawData())),
+
+    /**
+     * Written when celling commodities to a market
+     */
+    MarketSell((context) -> adjustCommodityTypeDown(context, context.getRawData())),
+
+    /**
+     * Written when a commodity has been refined through collection of mining fragments
+     */
+    MiningRefined((context) ->
+    {
+        String name = ((String) context.getRawData().get("Type")).toUpperCase();
+        Pair<String, Integer> pair = new Pair<>(name, 1);
+        adjust(context, pair, AdjustmentType.COMMODITY);
+    }),
+
+    /**
+     * Written when a cargo delivery wing mission status updates
+     */
+    CargoDepot((context) ->
+    {
+        String updateType = ((String) context.getRawData().get("UpdateType"));
+        Pair<String, Integer> pair = extractPair(context.getRawData(), "CargoType", "Count");
+
+        switch (updateType)
+        {
+            case "Deliver":
+                adjustDown(context, pair, AdjustmentType.COMMODITY);
+                break;
+
+            case "Collect":
+                adjust(context, pair, AdjustmentType.COMMODITY);
+                break;
+        }
+    }),
+
+    /**
+     * Written when buying limpet drones
+     */
+    BuyDrones((context) -> adjust(context, Commodity.DRONES, ((int) context.getRawData().get("Count")))),
+
+    /**
+     * Written when selling limpet drones
+     */
+    SellDrones((context) -> adjustDown(context, Commodity.DRONES, ((int) context.getRawData().get("Count")))),
+
+    /**
+     * Written when launching a limpet drone
+     */
+    LaunchDrone((context) -> adjustDown(context, Commodity.DRONES, 1)),
+
+    /**
+     * Written when collecting powerplay specific cargo items
+     */
+    PowerplayCollect((context) -> adjustCommodityType(context, context.getRawData())),
+
+    /**
+     * Written when delivering powerplay specific cargo items
+     */
+    PowerplayDeliver((context) -> adjustCommodityTypeDown(context, context.getRawData())),
 
     ;
 
+    /**
+     * Internal enum, used to make the adjustment methods easier for both material and commodity adjustments
+     */
+    private enum AdjustmentType
+    {
+        COMMODITY,
+        MATERIAL
+    }
+
+    /**
+     * Stores the event processing logic for the corresponding event
+     */
     private final Consumer<EventProcessingContext> eventConsumer;
 
+    JournalEvent(Consumer<EventProcessingContext> eventConsumer)
+    {
+        this.eventConsumer = eventConsumer;
+    }
 
+    /**
+     * Executes a specified event consumer function containing the required processing logic for an event
+     *
+     * @param eventProcessingContext the current event processing context
+     */
+    public void process(EventProcessingContext eventProcessingContext)
+    {
+        eventConsumer.accept(eventProcessingContext);
+    }
+
+    /**
+     * Determines what statistic type is being represented by a given String name, and returns the matching object, or
+     * null if the name is not recognized.
+     *
+     * @param statName the String name of a Statistic enum type
+     * @return the Statistic enum value matching the provided name, or null if the name is not valid
+     */
     private static Statistic determineStatType(String statName)
     {
         Statistic statistic;
@@ -410,11 +383,87 @@ public enum JournalEvent
         return null;
     }
 
+    /**
+     * Extracts a Pair<String, Integer> pair from a raw JSON object, where the String key and Integer value are
+     * extracted from the ray JSON object by using the keys "Name" and "Count" respectively
+     *
+     * @param data raw JSON data
+     * @return the extracted Pair<String, Integer> object
+     */
+    private static Pair<String, Integer> extractNameCountPair(Map<String, Object> data)
+    {
+        return extractPair(data, "Name", "Count");
+    }
+
+    /**
+     * Extracts a Pair<String, Integer> pair from a raw JSON object, where the String key and Integer value are
+     * extracted from the ray JSON object by using the keys "Type" and "Count" respectively
+     *
+     * @param data raw JSON data
+     * @return the extracted Pair<String, Integer> object
+     */
+    private static Pair<String, Integer> extractTypeCountPair(Map<String, Object> data)
+    {
+        return extractPair(data, "Type", "Count");
+    }
+
+    /**
+     * Extracts a Pair<String, Integer> pair from a raw JSON object, where the String key and Integer value are
+     * extracted from the ray JSON object by using the keys "Material" and "Quantity" respectively
+     *
+     * @param data raw JSON data
+     * @return the extracted Pair<String, Integer> object
+     */
+    private static Pair<String, Integer> extractMaterialQuantityPair(Map<String, Object> data)
+    {
+        return extractPair(data, "Material", "Quantity");
+    }
+
+    /**
+     * Extracts a Pair<String, Integer> pair from a raw JSON object, where the String key and Integer value are
+     * extracted from the ray JSON object by using the keys "Commodity" and "Quantity" respectively
+     *
+     * @param data raw JSON data
+     * @return the extracted Pair<String, Integer> object
+     */
+    private static Pair<String, Integer> extractCommodityQuantityPair(Map<String, Object> data)
+    {
+        return extractPair(data, "Commodity", "Quantity");
+    }
+
+    /**
+     * Extracts a Pair<String, Integer> pair from a raw JSON object, where the String key and Integer value are
+     * extracted from the ray JSON object by using the value of the provided keyName and valueName arguments
+     *
+     * @param data raw JSON data
+     * @param keyName key string to use to extract the returned pair's key name from the raw JSON object
+     * @param valueName key string to use to extract the returned pair's value from the raw JSON object
+     * @return the extracted Pair<String, Integer> object
+     */
+    private static Pair<String, Integer> extractPair(Map<String, Object> data, String keyName, String valueName)
+    {
+        return new Pair<>(data.get(keyName).toString().toUpperCase(), Integer.parseInt(data.get(valueName).toString()));
+    }
+
+    /**
+     * Sets a Statistic value on a context specific PlayerInventory object using a context specific raw JSON object
+     * to extract the stat value
+     *
+     * @param context the current event processing context
+     * @param stat the statistic type to set the value of
+     */
     private static void setStatFromData(EventProcessingContext context, Statistic stat)
     {
         context.getPlayerInventory().setStat(stat, stat.format(context.getRawData().get(stat.getKey())));
     }
 
+    /**
+     * Sets a ship internal slot specific Statistic value on a context specific PlayerInventory object using a context
+     * specific raw JSON object to extract the slot name and value
+     *
+     * @param context the current event processing context
+     * @param data the raw JSON object from which to extract the slot name and value
+     */
     private static void setSlotFromData(EventProcessingContext context, Map<String, Object> data)
     {
         String slotName = ((String) data.get("Slot"));
@@ -428,13 +477,181 @@ public enum JournalEvent
         context.getPlayerInventory().setStat(statistic, itemName);
     }
 
-    JournalEvent(Consumer<EventProcessingContext> eventConsumer)
+    /**
+     * Increments the count of a commodity in a context specific PlayerInventory object
+     *
+     * [Type, Count] variant
+     *
+     * @param context the current event processing context
+     * @param data the raw JSON object from which to extract the commodity type and value
+     */
+    private static void adjustCommodityType(EventProcessingContext context, Map<String, Object> data)
     {
-        this.eventConsumer = eventConsumer;
+        adjust(context, extractTypeCountPair(data), AdjustmentType.COMMODITY);
     }
 
-    public void processEvent(EventProcessingContext eventProcessingContext)
+    /**
+     * Decrements the count of a commodity in a context specific PlayerInventory object
+     *
+     * [Type, Count] variant
+     *
+     * @param context the current event processing context
+     * @param data the raw JSON object from which to extract the commodity type and value
+     */
+    private static void adjustCommodityTypeDown(EventProcessingContext context, Map<String, Object> data)
     {
-        eventConsumer.accept(eventProcessingContext);
+        adjustDown(context, extractTypeCountPair(data), AdjustmentType.COMMODITY);
+    }
+
+    /**
+     * Increments the count of a commodity in a context specific PlayerInventory object
+     *
+     * [Name, Count] variant
+     *
+     * @param context the current event processing context
+     * @param data the raw JSON object from which to extract the commodity type and value
+     */
+    private static void adjustCommodityCount(EventProcessingContext context, Map<String, Object> data)
+    {
+        adjust(context, extractNameCountPair(data), AdjustmentType.COMMODITY);
+    }
+
+    /**
+     * Decrements the count of a commodity in a context specific PlayerInventory object
+     *
+     * [Name, Count] variant
+     *
+     * @param context the current event processing context
+     * @param data the raw JSON object from which to extract the commodity type and value
+     */
+    private static void adjustCommodityCountDown(EventProcessingContext context, Map<String, Object> data)
+    {
+        adjustDown(context, extractNameCountPair(data), AdjustmentType.COMMODITY);
+    }
+
+    /**
+     * Increments the count of a material in a context specific PlayerInventory object
+     *
+     * [Name, Count] variant
+     *
+     * @param context the current event processing context
+     * @param data the raw JSON object from which to extract the material type and value
+     */
+    private static void adjustMaterialCount(EventProcessingContext context, Map<String, Object> data)
+    {
+        adjust(context, extractNameCountPair(data), AdjustmentType.MATERIAL);
+    }
+
+    /**
+     * Decrements the count of a material in a context specific PlayerInventory object
+     *
+     * [Name, Count] variant
+     *
+     * @param context the current event processing context
+     * @param data the raw JSON object from which to extract the material type and value
+     */
+    private static void adjustMaterialCountDown(EventProcessingContext context, Map<String, Object> data)
+    {
+        adjustDown(context, extractNameCountPair(data), AdjustmentType.MATERIAL);
+    }
+
+    /**
+     * Increments the count of a material in a context specific PlayerInventory object
+     *
+     * [Material, Quantity] variant
+     *
+     * @param context the current event processing context
+     * @param data the raw JSON object from which to extract the material type and value
+     */
+    private static void adjustMaterialQuantity(EventProcessingContext context, Map<String, Object> data)
+    {
+        adjust(context, extractMaterialQuantityPair(data), AdjustmentType.MATERIAL);
+    }
+
+    /**
+     * Decrements the count of a material in a context specific PlayerInventory object
+     *
+     * [Material, Quantity] variant
+     *
+     * @param context the current event processing context
+     * @param data the raw JSON object from which to extract the material type and value
+     */
+    private static void adjustMaterialQuantityDown(EventProcessingContext context, Map<String, Object> data)
+    {
+        adjustDown(context, extractMaterialQuantityPair(data), AdjustmentType.MATERIAL);
+    }
+
+    /**
+     * Decrements the count of a commodity in a context specific PlayerInventory object
+     *
+     * [Material, Quantity] variant
+     *
+     * @param context the current event processing context
+     * @param data the raw JSON object from which to extract the commodity type and value
+     */
+    private static void adjustCommodityQuantityDown(EventProcessingContext context, Map<String, Object> data)
+    {
+        adjustDown(context, extractCommodityQuantityPair(data), AdjustmentType.COMMODITY);
+    }
+
+    /**
+     * Increments the count of an inventory item in a context specific PlayerInventory object
+     *
+     * @param context the current event processing context
+     * @param pair a Pair<String, Integer> object describing the item type and amount to adjust
+     * @param adjustmentType either COMMODITY or MATERIAL based on the type of item to adjust
+     */
+    private static void adjust(EventProcessingContext context, Pair<String, Integer> pair, AdjustmentType adjustmentType)
+    {
+        ProcurementCost cost;
+        switch (adjustmentType)
+        {
+            case COMMODITY:
+                cost = Commodity.valueOf(pair.getKey());
+                break;
+
+            case MATERIAL:
+                cost = Material.valueOf(pair.getKey());
+                break;
+
+            default: return;
+        }
+        adjust(context, cost, pair.getValue());
+    }
+
+    /**
+     * Decrements the count of an inventory item in a context specific PlayerInventory object
+     *
+     * @param context the current event processing context
+     * @param pair a Pair<String, Integer> object describing the item type and amount to adjust
+     * @param adjustmentType either COMMODITY or MATERIAL based on the type of item to adjust
+     */
+    private static void adjustDown(EventProcessingContext context, Pair<String, Integer> pair, AdjustmentType adjustmentType)
+    {
+        adjust(context, new Pair<>(pair.getKey(), -1 * pair.getValue()), adjustmentType);
+    }
+
+    /**
+     * Increments the count of an inventory item in a context specific PlayerInventory object
+     *
+     * @param context the current event processing context
+     * @param cost the item type to adjust
+     * @param count the amount by which to adjust the provided item
+     */
+    private static void adjust(EventProcessingContext context, ProcurementCost cost, int count)
+    {
+        context.getTransactions().add(new Pair<>(cost, count));
+    }
+
+    /**
+     * Decrements the count of an inventory item in a context specific PlayerInventory object
+     *
+     * @param context the current event processing context
+     * @param cost the item type to adjust
+     * @param count the amount by which to adjust the provided item
+     */
+    private static void adjustDown(EventProcessingContext context, ProcurementCost cost, int count)
+    {
+        context.getTransactions().add(new Pair<>(cost, ((-1) * count)));
     }
 }
