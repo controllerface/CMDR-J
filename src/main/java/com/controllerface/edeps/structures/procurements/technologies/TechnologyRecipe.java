@@ -3,7 +3,7 @@ package com.controllerface.edeps.structures.procurements.technologies;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.ItemEffectData;
-import com.controllerface.edeps.structures.common.ItemEffect;
+import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import javafx.util.Pair;

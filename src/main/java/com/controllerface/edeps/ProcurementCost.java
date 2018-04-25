@@ -1,6 +1,6 @@
 package com.controllerface.edeps;
 
-import com.controllerface.edeps.structures.common.ItemGrade;
+import com.controllerface.edeps.structures.equipment.ItemGrade;
 
 /**
  * Created by Stephen on 4/11/2018.

@@ -1,7 +1,7 @@
 package com.controllerface.edeps.structures.costs.materials;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.structures.common.ItemGrade;
+import com.controllerface.edeps.structures.equipment.ItemGrade;
 
 /**
  * An enumeration of all the crafting materials in Elite: Dangerous

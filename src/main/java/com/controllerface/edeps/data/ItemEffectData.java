@@ -1,7 +1,7 @@
 package com.controllerface.edeps.data;
 
 import com.controllerface.edeps.Immutable;
-import com.controllerface.edeps.structures.common.ItemEffect;
+import com.controllerface.edeps.structures.equipment.ItemEffect;
 import javafx.util.Pair;
 
 import java.util.Arrays;

@@ -7,7 +7,7 @@ import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
 import com.controllerface.edeps.data.commander.CommanderData;
-import com.controllerface.edeps.structures.common.ItemEffect;
+import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.commodities.CommodityCategory;
 import com.controllerface.edeps.structures.costs.materials.Material;

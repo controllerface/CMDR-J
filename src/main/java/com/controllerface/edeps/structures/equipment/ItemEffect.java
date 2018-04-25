@@ -1,4 +1,4 @@
-package com.controllerface.edeps.structures.common;
+package com.controllerface.edeps.structures.equipment;
 
 /**
  * Created by Stephen on 4/6/2018.

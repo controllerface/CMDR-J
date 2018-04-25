@@ -1,4 +1,4 @@
-package com.controllerface.edeps.structures.common;
+package com.controllerface.edeps.structures.journal;
 
 import com.controllerface.edeps.EventProcessingContext;
 import com.controllerface.edeps.ProcurementCost;

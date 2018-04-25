@@ -4,7 +4,7 @@ import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.ItemEffectData;
 import com.controllerface.edeps.structures.costs.materials.Material;
-import com.controllerface.edeps.structures.common.ItemEffect;
+import com.controllerface.edeps.structures.equipment.ItemEffect;
 import javafx.util.Pair;
 
 import java.util.Arrays;

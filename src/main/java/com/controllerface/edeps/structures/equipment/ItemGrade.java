@@ -1,4 +1,4 @@
-package com.controllerface.edeps.structures.common;
+package com.controllerface.edeps.structures.equipment;
 
 /**
  * An enumeration of all the crafting material grades in Elite: Dangerous

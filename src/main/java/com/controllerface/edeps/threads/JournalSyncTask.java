@@ -5,7 +5,7 @@ import com.controllerface.edeps.Procedure;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.commander.CommanderData;
-import com.controllerface.edeps.structures.common.JournalEvent;
+import com.controllerface.edeps.structures.journal.JournalEvent;
 import com.controllerface.edeps.structures.equipment.ships.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
