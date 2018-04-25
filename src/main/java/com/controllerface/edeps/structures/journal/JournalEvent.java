@@ -511,7 +511,11 @@ public enum JournalEvent
         {
             System.out.println(itemName);
         }
-        else context.getCommanderData().setShipModule(statistic, shipModule);
+        else
+        {
+            // todo: need to get engineering modifiers and experimental effects if present
+            context.getCommanderData().setShipModule(statistic, shipModule);
+        }
 
         if (statistic == null)
         {
