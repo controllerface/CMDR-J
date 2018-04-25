@@ -1,6 +1,6 @@
 package com.controllerface.edeps;
 
-import com.controllerface.edeps.data.CostData;
+import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.ItemEffectData;
 
 import java.util.stream.Stream;

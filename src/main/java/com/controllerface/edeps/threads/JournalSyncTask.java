@@ -4,9 +4,9 @@ import com.controllerface.edeps.EventProcessingContext;
 import com.controllerface.edeps.Procedure;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.Statistic;
-import com.controllerface.edeps.data.storage.PlayerInventory;
-import com.controllerface.edeps.enums.common.JournalEvent;
-import com.controllerface.edeps.enums.equipment.ships.*;
+import com.controllerface.edeps.data.commander.CommanderData;
+import com.controllerface.edeps.structures.common.JournalEvent;
+import com.controllerface.edeps.structures.equipment.ships.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Task thread that keeps a PlayerInventory synchronized by monitoring the player's journal entries,
+ * Task thread that keeps a CommanderData synchronized by monitoring the player's journal entries,
  * adding transactions to the transaction queue that modify the inventory when relevant events occur.
  *
  * Created by Stephen on 4/4/2018.
@@ -98,7 +98,7 @@ public class JournalSyncTask implements Runnable
                     .findAny().isPresent();
 
 
-    private final PlayerInventory playerInventory;
+    private final CommanderData commanderData;
     private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
 
     private Path journalPath;
@@ -112,11 +112,11 @@ public class JournalSyncTask implements Runnable
         @Override public Type getType() {return HashMap.class;}
     };
 
-    public JournalSyncTask(Procedure updateFunction, PlayerInventory playerInventory,
+    public JournalSyncTask(Procedure updateFunction, CommanderData commanderData,
                            BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
     {
         this.updateFunction = updateFunction;
-        this.playerInventory = playerInventory;
+        this.commanderData = commanderData;
         this.transactions = transactions;
     }
 
@@ -276,7 +276,7 @@ public class JournalSyncTask implements Runnable
             throw new RuntimeException("Error reading journal data", e);
         }
 
-        EventProcessingContext context = new EventProcessingContext(data, transactions, playerInventory, updateFunction);
+        EventProcessingContext context = new EventProcessingContext(data, transactions, commanderData, updateFunction);
         event.process(context);
     }
 }

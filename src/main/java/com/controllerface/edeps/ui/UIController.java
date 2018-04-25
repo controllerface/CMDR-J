@@ -4,25 +4,25 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.Statistic;
-import com.controllerface.edeps.data.InventoryData;
-import com.controllerface.edeps.data.ItemCostData;
-import com.controllerface.edeps.data.ProcTreeData;
-import com.controllerface.edeps.data.ProcurementRecipeData;
-import com.controllerface.edeps.data.storage.PlayerInventory;
-import com.controllerface.edeps.enums.costs.commodities.Commodity;
-import com.controllerface.edeps.enums.costs.materials.Material;
-import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalCategory;
-import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalRecipe;
-import com.controllerface.edeps.enums.procurements.experimentals.ExperimentalType;
-import com.controllerface.edeps.enums.procurements.modifications.ModificationCategory;
-import com.controllerface.edeps.enums.procurements.modifications.ModificationRecipe;
-import com.controllerface.edeps.enums.procurements.modifications.ModificationType;
-import com.controllerface.edeps.enums.procurements.synthesis.SynthesisCategory;
-import com.controllerface.edeps.enums.procurements.synthesis.SynthesisRecipe;
-import com.controllerface.edeps.enums.procurements.synthesis.SynthesisType;
-import com.controllerface.edeps.enums.procurements.technologies.TechnologyCategory;
-import com.controllerface.edeps.enums.procurements.technologies.TechnologyRecipe;
-import com.controllerface.edeps.enums.procurements.technologies.TechnologyType;
+import com.controllerface.edeps.data.commander.InventoryData;
+import com.controllerface.edeps.data.procurements.ItemCostData;
+import com.controllerface.edeps.data.procurements.ProcTreeData;
+import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.data.commander.CommanderData;
+import com.controllerface.edeps.structures.costs.commodities.Commodity;
+import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.procurements.experimentals.ExperimentalCategory;
+import com.controllerface.edeps.structures.procurements.experimentals.ExperimentalRecipe;
+import com.controllerface.edeps.structures.procurements.experimentals.ExperimentalType;
+import com.controllerface.edeps.structures.procurements.modifications.ModificationCategory;
+import com.controllerface.edeps.structures.procurements.modifications.ModificationRecipe;
+import com.controllerface.edeps.structures.procurements.modifications.ModificationType;
+import com.controllerface.edeps.structures.procurements.synthesis.SynthesisCategory;
+import com.controllerface.edeps.structures.procurements.synthesis.SynthesisRecipe;
+import com.controllerface.edeps.structures.procurements.synthesis.SynthesisType;
+import com.controllerface.edeps.structures.procurements.technologies.TechnologyCategory;
+import com.controllerface.edeps.structures.procurements.technologies.TechnologyRecipe;
+import com.controllerface.edeps.structures.procurements.technologies.TechnologyType;
 import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
@@ -130,7 +130,7 @@ public class UIController
 
     private boolean initialzed = false;
 
-    private final PlayerInventory playerInventory = new PlayerInventory();
+    private final CommanderData commanderData = new CommanderData();
 
     private final Map<Pair<ProcurementType, ProcurementRecipe>, Integer> procurementRecipeMap = new HashMap<>();
 
@@ -315,13 +315,13 @@ public class UIController
         BlockingQueue<Pair<ProcurementCost, Integer>> transactionQueue = new LinkedBlockingQueue<>();
 
         // transaction processor
-        Runnable transactionProcessingTask = new TransactionProcessingTask(this::syncUI, playerInventory, transactionQueue);
+        Runnable transactionProcessingTask = new TransactionProcessingTask(this::syncUI, commanderData, transactionQueue);
         Thread transactionThread = new Thread(transactionProcessingTask);
         transactionThread.setDaemon(true);
         transactionThread.start();
 
         // disk monitor
-        Runnable inventorySyncTask = new JournalSyncTask(this::syncUI, playerInventory, transactionQueue);
+        Runnable inventorySyncTask = new JournalSyncTask(this::syncUI, commanderData, transactionQueue);
         Thread inventoryThread = new Thread(inventorySyncTask);
         inventoryThread.setDaemon(true);
         inventoryThread.start();
@@ -382,12 +382,12 @@ public class UIController
         recipeCountColumn.setCellValueFactory(UIFunctions.Data.modRollCellValueFactory);
         recipeCountColumn.setStyle( "-fx-alignment: CENTER;");
 
-        recipeNameColumn.setCellFactory(UIFunctions.Data.makeModNameCellFactory.apply(playerInventory::hasItem));
+        recipeNameColumn.setCellFactory(UIFunctions.Data.makeModNameCellFactory.apply(commanderData::hasItem));
         recipeNameColumn.setCellValueFactory(UIFunctions.Data.modNameCellValueFactory);
         recipeRemoveColumn.setCellFactory(UIFunctions.Data.makeModControlCellFactory.apply(procurementListUpdate));
         recipeRemoveColumn.setCellValueFactory(UIFunctions.Data.modControlCellValueFactory);
         recipeProgressColumn.setCellFactory(UIFunctions.Data.recipeProgressCellFactory);
-        recipeProgressColumn.setCellValueFactory(UIFunctions.Data.makeRecipeProgressCellValuefactory.apply(playerInventory));
+        recipeProgressColumn.setCellValueFactory(UIFunctions.Data.makeRecipeProgressCellValuefactory.apply(commanderData));
 
         // set the cell and cell value factories for the procurement material list
         costProgressColumn.setCellFactory(UIFunctions.Data.materialProgressCellFactory);
@@ -635,7 +635,7 @@ public class UIController
 
         // use a custom cell factory so we can have more useful tree cells
         procurementTree.setCellFactory(param ->
-                new ProcTreeCell(addTaskToProcurementList, this.playerInventory::hasItem));
+                new ProcTreeCell(addTaskToProcurementList, this.commanderData::hasItem));
 
         // hide the root, showing just it's children in the tree view (which are the mod categories)
         procurementTree.setShowRoot(false);
@@ -649,16 +649,16 @@ public class UIController
         dataTable.getItems().clear();
         cargoTable.getItems().clear();
 
-        playerInventory.rawMaterialStream()
+        commanderData.rawMaterialStream()
                 .forEach(material -> rawTable.getItems().add(material));
 
-        playerInventory.manufacturedMaterialStream()
+        commanderData.manufacturedMaterialStream()
                 .forEach(material -> manufacturedTable.getItems().add(material));
 
-        playerInventory.dataMaterialStream()
+        commanderData.dataMaterialStream()
                 .forEach(material -> dataTable.getItems().add(material));
 
-        playerInventory.cargoStream()
+        commanderData.cargoStream()
                 //.filter(commodity -> commodity.getQuantity() > 0)
                 .forEach(commodity -> cargoTable.getItems().add(commodity));
 
@@ -733,7 +733,7 @@ public class UIController
 
                         if (!matFound.get())
                         {
-                            ItemCostData newItem = new ItemCostData(mat.getCost(), this.playerInventory::hasItem);
+                            ItemCostData newItem = new ItemCostData(mat.getCost(), this.commanderData::hasItem);
                             newItem.setCount(mat.getQuantity() * count);
                             procurementCostTable.getItems().add(newItem);
                         }
@@ -761,19 +761,19 @@ public class UIController
             });
         }
 
-        playerInventory.getStats()
+        commanderData.getStats()
                 .entrySet().stream()
                 .filter(e -> JournalSyncTask.playerStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> statTable.getItems().add(pair));
 
-        playerInventory.getStats()
+        commanderData.getStats()
                 .entrySet().stream()
                 .filter(e -> JournalSyncTask.rankStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> rankTable.getItems().add(pair));
 
-        playerInventory.getStats()
+        commanderData.getStats()
                 .entrySet().stream()
                 .filter(e -> JournalSyncTask.shipStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))

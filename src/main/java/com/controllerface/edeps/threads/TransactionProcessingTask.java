@@ -2,13 +2,13 @@ package com.controllerface.edeps.threads;
 
 import com.controllerface.edeps.Procedure;
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.data.storage.PlayerInventory;
+import com.controllerface.edeps.data.commander.CommanderData;
 import javafx.util.Pair;
 
 import java.util.concurrent.BlockingQueue;
 
 /**
- * Task thread that keeps a PlayerInventory synchronized by executing transactions that modify it.
+ * Task thread that keeps a CommanderData synchronized by executing transactions that modify it.
  * As transactions are put into the transaction queue, this thread will execute them, in the order
  * in which they are queued. When there are no transactions, this thread will block until one is
  * queued, avoiding unnecessary CPU usage.
@@ -18,11 +18,11 @@ import java.util.concurrent.BlockingQueue;
 public class TransactionProcessingTask implements Runnable
 {
     private final Procedure updateFunction;
-    private final PlayerInventory inventory;
+    private final CommanderData inventory;
     private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
 
     public TransactionProcessingTask(Procedure updateFunction,
-                                     PlayerInventory inventory,
+                                     CommanderData inventory,
                                      BlockingQueue<Pair<ProcurementCost, Integer>> transactionQueue)
     {
         this.updateFunction = updateFunction;

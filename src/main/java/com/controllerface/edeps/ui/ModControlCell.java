@@ -2,7 +2,7 @@ package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
-import com.controllerface.edeps.data.ProcurementRecipeData;
+import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
@@ -38,7 +38,7 @@ public class ModControlCell extends TableCell<ProcurementRecipeData, Pair<Procur
         if (!empty)
         {
             Line line = new Line();
-            line.setStroke(Color.WHITE);
+            line.setStroke(Color.BLACK);
             line.setStrokeWidth(3);
             line.setStartX(-3);
             line.setEndX(7);
@@ -46,7 +46,7 @@ public class ModControlCell extends TableCell<ProcurementRecipeData, Pair<Procur
             line.setEndY(11);
 
             Line line2 = new Line();
-            line2.setStroke(Color.WHITE);
+            line2.setStroke(Color.BLACK);
             line2.setStrokeWidth(3);
             line2.setStartX(-3);
             line2.setEndX(7);
@@ -60,7 +60,7 @@ public class ModControlCell extends TableCell<ProcurementRecipeData, Pair<Procur
             remove.setMinWidth(20d);
             remove.setMaxHeight(20d);
             remove.setMinHeight(20d);
-            remove.setStyle("-fx-background-color: black;");
+            //remove.setStyle("-fx-background-color: #ff5555;");
             remove.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
             remove.setOnAction((e) ->

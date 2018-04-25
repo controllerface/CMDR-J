@@ -1,8 +1,8 @@
 package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.data.CostData;
-import com.controllerface.edeps.data.ProcTreeData;
+import com.controllerface.edeps.data.procurements.CostData;
+import com.controllerface.edeps.data.procurements.ProcTreeData;
 import com.sun.javafx.scene.control.skin.ProgressIndicatorSkin;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;

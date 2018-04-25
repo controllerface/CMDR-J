@@ -1,6 +1,6 @@
 package com.controllerface.edeps.ui;
 
-import com.controllerface.edeps.data.ProcurementRecipeData;
+import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 

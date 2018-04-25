@@ -3,16 +3,16 @@ package com.controllerface.edeps.ui;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
-import com.controllerface.edeps.data.InventoryData;
-import com.controllerface.edeps.data.ItemCostData;
-import com.controllerface.edeps.data.ProcurementRecipeData;
-import com.controllerface.edeps.data.storage.PlayerInventory;
-import com.controllerface.edeps.enums.common.ItemEffect;
-import com.controllerface.edeps.enums.costs.commodities.Commodity;
-import com.controllerface.edeps.enums.costs.commodities.CommodityCategory;
-import com.controllerface.edeps.enums.costs.materials.Material;
-import com.controllerface.edeps.enums.costs.materials.MaterialCategory;
-import com.controllerface.edeps.enums.costs.materials.MaterialType;
+import com.controllerface.edeps.data.commander.InventoryData;
+import com.controllerface.edeps.data.procurements.ItemCostData;
+import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.data.commander.CommanderData;
+import com.controllerface.edeps.structures.common.ItemEffect;
+import com.controllerface.edeps.structures.costs.commodities.Commodity;
+import com.controllerface.edeps.structures.costs.commodities.CommodityCategory;
+import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.costs.materials.MaterialCategory;
+import com.controllerface.edeps.structures.costs.materials.MaterialType;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,7 +22,6 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
@@ -173,7 +172,7 @@ class UIFunctions
                 recipeProgressCellFactory = (modRecipeItem) -> new TaskProgressCell();
 
 
-        static final Function<PlayerInventory,
+        static final Function<CommanderData,
             Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProgressIndicator>, ObservableValue<ProgressIndicator>>>
         makeRecipeProgressCellValuefactory = (playerInventory) -> (modRecipe) ->
         {

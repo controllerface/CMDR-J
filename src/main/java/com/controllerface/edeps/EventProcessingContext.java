@@ -1,6 +1,6 @@
 package com.controllerface.edeps;
 
-import com.controllerface.edeps.data.storage.PlayerInventory;
+import com.controllerface.edeps.data.commander.CommanderData;
 import javafx.util.Pair;
 
 import java.util.Map;
@@ -12,19 +12,19 @@ import java.util.concurrent.BlockingQueue;
 public class EventProcessingContext
 {
     private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
-    private final PlayerInventory playerInventory;
+    private final CommanderData commanderData;
     private final Map<String, Object> rawData;
     private final Procedure updateFunction;
 
 
     public EventProcessingContext(Map<String, Object> rawData,
                                   BlockingQueue<Pair<ProcurementCost, Integer>> transactions,
-                                  PlayerInventory playerInventory,
+                                  CommanderData commanderData,
                                   Procedure updateFunction)
     {
         this.rawData = rawData;
         this.transactions = transactions;
-        this.playerInventory = playerInventory;
+        this.commanderData = commanderData;
         this.updateFunction = updateFunction;
     }
 
@@ -38,9 +38,9 @@ public class EventProcessingContext
         return transactions;
     }
 
-    public PlayerInventory getPlayerInventory()
+    public CommanderData getCommanderData()
     {
-        return playerInventory;
+        return commanderData;
     }
 
     public Procedure getUpdateFunction()
