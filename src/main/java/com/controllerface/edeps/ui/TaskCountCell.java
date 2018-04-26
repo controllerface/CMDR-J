@@ -35,7 +35,7 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
     public TaskCountCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
     {
         this.inventoryUpdate = inventoryUpdate;
-        buttonBox.setAlignment(Pos.CENTER);
+        //buttonBox.setAlignment(Pos.CENTER);
     }
 
     @Override

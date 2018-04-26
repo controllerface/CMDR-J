@@ -18,14 +18,14 @@ import java.util.function.BiFunction;
 /**
  * Created by Stephen on 4/2/2018.
  */
-public class ModControlCell extends TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>
+public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>
 {
     private final Button remove = new Button("x");
     private final HBox controls = new HBox(remove);
 
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate;
 
-    public ModControlCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
+    public TaskRemoveCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
     {
         this.inventoryUpdate = inventoryUpdate;
     }
@@ -60,7 +60,6 @@ public class ModControlCell extends TableCell<ProcurementRecipeData, Pair<Procur
             remove.setMinWidth(20d);
             remove.setMaxHeight(20d);
             remove.setMinHeight(20d);
-            //remove.setStyle("-fx-background-color: #ff5555;");
             remove.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
             remove.setOnAction((e) ->

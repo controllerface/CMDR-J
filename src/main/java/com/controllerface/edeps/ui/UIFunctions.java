@@ -119,7 +119,7 @@ class UIFunctions
 
         static final Function<BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer>,
             Callback<TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>>>
-        makeModControlCellFactory = (updateFunction) -> (modRecipe) -> new ModControlCell(updateFunction);
+        makeModControlCellFactory = (updateFunction) -> (modRecipe) -> new TaskRemoveCell(updateFunction);
 
     /*
      procurement List: Material Need/Have, Progress information
