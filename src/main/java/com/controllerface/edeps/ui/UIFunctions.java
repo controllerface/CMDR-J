@@ -4,6 +4,7 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.commander.InventoryData;
+import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
 import com.controllerface.edeps.data.commander.CommanderData;
@@ -22,6 +23,8 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
@@ -124,18 +127,18 @@ class UIFunctions
 
         // simple integer for the need count
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, Number>, ObservableValue<Number>>
-                materialNeedCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getNeed());
+                costNeedCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getNeed());
 
         // simple integer for the have count
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, Number>, ObservableValue<Number>>
-                materialHaveCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getHave());
+                costHaveCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getHave());
 
         // simple string for the material name
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
-                materialNameCellFactory = (modMaterial) -> new SimpleStringProperty(modMaterial.getValue().toString());
+                costNameCellFactory = (modMaterial) -> new SimpleStringProperty(modMaterial.getValue().toString());
 
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
-                materialTypeCellFactory = (modMaterial) ->
+                costTypeCellFactory = (modMaterial) ->
         {
             ProcurementCost cost = modMaterial.getValue().getMaterial();
             String type;
@@ -147,11 +150,11 @@ class UIFunctions
 
         // custom cell object creates display for the progress indicator
         static final Callback<TableColumn<ItemCostData, ProgressIndicator>, TableCell<ItemCostData, ProgressIndicator>>
-                materialProgressCellFactory = (modMaterial) -> new MaterialProgressCell();
+                costProgressCellFactory = (modMaterial) -> new MaterialProgressCell();
 
         // wrapper object for progress indicator object
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, ProgressIndicator>, ObservableValue<ProgressIndicator>>
-                matProgressCellValueFactory = (modMaterial) ->
+                costProgressCellValueFactory = (modMaterial) ->
         {
             double progress = ((double) modMaterial.getValue().getHave()) / ((double) modMaterial.getValue().getNeed());
 
@@ -211,6 +214,14 @@ class UIFunctions
         };
     }
 
+    static class Fonts
+    {
+        public static final Color positiveBlue = Color.rgb(0x00, 0xb3, 0xf7);
+        public static final Color negativeRed = Color.rgb(0xff, 0x00, 0x00);
+        public static final Color neutralBlack = Color.rgb(0x00, 0x00, 0x00);
+
+    }
+
     /**
      * Mapping functions used to produce UI elements from other data objects
      */
@@ -220,7 +231,7 @@ class UIFunctions
         {
             boolean moreIsGood = pair.getKey().isMoreGood();
             boolean valueIsPositive = pair.getValue() >= 0;
-            boolean markGood = moreIsGood == valueIsPositive;
+            boolean isPositive = moreIsGood == valueIsPositive;
             String buf = pair.getKey().toString()
                     + ((valueIsPositive ? " +" : " ")
                     + pair.getValue());
@@ -228,8 +239,24 @@ class UIFunctions
             if (buf.contains("-") || buf.contains("+")) buf += "%";
             buf = buf.replace("+0%","");
             Label nextLabel = new Label(buf);
-            nextLabel.setTextFill(markGood ? Color.BLUE : Color.RED);
+            Font eFont = nextLabel.getFont();
+            Font b = Font.font(eFont.getFamily(), FontWeight.BOLD, eFont.getSize() + (eFont.getSize() / 5));
+            nextLabel.setFont(b);
+
+            nextLabel.setTextFill(isPositive ? Fonts.positiveBlue : Fonts.negativeRed);
+
             return nextLabel;
+        };
+
+
+        static BiFunction<Boolean, CostData, Label> costToLabel = (hasEnough, cost) ->
+        {
+            Label next = new Label(cost.getQuantity() + "x " + cost.getCost().getLocalizedName());
+            Font eFont = next.getFont();
+            Font b = Font.font(eFont.getFamily(), FontWeight.BOLD, eFont.getSize() + (eFont.getSize() / 5));
+            next.setFont(b);
+            next.setTextFill(hasEnough ? Fonts.neutralBlack : Fonts.negativeRed);
+            return next;
         };
     }
 

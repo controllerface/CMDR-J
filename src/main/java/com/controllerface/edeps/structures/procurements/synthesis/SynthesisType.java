@@ -10,7 +10,7 @@ import java.util.stream.Stream;
  */
 public enum SynthesisType implements ProcurementType
 {
-    Standard(SynthesisBlueprint.Small_Calibre_Munitions,
+    Ammunition(SynthesisBlueprint.Small_Calibre_Munitions,
             SynthesisBlueprint.Large_Calibre_Munitions,
             SynthesisBlueprint.High_Velocity_Munitions,
             SynthesisBlueprint.Explosives_Munitions,

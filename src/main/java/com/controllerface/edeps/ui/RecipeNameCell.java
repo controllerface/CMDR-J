@@ -2,10 +2,9 @@ package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TableCell;
-import javafx.scene.layout.VBox;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -41,8 +40,9 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
 
         // Make the font bold
         Font existingFont = nameLabel.getFont();
-        Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize());
+        Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize() + (existingFont.getSize() / 4));
         nameLabel.setFont(boldFont);
+        nameLabel.paddingProperty().set(new Insets(2,5,2,5));
 
         // ad the label to the display box
         vBox.getChildren().add(nameLabel);
@@ -52,25 +52,43 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
         vBox.getChildren().add(separator);
 
 
-        item.asPair().getValue().effects().pairStream()
-                .map(UIFunctions.Convert.effectToLabel)
-                .sorted(UIFunctions.Sort.byGoodness)
-                .forEach(label -> vBox.getChildren().add(label));
+        Accordion accordion = new Accordion();
+        TitledPane titledPane = new TitledPane();
+        titledPane.setAnimated(false);
 
-        Separator separator2 = new Separator();
-        separator2.setPrefHeight(10);
-        vBox.getChildren().add(separator2);
+        VBox vBox1 = new VBox();
+        vBox1.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
 
+
+        // costs
         item.asPair().getValue().costStream()
                 .map(c->
                 {
-                    Label next = new Label(c.getQuantity() + "x " + c.getCost().getLocalizedName());
                     boolean hasEnough = checkInventory.apply(c.getCost()) >= c.getQuantity() * item.getCount();
-                    next.setTextFill(hasEnough ? Color.BLUE : Color.RED);
-                    return next;
+                    return UIFunctions.Convert.costToLabel.apply(hasEnough, c);
                 })
-                .forEach(label -> vBox.getChildren().add(label));
+                .forEach(label -> vBox1.getChildren().add(label));
 
+
+        Separator separator2 = new Separator();
+        separator2.setPrefHeight(10);
+        vBox1.getChildren().add(separator2);
+
+
+        // effects
+        item.asPair().getValue().effects().pairStream()
+                .map(UIFunctions.Convert.effectToLabel)
+                .sorted(UIFunctions.Sort.byGoodness)
+                .forEach(label -> vBox1.getChildren().add(label));
+
+
+
+
+
+        titledPane.setContent(vBox1);
+        titledPane.setText("Costs & Effects");
+        accordion.getPanes().add(titledPane);
+        vBox.getChildren().add(accordion);
         setGraphic(vBox);
     }
 }

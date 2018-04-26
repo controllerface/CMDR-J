@@ -1,8 +1,13 @@
 package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.sun.javafx.scene.control.skin.ProgressIndicatorSkin;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
+import javafx.scene.control.Tooltip;
+import javafx.scene.text.Text;
+
+import java.util.stream.Collectors;
 
 /**
  * Created by Stephen on 4/2/2018.
@@ -10,17 +15,37 @@ import javafx.scene.control.TableCell;
 public class TaskProgressCell extends TableCell<ProcurementRecipeData, ProgressIndicator>
 {
     @Override
-    protected void updateItem(ProgressIndicator item, boolean empty)
+    protected void updateItem(ProgressIndicator progressIndicator, boolean empty)
     {
-        super.updateItem(item, empty);
-        if (item == null) setGraphic(null);
-        if (!empty && item != null)
+        super.updateItem(progressIndicator, empty);
+        if (progressIndicator == null) setGraphic(null);
+        if (!empty && progressIndicator != null)
         {
-            item.setPrefHeight(40);
-            item.setMinHeight(40);
-            item.setMaxHeight(40);
+            // in order for text adjustments to be possible via CSS, we must get a skin and apply CSS first
+            ProgressIndicatorSkin indicatorSkin = new ProgressIndicatorSkin(progressIndicator);
+            progressIndicator.applyCss();
 
-            setGraphic(item);
+            // If progress is 100% then show Text
+            Text text = (Text) progressIndicator.lookup(".percentage");
+            if (text != null)
+            {
+
+                double w = text.getLayoutBounds().getWidth();
+                text.setText("");
+                progressIndicator.setPrefWidth(w);
+                progressIndicator.setPrefHeight(w);
+
+
+                progressIndicator.setSkin(indicatorSkin);
+            }
+
+
+
+            progressIndicator.setPrefHeight(40);
+            progressIndicator.setMinHeight(40);
+            progressIndicator.setMaxHeight(40);
+
+            setGraphic(progressIndicator);
         }
     }
 }

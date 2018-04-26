@@ -12,8 +12,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.util.Pair;
 
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 
 /**
@@ -24,13 +27,15 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
     private final Label countLabel = new Label();
     private final Button subtractButton = new Button("-");
     private final Button addButton = new Button("+");
-    private final HBox buttonBox =  new HBox(subtractButton,countLabel, addButton);
+    private final HBox buttonBox =  new HBox(subtractButton, countLabel, addButton);
+    private static final AtomicReference<Font> baseFont = new AtomicReference<>(null);
 
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate;
 
     public TaskCountCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
     {
         this.inventoryUpdate = inventoryUpdate;
+        buttonBox.setAlignment(Pos.CENTER);
     }
 
     @Override
@@ -40,6 +45,18 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
 
         if (!empty)
         {
+            synchronized (baseFont)
+            {
+                if (baseFont.get() == null)
+                {
+                    Font b = Font.font(countLabel.getFont().getFamily(),
+                            FontWeight.BOLD,
+                            countLabel.getFont().getSize() + 10);
+                    baseFont.set(b);
+                }
+            }
+
+
             // Plus
             Line line1 = new Line();
             line1.setStroke(Color.BLACK);
@@ -99,9 +116,15 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
             subtractButton.setGraphic(subGraphic);
 
             countLabel.setText(String.valueOf(item.getCount()));
-            countLabel.setMaxSize(34, 20);
-            countLabel.setMinSize(34, 20);
+//            countLabel.setMaxSize(34, 20);
+//            countLabel.setMinSize(34, 20);
+            countLabel.setPrefWidth(54);
+            countLabel.setMaxWidth(54);
+            countLabel.setMinWidth(54);
             countLabel.setAlignment(Pos.CENTER);
+            countLabel.setFont(baseFont.get());
+
+
             addButton.setMaxWidth(20);
             addButton.setMinWidth(20);
             subtractButton.setMaxWidth(20);

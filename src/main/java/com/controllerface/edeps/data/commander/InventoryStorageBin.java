@@ -3,6 +3,7 @@ package com.controllerface.edeps.data.commander;
 import com.controllerface.edeps.ProcurementCost;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -17,7 +18,8 @@ import java.util.stream.Stream;
  */
 public abstract class InventoryStorageBin
 {
-    private final List<InventoryData> inventoryItems = new ArrayList<>();
+    private final List<InventoryData> inventoryItems = Collections.synchronizedList(new ArrayList<>());
+
 
     protected abstract boolean check(ProcurementCost material);
 
@@ -51,7 +53,7 @@ public abstract class InventoryStorageBin
         return -1;
     }
 
-    public void addItem(ProcurementCost item, int count)
+    public synchronized void addItem(ProcurementCost item, int count)
     {
         if (check(item))
         {

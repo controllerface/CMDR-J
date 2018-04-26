@@ -28,10 +28,13 @@ import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -134,6 +137,7 @@ public class UIController
 
     private final Map<Pair<ProcurementType, ProcurementRecipe>, Integer> procurementRecipeMap = new HashMap<>();
 
+    private final int scrollBarAllowance = 20;
 
     @FXML
     protected void toJson(ActionEvent event) throws IOException
@@ -276,7 +280,10 @@ public class UIController
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> procurementListUpdate =
             (adjustment, recipe)->
             {
-                int val = procurementRecipeMap.computeIfPresent(recipe, (key, count) -> count + adjustment);
+                // max out at 999, just because the UI will get weird
+                int val = procurementRecipeMap
+                        .computeIfPresent(recipe, (key, count) -> count < 999 ? count + adjustment : 999);
+
                 if (val <= 0)
                 {
                     val = 0;
@@ -347,10 +354,40 @@ public class UIController
     @FXML
     public void initialize()
     {
+        initializeUIComponents();
 
+        // build the procurement task selection tree
+        makeProcurementTree();
+
+        // load the auto-save data from disk
+        fromJson();
+
+        // set initialized flag
+        initialzed = true;
+
+        // sync the UI now that everything is set up
+        syncUI();
+    }
+
+    private void initializeUIComponents()
+    {
         // set placeholder labels shown when the procurement list is empty
-        procurementRecipeTable.setPlaceholder(new Label("Use the \"Procurements\" menu to select tasks"));
-        procurementCostTable.setPlaceholder(new Label("Materials needed for selected recipes will appear here"));
+        Label recipeTableLabel = new Label("Use the Procurement Tasks menu to select tasks");
+        Label costTableLabel = new Label("Items needed for selected tasks will appear here");
+
+        Font recipeTableFont = Font.font(recipeTableLabel.getFont().getFamily(),
+                FontWeight.BOLD,
+                recipeTableLabel.getFont().getSize() * 1.5);
+
+        Font costTableFont = Font.font(costTableLabel.getFont().getFamily(),
+                FontWeight.BOLD,
+                costTableLabel.getFont().getSize() * 1.5);
+
+        recipeTableLabel.setFont(recipeTableFont);
+        costTableLabel.setFont(costTableFont);
+
+        procurementRecipeTable.setPlaceholder(recipeTableLabel);
+        procurementCostTable.setPlaceholder(costTableLabel);
 
         // set the cell value factories for the player inventory tabs
         rawCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
@@ -390,12 +427,12 @@ public class UIController
         recipeProgressColumn.setCellValueFactory(UIFunctions.Data.makeRecipeProgressCellValuefactory.apply(commanderData));
 
         // set the cell and cell value factories for the procurement material list
-        costProgressColumn.setCellFactory(UIFunctions.Data.materialProgressCellFactory);
-        costProgressColumn.setCellValueFactory(UIFunctions.Data.matProgressCellValueFactory);
-        costNeedColumn.setCellValueFactory(UIFunctions.Data.materialNeedCellFactory);
-        costHaveColumn.setCellValueFactory(UIFunctions.Data.materialHaveCellFactory);
-        costNameColumn.setCellValueFactory(UIFunctions.Data.materialNameCellFactory);
-        costTypeColumn.setCellValueFactory(UIFunctions.Data.materialTypeCellFactory);
+        costProgressColumn.setCellFactory(UIFunctions.Data.costProgressCellFactory);
+        costProgressColumn.setCellValueFactory(UIFunctions.Data.costProgressCellValueFactory);
+        costNeedColumn.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
+        costHaveColumn.setCellValueFactory(UIFunctions.Data.costHaveCellFactory);
+        costNameColumn.setCellValueFactory(UIFunctions.Data.costNameCellFactory);
+        costTypeColumn.setCellValueFactory(UIFunctions.Data.costTypeCellFactory);
 
         statNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
         statValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
@@ -408,26 +445,30 @@ public class UIController
         costProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
         recipeProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
 
-        // build the tree to select procurement tasks from
-        makeProcurementTree();
+        DoubleBinding recipeTableWidthUsed = recipeCountColumn.widthProperty()
+                .add(recipeProgressColumn.widthProperty())
+                .add(recipeRemoveColumn.widthProperty())
+                .add(scrollBarAllowance);
 
-        // fill the inventory display tables with the player inventory items
-        syncInventory();
+        recipeNameColumn.prefWidthProperty()
+                .bind(procurementRecipeTable.widthProperty()
+                        .subtract(recipeTableWidthUsed));
 
-        // load the auto-save data from disk
-        fromJson();
+        DoubleBinding costTableWidthUsed = costProgressColumn.widthProperty()
+                .add(costNeedColumn.widthProperty())
+                .add(costHaveColumn.widthProperty())
+                .add(costTypeColumn.widthProperty())
+                .add(scrollBarAllowance);
 
-        // set initialized flag
-        initialzed = true;
-
-        // sync the UI now that everything is set up
-        syncUI();
+        costNameColumn.prefWidthProperty()
+                .bind(procurementCostTable.widthProperty()
+                        .subtract(costTableWidthUsed));
     }
 
     private TreeItem<ProcTreeData> makeSynthesisTree()
     {
         TreeItem<ProcTreeData> modifications = new TreeItem<>(new ProcTreeData("Synthesis"));
-        modifications.setExpanded(true);
+        //modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(SynthesisCategory.values()).forEach(category ->
@@ -475,7 +516,7 @@ public class UIController
     private TreeItem<ProcTreeData> makeModTree()
     {
         TreeItem<ProcTreeData> modifications = new TreeItem<>(new ProcTreeData("Engineering Modifications"));
-        modifications.setExpanded(true);
+        //modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(ModificationCategory.values()).forEach(category ->
@@ -527,7 +568,7 @@ public class UIController
     private TreeItem<ProcTreeData> makeExperimentTree()
     {
         TreeItem<ProcTreeData> experiments = new TreeItem<>(new ProcTreeData("Experimental Effects"));
-        experiments.setExpanded(true);
+        //experiments.setExpanded(true);
 
         // loop through all experimental categories
         Arrays.stream(ExperimentalCategory.values()).forEach(category ->
@@ -569,7 +610,7 @@ public class UIController
     private TreeItem<ProcTreeData> makeTechnologyTree()
     {
         TreeItem<ProcTreeData> modifications = new TreeItem<>(new ProcTreeData("Tech Brokers"));
-        modifications.setExpanded(true);
+        //modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(TechnologyCategory.values()).forEach(category ->
@@ -686,8 +727,8 @@ public class UIController
     {
         if (!initialzed) return;
 
-        procurementTree.refresh();
 
+        // fill the inventory display tables with the player inventory items
         syncInventory();
 
         // Whenever we sync the UI, we always clear out the data structures first, as everything will be re-calculated
@@ -761,24 +802,30 @@ public class UIController
             });
         }
 
+
+        // player stat table
         commanderData.getStats()
                 .entrySet().stream()
                 .filter(e -> JournalSyncTask.playerStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> statTable.getItems().add(pair));
 
+        // rank & reputation table
         commanderData.getStats()
                 .entrySet().stream()
                 .filter(e -> JournalSyncTask.rankStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> rankTable.getItems().add(pair));
 
+        // ship table
         commanderData.getStats()
                 .entrySet().stream()
                 .filter(e -> JournalSyncTask.shipStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> shipTable.getItems().add(pair));
 
+
+        // update the UI elements
         procurementRecipeTable.refresh();
         procurementCostTable.refresh();
         statTable.refresh();

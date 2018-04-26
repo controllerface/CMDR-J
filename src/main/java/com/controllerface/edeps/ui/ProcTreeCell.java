@@ -4,17 +4,22 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ProcTreeData;
 import com.sun.javafx.scene.control.skin.ProgressIndicatorSkin;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -26,11 +31,90 @@ public class ProcTreeCell extends TreeCell<ProcTreeData>
 {
     private final Consumer<ProcTreeData> addMod;
     private final Function<ProcurementCost, Integer> checkMat;
+    private static final AtomicReference<Font> baseFont = new AtomicReference<>(null);
 
     public ProcTreeCell(Consumer<ProcTreeData> addMod, Function<ProcurementCost, Integer> checkMat)
     {
         this.addMod = addMod;
         this.checkMat = checkMat;
+    }
+
+    private ProgressBar createProgressIndicator(double progress, int surplus, List<CostData> data, Set<CostData> missingSet)
+    {
+        ProgressBar progressIndicator = new ProgressBar(progress);
+        progressIndicator.prefHeight(10);
+
+        if (progress >= 1)
+        {
+            progressIndicator.setStyle("-fx-accent: #00b3f7;");
+
+            String msg = data.stream()
+                    .map(d-> checkMat.apply(d.getCost()) + " x " +
+                            d.getCost().getLocalizedName()).collect(Collectors.joining("\n","\n","\n"));
+
+            progressIndicator.setTooltip(new Tooltip("You can craft " + surplus + " of this item" + msg));
+        }
+        else
+        {
+            progressIndicator.setStyle("-fx-accent: #ff0000;");
+
+            String suffix = missingSet.size() > 1 ? "s" : "";
+            String missingMessage = "You need the following component" + suffix + " to craft this item:" +
+                    missingSet.stream()
+                            .map(x-> x.getQuantity()+ " x " + x.getCost().getLocalizedName())
+                            .collect(Collectors.joining("\n","\n","\n"));
+            progressIndicator.setTooltip(new Tooltip(missingMessage));
+        }
+        // in order for text adjustments to be possible via CSS, we must get a skin and apply CSS first
+//        ProgressIndicatorSkin indicatorSkin = new ProgressIndicatorSkin(progressIndicator);
+//        progressIndicator.applyCss();
+
+        // add a listener that modifies the display of the percentage counter
+//        progressIndicator.progressProperty().addListener((ov, t, newValue) ->
+//        {
+
+//            if (newValue.doubleValue() >= 1)
+//            {
+//                progressIndicator.setStyle("-fx-progress-color: #00ff00;");
+//            }
+//
+//            else
+//            {
+//                progressIndicator.setStyle("-fx-progress-color: #ff0000;");
+//            }
+
+//            // If progress is 100% then show Text
+//            Text text = (Text) progressIndicator.lookup(".percentage");
+//            if (text != null)
+//            {
+//                if (newValue.doubleValue() >= 1)
+//                {
+//                    double w = text.getLayoutBounds().getWidth();
+//                    text.setText(String.valueOf(surplus));
+//                    progressIndicator.setPrefWidth(w);
+//                    progressIndicator.setStyle("-fx-progress-color: #6677ff;");
+//                    String msg = data.stream()
+//                            .map(d-> checkMat.apply(d.getCost()) + " x " +
+//                                    d.getCost().getLocalizedName()).collect(Collectors.joining("\n","\n","\n"));
+//
+//                    progressIndicator.setTooltip(new Tooltip("You can craft " + surplus + " of this mod" + msg));
+//                }
+//                else
+//                {
+//                    String suffix = missingSet.size() > 1 ? "s" : "";
+//                    String missingMessage = "You need the following material" + suffix + " to craft this mod:" +
+//                            missingSet.stream()
+//                                    .map(x-> x.getQuantity()+ " x " + x.getCost().getLocalizedName())
+//                                    .collect(Collectors.joining("\n","\n","\n"));
+//                    progressIndicator.setStyle(" -fx-progress-color: #ee5555;");
+//                    progressIndicator.setTooltip(new Tooltip(missingMessage));
+//                }
+//            }
+//        });
+
+        //progressIndicator.setSkin(indicatorSkin);
+
+        return progressIndicator;
     }
 
     @Override
@@ -45,27 +129,26 @@ public class ProcTreeCell extends TreeCell<ProcTreeData>
             return;
         }
 
+        synchronized (baseFont)
+        {
+            if (baseFont.get() == null)
+            {
+                Font ba = getFont();
+                baseFont.set(Font.font(ba.getFamily(), FontWeight.BOLD, ba.getSize() + (ba.getSize() / 3)));
+            }
+        }
+
+        setFont(baseFont.get());
+
         if (item.getRecipe() != null && this.getTreeItem().isLeaf())
         {
-            HBox cellBox = new HBox(10);
-            VBox textBox = new VBox(1);
-            Label gradeLabel = new Label(item.getRecipe().getLabel());
+            VBox buttonBox = new VBox(1);
+            Label gradeLabel = new Label(item.getRecipe().getLabel() + "  ");
 
             Font existingFont = gradeLabel.getFont();
-            Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize());
+            Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize() + (existingFont.getSize() / 3));
             gradeLabel.setFont(boldFont);
 
-            textBox.getChildren().add(gradeLabel);
-
-            item.getRecipe().effects().pairStream()
-                    .map(UIFunctions.Convert.effectToLabel)
-                    .sorted(UIFunctions.Sort.byGoodness)
-                    .forEach(l->textBox.getChildren().add(l));
-
-            Button button = new Button();
-            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            button.setGraphic(textBox);
-            ProgressIndicator progressIndicator = new ProgressIndicator(0);
 
             List<CostData> data = this.getItem()
                     .getRecipe()
@@ -112,51 +195,30 @@ public class ProcTreeCell extends TreeCell<ProcTreeData>
                 });
             }
 
-            // in order for text adjustments to be possible via CSS, we must get a skin and apply CSS first
-            ProgressIndicatorSkin indicatorSkin = new ProgressIndicatorSkin(progressIndicator);
-            progressIndicator.applyCss();
+            double progress = ((double) good.get())/ ((double) count);
 
-            // add a listener that modifies the display of the percentage counter
-            progressIndicator.progressProperty().addListener((ov, t, newValue) ->
-            {
-                // If progress is 100% then show Text
-                Text text = (Text) progressIndicator.lookup(".percentage");
-                if (text != null)
-                {
-                    if (newValue.doubleValue() >= 1)
-                    {
-                        double w = text.getLayoutBounds().getWidth();
-                        text.setText(String.valueOf(loops.get()));
-                        progressIndicator.setPrefWidth(w);
-                        progressIndicator.setStyle("-fx-progress-color: #6677ff;");
-                        String msg = data.stream()
-                                .map(d-> checkMat.apply(d.getCost()) + " x " +
-                                        d.getCost().getLocalizedName()).collect(Collectors.joining("\n","\n","\n"));
 
-                        progressIndicator.setTooltip(new Tooltip("You can craft " + loops.get() + " of this mod" + msg));
-                    }
-                    else
-                    {
-                        String suffix = missingSet.size() > 1 ? "s" : "";
-                        String missingMessage = "You need the following material" + suffix + " to craft this mod:" +
-                                missingSet.stream()
-                                        .map(x-> x.getQuantity()+ " x " + x.getCost().getLocalizedName())
-                                        .collect(Collectors.joining("\n","\n","\n"));
-                        progressIndicator.setStyle(" -fx-progress-color: #ee5555;");
-                        progressIndicator.setTooltip(new Tooltip(missingMessage));
-                    }
-                }
-            });
 
-            progressIndicator.setProgress(((double) good.get())/ ((double) count));
-            progressIndicator.setSkin(indicatorSkin);
+            ProgressBar progressIndicator = createProgressIndicator(progress, loops.get(),  data, missingSet);
 
+            HBox hBox = new HBox(1);
+            hBox.getChildren().addAll(gradeLabel, progressIndicator);
+            buttonBox.getChildren().addAll(hBox);
+
+            // add effect data to the button box
+            item.getRecipe().effects().pairStream()
+                    .map(UIFunctions.Convert.effectToLabel)
+                    .sorted(UIFunctions.Sort.byGoodness)
+                    .forEach(l->buttonBox.getChildren().add(l));
+
+            Button button = new Button();
+            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            button.setGraphic(buttonBox);
             button.setOnMouseClicked((e) -> addMod.accept(this.getItem()));
+            progressIndicator.setOnMouseClicked((e) -> addMod.accept(this.getItem()));
             button.setTooltip(new Tooltip("Click to add: \n   " + item.getType() + " : " + item.toString() + "\nto your procurement list"));
 
-            cellBox.getChildren().addAll(progressIndicator, button);
-
-            setGraphic(cellBox);
+            setGraphic(button);
             setText(null);
         }
         else

@@ -8,7 +8,7 @@ import java.util.stream.Stream;
  */
 public enum SynthesisCategory
 {
-    Munitions(SynthesisType.Standard,
+    Munitions(SynthesisType.Ammunition,
             SynthesisType.Human_Tech,
             SynthesisType.Anti_Xeno,
             SynthesisType.Guardian_Tech),
