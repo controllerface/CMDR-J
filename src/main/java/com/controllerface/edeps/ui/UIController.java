@@ -99,7 +99,6 @@ public class UIController
     // Procurement task table
     @FXML private TableView<ProcurementRecipeData> procurementRecipeTable;
     @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> recipeCountColumn;
-    @FXML private TableColumn<ProcurementRecipeData, ProgressIndicator> recipeProgressColumn;
     @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> recipeNameColumn;
     @FXML private TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>> recipeRemoveColumn;
 
@@ -284,12 +283,14 @@ public class UIController
                 int val = procurementRecipeMap
                         .computeIfPresent(recipe, (key, count) -> count < 999 ? count + adjustment : 999);
 
+                syncUI();
+
                 if (val <= 0)
                 {
                     val = 0;
                     procurementRecipeMap.remove(recipe);
                 }
-                syncUI();
+
                 return val;
             };
 
@@ -423,30 +424,44 @@ public class UIController
         recipeNameColumn.setCellValueFactory(UIFunctions.Data.modNameCellValueFactory);
         recipeRemoveColumn.setCellFactory(UIFunctions.Data.makeModControlCellFactory.apply(procurementListUpdate));
         recipeRemoveColumn.setCellValueFactory(UIFunctions.Data.modControlCellValueFactory);
-        recipeProgressColumn.setCellFactory(UIFunctions.Data.recipeProgressCellFactory);
-        recipeProgressColumn.setCellValueFactory(UIFunctions.Data.makeRecipeProgressCellValuefactory.apply(commanderData));
 
         // set the cell and cell value factories for the procurement material list
         costProgressColumn.setCellFactory(UIFunctions.Data.costProgressCellFactory);
         costProgressColumn.setCellValueFactory(UIFunctions.Data.costProgressCellValueFactory);
+
         costNeedColumn.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
+        costNeedColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
         costHaveColumn.setCellValueFactory(UIFunctions.Data.costHaveCellFactory);
-        costNameColumn.setCellValueFactory(UIFunctions.Data.costNameCellFactory);
+        costHaveColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
+
+        costNameColumn.setCellValueFactory(UIFunctions.Data.costNameCellValueFactory);
+        costNameColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
+
         costTypeColumn.setCellValueFactory(UIFunctions.Data.costTypeCellFactory);
+        costTypeColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
+
 
         statNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
         statValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
+        statNameColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
+        statValueColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
+
         rankNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
         rankValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
+        rankNameColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
+        rankValueColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
+
         shipNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
         shipValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
+        shipNameColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
+        shipValueColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
+
 
         // set the sorting comparator for the material progress column of the procurement list
         costProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
-        recipeProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
 
         DoubleBinding recipeTableWidthUsed = recipeCountColumn.widthProperty()
-                .add(recipeProgressColumn.widthProperty())
+                //.add(recipeProgressColumn.widthProperty())
                 .add(recipeRemoveColumn.widthProperty())
                 .add(scrollBarAllowance);
 
@@ -733,53 +748,79 @@ public class UIController
 
         // Whenever we sync the UI, we always clear out the data structures first, as everything will be re-calculated
         // according to the current state of the player's inventory and stats
-        procurementRecipeTable.getItems().clear();
-        procurementCostTable.getItems().clear();
+        //procurementRecipeTable.getItems().clear();
+        //procurementCostTable.getItems().clear();
         statTable.getItems().clear();
         rankTable.getItems().clear();
         shipTable.getItems().clear();
 
         //
-        procurementRecipeMap.forEach((pair, count)->
+        Map<ProcurementCost, Integer> costs = new HashMap<>();
+
+        procurementRecipeMap.forEach((procPair, count)->
         {
             // do recipes
-            AtomicBoolean found = new AtomicBoolean(false);
+            AtomicBoolean recipeFound = new AtomicBoolean(false);
+            AtomicReference<ProcurementRecipeData> removedRecipe = new AtomicReference<>(null);
             procurementRecipeTable.getItems().stream()
-                    .filter(r->r.matches(pair))
+                    .filter(recipePair -> recipePair.matches(procPair))
                     .findFirst()
-                    .ifPresent(x->
+                    .ifPresent(foundRecipe ->
                     {
-                        x.setCount(count);
-                        found.set(true);
+                        recipeFound.set(true);
+                        if (foundRecipe.getCount() != count)
+                        {
+                            foundRecipe.setCount(count);
+                            if (count <= 0) removedRecipe.set(foundRecipe);
+                        }
                     });
 
-            if (!found.get())
+            if (removedRecipe.get()!=null) procurementRecipeTable.getItems().remove(removedRecipe.get());
+
+            if (!recipeFound.get())
             {
-                ProcurementRecipeData newItem = new ProcurementRecipeData(pair.getKey(), pair.getValue(), count);
+                ProcurementRecipeData newItem = new ProcurementRecipeData(procPair.getKey(), procPair.getValue(), count);
                 procurementRecipeTable.getItems().add(newItem);
             }
 
-            pair.getValue().costStream()
+
+            procPair.getValue().costStream()
                     .forEach(mat->
                     {
-                        AtomicBoolean matFound = new AtomicBoolean(false);
+                        AtomicBoolean costFound = new AtomicBoolean(false);
+
                         procurementCostTable.getItems().stream()
-                                .filter(m -> m.matches(mat.getCost()))
+                                .filter(costData -> costData.matches(mat.getCost()))
                                 .findFirst()
-                                .ifPresent(m ->
+                                .ifPresent(foundCost ->
                                 {
-                                    matFound.set(true);
-                                    m.add(mat.getQuantity() * count);
+                                    costs.computeIfAbsent(foundCost.getMaterial(),(k)->0);
+                                    costFound.set(true);
+                                    int cost = mat.getQuantity() * count;
+                                    costs.computeIfPresent(foundCost.getMaterial(),(k,v)->v+=cost);
                                 });
 
-                        if (!matFound.get())
+                        if (!costFound.get())
                         {
                             ItemCostData newItem = new ItemCostData(mat.getCost(), this.commanderData::hasItem);
-                            newItem.setCount(mat.getQuantity() * count);
+                            int newCOst = mat.getQuantity() * count;
+                            newItem.setCount(newCOst);
+                            costs.put(newItem.getMaterial(), newCOst);
                             procurementCostTable.getItems().add(newItem);
                         }
                     });
+
+
         });
+
+        List<ItemCostData> toRemove = procurementCostTable.getItems().stream()
+                .filter(c->costs.get(c.getMaterial())!=null)
+                .filter(c->costs.get(c.getMaterial())!=c.getCount())
+                .peek(c->c.setCount(costs.get(c.getMaterial() )))
+                .filter(c->c.getCount()<=0)
+                .collect(Collectors.toList());
+
+        toRemove.forEach(i->procurementCostTable.getItems().remove(i));
 
         if (procurementRecipeTable.getItems().size() > 0)
         {
@@ -801,7 +842,6 @@ public class UIController
                 else return ad > bd ? 1 : -1;
             });
         }
-
 
         // player stat table
         commanderData.getStats()

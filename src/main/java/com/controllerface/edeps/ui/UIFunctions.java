@@ -3,6 +3,7 @@ package com.controllerface.edeps.ui;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
+import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
@@ -125,25 +126,36 @@ class UIFunctions
      procurement List: Material Need/Have, Progress information
      */
 
-        // simple integer for the need count
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, Number>, ObservableValue<Number>>
                 costNeedCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getNeed());
 
-        // simple integer for the have count
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, Number>, ObservableValue<Number>>
                 costHaveCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getHave());
 
-        // simple string for the material name
+        static final Callback<TableColumn<ItemCostData, String>, TableCell<ItemCostData, String>>
+                boldCostStringCellFactory = (param) -> new CostDataCell();
+
+        static final Callback<TableColumn<ItemCostData, Number>, TableCell<ItemCostData, Number>>
+                boldCostNumberCellFactory = (param) -> new CostValueCell();
+
+        static final Callback<TableColumn<Pair<Statistic, String>, String>, TableCell<Pair<Statistic, String>, String>>
+                boldStringNameCellFactory = (param) -> new StatDataCell();
+
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
-                costNameCellFactory = (modMaterial) -> new SimpleStringProperty(modMaterial.getValue().toString());
+                costNameCellValueFactory = (modMaterial) -> new SimpleStringProperty(modMaterial.getValue().toString());
 
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
                 costTypeCellFactory = (modMaterial) ->
         {
             ProcurementCost cost = modMaterial.getValue().getMaterial();
             String type;
-            if (cost instanceof Material) type = MaterialType.findMatchingType(((Material) cost)).name().toLowerCase();
-            else if (cost instanceof Commodity) type = "commodity";
+            if (cost instanceof Material)
+            {
+                type = MaterialType.findMatchingType(((Material) cost)).name();
+                type = type.substring(0,1)
+                        .concat(type.substring(1,type.length()).toLowerCase());
+            }
+            else if (cost instanceof Commodity) type = Commodity.class.getSimpleName();
             else type = "Unknown";
             return new SimpleStringProperty(type);
         };

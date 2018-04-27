@@ -215,7 +215,7 @@ public class ProcTreeCell extends TreeCell<ProcTreeData>
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setGraphic(buttonBox);
             button.setOnMouseClicked((e) -> addMod.accept(this.getItem()));
-            progressIndicator.setOnMouseClicked((e) -> addMod.accept(this.getItem()));
+            progressIndicator.setOnMouseClicked((e)->button.getOnMouseClicked().handle(e));
             button.setTooltip(new Tooltip("Click to add: \n   " + item.getType() + " : " + item.toString() + "\nto your procurement list"));
 
             setGraphic(button);

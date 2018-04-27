@@ -51,7 +51,7 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
                 {
                     Font b = Font.font(countLabel.getFont().getFamily(),
                             FontWeight.BOLD,
-                            countLabel.getFont().getSize() + 10);
+                            countLabel.getFont().getSize() + countLabel.getFont().getSize() / 2);
                     baseFont.set(b);
                 }
             }

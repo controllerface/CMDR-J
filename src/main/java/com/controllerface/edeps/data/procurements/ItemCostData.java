@@ -25,6 +25,11 @@ public class ItemCostData
         this.count.set(count);
     }
 
+    public int getCount()
+    {
+        return count.get();
+    }
+
     public int getHave()
     {
         return checkInventory.apply(material);

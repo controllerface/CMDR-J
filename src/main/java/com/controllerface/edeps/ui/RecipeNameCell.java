@@ -2,7 +2,9 @@ package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -33,7 +35,7 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
             setGraphic(null);
             return;
         }
-        VBox vBox = new VBox();
+        VBox descriptionContainer = new VBox();
 
         // Recipe name in the recipe list
         Label nameLabel = new Label(item.asPair().getKey().toString() + " :: " + item.asPair().getValue().toString());
@@ -45,19 +47,19 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
         nameLabel.paddingProperty().set(new Insets(2,5,2,5));
 
         // ad the label to the display box
-        vBox.getChildren().add(nameLabel);
+        //vBox.getChildren().add(nameLabel);
 
-        Separator separator = new Separator();
-        separator.setPrefHeight(5);
-        vBox.getChildren().add(separator);
+//        Separator separator = new Separator();
+//        separator.setPrefHeight(5);
+//        vBox.getChildren().add(separator);
 
 
         Accordion accordion = new Accordion();
         TitledPane titledPane = new TitledPane();
         titledPane.setAnimated(false);
 
-        VBox vBox1 = new VBox();
-        vBox1.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+        VBox costEffectContainer = new VBox();
+        costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
 
 
         // costs
@@ -67,28 +69,64 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
                     boolean hasEnough = checkInventory.apply(c.getCost()) >= c.getQuantity() * item.getCount();
                     return UIFunctions.Convert.costToLabel.apply(hasEnough, c);
                 })
-                .forEach(label -> vBox1.getChildren().add(label));
+                .forEach(label -> costEffectContainer.getChildren().add(label));
 
 
         Separator separator2 = new Separator();
         separator2.setPrefHeight(10);
-        vBox1.getChildren().add(separator2);
+        costEffectContainer.getChildren().add(separator2);
 
 
         // effects
         item.asPair().getValue().effects().pairStream()
                 .map(UIFunctions.Convert.effectToLabel)
                 .sorted(UIFunctions.Sort.byGoodness)
-                .forEach(label -> vBox1.getChildren().add(label));
+                .forEach(label -> costEffectContainer.getChildren().add(label));
 
+        titledPane.setContent(costEffectContainer);
+        titledPane.setGraphic(new HBox(bar(item),nameLabel));
+        ((HBox) titledPane.getGraphic()).setAlignment(Pos.CENTER);
 
-
-
-
-        titledPane.setContent(vBox1);
-        titledPane.setText("Costs & Effects");
         accordion.getPanes().add(titledPane);
-        vBox.getChildren().add(accordion);
-        setGraphic(vBox);
+
+        descriptionContainer.getChildren().add(accordion);
+        setGraphic(descriptionContainer);
+    }
+
+
+
+    private ProgressBar bar(ProcurementRecipeData procurementRecipeData)
+    {
+        int count = procurementRecipeData.getCount();
+
+        int total = procurementRecipeData.asPair().getValue().costStream()
+                .mapToInt(c -> c.getQuantity() * count)
+                .sum();
+
+        int missing = procurementRecipeData.asPair().getValue().costStream()
+                .mapToInt(cost->
+                {
+                    int banked = checkInventory.apply(cost.getCost());
+                    int surplus = banked - (cost.getQuantity() * count);
+                    return surplus < 0
+                            ? -1 * surplus
+                            : 0;
+                })
+                .sum();
+
+        double progress = missing > 0
+                ? (double) total / (double)(total + missing)
+                : 1;
+
+        ProgressBar progressIndicator = new ProgressBar(progress);
+
+        if (progress >= 1.0)
+        {
+            progressIndicator.setStyle("-fx-accent: #6677ff ");
+        }
+        else progressIndicator.setStyle("-fx-accent: #ee5555 ");
+
+        progressIndicator.applyCss();
+        return progressIndicator;
     }
 }
