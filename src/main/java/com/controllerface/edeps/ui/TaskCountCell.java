@@ -35,7 +35,6 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
     public TaskCountCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
     {
         this.inventoryUpdate = inventoryUpdate;
-        //buttonBox.setAlignment(Pos.CENTER);
     }
 
     @Override
@@ -116,8 +115,6 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
             subtractButton.setGraphic(subGraphic);
 
             countLabel.setText(String.valueOf(item.getCount()));
-//            countLabel.setMaxSize(34, 20);
-//            countLabel.setMinSize(34, 20);
             countLabel.setPrefWidth(54);
             countLabel.setMaxWidth(54);
             countLabel.setMinWidth(54);

@@ -19,6 +19,7 @@ public enum Cosmetic implements ShipModule
      * Decals
      */
     Decal_Combat_Master,
+    Decal_Combat_Expert,
 
     Decal_Explorer_Trailblazer,
 

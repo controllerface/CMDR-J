@@ -180,50 +180,6 @@ class UIFunctions
 
             return new ReadOnlyObjectWrapper<>(progressIndicator);
         };
-
-
-        // custom cell object creates display for the progress indicator
-        static final Callback<TableColumn<ProcurementRecipeData, ProgressIndicator>, TableCell<ProcurementRecipeData, ProgressIndicator>>
-                recipeProgressCellFactory = (modRecipeItem) -> new TaskProgressCell();
-
-
-        static final Function<CommanderData,
-            Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProgressIndicator>, ObservableValue<ProgressIndicator>>>
-        makeRecipeProgressCellValuefactory = (playerInventory) -> (modRecipe) ->
-        {
-            ProcurementRecipeData procurementRecipeData = modRecipe.getValue();
-
-            int count = procurementRecipeData.getCount();
-
-            int total = procurementRecipeData.asPair().getValue().costStream()
-                    .mapToInt(c -> c.getQuantity() * count)
-                    .sum();
-
-            int missing = procurementRecipeData.asPair().getValue().costStream()
-                    .mapToInt(cost->
-                    {
-                        int banked = playerInventory.hasItem(cost.getCost());
-                        int surplus = banked - (cost.getQuantity() * count);
-                        return surplus < 0
-                                ? -1 * surplus
-                                : 0;
-                    })
-                    .sum();
-
-            double progress = missing > 0
-                    ? (double) total / (double)(total + missing)
-                    : 1;
-
-            ProgressIndicator progressIndicator = new ProgressIndicator(progress);
-
-            if (progress >= 1.0)
-            {
-                progressIndicator.setStyle("-fx-progress-color: #6677ff ");
-            }
-            else progressIndicator.setStyle("-fx-progress-color: #ee5555 ");
-
-            return new ReadOnlyObjectWrapper<>(progressIndicator);
-        };
     }
 
     static class Fonts

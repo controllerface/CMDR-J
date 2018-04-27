@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 /**
  * Created by Stephen on 4/11/2018.
  */
-public enum  ExperimentalBlueprint
+public enum ExperimentalBlueprint
 {
     Angled_Plating_Armor("Angled Plating", ExperimentalRecipe.Angled_Plating_Armor),
     Angled_Plating_Hull("Angled Plating", ExperimentalRecipe.Angled_Plating_Hull),

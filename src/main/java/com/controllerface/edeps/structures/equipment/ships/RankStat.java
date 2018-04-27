@@ -26,7 +26,7 @@ public enum RankStat implements Statistic
     Reputation_Empire("Empire", "Empire Reputation", (o)-> String.valueOf((double) o)),
     Reputation_Federation("Federation", "Federation Reputation", (o)-> String.valueOf((double) o)),
     Reputation_Alliance("Alliance", "Alliance Reputation", (o)-> String.valueOf((double) o)),
-    Reputation_Indpendent("Independent", "Independent Reputation", (o)-> String.valueOf((double) o)),
+    Reputation_Independent("Independent", "Independent Reputation", (o)-> String.valueOf((double) o)),
 
     ;
 

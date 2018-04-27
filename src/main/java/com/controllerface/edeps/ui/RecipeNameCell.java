@@ -2,7 +2,6 @@ package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -11,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
 /**
@@ -29,6 +29,8 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
     @Override
     protected void updateItem(ProcurementRecipeData item, boolean empty)
     {
+        // todo: store the UI elements the first time they are created, and update instead of recreate each time
+
         super.updateItem(item, empty);
         if (item == null || empty)
         {
@@ -45,13 +47,6 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
         Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize() + (existingFont.getSize() / 4));
         nameLabel.setFont(boldFont);
         nameLabel.paddingProperty().set(new Insets(2,5,2,5));
-
-        // ad the label to the display box
-        //vBox.getChildren().add(nameLabel);
-
-//        Separator separator = new Separator();
-//        separator.setPrefHeight(5);
-//        vBox.getChildren().add(separator);
 
 
         Accordion accordion = new Accordion();
@@ -84,7 +79,12 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
                 .forEach(label -> costEffectContainer.getChildren().add(label));
 
         titledPane.setContent(costEffectContainer);
-        titledPane.setGraphic(new HBox(bar(item),nameLabel));
+        ProgressBar progressBar = createProgressBar(item);
+
+        // clicking the progress bar should expand the enclosing titled pane
+        progressBar.setOnMouseClicked((e)->titledPane.setExpanded(!titledPane.isExpanded()));
+
+        titledPane.setGraphic(new HBox(progressBar, nameLabel));
         ((HBox) titledPane.getGraphic()).setAlignment(Pos.CENTER);
 
         accordion.getPanes().add(titledPane);
@@ -93,9 +93,7 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
         setGraphic(descriptionContainer);
     }
 
-
-
-    private ProgressBar bar(ProcurementRecipeData procurementRecipeData)
+    private ProgressBar createProgressBar(ProcurementRecipeData procurementRecipeData)
     {
         int count = procurementRecipeData.getCount();
 
@@ -122,9 +120,9 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
 
         if (progress >= 1.0)
         {
-            progressIndicator.setStyle("-fx-accent: #6677ff ");
+            progressIndicator.setStyle("-fx-accent: #00b3f7");
         }
-        else progressIndicator.setStyle("-fx-accent: #ee5555 ");
+        else progressIndicator.setStyle("-fx-accent: #ff0000 ");
 
         progressIndicator.applyCss();
         return progressIndicator;

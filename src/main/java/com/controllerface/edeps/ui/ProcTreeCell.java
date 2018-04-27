@@ -65,54 +65,6 @@ public class ProcTreeCell extends TreeCell<ProcTreeData>
                             .collect(Collectors.joining("\n","\n","\n"));
             progressIndicator.setTooltip(new Tooltip(missingMessage));
         }
-        // in order for text adjustments to be possible via CSS, we must get a skin and apply CSS first
-//        ProgressIndicatorSkin indicatorSkin = new ProgressIndicatorSkin(progressIndicator);
-//        progressIndicator.applyCss();
-
-        // add a listener that modifies the display of the percentage counter
-//        progressIndicator.progressProperty().addListener((ov, t, newValue) ->
-//        {
-
-//            if (newValue.doubleValue() >= 1)
-//            {
-//                progressIndicator.setStyle("-fx-progress-color: #00ff00;");
-//            }
-//
-//            else
-//            {
-//                progressIndicator.setStyle("-fx-progress-color: #ff0000;");
-//            }
-
-//            // If progress is 100% then show Text
-//            Text text = (Text) progressIndicator.lookup(".percentage");
-//            if (text != null)
-//            {
-//                if (newValue.doubleValue() >= 1)
-//                {
-//                    double w = text.getLayoutBounds().getWidth();
-//                    text.setText(String.valueOf(surplus));
-//                    progressIndicator.setPrefWidth(w);
-//                    progressIndicator.setStyle("-fx-progress-color: #6677ff;");
-//                    String msg = data.stream()
-//                            .map(d-> checkMat.apply(d.getCost()) + " x " +
-//                                    d.getCost().getLocalizedName()).collect(Collectors.joining("\n","\n","\n"));
-//
-//                    progressIndicator.setTooltip(new Tooltip("You can craft " + surplus + " of this mod" + msg));
-//                }
-//                else
-//                {
-//                    String suffix = missingSet.size() > 1 ? "s" : "";
-//                    String missingMessage = "You need the following material" + suffix + " to craft this mod:" +
-//                            missingSet.stream()
-//                                    .map(x-> x.getQuantity()+ " x " + x.getCost().getLocalizedName())
-//                                    .collect(Collectors.joining("\n","\n","\n"));
-//                    progressIndicator.setStyle(" -fx-progress-color: #ee5555;");
-//                    progressIndicator.setTooltip(new Tooltip(missingMessage));
-//                }
-//            }
-//        });
-
-        //progressIndicator.setSkin(indicatorSkin);
 
         return progressIndicator;
     }

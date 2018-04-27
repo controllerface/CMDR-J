@@ -21,6 +21,7 @@ public enum CoreInternalModule implements ShipModule
 
     Vulture_Cockpit,
     Python_Cockpit,
+    TypeX_Cockpit,
 
 
     /**
@@ -38,6 +39,12 @@ public enum CoreInternalModule implements ShipModule
     Python_Armour_Grade3,
     Python_Armour_Grade4,
     Python_Armour_Grade5,
+
+    TypeX_Armour_Grade1,
+    TypeX_Armour_Grade2,
+    TypeX_Armour_Grade3,
+    TypeX_Armour_Grade4,
+    TypeX_Armour_Grade5,
 
     /**
      * Power Plants

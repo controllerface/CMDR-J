@@ -125,7 +125,7 @@ public enum JournalEvent
         setStatFromData(context, RankStat.Reputation_Empire);
         setStatFromData(context, RankStat.Reputation_Federation);
         setStatFromData(context, RankStat.Reputation_Alliance);
-        setStatFromData(context, RankStat.Reputation_Indpendent);
+        setStatFromData(context, RankStat.Reputation_Independent);
 
         context.getUpdateFunction().call();
     }),
@@ -509,7 +509,7 @@ public enum JournalEvent
 
         if (shipModule == null)
         {
-            System.out.println(itemName);
+            System.out.println("Unknown item: " + itemName);
         }
         else
         {

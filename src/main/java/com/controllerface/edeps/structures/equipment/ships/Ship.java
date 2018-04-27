@@ -1000,7 +1000,7 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_6)
                     .build()),
 
-    TYPE10(ShipSize.Large,
+    TYPEX(ShipSize.Large,
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_8)
