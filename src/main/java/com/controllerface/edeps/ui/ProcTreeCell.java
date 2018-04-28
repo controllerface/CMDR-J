@@ -154,7 +154,7 @@ public class ProcTreeCell extends TreeCell<ProcTreeData>
             ProgressBar progressIndicator = createProgressIndicator(progress, loops.get(),  data, missingSet);
 
             HBox hBox = new HBox(1);
-            hBox.getChildren().addAll(gradeLabel, progressIndicator);
+            hBox.getChildren().addAll(progressIndicator, gradeLabel);
             buttonBox.getChildren().addAll(hBox);
 
             // add effect data to the button box
