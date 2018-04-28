@@ -73,22 +73,6 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
             line2.setStartY(1);
             line2.setEndY(11);
 
-            Line line1a = new Line();
-            line1a.setStroke(Color.GREEN);
-            line1a.setStrokeWidth(2);
-            line1a.setStartX(-3);
-            line1a.setEndX(7);
-            line1a.setStartY(6);
-            line1a.setEndY(6);
-
-            Line line2a = new Line();
-            line2a.setStroke(Color.GREEN);
-            line2a.setStrokeWidth(2);
-            line2a.setStartX(2);
-            line2a.setEndX(2);
-            line2a.setStartY(1);
-            line2a.setEndY(11);
-
             // Minus
             Line line3 = new Line();
             line3.setStroke(Color.BLACK);
@@ -98,16 +82,8 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
             line3.setStartY(6);
             line3.setEndY(6);
 
-            Line line3a = new Line();
-            line3a.setStroke(Color.RED);
-            line3a.setStrokeWidth(2);
-            line3a.setStartX(-3);
-            line3a.setEndX(7);
-            line3a.setStartY(6);
-            line3a.setEndY(6);
-
-            Pane addGraphic  = new Pane(line1, line2, line1a, line2a);
-            Pane subGraphic  = new Pane(line3, line3a);
+            Pane addGraphic  = new Pane(line1, line2);
+            Pane subGraphic  = new Pane(line3);
 
             addButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             subtractButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
