@@ -461,15 +461,14 @@ public class UIController
         shipValueColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
 
 
-        showProcurements.setOnAction((e)->syncUI());
-        showTasks.setOnAction((e)->syncUI());
-        showItemsNeeded.setOnAction((e)->syncUI());
+        showProcurements.setOnAction((e)->setProcumentsUIVisibility());
+        showTasks.setOnAction((e)->setProcumentsUIVisibility());
+        showItemsNeeded.setOnAction((e)->setProcumentsUIVisibility());
 
         // set the sorting comparator for the material progress column of the procurement list
         costProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
 
         DoubleBinding recipeTableWidthUsed = recipeCountColumn.widthProperty()
-                //.add(recipeProgressColumn.widthProperty())
                 .add(recipeRemoveColumn.widthProperty())
                 .add(scrollBarAllowance);
 
@@ -872,16 +871,7 @@ public class UIController
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> shipTable.getItems().add(pair));
 
-
-        if (showProcurements.isSelected()) procurementTree.setPrefHeight(10000);
-        else procurementTree.setPrefHeight(0);
-
-        if (showTasks.isSelected()) procurementRecipeTable.setPrefHeight(10000);
-        else procurementRecipeTable.setPrefHeight(0);
-
-        if (showItemsNeeded.isSelected()) procurementCostTable.setPrefHeight(10000);
-        else procurementCostTable.setPrefHeight(0);
-
+        setProcumentsUIVisibility();
 
         // update the UI elements
         procurementRecipeTable.refresh();
@@ -889,6 +879,46 @@ public class UIController
         statTable.refresh();
         rankTable.refresh();
         shipTable.refresh();
+    }
+
+    private void setProcumentsUIVisibility()
+    {
+        int shown = 0;
+
+        if (showProcurements.isSelected())
+        {
+            shown++;
+            procurementTree.setPrefHeight(10000);
+        }
+        else procurementTree.setPrefHeight(0);
+
+        if (showTasks.isSelected())
+        {
+            shown++;
+            procurementRecipeTable.setPrefHeight(10000);
+        }
+        else procurementRecipeTable.setPrefHeight(0);
+
+        if (showItemsNeeded.isSelected())
+        {
+            shown++;
+            procurementCostTable.setPrefHeight(10000);
+        }
+        else procurementCostTable.setPrefHeight(0);
+
+        if (shown == 1)
+        {
+            if (showProcurements.isSelected()) showProcurements.setDisable(true);
+            if (showTasks.isSelected()) showTasks.setDisable(true);
+            if (showItemsNeeded.isSelected()) showItemsNeeded.setDisable(true);
+        }
+        else
+        {
+            showProcurements.setDisable(false);
+            showTasks.setDisable(false);
+            showItemsNeeded.setDisable(false);
+        }
+
     }
 
     @SuppressWarnings("unchecked")
