@@ -123,6 +123,10 @@ public class UIController
     @FXML private TableColumn<Pair<Statistic, String>, String> shipNameColumn;
     @FXML private TableColumn<Pair<Statistic, String>, String> shipValueColumn;
 
+    @FXML private CheckBox showProcurements;
+    @FXML private CheckBox showTasks;
+    @FXML private CheckBox showItemsNeeded;
+
 
     /*
     =======================
@@ -456,6 +460,10 @@ public class UIController
         shipNameColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
         shipValueColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
 
+
+        showProcurements.setOnAction((e)->syncUI());
+        showTasks.setOnAction((e)->syncUI());
+        showItemsNeeded.setOnAction((e)->syncUI());
 
         // set the sorting comparator for the material progress column of the procurement list
         costProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
@@ -863,6 +871,16 @@ public class UIController
                 .filter(e -> JournalSyncTask.shipStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> shipTable.getItems().add(pair));
+
+
+        if (showProcurements.isSelected()) procurementTree.setPrefHeight(10000);
+        else procurementTree.setPrefHeight(0);
+
+        if (showTasks.isSelected()) procurementRecipeTable.setPrefHeight(10000);
+        else procurementRecipeTable.setPrefHeight(0);
+
+        if (showItemsNeeded.isSelected()) procurementCostTable.setPrefHeight(10000);
+        else procurementCostTable.setPrefHeight(0);
 
 
         // update the UI elements
