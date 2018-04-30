@@ -20,9 +20,19 @@ public abstract class InventoryStorageBin
 {
     private final List<InventoryData> inventoryItems = Collections.synchronizedList(new ArrayList<>());
 
+    /**
+     * Implementations of InventoryStorageBin must implement this method to provide callers with a means to check if
+     * a given ProcurementCost item can be stored within that storage bin.
+     *
+     * @param item the ProcurementCost item to check for support
+     * @return true if the InventoryStorageBin implementation supports the given ProcurementCost, false if it doesn't
+     */
+    protected abstract boolean check(ProcurementCost item);
 
-    protected abstract boolean check(ProcurementCost material);
-
+    /**
+     * Called by the abstract class upon creating to setup the storage bin. Typically, this will initialize all of
+     * the supported ProcurementCost items for a given implementation with 0 counts.
+     */
     public abstract void init();
 
     InventoryStorageBin()
@@ -30,30 +40,58 @@ public abstract class InventoryStorageBin
         init();
     }
 
-    public Stream<InventoryData> inventory()
+    /**
+     * Creates a Stream of all the supported inventory items for a given implementation of InventoryStorageBin. Note
+     * that items with 0 counts will still be present in the stream.
+     *
+     * @return stream of all stored items in this InventoryStorageBin implementation
+     */
+    Stream<InventoryData> inventory()
     {
         return inventoryItems.stream();
     }
 
-    public void clear()
+    /**
+     * Empties out and re-initializes this InventoryStorageBin implementation's storage. Typically used when re-setting
+     * the storage items from disk. usually, this will be followed by several called to addItem() with the updated
+     * counts of all the items.
+     */
+    void clear()
     {
         inventoryItems.clear();
         init();
     }
 
-    public int hasItem(ProcurementCost material)
+    /**
+     * Gets the count of a named ProcurementCost item stored within this InventoryStorageBin implementation. Note, if
+     * the named ProcurementCost is not supported for this storage bin, -1 is returned
+     *
+     * @param item the ProcurementCost item to retrieve the count of
+     * @return teh count of the named ProcurementCost item within this storage bin, or -1 if the item is not supported
+     */
+    int hasItem(ProcurementCost item)
     {
-        if (check(material))
+        if (check(item))
         {
             return inventory()
-                    .filter(inventoryItem -> inventoryItem.getItem() == material)
+                    .filter(inventoryItem -> inventoryItem.getItem() == item)
                     .map(InventoryData::getQuantity)
                     .findFirst().orElse(0);
         }
         return -1;
     }
 
-    public synchronized void addItem(ProcurementCost item, int count)
+    /**
+     * Adjusts the count of a given ProcurementCost item within this InventoryStorageBin implementation. Keep in mind
+     * that this method is used to adjust the count both up and down (i.e. increment or decrement). In other words,
+     * the count value can be negative to signal removal of an item, and will be positive to signal addition of one.
+     *
+     * Note that if the named ProcurementCost item is not supported, no action is taken.
+     *
+     * @param item the named ProcurementCost item to adjust the count of
+     * @param count amount to adjust the current count by. can be negative
+     */
+    synchronized void addItem(ProcurementCost item, int count)
     {
         if (check(item))
         {

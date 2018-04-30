@@ -45,6 +45,7 @@ public class HardPointLayoutData
 
         public HardPointLayoutData build()
         {
+            if (slots.isEmpty()) throw new UnsupportedOperationException("hardpoint slots must not be empty");
             return new HardPointLayoutData(this);
         }
     }

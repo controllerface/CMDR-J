@@ -6,6 +6,11 @@ import com.controllerface.edeps.ProcurementType;
 import javafx.util.Pair;
 
 /**
+ * Data storage object used in the "procurement tree" to hold the type and individual recipe of a possible item that
+ * a player can craft. This object is used for both leaf and non-leaf nodes in the tree, with non-leaf nodes using a
+ * supplied string as the text to display, and leaf nodes requiring the actual type and recipe values, which are used
+ * to supply the display text.
+ *
  * Created by Stephen on 3/31/2018.
  */
 @Immutable

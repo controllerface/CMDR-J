@@ -17,10 +17,10 @@ import java.util.Arrays;
 public class CargoStorageBin extends InventoryStorageBin
 {
     @Override
-    public boolean check(ProcurementCost material)
+    public boolean check(ProcurementCost item)
     {
         // todo: maybe also check the contiutanet types, just in case
-        return material instanceof Commodity;
+        return item instanceof Commodity;
     }
 
     @Override

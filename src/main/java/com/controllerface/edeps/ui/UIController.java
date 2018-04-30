@@ -30,7 +30,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Font;
@@ -150,9 +149,7 @@ public class UIController
 
     private final Map<Pair<ProcurementType, ProcurementRecipe>, Integer> procurementRecipeMap = new HashMap<>();
 
-    private final int scrollBarAllowance = 20;
-
-    protected void toJson() throws IOException
+    private void toJson() throws IOException
     {
         // serialize procurementRecipeMap to JSON
         ObjectMapper mapper = new ObjectMapper();
@@ -215,54 +212,53 @@ public class UIController
         procurementRecipeMap.clear();
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> tasks = ((List<Map<String, Object>>) data.get("tasks"));
-        tasks.forEach(task ->
+        tasks.forEach(taskEntry ->
         {
             AtomicReference<ProcurementType> procType = new AtomicReference<>();
             AtomicReference<ProcurementRecipe> recipeType = new AtomicReference<>();
             AtomicInteger count = new AtomicInteger(0);
 
-            task.entrySet().stream()
-                    .forEach(entry ->
-                    {
-                        switch (entry.getKey())
-                        {
-                            case "ExperimentalType" :
-                                procType.set(ExperimentalType.valueOf(((String) entry.getValue())));
-                                break;
+            taskEntry.forEach((key, value) ->
+            {
+                switch (key)
+                {
+                    case "ExperimentalType":
+                        procType.set(ExperimentalType.valueOf(((String) value)));
+                        break;
 
-                            case "ModificationType" :
-                                procType.set(ModificationType.valueOf(((String) entry.getValue())));
-                                break;
+                    case "ModificationType":
+                        procType.set(ModificationType.valueOf(((String) value)));
+                        break;
 
-                            case "SynthesisType" :
-                                procType.set(SynthesisType.valueOf(((String) entry.getValue())));
-                                break;
+                    case "SynthesisType":
+                        procType.set(SynthesisType.valueOf(((String) value)));
+                        break;
 
-                            case "TechnologyType" :
-                                procType.set(TechnologyType.valueOf(((String) entry.getValue())));
-                                break;
+                    case "TechnologyType":
+                        procType.set(TechnologyType.valueOf(((String) value)));
+                        break;
 
-                            case "ExperimentalRecipe" :
-                                recipeType.set(ExperimentalRecipe.valueOf(((String) entry.getValue())));
-                                break;
+                    case "ExperimentalRecipe":
+                        recipeType.set(ExperimentalRecipe.valueOf(((String) value)));
+                        break;
 
-                            case "ModificationRecipe" :
-                                recipeType.set(ModificationRecipe.valueOf(((String) entry.getValue())));
-                                break;
+                    case "ModificationRecipe":
+                        recipeType.set(ModificationRecipe.valueOf(((String) value)));
+                        break;
 
-                            case "SynthesisRecipe" :
-                                recipeType.set(SynthesisRecipe.valueOf(((String) entry.getValue())));
-                                break;
+                    case "SynthesisRecipe":
+                        recipeType.set(SynthesisRecipe.valueOf(((String) value)));
+                        break;
 
-                            case "TechnologyRecipe" :
-                                recipeType.set(TechnologyRecipe.valueOf(((String) entry.getValue())));
-                                break;
+                    case "TechnologyRecipe":
+                        recipeType.set(TechnologyRecipe.valueOf(((String) value)));
+                        break;
 
-                            case "Count" :
-                                count.set(((Integer) entry.getValue()));
-                                break;
-                        }
-                    });
+                    case "Count":
+                        count.set(((Integer) value));
+                        break;
+                }
+            });
 
             procurementRecipeMap.put(new Pair<>(procType.get(), recipeType.get()), count.get());
         });
@@ -316,12 +312,10 @@ public class UIController
                 Pair<ProcurementType, ProcurementRecipe> ref = new Pair<>(mod.getType(), mod.getRecipe());
 
                 // increment the count for this mod if it exists
-                procurementRecipeMap
-                        .computeIfPresent(ref, (recipe, count) -> count + 1);
+                procurementRecipeMap.computeIfPresent(ref, (recipe, count) -> count + 1);
 
                 // add a count for the mod if it does not exist
-                procurementRecipeMap
-                        .computeIfAbsent(ref, (recipe) -> 1);
+                procurementRecipeMap.putIfAbsent(ref, 1);
 
                 syncUI();
             };
@@ -474,15 +468,12 @@ public class UIController
         showItemsNeeded.setOnAction((e)->setProcumentsUIVisibility());
 
 
-
-
-
         // set the sorting comparator for the material progress column of the procurement list
         costProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
 
         DoubleBinding recipeTableWidthUsed = recipeCountColumn.widthProperty()
                 .add(recipeRemoveColumn.widthProperty())
-                .add(scrollBarAllowance);
+                .add(UIFunctions.scrollBarAllowance);
 
         recipeNameColumn.prefWidthProperty()
                 .bind(procurementRecipeTable.widthProperty()
@@ -492,7 +483,7 @@ public class UIController
                 .add(costNeedColumn.widthProperty())
                 .add(costHaveColumn.widthProperty())
                 .add(costTypeColumn.widthProperty())
-                .add(scrollBarAllowance);
+                .add(UIFunctions.scrollBarAllowance);
 
         costNameColumn.prefWidthProperty()
                 .bind(procurementCostTable.widthProperty()
@@ -813,18 +804,18 @@ public class UIController
                                 .findFirst()
                                 .ifPresent(foundCost ->
                                 {
-                                    costs.computeIfAbsent(foundCost.getMaterial(),(k)->0);
+                                    costs.putIfAbsent(foundCost.getCost(), 0);
                                     costFound.set(true);
                                     int cost = mat.getQuantity() * count;
-                                    costs.computeIfPresent(foundCost.getMaterial(),(k,v)->v+=cost);
+                                    costs.computeIfPresent(foundCost.getCost(),(k, v)->v+=cost);
                                 });
 
                         if (!costFound.get())
                         {
                             ItemCostData newItem = new ItemCostData(mat.getCost(), this.commanderData::hasItem);
-                            int newCOst = mat.getQuantity() * count;
-                            newItem.setCount(newCOst);
-                            costs.put(newItem.getMaterial(), newCOst);
+                            int newCost = mat.getQuantity() * count;
+                            newItem.setCount(newCost);
+                            costs.put(newItem.getCost(), newCost);
                             procurementCostTable.getItems().add(newItem);
                         }
                     });
@@ -833,9 +824,9 @@ public class UIController
         });
 
         List<ItemCostData> toRemove = procurementCostTable.getItems().stream()
-                .filter(c->costs.get(c.getMaterial())!=null)
-                .filter(c->costs.get(c.getMaterial())!=c.getCount())
-                .peek(c->c.setCount(costs.get(c.getMaterial() )))
+                .filter(c->costs.get(c.getCost())!=null)
+                .filter(c->costs.get(c.getCost())!=c.getCount())
+                .peek(c->c.setCount(costs.get(c.getCost() )))
                 .filter(c->c.getCount()<=0)
                 .collect(Collectors.toList());
 
@@ -959,18 +950,18 @@ public class UIController
             throw new RuntimeException("Error reading localization data", ioe );
         }
 
-        ((Map<String, Object>) data.get("materials")).entrySet()
-                .forEach(materialEntry ->
+        ((Map<String, Object>) data.get("materials"))
+                .forEach((key, value) ->
                 {
-                    ProcurementCost material = Material.valueOf(materialEntry.getKey());
-                    material.setLocalizedName(((String) materialEntry.getValue()));
+                    ProcurementCost material = Material.valueOf(key);
+                    material.setLocalizedName(((String) value));
                 });
 
-        ((Map<String, Object>) data.get("commodities")).entrySet()
-                .forEach(commodityEntry ->
+        ((Map<String, Object>) data.get("commodities"))
+                .forEach((key, value) ->
                 {
-                    ProcurementCost commodity = Commodity.valueOf(commodityEntry.getKey());
-                    commodity.setLocalizedName(((String) commodityEntry.getValue()));
+                    ProcurementCost commodity = Commodity.valueOf(key);
+                    commodity.setLocalizedName(((String) value));
                 });
     }
 }

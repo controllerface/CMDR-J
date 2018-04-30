@@ -15,10 +15,10 @@ import com.controllerface.edeps.structures.costs.materials.MaterialType;
 public class EncodedInventoryStorageBin extends InventoryStorageBin
 {
     @Override
-    public boolean check(ProcurementCost material)
+    public boolean check(ProcurementCost item)
     {
-        return material instanceof Material &&
-                MaterialType.ENCODED.hasMaterial(((Material) material));
+        return item instanceof Material &&
+                MaterialType.ENCODED.hasMaterial(((Material) item));
     }
 
     @Override

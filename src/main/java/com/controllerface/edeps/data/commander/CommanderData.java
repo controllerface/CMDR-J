@@ -14,45 +14,93 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 /**
- * Created by Stephen on 4/4/2018.
+ * This class is intended to store all relevant data related to the Commander (player), such as inventory, ship loadout
+ * and various statistics that are tracked in the game.
  *
  * NOTE: Mutable state data object
  *
+ * Created by Stephen on 4/4/2018.
  */
 public class CommanderData
 {
-    private final InventoryStorageBin rawMats = new RawInventoryStorageBin();
-    private final InventoryStorageBin dataMats = new EncodedInventoryStorageBin();
-    private final InventoryStorageBin mfdMats = new ManufacturedInventoryStorageBin();
-    private final InventoryStorageBin cargo = new CargoStorageBin();
-
+    /**
+     * The Commander's star ship. Changes as the commander switches ships or modules
+     */
     private final StarShip starShip = new StarShip();
 
+    /**
+     * Market salable Commodities and other items (like power play items, limpets, etc.) are stored in cargo
+     */
+    private final InventoryStorageBin cargo = new CargoStorageBin();
+
+    /**
+     * Raw element crafting materials
+     */
+    private final InventoryStorageBin rawMats = new RawInventoryStorageBin();
+
+    /**
+     * Manufactured crafting materials
+     */
+    private final InventoryStorageBin mfdMats = new ManufacturedInventoryStorageBin();
+
+    /**
+     * Encoded data crafting materials
+     */
+    private final InventoryStorageBin dataMats = new EncodedInventoryStorageBin();
+
+    /**
+     * Various commander statistics
+     */
     private final Map<Statistic, String> stats = new LinkedHashMap<>();
 
-
-
-
-    public Stream<InventoryData> rawMaterialStream()
-    {
-        return rawMats.inventory();
-    }
-
-    public Stream<InventoryData> manufacturedMaterialStream()
-    {
-        return mfdMats.inventory();
-    }
-
-    public Stream<InventoryData> dataMaterialStream()
-    {
-        return dataMats.inventory();
-    }
-
+    /**
+     * Generates a Stream consisting of all the cargo items. Note that items with a count of 0 are still present
+     * in the stream.
+     *
+     * @return Stream of cargo items
+     */
     public Stream<InventoryData> cargoStream()
     {
         return cargo.inventory();
     }
 
+    /**
+     * Generates a Stream consisting of all the raw materials. Note that materials with a count of 0 are still present
+     * in the stream.
+     *
+     * @return Stream of raw materials
+     */
+    public Stream<InventoryData> rawMaterialStream()
+    {
+        return rawMats.inventory();
+    }
+
+    /**
+     * Generates a Stream consisting of all the manufactured materials. Note that materials with a count of 0 are still
+     * present in the stream.
+     *
+     * @return Stream of manufactured materials
+     */
+    public Stream<InventoryData> manufacturedMaterialStream()
+    {
+        return mfdMats.inventory();
+    }
+
+    /**
+     * Generates a Stream consisting of all the encoded data materials. Note that materials with a count of 0 are still
+     * present in the stream.
+     *
+     * @return Stream of encoded data materials
+     */
+    public Stream<InventoryData> dataMaterialStream()
+    {
+        return dataMats.inventory();
+    }
+
+    /**
+     * Clears out the material storage bins. Typically used when fully refreshing commander data from disk. Usually,
+     * this will be followed by a series of calls to adjustItem() with the actual counts of the materials.
+     */
     public void clearMaterials()
     {
         rawMats.clear();
@@ -60,41 +108,85 @@ public class CommanderData
         dataMats.clear();
     }
 
+    /**
+     * Clears out the cargo storage bin. Typically used when fully refreshing commander data from disk. Usually,
+     * this will be followed by a series of calls to adjustItem() with the actual counts of the items.
+     */
     public void clearCargo()
     {
         cargo.clear();
     }
 
+    /**
+     * Sets the current ship to the passed in ship type
+     *
+     * @param ship the ship to set as the commander's current ship
+     */
     public void setShip(Ship ship)
     {
         starShip.setShip(ship);
     }
 
+    /**
+     * Sets a given ship module slot to a given ship module object, in the commander's current ship
+     *
+     * @param statistic the Statistic representing the slot name into which the module is to be stored
+     * @param shipModule the actual ShipModule object to store in the named slot within the current ship
+     */
     public void setShipModule(Statistic statistic, ShipModule shipModule)
     {
         starShip.setShipModule(statistic, shipModule);
     }
 
+    /**
+     * Sets a named Statistic to a given string value
+     *
+     * @param key the Statistic key to set
+     * @param stat the value to store for the given Statistic
+     * @return if there was a value previously stored for the given stat, it is returned. Otherwise, returns null
+     */
     public String setStat(Statistic key, String stat)
     {
         return stats.put(key, stat);
     }
 
+    /**
+     * Removes the value mapped to the given stat from the commands list of stats
+     *
+     * @param stat the named Statistic to remove from the commander's stat list
+     */
     public void removeStat(Statistic stat)
     {
         stats.remove(stat);
     }
 
+    /**
+     * Retrieves the value of the named stat from the commander's list of named stats
+     *
+     * @param statistic the name Statistic to get the value of
+     * @return the value fo the named statistic, or null if the named stat is not set
+     */
     public String getStat(Statistic statistic)
     {
         return stats.get(statistic);
     }
 
+    /**
+     * Returns the map of named stats for this commander
+     *
+     * @return commander's stat map
+     */
     public Map<Statistic, String> getStats()
     {
         return stats;
     }
 
+    /**
+     * Adjusts the count of the given ProcurementCost item in the  commander's inventory
+     *
+     * @param cost the named ProcurementCost item to adjust the count of
+     * @param adjustment amount to adjust the count by
+     */
     public void adjustItem(ProcurementCost cost, int adjustment)
     {
         if (cost instanceof Material)

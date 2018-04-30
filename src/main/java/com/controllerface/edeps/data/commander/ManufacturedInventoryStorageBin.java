@@ -15,10 +15,10 @@ import com.controllerface.edeps.structures.costs.materials.MaterialType;
 public class ManufacturedInventoryStorageBin extends InventoryStorageBin
 {
     @Override
-    public boolean check(ProcurementCost material)
+    public boolean check(ProcurementCost item)
     {
-        return material instanceof Material &&
-                MaterialType.MANUFACTURED.hasMaterial(((Material) material));
+        return item instanceof Material &&
+                MaterialType.MANUFACTURED.hasMaterial(((Material) item));
     }
 
     @Override

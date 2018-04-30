@@ -2,10 +2,15 @@ package com.controllerface.edeps.data;
 
 import com.controllerface.edeps.Immutable;
 import com.controllerface.edeps.structures.equipment.modules.ModuleSize;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 
 /**
- * Created by Stephen on 4/16/2018.
+ * Represents a configuration of "core" modules for a Ship in elite dangerous. All ships have standard modules of
+ * varying sizes that determine the largest size component that can have in each slot. An instance of this object
+ * is used to store these sizes for reference, allowing a UI to present the user with a range of compatible modules
+ * from an exhaustive list that may contain several modules, some of which are compatible and some of which are not.
  *
+ * Created by Stephen on 4/16/2018.
  */
 @Immutable
 public class CoreModuleLayoutData
@@ -71,13 +76,13 @@ public class CoreModuleLayoutData
 
     public static class Builder
     {
-        private ModuleSize powerPlant = ModuleSize.SIZE_0;
-        private ModuleSize thrusters = ModuleSize.SIZE_0;
-        private ModuleSize frameShiftDrive = ModuleSize.SIZE_0;
-        private ModuleSize lifeSupport = ModuleSize.SIZE_0;
-        private ModuleSize powerDistributor = ModuleSize.SIZE_0;
-        private ModuleSize sensors = ModuleSize.SIZE_0;
-        private ModuleSize fuelTank = ModuleSize.SIZE_0;
+        private ModuleSize powerPlant = null;
+        private ModuleSize thrusters = null;
+        private ModuleSize frameShiftDrive = null;
+        private ModuleSize lifeSupport = null;
+        private ModuleSize powerDistributor = null;
+        private ModuleSize sensors = null;
+        private ModuleSize fuelTank = null;
 
 
         public Builder setPowerPlant(ModuleSize size)
@@ -124,6 +129,14 @@ public class CoreModuleLayoutData
 
         public CoreModuleLayoutData build()
         {
+            if (powerPlant == null) throw new UnsupportedOperationException("powerPlant size must be set");
+            if (thrusters == null) throw new UnsupportedOperationException("thrusters size must be set");
+            if (frameShiftDrive == null) throw new UnsupportedOperationException("frameShiftDrive size must be set");
+            if (lifeSupport == null) throw new UnsupportedOperationException("lifeSupport size must be set");
+            if (powerDistributor == null) throw new UnsupportedOperationException("powerDistributor size must be set");
+            if (sensors == null) throw new UnsupportedOperationException("sensors size must be set");
+            if (fuelTank == null) throw new UnsupportedOperationException("fuelTank size must be set");
+
             return new CoreModuleLayoutData(this);
         }
     }
