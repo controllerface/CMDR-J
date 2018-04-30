@@ -13,6 +13,7 @@ public enum Cosmetic implements ShipModule
      * Paint Jobs
      */
     PaintJob_Vulture_BlackFriday_01,
+    PaintJob_Vulture_Bartecki_Bartecki,
     PaintJob_Python_Pax_East_Pax_East,
 
     /**

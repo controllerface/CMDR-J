@@ -20,7 +20,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Corrosion_Resistant_Cargo_Rack("4E Cargo Rack", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Corrosion_Resistance, 0d)
+                    new Pair<>(ItemEffect.CausticResistance, 0d)
             ),
             new CostData(Material.CHEMICALMANIPULATORS, 18),
             new CostData(Material.IRON, 30),
@@ -30,7 +30,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Enzyme_Missile_Rack_Fixed("Fixed", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Enzyme_Munitions, 0d)
+                    new Pair<>(ItemEffect.enzyme_munitions, 0d)
             ),
             new CostData(Material.TUNGSTEN, 35),
             new CostData(Material.UNKNOWNENERGYCELL, 30),
@@ -40,7 +40,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Meta_Alloy_Hull_Reinforcement("Hull Reinforcement Package", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Meta_Alloy_Reinforcement, 0d)
+                    new Pair<>(ItemEffect.meta_alloy_reinforcement, 0d)
             ),
             new CostData(Material.FOCUSCRYSTALS, 30),
             new CostData(Material.SHIELDPATTERNANALYSIS, 26),
@@ -50,7 +50,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Remote_Release_Flechette_Launcher_Fixed("Fixed", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Remote_Release_Shell, 0d)
+                    new Pair<>(ItemEffect.remote_release_shell, 0d)
             ),
             new CostData(Material.RHENIUM, 28),
             new CostData(Material.IRON, 40),
@@ -60,7 +60,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Remote_Release_Flechette_Launcher_Turreted("Turreted", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Remote_Release_Shell, 0d)
+                    new Pair<>(ItemEffect.remote_release_shell, 0d)
             ),
             new CostData(Material.RHENIUM, 28),
             new CostData(Material.IRON, 36),
@@ -70,7 +70,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Shock_Cannon_Fixed("Fixed", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Shock_Shell, 0d)
+                    new Pair<>(ItemEffect.shock_shell, 0d)
             ),
             new CostData(Material.VANADIUM, 30),
             new CostData(Material.TUNGSTEN, 30),
@@ -80,7 +80,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Shock_Cannon_Gimballed("Gimbaled", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Shock_Shell, 0d)
+                    new Pair<>(ItemEffect.shock_shell, 0d)
             ),
             new CostData(Material.TUNGSTEN, 32),
             new CostData(Material.RHENIUM, 30),
@@ -90,7 +90,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Shock_Cannon_Turreted("Turreted", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Shock_Shell, 0d)
+                    new Pair<>(ItemEffect.shock_shell, 0d)
             ),
             new CostData(Material.VANADIUM, 30),
             new CostData(Material.TUNGSTEN, 32),
@@ -103,7 +103,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Guardian_FSD_Booster("FSD Boost Module", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.FSD_Boost, 0d)
+                    new Pair<>(ItemEffect.fsd_boost, 0d)
             ),
             new CostData(Material.GUARDIAN_MODULEBLUEPRINT, 8),
             new CostData(Material.GUARDIAN_POWERCELL, 42),
@@ -113,7 +113,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Guardian_Gauss_Cannon_Fixed("Fixed", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Gauss_Shell, 0d)
+                    new Pair<>(ItemEffect.gauss_shell, 0d)
             ),
             new CostData(Material.GUARDIAN_WEAPONBLUEPRINT, 4),
             new CostData(Material.GUARDIAN_POWERCELL, 36),
@@ -123,7 +123,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Guardian_Hybrid_Power_Distributor("Power Distributor", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Hybrid_Power, 0d)
+                    new Pair<>(ItemEffect.hybrid_power, 0d)
             ),
             new CostData(Material.GUARDIAN_MODULEBLUEPRINT, 4),
             new CostData(Material.ANCIENTBIOLOGICALDATA, 27),
@@ -133,7 +133,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Guardian_Hybrid_Power_Plant("Power Plant", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Hybrid_Power, 0d)
+                    new Pair<>(ItemEffect.hybrid_power, 0d)
             ),
             new CostData(Material.GUARDIAN_MODULEBLUEPRINT, 4),
             new CostData(Material.GUARDIAN_POWERCONDUIT, 36),
@@ -143,7 +143,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Guardian_Plasma_Charger_Fixed("Fixed", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Plasma_Weapon, 0d)
+                    new Pair<>(ItemEffect.plasma_weapon, 0d)
             ),
             new CostData(Material.GUARDIAN_WEAPONBLUEPRINT, 8),
             new CostData(Material.GUARDIAN_POWERCONDUIT, 38),
@@ -153,7 +153,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Guardian_Plasma_Charger_Turreted("Turreted", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Plasma_Weapon, 0d)
+                    new Pair<>(ItemEffect.plasma_weapon, 0d)
             ),
             new CostData(Material.GUARDIAN_WEAPONBLUEPRINT, 10),
             new CostData(Material.GUARDIAN_POWERCONDUIT, 42),
@@ -163,7 +163,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Guardian_Shard_Cannon_Fixed("Fixed", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Shard_Shell, 0d)
+                    new Pair<>(ItemEffect.shard_shell, 0d)
             ),
             new CostData(Material.GUARDIAN_WEAPONBLUEPRINT, 8),
             new CostData(Material.GUARDIAN_SENTINEL_WRECKAGECOMPONENTS, 40),
@@ -173,7 +173,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     Guardian_Shard_Cannon_Turreted("Turreted", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Shard_Shell, 0d)
+                    new Pair<>(ItemEffect.shard_shell, 0d)
             ),
             new CostData(Material.GUARDIAN_WEAPONBLUEPRINT, 10),
             new CostData(Material.GUARDIAN_SENTINEL_WRECKAGECOMPONENTS, 28),

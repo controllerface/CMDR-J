@@ -23,7 +23,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AFM_Refill_Basic("Basic", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refill, 0d)
+                    new Pair<>(ItemEffect.refill, 0d)
             ),
             new CostData(Material.NICKEL, 2),
             new CostData(Material.ZINC, 2),
@@ -32,8 +32,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AFM_Refill_Standard("Standard", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refill, 0d),
-                    new Pair<>(ItemEffect.Repair_Speed, 50d)
+                    new Pair<>(ItemEffect.refill, 0d),
+                    new Pair<>(ItemEffect.repair_speed, 50d)
             ),
             new CostData(Material.TIN, 1),
             new CostData(Material.MANGANESE, 2),
@@ -43,8 +43,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AFM_Refill_Premium("Premium", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refill, 0d),
-                    new Pair<>(ItemEffect.Repair_Speed, 100d)
+                    new Pair<>(ItemEffect.refill, 0d),
+                    new Pair<>(ItemEffect.repair_speed, 100d)
             ),
             new CostData(Material.ZINC, 2),
             new CostData(Material.CHROMIUM, 4),
@@ -59,7 +59,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AX_Explosive_Munitions_Basic("Basic", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.IRON, 3),
             new CostData(Material.NICKEL, 3),
@@ -68,8 +68,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AX_Explosive_Munitions_Standard("Standard", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 5d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 5d)
 
             ),
             new CostData(Material.SULPHUR, 6),
@@ -80,8 +80,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AX_Explosive_Munitions_Premium("Premium", new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 10d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 10d)
 
             ),
             new CostData(Material.TUNGSTEN, 5),
@@ -97,7 +97,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AX_Remote_Flak_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.NICKEL, 4),
             new CostData(Material.CARBON, 3),
@@ -105,8 +105,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AX_Remote_Flak_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 5d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 5d)
 
             ),
             new CostData(Material.TIN, 2),
@@ -117,8 +117,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AX_Remote_Flak_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 10d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 10d)
 
             ),
             new CostData(Material.ZINC, 8),
@@ -134,7 +134,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AX_Small_Calibre_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.IRON, 2),
             new CostData(Material.NICKEL, 1),
@@ -143,8 +143,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AX_Small_Calibre_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 5d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 5d)
             ),
             new CostData(Material.IRON, 2),
             new CostData(Material.PHOSPHORUS, 2),
@@ -154,8 +154,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     AX_Small_Calibre_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 10d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 10d)
             ),
             new CostData(Material.IRON, 3),
             new CostData(Material.PHOSPHORUS, 2),
@@ -170,7 +170,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Enzyme_Missile_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.IRON, 3),
             new CostData(Material.SULPHUR, 3),
@@ -181,8 +181,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Enzyme_Missile_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 15d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 15d)
             ),
             new CostData(Material.SULPHUR, 6),
             new CostData(Material.TUNGSTEN, 4),
@@ -193,8 +193,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Enzyme_Missile_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 30d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 30d)
             ),
             new CostData(Material.PHOSPHORUS, 5),
             new CostData(Material.TUNGSTEN, 4),
@@ -209,7 +209,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Explosives_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.IRON, 3),
             new CostData(Material.NICKEL, 3),
@@ -218,8 +218,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Explosives_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 15d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 15d)
             ),
             new CostData(Material.SULPHUR, 6),
             new CostData(Material.PHOSPHORUS, 6),
@@ -228,8 +228,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Explosives_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 30d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 30d)
             ),
             new CostData(Material.PHOSPHORUS, 5),
             new CostData(Material.ARSENIC, 4),
@@ -243,7 +243,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Flechette_Launcher_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.TUNGSTEN, 1),
             new CostData(Material.ELECTROCHEMICALARRAYS, 3),
@@ -252,8 +252,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Flechette_Launcher_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 5d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 5d)
             ),
                 new CostData(Material.TUNGSTEN, 4),
                 new CostData(Material.ELECTROCHEMICALARRAYS, 6),
@@ -262,8 +262,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Flechette_Launcher_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 10d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 10d)
             ),
             new CostData(Material.TUNGSTEN, 6),
             new CostData(Material.ELECTROCHEMICALARRAYS, 9),
@@ -276,7 +276,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     FSD_Injection_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.FSD_Range_Boost, 25d)
+                    new Pair<>(ItemEffect.FSDJumpRangeBoost, 25d)
             ),
             new CostData(Material.CARBON, 1),
             new CostData(Material.VANADIUM, 1),
@@ -284,7 +284,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     FSD_Injection_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.FSD_Range_Boost, 50d)
+                    new Pair<>(ItemEffect.FSDJumpRangeBoost, 50d)
             ),
             new CostData(Material.CARBON, 1),
             new CostData(Material.VANADIUM, 1),
@@ -294,7 +294,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     FSD_Injection_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.FSD_Range_Boost, 100d)
+                    new Pair<>(ItemEffect.FSDJumpRangeBoost, 100d)
             ),
             new CostData(Material.CARBON, 1),
             new CostData(Material.GERMANIUM, 1),
@@ -309,7 +309,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Guardian_Gauss_Cannon_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.MANGANESE, 3),
             new CostData(Material.FOCUSCRYSTALS, 2),
@@ -319,8 +319,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Guardian_Gauss_Cannon_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 15d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 15d)
             ),
             new CostData(Material.MANGANESE, 5),
             new CostData(Material.HEATRESISTANTCERAMICS, 3),
@@ -330,8 +330,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Guardian_Gauss_Cannon_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 30d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 30d)
             ),
             new CostData(Material.MANGANESE, 8),
             new CostData(Material.HEATRESISTANTCERAMICS, 4),
@@ -344,7 +344,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Guardian_Plasma_Charger_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.CHROMIUM, 3),
             new CostData(Material.HEATDISPERSIONPLATE, 2),
@@ -353,8 +353,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Guardian_Plasma_Charger_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 15d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 15d)
             ),
             new CostData(Material.CHROMIUM, 4),
             new CostData(Material.HEATEXCHANGERS, 2),
@@ -364,8 +364,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Guardian_Plasma_Charger_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 30d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 30d)
             ),
             new CostData(Material.CHROMIUM, 6),
             new CostData(Material.ZIRCONIUM, 2),
@@ -380,7 +380,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Guardian_Shard_Cannon_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.CARBON, 3),
             new CostData(Material.VANADIUM, 2),
@@ -390,8 +390,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Guardian_Shard_Cannon_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 15d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 15d)
             ),
             new CostData(Material.CRYSTALSHARDS, 4),
             new CostData(Material.GUARDIAN_POWERCELL, 2),
@@ -399,8 +399,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Guardian_Shard_Cannon_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 30d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 30d)
             ),
             new CostData(Material.CARBON, 8),
             new CostData(Material.SELENIUM, 3),
@@ -413,15 +413,15 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     High_Velocity_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.IRON, 2),
             new CostData(Material.VANADIUM, 1)),
 
     High_Velocity_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 15d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 15d)
             ),
             new CostData(Material.IRON, 4),
             new CostData(Material.VANADIUM, 3),
@@ -430,8 +430,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     High_Velocity_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 30d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 30d)
             ),
             new CostData(Material.VANADIUM, 4),
             new CostData(Material.TUNGSTEN, 4),
@@ -444,7 +444,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Large_Calibre_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.NICKEL, 4),
             new CostData(Material.CARBON, 3),
@@ -452,8 +452,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Large_Calibre_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 15d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 15d)
             ),
             new CostData(Material.TIN, 2),
             new CostData(Material.ZINC, 3),
@@ -463,8 +463,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Large_Calibre_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 30d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 30d)
             ),
             new CostData(Material.ZINC, 8),
             new CostData(Material.TUNGSTEN, 2),
@@ -479,7 +479,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Plasma_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.SULPHUR, 3),
             new CostData(Material.PHOSPHORUS, 4),
@@ -487,8 +487,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Plasma_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 15d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 15d)
             ),
             new CostData(Material.PHOSPHORUS, 5),
             new CostData(Material.MANGANESE, 3),
@@ -497,8 +497,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Plasma_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 30d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 30d)
             ),
             new CostData(Material.SELENIUM, 5),
             new CostData(Material.CADMIUM, 4),
@@ -511,7 +511,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Small_Calibre_Munitions_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.IRON, 2),
             new CostData(Material.NICKEL, 1),
@@ -519,8 +519,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Small_Calibre_Munitions_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 15d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 15d)
             ),
             new CostData(Material.IRON, 2),
             new CostData(Material.ZINC, 2),
@@ -530,8 +530,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Small_Calibre_Munitions_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 30d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 30d)
             ),
             new CostData(Material.SULPHUR, 2),
             new CostData(Material.PHOSPHORUS, 2),
@@ -546,15 +546,15 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     SRV_Ammo_Restock_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d)
+                    new Pair<>(ItemEffect.rearm, 0d)
             ),
             new CostData(Material.SULPHUR, 2),
             new CostData(Material.PHOSPHORUS, 1)),
 
     SRV_Ammo_Restock_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 15d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 15d)
             ),
             new CostData(Material.PHOSPHORUS, 1),
             new CostData(Material.MANGANESE, 1),
@@ -563,8 +563,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     SRV_Ammo_Restock_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Rearm, 0d),
-                    new Pair<>(ItemEffect.Damage_Boost, 30d)
+                    new Pair<>(ItemEffect.rearm, 0d),
+                    new Pair<>(ItemEffect.damage_boost, 30d)
             ),
             new CostData(Material.PHOSPHORUS, 2),
             new CostData(Material.SELENIUM, 2),
@@ -577,15 +577,15 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     SRV_Refuel_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refuel, 0d)
+                    new Pair<>(ItemEffect.refuel, 0d)
             ),
             new CostData(Material.SULPHUR, 1),
             new CostData(Material.PHOSPHORUS, 1)),
 
     SRV_Refuel_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refuel, 0d),
-                    new Pair<>(ItemEffect.Fuel_Efficiency, 100d)
+                    new Pair<>(ItemEffect.refuel, 0d),
+                    new Pair<>(ItemEffect.fuel_efficiency, 100d)
             ),
             new CostData(Material.SULPHUR, 1),
             new CostData(Material.PHOSPHORUS, 1),
@@ -594,8 +594,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     SRV_Refuel_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refuel, 0d),
-                    new Pair<>(ItemEffect.Fuel_Efficiency, 200d)
+                    new Pair<>(ItemEffect.refuel, 0d),
+                    new Pair<>(ItemEffect.fuel_efficiency, 200d)
             ),
             new CostData(Material.SULPHUR, 1),
             new CostData(Material.ARSENIC, 1),
@@ -607,15 +607,15 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     SRV_Repair_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Repair, 0d)
+                    new Pair<>(ItemEffect.repair, 0d)
             ),
             new CostData(Material.IRON, 2),
             new CostData(Material.NICKEL, 1)),
 
     SRV_Repair_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Repair, 0d),
-                    new Pair<>(ItemEffect.Hull_Strength, 50d)
+                    new Pair<>(ItemEffect.repair, 0d),
+                    new Pair<>(ItemEffect.hull_strength, 50d)
             ),
             new CostData(Material.NICKEL, 3),
             new CostData(Material.MANGANESE, 1),
@@ -625,8 +625,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     SRV_Repair_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Repair, 0d),
-                    new Pair<>(ItemEffect.Hull_Strength, 100d)
+                    new Pair<>(ItemEffect.repair, 0d),
+                    new Pair<>(ItemEffect.hull_strength, 100d)
             ),
             new CostData(Material.ZINC, 1),
             new CostData(Material.CHROMIUM, 2),
@@ -640,15 +640,15 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Heat_Sink_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refill, 0d)
+                    new Pair<>(ItemEffect.refill, 0d)
             ),
             new CostData(Material.BASICCONDUCTORS, 2),
             new CostData(Material.HEATCONDUCTIONWIRING, 2)),
 
     Heat_Sink_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refill, 0d),
-                    new Pair<>(ItemEffect.Heat_Dissipation, 15d)
+                    new Pair<>(ItemEffect.refill, 0d),
+                    new Pair<>(ItemEffect.heat_dissipation, 15d)
             ),
             new CostData(Material.BASICCONDUCTORS, 2),
             new CostData(Material.HEATCONDUCTIONWIRING, 2),
@@ -656,8 +656,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Heat_Sink_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refill, 0d),
-                    new Pair<>(ItemEffect.Heat_Dissipation, 30d)
+                    new Pair<>(ItemEffect.refill, 0d),
+                    new Pair<>(ItemEffect.heat_dissipation, 30d)
             ),
             new CostData(Material.BASICCONDUCTORS, 2),
             new CostData(Material.HEATCONDUCTIONWIRING, 2),
@@ -670,15 +670,15 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Chaff_Basic("Basic",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refill, 0d)
+                    new Pair<>(ItemEffect.refill, 0d)
             ),
             new CostData(Material.COMPACTCOMPOSITES, 1),
             new CostData(Material.FILAMENTCOMPOSITES, 1)),
 
     Chaff_Standard("Standard",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refill, 0d),
-                    new Pair<>(ItemEffect.Chaff_Duration, 1d)
+                    new Pair<>(ItemEffect.refill, 0d),
+                    new Pair<>(ItemEffect.ChaffJamDuration, 1d)
             ),
             new CostData(Material.COMPACTCOMPOSITES, 1),
             new CostData(Material.FILAMENTCOMPOSITES, 2),
@@ -687,8 +687,8 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Chaff_Premium("Premium",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refill, 0d),
-                    new Pair<>(ItemEffect.Chaff_Duration, 2d)
+                    new Pair<>(ItemEffect.refill, 0d),
+                    new Pair<>(ItemEffect.ChaffJamDuration, 2d)
             ),
             new CostData(Material.COMPACTCOMPOSITES, 1),
             new CostData(Material.FILAMENTCOMPOSITES, 2),
@@ -702,7 +702,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Life_Support("Refill",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refill, 0d)
+                    new Pair<>(ItemEffect.refill, 0d)
             ),
             new CostData(Material.IRON, 2),
             new CostData(Material.NICKEL, 1)),
@@ -713,7 +713,7 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     Limpets("Refill",new ItemEffectData
             (
-                    new Pair<>(ItemEffect.Refill, 0d)
+                    new Pair<>(ItemEffect.refill, 0d)
             ),
             new CostData(Material.IRON, 10),
             new CostData(Material.NICKEL, 10)),

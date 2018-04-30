@@ -507,9 +507,10 @@ public enum JournalEvent
         Statistic statistic = determineStatType(slotName);
         ShipModule shipModule = determineModuleType(itemName);
 
-        if (shipModule == null)
+        if (shipModule == null || statistic == null)
         {
-            System.out.println("Unknown item: " + itemName);
+            if (statistic == null) System.out.println("Unknown Statistic: " + slotName);
+            if (shipModule == null) System.out.println("Unknown Item: " + itemName);
         }
         else
         {

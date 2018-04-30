@@ -127,6 +127,16 @@ public class UIController
     @FXML private CheckBox showTasks;
     @FXML private CheckBox showItemsNeeded;
 
+    @FXML private Label shipTypeLabel;
+    @FXML private Label shipArmourLabel;
+    @FXML private Label shipPowerPlantLabel;
+    @FXML private Label shipThrustersLabel;
+    @FXML private Label shipFrameShiftDriveLabel;
+    @FXML private Label shipLifeSupportLabel;
+    @FXML private Label shipPowerDistributorLabel;
+    @FXML private Label shipSensorsLabel;
+    @FXML private Label shipFuelTankLabel;
+
 
     /*
     =======================
@@ -142,8 +152,7 @@ public class UIController
 
     private final int scrollBarAllowance = 20;
 
-    @FXML
-    protected void toJson(ActionEvent event) throws IOException
+    protected void toJson() throws IOException
     {
         // serialize procurementRecipeMap to JSON
         ObjectMapper mapper = new ObjectMapper();
@@ -182,7 +191,6 @@ public class UIController
         outputStream.close();
     }
 
-    @FXML
     private void fromJson()
     {
         File file = new File("data.json");
@@ -344,7 +352,7 @@ public class UIController
     {
         try
         {
-            toJson(null);
+            toJson();
         }
         catch (IOException e)
         {
@@ -464,6 +472,10 @@ public class UIController
         showProcurements.setOnAction((e)->setProcumentsUIVisibility());
         showTasks.setOnAction((e)->setProcumentsUIVisibility());
         showItemsNeeded.setOnAction((e)->setProcumentsUIVisibility());
+
+
+
+
 
         // set the sorting comparator for the material progress column of the procurement list
         costProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
