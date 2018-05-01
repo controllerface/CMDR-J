@@ -13,138 +13,243 @@ public enum HardpointModule implements ShipModule
      * Beam Lasers
      */
 
-    Hpt_BeamLaser_Turret_Small,
-    Hpt_BeamLaser_Turret_Medium,
-    Hpt_BeamLaser_Turret_Large,
+    hpt_beamlaser_fixed_huge,
+    hpt_beamlaser_fixed_large,
+    hpt_beamlaser_fixed_medium,
+    hpt_beamlaser_fixed_small,
 
-    Hpt_BeamLaser_Gimbal_Small,
-    Hpt_BeamLaser_Gimbal_Medium,
-    Hpt_BeamLaser_Gimbal_Large,
-    Hpt_BeamLaser_Gimbal_Huge,
+    hpt_beamlaser_gimbal_huge,
+    hpt_beamlaser_gimbal_large,
+    hpt_beamlaser_gimbal_medium,
+    hpt_beamlaser_gimbal_small,
 
-    Hpt_BeamLaser_Fixed_Small,
-    Hpt_BeamLaser_Fixed_Medium,
-    Hpt_BeamLaser_Fixed_Large,
-    Hpt_BeamLaser_Fixed_Huge,
+    hpt_beamlaser_turret_large,
+    hpt_beamlaser_turret_medium,
+    hpt_beamlaser_turret_small,
 
 
     /**
      * Burst Lasers
      */
 
-    Hpt_BurstLaser_Turret_Small,
-    Hpt_BurstLaser_Turret_Medium,
-    Hpt_BurstLaser_Turret_Large,
+    hpt_pulselaserburst_fixed_huge,
+    hpt_pulselaserburst_fixed_large,
+    hpt_pulselaserburst_fixed_medium,
+    hpt_pulselaserburst_fixed_small,
 
-    Hpt_BurstLaser_Gimbal_Small,
-    Hpt_BurstLaser_Gimbal_Medium,
-    Hpt_BurstLaser_Gimbal_Large,
-    Hpt_BurstLaser_Gimbal_Huge,
+    hpt_pulselaserburst_gimbal_huge,
+    hpt_pulselaserburst_gimbal_large,
+    hpt_pulselaserburst_gimbal_medium,
+    hpt_pulselaserburst_gimbal_small,
 
-    Hpt_BurstLaser_Fixed_Small,
-    Hpt_BurstLaser_Fixed_Medium,
-    Hpt_BurstLaser_Fixed_Large,
-    Hpt_BurstLaser_Fixed_Huge,
-
+    hpt_pulselaserburst_turret_large,
+    hpt_pulselaserburst_turret_medium,
+    hpt_pulselaserburst_turret_small,
 
     /**
      * Pulse Lasers
      */
 
-    Hpt_PulseLaser_Turret_Small,
-    Hpt_PulseLaser_Turret_Medium,
-    Hpt_PulseLaser_Turret_Large,
+    hpt_pulselaser_fixed_huge,
+    hpt_pulselaser_fixed_large,
+    hpt_pulselaser_fixed_medium,
+    hpt_pulselaser_fixed_small,
 
-    Hpt_PulseLaser_Gimbal_Small,
-    Hpt_PulseLaser_Gimbal_Medium,
-    Hpt_PulseLaser_Gimbal_Large,
-    Hpt_PulseLaser_Gimbal_Huge,
+    hpt_pulselaser_gimbal_huge,
+    hpt_pulselaser_gimbal_large,
+    hpt_pulselaser_gimbal_medium,
+    hpt_pulselaser_gimbal_small,
 
-    Hpt_PulseLaser_Fixed_Small,
-    Hpt_PulseLaser_Fixed_Medium,
-    Hpt_PulseLaser_Fixed_Large,
-    Hpt_PulseLaser_Fixed_Huge,
+    hpt_pulselaser_turret_large,
+    hpt_pulselaser_turret_medium,
+    hpt_pulselaser_turret_small,
 
 
     /**
      * Multi-Cannons
      */
 
-    Hpt_MultiCannon_Turret_Small,
-    Hpt_MultiCannon_Turret_Medium,
+    hpt_multicannon_fixed_huge,
+    hpt_multicannon_fixed_large,
+    hpt_multicannon_fixed_medium,
+    hpt_multicannon_fixed_small,
 
-    Hpt_MultiCannon_Gimbal_Small,
-    Hpt_MultiCannon_Gimbal_Medium,
-    Hpt_MultiCannon_Gimbal_Large,
-    Hpt_MultiCannon_Gimbal_Huge,
+    hpt_multicannon_gimbal_huge,
+    hpt_multicannon_gimbal_large,
+    hpt_multicannon_gimbal_medium,
+    hpt_multicannon_gimbal_small,
 
-    Hpt_MultiCannon_Fixed_Small,
-    Hpt_MultiCannon_Fixed_Medium,
-    Hpt_MultiCannon_Fixed_Large,
-    Hpt_MultiCannon_Fixed_Huge,
+    hpt_multicannon_turret_medium,
+    hpt_multicannon_turret_small,
 
 
     /**
      * Cannons
      */
 
-    Hpt_Cannon_Turret_Small,
-    Hpt_Cannon_Turret_Medium,
+    hpt_cannon_fixed_huge,
+    hpt_cannon_fixed_large,
+    hpt_cannon_fixed_medium,
+    hpt_cannon_fixed_small,
 
-    Hpt_Cannon_Gimbal_Small,
-    Hpt_Cannon_Gimbal_Medium,
-    Hpt_Cannon_Gimbal_Large,
-    Hpt_Cannon_Gimbal_Huge,
+    hpt_cannon_gimbal_huge,
+    hpt_cannon_gimbal_large,
+    hpt_cannon_gimbal_medium,
+    hpt_cannon_gimbal_small,
 
-    Hpt_Cannon_Fixed_Small,
-    Hpt_Cannon_Fixed_Medium,
-    Hpt_Cannon_Fixed_Large,
-    Hpt_Cannon_Fixed_Huge,
+    hpt_cannon_turret_large,
+    hpt_cannon_turret_medium,
+    hpt_cannon_turret_small,
 
 
     /**
      * Fragment Cannons
      */
 
-    Hpt_Fragment_Cannon_Turret_Small,
-    Hpt_Fragment_Cannon_Turret_Medium,
-    Hpt_Fragment_Cannon_Turret_Large,
+    hpt_slugshot_fixed_large,
+    hpt_slugshot_fixed_medium,
+    hpt_slugshot_fixed_small,
 
-    Hpt_Fragment_Cannon_Gimbal_Small,
-    Hpt_Fragment_Cannon_Gimbal_Medium,
-    Hpt_Fragment_Cannon_Gimbal_Large,
+    hpt_slugshot_gimbal_large,
+    hpt_slugshot_gimbal_medium,
+    hpt_slugshot_gimbal_small,
 
-    Hpt_Fragment_Cannon_Fixed_Small,
-    Hpt_Fragment_Cannon_Fixed_Medium,
-    Hpt_Fragment_Cannon_Fixed_Large,
+    hpt_slugshot_turret_large,
+    hpt_slugshot_turret_medium,
+    hpt_slugshot_turret_small,
 
 
     /**
      * Plasma Accelerators
      */
 
-    Hpt_Plasma_Accelerator_Fixed_Medium,
-    Hpt_Plasma_Accelerator_Fixed_Large,
-    Hpt_Plasma_Accelerator_Fixed_Huge,
+    hpt_plasmaaccelerator_fixed_huge,
+    hpt_plasmaaccelerator_fixed_large,
+    hpt_plasmaaccelerator_fixed_medium,
 
 
     /**
      * Railguns
      */
 
-    Hpt_Railgun_Fixed_Small,
-    Hpt_Railgun_Fixed_Medium,
+    hpt_railgun_fixed_medium,
+    hpt_railgun_fixed_small,
 
 
     /**
      * Shield Boosters
      */
 
-    Hpt_ShieldBooster_Size0_Class1,
-    Hpt_ShieldBooster_Size0_Class2,
-    Hpt_ShieldBooster_Size0_Class3,
-    Hpt_ShieldBooster_Size0_Class4,
-    Hpt_ShieldBooster_Size0_Class5,
+    hpt_shieldbooster_size0_class1,
+    hpt_shieldbooster_size0_class2,
+    hpt_shieldbooster_size0_class3,
+    hpt_shieldbooster_size0_class4,
+    hpt_shieldbooster_size0_class5,
+
+    /**
+     * Dumbfire Missile racks
+     */
+
+    hpt_dumbfiremissilerack_fixed_medium,
+    hpt_dumbfiremissilerack_fixed_small,
+
+
+    /**
+     * Seeker Missile Racks
+     */
+
+    hpt_basicmissilerack_fixed_medium,
+    hpt_basicmissilerack_fixed_small,
+
+
+    /**
+     * Mine Launchers
+     */
+
+    hpt_minelauncher_fixed_medium,
+    hpt_minelauncher_fixed_small,
+    hpt_minelauncher_fixed_small_impulse, // faction weapon
+
+
+    /**
+     * Torpedo Pylons
+     */
+
+    hpt_advancedtorppylon_fixed_medium,
+    hpt_advancedtorppylon_fixed_small,
+
+
+    /**
+     * Mining Lasers
+     */
+
+    hpt_mininglaser_fixed_medium,
+    hpt_mininglaser_turret_medium,
+    hpt_mininglaser_fixed_small,
+    hpt_mininglaser_turret_small,
+
+    /**
+     * Wake Scanners
+     */
+
+    hpt_cloudscanner_size0_class1,
+    hpt_cloudscanner_size0_class2,
+    hpt_cloudscanner_size0_class3,
+    hpt_cloudscanner_size0_class4,
+    hpt_cloudscanner_size0_class5,
+
+
+    /**
+     * Kill Warrant Scanners
+     */
+
+    hpt_crimescanner_size0_class1,
+    hpt_crimescanner_size0_class2,
+    hpt_crimescanner_size0_class3,
+    hpt_crimescanner_size0_class4,
+    hpt_crimescanner_size0_class5,
+
+
+    /**
+     * Manifest Scanners
+     */
+
+    hpt_cargoscanner_size0_class1,
+    hpt_cargoscanner_size0_class2,
+    hpt_cargoscanner_size0_class3,
+    hpt_cargoscanner_size0_class4,
+    hpt_cargoscanner_size0_class5,
+
+
+    /**
+     * Chaff Launcher, Heat-Sink Launcher, Point Defense, Electronic Countermeasures
+     */
+
+    hpt_chafflauncher_tiny,
+    hpt_heatsinklauncher_turret_tiny,
+    hpt_plasmapointdefence_turret_tiny,
+    hpt_electroniccountermeasure_tiny,
+
+
+    /**
+     * Experimental (AEGIS, Anti-Thargoid) Weapons and Items
+     */
+
+    hpt_atmulticannon_fixed_large,
+    hpt_atmulticannon_fixed_medium,
+    hpt_atmulticannon_turret_large,
+    hpt_atmulticannon_turret_medium,
+
+    hpt_atdumbfiremissile_fixed_large,
+    hpt_atdumbfiremissile_fixed_medium,
+    hpt_atdumbfiremissile_turret_large,
+    hpt_atdumbfiremissile_turret_medium,
+
+    hpt_flakmortar_fixed_medium,
+    hpt_flakmortar_turret_medium,
+
+    hpt_antiunknownshutdown_tiny,
+    hpt_xenoscanner_basic_tiny,
 
     ;
 

@@ -1,4 +1,4 @@
-package com.controllerface.edeps.structures.procurements.technologies;
+package com.controllerface.edeps.structures.craftable.technologies;
 
 import com.controllerface.edeps.ProcurementType;
 

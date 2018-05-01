@@ -1,4 +1,4 @@
-package com.controllerface.edeps.structures.procurements.experimentals;
+package com.controllerface.edeps.structures.craftable.experimentals;
 
 import java.util.Arrays;
 import java.util.stream.Stream;

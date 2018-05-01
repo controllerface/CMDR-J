@@ -1,4 +1,4 @@
-package com.controllerface.edeps.structures.equipment.ships;
+package com.controllerface.edeps.structures.commander;
 
 import com.controllerface.edeps.Statistic;
 

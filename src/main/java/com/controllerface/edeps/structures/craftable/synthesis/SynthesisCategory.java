@@ -1,4 +1,4 @@
-package com.controllerface.edeps.structures.procurements.synthesis;
+package com.controllerface.edeps.structures.craftable.synthesis;
 
 import java.util.Arrays;
 import java.util.stream.Stream;

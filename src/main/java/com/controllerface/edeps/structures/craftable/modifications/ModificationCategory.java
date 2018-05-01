@@ -1,4 +1,4 @@
-package com.controllerface.edeps.structures.procurements.modifications;
+package com.controllerface.edeps.structures.craftable.modifications;
 
 import java.util.Arrays;
 import java.util.stream.Stream;

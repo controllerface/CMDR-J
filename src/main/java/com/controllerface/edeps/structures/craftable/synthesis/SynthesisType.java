@@ -1,4 +1,4 @@
-package com.controllerface.edeps.structures.procurements.synthesis;
+package com.controllerface.edeps.structures.craftable.synthesis;
 
 import com.controllerface.edeps.ProcurementType;
 

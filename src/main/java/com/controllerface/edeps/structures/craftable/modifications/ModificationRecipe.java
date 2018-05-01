@@ -1,4 +1,4 @@
-package com.controllerface.edeps.structures.procurements.modifications;
+package com.controllerface.edeps.structures.craftable.modifications;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.procurements.CostData;

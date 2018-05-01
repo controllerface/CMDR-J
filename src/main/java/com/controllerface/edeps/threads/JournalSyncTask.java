@@ -5,6 +5,8 @@ import com.controllerface.edeps.Procedure;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.commander.CommanderData;
+import com.controllerface.edeps.structures.commander.PlayerStat;
+import com.controllerface.edeps.structures.commander.RankStat;
 import com.controllerface.edeps.structures.journal.JournalEvent;
 import com.controllerface.edeps.structures.equipment.ships.*;
 import com.fasterxml.jackson.core.type.TypeReference;

@@ -13,147 +13,573 @@ public enum OptionalInternalModule implements ShipModule
      * Shield Generators
      */
 
-    Int_ShieldGenerator_Size5_Class1,
-    Int_ShieldGenerator_Size5_Class2,
-    Int_ShieldGenerator_Size5_Class3,
-    Int_ShieldGenerator_Size5_Class4,
-    Int_ShieldGenerator_Size5_Class5,
+    int_shieldgenerator_size1_class3_fast,
 
-    Int_ShieldGenerator_Size6_Class1,
-    Int_ShieldGenerator_Size6_Class2,
-    Int_ShieldGenerator_Size6_Class3,
-    Int_ShieldGenerator_Size6_Class4,
-    Int_ShieldGenerator_Size6_Class5,
+    int_shieldgenerator_size2_class1,
+    int_shieldgenerator_size2_class2,
+    int_shieldgenerator_size2_class3,
+    int_shieldgenerator_size2_class3_fast,
+    int_shieldgenerator_size2_class4,
+    int_shieldgenerator_size2_class5,
 
-    Int_ShieldGenerator_Size7_Class1,
-    Int_ShieldGenerator_Size7_Class2,
-    Int_ShieldGenerator_Size7_Class3,
-    Int_ShieldGenerator_Size7_Class4,
-    Int_ShieldGenerator_Size7_Class5,
+    int_shieldgenerator_size3_class1,
+    int_shieldgenerator_size3_class2,
+    int_shieldgenerator_size3_class3,
+    int_shieldgenerator_size3_class3_fast,
+    int_shieldgenerator_size3_class4,
+    int_shieldgenerator_size3_class5,
 
-    Int_ShieldGenerator_Size8_Class1,
-    Int_ShieldGenerator_Size8_Class2,
-    Int_ShieldGenerator_Size8_Class3,
-    Int_ShieldGenerator_Size8_Class4,
-    Int_ShieldGenerator_Size8_Class5,
+    int_shieldgenerator_size4_class1,
+    int_shieldgenerator_size4_class2,
+    int_shieldgenerator_size4_class3,
+    int_shieldgenerator_size4_class3_fast,
+    int_shieldgenerator_size4_class4,
+    int_shieldgenerator_size4_class5,
 
-    Int_ShieldGenerator_Size5_Class3_Fast,
-    Int_ShieldGenerator_Size6_Class3_Fast,
-    Int_ShieldGenerator_Size7_Class3_Fast,
-    Int_ShieldGenerator_Size8_Class3_Fast,
+    int_shieldgenerator_size5_class1,
+    int_shieldgenerator_size5_class2,
+    int_shieldgenerator_size5_class3,
+    int_shieldgenerator_size5_class3_fast,
+    int_shieldgenerator_size5_class4,
+    int_shieldgenerator_size5_class5,
+
+    int_shieldgenerator_size6_class1,
+    int_shieldgenerator_size6_class2,
+    int_shieldgenerator_size6_class3,
+    int_shieldgenerator_size6_class3_fast,
+    int_shieldgenerator_size6_class4,
+    int_shieldgenerator_size6_class5,
+
+    int_shieldgenerator_size7_class1,
+    int_shieldgenerator_size7_class2,
+    int_shieldgenerator_size7_class3,
+    int_shieldgenerator_size7_class3_fast,
+    int_shieldgenerator_size7_class4,
+    int_shieldgenerator_size7_class5,
+
+    int_shieldgenerator_size8_class1,
+    int_shieldgenerator_size8_class2,
+    int_shieldgenerator_size8_class3,
+    int_shieldgenerator_size8_class3_fast,
+    int_shieldgenerator_size8_class4,
+    int_shieldgenerator_size8_class5,
+
+
+    /**
+     * Shield Cell Bank
+     */
+
+    int_shieldcellbank_size1_class1,
+    int_shieldcellbank_size1_class2,
+    int_shieldcellbank_size1_class3,
+    int_shieldcellbank_size1_class4,
+    int_shieldcellbank_size1_class5,
+
+    int_shieldcellbank_size2_class1,
+    int_shieldcellbank_size2_class2,
+    int_shieldcellbank_size2_class3,
+    int_shieldcellbank_size2_class4,
+    int_shieldcellbank_size2_class5,
+
+    int_shieldcellbank_size3_class1,
+    int_shieldcellbank_size3_class2,
+    int_shieldcellbank_size3_class3,
+    int_shieldcellbank_size3_class4,
+    int_shieldcellbank_size3_class5,
+
+    int_shieldcellbank_size4_class1,
+    int_shieldcellbank_size4_class2,
+    int_shieldcellbank_size4_class3,
+    int_shieldcellbank_size4_class4,
+    int_shieldcellbank_size4_class5,
+
+    int_shieldcellbank_size5_class1,
+    int_shieldcellbank_size5_class2,
+    int_shieldcellbank_size5_class3,
+    int_shieldcellbank_size5_class4,
+    int_shieldcellbank_size5_class5,
+
+    int_shieldcellbank_size6_class1,
+    int_shieldcellbank_size6_class2,
+    int_shieldcellbank_size6_class3,
+    int_shieldcellbank_size6_class4,
+    int_shieldcellbank_size6_class5,
+
+    int_shieldcellbank_size7_class1,
+    int_shieldcellbank_size7_class2,
+    int_shieldcellbank_size7_class3,
+    int_shieldcellbank_size7_class4,
+    int_shieldcellbank_size7_class5,
+
+    int_shieldcellbank_size8_class1,
+    int_shieldcellbank_size8_class2,
+    int_shieldcellbank_size8_class3,
+    int_shieldcellbank_size8_class4,
+    int_shieldcellbank_size8_class5,
+
+
+    /**
+     * Automated Field Maintenance Unit
+     */
+
+    int_repairer_size1_class1,
+    int_repairer_size1_class2,
+    int_repairer_size1_class3,
+    int_repairer_size1_class4,
+    int_repairer_size1_class5,
+
+    int_repairer_size2_class1,
+    int_repairer_size2_class2,
+    int_repairer_size2_class3,
+    int_repairer_size2_class4,
+    int_repairer_size2_class5,
+
+    int_repairer_size3_class1,
+    int_repairer_size3_class2,
+    int_repairer_size3_class3,
+    int_repairer_size3_class4,
+    int_repairer_size3_class5,
+
+    int_repairer_size4_class1,
+    int_repairer_size4_class2,
+    int_repairer_size4_class3,
+    int_repairer_size4_class4,
+    int_repairer_size4_class5,
+
+    int_repairer_size5_class1,
+    int_repairer_size5_class2,
+    int_repairer_size5_class3,
+    int_repairer_size5_class4,
+    int_repairer_size5_class5,
+
+    int_repairer_size6_class1,
+    int_repairer_size6_class2,
+    int_repairer_size6_class3,
+    int_repairer_size6_class4,
+    int_repairer_size6_class5,
+
+    int_repairer_size7_class1,
+    int_repairer_size7_class2,
+    int_repairer_size7_class3,
+    int_repairer_size7_class4,
+    int_repairer_size7_class5,
+
+    int_repairer_size8_class1,
+    int_repairer_size8_class2,
+    int_repairer_size8_class3,
+    int_repairer_size8_class4,
+    int_repairer_size8_class5,
+
 
     /**
      * Hull Reinforcement Packages
      */
 
-    Int_HullReinforcement_Size1_Class1,
-    Int_HullReinforcement_Size1_Class2,
+    int_hullreinforcement_size1_class1,
+    int_hullreinforcement_size1_class2,
 
-    Int_HullReinforcement_Size2_Class1,
-    Int_HullReinforcement_Size2_Class2,
+    int_hullreinforcement_size2_class1,
+    int_hullreinforcement_size2_class2,
 
-    Int_HullReinforcement_Size3_Class1,
-    Int_HullReinforcement_Size3_Class2,
+    int_hullreinforcement_size3_class1,
+    int_hullreinforcement_size3_class2,
 
-    Int_HullReinforcement_Size4_Class1,
-    Int_HullReinforcement_Size4_Class2,
+    int_hullreinforcement_size4_class1,
+    int_hullreinforcement_size4_class2,
 
-    Int_HullReinforcement_Size5_Class1,
-    Int_HullReinforcement_Size5_Class2,
+    int_hullreinforcement_size5_class1,
+    int_hullreinforcement_size5_class2,
 
     /**
      * Module Reinforcement Packages
      */
 
-    Int_ModuleReinforcement_Size1_Class1,
-    Int_ModuleReinforcement_Size1_Class2,
+    int_modulereinforcement_size1_class1,
+    int_modulereinforcement_size1_class2,
 
-    Int_ModuleReinforcement_Size2_Class1,
-    Int_ModuleReinforcement_Size2_Class2,
+    int_modulereinforcement_size2_class1,
+    int_modulereinforcement_size2_class2,
 
-    Int_ModuleReinforcement_Size3_Class1,
-    Int_ModuleReinforcement_Size3_Class2,
+    int_modulereinforcement_size3_class1,
+    int_modulereinforcement_size3_class2,
 
-    Int_ModuleReinforcement_Size4_Class1,
-    Int_ModuleReinforcement_Size4_Class2,
+    int_modulereinforcement_size4_class1,
+    int_modulereinforcement_size4_class2,
 
-    Int_ModuleReinforcement_Size5_Class1,
-    Int_ModuleReinforcement_Size5_Class2,
+    int_modulereinforcement_size5_class1,
+    int_modulereinforcement_size5_class2,
 
     /**
      * Fuel Scoops
      */
 
-    Int_FuelScoop_Size1_Class1,
-    Int_FuelScoop_Size1_Class2,
-    Int_FuelScoop_Size1_Class3,
-    Int_FuelScoop_Size1_Class4,
-    Int_FuelScoop_Size1_Class5,
+    int_fuelscoop_size1_class1,
+    int_fuelscoop_size1_class2,
+    int_fuelscoop_size1_class3,
+    int_fuelscoop_size1_class4,
+    int_fuelscoop_size1_class5,
 
-    Int_FuelScoop_Size2_Class1,
-    Int_FuelScoop_Size2_Class2,
-    Int_FuelScoop_Size2_Class3,
-    Int_FuelScoop_Size2_Class4,
-    Int_FuelScoop_Size2_Class5,
+    int_fuelscoop_size2_class1,
+    int_fuelscoop_size2_class2,
+    int_fuelscoop_size2_class3,
+    int_fuelscoop_size2_class4,
+    int_fuelscoop_size2_class5,
 
-    Int_FuelScoop_Size3_Class1,
-    Int_FuelScoop_Size3_Class2,
-    Int_FuelScoop_Size3_Class3,
-    Int_FuelScoop_Size3_Class4,
-    Int_FuelScoop_Size3_Class5,
+    int_fuelscoop_size3_class1,
+    int_fuelscoop_size3_class2,
+    int_fuelscoop_size3_class3,
+    int_fuelscoop_size3_class4,
+    int_fuelscoop_size3_class5,
 
-    Int_FuelScoop_Size4_Class1,
-    Int_FuelScoop_Size4_Class2,
-    Int_FuelScoop_Size4_Class3,
-    Int_FuelScoop_Size4_Class4,
-    Int_FuelScoop_Size4_Class5,
+    int_fuelscoop_size4_class1,
+    int_fuelscoop_size4_class2,
+    int_fuelscoop_size4_class3,
+    int_fuelscoop_size4_class4,
+    int_fuelscoop_size4_class5,
 
-    Int_FuelScoop_Size5_Class1,
-    Int_FuelScoop_Size5_Class2,
-    Int_FuelScoop_Size5_Class3,
-    Int_FuelScoop_Size5_Class4,
-    Int_FuelScoop_Size5_Class5,
+    int_fuelscoop_size5_class1,
+    int_fuelscoop_size5_class2,
+    int_fuelscoop_size5_class3,
+    int_fuelscoop_size5_class4,
+    int_fuelscoop_size5_class5,
 
-    Int_FuelScoop_Size6_Class1,
-    Int_FuelScoop_Size6_Class2,
-    Int_FuelScoop_Size6_Class3,
-    Int_FuelScoop_Size6_Class4,
-    Int_FuelScoop_Size6_Class5,
+    int_fuelscoop_size6_class1,
+    int_fuelscoop_size6_class2,
+    int_fuelscoop_size6_class3,
+    int_fuelscoop_size6_class4,
+    int_fuelscoop_size6_class5,
 
-    Int_FuelScoop_Size7_Class1,
-    Int_FuelScoop_Size7_Class2,
-    Int_FuelScoop_Size7_Class3,
-    Int_FuelScoop_Size7_Class4,
-    Int_FuelScoop_Size7_Class5,
+    int_fuelscoop_size7_class1,
+    int_fuelscoop_size7_class2,
+    int_fuelscoop_size7_class3,
+    int_fuelscoop_size7_class4,
+    int_fuelscoop_size7_class5,
 
-    Int_FuelScoop_Size8_Class1,
-    Int_FuelScoop_Size8_Class2,
-    Int_FuelScoop_Size8_Class3,
-    Int_FuelScoop_Size8_Class4,
-    Int_FuelScoop_Size8_Class5,
+    int_fuelscoop_size8_class1,
+    int_fuelscoop_size8_class2,
+    int_fuelscoop_size8_class3,
+    int_fuelscoop_size8_class4,
+    int_fuelscoop_size8_class5,
+
+
+    /**
+     * Refineries
+     */
+
+    int_refinery_size1_class1,
+    int_refinery_size1_class2,
+    int_refinery_size1_class3,
+    int_refinery_size1_class4,
+    int_refinery_size1_class5,
+
+    int_refinery_size2_class1,
+    int_refinery_size2_class2,
+    int_refinery_size2_class3,
+    int_refinery_size2_class4,
+    int_refinery_size2_class5,
+
+    int_refinery_size3_class1,
+    int_refinery_size3_class2,
+    int_refinery_size3_class3,
+    int_refinery_size3_class4,
+    int_refinery_size3_class5,
+
+    int_refinery_size4_class1,
+    int_refinery_size4_class2,
+    int_refinery_size4_class3,
+    int_refinery_size4_class4,
+    int_refinery_size4_class5,
+
+
+    /**
+     * FSD Interdictors
+     */
+
+    int_fsdinterdictor_size1_class1,
+    int_fsdinterdictor_size1_class2,
+    int_fsdinterdictor_size1_class3,
+    int_fsdinterdictor_size1_class4,
+    int_fsdinterdictor_size1_class5,
+
+    int_fsdinterdictor_size2_class1,
+    int_fsdinterdictor_size2_class2,
+    int_fsdinterdictor_size2_class3,
+    int_fsdinterdictor_size2_class4,
+    int_fsdinterdictor_size2_class5,
+
+    int_fsdinterdictor_size3_class1,
+    int_fsdinterdictor_size3_class2,
+    int_fsdinterdictor_size3_class3,
+    int_fsdinterdictor_size3_class4,
+    int_fsdinterdictor_size3_class5,
+
+    int_fsdinterdictor_size4_class1,
+    int_fsdinterdictor_size4_class2,
+    int_fsdinterdictor_size4_class3,
+    int_fsdinterdictor_size4_class4,
+    int_fsdinterdictor_size4_class5,
+
 
     /**
      * Cargo Racks
      */
 
-    Int_CargoRack_Size6_Class1,
+    int_cargorack_size1_class1,
+    int_cargorack_size2_class1,
+    int_cargorack_size3_class1,
+    int_cargorack_size4_class1,
+    int_cargorack_size5_class1,
+    int_cargorack_size6_class1,
+    int_cargorack_size7_class1,
+    int_cargorack_size8_class1,
+
 
     /**
-     * Limpet Controllers
+     * Passenger Cabins
      */
 
-    Int_DroneControl_Collection_Size3_Class5,
+    int_passengercabin_size2_class1,
+
+    int_passengercabin_size3_class1,
+    int_passengercabin_size3_class2,
+
+    int_passengercabin_size4_class1,
+    int_passengercabin_size4_class2,
+    int_passengercabin_size4_class3,
+
+    int_passengercabin_size5_class1,
+    int_passengercabin_size5_class2,
+    int_passengercabin_size5_class3,
+    int_passengercabin_size5_class4,
+
+    int_passengercabin_size6_class1,
+    int_passengercabin_size6_class2,
+    int_passengercabin_size6_class3,
+    int_passengercabin_size6_class4,
+
+
+    /**
+     * Collector Limpet Controllers
+     */
+
+    int_dronecontrol_collection_size1_class1,
+    int_dronecontrol_collection_size1_class2,
+    int_dronecontrol_collection_size1_class3,
+    int_dronecontrol_collection_size1_class4,
+    int_dronecontrol_collection_size1_class5,
+
+    int_dronecontrol_collection_size3_class1,
+    int_dronecontrol_collection_size3_class2,
+    int_dronecontrol_collection_size3_class3,
+    int_dronecontrol_collection_size3_class4,
+    int_dronecontrol_collection_size3_class5,
+
+    int_dronecontrol_collection_size5_class1,
+    int_dronecontrol_collection_size5_class2,
+    int_dronecontrol_collection_size5_class3,
+    int_dronecontrol_collection_size5_class4,
+    int_dronecontrol_collection_size5_class5,
+
+    int_dronecontrol_collection_size7_class1,
+    int_dronecontrol_collection_size7_class2,
+    int_dronecontrol_collection_size7_class3,
+    int_dronecontrol_collection_size7_class4,
+    int_dronecontrol_collection_size7_class5,
+
+
+    /**
+     * Prospector Limpet Controllers
+     */
+
+    int_dronecontrol_prospector_size1_class1,
+    int_dronecontrol_prospector_size1_class2,
+    int_dronecontrol_prospector_size1_class3,
+    int_dronecontrol_prospector_size1_class4,
+    int_dronecontrol_prospector_size1_class5,
+
+    int_dronecontrol_prospector_size3_class1,
+    int_dronecontrol_prospector_size3_class2,
+    int_dronecontrol_prospector_size3_class3,
+    int_dronecontrol_prospector_size3_class4,
+    int_dronecontrol_prospector_size3_class5,
+
+    int_dronecontrol_prospector_size5_class1,
+    int_dronecontrol_prospector_size5_class2,
+    int_dronecontrol_prospector_size5_class3,
+    int_dronecontrol_prospector_size5_class4,
+    int_dronecontrol_prospector_size5_class5,
+
+    int_dronecontrol_prospector_size7_class1,
+    int_dronecontrol_prospector_size7_class2,
+    int_dronecontrol_prospector_size7_class3,
+    int_dronecontrol_prospector_size7_class4,
+    int_dronecontrol_prospector_size7_class5,
+
+
+    /**
+     * Fuel Transfer Limpet Controllers
+     */
+
+    int_dronecontrol_fueltransfer_size1_class1,
+    int_dronecontrol_fueltransfer_size1_class2,
+    int_dronecontrol_fueltransfer_size1_class3,
+    int_dronecontrol_fueltransfer_size1_class4,
+    int_dronecontrol_fueltransfer_size1_class5,
+
+    int_dronecontrol_fueltransfer_size3_class1,
+    int_dronecontrol_fueltransfer_size3_class2,
+    int_dronecontrol_fueltransfer_size3_class3,
+    int_dronecontrol_fueltransfer_size3_class4,
+    int_dronecontrol_fueltransfer_size3_class5,
+
+    int_dronecontrol_fueltransfer_size5_class1,
+    int_dronecontrol_fueltransfer_size5_class2,
+    int_dronecontrol_fueltransfer_size5_class3,
+    int_dronecontrol_fueltransfer_size5_class4,
+    int_dronecontrol_fueltransfer_size5_class5,
+
+    int_dronecontrol_fueltransfer_size7_class1,
+    int_dronecontrol_fueltransfer_size7_class2,
+    int_dronecontrol_fueltransfer_size7_class3,
+    int_dronecontrol_fueltransfer_size7_class4,
+    int_dronecontrol_fueltransfer_size7_class5,
+
+
+    /**
+     * Repair Limpet Controllers
+     */
+
+    int_dronecontrol_repair_size1_class1,
+    int_dronecontrol_repair_size1_class2,
+    int_dronecontrol_repair_size1_class3,
+    int_dronecontrol_repair_size1_class4,
+    int_dronecontrol_repair_size1_class5,
+
+    int_dronecontrol_repair_size3_class1,
+    int_dronecontrol_repair_size3_class2,
+    int_dronecontrol_repair_size3_class3,
+    int_dronecontrol_repair_size3_class4,
+    int_dronecontrol_repair_size3_class5,
+
+    int_dronecontrol_repair_size5_class1,
+    int_dronecontrol_repair_size5_class2,
+    int_dronecontrol_repair_size5_class3,
+    int_dronecontrol_repair_size5_class4,
+    int_dronecontrol_repair_size5_class5,
+
+    int_dronecontrol_repair_size7_class1,
+    int_dronecontrol_repair_size7_class2,
+    int_dronecontrol_repair_size7_class3,
+    int_dronecontrol_repair_size7_class4,
+    int_dronecontrol_repair_size7_class5,
+
+
+    /**
+     * Hatch Breaker Limpet Controllers
+     */
+
+    int_dronecontrol_resourcesiphon_size1_class1,
+    int_dronecontrol_resourcesiphon_size1_class2,
+    int_dronecontrol_resourcesiphon_size1_class3,
+    int_dronecontrol_resourcesiphon_size1_class4,
+    int_dronecontrol_resourcesiphon_size1_class5,
+
+    int_dronecontrol_resourcesiphon_size3_class1,
+    int_dronecontrol_resourcesiphon_size3_class2,
+    int_dronecontrol_resourcesiphon_size3_class3,
+    int_dronecontrol_resourcesiphon_size3_class4,
+    int_dronecontrol_resourcesiphon_size3_class5,
+
+    int_dronecontrol_resourcesiphon_size5_class1,
+    int_dronecontrol_resourcesiphon_size5_class2,
+    int_dronecontrol_resourcesiphon_size5_class3,
+    int_dronecontrol_resourcesiphon_size5_class4,
+    int_dronecontrol_resourcesiphon_size5_class5,
+
+    int_dronecontrol_resourcesiphon_size7_class1,
+    int_dronecontrol_resourcesiphon_size7_class2,
+    int_dronecontrol_resourcesiphon_size7_class3,
+    int_dronecontrol_resourcesiphon_size7_class4,
+    int_dronecontrol_resourcesiphon_size7_class5,
+
+
+    /**
+     * Decontamination Limpet Controllers
+     */
+
+    int_dronecontrol_decontamination_size1_class1,
+    int_dronecontrol_decontamination_size3_class1,
+    int_dronecontrol_decontamination_size5_class1,
+    int_dronecontrol_decontamination_size7_class1,
+
+
+    /**
+     * Recon Limpet Controller
+     */
+
+    int_dronecontrol_recon_size1_class1,
+    int_dronecontrol_recon_size3_class1,
+    int_dronecontrol_recon_size5_class1,
+    int_dronecontrol_recon_size7_class1,
+
+
+    /**
+     * Research Limpet Controller
+     */
+
+    int_dronecontrol_unkvesselresearch,
+
 
     /**
      * SRV Bays
      */
 
-    Int_BuggyBay_Size2_Class2,
+    int_buggybay_size2_class1,
+    int_buggybay_size2_class2,
+
+    int_buggybay_size4_class1,
+    int_buggybay_size4_class2,
+
+    int_buggybay_size6_class1,
+    int_buggybay_size6_class2,
+
+
+    /**
+     * Fighter Bays
+     */
+
+    int_fighterbay_size5_class1,
+    int_fighterbay_size6_class1,
+    int_fighterbay_size7_class1,
+
+
+    /**
+     * Discovery Scanners
+     */
+
+    int_stellarbodydiscoveryscanner_standard,
+    int_stellarbodydiscoveryscanner_intermediate,
+    int_stellarbodydiscoveryscanner_advanced,
+
+    /**
+     * Detailed Surface Scanner
+     */
+
+    int_detailedsurfacescanner_tiny,
+
+
+    /**
+     * Docking Computer
+     */
+
+    int_dockingcomputer_standard,
+
 
     /**
      * Planetary Approach Suite
      */
-    Int_PlanetApproachSuite,
+
+    int_planetapproachsuite,
 
     ;
 

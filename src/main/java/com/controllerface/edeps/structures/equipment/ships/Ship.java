@@ -1,5 +1,6 @@
 package com.controllerface.edeps.structures.equipment.ships;
 
+import com.controllerface.edeps.data.BaseShipStats;
 import com.controllerface.edeps.data.CoreModuleLayoutData;
 import com.controllerface.edeps.data.HardPointLayoutData;
 import com.controllerface.edeps.data.OptionalModuleLayoutData;
@@ -13,7 +14,25 @@ import java.util.Arrays;
  */
 public enum Ship
 {
-    ADDER(ShipSize.Small,
+    adder(
+            BaseShipStats.builder()
+                    .setDisplayName("Adder")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Zorgon_Peterson)
+                    .setAgility(152)
+                    .setHullMass(35)
+                    .setHullHardness(35)
+                    .setSpeed(220)
+                    .setMaxSpeed(352)
+                    .setBoostSpeed(320)
+                    .setMaxBoostSpeed(512)
+                    .setArmorRating(162)
+                    .setBaseShield(60)
+                    .setBaseCost(87_810)
+                    .setMassLockFactor(7)
+                    .setCrewSeats(2)
+                    .setSlfCapable(false)
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_3)
@@ -41,7 +60,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_3)
                     .build()),
 
-    COBRA_MKIII(ShipSize.Small,
+    cobramkiii(
+            BaseShipStats.builder()
+                    .setDisplayName("Cobra MKIII")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Faulcon_DeLacy)
+                    .setAgility(150)
+                    .setHullMass(180)
+                    .setHullHardness(35)
+                    .setSpeed(280)
+                    .setMaxSpeed(325)
+                    .setBoostSpeed(400)
+                    .setMaxBoostSpeed(464)
+                    .setArmorRating(216)
+                    .setBaseShield(80)
+                    .setBaseCost(349_720)
+                    .setMassLockFactor(8)
+                    .setCrewSeats(2)
+                    .setSlfCapable(false)
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_4)
@@ -71,7 +108,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_4)
                     .build()),
 
-    COBRA_MKIV(ShipSize.Small,
+    cobramkiv(
+            BaseShipStats.builder()
+                    .setDisplayName("Cobra MKIV")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Faulcon_DeLacy)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_4)
@@ -104,7 +159,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_4)
                     .build()),
 
-    DIAMONDBACK_EXPLORER(ShipSize.Small,
+    diamondbackxl(
+            BaseShipStats.builder()
+                    .setDisplayName("Diamondback Explorer")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Lakon)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_4)
@@ -135,7 +208,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_4)
                     .build()),
 
-    DIAMONDBACK_SCOUT(ShipSize.Small,
+    diamondback(
+            BaseShipStats.builder()
+                    .setDisplayName("Diamondback Scout")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Lakon)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_4)
@@ -165,7 +256,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_3)
                     .build()),
 
-    DOLPHIN(ShipSize.Small,
+    dolphin(
+            BaseShipStats.builder()
+                    .setDisplayName("Dolphin")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Saud_Kruger)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_4)
@@ -195,7 +304,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_5)
                     .build()),
 
-    EAGLE_MK_II(ShipSize.Small,
+    eagle(
+            BaseShipStats.builder()
+                    .setDisplayName("Eagle")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Core_Dynamics)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_2)
@@ -222,7 +349,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_3)
                     .build()),
 
-    HAULER(ShipSize.Small,
+    hauler(
+            BaseShipStats.builder()
+                    .setDisplayName("Hauler")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Zorgon_Peterson)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_2)
@@ -247,7 +392,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_3)
                     .build()),
 
-    EMPIRE_COURIER(ShipSize.Small,
+    empire_courier(
+            BaseShipStats.builder()
+                    .setDisplayName("Imperial Courier")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Gutamaya)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_4)
@@ -278,7 +441,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_3)
                     .build()),
 
-    EMPIRE_EAGLE(ShipSize.Small,
+    empire_eagle(
+            BaseShipStats.builder()
+                    .setDisplayName("Imperial Eagle")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Core_Dynamics)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_3)
@@ -305,7 +486,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_3)
                     .build()),
 
-    SIDEWINDER(ShipSize.Small,
+    sidewinder(
+            BaseShipStats.builder()
+                    .setDisplayName("Sidewinder")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Faulcon_DeLacy)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_2)
@@ -331,7 +530,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_2)
                     .build()),
 
-    VIPER_MKIII(ShipSize.Small,
+    viper(
+            BaseShipStats.builder()
+                    .setDisplayName("Viper MkIII")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Faulcon_DeLacy)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_3)
@@ -360,7 +577,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_3)
                     .build()),
 
-    VIPER_MKIV(ShipSize.Small,
+    viper_mkiv(
+            BaseShipStats.builder()
+                    .setDisplayName("Viper MkIV")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Faulcon_DeLacy)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_4)
@@ -391,7 +626,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_4)
                     .build()),
 
-    VULTURE(ShipSize.Small,
+    vulture(
+            BaseShipStats.builder()
+                    .setDisplayName("Vulture")
+                    .setShipSize(ShipSize.Small)
+                    .setManufacturer(ShipManufacturer.Core_Dynamics)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_4)
@@ -421,7 +674,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_5)
                     .build()),
 
-    ALLIANCE_CHIEFTAIN(ShipSize.Medium,
+    typex(
+            BaseShipStats.builder()
+                    .setDisplayName("Alliance Chieftain")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Lakon)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_6)
@@ -457,7 +728,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_6)
                     .build()),
 
-    ASP_EXPLORER(ShipSize.Medium,
+    asp(
+            BaseShipStats.builder()
+                    .setDisplayName("Asp Explorer")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Lakon)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_5)
@@ -492,7 +781,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_6)
                     .build()),
 
-    ASP_SCOUT(ShipSize.Medium,
+    asp_scout(
+            BaseShipStats.builder()
+                    .setDisplayName("Asp Scout")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Lakon)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_4)
@@ -522,7 +829,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_5)
                     .build()),
 
-    FEDERAL_ASSAULT_SHIP(ShipSize.Medium,
+    federation_dropship_mkii(
+            BaseShipStats.builder()
+                    .setDisplayName("Federal Assault Ship")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Core_Dynamics)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_6)
@@ -556,7 +881,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_5)
                     .build()),
 
-    FEDERAL_DROPSHIP(ShipSize.Medium,
+    federation_dropship(
+            BaseShipStats.builder()
+                    .setDisplayName("Federal Dropship")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Core_Dynamics)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_6)
@@ -592,7 +935,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_6)
                     .build()),
 
-    FEDERAL_GUNSHIP(ShipSize.Medium,
+    federation_gunship(
+            BaseShipStats.builder()
+                    .setDisplayName("Federal Gunship")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Core_Dynamics)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_6)
@@ -629,7 +990,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_6)
                     .build()),
 
-    FERDELANCE(ShipSize.Medium,
+    ferdelance(
+            BaseShipStats.builder()
+                    .setDisplayName("Fer-de-Lance")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Zorgon_Peterson)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_6)
@@ -661,7 +1040,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_5)
                     .build()),
 
-    KEELBACK(ShipSize.Medium,
+    independant_trader(
+            BaseShipStats.builder()
+                    .setDisplayName("Keelback")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Lakon)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_4)
@@ -692,7 +1089,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_5)
                     .build()),
 
-    PYTHON(ShipSize.Medium,
+    python(
+            BaseShipStats.builder()
+                    .setDisplayName("Python")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Faulcon_DeLacy)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_7)
@@ -728,7 +1143,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_6)
                     .build()),
 
-    TYPE6(ShipSize.Medium,
+    type6(
+            BaseShipStats.builder()
+                    .setDisplayName("Type-6 Transporter")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Lakon)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_3)
@@ -758,7 +1191,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_5)
                     .build()),
 
-    ANACONDA(ShipSize.Large,
+    anaconda(
+            BaseShipStats.builder()
+                    .setDisplayName("Anaconda")
+                    .setShipSize(ShipSize.Large)
+                    .setManufacturer(ShipManufacturer.Faulcon_DeLacy)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_8)
@@ -804,7 +1255,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_7)
                     .build()),
 
-    BELUGA_LINER(ShipSize.Large,
+    belugaliner(
+            BaseShipStats.builder()
+                    .setDisplayName("Beluga Liner")
+                    .setShipSize(ShipSize.Large)
+                    .setManufacturer(ShipManufacturer.Saud_Kruger)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_6)
@@ -844,7 +1313,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_6)
                     .build()),
 
-    FEDERAL_CORVETTE(ShipSize.Large,
+    federation_corvette(
+            BaseShipStats.builder()
+                    .setDisplayName("Federal Corvette")
+                    .setShipSize(ShipSize.Large)
+                    .setManufacturer(ShipManufacturer.Core_Dynamics)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_8)
@@ -889,7 +1376,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_7)
                     .build()),
 
-    EMPIRE_TRADER(ShipSize.Large,
+    empire_trader(
+            BaseShipStats.builder()
+                    .setDisplayName("Imperial Clipper")
+                    .setShipSize(ShipSize.Large)
+                    .setManufacturer(ShipManufacturer.Gutamaya)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_6)
@@ -923,7 +1428,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_7)
                     .build()),
 
-    IMPERIAL_CUTTER(ShipSize.Large,
+    cutter(
+            BaseShipStats.builder()
+                    .setDisplayName("Imperial Cutter")
+                    .setShipSize(ShipSize.Large)
+                    .setManufacturer(ShipManufacturer.Gutamaya)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_8)
@@ -967,7 +1490,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_8)
                     .build()),
 
-    ORCA(ShipSize.Large,
+    orca(
+            BaseShipStats.builder()
+                    .setDisplayName("Orca")
+                    .setShipSize(ShipSize.Large)
+                    .setManufacturer(ShipManufacturer.Saud_Kruger)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_5)
@@ -1000,7 +1541,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_6)
                     .build()),
 
-    TYPEX(ShipSize.Large,
+    type9_military(
+            BaseShipStats.builder()
+                    .setDisplayName("Type-10 Defender")
+                    .setShipSize(ShipSize.Large)
+                    .setManufacturer(ShipManufacturer.Lakon)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_8)
@@ -1046,7 +1605,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_8)
                     .build()),
 
-    TYPE7(ShipSize.Large,
+    type7(
+            BaseShipStats.builder()
+                    .setDisplayName("Type-7 Transporter")
+                    .setShipSize(ShipSize.Large)
+                    .setManufacturer(ShipManufacturer.Lakon)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_5)
@@ -1081,7 +1658,25 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_6)
                     .build()),
 
-    TYPE9(ShipSize.Large,
+    type9(
+            BaseShipStats.builder()
+                    .setDisplayName("Type-9 Heavy")
+                    .setShipSize(ShipSize.Large)
+                    .setManufacturer(ShipManufacturer.Lakon)
+                    .setAgility()
+                    .setHullMass()
+                    .setHullHardness()
+                    .setSpeed()
+                    .setMaxSpeed()
+                    .setBoostSpeed()
+                    .setMaxBoostSpeed()
+                    .setArmorRating()
+                    .setBaseShield()
+                    .setBaseCost()
+                    .setMassLockFactor()
+                    .setCrewSeats()
+                    .setSlfCapable()
+                    .build(),
 
             CoreModuleLayoutData.builder()
                     .setPowerPlant(ModuleSize.SIZE_6)
@@ -1120,14 +1715,14 @@ public enum Ship
 
     ;
 
-    private final ShipSize shipSize;
+    private final BaseShipStats baseShipStats;
     private final CoreModuleLayoutData coreModules;
     private final HardPointLayoutData hardpoints;
     private final OptionalModuleLayoutData internals;
 
-    Ship(ShipSize shipSize, CoreModuleLayoutData coreModules, HardPointLayoutData hardpoints, OptionalModuleLayoutData internals)
+    Ship(BaseShipStats baseShipStats, CoreModuleLayoutData coreModules, HardPointLayoutData hardpoints, OptionalModuleLayoutData internals)
     {
-        this.shipSize = shipSize;
+        this.baseShipStats = baseShipStats;
         this.coreModules = coreModules;
         this.hardpoints = hardpoints;
         this.internals = internals;
