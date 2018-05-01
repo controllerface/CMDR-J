@@ -16,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Pair;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 
@@ -29,7 +30,6 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
     private final Button addButton = new Button("+");
     private final HBox buttonBox =  new HBox(subtractButton, countLabel, addButton);
     private static final AtomicReference<Font> baseFont = new AtomicReference<>(null);
-
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate;
 
     public TaskCountCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
@@ -41,8 +41,8 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
     protected void updateItem(ProcurementRecipeData item, boolean empty)
     {
         super.updateItem(item, empty);
-
-        if (!empty)
+        if (item == null) setGraphic(null);
+        if (item != null && !empty)
         {
             synchronized (baseFont)
             {
@@ -54,7 +54,6 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
                     baseFont.set(b);
                 }
             }
-
 
             // Plus
             Line line1 = new Line();
@@ -114,7 +113,5 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
 
             setGraphic(buttonBox);
         }
-
-        if (item==null) setGraphic(null);
     }
 }

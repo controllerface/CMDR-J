@@ -30,6 +30,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Font;
@@ -96,18 +99,24 @@ public class UIController
     @FXML private TableColumn<InventoryData, Label> cargoQuantityColumn;
 
     // Procurement task table
-    @FXML private TableView<ProcurementRecipeData> procurementRecipeTable;
-    @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> recipeCountColumn;
-    @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> recipeNameColumn;
-    @FXML private TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>> recipeRemoveColumn;
+    @FXML private TableView<ProcurementRecipeData> procurementTaskTable;
+    @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> taskCountColumn;
+    @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> taskNameColumn;
+    @FXML private TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>> taskRemoveColumn;
+
+    // The observable list backing the task list table view
+    private ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableList(new ArrayList<>());
 
     // Procurement cost table
-    @FXML private TableView<ItemCostData> procurementCostTable;
-    @FXML private TableColumn<ItemCostData, ProgressIndicator> costProgressColumn;
-    @FXML private TableColumn<ItemCostData, Number> costNeedColumn;
-    @FXML private TableColumn<ItemCostData, Number> costHaveColumn;
-    @FXML private TableColumn<ItemCostData, String> costNameColumn;
-    @FXML private TableColumn<ItemCostData, String> costTypeColumn;
+    @FXML private TableView<ItemCostData> taskCostTable;
+    @FXML private TableColumn<ItemCostData, ProgressIndicator> taskCostProgressColumn;
+    @FXML private TableColumn<ItemCostData, Number> taskCostNeedColumn;
+    @FXML private TableColumn<ItemCostData, Number> taskCostHaveColumn;
+    @FXML private TableColumn<ItemCostData, String> taskCostNameColumn;
+    @FXML private TableColumn<ItemCostData, String> taskCostTypeColumn;
+
+    // The observable list backing the task cost table view
+    private ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableList(new ArrayList<>());
 
     // player stats
     @FXML private TableView<Pair<Statistic, String>> statTable;
@@ -393,8 +402,11 @@ public class UIController
         recipeTableLabel.setFont(recipeTableFont);
         costTableLabel.setFont(costTableFont);
 
-        procurementRecipeTable.setPlaceholder(recipeTableLabel);
-        procurementCostTable.setPlaceholder(costTableLabel);
+        procurementTaskTable.setPlaceholder(recipeTableLabel);
+        procurementTaskTable.setItems(taskBackingList);
+
+        taskCostTable.setPlaceholder(costTableLabel);
+        taskCostTable.setItems(taskCostBackingList);
 
         // set the cell value factories for the player inventory tabs
         rawCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
@@ -422,29 +434,29 @@ public class UIController
         cargoQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
 
         // set the cell and cell value factories for the procurement recipe list
-        recipeCountColumn.setCellFactory(UIFunctions.Data.makeModRollCellFactory.apply(procurementListUpdate));
-        recipeCountColumn.setCellValueFactory(UIFunctions.Data.modRollCellValueFactory);
-        recipeCountColumn.setStyle( "-fx-alignment: CENTER;");
+        taskCountColumn.setCellFactory(UIFunctions.Data.makeModRollCellFactory.apply(procurementListUpdate));
+        taskCountColumn.setCellValueFactory(UIFunctions.Data.modRollCellValueFactory);
+        taskCountColumn.setStyle( "-fx-alignment: CENTER;");
 
-        recipeNameColumn.setCellFactory(UIFunctions.Data.makeModNameCellFactory.apply(commanderData::hasItem));
-        recipeNameColumn.setCellValueFactory(UIFunctions.Data.modNameCellValueFactory);
-        recipeRemoveColumn.setCellFactory(UIFunctions.Data.makeModControlCellFactory.apply(procurementListUpdate));
-        recipeRemoveColumn.setCellValueFactory(UIFunctions.Data.modControlCellValueFactory);
+        taskNameColumn.setCellFactory(UIFunctions.Data.makeModNameCellFactory.apply(commanderData::hasItem));
+        taskNameColumn.setCellValueFactory(UIFunctions.Data.modNameCellValueFactory);
+        taskRemoveColumn.setCellFactory(UIFunctions.Data.makeModControlCellFactory.apply(procurementListUpdate));
+        taskRemoveColumn.setCellValueFactory(UIFunctions.Data.modControlCellValueFactory);
 
         // set the cell and cell value factories for the procurement material list
-        costProgressColumn.setCellFactory(UIFunctions.Data.costProgressCellFactory);
-        costProgressColumn.setCellValueFactory(UIFunctions.Data.costProgressCellValueFactory);
+        taskCostProgressColumn.setCellFactory(UIFunctions.Data.costProgressCellFactory);
+        taskCostProgressColumn.setCellValueFactory(UIFunctions.Data.costProgressCellValueFactory);
 
-        costNeedColumn.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
-        costNeedColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
-        costHaveColumn.setCellValueFactory(UIFunctions.Data.costHaveCellFactory);
-        costHaveColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
+        taskCostNeedColumn.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
+        taskCostNeedColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
+        taskCostHaveColumn.setCellValueFactory(UIFunctions.Data.costHaveCellFactory);
+        taskCostHaveColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
 
-        costNameColumn.setCellValueFactory(UIFunctions.Data.costNameCellValueFactory);
-        costNameColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
+        taskCostNameColumn.setCellValueFactory(UIFunctions.Data.costNameCellValueFactory);
+        taskCostNameColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
 
-        costTypeColumn.setCellValueFactory(UIFunctions.Data.costTypeCellFactory);
-        costTypeColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
+        taskCostTypeColumn.setCellValueFactory(UIFunctions.Data.costTypeCellFactory);
+        taskCostTypeColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
 
 
         statNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
@@ -469,24 +481,24 @@ public class UIController
 
 
         // set the sorting comparator for the material progress column of the procurement list
-        costProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
+        taskCostProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
 
-        DoubleBinding recipeTableWidthUsed = recipeCountColumn.widthProperty()
-                .add(recipeRemoveColumn.widthProperty())
+        DoubleBinding recipeTableWidthUsed = taskCountColumn.widthProperty()
+                .add(taskRemoveColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
 
-        recipeNameColumn.prefWidthProperty()
-                .bind(procurementRecipeTable.widthProperty()
+        taskNameColumn.prefWidthProperty()
+                .bind(procurementTaskTable.widthProperty()
                         .subtract(recipeTableWidthUsed));
 
-        DoubleBinding costTableWidthUsed = costProgressColumn.widthProperty()
-                .add(costNeedColumn.widthProperty())
-                .add(costHaveColumn.widthProperty())
-                .add(costTypeColumn.widthProperty())
+        DoubleBinding costTableWidthUsed = taskCostProgressColumn.widthProperty()
+                .add(taskCostNeedColumn.widthProperty())
+                .add(taskCostHaveColumn.widthProperty())
+                .add(taskCostTypeColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
 
-        costNameColumn.prefWidthProperty()
-                .bind(procurementCostTable.widthProperty()
+        taskCostNameColumn.prefWidthProperty()
+                .bind(taskCostTable.widthProperty()
                         .subtract(costTableWidthUsed));
     }
 
@@ -758,8 +770,8 @@ public class UIController
 
         // Whenever we sync the UI, we always clear out the data structures first, as everything will be re-calculated
         // according to the current state of the player's inventory and stats
-        //procurementRecipeTable.getItems().clear();
-        //procurementCostTable.getItems().clear();
+        //procurementTaskTable.getItems().clear();
+        //taskCostTable.getItems().clear();
         statTable.getItems().clear();
         rankTable.getItems().clear();
         shipTable.getItems().clear();
@@ -772,7 +784,9 @@ public class UIController
             // do recipes
             AtomicBoolean recipeFound = new AtomicBoolean(false);
             AtomicReference<ProcurementRecipeData> removedRecipe = new AtomicReference<>(null);
-            procurementRecipeTable.getItems().stream()
+
+
+            taskBackingList.stream()
                     .filter(recipePair -> recipePair.matches(procPair))
                     .findFirst()
                     .ifPresent(foundRecipe ->
@@ -785,13 +799,15 @@ public class UIController
                         }
                     });
 
-            if (removedRecipe.get()!=null) procurementRecipeTable.getItems().remove(removedRecipe.get());
+            if (removedRecipe.get()!=null) taskBackingList.remove(removedRecipe.get());
 
             if (!recipeFound.get())
             {
                 ProcurementRecipeData newItem = new ProcurementRecipeData(procPair.getKey(), procPair.getValue(), count);
-                procurementRecipeTable.getItems().add(newItem);
+                taskBackingList.add(newItem);
             }
+
+
 
 
             procPair.getValue().costStream()
@@ -799,7 +815,7 @@ public class UIController
                     {
                         AtomicBoolean costFound = new AtomicBoolean(false);
 
-                        procurementCostTable.getItems().stream()
+                        taskCostBackingList.stream()
                                 .filter(costData -> costData.matches(mat.getCost()))
                                 .findFirst()
                                 .ifPresent(foundCost ->
@@ -816,25 +832,25 @@ public class UIController
                             int newCost = mat.getQuantity() * count;
                             newItem.setCount(newCost);
                             costs.put(newItem.getCost(), newCost);
-                            procurementCostTable.getItems().add(newItem);
+                            taskCostBackingList.add(newItem);
                         }
                     });
 
 
         });
 
-        List<ItemCostData> toRemove = procurementCostTable.getItems().stream()
+        List<ItemCostData> toRemove = taskCostBackingList.stream()
                 .filter(c->costs.get(c.getCost())!=null)
                 .filter(c->costs.get(c.getCost())!=c.getCount())
                 .peek(c->c.setCount(costs.get(c.getCost() )))
                 .filter(c->c.getCount()<=0)
                 .collect(Collectors.toList());
 
-        toRemove.forEach(i->procurementCostTable.getItems().remove(i));
+        toRemove.forEach(i-> taskCostBackingList.remove(i));
 
-        if (procurementRecipeTable.getItems().size() > 0)
+        if (procurementTaskTable.getItems().size() > 0)
         {
-            procurementRecipeTable.getItems().sort((a, b) ->
+            procurementTaskTable.getItems().sort((a, b) ->
             {
                 String as = a.asPair().getKey().toString() + a.asPair().getValue().toString();
                 String bs = b.asPair().getKey().toString() + b.asPair().getValue().toString();
@@ -842,9 +858,9 @@ public class UIController
             });
         }
 
-        if (procurementCostTable.getItems().size() > 0)
+        if (taskCostTable.getItems().size() > 0)
         {
-            procurementCostTable.getItems().sort((a, b)->
+            taskCostTable.getItems().sort((a, b)->
             {
                 double ad = ((double)a.getHave() / (double)a.getNeed());
                 double bd = ((double)b.getHave() / (double)b.getNeed());
@@ -877,8 +893,8 @@ public class UIController
         setProcumentsUIVisibility();
 
         // update the UI elements
-        procurementRecipeTable.refresh();
-        procurementCostTable.refresh();
+        procurementTaskTable.refresh();
+        taskCostTable.refresh();
         statTable.refresh();
         rankTable.refresh();
         shipTable.refresh();
@@ -898,16 +914,16 @@ public class UIController
         if (showTasks.isSelected())
         {
             shown++;
-            procurementRecipeTable.setPrefHeight(10000);
+            procurementTaskTable.setPrefHeight(10000);
         }
-        else procurementRecipeTable.setPrefHeight(0);
+        else procurementTaskTable.setPrefHeight(0);
 
         if (showItemsNeeded.isSelected())
         {
             shown++;
-            procurementCostTable.setPrefHeight(10000);
+            taskCostTable.setPrefHeight(10000);
         }
-        else procurementCostTable.setPrefHeight(0);
+        else taskCostTable.setPrefHeight(0);
 
         if (shown == 1)
         {
