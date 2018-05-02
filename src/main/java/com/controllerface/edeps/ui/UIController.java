@@ -523,6 +523,10 @@ public class UIController
         // set the sorting comparator for the material progress column of the procurement list
         taskCostProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
 
+
+
+
+
         DoubleBinding recipeTableWidthUsed = taskCountColumn.widthProperty()
                 .add(taskRemoveColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
@@ -530,6 +534,10 @@ public class UIController
         taskNameColumn.prefWidthProperty()
                 .bind(procurementTaskTable.widthProperty()
                         .subtract(recipeTableWidthUsed));
+
+
+
+
 
         DoubleBinding costTableWidthUsed = taskCostProgressColumn.widthProperty()
                 .add(taskCostNeedColumn.widthProperty())
@@ -540,6 +548,35 @@ public class UIController
         taskCostNameColumn.prefWidthProperty()
                 .bind(taskCostTable.widthProperty()
                         .subtract(costTableWidthUsed));
+
+
+
+
+
+        DoubleBinding shipTable1WidthUsed = coreModuleNameColumn.widthProperty()
+                .add(UIFunctions.scrollBarAllowance);
+
+        coreModuleDataColumn.prefWidthProperty()
+                .bind(coreModuleList.widthProperty()
+                        .subtract(shipTable1WidthUsed));
+
+
+
+        DoubleBinding shipTable2WidthUsed = optionalModuleNameColumn.widthProperty()
+                .add(UIFunctions.scrollBarAllowance);
+
+        optionalModuleDataColumn.prefWidthProperty()
+                .bind(optionalModuleList.widthProperty()
+                        .subtract(shipTable2WidthUsed));
+
+
+        DoubleBinding shipTable3WidthUsed = hardpointNameColumn.widthProperty()
+                .add(UIFunctions.scrollBarAllowance);
+
+        hardpointDataColumn.prefWidthProperty()
+                .bind(hardpointList.widthProperty()
+                        .subtract(shipTable3WidthUsed));
+
     }
 
     private TreeItem<ProcTreeData> makeSynthesisTree()

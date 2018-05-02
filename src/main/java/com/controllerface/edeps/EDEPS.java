@@ -5,10 +5,13 @@ package com.controllerface.edeps;
 
 import com.controllerface.edeps.ui.UIController;
 import javafx.application.Application;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,8 +53,17 @@ public class EDEPS extends Application
 
         primaryStage.setTitle("Elite Dangerous Engineering Procurement System");
         primaryStage.setScene(scene);
-        //primaryStage.setResizable(false);
         primaryStage.show();
+
+        primaryStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST,
+                (e)->
+                {
+                    System.out.println("X:"+primaryStage.getX());
+                    System.out.println("Y:"+primaryStage.getY());
+                    System.out.println("H:"+primaryStage.getHeight());
+                    System.out.println("W:"+primaryStage.getWidth());
+
+                });
 
     }
 
