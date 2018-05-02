@@ -45,6 +45,87 @@ public class BaseShipStats
         this.slfCapable = builder.slfCapable;
     }
 
+
+    public String getDisplayName()
+    {
+        return displayName;
+    }
+
+    public ShipSize getShipSize()
+    {
+        return shipSize;
+    }
+
+    public ShipManufacturer getManufacturer()
+    {
+        return manufacturer;
+    }
+
+    public int getAgility()
+    {
+        return agility;
+    }
+
+    public int getHullMass()
+    {
+        return hullMass;
+    }
+
+    public int getHullHardness()
+    {
+        return hullHardness;
+    }
+
+    public int getSpeed()
+    {
+        return speed;
+    }
+
+    public int getMaxSpeed()
+    {
+        return maxSpeed;
+    }
+
+    public int getBoostSpeed()
+    {
+        return boostSpeed;
+    }
+
+    public int getMaxBoostSpeed()
+    {
+        return maxBoostSpeed;
+    }
+
+    public int getArmorRating()
+    {
+        return armorRating;
+    }
+
+    public int getBaseShield()
+    {
+        return baseShield;
+    }
+
+    public int getBaseCost()
+    {
+        return baseCost;
+    }
+
+    public int getMassLockFactor()
+    {
+        return massLockFactor;
+    }
+
+    public int getCrewSeats()
+    {
+        return crewSeats;
+    }
+
+    public boolean isSlfCapable()
+    {
+        return slfCapable;
+    }
+
     public static Builder builder()
     {
         return new Builder();

@@ -2,6 +2,8 @@ package com.controllerface.edeps.structures.equipment.ships;
 
 import com.controllerface.edeps.Statistic;
 
+import java.util.Arrays;
+
 /**
  * Created by Stephen on 4/18/2018.
  */
@@ -60,5 +62,10 @@ public enum HardpointSlot implements Statistic
     public String format(Object raw)
     {
         return raw.toString();
+    }
+
+    public static boolean typeMatches(Statistic statistic)
+    {
+        return Arrays.stream(HardpointSlot.values()).anyMatch(v->v.equals(statistic));
     }
 }

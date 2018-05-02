@@ -171,7 +171,7 @@ class UIFunctions
 
         // custom cell object creates display for the progress indicator
         static final Callback<TableColumn<ItemCostData, ProgressIndicator>, TableCell<ItemCostData, ProgressIndicator>>
-                costProgressCellFactory = (modMaterial) -> new MaterialProgressCell();
+                costProgressCellFactory = (modMaterial) -> new CostProgressCell();
 
         // wrapper object for progress indicator object
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, ProgressIndicator>, ObservableValue<ProgressIndicator>>
@@ -183,9 +183,9 @@ class UIFunctions
 
             if (progress >= 1.0)
             {
-                progressIndicator.setStyle("-fx-progress-color: #6677ff ");
+                progressIndicator.setStyle("-fx-progress-color: #00b3f7 ");
             }
-            else progressIndicator.setStyle("-fx-progress-color: #ee5555 ");
+            else progressIndicator.setStyle("-fx-progress-color: #ff0000 ");
 
             return new ReadOnlyObjectWrapper<>(progressIndicator);
         };

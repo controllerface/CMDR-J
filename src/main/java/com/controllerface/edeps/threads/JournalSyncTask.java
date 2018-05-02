@@ -57,6 +57,22 @@ public class JournalSyncTask implements Runnable
                 return (int) (timestamp2 - timestamp1);
             };
 
+
+    /**
+     * For ship stats, we want to combine several groups of stats together, and add a couple of "player" stats as well
+     * that are useful for the ship tab. In this set, we want all values in the CoreInternalSlot, CosmeticSlot,
+     * HardpointSlot, and OptionalInternalSlot enums.
+     */
+    public static Set<Statistic> allStats  =
+            Stream.concat(Arrays.stream(CoreInternalSlot.values()),
+                    Stream.concat(Arrays.stream(CosmeticSlot.values()),
+                            Stream.concat(Arrays.stream(HardpointSlot.values()),
+                                    Stream.concat(Arrays.stream(OptionalInternalSlot.values()),
+                                            Stream.concat(Arrays.stream(PlayerStat.values()),
+                                                    Arrays.stream(RankStat.values()))))))
+                    .collect(Collectors.toSet());
+
+
     /**
      * Defines all of the relevant stats for the Commander tab. This consists of all the values of the PlayerStat enum
      */

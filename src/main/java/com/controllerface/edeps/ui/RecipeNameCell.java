@@ -42,6 +42,7 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
         // Recipe name in the recipe list
         Label nameLabel = new Label(item.asPair().getKey().toString() + " :: " + item.asPair().getValue().toString());
 
+        nameLabel.setPrefHeight(20);
         // Make the font bold
         Font existingFont = nameLabel.getFont();
         Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize() + (existingFont.getSize() / 4));

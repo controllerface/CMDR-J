@@ -3,11 +3,13 @@ package com.controllerface.edeps.data.commander;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ShipModule;
 import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.commodities.CommodityType;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.costs.materials.MaterialType;
 import com.controllerface.edeps.structures.equipment.ships.Ship;
+import javafx.collections.ObservableList;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -64,6 +66,11 @@ public class CommanderData
         return cargo.inventory();
     }
 
+    public ObservableList<InventoryData> observableCargo()
+    {
+        return cargo.observableInventory();
+    }
+
     /**
      * Generates a Stream consisting of all the raw materials. Note that materials with a count of 0 are still present
      * in the stream.
@@ -73,6 +80,11 @@ public class CommanderData
     public Stream<InventoryData> rawMaterialStream()
     {
         return rawMats.inventory();
+    }
+
+    public ObservableList<InventoryData> observableRawMaterials()
+    {
+        return rawMats.observableInventory();
     }
 
     /**
@@ -86,6 +98,11 @@ public class CommanderData
         return mfdMats.inventory();
     }
 
+    public ObservableList<InventoryData> observableManufacturedMaterials()
+    {
+        return mfdMats.observableInventory();
+    }
+
     /**
      * Generates a Stream consisting of all the encoded data materials. Note that materials with a count of 0 are still
      * present in the stream.
@@ -95,6 +112,11 @@ public class CommanderData
     public Stream<InventoryData> dataMaterialStream()
     {
         return dataMats.inventory();
+    }
+
+    public ObservableList<InventoryData> observableDataMaterials()
+    {
+        return dataMats.observableInventory();
     }
 
     /**
@@ -127,15 +149,20 @@ public class CommanderData
         starShip.setShip(ship);
     }
 
+    public StarShip getStarShip()
+    {
+        return starShip;
+    }
+
     /**
      * Sets a given ship module slot to a given ship module object, in the commander's current ship
      *
      * @param statistic the Statistic representing the slot name into which the module is to be stored
      * @param shipModule the actual ShipModule object to store in the named slot within the current ship
      */
-    public void setShipModule(Statistic statistic, ShipModule shipModule)
+    public void setShipModule(ShipModuleData shipModuleData)
     {
-        starShip.setShipModule(statistic, shipModule);
+        starShip.setShipModule(shipModuleData);
     }
 
     /**

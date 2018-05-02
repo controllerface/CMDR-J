@@ -1,6 +1,8 @@
 package com.controllerface.edeps.data.commander;
 
 import com.controllerface.edeps.ProcurementCost;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +20,8 @@ import java.util.stream.Stream;
  */
 public abstract class InventoryStorageBin
 {
-    private final List<InventoryData> inventoryItems = Collections.synchronizedList(new ArrayList<>());
+    private final ObservableList<InventoryData> inventoryItems =
+            FXCollections.synchronizedObservableList(FXCollections.observableArrayList());
 
     /**
      * Implementations of InventoryStorageBin must implement this method to provide callers with a means to check if
@@ -50,6 +53,9 @@ public abstract class InventoryStorageBin
     {
         return inventoryItems.stream();
     }
+
+
+    ObservableList<InventoryData> observableInventory(){return inventoryItems;}
 
     /**
      * Empties out and re-initializes this InventoryStorageBin implementation's storage. Typically used when re-setting

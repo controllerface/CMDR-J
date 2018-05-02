@@ -4,6 +4,7 @@ import com.controllerface.edeps.EventProcessingContext;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ShipModule;
 import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.structures.commander.PlayerStat;
 import com.controllerface.edeps.structures.commander.RankStat;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
@@ -517,7 +518,9 @@ public enum JournalEvent
         else
         {
             // todo: need to get engineering modifiers and experimental effects if present
-            context.getCommanderData().setShipModule(statistic, shipModule);
+
+            ShipModuleData shipModuleData = new ShipModuleData(statistic, shipModule);
+            context.getCommanderData().setShipModule(shipModuleData);
         }
 
         if (statistic == null)

@@ -1,12 +1,15 @@
 package com.controllerface.edeps.structures.equipment.ships;
 
 import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.structures.equipment.modules.OptionalInternalModule;
+
+import java.util.Arrays;
 
 /**
  * Optional Internal Slots
  *
  * Note: The JSON structure of the journal API is somewhat problematic in the way it treats internal slots. For every
- * ship, there is a "slot" number, appended to the compartment size. IN essense, the slot number is irrelevant, but it
+ * ship, there is a "slot" number, appended to the compartment size. In essence, the slot number is irrelevant, but it
  * is required to ensure cases where there may be more than one slot of the same size, they can have different keys.
  * Because of this, the only way to ensure that any possible combination is supported, this enum must contain all
  * possible index/size combinations.
@@ -132,6 +135,8 @@ public enum OptionalInternalSlot implements Statistic
     Military02("Military Compartment"),
     Military03("Military Compartment"),
 
+    PlanetaryApproachSuite("Planetary Approach Suite"),
+
     ;
 
     private final String text;
@@ -157,5 +162,10 @@ public enum OptionalInternalSlot implements Statistic
     public String format(Object raw)
     {
         return raw.toString();
+    }
+
+    public static boolean typeMatches(Statistic statistic)
+    {
+        return Arrays.stream(OptionalInternalSlot.values()).anyMatch(v->v.equals(statistic));
     }
 }

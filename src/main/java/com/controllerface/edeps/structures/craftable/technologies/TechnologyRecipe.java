@@ -6,6 +6,7 @@ import com.controllerface.edeps.data.ItemEffectData;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.equipment.ItemGrade;
 import javafx.util.Pair;
 
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 {
     // Human
 
-    Corrosion_Resistant_Cargo_Rack("4E Cargo Rack", new ItemEffectData
+    Corrosion_Resistant_Cargo_Rack(ItemGrade.Technology, "4E Cargo Rack", new ItemEffectData
             (
                     new Pair<>(ItemEffect.CausticResistance, 0d)
             ),
@@ -28,7 +29,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Commodity.RADIATIONBAFFLE, 30),
             new CostData(Commodity.NEOFABRICINSULATION, 12)),
 
-    Enzyme_Missile_Rack_Fixed("Fixed", new ItemEffectData
+    Enzyme_Missile_Rack_Fixed(ItemGrade.Technology, "Fixed", new ItemEffectData
             (
                     new Pair<>(ItemEffect.enzyme_munitions, 0d)
             ),
@@ -38,7 +39,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.MOLYBDENUM, 34),
             new CostData(Commodity.RADIATIONBAFFLE, 6)),
 
-    Meta_Alloy_Hull_Reinforcement("Hull Reinforcement Package", new ItemEffectData
+    Meta_Alloy_Hull_Reinforcement(ItemGrade.Technology, "Hull Reinforcement Package", new ItemEffectData
             (
                     new Pair<>(ItemEffect.meta_alloy_reinforcement, 0d)
             ),
@@ -48,7 +49,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Commodity.METAALLOYS, 28),
             new CostData(Commodity.REINFORCEDMOUNTINGPLATE, 12)),
 
-    Remote_Release_Flechette_Launcher_Fixed("Fixed", new ItemEffectData
+    Remote_Release_Flechette_Launcher_Fixed(ItemGrade.Technology, "Fixed", new ItemEffectData
             (
                     new Pair<>(ItemEffect.remote_release_shell, 0d)
             ),
@@ -58,7 +59,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 32),
             new CostData(Commodity.CMMCOMPOSITE, 8)),
 
-    Remote_Release_Flechette_Launcher_Turreted("Turreted", new ItemEffectData
+    Remote_Release_Flechette_Launcher_Turreted(ItemGrade.Technology, "Turreted", new ItemEffectData
             (
                     new Pair<>(ItemEffect.remote_release_shell, 0d)
             ),
@@ -68,7 +69,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 34),
             new CostData(Commodity.ARTICULATIONMOTORS, 10)),
 
-    Shock_Cannon_Fixed("Fixed", new ItemEffectData
+    Shock_Cannon_Fixed(ItemGrade.Technology, "Fixed", new ItemEffectData
             (
                     new Pair<>(ItemEffect.shock_shell, 0d)
             ),
@@ -78,7 +79,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.TECHNETIUM, 30),
             new CostData(Commodity.IONDISTRIBUTOR, 6)),
 
-    Shock_Cannon_Gimballed("Gimbaled", new ItemEffectData
+    Shock_Cannon_Gimballed(ItemGrade.Technology, "Gimbaled", new ItemEffectData
             (
                     new Pair<>(ItemEffect.shock_shell, 0d)
             ),
@@ -88,7 +89,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.VANADIUM, 36),
             new CostData(Commodity.POWERCONVERTER, 10)),
 
-    Shock_Cannon_Turreted("Turreted", new ItemEffectData
+    Shock_Cannon_Turreted(ItemGrade.Technology, "Turreted", new ItemEffectData
             (
                     new Pair<>(ItemEffect.shock_shell, 0d)
             ),
@@ -101,7 +102,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     // Guardian
 
-    Guardian_FSD_Booster("FSD Boost Module", new ItemEffectData
+    Guardian_FSD_Booster(ItemGrade.Technology, "FSD Boost Module", new ItemEffectData
             (
                     new Pair<>(ItemEffect.fsd_boost, 0d)
             ),
@@ -111,7 +112,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 24),
             new CostData(Commodity.HNSHOCKMOUNT, 8)),
 
-    Guardian_Gauss_Cannon_Fixed("Fixed", new ItemEffectData
+    Guardian_Gauss_Cannon_Fixed(ItemGrade.Technology, "Fixed", new ItemEffectData
             (
                     new Pair<>(ItemEffect.gauss_shell, 0d)
             ),
@@ -121,7 +122,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.MANGANESE, 30),
             new CostData(Commodity.MAGNETICEMITTERCOIL, 10)),
 
-    Guardian_Hybrid_Power_Distributor("Power Distributor", new ItemEffectData
+    Guardian_Hybrid_Power_Distributor(ItemGrade.Technology, "Power Distributor", new ItemEffectData
             (
                     new Pair<>(ItemEffect.hybrid_power, 0d)
             ),
@@ -131,7 +132,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.PHASEALLOYS, 36),
             new CostData(Commodity.HEATSINKINTERLINK, 6)),
 
-    Guardian_Hybrid_Power_Plant("Power Plant", new ItemEffectData
+    Guardian_Hybrid_Power_Plant(ItemGrade.Technology, "Power Plant", new ItemEffectData
             (
                     new Pair<>(ItemEffect.hybrid_power, 0d)
             ),
@@ -141,7 +142,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.HEATRESISTANTCERAMICS, 30),
             new CostData(Commodity.ENERGYGRIDASSEMBLY, 10)),
 
-    Guardian_Plasma_Charger_Fixed("Fixed", new ItemEffectData
+    Guardian_Plasma_Charger_Fixed(ItemGrade.Technology, "Fixed", new ItemEffectData
             (
                     new Pair<>(ItemEffect.plasma_weapon, 0d)
             ),
@@ -151,7 +152,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 28),
             new CostData(Commodity.MICROWEAVECOOLINGHOSES, 12)),
 
-    Guardian_Plasma_Charger_Turreted("Turreted", new ItemEffectData
+    Guardian_Plasma_Charger_Turreted(ItemGrade.Technology, "Turreted", new ItemEffectData
             (
                     new Pair<>(ItemEffect.plasma_weapon, 0d)
             ),
@@ -161,7 +162,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 33),
             new CostData(Commodity.ARTICULATIONMOTORS, 10)),
 
-    Guardian_Shard_Cannon_Fixed("Fixed", new ItemEffectData
+    Guardian_Shard_Cannon_Fixed(ItemGrade.Technology, "Fixed", new ItemEffectData
             (
                     new Pair<>(ItemEffect.shard_shell, 0d)
             ),
@@ -171,7 +172,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 35),
             new CostData(Commodity.POWERTRANSFERBUS, 12)),
 
-    Guardian_Shard_Cannon_Turreted("Turreted", new ItemEffectData
+    Guardian_Shard_Cannon_Turreted(ItemGrade.Technology, "Turreted", new ItemEffectData
             (
                     new Pair<>(ItemEffect.shard_shell, 0d)
             ),
@@ -182,17 +183,25 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Commodity.MICROCONTROLLERS, 12));
 
 
+    private final ItemGrade grade;
     private final CostData[] cost;
     private final ItemEffectData effects;
     private final String label;
 
-    TechnologyRecipe(String label, ItemEffectData effects, CostData... cost)
+    TechnologyRecipe(ItemGrade grade, String label, ItemEffectData effects, CostData... cost)
     {
+        this.grade = grade;
         this.label = label;
         this.effects = effects;
         this.cost = cost;
     }
 
+    @Override
+    public ItemGrade getGrade()
+    {
+        return grade;
+    }
+    
     public Stream<CostData> costStream()
     {
         return Arrays.stream(cost);

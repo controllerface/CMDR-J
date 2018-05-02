@@ -4,6 +4,7 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcTreeData;
@@ -23,6 +24,7 @@ import com.controllerface.edeps.structures.craftable.synthesis.SynthesisType;
 import com.controllerface.edeps.structures.craftable.technologies.TechnologyCategory;
 import com.controllerface.edeps.structures.craftable.technologies.TechnologyRecipe;
 import com.controllerface.edeps.structures.craftable.technologies.TechnologyType;
+import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
@@ -31,10 +33,11 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Pair;
@@ -99,13 +102,15 @@ public class UIController
     @FXML private TableColumn<InventoryData, Label> cargoQuantityColumn;
 
     // Procurement task table
+    @FXML private AnchorPane taskPane;
+    @FXML private VBox taskContols;
+    @FXML private RadioButton sortTasksByName;
+    @FXML private RadioButton sortTasksByGrade;
+
     @FXML private TableView<ProcurementRecipeData> procurementTaskTable;
     @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> taskCountColumn;
     @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> taskNameColumn;
     @FXML private TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>> taskRemoveColumn;
-
-    // The observable list backing the task list table view
-    private ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableList(new ArrayList<>());
 
     // Procurement cost table
     @FXML private TableView<ItemCostData> taskCostTable;
@@ -123,27 +128,23 @@ public class UIController
     @FXML private TableColumn<Pair<Statistic, String>, String> statNameColumn;
     @FXML private TableColumn<Pair<Statistic, String>, String> statValueColumn;
 
-    @FXML private TableView<Pair<Statistic, String>> rankTable;
-    @FXML private TableColumn<Pair<Statistic, String>, String> rankNameColumn;
-    @FXML private TableColumn<Pair<Statistic, String>, String> rankValueColumn;
-
-    @FXML private TableView<Pair<Statistic, String>> shipTable;
-    @FXML private TableColumn<Pair<Statistic, String>, String> shipNameColumn;
-    @FXML private TableColumn<Pair<Statistic, String>, String> shipValueColumn;
-
     @FXML private CheckBox showProcurements;
     @FXML private CheckBox showTasks;
     @FXML private CheckBox showItemsNeeded;
 
     @FXML private Label shipTypeLabel;
-    @FXML private Label shipArmourLabel;
-    @FXML private Label shipPowerPlantLabel;
-    @FXML private Label shipThrustersLabel;
-    @FXML private Label shipFrameShiftDriveLabel;
-    @FXML private Label shipLifeSupportLabel;
-    @FXML private Label shipPowerDistributorLabel;
-    @FXML private Label shipSensorsLabel;
-    @FXML private Label shipFuelTankLabel;
+    @FXML private TableView<ShipModuleData> coreModuleList;
+    @FXML private TableColumn<ShipModuleData, String> coreModuleNameColumn;
+    @FXML private TableColumn<ShipModuleData, String> coreModuleDataColumn;
+
+    @FXML private TableView<ShipModuleData> optionalModuleList;
+    @FXML private TableColumn<ShipModuleData, String> optionalModuleNameColumn;
+    @FXML private TableColumn<ShipModuleData, String> optionalModuleDataColumn;
+
+    @FXML private TableView<ShipModuleData> hardpointList;
+    @FXML private TableColumn<ShipModuleData, String> hardpointNameColumn;
+    @FXML private TableColumn<ShipModuleData, String> hardpointDataColumn;
+
 
 
     /*
@@ -156,7 +157,8 @@ public class UIController
 
     private final CommanderData commanderData = new CommanderData();
 
-    private final Map<Pair<ProcurementType, ProcurementRecipe>, Integer> procurementRecipeMap = new HashMap<>();
+    // The observable list backing the task list table view
+    private ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableList(new ArrayList<>());
 
     private void toJson() throws IOException
     {
@@ -166,13 +168,13 @@ public class UIController
 
         Map<String, Object> data = new HashMap<>();
 
-        List<Map<String, Object>> tasks = procurementRecipeMap.entrySet().stream()
+        List<Map<String, Object>> tasks = taskBackingList.stream()
                 .map(e->
                 {
-                    Pair<ProcurementType, ProcurementRecipe> pair = e.getKey();
+                    Pair<ProcurementType, ProcurementRecipe> pair = e.asPair();
                     ProcurementType type = pair.getKey();
                     ProcurementRecipe recipe = pair.getValue();
-                    Integer count = e.getValue();
+                    Integer count = e.getCount();
 
                     String procType = type.getClass().getSimpleName();
                     String procName = type.getName();
@@ -218,7 +220,9 @@ public class UIController
             throw new RuntimeException("Error reading localization data", ioe );
         }
 
-        procurementRecipeMap.clear();
+        taskBackingList.clear();
+
+        //procurementRecipeMap.clear();
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> tasks = ((List<Map<String, Object>>) data.get("tasks"));
         tasks.forEach(taskEntry ->
@@ -269,7 +273,8 @@ public class UIController
                 }
             });
 
-            procurementRecipeMap.put(new Pair<>(procType.get(), recipeType.get()), count.get());
+            taskBackingList.add(new ProcurementRecipeData(procType.get(),recipeType.get(), count.get()));
+            //procurementRecipeMap.put(new Pair<>(procType.get(), recipeType.get()), count.get());
         });
 
         if (initialzed) syncUI();
@@ -296,17 +301,29 @@ public class UIController
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> procurementListUpdate =
             (adjustment, recipe)->
             {
+                ProcurementRecipeData data =
+                        taskBackingList.filtered((k)->k.asPair().equals(recipe))
+                        .stream().findFirst()
+                        .orElse(null);
+
+                if (data == null) return -1;
+
                 // max out at 999, just because the UI will get weird
-                int val = procurementRecipeMap
-                        .computeIfPresent(recipe, (key, count) -> count < 999 ? count + adjustment : 999);
+                int val = data.getCount() + adjustment;
+                if (val > 999) val = 999;
+
+                data.setCount(val);
 
                 syncUI();
 
                 if (val <= 0)
                 {
                     val = 0;
-                    procurementRecipeMap.remove(recipe);
+                    taskBackingList.remove(data);
                 }
+
+
+                procurementTaskTable.refresh();
 
                 return val;
             };
@@ -319,12 +336,21 @@ public class UIController
             (mod)->
             {
                 Pair<ProcurementType, ProcurementRecipe> ref = new Pair<>(mod.getType(), mod.getRecipe());
-
-                // increment the count for this mod if it exists
-                procurementRecipeMap.computeIfPresent(ref, (recipe, count) -> count + 1);
+                ProcurementRecipeData data =
+                        taskBackingList.filtered((k)->k.asPair().equals(ref))
+                                .stream().findFirst()
+                                .orElse(null);
 
                 // add a count for the mod if it does not exist
-                procurementRecipeMap.putIfAbsent(ref, 1);
+                if (data == null)
+                {
+                    taskBackingList.add(new ProcurementRecipeData(mod.getType(), mod.getRecipe(), 1));
+                }
+
+                // increment the count for this mod if it exists
+                else data.setCount(data.getCount() + 1);
+
+                procurementTaskTable.refresh();
 
                 syncUI();
             };
@@ -402,11 +428,33 @@ public class UIController
         recipeTableLabel.setFont(recipeTableFont);
         costTableLabel.setFont(costTableFont);
 
-        procurementTaskTable.setPlaceholder(recipeTableLabel);
-        procurementTaskTable.setItems(taskBackingList);
 
-        taskCostTable.setPlaceholder(costTableLabel);
+
+        rawTable.setItems(commanderData.observableRawMaterials());
+        dataTable.setItems(commanderData.observableDataMaterials());
+        manufacturedTable.setItems(commanderData.observableManufacturedMaterials());
+        cargoTable.setItems(commanderData.observableCargo());
+
+        procurementTaskTable.setItems(taskBackingList);
         taskCostTable.setItems(taskCostBackingList);
+
+        procurementTaskTable.setPlaceholder(recipeTableLabel);
+        taskCostTable.setPlaceholder(costTableLabel);
+        sortTasksByName.setOnAction((e)->sortTasktable());
+        sortTasksByGrade.setOnAction((e)->sortTasktable());
+
+        coreModuleList.setItems(commanderData.getStarShip().getCoreInternals());
+        optionalModuleList.setItems(commanderData.getStarShip().getOptionalInternals());
+        hardpointList.setItems(commanderData.getStarShip().getHardpoints());
+
+        coreModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        coreModuleDataColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModule().toString()));
+        optionalModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        optionalModuleDataColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModule().toString()));
+        hardpointNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        hardpointDataColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModule().toString()));
+
+
 
         // set the cell value factories for the player inventory tabs
         rawCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
@@ -464,20 +512,12 @@ public class UIController
         statNameColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
         statValueColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
 
-        rankNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
-        rankValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
-        rankNameColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
-        rankValueColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
-
-        shipNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
-        shipValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
-        shipNameColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
-        shipValueColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
-
-
         showProcurements.setOnAction((e)->setProcumentsUIVisibility());
         showTasks.setOnAction((e)->setProcumentsUIVisibility());
         showItemsNeeded.setOnAction((e)->setProcumentsUIVisibility());
+
+
+        shipTypeLabel.textProperty().bind(commanderData.getStarShip().getShipDisplayName());
 
 
         // set the sorting comparator for the material progress column of the procurement list
@@ -719,27 +759,8 @@ public class UIController
         procurementTree.setShowRoot(false);
     }
 
-    private synchronized void syncInventory()
+    private synchronized void sortInventory()
     {
-        // fill the inventory display tables with the player inventory items
-        rawTable.getItems().clear();
-        manufacturedTable.getItems().clear();
-        dataTable.getItems().clear();
-        cargoTable.getItems().clear();
-
-        commanderData.rawMaterialStream()
-                .forEach(material -> rawTable.getItems().add(material));
-
-        commanderData.manufacturedMaterialStream()
-                .forEach(material -> manufacturedTable.getItems().add(material));
-
-        commanderData.dataMaterialStream()
-                .forEach(material -> dataTable.getItems().add(material));
-
-        commanderData.cargoStream()
-                //.filter(commodity -> commodity.getQuantity() > 0)
-                .forEach(commodity -> cargoTable.getItems().add(commodity));
-
         // sort pass 1, numerically by grade
         rawTable.getItems().sort(UIFunctions.Sort.materialByGrade);
         manufacturedTable.getItems().sort(UIFunctions.Sort.materialByGrade);
@@ -753,64 +774,50 @@ public class UIController
         // Cargo sorts a bit differently,
         cargoTable.getItems().sort(UIFunctions.Sort.materialByGrade);
         cargoTable.getItems().sort(UIFunctions.Sort.cargoByCount);
+    }
 
-        rawTable.refresh();
-        manufacturedTable.refresh();
-        dataTable.refresh();
-        cargoTable.refresh();
+    private void sortTasktable()
+    {
+        if (procurementTaskTable.getItems().size() > 0)
+        {
+            procurementTaskTable.getItems().sort((a, b) ->
+            {
+                if (sortTasksByGrade.isSelected())
+                {
+                    return ItemGrade.compare(a.asPair().getValue().getGrade(),
+                            b.asPair().getValue().getGrade());
+                }
+                if (sortTasksByName.isSelected())
+                {
+                    String as = a.asPair().getKey().toString() + a.asPair().getValue().toString();
+                    String bs = b.asPair().getKey().toString() + b.asPair().getValue().toString();
+                    return as.compareTo(bs);
+                }
+                else return a.toString().compareTo(b.toString());
+            });
+        }
     }
 
     private void syncUI()
     {
         if (!initialzed) return;
 
-
-        // fill the inventory display tables with the player inventory items
-        syncInventory();
+        // sort the inventory display tables
+        sortInventory();
 
         // Whenever we sync the UI, we always clear out the data structures first, as everything will be re-calculated
         // according to the current state of the player's inventory and stats
-        //procurementTaskTable.getItems().clear();
-        //taskCostTable.getItems().clear();
         statTable.getItems().clear();
-        rankTable.getItems().clear();
-        shipTable.getItems().clear();
 
-        //
+        // buffer map that stores all the cumulative costs in the current task list
         Map<ProcurementCost, Integer> costs = new HashMap<>();
 
-        procurementRecipeMap.forEach((procPair, count)->
+
+        // todo: see if making the costs calculated at the same time as the tasks can work. would be a lot cooler
+        taskBackingList.forEach((recipeData)->
         {
-            // do recipes
-            AtomicBoolean recipeFound = new AtomicBoolean(false);
-            AtomicReference<ProcurementRecipeData> removedRecipe = new AtomicReference<>(null);
-
-
-            taskBackingList.stream()
-                    .filter(recipePair -> recipePair.matches(procPair))
-                    .findFirst()
-                    .ifPresent(foundRecipe ->
-                    {
-                        recipeFound.set(true);
-                        if (foundRecipe.getCount() != count)
-                        {
-                            foundRecipe.setCount(count);
-                            if (count <= 0) removedRecipe.set(foundRecipe);
-                        }
-                    });
-
-            if (removedRecipe.get()!=null) taskBackingList.remove(removedRecipe.get());
-
-            if (!recipeFound.get())
-            {
-                ProcurementRecipeData newItem = new ProcurementRecipeData(procPair.getKey(), procPair.getValue(), count);
-                taskBackingList.add(newItem);
-            }
-
-
-
-
-            procPair.getValue().costStream()
+            ProcurementRecipe recipe = recipeData.asPair().getValue();
+            recipe.costStream()
                     .forEach(mat->
                     {
                         AtomicBoolean costFound = new AtomicBoolean(false);
@@ -822,41 +829,31 @@ public class UIController
                                 {
                                     costs.putIfAbsent(foundCost.getCost(), 0);
                                     costFound.set(true);
-                                    int cost = mat.getQuantity() * count;
+                                    int cost = mat.getQuantity() * recipeData.getCount();
                                     costs.computeIfPresent(foundCost.getCost(),(k, v)->v+=cost);
                                 });
 
                         if (!costFound.get())
                         {
                             ItemCostData newItem = new ItemCostData(mat.getCost(), this.commanderData::hasItem);
-                            int newCost = mat.getQuantity() * count;
+                            int newCost = mat.getQuantity() * recipeData.getCount();
                             newItem.setCount(newCost);
                             costs.put(newItem.getCost(), newCost);
                             taskCostBackingList.add(newItem);
                         }
                     });
-
-
         });
 
         List<ItemCostData> toRemove = taskCostBackingList.stream()
                 .filter(c->costs.get(c.getCost())!=null)
                 .filter(c->costs.get(c.getCost())!=c.getCount())
-                .peek(c->c.setCount(costs.get(c.getCost() )))
+                .peek(c->c.setCount(costs.get(c.getCost())))
                 .filter(c->c.getCount()<=0)
                 .collect(Collectors.toList());
 
-        toRemove.forEach(i-> taskCostBackingList.remove(i));
+        toRemove.forEach(i -> taskCostBackingList.remove(i));
 
-        if (procurementTaskTable.getItems().size() > 0)
-        {
-            procurementTaskTable.getItems().sort((a, b) ->
-            {
-                String as = a.asPair().getKey().toString() + a.asPair().getValue().toString();
-                String bs = b.asPair().getKey().toString() + b.asPair().getValue().toString();
-                return as.compareTo(bs);
-            });
-        }
+        sortTasktable();
 
         if (taskCostTable.getItems().size() > 0)
         {
@@ -869,35 +866,17 @@ public class UIController
             });
         }
 
-        // player stat table
         commanderData.getStats()
                 .entrySet().stream()
-                .filter(e -> JournalSyncTask.playerStats.contains(e.getKey()))
+                .filter(e -> JournalSyncTask.allStats.contains(e.getKey()))
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> statTable.getItems().add(pair));
-
-        // rank & reputation table
-        commanderData.getStats()
-                .entrySet().stream()
-                .filter(e -> JournalSyncTask.rankStats.contains(e.getKey()))
-                .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
-                .forEach(pair -> rankTable.getItems().add(pair));
-
-        // ship table
-        commanderData.getStats()
-                .entrySet().stream()
-                .filter(e -> JournalSyncTask.shipStats.contains(e.getKey()))
-                .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
-                .forEach(pair -> shipTable.getItems().add(pair));
 
         setProcumentsUIVisibility();
 
         // update the UI elements
-        procurementTaskTable.refresh();
         taskCostTable.refresh();
         statTable.refresh();
-        rankTable.refresh();
-        shipTable.refresh();
     }
 
     private void setProcumentsUIVisibility()
@@ -908,22 +887,39 @@ public class UIController
         {
             shown++;
             procurementTree.setPrefHeight(10000);
+            procurementTree.setVisible(true);
         }
-        else procurementTree.setPrefHeight(0);
+        else
+        {
+            procurementTree.setPrefHeight(0);
+            procurementTree.setVisible(false);
+        }
 
         if (showTasks.isSelected())
         {
             shown++;
-            procurementTaskTable.setPrefHeight(10000);
+            taskPane.setVisible(true);
+            taskPane.setPrefHeight(10000);
         }
-        else procurementTaskTable.setPrefHeight(0);
+        else
+        {
+            taskPane.setVisible(false);
+            taskPane.setPrefHeight(0);
+        }
+
 
         if (showItemsNeeded.isSelected())
         {
             shown++;
             taskCostTable.setPrefHeight(10000);
+            taskCostTable.setVisible(true);
         }
-        else taskCostTable.setPrefHeight(0);
+        else
+        {
+            taskCostTable.setPrefHeight(0);
+            taskCostTable.setVisible(false);
+
+        }
 
         if (shown == 1)
         {

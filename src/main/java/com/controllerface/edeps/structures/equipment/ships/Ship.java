@@ -1703,6 +1703,26 @@ public enum Ship
         this.internals = internals;
     }
 
+    public BaseShipStats getBaseShipStats()
+    {
+        return baseShipStats;
+    }
+
+    public CoreModuleLayoutData getCoreModules()
+    {
+        return coreModules;
+    }
+
+    public HardPointLayoutData getHardpoints()
+    {
+        return hardpoints;
+    }
+
+    public OptionalModuleLayoutData getInternals()
+    {
+        return internals;
+    }
+
     public static Ship findShip(String shipName) throws Exception
     {
         Exception exception;

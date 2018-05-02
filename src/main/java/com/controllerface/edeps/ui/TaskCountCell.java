@@ -61,16 +61,16 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
             line1.setStrokeWidth(3);
             line1.setStartX(-3);
             line1.setEndX(7);
-            line1.setStartY(6);
-            line1.setEndY(6);
+            line1.setStartY(12);
+            line1.setEndY(12);
 
             Line line2 = new Line();
             line2.setStroke(Color.BLACK);
             line2.setStrokeWidth(3);
             line2.setStartX(2);
             line2.setEndX(2);
-            line2.setStartY(1);
-            line2.setEndY(11);
+            line2.setStartY(7);
+            line2.setEndY(17);
 
             // Minus
             Line line3 = new Line();
@@ -78,14 +78,22 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
             line3.setStrokeWidth(3);
             line3.setStartX(-3);
             line3.setEndX(7);
-            line3.setStartY(6);
-            line3.setEndY(6);
+            line3.setStartY(12);
+            line3.setEndY(12);
 
             Pane addGraphic  = new Pane(line1, line2);
             Pane subGraphic  = new Pane(line3);
 
+            addGraphic.setPrefHeight(27);
+            subGraphic.setPrefHeight(27);
+
             addButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            addButton.setAlignment(Pos.CENTER);
             subtractButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            subtractButton.setAlignment(Pos.CENTER);
+
+
+
             addButton.setGraphic(addGraphic);
             subtractButton.setGraphic(subGraphic);
 
@@ -97,15 +105,17 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
             countLabel.setFont(baseFont.get());
 
 
-            addButton.setMaxWidth(20);
-            addButton.setMinWidth(20);
-            subtractButton.setMaxWidth(20);
-            subtractButton.setMinWidth(20);
+//            addButton.setMaxWidth(50);
+//            addButton.setMinWidth(50);
+//            addButton.setPrefWidth(50);
+//            subtractButton.setMaxWidth(50);
+//            subtractButton.setMinWidth(50);
+//            subtractButton.setPrefWidth(50);
 
-            addButton.setMaxHeight(20);
-            addButton.setMinHeight(20);
-            subtractButton.setMaxHeight(20);
-            subtractButton.setMinHeight(20);
+//            addButton.setMaxHeight(20);
+//            addButton.setMinHeight(20);
+//            subtractButton.setMaxHeight(20);
+//            subtractButton.setMinHeight(20);
 
             subtractButton.setOnAction((e) -> inventoryUpdate.apply(-1, item.asPair()));
 
