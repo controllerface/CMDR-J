@@ -251,6 +251,8 @@ public enum HardpointModule implements ShipModule
     hpt_antiunknownshutdown_tiny,
     hpt_xenoscanner_basic_tiny,
 
+    //todo: add guardian and human tech broker weapons
+
     ;
 
     private final String displayText;

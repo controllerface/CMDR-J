@@ -9,6 +9,8 @@ import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
+import com.controllerface.edeps.structures.craftable.modifications.ModificationType;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.commodities.CommodityCategory;
@@ -83,7 +85,7 @@ class UIFunctions
                         else if (!empty)
                         {
                             VBox modBox = new VBox();
-                            String m = item.getModificationName();
+                            ModificationBlueprint m = item.getModificationBlueprint();
                             String e = item.getExperimentalEffectName();
                             String t = item.getModule().displayText();
 
@@ -100,9 +102,9 @@ class UIFunctions
                             module.setFont(baseFont);
                             modBox.getChildren().add(module);
 
-                            if (!m.isEmpty())
+                            if (m != null)
                             {
-                                Label modification = new Label(m + " :: Grade " + item.getLevel() + " :: " + item.getQuality());
+                                Label modification = new Label(m.toString() + " :: Grade " + item.getLevel() + " :: " + item.getQuality());
                                 modification.setFont(baseFont);
                                 modification.setTextFill(Fonts.standardOrange);
                                 //modification.setBackground(new Background(new BackgroundFill(Fonts.standardOrange, null, null)));

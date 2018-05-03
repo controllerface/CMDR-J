@@ -2,6 +2,7 @@ package com.controllerface.edeps.data;
 
 import com.controllerface.edeps.ShipModule;
 import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class ShipModuleData
     private final Statistic moduleName;
     private final ShipModule module;
 
-    private final String modificationName;
+    private final ModificationBlueprint modificationBlueprint;
     private final String experimentalEffectName;
     private final List<ModifierData> modifiers;
     private final int level;
@@ -24,16 +25,15 @@ public class ShipModuleData
         this.moduleName = builder.moduleName;
         this.module = builder.module;
         this.modifiers = builder.modifiers;
-        this.modificationName = builder.modifcationName;
+        this.modificationBlueprint = builder.modificationBlueprint;
         this.experimentalEffectName = builder.experimentalEffectName;
         this.level = builder.level;
         this.quality = builder.quality;
     }
 
-    // todo: should be enum value
-    public String getModificationName()
+    public ModificationBlueprint getModificationBlueprint()
     {
-        return modificationName;
+        return modificationBlueprint;
     }
 
     // todo: should be enum value
@@ -73,7 +73,7 @@ public class ShipModuleData
         private Statistic moduleName;
         private ShipModule module;
         private List<ModifierData> modifiers;
-        private String modifcationName;
+        private ModificationBlueprint modificationBlueprint;
         private String experimentalEffectName;
         private int level;
         private double quality;
@@ -96,9 +96,9 @@ public class ShipModuleData
             return this;
         }
 
-        public Builder setModifcationName(String modifcationName)
+        public Builder setModificationBlueprint(ModificationBlueprint modificationBlueprint)
         {
-            this.modifcationName = modifcationName;
+            this.modificationBlueprint = modificationBlueprint;
             return this;
         }
 
@@ -122,7 +122,6 @@ public class ShipModuleData
 
         public ShipModuleData build()
         {
-            if (modifcationName==null) modifcationName = "";
             if (experimentalEffectName==null) experimentalEffectName = "";
             return new ShipModuleData(this);
         }

@@ -578,9 +578,10 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
 
     public String getLabel()
     {
-        String name = name().replace("_"," ").substring(0,name().length()-1);
+        //String name = name().replace("_"," ").substring(0,name().length()-1);
         String grade = Arrays.stream(name().split("_")).reduce((a, b) -> b).orElse("?");
-        return  name + "Grade " + grade;
+        return  //name +
+                "Grade " + grade;
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.controllerface.edeps.structures.commander.PlayerStat;
 import com.controllerface.edeps.structures.commander.RankStat;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.equipment.modules.Cosmetic;
 import com.controllerface.edeps.structures.equipment.modules.CoreInternalModule;
@@ -402,6 +403,21 @@ public enum JournalEvent
         return null;
     }
 
+    private static ModificationBlueprint determineModificationType(String modname)
+    {
+        ModificationBlueprint modificationBlueprint;
+
+        try
+        {
+            modificationBlueprint = ModificationBlueprint.valueOf(modname);
+        }
+        catch (Exception e)
+        {
+            modificationBlueprint = null;
+        }
+        return modificationBlueprint;
+    }
+
     private static ShipModule determineModuleType(String moduleName)
     {
         ShipModule module;
@@ -513,9 +529,9 @@ public enum JournalEvent
         Statistic slot = determineStatType(slotKey);
         ShipModule module = determineModuleType(moduleKey);
 
-
-        String modificationName = null;
+        ModificationBlueprint modificationType = null;
         String experimentalEffectName = null;
+
         Integer level = null;
         Double quality = null;
 
@@ -525,8 +541,11 @@ public enum JournalEvent
 
         if (engineering != null)
         {
-            modificationName = ((String) engineering.get("BlueprintName"));
+            String modificationName = ((String) engineering.get("BlueprintName"));
             experimentalEffectName = ((String) engineering.get("ExperimentalEffect"));
+
+            modificationType = determineModificationType(modificationName);
+
             level = ((Integer) engineering.get("Level"));
             quality = ((Double) engineering.get("Quality"));
             ((List<Map<String, Object>>) engineering.get("Modifiers"))
@@ -552,7 +571,7 @@ public enum JournalEvent
                     .setModuleName(slot)
                     .setModule(module)
                     .setModifiers(modifiers)
-                    .setModifcationName(modificationName)
+                    .setModificationBlueprint(modificationType)
                     .setExperimentalEffectName(experimentalEffectName)
                     .setLevel(level)
                     .setQuality(quality)

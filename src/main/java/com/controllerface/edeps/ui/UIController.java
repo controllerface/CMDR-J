@@ -512,10 +512,6 @@ public class UIController
         // set the sorting comparator for the material progress column of the procurement list
         taskCostProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
 
-
-
-
-
         DoubleBinding recipeTableWidthUsed = taskCountColumn.widthProperty()
                 .add(taskRemoveColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
@@ -523,10 +519,6 @@ public class UIController
         taskNameColumn.prefWidthProperty()
                 .bind(procurementTaskTable.widthProperty()
                         .subtract(recipeTableWidthUsed));
-
-
-
-
 
         DoubleBinding costTableWidthUsed = taskCostProgressColumn.widthProperty()
                 .add(taskCostNeedColumn.widthProperty())
@@ -538,18 +530,12 @@ public class UIController
                 .bind(taskCostTable.widthProperty()
                         .subtract(costTableWidthUsed));
 
-
-
-
-
         DoubleBinding shipTable1WidthUsed = coreModuleNameColumn.widthProperty()
                 .add(UIFunctions.scrollBarAllowance);
 
         coreModuleDataColumn.prefWidthProperty()
                 .bind(coreModuleList.widthProperty()
                         .subtract(shipTable1WidthUsed));
-
-
 
         DoubleBinding shipTable2WidthUsed = optionalModuleNameColumn.widthProperty()
                 .add(UIFunctions.scrollBarAllowance);
@@ -558,14 +544,12 @@ public class UIController
                 .bind(optionalModuleList.widthProperty()
                         .subtract(shipTable2WidthUsed));
 
-
         DoubleBinding shipTable3WidthUsed = hardpointNameColumn.widthProperty()
                 .add(UIFunctions.scrollBarAllowance);
 
         hardpointDataColumn.prefWidthProperty()
                 .bind(hardpointList.widthProperty()
                         .subtract(shipTable3WidthUsed));
-
     }
 
     private TreeItem<ProcTreeData> makeSynthesisTree()
@@ -636,12 +620,8 @@ public class UIController
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
-
-                    String r = blueprint.toString() + " " + typeItem.getValue().toString();
-
                     // add a collapsible blueprint label
-                    TreeItem<ProcTreeData> bluePrintItem =
-                            new TreeItem<>(new ProcTreeData(r));
+                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData( blueprint.toString()));
 
                     // for this blueprint, loop through all recipes it contains
                     blueprint.recipeStream().forEach(recipe->
