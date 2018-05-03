@@ -15,6 +15,7 @@ import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalT
 import com.controllerface.edeps.structures.craftable.modifications.ModificationCategory;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationRecipe;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationType;
+import com.controllerface.edeps.structures.craftable.modifications.WeaponModificationRecipe;
 import com.controllerface.edeps.structures.craftable.synthesis.SynthesisCategory;
 import com.controllerface.edeps.structures.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.edeps.structures.craftable.synthesis.SynthesisType;
@@ -238,6 +239,10 @@ public class UIController
 
                     case "ModificationRecipe":
                         recipeType.set(ModificationRecipe.valueOf(((String) value)));
+                        break;
+
+                    case "WeaponModificationRecipe":
+                        recipeType.set(WeaponModificationRecipe.valueOf(((String) value)));
                         break;
 
                     case "SynthesisRecipe":

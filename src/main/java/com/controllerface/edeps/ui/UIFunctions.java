@@ -126,7 +126,7 @@ class UIFunctions
                                     {
                                         String vals = modifier.getValue() + " (" + modifier.getOriginalValue() + ")";
                                         Label label = new Label(modifier.getEffect().name() + " :: " + vals);
-                                        boolean isLess = modifier.getValue() < modifier.getOriginalValue();
+                                        boolean isLess = Double.compare(modifier.getValue(), modifier.getOriginalValue()) < 0;
                                         boolean isGood = modifier.isLessIsGood() == isLess;
                                         if (isGood) label.setTextFill(Fonts.positiveBlue);
                                         else label.setTextFill(Fonts.negativeRed);
@@ -307,7 +307,7 @@ class UIFunctions
             // prefix by default, so we only need to explicitly do this for positive numbers
             String text = pair.getKey().toString()
                     + ((valueIsPositive ? " +" : " ")
-                    + pair.getValue());
+                    + (pair.getValue() * 100d));
 
             // some effects have a zero value, such effects are generally "binary" on/off values, so we can just remove
             // the trailing "point zero" suffix

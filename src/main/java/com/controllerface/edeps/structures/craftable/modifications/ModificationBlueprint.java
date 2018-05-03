@@ -1,5 +1,7 @@
 package com.controllerface.edeps.structures.craftable.modifications;
 
+import com.controllerface.edeps.ProcurementRecipe;
+
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -651,88 +653,88 @@ public enum ModificationBlueprint
             ModificationRecipe.WakeScanner_Shielded_5),
 
     Weapon_DoubleShot("Double shot",
-            ModificationRecipe.Weapon_DoubleShot_1,
-            ModificationRecipe.Weapon_DoubleShot_2,
-            ModificationRecipe.Weapon_DoubleShot_3,
-            ModificationRecipe.Weapon_DoubleShot_4,
-            ModificationRecipe.Weapon_DoubleShot_5),
+            WeaponModificationRecipe.Weapon_DoubleShot_1,
+            WeaponModificationRecipe.Weapon_DoubleShot_2,
+            WeaponModificationRecipe.Weapon_DoubleShot_3,
+            WeaponModificationRecipe.Weapon_DoubleShot_4,
+            WeaponModificationRecipe.Weapon_DoubleShot_5),
 
     Weapon_Efficient("Efficient",
-            ModificationRecipe.Weapon_Efficient_1,
-            ModificationRecipe.Weapon_Efficient_2,
-            ModificationRecipe.Weapon_Efficient_3,
-            ModificationRecipe.Weapon_Efficient_4,
-            ModificationRecipe.Weapon_Efficient_5),
+            WeaponModificationRecipe.Weapon_Efficient_1,
+            WeaponModificationRecipe.Weapon_Efficient_2,
+            WeaponModificationRecipe.Weapon_Efficient_3,
+            WeaponModificationRecipe.Weapon_Efficient_4,
+            WeaponModificationRecipe.Weapon_Efficient_5),
 
     Weapon_Focused("Focused",
-            ModificationRecipe.Weapon_Focused_1,
-            ModificationRecipe.Weapon_Focused_2,
-            ModificationRecipe.Weapon_Focused_3,
-            ModificationRecipe.Weapon_Focused_4,
-            ModificationRecipe.Weapon_Focused_5),
+            WeaponModificationRecipe.Weapon_Focused_1,
+            WeaponModificationRecipe.Weapon_Focused_2,
+            WeaponModificationRecipe.Weapon_Focused_3,
+            WeaponModificationRecipe.Weapon_Focused_4,
+            WeaponModificationRecipe.Weapon_Focused_5),
 
     Weapon_HighCapacity("High capacity",
-            ModificationRecipe.Weapon_HighCapacity_1,
-            ModificationRecipe.Weapon_HighCapacity_2,
-            ModificationRecipe.Weapon_HighCapacity_3,
-            ModificationRecipe.Weapon_HighCapacity_4,
-            ModificationRecipe.Weapon_HighCapacity_5),
+            WeaponModificationRecipe.Weapon_HighCapacity_1,
+            WeaponModificationRecipe.Weapon_HighCapacity_2,
+            WeaponModificationRecipe.Weapon_HighCapacity_3,
+            WeaponModificationRecipe.Weapon_HighCapacity_4,
+            WeaponModificationRecipe.Weapon_HighCapacity_5),
 
     Weapon_LightWeight("Lightweight",
-            ModificationRecipe.Weapon_LightWeight_1,
-            ModificationRecipe.Weapon_LightWeight_2,
-            ModificationRecipe.Weapon_LightWeight_3,
-            ModificationRecipe.Weapon_LightWeight_4,
-            ModificationRecipe.Weapon_LightWeight_5),
+            WeaponModificationRecipe.Weapon_LightWeight_1,
+            WeaponModificationRecipe.Weapon_LightWeight_2,
+            WeaponModificationRecipe.Weapon_LightWeight_3,
+            WeaponModificationRecipe.Weapon_LightWeight_4,
+            WeaponModificationRecipe.Weapon_LightWeight_5),
 
     Weapon_LongRange("Long Range",
-            ModificationRecipe.Weapon_LongRange_1,
-            ModificationRecipe.Weapon_LongRange_2,
-            ModificationRecipe.Weapon_LongRange_3,
-            ModificationRecipe.Weapon_LongRange_4,
-            ModificationRecipe.Weapon_LongRange_5),
+            WeaponModificationRecipe.Weapon_LongRange_1,
+            WeaponModificationRecipe.Weapon_LongRange_2,
+            WeaponModificationRecipe.Weapon_LongRange_3,
+            WeaponModificationRecipe.Weapon_LongRange_4,
+            WeaponModificationRecipe.Weapon_LongRange_5),
 
     Weapon_Overcharged("Overcharged",
-            ModificationRecipe.Weapon_Overcharged_1,
-            ModificationRecipe.Weapon_Overcharged_2,
-            ModificationRecipe.Weapon_Overcharged_3,
-            ModificationRecipe.Weapon_Overcharged_4,
-            ModificationRecipe.Weapon_Overcharged_5),
+            WeaponModificationRecipe.Weapon_Overcharged_1,
+            WeaponModificationRecipe.Weapon_Overcharged_2,
+            WeaponModificationRecipe.Weapon_Overcharged_3,
+            WeaponModificationRecipe.Weapon_Overcharged_4,
+            WeaponModificationRecipe.Weapon_Overcharged_5),
 
     Weapon_RapidFire("Rapid fire",
-            ModificationRecipe.Weapon_RapidFire_1,
-            ModificationRecipe.Weapon_RapidFire_2,
-            ModificationRecipe.Weapon_RapidFire_3,
-            ModificationRecipe.Weapon_RapidFire_4,
-            ModificationRecipe.Weapon_RapidFire_5),
+            WeaponModificationRecipe.Weapon_RapidFire_1,
+            WeaponModificationRecipe.Weapon_RapidFire_2,
+            WeaponModificationRecipe.Weapon_RapidFire_3,
+            WeaponModificationRecipe.Weapon_RapidFire_4,
+            WeaponModificationRecipe.Weapon_RapidFire_5),
 
     Weapon_ShortRange("Short Range",
-            ModificationRecipe.Weapon_ShortRange_1,
-            ModificationRecipe.Weapon_ShortRange_2,
-            ModificationRecipe.Weapon_ShortRange_3,
-            ModificationRecipe.Weapon_ShortRange_4,
-            ModificationRecipe.Weapon_ShortRange_5),
+            WeaponModificationRecipe.Weapon_ShortRange_1,
+            WeaponModificationRecipe.Weapon_ShortRange_2,
+            WeaponModificationRecipe.Weapon_ShortRange_3,
+            WeaponModificationRecipe.Weapon_ShortRange_4,
+            WeaponModificationRecipe.Weapon_ShortRange_5),
 
     Weapon_Sturdy("Sturdy",
-            ModificationRecipe.Weapon_Sturdy_1,
-            ModificationRecipe.Weapon_Sturdy_2,
-            ModificationRecipe.Weapon_Sturdy_3,
-            ModificationRecipe.Weapon_Sturdy_4,
-            ModificationRecipe.Weapon_Sturdy_5),
+            WeaponModificationRecipe.Weapon_Sturdy_1,
+            WeaponModificationRecipe.Weapon_Sturdy_2,
+            WeaponModificationRecipe.Weapon_Sturdy_3,
+            WeaponModificationRecipe.Weapon_Sturdy_4,
+            WeaponModificationRecipe.Weapon_Sturdy_5),
 
 
     ;
 
-    private final ModificationRecipe[] recipes;
+    private final ProcurementRecipe[] recipes;
     private final String text;
 
-    ModificationBlueprint(String text, ModificationRecipe... recipes)
+    ModificationBlueprint(String text, ProcurementRecipe... recipes)
     {
         this.text = text;
         this.recipes = recipes;
     }
 
-    public Stream<ModificationRecipe> recipeStream()
+    public Stream<ProcurementRecipe> recipeStream()
     {
         return Arrays.stream(recipes);
     }
