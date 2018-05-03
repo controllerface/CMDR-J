@@ -1,9 +1,6 @@
 package com.controllerface.edeps.ui;
 
-import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.ProcurementRecipe;
-import com.controllerface.edeps.ProcurementType;
-import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.*;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
@@ -41,7 +38,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.util.Callback;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -164,10 +160,6 @@ public class UIController
 
     private void toJson() throws IOException
     {
-        // serialize procurementRecipeMap to JSON
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-
         Map<String, Object> data = new HashMap<>();
 
         List<Map<String, Object>> tasks = taskBackingList.stream()
@@ -196,9 +188,7 @@ public class UIController
 
         File file = new File("data.json");
         if (!file.exists() && !file.createNewFile()) throw new RuntimeException("Could not create file");
-        OutputStream outputStream = new FileOutputStream(file);
-        writer.writeValue(outputStream, data);
-        outputStream.close();
+        Support.JSON.writeJsonToFile.apply(file, data);
     }
 
     private void fromJson()
@@ -210,21 +200,10 @@ public class UIController
             return;
         }
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> data;
-        try
-        {
-            data = objectMapper.readValue(file, JournalSyncTask.mapTypeReference);
-        }
-        catch (IOException ioe)
-        {
-            ioe.printStackTrace();
-            throw new RuntimeException("Error reading localization data", ioe );
-        }
+        Map<String, Object> data = Support.JSON.parseJsonFile.apply(file);
 
         taskBackingList.clear();
 
-        //procurementRecipeMap.clear();
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> tasks = ((List<Map<String, Object>>) data.get("tasks"));
         tasks.forEach(taskEntry ->
@@ -276,7 +255,6 @@ public class UIController
             });
 
             taskBackingList.add(new ProcurementRecipeData(procType.get(),recipeType.get(), count.get()));
-            //procurementRecipeMap.put(new Pair<>(procType.get(), recipeType.get()), count.get());
         });
 
         if (initialzed) syncUI();
@@ -993,17 +971,7 @@ public class UIController
             e.printStackTrace();
         }
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> data;
-        try
-        {
-            data = objectMapper.readValue(inputStream, JournalSyncTask.mapTypeReference);
-        }
-        catch (IOException ioe)
-        {
-            ioe.printStackTrace();
-            throw new RuntimeException("Error reading localization data", ioe );
-        }
+        Map<String, Object> data = Support.JSON.parseJsonStream.apply(inputStream);
 
         ((Map<String, Object>) data.get("materials"))
                 .forEach((key, value) ->

@@ -13,9 +13,9 @@ public enum ModificationType implements ProcurementType
     // weapons
     Beam_Laser(ModificationBlueprint.Weapon_Efficient,
             ModificationBlueprint.Weapon_LightWeight,
-            ModificationBlueprint.Long_Range_Small_Energy,
-            ModificationBlueprint.Overcharged,
-            ModificationBlueprint.Short_Range,
+            ModificationBlueprint.Weapon_LongRange,
+            ModificationBlueprint.Weapon_Overcharged,
+            ModificationBlueprint.Weapon_ShortRange,
             ModificationBlueprint.Sturdy),
 
     Burst_Laser(ModificationBlueprint.Weapon_Efficient,

@@ -1,20 +1,17 @@
 package com.controllerface.edeps.threads;
 
-import com.controllerface.edeps.EventProcessingContext;
-import com.controllerface.edeps.Procedure;
-import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.*;
 import com.controllerface.edeps.data.commander.CommanderData;
 import com.controllerface.edeps.structures.commander.PlayerStat;
 import com.controllerface.edeps.structures.commander.RankStat;
+import com.controllerface.edeps.structures.equipment.ships.CoreInternalSlot;
+import com.controllerface.edeps.structures.equipment.ships.CosmeticSlot;
+import com.controllerface.edeps.structures.equipment.ships.HardpointSlot;
+import com.controllerface.edeps.structures.equipment.ships.OptionalInternalSlot;
 import com.controllerface.edeps.structures.journal.JournalEvent;
-import com.controllerface.edeps.structures.equipment.ships.*;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
@@ -112,8 +109,7 @@ public class JournalSyncTask implements Runnable
      */
     private Predicate<String> hasSupportedEvent =
             (line) -> journalEvents.stream()
-                    .filter(event -> hasEvent.test(event, line))
-                    .findAny().isPresent();
+                    .anyMatch(event -> hasEvent.test(event, line));
 
 
     private final CommanderData commanderData;
@@ -125,10 +121,6 @@ public class JournalSyncTask implements Runnable
 
     private final Procedure updateFunction;
 
-    public static final TypeReference<Map> mapTypeReference = new TypeReference<Map>()
-    {
-        @Override public Type getType() {return HashMap.class;}
-    };
 
     public JournalSyncTask(Procedure updateFunction, CommanderData commanderData,
                            BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
@@ -265,7 +257,12 @@ public class JournalSyncTask implements Runnable
         File journalFolder = new File(JOURNAL_FOLDER);
         journalPath = journalFolder.toPath();
 
-        Arrays.stream(journalFolder.listFiles((directory, file) -> file.startsWith("Journal")))
+        File[] journalFiles = journalFolder.listFiles((directory, file) -> file.startsWith("Journal"));
+
+        // todo: maybe print an error of some kind
+        if (journalFiles == null) return;
+
+        Arrays.stream(journalFiles)
                 .sorted(newestJournalFile)
                 .limit(1).flatMap(this::readJournalLines)
                 .filter(hasSupportedEvent)
@@ -279,19 +276,17 @@ public class JournalSyncTask implements Runnable
      */
     private void processJSONEvent(String json)
     {
-        ObjectMapper objectMapper = new ObjectMapper();
         JournalEvent event;
         Map<String, Object> data;
         try
         {
-            data = objectMapper.readValue(json, mapTypeReference);
+            data = Support.JSON.parseJsonString.apply(json);
             String eventName = ((String) data.get("event"));
             event = JournalEvent.valueOf(eventName);
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw new RuntimeException("Error reading journal data", e);
+            throw new RuntimeException("Error reading journal data: " + json, e);
         }
 
         EventProcessingContext context = new EventProcessingContext(data, transactions, commanderData, updateFunction);

@@ -43,8 +43,8 @@ public enum ItemEffect
     DamageFalloffRange(true),               // base weapon stat (multiple)
     DamagePerSecond(true),                  // (*) base weapon stat (multiple)
     DamageType(true),                       // base weapon stat (multiple)
-    DefenceModifierHealthAddition(true),    // todo: determine use, probably some weapon, moddable?
-    DefenceModifierHealthMultiplier(true),  // todo: determine use, probably some weapon, moddable?
+    DefenceModifierHealthAddition(true),    // (*) base hull reinforcement stat
+    DefenceModifierHealthMultiplier(true),  // (*) base armour stat
     DefenceModifierShieldAddition(true),    // todo: determine use, probably some weapon, moddable?
     DefenceModifierShieldMultiplier(true),  // todo: determine use, probably some weapon, moddable?
     DiscoveryScannerPassiveRange(true),     // base discovery scanner stat
@@ -91,7 +91,7 @@ public enum ItemEffect
     FighterRollRate(true),                  // base SLF stat
     FighterYawRate(true),                   // base SLF stat
     FSDFuelUseIncrease(true),               // todo: determine exact use, maybe guardian fsd booster?
-    FSDHeatRate(false),                     // (*) base FSD stat
+    FSDHeatRate(false),                     // base FSD stat
     FSDInterdictorFacingLimit(true),        // (*) base FSD interdictor stat
     FSDInterdictorRange(true),              // (*) base FSD interdictor stat
     FSDJumpRangeBoost(true),                // (*) "jumponium" range boost stat
@@ -123,7 +123,7 @@ public enum ItemEffect
 
     OxygenTimeCapacity(true),               // base life support stat
 
-    PowerCapacity(true),                    // (*) base module stat (distributor & power plant)
+    PowerCapacity(true),                    // (*) base module stat (power plant)
     PowerDraw(false),                       // (*) base module stat (multiple)
 
     Range(true),                            // (*) base module stat (multiple?) todo: determine which modules use this
@@ -175,7 +175,7 @@ public enum ItemEffect
     // synthetic effects, used for synthesis recipes
     rearm(true),                // ammunition replenishment
     refuel(true),               // fuel replenishment
-    repair(true),               // damage repair
+    repair(true),               // srv repair
     refill(true),               // non-damage ammunition replenishment
     repair_speed(true),         // afmu speed
     damage_boost(true),         // ammo damage boost
