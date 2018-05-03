@@ -4,11 +4,13 @@ import com.controllerface.edeps.EventProcessingContext;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ShipModule;
 import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.data.ModifierData;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.structures.commander.PlayerStat;
 import com.controllerface.edeps.structures.commander.RankStat;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.equipment.modules.Cosmetic;
 import com.controllerface.edeps.structures.equipment.modules.CoreInternalModule;
 import com.controllerface.edeps.structures.equipment.modules.HardpointModule;
@@ -17,6 +19,7 @@ import com.controllerface.edeps.structures.equipment.ships.*;
 import com.controllerface.edeps.threads.JournalSyncTask;
 import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -505,30 +508,59 @@ public enum JournalEvent
      */
     private static void setSlotFromData(EventProcessingContext context, Map<String, Object> data)
     {
-        String slotName = ((String) data.get("Slot"));
-        String itemName = ((String) data.get("Item"));
-        Statistic statistic = determineStatType(slotName);
-        ShipModule shipModule = determineModuleType(itemName);
+        String slotKey = ((String) data.get("Slot"));
+        String moduleKey = ((String) data.get("Item"));
+        Statistic slot = determineStatType(slotKey);
+        ShipModule module = determineModuleType(moduleKey);
 
-        if (shipModule == null || statistic == null)
+
+        String modificationName = null;
+        String experimentalEffectName = null;
+        Integer level = null;
+        Double quality = null;
+
+
+        List<ModifierData> modifiers = new ArrayList<>();
+        Map<String, Object> engineering = ((Map<String, Object>) data.get("Engineering"));
+
+        if (engineering != null)
         {
-            if (statistic == null) System.out.println("Unknown Statistic: " + slotName);
-            if (shipModule == null) System.out.println("Unknown Item: " + itemName);
+            modificationName = ((String) engineering.get("BlueprintName"));
+            experimentalEffectName = ((String) engineering.get("ExperimentalEffect"));
+            level = ((Integer) engineering.get("Level"));
+            quality = ((Double) engineering.get("Quality"));
+            ((List<Map<String, Object>>) engineering.get("Modifiers"))
+                    .forEach(modifier ->
+                    {
+                        ItemEffect effect = ItemEffect.valueOf(((String) modifier.get("Label")));
+                        double value = ((double) modifier.get("Value"));
+                        double originalValue = ((double) modifier.get("OriginalValue"));
+                        boolean lessIsGood = ((int) modifier.get("LessIsGood")) == 1;
+                        modifiers.add(new ModifierData(effect, value, originalValue, lessIsGood));
+                    });
+        }
+
+
+        if (slot == null || module == null)
+        {
+            if (slot == null) System.out.println("Unknown Slot: " + slotKey);
+            if (module == null) System.out.println("Unknown Module: " + moduleKey);
         }
         else
         {
-            // todo: need to get engineering modifiers and experimental effects if present
+            ShipModuleData shipModuleData = new ShipModuleData.Builder()
+                    .setModuleName(slot)
+                    .setModule(module)
+                    .setModifiers(modifiers)
+                    .setModifcationName(modificationName)
+                    .setExperimentalEffectName(experimentalEffectName)
+                    .setLevel(level)
+                    .setQuality(quality)
+                    .build();
 
-            ShipModuleData shipModuleData = new ShipModuleData(statistic, shipModule);
             context.getCommanderData().setShipModule(shipModuleData);
+            context.getCommanderData().setStat(slot, moduleKey);
         }
-
-        if (statistic == null)
-        {
-            System.err.println("Error, unknown slot: " + slotName);
-            return;
-        }
-        context.getCommanderData().setStat(statistic, itemName);
     }
 
     /**

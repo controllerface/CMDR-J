@@ -40,6 +40,7 @@ public enum ItemEffect
     Class(true),                            // base module stat (multiple)
 
     Damage(true),                           // (*) base weapon stat (multiple)
+    DamageFalloffRange(true),               // base weapon stat (multiple)
     DamagePerSecond(true),                  // (*) base weapon stat (multiple)
     DamageType(true),                       // base weapon stat (multiple)
     DefenceModifierHealthAddition(true),    // todo: determine use, probably some weapon, moddable?

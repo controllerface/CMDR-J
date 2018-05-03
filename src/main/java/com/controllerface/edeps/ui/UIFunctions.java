@@ -4,6 +4,7 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
@@ -22,6 +23,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -29,6 +33,7 @@ import javafx.util.Callback;
 import javafx.util.Pair;
 
 import java.util.Comparator;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -47,11 +52,95 @@ class UIFunctions
 {
     static final int scrollBarAllowance = 20;
 
+    static class Fonts
+    {
+        static final Color positiveBlue = Color.rgb(0x00, 0xb3, 0xf7);
+        static final Color negativeRed = Color.rgb(0xff, 0x00, 0x00);
+        static final Color neutralBlack = Color.rgb(0x00, 0x00, 0x00);
+        static final Color standardOrange = Color.rgb(0xff, 0x71, 0x00);
+        static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
+
+    }
+
     /**
      * Callback and Callback producing functions that control how various UI elements are created and displayed
      */
     static class Data
     {
+        static final Callback<TableColumn<ShipModuleData, ShipModuleData>, TableCell<ShipModuleData, ShipModuleData>>
+                moduleDisplayCellFactory = (e) ->
+                new TableCell<ShipModuleData, ShipModuleData>()
+                {
+                    private Font baseFont = null;
+
+                    private AtomicBoolean fontInit = new AtomicBoolean(false);
+
+                    @Override
+                    protected void updateItem(ShipModuleData item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+                        if (item ==null) setGraphic(null);
+                        else if (!empty)
+                        {
+                            VBox modBox = new VBox();
+                            String m = item.getModificationName();
+                            String e = item.getExperimentalEffectName();
+                            String t = item.getModule().displayText();
+
+
+                            if (!fontInit.getAndSet(true))
+                            {
+                                Font current = Font.getDefault();
+                                baseFont = Font.font(current.getFamily(),
+                                        FontWeight.BOLD,
+                                        current.getSize() + (current.getSize() / 3));
+                            }
+
+                            Label module = new Label(t);
+                            module.setFont(baseFont);
+                            modBox.getChildren().add(module);
+
+                            if (!m.isEmpty())
+                            {
+                                Label modification = new Label(m + " :: Grade " + item.getLevel() + " :: " + item.getQuality());
+                                modification.setFont(baseFont);
+                                modification.setTextFill(Fonts.standardOrange);
+                                //modification.setBackground(new Background(new BackgroundFill(Fonts.standardOrange, null, null)));
+                                modBox.getChildren().add(modification);
+                            }
+
+                            if (!e.isEmpty())
+                            {
+                                Label special = new Label(e);
+                                special.setFont(baseFont);
+                                //special.setTextFill(Fonts.specialYellow);
+                                special.setBackground(new Background(new BackgroundFill(Fonts.specialYellow, null, null)));
+                                modBox.getChildren().add(special);
+
+                            }
+
+
+
+                            item.getModifiers().stream()
+                                    .map(modifier ->
+                                    {
+                                        String vals = modifier.getValue() + " (" + modifier.getOriginalValue() + ")";
+                                        Label label = new Label(modifier.getEffect().name() + " :: " + vals);
+                                        boolean isLess = modifier.getValue() < modifier.getOriginalValue();
+                                        boolean isGood = modifier.isLessIsGood() == isLess;
+                                        if (isGood) label.setTextFill(Fonts.positiveBlue);
+                                        else label.setTextFill(Fonts.negativeRed);
+                                        return label;
+                                    })
+                                    .peek(label -> label.setFont(baseFont))
+                                    .forEach(label -> modBox.getChildren().add(label));
+
+                            setGraphic(modBox);
+                        }
+                    }
+                };
+
+
         // simple string for material category name
         static final Callback<TableColumn.CellDataFeatures<InventoryData, String>, ObservableValue<String>>
                 inventoryCategoryCellFactory =
@@ -191,12 +280,7 @@ class UIFunctions
         };
     }
 
-    static class Fonts
-    {
-        static final Color positiveBlue = Color.rgb(0x00, 0xb3, 0xf7);
-        static final Color negativeRed = Color.rgb(0xff, 0x00, 0x00);
-        static final Color neutralBlack = Color.rgb(0x00, 0x00, 0x00);
-    }
+
 
     /**
      * Mapping functions used to produce UI elements from other data objects

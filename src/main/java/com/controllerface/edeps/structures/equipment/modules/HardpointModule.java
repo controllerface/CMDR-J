@@ -253,6 +253,18 @@ public enum HardpointModule implements ShipModule
 
     ;
 
+    private final String displayText;
+
+    HardpointModule()
+    {
+        displayText = name();
+    }
+
+    @Override
+    public String displayText()
+    {
+        return displayText;
+    }
 
     public static ShipModule findModule(String moduleName) throws Exception
     {

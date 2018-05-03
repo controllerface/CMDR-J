@@ -1,0 +1,457 @@
+{
+  "special_auto_loader": {
+    "id": 0,
+    "edname": "special_auto_loader",
+    "name": "Auto loader"
+  },
+  "special_choke_canister": {
+    "id": 1,
+    "edname": "special_choke_canister",
+    "name": "Choke canister"
+  },
+  "special_concordant_sequence": {
+    "id": 2,
+    "edname": "special_concordant_sequence",
+    "name": "Concordant sequence"
+  },
+  "special_corrosive_shell": {
+    "id": 3,
+    "edname": "special_corrosive_shell",
+    "name": "Corrosive shell"
+  },
+  "special_blinding_shell": {
+    "id": 4,
+    "edname": "special_blinding_shell",
+    "name": "Dazzle shell"
+  },
+  "special_dispersal_field": {
+    "id": 5,
+    "edname": "special_dispersal_field",
+    "name": "Dispersal field"
+  },
+  "special_distortion_field": {
+    "id": 6,
+    "edname": "special_distortion_field",
+    "name": "Distortion field"
+  },
+  "special_drag_munitions": {
+    "id": 7,
+    "edname": "special_drag_munitions",
+    "name": "Drag munitions"
+  },
+  "special_emissive_munitions": {
+    "id": 8,
+    "edname": "special_emissive_munitions",
+    "name": "Emissive munitions"
+  },
+  "special_feedback_cascade": {
+    "id": 9,
+    "edname": "special_feedback_cascade",
+    "name": "Feedback cascade (Legacy)"
+  },
+  "special_force_shell": {
+    "id": 10,
+    "edname": "special_force_shell",
+    "name": "Force shell"
+  },
+  "special_fsd_interrupt": {
+    "id": 33,
+    "edname": "special_fsd_interrupt",
+    "name": "FSD interrupt"
+  },
+  "special_high_yield_shell": {
+    "id": 11,
+    "edname": "special_high_yield_shell",
+    "name": "High yield shell"
+  },
+  "special_incendiary_rounds": {
+    "id": 12,
+    "edname": "special_incendiary_rounds",
+    "name": "Incendiary rounds"
+  },
+  "special_inertial_impact": {
+    "id": 32,
+    "edname": "special_inertial_impact",
+    "name": "Inertial impact"
+  },
+  "special_ion_disruptor": {
+    "id": 13,
+    "edname": "special_ion_disruptor",
+    "name": "Ion disruptor"
+  },
+  "special_mass_lock_munition": {
+    "id": 14,
+    "edname": "special_mass_lock_munition",
+    "name": "Mass lock munition"
+  },
+  "special_overload_munitions": {
+    "id": 15,
+    "edname": "special_overload_munitions",
+    "name": "Overload munitions"
+  },
+  "special_penetrator_payload": {
+    "id": 16,
+    "edname": "special_penetrator_payload",
+    "name": "Penetrator payload"
+  },
+  "special_phasing_sequence": {
+    "id": 17,
+    "edname": "special_phasing_sequence",
+    "name": "Phasing sequence"
+  },
+  "special_plasma_slug": {
+    "id": 18,
+    "edname": "special_plasma_slug",
+    "name": "Plasma slug (Legacy)"
+  },
+  "special_radiant_canister": {
+    "id": 19,
+    "edname": "special_radiant_canister",
+    "name": "Radiant Canister"
+  },
+  "special_regeneration_sequence": {
+    "id": 20,
+    "edname": "special_regeneration_sequence",
+    "name": "Regeneration sequence"
+  },
+  "special_reverberating_cascade": {
+    "id": 21,
+    "edname": "special_reverberating_cascade",
+    "name": "Reverberating cascade"
+  },
+  "special_scramble_spectrum": {
+    "id": 22,
+    "edname": "special_scramble_spectrum",
+    "name": "Scramble spectrum"
+  },
+  "special_screening_shell": {
+    "id": 23,
+    "edname": "special_screening_shell",
+    "name": "Screening shell"
+  },
+  "special_shiftlock_canister": {
+    "id": 24,
+    "edname": "special_shiftlock_canister",
+    "name": "Shift-lock canister"
+  },
+  "special_smart_rounds": {
+    "id": 25,
+    "edname": "special_smart_rounds",
+    "name": "Smart rounds"
+  },
+  "special_super_penetrator": {
+    "id": 26,
+    "edname": "special_super_penetrator",
+    "name": "Super penetrator (Legacy)"
+  },
+  "special_lock_breaker": {
+    "id": 27,
+    "edname": "special_lock_breaker",
+    "name": "Target lock breaker"
+  },
+  "special_thermal_cascade": {
+    "id": 28,
+    "edname": "special_thermal_cascade",
+    "name": "Thermal cascade"
+  },
+  "special_thermal_conduit": {
+    "id": 29,
+    "edname": "special_thermal_conduit",
+    "name": "Thermal conduit"
+  },
+  "special_thermal_vent": {
+    "id": 30,
+    "edname": "special_thermal_vent",
+    "name": "Thermal vent"
+  },
+  "special_thermalshock": {
+    "id": 31,
+    "edname": "special_thermalshock",
+    "name": "Thermal shock"
+  },
+  "special_feedback_cascade_cooled": {
+    "name": "Feedback Cascade",
+    "id": 100,
+    "edname": "special_feedback_cascade_cooled"
+  },
+  "special_super_penetrator_cooled": {
+    "name": "Super Penetrator",
+    "id": 101,
+    "edname": "special_super_penetrator_cooled"
+  },
+  "special_plasma_slug_cooled": {
+    "name": "Plasma Slug",
+    "id": 102,
+    "edname": "special_plasma_slug_cooled"
+  },
+  "special_penetrator_munitions": {
+    "name": "Penetrator Munitions",
+    "id": 103,
+    "edname": "special_penetrator_munitions"
+  },
+  "special_deep_cut_payload": {
+    "name": "Penetrator Payload",
+    "id": 104,
+    "edname": "special_deep_cut_payload"
+  },
+  "special_mass_lock": {
+    "name": "Mass Lock Munition",
+    "id": 105,
+    "edname": "special_mass_lock"
+  },
+  "special_shield_regenerative": {
+    "name": "Fast Charge",
+    "id": 106,
+    "edname": "special_shield_regenerative"
+  },
+  "special_shield_resistive": {
+    "name": "Multi-weave",
+    "id": 107,
+    "edname": "special_shield_resistive"
+  },
+  "special_shield_health": {
+    "name": "Hi-Cap",
+    "id": 108,
+    "edname": "special_shield_health"
+  },
+  "special_shield_efficient": {
+    "name": "Lo-draw",
+    "id": 109,
+    "edname": "special_shield_efficient"
+  },
+  "special_shield_thermic": {
+    "name": "Thermo Block",
+    "id": 110,
+    "edname": "special_shield_thermic"
+  },
+  "special_shield_kinetic": {
+    "name": "Force Block",
+    "id": 111,
+    "edname": "special_shield_kinetic"
+  },
+  "special_shield_toughened": {
+    "name": "Double Braced",
+    "id": 112,
+    "edname": "special_shield_toughened"
+  },
+  "special_shield_lightweight": {
+    "name": "Stripped Down",
+    "id": 113,
+    "edname": "special_shield_lightweight"
+  },
+  "special_engine_cooled": {
+    "name": "Thermal Spread",
+    "id": 114,
+    "edname": "special_engine_cooled"
+  },
+  "special_engine_haulage": {
+    "name": "Drive Distributors",
+    "id": 115,
+    "edname": "special_engine_haulage"
+  },
+  "special_engine_overloaded": {
+    "name": "Drag Drives",
+    "id": 116,
+    "edname": "special_engine_overloaded"
+  },
+  "special_engine_toughened": {
+    "name": "Double Braced",
+    "id": 117,
+    "edname": "special_engine_toughened"
+  },
+  "special_engine_lightweight": {
+    "name": "Stripped Down",
+    "id": 118,
+    "edname": "special_engine_lightweight"
+  },
+  "special_fsd_fuelcapacity": {
+    "name": "Deep Charge",
+    "id": 119,
+    "edname": "special_fsd_fuelcapacity"
+  },
+  "special_fsd_heavy": {
+    "name": "Mass Manager",
+    "id": 120,
+    "edname": "special_fsd_heavy"
+  },
+  "special_fsd_toughened": {
+    "name": "Double Braced",
+    "id": 121,
+    "edname": "special_fsd_toughened"
+  },
+  "special_fsd_lightweight": {
+    "name": "Stripped Down",
+    "id": 122,
+    "edname": "special_fsd_lightweight"
+  },
+  "special_fsd_cooled": {
+    "name": "Thermal Spread",
+    "id": 123,
+    "edname": "special_fsd_cooled"
+  },
+  "special_powerplant_highcharge": {
+    "name": "Monstered",
+    "id": 124,
+    "edname": "special_powerplant_highcharge"
+  },
+  "special_powerplant_cooled": {
+    "name": "Thermal Spread",
+    "id": 125,
+    "edname": "special_powerplant_cooled"
+  },
+  "special_powerplant_toughened": {
+    "name": "Double Braced",
+    "id": 126,
+    "edname": "special_powerplant_toughened"
+  },
+  "special_powerplant_lightweight": {
+    "name": "Stripped Down",
+    "id": 127,
+    "edname": "special_powerplant_lightweight"
+  },
+  "special_powerdistributor_capacity": {
+    "name": "Cluster Capacitors",
+    "id": 128,
+    "edname": "special_powerdistributor_capacity"
+  },
+  "special_powerdistributor_fast": {
+    "name": "Super Conduits",
+    "id": 129,
+    "edname": "special_powerdistributor_fast"
+  },
+  "special_powerdistributor_efficient": {
+    "name": "Flow Control",
+    "id": 130,
+    "edname": "special_powerdistributor_efficient"
+  },
+  "special_powerdistributor_toughened": {
+    "name": "Double Braced",
+    "id": 131,
+    "edname": "special_powerdistributor_toughened"
+  },
+  "special_powerdistributor_lightweight": {
+    "name": "Stripped Down",
+    "id": 132,
+    "edname": "special_powerdistributor_lightweight"
+  },
+  "special_shieldcell_gradual": {
+    "name": "Recycling Cell",
+    "id": 133,
+    "edname": "special_shieldcell_gradual"
+  },
+  "special_shieldcell_oversized": {
+    "name": "Boss Cells",
+    "id": 134,
+    "edname": "special_shieldcell_oversized"
+  },
+  "special_shieldcell_efficient": {
+    "name": "Flow Control",
+    "id": 135,
+    "edname": "special_shieldcell_efficient"
+  },
+  "special_shieldcell_toughened": {
+    "name": "Double Braced",
+    "id": 136,
+    "edname": "special_shieldcell_toughened"
+  },
+  "special_shieldcell_lightweight": {
+    "name": "Stripped Down",
+    "id": 137,
+    "edname": "special_shieldcell_lightweight"
+  },
+  "special_weapon_damage": {
+    "name": "Oversized",
+    "id": 138,
+    "edname": "special_weapon_damage"
+  },
+  "special_weapon_rateoffire": {
+    "name": "Multi-servos",
+    "id": 139,
+    "edname": "special_weapon_rateoffire"
+  },
+  "special_weapon_efficient": {
+    "name": "Flow Control",
+    "id": 140,
+    "edname": "special_weapon_efficient"
+  },
+  "special_weapon_toughened": {
+    "name": "Double Braced",
+    "id": 141,
+    "edname": "special_weapon_toughened"
+  },
+  "special_weapon_lightweight": {
+    "name": "Stripped Down",
+    "id": 142,
+    "edname": "special_weapon_lightweight"
+  },
+  "special_armour_thermic": {
+    "name": "Reflective Plating",
+    "id": 143,
+    "edname": "special_armour_thermic"
+  },
+  "special_armour_kinetic": {
+    "name": "Angled Plating",
+    "id": 144,
+    "edname": "special_armour_kinetic"
+  },
+  "special_armour_explosive": {
+    "name": "Layered Plating",
+    "id": 145,
+    "edname": "special_armour_explosive"
+  },
+  "special_armour_chunky": {
+    "name": "Deep Plating",
+    "id": 146,
+    "edname": "special_armour_chunky"
+  },
+  "special_hullreinforcement_thermic": {
+    "name": "Reflective Plating",
+    "id": 147,
+    "edname": "special_hullreinforcement_thermic"
+  },
+  "special_hullreinforcement_kinetic": {
+    "name": "Angled Plating",
+    "id": 148,
+    "edname": "special_hullreinforcement_kinetic"
+  },
+  "special_hullreinforcement_explosive": {
+    "name": "Layered Plating",
+    "id": 149,
+    "edname": "special_hullreinforcement_explosive"
+  },
+  "special_hullreinforcement_chunky": {
+    "name": "Deep Plating",
+    "id": 150,
+    "edname": "special_hullreinforcement_chunky"
+  },
+  "special_shieldbooster_thermic": {
+    "name": "Thermo Block",
+    "id": 151,
+    "edname": "special_shieldbooster_thermic"
+  },
+  "special_shieldbooster_kinetic": {
+    "name": "Force Block",
+    "id": 152,
+    "edname": "special_shieldbooster_kinetic"
+  },
+  "special_shieldbooster_explosive": {
+    "name": "Blast Block",
+    "id": 153,
+    "edname": "special_shieldbooster_explosive"
+  },
+  "special_shieldbooster_efficient": {
+    "name": "Flow Control",
+    "id": 154,
+    "edname": "special_shieldbooster_efficient"
+  },
+  "special_shieldbooster_toughened": {
+    "name": "Double Braced",
+    "id": 155,
+    "edname": "special_shieldbooster_toughened"
+  },
+  "special_shieldbooster_chunky": {
+    "name": "Super Capacitors",
+    "id": 156,
+    "edname": "special_shieldbooster_chunky"
+  }
+}

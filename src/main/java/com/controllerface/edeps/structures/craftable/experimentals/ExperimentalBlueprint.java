@@ -97,7 +97,7 @@ public enum ExperimentalBlueprint
     private final ExperimentalRecipe[] recipes;
     private final String text;
 
-    ExperimentalBlueprint(String text, ExperimentalRecipe ... recipes)
+    ExperimentalBlueprint(String text, ExperimentalRecipe... recipes)
     {
         this.text = text;
         this.recipes = recipes;

@@ -583,6 +583,19 @@ public enum OptionalInternalModule implements ShipModule
 
     ;
 
+    private final String displayText;
+
+    OptionalInternalModule()
+    {
+        displayText = name();
+    }
+
+    @Override
+    public String displayText()
+    {
+        return displayText;
+    }
+
     public static ShipModule findModule(String moduleName) throws Exception
     {
         final Exception exception;

@@ -31,6 +31,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,6 +41,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Callback;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -135,15 +137,15 @@ public class UIController
     @FXML private Label shipTypeLabel;
     @FXML private TableView<ShipModuleData> coreModuleList;
     @FXML private TableColumn<ShipModuleData, String> coreModuleNameColumn;
-    @FXML private TableColumn<ShipModuleData, String> coreModuleDataColumn;
+    @FXML private TableColumn<ShipModuleData, ShipModuleData> coreModuleDataColumn;
 
     @FXML private TableView<ShipModuleData> optionalModuleList;
     @FXML private TableColumn<ShipModuleData, String> optionalModuleNameColumn;
-    @FXML private TableColumn<ShipModuleData, String> optionalModuleDataColumn;
+    @FXML private TableColumn<ShipModuleData, ShipModuleData> optionalModuleDataColumn;
 
     @FXML private TableView<ShipModuleData> hardpointList;
     @FXML private TableColumn<ShipModuleData, String> hardpointNameColumn;
-    @FXML private TableColumn<ShipModuleData, String> hardpointDataColumn;
+    @FXML private TableColumn<ShipModuleData, ShipModuleData> hardpointDataColumn;
 
 
 
@@ -448,12 +450,16 @@ public class UIController
         hardpointList.setItems(commanderData.getStarShip().getHardpoints());
 
         coreModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
-        coreModuleDataColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModule().toString()));
-        optionalModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
-        optionalModuleDataColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModule().toString()));
-        hardpointNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
-        hardpointDataColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModule().toString()));
+        coreModuleDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        coreModuleDataColumn.setCellFactory(UIFunctions.Data.moduleDisplayCellFactory);
 
+        optionalModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        optionalModuleDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        optionalModuleDataColumn.setCellFactory(UIFunctions.Data.moduleDisplayCellFactory);
+
+        hardpointNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        hardpointDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        hardpointDataColumn.setCellFactory(UIFunctions.Data.moduleDisplayCellFactory);
 
 
         // set the cell value factories for the player inventory tabs

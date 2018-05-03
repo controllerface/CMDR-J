@@ -11,43 +11,43 @@ import java.util.stream.Stream;
 public enum ModificationType implements ProcurementType
 {
     // weapons
-    Beam_Laser(ModificationBlueprint.Efficient,
-            ModificationBlueprint.Lightweight_Weapon,
+    Beam_Laser(ModificationBlueprint.Weapon_Efficient,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Long_Range_Small_Energy,
             ModificationBlueprint.Overcharged,
             ModificationBlueprint.Short_Range,
             ModificationBlueprint.Sturdy),
 
-    Burst_Laser(ModificationBlueprint.Efficient,
+    Burst_Laser(ModificationBlueprint.Weapon_Efficient,
             ModificationBlueprint.Focused,
-            ModificationBlueprint.Lightweight_Weapon,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Long_Range_Small_Energy,
             ModificationBlueprint.Overcharged,
             ModificationBlueprint.Rapid_Fire,
             ModificationBlueprint.Short_Range,
             ModificationBlueprint.Sturdy),
 
-    Pulse_Laser(ModificationBlueprint.Efficient,
+    Pulse_Laser(ModificationBlueprint.Weapon_Efficient,
             ModificationBlueprint.Focused,
-            ModificationBlueprint.Lightweight_Weapon,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Long_Range_Small_Energy,
             ModificationBlueprint.Overcharged,
             ModificationBlueprint.Rapid_Fire,
             ModificationBlueprint.Short_Range,
             ModificationBlueprint.Sturdy),
 
-    Cannon(ModificationBlueprint.Efficient,
+    Cannon(ModificationBlueprint.Weapon_Efficient,
             ModificationBlueprint.High_Capacity,
-            ModificationBlueprint.Lightweight_Weapon,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Long_Range_Large_Calibre,
             ModificationBlueprint.Overcharged,
             ModificationBlueprint.Rapid_Fire,
             ModificationBlueprint.Short_Range,
             ModificationBlueprint.Sturdy),
 
-    Multi_Cannon(ModificationBlueprint.Efficient,
+    Multi_Cannon(ModificationBlueprint.Weapon_Efficient,
             ModificationBlueprint.High_Capacity,
-            ModificationBlueprint.Lightweight_Weapon,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Long_Range_Small_Energy,
             ModificationBlueprint.Overcharged_Multi_Cannon,
             ModificationBlueprint.Rapid_Fire,
@@ -55,34 +55,34 @@ public enum ModificationType implements ProcurementType
             ModificationBlueprint.Sturdy),
 
     Fragment_Cannon(ModificationBlueprint.Double_Shot,
-            ModificationBlueprint.Efficient,
+            ModificationBlueprint.Weapon_Efficient,
             ModificationBlueprint.High_Capacity,
-            ModificationBlueprint.Lightweight_Weapon,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Overcharged,
             ModificationBlueprint.Rapid_Fire,
             ModificationBlueprint.Sturdy),
 
     Missile_Rack(ModificationBlueprint.High_Capacity,
-            ModificationBlueprint.Lightweight_Weapon,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Rapid_Fire,
             ModificationBlueprint.Sturdy),
 
     Seeker_Missile_Rack(ModificationBlueprint.High_Capacity,
-            ModificationBlueprint.Lightweight_Weapon,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Rapid_Fire,
             ModificationBlueprint.Sturdy),
 
-    Torpedo_Pylon(ModificationBlueprint.Lightweight_Weapon,
+    Torpedo_Pylon(ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Sturdy),
 
     Mine_Launcher(ModificationBlueprint.High_Capacity,
-            ModificationBlueprint.Lightweight_Weapon,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Rapid_Fire,
             ModificationBlueprint.Sturdy),
 
-    Plasma_Accelerator(ModificationBlueprint.Efficient,
+    Plasma_Accelerator(ModificationBlueprint.Weapon_Efficient,
             ModificationBlueprint.Focused,
-            ModificationBlueprint.Lightweight_Weapon,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Long_Range_Large_Calibre,
             ModificationBlueprint.Overcharged,
             ModificationBlueprint.Rapid_Fire,
@@ -90,7 +90,7 @@ public enum ModificationType implements ProcurementType
             ModificationBlueprint.Sturdy),
 
     Rail_Gun(ModificationBlueprint.High_Capacity,
-            ModificationBlueprint.Lightweight_Weapon,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Long_Range_Small_Energy,
             ModificationBlueprint.Short_Range,
             ModificationBlueprint.Sturdy),
@@ -148,7 +148,7 @@ public enum ModificationType implements ProcurementType
     Hull_Reinforcement_Package(ModificationBlueprint.Blast_Resistant_Hull_Reinforcement,
             ModificationBlueprint.Heavy_Duty_Hull_Reinforcement,
             ModificationBlueprint.Kinetic_Resistant_Hull,
-            ModificationBlueprint.Lightweight_Weapon,
+            ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Thermal_Resistant_Hull),
 
     Detailed_Surface_Scanner(ModificationBlueprint.Fast_Surface_Scan,
@@ -162,19 +162,19 @@ public enum ModificationType implements ProcurementType
 
     Fuel_Scoop(ModificationBlueprint.Shielded),
 
-    Collector_Limpet_Controller(ModificationBlueprint.Lightweight_Weapon,
+    Collector_Limpet_Controller(ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Reinforced,
             ModificationBlueprint.Shielded),
 
-    Prospector_Limpet_Controller(ModificationBlueprint.Lightweight_Weapon,
+    Prospector_Limpet_Controller(ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Reinforced,
             ModificationBlueprint.Shielded),
 
-    Fuel_Transfer_Limpet(ModificationBlueprint.Lightweight_Weapon,
+    Fuel_Transfer_Limpet(ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Reinforced,
             ModificationBlueprint.Shielded),
 
-    Hatch_Breaker_Limpet(ModificationBlueprint.Lightweight_Weapon,
+    Hatch_Breaker_Limpet(ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Reinforced,
             ModificationBlueprint.Shielded),
 
@@ -191,7 +191,7 @@ public enum ModificationType implements ProcurementType
             ModificationBlueprint.Increased_Range,
             ModificationBlueprint.Shielded_FSD),
 
-    Life_Support(ModificationBlueprint.Lightweight_Weapon,
+    Life_Support(ModificationBlueprint.Weapon_LightWeight,
             ModificationBlueprint.Reinforced,
             ModificationBlueprint.Shielded),
 
@@ -214,10 +214,10 @@ public enum ModificationType implements ProcurementType
             ModificationBlueprint.Dirty,
             ModificationBlueprint.Reinforced_Thrusters),
 
-    Bulkheads(ModificationBlueprint.Blast_Resistant_Armor,
+    Bulkheads(ModificationBlueprint.Armour_Explosive,
             ModificationBlueprint.Heavy_Duty_Armor,
             ModificationBlueprint.Kinetic_Resistant_Armor,
-            ModificationBlueprint.Lightweight_Bulkheads,
+            ModificationBlueprint.Armour_Advanced,
             ModificationBlueprint.Thermal_Resistant_Armor);
 
     private final ModificationBlueprint[] blueprints;

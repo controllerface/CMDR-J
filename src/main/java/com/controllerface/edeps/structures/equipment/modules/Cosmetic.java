@@ -60,6 +60,19 @@ public enum Cosmetic implements ShipModule
 
     ;
 
+    private final String displaytext;
+
+    Cosmetic()
+    {
+        displaytext = name();
+    }
+
+    @Override
+    public String displayText()
+    {
+        return displaytext;
+    }
+
     public static ShipModule findCosmetic(String cosmeticName) throws Exception
     {
         final Exception exception;
