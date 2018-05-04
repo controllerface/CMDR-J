@@ -1,12 +1,15 @@
 package com.controllerface.edeps.structures.craftable.synthesis;
 
+import com.controllerface.edeps.ProcurementBlueprint;
+import com.controllerface.edeps.ProcurementRecipe;
+
 import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
  * Created by Stephen on 4/12/2018.
  */
-public enum SynthesisBlueprint
+public enum SynthesisBlueprint implements ProcurementBlueprint
 {
     // Standard
     Small_Calibre_Munitions(SynthesisRecipe.Small_Calibre_Munitions_Basic,
@@ -91,7 +94,7 @@ public enum SynthesisBlueprint
         this.recipes = recipes;
     }
 
-    public Stream<SynthesisRecipe> recipeStream()
+    public Stream<ProcurementRecipe> recipeStream()
     {
         return Arrays.stream(recipes);
     }

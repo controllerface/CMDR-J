@@ -1,5 +1,6 @@
 package com.controllerface.edeps.structures.craftable.modifications;
 
+import com.controllerface.edeps.ProcurementBlueprint;
 import com.controllerface.edeps.ProcurementRecipe;
 
 import java.util.Arrays;
@@ -8,7 +9,7 @@ import java.util.stream.Stream;
 /**
  * Created by Stephen on 3/31/2018.
  */
-public enum ModificationBlueprint
+public enum ModificationBlueprint implements ProcurementBlueprint
 {
     AFM_Shielded("Shielded",
             ModificationRecipe.AFM_Shielded_1,
@@ -551,7 +552,7 @@ public enum ModificationBlueprint
             ModificationRecipe.Sensor_WakeScanner_LongRange_4,
             ModificationRecipe.Sensor_WakeScanner_LongRange_5),
 
-    Sensor_WakeScanner_WideAngle("Wide SensorTargetScanAngle",
+    Sensor_WakeScanner_WideAngle("Wide Angle",
             ModificationRecipe.Sensor_WakeScanner_WideAngle_1,
             ModificationRecipe.Sensor_WakeScanner_WideAngle_2,
             ModificationRecipe.Sensor_WakeScanner_WideAngle_3,

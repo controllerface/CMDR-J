@@ -9,6 +9,8 @@ import java.util.Arrays;
  */
 public enum OptionalInternalModule implements ShipModule
 {
+    //todo: add all faction specific and tech broker items from coriolis.io data files
+
     /**
      * Shield Generators
      */
@@ -257,7 +259,7 @@ public enum OptionalInternalModule implements ShipModule
     int_fuelscoop_size7_class1("7E Fuel Scoop"),
     int_fuelscoop_size7_class2("7D Fuel Scoop"),
     int_fuelscoop_size7_class3("7C Fuel Scoop"),
-    int_fuelscoop_size7_class4("7BFuel Scoop"),
+    int_fuelscoop_size7_class4("7B Fuel Scoop"),
     int_fuelscoop_size7_class5("7A Fuel Scoop"),
 
     int_fuelscoop_size8_class1("8E Fuel Scoop"),

@@ -1,12 +1,15 @@
 package com.controllerface.edeps.structures.craftable.technologies;
 
+import com.controllerface.edeps.ProcurementBlueprint;
+import com.controllerface.edeps.ProcurementRecipe;
+
 import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
  * Created by Stephen on 4/12/2018.
  */
-public enum  TechnologyBlueprint
+public enum  TechnologyBlueprint implements ProcurementBlueprint
 {
     // Human
 
@@ -60,7 +63,7 @@ public enum  TechnologyBlueprint
         this.recipes = recipes;
     }
 
-    public Stream<TechnologyRecipe> recipeStream()
+    public Stream<ProcurementRecipe> recipeStream()
     {
         return Arrays.stream(recipes);
     }

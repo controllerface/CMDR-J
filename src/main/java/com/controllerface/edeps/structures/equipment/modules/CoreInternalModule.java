@@ -9,6 +9,8 @@ import java.util.Arrays;
  */
 public enum CoreInternalModule implements ShipModule
 {
+    //todo: add all faction specific and tech broker items from coriolis.io data files
+
 
     /**
      * Cargo Bay Door

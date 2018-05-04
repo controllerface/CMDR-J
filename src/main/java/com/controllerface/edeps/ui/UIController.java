@@ -34,7 +34,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
@@ -69,7 +69,9 @@ public class UIController
      */
 
     // Procurement tree
+    @FXML private HBox procurementBox;
     @FXML private TreeView<ProcTreeData> procurementTree;
+    @FXML private ListView<ProcTreeData> procurementList;
 
     // Raw materials
     @FXML private TableView<InventoryData> rawTable;
@@ -101,7 +103,6 @@ public class UIController
 
     // Procurement task table
     @FXML private AnchorPane taskPane;
-    @FXML private VBox taskContols;
     @FXML private RadioButton sortTasksByName;
     @FXML private RadioButton sortTasksByGrade;
 
@@ -160,8 +161,10 @@ public class UIController
 
     private final CommanderData commanderData = new CommanderData();
 
+    private ObservableList<ProcTreeData> procSelectorBackingList = FXCollections.observableArrayList();
+
     // The observable list backing the task list table view
-    private ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableList(new ArrayList<>());
+    private ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableArrayList();
 
     private void toJson() throws IOException
     {
@@ -417,7 +420,9 @@ public class UIController
         recipeTableLabel.setFont(recipeTableFont);
         costTableLabel.setFont(costTableFont);
 
-
+        procurementList.setItems(procSelectorBackingList);
+        procurementList.setCellFactory(param ->
+                new ProcListCell(addTaskToProcurementList, commanderData::hasItem, procurementList.widthProperty()));
 
         rawTable.setItems(commanderData.observableRawMaterials());
         dataTable.setItems(commanderData.observableDataMaterials());
@@ -451,7 +456,11 @@ public class UIController
                     protected void updateItem(ShipStatisticData item, boolean empty)
                     {
                         super.updateItem(item, empty);
-                        if (item == null) setGraphic(null);
+                        if (item == null)
+                        {
+                            setGraphic(null);
+                            return;
+                        }
                         if (!empty)
                         {
                             Label label = new Label(item.statDisplayValue());
@@ -606,17 +615,7 @@ public class UIController
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(blueprint.toString()));
-
-                    // for this blueprint, loop through all recipes it contains
-                    blueprint.recipeStream().forEach(recipe->
-                    {
-                        // add a button allowing the user to add the recipe to their procurement list
-                        TreeItem<ProcTreeData> recipeItem = new TreeItem<>(new ProcTreeData(type, recipe));
-
-                        // add the recipe button to this blueprint
-                        bluePrintItem.getChildren().add(recipeItem);
-                    });
+                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -654,17 +653,7 @@ public class UIController
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData( blueprint.toString()));
-
-                    // for this blueprint, loop through all recipes it contains
-                    blueprint.recipeStream().forEach(recipe->
-                    {
-                        // add a button allowing the user to add the recipe to their procurement list
-                        TreeItem<ProcTreeData> recipeItem = new TreeItem<>(new ProcTreeData(type, recipe));
-
-                        // add the recipe button to this blueprint
-                        bluePrintItem.getChildren().add(recipeItem);
-                    });
+                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -684,9 +673,8 @@ public class UIController
     private TreeItem<ProcTreeData> makeExperimentTree()
     {
         TreeItem<ProcTreeData> experiments = new TreeItem<>(new ProcTreeData("Experimental Effects"));
-        //experiments.setExpanded(true);
 
-        // loop through all experimental categories
+        // loop through all mod categories
         Arrays.stream(ExperimentalCategory.values()).forEach(category ->
         {
             // add a collapsible category label
@@ -696,24 +684,22 @@ public class UIController
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcTreeData> typeItem = new TreeItem<>(new ProcTreeData(type.toString()));
+                //TreeItem<ProcTreeData> typeItem = new TreeItem<>(new ProcTreeData(type.toString()));
 
-                // for this experiment type, loop through all blueprints it contains
-                type.bluePrintStream().forEach(blueprint ->
+                // for this mod type, loop through all blueprints it contains
+                type.blueprintStream().forEach(blueprint ->
                 {
-                    // for this blueprint, loop through all recipes it contains
-                    blueprint.recipeStream().forEach(recipe->
-                    {
-                        // add a button allowing the user to add the recipe to their procurement list
-                        TreeItem<ProcTreeData> recipeItem = new TreeItem<>(new ProcTreeData(type, recipe));
+                    // add a collapsible blueprint label
+                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(type, blueprint));
 
-                        // add the recipe button to this blueprint
-                        typeItem.getChildren().add(recipeItem);
-                    });
+                    // add the blueprint item to this mod type
+                    //typeItem.getChildren().add(bluePrintItem);
+                    categoryItem.getChildren().add(bluePrintItem);
+
                 });
 
                 // add the type item to this category
-                categoryItem.getChildren().add(typeItem);
+                //categoryItem.getChildren().add(typeItem);
             });
 
             // add this category to the root
@@ -744,17 +730,7 @@ public class UIController
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(blueprint.toString()));
-
-                    // for this blueprint, loop through all recipes it contains
-                    blueprint.recipeStream().forEach(recipe->
-                    {
-                        // add a button allowing the user to add the recipe to their procurement list
-                        TreeItem<ProcTreeData> recipeItem = new TreeItem<>(new ProcTreeData(type, recipe));
-
-                        // add the recipe button to this blueprint
-                        bluePrintItem.getChildren().add(recipeItem);
-                    });
+                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -792,7 +768,7 @@ public class UIController
 
         // use a custom cell factory so we can have more useful tree cells
         procurementTree.setCellFactory(param ->
-                new ProcTreeCell(addTaskToProcurementList, this.commanderData::hasItem));
+                new ProcTreeCell(addTaskToProcurementList, this.commanderData::hasItem, procSelectorBackingList));
 
         // hide the root, showing just it's children in the tree view (which are the mod categories)
         procurementTree.setShowRoot(false);
@@ -925,13 +901,13 @@ public class UIController
         if (showProcurements.isSelected())
         {
             shown++;
-            procurementTree.setPrefHeight(10000);
-            procurementTree.setVisible(true);
+            procurementBox.setPrefHeight(10000);
+            procurementBox.setVisible(true);
         }
         else
         {
-            procurementTree.setPrefHeight(0);
-            procurementTree.setVisible(false);
+            procurementBox.setPrefHeight(0);
+            procurementBox.setVisible(false);
         }
 
         if (showTasks.isSelected())

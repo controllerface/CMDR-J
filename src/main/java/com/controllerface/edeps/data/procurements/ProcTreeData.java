@@ -1,6 +1,7 @@
 package com.controllerface.edeps.data.procurements;
 
 import com.controllerface.edeps.Immutable;
+import com.controllerface.edeps.ProcurementBlueprint;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
 import javafx.util.Pair;
@@ -17,28 +18,47 @@ import javafx.util.Pair;
 public class ProcTreeData
 {
     private final String text;
-    private final Pair<ProcurementType, ProcurementRecipe> dataPair;
+    private final ProcurementType type;
+    private final ProcurementRecipe recipe;
+    private final ProcurementBlueprint blueprint;
 
     public ProcTreeData(String text)
     {
-        this.dataPair = null;
         this.text = text;
+        this.type = null;
+        this.recipe = null;
+        this.blueprint = null;
     }
 
     public ProcTreeData(ProcurementType type, ProcurementRecipe recipe)
     {
-        this.dataPair = new Pair<>(type, recipe);
         this.text = recipe.toString();
+        this.type = type;
+        this.recipe = recipe;
+        this.blueprint = null;
+    }
+
+    public ProcTreeData(ProcurementType type, ProcurementBlueprint blueprint)
+    {
+        this.text = blueprint.toString();
+        this.type = type;
+        this.recipe = null;
+        this.blueprint = blueprint;
     }
 
     public ProcurementType getType()
     {
-        return dataPair == null ? null : dataPair.getKey();
+        return type;
     }
 
     public ProcurementRecipe getRecipe()
     {
-        return dataPair == null ? null : dataPair.getValue();
+        return recipe;
+    }
+
+    public ProcurementBlueprint getBlueprint()
+    {
+        return blueprint;
     }
 
     @Override

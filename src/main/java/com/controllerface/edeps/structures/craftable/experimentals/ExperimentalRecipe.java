@@ -839,11 +839,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
     @Override
     public String getLabel()
     {
-        return Arrays.stream(ExperimentalBlueprint.values())
-                .filter(blueprint -> blueprint.recipeStream()
-                        .anyMatch(recipe -> recipe.name().equals(name())))
-                .map(ExperimentalBlueprint::toString)
-                .findFirst().orElse("unknown");
+        return name().replace("_"," ");
     }
 
     @Override
