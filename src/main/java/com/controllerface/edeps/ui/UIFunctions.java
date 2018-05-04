@@ -6,11 +6,11 @@ import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.InventoryData;
+import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
-import com.controllerface.edeps.structures.craftable.modifications.ModificationType;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.commodities.CommodityCategory;
@@ -34,6 +34,7 @@ import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
@@ -120,8 +121,6 @@ class UIFunctions
                                 modBox.getChildren().add(special);
 
                             }
-
-
 
                             item.getModifiers().stream()
                                     .map(modifier ->
@@ -239,7 +238,13 @@ class UIFunctions
                 boldCostNumberCellFactory = (param) -> new CostValueCell();
 
         static final Callback<TableColumn<Pair<Statistic, String>, String>, TableCell<Pair<Statistic, String>, String>>
-                boldStringNameCellFactory = (param) -> new StatDataCell();
+                boldStringNameCellFactory = (param) -> new RecipeStatDataCell();
+
+        static final Callback<TableColumn<ShipModuleData, String>, TableCell<ShipModuleData, String>>
+                boldSlotNameCellFactory = (param) -> new SlotDataCell();
+
+        static final Callback<TableColumn<ShipStatisticData, String>, TableCell<ShipStatisticData, String>>
+                boldStatNameCellFactory = (param) -> new StatDataCell();
 
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
                 costNameCellValueFactory = (modMaterial) -> new SimpleStringProperty(modMaterial.getValue().toString());
@@ -307,9 +312,14 @@ class UIFunctions
 
             // we want positive changes to have a plus sign (+) in their text. Negative values have a minus sign (-)
             // prefix by default, so we only need to explicitly do this for positive numbers
+
+            long rounded = Math.round(pair.getValue() * 100);
+
             String text = pair.getKey().toString()
-                    + ((valueIsPositive ? " +" : " ")
-                    + (pair.getValue() * 100d));
+                    + (valueIsPositive ? " +" : " ")
+                    + String.valueOf(rounded) ;
+
+
 
             // some effects have a zero value, such effects are generally "binary" on/off values, so we can just remove
             // the trailing "point zero" suffix

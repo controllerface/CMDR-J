@@ -692,7 +692,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FEDCORECOMPOSITES, 1),
             new CostData(Material.TUNGSTEN, 1)),
 
-    DefenceModifierShieldAdditioner_Explosive_1(ItemGrade.GRADE_1, new ItemEffectData
+    ShieldBooster_Explosive_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, 0.07d),
                     new Pair<>(ItemEffect.KineticResistance, -0.01d),
@@ -700,7 +700,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    DefenceModifierShieldAdditioner_Explosive_2(ItemGrade.GRADE_2, new ItemEffectData
+    ShieldBooster_Explosive_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, 0.12d),
                     new Pair<>(ItemEffect.KineticResistance, -0.02d),
@@ -709,7 +709,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECOMPONENTS, 1),
             new CostData(Material.IRON, 1)),
 
-    DefenceModifierShieldAdditioner_Explosive_3(ItemGrade.GRADE_3, new ItemEffectData
+    ShieldBooster_Explosive_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, 0.17d),
                     new Pair<>(ItemEffect.KineticResistance, -0.03d),
@@ -719,7 +719,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 1),
             new CostData(Material.IRON, 1)),
 
-    DefenceModifierShieldAdditioner_Explosive_4(ItemGrade.GRADE_4, new ItemEffectData
+    ShieldBooster_Explosive_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, 0.22d),
                     new Pair<>(ItemEffect.KineticResistance, -0.04d),
@@ -729,7 +729,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.REFINEDFOCUSCRYSTALS, 1),
             new CostData(Material.SHIELDDENSITYREPORTS, 1)),
 
-    DefenceModifierShieldAdditioner_Explosive_5(ItemGrade.GRADE_5, new ItemEffectData
+    ShieldBooster_Explosive_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, 0.27d),
                     new Pair<>(ItemEffect.KineticResistance, -0.05d),
@@ -739,7 +739,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.EXQUISITEFOCUSCRYSTALS, 1),
             new CostData(Material.NIOBIUM, 1)),
 
-    DefenceModifierShieldAdditioner_HeavyDuty_1(ItemGrade.GRADE_1, new ItemEffectData
+    ShieldBooster_HeavyDuty_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 0.03d),
                     new Pair<>(ItemEffect.Mass, 1d),
@@ -748,7 +748,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.GRIDRESISTORS, 1)),
 
-    DefenceModifierShieldAdditioner_HeavyDuty_2(ItemGrade.GRADE_2, new ItemEffectData
+    ShieldBooster_HeavyDuty_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 0.06d),
                     new Pair<>(ItemEffect.Mass, 1.5d),
@@ -758,7 +758,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDCYCLERECORDINGS, 1),
             new CostData(Material.HYBRIDCAPACITORS, 1)),
 
-    DefenceModifierShieldAdditioner_HeavyDuty_3(ItemGrade.GRADE_3, new ItemEffectData
+    ShieldBooster_HeavyDuty_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 0.09d),
                     new Pair<>(ItemEffect.Mass, 2d),
@@ -769,7 +769,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.NIOBIUM, 1)),
 
-    DefenceModifierShieldAdditioner_HeavyDuty_4(ItemGrade.GRADE_4, new ItemEffectData
+    ShieldBooster_HeavyDuty_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 0.12d),
                     new Pair<>(ItemEffect.Mass, 2.5d),
@@ -780,7 +780,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDSOAKANALYSIS, 1),
             new CostData(Material.TIN, 1)),
 
-    DefenceModifierShieldAdditioner_HeavyDuty_5(ItemGrade.GRADE_5, new ItemEffectData
+    ShieldBooster_HeavyDuty_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, 0.15d),
                     new Pair<>(ItemEffect.Mass, 3d),
@@ -791,7 +791,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.POLYMERCAPACITORS, 1),
             new CostData(Material.SHIELDDENSITYREPORTS, 1)),
 
-    DefenceModifierShieldAdditioner_Kinetic_1(ItemGrade.GRADE_1, new ItemEffectData
+    ShieldBooster_Kinetic_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, -0.01d),
                     new Pair<>(ItemEffect.KineticResistance, 0.07d),
@@ -799,7 +799,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    DefenceModifierShieldAdditioner_Kinetic_2(ItemGrade.GRADE_2, new ItemEffectData
+    ShieldBooster_Kinetic_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, -0.02d),
                     new Pair<>(ItemEffect.KineticResistance, 0.12d),
@@ -808,7 +808,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.GRIDRESISTORS, 1)),
 
-    DefenceModifierShieldAdditioner_Kinetic_3(ItemGrade.GRADE_3, new ItemEffectData
+    ShieldBooster_Kinetic_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, -0.03d),
                     new Pair<>(ItemEffect.KineticResistance, 0.17d),
@@ -818,7 +818,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.SALVAGEDALLOYS, 1)),
 
-    DefenceModifierShieldAdditioner_Kinetic_4(ItemGrade.GRADE_4, new ItemEffectData
+    ShieldBooster_Kinetic_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, -0.04d),
                     new Pair<>(ItemEffect.KineticResistance, 0.22d),
@@ -828,7 +828,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.REFINEDFOCUSCRYSTALS, 1),
             new CostData(Material.SHIELDDENSITYREPORTS, 1)),
 
-    DefenceModifierShieldAdditioner_Kinetic_5(ItemGrade.GRADE_5, new ItemEffectData
+    ShieldBooster_Kinetic_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, -0.05d),
                     new Pair<>(ItemEffect.KineticResistance, 0.27d),
@@ -838,7 +838,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.EXQUISITEFOCUSCRYSTALS, 1),
             new CostData(Material.PHASEALLOYS, 1)),
 
-    DefenceModifierShieldAdditioner_Resistive_1(ItemGrade.GRADE_1, new ItemEffectData
+    ShieldBooster_Resistive_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, 0.05d),
                     new Pair<>(ItemEffect.Integrity, -0.04d),
@@ -848,7 +848,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    DefenceModifierShieldAdditioner_Resistive_2(ItemGrade.GRADE_2, new ItemEffectData
+    ShieldBooster_Resistive_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, 0.08d),
                     new Pair<>(ItemEffect.Integrity, -0.06d),
@@ -859,7 +859,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECOMPONENTS, 1),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    DefenceModifierShieldAdditioner_Resistive_3(ItemGrade.GRADE_3, new ItemEffectData
+    ShieldBooster_Resistive_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, 0.11d),
                     new Pair<>(ItemEffect.Integrity, -0.08d),
@@ -871,7 +871,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 1),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    DefenceModifierShieldAdditioner_Resistive_4(ItemGrade.GRADE_4, new ItemEffectData
+    ShieldBooster_Resistive_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, 0.14d),
                     new Pair<>(ItemEffect.Integrity, -0.1d),
@@ -883,7 +883,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MANGANESE, 1),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 1)),
 
-    DefenceModifierShieldAdditioner_Resistive_5(ItemGrade.GRADE_5, new ItemEffectData
+    ShieldBooster_Resistive_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, 0.17d),
                     new Pair<>(ItemEffect.Integrity, -0.12d),
@@ -895,7 +895,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IMPERIALSHIELDING, 1),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 1)),
 
-    DefenceModifierShieldAdditioner_Thermic_1(ItemGrade.GRADE_1, new ItemEffectData
+    ShieldBooster_Thermic_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, -0.01d),
                     new Pair<>(ItemEffect.KineticResistance, -0.01d),
@@ -903,7 +903,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    DefenceModifierShieldAdditioner_Thermic_2(ItemGrade.GRADE_2, new ItemEffectData
+    ShieldBooster_Thermic_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, -0.02d),
                     new Pair<>(ItemEffect.KineticResistance, -0.02d),
@@ -912,7 +912,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.HEATCONDUCTIONWIRING, 1)),
 
-    DefenceModifierShieldAdditioner_Thermic_3(ItemGrade.GRADE_3, new ItemEffectData
+    ShieldBooster_Thermic_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, -0.03d),
                     new Pair<>(ItemEffect.KineticResistance, -0.03d),
@@ -922,7 +922,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HEATCONDUCTIONWIRING, 1),
             new CostData(Material.HEATDISPERSIONPLATE, 1)),
 
-    DefenceModifierShieldAdditioner_Thermic_4(ItemGrade.GRADE_4, new ItemEffectData
+    ShieldBooster_Thermic_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, -0.04d),
                     new Pair<>(ItemEffect.KineticResistance, -0.04d),
@@ -932,7 +932,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.REFINEDFOCUSCRYSTALS, 1),
             new CostData(Material.SHIELDDENSITYREPORTS, 1)),
 
-    DefenceModifierShieldAdditioner_Thermic_5(ItemGrade.GRADE_5, new ItemEffectData
+    ShieldBooster_Thermic_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.ExplosiveResistance, -0.05d),
                     new Pair<>(ItemEffect.KineticResistance, -0.05d),
@@ -3315,7 +3315,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NIOBIUM, 1),
             new CostData(Material.POLYMERCAPACITORS, 1)),
 
-    Sensor_CargoScanner_WideSensorTargetScanAngle_1(ItemGrade.GRADE_1, new ItemEffectData
+    Sensor_CargoScanner_WideAngle_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.2d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 0.4d),
@@ -3323,7 +3323,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_CargoScanner_WideSensorTargetScanAngle_2(ItemGrade.GRADE_2, new ItemEffectData
+    Sensor_CargoScanner_WideAngle_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.4d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 0.8d),
@@ -3332,7 +3332,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_CargoScanner_WideSensorTargetScanAngle_3(ItemGrade.GRADE_3, new ItemEffectData
+    Sensor_CargoScanner_WideAngle_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.6d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 1.2d),
@@ -3342,7 +3342,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_CargoScanner_WideSensorTargetScanAngle_4(ItemGrade.GRADE_4, new ItemEffectData
+    Sensor_CargoScanner_WideAngle_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.8d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 1.6d),
@@ -3352,7 +3352,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALEQUIPMENT, 1),
             new CostData(Material.NIOBIUM, 1)),
 
-    Sensor_CargoScanner_WideSensorTargetScanAngle_5(ItemGrade.GRADE_5, new ItemEffectData
+    Sensor_CargoScanner_WideAngle_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 2d),
@@ -3409,7 +3409,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ARSENIC, 1),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 1)),
 
-    Sensor_KillWarrantScanner_WideSensorTargetScanAngle_1(ItemGrade.GRADE_1, new ItemEffectData
+    Sensor_KillWarrantScanner_WideAngle_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.2d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 0.4d),
@@ -3417,7 +3417,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_KillWarrantScanner_WideSensorTargetScanAngle_2(ItemGrade.GRADE_2, new ItemEffectData
+    Sensor_KillWarrantScanner_WideAngle_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.4d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 0.8d),
@@ -3426,7 +3426,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_KillWarrantScanner_WideSensorTargetScanAngle_3(ItemGrade.GRADE_3, new ItemEffectData
+    Sensor_KillWarrantScanner_WideAngle_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.6d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 1.2d),
@@ -3436,7 +3436,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_KillWarrantScanner_WideSensorTargetScanAngle_4(ItemGrade.GRADE_4, new ItemEffectData
+    Sensor_KillWarrantScanner_WideAngle_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.8d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 1.6d),
@@ -3446,7 +3446,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALEQUIPMENT, 1),
             new CostData(Material.NIOBIUM, 1)),
 
-    Sensor_KillWarrantScanner_WideSensorTargetScanAngle_5(ItemGrade.GRADE_5, new ItemEffectData
+    Sensor_KillWarrantScanner_WideAngle_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 2d),
@@ -3550,7 +3550,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NIOBIUM, 1),
             new CostData(Material.POLYMERCAPACITORS, 1)),
 
-    Sensor_Sensor_WideSensorTargetScanAngle_1(ItemGrade.GRADE_1, new ItemEffectData
+    Sensor_Sensor_WideAngle_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.PowerDraw, 0.1d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 0.4d),
@@ -3558,7 +3558,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_Sensor_WideSensorTargetScanAngle_2(ItemGrade.GRADE_2, new ItemEffectData
+    Sensor_Sensor_WideAngle_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.PowerDraw, 0.2d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 0.8d),
@@ -3567,7 +3567,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_Sensor_WideSensorTargetScanAngle_3(ItemGrade.GRADE_3, new ItemEffectData
+    Sensor_Sensor_WideAngle_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.PowerDraw, 0.3d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 1.2d),
@@ -3577,7 +3577,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_Sensor_WideSensorTargetScanAngle_4(ItemGrade.GRADE_4, new ItemEffectData
+    Sensor_Sensor_WideAngle_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.PowerDraw, 0.4d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 1.6d),
@@ -3587,7 +3587,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALEQUIPMENT, 1),
             new CostData(Material.NIOBIUM, 1)),
 
-    Sensor_Sensor_WideSensorTargetScanAngle_5(ItemGrade.GRADE_5, new ItemEffectData
+    Sensor_Sensor_WideAngle_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.PowerDraw, 0.5d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 2d),
@@ -3681,14 +3681,14 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NIOBIUM, 1),
             new CostData(Material.POLYMERCAPACITORS, 1)),
 
-    Sensor_SurfaceScanner_WideSensorTargetScanAngle_1(ItemGrade.GRADE_1, new ItemEffectData
+    Sensor_SurfaceScanner_WideAngle_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.2d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 0.4d)
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_SurfaceScanner_WideSensorTargetScanAngle_2(ItemGrade.GRADE_2, new ItemEffectData
+    Sensor_SurfaceScanner_WideAngle_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.4d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 0.8d)
@@ -3696,7 +3696,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_SurfaceScanner_WideSensorTargetScanAngle_3(ItemGrade.GRADE_3, new ItemEffectData
+    Sensor_SurfaceScanner_WideAngle_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.6d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 1.2d)
@@ -3705,7 +3705,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_SurfaceScanner_WideSensorTargetScanAngle_4(ItemGrade.GRADE_4, new ItemEffectData
+    Sensor_SurfaceScanner_WideAngle_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.8d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 1.6d)
@@ -3714,7 +3714,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALEQUIPMENT, 1),
             new CostData(Material.NIOBIUM, 1)),
 
-    Sensor_SurfaceScanner_WideSensorTargetScanAngle_5(ItemGrade.GRADE_5, new ItemEffectData
+    Sensor_SurfaceScanner_WideAngle_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 2d)
@@ -3817,7 +3817,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NIOBIUM, 1),
             new CostData(Material.POLYMERCAPACITORS, 1)),
 
-    Sensor_WakeScanner_WideSensorTargetScanAngle_1(ItemGrade.GRADE_1, new ItemEffectData
+    Sensor_WakeScanner_WideAngle_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.2d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 0.4d),
@@ -3825,7 +3825,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_WakeScanner_WideSensorTargetScanAngle_2(ItemGrade.GRADE_2, new ItemEffectData
+    Sensor_WakeScanner_WideAngle_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.4d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 0.8d),
@@ -3834,7 +3834,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_WakeScanner_WideSensorTargetScanAngle_3(ItemGrade.GRADE_3, new ItemEffectData
+    Sensor_WakeScanner_WideAngle_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.6d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 1.2d),
@@ -3844,7 +3844,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_WakeScanner_WideSensorTargetScanAngle_4(ItemGrade.GRADE_4, new ItemEffectData
+    Sensor_WakeScanner_WideAngle_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 0.8d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 1.6d),
@@ -3854,7 +3854,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALEQUIPMENT, 1),
             new CostData(Material.NIOBIUM, 1)),
 
-    Sensor_WakeScanner_WideSensorTargetScanAngle_5(ItemGrade.GRADE_5, new ItemEffectData
+    Sensor_WakeScanner_WideAngle_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 2d),

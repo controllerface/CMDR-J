@@ -11,16 +11,16 @@ public class BaseShipStats
     private final String displayName;
     private final ShipSize shipSize;
     private final ShipManufacturer manufacturer;
-    private final int agility;
-    private final int hullMass;
-    private final int hullHardness;
-    private final int speed;
-    private final int maxSpeed;
-    private final int boostSpeed;
-    private final int maxBoostSpeed;
-    private final int armorRating;
-    private final int baseShield;
-    private final int baseCost;
+    private final double agility;
+    private final double hullMass;
+    private final double hullHardness;
+    private final double speed;
+    private final double maxSpeed;
+    private final double boostSpeed;
+    private final double maxBoostSpeed;
+    private final double armorRating;
+    private final double baseShield;
+    private final double baseCost;
     private final int massLockFactor;
     private final int crewSeats;
     private final boolean slfCapable;
@@ -61,52 +61,52 @@ public class BaseShipStats
         return manufacturer;
     }
 
-    public int getAgility()
+    public double getAgility()
     {
         return agility;
     }
 
-    public int getHullMass()
+    public double getHullMass()
     {
         return hullMass;
     }
 
-    public int getHullHardness()
+    public double getHullHardness()
     {
         return hullHardness;
     }
 
-    public int getSpeed()
+    public double getSpeed()
     {
         return speed;
     }
 
-    public int getMaxSpeed()
+    public double getMaxSpeed()
     {
         return maxSpeed;
     }
 
-    public int getBoostSpeed()
+    public double getBoostSpeed()
     {
         return boostSpeed;
     }
 
-    public int getMaxBoostSpeed()
+    public double getMaxBoostSpeed()
     {
         return maxBoostSpeed;
     }
 
-    public int getArmorRating()
+    public double getArmorRating()
     {
         return armorRating;
     }
 
-    public int getBaseShield()
+    public double getBaseShield()
     {
         return baseShield;
     }
 
-    public int getBaseCost()
+    public double getBaseCost()
     {
         return baseCost;
     }
@@ -136,16 +136,16 @@ public class BaseShipStats
         private String displayName;
         private ShipSize shipSize;
         private ShipManufacturer manufacturer;
-        private Integer agility;
-        private Integer hullMass;
-        private Integer hullHardness;
-        private Integer speed;
-        private Integer maxSpeed;
-        private Integer boostSpeed;
-        private Integer maxBoostSpeed;
-        private Integer armorRating;
-        private Integer baseShield;
-        private Integer baseCost;
+        private Double agility;
+        private Double hullMass;
+        private Double hullHardness;
+        private Double speed;
+        private Double maxSpeed;
+        private Double boostSpeed;
+        private Double maxBoostSpeed;
+        private Double armorRating;
+        private Double baseShield;
+        private Double baseCost;
         private Integer massLockFactor;
         private Integer crewSeats;
         private boolean slfCapable;
@@ -168,61 +168,61 @@ public class BaseShipStats
             return this;
         }
 
-        public Builder setAgility(int agility)
+        public Builder setAgility(double agility)
         {
             this.agility = agility;
             return this;
         }
 
-        public Builder setHullMass(int hullMass)
+        public Builder setHullMass(double hullMass)
         {
             this.hullMass = hullMass;
             return this;
         }
 
-        public Builder setHullHardness(int hullHardness)
+        public Builder setHullHardness(double hullHardness)
         {
             this.hullHardness = hullHardness;
             return this;
         }
 
-        public Builder setSpeed(int speed)
+        public Builder setSpeed(double speed)
         {
             this.speed = speed;
             return this;
         }
 
-        public Builder setMaxSpeed(int maxSpeed)
+        public Builder setMaxSpeed(double maxSpeed)
         {
             this.maxSpeed = maxSpeed;
             return this;
         }
 
-        public Builder setBoostSpeed(int boostSpeed)
+        public Builder setBoostSpeed(double boostSpeed)
         {
             this.boostSpeed = boostSpeed;
             return this;
         }
 
-        public Builder setMaxBoostSpeed(int maxBoostSpeed)
+        public Builder setMaxBoostSpeed(double maxBoostSpeed)
         {
             this.maxBoostSpeed = maxBoostSpeed;
             return this;
         }
 
-        public Builder setArmorRating(int armorRating)
+        public Builder setArmorRating(double armorRating)
         {
             this.armorRating = armorRating;
             return this;
         }
 
-        public Builder setBaseShield(int baseShield)
+        public Builder setBaseShield(double baseShield)
         {
             this.baseShield = baseShield;
             return this;
         }
 
-        public Builder setBaseCost(int baseCost)
+        public Builder setBaseCost(double baseCost)
         {
             this.baseCost = baseCost;
             return this;

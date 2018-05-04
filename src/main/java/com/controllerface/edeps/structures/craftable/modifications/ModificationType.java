@@ -120,27 +120,27 @@ public enum ModificationType implements ProcurementType
             ModificationBlueprint.Sensor_WakeScanner_LongRange,
             ModificationBlueprint.WakeScanner_Reinforced,
             ModificationBlueprint.WakeScanner_Shielded,
-            ModificationBlueprint.Sensor_WakeScanner_WideSensorTargetScanAngle),
+            ModificationBlueprint.Sensor_WakeScanner_WideAngle),
 
     Kill_Warrant_Scanner(ModificationBlueprint.Sensor_KillWarrantScanner_FastScan,
             ModificationBlueprint.KillWarrantScanner_LightWeight,
             ModificationBlueprint.KillWarrantScanner_LongRange,
             ModificationBlueprint.KillWarrantScanner_Reinforced,
             ModificationBlueprint.KillWarrantScanner_Shielded,
-            ModificationBlueprint.Sensor_KillWarrantScanner_WideSensorTargetScanAngle),
+            ModificationBlueprint.Sensor_KillWarrantScanner_WideAngle),
 
     Manifest_Scanner(ModificationBlueprint.Sensor_CargoScanner_FastScan,
             ModificationBlueprint.CargoScanner_LightWeight,
             ModificationBlueprint.Sensor_CargoScanner_LongRange,
             ModificationBlueprint.CargoScanner_Reinforced,
             ModificationBlueprint.CargoScanner_Shielded,
-            ModificationBlueprint.Sensor_CargoScanner_WideSensorTargetScanAngle),
+            ModificationBlueprint.Sensor_CargoScanner_WideAngle),
 
-    Shield_Booster(ModificationBlueprint.DefenceModifierShieldAdditioner_Explosive,
-            ModificationBlueprint.DefenceModifierShieldAdditioner_HeavyDuty,
-            ModificationBlueprint.DefenceModifierShieldAdditioner_Kinetic,
-            ModificationBlueprint.DefenceModifierShieldAdditioner_Resistive,
-            ModificationBlueprint.DefenceModifierShieldAdditioner_Thermic),
+    Shield_Booster(ModificationBlueprint.ShieldBooster_Explosive,
+            ModificationBlueprint.ShieldBooster_HeavyDuty,
+            ModificationBlueprint.ShieldBooster_Kinetic,
+            ModificationBlueprint.ShieldBooster_Resistive,
+            ModificationBlueprint.ShieldBooster_Thermic),
 
     // optional
     Auto_Field_Maintenence_Unit(ModificationBlueprint.AFM_Shielded),
@@ -153,7 +153,7 @@ public enum ModificationType implements ProcurementType
 
     Detailed_Surface_Scanner(ModificationBlueprint.Sensor_SurfaceScanner_FastScan,
             ModificationBlueprint.Sensor_SurfaceScanner_LongRange,
-            ModificationBlueprint.Sensor_SurfaceScanner_WideSensorTargetScanAngle),
+            ModificationBlueprint.Sensor_SurfaceScanner_WideAngle),
 
     Refinery(ModificationBlueprint.Refineries_Shielded),
 
@@ -208,7 +208,7 @@ public enum ModificationType implements ProcurementType
 
     Sensors(ModificationBlueprint.Sensor_Sensor_LightWeight,
             ModificationBlueprint.Sensor_Sensor_LongRange,
-            ModificationBlueprint.Sensor_Sensor_WideSensorTargetScanAngle),
+            ModificationBlueprint.Sensor_Sensor_WideAngle),
 
     Thrusters(ModificationBlueprint.Engine_Tuned,
             ModificationBlueprint.Engine_Dirty,

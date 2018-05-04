@@ -3,6 +3,7 @@ package com.controllerface.edeps.ui;
 import com.controllerface.edeps.*;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.InventoryData;
+import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcTreeData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
@@ -25,9 +26,6 @@ import com.controllerface.edeps.structures.craftable.technologies.TechnologyType
 import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -39,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Callback;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -132,6 +131,11 @@ public class UIController
     @FXML private CheckBox showItemsNeeded;
 
     @FXML private Label shipTypeLabel;
+
+    @FXML private TableView<ShipStatisticData> shipStatisticsTable;
+    @FXML private TableColumn<ShipStatisticData, String> shipStatisticsNameColumn;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> shipStatisticsDataColumn;
+
     @FXML private TableView<ShipModuleData> coreModuleList;
     @FXML private TableColumn<ShipModuleData, String> coreModuleNameColumn;
     @FXML private TableColumn<ShipModuleData, ShipModuleData> coreModuleDataColumn;
@@ -428,19 +432,48 @@ public class UIController
         sortTasksByName.setOnAction((e)->sortTasktable());
         sortTasksByGrade.setOnAction((e)->sortTasktable());
 
+        shipStatisticsTable.setItems(commanderData.getStarShip().getStatistics());
         coreModuleList.setItems(commanderData.getStarShip().getCoreInternals());
         optionalModuleList.setItems(commanderData.getStarShip().getOptionalInternals());
         hardpointList.setItems(commanderData.getStarShip().getHardpoints());
 
+        shipStatisticsNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
+        shipStatisticsNameColumn.setCellFactory(UIFunctions.Data.boldStatNameCellFactory);
+        shipStatisticsDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        shipStatisticsDataColumn.setCellFactory(new Callback<TableColumn<ShipStatisticData, ShipStatisticData>, TableCell<ShipStatisticData, ShipStatisticData>>()
+        {
+            @Override
+            public TableCell<ShipStatisticData, ShipStatisticData> call(TableColumn<ShipStatisticData, ShipStatisticData> param)
+            {
+                return new TableCell<ShipStatisticData, ShipStatisticData>()
+                {
+                    @Override
+                    protected void updateItem(ShipStatisticData item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+                        if (item == null) setGraphic(null);
+                        if (!empty)
+                        {
+                            Label label = new Label(item.statDisplayValue());
+                            setGraphic(label);
+                        }
+                    }
+                };
+            }
+        });
+
         coreModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        coreModuleNameColumn.setCellFactory(UIFunctions.Data.boldSlotNameCellFactory);
         coreModuleDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         coreModuleDataColumn.setCellFactory(UIFunctions.Data.moduleDisplayCellFactory);
 
         optionalModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        optionalModuleNameColumn.setCellFactory(UIFunctions.Data.boldSlotNameCellFactory);
         optionalModuleDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         optionalModuleDataColumn.setCellFactory(UIFunctions.Data.moduleDisplayCellFactory);
 
         hardpointNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        hardpointNameColumn.setCellFactory(UIFunctions.Data.boldSlotNameCellFactory);
         hardpointDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         hardpointDataColumn.setCellFactory(UIFunctions.Data.moduleDisplayCellFactory);
 

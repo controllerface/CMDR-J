@@ -15,7 +15,7 @@
             <content>
               <AnchorPane>
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="25.0">
                                  <children>
@@ -116,9 +116,9 @@
           </Tab>
             <Tab text="Ship Loadout">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane>
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox>
                                  <children>
@@ -146,24 +146,66 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <TableView fx:id="coreModuleList" maxHeight="1.7976931348623157E308">
-                                <columns>
-                                  <TableColumn fx:id="coreModuleNameColumn" prefWidth="250.0" text="Core Module" />
-                                  <TableColumn fx:id="coreModuleDataColumn" minWidth="0.0" prefWidth="215.0" />
-                                </columns>
-                              </TableView>
-                              <TableView fx:id="optionalModuleList" layoutX="10.0" layoutY="93.0" maxHeight="1.7976931348623157E308">
-                                 <columns>
-                                    <TableColumn fx:id="optionalModuleNameColumn" prefWidth="250.0" text="Optional Module" />
-                                    <TableColumn fx:id="optionalModuleDataColumn" minWidth="0.0" prefWidth="214.0" />
-                                 </columns>
-                              </TableView>
-                              <TableView fx:id="hardpointList" layoutX="10.0" layoutY="93.0" maxHeight="1.7976931348623157E308">
-                                 <columns>
-                                    <TableColumn fx:id="hardpointNameColumn" prefWidth="250.0" text="Hardpoint" />
-                                    <TableColumn fx:id="hardpointDataColumn" prefWidth="191.0" />
-                                 </columns>
-                              </TableView>
+                              <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                    <Tab text="Ship Statistics">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView fx:id="shipStatisticsTable" layoutX="338.0" layoutY="185.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="shipStatisticsNameColumn" prefWidth="200.0" text="Statistic" />
+                                                    <TableColumn fx:id="shipStatisticsDataColumn" prefWidth="929.0" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </Tab>
+                                  <Tab text="Core Internals">
+                                    <content>
+                                      <AnchorPane>
+                                             <children>
+                                                <TableView fx:id="coreModuleList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="coreModuleNameColumn" prefWidth="200.0" text="Core Module" />
+                                                    <TableColumn fx:id="coreModuleDataColumn" minWidth="0.0" prefWidth="215.0" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                  <Tab text="Optional Internals">
+                                    <content>
+                                      <AnchorPane>
+                                             <children>
+                                                <TableView fx:id="optionalModuleList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="optionalModuleNameColumn" prefWidth="200.0" text="Optional Module" />
+                                                      <TableColumn fx:id="optionalModuleDataColumn" minWidth="0.0" prefWidth="214.0" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                    <Tab text="Hardpoints">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView fx:id="hardpointList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="hardpointNameColumn" prefWidth="200.0" text="Hardpoint" />
+                                                      <TableColumn fx:id="hardpointDataColumn" prefWidth="191.0" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </Tab>
+                                </tabs>
+                              </TabPane>
                            </children>
                         </VBox>
                      </children>

@@ -20,4 +20,12 @@ public enum ShipStat
     Mass_Lock_Factor,
     Crew_Seats,
     SLF_Capable,
+
+    ;
+
+    @Override
+    public String toString()
+    {
+        return super.toString().replace("_"," ");
+    }
 }

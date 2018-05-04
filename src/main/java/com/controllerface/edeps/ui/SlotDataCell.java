@@ -1,16 +1,14 @@
 package com.controllerface.edeps.ui;
 
-import com.controllerface.edeps.Statistic;
-import com.controllerface.edeps.data.commander.ShipStatisticData;
+import com.controllerface.edeps.data.ShipModuleData;
 import javafx.scene.control.TableCell;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.util.Pair;
 
 /**
  * Created by Stephen on 4/26/2018.
  */
-public class StatDataCell extends TableCell<ShipStatisticData, String>
+public class SlotDataCell extends TableCell<ShipModuleData, String>
 {
     private static double baseFontSize = -1;
     private static String baseFontFamily = null;
