@@ -114,10 +114,8 @@ public class UIController
     // Procurement cost table
     @FXML private TableView<ItemCostData> taskCostTable;
     @FXML private TableColumn<ItemCostData, ProgressIndicator> taskCostProgressColumn;
-    @FXML private TableColumn<ItemCostData, Number> taskCostNeedColumn;
-    @FXML private TableColumn<ItemCostData, Number> taskCostHaveColumn;
-    @FXML private TableColumn<ItemCostData, String> taskCostNameColumn;
-    @FXML private TableColumn<ItemCostData, String> taskCostTypeColumn;
+    @FXML private TableColumn<ItemCostData, String> taskCostHaveColumn;
+    @FXML private TableColumn<ItemCostData, ItemCostData> taskCostNameColumn;
 
     // The observable list backing the task cost table view
     private ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableList(new ArrayList<>());
@@ -528,17 +526,11 @@ public class UIController
         taskCostProgressColumn.setCellFactory(UIFunctions.Data.costProgressCellFactory);
         taskCostProgressColumn.setCellValueFactory(UIFunctions.Data.costProgressCellValueFactory);
 
-        taskCostNeedColumn.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
-        taskCostNeedColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
         taskCostHaveColumn.setCellValueFactory(UIFunctions.Data.costHaveCellFactory);
         taskCostHaveColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
 
         taskCostNameColumn.setCellValueFactory(UIFunctions.Data.costNameCellValueFactory);
         taskCostNameColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
-
-        taskCostTypeColumn.setCellValueFactory(UIFunctions.Data.costTypeCellFactory);
-        taskCostTypeColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
-
 
         statNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
         statValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
@@ -565,9 +557,7 @@ public class UIController
                         .subtract(recipeTableWidthUsed));
 
         DoubleBinding costTableWidthUsed = taskCostProgressColumn.widthProperty()
-                .add(taskCostNeedColumn.widthProperty())
                 .add(taskCostHaveColumn.widthProperty())
-                .add(taskCostTypeColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
 
         taskCostNameColumn.prefWidthProperty()

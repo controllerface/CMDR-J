@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1061.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllerface.edeps.ui.UIController">
    <children>
       <TabPane layoutX="14.0" layoutY="14.0" prefHeight="950.0" prefWidth="1130.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -102,10 +104,8 @@
                                     <TableView fx:id="taskCostTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                       <columns>
                                           <TableColumn fx:id="taskCostProgressColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" text="Done" />
-                                          <TableColumn fx:id="taskCostNeedColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Need" />
-                                          <TableColumn fx:id="taskCostHaveColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" resizable="false" text="Have" />
+                                          <TableColumn fx:id="taskCostHaveColumn" maxWidth="80.0" minWidth="20.0" resizable="false" text="Have" />
                                           <TableColumn fx:id="taskCostNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="291.0" text="Item" />
-                                          <TableColumn fx:id="taskCostTypeColumn" prefWidth="150.0" text="Type" />
                                       </columns>
                                     </TableView>
                                  </children>

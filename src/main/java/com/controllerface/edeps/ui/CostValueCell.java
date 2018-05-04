@@ -1,6 +1,7 @@
 package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.data.procurements.ItemCostData;
+import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -8,13 +9,13 @@ import javafx.scene.text.FontWeight;
 /**
  * Created by Stephen on 4/26/2018.
  */
-public class CostValueCell extends TableCell<ItemCostData, Number>
+public class CostValueCell extends TableCell<ItemCostData, String>
 {
     private static double baseFontSize = -1;
     private static String baseFontFamily = null;
 
     @Override
-    protected void updateItem(Number item, boolean empty)
+    protected void updateItem(String item, boolean empty)
     {
         super.updateItem(item, empty);
 
@@ -25,7 +26,7 @@ public class CostValueCell extends TableCell<ItemCostData, Number>
         }
         else
         {
-            super.setText(item.toString());
+            super.setText(item);
             synchronized (this)
             {
                 if (baseFontSize == -1 && baseFontFamily == null)
@@ -35,6 +36,8 @@ public class CostValueCell extends TableCell<ItemCostData, Number>
                     baseFontFamily = getFont().getFamily();
                 }
             }
+
+            setAlignment(Pos.TOP_CENTER);
 
             Font baseFont = Font.font(baseFontFamily, FontWeight.BOLD, baseFontSize);
             setFont(baseFont);

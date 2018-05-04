@@ -225,16 +225,17 @@ class UIFunctions
      procurement List: Material Need/Have, Progress information
      */
 
-        static final Callback<TableColumn.CellDataFeatures<ItemCostData, Number>, ObservableValue<Number>>
-                costNeedCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getNeed());
+        static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
+                costHaveCellFactory = (modMaterial) ->
+        {
+            String label = modMaterial.getValue().getHave() + " / " + modMaterial.getValue().getNeed();
+            return new SimpleStringProperty(label);
+        };
 
-        static final Callback<TableColumn.CellDataFeatures<ItemCostData, Number>, ObservableValue<Number>>
-                costHaveCellFactory = (modMaterial) -> new SimpleIntegerProperty(modMaterial.getValue().getHave());
-
-        static final Callback<TableColumn<ItemCostData, String>, TableCell<ItemCostData, String>>
+        static final Callback<TableColumn<ItemCostData, ItemCostData>, TableCell<ItemCostData, ItemCostData>>
                 boldCostStringCellFactory = (param) -> new CostDataCell();
 
-        static final Callback<TableColumn<ItemCostData, Number>, TableCell<ItemCostData, Number>>
+        static final Callback<TableColumn<ItemCostData, String>, TableCell<ItemCostData, String>>
                 boldCostNumberCellFactory = (param) -> new CostValueCell();
 
         static final Callback<TableColumn<Pair<Statistic, String>, String>, TableCell<Pair<Statistic, String>, String>>
@@ -246,8 +247,8 @@ class UIFunctions
         static final Callback<TableColumn<ShipStatisticData, String>, TableCell<ShipStatisticData, String>>
                 boldStatNameCellFactory = (param) -> new StatDataCell();
 
-        static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
-                costNameCellValueFactory = (modMaterial) -> new SimpleStringProperty(modMaterial.getValue().toString());
+        static final Callback<TableColumn.CellDataFeatures<ItemCostData, ItemCostData>, ObservableValue<ItemCostData>>
+                costNameCellValueFactory = (modMaterial) -> new ReadOnlyObjectWrapper<>(modMaterial.getValue());
 
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
                 costTypeCellFactory = (modMaterial) ->
