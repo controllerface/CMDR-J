@@ -576,12 +576,18 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
         return super.toString().replace("_"," ");
     }
 
-    public String getLabel()
+    @Override
+    public String getShortLabel()
     {
-        //String name = name().replace("_"," ").substring(0,name().length()-1);
         String grade = Arrays.stream(name().split("_")).reduce((a, b) -> b).orElse("?");
-        return  //name +
-                "Grade " + grade;
+        return "Grade " + grade;
+    }
+
+    @Override
+    public String getDisplayLabel()
+    {
+        String name = name().replace("_"," ").substring(0,name().length()-1);
+        return name + getShortLabel();
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.procurements.CostData;
-import com.controllerface.edeps.data.procurements.ProcTreeData;
+import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 /**
  * Created by sroebuck on 5/4/2018.
  */
-public class ProcListCell extends ListCell<ProcTreeData>
+public class ProcListCell extends ListCell<ProcurementTaskData>
 {
-    private final Consumer<ProcTreeData> addMod;
+    private final Consumer<ProcurementTaskData> addMod;
     private final Function<ProcurementCost, Integer> checkMat;
     private final ReadOnlyDoubleProperty parentWidth;
 
-    public ProcListCell(Consumer<ProcTreeData> addMod, Function<ProcurementCost, Integer> checkMat, ReadOnlyDoubleProperty parentWidth)
+    public ProcListCell(Consumer<ProcurementTaskData> addMod, Function<ProcurementCost, Integer> checkMat, ReadOnlyDoubleProperty parentWidth)
     {
         this.addMod = addMod;
         this.checkMat = checkMat;
@@ -38,7 +38,7 @@ public class ProcListCell extends ListCell<ProcTreeData>
 
 
     @Override
-    protected void updateItem(ProcTreeData item, boolean empty)
+    protected void updateItem(ProcurementTaskData item, boolean empty)
     {
         super.updateItem(item, empty);
         if (item == null || empty)
@@ -52,7 +52,7 @@ public class ProcListCell extends ListCell<ProcTreeData>
         {
             VBox buttonBox = new VBox(1);
             buttonBox.prefWidthProperty().bind(parentWidth.subtract((UIFunctions.scrollBarAllowance * 2) + 5));
-            Label gradeLabel = new Label(item.getRecipe().getLabel() + "  ");
+            Label gradeLabel = new Label(item.getRecipe().getShortLabel() + "  ");
             Font existingFont = gradeLabel.getFont();
             Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize() + (existingFont.getSize() / 3));
             gradeLabel.setFont(boldFont);
@@ -123,7 +123,7 @@ public class ProcListCell extends ListCell<ProcTreeData>
             setGraphic(button);
             setText(null);
         }
-        else if (item.getBlueprint() != null)
+        else
         {
             setText(item.toString());
         }

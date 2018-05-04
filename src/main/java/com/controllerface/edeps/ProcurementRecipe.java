@@ -12,7 +12,8 @@ import java.util.stream.Stream;
 public interface ProcurementRecipe
 {
     Stream<CostData> costStream();
-    String getLabel();
+    String getShortLabel();
+    String getDisplayLabel();
     ItemEffectData effects();
     String getName();
     ItemGrade getGrade();

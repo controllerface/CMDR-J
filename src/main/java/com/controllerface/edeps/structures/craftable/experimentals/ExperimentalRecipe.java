@@ -837,9 +837,15 @@ public enum ExperimentalRecipe implements ProcurementRecipe
     }
 
     @Override
-    public String getLabel()
+    public String getShortLabel()
     {
         return name().replace("_"," ");
+    }
+
+    @Override
+    public String getDisplayLabel()
+    {
+        return getShortLabel();
     }
 
     @Override

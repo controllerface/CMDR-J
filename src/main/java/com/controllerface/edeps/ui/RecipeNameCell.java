@@ -10,7 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
 /**
@@ -40,7 +39,7 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
         VBox descriptionContainer = new VBox();
 
         // Recipe name in the recipe list
-        Label nameLabel = new Label(item.asPair().getKey().toString() + " :: " + item.asPair().getValue().toString());
+        Label nameLabel = new Label(item.asPair().getKey().toString() + " :: " + item.asPair().getValue().getDisplayLabel());
 
         nameLabel.setPrefHeight(20);
         // Make the font bold

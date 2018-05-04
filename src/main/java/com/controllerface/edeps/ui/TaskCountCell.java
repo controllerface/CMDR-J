@@ -84,8 +84,8 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
             Pane addGraphic  = new Pane(line1, line2);
             Pane subGraphic  = new Pane(line3);
 
-            addGraphic.setPrefHeight(27);
-            subGraphic.setPrefHeight(27);
+            addGraphic.setPrefHeight(23);
+            subGraphic.setPrefHeight(23);
 
             addButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             addButton.setAlignment(Pos.CENTER);

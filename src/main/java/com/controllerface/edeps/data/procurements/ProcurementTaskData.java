@@ -15,14 +15,14 @@ import javafx.util.Pair;
  * Created by Stephen on 3/31/2018.
  */
 @Immutable
-public class ProcTreeData
+public class ProcurementTaskData
 {
     private final String text;
     private final ProcurementType type;
     private final ProcurementRecipe recipe;
     private final ProcurementBlueprint blueprint;
 
-    public ProcTreeData(String text)
+    public ProcurementTaskData(String text)
     {
         this.text = text;
         this.type = null;
@@ -30,7 +30,7 @@ public class ProcTreeData
         this.blueprint = null;
     }
 
-    public ProcTreeData(ProcurementType type, ProcurementRecipe recipe)
+    public ProcurementTaskData(ProcurementType type, ProcurementRecipe recipe)
     {
         this.text = recipe.toString();
         this.type = type;
@@ -38,7 +38,7 @@ public class ProcTreeData
         this.blueprint = null;
     }
 
-    public ProcTreeData(ProcurementType type, ProcurementBlueprint blueprint)
+    public ProcurementTaskData(ProcurementType type, ProcurementBlueprint blueprint)
     {
         this.text = blueprint.toString();
         this.type = type;

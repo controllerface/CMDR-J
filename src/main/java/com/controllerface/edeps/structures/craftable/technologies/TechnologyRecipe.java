@@ -218,9 +218,16 @@ public enum TechnologyRecipe implements ProcurementRecipe
         return super.toString().replace("_"," ");
     }
 
-    public String getLabel()
+    @Override
+    public String getShortLabel()
     {
         return label;
+    }
+
+    @Override
+    public String getDisplayLabel()
+    {
+        return getShortLabel();
     }
 
     @Override

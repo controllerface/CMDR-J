@@ -1,33 +1,28 @@
 package com.controllerface.edeps.ui;
 
-import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.data.procurements.ProcTreeData;
+import com.controllerface.edeps.data.procurements.ProcurementTaskData;
+import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.control.TreeCell;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * Created by Stephen on 4/1/2018.
  */
-public class ProcTreeCell extends TreeCell<ProcTreeData>
+public class ProcTreeCell extends TreeCell<ProcurementTaskData>
 {
-    private final Consumer<ProcTreeData> addMod;
-    private final Function<ProcurementCost, Integer> checkMat;
-    private final ObservableList<ProcTreeData> outputList;
+    private final ObservableList<ProcurementTaskData> outputList;
     private static final AtomicReference<Font> baseFont = new AtomicReference<>(null);
 
-    private ProcTreeData thisItem = null;
+    private ProcurementTaskData thisItem = null;
 
-    public ProcTreeCell(Consumer<ProcTreeData> addMod, Function<ProcurementCost, Integer> checkMat, ObservableList<ProcTreeData> outputList)
+    public ProcTreeCell(ObservableList<ProcurementTaskData> outputList)
     {
-        this.addMod = addMod;
-        this.checkMat = checkMat;
         this.outputList = outputList;
 
         this.setOnMouseClicked((e)->
@@ -35,16 +30,25 @@ public class ProcTreeCell extends TreeCell<ProcTreeData>
             if (thisItem != null && thisItem.getBlueprint() != null && thisItem.getType() != null)
             {
                 outputList.clear();
-                outputList.add(thisItem);
+
+                String displayText;
+
+                if (thisItem.getType() instanceof ExperimentalType)
+                {
+                    displayText = "Experimental Effects :: " + thisItem.getBlueprint().toString();
+                }
+                else displayText = thisItem.getType().toString() + " :: " + thisItem.getBlueprint().toString();
+
+                outputList.add(new ProcurementTaskData(displayText));
                 thisItem.getBlueprint().recipeStream()
-                        .map(recipe -> new ProcTreeData(thisItem.getType(), recipe))
+                        .map(recipe -> new ProcurementTaskData(thisItem.getType(), recipe))
                         .forEach(outputList::add);
             }
         });
     }
 
     @Override
-    protected void updateItem(ProcTreeData item, boolean empty)
+    protected void updateItem(ProcurementTaskData item, boolean empty)
     {
         super.updateItem(item, empty);
 
@@ -72,5 +76,6 @@ public class ProcTreeCell extends TreeCell<ProcTreeData>
         }
         text.setFont(baseFont.get());
         setGraphic(text);
+        this.paddingProperty().setValue(new Insets(5,5,5,5));
     }
 }

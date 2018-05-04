@@ -5,7 +5,7 @@ import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
-import com.controllerface.edeps.data.procurements.ProcTreeData;
+import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
 import com.controllerface.edeps.data.commander.CommanderData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
@@ -70,8 +70,8 @@ public class UIController
 
     // Procurement tree
     @FXML private HBox procurementBox;
-    @FXML private TreeView<ProcTreeData> procurementTree;
-    @FXML private ListView<ProcTreeData> procurementList;
+    @FXML private TreeView<ProcurementTaskData> procurementTree;
+    @FXML private ListView<ProcurementTaskData> procurementList;
 
     // Raw materials
     @FXML private TableView<InventoryData> rawTable;
@@ -161,7 +161,7 @@ public class UIController
 
     private final CommanderData commanderData = new CommanderData();
 
-    private ObservableList<ProcTreeData> procSelectorBackingList = FXCollections.observableArrayList();
+    private ObservableList<ProcurementTaskData> procSelectorBackingList = FXCollections.observableArrayList();
 
     // The observable list backing the task list table view
     private ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableArrayList();
@@ -321,10 +321,10 @@ public class UIController
             };
 
     /*
-    Consumer function that accepts a ProcTreeData and adds it to the procurement list. If the task already exists in the
+    Consumer function that accepts a ProcurementTaskData and adds it to the procurement list. If the task already exists in the
     list, this effectively increments the count of that by 1
      */
-    private final Consumer<ProcTreeData> addTaskToProcurementList =
+    private final Consumer<ProcurementTaskData> addTaskToProcurementList =
             (mod)->
             {
                 Pair<ProcurementType, ProcurementRecipe> ref = new Pair<>(mod.getType(), mod.getRecipe());
@@ -419,6 +419,8 @@ public class UIController
 
         recipeTableLabel.setFont(recipeTableFont);
         costTableLabel.setFont(costTableFont);
+
+        procurementTree.setCellFactory(param -> new ProcTreeCell(procSelectorBackingList));
 
         procurementList.setItems(procSelectorBackingList);
         procurementList.setCellFactory(param ->
@@ -594,28 +596,28 @@ public class UIController
                         .subtract(shipTable3WidthUsed));
     }
 
-    private TreeItem<ProcTreeData> makeSynthesisTree()
+    private TreeItem<ProcurementTaskData> makeSynthesisTree()
     {
-        TreeItem<ProcTreeData> modifications = new TreeItem<>(new ProcTreeData("Synthesis"));
+        TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Synthesis"));
         //modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(SynthesisCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcTreeData> categoryItem = new TreeItem<>(new ProcTreeData(category.toString()));
+            TreeItem<ProcurementTaskData> categoryItem = new TreeItem<>(new ProcurementTaskData(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcTreeData> typeItem = new TreeItem<>(new ProcTreeData(type.toString()));
+                TreeItem<ProcurementTaskData> typeItem = new TreeItem<>(new ProcurementTaskData(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(type, blueprint));
+                    TreeItem<ProcurementTaskData> bluePrintItem = new TreeItem<>(new ProcurementTaskData(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -632,28 +634,28 @@ public class UIController
         return modifications;
     }
 
-    private TreeItem<ProcTreeData> makeModTree()
+    private TreeItem<ProcurementTaskData> makeModTree()
     {
-        TreeItem<ProcTreeData> modifications = new TreeItem<>(new ProcTreeData("Engineering Modifications"));
+        TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Engineering Modifications"));
         //modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(ModificationCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcTreeData> categoryItem = new TreeItem<>(new ProcTreeData(category.toString()));
+            TreeItem<ProcurementTaskData> categoryItem = new TreeItem<>(new ProcurementTaskData(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcTreeData> typeItem = new TreeItem<>(new ProcTreeData(type.toString()));
+                TreeItem<ProcurementTaskData> typeItem = new TreeItem<>(new ProcurementTaskData(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(type, blueprint));
+                    TreeItem<ProcurementTaskData> bluePrintItem = new TreeItem<>(new ProcurementTaskData(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -670,27 +672,27 @@ public class UIController
         return modifications;
     }
 
-    private TreeItem<ProcTreeData> makeExperimentTree()
+    private TreeItem<ProcurementTaskData> makeExperimentTree()
     {
-        TreeItem<ProcTreeData> experiments = new TreeItem<>(new ProcTreeData("Experimental Effects"));
+        TreeItem<ProcurementTaskData> experiments = new TreeItem<>(new ProcurementTaskData("Experimental Effects"));
 
         // loop through all mod categories
         Arrays.stream(ExperimentalCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcTreeData> categoryItem = new TreeItem<>(new ProcTreeData(category.toString()));
+            TreeItem<ProcurementTaskData> categoryItem = new TreeItem<>(new ProcurementTaskData(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                //TreeItem<ProcTreeData> typeItem = new TreeItem<>(new ProcTreeData(type.toString()));
+                //TreeItem<ProcurementTaskData> typeItem = new TreeItem<>(new ProcurementTaskData(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(type, blueprint));
+                    TreeItem<ProcurementTaskData> bluePrintItem = new TreeItem<>(new ProcurementTaskData(type, blueprint));
 
                     // add the blueprint item to this mod type
                     //typeItem.getChildren().add(bluePrintItem);
@@ -709,28 +711,28 @@ public class UIController
         return experiments;
     }
 
-    private TreeItem<ProcTreeData> makeTechnologyTree()
+    private TreeItem<ProcurementTaskData> makeTechnologyTree()
     {
-        TreeItem<ProcTreeData> modifications = new TreeItem<>(new ProcTreeData("Tech Brokers"));
+        TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Tech Brokers"));
         //modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(TechnologyCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcTreeData> categoryItem = new TreeItem<>(new ProcTreeData(category.toString()));
+            TreeItem<ProcurementTaskData> categoryItem = new TreeItem<>(new ProcurementTaskData(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcTreeData> typeItem = new TreeItem<>(new ProcTreeData(type.toString()));
+                TreeItem<ProcurementTaskData> typeItem = new TreeItem<>(new ProcurementTaskData(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ProcTreeData> bluePrintItem = new TreeItem<>(new ProcTreeData(type, blueprint));
+                    TreeItem<ProcurementTaskData> bluePrintItem = new TreeItem<>(new ProcurementTaskData(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -752,7 +754,7 @@ public class UIController
     private void makeProcurementTree()
     {
         // create an root object for procurements
-        TreeItem<ProcTreeData> root = new TreeItem<>(new ProcTreeData("root"));
+        TreeItem<ProcurementTaskData> root = new TreeItem<>(new ProcurementTaskData("root"));
 
         // create and add the various procurement sub-trees to the root object
         root.getChildren().addAll(makeSynthesisTree(),
@@ -765,10 +767,6 @@ public class UIController
 
         // now that the root object has been filled with sub-trees, add it to the tree
         procurementTree.setRoot(root);
-
-        // use a custom cell factory so we can have more useful tree cells
-        procurementTree.setCellFactory(param ->
-                new ProcTreeCell(addTaskToProcurementList, this.commanderData::hasItem, procSelectorBackingList));
 
         // hide the root, showing just it's children in the tree view (which are the mod categories)
         procurementTree.setShowRoot(false);
