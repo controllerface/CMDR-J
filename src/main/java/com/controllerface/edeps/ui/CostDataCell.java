@@ -5,8 +5,11 @@ import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.costs.materials.MaterialType;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -30,6 +33,14 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
         }
         else
         {
+
+            VBox descriptionContainer = new VBox();
+
+            Accordion accordion = new Accordion();
+            TitledPane titledPane = new TitledPane();
+            titledPane.setAnimated(false);
+
+
             HBox hbox = new HBox();
 
             ProcurementCost cost = item.getCost();
@@ -54,22 +65,39 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
                 }
             }
 
-            Label costLabel = new Label(cost.getLocalizedName() + " :: " + type);
-            Font baseFont = Font.font(baseFontFamily, FontWeight.BOLD, baseFontSize);
-            costLabel.setFont(baseFont);
-
+            Label costLabel = new Label(type + " :: "  + cost.getLocalizedName()) ;
+            costLabel.setPrefHeight(20);
+            // Make the font bold
+            Font existingFont = costLabel.getFont();
+            Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize() + (existingFont.getSize() / 4));
+            costLabel.setFont(boldFont);
+            costLabel.paddingProperty().set(new Insets(2,5,2,5));
             double progress = ((double) item.getHave()) / ((double) item.getNeed());
 
             ProgressBar progressBar = new ProgressBar(progress);
 
+            progressBar.setOnMouseClicked((e)->titledPane.setExpanded(!titledPane.isExpanded()));
+
             if (progress >= 1.0)
             {
-                progressBar.setStyle("-fx-progress-color: #00b3f7 ");
+                progressBar.setStyle("-fx-accent: #00b3f7 ");
             }
-            else progressBar.setStyle("-fx-progress-color: #ff0000 ");
+            else progressBar.setStyle("-fx-accent: #ff0000 ");
 
             hbox.getChildren().addAll(progressBar, costLabel);
-            setGraphic(hbox);
+
+
+            titledPane.setContent(new Label("Coming Soon"));
+
+
+            titledPane.setGraphic(hbox);
+            hbox.setAlignment(Pos.CENTER);
+
+            accordion.getPanes().add(titledPane);
+            descriptionContainer.getChildren().add(accordion);
+
+
+            setGraphic(descriptionContainer);
         }
     }
 }

@@ -70,6 +70,7 @@ public class UIController
 
     // Procurement tree
     @FXML private HBox procurementBox;
+    @FXML private Label procurementLabel;
     @FXML private TreeView<ProcurementTaskData> procurementTree;
     @FXML private ListView<ProcurementTaskData> procurementList;
 
@@ -113,8 +114,7 @@ public class UIController
 
     // Procurement cost table
     @FXML private TableView<ItemCostData> taskCostTable;
-    @FXML private TableColumn<ItemCostData, ProgressIndicator> taskCostProgressColumn;
-    @FXML private TableColumn<ItemCostData, String> taskCostHaveColumn;
+    @FXML private TableColumn<ItemCostData, String> taskCostNeedColumn;
     @FXML private TableColumn<ItemCostData, ItemCostData> taskCostNameColumn;
 
     // The observable list backing the task cost table view
@@ -418,7 +418,10 @@ public class UIController
         recipeTableLabel.setFont(recipeTableFont);
         costTableLabel.setFont(costTableFont);
 
-        procurementTree.setCellFactory(param -> new ProcTreeCell(procSelectorBackingList));
+        SimpleStringProperty labelText = new SimpleStringProperty("");
+        procurementLabel.textProperty().bind(labelText);
+
+        procurementTree.setCellFactory(param -> new ProcTreeCell(procSelectorBackingList, labelText));
 
         procurementList.setItems(procSelectorBackingList);
         procurementList.setCellFactory(param ->
@@ -522,12 +525,8 @@ public class UIController
         taskRemoveColumn.setCellFactory(UIFunctions.Data.makeModControlCellFactory.apply(procurementListUpdate));
         taskRemoveColumn.setCellValueFactory(UIFunctions.Data.modControlCellValueFactory);
 
-        // set the cell and cell value factories for the procurement material list
-        taskCostProgressColumn.setCellFactory(UIFunctions.Data.costProgressCellFactory);
-        taskCostProgressColumn.setCellValueFactory(UIFunctions.Data.costProgressCellValueFactory);
-
-        taskCostHaveColumn.setCellValueFactory(UIFunctions.Data.costHaveCellFactory);
-        taskCostHaveColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
+        taskCostNeedColumn.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
+        taskCostNeedColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
 
         taskCostNameColumn.setCellValueFactory(UIFunctions.Data.costNameCellValueFactory);
         taskCostNameColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
@@ -541,12 +540,42 @@ public class UIController
         showTasks.setOnAction((e)->setProcumentsUIVisibility());
         showItemsNeeded.setOnAction((e)->setProcumentsUIVisibility());
 
-
         shipTypeLabel.textProperty().bind(commanderData.getStarShip().getShipDisplayName());
 
+//        taskCostTable.setSortPolicy(param ->
+//        {
+//            System.out.println("Sort?");
+//            param.getItems().sort(
+//                    (a,b)->
+//                    {
+//                        int aNeed = a.getNeed();
+//                        int bNeed = b.getNeed();
+//                        int aHave = a.getHave();
+//                        int bHave = b.getHave();
+//                        boolean aok = aNeed >= aHave;
+//                        boolean bok = bNeed >= bHave;
+//                        if (aok && bok) return 0;
+//                        int aDiff = Math.abs(aNeed - aHave);
+//                        int bDiff = Math.abs(bNeed - bHave);
+//                        return bDiff - aDiff;
+//                    });
+//            param.refresh();
+//            return true;
+//        });
 
-        // set the sorting comparator for the material progress column of the procurement list
-        taskCostProgressColumn.setComparator(UIFunctions.Sort.indicatorByProgress);
+//        taskCostNameColumn.setComparator((a, b)->
+//        {
+//            int aNeed = a.getNeed();
+//            int bNeed = b.getNeed();
+//            int aHave = a.getHave();
+//            int bHave = b.getHave();
+//            boolean aok = aNeed >= aHave;
+//            boolean bok = bNeed >= bHave;
+//            if (aok && bok) return 0;
+//            int aDiff = Math.abs(aNeed - aHave);
+//            int bDiff = Math.abs(bNeed - bHave);
+//            return bDiff - aDiff;
+//        });
 
         DoubleBinding recipeTableWidthUsed = taskCountColumn.widthProperty()
                 .add(taskRemoveColumn.widthProperty())
@@ -556,8 +585,7 @@ public class UIController
                 .bind(procurementTaskTable.widthProperty()
                         .subtract(recipeTableWidthUsed));
 
-        DoubleBinding costTableWidthUsed = taskCostProgressColumn.widthProperty()
-                .add(taskCostHaveColumn.widthProperty())
+        DoubleBinding costTableWidthUsed = taskCostNeedColumn.widthProperty()
                 .add(UIFunctions.scrollBarAllowance);
 
         taskCostNameColumn.prefWidthProperty()
@@ -858,14 +886,30 @@ public class UIController
 
         sortTasktable();
 
+
         if (taskCostTable.getItems().size() > 0)
         {
             taskCostTable.getItems().sort((a, b)->
             {
-                double ad = ((double)a.getHave() / (double)a.getNeed());
-                double bd = ((double)b.getHave() / (double)b.getNeed());
-                if (ad == bd) return 0;
-                else return ad > bd ? 1 : -1;
+                int aNeed = a.getNeed();
+                int bNeed = b.getNeed();
+                int aHave = a.getHave();
+                int bHave = b.getHave();
+                boolean aok = aHave >= aNeed;
+                boolean bok = bHave >= bNeed;
+
+                int r2;
+
+                if (aok && bok) r2 = 0;
+                else if (aok || bok) r2 = aok ? 1 : -1;
+                else
+                {
+                    int aDiff = Math.abs(aNeed - aHave);
+                    int bDiff = Math.abs(bNeed - bHave);
+                    r2 = bDiff - aDiff;
+                }
+
+                return r2;
             });
         }
 
@@ -889,11 +933,13 @@ public class UIController
         if (showProcurements.isSelected())
         {
             shown++;
+            procurementLabel.setMinHeight(35);
             procurementBox.setPrefHeight(10000);
             procurementBox.setVisible(true);
         }
         else
         {
+            procurementLabel.setMinHeight(0);
             procurementBox.setPrefHeight(0);
             procurementBox.setVisible(false);
         }

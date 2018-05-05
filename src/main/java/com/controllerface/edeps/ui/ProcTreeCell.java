@@ -2,8 +2,11 @@ package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -17,13 +20,15 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ProcTreeCell extends TreeCell<ProcurementTaskData>
 {
     private final ObservableList<ProcurementTaskData> outputList;
+    private final SimpleStringProperty outputLabel;
     private static final AtomicReference<Font> baseFont = new AtomicReference<>(null);
 
     private ProcurementTaskData thisItem = null;
 
-    public ProcTreeCell(ObservableList<ProcurementTaskData> outputList)
+    public ProcTreeCell(ObservableList<ProcurementTaskData> outputList, SimpleStringProperty outputLabel)
     {
         this.outputList = outputList;
+        this.outputLabel = outputLabel;
 
         this.setOnMouseClicked((e)->
         {
@@ -39,7 +44,8 @@ public class ProcTreeCell extends TreeCell<ProcurementTaskData>
                 }
                 else displayText = thisItem.getType().toString() + " :: " + thisItem.getBlueprint().toString();
 
-                outputList.add(new ProcurementTaskData(displayText));
+                outputLabel.set(displayText);
+
                 thisItem.getBlueprint().recipeStream()
                         .map(recipe -> new ProcurementTaskData(thisItem.getType(), recipe))
                         .forEach(outputList::add);

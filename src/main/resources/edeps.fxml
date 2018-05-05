@@ -16,34 +16,51 @@
                      <children>
                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="25.0">
+                              <HBox alignment="CENTER_LEFT" minHeight="25.0">
                                  <children>
-                                    <AnchorPane prefWidth="10000.0">
+                                    <Label alignment="TOP_LEFT" text="Show Tables">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="showProcurements" alignment="CENTER" mnemonicParsing="false" selected="true" text="Procurements " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <CheckBox fx:id="showProcurements" alignment="CENTER" mnemonicParsing="false" selected="true" text="Procurements ">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </CheckBox>
                                        </children>
+                                       <HBox.margin>
+                                          <Insets top="3.5" />
+                                       </HBox.margin>
                                     </AnchorPane>
-                                    <AnchorPane prefWidth="10000.0">
+                                    <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="showTasks" alignment="CENTER" mnemonicParsing="false" selected="true" text="Tasks " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <CheckBox fx:id="showTasks" alignment="CENTER" mnemonicParsing="false" selected="true" text="Tasks ">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </CheckBox>
                                        </children>
+                                       <HBox.margin>
+                                          <Insets top="3.5" />
+                                       </HBox.margin>
                                     </AnchorPane>
-                                    <AnchorPane prefWidth="10000.0">
+                                    <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="showItemsNeeded" alignment="CENTER" mnemonicParsing="false" selected="true" text="Items Needed " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <CheckBox fx:id="showItemsNeeded" alignment="CENTER" mnemonicParsing="false" selected="true" text="Items Needed ">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </CheckBox>
                                        </children>
+                                       <HBox.margin>
+                                          <Insets top="3.5" />
+                                       </HBox.margin>
                                     </AnchorPane>
                                  </children>
                               </HBox>
@@ -52,7 +69,22 @@
                                     <HBox fx:id="procurementBox">
                                        <children>
                                           <TreeView fx:id="procurementTree" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="10000.0" />
-                                          <ListView fx:id="procurementList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="10000.0" />
+                                          <VBox>
+                                             <children>
+                                                <Label fx:id="procurementLabel" minHeight="35.0" text="Placeholder">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                   <opaqueInsets>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </opaqueInsets>
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </Label>
+                                                <ListView fx:id="procurementList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="10000.0" />
+                                             </children>
+                                          </VBox>
                                        </children>
                                     </HBox>
                                     <AnchorPane fx:id="taskPane">
@@ -93,7 +125,7 @@
                                                 <TableView fx:id="procurementTaskTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
                                                     <TableColumn fx:id="taskCountColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Count" />
-                                                    <TableColumn fx:id="taskNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" sortable="false" text="Task" />
+                                                    <TableColumn fx:id="taskNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" resizable="false" sortable="false" text="Tasks" />
                                                       <TableColumn fx:id="taskRemoveColumn" editable="false" maxWidth="598.0" minWidth="23.0" prefWidth="28.0" resizable="false" sortable="false" />
                                                   </columns>
                                                 </TableView>
@@ -103,9 +135,8 @@
                                     </AnchorPane>
                                     <TableView fx:id="taskCostTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                       <columns>
-                                          <TableColumn fx:id="taskCostProgressColumn" maxWidth="40.0" minWidth="20.0" prefWidth="40.0" text="Done" />
-                                          <TableColumn fx:id="taskCostHaveColumn" maxWidth="80.0" minWidth="20.0" resizable="false" text="Have" />
-                                          <TableColumn fx:id="taskCostNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="291.0" text="Item" />
+                                          <TableColumn fx:id="taskCostNeedColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Need" />
+                                          <TableColumn fx:id="taskCostNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="291.0" resizable="false" sortable="false" text="Items Needed" />
                                       </columns>
                                     </TableView>
                                  </children>

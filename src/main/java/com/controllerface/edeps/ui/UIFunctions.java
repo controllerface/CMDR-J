@@ -226,10 +226,18 @@ class UIFunctions
      */
 
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
-                costHaveCellFactory = (modMaterial) ->
+                costNeedCellFactory = (modMaterial) ->
         {
-            String label = modMaterial.getValue().getHave() + " / " + modMaterial.getValue().getNeed();
-            return new SimpleStringProperty(label);
+            int left = 0;
+            int need = modMaterial.getValue().getNeed();
+            int have = modMaterial.getValue().getHave();
+            boolean ok = need <= have;
+            if (!ok)
+            {
+                left = need - have;
+            }
+
+            return new SimpleStringProperty(String.valueOf(left));
         };
 
         static final Callback<TableColumn<ItemCostData, ItemCostData>, TableCell<ItemCostData, ItemCostData>>
@@ -249,46 +257,7 @@ class UIFunctions
 
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, ItemCostData>, ObservableValue<ItemCostData>>
                 costNameCellValueFactory = (modMaterial) -> new ReadOnlyObjectWrapper<>(modMaterial.getValue());
-
-        static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
-                costTypeCellFactory = (modMaterial) ->
-        {
-            ProcurementCost cost = modMaterial.getValue().getCost();
-            String type;
-            if (cost instanceof Material)
-            {
-                type = MaterialType.findMatchingType(((Material) cost)).name();
-                type = type.substring(0,1)
-                        .concat(type.substring(1,type.length()).toLowerCase());
-            }
-            else if (cost instanceof Commodity) type = Commodity.class.getSimpleName();
-            else type = "Unknown";
-            return new SimpleStringProperty(type);
-        };
-
-        // custom cell object creates display for the progress indicator
-        static final Callback<TableColumn<ItemCostData, ProgressIndicator>, TableCell<ItemCostData, ProgressIndicator>>
-                costProgressCellFactory = (modMaterial) -> new CostProgressCell();
-
-        // wrapper object for progress indicator object
-        static final Callback<TableColumn.CellDataFeatures<ItemCostData, ProgressIndicator>, ObservableValue<ProgressIndicator>>
-                costProgressCellValueFactory = (modMaterial) ->
-        {
-            double progress = ((double) modMaterial.getValue().getHave()) / ((double) modMaterial.getValue().getNeed());
-
-            ProgressIndicator progressIndicator = new ProgressIndicator(progress);
-
-            if (progress >= 1.0)
-            {
-                progressIndicator.setStyle("-fx-progress-color: #00b3f7 ");
-            }
-            else progressIndicator.setStyle("-fx-progress-color: #ff0000 ");
-
-            return new ReadOnlyObjectWrapper<>(progressIndicator);
-        };
     }
-
-
 
     /**
      * Mapping functions used to produce UI elements from other data objects
