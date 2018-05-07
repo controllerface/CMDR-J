@@ -2,7 +2,6 @@ package com.controllerface.edeps.data;
 
 import com.controllerface.edeps.Immutable;
 import com.controllerface.edeps.structures.equipment.modules.ModuleSize;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 
 /**
  * Represents a configuration of "core" modules for a Ship in elite dangerous. All ships have standard modules of
