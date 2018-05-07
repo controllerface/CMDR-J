@@ -253,7 +253,7 @@ public enum HardpointModule implements ShipModule
     hpt_minelauncher_fixed_small(ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher,
             "Small Fixed Mine Launcher"),
     hpt_minelauncher_fixed_small_impulse(ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher,
-            "Small Fixed Impulse Mine Launcher"), // faction weapon
+            "Small Fixed Shock Mine Launcher"),
 
 
     /**
@@ -339,6 +339,44 @@ public enum HardpointModule implements ShipModule
             "Point Defense Turret"),
     hpt_electroniccountermeasure_tiny(ModificationType.Electronic_Countermeasures, null,
             "Electronic Counter-Measures"),
+
+
+    /**
+     * Faction Specific Weapons
+     */
+
+    // todo: need to find out the ENUm values for these
+    // Mining Lance/Mining Laser - (Zemina Torval)
+    // Disruptor/Pulse Laser (Felicia Winters)
+    // Enforcer/Multi-Cannon (Pranav Antal)
+
+    // Archon Delaine
+    hpt_pulselaserburst_fixed_small_scatter(ModificationType.Burst_Laser, ExperimentalType.Burst_Laser,
+            "Small Fixed Cytoscrambler (Burst Laser)"),
+
+    // Edmund Mahon
+    hpt_beamlaser_fixed_small_heat(ModificationType.Beam_Laser, ExperimentalType.Beam_Laser,
+            "Small Fixed Retributor (Beam Laser)"),
+
+    // Zachary Hudson
+    hpt_slugshot_fixed_large_range(ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon,
+            "Large Fixed Pacifier (Fragment Cannon)"),
+
+    // Denton Patreus
+    hpt_plasmaaccelerator_fixed_large_advanced(ModificationType.Plasma_Accelerator, ExperimentalType.Plasma_Accelerator,
+            "Large Fixed Plasma Accelerator (Advanced)"),
+
+    // Arissa Lavigny-Duval
+    hpt_railgun_fixed_medium_burst(ModificationType.Rail_Gun, ExperimentalType.Rail_Gun,
+            "Medium Fixed Imperial Hammer (Rail Gun)"),
+
+    // Yuri Grom
+    hpt_dumbfiremissilerack_fixed_medium_lasso(ModificationType.Missile_Rack, ExperimentalType.Missile_Rack,
+            "Medium Fixed Containment Missile (Missile Rack)"),
+
+    // Li Yong-Rui
+    hpt_drunkmissilerack_fixed_medium(ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack,
+            "Medium Pixed Pack-Hound (Seeker Missile Rack)"),
 
 
     /**
