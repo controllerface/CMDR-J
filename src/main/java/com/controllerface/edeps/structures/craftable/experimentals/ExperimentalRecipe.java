@@ -343,7 +343,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDINGSENSORS, 3),
             new CostData(Material.SHIELDPATTERNANALYSIS, 2)),
 
-    special_force_shell("Focre Shell", ItemGrade.Experimental, new ItemEffectData
+    special_force_shell("Force Shell", ItemGrade.Experimental, new ItemEffectData
             (
                     new Pair<>(ItemEffect.target_pushed_off_course, 0d),
                     new Pair<>(ItemEffect.ShotSpeed, -16.67d)
