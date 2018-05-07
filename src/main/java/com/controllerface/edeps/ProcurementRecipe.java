@@ -17,4 +17,5 @@ public interface ProcurementRecipe
     ItemEffectData effects();
     String getName();
     ItemGrade getGrade();
+    void setParentBlueprintName(String blueprintName);
 }

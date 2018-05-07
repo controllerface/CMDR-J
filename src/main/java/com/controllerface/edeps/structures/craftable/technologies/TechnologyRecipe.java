@@ -213,6 +213,12 @@ public enum TechnologyRecipe implements ProcurementRecipe
     }
 
     @Override
+    public void setParentBlueprintName(String blueprintName)
+    {
+        // no-op for tech broker unlocks, text is set in this constructor
+    }
+
+    @Override
     public String toString()
     {
         return super.toString().replace("_"," ");
@@ -227,7 +233,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
     @Override
     public String getDisplayLabel()
     {
-        return getShortLabel();
+        return toString();
     }
 
     @Override

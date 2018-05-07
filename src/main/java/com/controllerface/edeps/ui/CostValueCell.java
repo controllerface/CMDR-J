@@ -1,6 +1,7 @@
 package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.data.procurements.ItemCostData;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.text.Font;
@@ -38,6 +39,7 @@ public class CostValueCell extends TableCell<ItemCostData, String>
             }
 
             setAlignment(Pos.TOP_CENTER);
+            setPadding(new Insets(8,0,0,0));
 
             Font baseFont = Font.font(baseFontFamily, FontWeight.BOLD, baseFontSize);
             setFont(baseFont);

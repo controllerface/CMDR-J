@@ -543,6 +543,7 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
             new CostData(Material.TECHNETIUM, 1)),
     ;
 
+    private String parentBlueprintName;
     private final ItemGrade grade;
     private final CostData[] cost;
     private final ItemEffectData effects;
@@ -571,6 +572,12 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
     }
 
     @Override
+    public void setParentBlueprintName(String parentBlueprintName)
+    {
+        this.parentBlueprintName = parentBlueprintName;
+    }
+
+    @Override
     public String toString()
     {
         return super.toString().replace("_"," ");
@@ -579,15 +586,13 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
     @Override
     public String getShortLabel()
     {
-        String grade = Arrays.stream(name().split("_")).reduce((a, b) -> b).orElse("?");
-        return "Grade " + grade;
+        return "Grade " + grade.toString();
     }
 
     @Override
     public String getDisplayLabel()
     {
-        String name = name().replace("_"," ").substring(0,name().length()-1);
-        return name + getShortLabel();
+        return parentBlueprintName + " :: " + getShortLabel();
     }
 
     @Override

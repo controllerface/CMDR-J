@@ -18,7 +18,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" minHeight="25.0">
                                  <children>
-                                    <Label alignment="TOP_LEFT" text="Show Tables">
+                                    <Label alignment="TOP_LEFT" text="Show">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>

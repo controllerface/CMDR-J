@@ -19,7 +19,7 @@ public enum ExperimentalBlueprint implements ProcurementBlueprint
             ExperimentalRecipe.special_regeneration_sequence,
             ExperimentalRecipe.special_weapon_lightweight,
             ExperimentalRecipe.special_thermal_conduit,
-            ExperimentalRecipe.special_thermalshock,
+            ExperimentalRecipe.special_thermal_shock,
             ExperimentalRecipe.special_thermal_vent),
 
     Burst_Laser(ExperimentalRecipe.special_concordant_sequence,
@@ -31,7 +31,7 @@ public enum ExperimentalBlueprint implements ProcurementBlueprint
             ExperimentalRecipe.special_phasing_sequence,
             ExperimentalRecipe.special_scramble_spectrum,
             ExperimentalRecipe.special_weapon_lightweight,
-            ExperimentalRecipe.special_thermalshock),
+            ExperimentalRecipe.special_thermal_shock),
 
     Pulse_Laser(ExperimentalRecipe.special_concordant_sequence,
             ExperimentalRecipe.special_weapon_toughened,
@@ -42,7 +42,7 @@ public enum ExperimentalBlueprint implements ProcurementBlueprint
             ExperimentalRecipe.special_phasing_sequence,
             ExperimentalRecipe.special_scramble_spectrum,
             ExperimentalRecipe.special_weapon_lightweight,
-            ExperimentalRecipe.special_thermalshock),
+            ExperimentalRecipe.special_thermal_shock),
 
     Cannon(ExperimentalRecipe.special_auto_loader,
             ExperimentalRecipe.special_dispersal_field,
@@ -66,7 +66,7 @@ public enum ExperimentalBlueprint implements ProcurementBlueprint
             ExperimentalRecipe.special_weapon_damage,
             ExperimentalRecipe.special_smart_rounds,
             ExperimentalRecipe.special_weapon_lightweight,
-            ExperimentalRecipe.special_thermalshock),
+            ExperimentalRecipe.special_thermal_shock),
 
     Fragment_Cannon(ExperimentalRecipe.special_corrosive_shell,
             ExperimentalRecipe.special_blinding_shell,

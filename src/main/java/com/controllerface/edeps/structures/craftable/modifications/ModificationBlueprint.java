@@ -241,7 +241,7 @@ public enum ModificationBlueprint implements ProcurementBlueprint
             ModificationRecipe.HatchBreakerLimpet_Shielded_4,
             ModificationRecipe.HatchBreakerLimpet_Shielded_5),
 
-    HeatSinkLauncher_HeatSinkCapacity("AmmoMaximum Capacity",
+    HeatSinkLauncher_HeatSinkCapacity("Ammo Capacity",
             ModificationRecipe.HeatSinkLauncher_HeatSinkCapacity_1),
 
     HeatSinkLauncher_LightWeight("Lightweight",
@@ -354,7 +354,7 @@ public enum ModificationBlueprint implements ProcurementBlueprint
             ModificationRecipe.PointDefence_LightWeight_4,
             ModificationRecipe.PointDefence_LightWeight_5),
 
-    PointDefence_PointDefenseCapacity("AmmoMaximum Capacity",
+    PointDefence_PointDefenseCapacity("Ammo Capacity",
             ModificationRecipe.PointDefence_PointDefenseCapacity_1),
 
     PointDefence_Reinforced("Reinforced",
@@ -482,7 +482,7 @@ public enum ModificationBlueprint implements ProcurementBlueprint
             ModificationRecipe.Sensor_CargoScanner_WideAngle_4,
             ModificationRecipe.Sensor_CargoScanner_WideAngle_5),
 
-    Sensor_KillWarrantScanner_FastScan("Fast scan",
+    Sensor_KillWarrantScanner_FastScan("Fast Scan",
             ModificationRecipe.Sensor_KillWarrantScanner_FastScan_1,
             ModificationRecipe.Sensor_KillWarrantScanner_FastScan_2,
             ModificationRecipe.Sensor_KillWarrantScanner_FastScan_3,
@@ -496,26 +496,26 @@ public enum ModificationBlueprint implements ProcurementBlueprint
             ModificationRecipe.Sensor_KillWarrantScanner_WideAngle_4,
             ModificationRecipe.Sensor_KillWarrantScanner_WideAngle_5),
 
-    Sensor_Sensor_LightWeight("Lightweight",
-            ModificationRecipe.Sensor_Sensor_LightWeight_1,
-            ModificationRecipe.Sensor_Sensor_LightWeight_2,
-            ModificationRecipe.Sensor_Sensor_LightWeight_3,
-            ModificationRecipe.Sensor_Sensor_LightWeight_4,
-            ModificationRecipe.Sensor_Sensor_LightWeight_5),
+    Sensor_LightWeight("Lightweight",
+            ModificationRecipe.Sensor_LightWeight_1,
+            ModificationRecipe.Sensor_LightWeight_2,
+            ModificationRecipe.Sensor_LightWeight_3,
+            ModificationRecipe.Sensor_LightWeight_4,
+            ModificationRecipe.Sensor_LightWeight_5),
 
-    Sensor_Sensor_LongRange("Long Range",
-            ModificationRecipe.Sensor_Sensor_LongRange_1,
-            ModificationRecipe.Sensor_Sensor_LongRange_2,
-            ModificationRecipe.Sensor_Sensor_LongRange_3,
-            ModificationRecipe.Sensor_Sensor_LongRange_4,
-            ModificationRecipe.Sensor_Sensor_LongRange_5),
+    Sensor_LongRange("Long Range",
+            ModificationRecipe.Sensor_LongRange_1,
+            ModificationRecipe.Sensor_LongRange_2,
+            ModificationRecipe.Sensor_LongRange_3,
+            ModificationRecipe.Sensor_LongRange_4,
+            ModificationRecipe.Sensor_LongRange_5),
 
-    Sensor_Sensor_WideAngle("Wide Angle",
-            ModificationRecipe.Sensor_Sensor_WideAngle_1,
-            ModificationRecipe.Sensor_Sensor_WideAngle_2,
-            ModificationRecipe.Sensor_Sensor_WideAngle_3,
-            ModificationRecipe.Sensor_Sensor_WideAngle_4,
-            ModificationRecipe.Sensor_Sensor_WideAngle_5),
+    Sensor_WideAngle("Wide Angle",
+            ModificationRecipe.Sensor_WideAngle_1,
+            ModificationRecipe.Sensor_WideAngle_2,
+            ModificationRecipe.Sensor_WideAngle_3,
+            ModificationRecipe.Sensor_WideAngle_4,
+            ModificationRecipe.Sensor_WideAngle_5),
 
     Sensor_SurfaceScanner_FastScan("Fast Scan",
             ModificationRecipe.Sensor_SurfaceScanner_FastScan_1,
@@ -723,6 +723,7 @@ public enum ModificationBlueprint implements ProcurementBlueprint
             WeaponModificationRecipe.Weapon_Sturdy_4,
             WeaponModificationRecipe.Weapon_Sturdy_5),
 
+    Unknown("Unknown")
 
     ;
 
@@ -733,6 +734,7 @@ public enum ModificationBlueprint implements ProcurementBlueprint
     {
         this.text = text;
         this.recipes = recipes;
+        recipeStream().forEach(recipe -> recipe.setParentBlueprintName(text));
     }
 
     public Stream<ProcurementRecipe> recipeStream()

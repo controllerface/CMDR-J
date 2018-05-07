@@ -556,6 +556,43 @@ public class UIController
         shipTypeLabel.textProperty().bind(commanderData.getStarShip().getShipDisplayName());
 
 
+        // table auto-resize bindings
+
+        DoubleBinding rawTableWidthUsed = rawCategoryColumn.widthProperty()
+                .add(rawGradeColumn.widthProperty())
+                .add(rawQuantityColumn.widthProperty())
+                .add(UIFunctions.scrollBarAllowance);
+
+        rawMaterialColumn.prefWidthProperty()
+                .bind(rawTable.widthProperty().subtract(rawTableWidthUsed));
+
+
+        DoubleBinding mfdTableWidthUsed = manufacturedCategoryColumn.widthProperty()
+                .add(manufacturedGradeColumn.widthProperty())
+                .add(manufacturedQuantityColumn.widthProperty())
+                .add(UIFunctions.scrollBarAllowance);
+
+        manufacturedMaterialColumn.prefWidthProperty()
+                .bind(manufacturedTable.widthProperty().subtract(mfdTableWidthUsed));
+
+        DoubleBinding dataTableWidthUsed = dataCategoryColumn.widthProperty()
+                .add(dataGradeColumn.widthProperty())
+                .add(dataQuantityColumn.widthProperty())
+                .add(UIFunctions.scrollBarAllowance);
+
+        dataMaterialColumn.prefWidthProperty()
+                .bind(dataTable.widthProperty().subtract(dataTableWidthUsed));
+
+        DoubleBinding cargoTableWidthUsed = cargoCategoryColumn.widthProperty()
+                .add(cargoGradeColumn.widthProperty())
+                .add(cargoQuantityColumn.widthProperty())
+                .add(UIFunctions.scrollBarAllowance);
+
+        cargoMaterialColumn.prefWidthProperty()
+                .bind(cargoTable.widthProperty().subtract(cargoTableWidthUsed));
+
+
+
         DoubleBinding recipeTableWidthUsed = taskCountColumn.widthProperty()
                 .add(taskRemoveColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);

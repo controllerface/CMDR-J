@@ -206,9 +206,9 @@ public enum ModificationType implements ProcurementType
             ModificationBlueprint.PowerPlant_Stealth,
             ModificationBlueprint.PowerPlant_Boosted),
 
-    Sensors(ModificationBlueprint.Sensor_Sensor_LightWeight,
-            ModificationBlueprint.Sensor_Sensor_LongRange,
-            ModificationBlueprint.Sensor_Sensor_WideAngle),
+    Sensors(ModificationBlueprint.Sensor_LightWeight,
+            ModificationBlueprint.Sensor_LongRange,
+            ModificationBlueprint.Sensor_WideAngle),
 
     Thrusters(ModificationBlueprint.Engine_Tuned,
             ModificationBlueprint.Engine_Dirty,

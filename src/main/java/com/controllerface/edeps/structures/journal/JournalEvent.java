@@ -615,31 +615,48 @@ public enum JournalEvent
                                         ShipModule module,
                                         Map<String, Object> engineering)
     {
-        Integer level;
-        Double quality;
-        ModificationBlueprint modificationBlueprint;
-        ExperimentalRecipe experimentalRecipe;
+        Integer level = 0;
+        Double quality = 0d;
+        String modificationName = null;
+        String experimentalEffectName = null;
+        ModificationBlueprint modificationBlueprint = null;
+        ExperimentalRecipe experimentalRecipe = null;
 
         List<ModifierData> modifiers = new ArrayList<>();
 
-        String modificationName = ((String) engineering.get("BlueprintName"));
-        String experimentalEffectName = ((String) engineering.get("ExperimentalEffect"));
+        if (engineering != null)
+        {
+            modificationName = ((String) engineering.get("BlueprintName"));
+            experimentalEffectName = ((String) engineering.get("ExperimentalEffect"));
+            modificationBlueprint = determineModificationBlueprint(modificationName);
+            experimentalRecipe = determineExperimentalRecipe(experimentalEffectName);
 
-        modificationBlueprint = determineModificationBlueprint(modificationName);
-        experimentalRecipe = determineExperimentalRecipe(experimentalEffectName);
+            level = ((Integer) engineering.get("Level"));
+            quality = ((Double) engineering.get("Quality"));
+            ((List<Map<String, Object>>) engineering.get("Modifiers"))
+                    .forEach(modifier ->
+                    {
+                        ItemEffect effect = ItemEffect.valueOf(((String) modifier.get("Label")));
+                        double value = ((double) modifier.get("Value"));
+                        double originalValue = ((double) modifier.get("OriginalValue"));
+                        boolean lessIsGood = ((int) modifier.get("LessIsGood")) == 1;
+                        modifiers.add(new ModifierData(effect, value, originalValue, lessIsGood));
+                    });
+        }
 
 
-        level = ((Integer) engineering.get("Level"));
-        quality = ((Double) engineering.get("Quality"));
-        ((List<Map<String, Object>>) engineering.get("Modifiers"))
-                .forEach(modifier ->
-                {
-                    ItemEffect effect = ItemEffect.valueOf(((String) modifier.get("Label")));
-                    double value = ((double) modifier.get("Value"));
-                    double originalValue = ((double) modifier.get("OriginalValue"));
-                    boolean lessIsGood = ((int) modifier.get("LessIsGood")) == 1;
-                    modifiers.add(new ModifierData(effect, value, originalValue, lessIsGood));
-                });
+        if (modificationName != null && modificationBlueprint == null)
+        {
+            System.out.println("Unknown Modification:" + modificationName);
+            modificationBlueprint = ModificationBlueprint.Unknown;
+        }
+
+        if (experimentalEffectName != null && experimentalRecipe == null)
+        {
+            System.out.println("Unknown Experimental Effect:" + experimentalEffectName);
+            experimentalRecipe = ExperimentalRecipe.Unknown;
+        }
+
 
         ShipModuleData shipModuleData = new ShipModuleData.Builder()
                 .setModuleName(slot)
@@ -681,7 +698,7 @@ public enum JournalEvent
         context.getCommanderData().setStat(slot, moduleKey);
 
         // modules may not have any engineering data. If so, just return
-        if (engineering == null) return;
+        //if (engineering == null) return;
 
         setSlotFromData(context, slot, module, engineering);
     }

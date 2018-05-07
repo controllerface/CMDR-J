@@ -17,35 +17,34 @@ public enum ItemGrade
     GRADE_5(5),
 
     /*
+    Used for Engineer experimental effects
+     */
+    Experimental(6),
+
+    /*
+    Used for items unlocked via Tech Brokers
+     */
+    Technology(7),
+
+    /*
     Synthesis Grades
      */
     BASIC(1),
     STANDARD(2),
     PREMIUM(3),
 
-
     /*
     Cargo Types. These are used mainly for differentiating where certain items are found, and making sorting of items
     in the inventory tab easier
      */
 
-    Space(0),   // standard commodities and salvage
-    Planet(1),  // only available at planetary ports
-    Mining(2),  // attainable by mining only
-    Mission(3), // mission reward exclusive
-    POI(4),     // must be found at planetary POI
-    Rare(5),    // rare commodities, from specific star ports
-    Faction(100), // power play specific items
-
-    /*
-    Used for Engineer experimental effects
-     */
-    Experimental(101),
-
-    /*
-    Used for items unlocked via Tech Brokers
-     */
-    Technology(102),
+    Space(1),   // standard commodities and salvage
+    Planet(2),  // only available at planetary ports
+    Mining(3),  // attainable by mining only
+    Mission(4), // mission reward exclusive
+    POI(5),     // must be found at planetary POI
+    Rare(6),    // rare commodities, from specific star ports
+    Faction(7), // power play specific items
 
     ;
 

@@ -3456,7 +3456,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALCOMPONENTS, 1),
             new CostData(Material.TIN, 1)),
 
-    Sensor_Sensor_LightWeight_1(ItemGrade.GRADE_1, new ItemEffectData
+    Sensor_LightWeight_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -10d),
                     new Pair<>(ItemEffect.Mass, -20d),
@@ -3464,7 +3464,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    Sensor_Sensor_LightWeight_2(ItemGrade.GRADE_2, new ItemEffectData
+    Sensor_LightWeight_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -20d),
                     new Pair<>(ItemEffect.Mass, -35d),
@@ -3473,7 +3473,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MANGANESE, 1),
             new CostData(Material.SALVAGEDALLOYS, 1)),
 
-    Sensor_Sensor_LightWeight_3(ItemGrade.GRADE_3, new ItemEffectData
+    Sensor_LightWeight_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -30d),
                     new Pair<>(ItemEffect.Mass, -50d),
@@ -3483,7 +3483,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MANGANESE, 1),
             new CostData(Material.SALVAGEDALLOYS, 1)),
 
-    Sensor_Sensor_LightWeight_4(ItemGrade.GRADE_4, new ItemEffectData
+    Sensor_LightWeight_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -40d),
                     new Pair<>(ItemEffect.Mass, -65d),
@@ -3493,7 +3493,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PHASEALLOYS, 1),
             new CostData(Material.PROTOLIGHTALLOYS, 1)),
 
-    Sensor_Sensor_LightWeight_5(ItemGrade.GRADE_5, new ItemEffectData
+    Sensor_LightWeight_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Integrity, -50d),
                     new Pair<>(ItemEffect.Mass, -80d),
@@ -3503,7 +3503,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PROTOLIGHTALLOYS, 1),
             new CostData(Material.PROTORADIOLICALLOYS, 1)),
 
-    Sensor_Sensor_LongRange_1(ItemGrade.GRADE_1, new ItemEffectData
+    Sensor_LongRange_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, -10d),
@@ -3511,7 +3511,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.IRON, 1)),
 
-    Sensor_Sensor_LongRange_2(ItemGrade.GRADE_2, new ItemEffectData
+    Sensor_LongRange_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, -15d),
@@ -3520,7 +3520,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.IRON, 1)),
 
-    Sensor_Sensor_LongRange_3(ItemGrade.GRADE_3, new ItemEffectData
+    Sensor_LongRange_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, -20d),
@@ -3530,7 +3530,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IRON, 1),
             new CostData(Material.EMISSIONDATA, 1)),
 
-    Sensor_Sensor_LongRange_4(ItemGrade.GRADE_4, new ItemEffectData
+    Sensor_LongRange_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, -25d),
@@ -3540,7 +3540,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.ELECTROCHEMICALARRAYS, 1),
             new CostData(Material.GERMANIUM, 1)),
 
-    Sensor_Sensor_LongRange_5(ItemGrade.GRADE_5, new ItemEffectData
+    Sensor_LongRange_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.Mass, 100d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, -30d),
@@ -3550,7 +3550,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.NIOBIUM, 1),
             new CostData(Material.POLYMERCAPACITORS, 1)),
 
-    Sensor_Sensor_WideAngle_1(ItemGrade.GRADE_1, new ItemEffectData
+    Sensor_WideAngle_1(ItemGrade.GRADE_1, new ItemEffectData
             (
                     new Pair<>(ItemEffect.PowerDraw, 10d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 40d),
@@ -3558,7 +3558,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_Sensor_WideAngle_2(ItemGrade.GRADE_2, new ItemEffectData
+    Sensor_WideAngle_2(ItemGrade.GRADE_2, new ItemEffectData
             (
                     new Pair<>(ItemEffect.PowerDraw, 20d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 80d),
@@ -3567,7 +3567,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_Sensor_WideAngle_3(ItemGrade.GRADE_3, new ItemEffectData
+    Sensor_WideAngle_3(ItemGrade.GRADE_3, new ItemEffectData
             (
                     new Pair<>(ItemEffect.PowerDraw, 30d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 120d),
@@ -3577,7 +3577,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_Sensor_WideAngle_4(ItemGrade.GRADE_4, new ItemEffectData
+    Sensor_WideAngle_4(ItemGrade.GRADE_4, new ItemEffectData
             (
                     new Pair<>(ItemEffect.PowerDraw, 40d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 160d),
@@ -3587,7 +3587,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALEQUIPMENT, 1),
             new CostData(Material.NIOBIUM, 1)),
 
-    Sensor_Sensor_WideAngle_5(ItemGrade.GRADE_5, new ItemEffectData
+    Sensor_WideAngle_5(ItemGrade.GRADE_5, new ItemEffectData
             (
                     new Pair<>(ItemEffect.PowerDraw, 50d),
                     new Pair<>(ItemEffect.SensorTargetScanAngle, 200d),
@@ -4268,6 +4268,7 @@ public enum ModificationRecipe implements ProcurementRecipe
 
     ;
 
+    private String parentBlueprintName;
     private final ItemGrade grade;
     private final CostData[] cost;
     private final ItemEffectData effects;
@@ -4296,6 +4297,12 @@ public enum ModificationRecipe implements ProcurementRecipe
     }
 
     @Override
+    public void setParentBlueprintName(String parentBlueprintName)
+    {
+        this.parentBlueprintName = parentBlueprintName;
+    }
+
+    @Override
     public String toString()
     {
         return super.toString().replace("_"," ");
@@ -4304,15 +4311,13 @@ public enum ModificationRecipe implements ProcurementRecipe
     @Override
     public String getShortLabel()
     {
-        String grade = Arrays.stream(name().split("_")).reduce((a, b) -> b).orElse("?");
-        return "Grade " + grade;
+        return "Grade " + grade.toString();
     }
 
     @Override
     public String getDisplayLabel()
     {
-        String name = name().replace("_"," ").substring(0,name().length()-1);
-        return name + getShortLabel();
+        return parentBlueprintName + " :: " + getShortLabel();
     }
 
     @Override
