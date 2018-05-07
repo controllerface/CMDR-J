@@ -23,11 +23,11 @@ public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<Procur
     private final Button remove = new Button("x");
     private final HBox controls = new HBox(remove);
 
-    private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate;
+    private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> blueprintUpdate;
 
-    public TaskRemoveCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
+    public TaskRemoveCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> blueprintUpdate)
     {
-        this.inventoryUpdate = inventoryUpdate;
+        this.blueprintUpdate = blueprintUpdate;
     }
 
     @Override
@@ -64,8 +64,8 @@ public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<Procur
 
             remove.setOnAction((e) ->
             {
-                int val = inventoryUpdate.apply(-1, item);
-                while (val > 0) val = inventoryUpdate.apply(-1, item);
+                int val = blueprintUpdate.apply(-1, item);
+                while (val > 0) val = blueprintUpdate.apply(-1, item);
             });
 
             remove.setTooltip(new Tooltip("Remove this recipe"));

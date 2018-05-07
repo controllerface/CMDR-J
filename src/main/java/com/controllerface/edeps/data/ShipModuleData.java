@@ -2,6 +2,7 @@ package com.controllerface.edeps.data;
 
 import com.controllerface.edeps.ShipModule;
 import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class ShipModuleData
     private final ShipModule module;
 
     private final ModificationBlueprint modificationBlueprint;
-    private final String experimentalEffectName;
+    private final ExperimentalRecipe experimentalEffectName;
     private final List<ModifierData> modifiers;
     private final int level;
     private final double quality;
@@ -26,7 +27,7 @@ public class ShipModuleData
         this.module = builder.module;
         this.modifiers = builder.modifiers;
         this.modificationBlueprint = builder.modificationBlueprint;
-        this.experimentalEffectName = builder.experimentalEffectName;
+        this.experimentalEffectName = builder.experimentalEffectRecipe;
         this.level = builder.level;
         this.quality = builder.quality;
     }
@@ -37,7 +38,7 @@ public class ShipModuleData
     }
 
     // todo: should be enum value
-    public String getExperimentalEffectName()
+    public ExperimentalRecipe getExperimentalEffectName()
     {
         return experimentalEffectName;
     }
@@ -67,6 +68,27 @@ public class ShipModuleData
         return quality;
     }
 
+    @Override
+    public int hashCode()
+    {
+        return moduleName.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof ShipModuleData))
+        {
+            return false;
+        }
+        ShipModuleData other = ((ShipModuleData) obj);
+        return other == this || other.getModuleName() == this.moduleName;
+    }
+
     public static class Builder
     {
 
@@ -74,7 +96,7 @@ public class ShipModuleData
         private ShipModule module;
         private List<ModifierData> modifiers;
         private ModificationBlueprint modificationBlueprint;
-        private String experimentalEffectName;
+        private ExperimentalRecipe experimentalEffectRecipe;
         private int level;
         private double quality;
 
@@ -102,9 +124,9 @@ public class ShipModuleData
             return this;
         }
 
-        public Builder setExperimentalEffectName(String experimentalEffectName)
+        public Builder setExperimentalEffectRecipe(ExperimentalRecipe experimentalEffectName)
         {
-            this.experimentalEffectName = experimentalEffectName;
+            this.experimentalEffectRecipe = experimentalEffectName;
             return this;
         }
 
@@ -122,7 +144,6 @@ public class ShipModuleData
 
         public ShipModuleData build()
         {
-            if (experimentalEffectName==null) experimentalEffectName = "";
             return new ShipModuleData(this);
         }
     }

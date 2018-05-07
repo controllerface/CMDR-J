@@ -2,10 +2,13 @@ package com.controllerface.edeps.threads;
 
 import com.controllerface.edeps.Procedure;
 import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.ProcurementRecipe;
+import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.commander.CommanderData;
 import javafx.util.Pair;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.function.BiConsumer;
 
 /**
  * Task thread that keeps a CommanderData synchronized by executing transactions that modify it.
@@ -18,15 +21,18 @@ import java.util.concurrent.BlockingQueue;
 public class TransactionProcessingTask implements Runnable
 {
     private final Procedure updateFunction;
-    private final CommanderData inventory;
-    private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
+    private final BiConsumer<ProcurementCost, Integer> inventoryAdjustment;
+    private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> blueprintAdjustment;
+    private final BlockingQueue<UserTransaction> transactions;
 
     public TransactionProcessingTask(Procedure updateFunction,
-                                     CommanderData inventory,
-                                     BlockingQueue<Pair<ProcurementCost, Integer>> transactionQueue)
+                                     BiConsumer<ProcurementCost, Integer> inventoryAdjustment,
+                                     BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> blueprintAdjustment,
+                                     BlockingQueue<UserTransaction> transactionQueue)
     {
         this.updateFunction = updateFunction;
-        this.inventory = inventory;
+        this.inventoryAdjustment = inventoryAdjustment;
+        this.blueprintAdjustment = blueprintAdjustment;
         this.transactions = transactionQueue;
     }
 
@@ -43,8 +49,8 @@ public class TransactionProcessingTask implements Runnable
                 continue;
             }
 
-            // get the next inventory transaction
-            Pair<ProcurementCost, Integer> nextTransaction;
+            // get the next transaction
+            UserTransaction nextTransaction;
             try
             {
                 // this call blocks until a transaction is ready
@@ -58,7 +64,18 @@ public class TransactionProcessingTask implements Runnable
             }
 
             // perform the transaction
-            inventory.adjustItem(nextTransaction.getKey(), nextTransaction.getValue());
+            switch (nextTransaction.getTransactionType())
+            {
+
+                case INVENTORY:
+                    inventoryAdjustment.accept(nextTransaction.getInventoryItem(), nextTransaction.getTransactionAmount());
+                    break;
+
+                case BLUEPRINT:
+                    blueprintAdjustment.accept(nextTransaction.getTransactionAmount(), nextTransaction.getBlueprint());
+                    break;
+            }
+
 
             // call the update procedure to signal that the inventory has changed
             updateFunction.call();

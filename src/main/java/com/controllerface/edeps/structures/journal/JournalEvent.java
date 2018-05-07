@@ -1,15 +1,13 @@
 package com.controllerface.edeps.structures.journal;
 
-import com.controllerface.edeps.EventProcessingContext;
-import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.ShipModule;
-import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.*;
 import com.controllerface.edeps.data.ModifierData;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.structures.commander.PlayerStat;
 import com.controllerface.edeps.structures.commander.RankStat;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.equipment.modules.Cosmetic;
@@ -18,6 +16,7 @@ import com.controllerface.edeps.structures.equipment.modules.HardpointModule;
 import com.controllerface.edeps.structures.equipment.modules.OptionalInternalModule;
 import com.controllerface.edeps.structures.equipment.ships.*;
 import com.controllerface.edeps.threads.JournalSyncTask;
+import com.controllerface.edeps.threads.UserTransaction;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -31,6 +30,11 @@ import java.util.function.Consumer;
  * support for an arbitrary event to be determined by using the valueOf() enum method. Internally, each enum value
  * contains the required processing logic for an event by defining a EventProcessingContext consumer function that
  * is executed on calls to the process() method.
+ *
+ * For every supported event, the logic to process it is defined as a lambda implementation and passed as a constructor
+ * parameter for each event. This configuration helps consolidate all journal API processing code in one central
+ * location, making it easy to share functionality among different methods where possible. The intention is that, for
+ * maintenance and addition of new events, the bulk of the work to support them would be contained in this one class.
  *
  * Created by Stephen on 4/16/2018.
  */
@@ -162,7 +166,7 @@ public enum JournalEvent
         }
 
         ((List<Map<String, Object>>) context.getRawData().get("Modules")).stream()
-                .forEach(module -> setSlotFromData(context, module));
+                .forEach(module -> setSlotFromLoadout(context, module));
 
         context.getUpdateFunction().call();
     }),
@@ -241,8 +245,82 @@ public enum JournalEvent
     /**
      * Written when a engineering mod or experimental effect is crafted
      */
-    EngineerCraft((context)-> ((List<Map<String, Object>>) context.getRawData().get("Ingredients"))
-            .forEach(ingredient -> adjustMaterialCountDown(context, ingredient))),
+    EngineerCraft((context) ->
+    {
+        Map<String, Object> rawData = context.getRawData();
+
+        // remove the materials used in the crafting process
+        ((List<Map<String, Object>>) rawData.get("Ingredients"))
+                .forEach(ingredient -> adjustMaterialCountDown(context, ingredient));
+
+        String modificationEffect = ((String) rawData.get("BlueprintName"));
+        String experimentalEffect = ((String) rawData.get("ApplyExperimentalEffect"));
+        String moduleName = ((String) rawData.get("Module"));
+
+        ShipModule module = determineModuleType(moduleName);
+        if (module == null)
+        {
+            if (module == null) System.err.println("Ignoring Module: " + moduleName);
+            return;
+        }
+
+        // if this crafting event is for applying an experimental effect
+        if (experimentalEffect != null)
+        {
+            ProcurementType experimentalType = module.experimentalType();
+            if (experimentalType == null)
+            {
+                System.err.println("No experimental effects are registered for: " + module.displayText());
+                return;
+            }
+
+            ProcurementRecipe experimentalRecipe = ExperimentalRecipe.valueOf(experimentalEffect);
+            adjustBlueprintDown(context, experimentalType, experimentalRecipe, 1);
+        }
+        else
+        {
+            ProcurementType modificationType = module.modificationType();
+            if (modificationType == null)
+            {
+                System.err.println("No engineering modifications are registered for: " + module.displayText());
+                return;
+            }
+
+            int grade = ((int) rawData.get("Level"));
+
+            ProcurementBlueprint blueprint = ModificationBlueprint.valueOf(modificationEffect);
+            ProcurementRecipe modificationRecipe = blueprint.recipeStream()
+                    .filter(recipe -> recipe.getGrade().getNumericalValue() == grade)
+                    .findFirst().orElse(null);
+
+
+            // findRecipe() or something like that
+
+            if (modificationRecipe == null)
+            {
+                System.err.println("No recipe of grade: " + grade + " found for blueprint: " + blueprint +
+                        "\n Attempting to fall back to any existing recipe ");
+                modificationRecipe = blueprint.recipeStream().findAny().orElse(null);
+                if (modificationRecipe == null)
+                {
+                    throw new RuntimeException(" Could not find any recipes for: "
+                            + blueprint + " might need to update...");
+                }
+            }
+
+            adjustBlueprintDown(context, modificationType, modificationRecipe, 1);
+        }
+
+        String slotKey = ((String) rawData.get("Slot"));
+        Statistic slot = determineStatType(slotKey);
+        if (slot == null)
+        {
+            if (slot == null) System.err.println("Ignoring Slot: " + slotKey);
+            return;
+        }
+        context.getCommanderData().setStat(slot, moduleName);
+        setSlotFromData(context, slot, module, rawData);
+    }),
 
     /**
      * Written when using a material trader to trade one type of material for another
@@ -403,7 +481,7 @@ public enum JournalEvent
         return null;
     }
 
-    private static ModificationBlueprint determineModificationType(String modname)
+    private static ModificationBlueprint determineModificationBlueprint(String modname)
     {
         ModificationBlueprint modificationBlueprint;
 
@@ -417,6 +495,23 @@ public enum JournalEvent
         }
         return modificationBlueprint;
     }
+
+
+    private static ExperimentalRecipe determineExperimentalRecipe(String expname)
+    {
+        ExperimentalRecipe modificationBlueprint;
+
+        try
+        {
+            modificationBlueprint = ExperimentalRecipe.valueOf(expname);
+        }
+        catch (Exception e)
+        {
+            modificationBlueprint = null;
+        }
+        return modificationBlueprint;
+    }
+
 
     private static ShipModule determineModuleType(String moduleName)
     {
@@ -515,6 +610,50 @@ public enum JournalEvent
         context.getCommanderData().setStat(stat, stat.format(context.getRawData().get(stat.getKey())));
     }
 
+    private static void setSlotFromData(EventProcessingContext context,
+                                        Statistic slot,
+                                        ShipModule module,
+                                        Map<String, Object> engineering)
+    {
+        Integer level;
+        Double quality;
+        ModificationBlueprint modificationBlueprint;
+        ExperimentalRecipe experimentalRecipe;
+
+        List<ModifierData> modifiers = new ArrayList<>();
+
+        String modificationName = ((String) engineering.get("BlueprintName"));
+        String experimentalEffectName = ((String) engineering.get("ExperimentalEffect"));
+
+        modificationBlueprint = determineModificationBlueprint(modificationName);
+        experimentalRecipe = determineExperimentalRecipe(experimentalEffectName);
+
+
+        level = ((Integer) engineering.get("Level"));
+        quality = ((Double) engineering.get("Quality"));
+        ((List<Map<String, Object>>) engineering.get("Modifiers"))
+                .forEach(modifier ->
+                {
+                    ItemEffect effect = ItemEffect.valueOf(((String) modifier.get("Label")));
+                    double value = ((double) modifier.get("Value"));
+                    double originalValue = ((double) modifier.get("OriginalValue"));
+                    boolean lessIsGood = ((int) modifier.get("LessIsGood")) == 1;
+                    modifiers.add(new ModifierData(effect, value, originalValue, lessIsGood));
+                });
+
+        ShipModuleData shipModuleData = new ShipModuleData.Builder()
+                .setModuleName(slot)
+                .setModule(module)
+                .setModifiers(modifiers)
+                .setModificationBlueprint(modificationBlueprint)
+                .setExperimentalEffectRecipe(experimentalRecipe)
+                .setLevel(level)
+                .setQuality(quality)
+                .build();
+
+        context.getCommanderData().setShipModule(shipModuleData);
+    }
+
     /**
      * Sets a ship internal slot specific Statistic value on a context specific CommanderData object using a context
      * specific raw JSON object to extract the slot name and value
@@ -522,64 +661,29 @@ public enum JournalEvent
      * @param context the current event processing context
      * @param data the raw JSON object from which to extract the slot name and value
      */
-    private static void setSlotFromData(EventProcessingContext context, Map<String, Object> data)
+    private static void setSlotFromLoadout(EventProcessingContext context, Map<String, Object> data)
     {
         String slotKey = ((String) data.get("Slot"));
         String moduleKey = ((String) data.get("Item"));
+
         Statistic slot = determineStatType(slotKey);
         ShipModule module = determineModuleType(moduleKey);
-
-        ModificationBlueprint modificationType = null;
-        String experimentalEffectName = null;
-
-        Integer level = null;
-        Double quality = null;
-
-
-        List<ModifierData> modifiers = new ArrayList<>();
         Map<String, Object> engineering = ((Map<String, Object>) data.get("Engineering"));
-
-        if (engineering != null)
-        {
-            String modificationName = ((String) engineering.get("BlueprintName"));
-            experimentalEffectName = ((String) engineering.get("ExperimentalEffect"));
-
-            modificationType = determineModificationType(modificationName);
-
-            level = ((Integer) engineering.get("Level"));
-            quality = ((Double) engineering.get("Quality"));
-            ((List<Map<String, Object>>) engineering.get("Modifiers"))
-                    .forEach(modifier ->
-                    {
-                        ItemEffect effect = ItemEffect.valueOf(((String) modifier.get("Label")));
-                        double value = ((double) modifier.get("Value"));
-                        double originalValue = ((double) modifier.get("OriginalValue"));
-                        boolean lessIsGood = ((int) modifier.get("LessIsGood")) == 1;
-                        modifiers.add(new ModifierData(effect, value, originalValue, lessIsGood));
-                    });
-        }
-
 
         if (slot == null || module == null)
         {
-            if (slot == null) System.out.println("Unknown Slot: " + slotKey);
-            if (module == null) System.out.println("Unknown Module: " + moduleKey);
+            if (slot == null) System.err.println("Ignoring Slot: " + slotKey);
+            if (module == null) System.err.println("Ignoring Module: " + moduleKey);
+            return;
         }
-        else
-        {
-            ShipModuleData shipModuleData = new ShipModuleData.Builder()
-                    .setModuleName(slot)
-                    .setModule(module)
-                    .setModifiers(modifiers)
-                    .setModificationBlueprint(modificationType)
-                    .setExperimentalEffectName(experimentalEffectName)
-                    .setLevel(level)
-                    .setQuality(quality)
-                    .build();
 
-            context.getCommanderData().setShipModule(shipModuleData);
-            context.getCommanderData().setStat(slot, moduleKey);
-        }
+        // useful for debugging
+        context.getCommanderData().setStat(slot, moduleKey);
+
+        // modules may not have any engineering data. If so, just return
+        if (engineering == null) return;
+
+        setSlotFromData(context, slot, module, engineering);
     }
 
     /**
@@ -745,7 +849,26 @@ public enum JournalEvent
      */
     private static void adjust(EventProcessingContext context, ProcurementCost cost, int count)
     {
-        context.getTransactions().add(new Pair<>(cost, count));
+        UserTransaction transaction = new UserTransaction(count, cost);
+        context.getTransactions().add(transaction);
+    }
+
+    private static void adjustBlueprint(EventProcessingContext context,
+                                        ProcurementType procurementType,
+                                        ProcurementRecipe procurementRecipe,
+                                        int amount)
+    {
+        Pair<ProcurementType, ProcurementRecipe> bluePrint = new Pair<>(procurementType, procurementRecipe);
+        UserTransaction transaction = new UserTransaction(amount, bluePrint);
+        context.getTransactions().add(transaction);
+    }
+
+    private static void adjustBlueprintDown(EventProcessingContext context,
+                                            ProcurementType procurementType,
+                                            ProcurementRecipe procurementRecipe,
+                                            int amount)
+    {
+        adjustBlueprint(context,procurementType,procurementRecipe, (-1 * amount));
     }
 
     /**
@@ -757,6 +880,7 @@ public enum JournalEvent
      */
     private static void adjustDown(EventProcessingContext context, ProcurementCost cost, int count)
     {
-        context.getTransactions().add(new Pair<>(cost, ((-1) * count)));
+        UserTransaction transaction = new UserTransaction(((-1) * count), cost);
+        context.getTransactions().add(transaction);
     }
 }

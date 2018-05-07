@@ -113,7 +113,7 @@ public class JournalSyncTask implements Runnable
 
 
     private final CommanderData commanderData;
-    private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
+    private final BlockingQueue<UserTransaction> transactions;
 
     private Path journalPath;
     private final AtomicInteger lastLine = new AtomicInteger(0);
@@ -122,8 +122,9 @@ public class JournalSyncTask implements Runnable
     private final Procedure updateFunction;
 
 
-    public JournalSyncTask(Procedure updateFunction, CommanderData commanderData,
-                           BlockingQueue<Pair<ProcurementCost, Integer>> transactions)
+    public JournalSyncTask(Procedure updateFunction,
+                           CommanderData commanderData,
+                           BlockingQueue<UserTransaction> transactions)
     {
         this.updateFunction = updateFunction;
         this.commanderData = commanderData;
@@ -289,6 +290,8 @@ public class JournalSyncTask implements Runnable
             throw new RuntimeException("Error reading journal data: " + json, e);
         }
 
+
+        // todo: abstract transactions further and eliminate need to pass commanderData into the context object
         EventProcessingContext context = new EventProcessingContext(data, transactions, commanderData, updateFunction);
         event.process(context);
     }

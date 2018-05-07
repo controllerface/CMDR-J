@@ -10,6 +10,7 @@ import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
@@ -87,8 +88,11 @@ class UIFunctions
                         {
                             VBox modBox = new VBox();
                             ModificationBlueprint m = item.getModificationBlueprint();
-                            String e = item.getExperimentalEffectName();
+                            ExperimentalRecipe e = item.getExperimentalEffectName();
+
                             String t = item.getModule().displayText();
+
+
 
 
                             if (!fontInit.getAndSet(true))
@@ -108,18 +112,15 @@ class UIFunctions
                                 Label modification = new Label(m.toString() + " :: Grade " + item.getLevel() + " :: " + item.getQuality());
                                 modification.setFont(baseFont);
                                 modification.setTextFill(Fonts.standardOrange);
-                                //modification.setBackground(new Background(new BackgroundFill(Fonts.standardOrange, null, null)));
                                 modBox.getChildren().add(modification);
                             }
 
-                            if (!e.isEmpty())
+                            if (e != null)
                             {
-                                Label special = new Label(e);
+                                Label special = new Label(e.getDisplayLabel());
                                 special.setFont(baseFont);
-                                //special.setTextFill(Fonts.specialYellow);
                                 special.setBackground(new Background(new BackgroundFill(Fonts.specialYellow, null, null)));
                                 modBox.getChildren().add(special);
-
                             }
 
                             item.getModifiers().stream()
@@ -283,11 +284,9 @@ class UIFunctions
             // we want positive changes to have a plus sign (+) in their text. Negative values have a minus sign (-)
             // prefix by default, so we only need to explicitly do this for positive numbers
 
-            long rounded = Math.round(pair.getValue() * 100);
-
             String text = pair.getKey().toString()
                     + (valueIsPositive ? " +" : " ")
-                    + String.valueOf(rounded) ;
+                    + String.valueOf(pair.getValue()) ;
 
 
 

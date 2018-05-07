@@ -6,4 +6,6 @@ package com.controllerface.edeps;
 public interface ShipModule
 {
     String displayText();
+    ProcurementType experimentalType();
+    ProcurementType modificationType();
 }

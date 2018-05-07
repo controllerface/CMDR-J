@@ -91,18 +91,26 @@ public class StarShip
     {
         // todo: perform checking for support in the Ship object
 
+        // note the remove() calls in each conditional before the add calls. This may seem strange, but is leveraging
+        // the overridden equals() method in the ShipModuleData class to ensure only one module is present in a given
+        // internal slot. This makes it ok to call setShipModule() multiple times with new ShipModuleData objects that
+        // contain updated stats (for example, if the player upgrades or changes a mod on an existing item).
+
         if (CoreInternalSlot.typeMatches(shipModuleData.getModuleName()))
         {
+            coreInternals.remove(shipModuleData);
             coreInternals.add(shipModuleData);
         }
 
         if (OptionalInternalSlot.typeMatches(shipModuleData.getModuleName()))
         {
+            optionalInternals.remove(shipModuleData);
             optionalInternals.add(shipModuleData);
         }
 
         if (HardpointSlot.typeMatches(shipModuleData.getModuleName()))
         {
+            hardpoints.remove(shipModuleData);
             hardpoints.add(shipModuleData);
         }
     }

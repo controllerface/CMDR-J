@@ -1,14 +1,14 @@
 package com.controllerface.edeps.structures.equipment;
 
 /**
- * An enumeration of items grades in Elite: Dangerous. Some grades amy be used for different purposes
+ * An enumeration of items grades in Elite: Dangerous. Some grade values may be used for multiple purposes
  *
  * Created by Stephen on 3/20/2018.
  */
 public enum ItemGrade
 {
     /*
-    Material Grades
+    Generic Grades, used for materials and engineering modifications
      */
     GRADE_1(1),
     GRADE_2(2),
@@ -17,7 +17,7 @@ public enum ItemGrade
     GRADE_5(5),
 
     /*
-    Synthesis Types
+    Synthesis Grades
      */
     BASIC(1),
     STANDARD(2),
@@ -25,7 +25,8 @@ public enum ItemGrade
 
 
     /*
-    Cargo Types
+    Cargo Types. These are used mainly for differentiating where certain items are found, and making sorting of items
+    in the inventory tab easier
      */
 
     Space(0),   // standard commodities and salvage
@@ -36,7 +37,14 @@ public enum ItemGrade
     Rare(5),    // rare commodities, from specific star ports
     Faction(100), // power play specific items
 
+    /*
+    Used for Engineer experimental effects
+     */
     Experimental(101),
+
+    /*
+    Used for items unlocked via Tech Brokers
+     */
     Technology(102),
 
     ;
@@ -52,6 +60,11 @@ public enum ItemGrade
     public String toString()
     {
         return super.toString().replace("GRADE_", "");
+    }
+
+    public int getNumericalValue()
+    {
+        return numericalValue;
     }
 
     public static int compare(ItemGrade a, ItemGrade b)

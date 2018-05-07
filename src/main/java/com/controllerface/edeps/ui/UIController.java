@@ -26,6 +26,7 @@ import com.controllerface.edeps.structures.craftable.technologies.TechnologyType
 import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
+import com.controllerface.edeps.threads.UserTransaction;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -48,6 +49,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -296,6 +298,8 @@ public class UIController
                         .stream().findFirst()
                         .orElse(null);
 
+                // it may be possible to get and adjustment for a module the user has manually already removed from
+                // the list. If this occurs, we just return -1 as a proxy for "nothing to adjust"
                 if (data == null) return -1;
 
                 // max out at 999, just because the UI will get weird
@@ -317,6 +321,13 @@ public class UIController
 
                 return val;
             };
+
+    /*
+    This is a convenience wrapper around the procurementListUpdate function, used for cases where the calling code does
+    not need to get the post adjustment value after the adjustment is made.
+     */
+    private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> adjustBlueprint =
+            procurementListUpdate::apply;
 
     /*
     Consumer function that accepts a ProcurementTaskData and adds it to the procurement list. If the task already exists in the
@@ -351,10 +362,12 @@ public class UIController
 
         // this is the transaction queue the transaction processor and inventory threads will use to keep the UI
         // and player inventory in sync
-        BlockingQueue<Pair<ProcurementCost, Integer>> transactionQueue = new LinkedBlockingQueue<>();
+        BlockingQueue<UserTransaction> transactionQueue = new LinkedBlockingQueue<>();
 
         // transaction processor
-        Runnable transactionProcessingTask = new TransactionProcessingTask(this::syncUI, commanderData, transactionQueue);
+        Runnable transactionProcessingTask =
+                new TransactionProcessingTask(this::syncUI, commanderData::adjustItem, adjustBlueprint, transactionQueue);
+
         Thread transactionThread = new Thread(transactionProcessingTask);
         transactionThread.setDaemon(true);
         transactionThread.start();
@@ -542,40 +555,6 @@ public class UIController
 
         shipTypeLabel.textProperty().bind(commanderData.getStarShip().getShipDisplayName());
 
-//        taskCostTable.setSortPolicy(param ->
-//        {
-//            System.out.println("Sort?");
-//            param.getItems().sort(
-//                    (a,b)->
-//                    {
-//                        int aNeed = a.getNeed();
-//                        int bNeed = b.getNeed();
-//                        int aHave = a.getHave();
-//                        int bHave = b.getHave();
-//                        boolean aok = aNeed >= aHave;
-//                        boolean bok = bNeed >= bHave;
-//                        if (aok && bok) return 0;
-//                        int aDiff = Math.abs(aNeed - aHave);
-//                        int bDiff = Math.abs(bNeed - bHave);
-//                        return bDiff - aDiff;
-//                    });
-//            param.refresh();
-//            return true;
-//        });
-
-//        taskCostNameColumn.setComparator((a, b)->
-//        {
-//            int aNeed = a.getNeed();
-//            int bNeed = b.getNeed();
-//            int aHave = a.getHave();
-//            int bHave = b.getHave();
-//            boolean aok = aNeed >= aHave;
-//            boolean bok = bNeed >= bHave;
-//            if (aok && bok) return 0;
-//            int aDiff = Math.abs(aNeed - aHave);
-//            int bDiff = Math.abs(bNeed - bHave);
-//            return bDiff - aDiff;
-//        });
 
         DoubleBinding recipeTableWidthUsed = taskCountColumn.widthProperty()
                 .add(taskRemoveColumn.widthProperty())

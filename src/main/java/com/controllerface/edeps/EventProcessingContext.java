@@ -1,6 +1,7 @@
 package com.controllerface.edeps;
 
 import com.controllerface.edeps.data.commander.CommanderData;
+import com.controllerface.edeps.threads.UserTransaction;
 import javafx.util.Pair;
 
 import java.util.Map;
@@ -11,14 +12,14 @@ import java.util.concurrent.BlockingQueue;
  */
 public class EventProcessingContext
 {
-    private final BlockingQueue<Pair<ProcurementCost, Integer>> transactions;
+    private final BlockingQueue<UserTransaction> transactions;
     private final CommanderData commanderData;
     private final Map<String, Object> rawData;
     private final Procedure updateFunction;
 
 
     public EventProcessingContext(Map<String, Object> rawData,
-                                  BlockingQueue<Pair<ProcurementCost, Integer>> transactions,
+                                  BlockingQueue<UserTransaction> transactions,
                                   CommanderData commanderData,
                                   Procedure updateFunction)
     {
@@ -33,7 +34,7 @@ public class EventProcessingContext
         return rawData;
     }
 
-    public BlockingQueue<Pair<ProcurementCost, Integer>> getTransactions()
+    public BlockingQueue<UserTransaction> getTransactions()
     {
         return transactions;
     }

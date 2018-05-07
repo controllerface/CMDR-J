@@ -1,5 +1,6 @@
 package com.controllerface.edeps.structures.equipment.modules;
 
+import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.ShipModule;
 
 import java.util.Arrays;
@@ -65,6 +66,18 @@ public enum Cosmetic implements ShipModule
     Cosmetic()
     {
         displaytext = name();
+    }
+
+    @Override
+    public ProcurementType modificationType()
+    {
+        return null;
+    }
+
+    @Override
+    public ProcurementType experimentalType()
+    {
+        return null;
     }
 
     @Override
