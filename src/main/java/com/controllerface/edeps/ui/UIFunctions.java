@@ -64,6 +64,16 @@ class UIFunctions
         static final Color standardOrange = Color.rgb(0xff, 0x71, 0x00);
         static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
 
+        static final Font baseFont = Font.getDefault();
+        static final double size1 = baseFont.getSize() + (baseFont.getSize() / 5);
+        static final double size2 = baseFont.getSize() + (baseFont.getSize() / 4);
+        static final double size3 = baseFont.getSize() + (baseFont.getSize() / 3);
+        static final double size4 = baseFont.getSize() + (baseFont.getSize() / 2);
+
+        static final Font size1Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size1);
+        static final Font size2Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size2);
+        static final Font size3Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size3);
+        static final Font size4Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size4);
     }
 
     /**
@@ -72,78 +82,8 @@ class UIFunctions
     static class Data
     {
         static final Callback<TableColumn<ShipModuleData, ShipModuleData>, TableCell<ShipModuleData, ShipModuleData>>
-                moduleDisplayCellFactory = (e) ->
-                new TableCell<ShipModuleData, ShipModuleData>()
-                {
-                    private Font baseFont = null;
+                moduleDisplayCellFactory = (x) -> new ModuleDisplayCell();
 
-                    private AtomicBoolean fontInit = new AtomicBoolean(false);
-
-                    @Override
-                    protected void updateItem(ShipModuleData item, boolean empty)
-                    {
-                        super.updateItem(item, empty);
-                        if (item ==null) setGraphic(null);
-                        else if (!empty)
-                        {
-                            VBox modBox = new VBox();
-                            ModificationBlueprint m = item.getModificationBlueprint();
-                            ExperimentalRecipe e = item.getExperimentalEffectName();
-
-                            String t = item.getModule().displayText();
-
-
-
-
-                            if (!fontInit.getAndSet(true))
-                            {
-                                Font current = Font.getDefault();
-                                baseFont = Font.font(current.getFamily(),
-                                        FontWeight.BOLD,
-                                        current.getSize() + (current.getSize() / 3));
-                            }
-
-                            Label module = new Label(t);
-                            module.setFont(baseFont);
-                            modBox.getChildren().add(module);
-
-                            if (m != null)
-                            {
-                                Label modification = new Label(m.toString() + " :: Grade " + item.getLevel() + " :: " + item.getQuality());
-                                modification.setFont(baseFont);
-                                modification.setTextFill(Fonts.standardOrange);
-                                modBox.getChildren().add(modification);
-                            }
-
-                            if (e != null)
-                            {
-                                Label special = new Label(e.getDisplayLabel());
-                                special.setFont(baseFont);
-                                special.setBackground(new Background(new BackgroundFill(Fonts.specialYellow, null, null)));
-                                modBox.getChildren().add(special);
-                            }
-
-                            item.getModifiers().stream()
-                                    .map(modifier ->
-                                    {
-                                        String vals = modifier.getValue() + " (" + modifier.getOriginalValue() + ")";
-                                        Label label = new Label(modifier.getEffect().name() + " :: " + vals);
-                                        boolean isLess = Double.compare(modifier.getValue(), modifier.getOriginalValue()) < 0;
-                                        boolean isGood = modifier.isLessIsGood() == isLess;
-                                        if (isGood) label.setTextFill(Fonts.positiveBlue);
-                                        else label.setTextFill(Fonts.negativeRed);
-                                        return label;
-                                    })
-                                    .peek(label -> label.setFont(baseFont))
-                                    .forEach(label -> modBox.getChildren().add(label));
-
-                            setGraphic(modBox);
-                        }
-                    }
-                };
-
-
-        // simple string for material category name
         static final Callback<TableColumn.CellDataFeatures<InventoryData, String>, ObservableValue<String>>
                 inventoryCategoryCellFactory =
                 (inventoryData) ->
@@ -163,7 +103,6 @@ class UIFunctions
                     return categoryValue;
                 };
 
-        // simple string for material grade
         static final Callback<TableColumn.CellDataFeatures<InventoryData, String>, ObservableValue<String>>
                 inventoryGradeCellFactory =
                 (inventoryData) ->
@@ -172,7 +111,6 @@ class UIFunctions
                     return new SimpleStringProperty(grade);
                 };
 
-        // simple string for material name
         static final Callback<TableColumn.CellDataFeatures<InventoryData, String>, ObservableValue<String>>
                 inventoryMaterialCellFactory =
                 (materialData) ->
@@ -181,7 +119,6 @@ class UIFunctions
                     return new SimpleStringProperty(materialName);
                 };
 
-        // simple integer for material count
         static final Callback<TableColumn.CellDataFeatures<InventoryData, Label>, ObservableValue<Label>>
                 inventoryQuantityCellFactory =
                 (materialData) ->
@@ -199,28 +136,23 @@ class UIFunctions
         static final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProcurementRecipeData>, ObservableValue<ProcurementRecipeData>>
                 modRollCellValueFactory = (modRecipe) -> new ReadOnlyObjectWrapper<>(modRecipe.getValue());
 
-
         static final Function<BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer>,
             Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>>
-        makeModRollCellFactory = (func) -> (modRecipe) -> new TaskCountCell(func);
+                makeModRollCellFactory = (func) -> (x) -> new TaskCountCell(func);
 
-
-        // simple string for blueprint/recipe name
         static final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProcurementRecipeData>, ObservableValue<ProcurementRecipeData>>
                 modNameCellValueFactory = (modRecipe) ->new ReadOnlyObjectWrapper<>(modRecipe.getValue());
 
-
         static final Function<Function<ProcurementCost, Integer>,
                 Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>>
-                makeModNameCellFactory = (func) -> (modRecipe) -> new RecipeNameCell(func);
+                makeModNameCellFactory = (func) -> (x) -> new RecipeNameCell(func);
 
-        // wrapper object for recipe pair object
         static final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, ObservableValue<Pair<ProcurementType, ProcurementRecipe>>>
                 modControlCellValueFactory = (modRecipe) -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair());
 
         static final Function<BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer>,
             Callback<TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>>>
-        makeModControlCellFactory = (updateFunction) -> (modRecipe) -> new TaskRemoveCell(updateFunction);
+                makeModControlCellFactory = (updateFunction) -> (modRecipe) -> new TaskRemoveCell(updateFunction);
 
     /*
      procurement List: Material Need/Have, Progress information
@@ -242,22 +174,26 @@ class UIFunctions
         };
 
         static final Callback<TableColumn<ItemCostData, ItemCostData>, TableCell<ItemCostData, ItemCostData>>
-                boldCostStringCellFactory = (param) -> new CostDataCell();
+                boldCostStringCellFactory = (x) -> new CostDataCell();
 
         static final Callback<TableColumn<ItemCostData, String>, TableCell<ItemCostData, String>>
-                boldCostNumberCellFactory = (param) -> new CostValueCell();
+                boldCostNumberCellFactory = (x) -> new CostValueCell();
 
         static final Callback<TableColumn<Pair<Statistic, String>, String>, TableCell<Pair<Statistic, String>, String>>
-                boldStringNameCellFactory = (param) -> new RecipeStatDataCell();
+                boldStringNameCellFactory = (x) -> new RecipeStatDataCell();
 
         static final Callback<TableColumn<ShipModuleData, String>, TableCell<ShipModuleData, String>>
-                boldSlotNameCellFactory = (param) -> new SlotDataCell();
+                boldSlotNameCellFactory = (x) -> new SlotDataCell();
 
         static final Callback<TableColumn<ShipStatisticData, String>, TableCell<ShipStatisticData, String>>
-                boldStatNameCellFactory = (param) -> new StatDataCell();
+                boldStatNameCellFactory = (x) -> new StatDataCell();
 
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, ItemCostData>, ObservableValue<ItemCostData>>
                 costNameCellValueFactory = (modMaterial) -> new ReadOnlyObjectWrapper<>(modMaterial.getValue());
+
+        static Callback<TableColumn<ShipStatisticData, ShipStatisticData>, TableCell<ShipStatisticData, ShipStatisticData>>
+                boldStatDataCellFactory = (x) -> new StatDisplayCell();
+
     }
 
     /**
@@ -288,8 +224,6 @@ class UIFunctions
                     + (valueIsPositive ? " +" : " ")
                     + String.valueOf(pair.getValue()) ;
 
-
-
             // some effects have a zero value, such effects are generally "binary" on/off values, so we can just remove
             // the trailing "point zero" suffix
             text = text.replace(".0","");
@@ -302,16 +236,8 @@ class UIFunctions
             // now create the label object using the text we just created
             Label nextLabel = new Label(text);
 
-            // here we grab the default font object and adjust it to look a little better. We grab the existing font
-            // just in case it is changed by some CSS or other "skinning" that may be done in the future. This way, if
-            // the default font changes, these adjustments are made to it, and not some hard-coded font.
-            Font eFont = nextLabel.getFont();
-
-            // just make a copy of the default font, but make it bold and increase the size by 20%, then set it as the
-            // label object's font
             // todo: in the future this will be done with CSS
-            Font b = Font.font(eFont.getFamily(), FontWeight.BOLD, eFont.getSize() + (eFont.getSize() / 5));
-            nextLabel.setFont(b);
+            nextLabel.setFont(Fonts.size1Font);
 
             // text fill is a separate value, set it to the "good" or "bad" font as appropriate
             nextLabel.setTextFill(isGood ? Fonts.positiveBlue : Fonts.negativeRed);
@@ -323,9 +249,7 @@ class UIFunctions
         static BiFunction<Boolean, CostData, Label> costToLabel = (hasEnough, cost) ->
         {
             Label next = new Label(cost.getQuantity() + "x " + cost.getCost().getLocalizedName());
-            Font eFont = next.getFont();
-            Font b = Font.font(eFont.getFamily(), FontWeight.BOLD, eFont.getSize() + (eFont.getSize() / 5));
-            next.setFont(b);
+            next.setFont(Fonts.size1Font);
             next.setTextFill(hasEnough ? Fonts.neutralBlack : Fonts.negativeRed);
             return next;
         };
@@ -359,13 +283,5 @@ class UIFunctions
         // numerically lowest to highest
         static final Comparator<Label> quantityByNumericValue =
                 Comparator.comparingInt(a -> Integer.parseInt(a.getText()));
-
-        // sort ProgressIndicator objects by numerical progress, lowest to highest
-        static final Comparator<ProgressIndicator> indicatorByProgress =
-                (a, b) -> a.getProgress() == b.getProgress()
-                        ? 0
-                        : a.getProgress() > b.getProgress()
-                                ? 1
-                                : -1;
     }
 }

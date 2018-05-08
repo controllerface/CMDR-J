@@ -38,7 +38,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.util.Callback;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -273,12 +272,6 @@ public class UIController
     }
 
 
-    /*
-    ========================
-    === Ship Functions ===
-    ========================
-     */
-
 
     /*
     Functional object providing a generic way to adjust the count of a given blueprint in current procurement list. If,
@@ -420,16 +413,8 @@ public class UIController
         Label recipeTableLabel = new Label("Use the Procurement Tasks menu to select tasks");
         Label costTableLabel = new Label("Items needed for selected tasks will appear here");
 
-        Font recipeTableFont = Font.font(recipeTableLabel.getFont().getFamily(),
-                FontWeight.BOLD,
-                recipeTableLabel.getFont().getSize() * 1.5);
-
-        Font costTableFont = Font.font(costTableLabel.getFont().getFamily(),
-                FontWeight.BOLD,
-                costTableLabel.getFont().getSize() * 1.5);
-
-        recipeTableLabel.setFont(recipeTableFont);
-        costTableLabel.setFont(costTableFont);
+        recipeTableLabel.setFont(UIFunctions.Fonts.size1Font);
+        costTableLabel.setFont(UIFunctions.Fonts.size1Font);
 
         SimpleStringProperty labelText = new SimpleStringProperty("");
         procurementLabel.textProperty().bind(labelText);
@@ -461,31 +446,7 @@ public class UIController
         shipStatisticsNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
         shipStatisticsNameColumn.setCellFactory(UIFunctions.Data.boldStatNameCellFactory);
         shipStatisticsDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        shipStatisticsDataColumn.setCellFactory(new Callback<TableColumn<ShipStatisticData, ShipStatisticData>, TableCell<ShipStatisticData, ShipStatisticData>>()
-        {
-            @Override
-            public TableCell<ShipStatisticData, ShipStatisticData> call(TableColumn<ShipStatisticData, ShipStatisticData> param)
-            {
-                return new TableCell<ShipStatisticData, ShipStatisticData>()
-                {
-                    @Override
-                    protected void updateItem(ShipStatisticData item, boolean empty)
-                    {
-                        super.updateItem(item, empty);
-                        if (item == null)
-                        {
-                            setGraphic(null);
-                            return;
-                        }
-                        if (!empty)
-                        {
-                            Label label = new Label(item.statDisplayValue());
-                            setGraphic(label);
-                        }
-                    }
-                };
-            }
-        });
+        shipStatisticsDataColumn.setCellFactory(UIFunctions.Data.boldStatDataCellFactory);
 
         coreModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
         coreModuleNameColumn.setCellFactory(UIFunctions.Data.boldSlotNameCellFactory);

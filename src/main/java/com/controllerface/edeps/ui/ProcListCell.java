@@ -36,7 +36,6 @@ public class ProcListCell extends ListCell<ProcurementTaskData>
         this.parentWidth = parentWidth;
     }
 
-
     @Override
     protected void updateItem(ProcurementTaskData item, boolean empty)
     {
@@ -53,9 +52,7 @@ public class ProcListCell extends ListCell<ProcurementTaskData>
             VBox buttonBox = new VBox(1);
             buttonBox.prefWidthProperty().bind(parentWidth.subtract((UIFunctions.scrollBarAllowance * 2) + 5));
             Label gradeLabel = new Label(item.getRecipe().getShortLabel() + "  ");
-            Font existingFont = gradeLabel.getFont();
-            Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize() + (existingFont.getSize() / 3));
-            gradeLabel.setFont(boldFont);
+            gradeLabel.setFont(UIFunctions.Fonts.size3Font);
             gradeLabel.paddingProperty().setValue(new Insets(0,0,0,5));
 
             List<CostData> data = this.getItem()
@@ -159,9 +156,7 @@ public class ProcListCell extends ListCell<ProcurementTaskData>
             tooltip = new Tooltip(missingMessage);
         }
 
-        Font toolTipFont = tooltip.getFont();
-        Font adjustedFont = Font.font(toolTipFont.getFamily(), FontWeight.BOLD, toolTipFont.getSize() + (toolTipFont.getSize() / 3));
-        tooltip.setFont(adjustedFont);
+        tooltip.setFont(UIFunctions.Fonts.size3Font);
         progressIndicator.setTooltip(tooltip);
 
         return progressIndicator;

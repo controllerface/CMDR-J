@@ -21,7 +21,6 @@ public class ProcTreeCell extends TreeCell<ProcurementTaskData>
 {
     private final ObservableList<ProcurementTaskData> outputList;
     private final SimpleStringProperty outputLabel;
-    private static final AtomicReference<Font> baseFont = new AtomicReference<>(null);
 
     private ProcurementTaskData thisItem = null;
 
@@ -66,21 +65,12 @@ public class ProcTreeCell extends TreeCell<ProcurementTaskData>
         }
         else thisItem = item;
 
-        synchronized (baseFont)
-        {
-            if (baseFont.get() == null)
-            {
-                Font ba = getFont();
-                baseFont.set(Font.font(ba.getFamily(), FontWeight.BOLD, ba.getSize() + (ba.getSize() / 3)));
-            }
-        }
-
         Text text = new Text(item.toString());
         if (this.getTreeItem().isLeaf())
         {
             text.underlineProperty().setValue(true);
         }
-        text.setFont(baseFont.get());
+        text.setFont(UIFunctions.Fonts.size3Font);
         setGraphic(text);
         this.paddingProperty().setValue(new Insets(5,5,5,5));
     }

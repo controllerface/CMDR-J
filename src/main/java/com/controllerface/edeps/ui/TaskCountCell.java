@@ -29,7 +29,6 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
     private final Button subtractButton = new Button("-");
     private final Button addButton = new Button("+");
     private final HBox buttonBox =  new HBox(subtractButton, countLabel, addButton);
-    private static final AtomicReference<Font> baseFont = new AtomicReference<>(null);
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate;
 
     public TaskCountCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
@@ -44,17 +43,6 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
         if (item == null) setGraphic(null);
         if (item != null && !empty)
         {
-            synchronized (baseFont)
-            {
-                if (baseFont.get() == null)
-                {
-                    Font b = Font.font(countLabel.getFont().getFamily(),
-                            FontWeight.BOLD,
-                            countLabel.getFont().getSize() + countLabel.getFont().getSize() / 2);
-                    baseFont.set(b);
-                }
-            }
-
             // Plus
             Line line1 = new Line();
             line1.setStroke(Color.BLACK);
@@ -92,8 +80,6 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
             subtractButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             subtractButton.setAlignment(Pos.CENTER);
 
-
-
             addButton.setGraphic(addGraphic);
             subtractButton.setGraphic(subGraphic);
 
@@ -102,20 +88,7 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
             countLabel.setMaxWidth(54);
             countLabel.setMinWidth(54);
             countLabel.setAlignment(Pos.CENTER);
-            countLabel.setFont(baseFont.get());
-
-
-//            addButton.setMaxWidth(50);
-//            addButton.setMinWidth(50);
-//            addButton.setPrefWidth(50);
-//            subtractButton.setMaxWidth(50);
-//            subtractButton.setMinWidth(50);
-//            subtractButton.setPrefWidth(50);
-
-//            addButton.setMaxHeight(20);
-//            addButton.setMinHeight(20);
-//            subtractButton.setMaxHeight(20);
-//            subtractButton.setMinHeight(20);
+            countLabel.setFont(UIFunctions.Fonts.size4Font);
 
             subtractButton.setOnAction((e) -> inventoryUpdate.apply(-1, item.asPair()));
 

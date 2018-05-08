@@ -67,10 +67,7 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
 
             Label costLabel = new Label(type + " :: "  + cost.getLocalizedName()) ;
             costLabel.setPrefHeight(20);
-            // Make the font bold
-            Font existingFont = costLabel.getFont();
-            Font boldFont = Font.font(existingFont.getFamily(), FontWeight.BOLD, existingFont.getSize() + (existingFont.getSize() / 4));
-            costLabel.setFont(boldFont);
+            costLabel.setFont(UIFunctions.Fonts.size2Font);
             costLabel.paddingProperty().set(new Insets(2,5,2,5));
             double progress = ((double) item.getHave()) / ((double) item.getNeed());
 

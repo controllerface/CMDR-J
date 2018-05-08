@@ -12,9 +12,6 @@ import javafx.scene.text.FontWeight;
  */
 public class CostValueCell extends TableCell<ItemCostData, String>
 {
-    private static double baseFontSize = -1;
-    private static String baseFontFamily = null;
-
     @Override
     protected void updateItem(String item, boolean empty)
     {
@@ -28,21 +25,9 @@ public class CostValueCell extends TableCell<ItemCostData, String>
         else
         {
             super.setText(item);
-            synchronized (this)
-            {
-                if (baseFontSize == -1 && baseFontFamily == null)
-                {
-                    baseFontSize = getFont().getSize();
-                    baseFontSize += baseFontSize / 4;
-                    baseFontFamily = getFont().getFamily();
-                }
-            }
-
             setAlignment(Pos.TOP_CENTER);
             setPadding(new Insets(8,0,0,0));
-
-            Font baseFont = Font.font(baseFontFamily, FontWeight.BOLD, baseFontSize);
-            setFont(baseFont);
+            setFont(UIFunctions.Fonts.size2Font);
         }
     }
 }

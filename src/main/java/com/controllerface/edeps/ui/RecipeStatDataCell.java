@@ -36,9 +36,7 @@ public class RecipeStatDataCell extends TableCell<Pair<Statistic, String>, Strin
                     baseFontFamily = getFont().getFamily();
                 }
             }
-
-            Font baseFont = Font.font(baseFontFamily, FontWeight.BOLD, baseFontSize);
-            setFont(baseFont);
+            setFont(UIFunctions.Fonts.size2Font);
         }
     }
 }

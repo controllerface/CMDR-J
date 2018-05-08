@@ -35,9 +35,7 @@ public class SlotDataCell extends TableCell<ShipModuleData, String>
                     baseFontFamily = getFont().getFamily();
                 }
             }
-
-            Font baseFont = Font.font(baseFontFamily, FontWeight.BOLD, baseFontSize);
-            setFont(baseFont);
+            setFont(UIFunctions.Fonts.size2Font);
         }
     }
 }
