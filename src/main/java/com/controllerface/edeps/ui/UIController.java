@@ -27,10 +27,12 @@ import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.controllerface.edeps.threads.UserTransaction;
+import javafx.beans.*;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -52,6 +54,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * UI Controller class for Elite Dangerous Engineer Procurement System
@@ -286,20 +289,25 @@ public class UIController
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> procurementListUpdate =
             (adjustment, recipe)->
             {
-                ProcurementRecipeData data =
-                        taskBackingList.filtered((k)->k.asPair().equals(recipe))
-                        .stream().findFirst()
-                        .orElse(null);
+                Pair<ProcurementRecipeData, Integer> recipePair = IntStream.range(0,taskBackingList.size())
+                        .filter(i->taskBackingList.get(i).asPair().equals(recipe))
+                        .mapToObj(i->new Pair<>(taskBackingList.get(i),i))
+                        .findFirst().orElse(null);
+
 
                 // it may be possible to get and adjustment for a module the user has manually already removed from
                 // the list. If this occurs, we just return -1 as a proxy for "nothing to adjust"
-                if (data == null) return -1;
+
+                if (recipePair == null) return -1;
+                ProcurementRecipeData data = recipePair.getKey();
 
                 // max out at 999, just because the UI will get weird
                 int val = data.getCount() + adjustment;
                 if (val > 999) val = 999;
 
                 data.setCount(val);
+
+                taskBackingList.set(recipePair.getValue(), data);
 
                 syncUI();
 
@@ -308,9 +316,6 @@ public class UIController
                     val = 0;
                     taskBackingList.remove(data);
                 }
-
-
-                procurementTaskTable.refresh();
 
                 return val;
             };
@@ -343,8 +348,6 @@ public class UIController
 
                 // increment the count for this mod if it exists
                 else data.setCount(data.getCount() + 1);
-
-                procurementTaskTable.refresh();
 
                 syncUI();
             };
@@ -859,9 +862,9 @@ public class UIController
                 .filter(c->c.getCount()<=0)
                 .collect(Collectors.toList());
 
-        toRemove.forEach(i -> taskCostBackingList.remove(i));
+        taskCostBackingList.removeAll(toRemove);
 
-        sortTasktable();
+        //sortTasktable();
 
 
         if (taskCostTable.getItems().size() > 0)

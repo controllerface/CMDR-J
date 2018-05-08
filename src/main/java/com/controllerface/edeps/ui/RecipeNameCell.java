@@ -57,8 +57,10 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
 
     private void createOrUpdate(ProcurementRecipeData item)
     {
+        System.out.println("Updating!");
         if (!initialized.getAndSet(true))
         {
+            System.out.println("NEW!!" + item);
             descriptionContainer.getChildren().clear();
             Accordion accordion = new Accordion();
 

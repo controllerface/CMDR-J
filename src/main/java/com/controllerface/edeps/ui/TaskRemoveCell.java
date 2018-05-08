@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Pair;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 
 /**
@@ -20,8 +21,9 @@ import java.util.function.BiFunction;
  */
 public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>
 {
-    private final Button remove = new Button("x");
-    private final HBox controls = new HBox(remove);
+    private final HBox controls = new HBox();
+
+    private AtomicBoolean initialized = new AtomicBoolean(false);
 
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> blueprintUpdate;
 
@@ -35,8 +37,18 @@ public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<Procur
     {
         super.updateItem(item, empty);
 
-        if (!empty)
+        if (item == null || empty)
         {
+            initialized.set(false);
+            setGraphic(null);
+            return;
+        }
+
+        if (!initialized.getAndSet(true))
+        {
+            controls.getChildren().clear();
+            final Button removeButton = new Button("x");
+
             Line line = new Line();
             line.setStroke(Color.BLACK);
             line.setStrokeWidth(3);
@@ -55,23 +67,23 @@ public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<Procur
 
             Pane box  = new Pane(line, line2);
 
-            remove.setGraphic(box);
-            remove.setMaxWidth(20d);
-            remove.setMinWidth(20d);
-            remove.setMaxHeight(20d);
-            remove.setMinHeight(20d);
-            remove.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            removeButton.setGraphic(box);
+            removeButton.setMaxWidth(20d);
+            removeButton.setMinWidth(20d);
+            removeButton.setMaxHeight(20d);
+            removeButton.setMinHeight(20d);
+            removeButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
-            remove.setOnAction((e) ->
+            removeButton.setOnAction((e) ->
             {
-                int val = blueprintUpdate.apply(-1, item);
-                while (val > 0) val = blueprintUpdate.apply(-1, item);
+                int val = blueprintUpdate.apply(0, item);
+                while (val > 0) val = blueprintUpdate.apply( -val, item);
             });
 
-            remove.setTooltip(new Tooltip("Remove this recipe"));
+            removeButton.setTooltip(new Tooltip("Remove this recipe"));
+            controls.getChildren().add(removeButton);
+
             setGraphic(controls);
         }
-
-        if (item==null) setGraphic(null);
     }
 }
