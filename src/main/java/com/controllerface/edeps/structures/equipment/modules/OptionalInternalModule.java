@@ -984,21 +984,57 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
+     * Experimental (AEGIS, Anti-Thargoid) Modules
+     */
+
+    hpt_antiunknownshutdown_tiny(null, null,
+            "Shutdown Field Neutraliser"),
+
+    hpt_xenoscanner_basic_tiny(null, null,
+            "Xeno Scanner"),
+
+    int_corrosionproofcargorack_size1_class1(null, null,
+            "1E Corrosion Resistant Cargo Rack"),
+
+    int_corrosionproofcargorack_size1_class2(null, null,
+            "1F Corrosion Resistant Cargo Rack"),
+
+    /**
      * Guardian Internal Modules
      */
 
-    // todo: find ENUM values for these
+    // todo: find ENUM values for this
     // Guardian FSD Booster (currently disabled in game, may be a while before its back)
-
 
     /**
      * Human Tech Broker Internal Modules
      */
 
-    // todo: find ENUM values for these
-    // Corrosion Resistant Cargo Rack
-    // Meta Alloy Hull Reinforcement
+    // todo: verify ENUM values for these, they may be guessed
 
+    int_metaalloyhullreinforcement_size1_class1(null, null,
+            "1E Meta-Alloy Hull Reinforcement Package"),
+    int_metaalloyhullreinforcement_size1_class2(null, null,
+            "1D Meta-Alloy Hull Reinforcement Package"),
+    int_metaalloyhullreinforcement_size2_class1(null, null,
+            "2E Meta-Alloy Hull Reinforcement Package"),
+    int_metaalloyhullreinforcement_size2_class2(null, null,
+            "2D Meta-Alloy Hull Reinforcement Package"),
+    int_metaalloyhullreinforcement_size3_class1(null, null,
+            "3E Meta-Alloy Hull Reinforcement Package"),
+    int_metaalloyhullreinforcement_size3_class2(null, null,
+            "3D Meta-Alloy Hull Reinforcement Package"),
+    int_metaalloyhullreinforcement_size4_class1(null, null,
+            "4E Meta-Alloy Hull Reinforcement Package"),
+    int_metaalloyhullreinforcement_size4_class2(null, null,
+            "4D Meta-Alloy Hull Reinforcement Package"),
+    int_metaalloyhullreinforcement_size5_class1(null, null,
+            "5E Meta-Alloy Hull Reinforcement Package"),
+    int_metaalloyhullreinforcement_size5_class2(null, null,
+            "5D Meta-Alloy Hull Reinforcement Package"),
+
+    int_corrosionproofcargorack_size4_class1(null, null,
+            "4E Corrosion Resistant Cargo Rack"),
 
     ;
 

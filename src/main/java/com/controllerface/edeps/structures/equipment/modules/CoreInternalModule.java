@@ -945,7 +945,7 @@ public enum CoreInternalModule implements ShipModule
      * Guardian Equipment
      */
 
-    // todo: fine ENUM values for these
+    // todo: find ENUM value for this
     // Guardian Hybrid Power Distributor
 
     int_guardianpowerplant_size2(null, null,

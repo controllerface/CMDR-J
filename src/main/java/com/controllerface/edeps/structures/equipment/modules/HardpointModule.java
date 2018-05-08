@@ -343,10 +343,18 @@ public enum HardpointModule implements ShipModule
      * Faction Specific Weapons
      */
 
-    // todo: find ENUM values for these
-    // Mining Lance/Mining Laser - (Zemina Torval)
-    // Disruptor/Pulse Laser (Felicia Winters)
-    // Enforcer/Multi-Cannon (Pranav Antal)
+    // todo: verify ENUM values for these, they may be guessed
+
+    hpt_multicannon_fixed_small_strong(ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+            "Small Fixed Enforcer (Multi-Cannon)"),
+
+    // Felicia Winters
+    hpt_pulselaser_fixed_medium_disruptor(ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+            "Medium Fixed Disruptor (Pulse Laser)"),
+
+    // Zemina Torval
+    hpt_mininglaser_fixed_small_advanced(null, null,
+            "Small Fixed Mining Lance"),
 
     // Archon Delaine
     hpt_pulselaserburst_fixed_small_scatter(ModificationType.Burst_Laser, ExperimentalType.Burst_Laser,
@@ -404,12 +412,6 @@ public enum HardpointModule implements ShipModule
     hpt_flakmortar_turret_medium(null, null,
             "Medium Turreted Remote Release Flak Launcher"),
 
-    hpt_antiunknownshutdown_tiny(null, null,
-            "Shutdown Field Neutraliser"),
-    hpt_xenoscanner_basic_tiny(null, null,
-            "Xeno Scanner"),
-
-
     /**
      * Guardian Weapons
      */
@@ -432,13 +434,22 @@ public enum HardpointModule implements ShipModule
      * Human Tech Broker Weapons
      */
 
-    // todo: find ENUM values for these
-    // Enzyme Missile Rack/Fixed
-    // Remote Release Flechette Launcher/Fixed
-    // Remote Release Flechette Launcher/Turreted
-    // Shock Cannon/Fixed
-    // Shock Cannon/Gimballed
-    // Shock Cannon/Turreted
+    // todo: verify ENUM values for these, they may be guessed
+
+    hpt_causticmissile_fixed_medium(null, null,
+            "Medium Fixed Enzyme Missile Rack"),
+
+    hpt_flechettelauncher_fixed_medium(null, null,
+            "Medium Fixed Remote Release Flechette Launcher"),
+    hpt_flechettelauncher_turret_medium(null, null,
+            "Medium Turreted Remote Release Flechette Launcher"),
+
+    hpt_plasmashockcannon_fixed_medium(null, null,
+            "Medium Fixed Shock Cannon"),
+    hpt_plasmashockcannon_gimbal_medium(null, null,
+            "Medium Gimballed Shock Cannon"),
+    hpt_plasmashockcannon_turret_medium(null, null,
+            "Medium Turreted Shock Cannon"),
 
     ;
 
