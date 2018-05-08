@@ -12,9 +12,6 @@ import java.util.Arrays;
  */
 public enum CoreInternalModule implements ShipModule
 {
-    //todo: add all faction specific and tech broker items from coriolis.io data files
-
-
     /**
      * Cargo Bay Door
      */
@@ -942,6 +939,29 @@ public enum CoreInternalModule implements ShipModule
             "7C Standard"),
     int_fueltank_size8_class3(null, null,
             "8C Standard"),
+
+
+    /**
+     * Guardian Equipment
+     */
+
+    // todo: fine ENUM values for these
+    // Guardian Hybrid Power Distributor
+
+    int_guardianpowerplant_size2(null, null,
+            "2A Hybrid"),
+    int_guardianpowerplant_size3(null, null,
+            "3A Hybrid"),
+    int_guardianpowerplant_size4(null, null,
+            "4A Hybrid"),
+    int_guardianpowerplant_size5(null, null,
+            "5A Hybrid"),
+    int_guardianpowerplant_size6(null, null,
+            "6A Hybrid"),
+    int_guardianpowerplant_size7(null, null,
+            "7A Hybrid"),
+    int_guardianpowerplant_size8(null, null,
+            "8A Hybrid"),
 
     ;
 

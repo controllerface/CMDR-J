@@ -12,8 +12,6 @@ import java.util.Arrays;
  */
 public enum HardpointModule implements ShipModule
 {
-    //todo: add all faction specific and tech broker items from coriolis.io data files
-
     /**
      * Beam Lasers
      */
@@ -345,7 +343,7 @@ public enum HardpointModule implements ShipModule
      * Faction Specific Weapons
      */
 
-    // todo: need to find out the ENUm values for these
+    // todo: find ENUM values for these
     // Mining Lance/Mining Laser - (Zemina Torval)
     // Disruptor/Pulse Laser (Felicia Winters)
     // Enforcer/Multi-Cannon (Pranav Antal)
@@ -411,7 +409,36 @@ public enum HardpointModule implements ShipModule
     hpt_xenoscanner_basic_tiny(null, null,
             "Xeno Scanner"),
 
-    //todo: add guardian and human tech broker weapons
+
+    /**
+     * Guardian Weapons
+     */
+
+    // todo: find ENUM values for these
+    // Guardian Shard Cannon/Fixed
+    // Guardian Shard Cannon/Turreted
+
+    hpt_guardian_gausscannon_fixed_medium(null, null,
+            "Medium Fixed Guardian Gauss Cannon"),
+
+    hpt_guardian_plasmalauncher_fixed_medium(null, null,
+            "Medium Fixed Guardian Plasma Launcher"),
+
+    hpt_guardian_plasmalauncher_turret_medium(null, null,
+            "Medium Turreted Guardian Plasma Launcher"),
+
+
+    /**
+     * Human Tech Broker Weapons
+     */
+
+    // todo: find ENUM values for these
+    // Enzyme Missile Rack/Fixed
+    // Remote Release Flechette Launcher/Fixed
+    // Remote Release Flechette Launcher/Turreted
+    // Shock Cannon/Fixed
+    // Shock Cannon/Gimballed
+    // Shock Cannon/Turreted
 
     ;
 

@@ -12,8 +12,6 @@ import java.util.Arrays;
  */
 public enum OptionalInternalModule implements ShipModule
 {
-    //todo: add all faction specific and tech broker items from coriolis.io data files
-
     /**
      * Shield Generators
      */
@@ -959,6 +957,48 @@ public enum OptionalInternalModule implements ShipModule
 
     int_planetapproachsuite(null, null,
             "Planetary Approach Suite"),
+
+
+    /**
+     * Faction Specific Modules
+     */
+
+    // Aisling Duval
+
+    int_shieldgenerator_size1_class5_strong(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator,
+            "1A Prismatic Shield Generator"),
+    int_shieldgenerator_size2_class5_strong(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator,
+            "2A Prismatic Shield Generator"),
+    int_shieldgenerator_size3_class5_strong(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator,
+            "3A Prismatic Shield Generator"),
+    int_shieldgenerator_size4_class5_strong(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator,
+            "4A Prismatic Shield Generator"),
+    int_shieldgenerator_size5_class5_strong(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator,
+            "5A Prismatic Shield Generator"),
+    int_shieldgenerator_size6_class5_strong(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator,
+            "6A Prismatic Shield Generator"),
+    int_shieldgenerator_size7_class5_strong(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator,
+            "7A Prismatic Shield Generator"),
+    int_shieldgenerator_size8_class5_strong(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator,
+            "8A Prismatic Shield Generator"),
+
+
+    /**
+     * Guardian Internal Modules
+     */
+
+    // todo: find ENUM values for these
+    // Guardian FSD Booster (currently disabled in game, may be a while before its back)
+
+
+    /**
+     * Human Tech Broker Internal Modules
+     */
+
+    // todo: find ENUM values for these
+    // Corrosion Resistant Cargo Rack
+    // Meta Alloy Hull Reinforcement
+
 
     ;
 
