@@ -1,10 +1,8 @@
 package com.controllerface.edeps.data.procurements;
 
-import com.controllerface.edeps.Immutable;
 import com.controllerface.edeps.ProcurementBlueprint;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
-import javafx.util.Pair;
 
 /**
  * Data storage object used in the "procurement tree" to hold the type and individual recipe of a possible item that
@@ -14,7 +12,6 @@ import javafx.util.Pair;
  *
  * Created by Stephen on 3/31/2018.
  */
-@Immutable
 public class ProcurementTaskData
 {
     private final String text;

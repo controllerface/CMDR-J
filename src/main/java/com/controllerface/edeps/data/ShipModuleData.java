@@ -37,7 +37,6 @@ public class ShipModuleData
         return modificationBlueprint;
     }
 
-    // todo: should be enum value
     public ExperimentalRecipe getExperimentalEffectName()
     {
         return experimentalEffectName;

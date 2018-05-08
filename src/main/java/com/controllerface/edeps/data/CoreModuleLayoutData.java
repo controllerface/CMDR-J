@@ -1,6 +1,5 @@
 package com.controllerface.edeps.data;
 
-import com.controllerface.edeps.Immutable;
 import com.controllerface.edeps.structures.equipment.modules.ModuleSize;
 
 /**
@@ -11,7 +10,6 @@ import com.controllerface.edeps.structures.equipment.modules.ModuleSize;
  *
  * Created by Stephen on 4/16/2018.
  */
-@Immutable
 public class CoreModuleLayoutData
 {
     private final ModuleSize powerPlant;

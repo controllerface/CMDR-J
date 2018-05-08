@@ -1,6 +1,5 @@
 package com.controllerface.edeps.data;
 
-import com.controllerface.edeps.Immutable;
 import com.controllerface.edeps.structures.equipment.modules.HardPointSize;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.List;
  * NOTE: Immutable static data object
  *
  */
-@Immutable
 public class HardPointLayoutData
 {
     private final HardPointSize[] slots;

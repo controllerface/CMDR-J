@@ -1,6 +1,5 @@
 package com.controllerface.edeps.data.procurements;
 
-import com.controllerface.edeps.Immutable;
 import com.controllerface.edeps.ProcurementCost;
 
 /**
@@ -13,7 +12,6 @@ import com.controllerface.edeps.ProcurementCost;
  *
  * Created by Stephen on 3/27/2018.
  */
-@Immutable
 public class CostData
 {
     private final int quantity;
