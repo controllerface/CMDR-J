@@ -61,18 +61,20 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
         {
             descriptionContainer.getChildren().clear();
             Accordion accordion = new Accordion();
-            TitledPane titledPane = new TitledPane();
-            VBox costEffectContainer = new VBox();
-            Separator separator = new Separator();
 
-            nameLabel.setText(item.asPair().getKey().toString() + " :: " + item.asPair().getValue().getDisplayLabel());
+            TitledPane titledPane = new TitledPane();
+            titledPane.setAnimated(false);
+
+            VBox costEffectContainer = new VBox();
+            costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+
+            Separator separator = new Separator();
+            separator.setPrefHeight(10);
+            costEffectContainer.getChildren().add(separator);
+
             nameLabel.setPrefHeight(20);
             nameLabel.setFont(UIFunctions.Fonts.size2Font);
             nameLabel.paddingProperty().set(new Insets(2,5,2,5));
-            titledPane.setAnimated(false);
-            costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
-            separator.setPrefHeight(10);
-            costEffectContainer.getChildren().add(separator);
 
             // costs
             item.asPair().getValue().costStream()
@@ -102,11 +104,9 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
 
             descriptionContainer.getChildren().add(accordion);
         }
-        else
-        {
-            nameLabel.setText(item.asPair().getKey().toString() + " :: " + item.asPair().getValue().getDisplayLabel());
-            updateProgressBar(item);
-        }
+
+        nameLabel.setText(item.asPair().getKey().toString() + " :: " + item.asPair().getValue().getDisplayLabel());
+        updateProgressBar(item);
     }
 
     private double calculateProgress(ProcurementRecipeData procurementRecipeData)
