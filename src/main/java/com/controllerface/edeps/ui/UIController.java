@@ -33,6 +33,7 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -189,12 +190,25 @@ public class UIController
                         .mapToObj(i->new Pair<>(taskBackingList.get(i),i))
                         .findFirst().orElse(null);
 
+                ProcurementRecipeData data;
+                int index;
 
-                // it may be possible to get and adjustment for a module the user has manually already removed from
-                // the list. If this occurs, we just return -1 as a proxy for "nothing to adjust"
-
-                if (recipePair == null) return -1;
-                ProcurementRecipeData data = recipePair.getKey();
+                if (recipePair == null)
+                {
+                    // it may be possible to get and adjustment for a module the user has manually already removed from
+                    // the list. If this occurs, we just return -1 as a proxy for "nothing to adjust"
+                    if (adjustment <= 0) return -1;
+                    else
+                    {
+                        data = new ProcurementRecipeData(recipe.getKey(), recipe.getValue(), 0);
+                        index = -1;
+                    }
+                }
+                else
+                {
+                    data = recipePair.getKey();
+                    index = recipePair.getValue();
+                }
 
                 // max out at 999, just because the UI will get weird and it's unlikely anyone will want/need anywhere
                 // need that many tasks of a given type. If someone ever does, well... tough.
@@ -207,8 +221,10 @@ public class UIController
                 // by the same index is a bit of a hack. It'd probably no better than manually calling refresh() on
                 // list view, which is wasteful. Eventually, the backing list should be converted to use a "property
                 // extractor" which is supposed to be perform better.
-                taskBackingList.set(recipePair.getValue(), data);
+                if (index == -1) taskBackingList.add(data);
+                else taskBackingList.set(index, data);
 
+                dothis(data);
                 syncUI();
 
                 if (val <= 0)
@@ -219,6 +235,48 @@ public class UIController
 
                 return val;
             };
+
+    private void dothis(ProcurementRecipeData recipeData)
+    {
+        Map<ProcurementCost, Integer> costs = new HashMap<>();
+
+        ProcurementRecipe recipe = recipeData.asPair().getValue();
+
+        recipe.costStream().forEach(cost ->
+        {
+            AtomicBoolean costFound = new AtomicBoolean(false);
+
+            taskCostBackingList.stream()
+                    .filter(costData -> costData.matches(cost.getCost()))
+                    .findFirst()
+                    .ifPresent(foundCost ->
+                    {
+                        costs.putIfAbsent(foundCost.getCost(), 0);
+                        costFound.set(true);
+                        int totalCost = cost.getQuantity() * recipeData.getCount();
+                        costs.computeIfPresent(foundCost.getCost(),(k, v) -> v += totalCost);
+                    });
+
+            if (!costFound.get())
+            {
+                ItemCostData newItem = new ItemCostData(cost.getCost(), this.commanderData::hasItem);
+                int newCost = cost.getQuantity() * recipeData.getCount();
+                newItem.setCount(newCost);
+                costs.put(newItem.getCost(), newCost);
+                taskCostBackingList.add(newItem);
+            }
+        });
+
+
+        List<ItemCostData> toRemove = taskCostBackingList.stream()
+                .filter(c->costs.get(c.getCost())!=null)
+                .filter(c->costs.get(c.getCost())!=c.getCount())
+                .peek(c->c.setCount(costs.get(c.getCost())))
+                .filter(c->c.getCount()<=0)
+                .collect(Collectors.toList());
+
+        taskCostBackingList.removeAll(toRemove);
+    }
 
     /*
     This is a convenience wrapper around the procurementListUpdate function, used for cases where the calling code does
@@ -235,21 +293,7 @@ public class UIController
             (mod)->
             {
                 Pair<ProcurementType, ProcurementRecipe> ref = new Pair<>(mod.getType(), mod.getRecipe());
-                ProcurementRecipeData data =
-                        taskBackingList.filtered((k)->k.asPair().equals(ref))
-                                .stream().findFirst()
-                                .orElse(null);
-
-                // add a count for the mod if it does not exist
-                if (data == null)
-                {
-                    taskBackingList.add(new ProcurementRecipeData(mod.getType(), mod.getRecipe(), 1));
-                }
-
-                // increment the count for this mod if it exists
-                else data.setCount(data.getCount() + 1);
-
-                syncUI();
+                adjustBlueprint.accept(1, ref);
             };
 
     public UIController()
@@ -306,9 +350,6 @@ public class UIController
         // set initialized flag
         initialzed = true;
 
-
-
-
         Properties properties = new Properties();
         try {properties.load(this.getClass().getResourceAsStream("/config.properties"));}
         catch (IOException e) {e.printStackTrace();}
@@ -325,9 +366,10 @@ public class UIController
                     .ifPresent(t->mainPane.getTabs().remove(t));
         }
 
-
         // sync the UI now that everything is set up
         syncUI();
+
+        sortInventory();
     }
 
     private void initializeTextPlaceholders()
@@ -414,6 +456,9 @@ public class UIController
 
         procurementTaskTable.setItems(taskBackingList);
         taskCostTable.setItems(taskCostBackingList);
+
+        // todo: investigate alternatives to forcing refresh, but if they are too fiddly don't bother
+        taskCostBackingList.addListener((ListChangeListener<ItemCostData>) c -> taskCostTable.refresh());
 
 
         initializeInventoryTables();
@@ -741,54 +786,7 @@ public class UIController
     {
         if (!initialzed) return;
 
-        // sort the inventory display tables
-        sortInventory();
-
         statTable.getItems().clear();
-
-        // buffer map that stores all the cumulative costs in the current task list
-        Map<ProcurementCost, Integer> costs = new HashMap<>();
-
-
-        // todo: see if making the costs calculated at the same time as the tasks can work. would be a lot cooler
-        taskBackingList.forEach((recipeData)->
-        {
-            ProcurementRecipe recipe = recipeData.asPair().getValue();
-            recipe.costStream()
-                    .forEach(mat->
-                    {
-                        AtomicBoolean costFound = new AtomicBoolean(false);
-
-                        taskCostBackingList.stream()
-                                .filter(costData -> costData.matches(mat.getCost()))
-                                .findFirst()
-                                .ifPresent(foundCost ->
-                                {
-                                    costs.putIfAbsent(foundCost.getCost(), 0);
-                                    costFound.set(true);
-                                    int cost = mat.getQuantity() * recipeData.getCount();
-                                    costs.computeIfPresent(foundCost.getCost(),(k, v)->v+=cost);
-                                });
-
-                        if (!costFound.get())
-                        {
-                            ItemCostData newItem = new ItemCostData(mat.getCost(), this.commanderData::hasItem);
-                            int newCost = mat.getQuantity() * recipeData.getCount();
-                            newItem.setCount(newCost);
-                            costs.put(newItem.getCost(), newCost);
-                            taskCostBackingList.add(newItem);
-                        }
-                    });
-        });
-
-        List<ItemCostData> toRemove = taskCostBackingList.stream()
-                .filter(c->costs.get(c.getCost())!=null)
-                .filter(c->costs.get(c.getCost())!=c.getCount())
-                .peek(c->c.setCount(costs.get(c.getCost())))
-                .filter(c->c.getCount()<=0)
-                .collect(Collectors.toList());
-
-        taskCostBackingList.removeAll(toRemove);
 
         if (taskCostTable.getItems().size() > 0)
         {
@@ -824,8 +822,8 @@ public class UIController
 
         setProcurementsUIVisibility();
 
-        // update the UI elements
-        taskCostTable.refresh();
+        //taskCostTable.refresh();
+
         statTable.refresh();
     }
 
@@ -1056,7 +1054,7 @@ public class UIController
                 }
             });
 
-            taskBackingList.add(new ProcurementRecipeData(procType.get(),recipeType.get(), count.get()));
+            adjustBlueprint.accept(count.get(),new Pair<>(procType.get(), recipeType.get()));
         });
 
         if (initialzed) syncUI();
