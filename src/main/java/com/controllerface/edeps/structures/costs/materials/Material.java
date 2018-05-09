@@ -1,7 +1,11 @@
 package com.controllerface.edeps.structures.costs.materials;
 
 import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.structures.equipment.ItemGrade;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An enumeration of all the crafting materials in Elite: Dangerous
@@ -182,10 +186,36 @@ public enum Material implements ProcurementCost
 
     private final ItemGrade grade;
     private String localizedName = toString();
+    private String locationInformation;
+    private final List<ProcurementRecipe> associated = new ArrayList<>();
 
     Material(ItemGrade grade)
     {
+        this.locationInformation = name();
         this.grade = grade;
+    }
+
+    public void setLocationInformation(String locationInformation)
+    {
+        this.locationInformation = locationInformation;
+    }
+
+    @Override
+    public List<ProcurementRecipe> getAssociated()
+    {
+        return associated;
+    }
+
+    @Override
+    public void associate(ProcurementRecipe recipe)
+    {
+        associated.add(recipe);
+    }
+
+    @Override
+    public String getLocationInformation()
+    {
+        return locationInformation;
     }
 
     public ItemGrade getGrade()

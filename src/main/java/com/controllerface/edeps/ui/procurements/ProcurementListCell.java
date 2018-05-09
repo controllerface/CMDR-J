@@ -1,8 +1,9 @@
-package com.controllerface.edeps.ui;
+package com.controllerface.edeps.ui.procurements;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ProcurementTaskData;
+import com.controllerface.edeps.ui.UIFunctions;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,13 +24,13 @@ import java.util.stream.Collectors;
 /**
  * Created by sroebuck on 5/4/2018.
  */
-public class ProcListCell extends ListCell<ProcurementTaskData>
+public class ProcurementListCell extends ListCell<ProcurementTaskData>
 {
     private final Consumer<ProcurementTaskData> addMod;
     private final Function<ProcurementCost, Integer> checkMat;
     private final ReadOnlyDoubleProperty parentWidth;
 
-    public ProcListCell(Consumer<ProcurementTaskData> addMod, Function<ProcurementCost, Integer> checkMat, ReadOnlyDoubleProperty parentWidth)
+    public ProcurementListCell(Consumer<ProcurementTaskData> addMod, Function<ProcurementCost, Integer> checkMat, ReadOnlyDoubleProperty parentWidth)
     {
         this.addMod = addMod;
         this.checkMat = checkMat;

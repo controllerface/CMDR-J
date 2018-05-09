@@ -1,7 +1,8 @@
-package com.controllerface.edeps.ui;
+package com.controllerface.edeps.ui.tasks;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.ui.UIFunctions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -15,7 +16,7 @@ import java.util.function.Function;
 /**
  * Created by Stephen on 4/8/2018.
  */
-public class RecipeNameCell extends TableCell<ProcurementRecipeData, ProcurementRecipeData>
+public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRecipeData>
 {
     // main graphic node that contains the visible contents
     private final VBox descriptionContainer = new VBox();
@@ -32,7 +33,7 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
     private AtomicBoolean initialized = new AtomicBoolean(false);
     private final Function<ProcurementCost, Integer> checkInventory;
 
-    public RecipeNameCell(Function<ProcurementCost, Integer> checkInventory)
+    public TaskNameCell(Function<ProcurementCost, Integer> checkInventory)
     {
         this.checkInventory = checkInventory;
     }
@@ -57,10 +58,8 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
 
     private void createOrUpdate(ProcurementRecipeData item)
     {
-        System.out.println("Updating!");
         if (!initialized.getAndSet(true))
         {
-            System.out.println("NEW!!" + item);
             descriptionContainer.getChildren().clear();
             Accordion accordion = new Accordion();
 
@@ -72,7 +71,6 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
 
             Separator separator = new Separator();
             separator.setPrefHeight(10);
-            costEffectContainer.getChildren().add(separator);
 
             nameLabel.setPrefHeight(20);
             nameLabel.setFont(UIFunctions.Fonts.size2Font);
@@ -86,6 +84,8 @@ public class RecipeNameCell extends TableCell<ProcurementRecipeData, Procurement
                         return UIFunctions.Convert.costToLabel.apply(hasEnough, c);
                     })
                     .forEach(label -> costEffectContainer.getChildren().add(label));
+
+            costEffectContainer.getChildren().add(separator);
 
             // effects
             item.asPair().getValue().effects().pairStream()

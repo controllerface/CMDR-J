@@ -1,8 +1,9 @@
-package com.controllerface.edeps.ui;
+package com.controllerface.edeps.ui.ship;
 
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
+import com.controllerface.edeps.ui.UIFunctions;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.Background;

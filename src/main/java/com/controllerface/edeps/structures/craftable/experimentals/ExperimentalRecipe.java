@@ -858,6 +858,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
         this.grade = grade;
         this.cost = cost;
         this.effects = effects;
+        Arrays.stream(cost).forEach(c->c.getCost().associate(this));
     }
 
     @Override

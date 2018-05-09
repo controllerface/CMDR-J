@@ -1,7 +1,8 @@
-package com.controllerface.edeps.ui;
+package com.controllerface.edeps.ui.procurements;
 
 import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
+import com.controllerface.edeps.ui.UIFunctions;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
@@ -17,14 +18,14 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * Created by Stephen on 4/1/2018.
  */
-public class ProcTreeCell extends TreeCell<ProcurementTaskData>
+public class ProcurementTreeCell extends TreeCell<ProcurementTaskData>
 {
     private final ObservableList<ProcurementTaskData> outputList;
     private final SimpleStringProperty outputLabel;
 
     private ProcurementTaskData thisItem = null;
 
-    public ProcTreeCell(ObservableList<ProcurementTaskData> outputList, SimpleStringProperty outputLabel)
+    public ProcurementTreeCell(ObservableList<ProcurementTaskData> outputList, SimpleStringProperty outputLabel)
     {
         this.outputList = outputList;
         this.outputLabel = outputLabel;

@@ -1,6 +1,7 @@
-package com.controllerface.edeps.ui;
+package com.controllerface.edeps.ui.ship;
 
 import com.controllerface.edeps.data.commander.ShipStatisticData;
+import com.controllerface.edeps.ui.UIFunctions;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 

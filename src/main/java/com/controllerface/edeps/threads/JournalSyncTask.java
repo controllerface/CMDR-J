@@ -9,7 +9,6 @@ import com.controllerface.edeps.structures.equipment.ships.CosmeticSlot;
 import com.controllerface.edeps.structures.equipment.ships.HardpointSlot;
 import com.controllerface.edeps.structures.equipment.ships.OptionalInternalSlot;
 import com.controllerface.edeps.structures.journal.JournalEvent;
-import javafx.util.Pair;
 
 import java.io.*;
 import java.nio.file.*;
@@ -281,7 +280,7 @@ public class JournalSyncTask implements Runnable
         Map<String, Object> data;
         try
         {
-            data = Support.JSON.parseJsonString.apply(json);
+            data = JSONSupport.Parse.jsonString.apply(json);
             String eventName = ((String) data.get("event"));
             event = JournalEvent.valueOf(eventName);
         }

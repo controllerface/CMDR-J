@@ -1,8 +1,9 @@
-package com.controllerface.edeps.ui;
+package com.controllerface.edeps.ui.tasks;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.ui.UIFunctions;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;

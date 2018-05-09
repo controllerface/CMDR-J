@@ -27,19 +27,18 @@ import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.controllerface.edeps.threads.UserTransaction;
-import javafx.beans.*;
+import com.controllerface.edeps.ui.procurements.ProcurementListCell;
+import com.controllerface.edeps.ui.procurements.ProcurementTreeCell;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -72,6 +71,9 @@ public class UIController
     =============================
      */
 
+    @FXML private TabPane mainPane;
+    @FXML private Tab debugTab;
+
     // Procurement tree
     @FXML private HBox procurementBox;
     @FXML private Label procurementLabel;
@@ -80,30 +82,30 @@ public class UIController
 
     // Raw materials
     @FXML private TableView<InventoryData> rawTable;
-    @FXML private TableColumn<InventoryData, String> rawCategoryColumn;
-    @FXML private TableColumn<InventoryData, String> rawGradeColumn;
-    @FXML private TableColumn<InventoryData, String> rawMaterialColumn;
+    @FXML private TableColumn<InventoryData, HBox> rawCategoryColumn;
+    @FXML private TableColumn<InventoryData, HBox> rawGradeColumn;
+    @FXML private TableColumn<InventoryData, VBox> rawMaterialColumn;
     @FXML private TableColumn<InventoryData, Label> rawQuantityColumn;
 
     // Manufactured materials
     @FXML private TableView<InventoryData> manufacturedTable;
-    @FXML private TableColumn<InventoryData, String> manufacturedCategoryColumn;
-    @FXML private TableColumn<InventoryData, String> manufacturedGradeColumn;
-    @FXML private TableColumn<InventoryData, String> manufacturedMaterialColumn;
+    @FXML private TableColumn<InventoryData, HBox> manufacturedCategoryColumn;
+    @FXML private TableColumn<InventoryData, HBox> manufacturedGradeColumn;
+    @FXML private TableColumn<InventoryData, VBox> manufacturedMaterialColumn;
     @FXML private TableColumn<InventoryData, Label> manufacturedQuantityColumn;
 
     // Data materials
     @FXML private TableView<InventoryData> dataTable;
-    @FXML private TableColumn<InventoryData, String> dataCategoryColumn;
-    @FXML private TableColumn<InventoryData, String> dataGradeColumn;
-    @FXML private TableColumn<InventoryData, String> dataMaterialColumn;
+    @FXML private TableColumn<InventoryData, HBox> dataCategoryColumn;
+    @FXML private TableColumn<InventoryData, HBox> dataGradeColumn;
+    @FXML private TableColumn<InventoryData, VBox> dataMaterialColumn;
     @FXML private TableColumn<InventoryData, Label> dataQuantityColumn;
 
     // Cargo
     @FXML private TableView<InventoryData> cargoTable;
-    @FXML private TableColumn<InventoryData, String> cargoCategoryColumn;
-    @FXML private TableColumn<InventoryData, String> cargoGradeColumn;
-    @FXML private TableColumn<InventoryData, String> cargoMaterialColumn;
+    @FXML private TableColumn<InventoryData, HBox> cargoCategoryColumn;
+    @FXML private TableColumn<InventoryData, HBox> cargoGradeColumn;
+    @FXML private TableColumn<InventoryData, VBox> cargoItemColumn;
     @FXML private TableColumn<InventoryData, Label> cargoQuantityColumn;
 
     // Procurement task table
@@ -152,7 +154,6 @@ public class UIController
     @FXML private TableColumn<ShipModuleData, ShipModuleData> hardpointDataColumn;
 
 
-
     /*
     =======================
     === Raw Data Objects ===
@@ -167,112 +168,6 @@ public class UIController
 
     // The observable list backing the task list table view
     private ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableArrayList();
-
-    private void toJson() throws IOException
-    {
-        Map<String, Object> data = new HashMap<>();
-
-        List<Map<String, Object>> tasks = taskBackingList.stream()
-                .map(e->
-                {
-                    Pair<ProcurementType, ProcurementRecipe> pair = e.asPair();
-                    ProcurementType type = pair.getKey();
-                    ProcurementRecipe recipe = pair.getValue();
-                    Integer count = e.getCount();
-
-                    String procType = type.getClass().getSimpleName();
-                    String procName = type.getName();
-
-                    String recipeType = recipe.getClass().getSimpleName();
-                    String recipeName = recipe.getName();
-
-                    Map<String, Object> procTypedata = new LinkedHashMap<>();
-                    procTypedata.put(procType, procName);
-                    procTypedata.put(recipeType, recipeName);
-                    procTypedata.put("Count", count);
-
-                    return procTypedata;
-                }).collect(Collectors.toList());
-
-        data.put("tasks", tasks);
-
-        File file = new File("data.json");
-        if (!file.exists() && !file.createNewFile()) throw new RuntimeException("Could not create file");
-        Support.JSON.writeJsonToFile.apply(file, data);
-    }
-
-    private void fromJson()
-    {
-        File file = new File("data.json");
-        if (!file.exists())
-        {
-            System.err.println("data.json File not found");
-            return;
-        }
-
-        Map<String, Object> data = Support.JSON.parseJsonFile.apply(file);
-
-        taskBackingList.clear();
-
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> tasks = ((List<Map<String, Object>>) data.get("tasks"));
-        tasks.forEach(taskEntry ->
-        {
-            AtomicReference<ProcurementType> procType = new AtomicReference<>();
-            AtomicReference<ProcurementRecipe> recipeType = new AtomicReference<>();
-            AtomicInteger count = new AtomicInteger(0);
-
-            taskEntry.forEach((key, value) ->
-            {
-                switch (key)
-                {
-                    case "ExperimentalType":
-                        procType.set(ExperimentalType.valueOf(((String) value)));
-                        break;
-
-                    case "ModificationType":
-                        procType.set(ModificationType.valueOf(((String) value)));
-                        break;
-
-                    case "SynthesisType":
-                        procType.set(SynthesisType.valueOf(((String) value)));
-                        break;
-
-                    case "TechnologyType":
-                        procType.set(TechnologyType.valueOf(((String) value)));
-                        break;
-
-                    case "ExperimentalRecipe":
-                        recipeType.set(ExperimentalRecipe.valueOf(((String) value)));
-                        break;
-
-                    case "ModificationRecipe":
-                        recipeType.set(ModificationRecipe.valueOf(((String) value)));
-                        break;
-
-                    case "WeaponModificationRecipe":
-                        recipeType.set(WeaponModificationRecipe.valueOf(((String) value)));
-                        break;
-
-                    case "SynthesisRecipe":
-                        recipeType.set(SynthesisRecipe.valueOf(((String) value)));
-                        break;
-
-                    case "TechnologyRecipe":
-                        recipeType.set(TechnologyRecipe.valueOf(((String) value)));
-                        break;
-
-                    case "Count":
-                        count.set(((Integer) value));
-                        break;
-                }
-            });
-
-            taskBackingList.add(new ProcurementRecipeData(procType.get(),recipeType.get(), count.get()));
-        });
-
-        if (initialzed) syncUI();
-    }
 
 
 
@@ -301,12 +196,17 @@ public class UIController
                 if (recipePair == null) return -1;
                 ProcurementRecipeData data = recipePair.getKey();
 
-                // max out at 999, just because the UI will get weird
+                // max out at 999, just because the UI will get weird and it's unlikely anyone will want/need anywhere
+                // need that many tasks of a given type. If someone ever does, well... tough.
                 int val = data.getCount() + adjustment;
                 if (val > 999) val = 999;
 
                 data.setCount(val);
 
+                // todo: this scenario where we get the item by index from the tracking list and then set it again
+                // by the same index is a bit of a hack. It'd probably no better than manually calling refresh() on
+                // list view, which is wasteful. Eventually, the backing list should be converted to use a "property
+                // extractor" which is supposed to be perform better.
                 taskBackingList.set(recipePair.getValue(), data);
 
                 syncUI();
@@ -406,41 +306,75 @@ public class UIController
         // set initialized flag
         initialzed = true;
 
+
+
+
+        Properties properties = new Properties();
+        try {properties.load(this.getClass().getResourceAsStream("/config.properties"));}
+        catch (IOException e) {e.printStackTrace();}
+
+        String debug = properties.getProperty("debug");
+        if (debug != null && debug.equals("true"))
+        {
+            System.out.println("DEBUg!!");
+        }
+        else
+        {
+            mainPane.getTabs().stream()
+                    .filter(t->t.equals(debugTab)).findFirst()
+                    .ifPresent(t->mainPane.getTabs().remove(t));
+        }
+
+
         // sync the UI now that everything is set up
         syncUI();
     }
 
-    private void initializeUIComponents()
+    private void initializeTextPlaceholders()
     {
         // set placeholder labels shown when the procurement list is empty
         Label recipeTableLabel = new Label("Use the Procurement Tasks menu to select tasks");
         Label costTableLabel = new Label("Items needed for selected tasks will appear here");
-
         recipeTableLabel.setFont(UIFunctions.Fonts.size1Font);
         costTableLabel.setFont(UIFunctions.Fonts.size1Font);
+        procurementTaskTable.setPlaceholder(recipeTableLabel);
+        taskCostTable.setPlaceholder(costTableLabel);
+    }
 
-        SimpleStringProperty labelText = new SimpleStringProperty("");
-        procurementLabel.textProperty().bind(labelText);
-
-        procurementTree.setCellFactory(param -> new ProcTreeCell(procSelectorBackingList, labelText));
-
-        procurementList.setItems(procSelectorBackingList);
-        procurementList.setCellFactory(param ->
-                new ProcListCell(addTaskToProcurementList, commanderData::hasItem, procurementList.widthProperty()));
-
+    private void initializeInventoryTables()
+    {
         rawTable.setItems(commanderData.observableRawMaterials());
         dataTable.setItems(commanderData.observableDataMaterials());
         manufacturedTable.setItems(commanderData.observableManufacturedMaterials());
         cargoTable.setItems(commanderData.observableCargo());
 
-        procurementTaskTable.setItems(taskBackingList);
-        taskCostTable.setItems(taskCostBackingList);
+        rawCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
+        rawGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        rawMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        rawQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
+        rawQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
 
-        procurementTaskTable.setPlaceholder(recipeTableLabel);
-        taskCostTable.setPlaceholder(costTableLabel);
-        sortTasksByName.setOnAction((e)->sortTasktable());
-        sortTasksByGrade.setOnAction((e)->sortTasktable());
+        manufacturedCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
+        manufacturedGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        manufacturedMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        manufacturedQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
+        manufacturedQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
 
+        dataCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
+        dataGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        dataMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        dataQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
+        dataQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
+
+        cargoCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
+        cargoGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        cargoItemColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        cargoQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
+        cargoQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
+    }
+
+    private void initializeShipLoadoutTables()
+    {
         shipStatisticsTable.setItems(commanderData.getStarShip().getStatistics());
         coreModuleList.setItems(commanderData.getStarShip().getCoreInternals());
         optionalModuleList.setItems(commanderData.getStarShip().getOptionalInternals());
@@ -465,37 +399,30 @@ public class UIController
         hardpointNameColumn.setCellFactory(UIFunctions.Data.boldSlotNameCellFactory);
         hardpointDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         hardpointDataColumn.setCellFactory(UIFunctions.Data.moduleDisplayCellFactory);
+    }
+
+    private void initializeUIComponents()
+    {
+        initializeTextPlaceholders();
+
+        SimpleStringProperty labelText = new SimpleStringProperty("");
+        procurementLabel.textProperty().bind(labelText);
+        procurementTree.setCellFactory(param -> new ProcurementTreeCell(procSelectorBackingList, labelText));
+        procurementList.setItems(procSelectorBackingList);
+        procurementList.setCellFactory(param ->
+                new ProcurementListCell(addTaskToProcurementList, commanderData::hasItem, procurementList.widthProperty()));
+
+        procurementTaskTable.setItems(taskBackingList);
+        taskCostTable.setItems(taskCostBackingList);
 
 
-        // set the cell value factories for the player inventory tabs
-        rawCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
-        rawGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
-        rawMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
-        rawQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
-        rawQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
+        initializeInventoryTables();
+        initializeShipLoadoutTables();
 
-        manufacturedCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
-        manufacturedGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
-        manufacturedMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
-        manufacturedQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
-        manufacturedQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
 
-        dataCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
-        dataGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
-        dataMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
-        dataQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
-        dataQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
 
-        cargoCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
-        cargoGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
-        cargoMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryMaterialCellFactory);
-        cargoQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
-        cargoQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
-
-        // set the cell and cell value factories for the procurement recipe list
         taskCountColumn.setCellFactory(UIFunctions.Data.makeModRollCellFactory.apply(procurementListUpdate));
         taskCountColumn.setCellValueFactory(UIFunctions.Data.modRollCellValueFactory);
-        taskCountColumn.setStyle( "-fx-alignment: CENTER;");
 
         taskNameColumn.setCellFactory(UIFunctions.Data.makeModNameCellFactory.apply(commanderData::hasItem));
         taskNameColumn.setCellValueFactory(UIFunctions.Data.modNameCellValueFactory);
@@ -508,14 +435,20 @@ public class UIController
         taskCostNameColumn.setCellValueFactory(UIFunctions.Data.costNameCellValueFactory);
         taskCostNameColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
 
+
+
         statNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
         statValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
         statNameColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
         statValueColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
 
-        showProcurements.setOnAction((e)->setProcumentsUIVisibility());
-        showTasks.setOnAction((e)->setProcumentsUIVisibility());
-        showItemsNeeded.setOnAction((e)->setProcumentsUIVisibility());
+
+        sortTasksByName.setOnAction((e)-> sortTaskTable());
+        sortTasksByGrade.setOnAction((e)-> sortTaskTable());
+
+        showProcurements.setOnAction((e)-> setProcurementsUIVisibility());
+        showTasks.setOnAction((e)-> setProcurementsUIVisibility());
+        showItemsNeeded.setOnAction((e)-> setProcurementsUIVisibility());
 
         shipTypeLabel.textProperty().bind(commanderData.getStarShip().getShipDisplayName());
 
@@ -529,7 +462,6 @@ public class UIController
 
         rawMaterialColumn.prefWidthProperty()
                 .bind(rawTable.widthProperty().subtract(rawTableWidthUsed));
-
 
         DoubleBinding mfdTableWidthUsed = manufacturedCategoryColumn.widthProperty()
                 .add(manufacturedGradeColumn.widthProperty())
@@ -552,7 +484,7 @@ public class UIController
                 .add(cargoQuantityColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
 
-        cargoMaterialColumn.prefWidthProperty()
+        cargoItemColumn.prefWidthProperty()
                 .bind(cargoTable.widthProperty().subtract(cargoTableWidthUsed));
 
 
@@ -597,7 +529,6 @@ public class UIController
     private TreeItem<ProcurementTaskData> makeSynthesisTree()
     {
         TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Synthesis"));
-        //modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(SynthesisCategory.values()).forEach(category ->
@@ -635,7 +566,6 @@ public class UIController
     private TreeItem<ProcurementTaskData> makeModTree()
     {
         TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Engineering Modifications"));
-        //modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(ModificationCategory.values()).forEach(category ->
@@ -712,7 +642,6 @@ public class UIController
     private TreeItem<ProcurementTaskData> makeTechnologyTree()
     {
         TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Tech Brokers"));
-        //modifications.setExpanded(true);
 
         // loop through all mod categories
         Arrays.stream(TechnologyCategory.values()).forEach(category ->
@@ -747,7 +676,6 @@ public class UIController
         return modifications;
     }
 
-    // Builds the "Procurement Tree" from which the user can select tasks to add to their procurement list
     @SuppressWarnings("unchecked")
     private void makeProcurementTree()
     {
@@ -766,11 +694,11 @@ public class UIController
         // now that the root object has been filled with sub-trees, add it to the tree
         procurementTree.setRoot(root);
 
-        // hide the root, showing just it's children in the tree view (which are the mod categories)
+        // hide the root, showing just its children in the tree view
         procurementTree.setShowRoot(false);
     }
 
-    private synchronized void sortInventory()
+    private void sortInventory()
     {
         // sort pass 1, numerically by grade
         rawTable.getItems().sort(UIFunctions.Sort.materialByGrade);
@@ -787,7 +715,7 @@ public class UIController
         cargoTable.getItems().sort(UIFunctions.Sort.cargoByCount);
     }
 
-    private void sortTasktable()
+    private void sortTaskTable()
     {
         if (procurementTaskTable.getItems().size() > 0)
         {
@@ -816,8 +744,6 @@ public class UIController
         // sort the inventory display tables
         sortInventory();
 
-        // Whenever we sync the UI, we always clear out the data structures first, as everything will be re-calculated
-        // according to the current state of the player's inventory and stats
         statTable.getItems().clear();
 
         // buffer map that stores all the cumulative costs in the current task list
@@ -864,9 +790,6 @@ public class UIController
 
         taskCostBackingList.removeAll(toRemove);
 
-        //sortTasktable();
-
-
         if (taskCostTable.getItems().size() > 0)
         {
             taskCostTable.getItems().sort((a, b)->
@@ -899,14 +822,14 @@ public class UIController
                 .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
                 .forEach(pair -> statTable.getItems().add(pair));
 
-        setProcumentsUIVisibility();
+        setProcurementsUIVisibility();
 
         // update the UI elements
         taskCostTable.refresh();
         statTable.refresh();
     }
 
-    private void setProcumentsUIVisibility()
+    private void setProcurementsUIVisibility()
     {
         int shown = 0;
 
@@ -968,18 +891,18 @@ public class UIController
     @SuppressWarnings("unchecked")
     private void localizeData()
     {
-        InputStream inputStream = null;
+        InputStream jsonStream = null;
         try
         {
             URL localizationData = getClass().getResource("/localization/eng.json");
-            inputStream = localizationData.openStream();
+            jsonStream = localizationData.openStream();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
 
-        Map<String, Object> data = Support.JSON.parseJsonStream.apply(inputStream);
+        Map<String, Object> data = JSONSupport.Parse.jsonStream.apply(jsonStream);
 
         ((Map<String, Object>) data.get("materials"))
                 .forEach((key, value) ->
@@ -994,5 +917,148 @@ public class UIController
                     ProcurementCost commodity = Commodity.valueOf(key);
                     commodity.setLocalizedName(((String) value));
                 });
+
+
+
+
+
+
+        InputStream locStream = null;
+        try
+        {
+            URL localizationData = getClass().getResource("/localization/locations.json");
+            locStream = localizationData.openStream();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        Map<String, Object> locData = JSONSupport.Parse.jsonStream.apply(locStream);
+
+        ((Map<String, Object>) locData.get("materials"))
+                .forEach((key, value) ->
+                {
+                    ProcurementCost material = Material.valueOf(key);
+
+                    List<String> locations = ((List<String>) value);
+
+                    material.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
+                });
+
+//        ((Map<String, Object>) locData.get("commodities"))
+//                .forEach((key, value) ->
+//                {
+//                    ProcurementCost commodity = Commodity.valueOf(key);
+//                    commodity.setLocalizedName(((String) value));
+//                });
+
+
+    }
+
+    private void toJson() throws IOException
+    {
+        Map<String, Object> data = new HashMap<>();
+
+        List<Map<String, Object>> tasks = taskBackingList.stream()
+                .map(e->
+                {
+                    Pair<ProcurementType, ProcurementRecipe> pair = e.asPair();
+                    ProcurementType type = pair.getKey();
+                    ProcurementRecipe recipe = pair.getValue();
+                    Integer count = e.getCount();
+
+                    String procType = type.getClass().getSimpleName();
+                    String procName = type.getName();
+
+                    String recipeType = recipe.getClass().getSimpleName();
+                    String recipeName = recipe.getName();
+
+                    Map<String, Object> procTypedata = new LinkedHashMap<>();
+                    procTypedata.put(procType, procName);
+                    procTypedata.put(recipeType, recipeName);
+                    procTypedata.put("Count", count);
+
+                    return procTypedata;
+                }).collect(Collectors.toList());
+
+        data.put("tasks", tasks);
+
+        File file = new File("data.json");
+        if (!file.exists() && !file.createNewFile()) throw new RuntimeException("Could not create file");
+        JSONSupport.Write.jsonToFile.apply(file, data);
+    }
+
+    private void fromJson()
+    {
+        File file = new File("data.json");
+        if (!file.exists())
+        {
+            System.err.println("data.json File not found");
+            return;
+        }
+
+        Map<String, Object> data = JSONSupport.Parse.jsonFile.apply(file);
+
+        taskBackingList.clear();
+
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> tasks = ((List<Map<String, Object>>) data.get("tasks"));
+        tasks.forEach(taskEntry ->
+        {
+            AtomicReference<ProcurementType> procType = new AtomicReference<>();
+            AtomicReference<ProcurementRecipe> recipeType = new AtomicReference<>();
+            AtomicInteger count = new AtomicInteger(0);
+
+            taskEntry.forEach((key, value) ->
+            {
+                switch (key)
+                {
+                    case "ExperimentalType":
+                        procType.set(ExperimentalType.valueOf(((String) value)));
+                        break;
+
+                    case "ModificationType":
+                        procType.set(ModificationType.valueOf(((String) value)));
+                        break;
+
+                    case "SynthesisType":
+                        procType.set(SynthesisType.valueOf(((String) value)));
+                        break;
+
+                    case "TechnologyType":
+                        procType.set(TechnologyType.valueOf(((String) value)));
+                        break;
+
+                    case "ExperimentalRecipe":
+                        recipeType.set(ExperimentalRecipe.valueOf(((String) value)));
+                        break;
+
+                    case "ModificationRecipe":
+                        recipeType.set(ModificationRecipe.valueOf(((String) value)));
+                        break;
+
+                    case "WeaponModificationRecipe":
+                        recipeType.set(WeaponModificationRecipe.valueOf(((String) value)));
+                        break;
+
+                    case "SynthesisRecipe":
+                        recipeType.set(SynthesisRecipe.valueOf(((String) value)));
+                        break;
+
+                    case "TechnologyRecipe":
+                        recipeType.set(TechnologyRecipe.valueOf(((String) value)));
+                        break;
+
+                    case "Count":
+                        count.set(((Integer) value));
+                        break;
+                }
+            });
+
+            taskBackingList.add(new ProcurementRecipeData(procType.get(),recipeType.get(), count.get()));
+        });
+
+        if (initialzed) syncUI();
     }
 }

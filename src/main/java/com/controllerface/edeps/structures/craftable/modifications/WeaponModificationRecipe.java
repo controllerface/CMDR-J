@@ -553,6 +553,7 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
         this.grade = grade;
         this.effects = effects;
         this.cost = cost;
+        Arrays.stream(cost).forEach(c->c.getCost().associate(this));
     }
 
     @Override

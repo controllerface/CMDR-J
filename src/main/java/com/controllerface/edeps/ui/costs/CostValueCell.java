@@ -1,6 +1,7 @@
-package com.controllerface.edeps.ui;
+package com.controllerface.edeps.ui.costs;
 
 import com.controllerface.edeps.data.procurements.ItemCostData;
+import com.controllerface.edeps.ui.UIFunctions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;

@@ -1,10 +1,7 @@
 package com.controllerface.edeps;
 
-import com.controllerface.edeps.structures.journal.JournalEvent;
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
@@ -18,28 +15,28 @@ import java.util.function.Function;
 /**
  * Created by sroebuck on 5/3/2018.
  */
-public class Support
+public class JSONSupport
 {
-    public static class JSON
+    public static class Parse
     {
         private static final TypeReference<Map> mapTypeReference = new TypeReference<Map>()
         {
             @Override public Type getType() {return HashMap.class;}
         };
 
-        public static final Function<String, Map<String, Object>> parseJsonString = (jsonString) ->
+        public static final Function<String, Map<String, Object>> jsonString = (jsonString) ->
         {
             try {return new ObjectMapper().readValue(jsonString, mapTypeReference);}
             catch (Exception e) {throw new RuntimeException("Error parsing JSON string: " + jsonString, e);}
         };
 
-        public static final Function<File, Map<String, Object>> parseJsonFile = (jsonFile) ->
+        public static final Function<File, Map<String, Object>> jsonFile = (jsonFile) ->
         {
             try {return new ObjectMapper().readValue(jsonFile, mapTypeReference);}
             catch (Exception e) {throw new RuntimeException("Error parsing JSON file: " + jsonFile, e);}
         };
 
-        public static final Function<InputStream, Map<String, Object>> parseJsonStream = (jsonStream) ->
+        public static final Function<InputStream, Map<String, Object>> jsonStream = (jsonStream) ->
         {
             try {return new ObjectMapper().readValue(jsonStream, mapTypeReference);}
             catch (Exception e) {throw new RuntimeException("Error parsing JSON stream: " + jsonStream, e);}
@@ -49,8 +46,11 @@ public class Support
                 catch (IOException e) {e.printStackTrace();}
             }
         };
+    }
 
-        public static final BiFunction<File, Map<String, Object>, Boolean> writeJsonToFile = (file, json) ->
+    public static class Write
+    {
+        public static final BiFunction<File, Map<String, Object>, Boolean> jsonToFile = (file, json) ->
         {
             try(OutputStream outputStream = new FileOutputStream(file))
             {

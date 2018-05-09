@@ -55,31 +55,10 @@ public class CommanderData
      */
     private final Map<Statistic, String> stats = new LinkedHashMap<>();
 
-    /**
-     * Generates a Stream consisting of all the cargo items. Note that items with a count of 0 are still present
-     * in the stream.
-     *
-     * @return Stream of cargo items
-     */
-    public Stream<InventoryData> cargoStream()
-    {
-        return cargo.inventory();
-    }
 
     public ObservableList<InventoryData> observableCargo()
     {
         return cargo.observableInventory();
-    }
-
-    /**
-     * Generates a Stream consisting of all the raw materials. Note that materials with a count of 0 are still present
-     * in the stream.
-     *
-     * @return Stream of raw materials
-     */
-    public Stream<InventoryData> rawMaterialStream()
-    {
-        return rawMats.inventory();
     }
 
     public ObservableList<InventoryData> observableRawMaterials()
@@ -87,31 +66,9 @@ public class CommanderData
         return rawMats.observableInventory();
     }
 
-    /**
-     * Generates a Stream consisting of all the manufactured materials. Note that materials with a count of 0 are still
-     * present in the stream.
-     *
-     * @return Stream of manufactured materials
-     */
-    public Stream<InventoryData> manufacturedMaterialStream()
-    {
-        return mfdMats.inventory();
-    }
-
     public ObservableList<InventoryData> observableManufacturedMaterials()
     {
         return mfdMats.observableInventory();
-    }
-
-    /**
-     * Generates a Stream consisting of all the encoded data materials. Note that materials with a count of 0 are still
-     * present in the stream.
-     *
-     * @return Stream of encoded data materials
-     */
-    public Stream<InventoryData> dataMaterialStream()
-    {
-        return dataMats.inventory();
     }
 
     public ObservableList<InventoryData> observableDataMaterials()
@@ -157,8 +114,7 @@ public class CommanderData
     /**
      * Sets a given ship module slot to a given ship module object, in the commander's current ship
      *
-     * @param statistic the Statistic representing the slot name into which the module is to be stored
-     * @param shipModule the actual ShipModule object to store in the named slot within the current ship
+     * @param shipModuleData ship module data object describing the module
      */
     public void setShipModule(ShipModuleData shipModuleData)
     {

@@ -1,10 +1,11 @@
-package com.controllerface.edeps.ui;
+package com.controllerface.edeps.ui.costs;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.costs.materials.MaterialType;
+import com.controllerface.edeps.ui.UIFunctions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -33,13 +34,12 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
         }
         else
         {
-
             VBox descriptionContainer = new VBox();
+            descriptionContainer.setAlignment(Pos.CENTER);
 
             Accordion accordion = new Accordion();
             TitledPane titledPane = new TitledPane();
             titledPane.setAnimated(false);
-
 
             HBox hbox = new HBox();
 
@@ -84,7 +84,7 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
             hbox.getChildren().addAll(progressBar, costLabel);
 
 
-            titledPane.setContent(new Label("Coming Soon"));
+            titledPane.setContent(new Label("Coming Soon : Location Information"));
 
 
             titledPane.setGraphic(hbox);

@@ -1,4 +1,4 @@
-package com.controllerface.edeps.ui;
+package com.controllerface.edeps.ui.tasks;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;

@@ -25,7 +25,7 @@ public class EDEPSTest
     public void main() throws Exception
     {
         InputStream mods = this.getClass().getResourceAsStream("/testdata/modules_with_effects.json");
-        Map<String, Object> data = Support.JSON.parseJsonStream.apply(mods);
+        Map<String, Object> data = JSONSupport.Parse.jsonStream.apply(mods);
 
         List<String> blueprints = new ArrayList<>();
         List<String> recipes = new ArrayList<>();
@@ -143,7 +143,7 @@ public class EDEPSTest
             e.printStackTrace();
         }
 
-        Map<String, Object> data = Support.JSON.parseJsonStream.apply(inputStream);
+        Map<String, Object> data = JSONSupport.Parse.jsonStream.apply(inputStream);
 
         ((Map<String, Object>) data.get("materials"))
                 .forEach((key, value) ->

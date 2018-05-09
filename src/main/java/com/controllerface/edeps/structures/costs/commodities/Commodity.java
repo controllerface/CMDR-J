@@ -1,7 +1,11 @@
 package com.controllerface.edeps.structures.costs.commodities;
 
 import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.structures.equipment.ItemGrade;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Stephen on 4/11/2018.
@@ -426,10 +430,36 @@ public enum Commodity implements ProcurementCost
 
     private final ItemGrade grade;
     private String localizedName = name();
+    private String locationInformation = "";
+    private final List<ProcurementRecipe> associated = new ArrayList<>();
 
     Commodity(ItemGrade grade)
     {
         this.grade = grade;
+    }
+
+    @Override
+    public String getLocationInformation()
+    {
+        return null;
+    }
+
+    @Override
+    public List<ProcurementRecipe> getAssociated()
+    {
+        return associated;
+    }
+
+    @Override
+    public void associate(ProcurementRecipe recipe)
+    {
+        associated.add(recipe);
+    }
+
+    @Override
+    public void setLocationInformation(String locationInformation)
+    {
+        this.locationInformation = locationInformation;
     }
 
     @Override
