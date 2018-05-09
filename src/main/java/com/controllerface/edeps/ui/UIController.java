@@ -395,6 +395,8 @@ public class UIController
         rawMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
         rawQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         rawQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
+        rawQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
+
 
         manufacturedCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
         manufacturedGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);

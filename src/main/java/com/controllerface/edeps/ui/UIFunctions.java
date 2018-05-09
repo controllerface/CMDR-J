@@ -222,6 +222,7 @@ public class UIFunctions
                 {
                     int quantity = materialData.getValue().getQuantity();
                     Label label = new Label(String.valueOf(quantity));
+                    label.paddingProperty().setValue(new Insets(5,0,0,0));
                     label.setFont(Fonts.size2Font);
                     return new ReadOnlyObjectWrapper<>(label);
                 };
