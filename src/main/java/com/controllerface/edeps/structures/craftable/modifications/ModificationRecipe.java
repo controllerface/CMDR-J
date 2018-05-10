@@ -4312,7 +4312,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     @Override
     public String getShortLabel()
     {
-        return "Grade " + grade.toString();
+        return grade.toString();
     }
 
     @Override

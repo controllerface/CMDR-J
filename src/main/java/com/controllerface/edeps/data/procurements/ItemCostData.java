@@ -68,4 +68,9 @@ public class ItemCostData
     {
         return material == this.cost;
     }
+
+    public boolean matches(CostData costData)
+    {
+        return costData.getCost() == this.cost;
+    }
 }

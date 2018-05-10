@@ -4,6 +4,7 @@ import com.controllerface.edeps.*;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.commander.ShipStatisticData;
+import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
@@ -29,6 +30,7 @@ import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.controllerface.edeps.threads.UserTransaction;
 import com.controllerface.edeps.ui.procurements.ProcurementListCell;
 import com.controllerface.edeps.ui.procurements.ProcurementTreeCell;
+import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -168,8 +170,7 @@ public class UIController
     private ObservableList<ProcurementTaskData> procSelectorBackingList = FXCollections.observableArrayList();
 
     // The observable list backing the task list table view
-    private ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableArrayList();
-
+    private final ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableArrayList();
 
 
     /*
@@ -185,55 +186,107 @@ public class UIController
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> procurementListUpdate =
             (adjustment, recipe)->
             {
-                Pair<ProcurementRecipeData, Integer> recipePair = IntStream.range(0,taskBackingList.size())
-                        .filter(i->taskBackingList.get(i).asPair().equals(recipe))
-                        .mapToObj(i->new Pair<>(taskBackingList.get(i),i))
-                        .findFirst().orElse(null);
-
-                ProcurementRecipeData data;
-                int index;
-
-                if (recipePair == null)
+                // because this can be called asynchronously and there's math involved, best to synchronize
+                // so the counts don't get messed up
+                synchronized (taskBackingList)
                 {
-                    // it may be possible to get and adjustment for a module the user has manually already removed from
-                    // the list. If this occurs, we just return -1 as a proxy for "nothing to adjust"
-                    if (adjustment <= 0) return -1;
-                    else
+                    // find the task we need to adjust
+                    ProcurementRecipeData data = taskBackingList.stream()
+                            .filter(task -> task.matches(recipe))
+                            .findFirst().orElse(null);
+
+                    // if this happens, we don't currently have this task in the list, so we need to determine what to
+                    // do next based on the adjustment amount
+                    if (data == null)
                     {
-                        data = new ProcurementRecipeData(recipe.getKey(), recipe.getValue(), 0);
-                        index = -1;
+                        // this this was a 0 adjustment or negative, just return -1 indicating the task is not present
+                        if (adjustment <= 0) return -1;
+
+                        // otherwise, this is an indication that we should add this new task to the list, so we create
+                        // a new one, and initialize the count to zero, as the actual adjustment logic can then work
+                        // the same for new and existing tasks
+                        else
+                        {
+                            data = new ProcurementRecipeData(recipe.getKey(), recipe.getValue(), 0);
+                            taskBackingList.add(data);
+
+                            // initialize the costs as well, if they are not already present in the cost list. It is
+                            // critical to ensure a new item is added ONLY if it's not already present, which is
+                            // possible if another task requires some amount of the same material as this one.
+                            // Otherwise, duplicate entries will end up in the list
+                            recipe.getValue().costStream()
+                                    .map(CostData::getCost)
+                                    .filter(taskCost->!taskCostBackingList.stream()
+                                            .filter(c->c.getCost().equals(taskCost))
+                                            .findFirst().isPresent())
+                                    .forEach(taskCost->
+                                    {
+                                        ItemCostData newItem = new ItemCostData(taskCost, this.commanderData::hasItem);
+                                        taskCostBackingList.add(newItem);
+                                    });
+                        }
                     }
+
+                    // grab the count before adjustment so we can tell how much the final adjustment actually was
+                    int oldCount = data.getCount();
+
+                    // here we do a quick sanity count, in case the count is already at the maximum. if that's the case,
+                    // we will not adjust further, just return the count
+                    if (oldCount == 999) return oldCount;
+
+                    // now, we can continue with the adjustment.
+                    int newCount = oldCount + adjustment;
+
+                    // We max out at 999, just because the UI will get weird and it's unlikely anyone will want/need
+                    // anywhere near that many tasks of a given type. If the adjustment would bring the value over that
+                    // maximum, we'll clamp it.
+                    if (newCount > 999) newCount = 999;
+
+                    // just in case, we also need to check that the adjustment would bring the count below zero. if that
+                    // would occur, we clamp the new count to 0
+                    if (newCount < 0) newCount = 0;
+
+                    // now we ACTUALLY set the new count, performing the adjustment
+                    data.setCount(newCount);
+
+                    // to make sure we've cleaned everything up, if the new count became 0, remove the task
+                    if (newCount == 0) taskBackingList.remove(data);
+
+                    // figure out what the difference was, we'll need this to calculate the cost adjustment
+                    int diff = newCount - oldCount;
+
+                    // now we need to calculate the cost adjustments that this task adjustment requires. To do this,
+                    // we find all the costs of this recipe, and multiply the required cost by the difference of the
+                    // task adjustment
+                    List<CostData> costAdjustments = recipe.getValue().costStream()
+                            .map(taskCost -> new CostData(taskCost.getCost(), taskCost.getQuantity() * diff))
+                            .collect(Collectors.toList());
+
+                    // loop through the cost list and make the actual adjustments, and then collect the adjusted
+                    // costs so we can check for any that need to be removed after adjustment
+                    List<ItemCostData> toRemove = taskCostBackingList.stream()
+                            .filter(costToAdjust -> costAdjustments.stream()
+                                    .filter(costToAdjust::matches)
+                                    .findAny().isPresent())
+                            .peek(costToAdjust ->
+                            {
+                                CostData toAdjust = costAdjustments.stream()
+                                        .filter(costToAdjust::matches)
+                                        .findFirst().get();
+                                costToAdjust.setCount(costToAdjust.getCount() + toAdjust.getQuantity());
+                            })
+                            .filter(adjustedCost -> adjustedCost.getCount() <= 0)
+                            .collect(Collectors.toList());
+
+                    taskCostBackingList.removeAll(toRemove);
+
+                    syncUI();
+
+                    procurementTaskTable.refresh();
+                    taskCostTable.refresh();
+
+                    return newCount;
                 }
-                else
-                {
-                    data = recipePair.getKey();
-                    index = recipePair.getValue();
-                }
-
-                // max out at 999, just because the UI will get weird and it's unlikely anyone will want/need anywhere
-                // need that many tasks of a given type. If someone ever does, well... tough.
-                int val = data.getCount() + adjustment;
-                if (val > 999) val = 999;
-
-                data.setCount(val);
-
-                // todo: this scenario where we get the item by index from the tracking list and then set it again
-                // by the same index is a bit of a hack. It'd probably no better than manually calling refresh() on
-                // list view, which is wasteful. Eventually, the backing list should be converted to use a "property
-                // extractor" which is supposed to be perform better.
-                if (index == -1) taskBackingList.add(data);
-                else taskBackingList.set(index, data);
-
-                dothis(data);
-                syncUI();
-
-                if (val <= 0)
-                {
-                    val = 0;
-                    taskBackingList.remove(data);
-                }
-
-                return val;
             };
 
     private void dothis(ProcurementRecipeData recipeData)
@@ -276,6 +329,8 @@ public class UIController
                 .collect(Collectors.toList());
 
         taskCostBackingList.removeAll(toRemove);
+
+        taskCostTable.refresh();
     }
 
     /*
@@ -403,18 +458,24 @@ public class UIController
         manufacturedMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
         manufacturedQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         manufacturedQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
+        manufacturedQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
+
 
         dataCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
         dataGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
         dataMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
         dataQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         dataQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
+        dataQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
+
 
         cargoCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
         cargoGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
         cargoItemColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
         cargoQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         cargoQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
+        cargoQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
+
     }
 
     private void initializeShipLoadoutTables()
@@ -459,14 +520,8 @@ public class UIController
         procurementTaskTable.setItems(taskBackingList);
         taskCostTable.setItems(taskCostBackingList);
 
-        // todo: investigate alternatives to forcing refresh, but if they are too fiddly don't bother
-        taskCostBackingList.addListener((ListChangeListener<ItemCostData>) c -> taskCostTable.refresh());
-
-
         initializeInventoryTables();
         initializeShipLoadoutTables();
-
-
 
         taskCountColumn.setCellFactory(UIFunctions.Data.makeModRollCellFactory.apply(procurementListUpdate));
         taskCountColumn.setCellValueFactory(UIFunctions.Data.modRollCellValueFactory);
@@ -571,6 +626,81 @@ public class UIController
         hardpointDataColumn.prefWidthProperty()
                 .bind(hardpointList.widthProperty()
                         .subtract(shipTable3WidthUsed));
+
+
+        // fix ugly selection stuff
+
+
+        procurementTree.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> procurementTree.getSelectionModel().clearSelection());
+        });
+
+        procurementList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> procurementList.getSelectionModel().clearSelection());
+        });
+
+        rawTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> rawTable.getSelectionModel().clearSelection());
+        });
+
+        manufacturedTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> manufacturedTable.getSelectionModel().clearSelection());
+        });
+
+        dataTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> dataTable.getSelectionModel().clearSelection());
+        });
+
+        cargoTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> cargoTable.getSelectionModel().clearSelection());
+        });
+
+        procurementTaskTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> procurementTaskTable.getSelectionModel().clearSelection());
+        });
+
+        taskCostTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> taskCostTable.getSelectionModel().clearSelection());
+        });
+
+        statTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> statTable.getSelectionModel().clearSelection());
+        });
+
+        shipStatisticsTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> shipStatisticsTable.getSelectionModel().clearSelection());
+        });
+
+        coreModuleList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> coreModuleList.getSelectionModel().clearSelection());
+        });
+
+        optionalModuleList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> optionalModuleList.getSelectionModel().clearSelection());
+        });
+
+        hardpointList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
+        {
+            Platform.runLater(() -> hardpointList.getSelectionModel().clearSelection());
+        });
+
+
+
+
+
+
     }
 
     private TreeItem<ProcurementTaskData> makeSynthesisTree()
@@ -790,6 +920,8 @@ public class UIController
 
         statTable.getItems().clear();
 
+        sortTaskTable();
+
         if (taskCostTable.getItems().size() > 0)
         {
             taskCostTable.getItems().sort((a, b)->
@@ -823,8 +955,6 @@ public class UIController
                 .forEach(pair -> statTable.getItems().add(pair));
 
         setProcurementsUIVisibility();
-
-        //taskCostTable.refresh();
 
         statTable.refresh();
     }

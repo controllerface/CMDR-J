@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -30,41 +31,52 @@ public class ModuleDisplayCell extends TableCell<ShipModuleData, ShipModuleData>
             ModificationBlueprint m = item.getModificationBlueprint();
             ExperimentalRecipe e = item.getExperimentalEffectName();
 
+            HBox nameBox = new HBox();
+
             String t = item.getModule().displayText();
+//                    + (m == null ? "" : " :: " + m.toString() + " :: Grade " + item.getLevel())
+//                    + (e == null ? "" : " :: " + e.getDisplayLabel());
 
             Label module = new Label(t);
             module.setFont(UIFunctions.Fonts.size3Font);
-            modBox.getChildren().add(module);
+
+            nameBox.getChildren().add(module);
+            modBox.getChildren().add(nameBox);
 
             if (m != null)
             {
-                Label modification = new Label(m.toString() + " :: Grade " + item.getLevel() + " :: " + item.getQuality());
+                //Label modification = new Label(" :: " + m.toString() + " :: Grade " + item.getLevel() + " :: " + item.getQuality());
+                Label modification = new Label(" :: " + m.toString());
                 modification.setFont(UIFunctions.Fonts.size3Font);
                 modification.setTextFill(UIFunctions.Fonts.standardOrange);
-                modBox.getChildren().add(modification);
+                nameBox.getChildren().add(modification);
+
+                //modBox.getChildren().add(modification);
             }
 
             if (e != null)
             {
-                Label special = new Label(e.getDisplayLabel());
+                Label special = new Label(" :: " + e.getDisplayLabel());
                 special.setFont(UIFunctions.Fonts.size3Font);
-                special.setBackground(new Background(new BackgroundFill(UIFunctions.Fonts.specialYellow, null, null)));
-                modBox.getChildren().add(special);
+                special.setTextFill(UIFunctions.Fonts.specialYellow);
+                nameBox.getChildren().add(special);
+
+                //modBox.getChildren().add(special);
             }
 
-            item.getModifiers().stream()
-                    .map(modifier ->
-                    {
-                        String vals = modifier.getValue() + " (" + modifier.getOriginalValue() + ")";
-                        Label label = new Label(modifier.getEffect().name() + " :: " + vals);
-                        boolean isLess = Double.compare(modifier.getValue(), modifier.getOriginalValue()) < 0;
-                        boolean isGood = modifier.isLessIsGood() == isLess;
-                        if (isGood) label.setTextFill(UIFunctions.Fonts.positiveBlue);
-                        else label.setTextFill(UIFunctions.Fonts.negativeRed);
-                        return label;
-                    })
-                    .peek(label -> label.setFont(UIFunctions.Fonts.size3Font))
-                    .forEach(label -> modBox.getChildren().add(label));
+//            item.getModifiers().stream()
+//                    .map(modifier ->
+//                    {
+//                        String vals = modifier.getValue() + " (" + modifier.getOriginalValue() + ")";
+//                        Label label = new Label(modifier.getEffect().name() + " :: " + vals);
+//                        boolean isLess = Double.compare(modifier.getValue(), modifier.getOriginalValue()) < 0;
+//                        boolean isGood = modifier.isLessIsGood() == isLess;
+//                        if (isGood) label.setTextFill(UIFunctions.Fonts.positiveBlue);
+//                        else label.setTextFill(UIFunctions.Fonts.negativeRed);
+//                        return label;
+//                    })
+//                    .peek(label -> label.setFont(UIFunctions.Fonts.size3Font))
+//                    .forEach(label -> modBox.getChildren().add(label));
 
             setGraphic(modBox);
         }

@@ -587,7 +587,7 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
     @Override
     public String getShortLabel()
     {
-        return "Grade " + grade.toString();
+        return grade.toString();
     }
 
     @Override

@@ -7,8 +7,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -50,6 +52,12 @@ public class ProcurementTreeCell extends TreeCell<ProcurementTaskData>
                         .map(recipe -> new ProcurementTaskData(thisItem.getType(), recipe))
                         .forEach(outputList::add);
             }
+
+            else
+            {
+                boolean toggle = !this.getTreeItem().expandedProperty().get();
+                this.getTreeItem().setExpanded(toggle);
+            }
         });
     }
 
@@ -66,11 +74,15 @@ public class ProcurementTreeCell extends TreeCell<ProcurementTaskData>
         }
         else thisItem = item;
 
+
+
         Text text = new Text(item.toString());
         if (this.getTreeItem().isLeaf())
         {
             text.underlineProperty().setValue(true);
+            text.setCursor(Cursor.HAND);
         }
+        else text.setCursor(Cursor.OPEN_HAND);
         text.setFont(UIFunctions.Fonts.size3Font);
         setGraphic(text);
         this.paddingProperty().setValue(new Insets(5,5,5,5));

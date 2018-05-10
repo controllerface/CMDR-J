@@ -10,6 +10,16 @@ import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalBlueprint;
+import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
+import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
+import com.controllerface.edeps.structures.craftable.modifications.ModificationRecipe;
+import com.controllerface.edeps.structures.craftable.modifications.WeaponModificationRecipe;
+import com.controllerface.edeps.structures.craftable.synthesis.SynthesisBlueprint;
+import com.controllerface.edeps.structures.craftable.synthesis.SynthesisCategory;
+import com.controllerface.edeps.structures.craftable.synthesis.SynthesisRecipe;
+import com.controllerface.edeps.structures.craftable.technologies.TechnologyBlueprint;
+import com.controllerface.edeps.structures.craftable.technologies.TechnologyRecipe;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.commodities.CommodityCategory;
@@ -32,18 +42,24 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
+import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class stores several stateless functions and utility objects that are used to build or modify the GUI. These
@@ -126,23 +142,23 @@ public class UIFunctions
                     int maximum;
                     switch (grade)
                     {
-                        case GRADE_1:
+                        case VERY_COMMON:
                             maximum = 300;
                             break;
 
-                        case GRADE_2:
+                        case COMMON:
                             maximum = 250;
                             break;
 
-                        case GRADE_3:
+                        case STANDARD:
                             maximum = 200;
                             break;
 
-                        case GRADE_4:
+                        case RARE:
                             maximum = 150;
                             break;
 
-                        case GRADE_5:
+                        case VERY_RARE:
                             maximum = 100;
                             break;
 
@@ -195,22 +211,113 @@ public class UIFunctions
                     titledPane.alignmentProperty().set(Pos.CENTER_LEFT);
 
 
-                    String associated = materialData.getValue().getItem().getAssociated().stream()
-                            .map(ProcurementRecipe::getDisplayLabel)
-                            .distinct()
-                            .collect(Collectors.joining("\n"));
+                    List<ProcurementRecipe> syns = new ArrayList<>();
+                    List<ProcurementRecipe> mods = new ArrayList<>();
+                    List<ProcurementRecipe> spec = new ArrayList<>();
+                    List<ProcurementRecipe> weap = new ArrayList<>();
+                    List<ProcurementRecipe> tech = new ArrayList<>();
 
-                    if (!associated.isEmpty())
+
+                    materialData.getValue().getItem().getAssociated().stream()
+                            .forEach(i->
+                            {
+                                if (i instanceof SynthesisRecipe) syns.add(i);
+                                if (i instanceof ModificationRecipe) mods.add(i);
+                                if (i instanceof ExperimentalRecipe) spec.add(i);
+                                if (i instanceof WeaponModificationRecipe) weap.add(i);
+                                if (i instanceof TechnologyRecipe) tech.add(i);
+                            });
+
+//                    Arrays.stream(SynthesisBlueprint.values())
+//                            .flatMap(SynthesisBlueprint::recipeStream)
+//                            .filter(syns::contains)
+//                            .map(ProcurementRecipe::getDisplayLabel)
+//                            .collect(Collectors.joining("\n", "Synthesis:\n", "\n\n"))
+
+
+                    Function<String, String> f = (s)->
                     {
-                        Separator separator = new Separator();
-                        locationContainer.getChildren().add(separator);
+                        int i = s.lastIndexOf("_");
+                        if (i == -1) return s;
+                        String r = s.substring(0,i).replace("_"," ");
+                        if (r.startsWith("Sensor") && !"Sensor".equals(r)) r = r.replace("Sensor ","");
+                        r = Arrays.stream(r.split("(?=\\p{Lu})")).collect(Collectors.joining(" "));
+                        return r;
+                    };
 
-                        Label label1 = new Label(associated);
-                        label1.setFont(Fonts.size1Font);
+                    String synthesis = Arrays.stream(SynthesisBlueprint.values())
+                            .flatMap(blueprint-> blueprint.recipeStream()
+                                    .filter(syns::contains)
+                                    .distinct()
+                                    .map(r -> blueprint.name() + " :: " + r.getGrade())
+                                    .map(s -> s.replace("_", " ")))
+                            .collect(Collectors.joining("\n"));
+                    synthesis = synthesis.isEmpty() ? "" : "\nSynthesis:\n" + synthesis;
 
+                    String modifications = Arrays.stream(ModificationBlueprint.values())
+                            .flatMap(blueprint-> blueprint.recipeStream()
+                                    .filter(recipe -> mods.contains(recipe) || weap.contains(recipe))
+                                    .distinct()
+                                    .map(r->f.apply(blueprint.name()) + " :: " + r.getDisplayLabel()))
+                            .collect(Collectors.joining("\n"));
+                    modifications = modifications.isEmpty() ? "" : "\n\nModifications:\n" + modifications;
+
+                    String experimentals = Arrays.stream(ExperimentalBlueprint.values())
+                            .flatMap(blueprint-> blueprint.recipeStream()
+                                    .filter(spec::contains)
+                                    .distinct()
+                                    .map(r -> blueprint.name() + " :: " + r.getDisplayLabel())
+                                    .map(s -> s.replace("_", " ")))
+                            .collect(Collectors.joining("\n"));
+                    experimentals = experimentals.isEmpty() ? "" : "\n\nExperimental Effects:\n" + experimentals;
+
+                    String technology = Arrays.stream(TechnologyBlueprint.values())
+                            .flatMap(blueprint-> blueprint.recipeStream()
+                                    .filter(tech::contains)
+                                    .distinct()
+                                    .map(r -> blueprint.name() + " :: " + r.getShortLabel())
+                                    .map(s -> s.replace("_", " ")))
+                            .collect(Collectors.joining("\n"));
+                    technology = technology.isEmpty() ? "" : "\n\nTech Broker Unlocks:\n" + technology;
+
+
+                    String associated = synthesis + modifications + experimentals + technology;
+
+                    Separator separator = new Separator();
+                    separator.paddingProperty().set(new Insets(5,0,5,0));
+                    locationContainer.getChildren().add(separator);
+
+                    Label label1 = new Label(associated.trim());
+
+                    if (associated.isEmpty())
+                    {
+                        label1.setText("No Known Crafting Uses");
                         locationContainer.getChildren().add(label1);
 
                     }
+                    else
+                    {
+                        TitledPane pane = new TitledPane();
+                        VBox vBox = new VBox();
+                        HBox hBox = new HBox();
+                        hBox.getChildren().add(label1);
+                        vBox.getChildren().add(pane);
+                        vBox.alignmentProperty().set(Pos.CENTER_LEFT);
+                        pane.setAnimated(false);
+
+                        label1.setText(associated.trim());
+                        pane.setContent(hBox);
+                        Label useLabel = new Label("Known Crafting Uses");
+                        useLabel.setFont(Fonts.size1Font);
+                        pane.setGraphic(useLabel);
+                        pane.setExpanded(false);
+                        locationContainer.getChildren().add(vBox);
+                        locationContainer.setAlignment(Pos.CENTER_LEFT);
+                    }
+
+
+
+                    label1.setFont(Fonts.size1Font);
 
 
                     return new ReadOnlyObjectWrapper<>(descriptionContainer);
