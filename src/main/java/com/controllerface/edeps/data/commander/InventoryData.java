@@ -1,5 +1,6 @@
 package com.controllerface.edeps.data.commander;
 
+import com.controllerface.edeps.ProcurementCategory;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.structures.costs.materials.MaterialCategory;
 
@@ -11,7 +12,7 @@ import com.controllerface.edeps.structures.costs.materials.MaterialCategory;
  */
 public class InventoryData
 {
-    private final String category;
+    private final ProcurementCategory category;
     private int quantity;
 
     private final ProcurementCost material;
@@ -21,7 +22,7 @@ public class InventoryData
         this.material = material;
 
         // todo: stop needing category here, do a runtime lookup instead
-        this.category = MaterialCategory.findMatchingCategory(material).toString();
+        this.category = MaterialCategory.findMatchingCategory(material);
 
         this.quantity = quantity;
     }
@@ -32,7 +33,7 @@ public class InventoryData
         return material + " : " + quantity;
     }
 
-    public String getCategory()
+    public ProcurementCategory getCategory()
     {
         return category;
     }

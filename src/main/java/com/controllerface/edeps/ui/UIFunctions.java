@@ -90,7 +90,7 @@ public class UIFunctions
         static final double size3 = baseFont.getSize() + (baseFont.getSize() / 3);
         static final double size4 = baseFont.getSize() + (baseFont.getSize() / 2);
 
-        static final Font size1Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size1);
+        public static final Font size1Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size1);
         public static final Font size2Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size2);
         public static final Font size3Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size3);
         public static final Font size4Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size4);
@@ -131,197 +131,9 @@ public class UIFunctions
                     return new ReadOnlyObjectWrapper<>(hBox);
                 };
 
-        static final Callback<TableColumn.CellDataFeatures<InventoryData, VBox>, ObservableValue<VBox>>
-                inventoryItemCellFactory =
-                (materialData) ->
-                {
-                    String materialName = materialData.getValue().getItem().getLocalizedName();
+        static final Callback<TableColumn.CellDataFeatures<InventoryData, InventoryData>, ObservableValue<InventoryData>>
+                inventoryItemCellFactory = (materialData) -> new ReadOnlyObjectWrapper<>(materialData.getValue());
 
-                    ItemGrade grade = materialData.getValue().getItem().getGrade();
-
-                    int maximum;
-                    switch (grade)
-                    {
-                        case VERY_COMMON:
-                            maximum = 300;
-                            break;
-
-                        case COMMON:
-                            maximum = 250;
-                            break;
-
-                        case STANDARD:
-                            maximum = 200;
-                            break;
-
-                        case RARE:
-                            maximum = 150;
-                            break;
-
-                        case VERY_RARE:
-                            maximum = 100;
-                            break;
-
-                        default:
-                            maximum = -1;
-                            break;
-                    }
-
-                    int quantity = materialData.getValue().getQuantity();
-
-
-                    VBox descriptionContainer = new VBox();
-                    Accordion accordion = new Accordion();
-                    TitledPane titledPane = new TitledPane();
-                    titledPane.setAnimated(false);
-                    descriptionContainer.getChildren().add(accordion);
-                    accordion.getPanes().add(titledPane);
-                    descriptionContainer.setAlignment(Pos.CENTER_LEFT);
-
-                    Label label = new Label(materialName);
-                    HBox labelBox = new HBox();
-                    labelBox.alignmentProperty().set(Pos.CENTER);
-
-                    if (maximum > 0)
-                    {
-                        ProgressBar progressBar = new ProgressBar();
-                        double progress = ((double) quantity / (double)maximum);
-                        progressBar.setProgress(progress);
-                        progressBar.setStyle("-fx-accent: #ff7100");
-                        labelBox.getChildren().add(progressBar);
-                    }
-
-                    VBox locationContainer = new VBox();
-
-                    label.setFont(Fonts.size2Font);
-                    label.setPadding(new Insets(0,0,0,10));
-                    label.alignmentProperty().set(Pos.CENTER_LEFT);
-                    labelBox.getChildren().add(label);
-                    labelBox.alignmentProperty().set(Pos.CENTER_LEFT);
-
-
-
-
-                    Label locationLabel = new Label(materialData.getValue().getItem().getLocationInformation());
-                    locationLabel.setFont(Fonts.size1Font);
-                    locationLabel.alignmentProperty().set(Pos.CENTER_LEFT);
-                    locationContainer.getChildren().add(locationLabel);
-                    titledPane.setGraphic(labelBox);
-                    titledPane.setContent(locationContainer);
-                    titledPane.alignmentProperty().set(Pos.CENTER_LEFT);
-
-
-                    List<ProcurementRecipe> syns = new ArrayList<>();
-                    List<ProcurementRecipe> mods = new ArrayList<>();
-                    List<ProcurementRecipe> spec = new ArrayList<>();
-                    List<ProcurementRecipe> weap = new ArrayList<>();
-                    List<ProcurementRecipe> tech = new ArrayList<>();
-
-
-                    materialData.getValue().getItem().getAssociated().stream()
-                            .forEach(i->
-                            {
-                                if (i instanceof SynthesisRecipe) syns.add(i);
-                                if (i instanceof ModificationRecipe) mods.add(i);
-                                if (i instanceof ExperimentalRecipe) spec.add(i);
-                                if (i instanceof WeaponModificationRecipe) weap.add(i);
-                                if (i instanceof TechnologyRecipe) tech.add(i);
-                            });
-
-//                    Arrays.stream(SynthesisBlueprint.values())
-//                            .flatMap(SynthesisBlueprint::recipeStream)
-//                            .filter(syns::contains)
-//                            .map(ProcurementRecipe::getDisplayLabel)
-//                            .collect(Collectors.joining("\n", "Synthesis:\n", "\n\n"))
-
-
-                    Function<String, String> f = (s)->
-                    {
-                        int i = s.lastIndexOf("_");
-                        if (i == -1) return s;
-                        String r = s.substring(0,i).replace("_"," ");
-                        if (r.startsWith("Sensor") && !"Sensor".equals(r)) r = r.replace("Sensor ","");
-                        r = Arrays.stream(r.split("(?=\\p{Lu})")).collect(Collectors.joining(" "));
-                        return r;
-                    };
-
-                    String synthesis = Arrays.stream(SynthesisBlueprint.values())
-                            .flatMap(blueprint-> blueprint.recipeStream()
-                                    .filter(syns::contains)
-                                    .distinct()
-                                    .map(r -> blueprint.name() + " :: " + r.getGrade())
-                                    .map(s -> s.replace("_", " ")))
-                            .collect(Collectors.joining("\n"));
-                    synthesis = synthesis.isEmpty() ? "" : "\nSynthesis:\n" + synthesis;
-
-                    String modifications = Arrays.stream(ModificationBlueprint.values())
-                            .flatMap(blueprint-> blueprint.recipeStream()
-                                    .filter(recipe -> mods.contains(recipe) || weap.contains(recipe))
-                                    .distinct()
-                                    .map(r->f.apply(blueprint.name()) + " :: " + r.getDisplayLabel()))
-                            .collect(Collectors.joining("\n"));
-                    modifications = modifications.isEmpty() ? "" : "\n\nModifications:\n" + modifications;
-
-                    String experimentals = Arrays.stream(ExperimentalBlueprint.values())
-                            .flatMap(blueprint-> blueprint.recipeStream()
-                                    .filter(spec::contains)
-                                    .distinct()
-                                    .map(r -> blueprint.name() + " :: " + r.getDisplayLabel())
-                                    .map(s -> s.replace("_", " ")))
-                            .collect(Collectors.joining("\n"));
-                    experimentals = experimentals.isEmpty() ? "" : "\n\nExperimental Effects:\n" + experimentals;
-
-                    String technology = Arrays.stream(TechnologyBlueprint.values())
-                            .flatMap(blueprint-> blueprint.recipeStream()
-                                    .filter(tech::contains)
-                                    .distinct()
-                                    .map(r -> blueprint.name() + " :: " + r.getShortLabel())
-                                    .map(s -> s.replace("_", " ")))
-                            .collect(Collectors.joining("\n"));
-                    technology = technology.isEmpty() ? "" : "\n\nTech Broker Unlocks:\n" + technology;
-
-
-                    String associated = synthesis + modifications + experimentals + technology;
-
-                    Separator separator = new Separator();
-                    separator.paddingProperty().set(new Insets(5,0,5,0));
-                    locationContainer.getChildren().add(separator);
-
-                    Label label1 = new Label(associated.trim());
-
-                    if (associated.isEmpty())
-                    {
-                        label1.setText("No Known Crafting Uses");
-                        locationContainer.getChildren().add(label1);
-
-                    }
-                    else
-                    {
-                        TitledPane pane = new TitledPane();
-                        VBox vBox = new VBox();
-                        HBox hBox = new HBox();
-                        hBox.getChildren().add(label1);
-                        vBox.getChildren().add(pane);
-                        vBox.alignmentProperty().set(Pos.CENTER_LEFT);
-                        pane.setAnimated(false);
-
-                        label1.setText(associated.trim());
-                        pane.setContent(hBox);
-                        Label useLabel = new Label("Known Crafting Uses");
-                        useLabel.setFont(Fonts.size1Font);
-                        pane.setGraphic(useLabel);
-                        pane.setExpanded(false);
-                        locationContainer.getChildren().add(vBox);
-                        locationContainer.setAlignment(Pos.CENTER_LEFT);
-                    }
-
-
-
-                    label1.setFont(Fonts.size1Font);
-
-
-                    return new ReadOnlyObjectWrapper<>(descriptionContainer);
-                };
 
         static final Callback<TableColumn.CellDataFeatures<InventoryData, Label>, ObservableValue<Label>>
                 inventoryQuantityCellFactory =
@@ -473,16 +285,16 @@ public class UIFunctions
                         : 1;
 
         // sort InventoryData objects alphabetically, by category
-        static final Comparator<InventoryData> costByCategory =
-                Comparator.comparing(InventoryData::getCategory);
+        static final Comparator<InventoryData> itemByCategory =
+                Comparator.comparingInt(a -> a.getCategory().getNumericalValue());
 
         // sort InventoryData objects numerically by grade, lowest to highest
-        static final Comparator<InventoryData> materialByGrade =
-                (a,b) -> a.getItem().getGrade().getNumericalValue() - b.getItem().getGrade().getNumericalValue();
+        static final Comparator<InventoryData> itemByGrade =
+                Comparator.comparingInt(a -> a.getItem().getGrade().getNumericalValue());
 
         // sort InventoryData objects numerically by count, highest to lowest
-        static final Comparator<InventoryData> cargoByCount =
-                (a, b) -> b.getQuantity() - a.getQuantity();
+        static final Comparator<InventoryData> itemByCount =
+                Comparator.comparingInt(InventoryData::getQuantity).reversed();
 
         // used for Label objects that are actually just string representations of Integer values. Will sort them
         // numerically lowest to highest

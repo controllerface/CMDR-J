@@ -11,7 +11,9 @@ import java.util.stream.Stream;
  */
 public enum CommodityCategory implements ProcurementCategory
 {
-    Chemicals(Commodity.EXPLOSIVES,
+    Drones(0, Commodity.DRONES),
+
+    Chemicals(1, Commodity.EXPLOSIVES,
             Commodity.HYDROGENFUEL,
             Commodity.HYDROGENPEROXIDE,
             Commodity.LIQUIDOXYGEN,
@@ -27,7 +29,7 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.MEDBSTARLUBE,
             Commodity.TOXANDJIVIROCIDE),
 
-    Consumer_Items(Commodity.CLOTHING,
+    Consumer_Items(2, Commodity.CLOTHING,
             Commodity.CONSUMERTECHNOLOGY,
             Commodity.DOMESTICAPPLIANCES,
             Commodity.EVACUATIONSHELTER,
@@ -60,42 +62,7 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.VIDAVANTIANLACE,
             Commodity.ZEESSZEANTGRUBGLUE),
 
-    Legal_Drugs(Commodity.BEER,
-            Commodity.BOOTLEGLIQUOR,
-            Commodity.LIQUOR,
-            Commodity.NARCOTICS,
-            Commodity.TOBACCO,
-            Commodity.WINE,
-            Commodity.BASTSNAKEGIN,
-            Commodity.BURNHAMBILEDISTILLATE,
-            Commodity.CENTAURIMEGAGIN,
-            Commodity.CHATEAUDEAEGAEON,
-            Commodity.CROMSILVERFESH,
-            Commodity.ERANINPEARLWHISKEY,
-            Commodity.GEAWENDANCEDUST,
-            Commodity.GERASIANGUEUZEBEER,
-            Commodity.HARMASILVERSEARUM,
-            Commodity.INDIBOURBON,
-            Commodity.KAMITRACIGARS,
-            Commodity.KONGGAALE,
-            Commodity.LAVIANBRANDY,
-            Commodity.LEESTIANEVILJUICE,
-            Commodity.LUCANONIONHEAD,
-            Commodity.LYRAEWEED,
-            Commodity.MOTRONAEXPERIENCEJELLY,
-            Commodity.ONIONHEAD,
-            Commodity.ONIONHEADALPHASTRAIN,
-            Commodity.ONIONHEADBETASTRAIN,
-            Commodity.PAVONISEARGRUBS,
-            Commodity.RUSANIOLDSMOKEY,
-            Commodity.SAXONWINE,
-            Commodity.TARACHSPICE,
-            Commodity.THRUTISCREAM,
-            Commodity.WOLFFESH,
-            Commodity.WUTHIELOKUFROTH,
-            Commodity.YASOKONDILEAF),
-
-    Foods(Commodity.ALGAE,
+    Foods(3, Commodity.ALGAE,
             Commodity.ANIMALMEAT,
             Commodity.COFFEE,
             Commodity.FISH,
@@ -146,7 +113,7 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.WITCHHAULKOBEBEEF,
             Commodity.ETHGREZETEABUDS),
 
-    Industrial_Materials(Commodity.CERAMICCOMPOSITES,
+    Industrial_Materials(4, Commodity.CERAMICCOMPOSITES,
             Commodity.CMMCOMPOSITE,
             Commodity.INSULATINGMEMBRANE,
             Commodity.METAALLOYS,
@@ -156,7 +123,42 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.SEMICONDUCTORS,
             Commodity.SUPERCONDUCTORS),
 
-    Machinery(Commodity.ARTICULATIONMOTORS,
+    Legal_Drugs(5, Commodity.BEER,
+            Commodity.BOOTLEGLIQUOR,
+            Commodity.LIQUOR,
+            Commodity.NARCOTICS,
+            Commodity.TOBACCO,
+            Commodity.WINE,
+            Commodity.BASTSNAKEGIN,
+            Commodity.BURNHAMBILEDISTILLATE,
+            Commodity.CENTAURIMEGAGIN,
+            Commodity.CHATEAUDEAEGAEON,
+            Commodity.CROMSILVERFESH,
+            Commodity.ERANINPEARLWHISKEY,
+            Commodity.GEAWENDANCEDUST,
+            Commodity.GERASIANGUEUZEBEER,
+            Commodity.HARMASILVERSEARUM,
+            Commodity.INDIBOURBON,
+            Commodity.KAMITRACIGARS,
+            Commodity.KONGGAALE,
+            Commodity.LAVIANBRANDY,
+            Commodity.LEESTIANEVILJUICE,
+            Commodity.LUCANONIONHEAD,
+            Commodity.LYRAEWEED,
+            Commodity.MOTRONAEXPERIENCEJELLY,
+            Commodity.ONIONHEAD,
+            Commodity.ONIONHEADALPHASTRAIN,
+            Commodity.ONIONHEADBETASTRAIN,
+            Commodity.PAVONISEARGRUBS,
+            Commodity.RUSANIOLDSMOKEY,
+            Commodity.SAXONWINE,
+            Commodity.TARACHSPICE,
+            Commodity.THRUTISCREAM,
+            Commodity.WOLFFESH,
+            Commodity.WUTHIELOKUFROTH,
+            Commodity.YASOKONDILEAF),
+
+    Machinery(6, Commodity.ARTICULATIONMOTORS,
             Commodity.ATMOSPHERICPROCESSORS,
             Commodity.BUILDINGFABRICATORS,
             Commodity.CROPHARVESTERS,
@@ -184,7 +186,7 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.VOLKHABBEEDRONES,
             Commodity.WULPAHYPERBORESYSTEMS),
 
-    Medicines(Commodity.ADVANCEDMEDICINES,
+    Medicines(7, Commodity.ADVANCEDMEDICINES,
             Commodity.AGRIMEDICINES,
             Commodity.BASICMEDICINES,
             Commodity.COMBATSTABILISERS,
@@ -200,7 +202,7 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.VEGASLIMWEED,
             Commodity.WATERSOFSHINTARA),
 
-    Metals(Commodity.ALUMINIUM,
+    Metals(8, Commodity.ALUMINIUM,
             Commodity.BERYLLIUM,
             Commodity.BISMUTH,
             Commodity.COBALT,
@@ -228,7 +230,7 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.NGADANDARIFIREOPALS,
             Commodity.SOTHISCRYSTALLINEGOLD),
 
-    Minerals(Commodity.BAUXITE,
+    Minerals(9, Commodity.BAUXITE,
             Commodity.BERTRANDITE,
             Commodity.BROMELLITE,
             Commodity.COLTAN,
@@ -249,7 +251,7 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.TAAFFEITE,
             Commodity.URANINITE),
 
-    Salvage(Commodity.AIRELICS,
+    Salvage(10, Commodity.AIRELICS,
             Commodity.USSCARGOANCIENTARTEFACT,
             Commodity.ANCIENTCASKET,
             Commodity.ANCIENTORB,
@@ -312,11 +314,11 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.GALACTICTRAVELGUIDES,
             Commodity.PERSONALGIFTS),
 
-    Slaves(Commodity.IMPERIALSLAVES,
+    Slaves(11, Commodity.IMPERIALSLAVES,
             Commodity.SLAVES,
             Commodity.MASTERCHEFS),
 
-    Technology(Commodity.ADVANCEDCATALYSERS,
+    Technology(12, Commodity.ADVANCEDCATALYSERS,
             Commodity.ANIMALMONITORS,
             Commodity.AQUAPONICSYSTEMS,
             Commodity.AUTOFABRICATORS,
@@ -337,7 +339,7 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.AZCANCRIFORMULA42,
             Commodity.XIHEBIOMORPHICCOMPANIONS),
 
-    Textiles(Commodity.CONDUCTIVEFABRICS,
+    Textiles(13, Commodity.CONDUCTIVEFABRICS,
             Commodity.LEATHER,
             Commodity.MILITARYGRADEFABRICS,
             Commodity.NATURALFABRICS,
@@ -350,12 +352,12 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.RAPABAOSNAKESKINS,
             Commodity.VANAYEQUICERATOMORPHAFUR),
 
-    Waste(Commodity.BIOWASTE,
+    Waste(14, Commodity.BIOWASTE,
             Commodity.CHEMICALWASTE,
             Commodity.SCRAP,
             Commodity.TOXICWASTE),
 
-    Weapons(Commodity.BATTLEWEAPONS,
+    Weapons(15, Commodity.BATTLEWEAPONS,
             Commodity.LANDMINES,
             Commodity.NONLETHALWEAPONS,
             Commodity.PERSONALWEAPONS,
@@ -366,9 +368,9 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.HOLVADUELLINGBLADES,
             Commodity.KAMORINHISTORICWEAPONS),
 
-    Drones(Commodity.DRONES),
 
-    Power_Play(Commodity.AISLINGMEDIAMATERIALS,
+
+    Power_Play(16, Commodity.AISLINGMEDIAMATERIALS,
             Commodity.AISLINGMEDIARESOURCES,
             Commodity.AISLINGPROMOTIONALMATERIALS,
             Commodity.ALLIANCETRADEAGREEMENTS,
@@ -407,12 +409,14 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.GROMCOUNTERINTELLIGENCE,
             Commodity.GROMWARTROPHIES),
 
-    UNKNOWN();
+    UNKNOWN(-100);
 
+    private final int numericalValue;
     private final Commodity[] commodities;
 
-    CommodityCategory(Commodity ... commodities)
+    CommodityCategory(int numericalValue, Commodity... commodities)
     {
+        this.numericalValue = numericalValue;
         this.commodities = commodities;
     }
 
@@ -433,6 +437,12 @@ public enum CommodityCategory implements ProcurementCategory
     public Stream<Commodity> commodities()
     {
         return Arrays.stream(commodities);
+    }
+
+    @Override
+    public int getNumericalValue()
+    {
+        return numericalValue;
     }
 
     @Override

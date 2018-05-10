@@ -28,6 +28,8 @@ import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.controllerface.edeps.threads.UserTransaction;
+import com.controllerface.edeps.ui.inventory.InventoryDisplayCell;
+import com.controllerface.edeps.ui.inventory.InventoryGradeCell;
 import com.controllerface.edeps.ui.procurements.ProcurementListCell;
 import com.controllerface.edeps.ui.procurements.ProcurementTreeCell;
 import javafx.application.Platform;
@@ -35,13 +37,11 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -49,14 +49,12 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * UI Controller class for Elite Dangerous Engineer Procurement System
@@ -85,30 +83,26 @@ public class UIController
 
     // Raw materials
     @FXML private TableView<InventoryData> rawTable;
-    @FXML private TableColumn<InventoryData, HBox> rawCategoryColumn;
-    @FXML private TableColumn<InventoryData, HBox> rawGradeColumn;
-    @FXML private TableColumn<InventoryData, VBox> rawMaterialColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> rawGradeColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> rawMaterialColumn;
     @FXML private TableColumn<InventoryData, Label> rawQuantityColumn;
 
     // Manufactured materials
     @FXML private TableView<InventoryData> manufacturedTable;
-    @FXML private TableColumn<InventoryData, HBox> manufacturedCategoryColumn;
-    @FXML private TableColumn<InventoryData, HBox> manufacturedGradeColumn;
-    @FXML private TableColumn<InventoryData, VBox> manufacturedMaterialColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> manufacturedGradeColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> manufacturedMaterialColumn;
     @FXML private TableColumn<InventoryData, Label> manufacturedQuantityColumn;
 
     // Data materials
     @FXML private TableView<InventoryData> dataTable;
-    @FXML private TableColumn<InventoryData, HBox> dataCategoryColumn;
-    @FXML private TableColumn<InventoryData, HBox> dataGradeColumn;
-    @FXML private TableColumn<InventoryData, VBox> dataMaterialColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> dataGradeColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> dataMaterialColumn;
     @FXML private TableColumn<InventoryData, Label> dataQuantityColumn;
 
     // Cargo
     @FXML private TableView<InventoryData> cargoTable;
-    @FXML private TableColumn<InventoryData, HBox> cargoCategoryColumn;
-    @FXML private TableColumn<InventoryData, HBox> cargoGradeColumn;
-    @FXML private TableColumn<InventoryData, VBox> cargoItemColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> cargoGradeColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> cargoItemColumn;
     @FXML private TableColumn<InventoryData, Label> cargoQuantityColumn;
 
     // Procurement task table
@@ -216,9 +210,8 @@ public class UIController
                             // Otherwise, duplicate entries will end up in the list
                             recipe.getValue().costStream()
                                     .map(CostData::getCost)
-                                    .filter(taskCost->!taskCostBackingList.stream()
-                                            .filter(c->c.getCost().equals(taskCost))
-                                            .findFirst().isPresent())
+                                    .filter(taskCost -> taskCostBackingList.stream()
+                                            .noneMatch(knownCost -> knownCost.getCost().equals(taskCost)))
                                     .forEach(taskCost->
                                     {
                                         ItemCostData newItem = new ItemCostData(taskCost, this.commanderData::hasItem);
@@ -265,9 +258,7 @@ public class UIController
                     // loop through the cost list and make the actual adjustments, and then collect the adjusted
                     // costs so we can check for any that need to be removed after adjustment
                     List<ItemCostData> toRemove = taskCostBackingList.stream()
-                            .filter(costToAdjust -> costAdjustments.stream()
-                                    .filter(costToAdjust::matches)
-                                    .findAny().isPresent())
+                            .filter(costToAdjust -> costAdjustments.stream().anyMatch(costToAdjust::matches))
                             .peek(costToAdjust ->
                             {
                                 CostData toAdjust = costAdjustments.stream()
@@ -288,50 +279,6 @@ public class UIController
                     return newCount;
                 }
             };
-
-    private void dothis(ProcurementRecipeData recipeData)
-    {
-        Map<ProcurementCost, Integer> costs = new HashMap<>();
-
-        ProcurementRecipe recipe = recipeData.asPair().getValue();
-
-        recipe.costStream().forEach(cost ->
-        {
-            AtomicBoolean costFound = new AtomicBoolean(false);
-
-            taskCostBackingList.stream()
-                    .filter(costData -> costData.matches(cost.getCost()))
-                    .findFirst()
-                    .ifPresent(foundCost ->
-                    {
-                        costs.putIfAbsent(foundCost.getCost(), 0);
-                        costFound.set(true);
-                        int totalCost = cost.getQuantity() * recipeData.getCount();
-                        costs.computeIfPresent(foundCost.getCost(),(k, v) -> v += totalCost);
-                    });
-
-            if (!costFound.get())
-            {
-                ItemCostData newItem = new ItemCostData(cost.getCost(), this.commanderData::hasItem);
-                int newCost = cost.getQuantity() * recipeData.getCount();
-                newItem.setCount(newCost);
-                costs.put(newItem.getCost(), newCost);
-                taskCostBackingList.add(newItem);
-            }
-        });
-
-
-        List<ItemCostData> toRemove = taskCostBackingList.stream()
-                .filter(c->costs.get(c.getCost())!=null)
-                .filter(c->costs.get(c.getCost())!=c.getCount())
-                .peek(c->c.setCount(costs.get(c.getCost())))
-                .filter(c->c.getCount()<=0)
-                .collect(Collectors.toList());
-
-        taskCostBackingList.removeAll(toRemove);
-
-        taskCostTable.refresh();
-    }
 
     /*
     This is a convenience wrapper around the procurementListUpdate function, used for cases where the calling code does
@@ -445,37 +392,45 @@ public class UIController
         manufacturedTable.setItems(commanderData.observableManufacturedMaterials());
         cargoTable.setItems(commanderData.observableCargo());
 
-        rawCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
-        rawGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        rawGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        rawGradeColumn.setCellFactory(param -> new InventoryGradeCell());
+        rawGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
         rawMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        rawMaterialColumn.setCellFactory(param -> new InventoryDisplayCell());
+        rawMaterialColumn.setComparator(UIFunctions.Sort.itemByCategory);
         rawQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         rawQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
         rawQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
 
-
-        manufacturedCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
-        manufacturedGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        manufacturedGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        manufacturedGradeColumn.setCellFactory(param -> new InventoryGradeCell());
+        manufacturedGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
         manufacturedMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        manufacturedMaterialColumn.setCellFactory(param -> new InventoryDisplayCell());
+        manufacturedMaterialColumn.setComparator(UIFunctions.Sort.itemByCategory);
         manufacturedQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         manufacturedQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
         manufacturedQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
 
-
-        dataCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
-        dataGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        dataGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        dataGradeColumn.setCellFactory(param -> new InventoryGradeCell());
+        dataGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
         dataMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        dataMaterialColumn.setCellFactory(param -> new InventoryDisplayCell());
+        dataMaterialColumn.setComparator(UIFunctions.Sort.itemByCategory);
         dataQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         dataQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
         dataQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
 
-
-        cargoCategoryColumn.setCellValueFactory(UIFunctions.Data.inventoryCategoryCellFactory);
-        cargoGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryGradeCellFactory);
+        cargoGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        cargoGradeColumn.setCellFactory(param -> new InventoryGradeCell());
+        cargoGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
         cargoItemColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
+        cargoItemColumn.setCellFactory(param -> new InventoryDisplayCell());
+        cargoItemColumn.setComparator(UIFunctions.Sort.itemByCategory);
         cargoQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         cargoQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
         cargoQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
-
     }
 
     private void initializeShipLoadoutTables()
@@ -557,32 +512,28 @@ public class UIController
 
         // table auto-resize bindings
 
-        DoubleBinding rawTableWidthUsed = rawCategoryColumn.widthProperty()
-                .add(rawGradeColumn.widthProperty())
+        DoubleBinding rawTableWidthUsed = rawGradeColumn.widthProperty()
                 .add(rawQuantityColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
 
         rawMaterialColumn.prefWidthProperty()
                 .bind(rawTable.widthProperty().subtract(rawTableWidthUsed));
 
-        DoubleBinding mfdTableWidthUsed = manufacturedCategoryColumn.widthProperty()
-                .add(manufacturedGradeColumn.widthProperty())
+        DoubleBinding mfdTableWidthUsed = manufacturedGradeColumn.widthProperty()
                 .add(manufacturedQuantityColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
 
         manufacturedMaterialColumn.prefWidthProperty()
                 .bind(manufacturedTable.widthProperty().subtract(mfdTableWidthUsed));
 
-        DoubleBinding dataTableWidthUsed = dataCategoryColumn.widthProperty()
-                .add(dataGradeColumn.widthProperty())
+        DoubleBinding dataTableWidthUsed = dataGradeColumn.widthProperty()
                 .add(dataQuantityColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
 
         dataMaterialColumn.prefWidthProperty()
                 .bind(dataTable.widthProperty().subtract(dataTableWidthUsed));
 
-        DoubleBinding cargoTableWidthUsed = cargoCategoryColumn.widthProperty()
-                .add(cargoGradeColumn.widthProperty())
+        DoubleBinding cargoTableWidthUsed = cargoGradeColumn.widthProperty()
                 .add(cargoQuantityColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
 
@@ -878,18 +829,18 @@ public class UIController
     private void sortInventory()
     {
         // sort pass 1, numerically by grade
-        rawTable.getItems().sort(UIFunctions.Sort.materialByGrade);
-        manufacturedTable.getItems().sort(UIFunctions.Sort.materialByGrade);
-        dataTable.getItems().sort(UIFunctions.Sort.materialByGrade);
+        rawTable.getItems().sort(UIFunctions.Sort.itemByGrade);
+        manufacturedTable.getItems().sort(UIFunctions.Sort.itemByGrade);
+        dataTable.getItems().sort(UIFunctions.Sort.itemByGrade);
 
         // sort pass 2, alphabetically, by category name
-        rawTable.getItems().sort(UIFunctions.Sort.costByCategory);
-        manufacturedTable.getItems().sort(UIFunctions.Sort.costByCategory);
-        dataTable.getItems().sort(UIFunctions.Sort.costByCategory);
+        rawTable.getItems().sort(UIFunctions.Sort.itemByCategory);
+        manufacturedTable.getItems().sort(UIFunctions.Sort.itemByCategory);
+        dataTable.getItems().sort(UIFunctions.Sort.itemByCategory);
 
         // Cargo sorts a bit differently,
-        cargoTable.getItems().sort(UIFunctions.Sort.materialByGrade);
-        cargoTable.getItems().sort(UIFunctions.Sort.cargoByCount);
+        cargoTable.getItems().sort(UIFunctions.Sort.itemByGrade);
+        cargoTable.getItems().sort(UIFunctions.Sort.itemByCount);
     }
 
     private void sortTaskTable()

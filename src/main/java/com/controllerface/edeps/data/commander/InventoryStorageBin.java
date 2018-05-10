@@ -2,6 +2,7 @@ package com.controllerface.edeps.data.commander;
 
 import com.controllerface.edeps.ProcurementCost;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;

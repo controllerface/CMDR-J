@@ -257,7 +257,6 @@
                                           <columns>
                                               <TableColumn fx:id="rawQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Have" />
                                               <TableColumn fx:id="rawMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
-                                              <TableColumn fx:id="rawCategoryColumn" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" resizable="false" text="Category" />
                                               <TableColumn fx:id="rawGradeColumn" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Grade" />
                                           </columns>
                                       </TableView>
@@ -269,7 +268,6 @@
                                           <columns>
                                               <TableColumn fx:id="manufacturedQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Have" />
                                               <TableColumn fx:id="manufacturedMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
-                                              <TableColumn fx:id="manufacturedCategoryColumn" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" resizable="false" text="Category" />
                                               <TableColumn fx:id="manufacturedGradeColumn" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Grade" />
                                           </columns>
                                       </TableView>
@@ -281,7 +279,6 @@
                                           <columns>
                                               <TableColumn fx:id="dataQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Have" />
                                               <TableColumn fx:id="dataMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
-                                              <TableColumn fx:id="dataCategoryColumn" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" resizable="false" text="Category" />
                                               <TableColumn fx:id="dataGradeColumn" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Grade" />
                                           </columns>
                                       </TableView>
@@ -293,7 +290,6 @@
                                        <columns>
                                           <TableColumn fx:id="cargoQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Have" />
                                           <TableColumn fx:id="cargoItemColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="204.0" resizable="false" text="Commodity" />
-                                          <TableColumn fx:id="cargoCategoryColumn" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" resizable="false" text="Category" />
                                           <TableColumn fx:id="cargoGradeColumn" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Type" />
                                        </columns>
                                     </TableView>

@@ -44,29 +44,42 @@ public enum ItemGrade
     in the inventory tab easier
      */
 
-    Space(1, "Space"),   // standard commodities and salvage
-    Planet(2, "Planet"),  // only available at planetary ports
-    Mining(3, "Mining"),  // attainable by mining only
-    Mission(4, "Mission"), // mission reward exclusive
-    POI(5, "Planet POI"),     // must be found at planetary POI
-    Rare(6, "Rare"),    // rare commodities, from specific star ports
-    Faction(7, "Faction"), // power play specific items
+    Space(1, "Space", "Star Port Commodity Markets"),   // standard commodities and salvage
+    Planet(2, "Planet", "Planetary Port Commodity Markets"),  // only available at planetary ports
+    Mining(3, "Mining", "Asteroid and Planetary Ring Mining"),  // attainable by mining only
+    Mission(4, "Mission", "Mission Reward"), // mission reward exclusive
+    POI(5, "Planet POI", "Planetary Point of Interest"),     // must be found at planetary POI
+    Salvage(6, "Salvage", "Combat Wreckage, Unidentified Signal Sources, or Ancient Ruins"),   // salvage
+    Rare(7, "Rare", "Specific Star Port"),    // rare commodities, from specific star ports
+    Faction(8, "Faction", "Power Play Faction Contact"), // power play specific items
 
     ;
 
-    private final String text;
     private final int numericalValue;
+    private final String text;
+    private final String locationDescription;
 
     ItemGrade(int numericalValue, String text)
     {
+        this(numericalValue, text, "");
+    }
+
+    ItemGrade(int numericalValue, String text, String locationDescription)
+    {
         this.numericalValue = numericalValue;
         this.text = text;
+        this.locationDescription = locationDescription;
     }
 
     @Override
     public String toString()
     {
         return text;
+    }
+
+    public String getLocationDescription()
+    {
+        return locationDescription;
     }
 
     public int getNumericalValue()
