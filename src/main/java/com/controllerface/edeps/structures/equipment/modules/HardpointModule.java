@@ -2,6 +2,7 @@ package com.controllerface.edeps.structures.equipment.modules;
 
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.ShipModule;
+import com.controllerface.edeps.data.ItemEffectData;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationType;
 
@@ -480,6 +481,13 @@ public enum HardpointModule implements ShipModule
     public String displayText()
     {
         return displayText;
+    }
+
+    @Override
+    public ItemEffectData itemEffects()
+    {
+        // todo: supply all effects
+        return ItemEffectData.EMPTY;
     }
 
     public static ShipModule findModule(String moduleName) throws Exception

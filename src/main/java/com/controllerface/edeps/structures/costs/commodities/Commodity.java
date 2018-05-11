@@ -248,7 +248,7 @@ public enum Commodity implements ProcurementCost
     REACTIVEARMOUR(ItemGrade.Space),
 
     // Drones
-    DRONES(ItemGrade.Space),
+    DRONES(ItemGrade.Drone),
 
     // Rare Commodities
     AEPYORNISEGG(ItemGrade.Rare),

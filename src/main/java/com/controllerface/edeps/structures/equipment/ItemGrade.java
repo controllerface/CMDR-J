@@ -44,13 +44,14 @@ public enum ItemGrade
     in the inventory tab easier
      */
 
-    Space(1, "Space", "Star Port Commodity Markets"),   // standard commodities and salvage
-    Planet(2, "Planet", "Planetary Port Commodity Markets"),  // only available at planetary ports
-    Mining(3, "Mining", "Asteroid and Planetary Ring Mining"),  // attainable by mining only
-    Mission(4, "Mission", "Mission Reward"), // mission reward exclusive
-    POI(5, "Planet POI", "Planetary Point of Interest"),     // must be found at planetary POI
-    Salvage(6, "Salvage", "Combat Wreckage, Unidentified Signal Sources, or Ancient Ruins"),   // salvage
-    Rare(7, "Rare", "Specific Star Port"),    // rare commodities, from specific star ports
+    Drone(0, "Limpet Drone", "Starport Restock Services"),   // standard commodities and salvage
+    Space(1, "Commodity", "Starport Markets"),   // standard commodities and salvage
+    Planet(2, "Planetary Port", "Planetary Port Commodity Markets"),  // only available at planetary ports
+    Mining(3, "Asteroid Mining", "Asteroid and Planetary Ring Mining"),  // attainable by mining only
+    Mission(4, "Mission", "Mission Rewards"), // mission reward exclusive
+    POI(5, "Planetary POI", "Planetary Points of Interest"),     // must be found at planetary POI
+    Salvage(6, "Salvage", "Various locations:\n - Combat Wreckage\n - Unidentified Signal Sources\n - Ancient Ruins"),   // salvage
+    Rare(7, "Rare Commodity", "Exclusive to Star Port"),    // rare commodities, from specific star ports
     Faction(8, "Faction", "Power Play Faction Contact"), // power play specific items
 
     ;

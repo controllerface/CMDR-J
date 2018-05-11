@@ -148,8 +148,8 @@ public class InventoryDisplayCell extends TableCell<InventoryData, InventoryData
             if (i == -1) return s;
             String r = s.substring(0,i).replace("_"," ");
             if (r.startsWith("Sensor") && !"Sensor".equals(r)) r = r.replace("Sensor ","");
-            r = Arrays.stream(r.split("(?=\\p{Lu})")).collect(Collectors.joining(" "));
-            return r;
+            r = r.length() <= 3 ? r : Arrays.stream(r.split("(?=\\p{Lu})")).collect(Collectors.joining(" "));
+            return r.replace("F S D","FSD ");
         };
 
         String synthesis = Arrays.stream(SynthesisBlueprint.values())
@@ -158,16 +158,16 @@ public class InventoryDisplayCell extends TableCell<InventoryData, InventoryData
                         .distinct()
                         .map(r -> blueprint.name() + " :: " + r.getGrade())
                         .map(s -> s.replace("_", " ")))
-                .collect(Collectors.joining("\n"));
-        synthesis = synthesis.isEmpty() ? "" : "\nSynthesis:\n" + synthesis;
+                .collect(Collectors.joining("\n - "));
+        synthesis = synthesis.isEmpty() ? "" : "\nSynthesis:\n - " + synthesis;
 
         String modifications = Arrays.stream(ModificationBlueprint.values())
                 .flatMap(blueprint-> blueprint.recipeStream()
                         .filter(recipe -> mods.contains(recipe) || weap.contains(recipe))
                         .distinct()
                         .map(r->f.apply(blueprint.name()) + " :: " + r.getDisplayLabel()))
-                .collect(Collectors.joining("\n"));
-        modifications = modifications.isEmpty() ? "" : "\n\nModifications:\n" + modifications;
+                .collect(Collectors.joining("\n - "));
+        modifications = modifications.isEmpty() ? "" : "\n\nModifications:\n - " + modifications;
 
         String experimentals = Arrays.stream(ExperimentalBlueprint.values())
                 .flatMap(blueprint-> blueprint.recipeStream()
@@ -175,8 +175,8 @@ public class InventoryDisplayCell extends TableCell<InventoryData, InventoryData
                         .distinct()
                         .map(r -> blueprint.name() + " :: " + r.getDisplayLabel())
                         .map(s -> s.replace("_", " ")))
-                .collect(Collectors.joining("\n"));
-        experimentals = experimentals.isEmpty() ? "" : "\n\nExperimental Effects:\n" + experimentals;
+                .collect(Collectors.joining("\n - "));
+        experimentals = experimentals.isEmpty() ? "" : "\n\nExperimental Effects:\n - " + experimentals;
 
         String technology = Arrays.stream(TechnologyBlueprint.values())
                 .flatMap(blueprint-> blueprint.recipeStream()
@@ -184,8 +184,8 @@ public class InventoryDisplayCell extends TableCell<InventoryData, InventoryData
                         .distinct()
                         .map(r -> blueprint.name() + " :: " + r.getShortLabel())
                         .map(s -> s.replace("_", " ")))
-                .collect(Collectors.joining("\n"));
-        technology = technology.isEmpty() ? "" : "\n\nTech Broker Unlocks:\n" + technology;
+                .collect(Collectors.joining("\n - "));
+        technology = technology.isEmpty() ? "" : "\n\nTech Broker Unlocks:\n - " + technology;
 
 
         String associated = synthesis + modifications + experimentals + technology;

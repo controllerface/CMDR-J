@@ -22,4 +22,13 @@ public class ItemEffectData
     {
         return Arrays.stream(effects);
     }
+
+    public static ItemEffectData EMPTY = new ItemEffectData()
+    {
+        @Override
+        public Stream<Pair<ItemEffect, Double>> pairStream()
+        {
+            return Stream.empty();
+        }
+    };
 }

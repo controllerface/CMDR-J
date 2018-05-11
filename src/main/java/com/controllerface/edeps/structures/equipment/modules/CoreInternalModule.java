@@ -2,14 +2,18 @@ package com.controllerface.edeps.structures.equipment.modules;
 
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.ShipModule;
+import com.controllerface.edeps.data.ItemEffectData;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationType;
+import com.controllerface.edeps.structures.equipment.ItemEffect;
+import javafx.util.Pair;
 
 import java.util.Arrays;
 
 /**
  * Created by Stephen on 4/25/2018.
  */
+@SuppressWarnings("unchecked")
 public enum CoreInternalModule implements ShipModule
 {
     /**
@@ -30,915 +34,4058 @@ public enum CoreInternalModule implements ShipModule
      * Ship Armor
      */
 
-    dolphin_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    dolphin_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    dolphin_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    dolphin_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    dolphin_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    /*
+    Dolphin
+     */
 
-    ferdelance_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    ferdelance_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    ferdelance_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    ferdelance_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
-    ferdelance_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
+    dolphin_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
 
-    python_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    python_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    python_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    python_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    python_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    dolphin_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
 
-    belugaliner_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    belugaliner_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    belugaliner_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    belugaliner_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    belugaliner_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    dolphin_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 63d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    orca_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    orca_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    orca_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    orca_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    orca_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    dolphin_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 63d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    asp_scout_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    asp_scout_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    asp_scout_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    asp_scout_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    asp_scout_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    dolphin_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 63d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    asp_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    asp_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    asp_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    asp_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    asp_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
 
-    independant_trader_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    independant_trader_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    independant_trader_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    independant_trader_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    independant_trader_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    /*
+    Fer-de-Lance
+     */
 
-    vulture_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    vulture_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    vulture_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    vulture_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    vulture_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    ferdelance_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
 
-    viper_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    viper_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    viper_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    viper_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    viper_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
 
-    diamondbackxl_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    diamondbackxl_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    diamondbackxl_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    diamondbackxl_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
-    diamondbackxl_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
+    ferdelance_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 19d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
 
-    adder_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    adder_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    adder_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    adder_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    adder_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    ferdelance_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 38d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    diamondback_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    diamondback_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    diamondback_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    diamondback_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    diamondback_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    ferdelance_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 38d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    viper_mkiv_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    viper_mkiv_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    viper_mkiv_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    viper_mkiv_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    viper_mkiv_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
 
-    anaconda_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    anaconda_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    anaconda_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    anaconda_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
-    anaconda_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
+    ferdelance_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 38d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    cobramkiii_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    cobramkiii_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    cobramkiii_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    cobramkiii_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    cobramkiii_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
 
-    type9_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    type9_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    type9_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    type9_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    type9_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    /*
+    Python
+     */
 
-    type7_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    type7_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    type7_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    type7_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    type7_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    python_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
 
-    cobramkiv_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    cobramkiv_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    cobramkiv_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    cobramkiv_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    cobramkiv_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    python_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 26d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
 
-    eagle_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    eagle_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    eagle_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    eagle_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    eagle_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    python_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 53d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    hauler_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    hauler_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    hauler_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    hauler_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    hauler_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    python_armour_reactive("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 53d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    sidewinder_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    sidewinder_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    sidewinder_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    sidewinder_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    sidewinder_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    python_armour_mirrored("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 53d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    type6_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    type6_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    type6_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    type6_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    type6_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
 
-    empire_trader_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    empire_trader_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    empire_trader_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    empire_trader_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    empire_trader_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    /*
+    Beluga
+     */
 
-    federation_dropship_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    federation_dropship_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    federation_dropship_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    federation_dropship_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    federation_dropship_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    belugaliner_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
 
-    cutter_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    cutter_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    cutter_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    cutter_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
-    cutter_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
+    belugaliner_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 83d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
 
-    empire_eagle_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    empire_eagle_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    empire_eagle_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    empire_eagle_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    empire_eagle_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    belugaliner_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 165d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    typex_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    typex_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    typex_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    typex_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    typex_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    belugaliner_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 165d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    federation_corvette_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    federation_corvette_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    federation_corvette_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    federation_corvette_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
-    federation_corvette_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
+    belugaliner_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 165d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
-    empire_courier_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    empire_courier_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    empire_courier_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    empire_courier_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    empire_courier_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
 
-    federation_gunship_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    federation_gunship_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    federation_gunship_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    federation_gunship_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    federation_gunship_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    /*
+    Orca
+     */
 
-    type9_military_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    type9_military_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    type9_military_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    type9_military_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    type9_military_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    orca_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
 
-    federation_dropship_mkii_armour_grade1(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Lightweight"),
-    federation_dropship_mkii_armour_grade2(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reinforced"),
-    federation_dropship_mkii_armour_grade3(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Military Grade"),
-    federation_dropship_mkii_armour_reactive(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Reactive"),
-    federation_dropship_mkii_armour_mirrored(ModificationType.Bulkheads, ExperimentalType.Bulkheads,
-            "Mirrored"),
+    orca_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 21d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    orca_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    orca_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    orca_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Asp Scout
+     */
+
+    asp_scout_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    asp_scout_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 21d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    asp_scout_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 42d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    asp_scout_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 42d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    asp_scout_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 42d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Asp Explorer
+     */
+
+    asp_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    asp_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 21d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    asp_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 42d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    asp_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 42d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    asp_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 42d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Keelback
+     */
+
+    independant_trader_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    independant_trader_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 12d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    independant_trader_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 23d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    independant_trader_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 23d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    independant_trader_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 23d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Vulture
+     */
+
+    vulture_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    vulture_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 17d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    vulture_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 35d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    vulture_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 35d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    vulture_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 35d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Viper MK III
+     */
+
+    viper_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    viper_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    viper_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 9d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    viper_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 9d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    viper_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 9d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Diamondback Explorer
+     */
+
+    diamondbackxl_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    diamondbackxl_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 23d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    diamondbackxl_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 47d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    diamondbackxl_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 47d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    diamondbackxl_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 47d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    /*
+    Adder
+     */
+
+    adder_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    adder_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 3d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    adder_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    adder_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    adder_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Diamondback Scout
+     */
+
+    diamondback_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    diamondback_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 13d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    diamondback_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 26d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    diamondback_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 26d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    diamondback_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 26d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Viper MK IV
+     */
+
+    viper_mkiv_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    viper_mkiv_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    viper_mkiv_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 9d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    viper_mkiv_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 9d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    viper_mkiv_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 9d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Anaconda
+     */
+
+    anaconda_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    anaconda_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 30d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    anaconda_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    anaconda_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    anaconda_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Cobra MK III
+     */
+
+    cobramkiii_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    cobramkiii_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 14d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    cobramkiii_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 27d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    cobramkiii_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 27d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    cobramkiii_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 27d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Type 9
+     */
+
+    type9_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    type9_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 75d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    type9_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 150d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    type9_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 150d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    type9_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 150d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Type 7
+     */
+
+    type7_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    type7_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    type7_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 63d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    type7_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 63d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    type7_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 63d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Cobra MK IV
+     */
+
+    cobramkiv_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    cobramkiv_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 14d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    cobramkiv_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 27d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    cobramkiv_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 27d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    cobramkiv_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 27d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Eagle
+     */
+
+    eagle_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    eagle_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    eagle_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    eagle_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    eagle_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Hauler
+     */
+
+    hauler_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    hauler_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    hauler_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    hauler_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    hauler_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Sidewinder
+     */
+
+    sidewinder_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    sidewinder_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    sidewinder_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    sidewinder_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    sidewinder_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Type 6
+     */
+
+    type6_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    type6_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 12d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    type6_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 23d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    type6_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 23d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    type6_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 23d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Imperial Clipper
+     */
+
+    empire_trader_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    empire_trader_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 30d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    empire_trader_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    empire_trader_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    empire_trader_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Federal Dropship
+     */
+
+    federation_dropship_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    federation_dropship_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 44d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    federation_dropship_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    federation_dropship_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    federation_dropship_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Imperial Cutter
+     */
+
+    cutter_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    cutter_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 30d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    cutter_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    cutter_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    cutter_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Imperial Eagle
+     */
+
+    empire_eagle_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    empire_eagle_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    empire_eagle_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    empire_eagle_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    empire_eagle_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Chieftain
+     */
+
+    typex_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    typex_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    typex_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 78d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    typex_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 78d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    typex_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 78d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Federal Corvette
+     */
+
+    federation_corvette_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    federation_corvette_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 30d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    federation_corvette_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    federation_corvette_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    federation_corvette_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 60d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Imperial Courier
+     */
+
+    empire_courier_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    empire_courier_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    empire_courier_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    empire_courier_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    empire_courier_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Federal Gunship
+     */
+
+    federation_gunship_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    federation_gunship_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 44d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    federation_gunship_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    federation_gunship_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    federation_gunship_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Type 10
+     */
+
+    type9_military_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    type9_military_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 75d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    type9_military_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 150d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    type9_military_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 150d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    type9_military_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 150d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+
+    /*
+    Federal Assault Ship
+     */
+
+    federation_dropship_mkii_armour_grade1("Lightweight",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 80d)
+            )),
+
+    federation_dropship_mkii_armour_grade2("Reinforced",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 44d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 152d)
+            )),
+
+    federation_dropship_mkii_armour_grade3("Military Grade",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -40d),
+                    new Pair<>(ItemEffect.KineticResistance, -20d),
+                    new Pair<>(ItemEffect.ThermicResistance, 0d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    federation_dropship_mkii_armour_mirrored("Mirrored",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, -50d),
+                    new Pair<>(ItemEffect.KineticResistance, -75d),
+                    new Pair<>(ItemEffect.ThermicResistance, 50d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
+
+    federation_dropship_mkii_armour_reactive("Reactive",
+            ModificationType.Bulkheads,
+            ExperimentalType.Bulkheads,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 87d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 20d),
+                    new Pair<>(ItemEffect.KineticResistance, 25d),
+                    new Pair<>(ItemEffect.ThermicResistance, -40d),
+                    new Pair<>(ItemEffect.DefenceModifierHealthMultiplier, 250d)
+            )),
 
 
     /**
      * Power Plants
      */
 
-    int_powerplant_size2_class1(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "2E Standard"),
-    int_powerplant_size2_class2(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "2D Standard"),
-    int_powerplant_size2_class3(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "2C Standard"),
-    int_powerplant_size2_class4(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "2B Standard"),
-    int_powerplant_size2_class5(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "2A Standard"),
+    int_powerplant_size2_class1("2E Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 46d),
+                    new Pair<>(ItemEffect.PowerCapacity, 6.4d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 1d)
+            )),
 
-    int_powerplant_size3_class1(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "3E Standard"),
-    int_powerplant_size3_class2(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "3D Standard"),
-    int_powerplant_size3_class3(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "3C Standard"),
-    int_powerplant_size3_class4(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "3B Standard"),
-    int_powerplant_size3_class5(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "3A Standard"),
+    int_powerplant_size2_class2("2D Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1d),
+                    new Pair<>(ItemEffect.Integrity, 41d),
+                    new Pair<>(ItemEffect.PowerCapacity, 7.2d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .75d)
+            )),
 
-    int_powerplant_size4_class1(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "4E Standard"),
-    int_powerplant_size4_class2(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "4D Standard"),
-    int_powerplant_size4_class3(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "4C Standard"),
-    int_powerplant_size4_class4(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "4B Standard"),
-    int_powerplant_size4_class5(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "4A Standard"),
+    int_powerplant_size2_class3("2C Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerCapacity, 8d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .5d)
+            )),
 
-    int_powerplant_size5_class1(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "5E Standard"),
-    int_powerplant_size5_class2(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "5D Standard"),
-    int_powerplant_size5_class3(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "5C Standard"),
-    int_powerplant_size5_class4(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "5B Standard"),
-    int_powerplant_size5_class5(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "5A Standard"),
 
-    int_powerplant_size6_class1(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "6E Standard"),
-    int_powerplant_size6_class2(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "6D Standard"),
-    int_powerplant_size6_class3(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "6C Standard"),
-    int_powerplant_size6_class4(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "6B Standard"),
-    int_powerplant_size6_class5(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "6A Standard"),
+    int_powerplant_size2_class4("2B Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.Integrity, 61d),
+                    new Pair<>(ItemEffect.PowerCapacity, 8.8d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .45d)
+            )),
 
-    int_powerplant_size7_class1(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "7E Standard"),
-    int_powerplant_size7_class2(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "7D Standard"),
-    int_powerplant_size7_class3(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "7C Standard"),
-    int_powerplant_size7_class4(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "7B Standard"),
-    int_powerplant_size7_class5(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "7A Standard"),
+    int_powerplant_size2_class5("2A Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 56d),
+                    new Pair<>(ItemEffect.PowerCapacity, 9.6d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .4d)
+            )),
 
-    int_powerplant_size8_class1(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "8E Standard"),
-    int_powerplant_size8_class2(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "8D Standard"),
-    int_powerplant_size8_class3(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "8C Standard"),
-    int_powerplant_size8_class4(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "8B Standard"),
-    int_powerplant_size8_class5(ModificationType.Power_Plant, ExperimentalType.Power_Plant,
-            "8A Standard"),
+    int_powerplant_size3_class1("3E Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 58d),
+                    new Pair<>(ItemEffect.PowerCapacity, 8d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 1d)
+            )),
+
+    int_powerplant_size3_class2("3D Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerCapacity, 9d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .75d)
+            )),
+
+    int_powerplant_size3_class3("3C Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerCapacity, 10d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .5d)
+            )),
+
+    int_powerplant_size3_class4("3B Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerCapacity, 11d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .45d)
+            )),
+
+    int_powerplant_size3_class5("3A Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 70d),
+                    new Pair<>(ItemEffect.PowerCapacity, 12d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .4d)
+            )),
+
+    int_powerplant_size4_class1("4E Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 72d),
+                    new Pair<>(ItemEffect.PowerCapacity, 10.4d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 1d)
+            )),
+
+    int_powerplant_size4_class2("4D Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerCapacity, 11.7d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .75d)
+            )),
+
+    int_powerplant_size4_class3("4C Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 80d),
+                    new Pair<>(ItemEffect.PowerCapacity, 13d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .5d)
+            )),
+
+    int_powerplant_size4_class4("4B Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerCapacity, 14.3d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .45d)
+            )),
+
+    int_powerplant_size4_class5("4A Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 88d),
+                    new Pair<>(ItemEffect.PowerCapacity, 15.6d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .4d)
+            )),
+
+    int_powerplant_size5_class1("5E Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 86d),
+                    new Pair<>(ItemEffect.PowerCapacity, 13.6d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 1d)
+            )),
+
+    int_powerplant_size5_class2("5D Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerCapacity, 15.3d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .75d)
+            )),
+
+    int_powerplant_size5_class3("5C Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerCapacity, 17d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .5d)
+            )),
+
+    int_powerplant_size5_class4("5B Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 115d),
+                    new Pair<>(ItemEffect.PowerCapacity, 18.7d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .45d)
+            )),
+
+    int_powerplant_size5_class5("5A Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 106d),
+                    new Pair<>(ItemEffect.PowerCapacity, 20.4d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .4d)
+            )),
+
+    int_powerplant_size6_class1("6E Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 102d),
+                    new Pair<>(ItemEffect.PowerCapacity, 16.8d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 1d)
+            )),
+
+    int_powerplant_size6_class2("6D Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 90d),
+                    new Pair<>(ItemEffect.PowerCapacity, 18.9d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .75d)
+            )),
+
+    int_powerplant_size6_class3("6C Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 113d),
+                    new Pair<>(ItemEffect.PowerCapacity, 2.1d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .5d)
+            )),
+
+    int_powerplant_size6_class4("6B Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 136d),
+                    new Pair<>(ItemEffect.PowerCapacity, 23.1d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .45d)
+            )),
+
+    int_powerplant_size6_class5("6A Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 124d),
+                    new Pair<>(ItemEffect.PowerCapacity, 25.2d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .4d)
+            )),
+
+    int_powerplant_size7_class1("7E Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 118d),
+                    new Pair<>(ItemEffect.PowerCapacity, 20d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 1d)
+            )),
+
+    int_powerplant_size7_class2("7D Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 105d),
+                    new Pair<>(ItemEffect.PowerCapacity, 22.5d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .75d)
+            )),
+
+    int_powerplant_size7_class3("7C Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 131d),
+                    new Pair<>(ItemEffect.PowerCapacity, 25d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .5d)
+            )),
+
+    int_powerplant_size7_class4("7B Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 157d),
+                    new Pair<>(ItemEffect.PowerCapacity, 27.5d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .45d)
+            )),
+
+    int_powerplant_size7_class5("7A Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 144d),
+                    new Pair<>(ItemEffect.PowerCapacity, 30d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .4d)
+            )),
+
+    int_powerplant_size8_class1("8E Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 135d),
+                    new Pair<>(ItemEffect.PowerCapacity, 24d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 1d)
+            )),
+
+    int_powerplant_size8_class2("8D Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 120d),
+                    new Pair<>(ItemEffect.PowerCapacity, 27d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .75d)
+            )),
+
+    int_powerplant_size8_class3("8C Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 150d),
+                    new Pair<>(ItemEffect.PowerCapacity, 30d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .5d)
+            )),
+
+    int_powerplant_size8_class4("8B Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 128d),
+                    new Pair<>(ItemEffect.Integrity, 180d),
+                    new Pair<>(ItemEffect.PowerCapacity, 33d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .45d)
+            )),
+
+    int_powerplant_size8_class5("8A Standard",
+            ModificationType.Power_Plant,
+            ExperimentalType.Power_Plant,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 165d),
+                    new Pair<>(ItemEffect.PowerCapacity, 36d),
+                    new Pair<>(ItemEffect.HeatEfficiency, .4d)
+            )),
 
 
     /**
      * Thrusters
      */
 
-    int_engine_size2_class1(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "2E Standard"),
-    int_engine_size2_class2(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "2D Standard"),
-    int_engine_size2_class3(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "2C Standard"),
-    int_engine_size2_class4(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "2B Standard"),
-    int_engine_size2_class5(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "2A Standard"),
+    int_engine_size2_class1("2E Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 46d),
+                    new Pair<>(ItemEffect.PowerDraw, 2d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 24d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 48d),
+                    new Pair<>(ItemEffect.MaximumMass, 72d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 83d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
 
-    int_engine_size3_class1(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "3E Standard"),
-    int_engine_size3_class2(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "3D Standard"),
-    int_engine_size3_class3(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "3C Standard"),
-    int_engine_size3_class4(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "3B Standard"),
-    int_engine_size3_class5(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "3A Standard"),
+    int_engine_size2_class2("2D Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1d),
+                    new Pair<>(ItemEffect.Integrity, 41d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.25d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 27d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 54d),
+                    new Pair<>(ItemEffect.MaximumMass, 81d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 86d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
 
-    int_engine_size4_class1(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "4E Standard"),
-    int_engine_size4_class2(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "4D Standard"),
-    int_engine_size4_class3(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "4C Standard"),
-    int_engine_size4_class4(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "4B Standard"),
-    int_engine_size4_class5(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "4A Standard"),
 
-    int_engine_size5_class1(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "5E Standard"),
-    int_engine_size5_class2(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "5D Standard"),
-    int_engine_size5_class3(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "5C Standard"),
-    int_engine_size5_class4(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "5B Standard"),
-    int_engine_size5_class5(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "5A Standard"),
+    int_engine_size2_class3("2C Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.5d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 30d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 60d),
+                    new Pair<>(ItemEffect.MaximumMass, 90d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 90d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
 
-    int_engine_size6_class1(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "6E Standard"),
-    int_engine_size6_class2(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "6D Standard"),
-    int_engine_size6_class3(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "6C Standard"),
-    int_engine_size6_class4(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "6B Standard"),
-    int_engine_size6_class5(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "6A Standard"),
 
-    int_engine_size7_class1(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "7E Standard"),
-    int_engine_size7_class2(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "7D Standard"),
-    int_engine_size7_class3(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "7C Standard"),
-    int_engine_size7_class4(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "7B Standard"),
-    int_engine_size7_class5(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "7A Standard"),
+    int_engine_size2_class4("2B Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 61d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.75d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 33d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 66d),
+                    new Pair<>(ItemEffect.MaximumMass, 99d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 90d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
 
-    int_engine_size8_class1(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "8E Standard"),
-    int_engine_size8_class2(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "8D Standard"),
-    int_engine_size8_class3(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "8C Standard"),
-    int_engine_size8_class4(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "8B Standard"),
-    int_engine_size8_class5(ModificationType.Thrusters, ExperimentalType.Thrusters,
-            "8A Standard"),
+
+    int_engine_size2_class5("2A Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 56d),
+                    new Pair<>(ItemEffect.PowerDraw, 3d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 36d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 72d),
+                    new Pair<>(ItemEffect.MaximumMass, 108d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 96d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size3_class1("3E Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 58d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.48d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 40d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 80d),
+                    new Pair<>(ItemEffect.MaximumMass, 120d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 83d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size3_class2("3D Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.79d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 45d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 90d),
+                    new Pair<>(ItemEffect.MaximumMass, 135d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 86d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size3_class3("3C Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.1d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 50d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 100d),
+                    new Pair<>(ItemEffect.MaximumMass, 150d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 90d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size3_class4("3B Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.41d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 55d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 110d),
+                    new Pair<>(ItemEffect.MaximumMass, 165d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 93d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size3_class5("3A Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 70d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.72d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 60d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 120d),
+                    new Pair<>(ItemEffect.MaximumMass, 180d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 96d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 16d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size4_class1("4E Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 72d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.28d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 140d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 280d),
+                    new Pair<>(ItemEffect.MaximumMass, 420d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 83d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size4_class2("4D Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.69d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 158d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 315d),
+                    new Pair<>(ItemEffect.MaximumMass, 473d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 86d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size4_class3("4C Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 80d),
+                    new Pair<>(ItemEffect.PowerDraw, 4.1d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 175d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 350d),
+                    new Pair<>(ItemEffect.MaximumMass, 525d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 90d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size4_class4("4B Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 4.51d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 193d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 385d),
+                    new Pair<>(ItemEffect.MaximumMass, 578d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 93d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size4_class5("4A Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 88d),
+                    new Pair<>(ItemEffect.PowerDraw, 4.92d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 210d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 420d),
+                    new Pair<>(ItemEffect.MaximumMass, 630d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 96d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size5_class1("5E Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 86d),
+                    new Pair<>(ItemEffect.PowerDraw, 4.08d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 280d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 560d),
+                    new Pair<>(ItemEffect.MaximumMass, 840d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 83d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size5_class2("5D Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 4.59d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 315d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 630d),
+                    new Pair<>(ItemEffect.MaximumMass, 945d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 86d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size5_class3("5C Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 5.1d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 350d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 700d),
+                    new Pair<>(ItemEffect.MaximumMass, 1050d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 90d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size5_class4("5B Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 115d),
+                    new Pair<>(ItemEffect.PowerDraw, 5.61d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 385d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 770d),
+                    new Pair<>(ItemEffect.MaximumMass, 1155d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 93d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size5_class5("5A Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 106d),
+                    new Pair<>(ItemEffect.PowerDraw, 6.12d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 420d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 840d),
+                    new Pair<>(ItemEffect.MaximumMass, 1260d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 96d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size6_class1("6E Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 102d),
+                    new Pair<>(ItemEffect.PowerDraw, 5.04d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 480d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 960d),
+                    new Pair<>(ItemEffect.MaximumMass, 1440d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 83d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size6_class2("6D Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 90d),
+                    new Pair<>(ItemEffect.PowerDraw, 5.67d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 540d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 1080d),
+                    new Pair<>(ItemEffect.MaximumMass, 1620d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 86d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size6_class3("6C Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 113d),
+                    new Pair<>(ItemEffect.PowerDraw, 6.3d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 600d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 1200d),
+                    new Pair<>(ItemEffect.MaximumMass, 1800d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 90d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size6_class4("6B Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 136d),
+                    new Pair<>(ItemEffect.PowerDraw, 6.93d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 660d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 1320d),
+                    new Pair<>(ItemEffect.MaximumMass, 1980d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 93d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size6_class5("6A Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 124d),
+                    new Pair<>(ItemEffect.PowerDraw, 7.56d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 720d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 1440d),
+                    new Pair<>(ItemEffect.MaximumMass, 2160d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 96d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size7_class1("7E Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 118d),
+                    new Pair<>(ItemEffect.PowerDraw, 6.08d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 720d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 1440d),
+                    new Pair<>(ItemEffect.MaximumMass, 2160d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 83d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size7_class2("7D Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 105d),
+                    new Pair<>(ItemEffect.PowerDraw, 6.84d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 810d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 1620d),
+                    new Pair<>(ItemEffect.MaximumMass, 2430d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 86d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size7_class3("7C Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 131d),
+                    new Pair<>(ItemEffect.PowerDraw, 7.6d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 900d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 1800d),
+                    new Pair<>(ItemEffect.MaximumMass, 2700d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 90d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size7_class4("7B Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 126d),
+                    new Pair<>(ItemEffect.Integrity, 157d),
+                    new Pair<>(ItemEffect.PowerDraw, 8.36d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 990d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 1980d),
+                    new Pair<>(ItemEffect.MaximumMass, 2970d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 93d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size7_class5("7A Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 144d),
+                    new Pair<>(ItemEffect.PowerDraw, 9.12d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 1080d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 2160d),
+                    new Pair<>(ItemEffect.MaximumMass, 3240d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 96d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size8_class1("8E Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 135d),
+                    new Pair<>(ItemEffect.PowerDraw, 7.2d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 1120d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 2240d),
+                    new Pair<>(ItemEffect.MaximumMass, 3360d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 83d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size8_class2("8D Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 120d),
+                    new Pair<>(ItemEffect.PowerDraw, 8.1d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 1260d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 2520d),
+                    new Pair<>(ItemEffect.MaximumMass, 3780d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 86d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size8_class3("8C Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 150d),
+                    new Pair<>(ItemEffect.PowerDraw, 9d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 1400d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 2800d),
+                    new Pair<>(ItemEffect.MaximumMass, 4200d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 90d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size8_class4("8B Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 256d),
+                    new Pair<>(ItemEffect.Integrity, 180d),
+                    new Pair<>(ItemEffect.PowerDraw, 9.9d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 1540d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 3080d),
+                    new Pair<>(ItemEffect.MaximumMass, 4620d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 93d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
+
+    int_engine_size8_class5("8A Standard",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 165d),
+                    new Pair<>(ItemEffect.PowerDraw, 10.8d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 1680d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 3360d),
+                    new Pair<>(ItemEffect.MaximumMass, 5040d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 96d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 100d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+            )),
+
 
 
     /**
      * Frame Shift Drives
      */
 
-    int_hyperdrive_size2_class1(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "2E Standard"),
-    int_hyperdrive_size2_class2(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "2D Standard"),
-    int_hyperdrive_size2_class3(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "2C Standard"),
-    int_hyperdrive_size2_class4(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "2B Standard"),
-    int_hyperdrive_size2_class5(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "2A Standard"),
+    int_hyperdrive_size2_class1("2E Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 46d),
+                    new Pair<>(ItemEffect.PowerDraw, .16d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 48d),
+                    new Pair<>(ItemEffect.ThermalLoad, 10d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, .6d)
+            )),
 
-    int_hyperdrive_size3_class1(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "3E Standard"),
-    int_hyperdrive_size3_class2(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "3D Standard"),
-    int_hyperdrive_size3_class3(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "3C Standard"),
-    int_hyperdrive_size3_class4(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "3B Standard"),
-    int_hyperdrive_size3_class5(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "3A Standard"),
+    int_hyperdrive_size2_class2("2D Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1d),
+                    new Pair<>(ItemEffect.Integrity, 41d),
+                    new Pair<>(ItemEffect.PowerDraw, .18d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 54d),
+                    new Pair<>(ItemEffect.ThermalLoad, 10d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, .6d)
+            )),
 
-    int_hyperdrive_size4_class1(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "4E Standard"),
-    int_hyperdrive_size4_class2(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "4D Standard"),
-    int_hyperdrive_size4_class3(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "4C Standard"),
-    int_hyperdrive_size4_class4(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "4B Standard"),
-    int_hyperdrive_size4_class5(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "4A Standard"),
+    int_hyperdrive_size2_class3("2C Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, .2d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 60d),
+                    new Pair<>(ItemEffect.ThermalLoad, 10d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, .6d)
+            )),
 
-    int_hyperdrive_size5_class1(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "5E Standard"),
-    int_hyperdrive_size5_class2(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "5D Standard"),
-    int_hyperdrive_size5_class3(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "5C Standard"),
-    int_hyperdrive_size5_class4(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "5B Standard"),
-    int_hyperdrive_size5_class5(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "5A Standard"),
 
-    int_hyperdrive_size6_class1(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "6E Standard"),
-    int_hyperdrive_size6_class2(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "6D Standard"),
-    int_hyperdrive_size6_class3(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "6C Standard"),
-    int_hyperdrive_size6_class4(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "6B Standard"),
-    int_hyperdrive_size6_class5(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "6A Standard"),
+    int_hyperdrive_size2_class4("2B Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, .25d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 75d),
+                    new Pair<>(ItemEffect.ThermalLoad, 10d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, .8d)
+            )),
 
-    int_hyperdrive_size7_class1(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "7E Standard"),
-    int_hyperdrive_size7_class2(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "7D Standard"),
-    int_hyperdrive_size7_class3(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "7C Standard"),
-    int_hyperdrive_size7_class4(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "7B Standard"),
-    int_hyperdrive_size7_class5(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "7A Standard"),
 
-    int_hyperdrive_size8_class1(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "8E Standard"),
-    int_hyperdrive_size8_class2(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "8D Standard"),
-    int_hyperdrive_size8_class3(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "8C Standard"),
-    int_hyperdrive_size8_class4(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "8B Standard"),
-    int_hyperdrive_size8_class5(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive,
-            "8A Standard"),
+    int_hyperdrive_size2_class5("2A Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, .3d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 90d),
+                    new Pair<>(ItemEffect.ThermalLoad, 10d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, .9d)
+            )),
+
+
+    int_hyperdrive_size3_class1("3E Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 58d),
+                    new Pair<>(ItemEffect.PowerDraw, .24d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 80d),
+                    new Pair<>(ItemEffect.ThermalLoad, 14d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 1.2d)
+            )),
+
+
+    int_hyperdrive_size3_class2("3D Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, .27d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 90d),
+                    new Pair<>(ItemEffect.ThermalLoad, 14d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 1.2d)
+            )),
+
+
+    int_hyperdrive_size3_class3("3C Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, .3d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 100d),
+                    new Pair<>(ItemEffect.ThermalLoad, 14d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 1.2d)
+            )),
+
+
+    int_hyperdrive_size3_class4("3B Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, .38d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 125d),
+                    new Pair<>(ItemEffect.ThermalLoad, 14d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 1.5d)
+            )),
+
+
+    int_hyperdrive_size3_class5("3A Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 80d),
+                    new Pair<>(ItemEffect.PowerDraw, .45d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 150d),
+                    new Pair<>(ItemEffect.ThermalLoad, 14d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump,1.8d)
+            )),
+
+
+    int_hyperdrive_size4_class1("4E Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 72d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.24d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 280d),
+                    new Pair<>(ItemEffect.ThermalLoad, 18d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 2d)
+            )),
+
+
+    int_hyperdrive_size4_class2("4D Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.27d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 315d),
+                    new Pair<>(ItemEffect.ThermalLoad, 18d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 2d)
+            )),
+
+
+    int_hyperdrive_size4_class3("4C Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 80d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.3d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 350d),
+                    new Pair<>(ItemEffect.ThermalLoad, 18d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 2d)
+            )),
+
+
+    int_hyperdrive_size4_class4("4B Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 120d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.38d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 438d),
+                    new Pair<>(ItemEffect.ThermalLoad, 18d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 2.5d)
+            )),
+
+
+    int_hyperdrive_size4_class5("4A Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 100d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.45d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 525d),
+                    new Pair<>(ItemEffect.ThermalLoad, 18d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 3d)
+            )),
+
+
+
+    int_hyperdrive_size5_class1("5E Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 86d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.32d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 560d),
+                    new Pair<>(ItemEffect.ThermalLoad, 27d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 3.3d)
+            )),
+
+
+    int_hyperdrive_size5_class2("5D Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.36d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 630d),
+                    new Pair<>(ItemEffect.ThermalLoad, 27d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 3.3d)
+            )),
+
+
+    int_hyperdrive_size5_class3("5C Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.4d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 700d),
+                    new Pair<>(ItemEffect.ThermalLoad, 27d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 3.3d)
+            )),
+
+
+    int_hyperdrive_size5_class4("5B Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 144d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.5d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 875d),
+                    new Pair<>(ItemEffect.ThermalLoad, 27d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 4.1d)
+            )),
+
+
+    int_hyperdrive_size5_class5("5A Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 120d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.6d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 1050d),
+                    new Pair<>(ItemEffect.ThermalLoad, 27d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 5d)
+            )),
+
+
+    int_hyperdrive_size6_class1("6E Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 102d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.4d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 960d),
+                    new Pair<>(ItemEffect.ThermalLoad, 37d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 5.3d)
+            )),
+
+
+    int_hyperdrive_size6_class2("6D Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 90d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.45d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 1080d),
+                    new Pair<>(ItemEffect.ThermalLoad, 37d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 5.3d)
+            )),
+
+
+    int_hyperdrive_size6_class3("6C Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 113d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.5d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 1200d),
+                    new Pair<>(ItemEffect.ThermalLoad, 37d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 5.3d)
+            )),
+
+
+    int_hyperdrive_size6_class4("6B Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 170d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.63d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 1500d),
+                    new Pair<>(ItemEffect.ThermalLoad, 37d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 6.6d)
+            )),
+
+
+    int_hyperdrive_size6_class5("6A Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 141d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.75d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 1800d),
+                    new Pair<>(ItemEffect.ThermalLoad, 37d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 8d)
+            )),
+
+
+    int_hyperdrive_size7_class1("7E Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 118d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.48d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 1440d),
+                    new Pair<>(ItemEffect.ThermalLoad, 43d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 8.5d)
+            )),
+
+
+    int_hyperdrive_size7_class2("7D Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                                new Pair<>(ItemEffect.Mass, 32d),
+                                new Pair<>(ItemEffect.Integrity, 105d),
+                                new Pair<>(ItemEffect.PowerDraw, 0.54d),
+                                new Pair<>(ItemEffect.BootTime, 10d),
+                                new Pair<>(ItemEffect.FSDOptimalMass, 1620d),
+                                new Pair<>(ItemEffect.ThermalLoad, 43d),
+                                new Pair<>(ItemEffect.MaxFuelPerJump, 8.5d)
+            )),
+
+
+    int_hyperdrive_size7_class3("7C Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 131d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.6d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 1800d),
+                    new Pair<>(ItemEffect.ThermalLoad, 43d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 8.5d)
+            )),
+
+
+    int_hyperdrive_size7_class4("7B Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 128d),
+                    new Pair<>(ItemEffect.Integrity, 197d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.75d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 2250d),
+                    new Pair<>(ItemEffect.ThermalLoad, 43d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 10.6d)
+            )),
+
+
+    int_hyperdrive_size7_class5("7A Standard",
+            ModificationType.Frame_Shift_Drive,
+            ExperimentalType.Frame_Shift_Drive,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 164d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.9d),
+                    new Pair<>(ItemEffect.BootTime, 10d),
+                    new Pair<>(ItemEffect.FSDOptimalMass, 2700d),
+                    new Pair<>(ItemEffect.ThermalLoad, 43d),
+                    new Pair<>(ItemEffect.MaxFuelPerJump, 12.8d)
+            )),
 
 
     /**
      * Life-Support Systems
      */
 
-    int_lifesupport_size1_class1(ModificationType.Life_Support, null,
-            "1E Standard"),
-    int_lifesupport_size1_class2(ModificationType.Life_Support, null,
-            "1D Standard"),
-    int_lifesupport_size1_class3(ModificationType.Life_Support, null,
-            "1C Standard"),
-    int_lifesupport_size1_class4(ModificationType.Life_Support, null,
-            "1B Standard"),
-    int_lifesupport_size1_class5(ModificationType.Life_Support, null,
-            "1A Standard"),
+    int_lifesupport_size1_class1("1E Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
 
-    int_lifesupport_size2_class1(ModificationType.Life_Support, null,
-            "2E Standard"),
-    int_lifesupport_size2_class2(ModificationType.Life_Support, null,
-            "2D Standard"),
-    int_lifesupport_size2_class3(ModificationType.Life_Support, null,
-            "2C Standard"),
-    int_lifesupport_size2_class4(ModificationType.Life_Support, null,
-            "2B Standard"),
-    int_lifesupport_size2_class5(ModificationType.Life_Support, null,
-            "2A Standard"),
+    int_lifesupport_size1_class2("1D Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
 
-    int_lifesupport_size3_class1(ModificationType.Life_Support, null,
-            "3E Standard"),
-    int_lifesupport_size3_class2(ModificationType.Life_Support, null,
-            "3D Standard"),
-    int_lifesupport_size3_class3(ModificationType.Life_Support, null,
-            "3C Standard"),
-    int_lifesupport_size3_class4(ModificationType.Life_Support, null,
-            "3B Standard"),
-    int_lifesupport_size3_class5(ModificationType.Life_Support, null,
-            "3A Standard"),
+    int_lifesupport_size1_class3("1C Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
 
-    int_lifesupport_size4_class1(ModificationType.Life_Support, null,
-            "4E Standard"),
-    int_lifesupport_size4_class2(ModificationType.Life_Support, null,
-            "4D Standard"),
-    int_lifesupport_size4_class3(ModificationType.Life_Support, null,
-            "4C Standard"),
-    int_lifesupport_size4_class4(ModificationType.Life_Support, null,
-            "4B Standard"),
-    int_lifesupport_size4_class5(ModificationType.Life_Support, null,
-            "4A Standard"),
+    int_lifesupport_size1_class4("1B Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
 
-    int_lifesupport_size5_class1(ModificationType.Life_Support, null,
-            "5E Standard"),
-    int_lifesupport_size5_class2(ModificationType.Life_Support, null,
-            "5D Standard"),
-    int_lifesupport_size5_class3(ModificationType.Life_Support, null,
-            "5C Standard"),
-    int_lifesupport_size5_class4(ModificationType.Life_Support, null,
-            "5B Standard"),
-    int_lifesupport_size5_class5(ModificationType.Life_Support, null,
-            "5A Standard"),
+    int_lifesupport_size1_class5("1A Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
 
-    int_lifesupport_size6_class1(ModificationType.Life_Support, null,
-            "6E Standard"),
-    int_lifesupport_size6_class2(ModificationType.Life_Support, null,
-            "6D Standard"),
-    int_lifesupport_size6_class3(ModificationType.Life_Support, null,
-            "6C Standard"),
-    int_lifesupport_size6_class4(ModificationType.Life_Support, null,
-            "6B Standard"),
-    int_lifesupport_size6_class5(ModificationType.Life_Support, null,
-            "6A Standard"),
+    int_lifesupport_size2_class1("2E Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
 
-    int_lifesupport_size7_class1(ModificationType.Life_Support, null,
-            "7E Standard"),
-    int_lifesupport_size7_class2(ModificationType.Life_Support, null,
-            "7D Standard"),
-    int_lifesupport_size7_class3(ModificationType.Life_Support, null,
-            "7C Standard"),
-    int_lifesupport_size7_class4(ModificationType.Life_Support, null,
-            "7B Standard"),
-    int_lifesupport_size7_class5(ModificationType.Life_Support, null,
-            "7A Standard"),
+    int_lifesupport_size2_class2("2D Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
 
-    int_lifesupport_size8_class1(ModificationType.Life_Support, null,
-            "8E Standard"),
-    int_lifesupport_size8_class2(ModificationType.Life_Support, null,
-            "8D Standard"),
-    int_lifesupport_size8_class3(ModificationType.Life_Support, null,
-            "8C Standard"),
-    int_lifesupport_size8_class4(ModificationType.Life_Support, null,
-            "8B Standard"),
-    int_lifesupport_size8_class5(ModificationType.Life_Support, null,
-            "8A Standard"),
+    int_lifesupport_size2_class3("2C Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size2_class4("2B Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size2_class5("2A Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size3_class1("3E Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size3_class2("3D Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size3_class3("3C Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size3_class4("3B Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size3_class5("3A Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size4_class1("4E Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size4_class2("4D Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size4_class3("4C Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size4_class4("4B Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size4_class5("4A Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size5_class1("5E Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size5_class2("5D Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size5_class3("5C Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size5_class4("5B Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size5_class5("5A Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size6_class1("6E Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size6_class2("6D Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size6_class3("6C Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size6_class4("6B Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size6_class5("6A Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size7_class1("7E Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size7_class2("7D Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size7_class3("7C Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size7_class4("7B Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size7_class5("7A Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size8_class1("8E Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size8_class2("8D Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size8_class3("8C Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size8_class4("8B Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
+
+    int_lifesupport_size8_class5("8A Standard",
+            ModificationType.Life_Support,
+            null,
+            new ItemEffectData()),
 
 
     /**
      * Power Distributors
      */
 
-    int_powerdistributor_size1_class1(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "1E Standard"),
-    int_powerdistributor_size1_class2(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "1D Standard"),
-    int_powerdistributor_size1_class3(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "1C Standard"),
-    int_powerdistributor_size1_class4(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "1B Standard"),
-    int_powerdistributor_size1_class5(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "1A Standard"),
+    int_powerdistributor_size1_class1("1E Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
 
-    int_powerdistributor_size2_class1(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "2E Standard"),
-    int_powerdistributor_size2_class2(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "2D Standard"),
-    int_powerdistributor_size2_class3(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "2C Standard"),
-    int_powerdistributor_size2_class4(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "2B Standard"),
-    int_powerdistributor_size2_class5(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "2A Standard"),
+    int_powerdistributor_size1_class2("1D Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
 
-    int_powerdistributor_size3_class1(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "3E Standard"),
-    int_powerdistributor_size3_class2(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "3D Standard"),
-    int_powerdistributor_size3_class3(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "3C Standard"),
-    int_powerdistributor_size3_class4(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "3B Standard"),
-    int_powerdistributor_size3_class5(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "3A Standard"),
+    int_powerdistributor_size1_class3("1C Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
 
-    int_powerdistributor_size4_class1(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "4E Standard"),
-    int_powerdistributor_size4_class2(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "4D Standard"),
-    int_powerdistributor_size4_class3(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "4C Standard"),
-    int_powerdistributor_size4_class4(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "4B Standard"),
-    int_powerdistributor_size4_class5(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "4A Standard"),
+    int_powerdistributor_size1_class4("1B Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
 
-    int_powerdistributor_size5_class1(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "5E Standard"),
-    int_powerdistributor_size5_class2(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "5D Standard"),
-    int_powerdistributor_size5_class3(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "5C Standard"),
-    int_powerdistributor_size5_class4(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "5B Standard"),
-    int_powerdistributor_size5_class5(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "5A Standard"),
+    int_powerdistributor_size1_class5("1A Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
 
-    int_powerdistributor_size6_class1(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "6E Standard"),
-    int_powerdistributor_size6_class2(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "6D Standard"),
-    int_powerdistributor_size6_class3(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "6C Standard"),
-    int_powerdistributor_size6_class4(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "6B Standard"),
-    int_powerdistributor_size6_class5(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "6A Standard"),
+    int_powerdistributor_size2_class1("2E Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
 
-    int_powerdistributor_size7_class1(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "7E Standard"),
-    int_powerdistributor_size7_class2(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "7D Standard"),
-    int_powerdistributor_size7_class3(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "7C Standard"),
-    int_powerdistributor_size7_class4(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "7B Standard"),
-    int_powerdistributor_size7_class5(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "7A Standard"),
+    int_powerdistributor_size2_class2("2D Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
 
-    int_powerdistributor_size8_class1(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "8E Standard"),
-    int_powerdistributor_size8_class2(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "8D Standard"),
-    int_powerdistributor_size8_class3(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "8C Standard"),
-    int_powerdistributor_size8_class4(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "8B Standard"),
-    int_powerdistributor_size8_class5(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor,
-            "8A Standard"),
+    int_powerdistributor_size2_class3("2C Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size2_class4("2B Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size2_class5("2A Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size3_class1("3E Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size3_class2("3D Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size3_class3("3C Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size3_class4("3B Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size3_class5("3A Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size4_class1("4E Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size4_class2("4D Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size4_class3("4C Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size4_class4("4B Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size4_class5("4A Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size5_class1("5E Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size5_class2("5D Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size5_class3("5C Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size5_class4("5B Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size5_class5("5A Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size6_class1("6E Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size6_class2("6D Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size6_class3("6C Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size6_class4("6B Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size6_class5("6A Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size7_class1("7E Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size7_class2("7D Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size7_class3("7C Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size7_class4("7B Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size7_class5("7A Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size8_class1("8E Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size8_class2("8D Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size8_class3("8C Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size8_class4("8B Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
+
+    int_powerdistributor_size8_class5("8A Standard",
+            ModificationType.Power_Distributor,
+            ExperimentalType.Power_Distributor,
+            new ItemEffectData()),
 
 
     /**
      * Sensors
      */
 
-    int_sensors_size1_class1(ModificationType.Sensors, null,
-            "1E Standard"),
-    int_sensors_size1_class2(ModificationType.Sensors, null,
-            "1D Standard"),
-    int_sensors_size1_class3(ModificationType.Sensors, null,
-            "1C Standard"),
-    int_sensors_size1_class4(ModificationType.Sensors, null,
-            "1B Standard"),
-    int_sensors_size1_class5(ModificationType.Sensors, null,
-            "1A Standard"),
+    int_sensors_size1_class1("1E Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
 
-    int_sensors_size2_class1(ModificationType.Sensors, null,
-            "2E Standard"),
-    int_sensors_size2_class2(ModificationType.Sensors, null,
-            "2D Standard"),
-    int_sensors_size2_class3(ModificationType.Sensors, null,
-            "2C Standard"),
-    int_sensors_size2_class4(ModificationType.Sensors, null,
-            "2B Standard"),
-    int_sensors_size2_class5(ModificationType.Sensors, null,
-            "2A Standard"),
+    int_sensors_size1_class2("1D Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
 
-    int_sensors_size3_class1(ModificationType.Sensors, null,
-            "3E Standard"),
-    int_sensors_size3_class2(ModificationType.Sensors, null,
-            "3D Standard"),
-    int_sensors_size3_class3(ModificationType.Sensors, null,
-            "3C Standard"),
-    int_sensors_size3_class4(ModificationType.Sensors, null,
-            "3B Standard"),
-    int_sensors_size3_class5(ModificationType.Sensors, null,
-            "3A Standard"),
+    int_sensors_size1_class3("1C Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
 
-    int_sensors_size4_class1(ModificationType.Sensors, null,
-            "4E Standard"),
-    int_sensors_size4_class2(ModificationType.Sensors, null,
-            "4D Standard"),
-    int_sensors_size4_class3(ModificationType.Sensors, null,
-            "4C Standard"),
-    int_sensors_size4_class4(ModificationType.Sensors, null,
-            "4B Standard"),
-    int_sensors_size4_class5(ModificationType.Sensors, null,
-            "4A Standard"),
+    int_sensors_size1_class4("1B Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
 
-    int_sensors_size5_class1(ModificationType.Sensors, null,
-            "5E Standard"),
-    int_sensors_size5_class2(ModificationType.Sensors, null,
-            "5D Standard"),
-    int_sensors_size5_class3(ModificationType.Sensors, null,
-            "5C Standard"),
-    int_sensors_size5_class4(ModificationType.Sensors, null,
-            "5B Standard"),
-    int_sensors_size5_class5(ModificationType.Sensors, null,
-            "5A Standard"),
+    int_sensors_size1_class5("1A Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
 
-    int_sensors_size6_class1(ModificationType.Sensors, null,
-            "6E Standard"),
-    int_sensors_size6_class2(ModificationType.Sensors, null,
-            "6D Standard"),
-    int_sensors_size6_class3(ModificationType.Sensors, null,
-            "6C Standard"),
-    int_sensors_size6_class4(ModificationType.Sensors, null,
-            "6B Standard"),
-    int_sensors_size6_class5(ModificationType.Sensors, null,
-            "6A Standard"),
+    int_sensors_size2_class1("2E Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
 
-    int_sensors_size7_class1(ModificationType.Sensors, null,
-            "7E Standard"),
-    int_sensors_size7_class2(ModificationType.Sensors, null,
-            "7D Standard"),
-    int_sensors_size7_class3(ModificationType.Sensors, null,
-            "7C Standard"),
-    int_sensors_size7_class4(ModificationType.Sensors, null,
-            "7B Standard"),
-    int_sensors_size7_class5(ModificationType.Sensors, null,
-            "7A Standard"),
+    int_sensors_size2_class2("2D Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
 
-    int_sensors_size8_class1(ModificationType.Sensors, null,
-            "8E Standard"),
-    int_sensors_size8_class2(ModificationType.Sensors, null,
-            "8D Standard"),
-    int_sensors_size8_class3(ModificationType.Sensors, null,
-            "8C Standard"),
-    int_sensors_size8_class4(ModificationType.Sensors, null,
-            "8B Standard"),
-    int_sensors_size8_class5(ModificationType.Sensors, null,
-            "8A Standard"),
+    int_sensors_size2_class3("2C Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size2_class4("2B Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size2_class5("2A Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size3_class1("3E Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size3_class2("3D Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size3_class3("3C Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size3_class4("3B Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size3_class5("3A Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size4_class1("4E Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size4_class2("4D Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size4_class3("4C Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size4_class4("4B Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size4_class5("4A Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size5_class1("5E Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size5_class2("5D Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size5_class3("5C Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size5_class4("5B Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size5_class5("5A Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size6_class1("6E Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size6_class2("6D Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size6_class3("6C Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size6_class4("6B Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size6_class5("6A Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size7_class1("7E Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size7_class2("7D Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size7_class3("7C Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size7_class4("7B Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size7_class5("7A Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size8_class1("8E Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size8_class2("8D Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size8_class3("8C Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size8_class4("8B Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
+
+    int_sensors_size8_class5("8A Standard",
+            ModificationType.Sensors,
+            null,
+            new ItemEffectData()),
 
 
     /**
      * Fuel Tanks
      */
 
-    int_fueltank_size1_class3(null, null,
-            "1C Standard"),
-    int_fueltank_size2_class3(null, null,
-            "2C Standard"),
-    int_fueltank_size3_class3(null, null,
-            "3C Standard"),
-    int_fueltank_size4_class3(null, null,
-            "4C Standard"),
-    int_fueltank_size5_class3(null, null,
-            "5C Standard"),
-    int_fueltank_size6_class3(null, null,
-            "6C Standard"),
-    int_fueltank_size7_class3(null, null,
-            "7C Standard"),
-    int_fueltank_size8_class3(null, null,
-            "8C Standard"),
+    int_fueltank_size1_class3("1C Standard",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_fueltank_size2_class3("2C Standard",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_fueltank_size3_class3("3C Standard",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_fueltank_size4_class3("4C Standard",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_fueltank_size5_class3("5C Standard",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_fueltank_size6_class3("6C Standard",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_fueltank_size7_class3("7C Standard",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_fueltank_size8_class3("8C Standard",
+            null,
+            null,
+            new ItemEffectData()),
 
 
     /**
@@ -948,32 +4095,54 @@ public enum CoreInternalModule implements ShipModule
     // todo: find ENUM value for this
     // Guardian Hybrid Power Distributor
 
-    int_guardianpowerplant_size2(null, null,
-            "2A Hybrid"),
-    int_guardianpowerplant_size3(null, null,
-            "3A Hybrid"),
-    int_guardianpowerplant_size4(null, null,
-            "4A Hybrid"),
-    int_guardianpowerplant_size5(null, null,
-            "5A Hybrid"),
-    int_guardianpowerplant_size6(null, null,
-            "6A Hybrid"),
-    int_guardianpowerplant_size7(null, null,
-            "7A Hybrid"),
-    int_guardianpowerplant_size8(null, null,
-            "8A Hybrid"),
+    int_guardianpowerplant_size2("2A Hybrid",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_guardianpowerplant_size3("3A Hybrid",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_guardianpowerplant_size4("4A Hybrid",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_guardianpowerplant_size5("5A Hybrid",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_guardianpowerplant_size6("6A Hybrid",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_guardianpowerplant_size7("7A Hybrid",
+            null,
+            null,
+            new ItemEffectData()),
+
+    int_guardianpowerplant_size8("8A Hybrid",
+            null,
+            null,
+            new ItemEffectData()),
 
     ;
 
     private final String text;
     private final ProcurementType modificationType;
     private final ProcurementType experimentalType;
+    private final ItemEffectData itemEffects;
 
-    CoreInternalModule(ProcurementType modificationType, ProcurementType experimentalType, String text)
+    CoreInternalModule(String text, ProcurementType modificationType, ProcurementType experimentalType, ItemEffectData itemEffects)
     {
         this.modificationType = modificationType;
         this.experimentalType = experimentalType;
         this.text = text;
+        this.itemEffects = itemEffects;
     }
 
     public ProcurementType modificationType()
@@ -984,6 +4153,12 @@ public enum CoreInternalModule implements ShipModule
     public ProcurementType experimentalType()
     {
         return experimentalType;
+    }
+
+    @Override
+    public ItemEffectData itemEffects()
+    {
+        return itemEffects;
     }
 
     @Override

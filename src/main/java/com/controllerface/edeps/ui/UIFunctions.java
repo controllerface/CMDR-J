@@ -83,6 +83,8 @@ public class UIFunctions
         static final Color neutralBlack = Color.rgb(0x00, 0x00, 0x00);
         public static final Color standardOrange = Color.rgb(0xff, 0x71, 0x00);
         public static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
+        public static final Color darkOrange = Color.rgb(0xb7, 0x52, 0x00);
+        public static final Color darkYellow = Color.rgb(0xb7, 0x7d, 0x00);
 
         static final Font baseFont = Font.getDefault();
         static final double size1 = baseFont.getSize() + (baseFont.getSize() / 5);
@@ -90,6 +92,7 @@ public class UIFunctions
         static final double size3 = baseFont.getSize() + (baseFont.getSize() / 3);
         static final double size4 = baseFont.getSize() + (baseFont.getSize() / 2);
 
+        public static final Font size0Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, baseFont.getSize());
         public static final Font size1Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size1);
         public static final Font size2Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size2);
         public static final Font size3Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size3);
