@@ -2389,7 +2389,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 83d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
     int_engine_size2_class2("2D Standard",
@@ -2406,7 +2406,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 86d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2424,7 +2424,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 90d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2442,7 +2442,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 90d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2460,7 +2460,27 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 96d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
+            )),
+
+    int_engine_size2_class5_fast("2A Enhanced Performance",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 40d),
+                    new Pair<>(ItemEffect.PowerDraw, 4d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 50d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 60d),
+                    new Pair<>(ItemEffect.MaximumMass, 120d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 90d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 115d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 136.67d),
+
+                    // TODO: maybe add special effects for these thrusters. May need to acquire and test
+
+                    new Pair<>(ItemEffect.EngineHeatRate, 2d)
             )),
 
 
@@ -2478,7 +2498,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 83d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2496,7 +2516,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 86d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2514,7 +2534,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 90d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2532,7 +2552,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 93d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2550,7 +2570,28 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 96d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 16d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
+            )),
+
+
+    int_engine_size3_class5_fast("3A Enhanced Performance",
+            ModificationType.Thrusters,
+            ExperimentalType.Thrusters,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 55d),
+                    new Pair<>(ItemEffect.PowerDraw, 5d),
+                    new Pair<>(ItemEffect.BootTime, 0d),
+                    new Pair<>(ItemEffect.EngineMinimumMass, 70d),
+                    new Pair<>(ItemEffect.EngineOptimalMass, 90d),
+                    new Pair<>(ItemEffect.MaximumMass, 200d),
+                    new Pair<>(ItemEffect.EngineMinPerformance, 90d),
+                    new Pair<>(ItemEffect.EngineOptPerformance, 115d),
+                    new Pair<>(ItemEffect.EngineMaxPerformance, 136.67d),
+
+                    // TODO: maybe add special effects for these thrusters. May need to acquire and test
+
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2568,7 +2609,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 83d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2586,7 +2627,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 86d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2604,7 +2645,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 90d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2622,7 +2663,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 93d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2640,7 +2681,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 96d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2658,7 +2699,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 83d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2676,7 +2717,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 86d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2694,7 +2735,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 90d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2712,7 +2753,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 93d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2730,7 +2771,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 96d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2748,7 +2789,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 83d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2766,7 +2807,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 86d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2784,7 +2825,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 90d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2802,7 +2843,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 93d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2820,7 +2861,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 96d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2838,7 +2879,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 83d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2856,7 +2897,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 86d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2874,7 +2915,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 90d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2892,7 +2933,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 93d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2910,7 +2951,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 96d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2928,7 +2969,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 83d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 103d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2946,7 +2987,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 86d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 106d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2964,7 +3005,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 90d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 110d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -2982,7 +3023,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 93d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 113d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -3000,7 +3041,7 @@ public enum CoreInternalModule implements ShipModule
                     new Pair<>(ItemEffect.EngineMinPerformance, 96d),
                     new Pair<>(ItemEffect.EngineOptPerformance, 100d),
                     new Pair<>(ItemEffect.EngineMaxPerformance, 116d),
-                    new Pair<>(ItemEffect.ThermalLoad, 1.3d)
+                    new Pair<>(ItemEffect.EngineHeatRate, 1.3d)
             )),
 
 
@@ -3435,203 +3476,441 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size1_class1("1E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 32d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.32d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 300d)
+            )),
 
     int_lifesupport_size1_class2("1D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0.5d),
+                    new Pair<>(ItemEffect.Integrity, 36d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.36d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 450d)
+            )),
 
     int_lifesupport_size1_class3("1C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 40d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.4d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 600d)
+            )),
 
     int_lifesupport_size1_class4("1B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.Integrity, 44d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.44d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 900d)
+            )),
 
     int_lifesupport_size1_class5("1A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 48d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.48d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 1500d)
+            )),
 
     int_lifesupport_size2_class1("2E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 41d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.37d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 300d)
+            )),
 
     int_lifesupport_size2_class2("2D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1d),
+                    new Pair<>(ItemEffect.Integrity, 46d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.41d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 450d)
+            )),
 
     int_lifesupport_size2_class3("2C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.46d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 600d)
+            )),
 
     int_lifesupport_size2_class4("2B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 56d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.51d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 900d)
+            )),
 
     int_lifesupport_size2_class5("2A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 61d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.55d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 1500d)
+            )),
 
     int_lifesupport_size3_class1("3E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.42d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 300d)
+            )),
 
     int_lifesupport_size3_class2("3D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.Integrity, 58d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.48d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 450d)
+            )),
 
     int_lifesupport_size3_class3("3C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.53d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 600d)
+            )),
 
     int_lifesupport_size3_class4("3B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 70d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.58d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 900d)
+            )),
 
     int_lifesupport_size3_class5("3A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.64d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 1500d)
+            )),
 
     int_lifesupport_size4_class1("4E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.5d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 300d)
+            )),
 
     int_lifesupport_size4_class2("4D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 72d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.56d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 450d)
+            )),
 
     int_lifesupport_size4_class3("4C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 80d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.62d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 600d)
+            )),
 
     int_lifesupport_size4_class4("4B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 88d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.68d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 900d)
+            )),
 
     int_lifesupport_size4_class5("4A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.74d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 1500d)
+            )),
 
     int_lifesupport_size5_class1("5E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.57d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 300d)
+            )),
 
     int_lifesupport_size5_class2("5D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 86d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.64d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 450d)
+            )),
 
     int_lifesupport_size5_class3("5C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.71d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 600d)
+            )),
 
     int_lifesupport_size5_class4("5B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 106d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.78d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 900d)
+            )),
 
     int_lifesupport_size5_class5("5A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 115d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.85d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 1500d)
+            )),
 
     int_lifesupport_size6_class1("6E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 90d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.64d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 300d)
+            )),
 
     int_lifesupport_size6_class2("6D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 102d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.72d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 450d)
+            )),
 
     int_lifesupport_size6_class3("6C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 113d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.8d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 600d)
+            )),
 
     int_lifesupport_size6_class4("6B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 124d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.88d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 900d)
+            )),
 
     int_lifesupport_size6_class5("6A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 136d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.96d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 1500d)
+            )),
 
     int_lifesupport_size7_class1("7E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 105d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.72d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 300d)
+            )),
 
     int_lifesupport_size7_class2("7D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 118d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.81d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 450d)
+            )),
 
     int_lifesupport_size7_class3("7C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 131d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.9d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 600d)
+            )),
 
     int_lifesupport_size7_class4("7B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 128d),
+                    new Pair<>(ItemEffect.Integrity, 144d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.99d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 900d)
+            )),
 
     int_lifesupport_size7_class5("7A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 157d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.08d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 1500d)
+            )),
 
     int_lifesupport_size8_class1("8E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 120d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.8d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 300d)
+            )),
 
     int_lifesupport_size8_class2("8D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 135d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.9d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 450d)
+            )),
 
     int_lifesupport_size8_class3("8C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 150d),
+                    new Pair<>(ItemEffect.PowerDraw, 1d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 600d)
+            )),
 
     int_lifesupport_size8_class4("8B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
-
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 256d),
+                    new Pair<>(ItemEffect.Integrity, 165d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.1d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 900d)
+            )),
     int_lifesupport_size8_class5("8A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData()),
-
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 180d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.2d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.OxygenTimeCapacity, 1500d)
+            )),
 
     /**
      * Power Distributors
@@ -3640,407 +3919,1172 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size1_class1("1E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 36d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.32d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 10d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 1.2d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 8d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 0.4d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 8d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 0.4d)
+            )),
 
     int_powerdistributor_size1_class2("1D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0.5d),
+                    new Pair<>(ItemEffect.Integrity, 32d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.36d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 11d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 1.4d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 9d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 0.5d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 9d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 0.5d)
+            )),
 
     int_powerdistributor_size1_class3("1C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 40d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.4d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 12d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 1.5d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 10d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 0.5d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 10d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 0.5d)
+            )),
 
     int_powerdistributor_size1_class4("1B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.Integrity, 48d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.44d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 13d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 1.7d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 11d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 0.6d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 11d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 0.6d)
+            )),
 
     int_powerdistributor_size1_class5("1A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 44d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.48d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 14d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 1.8d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 12d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 0.6d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 12d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 0.6d)
+            )),
 
     int_powerdistributor_size2_class1("2E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 46d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.36d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 12d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 1.4d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 10d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 0.6d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 10d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 0.6d)
+            )),
 
     int_powerdistributor_size2_class2("2D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1d),
+                    new Pair<>(ItemEffect.Integrity, 41d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.41d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 14d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 1.6d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 11d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 0.6d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 11d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 0.6d)
+            )),
 
     int_powerdistributor_size2_class3("2C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.45d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 15d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 1.8d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 12d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 0.7d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 12d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 0.7d)
+            )),
 
     int_powerdistributor_size2_class4("2B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 61d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.5d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 17d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 2d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 13d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 0.8d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 13d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 0.8d)
+            )),
 
     int_powerdistributor_size2_class5("2A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 56d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.54d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 18d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 2.2d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 14d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 0.8d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 14d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 0.8d)
+            )),
 
     int_powerdistributor_size3_class1("3E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 58d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.4d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 16d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 1.8d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 12d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 0.9d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 12d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 0.9d)
+            )),
 
     int_powerdistributor_size3_class2("3D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.45d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 18d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 2.1d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 14d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 1d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 14d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 1d)
+            )),
 
     int_powerdistributor_size3_class3("3C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.5d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 20d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 2.3d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 15d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 1.1d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 15d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 1.1d)
+            )),
 
     int_powerdistributor_size3_class4("3B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.55d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 22d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 2.5d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 17d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 1.2d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 17d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 1.2d)
+            )),
 
     int_powerdistributor_size3_class5("3A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 70d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.6d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 24d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 2.8d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 18d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 1.3d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 18d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 1.3d)
+            )),
 
     int_powerdistributor_size4_class1("4E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 72d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.45d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 22d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 2.3d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 15d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 1.3d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 15d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 1.3d)
+            )),
 
     int_powerdistributor_size4_class2("4D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.5d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 24d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 2.6d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 17d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 1.4d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 17d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 1.4d)
+            )),
 
     int_powerdistributor_size4_class3("4C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 80d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.56d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 27d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 2.9d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 19d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 1.6d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 19d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 1.6d)
+            )),
 
     int_powerdistributor_size4_class4("4B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.62d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 30d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 3.2d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 21d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 1.8d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 21d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 1.8d)
+            )),
 
     int_powerdistributor_size4_class5("4A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 88d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.67d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 32d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 3.5d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 23d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 1.9d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 23d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 1.9d)
+            )),
 
     int_powerdistributor_size5_class1("5E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 86d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.5d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 27d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 2.9d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 19d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 1.7d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 19d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 1.7d)
+            )),
 
     int_powerdistributor_size5_class2("5D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.56d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 31d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 3.2d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 22d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 1.9d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 22d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 1.9d)
+            )),
 
     int_powerdistributor_size5_class3("5C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.62d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 34d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 3.6d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 24d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 2.1d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 24d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 2.1d)
+            )),
 
     int_powerdistributor_size5_class4("5B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 115d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.68d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 37d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 4d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 26d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 2.3d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 26d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 2.3d)
+            )),
 
     int_powerdistributor_size5_class5("5A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 106d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.74d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 41d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 4.3d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 29d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 2.5d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 29d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 2.5d)
+            )),
 
     int_powerdistributor_size6_class1("6E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 102d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.54d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 34d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 3.4d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 23d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 2.2d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 23d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 2.2d)
+            )),
 
     int_powerdistributor_size6_class2("6D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 90d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.61d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 38d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 3.9d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 26d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 2.4d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 26d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 2.4d)
+            )),
 
     int_powerdistributor_size6_class3("6C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 113d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.68d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 42d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 4.3d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 29d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 2.7d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 29d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 2.7d)
+            )),
 
     int_powerdistributor_size6_class4("6B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 136d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.75d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 46d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 4.7d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 32d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 3d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 32d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 3d)
+            )),
 
     int_powerdistributor_size6_class5("6A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 124d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.82d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 50d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 5.2d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 35d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 3.2d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 35d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 3.2d)
+            )),
 
     int_powerdistributor_size7_class1("7E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 118d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.59d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 41d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 4.1d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 27d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 2.6d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 27d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 2.6d)
+            )),
 
     int_powerdistributor_size7_class2("7D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 105d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.67d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 46d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 4.6d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 31d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 3d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 31d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 3d)
+            )),
 
     int_powerdistributor_size7_class3("7C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 131d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.74d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 51d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 5.1d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 34d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 3.3d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 34d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 3.3d)
+            )),
 
     int_powerdistributor_size7_class4("7B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 128d),
+                    new Pair<>(ItemEffect.Integrity, 157d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.81d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 56d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 5.6d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 37d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 3.6d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 37d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 3.6d)
+            )),
 
     int_powerdistributor_size7_class5("7A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 144d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.89d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 61d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 6.1d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 41d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 4d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 41d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 4d)
+            )),
 
     int_powerdistributor_size8_class1("8E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 135d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.64d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 48d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 4.8d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 32d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 3.2d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 32d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 3.2d)
+            )),
 
     int_powerdistributor_size8_class2("8D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 120d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.72d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 54d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 5.4d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 36d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 3.6d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 36d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 3.6d)
+            )),
 
     int_powerdistributor_size8_class3("8C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 150d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.8d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 60d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 6d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 40d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 4d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 40d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 4d)
+            )),
 
     int_powerdistributor_size8_class4("8B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 256d),
+                    new Pair<>(ItemEffect.Integrity, 180d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.88d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 66d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 6.6d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 44d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 4.4d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 44d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 4.4d)
+            )),
 
     int_powerdistributor_size8_class5("8A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 165d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.96d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.WeaponsCapacity, 72d),
+                    new Pair<>(ItemEffect.WeaponsRecharge, 7.2d),
+                    new Pair<>(ItemEffect.EnginesCapacity, 48d),
+                    new Pair<>(ItemEffect.EnginesRecharge, 4.8d),
+                    new Pair<>(ItemEffect.SystemsCapacity, 48d),
+                    new Pair<>(ItemEffect.SystemsRecharge, 4.8d)
+            )),
 
 
     /**
      * Sensors
+     *
+     * Note: for this module type, ItemEffect.range is used as the "Typical Emission" value, there doesn't appear to be
+     * a known enum value from frontier for typical emission, and range seems to be the most sensible value to use.
+     *
+     * todo: acquire some relevant mods and check what they appears as in the journal logs
      */
 
     int_sensors_size1_class1("1E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 36d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.16d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 4000d)
+            )),
 
     int_sensors_size1_class2("1D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 0.5d),
+                    new Pair<>(ItemEffect.Integrity, 32d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.18d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 4500d)
+            )),
 
     int_sensors_size1_class3("1C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 40d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.2d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5000d)
+            )),
 
     int_sensors_size1_class4("1B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.Integrity, 48d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.33d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5500d)
+            )),
 
     int_sensors_size1_class5("1A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 44d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.6d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6000d)
+            )),
 
     int_sensors_size2_class1("2E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 46d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.18d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 4160d)
+            )),
 
     int_sensors_size2_class2("2D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1d),
+                    new Pair<>(ItemEffect.Integrity, 41d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.21d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 4680d)
+            )),
 
     int_sensors_size2_class3("2C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.23d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5200d)
+            )),
 
     int_sensors_size2_class4("2B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 61d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.38d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5720d)
+            )),
 
     int_sensors_size2_class5("2A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 56d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.69d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6240d)
+            )),
 
     int_sensors_size3_class1("3E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 58d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.22d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 4320d)
+            )),
 
     int_sensors_size3_class2("3D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.25d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 4860d)
+            )),
 
     int_sensors_size3_class3("3C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.28d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5400d)
+            )),
 
     int_sensors_size3_class4("3B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.46d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5940d)
+            )),
 
     int_sensors_size3_class5("3A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 70d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.84d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6480d)
+            )),
 
     int_sensors_size4_class1("4E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 72d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.27d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 4480d)
+            )),
 
     int_sensors_size4_class2("4D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.31d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5040d)
+            )),
 
     int_sensors_size4_class3("4C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 80d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.34d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5600d)
+            )),
 
     int_sensors_size4_class4("4B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.56d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6160d)
+            )),
 
     int_sensors_size4_class5("4A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 88d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.02d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6720d)
+            )),
 
     int_sensors_size5_class1("5E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 86d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.33d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 4640d)
+            )),
 
     int_sensors_size5_class2("5D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.37d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5220d)
+            )),
 
     int_sensors_size5_class3("5C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.41d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5800d)
+            )),
 
     int_sensors_size5_class4("5B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 115d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.68d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6380d)
+            )),
 
     int_sensors_size5_class5("5A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 106d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.23d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6960d)
+            )),
 
     int_sensors_size6_class1("6E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 102d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.4d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 4800d)
+            )),
 
     int_sensors_size6_class2("6D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 90d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.45d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5400d)
+            )),
 
     int_sensors_size6_class3("6C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 113d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.5d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6000d)
+            )),
 
     int_sensors_size6_class4("6B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 136d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.83d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6600d)
+            )),
 
     int_sensors_size6_class5("6A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 124d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.5d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 7200d)
+            )),
 
     int_sensors_size7_class1("7E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 118d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.47d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 4960d)
+            )),
 
     int_sensors_size7_class2("7D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 105d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.53d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5580d)
+            )),
 
     int_sensors_size7_class3("7C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 131d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.59d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6200d)
+            )),
 
     int_sensors_size7_class4("7B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 128d),
+                    new Pair<>(ItemEffect.Integrity, 157d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.97d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6820d)
+            )),
 
     int_sensors_size7_class5("7A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 144d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.77d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 7440d)
+            )),
 
     int_sensors_size8_class1("8E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 135d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.55d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5120d)
+            )),
 
     int_sensors_size8_class2("8D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 120d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.62d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 5760d)
+            )),
 
     int_sensors_size8_class3("8C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 150d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.69d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 6400d)
+            )),
 
     int_sensors_size8_class4("8B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 256d),
+                    new Pair<>(ItemEffect.Integrity, 180d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.14d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 7040d)
+            )),
 
     int_sensors_size8_class5("8A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 165d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.07d),
+                    new Pair<>(ItemEffect.BootTime, 5d),
+                    new Pair<>(ItemEffect.SensorTargetScanAngle, 30d),
+                    new Pair<>(ItemEffect.MaxRange, 8000d),
+                    new Pair<>(ItemEffect.Range, 7680d)
+            )),
 
 
     /**
@@ -4050,42 +5094,42 @@ public enum CoreInternalModule implements ShipModule
     int_fueltank_size1_class3("1C Standard",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 2d))),
 
     int_fueltank_size2_class3("2C Standard",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 4d))),
 
     int_fueltank_size3_class3("3C Standard",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 8d))),
 
     int_fueltank_size4_class3("4C Standard",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 16d))),
 
     int_fueltank_size5_class3("5C Standard",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 32d))),
 
     int_fueltank_size6_class3("6C Standard",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 64d))),
 
     int_fueltank_size7_class3("7C Standard",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 128d))),
 
     int_fueltank_size8_class3("8C Standard",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 256d))),
 
 
     /**
@@ -4098,37 +5142,72 @@ public enum CoreInternalModule implements ShipModule
     int_guardianpowerplant_size2("2A Hybrid",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.5d),
+                    new Pair<>(ItemEffect.Integrity, 56d),
+                    new Pair<>(ItemEffect.PowerCapacity, 12.7d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 0.5d)
+            )),
 
     int_guardianpowerplant_size3("3A Hybrid",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.9d),
+                    new Pair<>(ItemEffect.Integrity, 70d),
+                    new Pair<>(ItemEffect.PowerCapacity, 15.8d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 0.5d)
+            )),
 
     int_guardianpowerplant_size4("4A Hybrid",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5.9d),
+                    new Pair<>(ItemEffect.Integrity, 88d),
+                    new Pair<>(ItemEffect.PowerCapacity, 20.6d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 0.5d)
+            )),
 
     int_guardianpowerplant_size5("5A Hybrid",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 11.7d),
+                    new Pair<>(ItemEffect.Integrity, 106d),
+                    new Pair<>(ItemEffect.PowerCapacity, 26.9d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 0.5d)
+            )),
 
     int_guardianpowerplant_size6("6A Hybrid",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 23.4d),
+                    new Pair<>(ItemEffect.Integrity, 124d),
+                    new Pair<>(ItemEffect.PowerCapacity, 33.3d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 0.5d)
+            )),
 
     int_guardianpowerplant_size7("7A Hybrid",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 46.8d),
+                    new Pair<>(ItemEffect.Integrity, 144d),
+                    new Pair<>(ItemEffect.PowerCapacity, 39.6d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 0.5d)
+            )),
 
     int_guardianpowerplant_size8("8A Hybrid",
             null,
             null,
-            new ItemEffectData()),
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 93.6d),
+                    new Pair<>(ItemEffect.Integrity, 165d),
+                    new Pair<>(ItemEffect.PowerCapacity, 47.5d),
+                    new Pair<>(ItemEffect.HeatEfficiency, 0.5d)
+            )),
 
     ;
 

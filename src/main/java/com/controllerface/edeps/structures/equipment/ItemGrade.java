@@ -45,7 +45,7 @@ public enum ItemGrade
      */
 
     Drone(0, "Limpet Drone", "Starport Restock Services"),   // standard commodities and salvage
-    Space(1, "Commodity", "Starport Markets"),   // standard commodities and salvage
+    Space(1, "Commodity", "Starport Commodity Markets"),   // standard commodities and salvage
     Planet(2, "Planetary Port", "Planetary Port Commodity Markets"),  // only available at planetary ports
     Mining(3, "Asteroid Mining", "Asteroid and Planetary Ring Mining"),  // attainable by mining only
     Mission(4, "Mission", "Mission Rewards"), // mission reward exclusive
