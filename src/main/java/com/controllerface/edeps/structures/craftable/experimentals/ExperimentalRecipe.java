@@ -63,7 +63,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_shieldbooster_explosive("Blast Block", ItemGrade.Experimental, new ItemEffectData
             (
-                    new Pair<>(ItemEffect.DefenceModifierShieldMultiplier, -1d),
+                    new Pair<>(ItemEffect.DefenceModifierShieldAddition, -1d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 2d)
             ),
             new CostData(Material.SHIELDSOAKANALYSIS, 5),
@@ -827,7 +827,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_shield_thermic("Thermo Block", ItemGrade.Experimental, new ItemEffectData
             (
-                    new Pair<>(ItemEffect.DefenceModifierShieldMultiplier, -3d),
+                    new Pair<>(ItemEffect.DefenceModifierShieldAddition, -3d),
                     new Pair<>(ItemEffect.ThermicResistance, 8d)
             ),
             new CostData(Material.WORNSHIELDEMITTERS, 5),
