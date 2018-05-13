@@ -3683,7 +3683,9 @@ public enum OptionalInternalModule implements ShipModule
      * Planetary Approach Suite
      */
 
-    int_planetapproachsuite("Planetary Approach Suite", null, null,
+    int_planetapproachsuite("Planetary Approach Suite",
+            null,
+            null,
             new ItemEffectData()),
 
 
@@ -3707,7 +3709,9 @@ public enum OptionalInternalModule implements ShipModule
                     new Pair<>(ItemEffect.Mass, 1d)
             )),
 
-    hpt_xenoscanner_basic_tiny("Xeno Scanner", null, null,
+    hpt_xenoscanner_basic_tiny("Xeno Scanner",
+            null,
+            null,
             new ItemEffectData(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 56d),
