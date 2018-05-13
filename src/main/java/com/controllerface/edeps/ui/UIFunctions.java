@@ -4,6 +4,7 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.data.ItemEffectData;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.commander.ShipStatisticData;
@@ -225,42 +226,56 @@ public class UIFunctions
         // modification or experimental effect would have on whatever item it is applied to, and the magnitude of that
         // effect. If the magnitude is a positive number, it would be added to the base value of any modified item, and
         // likewise, a negative value would become a subtraction from any base value.
-        public static Function<Pair<ItemEffect, Double>, Label> effectToLabel = (pair) ->
+        public static Function<ItemEffectData, Label> effectToLabel = (pair) ->
         {
-            // get the "more is good" flag for this effect
-            boolean moreIsGood = pair.getKey().isMoreGood();
-
-            // set a flag to capture whether the value is negative or positive
-            boolean valueIsPositive = pair.getValue() >= 0;
-
-            // now set a flag marking this effect as "good" or "bad". This is used primarily to add a corresponding
-            // color to the UI indicating good/bad status. For example, "bad" effects are often displayed in red
-            boolean isGood = moreIsGood == valueIsPositive;
-
-            // we want positive changes to have a plus sign (+) in their text. Negative values have a minus sign (-)
-            // prefix by default, so we only need to explicitly do this for positive numbers
-
-            String text = pair.getKey().toString()
-                    + (valueIsPositive ? " +" : " ")
-                    + String.valueOf(pair.getValue()) ;
-
-            // some effects have a zero value, such effects are generally "binary" on/off values, so we can just remove
-            // the trailing "point zero" suffix
-            text = text.replace(".0","");
-
-            // todo: clean this up, there's extra checks here
-            // to make the text match the in game values, add a percent sign (%)
-            if (text.contains("-") || text.contains("+")) text += "%";
-            text = text.replace("+0%","");
-
-            // now create the label object using the text we just created
-            Label nextLabel = new Label(text);
+            Label nextLabel = new Label();
 
             // todo: in the future this will be done with CSS
             nextLabel.setFont(Fonts.size1Font);
 
-            // text fill is a separate value, set it to the "good" or "bad" font as appropriate
-            nextLabel.setTextFill(isGood ? Fonts.positiveBlue : Fonts.negativeRed);
+            // get the "more is good" flag for this effect
+            boolean moreIsGood = pair.getEffect().isMoreGood();
+
+            boolean isNumerical = pair.isNumerical();
+
+            if (isNumerical)
+            {
+                // set a flag to capture whether the value is negative or positive
+                boolean valueIsPositive = pair.getDoubleValue() >= 0;
+
+                // now set a flag marking this effect as "good" or "bad". This is used primarily to add a corresponding
+                // color to the UI indicating good/bad status. For example, "bad" effects are often displayed in red
+                boolean isGood = moreIsGood == valueIsPositive;
+
+                // we want positive changes to have a plus sign (+) in their text. Negative values have a minus sign (-)
+                // prefix by default, so we only need to explicitly do this for positive numbers
+
+                String text = pair.getEffect().toString()
+                        + (valueIsPositive ? " +" : " ")
+                        + String.valueOf(pair.getDoubleValue()) ;
+
+                // some effects have a zero value, such effects are generally "binary" on/off values, so we can just remove
+                // the trailing "point zero" suffix
+                text = text.replace(".0","");
+
+                // todo: clean this up, there's extra checks here
+                // to make the text match the in game values, add a percent sign (%)
+                if (text.contains("-") || text.contains("+")) text += "%";
+                text = text.replace("+0%","");
+
+                // now create the label object using the text we just created
+                //nextLabel = new Label(text);
+
+                nextLabel.setText(text);
+
+
+                // text fill is a separate value, set it to the "good" or "bad" font as appropriate
+                nextLabel.setTextFill(isGood ? Fonts.positiveBlue : Fonts.negativeRed);
+            }
+            else
+            {
+                nextLabel.setText(pair.getEffect().toString() + " " + pair.getStringValue());
+            }
 
             return nextLabel;
         };

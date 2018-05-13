@@ -32,8 +32,6 @@ public enum ItemEffect
     MaximumRange("M", "Maximum Range", true),
     MaxRange("M", "Max Range", true), // todo: determine use, probably sensors, moddable? alias of above?
 
-
-
     /*
     Different stats with same display names are grouped together ensuring they display uniformly when sorted by
     enum ordinal
@@ -53,8 +51,6 @@ public enum ItemEffect
 
     MaximumMass("T", "Maximum Mass", true),
     ShieldGenMaximumMass("T", "Maximum Mass", true),
-
-
 
 
     /*
@@ -97,9 +93,8 @@ public enum ItemEffect
     Shield Generator
      */
 
-    BrokenRegenRate("MJ/S", "Broken Regen rate", true),
     RegenRate("MJ/S", "Regen Rate", true),
-
+    BrokenRegenRate("MJ/S", "Broken Regen rate", true),
     ShieldGenMinStrength("MJ", "Minimum Strength", true),
     ShieldGenStrength("MJ", "Optimal Strength", true),
     ShieldGenMaxStrength("MJ", "Maximum Strength", true),

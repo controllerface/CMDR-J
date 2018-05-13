@@ -14,14 +14,14 @@ import java.util.stream.Stream;
  */
 public class ItemEffects
 {
-    private final Pair<ItemEffect, Double>[] effects;
+    private final ItemEffectData[] effects;
 
-    public ItemEffects(Pair<ItemEffect, Double> ... effectPairs)
+    public ItemEffects(ItemEffectData ... effectPairs)
     {
         this.effects = effectPairs;
     }
 
-    public Stream<Pair<ItemEffect, Double>> pairStream()
+    public Stream<ItemEffectData> pairStream()
     {
         return Arrays.stream(effects);
     }
@@ -29,7 +29,7 @@ public class ItemEffects
     public static ItemEffects EMPTY = new ItemEffects()
     {
         @Override
-        public Stream<Pair<ItemEffect, Double>> pairStream()
+        public Stream<ItemEffectData> pairStream()
         {
             return Stream.empty();
         }
