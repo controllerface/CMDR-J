@@ -1,7 +1,7 @@
 package com.controllerface.edeps;
 
+import com.controllerface.edeps.data.ItemEffects;
 import com.controllerface.edeps.data.procurements.CostData;
-import com.controllerface.edeps.data.ItemEffectData;
 import com.controllerface.edeps.structures.equipment.ItemGrade;
 
 import java.util.stream.Stream;
@@ -14,7 +14,7 @@ public interface ProcurementRecipe
     Stream<CostData> costStream();
     String getShortLabel();
     String getDisplayLabel();
-    ItemEffectData effects();
+    ItemEffects effects();
     String getName();
     ItemGrade getGrade();
     void setParentBlueprintName(String blueprintName);

@@ -58,7 +58,7 @@ public class EDEPSTest
                         String grade = g.getKey();
                         String recipeName = blueprintName + "_" + grade;
                         String gradeEnum = "ItemGrade.GRADE_" + grade;
-                        String recipeEnum = recipeName + "(" + gradeEnum +", new ItemEffectData";
+                        String recipeEnum = recipeName + "(" + gradeEnum +", new ItemEffects";
 
                         Map<String, Object> costs = ((Map<String, Object>) ((Map<String, Object>) g.getValue()).get("components"));
 

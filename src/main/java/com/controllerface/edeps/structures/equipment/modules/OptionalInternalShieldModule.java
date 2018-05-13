@@ -2,7 +2,7 @@ package com.controllerface.edeps.structures.equipment.modules;
 
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.ShipModule;
-import com.controllerface.edeps.data.ItemEffectData;
+import com.controllerface.edeps.data.ItemEffects;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationType;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
@@ -25,7 +25,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size1_class1("1A Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 48d),
                     new Pair<>(ItemEffect.PowerDraw, 1.68d),
@@ -48,7 +48,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size1_class3_fast("1C Bi-Weave Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 40d),
                     new Pair<>(ItemEffect.PowerDraw, 1.2d),
@@ -71,7 +71,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size1_class5_strong("1A Prismatic Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.6d),
                     new Pair<>(ItemEffect.Integrity, 48d),
                     new Pair<>(ItemEffect.PowerDraw, 2.52d),
@@ -94,7 +94,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size2_class1("2E Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 41d),
                     new Pair<>(ItemEffect.PowerDraw, 0.9d),
@@ -117,7 +117,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size2_class2("2D Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.Integrity, 31d),
                     new Pair<>(ItemEffect.PowerDraw, 1.2d),
@@ -140,7 +140,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size2_class3("2C Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, 1.5d),
@@ -163,7 +163,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size2_class4("2B Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 71d),
                     new Pair<>(ItemEffect.PowerDraw, 1.8d),
@@ -186,7 +186,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size2_class5("2A Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 61d),
                     new Pair<>(ItemEffect.PowerDraw, 2.1d),
@@ -209,7 +209,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size2_class3_fast("2C Bi-Weave Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, 1.5d),
@@ -232,7 +232,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size2_class5_strong("2A Prismatic Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 61d),
                     new Pair<>(ItemEffect.PowerDraw, 3.15d),
@@ -258,7 +258,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size3_class1("3E Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, 1.08d),
@@ -281,7 +281,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size3_class2("3D Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.Integrity, 38d),
                     new Pair<>(ItemEffect.PowerDraw, 1.44d),
@@ -304,7 +304,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size3_class3("3C Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 1.8d),
@@ -327,7 +327,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size3_class4("3B Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 90d),
                     new Pair<>(ItemEffect.PowerDraw, 2.16d),
@@ -350,7 +350,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size3_class5("3A Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 2.52d),
@@ -373,7 +373,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size3_class3_fast("3C Bi-Weave Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 1.8d),
@@ -396,7 +396,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size3_class5_strong("3A Prismatic Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 3.78d),
@@ -422,7 +422,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size4_class1("4E Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 1.32d),
@@ -445,7 +445,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size4_class2("4D Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 48d),
                     new Pair<>(ItemEffect.PowerDraw, 1.76d),
@@ -468,7 +468,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size4_class3("4C Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 80d),
                     new Pair<>(ItemEffect.PowerDraw, 2.2d),
@@ -491,7 +491,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size4_class4("4B Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 112d),
                     new Pair<>(ItemEffect.PowerDraw, 2.64d),
@@ -514,7 +514,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size4_class5("4A Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 3.08d),
@@ -537,7 +537,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size4_class3_fast("4C Bi-Weave Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 80d),
                     new Pair<>(ItemEffect.PowerDraw, 2.2d),
@@ -560,7 +560,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size4_class5_strong("4A Prismatic Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 4.62d),
@@ -585,7 +585,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size5_class1("5E Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 1.56d),
@@ -608,7 +608,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size5_class2("5D Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 58d),
                     new Pair<>(ItemEffect.PowerDraw, 2.08d),
@@ -631,7 +631,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size5_class3("5C Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 2.6d),
@@ -654,7 +654,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size5_class4("5B Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 134d),
                     new Pair<>(ItemEffect.PowerDraw, 3.12d),
@@ -677,7 +677,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size5_class5("5A Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 115d),
                     new Pair<>(ItemEffect.PowerDraw, 3.64d),
@@ -700,7 +700,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size5_class3_fast("5C Bi-Weave Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 2.6d),
@@ -723,7 +723,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size5_class5_strong("5A Prismatic Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 115d),
                     new Pair<>(ItemEffect.PowerDraw, 5.46d),
@@ -748,7 +748,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size6_class1("6E Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 90d),
                     new Pair<>(ItemEffect.PowerDraw, 1.86d),
@@ -771,7 +771,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size6_class2("6D Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 68d),
                     new Pair<>(ItemEffect.PowerDraw, 2.48d),
@@ -794,7 +794,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size6_class3("6C Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 113d),
                     new Pair<>(ItemEffect.PowerDraw, 3.1d),
@@ -817,7 +817,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size6_class4("6B Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 158d),
                     new Pair<>(ItemEffect.PowerDraw, 3.72d),
@@ -840,7 +840,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size6_class5("6A Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 136d),
                     new Pair<>(ItemEffect.PowerDraw, 4.34d),
@@ -863,7 +863,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size6_class3_fast("6C Bi-Weave Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 113d),
                     new Pair<>(ItemEffect.PowerDraw, 3.1d),
@@ -886,7 +886,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size6_class5_strong("6A Prismatic Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 136d),
                     new Pair<>(ItemEffect.PowerDraw, 6.51d),
@@ -911,7 +911,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size7_class1("7E Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 105d),
                     new Pair<>(ItemEffect.PowerDraw, 2.1d),
@@ -934,7 +934,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size7_class2("7D Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 79d),
                     new Pair<>(ItemEffect.PowerDraw, 2.8d),
@@ -957,7 +957,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size7_class3("7C Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 131d),
                     new Pair<>(ItemEffect.PowerDraw, 3.5d),
@@ -980,7 +980,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size7_class4("7B Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 128d),
                     new Pair<>(ItemEffect.Integrity, 183d),
                     new Pair<>(ItemEffect.PowerDraw, 4.2d),
@@ -1003,7 +1003,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size7_class5("7A Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 157d),
                     new Pair<>(ItemEffect.PowerDraw, 4.9d),
@@ -1026,7 +1026,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size7_class3_fast("7C Bi-Weave Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 131d),
                     new Pair<>(ItemEffect.PowerDraw, 3.5d),
@@ -1049,7 +1049,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size7_class5_strong("7A Prismatic Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 157d),
                     new Pair<>(ItemEffect.PowerDraw, 7.35d),
@@ -1075,7 +1075,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size8_class1("8E Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 120d),
                     new Pair<>(ItemEffect.PowerDraw, 2.4d),
@@ -1098,7 +1098,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size8_class2("8D Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 90d),
                     new Pair<>(ItemEffect.PowerDraw, 3.2d),
@@ -1121,7 +1121,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size8_class3("8C Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 150d),
                     new Pair<>(ItemEffect.PowerDraw, 4d),
@@ -1144,7 +1144,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size8_class4("8B Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 256d),
                     new Pair<>(ItemEffect.Integrity, 210d),
                     new Pair<>(ItemEffect.PowerDraw, 4.8d),
@@ -1167,7 +1167,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size8_class5("8A Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 180d),
                     new Pair<>(ItemEffect.PowerDraw, 5.6d),
@@ -1190,7 +1190,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size8_class3_fast("8c Bi-Weave Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 150d),
                     new Pair<>(ItemEffect.PowerDraw, 4d),
@@ -1213,7 +1213,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldgenerator_size8_class5_strong("8A Prismatic Shield Generator",
             ModificationType.Shield_Generator,
             ExperimentalType.Shield_Generator,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 320d),
                     new Pair<>(ItemEffect.Integrity, 180d),
                     new Pair<>(ItemEffect.PowerDraw, 8.4d),
@@ -1243,7 +1243,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size1_class1("1E Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass,1.3d),
                     new Pair<>(ItemEffect.Integrity,32d),
                     new Pair<>(ItemEffect.PowerDraw,0.41d),
@@ -1259,7 +1259,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size1_class2("1D Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,0.5d),
                     new Pair<>(ItemEffect.Integrity,24d),
                     new Pair<>(ItemEffect.PowerDraw,0.55d),
@@ -1275,7 +1275,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size1_class3("1C Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,1.3d),
                     new Pair<>(ItemEffect.Integrity,40d),
                     new Pair<>(ItemEffect.PowerDraw,0.69d),
@@ -1291,7 +1291,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size1_class4("1B Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,2d),
                     new Pair<>(ItemEffect.Integrity,56d),
                     new Pair<>(ItemEffect.PowerDraw,0.83d),
@@ -1307,7 +1307,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size1_class5("1A Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,1.3d),
                     new Pair<>(ItemEffect.Integrity,48d),
                     new Pair<>(ItemEffect.PowerDraw,0.97d),
@@ -1324,7 +1324,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size2_class1("2E Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,2.5d),
                     new Pair<>(ItemEffect.Integrity,41d),
                     new Pair<>(ItemEffect.PowerDraw,0.5d),
@@ -1340,7 +1340,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size2_class2("2D Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,1d),
                     new Pair<>(ItemEffect.Integrity,31d),
                     new Pair<>(ItemEffect.PowerDraw,0.67d),
@@ -1356,7 +1356,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size2_class3("2C Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,2.5d),
                     new Pair<>(ItemEffect.Integrity,51d),
                     new Pair<>(ItemEffect.PowerDraw,0.84d),
@@ -1372,7 +1372,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size2_class4("2B Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,4d),
                     new Pair<>(ItemEffect.Integrity,71d),
                     new Pair<>(ItemEffect.PowerDraw,1.01d),
@@ -1388,7 +1388,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size2_class5("2A Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,2.5d),
                     new Pair<>(ItemEffect.Integrity,61d),
                     new Pair<>(ItemEffect.PowerDraw,1.18d),
@@ -1405,7 +1405,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size3_class1("3E Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,5d),
                     new Pair<>(ItemEffect.Integrity,51d),
                     new Pair<>(ItemEffect.PowerDraw,0.61d),
@@ -1421,7 +1421,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size3_class2("3D Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,2d),
                     new Pair<>(ItemEffect.Integrity,38d),
                     new Pair<>(ItemEffect.PowerDraw,0.82d),
@@ -1437,7 +1437,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size3_class3("3C Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,5d),
                     new Pair<>(ItemEffect.Integrity,64d),
                     new Pair<>(ItemEffect.PowerDraw,1.02d),
@@ -1453,7 +1453,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size3_class4("3B Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,8d),
                     new Pair<>(ItemEffect.Integrity,90d),
                     new Pair<>(ItemEffect.PowerDraw,1.22d),
@@ -1469,7 +1469,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size3_class5("3A Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,5d),
                     new Pair<>(ItemEffect.Integrity,77d),
                     new Pair<>(ItemEffect.PowerDraw,1.43d),
@@ -1486,7 +1486,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size4_class1("4E Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,10d),
                     new Pair<>(ItemEffect.Integrity,64d),
                     new Pair<>(ItemEffect.PowerDraw,0.74d),
@@ -1502,7 +1502,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size4_class2("4D Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,4d),
                     new Pair<>(ItemEffect.Integrity,48d),
                     new Pair<>(ItemEffect.PowerDraw,0.98d),
@@ -1518,7 +1518,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size4_class3("4C Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,10d),
                     new Pair<>(ItemEffect.Integrity,80d),
                     new Pair<>(ItemEffect.PowerDraw,1.23d),
@@ -1534,7 +1534,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size4_class4("4B Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,16d),
                     new Pair<>(ItemEffect.Integrity,112d),
                     new Pair<>(ItemEffect.PowerDraw,1.48d),
@@ -1550,7 +1550,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size4_class5("4A Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,10d),
                     new Pair<>(ItemEffect.Integrity,96d),
                     new Pair<>(ItemEffect.PowerDraw,1.72d),
@@ -1567,7 +1567,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size5_class1("5E Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,20d),
                     new Pair<>(ItemEffect.Integrity,77d),
                     new Pair<>(ItemEffect.PowerDraw,0.9d),
@@ -1583,7 +1583,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size5_class2("5D Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,8d),
                     new Pair<>(ItemEffect.Integrity,58d),
                     new Pair<>(ItemEffect.PowerDraw,1.2d),
@@ -1599,7 +1599,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size5_class3("5C Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,20d),
                     new Pair<>(ItemEffect.Integrity,96d),
                     new Pair<>(ItemEffect.PowerDraw,1.5d),
@@ -1615,7 +1615,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size5_class4("5B Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,32d),
                     new Pair<>(ItemEffect.Integrity,134d),
                     new Pair<>(ItemEffect.PowerDraw,1.8d),
@@ -1631,7 +1631,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size5_class5("5A Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,20d),
                     new Pair<>(ItemEffect.Integrity,115d),
                     new Pair<>(ItemEffect.PowerDraw,2.1d),
@@ -1648,7 +1648,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size6_class1("6E Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,40d),
                     new Pair<>(ItemEffect.Integrity,90d),
                     new Pair<>(ItemEffect.PowerDraw,1.06d),
@@ -1664,7 +1664,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size6_class2("6D Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,16d),
                     new Pair<>(ItemEffect.Integrity,68d),
                     new Pair<>(ItemEffect.PowerDraw,1.42d),
@@ -1680,7 +1680,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size6_class3("6C Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,40d),
                     new Pair<>(ItemEffect.Integrity,113d),
                     new Pair<>(ItemEffect.PowerDraw,1.77d),
@@ -1696,7 +1696,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size6_class4("6B Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,64d),
                     new Pair<>(ItemEffect.Integrity,158d),
                     new Pair<>(ItemEffect.PowerDraw,2.12d),
@@ -1712,7 +1712,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size6_class5("6A Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,40d),
                     new Pair<>(ItemEffect.Integrity,136d),
                     new Pair<>(ItemEffect.PowerDraw,2.48d),
@@ -1729,7 +1729,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size7_class1("7E Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,80d),
                     new Pair<>(ItemEffect.Integrity,105d),
                     new Pair<>(ItemEffect.PowerDraw,1.24d),
@@ -1745,7 +1745,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size7_class2("7D Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,32d),
                     new Pair<>(ItemEffect.Integrity,79d),
                     new Pair<>(ItemEffect.PowerDraw,1.66d),
@@ -1761,7 +1761,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size7_class3("7C Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,80d),
                     new Pair<>(ItemEffect.Integrity,131d),
                     new Pair<>(ItemEffect.PowerDraw,2.07d),
@@ -1777,7 +1777,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size7_class4("7B Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,128d),
                     new Pair<>(ItemEffect.Integrity,183d),
                     new Pair<>(ItemEffect.PowerDraw,2.48d),
@@ -1793,7 +1793,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size7_class5("7A Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,80d),
                     new Pair<>(ItemEffect.Integrity,157d),
                     new Pair<>(ItemEffect.PowerDraw,2.9d),
@@ -1810,7 +1810,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size8_class1("8E Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,160d),
                     new Pair<>(ItemEffect.Integrity,120d),
                     new Pair<>(ItemEffect.PowerDraw,1.44d),
@@ -1826,7 +1826,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size8_class2("8D Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,64d),
                     new Pair<>(ItemEffect.Integrity,90d),
                     new Pair<>(ItemEffect.PowerDraw,1.92d),
@@ -1842,7 +1842,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size8_class3("8C Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,160d),
                     new Pair<>(ItemEffect.Integrity,150d),
                     new Pair<>(ItemEffect.PowerDraw,2.4d),
@@ -1858,7 +1858,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size8_class4("8B Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,256d),
                     new Pair<>(ItemEffect.Integrity,210d),
                     new Pair<>(ItemEffect.PowerDraw,2.88d),
@@ -1874,7 +1874,7 @@ public enum OptionalInternalShieldModule implements ShipModule
     int_shieldcellbank_size8_class5("8A Shield Cell Bank",
             ModificationType.Shield_Cell_Bank,
             ExperimentalType.Shield_Cell_Bank,
-                        new ItemEffectData(
+                        new ItemEffects(
                     new Pair<>(ItemEffect.Mass,160d),
                     new Pair<>(ItemEffect.Integrity,180d),
                     new Pair<>(ItemEffect.PowerDraw,3.36d),
@@ -1887,15 +1887,14 @@ public enum OptionalInternalShieldModule implements ShipModule
                     new Pair<>(ItemEffect.ShieldBankDuration,17.1d)
             )),
 
-
     ;
 
     private final String displayText;
     private final ProcurementType modificationType;
     private final ProcurementType experimentalType;
-    private final ItemEffectData itemEffects;
+    private final ItemEffects itemEffects;
 
-    OptionalInternalShieldModule(String displayText, ProcurementType modificationType, ProcurementType experimentalType, ItemEffectData itemEffects)
+    OptionalInternalShieldModule(String displayText, ProcurementType modificationType, ProcurementType experimentalType, ItemEffects itemEffects)
     {
         this.modificationType = modificationType;
         this.experimentalType = experimentalType;
@@ -1923,7 +1922,7 @@ public enum OptionalInternalShieldModule implements ShipModule
 
 
     @Override
-    public ItemEffectData itemEffects()
+    public ItemEffects itemEffects()
     {
         return itemEffects;
     }

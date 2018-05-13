@@ -2,7 +2,7 @@ package com.controllerface.edeps.structures.equipment.modules;
 
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.ShipModule;
-import com.controllerface.edeps.data.ItemEffectData;
+import com.controllerface.edeps.data.ItemEffects;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationType;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
@@ -41,7 +41,7 @@ public enum CoreInternalModule implements ShipModule
     dolphin_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -52,7 +52,7 @@ public enum CoreInternalModule implements ShipModule
     dolphin_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -63,7 +63,7 @@ public enum CoreInternalModule implements ShipModule
     dolphin_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 63d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -74,7 +74,7 @@ public enum CoreInternalModule implements ShipModule
     dolphin_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 63d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -85,7 +85,7 @@ public enum CoreInternalModule implements ShipModule
     dolphin_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 63d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -101,7 +101,7 @@ public enum CoreInternalModule implements ShipModule
     ferdelance_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -113,7 +113,7 @@ public enum CoreInternalModule implements ShipModule
     ferdelance_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 19d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -124,7 +124,7 @@ public enum CoreInternalModule implements ShipModule
     ferdelance_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 38d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -135,7 +135,7 @@ public enum CoreInternalModule implements ShipModule
     ferdelance_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 38d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -147,7 +147,7 @@ public enum CoreInternalModule implements ShipModule
     ferdelance_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 38d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -163,7 +163,7 @@ public enum CoreInternalModule implements ShipModule
     python_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -174,7 +174,7 @@ public enum CoreInternalModule implements ShipModule
     python_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 26d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -185,7 +185,7 @@ public enum CoreInternalModule implements ShipModule
     python_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 53d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -196,7 +196,7 @@ public enum CoreInternalModule implements ShipModule
     python_armour_reactive("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 53d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -207,7 +207,7 @@ public enum CoreInternalModule implements ShipModule
     python_armour_mirrored("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 53d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -223,7 +223,7 @@ public enum CoreInternalModule implements ShipModule
     belugaliner_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -234,7 +234,7 @@ public enum CoreInternalModule implements ShipModule
     belugaliner_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 83d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -245,7 +245,7 @@ public enum CoreInternalModule implements ShipModule
     belugaliner_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 165d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -256,7 +256,7 @@ public enum CoreInternalModule implements ShipModule
     belugaliner_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 165d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -267,7 +267,7 @@ public enum CoreInternalModule implements ShipModule
     belugaliner_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 165d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -283,7 +283,7 @@ public enum CoreInternalModule implements ShipModule
     orca_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -294,7 +294,7 @@ public enum CoreInternalModule implements ShipModule
     orca_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 21d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -305,7 +305,7 @@ public enum CoreInternalModule implements ShipModule
     orca_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -316,7 +316,7 @@ public enum CoreInternalModule implements ShipModule
     orca_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -327,7 +327,7 @@ public enum CoreInternalModule implements ShipModule
     orca_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -343,7 +343,7 @@ public enum CoreInternalModule implements ShipModule
     asp_scout_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -354,7 +354,7 @@ public enum CoreInternalModule implements ShipModule
     asp_scout_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 21d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -365,7 +365,7 @@ public enum CoreInternalModule implements ShipModule
     asp_scout_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 42d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -376,7 +376,7 @@ public enum CoreInternalModule implements ShipModule
     asp_scout_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 42d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -387,7 +387,7 @@ public enum CoreInternalModule implements ShipModule
     asp_scout_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 42d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -403,7 +403,7 @@ public enum CoreInternalModule implements ShipModule
     asp_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -414,7 +414,7 @@ public enum CoreInternalModule implements ShipModule
     asp_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 21d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -425,7 +425,7 @@ public enum CoreInternalModule implements ShipModule
     asp_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 42d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -436,7 +436,7 @@ public enum CoreInternalModule implements ShipModule
     asp_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 42d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -447,7 +447,7 @@ public enum CoreInternalModule implements ShipModule
     asp_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 42d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -463,7 +463,7 @@ public enum CoreInternalModule implements ShipModule
     independant_trader_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -474,7 +474,7 @@ public enum CoreInternalModule implements ShipModule
     independant_trader_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 12d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -485,7 +485,7 @@ public enum CoreInternalModule implements ShipModule
     independant_trader_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 23d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -496,7 +496,7 @@ public enum CoreInternalModule implements ShipModule
     independant_trader_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 23d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -507,7 +507,7 @@ public enum CoreInternalModule implements ShipModule
     independant_trader_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 23d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -523,7 +523,7 @@ public enum CoreInternalModule implements ShipModule
     vulture_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -534,7 +534,7 @@ public enum CoreInternalModule implements ShipModule
     vulture_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 17d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -545,7 +545,7 @@ public enum CoreInternalModule implements ShipModule
     vulture_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 35d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -556,7 +556,7 @@ public enum CoreInternalModule implements ShipModule
     vulture_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 35d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -567,7 +567,7 @@ public enum CoreInternalModule implements ShipModule
     vulture_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 35d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -583,7 +583,7 @@ public enum CoreInternalModule implements ShipModule
     viper_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -594,7 +594,7 @@ public enum CoreInternalModule implements ShipModule
     viper_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -605,7 +605,7 @@ public enum CoreInternalModule implements ShipModule
     viper_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 9d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -616,7 +616,7 @@ public enum CoreInternalModule implements ShipModule
     viper_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 9d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -627,7 +627,7 @@ public enum CoreInternalModule implements ShipModule
     viper_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 9d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -643,7 +643,7 @@ public enum CoreInternalModule implements ShipModule
     diamondbackxl_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -654,7 +654,7 @@ public enum CoreInternalModule implements ShipModule
     diamondbackxl_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 23d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -665,7 +665,7 @@ public enum CoreInternalModule implements ShipModule
     diamondbackxl_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 47d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -676,7 +676,7 @@ public enum CoreInternalModule implements ShipModule
     diamondbackxl_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 47d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -687,7 +687,7 @@ public enum CoreInternalModule implements ShipModule
     diamondbackxl_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 47d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -702,7 +702,7 @@ public enum CoreInternalModule implements ShipModule
     adder_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -713,7 +713,7 @@ public enum CoreInternalModule implements ShipModule
     adder_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 3d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -724,7 +724,7 @@ public enum CoreInternalModule implements ShipModule
     adder_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -735,7 +735,7 @@ public enum CoreInternalModule implements ShipModule
     adder_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -746,7 +746,7 @@ public enum CoreInternalModule implements ShipModule
     adder_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -762,7 +762,7 @@ public enum CoreInternalModule implements ShipModule
     diamondback_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -773,7 +773,7 @@ public enum CoreInternalModule implements ShipModule
     diamondback_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 13d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -784,7 +784,7 @@ public enum CoreInternalModule implements ShipModule
     diamondback_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 26d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -795,7 +795,7 @@ public enum CoreInternalModule implements ShipModule
     diamondback_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 26d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -806,7 +806,7 @@ public enum CoreInternalModule implements ShipModule
     diamondback_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 26d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -822,7 +822,7 @@ public enum CoreInternalModule implements ShipModule
     viper_mkiv_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -833,7 +833,7 @@ public enum CoreInternalModule implements ShipModule
     viper_mkiv_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -844,7 +844,7 @@ public enum CoreInternalModule implements ShipModule
     viper_mkiv_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 9d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -855,7 +855,7 @@ public enum CoreInternalModule implements ShipModule
     viper_mkiv_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 9d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -866,7 +866,7 @@ public enum CoreInternalModule implements ShipModule
     viper_mkiv_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 9d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -882,7 +882,7 @@ public enum CoreInternalModule implements ShipModule
     anaconda_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -893,7 +893,7 @@ public enum CoreInternalModule implements ShipModule
     anaconda_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 30d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -904,7 +904,7 @@ public enum CoreInternalModule implements ShipModule
     anaconda_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -915,7 +915,7 @@ public enum CoreInternalModule implements ShipModule
     anaconda_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -926,7 +926,7 @@ public enum CoreInternalModule implements ShipModule
     anaconda_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -942,7 +942,7 @@ public enum CoreInternalModule implements ShipModule
     cobramkiii_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -953,7 +953,7 @@ public enum CoreInternalModule implements ShipModule
     cobramkiii_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 14d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -964,7 +964,7 @@ public enum CoreInternalModule implements ShipModule
     cobramkiii_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 27d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -975,7 +975,7 @@ public enum CoreInternalModule implements ShipModule
     cobramkiii_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 27d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -986,7 +986,7 @@ public enum CoreInternalModule implements ShipModule
     cobramkiii_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 27d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1002,7 +1002,7 @@ public enum CoreInternalModule implements ShipModule
     type9_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1013,7 +1013,7 @@ public enum CoreInternalModule implements ShipModule
     type9_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 75d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1024,7 +1024,7 @@ public enum CoreInternalModule implements ShipModule
     type9_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 150d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1035,7 +1035,7 @@ public enum CoreInternalModule implements ShipModule
     type9_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 150d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1046,7 +1046,7 @@ public enum CoreInternalModule implements ShipModule
     type9_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 150d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1062,7 +1062,7 @@ public enum CoreInternalModule implements ShipModule
     type7_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1073,7 +1073,7 @@ public enum CoreInternalModule implements ShipModule
     type7_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1084,7 +1084,7 @@ public enum CoreInternalModule implements ShipModule
     type7_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 63d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1095,7 +1095,7 @@ public enum CoreInternalModule implements ShipModule
     type7_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 63d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1106,7 +1106,7 @@ public enum CoreInternalModule implements ShipModule
     type7_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 63d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1122,7 +1122,7 @@ public enum CoreInternalModule implements ShipModule
     cobramkiv_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1133,7 +1133,7 @@ public enum CoreInternalModule implements ShipModule
     cobramkiv_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 14d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1144,7 +1144,7 @@ public enum CoreInternalModule implements ShipModule
     cobramkiv_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 27d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1155,7 +1155,7 @@ public enum CoreInternalModule implements ShipModule
     cobramkiv_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 27d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1166,7 +1166,7 @@ public enum CoreInternalModule implements ShipModule
     cobramkiv_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 27d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1182,7 +1182,7 @@ public enum CoreInternalModule implements ShipModule
     eagle_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1193,7 +1193,7 @@ public enum CoreInternalModule implements ShipModule
     eagle_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1204,7 +1204,7 @@ public enum CoreInternalModule implements ShipModule
     eagle_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1215,7 +1215,7 @@ public enum CoreInternalModule implements ShipModule
     eagle_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1226,7 +1226,7 @@ public enum CoreInternalModule implements ShipModule
     eagle_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1242,7 +1242,7 @@ public enum CoreInternalModule implements ShipModule
     hauler_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1253,7 +1253,7 @@ public enum CoreInternalModule implements ShipModule
     hauler_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1264,7 +1264,7 @@ public enum CoreInternalModule implements ShipModule
     hauler_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1275,7 +1275,7 @@ public enum CoreInternalModule implements ShipModule
     hauler_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1286,7 +1286,7 @@ public enum CoreInternalModule implements ShipModule
     hauler_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1302,7 +1302,7 @@ public enum CoreInternalModule implements ShipModule
     sidewinder_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1313,7 +1313,7 @@ public enum CoreInternalModule implements ShipModule
     sidewinder_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1324,7 +1324,7 @@ public enum CoreInternalModule implements ShipModule
     sidewinder_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1335,7 +1335,7 @@ public enum CoreInternalModule implements ShipModule
     sidewinder_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1346,7 +1346,7 @@ public enum CoreInternalModule implements ShipModule
     sidewinder_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1362,7 +1362,7 @@ public enum CoreInternalModule implements ShipModule
     type6_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1373,7 +1373,7 @@ public enum CoreInternalModule implements ShipModule
     type6_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 12d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1384,7 +1384,7 @@ public enum CoreInternalModule implements ShipModule
     type6_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 23d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1395,7 +1395,7 @@ public enum CoreInternalModule implements ShipModule
     type6_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 23d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1406,7 +1406,7 @@ public enum CoreInternalModule implements ShipModule
     type6_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 23d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1422,7 +1422,7 @@ public enum CoreInternalModule implements ShipModule
     empire_trader_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1433,7 +1433,7 @@ public enum CoreInternalModule implements ShipModule
     empire_trader_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 30d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1444,7 +1444,7 @@ public enum CoreInternalModule implements ShipModule
     empire_trader_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1455,7 +1455,7 @@ public enum CoreInternalModule implements ShipModule
     empire_trader_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1466,7 +1466,7 @@ public enum CoreInternalModule implements ShipModule
     empire_trader_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1482,7 +1482,7 @@ public enum CoreInternalModule implements ShipModule
     federation_dropship_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1493,7 +1493,7 @@ public enum CoreInternalModule implements ShipModule
     federation_dropship_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 44d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1504,7 +1504,7 @@ public enum CoreInternalModule implements ShipModule
     federation_dropship_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1515,7 +1515,7 @@ public enum CoreInternalModule implements ShipModule
     federation_dropship_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1526,7 +1526,7 @@ public enum CoreInternalModule implements ShipModule
     federation_dropship_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1542,7 +1542,7 @@ public enum CoreInternalModule implements ShipModule
     cutter_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1553,7 +1553,7 @@ public enum CoreInternalModule implements ShipModule
     cutter_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 30d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1564,7 +1564,7 @@ public enum CoreInternalModule implements ShipModule
     cutter_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1575,7 +1575,7 @@ public enum CoreInternalModule implements ShipModule
     cutter_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1586,7 +1586,7 @@ public enum CoreInternalModule implements ShipModule
     cutter_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1602,7 +1602,7 @@ public enum CoreInternalModule implements ShipModule
     empire_eagle_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1613,7 +1613,7 @@ public enum CoreInternalModule implements ShipModule
     empire_eagle_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1624,7 +1624,7 @@ public enum CoreInternalModule implements ShipModule
     empire_eagle_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1635,7 +1635,7 @@ public enum CoreInternalModule implements ShipModule
     empire_eagle_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1646,7 +1646,7 @@ public enum CoreInternalModule implements ShipModule
     empire_eagle_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1662,7 +1662,7 @@ public enum CoreInternalModule implements ShipModule
     typex_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1673,7 +1673,7 @@ public enum CoreInternalModule implements ShipModule
     typex_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1684,7 +1684,7 @@ public enum CoreInternalModule implements ShipModule
     typex_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 78d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1695,7 +1695,7 @@ public enum CoreInternalModule implements ShipModule
     typex_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 78d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1706,7 +1706,7 @@ public enum CoreInternalModule implements ShipModule
     typex_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 78d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1722,7 +1722,7 @@ public enum CoreInternalModule implements ShipModule
     federation_corvette_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1733,7 +1733,7 @@ public enum CoreInternalModule implements ShipModule
     federation_corvette_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 30d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1744,7 +1744,7 @@ public enum CoreInternalModule implements ShipModule
     federation_corvette_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1755,7 +1755,7 @@ public enum CoreInternalModule implements ShipModule
     federation_corvette_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1766,7 +1766,7 @@ public enum CoreInternalModule implements ShipModule
     federation_corvette_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 60d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1782,7 +1782,7 @@ public enum CoreInternalModule implements ShipModule
     empire_courier_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1793,7 +1793,7 @@ public enum CoreInternalModule implements ShipModule
     empire_courier_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1804,7 +1804,7 @@ public enum CoreInternalModule implements ShipModule
     empire_courier_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1815,7 +1815,7 @@ public enum CoreInternalModule implements ShipModule
     empire_courier_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1826,7 +1826,7 @@ public enum CoreInternalModule implements ShipModule
     empire_courier_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1842,7 +1842,7 @@ public enum CoreInternalModule implements ShipModule
     federation_gunship_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1853,7 +1853,7 @@ public enum CoreInternalModule implements ShipModule
     federation_gunship_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 44d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1864,7 +1864,7 @@ public enum CoreInternalModule implements ShipModule
     federation_gunship_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1875,7 +1875,7 @@ public enum CoreInternalModule implements ShipModule
     federation_gunship_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1886,7 +1886,7 @@ public enum CoreInternalModule implements ShipModule
     federation_gunship_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1902,7 +1902,7 @@ public enum CoreInternalModule implements ShipModule
     type9_military_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1913,7 +1913,7 @@ public enum CoreInternalModule implements ShipModule
     type9_military_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 75d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1924,7 +1924,7 @@ public enum CoreInternalModule implements ShipModule
     type9_military_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 150d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1935,7 +1935,7 @@ public enum CoreInternalModule implements ShipModule
     type9_military_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 150d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -1946,7 +1946,7 @@ public enum CoreInternalModule implements ShipModule
     type9_military_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 150d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -1962,7 +1962,7 @@ public enum CoreInternalModule implements ShipModule
     federation_dropship_mkii_armour_grade1("Lightweight",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1973,7 +1973,7 @@ public enum CoreInternalModule implements ShipModule
     federation_dropship_mkii_armour_grade2("Reinforced",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 44d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1984,7 +1984,7 @@ public enum CoreInternalModule implements ShipModule
     federation_dropship_mkii_armour_grade3("Military Grade",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -40d),
                     new Pair<>(ItemEffect.KineticResistance, -20d),
@@ -1995,7 +1995,7 @@ public enum CoreInternalModule implements ShipModule
     federation_dropship_mkii_armour_mirrored("Mirrored",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, -50d),
                     new Pair<>(ItemEffect.KineticResistance, -75d),
@@ -2006,7 +2006,7 @@ public enum CoreInternalModule implements ShipModule
     federation_dropship_mkii_armour_reactive("Reactive",
             ModificationType.Bulkheads,
             ExperimentalType.Bulkheads,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 87d),
                     new Pair<>(ItemEffect.ExplosiveResistance, 20d),
                     new Pair<>(ItemEffect.KineticResistance, 25d),
@@ -2022,7 +2022,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size2_class1("2E Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 46d),
                     new Pair<>(ItemEffect.PowerCapacity, 6.4d),
@@ -2032,7 +2032,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size2_class2("2D Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.Integrity, 41d),
                     new Pair<>(ItemEffect.PowerCapacity, 7.2d),
@@ -2042,7 +2042,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size2_class3("2C Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerCapacity, 8d),
@@ -2053,7 +2053,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size2_class4("2B Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.Integrity, 61d),
                     new Pair<>(ItemEffect.PowerCapacity, 8.8d),
@@ -2063,7 +2063,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size2_class5("2A Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 56d),
                     new Pair<>(ItemEffect.PowerCapacity, 9.6d),
@@ -2073,7 +2073,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size3_class1("3E Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 58d),
                     new Pair<>(ItemEffect.PowerCapacity, 8d),
@@ -2083,7 +2083,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size3_class2("3D Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerCapacity, 9d),
@@ -2093,7 +2093,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size3_class3("3C Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerCapacity, 10d),
@@ -2103,7 +2103,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size3_class4("3B Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerCapacity, 11d),
@@ -2113,7 +2113,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size3_class5("3A Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 70d),
                     new Pair<>(ItemEffect.PowerCapacity, 12d),
@@ -2123,7 +2123,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size4_class1("4E Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 72d),
                     new Pair<>(ItemEffect.PowerCapacity, 10.4d),
@@ -2133,7 +2133,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size4_class2("4D Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerCapacity, 11.7d),
@@ -2143,7 +2143,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size4_class3("4C Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 80d),
                     new Pair<>(ItemEffect.PowerCapacity, 13d),
@@ -2153,7 +2153,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size4_class4("4B Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerCapacity, 14.3d),
@@ -2163,7 +2163,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size4_class5("4A Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 88d),
                     new Pair<>(ItemEffect.PowerCapacity, 15.6d),
@@ -2173,7 +2173,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size5_class1("5E Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 86d),
                     new Pair<>(ItemEffect.PowerCapacity, 13.6d),
@@ -2183,7 +2183,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size5_class2("5D Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerCapacity, 15.3d),
@@ -2193,7 +2193,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size5_class3("5C Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerCapacity, 17d),
@@ -2203,7 +2203,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size5_class4("5B Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 115d),
                     new Pair<>(ItemEffect.PowerCapacity, 18.7d),
@@ -2213,7 +2213,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size5_class5("5A Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 106d),
                     new Pair<>(ItemEffect.PowerCapacity, 20.4d),
@@ -2223,7 +2223,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size6_class1("6E Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 102d),
                     new Pair<>(ItemEffect.PowerCapacity, 16.8d),
@@ -2233,7 +2233,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size6_class2("6D Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 90d),
                     new Pair<>(ItemEffect.PowerCapacity, 18.9d),
@@ -2243,7 +2243,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size6_class3("6C Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 113d),
                     new Pair<>(ItemEffect.PowerCapacity, 2.1d),
@@ -2253,7 +2253,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size6_class4("6B Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 136d),
                     new Pair<>(ItemEffect.PowerCapacity, 23.1d),
@@ -2263,7 +2263,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size6_class5("6A Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 124d),
                     new Pair<>(ItemEffect.PowerCapacity, 25.2d),
@@ -2273,7 +2273,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size7_class1("7E Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 118d),
                     new Pair<>(ItemEffect.PowerCapacity, 20d),
@@ -2283,7 +2283,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size7_class2("7D Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 105d),
                     new Pair<>(ItemEffect.PowerCapacity, 22.5d),
@@ -2293,7 +2293,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size7_class3("7C Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 131d),
                     new Pair<>(ItemEffect.PowerCapacity, 25d),
@@ -2303,7 +2303,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size7_class4("7B Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 157d),
                     new Pair<>(ItemEffect.PowerCapacity, 27.5d),
@@ -2313,7 +2313,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size7_class5("7A Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 144d),
                     new Pair<>(ItemEffect.PowerCapacity, 30d),
@@ -2323,7 +2323,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size8_class1("8E Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 135d),
                     new Pair<>(ItemEffect.PowerCapacity, 24d),
@@ -2333,7 +2333,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size8_class2("8D Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 120d),
                     new Pair<>(ItemEffect.PowerCapacity, 27d),
@@ -2343,7 +2343,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size8_class3("8C Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 150d),
                     new Pair<>(ItemEffect.PowerCapacity, 30d),
@@ -2353,7 +2353,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size8_class4("8B Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 128d),
                     new Pair<>(ItemEffect.Integrity, 180d),
                     new Pair<>(ItemEffect.PowerCapacity, 33d),
@@ -2363,7 +2363,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerplant_size8_class5("8A Standard",
             ModificationType.Power_Plant,
             ExperimentalType.Power_Plant,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 165d),
                     new Pair<>(ItemEffect.PowerCapacity, 36d),
@@ -2378,7 +2378,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size2_class1("2E Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 46d),
                     new Pair<>(ItemEffect.PowerDraw, 2d),
@@ -2395,7 +2395,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size2_class2("2D Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.Integrity, 41d),
                     new Pair<>(ItemEffect.PowerDraw, 2.25d),
@@ -2413,7 +2413,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size2_class3("2C Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, 2.5d),
@@ -2431,7 +2431,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size2_class4("2B Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 61d),
                     new Pair<>(ItemEffect.PowerDraw, 2.75d),
@@ -2449,7 +2449,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size2_class5("2A Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 56d),
                     new Pair<>(ItemEffect.PowerDraw, 3d),
@@ -2466,7 +2466,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size2_class5_fast("2A Enhanced Performance",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 40d),
                     new Pair<>(ItemEffect.PowerDraw, 4d),
@@ -2487,7 +2487,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size3_class1("3E Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 58d),
                     new Pair<>(ItemEffect.PowerDraw, 2.48d),
@@ -2505,7 +2505,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size3_class2("3D Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, 2.79d),
@@ -2523,7 +2523,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size3_class3("3C Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 3.1d),
@@ -2541,7 +2541,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size3_class4("3B Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 3.41d),
@@ -2559,7 +2559,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size3_class5("3A Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 70d),
                     new Pair<>(ItemEffect.PowerDraw, 3.72d),
@@ -2577,7 +2577,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size3_class5_fast("3A Enhanced Performance",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 55d),
                     new Pair<>(ItemEffect.PowerDraw, 5d),
@@ -2598,7 +2598,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size4_class1("4E Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 72d),
                     new Pair<>(ItemEffect.PowerDraw, 3.28d),
@@ -2616,7 +2616,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size4_class2("4D Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 3.69d),
@@ -2634,7 +2634,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size4_class3("4C Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 80d),
                     new Pair<>(ItemEffect.PowerDraw, 4.1d),
@@ -2652,7 +2652,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size4_class4("4B Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 4.51d),
@@ -2670,7 +2670,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size4_class5("4A Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 88d),
                     new Pair<>(ItemEffect.PowerDraw, 4.92d),
@@ -2688,7 +2688,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size5_class1("5E Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 86d),
                     new Pair<>(ItemEffect.PowerDraw, 4.08d),
@@ -2706,7 +2706,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size5_class2("5D Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 4.59d),
@@ -2724,7 +2724,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size5_class3("5C Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 5.1d),
@@ -2742,7 +2742,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size5_class4("5B Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 115d),
                     new Pair<>(ItemEffect.PowerDraw, 5.61d),
@@ -2760,7 +2760,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size5_class5("5A Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 106d),
                     new Pair<>(ItemEffect.PowerDraw, 6.12d),
@@ -2778,7 +2778,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size6_class1("6E Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 102d),
                     new Pair<>(ItemEffect.PowerDraw, 5.04d),
@@ -2796,7 +2796,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size6_class2("6D Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 90d),
                     new Pair<>(ItemEffect.PowerDraw, 5.67d),
@@ -2814,7 +2814,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size6_class3("6C Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 113d),
                     new Pair<>(ItemEffect.PowerDraw, 6.3d),
@@ -2832,7 +2832,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size6_class4("6B Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 136d),
                     new Pair<>(ItemEffect.PowerDraw, 6.93d),
@@ -2850,7 +2850,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size6_class5("6A Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 124d),
                     new Pair<>(ItemEffect.PowerDraw, 7.56d),
@@ -2868,7 +2868,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size7_class1("7E Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 118d),
                     new Pair<>(ItemEffect.PowerDraw, 6.08d),
@@ -2886,7 +2886,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size7_class2("7D Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 105d),
                     new Pair<>(ItemEffect.PowerDraw, 6.84d),
@@ -2904,7 +2904,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size7_class3("7C Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 131d),
                     new Pair<>(ItemEffect.PowerDraw, 7.6d),
@@ -2922,7 +2922,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size7_class4("7B Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 126d),
                     new Pair<>(ItemEffect.Integrity, 157d),
                     new Pair<>(ItemEffect.PowerDraw, 8.36d),
@@ -2940,7 +2940,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size7_class5("7A Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 144d),
                     new Pair<>(ItemEffect.PowerDraw, 9.12d),
@@ -2958,7 +2958,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size8_class1("8E Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 135d),
                     new Pair<>(ItemEffect.PowerDraw, 7.2d),
@@ -2976,7 +2976,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size8_class2("8D Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 120d),
                     new Pair<>(ItemEffect.PowerDraw, 8.1d),
@@ -2994,7 +2994,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size8_class3("8C Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 150d),
                     new Pair<>(ItemEffect.PowerDraw, 9d),
@@ -3012,7 +3012,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size8_class4("8B Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 256d),
                     new Pair<>(ItemEffect.Integrity, 180d),
                     new Pair<>(ItemEffect.PowerDraw, 9.9d),
@@ -3030,7 +3030,7 @@ public enum CoreInternalModule implements ShipModule
     int_engine_size8_class5("8A Standard",
             ModificationType.Thrusters,
             ExperimentalType.Thrusters,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 165d),
                     new Pair<>(ItemEffect.PowerDraw, 10.8d),
@@ -3053,7 +3053,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size2_class1("2E Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 46d),
                     new Pair<>(ItemEffect.PowerDraw, .16d),
@@ -3066,7 +3066,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size2_class2("2D Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.Integrity, 41d),
                     new Pair<>(ItemEffect.PowerDraw, .18d),
@@ -3079,7 +3079,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size2_class3("2C Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, .2d),
@@ -3093,7 +3093,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size2_class4("2B Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, .25d),
@@ -3107,7 +3107,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size2_class5("2A Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, .3d),
@@ -3121,7 +3121,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size3_class1("3E Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 58d),
                     new Pair<>(ItemEffect.PowerDraw, .24d),
@@ -3135,7 +3135,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size3_class2("3D Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, .27d),
@@ -3149,7 +3149,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size3_class3("3C Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, .3d),
@@ -3163,7 +3163,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size3_class4("3B Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, .38d),
@@ -3177,7 +3177,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size3_class5("3A Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 80d),
                     new Pair<>(ItemEffect.PowerDraw, .45d),
@@ -3191,7 +3191,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size4_class1("4E Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 72d),
                     new Pair<>(ItemEffect.PowerDraw, 0.24d),
@@ -3205,7 +3205,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size4_class2("4D Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 0.27d),
@@ -3219,7 +3219,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size4_class3("4C Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 80d),
                     new Pair<>(ItemEffect.PowerDraw, 0.3d),
@@ -3233,7 +3233,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size4_class4("4B Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 120d),
                     new Pair<>(ItemEffect.PowerDraw, 0.38d),
@@ -3247,7 +3247,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size4_class5("4A Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 100d),
                     new Pair<>(ItemEffect.PowerDraw, 0.45d),
@@ -3262,7 +3262,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size5_class1("5E Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 86d),
                     new Pair<>(ItemEffect.PowerDraw, 0.32d),
@@ -3276,7 +3276,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size5_class2("5D Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 0.36d),
@@ -3290,7 +3290,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size5_class3("5C Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 0.4d),
@@ -3304,7 +3304,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size5_class4("5B Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 144d),
                     new Pair<>(ItemEffect.PowerDraw, 0.5d),
@@ -3318,7 +3318,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size5_class5("5A Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 120d),
                     new Pair<>(ItemEffect.PowerDraw, 0.6d),
@@ -3332,7 +3332,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size6_class1("6E Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 102d),
                     new Pair<>(ItemEffect.PowerDraw, 0.4d),
@@ -3346,7 +3346,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size6_class2("6D Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 90d),
                     new Pair<>(ItemEffect.PowerDraw, 0.45d),
@@ -3360,7 +3360,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size6_class3("6C Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 113d),
                     new Pair<>(ItemEffect.PowerDraw, 0.5d),
@@ -3374,7 +3374,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size6_class4("6B Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 170d),
                     new Pair<>(ItemEffect.PowerDraw, 0.63d),
@@ -3388,7 +3388,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size6_class5("6A Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 141d),
                     new Pair<>(ItemEffect.PowerDraw, 0.75d),
@@ -3402,7 +3402,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size7_class1("7E Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 118d),
                     new Pair<>(ItemEffect.PowerDraw, 0.48d),
@@ -3416,7 +3416,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size7_class2("7D Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                                 new Pair<>(ItemEffect.Mass, 32d),
                                 new Pair<>(ItemEffect.Integrity, 105d),
                                 new Pair<>(ItemEffect.PowerDraw, 0.54d),
@@ -3430,7 +3430,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size7_class3("7C Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 131d),
                     new Pair<>(ItemEffect.PowerDraw, 0.6d),
@@ -3444,7 +3444,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size7_class4("7B Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 128d),
                     new Pair<>(ItemEffect.Integrity, 197d),
                     new Pair<>(ItemEffect.PowerDraw, 0.75d),
@@ -3458,7 +3458,7 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size7_class5("7A Standard",
             ModificationType.Frame_Shift_Drive,
             ExperimentalType.Frame_Shift_Drive,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 164d),
                     new Pair<>(ItemEffect.PowerDraw, 0.9d),
@@ -3476,7 +3476,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size1_class1("1E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 32d),
                     new Pair<>(ItemEffect.PowerDraw, 0.32d),
@@ -3487,7 +3487,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size1_class2("1D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0.5d),
                     new Pair<>(ItemEffect.Integrity, 36d),
                     new Pair<>(ItemEffect.PowerDraw, 0.36d),
@@ -3498,7 +3498,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size1_class3("1C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 40d),
                     new Pair<>(ItemEffect.PowerDraw, 0.4d),
@@ -3509,7 +3509,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size1_class4("1B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.Integrity, 44d),
                     new Pair<>(ItemEffect.PowerDraw, 0.44d),
@@ -3520,7 +3520,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size1_class5("1A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 48d),
                     new Pair<>(ItemEffect.PowerDraw, 0.48d),
@@ -3531,7 +3531,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size2_class1("2E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 41d),
                     new Pair<>(ItemEffect.PowerDraw, 0.37d),
@@ -3542,7 +3542,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size2_class2("2D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.Integrity, 46d),
                     new Pair<>(ItemEffect.PowerDraw, 0.41d),
@@ -3553,7 +3553,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size2_class3("2C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, 0.46d),
@@ -3564,7 +3564,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size2_class4("2B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 56d),
                     new Pair<>(ItemEffect.PowerDraw, 0.51d),
@@ -3575,7 +3575,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size2_class5("2A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 61d),
                     new Pair<>(ItemEffect.PowerDraw, 0.55d),
@@ -3586,7 +3586,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size3_class1("3E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, 0.42d),
@@ -3597,7 +3597,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size3_class2("3D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.Integrity, 58d),
                     new Pair<>(ItemEffect.PowerDraw, 0.48d),
@@ -3608,7 +3608,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size3_class3("3C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 0.53d),
@@ -3619,7 +3619,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size3_class4("3B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 70d),
                     new Pair<>(ItemEffect.PowerDraw, 0.58d),
@@ -3630,7 +3630,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size3_class5("3A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 0.64d),
@@ -3641,7 +3641,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size4_class1("4E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 0.5d),
@@ -3652,7 +3652,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size4_class2("4D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 72d),
                     new Pair<>(ItemEffect.PowerDraw, 0.56d),
@@ -3663,7 +3663,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size4_class3("4C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 80d),
                     new Pair<>(ItemEffect.PowerDraw, 0.62d),
@@ -3674,7 +3674,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size4_class4("4B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 88d),
                     new Pair<>(ItemEffect.PowerDraw, 0.68d),
@@ -3685,7 +3685,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size4_class5("4A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 0.74d),
@@ -3696,7 +3696,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size5_class1("5E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 0.57d),
@@ -3707,7 +3707,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size5_class2("5D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 86d),
                     new Pair<>(ItemEffect.PowerDraw, 0.64d),
@@ -3718,7 +3718,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size5_class3("5C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 0.71d),
@@ -3729,7 +3729,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size5_class4("5B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 106d),
                     new Pair<>(ItemEffect.PowerDraw, 0.78d),
@@ -3740,7 +3740,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size5_class5("5A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 115d),
                     new Pair<>(ItemEffect.PowerDraw, 0.85d),
@@ -3751,7 +3751,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size6_class1("6E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 90d),
                     new Pair<>(ItemEffect.PowerDraw, 0.64d),
@@ -3762,7 +3762,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size6_class2("6D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 102d),
                     new Pair<>(ItemEffect.PowerDraw, 0.72d),
@@ -3773,7 +3773,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size6_class3("6C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 113d),
                     new Pair<>(ItemEffect.PowerDraw, 0.8d),
@@ -3784,7 +3784,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size6_class4("6B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 124d),
                     new Pair<>(ItemEffect.PowerDraw, 0.88d),
@@ -3795,7 +3795,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size6_class5("6A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 136d),
                     new Pair<>(ItemEffect.PowerDraw, 0.96d),
@@ -3806,7 +3806,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size7_class1("7E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 105d),
                     new Pair<>(ItemEffect.PowerDraw, 0.72d),
@@ -3817,7 +3817,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size7_class2("7D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 118d),
                     new Pair<>(ItemEffect.PowerDraw, 0.81d),
@@ -3828,7 +3828,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size7_class3("7C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 131d),
                     new Pair<>(ItemEffect.PowerDraw, 0.9d),
@@ -3839,7 +3839,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size7_class4("7B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 128d),
                     new Pair<>(ItemEffect.Integrity, 144d),
                     new Pair<>(ItemEffect.PowerDraw, 0.99d),
@@ -3850,7 +3850,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size7_class5("7A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 157d),
                     new Pair<>(ItemEffect.PowerDraw, 1.08d),
@@ -3861,7 +3861,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size8_class1("8E Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 120d),
                     new Pair<>(ItemEffect.PowerDraw, 0.8d),
@@ -3872,7 +3872,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size8_class2("8D Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 135d),
                     new Pair<>(ItemEffect.PowerDraw, 0.9d),
@@ -3883,7 +3883,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size8_class3("8C Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 150d),
                     new Pair<>(ItemEffect.PowerDraw, 1d),
@@ -3894,7 +3894,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size8_class4("8B Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 256d),
                     new Pair<>(ItemEffect.Integrity, 165d),
                     new Pair<>(ItemEffect.PowerDraw, 1.1d),
@@ -3904,7 +3904,7 @@ public enum CoreInternalModule implements ShipModule
     int_lifesupport_size8_class5("8A Standard",
             ModificationType.Life_Support,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 180d),
                     new Pair<>(ItemEffect.PowerDraw, 1.2d),
@@ -3919,7 +3919,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size1_class1("1E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 36d),
                     new Pair<>(ItemEffect.PowerDraw, 0.32d),
@@ -3935,7 +3935,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size1_class2("1D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0.5d),
                     new Pair<>(ItemEffect.Integrity, 32d),
                     new Pair<>(ItemEffect.PowerDraw, 0.36d),
@@ -3951,7 +3951,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size1_class3("1C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 40d),
                     new Pair<>(ItemEffect.PowerDraw, 0.4d),
@@ -3967,7 +3967,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size1_class4("1B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.Integrity, 48d),
                     new Pair<>(ItemEffect.PowerDraw, 0.44d),
@@ -3983,7 +3983,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size1_class5("1A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 44d),
                     new Pair<>(ItemEffect.PowerDraw, 0.48d),
@@ -3999,7 +3999,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size2_class1("2E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 46d),
                     new Pair<>(ItemEffect.PowerDraw, 0.36d),
@@ -4015,7 +4015,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size2_class2("2D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.Integrity, 41d),
                     new Pair<>(ItemEffect.PowerDraw, 0.41d),
@@ -4031,7 +4031,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size2_class3("2C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, 0.45d),
@@ -4047,7 +4047,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size2_class4("2B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 61d),
                     new Pair<>(ItemEffect.PowerDraw, 0.5d),
@@ -4063,7 +4063,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size2_class5("2A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 56d),
                     new Pair<>(ItemEffect.PowerDraw, 0.54d),
@@ -4079,7 +4079,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size3_class1("3E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 58d),
                     new Pair<>(ItemEffect.PowerDraw, 0.4d),
@@ -4095,7 +4095,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size3_class2("3D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, 0.45d),
@@ -4111,7 +4111,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size3_class3("3C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 0.5d),
@@ -4127,7 +4127,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size3_class4("3B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 0.55d),
@@ -4143,7 +4143,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size3_class5("3A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 70d),
                     new Pair<>(ItemEffect.PowerDraw, 0.6d),
@@ -4159,7 +4159,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size4_class1("4E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 72d),
                     new Pair<>(ItemEffect.PowerDraw, 0.45d),
@@ -4175,7 +4175,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size4_class2("4D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 0.5d),
@@ -4191,7 +4191,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size4_class3("4C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 80d),
                     new Pair<>(ItemEffect.PowerDraw, 0.56d),
@@ -4207,7 +4207,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size4_class4("4B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 0.62d),
@@ -4223,7 +4223,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size4_class5("4A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 88d),
                     new Pair<>(ItemEffect.PowerDraw, 0.67d),
@@ -4239,7 +4239,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size5_class1("5E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 86d),
                     new Pair<>(ItemEffect.PowerDraw, 0.5d),
@@ -4255,7 +4255,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size5_class2("5D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 0.56d),
@@ -4271,7 +4271,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size5_class3("5C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 0.62d),
@@ -4287,7 +4287,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size5_class4("5B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 115d),
                     new Pair<>(ItemEffect.PowerDraw, 0.68d),
@@ -4303,7 +4303,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size5_class5("5A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 106d),
                     new Pair<>(ItemEffect.PowerDraw, 0.74d),
@@ -4319,7 +4319,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size6_class1("6E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 102d),
                     new Pair<>(ItemEffect.PowerDraw, 0.54d),
@@ -4335,7 +4335,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size6_class2("6D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 90d),
                     new Pair<>(ItemEffect.PowerDraw, 0.61d),
@@ -4351,7 +4351,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size6_class3("6C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 113d),
                     new Pair<>(ItemEffect.PowerDraw, 0.68d),
@@ -4367,7 +4367,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size6_class4("6B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 136d),
                     new Pair<>(ItemEffect.PowerDraw, 0.75d),
@@ -4383,7 +4383,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size6_class5("6A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 124d),
                     new Pair<>(ItemEffect.PowerDraw, 0.82d),
@@ -4399,7 +4399,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size7_class1("7E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 118d),
                     new Pair<>(ItemEffect.PowerDraw, 0.59d),
@@ -4415,7 +4415,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size7_class2("7D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 105d),
                     new Pair<>(ItemEffect.PowerDraw, 0.67d),
@@ -4431,7 +4431,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size7_class3("7C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 131d),
                     new Pair<>(ItemEffect.PowerDraw, 0.74d),
@@ -4447,7 +4447,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size7_class4("7B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 128d),
                     new Pair<>(ItemEffect.Integrity, 157d),
                     new Pair<>(ItemEffect.PowerDraw, 0.81d),
@@ -4463,7 +4463,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size7_class5("7A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 144d),
                     new Pair<>(ItemEffect.PowerDraw, 0.89d),
@@ -4479,7 +4479,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size8_class1("8E Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 135d),
                     new Pair<>(ItemEffect.PowerDraw, 0.64d),
@@ -4495,7 +4495,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size8_class2("8D Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 120d),
                     new Pair<>(ItemEffect.PowerDraw, 0.72d),
@@ -4511,7 +4511,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size8_class3("8C Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 150d),
                     new Pair<>(ItemEffect.PowerDraw, 0.8d),
@@ -4527,7 +4527,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size8_class4("8B Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 256d),
                     new Pair<>(ItemEffect.Integrity, 180d),
                     new Pair<>(ItemEffect.PowerDraw, 0.88d),
@@ -4543,7 +4543,7 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size8_class5("8A Standard",
             ModificationType.Power_Distributor,
             ExperimentalType.Power_Distributor,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 165d),
                     new Pair<>(ItemEffect.PowerDraw, 0.96d),
@@ -4569,7 +4569,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size1_class1("1E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 36d),
                     new Pair<>(ItemEffect.PowerDraw, 0.16d),
@@ -4582,7 +4582,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size1_class2("1D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 0.5d),
                     new Pair<>(ItemEffect.Integrity, 32d),
                     new Pair<>(ItemEffect.PowerDraw, 0.18d),
@@ -4595,7 +4595,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size1_class3("1C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 40d),
                     new Pair<>(ItemEffect.PowerDraw, 0.2d),
@@ -4608,7 +4608,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size1_class4("1B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.Integrity, 48d),
                     new Pair<>(ItemEffect.PowerDraw, 0.33d),
@@ -4621,7 +4621,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size1_class5("1A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.3d),
                     new Pair<>(ItemEffect.Integrity, 44d),
                     new Pair<>(ItemEffect.PowerDraw, 0.6d),
@@ -4634,7 +4634,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size2_class1("2E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 46d),
                     new Pair<>(ItemEffect.PowerDraw, 0.18d),
@@ -4647,7 +4647,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size2_class2("2D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1d),
                     new Pair<>(ItemEffect.Integrity, 41d),
                     new Pair<>(ItemEffect.PowerDraw, 0.21d),
@@ -4660,7 +4660,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size2_class3("2C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, 0.23d),
@@ -4673,7 +4673,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size2_class4("2B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 61d),
                     new Pair<>(ItemEffect.PowerDraw, 0.38d),
@@ -4686,7 +4686,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size2_class5("2A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.5d),
                     new Pair<>(ItemEffect.Integrity, 56d),
                     new Pair<>(ItemEffect.PowerDraw, 0.69d),
@@ -4699,7 +4699,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size3_class1("3E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 58d),
                     new Pair<>(ItemEffect.PowerDraw, 0.22d),
@@ -4712,7 +4712,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size3_class2("3D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2d),
                     new Pair<>(ItemEffect.Integrity, 51d),
                     new Pair<>(ItemEffect.PowerDraw, 0.25d),
@@ -4725,7 +4725,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size3_class3("3C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 0.28d),
@@ -4738,7 +4738,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size3_class4("3B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 0.46d),
@@ -4751,7 +4751,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size3_class5("3A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5d),
                     new Pair<>(ItemEffect.Integrity, 70d),
                     new Pair<>(ItemEffect.PowerDraw, 0.84d),
@@ -4764,7 +4764,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size4_class1("4E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 72d),
                     new Pair<>(ItemEffect.PowerDraw, 0.27d),
@@ -4777,7 +4777,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size4_class2("4D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 4d),
                     new Pair<>(ItemEffect.Integrity, 64d),
                     new Pair<>(ItemEffect.PowerDraw, 0.31d),
@@ -4790,7 +4790,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size4_class3("4C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 80d),
                     new Pair<>(ItemEffect.PowerDraw, 0.34d),
@@ -4803,7 +4803,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size4_class4("4B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 0.56d),
@@ -4816,7 +4816,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size4_class5("4A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 10d),
                     new Pair<>(ItemEffect.Integrity, 88d),
                     new Pair<>(ItemEffect.PowerDraw, 1.02d),
@@ -4829,7 +4829,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size5_class1("5E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 86d),
                     new Pair<>(ItemEffect.PowerDraw, 0.33d),
@@ -4842,7 +4842,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size5_class2("5D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 8d),
                     new Pair<>(ItemEffect.Integrity, 77d),
                     new Pair<>(ItemEffect.PowerDraw, 0.37d),
@@ -4855,7 +4855,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size5_class3("5C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 96d),
                     new Pair<>(ItemEffect.PowerDraw, 0.41d),
@@ -4868,7 +4868,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size5_class4("5B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 115d),
                     new Pair<>(ItemEffect.PowerDraw, 0.68d),
@@ -4881,7 +4881,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size5_class5("5A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 20d),
                     new Pair<>(ItemEffect.Integrity, 106d),
                     new Pair<>(ItemEffect.PowerDraw, 1.23d),
@@ -4894,7 +4894,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size6_class1("6E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 102d),
                     new Pair<>(ItemEffect.PowerDraw, 0.4d),
@@ -4907,7 +4907,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size6_class2("6D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 16d),
                     new Pair<>(ItemEffect.Integrity, 90d),
                     new Pair<>(ItemEffect.PowerDraw, 0.45d),
@@ -4920,7 +4920,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size6_class3("6C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 113d),
                     new Pair<>(ItemEffect.PowerDraw, 0.5d),
@@ -4933,7 +4933,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size6_class4("6B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 136d),
                     new Pair<>(ItemEffect.PowerDraw, 0.83d),
@@ -4946,7 +4946,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size6_class5("6A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 40d),
                     new Pair<>(ItemEffect.Integrity, 124d),
                     new Pair<>(ItemEffect.PowerDraw, 1.5d),
@@ -4959,7 +4959,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size7_class1("7E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 118d),
                     new Pair<>(ItemEffect.PowerDraw, 0.47d),
@@ -4972,7 +4972,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size7_class2("7D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 32d),
                     new Pair<>(ItemEffect.Integrity, 105d),
                     new Pair<>(ItemEffect.PowerDraw, 0.53d),
@@ -4985,7 +4985,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size7_class3("7C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 131d),
                     new Pair<>(ItemEffect.PowerDraw, 0.59d),
@@ -4998,7 +4998,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size7_class4("7B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 128d),
                     new Pair<>(ItemEffect.Integrity, 157d),
                     new Pair<>(ItemEffect.PowerDraw, 0.97d),
@@ -5011,7 +5011,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size7_class5("7A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 80d),
                     new Pair<>(ItemEffect.Integrity, 144d),
                     new Pair<>(ItemEffect.PowerDraw, 1.77d),
@@ -5024,7 +5024,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size8_class1("8E Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 135d),
                     new Pair<>(ItemEffect.PowerDraw, 0.55d),
@@ -5037,7 +5037,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size8_class2("8D Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 64d),
                     new Pair<>(ItemEffect.Integrity, 120d),
                     new Pair<>(ItemEffect.PowerDraw, 0.62d),
@@ -5050,7 +5050,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size8_class3("8C Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 150d),
                     new Pair<>(ItemEffect.PowerDraw, 0.69d),
@@ -5063,7 +5063,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size8_class4("8B Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 256d),
                     new Pair<>(ItemEffect.Integrity, 180d),
                     new Pair<>(ItemEffect.PowerDraw, 1.14d),
@@ -5076,7 +5076,7 @@ public enum CoreInternalModule implements ShipModule
     int_sensors_size8_class5("8A Standard",
             ModificationType.Sensors,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 160d),
                     new Pair<>(ItemEffect.Integrity, 165d),
                     new Pair<>(ItemEffect.PowerDraw, 2.07d),
@@ -5094,42 +5094,42 @@ public enum CoreInternalModule implements ShipModule
     int_fueltank_size1_class3("1C Standard",
             null,
             null,
-            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 2d))),
+            new ItemEffects(new Pair<>(ItemEffect.FuelCapacity, 2d))),
 
     int_fueltank_size2_class3("2C Standard",
             null,
             null,
-            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 4d))),
+            new ItemEffects(new Pair<>(ItemEffect.FuelCapacity, 4d))),
 
     int_fueltank_size3_class3("3C Standard",
             null,
             null,
-            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 8d))),
+            new ItemEffects(new Pair<>(ItemEffect.FuelCapacity, 8d))),
 
     int_fueltank_size4_class3("4C Standard",
             null,
             null,
-            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 16d))),
+            new ItemEffects(new Pair<>(ItemEffect.FuelCapacity, 16d))),
 
     int_fueltank_size5_class3("5C Standard",
             null,
             null,
-            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 32d))),
+            new ItemEffects(new Pair<>(ItemEffect.FuelCapacity, 32d))),
 
     int_fueltank_size6_class3("6C Standard",
             null,
             null,
-            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 64d))),
+            new ItemEffects(new Pair<>(ItemEffect.FuelCapacity, 64d))),
 
     int_fueltank_size7_class3("7C Standard",
             null,
             null,
-            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 128d))),
+            new ItemEffects(new Pair<>(ItemEffect.FuelCapacity, 128d))),
 
     int_fueltank_size8_class3("8C Standard",
             null,
             null,
-            new ItemEffectData(new Pair<>(ItemEffect.FuelCapacity, 256d))),
+            new ItemEffects(new Pair<>(ItemEffect.FuelCapacity, 256d))),
 
 
     /**
@@ -5142,7 +5142,7 @@ public enum CoreInternalModule implements ShipModule
     int_guardianpowerplant_size2("2A Hybrid",
             null,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 1.5d),
                     new Pair<>(ItemEffect.Integrity, 56d),
                     new Pair<>(ItemEffect.PowerCapacity, 12.7d),
@@ -5152,7 +5152,7 @@ public enum CoreInternalModule implements ShipModule
     int_guardianpowerplant_size3("3A Hybrid",
             null,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 2.9d),
                     new Pair<>(ItemEffect.Integrity, 70d),
                     new Pair<>(ItemEffect.PowerCapacity, 15.8d),
@@ -5162,7 +5162,7 @@ public enum CoreInternalModule implements ShipModule
     int_guardianpowerplant_size4("4A Hybrid",
             null,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 5.9d),
                     new Pair<>(ItemEffect.Integrity, 88d),
                     new Pair<>(ItemEffect.PowerCapacity, 20.6d),
@@ -5172,7 +5172,7 @@ public enum CoreInternalModule implements ShipModule
     int_guardianpowerplant_size5("5A Hybrid",
             null,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 11.7d),
                     new Pair<>(ItemEffect.Integrity, 106d),
                     new Pair<>(ItemEffect.PowerCapacity, 26.9d),
@@ -5182,7 +5182,7 @@ public enum CoreInternalModule implements ShipModule
     int_guardianpowerplant_size6("6A Hybrid",
             null,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 23.4d),
                     new Pair<>(ItemEffect.Integrity, 124d),
                     new Pair<>(ItemEffect.PowerCapacity, 33.3d),
@@ -5192,7 +5192,7 @@ public enum CoreInternalModule implements ShipModule
     int_guardianpowerplant_size7("7A Hybrid",
             null,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 46.8d),
                     new Pair<>(ItemEffect.Integrity, 144d),
                     new Pair<>(ItemEffect.PowerCapacity, 39.6d),
@@ -5202,7 +5202,7 @@ public enum CoreInternalModule implements ShipModule
     int_guardianpowerplant_size8("8A Hybrid",
             null,
             null,
-            new ItemEffectData(
+            new ItemEffects(
                     new Pair<>(ItemEffect.Mass, 93.6d),
                     new Pair<>(ItemEffect.Integrity, 165d),
                     new Pair<>(ItemEffect.PowerCapacity, 47.5d),
@@ -5214,9 +5214,9 @@ public enum CoreInternalModule implements ShipModule
     private final String text;
     private final ProcurementType modificationType;
     private final ProcurementType experimentalType;
-    private final ItemEffectData itemEffects;
+    private final ItemEffects itemEffects;
 
-    CoreInternalModule(String text, ProcurementType modificationType, ProcurementType experimentalType, ItemEffectData itemEffects)
+    CoreInternalModule(String text, ProcurementType modificationType, ProcurementType experimentalType, ItemEffects itemEffects)
     {
         this.modificationType = modificationType;
         this.experimentalType = experimentalType;
@@ -5235,7 +5235,7 @@ public enum CoreInternalModule implements ShipModule
     }
 
     @Override
-    public ItemEffectData itemEffects()
+    public ItemEffects itemEffects()
     {
         return itemEffects;
     }

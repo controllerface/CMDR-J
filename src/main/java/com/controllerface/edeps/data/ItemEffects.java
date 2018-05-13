@@ -7,13 +7,16 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
+ * Container class intended to hold several individual item effects, to group them together, for example to store all
+ * the standard effects of a weapon, or all fo the modifications done to some module.
+ *
  * Created by Stephen on 4/6/2018.
  */
-public class ItemEffectData
+public class ItemEffects
 {
     private final Pair<ItemEffect, Double>[] effects;
 
-    public ItemEffectData(Pair<ItemEffect, Double> ... effectPairs)
+    public ItemEffects(Pair<ItemEffect, Double> ... effectPairs)
     {
         this.effects = effectPairs;
     }
@@ -23,7 +26,7 @@ public class ItemEffectData
         return Arrays.stream(effects);
     }
 
-    public static ItemEffectData EMPTY = new ItemEffectData()
+    public static ItemEffects EMPTY = new ItemEffects()
     {
         @Override
         public Stream<Pair<ItemEffect, Double>> pairStream()

@@ -90,7 +90,7 @@ public enum ItemEffect
     DefenceModifierHealthAddition("", "Hull Reinforcement", true),
     DefenceModifierHealthMultiplier("%", "Hull Boost", true),
     DefenceModifierShieldAddition("", "Optimal Strength", true),
-    DefenceModifierShieldMultiplier("%", "Optimal Multiplier", true),
+    DefenceModifierShieldMultiplier("%", "Shield Boost", true),
     ModuleDefenceAbsorption("%", "Damage Protection", true),
 
     /*

@@ -2,7 +2,7 @@ package com.controllerface.edeps.structures.equipment.modules;
 
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.ShipModule;
-import com.controllerface.edeps.data.ItemEffectData;
+import com.controllerface.edeps.data.ItemEffects;
 
 import java.util.Arrays;
 
@@ -88,9 +88,9 @@ public enum Cosmetic implements ShipModule
     }
 
     @Override
-    public ItemEffectData itemEffects()
+    public ItemEffects itemEffects()
     {
-        return ItemEffectData.EMPTY;
+        return ItemEffects.EMPTY;
     }
 
     public static ShipModule findCosmetic(String cosmeticName) throws Exception
