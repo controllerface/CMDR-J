@@ -10,10 +10,7 @@ import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
-import com.controllerface.edeps.structures.equipment.modules.Cosmetic;
-import com.controllerface.edeps.structures.equipment.modules.CoreInternalModule;
-import com.controllerface.edeps.structures.equipment.modules.HardpointModule;
-import com.controllerface.edeps.structures.equipment.modules.OptionalInternalModule;
+import com.controllerface.edeps.structures.equipment.modules.*;
 import com.controllerface.edeps.structures.equipment.ships.*;
 import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.UserTransaction;
@@ -526,6 +523,10 @@ public enum JournalEvent
         if (module != null) return module;
 
         try {module = OptionalInternalModule.findModule(moduleName);}
+        catch (Exception e) {module = null;}
+        if (module != null) return module;
+
+        try {module = OptionalInternalShieldModule.findModule(moduleName);}
         catch (Exception e) {module = null;}
         if (module != null) return module;
 

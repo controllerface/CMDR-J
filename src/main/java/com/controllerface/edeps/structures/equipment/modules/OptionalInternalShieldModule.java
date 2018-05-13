@@ -1,0 +1,1948 @@
+package com.controllerface.edeps.structures.equipment.modules;
+
+import com.controllerface.edeps.ProcurementType;
+import com.controllerface.edeps.ShipModule;
+import com.controllerface.edeps.data.ItemEffectData;
+import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
+import com.controllerface.edeps.structures.craftable.modifications.ModificationType;
+import com.controllerface.edeps.structures.equipment.ItemEffect;
+import javafx.util.Pair;
+
+import java.util.Arrays;
+
+/**
+ * Created by Stephen on 4/25/2018.
+ */
+@SuppressWarnings("unchecked")
+public enum OptionalInternalShieldModule implements ShipModule
+{
+    /**
+     * Shield Generators:
+     *
+     * Includes Standard, Bi-Weave, and Prismatic
+     */
+
+    int_shieldgenerator_size1_class1("1A Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 48d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.68d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 13d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 25d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 63d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 70d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 120d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 170d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.6d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size1_class3_fast("1C Bi-Weave Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1.3d),
+                    new Pair<>(ItemEffect.Integrity, 40d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.2d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 13d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 25d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 63d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 1.8d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 2.4d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size1_class5_strong("1A Prismatic Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.6d),
+                    new Pair<>(ItemEffect.Integrity, 48d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.52d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 13d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 25d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 63d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 150d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 200d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.2d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size2_class1("2E Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 41d),
+                    new Pair<>(ItemEffect.PowerDraw, 0.9d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 28d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 55d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 138d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 30d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 80d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 130d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.6d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size2_class2("2D Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 1d),
+                    new Pair<>(ItemEffect.Integrity, 31d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.2d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 28d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 55d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 138d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.6d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size2_class3("2C Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.5d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 28d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 55d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 138d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 50d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 150d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.6d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size2_class4("2B Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 71d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.8d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 28d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 55d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 138d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 60d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 110d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 160d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.6d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size2_class5("2A Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 61d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.1d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 28d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 55d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 138d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 70d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 120d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 170d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.6d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size2_class3_fast("2C Bi-Weave Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2.5d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.5d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 28d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 55d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 138d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 1.8d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 2.4d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size2_class5_strong("2A Prismatic Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 61d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.15d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 28d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 55d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 138d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 150d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 200d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.2d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+
+
+
+    int_shieldgenerator_size3_class1("3E Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 51d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.08d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 83d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 165d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 413d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 30d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 80d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 130d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.87d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size3_class2("3D Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 2d),
+                    new Pair<>(ItemEffect.Integrity, 38d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.44d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 83d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 165d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 413d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.87d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size3_class3("3C Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.8d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 83d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 165d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 413d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 50d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 150d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.87d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size3_class4("3B Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 90d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.16d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 83d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 165d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 413d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 60d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 110d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 160d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.87d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size3_class5("3A Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.52d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 83d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 165d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 413d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 70d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 120d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 170d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.87d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size3_class3_fast("3C Bi-Weave Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 5d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.8d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 83d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 165d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 413d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 1.8d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 2.805d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size3_class5_strong("3A Prismatic Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.78d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 83d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 165d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 413d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 150d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 200d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.3d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+
+
+
+    int_shieldgenerator_size4_class1("4E Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 64d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.32d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 143d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 285d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 713d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 30d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 80d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 130d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 2.53d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size4_class2("4D Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 4d),
+                    new Pair<>(ItemEffect.Integrity, 48d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.76d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 143d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 285d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 713d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 2.53d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size4_class3("4C Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 80d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.2d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 143d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 285d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 713d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 50d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 150d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 2.53d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size4_class4("4B Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 112d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.64d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 143d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 285d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 713d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 60d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 110d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 160d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 2.53d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size4_class5("4A Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.08d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 143d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 285d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 713d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 70d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 120d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 170d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 2.53d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size4_class3_fast("4C Bi-Weave Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 10d),
+                    new Pair<>(ItemEffect.Integrity, 80d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.2d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 143d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 285d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 713d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 1.8d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 3.795d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size4_class5_strong("4A Prismatic Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 4.62d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 143d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 285d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 713d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 150d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 200d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 1.66d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+
+
+    int_shieldgenerator_size5_class1("5E Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 77d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.56d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 203d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 405d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1013d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 30d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 80d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 130d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 3.75d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size5_class2("5D Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 8d),
+                    new Pair<>(ItemEffect.Integrity, 58d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.08d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 203d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 405d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1013d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 3.75d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size5_class3("5C Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.6d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 203d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 405d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1013d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 50d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 150d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 3.75d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size5_class4("5B Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 134d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.12d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 203d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 405d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1013d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 60d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 110d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 160d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 3.75d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size5_class5("5A Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 115d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.64d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 203d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 405d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1013d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 70d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 120d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 170d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 3.75d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size5_class3_fast("5C Bi-Weave Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 20d),
+                    new Pair<>(ItemEffect.Integrity, 96d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.6d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 203d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 405d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1013d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 2.2d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 5.625d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size5_class5_strong("5A Prismatic Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 115d),
+                    new Pair<>(ItemEffect.PowerDraw, 5.46d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 203d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 405d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1013d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 150d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 200d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 2.34d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+
+
+    int_shieldgenerator_size6_class1("6E Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 90d),
+                    new Pair<>(ItemEffect.PowerDraw, 1.86d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 270d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 540d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1350d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 30d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 80d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 130d),
+                    new Pair<>(ItemEffect.RegenRate, 1.3d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 5.33d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size6_class2("6D Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 16d),
+                    new Pair<>(ItemEffect.Integrity, 68d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.48d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 270d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 540d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1350d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 1.3d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 5.33d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size6_class3("6C Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 113d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.1d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 270d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 540d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1350d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 50d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 150d),
+                    new Pair<>(ItemEffect.RegenRate, 1.3d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 5.33d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size6_class4("6B Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 158d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.72d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 270d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 540d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1350d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 60d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 110d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 160d),
+                    new Pair<>(ItemEffect.RegenRate, 1.3d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 5.33d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size6_class5("6A Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 136d),
+                    new Pair<>(ItemEffect.PowerDraw, 4.34d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 270d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 540d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1350d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 70d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 120d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 170d),
+                    new Pair<>(ItemEffect.RegenRate, 1.3d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 5.33d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size6_class3_fast("6C Bi-Weave Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 40d),
+                    new Pair<>(ItemEffect.Integrity, 113d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.1d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 270d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 540d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1350d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 3.2d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 7.995d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size6_class5_strong("6A Prismatic Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 136d),
+                    new Pair<>(ItemEffect.PowerDraw, 6.51d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 270d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 540d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 1350d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 150d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 200d),
+                    new Pair<>(ItemEffect.RegenRate, 1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 3.2d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+
+
+    int_shieldgenerator_size7_class1("7E Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 105d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.1d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 530d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1060d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 2650d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 30d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 80d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 130d),
+                    new Pair<>(ItemEffect.RegenRate, 1.8d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 7.33d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size7_class2("7D Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 32d),
+                    new Pair<>(ItemEffect.Integrity, 79d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.8d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 530d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1060d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 2650d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 1.8d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 7.33d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size7_class3("7C Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 131d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.5d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 530d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1060d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 2650d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 50d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 150d),
+                    new Pair<>(ItemEffect.RegenRate, 1.8d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 7.33d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size7_class4("7B Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 128d),
+                    new Pair<>(ItemEffect.Integrity, 183d),
+                    new Pair<>(ItemEffect.PowerDraw, 4.2d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 530d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1060d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 2650d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 60d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 110d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 160d),
+                    new Pair<>(ItemEffect.RegenRate, 1.8d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 7.33d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size7_class5("7A Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 157d),
+                    new Pair<>(ItemEffect.PowerDraw, 4.9d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 530d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1060d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 2650d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 70d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 120d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 170d),
+                    new Pair<>(ItemEffect.RegenRate, 1.8d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 7.33d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size7_class3_fast("7C Bi-Weave Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 80d),
+                    new Pair<>(ItemEffect.Integrity, 131d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.5d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 530d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1060d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 2650d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 4.4d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 10.995d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size7_class5_strong("7A Prismatic Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 157d),
+                    new Pair<>(ItemEffect.PowerDraw, 7.35d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 530d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1060d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 2650d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 150d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 200d),
+                    new Pair<>(ItemEffect.RegenRate, 1.1d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 4.25d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+
+
+
+    int_shieldgenerator_size8_class1("8E Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 120d),
+                    new Pair<>(ItemEffect.PowerDraw, 2.4d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 900d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1800d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 4500d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 30d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 80d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 130d),
+                    new Pair<>(ItemEffect.RegenRate, 2.4d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 9.6d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size8_class2("8D Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 64d),
+                    new Pair<>(ItemEffect.Integrity, 90d),
+                    new Pair<>(ItemEffect.PowerDraw, 3.2d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 900d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1800d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 4500d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 2.4d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 9.6d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size8_class3("8C Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 150d),
+                    new Pair<>(ItemEffect.PowerDraw, 4d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 900d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1800d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 4500d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 50d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 150d),
+                    new Pair<>(ItemEffect.RegenRate, 2.4d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 9.6d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size8_class4("8B Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 256d),
+                    new Pair<>(ItemEffect.Integrity, 210d),
+                    new Pair<>(ItemEffect.PowerDraw, 4.8d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 900d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1800d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 4500d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 60d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 110d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 160d),
+                    new Pair<>(ItemEffect.RegenRate, 2.4d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 9.6d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size8_class5("8A Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 180d),
+                    new Pair<>(ItemEffect.PowerDraw, 5.6d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 900d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1800d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 4500d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 70d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 120d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 170d),
+                    new Pair<>(ItemEffect.RegenRate, 2.4d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 9.6d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size8_class3_fast("8c Bi-Weave Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 160d),
+                    new Pair<>(ItemEffect.Integrity, 150d),
+                    new Pair<>(ItemEffect.PowerDraw, 4d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 900d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1800d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 4500d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 40d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 90d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 140d),
+                    new Pair<>(ItemEffect.RegenRate, 5.8d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 14.4d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+    int_shieldgenerator_size8_class5_strong("8A Prismatic Shield Generator",
+            ModificationType.Shield_Generator,
+            ExperimentalType.Shield_Generator,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass, 320d),
+                    new Pair<>(ItemEffect.Integrity, 180d),
+                    new Pair<>(ItemEffect.PowerDraw, 8.4d),
+                    new Pair<>(ItemEffect.BootTime, 1d),
+                    new Pair<>(ItemEffect.ShieldGenMinimumMass, 900d),
+                    new Pair<>(ItemEffect.ShieldGenOptimalMass, 1800d),
+                    new Pair<>(ItemEffect.ShieldGenMaximumMass, 4500d),
+                    new Pair<>(ItemEffect.ShieldGenMinStrength, 100d),
+                    new Pair<>(ItemEffect.ShieldGenStrength, 150d),
+                    new Pair<>(ItemEffect.ShieldGenMaxStrength, 200d),
+                    new Pair<>(ItemEffect.RegenRate, 1.4d),
+                    new Pair<>(ItemEffect.BrokenRegenRate, 5.4d),
+                    new Pair<>(ItemEffect.DistributorDraw, 0.6d),
+                    new Pair<>(ItemEffect.ThermalLoad, 1.2d),
+                    new Pair<>(ItemEffect.KineticResistance, 40d),
+                    new Pair<>(ItemEffect.ThermicResistance, -20d),
+                    new Pair<>(ItemEffect.ExplosiveResistance, 50d)
+            )),
+
+
+
+
+    /**
+     * Shield Cell Bank
+     */
+
+    int_shieldcellbank_size1_class1("1E Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+            new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,1.3d),
+                    new Pair<>(ItemEffect.Integrity,32d),
+                    new Pair<>(ItemEffect.PowerDraw,0.41d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,12d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,170d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,1d)
+            )),
+
+    int_shieldcellbank_size1_class2("1D Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,0.5d),
+                    new Pair<>(ItemEffect.Integrity,24d),
+                    new Pair<>(ItemEffect.PowerDraw,0.55d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,16d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,170d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,1d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,1d)
+            )),
+
+    int_shieldcellbank_size1_class3("1C Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,1.3d),
+                    new Pair<>(ItemEffect.Integrity,40d),
+                    new Pair<>(ItemEffect.PowerDraw,0.69d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,20d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,170d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,2d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,1d)
+            )),
+
+    int_shieldcellbank_size1_class4("1B Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,2d),
+                    new Pair<>(ItemEffect.Integrity,56d),
+                    new Pair<>(ItemEffect.PowerDraw,0.83d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,24d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,170d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,1d)
+            )),
+
+    int_shieldcellbank_size1_class5("1A Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,1.3d),
+                    new Pair<>(ItemEffect.Integrity,48d),
+                    new Pair<>(ItemEffect.PowerDraw,0.97d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,28d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,170d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,2d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,1d)
+            )),
+
+
+    int_shieldcellbank_size2_class1("2E Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,2.5d),
+                    new Pair<>(ItemEffect.Integrity,41d),
+                    new Pair<>(ItemEffect.PowerDraw,0.5d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,14d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,240d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,1.5d)
+            )),
+
+    int_shieldcellbank_size2_class2("2D Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,1d),
+                    new Pair<>(ItemEffect.Integrity,31d),
+                    new Pair<>(ItemEffect.PowerDraw,0.67d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,18d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,240d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,2d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,1.5d)
+            )),
+
+    int_shieldcellbank_size2_class3("2C Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,2.5d),
+                    new Pair<>(ItemEffect.Integrity,51d),
+                    new Pair<>(ItemEffect.PowerDraw,0.84d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,23d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,240d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,1.5d)
+            )),
+
+    int_shieldcellbank_size2_class4("2B Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,4d),
+                    new Pair<>(ItemEffect.Integrity,71d),
+                    new Pair<>(ItemEffect.PowerDraw,1.01d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,28d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,240d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,1.5d)
+            )),
+
+    int_shieldcellbank_size2_class5("2A Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,2.5d),
+                    new Pair<>(ItemEffect.Integrity,61d),
+                    new Pair<>(ItemEffect.PowerDraw,1.18d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,32d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,240d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,1.5d)
+            )),
+
+
+    int_shieldcellbank_size3_class1("3E Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,5d),
+                    new Pair<>(ItemEffect.Integrity,51d),
+                    new Pair<>(ItemEffect.PowerDraw,0.61d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,17d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,340d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,2.3d)
+            )),
+
+    int_shieldcellbank_size3_class2("3D Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,2d),
+                    new Pair<>(ItemEffect.Integrity,38d),
+                    new Pair<>(ItemEffect.PowerDraw,0.82d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,23d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,340d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,2d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,2.3d)
+            )),
+
+    int_shieldcellbank_size3_class3("3C Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,5d),
+                    new Pair<>(ItemEffect.Integrity,64d),
+                    new Pair<>(ItemEffect.PowerDraw,1.02d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,29d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,340d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,2.3d)
+            )),
+
+    int_shieldcellbank_size3_class4("3B Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,8d),
+                    new Pair<>(ItemEffect.Integrity,90d),
+                    new Pair<>(ItemEffect.PowerDraw,1.22d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,35d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,340d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,2.3d)
+            )),
+
+    int_shieldcellbank_size3_class5("3A Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,5d),
+                    new Pair<>(ItemEffect.Integrity,77d),
+                    new Pair<>(ItemEffect.PowerDraw,1.43d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,41d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,340d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,2.3d)
+            )),
+
+
+    int_shieldcellbank_size4_class1("4E Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,10d),
+                    new Pair<>(ItemEffect.Integrity,64d),
+                    new Pair<>(ItemEffect.PowerDraw,0.74d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,20d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,410d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,3.4d)
+            )),
+
+    int_shieldcellbank_size4_class2("4D Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,4d),
+                    new Pair<>(ItemEffect.Integrity,48d),
+                    new Pair<>(ItemEffect.PowerDraw,0.98d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,26d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,410d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,2d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,3.4d)
+            )),
+
+    int_shieldcellbank_size4_class3("4C Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,10d),
+                    new Pair<>(ItemEffect.Integrity,80d),
+                    new Pair<>(ItemEffect.PowerDraw,1.23d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,33d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,410d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,3.4d)
+            )),
+
+    int_shieldcellbank_size4_class4("4B Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,16d),
+                    new Pair<>(ItemEffect.Integrity,112d),
+                    new Pair<>(ItemEffect.PowerDraw,1.48d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,39d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,410d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,3.4d)
+            )),
+
+    int_shieldcellbank_size4_class5("4A Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,10d),
+                    new Pair<>(ItemEffect.Integrity,96d),
+                    new Pair<>(ItemEffect.PowerDraw,1.72d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,46d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,410d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,3.4d)
+            )),
+
+
+    int_shieldcellbank_size5_class1("5E Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,20d),
+                    new Pair<>(ItemEffect.Integrity,77d),
+                    new Pair<>(ItemEffect.PowerDraw,0.9d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,21d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,540d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,5.1d)
+            )),
+
+    int_shieldcellbank_size5_class2("5D Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,8d),
+                    new Pair<>(ItemEffect.Integrity,58d),
+                    new Pair<>(ItemEffect.PowerDraw,1.2d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,28d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,540d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,2d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,5.1d)
+            )),
+
+    int_shieldcellbank_size5_class3("5C Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,20d),
+                    new Pair<>(ItemEffect.Integrity,96d),
+                    new Pair<>(ItemEffect.PowerDraw,1.5d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,35d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,540d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,5.1d)
+            )),
+
+    int_shieldcellbank_size5_class4("5B Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,32d),
+                    new Pair<>(ItemEffect.Integrity,134d),
+                    new Pair<>(ItemEffect.PowerDraw,1.8d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,41d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,540d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,5.1d)
+            )),
+
+    int_shieldcellbank_size5_class5("5A Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,20d),
+                    new Pair<>(ItemEffect.Integrity,115d),
+                    new Pair<>(ItemEffect.PowerDraw,2.1d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,48d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,540d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,5.1d)
+            )),
+
+
+    int_shieldcellbank_size6_class1("6E Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,40d),
+                    new Pair<>(ItemEffect.Integrity,90d),
+                    new Pair<>(ItemEffect.PowerDraw,1.06d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,20d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,640d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,5d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,7.6d)
+            )),
+
+    int_shieldcellbank_size6_class2("6D Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,16d),
+                    new Pair<>(ItemEffect.Integrity,68d),
+                    new Pair<>(ItemEffect.PowerDraw,1.42d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,26d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,640d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,7.6d)
+            )),
+
+    int_shieldcellbank_size6_class3("6C Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,40d),
+                    new Pair<>(ItemEffect.Integrity,113d),
+                    new Pair<>(ItemEffect.PowerDraw,1.77d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,33d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,640d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,7.6d)
+            )),
+
+    int_shieldcellbank_size6_class4("6B Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,64d),
+                    new Pair<>(ItemEffect.Integrity,158d),
+                    new Pair<>(ItemEffect.PowerDraw,2.12d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,39d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,640d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,5d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,7.6d)
+            )),
+
+    int_shieldcellbank_size6_class5("6A Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,40d),
+                    new Pair<>(ItemEffect.Integrity,136d),
+                    new Pair<>(ItemEffect.PowerDraw,2.48d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,46d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,640d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,7.6d)
+            )),
+
+
+    int_shieldcellbank_size7_class1("7E Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,80d),
+                    new Pair<>(ItemEffect.Integrity,105d),
+                    new Pair<>(ItemEffect.PowerDraw,1.24d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,24d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,720d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,5d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,11.4d)
+            )),
+
+    int_shieldcellbank_size7_class2("7D Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,32d),
+                    new Pair<>(ItemEffect.Integrity,79d),
+                    new Pair<>(ItemEffect.PowerDraw,1.66d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,32d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,720d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,11.4d)
+            )),
+
+    int_shieldcellbank_size7_class3("7C Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,80d),
+                    new Pair<>(ItemEffect.Integrity,131d),
+                    new Pair<>(ItemEffect.PowerDraw,2.07d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,41d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,720d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,11.4d)
+            )),
+
+    int_shieldcellbank_size7_class4("7B Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,128d),
+                    new Pair<>(ItemEffect.Integrity,183d),
+                    new Pair<>(ItemEffect.PowerDraw,2.48d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,49d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,720d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,5d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,11.4d)
+            )),
+
+    int_shieldcellbank_size7_class5("7A Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,80d),
+                    new Pair<>(ItemEffect.Integrity,157d),
+                    new Pair<>(ItemEffect.PowerDraw,2.9d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,57d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,720d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,11.4d)
+            )),
+
+
+    int_shieldcellbank_size8_class1("8E Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,160d),
+                    new Pair<>(ItemEffect.Integrity,120d),
+                    new Pair<>(ItemEffect.PowerDraw,1.44d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,28d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,800d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,5d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,17.1d)
+            )),
+
+    int_shieldcellbank_size8_class2("8D Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,64d),
+                    new Pair<>(ItemEffect.Integrity,90d),
+                    new Pair<>(ItemEffect.PowerDraw,1.92d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,37d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,800d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,3d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,17.1d)
+            )),
+
+    int_shieldcellbank_size8_class3("8C Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,160d),
+                    new Pair<>(ItemEffect.Integrity,150d),
+                    new Pair<>(ItemEffect.PowerDraw,2.4d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,47d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,800d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,17.1d)
+            )),
+
+    int_shieldcellbank_size8_class4("8B Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,256d),
+                    new Pair<>(ItemEffect.Integrity,210d),
+                    new Pair<>(ItemEffect.PowerDraw,2.88d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,56d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,800d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,5d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,17.1d)
+            )),
+
+    int_shieldcellbank_size8_class5("8A Shield Cell Bank",
+            ModificationType.Shield_Cell_Bank,
+            ExperimentalType.Shield_Cell_Bank,
+                        new ItemEffectData(
+                    new Pair<>(ItemEffect.Mass,160d),
+                    new Pair<>(ItemEffect.Integrity,180d),
+                    new Pair<>(ItemEffect.PowerDraw,3.36d),
+                    new Pair<>(ItemEffect.BootTime,25d),
+                    new Pair<>(ItemEffect.ShieldBankSpinUp,5d),
+                    new Pair<>(ItemEffect.ShieldBankReinforcement,65d),
+                    new Pair<>(ItemEffect.ShieldBankHeat,800d),
+                    new Pair<>(ItemEffect.AmmoClipSize,1d),
+                    new Pair<>(ItemEffect.AmmoMaximum,4d),
+                    new Pair<>(ItemEffect.ShieldBankDuration,17.1d)
+            )),
+
+
+    ;
+
+    private final String displayText;
+    private final ProcurementType modificationType;
+    private final ProcurementType experimentalType;
+    private final ItemEffectData itemEffects;
+
+    OptionalInternalShieldModule(String displayText, ProcurementType modificationType, ProcurementType experimentalType, ItemEffectData itemEffects)
+    {
+        this.modificationType = modificationType;
+        this.experimentalType = experimentalType;
+        this.displayText = displayText;
+        this.itemEffects = itemEffects;
+    }
+
+    @Override
+    public ProcurementType modificationType()
+    {
+        return modificationType;
+    }
+
+    @Override
+    public ProcurementType experimentalType()
+    {
+        return experimentalType;
+    }
+
+    @Override
+    public String displayText()
+    {
+        return displayText;
+    }
+
+
+    @Override
+    public ItemEffectData itemEffects()
+    {
+        return itemEffects;
+    }
+
+    public static ShipModule findModule(String moduleName) throws Exception
+    {
+        final Exception exception;
+        try
+        {
+            return valueOf(moduleName);
+        }
+        catch (Exception e)
+        {
+            exception = e;
+            if (moduleName == null || moduleName.isEmpty()) throw e;
+        }
+
+        return Arrays.stream(OptionalInternalShieldModule.values())
+                .filter(v->v.name().toLowerCase().equals(moduleName.toLowerCase()))
+                .findFirst().orElseThrow(()->exception);
+    }
+}

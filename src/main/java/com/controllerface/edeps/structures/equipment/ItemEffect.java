@@ -10,8 +10,6 @@ package com.controllerface.edeps.structures.equipment;
  * recipes that restore ammo for a weapon. This effect serves mainly as an indicator to the user of the effect of the
  * recipe when viewing it in the UI.
  *
- * Effects that are currently modifiable by a mod or experimental effect are marked with an asterisk (*)
- *
  * NOTE: DO NOT RENAME THESE ENUM VALUES*
  *
  * Created by Stephen on 4/6/2018.
@@ -21,18 +19,18 @@ public enum ItemEffect
     /*
     Common Stats
      */
-    Size("", "", true),                                 // base module stat (multiple)
-    Class("", "", true),                                // base module stat (multiple)
-    Mass("T","", false),                                // (*) base module stat (multiple)
-    Integrity("", "", true),                            // (*) base module stat (multiple)
-    Range("M", "", true),                                // (*) base module stat (multiple)
-    BootTime("S", "Boot Time", false),               // (*) base module stat (multiple)
-    DistributorDraw("MW", "Distributor Draw", false), // (*) base module stat (multiple)
-    PowerDraw("MW", "Power Draw", false),             // (*) base module stat (multiple)
-    ThermalLoad("", "Thermal Load", false),         // (*) base module stat (multiple)
-    MaxAngle("°", "Max Angle", true),                // todo: determine use, probably scanners, moddable?
-    MaximumRange("M", "Maximum Range", true),        // todo: determine use, probably sensors, moddable?
-    MaxRange("M", "Max Range", true),                // todo: determine use, probably sensors, moddable? alias of above?
+    Size("", "", true),
+    Class("", "", true),
+    Mass("T","", false),
+    Integrity("", "", true),
+    Range("M", "", true),
+    BootTime("S", "Boot Time", false),
+    DistributorDraw("MW", "Distributor Draw", false),
+    PowerDraw("MW", "Power Draw", false),
+    ThermalLoad("", "Thermal Load", false),
+    MaxAngle("°", "Max Angle", true),
+    MaximumRange("M", "Maximum Range", true),
+    MaxRange("M", "Max Range", true), // todo: determine use, probably sensors, moddable? alias of above?
 
 
 
@@ -41,18 +39,21 @@ public enum ItemEffect
     enum ordinal
      */
 
-    ShieldBankHeat("H/S", "Heat Generation", false),               // (*) base SCB stat
-    EngineHeatRate("H/MW", "Heat Generation", false),           // base thruster stat
-    FSDHeatRate("H/MW", "Heat Generation", false),  // base FSD stat
+    ShieldBankHeat("H/S", "Heat Generation", false),
+    EngineHeatRate("H/MW", "Heat Generation", false),
+    FSDHeatRate("H/MW", "Heat Generation", false),
 
 
-    EngineMinimumMass("T", "Minimum Mass", true),            // base thruster stat
-    ShieldGenMinimumMass("T", "Minimum Mass", true),     // base shield stat
-    MaximumMass("T", "Maximum Mass", true),          // (*) base module stat (multiple?) todo: determine which modules use this
-    ShieldGenMaximumMass("T", "Maximum Mass", true),     // base shield stat
-    ShieldGenOptimalMass("T", "Optimal Mass", true),     // base shield stat
-    EngineOptimalMass("T", "Optimal Mass", true),            // (*) base thruster stat
-    FSDOptimalMass("T", "Optimal Mass", true),   // (*) base FSD stat
+    EngineMinimumMass("T", "Minimum Mass", true),
+    ShieldGenMinimumMass("T", "Minimum Mass", true),
+
+    ShieldGenOptimalMass("T", "Optimal Mass", true),
+    EngineOptimalMass("T", "Optimal Mass", true),
+    FSDOptimalMass("T", "Optimal Mass", true),
+
+    MaximumMass("T", "Maximum Mass", true),
+    ShieldGenMaximumMass("T", "Maximum Mass", true),
+
 
 
 
@@ -60,195 +61,198 @@ public enum ItemEffect
     Offense
      */
 
-    AmmoClipSize("", "Clip Size", true),                    // (*) base Weapon stat (multiple)
-    AmmoMaximum("", "Ammo Max", true),                      // (*) base Weapon stat (multiple)
-    ArmourPenetration("", "Piercing", true),                // (*) base Weapon stat (multiple)
-    BreachDamage("", "Breach Damage", true),                // todo: determine exact use
-    MaxBreachChance("%", "", true),                              // todo: determine exact use
-    MinBreachChance("%", "", true),                              // todo: determine exact use
-    BurstRateOfFire("/S","Burst Rate", true),                // (*) base weapon stat (burst lasers)
-    BurstSize("", "Burst Size", true),                      // (*) base weapon stat (burst lasers)
-    Damage("", "Damage", true),                             // (*) base weapon stat (multiple)
-    DamageFalloffRange("M", "Damage Falloff Range", true),   // base weapon stat (multiple)
-    DamagePerSecond("/S", "DPS", true),                       // (*) base weapon stat (multiple)
-    DamageType("", "Damage Type", true),                    // base weapon stat (multiple)
-    FalloffRange("M", "Falloff Range", true),                // (*) base weapon stat (multiple)
-    Jitter("°","Jitter", false),                                      // (*) engineer weapon stat
-    RateOfFire("/S", "Rate of Fire", true),                   // (*) base weapon stat (multiple)
-    ReloadTime("S", "Reload Time", false),                   // base weapon stat (multiple)
-    RoundsPerShot("", "Rounds per Shot", true),             // todo: determine use, probably weapons, moddable?
-    ShotSpeed("M/S","Shot Speed", true),                      // (*) base weapon stat
-    WeaponMode("", "Weapon Mode", true),                    // base weapon stat (multiple)
+    DamageType("", "Damage Type", true),
+    Damage("", "Damage", true),
+    DamageFalloffRange("M", "Damage Falloff Range", true),
+
+    AmmoClipSize("", "Clip Size", true),
+    AmmoMaximum("", "Ammo Max", true),
+    ArmourPenetration("", "Piercing", true),
+    BreachDamage("", "Breach Damage", true),
+    MaxBreachChance("%", "", true),
+    MinBreachChance("%", "", true),
+    BurstRateOfFire("/S","Burst Rate", true),
+    BurstSize("", "Burst Size", true),
+    DamagePerSecond("/S", "DPS", true),
+    FalloffRange("M", "Falloff Range", true),
+    Jitter("°","Jitter", false),
+    RateOfFire("/S", "Rate of Fire", true),
+    ReloadTime("S", "Reload Time", false),
+    RoundsPerShot("", "Rounds per Shot", true),
+    ShotSpeed("M/S","Shot Speed", true),
+    WeaponMode("", "Weapon Mode", true),
 
 
     /*
     General Defense
      */
 
-    DefenceModifierHealthAddition("", "Hull Reinforcement", true),      // (*) base hull reinforcement stat
-    DefenceModifierHealthMultiplier("%", "Hull Boost", true),            // (*) base armour stat
-    DefenceModifierShieldAddition("", "Optimal Strength", true),        // (*) base shield booster stat
-    DefenceModifierShieldMultiplier("%", "Optimal Multiplier", true),    // (*) base shield stat
-    ModuleDefenceAbsorption("", "", true),                                  // made module reinforcement stat
+    DefenceModifierHealthAddition("", "Hull Reinforcement", true),
+    DefenceModifierHealthMultiplier("%", "Hull Boost", true),
+    DefenceModifierShieldAddition("", "Optimal Strength", true),
+    DefenceModifierShieldMultiplier("%", "Optimal Multiplier", true),
+    ModuleDefenceAbsorption("%", "Damage Protection", true),
 
     /*
     Shield Generator
      */
 
-    BrokenRegenRate("MJ/S", "Broken Regen rate", true),     // (*) base shield stat
-    RegenRate("MJ/S", "Regen Rate", true),                  // base shield stat
-    ShieldGenMaxStrength("MJ", "Maximum Strength", true), // base shield stat
-    ShieldGenMinStrength("MJ", "Minimum Strength", true), // base shield stat
-    ShieldGenStrength("MJ", "Strength", true),            // base shield stat
+    BrokenRegenRate("MJ/S", "Broken Regen rate", true),
+    RegenRate("MJ/S", "Regen Rate", true),
+
+    ShieldGenMinStrength("MJ", "Minimum Strength", true),
+    ShieldGenStrength("MJ", "Optimal Strength", true),
+    ShieldGenMaxStrength("MJ", "Maximum Strength", true),
 
 
     /*
     Shield Cell Bank
      */
 
-    ShieldBankDuration("S", "Duration", true),                   // (*) base SCB stat
-    ShieldBankReinforcement("MJ/S", "Shield Reinforcement", true),  // (*) base SCB stat
-    ShieldBankSpinUp("S", "Spin-up Time", false),                // (*) base SCB stat
+    ShieldBankDuration("S", "Duration", true),
+    ShieldBankReinforcement("MJ/S", "Shield Reinforcement", true),
+    ShieldBankSpinUp("S", "Spin-up Time", false),
 
     /*
     Resistances
      */
 
-    CausticResistance("%", "Caustic Resistance", true),      // (*) anti-xeno modifier
-    ExplosiveResistance("%", "Explosive Resistance", true),  // (*) base module stat (multiple)
-    KineticResistance("%", "Kinetic Resistance", true),      // (*) base module stat (multiple)
-    ThermicResistance("%", "Thermal Resistance", true),      // (*) base module stat (multiple)
+    CausticResistance("%", "Caustic Resistance", true),
+    ExplosiveResistance("%", "Explosive Resistance", true),
+    KineticResistance("%", "Kinetic Resistance", true),
+    ThermicResistance("%", "Thermal Resistance", true),
 
 
     /*
     Power Plant
      */
 
-    PowerCapacity("MW", "Power Capacity", true),  // (*) base module stat (power plant)
-    HeatEfficiency("H/MW", "Efficiency", false),    // (*) base power plant stat
+    PowerCapacity("MW", "Power Capacity", true),
+    HeatEfficiency("H/MW/S", "Efficiency", false),
 
 
     /*
     Thrusters
      */
 
-    EngineMinPerformance("%", "Min Performance", true),      // base thruster stat
-    EngineMaxPerformance("%", "Max Performance", true),      // base thruster stat
-    EngineOptPerformance("%", "Optimal Performance", true),  // (*) base thruster stat
+    EngineMinPerformance("%", "Min Performance", true),
+    EngineOptPerformance("%", "Optimal Performance", true),
+    EngineMaxPerformance("%", "Max Performance", true),
 
 
     /*
     Frame Shift Drive
      */
 
-    FSDFuelUseIncrease("", "", true),               // todo: determine exact use, maybe guardian fsd booster?
-    FSDJumpRangeBoost("", "", true),                // (*) "jumponium" range boost stat
-    MaxFuelPerJump("T", "" ,true),                   // (*) base FSD stat
+    FSDFuelUseIncrease("", "", true),
+    FSDJumpRangeBoost("", "", true),
+    MaxFuelPerJump("T", "" ,true),
 
 
     /*
     Power Distributor
      */
 
-    EnginesCapacity("MW", "Engines Capacity", true), // (*) base power distributor stat
-    EnginesRecharge("MW/S", "Engines Recharge", true), // (*) base power distributor stat
-    SystemsCapacity("MW", "Systems Capacity", true), // (*) base power distributor stat
-    SystemsRecharge("MW/S", "Systems Recharge", true), // (*) base power distributor stat
-    WeaponsCapacity("MW", "Weapons Capacity", true), // (*) base power distributor stat
-    WeaponsRecharge("MW/S", "Weapons Recharge", true), // (*) base power distributor stat
+    EnginesCapacity("MW", "Engines Capacity", true),
+    EnginesRecharge("MW/S", "Engines Recharge", true),
+    SystemsCapacity("MW", "Systems Capacity", true),
+    SystemsRecharge("MW/S", "Systems Recharge", true),
+    WeaponsCapacity("MW", "Weapons Capacity", true),
+    WeaponsRecharge("MW/S", "Weapons Recharge", true),
 
 
     /*
     SRV
      */
 
-    NumBuggySlots("", "SRV Bays", true),    // SRV hangar
-    VehicleArmourHealth("", "", true),          // SRV?
-    VehicleCargoCapacity("", "", true),         // SRV?
-    VehicleFuelCapacity("", "", true),          // SRV?
-    VehicleHullMass("", "", true),              // SRV?
-    VehicleShieldHealth("", "", true),          // SRV?
+    NumBuggySlots("", "SRV Bays", true),
+    VehicleArmourHealth("", "", true),
+    VehicleCargoCapacity("", "", true),
+    VehicleFuelCapacity("", "", true),
+    VehicleHullMass("", "", true),
+    VehicleShieldHealth("", "", true),
 
 
     /*
     SLF
      */
 
-    FighterBoostSpeed("", "", true),    // base SLF stat
-    FighterDPS("", "", true),           // base SLF stat
-    FighterMaxSpeed("", "", true),      // base SLF stat
-    FighterPitchRate("", "", true),     // base SLF stat
-    FighterRollRate("", "", true),      // base SLF stat
-    FighterYawRate("", "", true),       // base SLF stat
+    FighterBoostSpeed("", "", true),
+    FighterDPS("", "", true),
+    FighterMaxSpeed("", "", true),
+    FighterPitchRate("", "", true),
+    FighterRollRate("", "", true),
+    FighterYawRate("", "", true),
 
 
     /*
     Sensors and Scanners
      */
 
-    DiscoveryScannerPassiveRange("LS", "Passive Range", true),// base discovery scanner stat
-    DiscoveryScannerRange("LS", "Range", true),               // base discovery scanner stat
-    DSS_AngleMult("%", "", true),                                // (*) base detailed surface scanner stat
-    DSS_RangeMult("%", "", true),                                // (*) base detailed surface scanner stat
-    DSS_RateMult("%", "", true),                                 // (*) base detailed surface scanner stat
-    FSDInterdictorFacingLimit("°", "Facing Limit", true),    // (*) base FSD interdictor stat
-    FSDInterdictorRange("S", "Range", true),                 // (*) base FSD interdictor stat
-    ScannerRange("M", "Range", true),                        // (*) base scanner stat (multiple?)
-    ScannerTimeToScan("S", "Time to Scan", false),           // (*) base scanner stat
-    SensorTargetScanAngle("°", "Max Angle", true),           // (*) base scanner stat (multiple?)
+    DiscoveryScannerPassiveRange("LS", "Passive Range", true),
+    DiscoveryScannerRange("LS", "Range", true),
+    DSS_AngleMult("%", "", true),
+    DSS_RangeMult("%", "", true),
+    DSS_RateMult("%", "", true),
+    FSDInterdictorFacingLimit("°", "Facing Limit", true),
+    FSDInterdictorRange("S", "Range", true),
+    ScannerRange("M", "Range", true),
+    ScannerTimeToScan("S", "Time to Scan", false),
+    SensorTargetScanAngle("°", "Max Angle", true),
 
 
     /*
     Drones/Limpets
      */
 
-    DroneFuelCapacity("", "", true),        // base limpet drone stat
-    DroneHackingTime("", "", false),        // base limpet drone stat
-    DroneLifeTime("", "", true),            // base limpet drone stat
-    DroneMaxJettisonedCargo("", "", true),  // base limpet drone stat
-    DroneMinJettisonedCargo("", "", true),  // base limpet drone stat
-    DroneMultiTargetSpeed("", "", true),    // base limpet drone stat
-    DroneRepairCapacity("", "", true),      // base limpet drone stat
-    DroneSpeed("", "", true),               // base limpet drone stat
-    DroneTargetRange("", "", true),         // base limpet drone stat
-    MaxActiveDrones("", "", true),          // base limpet controller stat
+    MaxActiveDrones("", "Max. Active Drones", true),
+    DroneLifeTime("S", "Drone Lifespan", true),
+    DroneTargetRange("M", "Drone Target Range", true),
+    DroneSpeed("M/S", "Speed", true),
+    DroneMultiTargetSpeed("M/S", "Multi-Target Speed", true),
+    DroneFuelCapacity("", "", true),
+    DroneHackingTime("", "", false),
+    DroneMaxJettisonedCargo("", "", true),
+    DroneMinJettisonedCargo("", "", true),
+    DroneRepairCapacity("", "Repair Capacity", true),
+
 
 
     /*
     Automated Field Repair Unit
      */
 
-    // todo: ensure AFMU "more is good" flags are correct
-    AFMRepairCapacity("", "Repair Capacity", true),         // base AFMU stat
-    AFMRepairConsumption("", "Repair Consumption", false),  // base AFMU stat
-    AFMRepairPerAmmo("", "Repair per Ammo", true),          // base AFMU stat
+
+    AFMRepairCapacity("", "Repair Capacity", true),
+    AFMRepairConsumption("A/S", "Repair Consumption", false),
+    AFMRepairPerAmmo("R/A", "Repair Rating", true),
 
     /*
     Electronic Counter Measures
      */
-    ECMActivePowerConsumption("", "", false),   // base ECM stat
-    ECMCooldown("", "", false),                 // base ECM stat
-    ECMHeat("", "", false),                     // base ECM stat
-    ECMRange("", "", true),                     // base ECM stat
-    ECMTimeToCharge("", "", false),             // base ECM stat
+    ECMActivePowerConsumption("", "", false),
+    ECMCooldown("", "", false),
+    ECMHeat("", "", false),
+    ECMRange("", "", true),
+    ECMTimeToCharge("", "", false),
 
     /*
     Passenger Cabins
      */
 
-    CabinCapacity("", "Cabin Capacity", true),  // base passenger cabin stat
-    CabinClass("", "Cabin Class", true),        // base passenger cabin stat
+    CabinCapacity("", "Cabin Capacity", true),
+    CabinClass("", "Cabin Class", true),
 
     /*
     Various Module Specific Stats
      */
-    CargoCapacity("T", "Cargo Capacity", true),          // cargo rack
-    ChaffJamDuration("S", "Chaff Duration", true),       // chaff launcher
-    FuelCapacity("T", "Fuel Capacity", true),            // fuel tank
-    FuelScoopRate("T/S","Scoop Rate", true),              // fuel scoop rate
-    HeatSinkDuration("S","Duration", true),             // heat sink launcher
-    OxygenTimeCapacity("S","Emergency Oxygen", true),   // life support
-    RefineryBins("", "Refinery Bins", true),            // refinery
+    CargoCapacity("T", "Cargo Capacity", true),
+    ChaffJamDuration("S", "Chaff Duration", true),
+    FuelCapacity("T", "Fuel Capacity", true),
+    FuelScoopRate("T/S","Scoop Rate", true),
+    HeatSinkDuration("S","Duration", true),
+    OxygenTimeCapacity("S","Emergency Oxygen", true),
+    RefineryBins("Bins", "Refinery Bins", true),
 
 
 

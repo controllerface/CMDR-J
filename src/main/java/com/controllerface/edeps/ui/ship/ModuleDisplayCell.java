@@ -208,7 +208,10 @@ public class ModuleDisplayCell extends TableCell<ShipModuleData, ShipModuleData>
                         String vals = String.valueOf(modifier.getValue());
                                 //+ " (" + modifier.getOriginalValue() + ")";
                         Label label = new Label(vals);
+                        Tooltip origVal = new Tooltip("Original Value:\n" + modifier.getOriginalValue());
+                        origVal.setFont(UIFunctions.Fonts.size1Font);
                         label.setFont(UIFunctions.Fonts.size2Font);
+                        label.setTooltip(origVal);
                         boolean isLess = Double.compare(modifier.getValue(), modifier.getOriginalValue()) < 0;
                         boolean isGood = modifier.isLessIsGood() == isLess;
                         if (isGood) label.setTextFill(UIFunctions.Fonts.positiveBlue);
