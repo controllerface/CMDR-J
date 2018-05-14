@@ -517,12 +517,12 @@ public enum ModificationBlueprint implements ProcurementBlueprint
             ModificationRecipe.Sensor_WideAngle_4,
             ModificationRecipe.Sensor_WideAngle_5),
 
-    Sensor_SurfaceScanner_FastScan("Fast Scan",
-            ModificationRecipe.Sensor_SurfaceScanner_FastScan_1,
-            ModificationRecipe.Sensor_SurfaceScanner_FastScan_2,
-            ModificationRecipe.Sensor_SurfaceScanner_FastScan_3,
-            ModificationRecipe.Sensor_SurfaceScanner_FastScan_4,
-            ModificationRecipe.Sensor_SurfaceScanner_FastScan_5),
+    Sensor_FastScan("Fast Scan",
+            ModificationRecipe.Sensor_FastScan_1,
+            ModificationRecipe.Sensor_FastScan_2,
+            ModificationRecipe.Sensor_FastScan_3,
+            ModificationRecipe.Sensor_FastScan_4,
+            ModificationRecipe.Sensor_FastScan_5),
 
     Sensor_SurfaceScanner_LongRange("Long Range",
             ModificationRecipe.Sensor_SurfaceScanner_LongRange_1,

@@ -4,10 +4,12 @@ import com.controllerface.edeps.ProcurementCost;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -102,6 +104,31 @@ public abstract class InventoryStorageBin
     {
         if (check(item))
         {
+//            Pair<InventoryData, Integer> f = IntStream.range(0, inventoryItems.size())
+//                    .mapToObj(i->new Pair<>(inventoryItems.get(i), i))
+//                    .filter(p->p.getKey().getItem() == item)
+//                    .findFirst().orElse(null);
+//
+//            Integer index = IntStream.range(0, inventoryItems.size())
+//                    .filter(i->inventoryItems.get(i).getItem() == item)
+//                    .findFirst().orElse(-1);
+//
+//
+//            if (index == -1)
+//            {
+//                System.out.println("not found:"+item+":"+count);
+//                inventoryItems.add(new InventoryData(item, count));
+//            }
+//            else
+//            {
+//                System.out.println("found:"+item+":"+count);
+//                InventoryData data = inventoryItems.get(index);
+//                inventoryItems.remove(index.intValue());
+//                data.adjustCount(count);
+//                inventoryItems.add(data);
+//            }
+
+
             inventory()
                     .filter(inventoryItem -> inventoryItem.getItem() == item)
                     .findFirst().map(inventoryItem -> inventoryItem.adjustCount(count))

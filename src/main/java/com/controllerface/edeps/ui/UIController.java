@@ -37,6 +37,7 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -392,6 +393,22 @@ public class UIController
         manufacturedTable.setItems(commanderData.observableManufacturedMaterials());
         cargoTable.setItems(commanderData.observableCargo());
 
+        commanderData.observableCargo()
+                .addListener((ListChangeListener<InventoryData>)
+                        c -> cargoTable.refresh());
+
+        commanderData.observableDataMaterials()
+                .addListener((ListChangeListener<InventoryData>)
+                        c -> dataTable.refresh());
+
+        commanderData.observableManufacturedMaterials()
+                .addListener((ListChangeListener<InventoryData>)
+                        c -> manufacturedTable.refresh());
+
+        commanderData.observableRawMaterials()
+                .addListener((ListChangeListener<InventoryData>)
+                        c -> rawTable.refresh());
+
         rawGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
         rawGradeColumn.setCellFactory(param -> new InventoryGradeCell());
         rawGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
@@ -439,6 +456,22 @@ public class UIController
         coreModuleList.setItems(commanderData.getStarShip().getCoreInternals());
         optionalModuleList.setItems(commanderData.getStarShip().getOptionalInternals());
         hardpointList.setItems(commanderData.getStarShip().getHardpoints());
+
+        commanderData.getStarShip().getStatistics()
+                .addListener((ListChangeListener<ShipStatisticData>)
+                        c -> shipStatisticsTable.refresh());
+
+        commanderData.getStarShip().getCoreInternals()
+                .addListener((ListChangeListener<ShipModuleData>)
+                        c -> coreModuleList.refresh());
+
+        commanderData.getStarShip().getOptionalInternals()
+                .addListener((ListChangeListener<ShipModuleData>)
+                        c -> optionalModuleList.refresh());
+
+        commanderData.getStarShip().getHardpoints()
+                .addListener((ListChangeListener<ShipModuleData>)
+                        c -> hardpointList.refresh());
 
         shipStatisticsNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
         shipStatisticsNameColumn.setCellFactory(UIFunctions.Data.boldStatNameCellFactory);
@@ -491,8 +524,6 @@ public class UIController
 
         taskCostNameColumn.setCellValueFactory(UIFunctions.Data.costNameCellValueFactory);
         taskCostNameColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
-
-
 
         statNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
         statValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));

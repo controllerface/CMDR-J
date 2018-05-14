@@ -3598,14 +3598,14 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALCOMPONENTS, 1),
             new CostData(Material.TIN, 1)),
 
-    Sensor_SurfaceScanner_FastScan_1(ItemGrade.GRADE_1, new ItemEffects
+    Sensor_FastScan_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 20d),
                     new ItemEffectData(ItemEffect.DSS_RateMult, 20d)
             ),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    Sensor_SurfaceScanner_FastScan_2(ItemGrade.GRADE_2, new ItemEffects
+    Sensor_FastScan_2(ItemGrade.GRADE_2, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 40d),
                     new ItemEffectData(ItemEffect.DSS_RateMult, 35d)
@@ -3613,7 +3613,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    Sensor_SurfaceScanner_FastScan_3(ItemGrade.GRADE_3, new ItemEffects
+    Sensor_FastScan_3(ItemGrade.GRADE_3, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 60d),
                     new ItemEffectData(ItemEffect.DSS_RateMult, 50d)
@@ -3622,7 +3622,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SYMMETRICKEYS, 1),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    Sensor_SurfaceScanner_FastScan_4(ItemGrade.GRADE_4, new ItemEffects
+    Sensor_FastScan_4(ItemGrade.GRADE_4, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 80d),
                     new ItemEffectData(ItemEffect.DSS_RateMult, 65d)
@@ -3631,7 +3631,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 1),
             new CostData(Material.MANGANESE, 1)),
 
-    Sensor_SurfaceScanner_FastScan_5(ItemGrade.GRADE_5, new ItemEffects
+    Sensor_FastScan_5(ItemGrade.GRADE_5, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 100d),
                     new ItemEffectData(ItemEffect.DSS_RateMult, 80d)

@@ -57,6 +57,7 @@ public enum ItemEffect
     Offense
      */
 
+    WeaponMode("", "Weapon Mode", true),
     DamageType("", "Damage Type", true),
     Damage("", "Damage", true),
     DamageFalloffRange("M", "Damage Falloff Range", true),
@@ -76,7 +77,6 @@ public enum ItemEffect
     ReloadTime("S", "Reload Time", false),
     RoundsPerShot("", "Rounds per Shot", true),
     ShotSpeed("M/S","Shot Speed", true),
-    WeaponMode("", "Weapon Mode", true),
 
 
     /*
@@ -141,7 +141,7 @@ public enum ItemEffect
 
     FSDFuelUseIncrease("", "", true),
     FSDJumpRangeBoost("", "", true),
-    MaxFuelPerJump("T", "" ,true),
+    MaxFuelPerJump("T", "Maximum Fuel per Jump" ,true),
 
 
     /*
@@ -186,9 +186,9 @@ public enum ItemEffect
 
     DiscoveryScannerPassiveRange("LS", "Passive Range", true),
     DiscoveryScannerRange("LS", "Range", true),
-    DSS_AngleMult("%", "", true),
-    DSS_RangeMult("%", "", true),
-    DSS_RateMult("%", "", true),
+    DSS_AngleMult("%", "Scan Angle Increase", true),
+    DSS_RangeMult("%", "Scan Range Increase", true),
+    DSS_RateMult("%", "Scan Rate Increase", true),
     FSDInterdictorFacingLimit("°", "Facing Limit", true),
     FSDInterdictorRange("S", "Range", true),
     ScannerRange("M", "Range", true),

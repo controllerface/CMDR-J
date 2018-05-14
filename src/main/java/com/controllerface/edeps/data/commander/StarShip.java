@@ -3,6 +3,7 @@ package com.controllerface.edeps.data.commander;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.equipment.ships.*;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableStringValue;
 import javafx.collections.FXCollections;
@@ -34,32 +35,40 @@ public class StarShip
     public void setShip(Ship ship)
     {
         this.ship = ship;
+        coreInternals.clear();
+        optionalInternals.clear();
+        hardpoints.clear();
         updateStats();
     }
 
     private void updateStats()
     {
-        shipDisplayName.set(ship.getBaseShipStats().getDisplayName());
+        Platform.runLater(()->
+        {
+            statistics.clear();
 
-        statistics.add(new ShipStatisticData(ship.getBaseShipStats().getShipSize()));
-        statistics.add(new ShipStatisticData(ship.getBaseShipStats().getManufacturer()));
+            shipDisplayName.set(ship.getBaseShipStats().getDisplayName());
 
-        statistics.add(new ShipStatisticData(ShipStat.Mass_Lock_Factor, ship.getBaseShipStats().getMassLockFactor()));
-        statistics.add(new ShipStatisticData(ShipStat.Crew_Seats, ship.getBaseShipStats().getCrewSeats()));
-        statistics.add(new ShipStatisticData(ShipStat.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
+            statistics.add(new ShipStatisticData(ship.getBaseShipStats().getShipSize()));
+            statistics.add(new ShipStatisticData(ship.getBaseShipStats().getManufacturer()));
 
-        statistics.add(new ShipStatisticData(ShipStat.Agility, ship.getBaseShipStats().getAgility()));
-        statistics.add(new ShipStatisticData(ShipStat.Hull_Mass, ship.getBaseShipStats().getHullMass()));
-        statistics.add(new ShipStatisticData(ShipStat.Hull_Hardness, ship.getBaseShipStats().getHullHardness()));
+            statistics.add(new ShipStatisticData(ShipStat.Mass_Lock_Factor, ship.getBaseShipStats().getMassLockFactor()));
+            statistics.add(new ShipStatisticData(ShipStat.Crew_Seats, ship.getBaseShipStats().getCrewSeats()));
+            statistics.add(new ShipStatisticData(ShipStat.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
 
-        statistics.add(new ShipStatisticData(ShipStat.Speed, ship.getBaseShipStats().getSpeed()));
-        statistics.add(new ShipStatisticData(ShipStat.Boost_Speed, ship.getBaseShipStats().getBoostSpeed()));
+            statistics.add(new ShipStatisticData(ShipStat.Agility, ship.getBaseShipStats().getAgility()));
+            statistics.add(new ShipStatisticData(ShipStat.Hull_Mass, ship.getBaseShipStats().getHullMass()));
+            statistics.add(new ShipStatisticData(ShipStat.Hull_Hardness, ship.getBaseShipStats().getHullHardness()));
 
-        statistics.add(new ShipStatisticData(ShipStat.Max_Speed, ship.getBaseShipStats().getMaxSpeed()));
-        statistics.add(new ShipStatisticData(ShipStat.Max_Boost_Speed, ship.getBaseShipStats().getMaxBoostSpeed()));
+            statistics.add(new ShipStatisticData(ShipStat.Speed, ship.getBaseShipStats().getSpeed()));
+            statistics.add(new ShipStatisticData(ShipStat.Boost_Speed, ship.getBaseShipStats().getBoostSpeed()));
 
-        statistics.add(new ShipStatisticData(ShipStat.Armor_Rating, ship.getBaseShipStats().getArmorRating()));
-        statistics.add(new ShipStatisticData(ShipStat.Base_Shield, ship.getBaseShipStats().getBaseShield()));
+            statistics.add(new ShipStatisticData(ShipStat.Max_Speed, ship.getBaseShipStats().getMaxSpeed()));
+            statistics.add(new ShipStatisticData(ShipStat.Max_Boost_Speed, ship.getBaseShipStats().getMaxBoostSpeed()));
+
+            statistics.add(new ShipStatisticData(ShipStat.Armor_Rating, ship.getBaseShipStats().getArmorRating()));
+            statistics.add(new ShipStatisticData(ShipStat.Base_Shield, ship.getBaseShipStats().getBaseShield()));
+        });
     }
 
     public ObservableList<ShipStatisticData> getStatistics()

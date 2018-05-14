@@ -22,7 +22,7 @@ public class ItemEffectData
     {
         this.effect = effect;
         this.doubleValue = doubleValue;
-        this.stringValue = null;
+        this.stringValue = doubleValue == Double.MAX_VALUE ? "∞" : null;
     }
 
     public ItemEffect getEffect()
