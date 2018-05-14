@@ -1500,7 +1500,6 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-
     /**
      * Fragment Cannons
      */
@@ -1798,7 +1797,6 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-
     /**
      * Plasma Accelerators
      */
@@ -1908,7 +1906,6 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-
     /**
      * Railguns
      */
@@ -1992,35 +1989,84 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-
-    /**
-     * Shield Boosters
-     */
-
-    hpt_shieldbooster_size0_class1("0E Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
-            new ItemEffects()),
-    hpt_shieldbooster_size0_class2("0D Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
-            new ItemEffects()),
-    hpt_shieldbooster_size0_class3("0C Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
-            new ItemEffects()),
-    hpt_shieldbooster_size0_class4("0B Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
-            new ItemEffects()),
-    hpt_shieldbooster_size0_class5("0A Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
-            new ItemEffects()),
-
     /**
      * Dumbfire Missile racks
      */
 
     hpt_dumbfiremissilerack_fixed_small("Small Fixed Missile Rack", ModificationType.Missile_Rack, ExperimentalType.Missile_Rack,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.4),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 25),
+                    new ItemEffectData(ItemEffect.Damage, 50),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 750),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 8),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 16),
+                    new ItemEffectData(ItemEffect.ReloadTime, 5),
+                    new ItemEffectData(ItemEffect.BreachDamage, 20),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 100),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
 
     hpt_dumbfiremissilerack_fixed_medium_lasso("Medium Fixed Containment Missile (Missile Rack)", ModificationType.Missile_Rack, ExperimentalType.Missile_Rack,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 13.333),
+                    new ItemEffectData(ItemEffect.Damage, 40),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 750),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.3333),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 12),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 48),
+                    new ItemEffectData(ItemEffect.ReloadTime, 5),
+                    new ItemEffectData(ItemEffect.BreachDamage, 16),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 100),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
 
     hpt_dumbfiremissilerack_fixed_medium("Medium Fixed Missile Rack", ModificationType.Missile_Rack, ExperimentalType.Missile_Rack,
-            new ItemEffects()),
-
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 25),
+                    new ItemEffectData(ItemEffect.Damage, 50),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 750),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 12),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 48),
+                    new ItemEffectData(ItemEffect.ReloadTime, 5),
+                    new ItemEffectData(ItemEffect.BreachDamage, 20),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 100),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
 
 
     /**
@@ -2028,13 +2074,82 @@ public enum HardpointModule implements ShipModule
      */
 
     hpt_basicmissilerack_fixed_small("Small Fixed Seeker Missile Rack", ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.6),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 13.333),
+                    new ItemEffectData(ItemEffect.Damage, 40),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 625),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.3333),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 6),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 6),
+                    new ItemEffectData(ItemEffect.ReloadTime, 12),
+                    new ItemEffectData(ItemEffect.BreachDamage, 16),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 0),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 0),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
 
     hpt_drunkmissilerack_fixed_medium("Medium Pixed Pack-Hound (Seeker Missile Rack)", ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 60),
+                    new ItemEffectData(ItemEffect.Damage, 7.5),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 600),
+                    new ItemEffectData(ItemEffect.RateOfFire, 2),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 12),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 120),
+                    new ItemEffectData(ItemEffect.RoundsPerShot, 4),
+                    new ItemEffectData(ItemEffect.ReloadTime, 5),
+                    new ItemEffectData(ItemEffect.BreachDamage, 3),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 0),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 0),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
 
     hpt_basicmissilerack_fixed_medium("Medium Fixed Seeker Missile Rack", ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 13.333),
+                    new ItemEffectData(ItemEffect.Damage, 40),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 625),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.3333),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 6),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 18),
+                    new ItemEffectData(ItemEffect.ReloadTime, 12),
+                    new ItemEffectData(ItemEffect.BreachDamage, 16),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 0),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 0),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
 
 
     /**
@@ -2042,20 +2157,123 @@ public enum HardpointModule implements ShipModule
      */
 
     hpt_minelauncher_fixed_small("Small Fixed Mine Launcher", ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.4),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 44),
+                    new ItemEffectData(ItemEffect.Damage, 44),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 5),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.RateOfFire, 1),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 36),
+                    new ItemEffectData(ItemEffect.ReloadTime,2),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 0),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 0),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
     hpt_minelauncher_fixed_small_impulse("Small Fixed Shock Mine Launcher", ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.4),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 32),
+                    new ItemEffectData(ItemEffect.Damage, 32),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 5),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.RateOfFire, 1),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 36),
+                    new ItemEffectData(ItemEffect.ReloadTime,2),
+                    new ItemEffectData(ItemEffect.BreachDamage,9.6),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 0),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 0),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
     hpt_minelauncher_fixed_medium("Medium Fixed Mine Launcher", ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.4),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 44),
+                    new ItemEffectData(ItemEffect.Damage, 44),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 7.5),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.RateOfFire, 1),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 3),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 72),
+                    new ItemEffectData(ItemEffect.ReloadTime,6.6),
+                    new ItemEffectData(ItemEffect.BreachDamage,13.2),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 0),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 0),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
 
     /**
      * Torpedo Pylons
      */
 
     hpt_advancedtorppylon_fixed_small("Small Fixed Torpedo Pylon", ModificationType.Torpedo_Pylon, ExperimentalType.Torpedo_Pylon,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.4),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 120),
+                    new ItemEffectData(ItemEffect.Damage, 120),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 45),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 10_000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 250),
+                    new ItemEffectData(ItemEffect.RateOfFire, 1),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.ReloadTime, 5),
+                    new ItemEffectData(ItemEffect.BreachDamage, 60),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 100),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
     hpt_advancedtorppylon_fixed_medium("Medium Fixed Torpedo Pylon", ModificationType.Torpedo_Pylon, ExperimentalType.Torpedo_Pylon,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.4),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 120),
+                    new ItemEffectData(ItemEffect.Damage, 120),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 50),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 10_000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 250),
+                    new ItemEffectData(ItemEffect.RateOfFire, 1),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 2),
+                    new ItemEffectData(ItemEffect.ReloadTime, 5),
+                    new ItemEffectData(ItemEffect.BreachDamage, 60),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 100),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
 
 
     /**
@@ -2074,6 +2292,21 @@ public enum HardpointModule implements ShipModule
     hpt_mininglaser_turret_medium("Medium Turreted Mining Laser", null, null,
             new ItemEffects()),
 
+
+    /**
+     * Shield Boosters
+     */
+
+    hpt_shieldbooster_size0_class1("0E Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
+            new ItemEffects()),
+    hpt_shieldbooster_size0_class2("0D Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
+            new ItemEffects()),
+    hpt_shieldbooster_size0_class3("0C Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
+            new ItemEffects()),
+    hpt_shieldbooster_size0_class4("0B Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
+            new ItemEffects()),
+    hpt_shieldbooster_size0_class5("0A Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
+            new ItemEffects()),
 
     /**
      * Wake Scanners
