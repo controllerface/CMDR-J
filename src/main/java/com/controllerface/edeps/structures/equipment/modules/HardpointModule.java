@@ -2280,17 +2280,109 @@ public enum HardpointModule implements ShipModule
      * Mining Lasers
      */
     hpt_mininglaser_fixed_small("Small Fixed Mining Laser", null, null,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.5),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 2),
+                    new ItemEffectData(ItemEffect.Damage, 2),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 1.5),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 2),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 18),
+                    new ItemEffectData(ItemEffect.MaximumRange, 500),
+                    new ItemEffectData(ItemEffect.RateOfFire, Double.MAX_VALUE),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0.3),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 10),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 20),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
+            )),
+
     hpt_mininglaser_turret_small("Small Turreted Mining Laser", null, null,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.5),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 2),
+                    new ItemEffectData(ItemEffect.Damage, 2),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 1.5),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 2),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 18),
+                    new ItemEffectData(ItemEffect.MaximumRange, 500),
+                    new ItemEffectData(ItemEffect.RateOfFire, Double.MAX_VALUE),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0.3),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 10),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 20),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
+            )),
 
     hpt_mininglaser_fixed_small_advanced("Small Fixed Mining Lance", null, null,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.7),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 8),
+                    new ItemEffectData(ItemEffect.Damage, 8),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 1.75),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 18),
+                    new ItemEffectData(ItemEffect.MaximumRange, 2000),
+                    new ItemEffectData(ItemEffect.RateOfFire, Double.MAX_VALUE),
+                    new ItemEffectData(ItemEffect.BreachDamage, 1.2),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 10),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 20),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
+            )),
 
     hpt_mininglaser_fixed_medium("Medium Fixed Mining Laser", null, null,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.75),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 4),
+                    new ItemEffectData(ItemEffect.Damage, 4),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 3),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 4),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 18),
+                    new ItemEffectData(ItemEffect.MaximumRange, 500),
+                    new ItemEffectData(ItemEffect.RateOfFire, Double.MAX_VALUE),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0.6),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 10),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 20),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
+            )),
+
     hpt_mininglaser_turret_medium("Medium Turreted Mining Laser", null, null,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.75),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 4),
+                    new ItemEffectData(ItemEffect.Damage, 4),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 3),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 4),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 18),
+                    new ItemEffectData(ItemEffect.MaximumRange, 500),
+                    new ItemEffectData(ItemEffect.RateOfFire, Double.MAX_VALUE),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0.6),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 10),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 20),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
+            )),
 
 
     /**
@@ -2298,15 +2390,65 @@ public enum HardpointModule implements ShipModule
      */
 
     hpt_shieldbooster_size0_class1("0E Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 0.5),
+                    new ItemEffectData(ItemEffect.Integrity, 25),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 4),
+                    new ItemEffectData(ItemEffect.KineticResistance, 0),
+                    new ItemEffectData(ItemEffect.ThermicResistance, 0),
+                    new ItemEffectData(ItemEffect.ExplosiveResistance, 0)
+            )),
+
     hpt_shieldbooster_size0_class2("0D Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1),
+                    new ItemEffectData(ItemEffect.Integrity, 35),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.5),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 8),
+                    new ItemEffectData(ItemEffect.KineticResistance, 0),
+                    new ItemEffectData(ItemEffect.ThermicResistance, 0),
+                    new ItemEffectData(ItemEffect.ExplosiveResistance, 0)
+            )),
+
     hpt_shieldbooster_size0_class3("0C Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.7),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 12),
+                    new ItemEffectData(ItemEffect.KineticResistance, 0),
+                    new ItemEffectData(ItemEffect.ThermicResistance, 0),
+                    new ItemEffectData(ItemEffect.ExplosiveResistance, 0)
+            )),
+
     hpt_shieldbooster_size0_class4("0B Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 3),
+                    new ItemEffectData(ItemEffect.Integrity, 45),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 16),
+                    new ItemEffectData(ItemEffect.KineticResistance, 0),
+                    new ItemEffectData(ItemEffect.ThermicResistance, 0),
+                    new ItemEffectData(ItemEffect.ExplosiveResistance, 0)
+            )),
+
     hpt_shieldbooster_size0_class5("0A Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
-            new ItemEffects()),
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 3.5),
+                    new ItemEffectData(ItemEffect.Integrity, 48),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 20),
+                    new ItemEffectData(ItemEffect.KineticResistance, 0),
+                    new ItemEffectData(ItemEffect.ThermicResistance, 0),
+                    new ItemEffectData(ItemEffect.ExplosiveResistance, 0)
+            )),
+
 
     /**
      * Wake Scanners
