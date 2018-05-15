@@ -66,14 +66,14 @@ public enum ItemEffect
     AmmoMaximum("", "Ammo Max", true),
     ArmourPenetration("", "Piercing", true),
     BreachDamage("", "Breach Damage", true),
-    MaxBreachChance("%", "", true),
-    MinBreachChance("%", "", true),
-    BurstRateOfFire("","Burst Rate", true),
+    MaxBreachChance("%", "Maximum Beach Chance", true),
+    MinBreachChance("%", "Minimum Beach Chance", true),
+    RateOfFire("/S", "Rate of Fire", true),
+    BurstRateOfFire("","Burst Rate of Fire", true),
     BurstSize("", "Burst Size", true),
     DamagePerSecond("DMG/S", "Damage per Second", true),
     FalloffRange("M", "Falloff Range", true),
     Jitter("°","Jitter", false),
-    RateOfFire("/S", "Rate of Fire", true),
     ReloadTime("S", "Reload Time", false),
     RoundsPerShot("", "Rounds per Shot", true),
     ShotSpeed("M/S","Shot Speed", true),
@@ -278,6 +278,8 @@ public enum ItemEffect
     those that Frontier does provide. This is useful for a few cases where an item has no effect on any of the above
     enumerated stats, for example basic ammo synthesis.
      */
+
+    planetary_approach("","Planetary Approach and Landing Capabilities", true),
 
     // synthetic effects, used for synthesis recipes
     rearm("", "", true),                // ammunition replenishment

@@ -108,33 +108,6 @@ public class UIFunctions
         static final Callback<TableColumn<ShipModuleData, ShipModuleData>, TableCell<ShipModuleData, ShipModuleData>>
                 moduleDisplayCellFactory = (x) -> new ModuleDisplayCell();
 
-        static final Callback<TableColumn.CellDataFeatures<InventoryData, HBox>, ObservableValue<HBox>>
-                inventoryCategoryCellFactory =
-                (inventoryData) ->
-                {
-                    ProcurementCost cost = inventoryData.getValue().getItem();
-                    String category = "";
-                    if (cost instanceof Material) category = MaterialCategory.findMatchingCategory(cost).toString();
-                    else if (cost instanceof Commodity) category = CommodityCategory.findMatchingCategory(cost).toString();
-                    HBox hBox = new HBox();
-                    Label label = new Label(category);
-                    label.setFont(Fonts.size2Font);
-                    hBox.getChildren().add(label);
-                    return new ReadOnlyObjectWrapper<>(hBox);
-                };
-
-        static final Callback<TableColumn.CellDataFeatures<InventoryData, HBox>, ObservableValue<HBox>>
-                inventoryGradeCellFactory =
-                (inventoryData) ->
-                {
-                    String grade = inventoryData.getValue().getItem().getGrade().toString();
-                    HBox hBox = new HBox();
-                    Label label = new Label(grade);
-                    label.setFont(Fonts.size2Font);
-                    hBox.getChildren().add(label);
-                    return new ReadOnlyObjectWrapper<>(hBox);
-                };
-
         static final Callback<TableColumn.CellDataFeatures<InventoryData, InventoryData>, ObservableValue<InventoryData>>
                 inventoryItemCellFactory = (materialData) -> new ReadOnlyObjectWrapper<>(materialData.getValue());
 
