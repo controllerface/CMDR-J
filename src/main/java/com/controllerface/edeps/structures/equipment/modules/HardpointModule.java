@@ -639,7 +639,9 @@ public enum HardpointModule implements ShipModule
      * Pulse Lasers
      */
 
-    hpt_pulselaser_fixed_small("Small Fixed Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_fixed_small("Small Fixed Pulse Laser",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"Manual"),
                     new ItemEffectData(ItemEffect.Mass,2),
@@ -661,7 +663,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange,500)
             )),
 
-    hpt_pulselaser_gimbal_small("Small Gimballed Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_gimbal_small("Small Gimballed Pulse Laser",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"Gimbal"),
                     new ItemEffectData(ItemEffect.Mass,2),
@@ -683,7 +687,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange,500)
             )),
 
-    hpt_pulselaser_turret_small("Small Turreted Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_turret_small("Small Turreted Pulse Laser",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"NoMode"),
                     new ItemEffectData(ItemEffect.Mass,2),
@@ -706,7 +712,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_pulselaser_fixed_medium("Medium Fixed Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_fixed_medium("Medium Fixed Pulse Laser",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"Manual"),
                     new ItemEffectData(ItemEffect.Mass,4),
@@ -728,7 +736,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange,500)
             )),
 
-    hpt_pulselaser_gimbal_medium("Medium Gimballed Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_gimbal_medium("Medium Gimballed Pulse Laser",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"Gimbal"),
                     new ItemEffectData(ItemEffect.Mass,4),
@@ -750,7 +760,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange,500)
             )),
 
-    hpt_pulselaser_turret_medium("Medium Turreted Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_turret_medium("Medium Turreted Pulse Laser",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"NoMode"),
                     new ItemEffectData(ItemEffect.Mass,4),
@@ -773,7 +785,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_pulselaser_fixed_medium_disruptor("Medium Fixed Disruptor (Pulse Laser)", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_fixed_medium_disruptor("Medium Fixed Disruptor (Pulse Laser)",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"Manual"),
                     new ItemEffectData(ItemEffect.Mass,4),
@@ -796,7 +810,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_pulselaser_fixed_large("Large Fixed Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_fixed_large("Large Fixed Pulse Laser",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"Manual"),
                     new ItemEffectData(ItemEffect.Mass,8),
@@ -818,7 +834,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange,500)
             )),
 
-    hpt_pulselaser_gimbal_large("Large Gimballed Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_gimbal_large("Large Gimballed Pulse Laser",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"Gimbal"),
                     new ItemEffectData(ItemEffect.Mass,8),
@@ -840,7 +858,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange,500)
             )),
 
-    hpt_pulselaser_turret_large("Large Turreted Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_turret_large("Large Turreted Pulse Laser",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"NoMode"),
                     new ItemEffectData(ItemEffect.Mass,8),
@@ -863,7 +883,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_pulselaser_fixed_huge("Huge Fixed Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_fixed_huge("Huge Fixed Pulse Laser",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"Manual"),
                     new ItemEffectData(ItemEffect.Mass, 16),
@@ -885,7 +907,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 500)
             )),
 
-    hpt_pulselaser_gimbal_huge("Huge Gimballed Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser,
+    hpt_pulselaser_gimbal_huge("Huge Gimballed Pulse Laser",
+            ModificationType.Pulse_Laser,
+            ExperimentalType.Pulse_Laser,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode,"Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 16),
@@ -913,7 +937,9 @@ public enum HardpointModule implements ShipModule
      * Multi-Cannons
      */
 
-    hpt_multicannon_fixed_small("Small Fixed Multi-Cannon", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+    hpt_multicannon_fixed_small("Small Fixed Multi-Cannon",
+            ModificationType.Multi_Cannon,
+            ExperimentalType.Multi_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -939,7 +965,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
-    hpt_multicannon_gimbal_small("Small Gimballed Multi-Cannon", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+    hpt_multicannon_gimbal_small("Small Gimballed Multi-Cannon",
+            ModificationType.Multi_Cannon,
+            ExperimentalType.Multi_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -965,7 +993,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
-    hpt_multicannon_turret_small("Small Turreted Multi-Cannon", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+    hpt_multicannon_turret_small("Small Turreted Multi-Cannon",
+            ModificationType.Multi_Cannon,
+            ExperimentalType.Multi_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -992,7 +1022,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_multicannon_fixed_small_strong("Small Fixed Enforcer (Multi-Cannon)", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+    hpt_multicannon_fixed_small_strong("Small Fixed Enforcer (Multi-Cannon)",
+            ModificationType.Multi_Cannon,
+            ExperimentalType.Multi_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -1019,7 +1051,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_multicannon_fixed_medium("Medium Fixed Multi-Cannon", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+    hpt_multicannon_fixed_medium("Medium Fixed Multi-Cannon",
+            ModificationType.Multi_Cannon,
+            ExperimentalType.Multi_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1045,7 +1079,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
-    hpt_multicannon_gimbal_medium("Medium Gimballed Multi-Cannon", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+    hpt_multicannon_gimbal_medium("Medium Gimballed Multi-Cannon",
+            ModificationType.Multi_Cannon,
+            ExperimentalType.Multi_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1071,7 +1107,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
-    hpt_multicannon_turret_medium("Medium Turreted Multi-Cannon", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+    hpt_multicannon_turret_medium("Medium Turreted Multi-Cannon",
+            ModificationType.Multi_Cannon,
+            ExperimentalType.Multi_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1098,7 +1136,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_multicannon_fixed_large("Large Fixed Multi-Cannon", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+    hpt_multicannon_fixed_large("Large Fixed Multi-Cannon",
+            ModificationType.Multi_Cannon,
+            ExperimentalType.Multi_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
@@ -1124,7 +1164,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
-    hpt_multicannon_gimbal_large("Large Gimballed Multi-Cannon", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+    hpt_multicannon_gimbal_large("Large Gimballed Multi-Cannon",
+            ModificationType.Multi_Cannon,
+            ExperimentalType.Multi_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 8),
@@ -1151,7 +1193,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_multicannon_fixed_huge("Huge Fixed Multi-Cannon", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+    hpt_multicannon_fixed_huge("Huge Fixed Multi-Cannon",
+            ModificationType.Multi_Cannon,
+            ExperimentalType.Multi_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 16),
@@ -1178,7 +1222,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
-    hpt_multicannon_gimbal_huge("Huge Gimballed Multi-Cannon", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon,
+    hpt_multicannon_gimbal_huge("Huge Gimballed Multi-Cannon",
+            ModificationType.Multi_Cannon,
+            ExperimentalType.Multi_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 16),
@@ -1210,7 +1256,9 @@ public enum HardpointModule implements ShipModule
      * Cannons
      */
 
-    hpt_cannon_fixed_small("Small Fixed Cannon", ModificationType.Cannon, ExperimentalType.Cannon,
+    hpt_cannon_fixed_small("Small Fixed Cannon",
+            ModificationType.Cannon,
+            ExperimentalType.Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -1236,7 +1284,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 3000)
             )),
 
-    hpt_cannon_gimbal_small("Small Gimballed Cannon", ModificationType.Cannon, ExperimentalType.Cannon,
+    hpt_cannon_gimbal_small("Small Gimballed Cannon",
+            ModificationType.Cannon,
+            ExperimentalType.Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -1262,7 +1312,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 3000)
             )),
 
-    hpt_cannon_turret_small("Small Turreted Cannon", ModificationType.Cannon, ExperimentalType.Cannon,
+    hpt_cannon_turret_small("Small Turreted Cannon",
+            ModificationType.Cannon,
+            ExperimentalType.Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -1289,7 +1341,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_cannon_fixed_medium("Medium Fixed Cannon", ModificationType.Cannon, ExperimentalType.Cannon,
+    hpt_cannon_fixed_medium("Medium Fixed Cannon",
+            ModificationType.Cannon,
+            ExperimentalType.Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1315,7 +1369,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 3500)
             )),
 
-    hpt_cannon_gimbal_medium("Medium Gimballed Cannon", ModificationType.Cannon, ExperimentalType.Cannon,
+    hpt_cannon_gimbal_medium("Medium Gimballed Cannon",
+            ModificationType.Cannon,
+            ExperimentalType.Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1341,7 +1397,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 3500)
             )),
 
-    hpt_cannon_turret_medium("Medium Turreted Cannon", ModificationType.Cannon, ExperimentalType.Cannon,
+    hpt_cannon_turret_medium("Medium Turreted Cannon",
+            ModificationType.Cannon,
+            ExperimentalType.Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1368,7 +1426,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_cannon_fixed_large("Large Fixed Cannon", ModificationType.Cannon, ExperimentalType.Cannon,
+    hpt_cannon_fixed_large("Large Fixed Cannon",
+            ModificationType.Cannon,
+            ExperimentalType.Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
@@ -1394,7 +1454,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 4000)
             )),
 
-    hpt_cannon_gimbal_large("Large Gimballed Cannon", ModificationType.Cannon, ExperimentalType.Cannon,
+    hpt_cannon_gimbal_large("Large Gimballed Cannon",
+            ModificationType.Cannon,
+            ExperimentalType.Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 8),
@@ -1420,7 +1482,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 4000)
             )),
 
-    hpt_cannon_turret_large("Large Turreted Cannon", ModificationType.Cannon, ExperimentalType.Cannon,
+    hpt_cannon_turret_large("Large Turreted Cannon",
+            ModificationType.Cannon,
+            ExperimentalType.Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 8),
@@ -1447,7 +1511,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_cannon_fixed_huge("Huge Fixed Cannon", ModificationType.Cannon, ExperimentalType.Cannon,
+    hpt_cannon_fixed_huge("Huge Fixed Cannon",
+            ModificationType.Cannon,
+            ExperimentalType.Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 16),
@@ -1473,7 +1539,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 4500)
             )),
 
-    hpt_cannon_gimbal_huge("Huge Gimballed Cannon", ModificationType.Cannon, ExperimentalType.Cannon,
+    hpt_cannon_gimbal_huge("Huge Gimballed Cannon",
+            ModificationType.Cannon,
+            ExperimentalType.Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 16),
@@ -1503,7 +1571,9 @@ public enum HardpointModule implements ShipModule
     /**
      * Fragment Cannons
      */
-    hpt_slugshot_fixed_small("Small Fixed Fragment Cannon", ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon,
+    hpt_slugshot_fixed_small("Small Fixed Fragment Cannon",
+            ModificationType.Fragment_Cannon,
+            ExperimentalType.Fragment_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -1532,7 +1602,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1800)
             )),
 
-    hpt_slugshot_gimbal_small("Small Gimballed Fragment Cannon", ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon,
+    hpt_slugshot_gimbal_small("Small Gimballed Fragment Cannon",
+            ModificationType.Fragment_Cannon,
+            ExperimentalType.Fragment_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -1561,7 +1633,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1800)
             )),
 
-    hpt_slugshot_turret_small("Small Turreted Fragment Cannon", ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon,
+    hpt_slugshot_turret_small("Small Turreted Fragment Cannon",
+            ModificationType.Fragment_Cannon,
+            ExperimentalType.Fragment_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -1591,7 +1665,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_slugshot_fixed_medium("Medium Fixed Fragment Cannon", ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon,
+    hpt_slugshot_fixed_medium("Medium Fixed Fragment Cannon",
+            ModificationType.Fragment_Cannon,
+            ExperimentalType.Fragment_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1620,7 +1696,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1800)
             )),
 
-    hpt_slugshot_gimbal_medium("Medium Gimballed Fragment Cannon", ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon,
+    hpt_slugshot_gimbal_medium("Medium Gimballed Fragment Cannon",
+            ModificationType.Fragment_Cannon,
+            ExperimentalType.Fragment_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1649,7 +1727,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1800)
             )),
 
-    hpt_slugshot_turret_medium("Medium Turreted Fragment Cannon", ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon,
+    hpt_slugshot_turret_medium("Medium Turreted Fragment Cannon",
+            ModificationType.Fragment_Cannon,
+            ExperimentalType.Fragment_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1679,7 +1759,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_slugshot_fixed_large("Large Fixed Fragment Cannon", ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon,
+    hpt_slugshot_fixed_large("Large Fixed Fragment Cannon",
+            ModificationType.Fragment_Cannon,
+            ExperimentalType.Fragment_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
@@ -1708,7 +1790,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1800)
             )),
 
-    hpt_slugshot_gimbal_large("Large Gimballed Fragment Cannon", ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon,
+    hpt_slugshot_gimbal_large("Large Gimballed Fragment Cannon",
+            ModificationType.Fragment_Cannon,
+            ExperimentalType.Fragment_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 8),
@@ -1737,7 +1821,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1800)
             )),
 
-    hpt_slugshot_turret_large("Large Turreted Fragment Cannon", ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon,
+    hpt_slugshot_turret_large("Large Turreted Fragment Cannon",
+            ModificationType.Fragment_Cannon,
+            ExperimentalType.Fragment_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 8),
@@ -1767,7 +1853,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_slugshot_fixed_large_range("Large Fixed Pacifier (Fragment Cannon)", ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon,
+    hpt_slugshot_fixed_large_range("Large Fixed Pacifier (Fragment Cannon)",
+            ModificationType.Fragment_Cannon,
+            ExperimentalType.Fragment_Cannon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
@@ -1801,7 +1889,9 @@ public enum HardpointModule implements ShipModule
      * Plasma Accelerators
      */
 
-    hpt_plasmaaccelerator_fixed_medium("Medium Fixed Plasma Accelerator", ModificationType.Plasma_Accelerator, ExperimentalType.Plasma_Accelerator,
+    hpt_plasmaaccelerator_fixed_medium("Medium Fixed Plasma Accelerator",
+            ModificationType.Plasma_Accelerator,
+            ExperimentalType.Plasma_Accelerator,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1827,7 +1917,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
-    hpt_plasmaaccelerator_fixed_large_advanced("Large Fixed Plasma Accelerator (Advanced)", ModificationType.Plasma_Accelerator, ExperimentalType.Plasma_Accelerator,
+    hpt_plasmaaccelerator_fixed_large_advanced("Large Fixed Plasma Accelerator (Advanced)",
+            ModificationType.Plasma_Accelerator,
+            ExperimentalType.Plasma_Accelerator,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
@@ -1853,7 +1945,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
-    hpt_plasmaaccelerator_fixed_large("Large Fixed Plasma Accelerator", ModificationType.Plasma_Accelerator, ExperimentalType.Plasma_Accelerator,
+    hpt_plasmaaccelerator_fixed_large("Large Fixed Plasma Accelerator",
+            ModificationType.Plasma_Accelerator,
+            ExperimentalType.Plasma_Accelerator,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
@@ -1879,7 +1973,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
-    hpt_plasmaaccelerator_fixed_huge("Huge Fixed Plasma Accelerator", ModificationType.Plasma_Accelerator, ExperimentalType.Plasma_Accelerator,
+    hpt_plasmaaccelerator_fixed_huge("Huge Fixed Plasma Accelerator",
+            ModificationType.Plasma_Accelerator,
+            ExperimentalType.Plasma_Accelerator,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 16),
@@ -1910,7 +2006,9 @@ public enum HardpointModule implements ShipModule
      * Railguns
      */
 
-    hpt_railgun_fixed_small("Small Fixed Railgun", ModificationType.Rail_Gun, ExperimentalType.Rail_Gun,
+    hpt_railgun_fixed_small("Small Fixed Railgun",
+            ModificationType.Rail_Gun,
+            ExperimentalType.Rail_Gun,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -1935,7 +2033,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
             )),
 
-    hpt_railgun_fixed_medium_burst("Medium Fixed Imperial Hammer (Rail Gun)", ModificationType.Rail_Gun, ExperimentalType.Rail_Gun,
+    hpt_railgun_fixed_medium_burst("Medium Fixed Imperial Hammer (Rail Gun)",
+            ModificationType.Rail_Gun,
+            ExperimentalType.Rail_Gun,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1963,7 +2063,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_railgun_fixed_medium("Medium Fixed Railgun", ModificationType.Rail_Gun, ExperimentalType.Rail_Gun,
+    hpt_railgun_fixed_medium("Medium Fixed Railgun",
+            ModificationType.Rail_Gun,
+            ExperimentalType.Rail_Gun,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -1993,7 +2095,9 @@ public enum HardpointModule implements ShipModule
      * Dumbfire Missile racks
      */
 
-    hpt_dumbfiremissilerack_fixed_small("Small Fixed Missile Rack", ModificationType.Missile_Rack, ExperimentalType.Missile_Rack,
+    hpt_dumbfiremissilerack_fixed_small("Small Fixed Missile Rack",
+            ModificationType.Missile_Rack,
+            ExperimentalType.Missile_Rack,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -2018,7 +2122,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
-    hpt_dumbfiremissilerack_fixed_medium_lasso("Medium Fixed Containment Missile (Missile Rack)", ModificationType.Missile_Rack, ExperimentalType.Missile_Rack,
+    hpt_dumbfiremissilerack_fixed_medium_lasso("Medium Fixed Containment Missile (Missile Rack)",
+            ModificationType.Missile_Rack,
+            ExperimentalType.Missile_Rack,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -2043,7 +2149,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
-    hpt_dumbfiremissilerack_fixed_medium("Medium Fixed Missile Rack", ModificationType.Missile_Rack, ExperimentalType.Missile_Rack,
+    hpt_dumbfiremissilerack_fixed_medium("Medium Fixed Missile Rack",
+            ModificationType.Missile_Rack,
+            ExperimentalType.Missile_Rack,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -2073,7 +2181,9 @@ public enum HardpointModule implements ShipModule
      * Seeker Missile Racks
      */
 
-    hpt_basicmissilerack_fixed_small("Small Fixed Seeker Missile Rack", ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack,
+    hpt_basicmissilerack_fixed_small("Small Fixed Seeker Missile Rack",
+            ModificationType.Seeker_Missile_Rack,
+            ExperimentalType.Seeker_Missile_Rack,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -2099,7 +2209,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_drunkmissilerack_fixed_medium("Medium Pixed Pack-Hound (Seeker Missile Rack)", ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack,
+    hpt_drunkmissilerack_fixed_medium("Medium Pixed Pack-Hound (Seeker Missile Rack)",
+            ModificationType.Seeker_Missile_Rack,
+            ExperimentalType.Seeker_Missile_Rack,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -2126,7 +2238,9 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_basicmissilerack_fixed_medium("Medium Fixed Seeker Missile Rack", ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack,
+    hpt_basicmissilerack_fixed_medium("Medium Fixed Seeker Missile Rack",
+            ModificationType.Seeker_Missile_Rack,
+            ExperimentalType.Seeker_Missile_Rack,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -2156,7 +2270,9 @@ public enum HardpointModule implements ShipModule
      * Mine Launchers
      */
 
-    hpt_minelauncher_fixed_small("Small Fixed Mine Launcher", ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher,
+    hpt_minelauncher_fixed_small("Small Fixed Mine Launcher",
+            ModificationType.Mine_Launcher,
+            ExperimentalType.Mine_Launcher,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -2178,7 +2294,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
-    hpt_minelauncher_fixed_small_impulse("Small Fixed Shock Mine Launcher", ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher,
+    hpt_minelauncher_fixed_small_impulse("Small Fixed Shock Mine Launcher",
+            ModificationType.Mine_Launcher,
+            ExperimentalType.Mine_Launcher,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -2201,7 +2319,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
-    hpt_minelauncher_fixed_medium("Medium Fixed Mine Launcher", ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher,
+    hpt_minelauncher_fixed_medium("Medium Fixed Mine Launcher",
+            ModificationType.Mine_Launcher,
+            ExperimentalType.Mine_Launcher,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -2229,7 +2349,9 @@ public enum HardpointModule implements ShipModule
      * Torpedo Pylons
      */
 
-    hpt_advancedtorppylon_fixed_small("Small Fixed Torpedo Pylon", ModificationType.Torpedo_Pylon, ExperimentalType.Torpedo_Pylon,
+    hpt_advancedtorppylon_fixed_small("Small Fixed Torpedo Pylon",
+            ModificationType.Torpedo_Pylon,
+            ExperimentalType.Torpedo_Pylon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -2252,7 +2374,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
-    hpt_advancedtorppylon_fixed_medium("Medium Fixed Torpedo Pylon", ModificationType.Torpedo_Pylon, ExperimentalType.Torpedo_Pylon,
+    hpt_advancedtorppylon_fixed_medium("Medium Fixed Torpedo Pylon",
+            ModificationType.Torpedo_Pylon,
+            ExperimentalType.Torpedo_Pylon,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
@@ -2279,7 +2403,9 @@ public enum HardpointModule implements ShipModule
     /**
      * Mining Lasers
      */
-    hpt_mininglaser_fixed_small("Small Fixed Mining Laser", null, null,
+    hpt_mininglaser_fixed_small("Small Fixed Mining Laser",
+            null,
+            null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -2300,7 +2426,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
             )),
 
-    hpt_mininglaser_turret_small("Small Turreted Mining Laser", null, null,
+    hpt_mininglaser_turret_small("Small Turreted Mining Laser",
+            null,
+            null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -2321,7 +2449,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
             )),
 
-    hpt_mininglaser_fixed_small_advanced("Small Fixed Mining Lance", null, null,
+    hpt_mininglaser_fixed_small_advanced("Small Fixed Mining Lance",
+            null,
+            null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -2342,7 +2472,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
             )),
 
-    hpt_mininglaser_fixed_medium("Medium Fixed Mining Laser", null, null,
+    hpt_mininglaser_fixed_medium("Medium Fixed Mining Laser",
+            null,
+            null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -2363,7 +2495,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
             )),
 
-    hpt_mininglaser_turret_medium("Medium Turreted Mining Laser", null, null,
+    hpt_mininglaser_turret_medium("Medium Turreted Mining Laser",
+            null,
+            null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
@@ -2389,7 +2523,9 @@ public enum HardpointModule implements ShipModule
      * Shield Boosters
      */
 
-    hpt_shieldbooster_size0_class1("0E Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
+    hpt_shieldbooster_size0_class1("0E Shield Booster",
+            ModificationType.Shield_Booster,
+            ExperimentalType.Shield_Booster,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 0.5),
                     new ItemEffectData(ItemEffect.Integrity, 25),
@@ -2401,7 +2537,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.ExplosiveResistance, 0)
             )),
 
-    hpt_shieldbooster_size0_class2("0D Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
+    hpt_shieldbooster_size0_class2("0D Shield Booster",
+            ModificationType.Shield_Booster,
+            ExperimentalType.Shield_Booster,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 1),
                     new ItemEffectData(ItemEffect.Integrity, 35),
@@ -2413,7 +2551,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.ExplosiveResistance, 0)
             )),
 
-    hpt_shieldbooster_size0_class3("0C Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
+    hpt_shieldbooster_size0_class3("0C Shield Booster",
+            ModificationType.Shield_Booster,
+            ExperimentalType.Shield_Booster,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
@@ -2425,7 +2565,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.ExplosiveResistance, 0)
             )),
 
-    hpt_shieldbooster_size0_class4("0B Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
+    hpt_shieldbooster_size0_class4("0B Shield Booster",
+            ModificationType.Shield_Booster,
+            ExperimentalType.Shield_Booster,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 3),
                     new ItemEffectData(ItemEffect.Integrity, 45),
@@ -2437,7 +2579,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.ExplosiveResistance, 0)
             )),
 
-    hpt_shieldbooster_size0_class5("0A Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster,
+    hpt_shieldbooster_size0_class5("0A Shield Booster",
+            ModificationType.Shield_Booster,
+            ExperimentalType.Shield_Booster,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 3.5),
                     new ItemEffectData(ItemEffect.Integrity, 48),
@@ -2454,90 +2598,564 @@ public enum HardpointModule implements ShipModule
      * Wake Scanners
      */
 
-    hpt_cloudscanner_size0_class1("0E FSD Wake Scanner", ModificationType.Frame_Shift_Wake_Scanner, null,
-            new ItemEffects()),
-    hpt_cloudscanner_size0_class2("0D FSD Wake Scanner", ModificationType.Frame_Shift_Wake_Scanner, null,
-            new ItemEffects()),
-    hpt_cloudscanner_size0_class3("0C FSD Wake Scanner", ModificationType.Frame_Shift_Wake_Scanner, null,
-            new ItemEffects()),
-    hpt_cloudscanner_size0_class4("0B FSD Wake Scanner", ModificationType.Frame_Shift_Wake_Scanner, null,
-            new ItemEffects()),
-    hpt_cloudscanner_size0_class5("0A FSD Wake Scanner", ModificationType.Frame_Shift_Wake_Scanner, null,
-            new ItemEffects()),
+    hpt_cloudscanner_size0_class1("0E FSD Wake Scanner",
+            ModificationType.Frame_Shift_Wake_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 32),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.2),
+                    new ItemEffectData(ItemEffect.BootTime, 1),
+                    new ItemEffectData(ItemEffect.ScannerRange, 2000),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+    hpt_cloudscanner_size0_class2("0D FSD Wake Scanner",
+            ModificationType.Frame_Shift_Wake_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 24),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.4),
+                    new ItemEffectData(ItemEffect.BootTime, 1),
+                    new ItemEffectData(ItemEffect.ScannerRange, 2500),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+    hpt_cloudscanner_size0_class3("0C FSD Wake Scanner",
+            ModificationType.Frame_Shift_Wake_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.8),
+                    new ItemEffectData(ItemEffect.BootTime, 1),
+                    new ItemEffectData(ItemEffect.ScannerRange, 3000),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+    hpt_cloudscanner_size0_class4("0B FSD Wake Scanner",
+            ModificationType.Frame_Shift_Wake_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 56),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.6),
+                    new ItemEffectData(ItemEffect.BootTime, 1),
+                    new ItemEffectData(ItemEffect.ScannerRange, 3500),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+    hpt_cloudscanner_size0_class5("0A FSD Wake Scanner",
+            ModificationType.Frame_Shift_Wake_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 48),
+                    new ItemEffectData(ItemEffect.PowerDraw, 3.2),
+                    new ItemEffectData(ItemEffect.BootTime, 1),
+                    new ItemEffectData(ItemEffect.ScannerRange, 4000),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
 
 
     /**
      * Kill Warrant Scanners
      */
 
-    hpt_crimescanner_size0_class1("0E Kill_warrant Scanner", ModificationType.Kill_Warrant_Scanner, null,
-            new ItemEffects()),
-    hpt_crimescanner_size0_class2("0D Kill_warrant Scanner", ModificationType.Kill_Warrant_Scanner, null,
-            new ItemEffects()),
-    hpt_crimescanner_size0_class3("0C Kill_warrant Scanner", ModificationType.Kill_Warrant_Scanner, null,
-            new ItemEffects()),
-    hpt_crimescanner_size0_class4("0B Kill_warrant Scanner", ModificationType.Kill_Warrant_Scanner, null,
-            new ItemEffects()),
-    hpt_crimescanner_size0_class5("0A Kill_warrant Scanner", ModificationType.Kill_Warrant_Scanner, null,
-            new ItemEffects()),
+    hpt_crimescanner_size0_class1("0E Kill_warrant Scanner",
+            ModificationType.Kill_Warrant_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 32),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.2),
+                    new ItemEffectData(ItemEffect.BootTime, 2),
+                    new ItemEffectData(ItemEffect.ScannerRange, 2000),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+    hpt_crimescanner_size0_class2("0D Kill_warrant Scanner",
+            ModificationType.Kill_Warrant_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 24),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.4),
+                    new ItemEffectData(ItemEffect.BootTime, 2),
+                    new ItemEffectData(ItemEffect.ScannerRange, 2500),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+    hpt_crimescanner_size0_class3("0C Kill_warrant Scanner",
+            ModificationType.Kill_Warrant_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.8),
+                    new ItemEffectData(ItemEffect.BootTime, 2),
+                    new ItemEffectData(ItemEffect.ScannerRange, 3000),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+    hpt_crimescanner_size0_class4("0B Kill_warrant Scanner",
+            ModificationType.Kill_Warrant_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 56),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.6),
+                    new ItemEffectData(ItemEffect.BootTime, 2),
+                    new ItemEffectData(ItemEffect.ScannerRange, 3500),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+    hpt_crimescanner_size0_class5("0A Kill_warrant Scanner",
+            ModificationType.Kill_Warrant_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 48),
+                    new ItemEffectData(ItemEffect.PowerDraw, 3.2),
+                    new ItemEffectData(ItemEffect.BootTime, 2),
+                    new ItemEffectData(ItemEffect.ScannerRange, 4000),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
 
 
     /**
      * Manifest Scanners
      */
 
-    hpt_cargoscanner_size0_class1("0E Manifest Scanner", ModificationType.Manifest_Scanner, null,
-            new ItemEffects()),
-    hpt_cargoscanner_size0_class2("0D Manifest Scanner", ModificationType.Manifest_Scanner, null,
-            new ItemEffects()),
-    hpt_cargoscanner_size0_class3("0C Manifest Scanner", ModificationType.Manifest_Scanner, null,
-            new ItemEffects()),
-    hpt_cargoscanner_size0_class4("0B Manifest Scanner", ModificationType.Manifest_Scanner, null,
-            new ItemEffects()),
-    hpt_cargoscanner_size0_class5("0A Manifest Scanner", ModificationType.Manifest_Scanner, null,
-            new ItemEffects()),
+    hpt_cargoscanner_size0_class1("0E Manifest Scanner",
+            ModificationType.Manifest_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 32),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.2),
+                    new ItemEffectData(ItemEffect.BootTime, 3),
+                    new ItemEffectData(ItemEffect.ScannerRange, 2000),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+    hpt_cargoscanner_size0_class2("0D Manifest Scanner",
+            ModificationType.Manifest_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 24),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.4),
+                    new ItemEffectData(ItemEffect.BootTime, 3),
+                    new ItemEffectData(ItemEffect.ScannerRange, 2500),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+
+    hpt_cargoscanner_size0_class3("0C Manifest Scanner",
+            ModificationType.Manifest_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.8),
+                    new ItemEffectData(ItemEffect.BootTime, 3),
+                    new ItemEffectData(ItemEffect.ScannerRange, 3000),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+    hpt_cargoscanner_size0_class4("0B Manifest Scanner",
+            ModificationType.Manifest_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 56),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.6),
+                    new ItemEffectData(ItemEffect.BootTime, 3),
+                    new ItemEffectData(ItemEffect.ScannerRange, 3500),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
+
+    hpt_cargoscanner_size0_class5("0A Manifest Scanner",
+            ModificationType.Manifest_Scanner,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 48),
+                    new ItemEffectData(ItemEffect.PowerDraw, 3.2),
+                    new ItemEffectData(ItemEffect.BootTime, 3),
+                    new ItemEffectData(ItemEffect.ScannerRange, 4000),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10)
+            )),
 
 
     /**
      * Chaff Launcher, Heat-Sink Launcher, Point Defense, Electronic Countermeasures
      */
 
-    hpt_chafflauncher_tiny("Chaff Launcher", ModificationType.Chaff_Launcher, null,
-            new ItemEffects()),
-    hpt_heatsinklauncher_turret_tiny("Heat-Sink Launcher", ModificationType.Heat_Sink_Launcher, null,
-            new ItemEffects()),
-    hpt_plasmapointdefence_turret_tiny("Point Defense Turret", ModificationType.Point_Defense, null,
-            new ItemEffects()),
-    hpt_electroniccountermeasure_tiny("Electronic Counter-Measures", ModificationType.Electronic_Countermeasures, null,
-            new ItemEffects()),
+    hpt_chafflauncher_tiny("Chaff Launcher",
+            ModificationType.Chaff_Launcher,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 20),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 4),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 4),
+                    new ItemEffectData(ItemEffect.RateOfFire, 1),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 10),
+                    new ItemEffectData(ItemEffect.ReloadTime, 10),
+                    new ItemEffectData(ItemEffect.ChaffJamDuration, 20)
+            )),
+
+    hpt_heatsinklauncher_turret_tiny("Heat-Sink Launcher",
+            ModificationType.Heat_Sink_Launcher,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 20),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 2),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.2),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 2),
+                    new ItemEffectData(ItemEffect.ReloadTime, 10),
+                    new ItemEffectData(ItemEffect.HeatSinkDuration, 10),
+                    new ItemEffectData(ItemEffect.ThermalDrain, 100)
+            )),
+
+    hpt_plasmapointdefence_turret_tiny("Point Defense Turret",
+            ModificationType.Point_Defense,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 0.5),
+                    new ItemEffectData(ItemEffect.Integrity, 30),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 2),
+                    new ItemEffectData(ItemEffect.Damage, 0.2),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 0.07),
+                    new ItemEffectData(ItemEffect.MaximumRange, 2500),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 1000),
+                    new ItemEffectData(ItemEffect.RateOfFire, 10),
+                    new ItemEffectData(ItemEffect.BurstRateOfFire, 15),
+                    new ItemEffectData(ItemEffect.BurstSize, 4),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 12),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 10_000),
+                    new ItemEffectData(ItemEffect.ReloadTime, 0.4),
+                    new ItemEffectData(ItemEffect.Jitter, 0.75),
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
+    hpt_electroniccountermeasure_tiny("Electronic Counter-Measures",
+            ModificationType.Electronic_Countermeasures,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 20),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.ECMRange, 3000),
+                    new ItemEffectData(ItemEffect.ECMActivePowerConsumption, 4),
+                    new ItemEffectData(ItemEffect.ECMHeat, 4),
+                    new ItemEffectData(ItemEffect.ECMCooldown, 10),
+                    new ItemEffectData(ItemEffect.ECMTimeToCharge, 3)
+            )),
 
 
     /**
      * Experimental (AEGIS, Anti-Thargoid) Weapons and Items
      */
+    hpt_atmulticannon_fixed_medium("Medium Fixed Anti-Thargoid Multi-Cannon",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.46),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 23.64),
+                    new ItemEffectData(ItemEffect.Damage, 3.31),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.11),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 0.18),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 17),
+                    new ItemEffectData(ItemEffect.MaximumRange, 4000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 1600),
+                    new ItemEffectData(ItemEffect.RateOfFire, 7.143),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 100),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 2100),
+                    new ItemEffectData(ItemEffect.ReloadTime, 4),
+                    new ItemEffectData(ItemEffect.BreachDamage, 2.8),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 50),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 80),
+                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
+            )),
 
-    hpt_atmulticannon_fixed_large("Large Fixed Anti-Thargoid Multi-Cannon", null, null,
-            new ItemEffects()),
-    hpt_atmulticannon_fixed_medium("Medium Fixed Anti-Thargoid Multi-Cannon", null, null,
-            new ItemEffects()),
-    hpt_atmulticannon_turret_large("Large Turreted Anti-Thargoid Multi-Cannon", null, null,
-            new ItemEffects()),
-    hpt_atmulticannon_turret_medium("Medium Turreted Anti-Thargoid Multi-Cannon", null, null,
-            new ItemEffects()),
+    hpt_atmulticannon_turret_medium("Medium Turreted Anti-Thargoid Multi-Cannon",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.5),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 10.813),
+                    new ItemEffectData(ItemEffect.Damage, 1.73),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.06),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 0.09),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 17),
+                    new ItemEffectData(ItemEffect.MaximumRange, 4000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 1600),
+                    new ItemEffectData(ItemEffect.RateOfFire, 6.25),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 90),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 2100),
+                    new ItemEffectData(ItemEffect.ReloadTime, 4),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0.4),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 50),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 50),
+                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
+            )),
 
-    hpt_atdumbfiremissile_fixed_large("Large Fixed Anti-Thargoid Missile Rack", null, null,
-            new ItemEffects()),
-    hpt_atdumbfiremissile_fixed_medium("Medium Fixed Anti-Thargoid Missile Rack", null, null,
-            new ItemEffects()),
-    hpt_atdumbfiremissile_turret_large("Large Turreted Anti-Thargoid Missile Rack", null, null,
-            new ItemEffects()),
-    hpt_atdumbfiremissile_turret_medium("Medium Turreted Anti-Thargoid Missile Rack", null, null,
-            new ItemEffects()),
 
-    hpt_flakmortar_fixed_medium("Medium Fixed Remote Release Flak Launcher", null, null,
-            new ItemEffects()),
-    hpt_flakmortar_turret_medium("Medium Turreted Remote Release Flak Launcher", null, null,
-            new ItemEffects()),
+    hpt_atmulticannon_fixed_large("Large Fixed Anti-Thargoid Multi-Cannon",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 8),
+                    new ItemEffectData(ItemEffect.Integrity, 64),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.64),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 35.97),
+                    new ItemEffectData(ItemEffect.Damage, 6.115),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.18),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 0.28),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 33),
+                    new ItemEffectData(ItemEffect.MaximumRange, 4000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 1600),
+                    new ItemEffectData(ItemEffect.RateOfFire, 5.882),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 100),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 2100),
+                    new ItemEffectData(ItemEffect.ReloadTime, 4),
+                    new ItemEffectData(ItemEffect.BreachDamage, 5.2),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 50),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 80),
+                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
+            )),
+
+    hpt_atmulticannon_turret_large("Large Turreted Anti-Thargoid Multi-Cannon",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
+                    new ItemEffectData(ItemEffect.Mass, 8),
+                    new ItemEffectData(ItemEffect.Integrity, 64),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.64),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 20.69),
+                    new ItemEffectData(ItemEffect.Damage, 3.31),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.06),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 0.09),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 33),
+                    new ItemEffectData(ItemEffect.MaximumRange, 4000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 1600),
+                    new ItemEffectData(ItemEffect.RateOfFire, 6.25),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 90),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 2100),
+                    new ItemEffectData(ItemEffect.ReloadTime, 4),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0.8),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 50),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 50),
+                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
+            )),
+
+
+    hpt_atdumbfiremissile_fixed_medium("Medium Fixed Anti-Thargoid Missile Rack",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 32),
+                    new ItemEffectData(ItemEffect.Damage, 64),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.14),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 2.4),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 750),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 8),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 64),
+                    new ItemEffectData(ItemEffect.ReloadTime, 5),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0.1),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 80),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
+    hpt_atdumbfiremissile_turret_medium("Medium Turreted Anti-Thargoid Missile Rack",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 25),
+                    new ItemEffectData(ItemEffect.Damage, 50),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.08),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 1.5),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.MaximumRange, 5000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 750),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 8),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 64),
+                    new ItemEffectData(ItemEffect.ReloadTime, 5),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0.1),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 80),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
+
+    hpt_atdumbfiremissile_fixed_large("Large Fixed Anti-Thargoid Missile Rack",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 8),
+                    new ItemEffectData(ItemEffect.Integrity, 64),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.62),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 32),
+                    new ItemEffectData(ItemEffect.Damage, 64),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 750),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 12),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 128),
+                    new ItemEffectData(ItemEffect.ReloadTime, 5),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0.1),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 80),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
+    hpt_atdumbfiremissile_turret_large("Large Turreted Anti-Thargoid Missile Rack",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
+                    new ItemEffectData(ItemEffect.Mass, 8),
+                    new ItemEffectData(ItemEffect.Integrity, 64),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.75),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 25),
+                    new ItemEffectData(ItemEffect.Damage, 50),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.14),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 1.9),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.MaximumRange, 5000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 750),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 12),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 128),
+                    new ItemEffectData(ItemEffect.ReloadTime, 5),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0.1),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 80),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
+
+    hpt_flakmortar_fixed_medium("Medium Fixed Remote Release Flak Launcher",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 17),
+                    new ItemEffectData(ItemEffect.Damage, 34),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 550),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 32),
+                    new ItemEffectData(ItemEffect.ReloadTime, 2),
+                    new ItemEffectData(ItemEffect.BreachDamage, 1.7),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 100),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
+    hpt_flakmortar_turret_medium("Medium Turreted Remote Release Flak Launcher",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 17),
+                    new ItemEffectData(ItemEffect.Damage, 34),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 550),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 32),
+                    new ItemEffectData(ItemEffect.ReloadTime, 2),
+                    new ItemEffectData(ItemEffect.BreachDamage, 1.7),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 100),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+            )),
+
 
     /**
      * Guardian Weapons
@@ -2547,14 +3165,87 @@ public enum HardpointModule implements ShipModule
     // Guardian Shard Cannon/Fixed
     // Guardian Shard Cannon/Turreted
 
-    hpt_guardian_gausscannon_fixed_medium("Medium Fixed Guardian Gauss Cannon", null, null,
-            new ItemEffects()),
+    hpt_guardian_gausscannon_fixed_medium("Medium Fixed Guardian Gauss Cannon",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 42),
+                    new ItemEffectData(ItemEffect.PowerDraw, 2.61),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 84.34),
+                    new ItemEffectData(ItemEffect.Damage, 70),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 7.2),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 25),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 140),
+                    new ItemEffectData(ItemEffect.MaximumRange, 3000),
+                    new ItemEffectData(ItemEffect.RateOfFire, 1.2048),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 80),
+                    new ItemEffectData(ItemEffect.ReloadTime, 1),
+                    new ItemEffectData(ItemEffect.BreachDamage, 35),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 20),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 40),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1500)
+            )),
 
-    hpt_guardian_plasmalauncher_fixed_medium("Medium Fixed Guardian Plasma Launcher", null, null,
-            new ItemEffects()),
+    hpt_guardian_plasmalauncher_fixed_medium("Medium Fixed Guardian Plasma Charger",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 42),
+                    new ItemEffectData(ItemEffect.PowerDraw, 2.13),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 42.5),
+                    new ItemEffectData(ItemEffect.Damage, 5),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 1.25),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 5.21),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 80),
+                    new ItemEffectData(ItemEffect.MaximumRange, 3000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 1200),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 15),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 200),
+                    new ItemEffectData(ItemEffect.RoundsPerShot, 17),
+                    new ItemEffectData(ItemEffect.ReloadTime, 3),
+                    new ItemEffectData(ItemEffect.BreachDamage, 1.3),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 50),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 80),
+                    new ItemEffectData(ItemEffect.DamageType, "Collision"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
+            )),
 
-    hpt_guardian_plasmalauncher_turret_medium("Medium Turreted Guardian Plasma Launcher", null, null,
-            new ItemEffects()),
+    hpt_guardian_plasmalauncher_turret_medium("Medium Turreted Guardian Plasma Charger",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 42),
+                    new ItemEffectData(ItemEffect.PowerDraw, 2.01),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 34),
+                    new ItemEffectData(ItemEffect.Damage, 4),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 1.4),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 5.8),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 80),
+                    new ItemEffectData(ItemEffect.MaximumRange, 3000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 1200),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 15),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 200),
+                    new ItemEffectData(ItemEffect.RoundsPerShot, 17),
+                    new ItemEffectData(ItemEffect.ReloadTime, 3),
+                    new ItemEffectData(ItemEffect.BreachDamage, 1),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 50),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 80),
+                    new ItemEffectData(ItemEffect.DamageType, "Collision"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
+            )),
 
 
     /**
@@ -2563,20 +3254,162 @@ public enum HardpointModule implements ShipModule
 
     // todo: verify ENUM values for these, they may be guessed
 
-    hpt_causticmissile_fixed_medium("Medium Fixed Enzyme Missile Rack", null, null,
-            new ItemEffects()),
+    hpt_causticmissile_fixed_medium("Medium Fixed Enzyme Missile Rack",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 2.5),
+                    new ItemEffectData(ItemEffect.Damage, 5),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.08),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 1.5),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 60),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 750),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 8),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 64),
+                    new ItemEffectData(ItemEffect.ReloadTime, 5),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 80),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.DamageType, "Caustic")
+            )),
 
-    hpt_flechettelauncher_fixed_medium("Medium Fixed Remote Release Flechette Launcher", null, null,
-            new ItemEffects()),
-    hpt_flechettelauncher_turret_medium("Medium Turreted Remote Release Flechette Launcher", null, null,
-            new ItemEffects()),
+    hpt_flechettelauncher_fixed_medium("Medium Fixed Remote Release Flechette Launcher",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 6.5),
+                    new ItemEffectData(ItemEffect.Damage, 13),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 80),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 550),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 72),
+                    new ItemEffectData(ItemEffect.ReloadTime, 2),
+                    new ItemEffectData(ItemEffect.BreachDamage, 6.5),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 100),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic")
+            )),
 
-    hpt_plasmashockcannon_fixed_medium("Medium Fixed Shock Cannon", null, null,
-            new ItemEffects()),
-    hpt_plasmashockcannon_gimbal_medium("Medium Gimballed Shock Cannon", null, null,
-            new ItemEffects()),
-    hpt_plasmashockcannon_turret_medium("Medium Turreted Shock Cannon", null, null,
-            new ItemEffects()),
+    hpt_flechettelauncher_turret_medium("Medium Turreted Remote Release Flechette Launcher",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 6.5),
+                    new ItemEffectData(ItemEffect.Damage, 13),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 70),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 550),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 72),
+                    new ItemEffectData(ItemEffect.ReloadTime, 2),
+                    new ItemEffectData(ItemEffect.BreachDamage, 6.5),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 100),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 100),
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic")
+            )),
+
+
+    hpt_plasmashockcannon_fixed_medium("Medium Fixed Shock Cannon",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.57),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 129.6),
+                    new ItemEffectData(ItemEffect.Damage, 12.96),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.47),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 1.8),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 404),
+                    new ItemEffectData(ItemEffect.MaximumRange, 3000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 1200),
+                    new ItemEffectData(ItemEffect.RateOfFire, 10),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 16),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 240),
+                    new ItemEffectData(ItemEffect.ReloadTime, 6),
+                    new ItemEffectData(ItemEffect.BreachDamage, 9.1),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 40),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 60),
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 2500)
+            )),
+
+    hpt_plasmashockcannon_gimbal_medium("Medium Gimballed Shock Cannon",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.61),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 102.1),
+                    new ItemEffectData(ItemEffect.Damage, 10.21),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.58),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 2.1),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 40),
+                    new ItemEffectData(ItemEffect.MaximumRange, 3000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 1200),
+                    new ItemEffectData(ItemEffect.RateOfFire, 10),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 16),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 240),
+                    new ItemEffectData(ItemEffect.ReloadTime, 6),
+                    new ItemEffectData(ItemEffect.BreachDamage, 7.1),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 40),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 80),
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 2500)
+            )),
+
+    hpt_plasmashockcannon_turret_medium("Medium Turreted Shock Cannon",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.5),
+                    new ItemEffectData(ItemEffect.BootTime, 0),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 89.6),
+                    new ItemEffectData(ItemEffect.Damage, 8.96),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.39),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 1.24),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 40),
+                    new ItemEffectData(ItemEffect.MaximumRange, 3000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 1200),
+                    new ItemEffectData(ItemEffect.RateOfFire, 10),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 16),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 240),
+                    new ItemEffectData(ItemEffect.ReloadTime, 6),
+                    new ItemEffectData(ItemEffect.BreachDamage, 6.3),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 40),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 80),
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 2500)
+            )),
 
     ;
 

@@ -3727,7 +3727,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_FastScan_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -10d),
-                    new ItemEffectData(ItemEffect.Range, -5d),
+                    new ItemEffectData(ItemEffect.ScannerRange, -5d),
                     new ItemEffectData(ItemEffect.ScannerTimeToScan, -20d)
             ),
             new CostData(Material.PHOSPHORUS, 1)),
@@ -3735,7 +3735,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_FastScan_2(ItemGrade.GRADE_2, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -20d),
-                    new ItemEffectData(ItemEffect.Range, -10d),
+                    new ItemEffectData(ItemEffect.ScannerRange, -10d),
                     new ItemEffectData(ItemEffect.ScannerTimeToScan, -35d)
             ),
             new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
@@ -3744,7 +3744,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_FastScan_3(ItemGrade.GRADE_3, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -30d),
-                    new ItemEffectData(ItemEffect.Range, -15d),
+                    new ItemEffectData(ItemEffect.ScannerRange, -15d),
                     new ItemEffectData(ItemEffect.ScannerTimeToScan, -50d)
             ),
             new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
@@ -3754,7 +3754,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_FastScan_4(ItemGrade.GRADE_4, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -40d),
-                    new ItemEffectData(ItemEffect.Range, -20d),
+                    new ItemEffectData(ItemEffect.ScannerRange, -20d),
                     new ItemEffectData(ItemEffect.ScannerTimeToScan, -65d)
             ),
             new CostData(Material.ENCRYPTIONARCHIVES, 1),
@@ -3764,7 +3764,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_FastScan_5(ItemGrade.GRADE_5, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -50d),
-                    new ItemEffectData(ItemEffect.Range, -25d),
+                    new ItemEffectData(ItemEffect.ScannerRange, -25d),
                     new ItemEffectData(ItemEffect.ScannerTimeToScan, -80d)
             ),
             new CostData(Material.ADAPTIVEENCRYPTORS, 1),
@@ -3774,16 +3774,16 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_LongRange_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.PowerDraw, 10d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, -10d),
-                    new ItemEffectData(ItemEffect.Range, 24d)
+                    new ItemEffectData(ItemEffect.MaxAngle, -10d),
+                    new ItemEffectData(ItemEffect.ScannerRange, 24d)
             ),
             new CostData(Material.IRON, 1)),
 
     Sensor_WakeScanner_LongRange_2(ItemGrade.GRADE_2, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.PowerDraw, 20d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, -15d),
-                    new ItemEffectData(ItemEffect.Range, 48d)
+                    new ItemEffectData(ItemEffect.MaxAngle, -15d),
+                    new ItemEffectData(ItemEffect.ScannerRange, 48d)
             ),
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.IRON, 1)),
@@ -3791,8 +3791,8 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_LongRange_3(ItemGrade.GRADE_3, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.PowerDraw, 30d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, -20d),
-                    new ItemEffectData(ItemEffect.Range, 72d)
+                    new ItemEffectData(ItemEffect.MaxAngle, -20d),
+                    new ItemEffectData(ItemEffect.ScannerRange, 72d)
             ),
             new CostData(Material.HYBRIDCAPACITORS, 1),
             new CostData(Material.IRON, 1),
@@ -3801,8 +3801,8 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_LongRange_4(ItemGrade.GRADE_4, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.PowerDraw, 40d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, -25d),
-                    new ItemEffectData(ItemEffect.Range, 96d)
+                    new ItemEffectData(ItemEffect.MaxAngle, -25d),
+                    new ItemEffectData(ItemEffect.ScannerRange, 96d)
             ),
             new CostData(Material.DECODEDEMISSIONDATA, 1),
             new CostData(Material.ELECTROCHEMICALARRAYS, 1),
@@ -3811,8 +3811,8 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_LongRange_5(ItemGrade.GRADE_5, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.PowerDraw, 50d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, -30d),
-                    new ItemEffectData(ItemEffect.Range, 120d)
+                    new ItemEffectData(ItemEffect.MaxAngle, -30d),
+                    new ItemEffectData(ItemEffect.ScannerRange, 120d)
             ),
             new CostData(Material.COMPACTEMISSIONSDATA, 1),
             new CostData(Material.NIOBIUM, 1),
@@ -3821,7 +3821,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_WideAngle_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, 40d),
+                    new ItemEffectData(ItemEffect.MaxAngle, 40d),
                     new ItemEffectData(ItemEffect.ScannerTimeToScan, 10d)
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
@@ -3829,7 +3829,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_WideAngle_2(ItemGrade.GRADE_2, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 40d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, 80d),
+                    new ItemEffectData(ItemEffect.MaxAngle, 80d),
                     new ItemEffectData(ItemEffect.ScannerTimeToScan, 20d)
             ),
             new CostData(Material.GERMANIUM, 1),
@@ -3838,7 +3838,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_WideAngle_3(ItemGrade.GRADE_3, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 60d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, 120d),
+                    new ItemEffectData(ItemEffect.MaxAngle, 120d),
                     new ItemEffectData(ItemEffect.ScannerTimeToScan, 30d)
             ),
             new CostData(Material.SCANDATABANKS, 1),
@@ -3848,7 +3848,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_WideAngle_4(ItemGrade.GRADE_4, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, 160d),
+                    new ItemEffectData(ItemEffect.MaxAngle, 160d),
                     new ItemEffectData(ItemEffect.ScannerTimeToScan, 40d)
             ),
             new CostData(Material.ENCODEDSCANDATA, 1),
@@ -3858,7 +3858,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     Sensor_WakeScanner_WideAngle_5(ItemGrade.GRADE_5, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 100d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, 200d),
+                    new ItemEffectData(ItemEffect.MaxAngle, 200d),
                     new ItemEffectData(ItemEffect.ScannerTimeToScan, 50d)
             ),
             new CostData(Material.CLASSIFIEDSCANDATA, 1),

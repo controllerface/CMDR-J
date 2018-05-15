@@ -248,6 +248,7 @@ public enum ItemEffect
     HeatSinkDuration("S","Duration", true),
     OxygenTimeCapacity("S","Emergency Oxygen", true),
     RefineryBins("Bins", "Refinery Bins", true),
+    ThermalDrain("H/S", "Thermal Drain", true),
 
 
 
@@ -265,7 +266,7 @@ public enum ItemEffect
     EnergyPerRegen("", "", true),                   // todo: determine use, probably SCB, moddable?
     ShieldSacrificeAmountGiven("", "", true),       // todo: determine use, probably shields, moddable?
     ShieldSacrificeAmountRemoved("", "", true),     // todo: determine use, probably shields, moddable?
-    ThermalDrain("", "", false),                    // todo: determine use, moddable?
+
     WingDamageReduction("", "", true),              // todo: determine use, moddable?
     WingMaxDuration("", "", true),                  // todo: determine use, moddable?
     WingMinDuration("", "", true),                  // todo: determine use, moddable?
