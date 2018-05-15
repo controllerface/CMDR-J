@@ -68,9 +68,9 @@ public enum ItemEffect
     BreachDamage("", "Breach Damage", true),
     MaxBreachChance("%", "", true),
     MinBreachChance("%", "", true),
-    BurstRateOfFire("/S","Burst Rate", true),
+    BurstRateOfFire("","Burst Rate", true),
     BurstSize("", "Burst Size", true),
-    DamagePerSecond("/S", "DPS", true),
+    DamagePerSecond("DMG/S", "Damage per Second", true),
     FalloffRange("M", "Falloff Range", true),
     Jitter("°","Jitter", false),
     RateOfFire("/S", "Rate of Fire", true),
@@ -200,15 +200,15 @@ public enum ItemEffect
     Drones/Limpets
      */
 
-    MaxActiveDrones("", "Max. Active Drones", true),
+    MaxActiveDrones("", "Maximum Active Drones", true),
     DroneLifeTime("S", "Drone Lifespan", true),
     DroneTargetRange("M", "Drone Target Range", true),
     DroneSpeed("M/S", "Speed", true),
     DroneMultiTargetSpeed("M/S", "Multi-Target Speed", true),
-    DroneFuelCapacity("", "", true),
-    DroneHackingTime("", "", false),
-    DroneMaxJettisonedCargo("", "", true),
-    DroneMinJettisonedCargo("", "", true),
+    DroneFuelCapacity("T", "Fuel Capacity", true),
+    DroneHackingTime("S", "Hacking Time", false),
+    DroneMinJettisonedCargo("T", "Minimum Dropped Cargo", true),
+    DroneMaxJettisonedCargo("T", "Maximum Dropped Cargo", true),
     DroneRepairCapacity("", "Repair Capacity", true),
 
 
