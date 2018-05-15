@@ -3687,7 +3687,7 @@ public enum OptionalInternalModule implements ShipModule
     int_planetapproachsuite("Planetary Approach Suite",
             null,
             null,
-            new ItemEffects(new ItemEffectData(ItemEffect.planetary_approach, "Enabled"))),
+            new ItemEffects(new ItemEffectData(ItemEffect.planetary_approach, "Installed"))),
 
 
     /**

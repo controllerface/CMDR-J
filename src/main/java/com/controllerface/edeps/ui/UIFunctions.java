@@ -108,21 +108,6 @@ public class UIFunctions
         static final Callback<TableColumn<ShipModuleData, ShipModuleData>, TableCell<ShipModuleData, ShipModuleData>>
                 moduleDisplayCellFactory = (x) -> new ModuleDisplayCell();
 
-        static final Callback<TableColumn.CellDataFeatures<InventoryData, InventoryData>, ObservableValue<InventoryData>>
-                inventoryItemCellFactory = (materialData) -> new ReadOnlyObjectWrapper<>(materialData.getValue());
-
-
-        static final Callback<TableColumn.CellDataFeatures<InventoryData, Label>, ObservableValue<Label>>
-                inventoryQuantityCellFactory =
-                (materialData) ->
-                {
-                    int quantity = materialData.getValue().getQuantity();
-                    Label label = new Label(String.valueOf(quantity));
-                    label.paddingProperty().setValue(new Insets(5,0,0,0));
-                    label.setFont(Fonts.size2Font);
-                    return new ReadOnlyObjectWrapper<>(label);
-                };
-
     /*
      procurement List: Roll/Mod Blueprint
      */

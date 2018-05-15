@@ -36,13 +36,16 @@ import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Callback;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -388,66 +391,102 @@ public class UIController
 
     private void initializeInventoryTables()
     {
+        // associate the inventory lists with the table view UI elements that display their contents
         rawTable.setItems(commanderData.observableRawMaterials());
         dataTable.setItems(commanderData.observableDataMaterials());
         manufacturedTable.setItems(commanderData.observableManufacturedMaterials());
         cargoTable.setItems(commanderData.observableCargo());
 
-        commanderData.observableCargo()
-                .addListener((ListChangeListener<InventoryData>)
-                        c -> cargoTable.refresh());
+        // for each of the inventory lists, we need to add a listener that refreshes the corresponding UI table
+        // when the backing list is updated.
+        // todo: the refresh lambdas should store and re-apply existing sorts on the table
+        // todo: it may be necessary to use Platform.runLater() to ensure no UI thread exceptions when sorting
+        commanderData.observableCargo().addListener((ListChangeListener<InventoryData>)
+                c -> cargoTable.refresh());
 
-        commanderData.observableDataMaterials()
-                .addListener((ListChangeListener<InventoryData>)
-                        c -> dataTable.refresh());
+        commanderData.observableDataMaterials().addListener((ListChangeListener<InventoryData>)
+                c -> dataTable.refresh());
 
-        commanderData.observableManufacturedMaterials()
-                .addListener((ListChangeListener<InventoryData>)
-                        c -> manufacturedTable.refresh());
+        commanderData.observableManufacturedMaterials().addListener((ListChangeListener<InventoryData>)
+                c -> manufacturedTable.refresh());
 
-        commanderData.observableRawMaterials()
-                .addListener((ListChangeListener<InventoryData>)
-                        c -> rawTable.refresh());
+        commanderData.observableRawMaterials().addListener((ListChangeListener<InventoryData>)
+                c -> rawTable.refresh());
 
-        rawGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
-        rawGradeColumn.setCellFactory(param -> new InventoryGradeCell());
+        // set sorting comparators for each data column
         rawGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
-        rawMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
-        rawMaterialColumn.setCellFactory(param -> new InventoryDisplayCell());
         rawMaterialColumn.setComparator(UIFunctions.Sort.itemByCategory);
-        rawQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         rawQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
-        rawQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
-
-        manufacturedGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
-        manufacturedGradeColumn.setCellFactory(param -> new InventoryGradeCell());
         manufacturedGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
-        manufacturedMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
-        manufacturedMaterialColumn.setCellFactory(param -> new InventoryDisplayCell());
         manufacturedMaterialColumn.setComparator(UIFunctions.Sort.itemByCategory);
-        manufacturedQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         manufacturedQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
-        manufacturedQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
-
-        dataGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
-        dataGradeColumn.setCellFactory(param -> new InventoryGradeCell());
         dataGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
-        dataMaterialColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
-        dataMaterialColumn.setCellFactory(param -> new InventoryDisplayCell());
         dataMaterialColumn.setComparator(UIFunctions.Sort.itemByCategory);
-        dataQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         dataQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
-        dataQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
-
-        cargoGradeColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
-        cargoGradeColumn.setCellFactory(param -> new InventoryGradeCell());
         cargoGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
-        cargoItemColumn.setCellValueFactory(UIFunctions.Data.inventoryItemCellFactory);
-        cargoItemColumn.setCellFactory(param -> new InventoryDisplayCell());
         cargoItemColumn.setComparator(UIFunctions.Sort.itemByCategory);
-        cargoQuantityColumn.setCellValueFactory(UIFunctions.Data.inventoryQuantityCellFactory);
         cargoQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
+
+        // This callback defines a simple Label object to use as the contents of the quantity columns for each item
+        // type. It is re used for all of the quantity columns, giving them a uniform look
+        final Callback<TableColumn.CellDataFeatures<InventoryData, Label>, ObservableValue<Label>>
+                inventoryQuantityCellFactory = (materialData) ->
+        {
+            int quantity = materialData.getValue().getQuantity();
+            Label label = new Label(String.valueOf(quantity));
+            label.paddingProperty().setValue(new Insets(5,0,0,0));
+            label.setFont(UIFunctions.Fonts.size2Font);
+            return new ReadOnlyObjectWrapper<>(label);
+        };
+
+        // quantity columns use a basic Label value so don't need cell factories
+        rawQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+        manufacturedQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+        dataQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+        cargoQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+
+        // manually set the styles for the quantity columns todo: in the future move this to CSS or use custom cells
+        rawQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
+        manufacturedQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
+        dataQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
         cargoQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
+
+        // this Callback implementation provides a simple read-only wrapper around the InventoryData objects
+        // stored in the various inventory lists. This is required to use custom display cells in JavaFX. We will
+        // re-use this for all the relevant data columns
+        final Callback<TableColumn.CellDataFeatures<InventoryData, InventoryData>, ObservableValue<InventoryData>>
+                inventoryItemCellValueFactory = (materialData) -> new ReadOnlyObjectWrapper<>(materialData.getValue());
+
+        // These columns use a custom display cells but for the cell values can all use the same read-only wrapper
+        rawMaterialColumn.setCellValueFactory(inventoryItemCellValueFactory);
+        manufacturedMaterialColumn.setCellValueFactory(inventoryItemCellValueFactory);
+        dataMaterialColumn.setCellValueFactory(inventoryItemCellValueFactory);
+        cargoItemColumn.setCellValueFactory(inventoryItemCellValueFactory);
+        rawGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
+        manufacturedGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
+        dataGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
+        cargoGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
+
+        // This call back simply creates a new custom InventoryDisplayCell which is used int he center "data" columns
+        // of the various inventory UI tables. The custom cell contains the display logic and supports all of the
+        // various item categories, so we can re use it for all of the data columns
+        final Callback<TableColumn<InventoryData, InventoryData>, TableCell<InventoryData, InventoryData>>
+                inventoryItemCellFactory = (x) -> new InventoryDisplayCell();
+
+        rawMaterialColumn.setCellFactory(inventoryItemCellFactory);
+        manufacturedMaterialColumn.setCellFactory(inventoryItemCellFactory);
+        dataMaterialColumn.setCellFactory(inventoryItemCellFactory);
+        cargoItemColumn.setCellFactory(inventoryItemCellFactory);
+
+        // the "item grade" columns use a very similar structure to the "data" columns, with the same read-only wrapper
+        // factory but different custom data cells. This callback provides the custom cells for the item grades
+        final Callback<TableColumn<InventoryData, InventoryData>, TableCell<InventoryData, InventoryData>>
+                inventoryGradeCellFactory = (x) -> new InventoryGradeCell();
+
+        rawGradeColumn.setCellFactory(inventoryGradeCellFactory);
+        manufacturedGradeColumn.setCellFactory(inventoryGradeCellFactory);
+        dataGradeColumn.setCellFactory(inventoryGradeCellFactory);
+        cargoGradeColumn.setCellFactory(inventoryGradeCellFactory);
     }
 
     private void initializeShipLoadoutTables()

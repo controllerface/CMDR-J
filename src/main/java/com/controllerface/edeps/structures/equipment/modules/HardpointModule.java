@@ -24,13 +24,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.62),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 9.82),
-                    new ItemEffectData(ItemEffect.Damage, 9.82),
                     new ItemEffectData(ItemEffect.DistributorDraw, 1.94),
                     new ItemEffectData(ItemEffect.ThermalLoad, 3.53),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 18),
@@ -48,13 +46,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.6),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 7.68),
-                    new ItemEffectData(ItemEffect.Damage, 7.68),
                     new ItemEffectData(ItemEffect.DistributorDraw, 2.11),
                     new ItemEffectData(ItemEffect.ThermalLoad, 3.65),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 18),
@@ -72,13 +68,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.57),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 5.4),
-                    new ItemEffectData(ItemEffect.Damage, 5.4),
                     new ItemEffectData(ItemEffect.DistributorDraw, 1.32),
                     new ItemEffectData(ItemEffect.ThermalLoad, 2.4),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 18),
@@ -97,13 +91,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.62),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 4.91),
-                    new ItemEffectData(ItemEffect.Damage, 4.91),
                     new ItemEffectData(ItemEffect.DistributorDraw, 2.52),
                     new ItemEffectData(ItemEffect.ThermalLoad, 2.7),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 18),
@@ -122,13 +114,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.01),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 15.96),
-                    new ItemEffectData(ItemEffect.Damage, 15.96),
                     new ItemEffectData(ItemEffect.DistributorDraw, 3.16),
                     new ItemEffectData(ItemEffect.ThermalLoad, 5.11),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 35),
@@ -146,13 +136,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 12.52),
-                    new ItemEffectData(ItemEffect.Damage, 12.52),
                     new ItemEffectData(ItemEffect.DistributorDraw, 3.44),
                     new ItemEffectData(ItemEffect.ThermalLoad, 5.32),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 35),
@@ -170,13 +158,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.93),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 8.83),
-                    new ItemEffectData(ItemEffect.Damage, 8383),
                     new ItemEffectData(ItemEffect.DistributorDraw, 2.16),
                     new ItemEffectData(ItemEffect.ThermalLoad, 3.53),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 35),
@@ -195,13 +181,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.62),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 25.78),
-                    new ItemEffectData(ItemEffect.Damage, 25.78),
                     new ItemEffectData(ItemEffect.DistributorDraw, 5.1),
                     new ItemEffectData(ItemEffect.ThermalLoad, 7.22),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 50),
@@ -219,13 +203,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.6),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 20.3),
-                    new ItemEffectData(ItemEffect.Damage, 20.3),
                     new ItemEffectData(ItemEffect.DistributorDraw, 5.58),
                     new ItemEffectData(ItemEffect.ThermalLoad, 7.61),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 50),
@@ -243,13 +225,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.51),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 14.36),
-                    new ItemEffectData(ItemEffect.Damage, 14.36),
                     new ItemEffectData(ItemEffect.DistributorDraw, 3.51),
                     new ItemEffectData(ItemEffect.ThermalLoad, 5.11),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 50),
@@ -268,13 +248,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 16),
                     new ItemEffectData(ItemEffect.Integrity, 80),
                     new ItemEffectData(ItemEffect.PowerDraw, 2.61),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 41.38),
-                    new ItemEffectData(ItemEffect.Damage, 41.38),
                     new ItemEffectData(ItemEffect.DistributorDraw, 8.19),
                     new ItemEffectData(ItemEffect.ThermalLoad, 9.93),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 60),
@@ -292,13 +270,11 @@ public enum HardpointModule implements ShipModule
             ModificationType.Beam_Laser,
             ExperimentalType.Beam_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 16),
                     new ItemEffectData(ItemEffect.Integrity, 80),
                     new ItemEffectData(ItemEffect.PowerDraw, 2.57),
                     new ItemEffectData(ItemEffect.BootTime, 0),
                     new ItemEffectData(ItemEffect.DamagePerSecond, 32.68),
-                    new ItemEffectData(ItemEffect.Damage, 32.68),
                     new ItemEffectData(ItemEffect.DistributorDraw, 8.99),
                     new ItemEffectData(ItemEffect.ThermalLoad, 10.62),
                     new ItemEffectData(ItemEffect.ArmourPenetration, 60),
@@ -322,7 +298,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.65),
@@ -348,7 +323,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.64),
@@ -374,7 +348,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.6),
@@ -400,7 +373,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.8),
@@ -427,7 +399,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.05),
@@ -453,7 +424,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.04),
@@ -479,7 +449,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.98),
@@ -506,7 +475,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.66),
@@ -532,7 +500,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.65),
@@ -558,7 +525,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.57),
@@ -585,7 +551,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 16),
                     new ItemEffectData(ItemEffect.Integrity, 80),
                     new ItemEffectData(ItemEffect.PowerDraw, 2.58),
@@ -611,7 +576,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Burst_Laser,
             ExperimentalType.Burst_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 16),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 2.59),
@@ -643,7 +607,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"Manual"),
                     new ItemEffectData(ItemEffect.Mass,2),
                     new ItemEffectData(ItemEffect.Integrity,40),
                     new ItemEffectData(ItemEffect.PowerDraw,0.39),
@@ -667,7 +630,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"Gimbal"),
                     new ItemEffectData(ItemEffect.Mass,2),
                     new ItemEffectData(ItemEffect.Integrity,40),
                     new ItemEffectData(ItemEffect.PowerDraw,0.39),
@@ -691,7 +653,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"NoMode"),
                     new ItemEffectData(ItemEffect.Mass,2),
                     new ItemEffectData(ItemEffect.Integrity,40),
                     new ItemEffectData(ItemEffect.PowerDraw,0.38),
@@ -716,7 +677,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"Manual"),
                     new ItemEffectData(ItemEffect.Mass,4),
                     new ItemEffectData(ItemEffect.Integrity,51),
                     new ItemEffectData(ItemEffect.PowerDraw,0.6),
@@ -740,7 +700,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"Gimbal"),
                     new ItemEffectData(ItemEffect.Mass,4),
                     new ItemEffectData(ItemEffect.Integrity,51),
                     new ItemEffectData(ItemEffect.PowerDraw,0.6),
@@ -764,7 +723,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"NoMode"),
                     new ItemEffectData(ItemEffect.Mass,4),
                     new ItemEffectData(ItemEffect.Integrity,51),
                     new ItemEffectData(ItemEffect.PowerDraw,0.58),
@@ -789,7 +747,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"Manual"),
                     new ItemEffectData(ItemEffect.Mass,4),
                     new ItemEffectData(ItemEffect.Integrity,51),
                     new ItemEffectData(ItemEffect.PowerDraw,0.7),
@@ -814,7 +771,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"Manual"),
                     new ItemEffectData(ItemEffect.Mass,8),
                     new ItemEffectData(ItemEffect.Integrity,64),
                     new ItemEffectData(ItemEffect.PowerDraw,0.9),
@@ -838,7 +794,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"Gimbal"),
                     new ItemEffectData(ItemEffect.Mass,8),
                     new ItemEffectData(ItemEffect.Integrity,64),
                     new ItemEffectData(ItemEffect.PowerDraw,0.92),
@@ -862,7 +817,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"NoMode"),
                     new ItemEffectData(ItemEffect.Mass,8),
                     new ItemEffectData(ItemEffect.Integrity,64),
                     new ItemEffectData(ItemEffect.PowerDraw,0.89),
@@ -887,7 +841,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"Manual"),
                     new ItemEffectData(ItemEffect.Mass, 16),
                     new ItemEffectData(ItemEffect.Integrity, 80),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.33),
@@ -911,7 +864,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Pulse_Laser,
             ExperimentalType.Pulse_Laser,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode,"Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 16),
                     new ItemEffectData(ItemEffect.Integrity, 80),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.37),
@@ -941,7 +893,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Multi_Cannon,
             ExperimentalType.Multi_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.28),
@@ -969,7 +920,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Multi_Cannon,
             ExperimentalType.Multi_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.37),
@@ -997,7 +947,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Multi_Cannon,
             ExperimentalType.Multi_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.26),
@@ -1026,7 +975,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Multi_Cannon,
             ExperimentalType.Multi_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.28),
@@ -1055,7 +1003,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Multi_Cannon,
             ExperimentalType.Multi_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.46),
@@ -1083,7 +1030,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Multi_Cannon,
             ExperimentalType.Multi_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.64),
@@ -1111,7 +1057,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Multi_Cannon,
             ExperimentalType.Multi_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.5),
@@ -1140,7 +1085,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Multi_Cannon,
             ExperimentalType.Multi_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.64),
@@ -1168,7 +1112,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Multi_Cannon,
             ExperimentalType.Multi_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.97),
@@ -1197,7 +1140,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Multi_Cannon,
             ExperimentalType.Multi_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 16),
                     new ItemEffectData(ItemEffect.Integrity, 80),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.73),
@@ -1226,7 +1168,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Multi_Cannon,
             ExperimentalType.Multi_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 16),
                     new ItemEffectData(ItemEffect.Integrity, 80),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.22),
@@ -1260,7 +1201,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Cannon,
             ExperimentalType.Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.34),
@@ -1288,7 +1228,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Cannon,
             ExperimentalType.Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.38),
@@ -1316,7 +1255,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Cannon,
             ExperimentalType.Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.32),
@@ -1345,7 +1283,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Cannon,
             ExperimentalType.Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.49),
@@ -1373,7 +1310,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Cannon,
             ExperimentalType.Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.54),
@@ -1401,7 +1337,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Cannon,
             ExperimentalType.Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.45),
@@ -1430,7 +1365,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Cannon,
             ExperimentalType.Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.67),
@@ -1458,7 +1392,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Cannon,
             ExperimentalType.Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.75),
@@ -1486,7 +1419,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Cannon,
             ExperimentalType.Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.64),
@@ -1515,7 +1447,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Cannon,
             ExperimentalType.Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 16),
                     new ItemEffectData(ItemEffect.Integrity, 80),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.92),
@@ -1543,7 +1474,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Cannon,
             ExperimentalType.Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 16),
                     new ItemEffectData(ItemEffect.Integrity, 80),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.03),
@@ -1575,7 +1505,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Fragment_Cannon,
             ExperimentalType.Fragment_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.45),
@@ -1606,7 +1535,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Fragment_Cannon,
             ExperimentalType.Fragment_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.59),
@@ -1637,7 +1565,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Fragment_Cannon,
             ExperimentalType.Fragment_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.42),
@@ -1669,7 +1596,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Fragment_Cannon,
             ExperimentalType.Fragment_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.74),
@@ -1700,7 +1626,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Fragment_Cannon,
             ExperimentalType.Fragment_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.03),
@@ -1731,7 +1656,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Fragment_Cannon,
             ExperimentalType.Fragment_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.79),
@@ -1763,7 +1687,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Fragment_Cannon,
             ExperimentalType.Fragment_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.02),
@@ -1794,7 +1717,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Fragment_Cannon,
             ExperimentalType.Fragment_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.55),
@@ -1825,7 +1747,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Fragment_Cannon,
             ExperimentalType.Fragment_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.229),
@@ -1857,7 +1778,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Fragment_Cannon,
             ExperimentalType.Fragment_Cannon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.02),
@@ -1893,7 +1813,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Plasma_Accelerator,
             ExperimentalType.Plasma_Accelerator,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.43),
@@ -1913,7 +1832,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 40),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 80),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Collision"),
+                    new ItemEffectData(ItemEffect.DamageType, "Absolute"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
@@ -1921,7 +1840,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Plasma_Accelerator,
             ExperimentalType.Plasma_Accelerator,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.97),
@@ -1941,7 +1859,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 40),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 80),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Collision"),
+                    new ItemEffectData(ItemEffect.DamageType, "Absolute"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
@@ -1949,7 +1867,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Plasma_Accelerator,
             ExperimentalType.Plasma_Accelerator,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.97),
@@ -1969,7 +1886,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 40),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 80),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Collision"),
+                    new ItemEffectData(ItemEffect.DamageType, "Absolute"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
@@ -1977,7 +1894,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Plasma_Accelerator,
             ExperimentalType.Plasma_Accelerator,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 16),
                     new ItemEffectData(ItemEffect.Integrity, 80),
                     new ItemEffectData(ItemEffect.PowerDraw, 2.63),
@@ -1997,7 +1913,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 40),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 80),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Collision"),
+                    new ItemEffectData(ItemEffect.DamageType, "Absolute"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
@@ -2010,7 +1926,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Rail_Gun,
             ExperimentalType.Rail_Gun,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.15),
@@ -2037,7 +1952,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Rail_Gun,
             ExperimentalType.Rail_Gun,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.63),
@@ -2067,7 +1981,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Rail_Gun,
             ExperimentalType.Rail_Gun,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.63),
@@ -2099,7 +2012,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Missile_Rack,
             ExperimentalType.Missile_Rack,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.4),
@@ -2118,15 +2030,13 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 100),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 100),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
     hpt_dumbfiremissilerack_fixed_medium_lasso("Medium Fixed Containment Missile (Missile Rack)",
             ModificationType.Missile_Rack,
             ExperimentalType.Missile_Rack,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -2145,15 +2055,13 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 100),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 100),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
     hpt_dumbfiremissilerack_fixed_medium("Medium Fixed Missile Rack",
             ModificationType.Missile_Rack,
             ExperimentalType.Missile_Rack,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -2172,8 +2080,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 100),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 100),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
 
@@ -2185,7 +2092,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Seeker_Missile_Rack,
             ExperimentalType.Seeker_Missile_Rack,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.6),
@@ -2204,8 +2110,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 0),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 0),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
 
@@ -2213,7 +2118,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Seeker_Missile_Rack,
             ExperimentalType.Seeker_Missile_Rack,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -2233,8 +2137,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 0),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 0),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
 
@@ -2242,7 +2145,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Seeker_Missile_Rack,
             ExperimentalType.Seeker_Missile_Rack,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -2261,8 +2163,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 0),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 0),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
 
@@ -2274,7 +2175,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Mine_Launcher,
             ExperimentalType.Mine_Launcher,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.4),
@@ -2290,15 +2190,13 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 0),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 0),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
     hpt_minelauncher_fixed_small_impulse("Small Fixed Shock Mine Launcher",
             ModificationType.Mine_Launcher,
             ExperimentalType.Mine_Launcher,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.4),
@@ -2315,15 +2213,13 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 0),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 0),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
     hpt_minelauncher_fixed_medium("Medium Fixed Mine Launcher",
             ModificationType.Mine_Launcher,
             ExperimentalType.Mine_Launcher,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.4),
@@ -2340,8 +2236,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 0),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 0),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
 
@@ -2353,7 +2248,6 @@ public enum HardpointModule implements ShipModule
             ModificationType.Torpedo_Pylon,
             ExperimentalType.Torpedo_Pylon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.4),
@@ -2370,15 +2264,13 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 100),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 100),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
     hpt_advancedtorppylon_fixed_medium("Medium Fixed Torpedo Pylon",
             ModificationType.Torpedo_Pylon,
             ExperimentalType.Torpedo_Pylon,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.4),
@@ -2395,8 +2287,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.MinBreachChance, 100),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 100),
                     new ItemEffectData(ItemEffect.Jitter, 0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                    new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
 
@@ -2407,7 +2298,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.5),
@@ -2430,7 +2320,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.5),
@@ -2453,7 +2342,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.7),
@@ -2476,7 +2364,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.75),
@@ -2499,7 +2386,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.75),
@@ -2890,7 +2776,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.46),
@@ -2909,7 +2794,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.BreachDamage, 2.8),
                     new ItemEffectData(ItemEffect.MinBreachChance, 50),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 80),
-                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageType, "Anti-Thargoid"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
@@ -2917,7 +2802,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.5),
@@ -2936,7 +2820,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.BreachDamage, 0.4),
                     new ItemEffectData(ItemEffect.MinBreachChance, 50),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 50),
-                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageType, "Anti-Thargoid"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
@@ -2945,7 +2829,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.64),
@@ -2964,7 +2847,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.BreachDamage, 5.2),
                     new ItemEffectData(ItemEffect.MinBreachChance, 50),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 80),
-                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageType, "Anti-Thargoid"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
@@ -2972,7 +2855,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.64),
@@ -2991,7 +2873,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.BreachDamage, 0.8),
                     new ItemEffectData(ItemEffect.MinBreachChance, 50),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 50),
-                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageType, "Anti-Thargoid"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
@@ -3000,7 +2882,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -3018,7 +2899,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.BreachDamage, 0.1),
                     new ItemEffectData(ItemEffect.MinBreachChance, 80),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 100),
-                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageType, "Anti-Thargoid"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
@@ -3026,7 +2907,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -3045,7 +2925,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.BreachDamage, 0.1),
                     new ItemEffectData(ItemEffect.MinBreachChance, 80),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 100),
-                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageType, "Anti-Thargoid"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
@@ -3054,7 +2934,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.62),
@@ -3072,7 +2951,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.BreachDamage, 0.1),
                     new ItemEffectData(ItemEffect.MinBreachChance, 80),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 100),
-                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageType, "Anti-Thargoid"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
@@ -3080,7 +2959,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.75),
@@ -3099,7 +2977,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.BreachDamage, 0.1),
                     new ItemEffectData(ItemEffect.MinBreachChance, 80),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 100),
-                    new ItemEffectData(ItemEffect.DamageType, "AntiThargoid"),
+                    new ItemEffectData(ItemEffect.DamageType, "Anti-Thargoid"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
@@ -3108,7 +2986,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -3134,7 +3011,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -3169,7 +3045,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 42),
                     new ItemEffectData(ItemEffect.PowerDraw, 2.61),
@@ -3195,7 +3070,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 42),
                     new ItemEffectData(ItemEffect.PowerDraw, 2.13),
@@ -3215,7 +3089,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.BreachDamage, 1.3),
                     new ItemEffectData(ItemEffect.MinBreachChance, 50),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 80),
-                    new ItemEffectData(ItemEffect.DamageType, "Collision"),
+                    new ItemEffectData(ItemEffect.DamageType, "Absolute"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
             )),
 
@@ -3223,7 +3097,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 42),
                     new ItemEffectData(ItemEffect.PowerDraw, 2.01),
@@ -3243,7 +3116,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.BreachDamage, 1),
                     new ItemEffectData(ItemEffect.MinBreachChance, 50),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 80),
-                    new ItemEffectData(ItemEffect.DamageType, "Collision"),
+                    new ItemEffectData(ItemEffect.DamageType, "Absolute"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
             )),
 
@@ -3258,7 +3131,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -3283,7 +3155,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -3308,7 +3179,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -3334,7 +3204,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Manual"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.57),
@@ -3361,7 +3230,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.61),
@@ -3388,7 +3256,6 @@ public enum HardpointModule implements ShipModule
             null,
             null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.WeaponMode, "NoMode"),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.5),
