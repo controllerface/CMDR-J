@@ -117,10 +117,14 @@ public class InventoryDisplayCell extends TableCell<InventoryData, InventoryData
         labelBox.alignmentProperty().set(Pos.CENTER_LEFT);
 
 
-        Label locationLabel = new Label(item.getItem().getLocationInformation());
-        locationLabel.setFont(UIFunctions.Fonts.size1Font);
-        locationLabel.alignmentProperty().set(Pos.CENTER_LEFT);
+        Label locationLabel = new Label("Relevant Locations");
+        locationLabel.underlineProperty().setValue(true);
+        locationLabel.setFont(UIFunctions.Fonts.size2Font);
+        Label locationInfo = new Label(item.getItem().getLocationInformation());
+        locationInfo.setFont(UIFunctions.Fonts.size1Font);
+        locationInfo.alignmentProperty().set(Pos.CENTER_LEFT);
         locationContainer.getChildren().add(locationLabel);
+        locationContainer.getChildren().add(locationInfo);
         titledPane.setGraphic(labelBox);
         titledPane.setContent(locationContainer);
         titledPane.alignmentProperty().set(Pos.CENTER_LEFT);

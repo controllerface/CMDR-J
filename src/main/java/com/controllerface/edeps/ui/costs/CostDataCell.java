@@ -84,7 +84,39 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
             hbox.getChildren().addAll(progressBar, costLabel);
 
 
-            titledPane.setContent(new Label("Coming Soon : Location Information"));
+
+
+
+
+
+            HBox labelBox = new HBox();
+            labelBox.alignmentProperty().set(Pos.CENTER);
+            VBox locationContainer = new VBox();
+
+            //String locationInformation
+
+            Label locationInfo = new Label(item.getCost().getGrade().getLocationDescription());
+            locationInfo.setFont(UIFunctions.Fonts.size1Font);
+            locationInfo.alignmentProperty().set(Pos.CENTER_LEFT);
+            locationContainer.getChildren().add(locationInfo);
+            titledPane.setGraphic(labelBox);
+            titledPane.setContent(locationContainer);
+            titledPane.alignmentProperty().set(Pos.CENTER_LEFT);
+
+
+
+
+
+
+
+
+            //titledPane.setContent(new Label("Coming Soon : Location Information"));
+
+
+
+
+
+
 
 
             titledPane.setGraphic(hbox);
