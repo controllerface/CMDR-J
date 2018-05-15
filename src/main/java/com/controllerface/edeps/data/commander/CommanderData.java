@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 /**
@@ -53,7 +54,7 @@ public class CommanderData
     /**
      * Various commander statistics
      */
-    private final Map<Statistic, String> stats = new LinkedHashMap<>();
+    private final Map<Statistic, String> stats = new ConcurrentHashMap<>(new LinkedHashMap<>());
 
 
     public ObservableList<InventoryData> observableCargo()

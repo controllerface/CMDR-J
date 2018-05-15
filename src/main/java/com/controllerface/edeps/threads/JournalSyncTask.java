@@ -157,7 +157,7 @@ public class JournalSyncTask implements Runnable
         {
             try
             {
-                watchKey = watchService.poll(1, TimeUnit.SECONDS);
+                watchKey = watchService.poll(5, TimeUnit.SECONDS);
             }
             catch (InterruptedException e)
             {

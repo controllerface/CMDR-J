@@ -73,14 +73,14 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
 
     Weapon_Efficient_1(ItemGrade.GRADE_1, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.Damage, 8d),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 8d),
                     new ItemEffectData(ItemEffect.ThermalLoad, -38d)
             ),
             new CostData(Material.SULPHUR, 1)),
 
     Weapon_Efficient_2(ItemGrade.GRADE_2, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.Damage, 12d),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 12d),
                     new ItemEffectData(ItemEffect.DistributorDraw, -15d),
                     new ItemEffectData(ItemEffect.PowerDraw, -12d),
                     new ItemEffectData(ItemEffect.ThermalLoad, -43d)
@@ -90,7 +90,7 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
 
     Weapon_Efficient_3(ItemGrade.GRADE_3, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.Damage, 16d),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 16d),
                     new ItemEffectData(ItemEffect.DistributorDraw, -24d),
                     new ItemEffectData(ItemEffect.PowerDraw, -24d),
                     new ItemEffectData(ItemEffect.ThermalLoad, -48d)
@@ -101,7 +101,7 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
 
     Weapon_Efficient_4(ItemGrade.GRADE_4, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.Damage, 20d),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 20d),
                     new ItemEffectData(ItemEffect.DistributorDraw, -35d),
                     new ItemEffectData(ItemEffect.PowerDraw, -36d),
                     new ItemEffectData(ItemEffect.ThermalLoad, -52d)
@@ -112,7 +112,7 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
 
     Weapon_Efficient_5(ItemGrade.GRADE_5, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.Damage, 24d),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 24d),
                     new ItemEffectData(ItemEffect.DistributorDraw, -45d),
                     new ItemEffectData(ItemEffect.PowerDraw, -45d),
                     new ItemEffectData(ItemEffect.ThermalLoad, -60d)

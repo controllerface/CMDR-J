@@ -37,9 +37,9 @@ public enum ItemEffect
     enum ordinal
      */
 
-    ShieldBankHeat("H/S", "Heat Generation", false),
-    EngineHeatRate("H/MW", "Heat Generation", false),
-    FSDHeatRate("H/MW", "Heat Generation", false),
+    ShieldBankHeat("H/S", "Thermal Load", false),
+    EngineHeatRate("H/MW", "Thermal Load", false),
+    FSDHeatRate("H/MW", "Thermal Load", false),
 
 
     EngineMinimumMass("T", "Minimum Mass", true),
@@ -47,7 +47,7 @@ public enum ItemEffect
 
     ShieldGenOptimalMass("T", "Optimal Mass", true),
     EngineOptimalMass("T", "Optimal Mass", true),
-    FSDOptimalMass("T", "Optimal Mass", true),
+    FSDOptimalMass("T", "Optimised Mass", true),
 
     MaximumMass("T", "Maximum Mass", true),
     ShieldGenMaximumMass("T", "Maximum Mass", true),
@@ -123,16 +123,16 @@ public enum ItemEffect
      */
 
     PowerCapacity("MW", "Power Capacity", true),
-    HeatEfficiency("H/MW/S", "Efficiency", false),
+    HeatEfficiency("H/MW/S", "Heat Efficiency", false),
 
 
     /*
     Thrusters
      */
 
-    EngineMinPerformance("%", "Min Performance", true),
-    EngineOptPerformance("%", "Optimal Performance", true),
-    EngineMaxPerformance("%", "Max Performance", true),
+    EngineMinPerformance("%", "Minimum Multiplier", true),
+    EngineOptPerformance("%", "Optimal Multiplier", true),
+    EngineMaxPerformance("%", "Maximum Multiplier", true),
 
 
     /*
