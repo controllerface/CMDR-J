@@ -21,6 +21,16 @@ public enum ShipStat
     Crew_Seats,
     SLF_Capable,
 
+    Hull_Strength,
+    Shield_Strength,
+    Shield_Explosive_Resistance,
+    Shield_Kinetic_Resistance,
+    Shield_Thermal_Resistance,
+    Armour_Caustic_Resistance,
+    Armour_Explosive_Resistance,
+    Armour_Kinetic_Resistance,
+    Armour_Thermal_Resistance,
+
     ;
 
     @Override

@@ -839,7 +839,7 @@ public class UIController
 
     private TreeItem<ProcurementTaskData> makeTechnologyTree()
     {
-        TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Tech Brokers"));
+        TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Tech Broker Unlocks"));
 
         // loop through all mod categories
         Arrays.stream(TechnologyCategory.values()).forEach(category ->

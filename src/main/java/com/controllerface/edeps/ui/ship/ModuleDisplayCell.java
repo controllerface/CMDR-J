@@ -5,26 +5,18 @@ import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalR
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.ui.UIFunctions;
-import com.sun.javafx.scene.control.skin.TableHeaderRow;
-import com.sun.javafx.scene.control.skin.TableViewSkinBase;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
-import javafx.event.Event;
-import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by Stephen on 5/7/2018.
@@ -190,7 +182,7 @@ public class ModuleDisplayCell extends TableCell<ShipModuleData, ShipModuleData>
             List<Pair<ItemEffect, Label>> effects = new ArrayList<>();
 
             // base stats, filtered so any stats that have stored modifiers are skipped
-            item.getModule().itemEffects().pairStream()
+            item.getModule().itemEffects().effectStream()
                     .filter(p->item.getModifiers().stream()
                             .noneMatch(x->x.getEffect().equals(p.getEffect())))
                     .map(effectPair ->

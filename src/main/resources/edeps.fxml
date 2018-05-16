@@ -68,7 +68,7 @@
                                  <children>
                                     <HBox fx:id="procurementBox">
                                        <children>
-                                          <TreeView fx:id="procurementTree" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="10000.0" />
+                                          <TreeView fx:id="procurementTree" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="9800.0" />
                                           <VBox>
                                              <children>
                                                 <Label fx:id="procurementLabel" minHeight="35.0" text="Placeholder">

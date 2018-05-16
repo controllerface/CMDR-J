@@ -21,7 +21,7 @@ public class ItemEffects
         this.effects = effectPairs;
     }
 
-    public Stream<ItemEffectData> pairStream()
+    public Stream<ItemEffectData> effectStream()
     {
         return Arrays.stream(effects);
     }
@@ -29,7 +29,7 @@ public class ItemEffects
     public static ItemEffects EMPTY = new ItemEffects()
     {
         @Override
-        public Stream<ItemEffectData> pairStream()
+        public Stream<ItemEffectData> effectStream()
         {
             return Stream.empty();
         }

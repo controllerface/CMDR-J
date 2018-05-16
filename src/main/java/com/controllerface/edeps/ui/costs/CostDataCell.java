@@ -77,54 +77,29 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
 
             if (progress >= 1.0)
             {
-                progressBar.setStyle("-fx-accent: #00b3f7 ");
+                progressBar.setStyle("-fx-accent: #00b3f7");
             }
-            else progressBar.setStyle("-fx-accent: #ff0000 ");
+            else progressBar.setStyle("-fx-accent: #ff0000");
 
             hbox.getChildren().addAll(progressBar, costLabel);
-
-
-
-
-
-
 
             HBox labelBox = new HBox();
             labelBox.alignmentProperty().set(Pos.CENTER);
             VBox locationContainer = new VBox();
 
-            //String locationInformation
-
-            Label locationInfo = new Label(item.getCost().getGrade().getLocationDescription());
-            locationInfo.setFont(UIFunctions.Fonts.size1Font);
-            locationInfo.alignmentProperty().set(Pos.CENTER_LEFT);
-            locationContainer.getChildren().add(locationInfo);
+            Label locationLabel = new Label(item.getCost().getLocationInformation());
+            locationLabel.setFont(UIFunctions.Fonts.size1Font);
+            locationLabel.alignmentProperty().set(Pos.CENTER_LEFT);
+            locationContainer.getChildren().add(locationLabel);
             titledPane.setGraphic(labelBox);
             titledPane.setContent(locationContainer);
             titledPane.alignmentProperty().set(Pos.CENTER_LEFT);
-
-
-
-
-
-
-
-
-            //titledPane.setContent(new Label("Coming Soon : Location Information"));
-
-
-
-
-
-
-
 
             titledPane.setGraphic(hbox);
             hbox.setAlignment(Pos.CENTER);
 
             accordion.getPanes().add(titledPane);
             descriptionContainer.getChildren().add(accordion);
-
 
             setGraphic(descriptionContainer);
         }

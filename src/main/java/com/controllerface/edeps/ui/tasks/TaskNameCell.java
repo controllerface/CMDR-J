@@ -88,7 +88,7 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
             costEffectContainer.getChildren().add(separator);
 
             // effects
-            item.asPair().getValue().effects().pairStream()
+            item.asPair().getValue().effects().effectStream()
                     .map(UIFunctions.Convert.effectToLabel)
                     .sorted(UIFunctions.Sort.byGoodness)
                     .forEach(label -> costEffectContainer.getChildren().add(label));
