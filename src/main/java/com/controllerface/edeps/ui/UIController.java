@@ -136,7 +136,9 @@ public class UIController
     @FXML private CheckBox showTasks;
     @FXML private CheckBox showItemsNeeded;
 
+    @FXML private Label shipNameLabel;
     @FXML private Label shipTypeLabel;
+    @FXML private Label shipIDLabel;
 
     @FXML private TableView<ShipStatisticData> shipStatisticsTable;
     @FXML private TableColumn<ShipStatisticData, String> shipStatisticsNameColumn;
@@ -577,7 +579,9 @@ public class UIController
         showTasks.setOnAction((e)-> setProcurementsUIVisibility());
         showItemsNeeded.setOnAction((e)-> setProcurementsUIVisibility());
 
+        shipNameLabel.textProperty().bind(commanderData.getStarShip().getShipGivenName());
         shipTypeLabel.textProperty().bind(commanderData.getStarShip().getShipDisplayName());
+        shipIDLabel.textProperty().bind(commanderData.getStarShip().getShipID());
 
 
         // table auto-resize bindings
@@ -968,12 +972,6 @@ public class UIController
                 return r2;
             });
         }
-
-        commanderData.getStats()
-                .entrySet().stream()
-                .filter(e -> JournalSyncTask.allStats.contains(e.getKey()))
-                .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
-                .forEach(pair -> statTable.getItems().add(pair));
 
         setProcurementsUIVisibility();
 

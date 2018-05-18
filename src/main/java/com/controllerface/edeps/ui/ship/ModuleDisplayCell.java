@@ -227,7 +227,7 @@ public class ModuleDisplayCell extends TableCell<ShipModuleData, ShipModuleData>
                     .bind(effectTable.prefWidthProperty()
                             .subtract(valueColumn.prefWidthProperty())
                             .subtract(unitColumn.prefWidthProperty())
-                            .subtract(UIFunctions.scrollBarAllowance));
+                            .subtract(2d));
 
             valueColumn.prefWidthProperty().set(125);
             unitColumn.prefWidthProperty().set(75);
@@ -239,7 +239,7 @@ public class ModuleDisplayCell extends TableCell<ShipModuleData, ShipModuleData>
 
             effectTable.setItems(FXCollections.observableArrayList(effects));
 
-            effectTable.setPrefHeight((effects.size() * 30) + 30);
+            effectTable.setPrefHeight((effects.size() * 30) + 28);
 
             VBox tbox = new VBox();
             tbox.getChildren().add(effectTable);

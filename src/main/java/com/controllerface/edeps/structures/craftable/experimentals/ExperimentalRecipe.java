@@ -828,7 +828,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_shield_thermic("Thermo Block", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.DefenceModifierShieldAddition, -3d),
+                    new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, -3d),
                     new ItemEffectData(ItemEffect.ThermicResistance, 8d)
             ),
             new CostData(Material.WORNSHIELDEMITTERS, 5),

@@ -1,7 +1,6 @@
 package com.controllerface.edeps.data.commander;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.ShipModule;
 import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
@@ -14,7 +13,6 @@ import javafx.collections.ObservableList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Stream;
 
 /**
  * This class is intended to store all relevant data related to the Commander (player), such as inventory, ship loadout
@@ -119,7 +117,7 @@ public class CommanderData
      */
     public void setShipModule(ShipModuleData shipModuleData)
     {
-        starShip.setShipModule(shipModuleData);
+        starShip.installShipModule(shipModuleData);
     }
 
     /**

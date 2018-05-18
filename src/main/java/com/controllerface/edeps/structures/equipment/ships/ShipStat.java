@@ -7,7 +7,7 @@ public enum ShipStat
 {
     Size,
     Agility,
-    Hull_Mass,
+    Base_Hull_Mass,
     Hull_Hardness,
     Speed,
     Max_Speed,
@@ -21,6 +21,7 @@ public enum ShipStat
     Crew_Seats,
     SLF_Capable,
 
+    Unladen_Mass,
     Hull_Strength,
     Shield_Strength,
     Shield_Explosive_Resistance,

@@ -54,6 +54,9 @@ public enum JournalEvent
         setStatFromData(context, PlayerStat.Fuel_Level);
         setStatFromData(context, PlayerStat.Fuel_Capacity);
 
+        context.getCommanderData().getStarShip()
+                .setCurrentFuel(getStatDouble(context, PlayerStat.Fuel_Level));
+
         setStatFromData(context, PlayerStat.Ship);
         setStatFromData(context, PlayerStat.Ship_Name);
         setStatFromData(context, PlayerStat.Ship_Ident);
@@ -156,6 +159,10 @@ public enum JournalEvent
         {
             ship = Ship.findShip(shipName);
             context.getCommanderData().setShip(ship);
+            context.getCommanderData().getStarShip()
+                    .setGivenName(getStatString(context, CoreInternalSlot.ShipName));
+            context.getCommanderData().getStarShip()
+                    .setShipID(getStatString(context, CoreInternalSlot.ShipIdent));
         }
         catch (Exception e)
         {
@@ -608,7 +615,17 @@ public enum JournalEvent
      */
     private static void setStatFromData(EventProcessingContext context, Statistic stat)
     {
-        context.getCommanderData().setStat(stat, stat.format(context.getRawData().get(stat.getKey())));
+        context.getCommanderData().setStat(stat, getStatString(context, stat));
+    }
+
+    private static String getStatString(EventProcessingContext context, Statistic stat)
+    {
+        return stat.format(context.getRawData().get(stat.getKey()));
+    }
+
+    private static double getStatDouble(EventProcessingContext context, Statistic stat)
+    {
+        return Double.parseDouble(getStatString(context, stat));
     }
 
     private static void setSlotFromData(EventProcessingContext context,

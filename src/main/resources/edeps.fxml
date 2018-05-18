@@ -10,6 +10,141 @@
    <children>
       <TabPane fx:id="mainPane" layoutX="14.0" layoutY="14.0" prefHeight="950.0" prefWidth="1130.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
+            <Tab text="Ship Loadout">
+              <content>
+                <AnchorPane>
+                     <children>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Label fx:id="shipNameLabel" layoutX="204.0" layoutY="20.0" text="unknown name">
+                                       <font>
+                                          <Font name="System Bold Italic" size="36.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="10.0">
+                                 <children>
+                                    <Label layoutX="20.0" layoutY="10.0" text="ID:">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="-5.0" top="-10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="shipIDLabel" layoutX="73.0" layoutY="10.0" text="unknown ID">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets top="-10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label layoutX="20.0" layoutY="20.0" text="Type:">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="-5.0" top="-10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="shipTypeLabel" text="unknown ship">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets top="-10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                    <Tab text="Ship Statistics">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView fx:id="shipStatisticsTable" layoutX="338.0" layoutY="185.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="shipStatisticsNameColumn" prefWidth="200.0" text="Statistic" />
+                                                    <TableColumn fx:id="shipStatisticsDataColumn" prefWidth="929.0" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </Tab>
+                                  <Tab text="Core Internals">
+                                    <content>
+                                      <AnchorPane>
+                                             <children>
+                                                <TableView fx:id="coreModuleList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="coreModuleNameColumn" prefWidth="195.0" text="Core Module" />
+                                                    <TableColumn fx:id="coreModuleDataColumn" minWidth="0.0" prefWidth="243.0" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                  <Tab text="Optional Internals">
+                                    <content>
+                                      <AnchorPane>
+                                             <children>
+                                                <TableView fx:id="optionalModuleList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="optionalModuleNameColumn" prefWidth="195.0" text="Optional Module" />
+                                                      <TableColumn fx:id="optionalModuleDataColumn" minWidth="0.0" prefWidth="233.0" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                    <Tab text="Hardpoints">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView fx:id="hardpointList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="hardpointNameColumn" prefWidth="195.0" text="Hardpoint" />
+                                                      <TableColumn fx:id="hardpointDataColumn" prefWidth="206.0" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </Tab>
+                                </tabs>
+                              </TabPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
           <Tab text="Procurement Tasks">
             <content>
               <AnchorPane>
@@ -147,104 +282,6 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Ship Loadout">
-              <content>
-                <AnchorPane>
-                     <children>
-                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <HBox>
-                                 <children>
-                                    <Label text="Ship Type:">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                       <font>
-                                          <Font size="36.0" />
-                                       </font>
-                                       <HBox.margin>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label fx:id="shipTypeLabel" text="unknown">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                       <font>
-                                          <Font size="36.0" />
-                                       </font>
-                                       <HBox.margin>
-                                          <Insets bottom="10.0" top="10.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" tabClosingPolicy="UNAVAILABLE">
-                                <tabs>
-                                    <Tab text="Ship Statistics">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <TableView fx:id="shipStatisticsTable" layoutX="338.0" layoutY="185.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                  <columns>
-                                                    <TableColumn fx:id="shipStatisticsNameColumn" prefWidth="200.0" text="Statistic" />
-                                                    <TableColumn fx:id="shipStatisticsDataColumn" prefWidth="929.0" />
-                                                  </columns>
-                                                </TableView>
-                                             </children>
-                                          </AnchorPane>
-                                      </content>
-                                    </Tab>
-                                  <Tab text="Core Internals">
-                                    <content>
-                                      <AnchorPane>
-                                             <children>
-                                                <TableView fx:id="coreModuleList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                  <columns>
-                                                    <TableColumn fx:id="coreModuleNameColumn" prefWidth="200.0" text="Core Module" />
-                                                    <TableColumn fx:id="coreModuleDataColumn" minWidth="0.0" prefWidth="215.0" />
-                                                  </columns>
-                                                </TableView>
-                                             </children>
-                                          </AnchorPane>
-                                    </content>
-                                  </Tab>
-                                  <Tab text="Optional Internals">
-                                    <content>
-                                      <AnchorPane>
-                                             <children>
-                                                <TableView fx:id="optionalModuleList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <columns>
-                                                      <TableColumn fx:id="optionalModuleNameColumn" prefWidth="200.0" text="Optional Module" />
-                                                      <TableColumn fx:id="optionalModuleDataColumn" minWidth="0.0" prefWidth="214.0" />
-                                                   </columns>
-                                                </TableView>
-                                             </children>
-                                          </AnchorPane>
-                                    </content>
-                                  </Tab>
-                                    <Tab text="Hardpoints">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <TableView fx:id="hardpointList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <columns>
-                                                      <TableColumn fx:id="hardpointNameColumn" prefWidth="200.0" text="Hardpoint" />
-                                                      <TableColumn fx:id="hardpointDataColumn" prefWidth="191.0" />
-                                                   </columns>
-                                                </TableView>
-                                             </children>
-                                          </AnchorPane>
-                                      </content>
-                                    </Tab>
-                                </tabs>
-                              </TabPane>
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
           <Tab text="Inventory">
             <content>
               <AnchorPane>

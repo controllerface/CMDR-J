@@ -15,14 +15,14 @@ public enum CoreInternalSlot implements Statistic
     ShipName("Ship Name"),
     ShipCockpit("Cockpit"),
     CargoHatch("Cargo Hatch"),
-    Armour("Armor"),
+    Armour("Bulkheads"),
     PowerPlant("Power Plant"),
     MainEngines("Thrusters"),
     FrameShiftDrive("Frame Shift Drive"),
-    LifeSupport("Life Support"),
-    PowerDistributor("Distributor"),
+    LifeSupport("Life Support System"),
+    PowerDistributor("Power Distributor"),
     Radar("Sensors"),
-    FuelTank("Fuel tank"),
+    FuelTank("Fuel Tank"),
 
     ;
 

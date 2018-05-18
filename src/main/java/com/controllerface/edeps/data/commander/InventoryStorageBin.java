@@ -104,35 +104,16 @@ public abstract class InventoryStorageBin
     {
         if (check(item))
         {
-//            Pair<InventoryData, Integer> f = IntStream.range(0, inventoryItems.size())
-//                    .mapToObj(i->new Pair<>(inventoryItems.get(i), i))
-//                    .filter(p->p.getKey().getItem() == item)
-//                    .findFirst().orElse(null);
-//
-//            Integer index = IntStream.range(0, inventoryItems.size())
-//                    .filter(i->inventoryItems.get(i).getItem() == item)
-//                    .findFirst().orElse(-1);
-//
-//
-//            if (index == -1)
-//            {
-//                System.out.println("not found:"+item+":"+count);
-//                inventoryItems.add(new InventoryData(item, count));
-//            }
-//            else
-//            {
-//                System.out.println("found:"+item+":"+count);
-//                InventoryData data = inventoryItems.get(index);
-//                inventoryItems.remove(index.intValue());
-//                data.adjustCount(count);
-//                inventoryItems.add(data);
-//            }
-
-
             inventory()
                     .filter(inventoryItem -> inventoryItem.getItem() == item)
                     .findFirst().map(inventoryItem -> inventoryItem.adjustCount(count))
                     .orElseGet((() -> inventoryItems.add(new InventoryData(item, count))));
+
+            // this is  hacky, but ensures the list triggers a change event so any observing UI elements will
+            // be refreshed. This is a better alternative to requiring this class to maintain a reference to
+            // an observing elements and notify them manually
+            InventoryData dummy = inventoryItems.remove(0);
+            inventoryItems.add(0, dummy);
         }
     }
 }

@@ -5,7 +5,5 @@ package com.controllerface.edeps.structures.equipment.ships;
  */
 public enum ShipSize
 {
-    Small,
-    Medium,
-    Large;
+    Small, Medium, Large
 }

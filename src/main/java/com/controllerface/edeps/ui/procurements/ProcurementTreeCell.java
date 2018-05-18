@@ -34,6 +34,8 @@ public class ProcurementTreeCell extends TreeCell<ProcurementTaskData>
 
         this.setOnMouseClicked((e)->
         {
+            if (this.getTreeItem() == null) return;
+
             if (thisItem != null && thisItem.getBlueprint() != null && thisItem.getType() != null)
             {
                 outputList.clear();

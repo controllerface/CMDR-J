@@ -11,27 +11,11 @@ import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
-import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalBlueprint;
-import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
-import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
-import com.controllerface.edeps.structures.craftable.modifications.ModificationRecipe;
-import com.controllerface.edeps.structures.craftable.modifications.WeaponModificationRecipe;
-import com.controllerface.edeps.structures.craftable.synthesis.SynthesisBlueprint;
-import com.controllerface.edeps.structures.craftable.synthesis.SynthesisCategory;
-import com.controllerface.edeps.structures.craftable.synthesis.SynthesisRecipe;
-import com.controllerface.edeps.structures.craftable.technologies.TechnologyBlueprint;
-import com.controllerface.edeps.structures.craftable.technologies.TechnologyRecipe;
-import com.controllerface.edeps.structures.equipment.ItemEffect;
-import com.controllerface.edeps.structures.costs.commodities.Commodity;
-import com.controllerface.edeps.structures.costs.commodities.CommodityCategory;
-import com.controllerface.edeps.structures.costs.materials.Material;
-import com.controllerface.edeps.structures.costs.materials.MaterialCategory;
-import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.ui.commander.CommanderStatDataCell;
 import com.controllerface.edeps.ui.costs.CostDataCell;
 import com.controllerface.edeps.ui.costs.CostValueCell;
 import com.controllerface.edeps.ui.ship.ModuleDisplayCell;
-import com.controllerface.edeps.ui.ship.SlotDataCell;
+import com.controllerface.edeps.ui.ship.SlotNameCell;
 import com.controllerface.edeps.ui.ship.StatDataCell;
 import com.controllerface.edeps.ui.ship.StatDisplayCell;
 import com.controllerface.edeps.ui.tasks.TaskNameCell;
@@ -40,27 +24,17 @@ import com.controllerface.edeps.ui.tasks.TaskRemoveCell;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This class stores several stateless functions and utility objects that are used to build or modify the GUI. These
@@ -162,7 +136,7 @@ public class UIFunctions
                 boldStringNameCellFactory = (x) -> new CommanderStatDataCell();
 
         static final Callback<TableColumn<ShipModuleData, String>, TableCell<ShipModuleData, String>>
-                boldSlotNameCellFactory = (x) -> new SlotDataCell();
+                boldSlotNameCellFactory = (x) -> new SlotNameCell();
 
         static final Callback<TableColumn<ShipStatisticData, String>, TableCell<ShipStatisticData, String>>
                 boldStatNameCellFactory = (x) -> new StatDataCell();

@@ -19,7 +19,7 @@ public class BaseShipStats
     private final double boostSpeed;
     private final double maxBoostSpeed;
     private final double armorRating;
-    private final double baseShield;
+    private final double shield;
     private final double baseCost;
     private final int massLockFactor;
     private final int crewSeats;
@@ -38,7 +38,7 @@ public class BaseShipStats
         this.boostSpeed = builder.boostSpeed;
         this.maxBoostSpeed = builder.maxBoostSpeed;
         this.armorRating = builder.armorRating;
-        this.baseShield = builder.baseShield;
+        this.shield = builder.shield;
         this.baseCost = builder.baseCost;
         this.massLockFactor = builder.massLockFactor;
         this.crewSeats = builder.crewSeats;
@@ -101,9 +101,9 @@ public class BaseShipStats
         return armorRating;
     }
 
-    public double getBaseShield()
+    public double getShield()
     {
-        return baseShield;
+        return shield;
     }
 
     public double getBaseCost()
@@ -144,7 +144,7 @@ public class BaseShipStats
         private Double boostSpeed;
         private Double maxBoostSpeed;
         private Double armorRating;
-        private Double baseShield;
+        private Double shield;
         private Double baseCost;
         private Integer massLockFactor;
         private Integer crewSeats;
@@ -216,9 +216,9 @@ public class BaseShipStats
             return this;
         }
 
-        public Builder setBaseShield(double baseShield)
+        public Builder setShield(double shield)
         {
-            this.baseShield = baseShield;
+            this.shield = shield;
             return this;
         }
 
@@ -260,7 +260,7 @@ public class BaseShipStats
             if (boostSpeed == null) throw new UnsupportedOperationException("boostSpeed must be set");
             if (maxBoostSpeed == null) throw new UnsupportedOperationException("maxBoostSpeed must be set");
             if (armorRating == null) throw new UnsupportedOperationException("armorRating must be set");
-            if (baseShield == null) throw new UnsupportedOperationException("baseShield must be set");
+            if (shield == null) throw new UnsupportedOperationException("shield must be set");
             if (baseCost == null) throw new UnsupportedOperationException("baseCost must be set");
             if (massLockFactor == null) throw new UnsupportedOperationException("massLockFactor must be set");
             if (crewSeats == null) throw new UnsupportedOperationException("crewSeats must be set");

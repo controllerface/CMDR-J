@@ -4,6 +4,7 @@ import com.controllerface.edeps.ShipModule;
 import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
+import com.controllerface.edeps.structures.equipment.ItemEffect;
 
 import java.util.List;
 
@@ -50,6 +51,34 @@ public class ShipModuleData
     public ShipModule getModule()
     {
         return module;
+    }
+
+    /**
+     * For the provided ItemEffect, returns the actual value this item has for that effect, if any.
+     * If the module has modifications that override the stock value, this method will return the
+     * modified value. If the provided effect is not present on this module, will return null.
+     *
+     * @param effect the ItemEffect to get the value of from this module
+     * @return the actual applied value on this module for the given effect, or null if the effect is not present
+     */
+    public Double getEffectValue(ItemEffect effect)
+    {
+        Double stockValue = module.itemEffects().effectStream()
+                .filter(effectData -> effectData.getEffect() == effect)
+                .filter(ItemEffectData::isNumerical)
+                .map(ItemEffectData::getDoubleValue)
+                .findAny().orElse(null);
+
+        Double modifiedValue = modifiers.stream()
+                .filter(modifierData -> modifierData.getEffect() == effect)
+                .map(ModifierData::getValue)
+                .findAny().orElse(null);
+
+        Double r = modifiedValue == null
+                ? stockValue
+                : modifiedValue;
+
+        return r;
     }
 
     public List<ModifierData> getModifiers()

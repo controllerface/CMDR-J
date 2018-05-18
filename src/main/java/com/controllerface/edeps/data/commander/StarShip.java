@@ -1,23 +1,21 @@
 package com.controllerface.edeps.data.commander;
 
 import com.controllerface.edeps.data.ItemEffectData;
-import com.controllerface.edeps.data.ModifierData;
 import com.controllerface.edeps.data.ShipModuleData;
+import com.controllerface.edeps.structures.craftable.modifications.ModificationType;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
-import com.controllerface.edeps.structures.equipment.modules.CoreInternalModule;
 import com.controllerface.edeps.structures.equipment.ships.*;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableStringValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
 
-import java.util.HashMap;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -32,16 +30,17 @@ public class StarShip
 {
     private Ship ship;
     private SimpleStringProperty shipDisplayName = new SimpleStringProperty("None");
+    private SimpleStringProperty shipGivenName = new SimpleStringProperty("None");
+    private SimpleStringProperty shipID = new SimpleStringProperty("None");
+
+    private double currentFuel = 0d; // todo: use this
 
     private ObservableList<ShipStatisticData> statistics = FXCollections.observableArrayList();
     private ObservableList<ShipModuleData> coreInternals = FXCollections.observableArrayList();
     private ObservableList<ShipModuleData> optionalInternals = FXCollections.observableArrayList();
     private ObservableList<ShipModuleData> hardpoints = FXCollections.observableArrayList();
 
-    public StarShip()
-    {
-
-    }
+    public StarShip() {}
 
     public void setShip(Ship ship)
     {
@@ -50,6 +49,23 @@ public class StarShip
         optionalInternals.clear();
         hardpoints.clear();
         initializeBaseStats();
+    }
+
+    public void setGivenName(String givenName)
+    {
+        if (givenName == null) return;
+        Platform.runLater(()->shipGivenName.set(givenName));
+    }
+
+    public void setShipID(String ID)
+    {
+        if (ID == null) return;
+        Platform.runLater(()-> shipID.set(ID.toUpperCase()));
+    }
+
+    public void setCurrentFuel(double currentFuel)
+    {
+        this.currentFuel = currentFuel;
     }
 
     private void initializeBaseStats()
@@ -66,124 +82,29 @@ public class StarShip
         statistics.add(new ShipStatisticData(ship.getBaseShipStats().getShipSize()));
         statistics.add(new ShipStatisticData(ship.getBaseShipStats().getManufacturer()));
 
-        statistics.add(new ShipStatisticData(ShipStat.Mass_Lock_Factor, ship.getBaseShipStats().getMassLockFactor()));
-        statistics.add(new ShipStatisticData(ShipStat.Crew_Seats, ship.getBaseShipStats().getCrewSeats()));
-        statistics.add(new ShipStatisticData(ShipStat.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
+        statistics.add(new ShipStatisticData(ShipStat.Hull_Hardness, ship.getBaseShipStats().getHullHardness()));
+        statistics.add(new ShipStatisticData(ShipStat.Armor_Rating, ship.getBaseShipStats().getArmorRating()));
+        statistics.add(new ShipStatisticData(ShipStat.Base_Shield, ship.getBaseShipStats().getShield()));
+        statistics.add(new ShipStatisticData(ShipStat.Base_Hull_Mass, ship.getBaseShipStats().getHullMass()));
 
         statistics.add(new ShipStatisticData(ShipStat.Agility, ship.getBaseShipStats().getAgility()));
-        statistics.add(new ShipStatisticData(ShipStat.Hull_Mass, ship.getBaseShipStats().getHullMass()));
-        statistics.add(new ShipStatisticData(ShipStat.Hull_Hardness, ship.getBaseShipStats().getHullHardness()));
-
         statistics.add(new ShipStatisticData(ShipStat.Speed, ship.getBaseShipStats().getSpeed()));
         statistics.add(new ShipStatisticData(ShipStat.Boost_Speed, ship.getBaseShipStats().getBoostSpeed()));
-
         statistics.add(new ShipStatisticData(ShipStat.Max_Speed, ship.getBaseShipStats().getMaxSpeed()));
         statistics.add(new ShipStatisticData(ShipStat.Max_Boost_Speed, ship.getBaseShipStats().getMaxBoostSpeed()));
 
-        statistics.add(new ShipStatisticData(ShipStat.Armor_Rating, ship.getBaseShipStats().getArmorRating()));
-        statistics.add(new ShipStatisticData(ShipStat.Base_Shield, ship.getBaseShipStats().getBaseShield()));
+        statistics.add(new ShipStatisticData(ShipStat.Mass_Lock_Factor, ship.getBaseShipStats().getMassLockFactor()));
+        statistics.add(new ShipStatisticData(ShipStat.Crew_Seats, ship.getBaseShipStats().getCrewSeats()));
+        statistics.add(new ShipStatisticData(ShipStat.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
     }
 
-
-    private void calculateCurrentStats()
+    private Stream<ShipModuleData> safeStream(ObservableList<ShipModuleData> modules)
     {
-
-        //todo: this is pretty inefficient, since it clears and resets all stats for each module. Monitor performance
-        // over time and if there are big lags at startup, consider fine tuning this to only make targeted changes
-        Platform.runLater(()->
-        {
-            resetStats();
-
-            // start with the base armor rating
-            double hullStrength = ship.getBaseShipStats().getArmorRating();
-
-            // buffer used to accumulate hull addition values
-            AtomicReference<Double> hull_reinforcement = new AtomicReference<>(0d);
-
-            // loop through all the modules that can have hull reinforcement. For now, this
-            // means only optional internals, but if this changes in the future, loop through
-            // all relevant modules
-            optionalInternals.stream().forEach(opt->
-            {
-                // first get the stock modification value
-                double addition = opt.getModule().itemEffects().effectStream()
-                        .filter(e->e.getEffect()==ItemEffect.DefenceModifierHealthAddition)
-                        .map(ItemEffectData::getDoubleValue)
-                        .findFirst().orElse(0d);
-
-                // if there's a modifier that changes the stock value, use it instead, otherwise
-                // just use the stock value
-                addition = opt.getModifiers().stream()
-                        .filter(m->m.getEffect() == ItemEffect.DefenceModifierHealthAddition)
-                        .map(ModifierData::getValue)
-                        .findFirst().orElse(addition);
-
-                // accumulate the hull addition this module adds
-                hull_reinforcement.set(hull_reinforcement.get() + addition);
-            });
-
-            // this will hold the hull boost value
-            AtomicReference<Double> hull_boost = new AtomicReference<>(0d);
-
-            // right now, only armour modules can add hull boost, so we can loop through just the core
-            // internals and filter out armour modules
-            coreInternals.stream()
-                    .filter(m->m.getModuleName() == CoreInternalSlot.Armour)
-                    .forEach(mod->
-                    {
-                        // same as hull reinforcement, get the stock value first
-                        Double stock = mod.getModule().itemEffects().effectStream()
-                                .filter(e->e.getEffect()==ItemEffect.DefenceModifierHealthMultiplier)
-                                .map(ItemEffectData::getDoubleValue)
-                                .findFirst().orElse(null);
-
-                        // stock should never be null, but we should check just in case
-                        if (stock != null)
-                        {
-                            hull_boost.set(hullStrength * (stock / 100d));
-                        }
-
-                        // now check if there's a modifier for this value
-                        Double modified = mod.getModifiers().stream()
-                                .filter(m->m.getEffect() == ItemEffect.DefenceModifierHealthMultiplier)
-                                .map(ModifierData::getValue)
-                                .findFirst().orElse(null);
-
-                        // if there's a modifier value, replace the calculated boost value
-                        if (modified != null)
-                        {
-                            hull_boost.set(hullStrength * (modified / 100d));
-                        }
-                    });
-
-            // finally, calculate the final hull strength
-            double finalS = hullStrength + hull_reinforcement.get() + hull_boost.get();
-
-            // round so the output matches the game UI. Note that rounding is done AFTER calculations
-            finalS = Math.round(finalS);
-
-            double armourCausticResistance = 0d;
-            double armourExplosiveResistance = 0d;
-            double armourKineticResistance = 0d;
-            double armourThermalResistance = 0d;
-
-            double shieldStrength = ship.getBaseShipStats().getBaseShield();
-            double shieldExplosiveResistance = 0d;
-            double shieldKineticResistance = 0d;
-            double shieldThermalResistance = 0d;
-
-            statistics.add(new ShipStatisticData(ShipStat.Hull_Strength, finalS));
-            statistics.add(new ShipStatisticData(ShipStat.Armour_Caustic_Resistance, armourCausticResistance));
-            statistics.add(new ShipStatisticData(ShipStat.Armour_Explosive_Resistance, armourExplosiveResistance));
-            statistics.add(new ShipStatisticData(ShipStat.Armour_Kinetic_Resistance, armourKineticResistance));
-            statistics.add(new ShipStatisticData(ShipStat.Armour_Thermal_Resistance, armourThermalResistance));
-
-            statistics.add(new ShipStatisticData(ShipStat.Shield_Strength, shieldStrength));
-            statistics.add(new ShipStatisticData(ShipStat.Shield_Explosive_Resistance, shieldExplosiveResistance));
-            statistics.add(new ShipStatisticData(ShipStat.Shield_Kinetic_Resistance, shieldKineticResistance));
-            statistics.add(new ShipStatisticData(ShipStat.Shield_Thermal_Resistance, shieldThermalResistance));
-        });
+        List<ShipModuleData> buffer = new ArrayList<>(modules);
+        return buffer.stream();
     }
+
+
 
     public ObservableList<ShipStatisticData> getStatistics()
     {
@@ -193,6 +114,16 @@ public class StarShip
     public ObservableStringValue getShipDisplayName()
     {
         return shipDisplayName;
+    }
+
+    public ObservableStringValue getShipGivenName()
+    {
+        return shipGivenName;
+    }
+
+    public ObservableStringValue getShipID()
+    {
+        return shipID;
     }
 
     public ObservableList<ShipModuleData> getCoreInternals()
@@ -210,13 +141,15 @@ public class StarShip
         return hardpoints;
     }
 
-    public void setShipModule(ShipModuleData shipModuleData)
+
+
+    public synchronized void installShipModule(ShipModuleData shipModuleData)
     {
         // todo: perform checking for support in the Ship object
 
         // note the remove() calls in each conditional before the add calls. This may seem strange, but is leveraging
         // the overridden equals() method in the ShipModuleData class to ensure only one module is present in a given
-        // internal slot. This makes it ok to call setShipModule() multiple times with new ShipModuleData objects that
+        // internal slot. This makes it ok to call installShipModule() multiple times with new ShipModuleData objects that
         // contain updated stats (for example, if the player upgrades or changes a mod on an existing item).
 
         if (CoreInternalSlot.typeMatches(shipModuleData.getModuleName()))
@@ -237,6 +170,398 @@ public class StarShip
             hardpoints.add(shipModuleData);
         }
 
+        // todo: determine if this can be delayed until all modules have been added in some cases, to avoid
+        // unnecessary calculations
         calculateCurrentStats();
+    }
+
+    // rounds a double value to a given precision
+    private double round(double value, int precision)
+    {
+        if (precision < 0) return value;
+        BigDecimal decimal = new BigDecimal(value);
+        decimal = decimal.setScale(precision, RoundingMode.HALF_UP);
+        return decimal.doubleValue();
+    }
+
+    /**
+     * Updates ship statistics table to reflect this ships' current characteristics
+     */
+    private void calculateCurrentStats()
+    {
+
+        //todo: this is pretty inefficient, since it clears and resets all stats for each module. Monitor performance
+        // over time and if there are big lags at startup, consider fine tuning this to only make targeted changes
+        Platform.runLater(()->
+        {
+            resetStats();
+
+            double totalHullMass = calculateUnladenHullMass();
+            double hullStrength = calculateCurrentHullStrength();
+            double shieldStrength = calculateCurrentShieldStrength();
+
+            double armourCausticResistance = calculateResistance(ShipStat.Armour_Caustic_Resistance);
+            double armourExplosiveResistance = calculateResistance(ShipStat.Armour_Explosive_Resistance);
+            double armourKineticResistance = calculateResistance(ShipStat.Armour_Kinetic_Resistance);
+            double armourThermalResistance = calculateResistance(ShipStat.Armour_Thermal_Resistance);
+
+            double shieldExplosiveResistance = calculateResistance(ShipStat.Shield_Explosive_Resistance);
+            double shieldKineticResistance = calculateResistance(ShipStat.Shield_Kinetic_Resistance);
+            double shieldThermalResistance = calculateResistance(ShipStat.Shield_Thermal_Resistance);
+
+            statistics.add(new ShipStatisticData(ShipStat.Unladen_Mass, totalHullMass));
+
+            statistics.add(new ShipStatisticData(ShipStat.Shield_Strength, shieldStrength));
+            statistics.add(new ShipStatisticData(ShipStat.Shield_Kinetic_Resistance, shieldKineticResistance));
+            statistics.add(new ShipStatisticData(ShipStat.Shield_Thermal_Resistance, shieldThermalResistance));
+            statistics.add(new ShipStatisticData(ShipStat.Shield_Explosive_Resistance, shieldExplosiveResistance));
+
+            statistics.add(new ShipStatisticData(ShipStat.Hull_Strength, hullStrength));
+            statistics.add(new ShipStatisticData(ShipStat.Armour_Kinetic_Resistance, armourKineticResistance));
+            statistics.add(new ShipStatisticData(ShipStat.Armour_Thermal_Resistance, armourThermalResistance));
+            statistics.add(new ShipStatisticData(ShipStat.Armour_Explosive_Resistance, armourExplosiveResistance));
+            statistics.add(new ShipStatisticData(ShipStat.Armour_Caustic_Resistance, armourCausticResistance));
+        });
+    }
+
+
+    private double mapRange(double a1, double a2, double b1, double b2, double s){
+        return b1 + ((s - a1)*(b2 - b1))/(a2 - a1);
+    }
+
+    double getArmorResistanceTotal(ItemEffect resistanceEffect)
+    {
+        List<Double> resistances = new ArrayList<>();
+
+        safeStream(coreInternals)
+                .filter(module -> module.getModule().modificationType()==ModificationType.Bulkheads)
+                .map(module -> module.getEffectValue(resistanceEffect))
+                .filter(Objects::nonNull)
+                .filter(x->x!=0)
+                .mapToDouble(Double::doubleValue)
+                .map(next -> 100d - next)
+                .map(Math::abs)
+                .map(next -> next / 100d)
+                .forEach(resistances::add);
+
+        safeStream(optionalInternals)
+                .filter(module -> module.getModule().modificationType()==ModificationType.Hull_Reinforcement_Package)
+                .map(module -> module.getEffectValue(resistanceEffect))
+                .filter(Objects::nonNull)
+                .filter(x->x!=0)
+                .mapToDouble(Double::doubleValue)
+                .map(next -> 100d - next)
+                .map(Math::abs)
+                .map(next -> next / 100d)
+                .forEach(resistances::add);
+
+        double rawResistance = resistances.stream()
+                .mapToDouble(Double::doubleValue)
+                .reduce(1, (a,b) -> a*b);
+
+        return 100 - rawResistance * 100d;
+    }
+
+    double getShieldResistanceTotal(ItemEffect resistanceEffect)
+    {
+        List<Double> resistances = new ArrayList<>();
+
+        safeStream(optionalInternals)
+                .filter(module -> module.getModule().modificationType() == ModificationType.Shield_Generator)
+                .map(module -> module.getEffectValue(resistanceEffect))
+                .filter(Objects::nonNull)
+                .filter(x->x!=0)
+                .mapToDouble(Double::doubleValue)
+                .map(next -> 100d - next)
+                .map(next -> next / 100d)
+                .forEach(resistances::add);
+
+        safeStream(hardpoints)
+                .filter(module -> module.getModule().modificationType() == ModificationType.Shield_Booster)
+                .map(module -> module.getEffectValue(resistanceEffect))
+                .filter(Objects::nonNull)
+                .filter(x->x!=0)
+                .mapToDouble(Double::doubleValue)
+                .map(next -> 100d - next)
+                .map(next -> next / 100d)
+                .forEach(resistances::add);
+
+        double rawResistance = resistances.stream()
+                .mapToDouble(Double::doubleValue)
+                .reduce(1, (a,b) -> a*b);
+
+        return 100 - rawResistance * 100d;
+    }
+
+    private double calculateResistance(ShipStat resistanceType)
+    {
+        double calculatedResistance = 0;
+        switch (resistanceType)
+        {
+            case Armour_Caustic_Resistance:
+                calculatedResistance = getArmorResistanceTotal(ItemEffect.CausticResistance);
+                break;
+
+            case Armour_Explosive_Resistance:
+                calculatedResistance = getArmorResistanceTotal(ItemEffect.ExplosiveResistance);
+                break;
+
+            case Armour_Kinetic_Resistance:
+                calculatedResistance = getArmorResistanceTotal(ItemEffect.KineticResistance);
+                break;
+
+            case Armour_Thermal_Resistance:
+                calculatedResistance = getArmorResistanceTotal(ItemEffect.ThermicResistance);
+                break;
+
+            case Shield_Explosive_Resistance:
+                calculatedResistance = getShieldResistanceTotal(ItemEffect.ExplosiveResistance);
+                break;
+
+            case Shield_Kinetic_Resistance:
+                calculatedResistance = getShieldResistanceTotal(ItemEffect.KineticResistance);
+                break;
+
+            case Shield_Thermal_Resistance:
+                calculatedResistance = getShieldResistanceTotal(ItemEffect.ThermicResistance);
+                break;
+
+            default: calculatedResistance = 0;
+        }
+        return round(calculatedResistance, 1);
+    }
+
+    /**
+     * Calculates this ships' current hull strength. This check takes into account bulkhead armour and hull
+     * reinforcement packages, and calculates a hull strength in a manner that should be consistent with what
+     * the game produces in the cockpit UI panels.
+     *
+     * @return a calculated hull strength for this ship
+     */
+    private double calculateCurrentHullStrength()
+    {
+        /*
+        There are two statistics that affect hull strength, "hull boost" and "hull reinforcement".
+
+        At the moment, hull boost can only be affected by bulkhead armour modules, and as a core module there can only
+        be one of them present on any ship. This makes calculating hull boost fairly straightforward, requiring only a
+        simple conversion of the boost multiplier to a percentage, and then multiplying that value by the base hull to
+        determine the actual adjustment to the hull strength it should apply.
+
+        For hull reinforcement, the process is also very easy. Currently there is only one module type that can add
+        reinforcement, which is the Hull Reinforcement Package. Also, unlike hull boost, reinforcement is not a
+        multiplier but a straight adjustment to the ship's hull strength. The process then, is simply to sum the total
+        reinforcement values on all Hull Reinforcement Packages that are installed and add it to the hull strength
+         */
+
+        // start with the base armor rating
+        double hullStrength = ship.getBaseShipStats().getArmorRating();
+
+        // loop through all the modules that can have hull reinforcement. For now, this
+        // means only optional internals, but if this changes in the future, loop through
+        // all relevant modules
+        double hullReinforcement =safeStream(optionalInternals)
+                .map(module -> module.getEffectValue(ItemEffect.DefenceModifierHealthAddition))
+                .filter(Objects::nonNull)
+                .mapToDouble(Double::doubleValue)
+                .sum();
+
+        // right now, only armour modules can add hull boost, so we can loop through just the core
+        // internals and filter in armour modules. In practice, this will only ever find one module
+        double hullBoost = safeStream(coreInternals)
+                .filter(m->m.getModuleName() == CoreInternalSlot.Armour)
+                .map(a->a.getEffectValue(ItemEffect.DefenceModifierHealthMultiplier))
+                .filter(Objects::nonNull)
+                .map(v -> v / 100d)
+                .map(m -> hullStrength * m)
+                .findFirst().orElse(0d);
+
+        // calculate the final hull strength by adding the base bull, plus the boost and reinforcement adjustments
+        double totalHullStrength = hullStrength +  hullBoost + hullReinforcement;
+
+        // round the result to nearest whole number to match the in-game UI
+        return round(totalHullStrength, 0);
+    }
+
+    /**
+     * Calculates this ships' shield hull strength. This check takes into account the installed shield generator and
+     * equipped shield boosters, and calculates a shield strength in a manner that should be consistent with what
+     * the game produces in the cockpit UI panels.
+     *
+     * @return a calculated shield strength for this ship
+     */
+    private double calculateCurrentShieldStrength()
+    {
+        /*
+        Before the total shield strength can be calculated, we must first determine the minimum and maximum mass
+        and strength characteristics of the shield generator. When a modification is a applied to the optimal mass
+        or optimal strength values of a shield generator, it also affects the associated minimum and maximum values
+        of that characteristic. Unfortunately, the Loadout event only contains modified value for the optimal mass
+        and/or strength stats. Fortunately calculating them is fairly easy, simply be determining the % change from
+        the stock value and applying it to the minimum/maximum values as well.
+
+        Note that for mass, the increase is not applied to the maximum value, so an increase in optimal mass will
+        cause an increase in minimum mass, but NOT in maximum mass. For strength values, this is not teh case, and
+        the percentage change is applied to both the minimum and maximum values.
+         */
+
+        // first check for an actual shield generator. The game ensures there will only ever be one generator
+        // equipped, so there should only be one or none.
+        ShipModuleData shieldGenerator = optionalInternals.stream()
+                .filter(m->m.getModule().modificationType() == ModificationType.Shield_Generator)
+                .findAny().orElse(null);
+
+        // no generator means no shields, so just return zero
+        if (shieldGenerator == null) return 0d;
+
+        // get the ships base hull mass, this affects shield strength. Strength calculations only take into
+        // account the base mass, additional modules do not affect strength in-game
+        double hullMass = ship.getBaseShipStats().getHullMass();
+        double maximumMass = shieldGenerator.getEffectValue(ItemEffect.ShieldGenMaximumMass);
+
+        // if the ship's mass exceeds maximum mass, the shield doesn't work
+        if (hullMass > maximumMass) return 0d;
+
+        // get the stock optimal mass so we can check for modifications
+        double stockOptimalMass = shieldGenerator.getModule().itemEffects().effectStream()
+                .filter(itemEffect -> itemEffect.getEffect() == ItemEffect.ShieldGenOptimalMass)
+                .map(ItemEffectData::getDoubleValue)
+                .findFirst().orElse(0d);
+
+        // get the actual optimal and minimum mass values. if unmodified, optimal mass will match the stock value
+        double optimalMass = shieldGenerator.getEffectValue(ItemEffect.ShieldGenOptimalMass);
+        double minimumMass = shieldGenerator.getEffectValue(ItemEffect.ShieldGenMinimumMass);
+
+        // if optimal mass was modified, we need to update minimum mass. Note that maximum mass is NOT adjusted,
+        // no known mods currently affect maximum mass of shield generators
+        if (optimalMass != stockOptimalMass)
+        {
+            // figure out how much the modification adjustment was
+            double diff = optimalMass - stockOptimalMass;
+
+            // figure out what the percentage adjustment to the stock value was
+            double percentageAdjustment = diff / stockOptimalMass;
+
+            // apply the same percentage change to calculate the minimum mass adjustment
+            double minMassAdjustment = minimumMass * percentageAdjustment;
+
+            // adjust the minimum mass
+            minimumMass += minMassAdjustment;
+        }
+
+        // get the stock optimal strength so we can check for modifications
+        double stockOptimalStrength = shieldGenerator.getModule().itemEffects().effectStream()
+                .filter(e->e.getEffect()==ItemEffect.ShieldGenStrength)
+                .map(ItemEffectData::getDoubleValue)
+                .findFirst().orElse(0d);
+
+        // get the actual optimal, minimum, and maximum values. As with mass, optimal will
+        // equal stock if there is no modification applied. However, unlike mass, the modification
+        // change must be applied to the maximum as well as the minimum
+        double optimalStrength = shieldGenerator.getEffectValue(ItemEffect.ShieldGenStrength);
+        double minimumStrength = shieldGenerator.getEffectValue(ItemEffect.ShieldGenMinStrength);
+        double maximumStrength = shieldGenerator.getEffectValue(ItemEffect.ShieldGenMaxStrength);
+
+        // if optimal strength was modified, we need to calculate adjusted minimum and maximum strength values
+        if (optimalStrength != stockOptimalStrength)
+        {
+            // figure out how much the modification adjustment was
+            double diff = optimalStrength - stockOptimalStrength;
+
+            // figure out what the percentage adjustment to the stock value was
+            double percentageAdjustment = diff / stockOptimalStrength;
+
+            // apply the same percentage change to calculate the minimum and maximum strength adjustments
+            double minStrengthAdjustment = minimumStrength * percentageAdjustment;
+            double maxStrengthAdjustment = maximumStrength * percentageAdjustment;
+
+            // adjust the minimum and maximum strengths
+            minimumStrength += minStrengthAdjustment;
+            maximumStrength += maxStrengthAdjustment;
+        }
+
+        /*
+        Now we can start actually calculating the final shield value. Shields are adjusted by two separate multipliers
+        to get the final value.
+
+        The first multiplier is calculated based on the difference between the base hull mass
+        of the ship and the optimal mass value of the equipped shield generator. If the hull mass is lower than optimal,
+        the shield will be stronger and above optimal it will be weaker. Both the upper and lower ends of the scale are
+        clamped at the minimum and maximum mass values, so a hull mass lower than the minimum will receive a strength
+        increase equal to what it would get if were exactly the minimum mass.
+
+        The second multiplier is more straightforward, calculated by taking the sum of shield boost values of all
+        equipped shield boosters and adding 1. Effectively, this means the multiplier becomes 1 if no shield boosters
+        are fitted, causing no change to the calculated shield strength
+         */
+
+        // start with the base shield value
+        double baseShield = ship.getBaseShipStats().getShield();
+
+        // calculate strength differences for the min/max range and the optimal/minimum strengths
+        double strengthRangeDifference = maximumStrength - minimumStrength;
+        double optimalStrengthDifference = optimalStrength - minimumStrength;
+
+        // calculate the mass differences for the min/max range, maximum/ hull mass, and max/optimal mass
+        double massRangeDifference = maximumMass - minimumMass;
+        double maxHullDifference = maximumMass - hullMass;
+        double maxOptimalDifference = maximumMass - optimalMass;
+
+        // calculate hull mass and optimal mass ratios
+        double hullMassRatio = maxHullDifference / massRangeDifference;
+        double optimalMassRatio = maxOptimalDifference / massRangeDifference;
+
+        // calculate the optimal/range strength ratio
+        double strengthRatio = optimalStrengthDifference / strengthRangeDifference;
+
+        // calculate mass factors for the hull and optimal masses, maxing out at 1
+        double hullMassFactor = Math.min(1, hullMassRatio);
+        double optimalMassFactor = Math.min(1, optimalMassRatio);
+
+        // calculate a strength exponent to apply to the hull mass factor
+        double strengthExponent = Math.log(strengthRatio) / Math.log(optimalMassFactor);
+
+        // calculate the final shield power modifier
+        double strengthPower = Math.pow(hullMassFactor, strengthExponent);
+
+        // calculate the total shield multiplier and divide by 100, since it is applied as a percentage increase
+        double shieldMultiplier = (minimumStrength + strengthPower * strengthRangeDifference) / 100d;
+
+        // calculate the sum of 1 + all shield booster values, and divide by 100 for use as a percentage increase
+        double accumulatedBoost = 1 + safeStream(hardpoints)
+                .filter(hardpoint -> hardpoint.getModule().modificationType()==ModificationType.Shield_Booster)
+                .map(hardpoint -> hardpoint.getEffectValue(ItemEffect.DefenceModifierShieldMultiplier))
+                .filter(Objects::nonNull)
+                .mapToDouble(Double::doubleValue)
+                .sum() / 100d;
+
+        // apply all the multipliers to the ship's base shield value to calculate the total shield strength
+        double calculatedShield = baseShield * shieldMultiplier * accumulatedBoost;
+
+        // round the result to nearest whole number to match the in-game UI
+        return round(calculatedShield, 0);
+    }
+
+    private double calculateUnladenHullMass()
+    {
+        List<ShipModuleData> buffer = new ArrayList<>();
+
+        double hullMass = ship.getBaseShipStats().getHullMass();
+
+        buffer.addAll(coreInternals);
+        buffer.addAll(optionalInternals);
+        buffer.addAll(hardpoints);
+
+        double moduleMass = buffer.stream()
+                .map(module -> module.getEffectValue(ItemEffect.Mass))
+                .filter(Objects::nonNull)
+                .mapToDouble(Double::doubleValue)
+                .sum();
+
+        double totalHullMass = //currentFuel +
+                hullMass + moduleMass;
+
+        // round the result to 1 decimal place to match the in-game UI
+        return round(totalHullMass, 1);
     }
 }
