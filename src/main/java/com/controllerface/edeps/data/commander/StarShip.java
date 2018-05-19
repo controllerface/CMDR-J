@@ -259,7 +259,15 @@ public class StarShip
                 .mapToDouble(Double::doubleValue)
                 .reduce(1, (a,b) -> a*b);
 
-        return 100 - rawResistance * 100d;
+        double calculatedResistance = 100 - rawResistance * 100d;
+
+
+        if (calculatedResistance > 25)
+        {
+            calculatedResistance = mapRange(25, 100, 25, 75, calculatedResistance);
+        }
+
+        return calculatedResistance;
     }
 
     double getShieldResistanceTotal(ItemEffect resistanceEffect)
@@ -290,7 +298,15 @@ public class StarShip
                 .mapToDouble(Double::doubleValue)
                 .reduce(1, (a,b) -> a*b);
 
-        return 100 - rawResistance * 100d;
+        double calculatedResistance = 100 - rawResistance * 100d;
+
+
+        if (calculatedResistance > 50 && resistanceEffect != ItemEffect.ExplosiveResistance)
+        {
+            calculatedResistance = mapRange(50, 100, 50, 75, calculatedResistance);
+        }
+
+        return calculatedResistance;
     }
 
     private double calculateResistance(ShipStat resistanceType)
