@@ -293,6 +293,13 @@ public class UIController
     private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> adjustBlueprint =
             procurementListUpdate::apply;
 
+    private final BiConsumer<ProcurementCost, Integer> adjustItem =
+            (a, b) ->
+            {
+                commanderData.adjustItem(a, b);
+                if (taskCostTable != null) taskCostTable.refresh();
+            };
+
     /*
     Consumer function that accepts a ProcurementTaskData and adds it to the procurement list. If the task already exists in the
     list, this effectively increments the count of that by 1
@@ -314,7 +321,7 @@ public class UIController
 
         // transaction processor
         Runnable transactionProcessingTask =
-                new TransactionProcessingTask(this::syncUI, commanderData::adjustItem, adjustBlueprint, transactionQueue);
+                new TransactionProcessingTask(this::syncUI, adjustItem, adjustBlueprint, transactionQueue);
 
         Thread transactionThread = new Thread(transactionProcessingTask);
         transactionThread.setDaemon(true);

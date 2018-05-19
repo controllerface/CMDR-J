@@ -296,7 +296,7 @@ public class StarShip
 
         double rawResistance = resistances.stream()
                 .mapToDouble(Double::doubleValue)
-                .reduce(1, (a,b) -> a*b);
+                .reduce(1, (a, b) -> a * b);
 
         double calculatedResistance = 100 - rawResistance * 100d;
 
