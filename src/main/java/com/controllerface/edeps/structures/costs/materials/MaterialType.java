@@ -10,47 +10,47 @@ import java.util.stream.Stream;
  */
 public enum MaterialType
 {
-    RAW(MaterialCategory.Raw_Elements_1,
-            MaterialCategory.Raw_Elements_2,
-            MaterialCategory.Raw_Elements_3,
-            MaterialCategory.Raw_Elements_4,
-            MaterialCategory.Raw_Elements_5,
-            MaterialCategory.Raw_Elements_6,
-            MaterialCategory.Raw_Elements_7),
+    RAW(MaterialSubCategory.Raw_Elements_1,
+            MaterialSubCategory.Raw_Elements_2,
+            MaterialSubCategory.Raw_Elements_3,
+            MaterialSubCategory.Raw_Elements_4,
+            MaterialSubCategory.Raw_Elements_5,
+            MaterialSubCategory.Raw_Elements_6,
+            MaterialSubCategory.Raw_Elements_7),
 
-    MANUFACTURED(MaterialCategory.Chemical,
-            MaterialCategory.Thermic,
-            MaterialCategory.Heat,
-            MaterialCategory.Conductive,
-            MaterialCategory.Mechanical_Components,
-            MaterialCategory.Capacitors,
-            MaterialCategory.Shielding,
-            MaterialCategory.Composite,
-            MaterialCategory.Crystals,
-            MaterialCategory.Alloys,
-            MaterialCategory.Thargoid_Technology,
-            MaterialCategory.Guardian_Technology),
+    MANUFACTURED(MaterialSubCategory.Chemical,
+            MaterialSubCategory.Thermic,
+            MaterialSubCategory.Heat,
+            MaterialSubCategory.Conductive,
+            MaterialSubCategory.Mechanical_Components,
+            MaterialSubCategory.Capacitors,
+            MaterialSubCategory.Shielding,
+            MaterialSubCategory.Composite,
+            MaterialSubCategory.Crystals,
+            MaterialSubCategory.Alloys,
+            MaterialSubCategory.Thargoid_Technology,
+            MaterialSubCategory.Guardian_Technology),
 
-    ENCODED(MaterialCategory.Emission_Data,
-            MaterialCategory.Wake_Scans,
-            MaterialCategory.Shield_Data,
-            MaterialCategory.Encryption_Files,
-            MaterialCategory.Data_Archives,
-            MaterialCategory.Encoded_Firmware,
-            MaterialCategory.Thargoid_Data,
-            MaterialCategory.Guardian_Blueprint_Data,
-            MaterialCategory.Guardian_Obelisk_Data),
+    ENCODED(MaterialSubCategory.Emission_Data,
+            MaterialSubCategory.Wake_Scans,
+            MaterialSubCategory.Shield_Data,
+            MaterialSubCategory.Encryption_Files,
+            MaterialSubCategory.Data_Archives,
+            MaterialSubCategory.Encoded_Firmware,
+            MaterialSubCategory.Thargoid_Data,
+            MaterialSubCategory.Guardian_Blueprint_Data,
+            MaterialSubCategory.Guardian_Obelisk_Data),
 
     UNKNOWN();
 
-    private final MaterialCategory[] categories;
+    private final MaterialSubCategory[] categories;
 
-    MaterialType(MaterialCategory ... categories)
+    MaterialType(MaterialSubCategory... categories)
     {
         this.categories = categories;
     }
 
-    public Stream<MaterialCategory> categories()
+    public Stream<MaterialSubCategory> categories()
     {
         return Arrays.stream(categories);
     }

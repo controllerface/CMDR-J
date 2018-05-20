@@ -1,6 +1,7 @@
 package com.controllerface.edeps.ui.costs;
 
 import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
@@ -13,6 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import java.util.stream.Collectors;
 
 /**
  * Created by Stephen on 4/26/2018.
@@ -37,9 +40,9 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
             VBox descriptionContainer = new VBox();
             descriptionContainer.setAlignment(Pos.CENTER);
 
-            Accordion accordion = new Accordion();
             TitledPane titledPane = new TitledPane();
             titledPane.setAnimated(false);
+            titledPane.setExpanded(false);
 
             HBox hbox = new HBox();
 
@@ -98,8 +101,25 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
             titledPane.setGraphic(hbox);
             hbox.setAlignment(Pos.CENTER);
 
-            accordion.getPanes().add(titledPane);
-            descriptionContainer.getChildren().add(accordion);
+            descriptionContainer.getChildren().add(titledPane);
+
+            if (progress < 1.0 && item.getCost() instanceof Material)
+            {
+                Material costMaterial = ((Material) item.getCost());
+                if (costMaterial.getBlueprint().recipeStream().count() > 0)
+                {
+                    locationContainer.getChildren().add(new Separator());
+
+                    String test = ((Material) item.getCost()).getBlueprint().recipeStream()
+                            .map(ProcurementRecipe::getDisplayLabel)
+                            .collect(Collectors.joining("\n"));
+
+                    Label trades = new Label(test);
+                    trades.setFont(UIFunctions.Fonts.size1Font);
+
+                    locationContainer.getChildren().add(trades);
+                }
+            }
 
             setGraphic(descriptionContainer);
         }

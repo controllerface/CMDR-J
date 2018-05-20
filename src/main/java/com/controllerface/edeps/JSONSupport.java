@@ -65,5 +65,21 @@ public class JSONSupport
                 return false;
             }
         };
+
+        public static final Function<Map<String, Object>, String> jsonToString = (jsonObject) ->
+        {
+            try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream())
+            {
+                ObjectMapper mapper = new ObjectMapper();
+                ObjectWriter writer = mapper.writer();
+                writer.writeValue(outputStream, jsonObject);
+                return outputStream.toString();
+            }
+            catch (Exception e)
+            {
+                System.err.println("Error serializing JSON: ");
+                return "";
+            }
+        };
     }
 }

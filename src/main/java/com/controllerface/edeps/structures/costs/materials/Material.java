@@ -1,11 +1,17 @@
 package com.controllerface.edeps.structures.costs.materials;
 
+import com.controllerface.edeps.ProcurementBlueprint;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
+import com.controllerface.edeps.data.MaterialTradeRecipe;
+import com.controllerface.edeps.data.procurements.CostData;
+import com.controllerface.edeps.data.procurements.MaterialTradeBlueprint;
 import com.controllerface.edeps.structures.equipment.ItemGrade;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * An enumeration of all the crafting materials in Elite: Dangerous
@@ -189,10 +195,25 @@ public enum Material implements ProcurementCost
     private String locationInformation;
     private final List<ProcurementRecipe> associated = new ArrayList<>();
 
+    private final List<Pair<CostData, Integer>> tradeCosts = new ArrayList<>();
+
     Material(ItemGrade grade)
     {
         this.locationInformation = name();
         this.grade = grade;
+    }
+
+    // used to add a cost of some other material which can be paid to procure some number of this material in trade
+    public void addTradeCost(CostData tradeCost, int count)
+    {
+        tradeCosts.add(new Pair<>(tradeCost, -1 * count));
+    }
+
+    public ProcurementBlueprint getBlueprint()
+    {
+        return new MaterialTradeBlueprint(this, tradeCosts.stream()
+                .map(c->new MaterialTradeRecipe(c.getKey(), new CostData(this, c.getValue())))
+                .collect(Collectors.toList()));
     }
 
     public void setLocationInformation(String locationInformation)

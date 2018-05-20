@@ -2,7 +2,7 @@ package com.controllerface.edeps.data.commander;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.structures.costs.materials.Material;
-import com.controllerface.edeps.structures.costs.materials.MaterialCategory;
+import com.controllerface.edeps.structures.costs.materials.MaterialSubCategory;
 import com.controllerface.edeps.structures.costs.materials.MaterialType;
 
 /**
@@ -25,7 +25,7 @@ public class ManufacturedInventoryStorageBin extends InventoryStorageBin
     public void init()
     {
         MaterialType.MANUFACTURED.categories()
-                .flatMap(MaterialCategory::materials)
+                .flatMap(MaterialSubCategory::materials)
                 .forEach(material -> addItem(material,0));
     }
 }

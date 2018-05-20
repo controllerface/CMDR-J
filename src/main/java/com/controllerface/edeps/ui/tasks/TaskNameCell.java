@@ -80,7 +80,9 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
             item.asPair().getValue().costStream()
                     .map(c->
                     {
-                        boolean hasEnough = checkInventory.apply(c.getCost()) >= c.getQuantity() * item.getCount();
+                        boolean isYield = c.getQuantity() < 0;
+                        boolean hasEnough = isYield ||
+                                checkInventory.apply(c.getCost()) >= c.getQuantity() * item.getCount();
                         return UIFunctions.Convert.costToLabel.apply(hasEnough, c);
                     })
                     .forEach(label -> costEffectContainer.getChildren().add(label));
@@ -119,6 +121,7 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
         AtomicInteger accumulatedTotal = new AtomicInteger(0);
 
         int missing = procurementRecipeData.asPair().getValue().costStream()
+                .filter(c->c.getQuantity() > 0)
                 .mapToInt(cost->
                 {
                     int banked = checkInventory.apply(cost.getCost());

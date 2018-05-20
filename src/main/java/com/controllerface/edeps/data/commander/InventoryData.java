@@ -2,7 +2,7 @@ package com.controllerface.edeps.data.commander;
 
 import com.controllerface.edeps.ProcurementCategory;
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.structures.costs.materials.MaterialCategory;
+import com.controllerface.edeps.structures.costs.materials.MaterialSubCategory;
 
 /**
  * Created by Stephen on 3/27/2018.
@@ -22,7 +22,7 @@ public class InventoryData
         this.material = material;
 
         // todo: stop needing category here, do a runtime lookup instead
-        this.category = MaterialCategory.findMatchingCategory(material);
+        this.category = MaterialSubCategory.findMatchingSubCategory(material);
 
         this.quantity = quantity;
     }

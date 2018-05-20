@@ -215,7 +215,11 @@ public class UIFunctions
 
         public static BiFunction<Boolean, CostData, Label> costToLabel = (hasEnough, cost) ->
         {
-            Label next = new Label(cost.getQuantity() + "x " + cost.getCost().getLocalizedName());
+            String quantity = cost.getQuantity() < 0
+                    ? "+" + Math.abs(cost.getQuantity())
+                    : "-" + cost.getQuantity();
+
+            Label next = new Label(quantity + "x " + cost.getCost().getLocalizedName());
             next.setFont(Fonts.size1Font);
             next.setTextFill(hasEnough ? Fonts.neutralBlack : Fonts.negativeRed);
             return next;

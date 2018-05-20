@@ -1,6 +1,7 @@
 package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.*;
+import com.controllerface.edeps.data.MaterialTradeRecipe;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.commander.ShipStatisticData;
@@ -11,6 +12,8 @@ import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
 import com.controllerface.edeps.data.commander.CommanderData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.costs.materials.MaterialSubCategory;
+import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalCategory;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
@@ -59,6 +62,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * UI Controller class for Elite Dangerous Engineer Procurement System
@@ -215,6 +219,7 @@ public class UIController
                             // possible if another task requires some amount of the same material as this one.
                             // Otherwise, duplicate entries will end up in the list
                             recipe.getValue().costStream()
+                                    .filter(costData -> costData.getQuantity() > 0)
                                     .map(CostData::getCost)
                                     .filter(taskCost -> taskCostBackingList.stream()
                                             .noneMatch(knownCost -> knownCost.getCost().equals(taskCost)))
@@ -258,6 +263,7 @@ public class UIController
                     // we find all the costs of this recipe, and multiply the required cost by the difference of the
                     // task adjustment
                     List<CostData> costAdjustments = recipe.getValue().costStream()
+                            .filter(costData -> costData.getQuantity() > 0)
                             .map(taskCost -> new CostData(taskCost.getCost(), taskCost.getQuantity() * diff))
                             .collect(Collectors.toList());
 
@@ -727,12 +733,34 @@ public class UIController
         {
             Platform.runLater(() -> hardpointList.getSelectionModel().clearSelection());
         });
+    }
 
-
-
-
-
-
+    private TreeItem<ProcurementTaskData> makeTradeTree()
+    {
+        TreeItem<ProcurementTaskData> materialTrades = new TreeItem<>(new ProcurementTaskData("Material Trades"));
+        Stream.of(MaterialTradeType.values())
+                .forEach(tradeCategory ->
+                {
+                    TreeItem<ProcurementTaskData> categoryItem =
+                            new TreeItem<>(new ProcurementTaskData(tradeCategory.toString()));
+                    tradeCategory.subCategoryStream()
+                            .filter(subCategory -> subCategory != MaterialSubCategory.UNKNOWN)
+                            .forEach(subCategory ->
+                            {
+                                TreeItem<ProcurementTaskData> subCatItem =
+                                        new TreeItem<>(new ProcurementTaskData(subCategory.toString()));
+                                subCategory.materials()
+                                        .forEach(material ->
+                                        {
+                                            TreeItem<ProcurementTaskData> bluePrintItem =
+                                                    new TreeItem<>(new ProcurementTaskData(tradeCategory, material.getBlueprint()));
+                                             subCatItem.getChildren().add(bluePrintItem);
+                                        });
+                                categoryItem.getChildren().add(subCatItem);
+                            });
+                    materialTrades.getChildren().add(categoryItem);
+                });
+        return materialTrades;
     }
 
     private TreeItem<ProcurementTaskData> makeSynthesisTree()
@@ -892,7 +920,8 @@ public class UIController
         TreeItem<ProcurementTaskData> root = new TreeItem<>(new ProcurementTaskData("root"));
 
         // create and add the various procurement sub-trees to the root object
-        root.getChildren().addAll(makeSynthesisTree(),
+        root.getChildren().addAll(makeTradeTree(),
+                makeSynthesisTree(),
                 makeModTree(),
                 makeExperimentTree(),
                 makeTechnologyTree());
@@ -1074,11 +1103,6 @@ public class UIController
                     commodity.setLocalizedName(((String) value));
                 });
 
-
-
-
-
-
         InputStream locStream = null;
         try
         {
@@ -1111,8 +1135,6 @@ public class UIController
 
                     commodity.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
                 });
-
-
     }
 
     private void toJson() throws IOException
@@ -1122,9 +1144,16 @@ public class UIController
         List<Map<String, Object>> tasks = taskBackingList.stream()
                 .map(e->
                 {
+                    // todo: it may be beneficial to store the JSON output logic inside the procurement type
+                    // implementation, so if it needs to be different (ex: trade recipes) this code can delegate
+                    // to another class that has the specific serialization logic
+
                     Pair<ProcurementType, ProcurementRecipe> pair = e.asPair();
                     ProcurementType type = pair.getKey();
                     ProcurementRecipe recipe = pair.getValue();
+
+                    boolean isTrade = type instanceof MaterialTradeType;
+
                     Integer count = e.getCount();
 
                     String procType = type.getClass().getSimpleName();
@@ -1133,9 +1162,17 @@ public class UIController
                     String recipeType = recipe.getClass().getSimpleName();
                     String recipeName = recipe.getName();
 
+                    //todo: if this is a trade recipe, we need to write the price/product costs in the JSON object
+
                     Map<String, Object> procTypedata = new LinkedHashMap<>();
                     procTypedata.put(procType, procName);
-                    procTypedata.put(recipeType, recipeName);
+
+                    if (isTrade)
+                    {
+                        procTypedata.put(recipeType, ((MaterialTradeRecipe) recipe).serializeRecipe());
+                    }
+                    else procTypedata.put(recipeType, recipeName);
+
                     procTypedata.put("Count", count);
 
                     return procTypedata;
@@ -1148,6 +1185,7 @@ public class UIController
         JSONSupport.Write.jsonToFile.apply(file, data);
     }
 
+    @SuppressWarnings("unchecked")
     private void fromJson()
     {
         File file = new File("data.json");
@@ -1165,6 +1203,9 @@ public class UIController
         List<Map<String, Object>> tasks = ((List<Map<String, Object>>) data.get("tasks"));
         tasks.forEach(taskEntry ->
         {
+            //todo: if this is a trade recipe, we need to read the price/product costs in the JSON object
+
+
             AtomicReference<ProcurementType> procType = new AtomicReference<>();
             AtomicReference<ProcurementRecipe> recipeType = new AtomicReference<>();
             AtomicInteger count = new AtomicInteger(0);
@@ -1174,44 +1215,55 @@ public class UIController
                 switch (key)
                 {
                     case "ExperimentalType":
-                        procType.set(ExperimentalType.valueOf(((String) value)));
+                        procType.set(ExperimentalType.valueOf((String) value));
                         break;
 
                     case "ModificationType":
-                        procType.set(ModificationType.valueOf(((String) value)));
+                        procType.set(ModificationType.valueOf((String) value));
                         break;
 
                     case "SynthesisType":
-                        procType.set(SynthesisType.valueOf(((String) value)));
+                        procType.set(SynthesisType.valueOf((String) value));
                         break;
 
                     case "TechnologyType":
-                        procType.set(TechnologyType.valueOf(((String) value)));
+                        procType.set(TechnologyType.valueOf((String) value));
+                        break;
+
+                    case "MaterialTradeType":
+                        procType.set(MaterialTradeType.valueOf((String) value));
                         break;
 
                     case "ExperimentalRecipe":
-                        recipeType.set(ExperimentalRecipe.valueOf(((String) value)));
+                        recipeType.set(ExperimentalRecipe.valueOf((String) value));
                         break;
 
                     case "ModificationRecipe":
-                        recipeType.set(ModificationRecipe.valueOf(((String) value)));
+                        recipeType.set(ModificationRecipe.valueOf((String) value));
                         break;
 
                     case "WeaponModificationRecipe":
-                        recipeType.set(WeaponModificationRecipe.valueOf(((String) value)));
+                        recipeType.set(WeaponModificationRecipe.valueOf((String) value));
                         break;
 
                     case "SynthesisRecipe":
-                        recipeType.set(SynthesisRecipe.valueOf(((String) value)));
+                        recipeType.set(SynthesisRecipe.valueOf((String) value));
                         break;
 
                     case "TechnologyRecipe":
-                        recipeType.set(TechnologyRecipe.valueOf(((String) value)));
+                        recipeType.set(TechnologyRecipe.valueOf((String) value));
                         break;
 
                     case "Count":
-                        count.set(((Integer) value));
+                        count.set((Integer) value);
                         break;
+
+                    case "MaterialTradeRecipe":
+                        recipeType.set(MaterialTradeRecipe.deserializeRecipe(((Map<String, Object>) value)));
+                        break;
+
+                    default:
+                        System.out.println("UNSUPPORTED: "+key);
                 }
             });
 

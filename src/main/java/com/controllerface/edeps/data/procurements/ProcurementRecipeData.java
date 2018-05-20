@@ -56,6 +56,8 @@ public class ProcurementRecipeData
 
     public boolean matches(Pair<ProcurementType, ProcurementRecipe> pair)
     {
+        // todo: need logic for trade recipes, check costs/products to determine match
+
         return recipe == pair.getValue() && type == pair.getKey();
     }
 }

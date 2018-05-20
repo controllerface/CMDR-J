@@ -16,11 +16,11 @@ public enum ItemGrade
     GRADE_4(4, "Grade 4"),
     GRADE_5(5, "Grade 5"),
 
-    VERY_COMMON(1, "Very Common"),
-    COMMON(2, "Common"),
-    STANDARD(3, "Standard"),
-    RARE(4, "Rare"),
-    VERY_RARE(5, "Very Rare"),
+    VERY_COMMON(1, 300, "Very Common"),
+    COMMON(2, 250, "Common"),
+    STANDARD(3, 200, "Standard"),
+    RARE(4, 150, "Rare"),
+    VERY_RARE(5, 100, "Very Rare"),
 
     /*
     Used for Engineer experimental effects
@@ -54,20 +54,34 @@ public enum ItemGrade
     Rare(7, "Rare Commodity", "Exclusive to Star Port"),    // rare commodities, from specific star ports
     Faction(8, "Faction", "Power Play Faction Contact"), // power play specific items
 
+    MaterialTrade(0, -1, "Trade"),
+
     ;
 
     private final int numericalValue;
+    private final int maximumQuantity;
     private final String text;
     private final String locationDescription;
 
     ItemGrade(int numericalValue, String text)
     {
-        this(numericalValue, text, "");
+        this(numericalValue, -1, text, "");
+    }
+
+    ItemGrade(int numericalValue, int maximumQuantity, String text)
+    {
+        this(numericalValue, maximumQuantity, text, "");
     }
 
     ItemGrade(int numericalValue, String text, String locationDescription)
     {
+        this(numericalValue, -1, text, locationDescription);
+    }
+
+    ItemGrade(int numericalValue, int maximumQuantity, String text, String locationDescription)
+    {
         this.numericalValue = numericalValue;
+        this.maximumQuantity = maximumQuantity;
         this.text = text;
         this.locationDescription = locationDescription;
     }
@@ -86,6 +100,11 @@ public enum ItemGrade
     public int getNumericalValue()
     {
         return numericalValue;
+    }
+
+    public int getMaximumQuantity()
+    {
+        return maximumQuantity;
     }
 
     public static int compare(ItemGrade a, ItemGrade b)

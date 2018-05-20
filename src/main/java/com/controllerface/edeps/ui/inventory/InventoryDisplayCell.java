@@ -6,7 +6,7 @@ import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.commodities.CommodityCategory;
 import com.controllerface.edeps.structures.costs.materials.Material;
-import com.controllerface.edeps.structures.costs.materials.MaterialCategory;
+import com.controllerface.edeps.structures.costs.materials.MaterialSubCategory;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalBlueprint;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
@@ -49,40 +49,14 @@ public class InventoryDisplayCell extends TableCell<InventoryData, InventoryData
 
         ProcurementCost cost = item.getItem();
         String category = "";
-        if (cost instanceof Material) category = MaterialCategory.findMatchingCategory(cost).toString();
+        if (cost instanceof Material) category = MaterialSubCategory.findMatchingSubCategory(cost).toString();
         else if (cost instanceof Commodity) category = CommodityCategory.findMatchingCategory(cost).toString();
 
         String materialName = category + " :: " + item.getItem().getLocalizedName();
 
         ItemGrade grade =item.getItem().getGrade();
 
-        int maximum;
-        switch (grade)
-        {
-            case VERY_COMMON:
-                maximum = 300;
-                break;
-
-            case COMMON:
-                maximum = 250;
-                break;
-
-            case STANDARD:
-                maximum = 200;
-                break;
-
-            case RARE:
-                maximum = 150;
-                break;
-
-            case VERY_RARE:
-                maximum = 100;
-                break;
-
-            default:
-                maximum = -1;
-                break;
-        }
+        int maximum = grade.getMaximumQuantity();
 
         int quantity = item.getQuantity();
 

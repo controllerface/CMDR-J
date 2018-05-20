@@ -59,6 +59,7 @@ public class ProcurementListCell extends ListCell<ProcurementTaskData>
             List<CostData> data = this.getItem()
                     .getRecipe()
                     .costStream()
+                    .filter(c->c.getQuantity() > 0)
                     .collect(Collectors.toList());
 
             int count = data.size();
@@ -139,6 +140,7 @@ public class ProcurementListCell extends ListCell<ProcurementTaskData>
             progressIndicator.setStyle("-fx-accent: #00b3f7;");
 
             String msg = data.stream()
+                    .filter(d -> d.getQuantity() > 0)
                     .map(d-> checkMat.apply(d.getCost()) + " x " +
                             d.getCost().getLocalizedName()).collect(Collectors.joining("\n","\n","\n"));
 
@@ -151,6 +153,7 @@ public class ProcurementListCell extends ListCell<ProcurementTaskData>
             String suffix = missingSet.size() > 1 ? "s" : "";
             String missingMessage = "You need the following component" + suffix + " to craft this item:" +
                     missingSet.stream()
+                            .filter(x -> x.getQuantity() > 0)
                             .map(x-> x.getQuantity()+ " x " + x.getCost().getLocalizedName())
                             .collect(Collectors.joining("\n","\n","\n"));
 
