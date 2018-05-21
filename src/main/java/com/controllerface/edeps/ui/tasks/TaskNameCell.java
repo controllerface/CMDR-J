@@ -83,7 +83,15 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
                         boolean isYield = c.getQuantity() < 0;
                         boolean hasEnough = isYield ||
                                 checkInventory.apply(c.getCost()) >= c.getQuantity() * item.getCount();
-                        return UIFunctions.Convert.costToLabel.apply(hasEnough, c);
+
+                        String quantity = c.getQuantity() < 0
+                                ? "+" + Math.abs(c.getQuantity()) * item.getCount()
+                                : "-" + c.getQuantity() * item.getCount();
+
+                        Label next = new Label(quantity + "x " + c.getCost().getLocalizedName());
+                        next.setFont(UIFunctions.Fonts.size1Font);
+                        next.setTextFill(hasEnough ? UIFunctions.Fonts.neutralBlack : UIFunctions.Fonts.negativeRed);
+                        return next;
                     })
                     .forEach(label -> costEffectContainer.getChildren().add(label));
 

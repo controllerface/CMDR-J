@@ -1,6 +1,7 @@
 package com.controllerface.edeps.data;
 
 import com.controllerface.edeps.structures.equipment.ItemEffect;
+import com.controllerface.edeps.ui.UIFunctions;
 
 /**
  * Created by Stephen on 5/13/2018.
@@ -22,7 +23,7 @@ public class ItemEffectData
     {
         this.effect = effect;
         this.doubleValue = doubleValue;
-        this.stringValue = doubleValue == Double.MAX_VALUE ? "Infinity" : null;
+        this.stringValue = doubleValue == Double.MAX_VALUE ? UIFunctions.Symbols.INFINITY : null;
     }
 
     public ItemEffect getEffect()

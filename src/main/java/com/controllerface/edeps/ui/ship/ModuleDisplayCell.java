@@ -15,6 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 

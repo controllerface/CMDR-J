@@ -115,6 +115,7 @@ public class JournalSyncTask implements Runnable
     private final BlockingQueue<UserTransaction> transactions;
 
     private Path journalPath;
+    private File journalFile;
     private final AtomicInteger lastLine = new AtomicInteger(0);
     private final AtomicReference<String> currentJournalFile = new AtomicReference<>("");
 
@@ -199,25 +200,7 @@ public class JournalSyncTask implements Runnable
 
                         if (next.getName().equals(currentJournalFile.get()))
                         {
-                            FileReader reader = null;
-                            try
-                            {
-                                AtomicInteger currentLine = new AtomicInteger(0);
-                                reader = new FileReader(next);
-                                BufferedReader buf = new BufferedReader(reader);
-                                buf.lines().forEach((rawEvent) ->
-                                {
-                                    if (currentLine.incrementAndGet() > lastLine.get())
-                                    {
-                                        if (hasSupportedEvent.test(rawEvent)) processJSONEvent(rawEvent);
-                                    }
-                                });
-                                lastLine.set(currentLine.get());
-                            }
-                            catch (FileNotFoundException e1)
-                            {
-                                e1.printStackTrace();
-                            }
+                            processJournalFile(next);
                         }
                         else
                         {
@@ -229,10 +212,36 @@ public class JournalSyncTask implements Runnable
         }
     }
 
+    private void processJournalFile(File file)
+    {
+
+        FileReader reader = null;
+        try
+        {
+            AtomicInteger currentLine = new AtomicInteger(0);
+            reader = new FileReader(file);
+            BufferedReader buf = new BufferedReader(reader);
+            buf.lines().forEach((rawEvent) ->
+            {
+                if (currentLine.incrementAndGet() > lastLine.get())
+                {
+                    if (hasSupportedEvent.test(rawEvent)) processJSONEvent(rawEvent);
+                }
+            });
+            lastLine.set(currentLine.get());
+        }
+        catch (FileNotFoundException e1)
+        {
+            e1.printStackTrace();
+        }
+    }
+
     private Stream<String> readJournalLines(File file)
     {
         List<String> journalLines = new ArrayList<>();
+        journalFile = file;
         currentJournalFile.set(file.getName());
+
         try
         {
             FileReader reader = new FileReader(file);

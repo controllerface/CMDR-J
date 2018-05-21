@@ -2,8 +2,6 @@ package com.controllerface.edeps.structures.costs.materials;
 
 import com.controllerface.edeps.ProcurementCategory;
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.data.procurements.CostData;
-import javafx.util.Pair;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -19,37 +17,37 @@ public enum MaterialSubCategory implements ProcurementCategory
     Raw Elements
      */
 
-    Raw_Elements_1(true, 1, Material.CARBON,
+    Raw_Elements_1(1, Material.CARBON,
             Material.VANADIUM,
             Material.NIOBIUM,
             Material.YTTRIUM),
 
-    Raw_Elements_2(true, 2, Material.PHOSPHORUS,
+    Raw_Elements_2(2, Material.PHOSPHORUS,
             Material.CHROMIUM,
             Material.MOLYBDENUM,
             Material.TECHNETIUM),
 
-    Raw_Elements_3(true, 3, Material.SULPHUR,
+    Raw_Elements_3(3, Material.SULPHUR,
             Material.MANGANESE,
             Material.CADMIUM,
             Material.RUTHENIUM),
 
-    Raw_Elements_4(true, 4, Material.IRON,
+    Raw_Elements_4(4, Material.IRON,
             Material.ZINC,
             Material.TIN,
             Material.SELENIUM),
 
-    Raw_Elements_5(true, 5, Material.NICKEL,
+    Raw_Elements_5(5, Material.NICKEL,
             Material.GERMANIUM,
             Material.TUNGSTEN,
             Material.TELLURIUM),
 
-    Raw_Elements_6(true, 6, Material.RHENIUM,
+    Raw_Elements_6(6, Material.RHENIUM,
             Material.ARSENIC,
             Material.MERCURY,
             Material.POLONIUM),
 
-    Raw_Elements_7(true, 7, Material.LEAD,
+    Raw_Elements_7(7, Material.LEAD,
             Material.ZIRCONIUM,
             Material.BORON,
             Material.ANTIMONY),
@@ -59,61 +57,61 @@ public enum MaterialSubCategory implements ProcurementCategory
     Manufactured
      */
 
-    Alloys(true, 1, Material.SALVAGEDALLOYS,
+    Alloys(1, Material.SALVAGEDALLOYS,
             Material.GALVANISINGALLOYS,
             Material.PHASEALLOYS,
             Material.PROTOLIGHTALLOYS,
             Material.PROTORADIOLICALLOYS),
 
-    Capacitors(true, 2, Material.GRIDRESISTORS,
+    Capacitors(2, Material.GRIDRESISTORS,
             Material.HYBRIDCAPACITORS,
             Material.ELECTROCHEMICALARRAYS,
             Material.POLYMERCAPACITORS,
             Material.MILITARYSUPERCAPACITORS),
 
-    Chemical(true, 3, Material.CHEMICALSTORAGEUNITS,
+    Chemical(3, Material.CHEMICALSTORAGEUNITS,
             Material.CHEMICALPROCESSORS,
             Material.CHEMICALDISTILLERY,
             Material.CHEMICALMANIPULATORS,
             Material.PHARMACEUTICALISOLATORS),
 
-    Composite(true, 4, Material.COMPACTCOMPOSITES,
+    Composite(4, Material.COMPACTCOMPOSITES,
             Material.FILAMENTCOMPOSITES,
             Material.HIGHDENSITYCOMPOSITES,
             Material.FEDPROPRIETARYCOMPOSITES,
             Material.FEDCORECOMPOSITES),
 
-    Conductive(true, 5, Material.BASICCONDUCTORS,
+    Conductive(5, Material.BASICCONDUCTORS,
             Material.CONDUCTIVECOMPONENTS,
             Material.CONDUCTIVECERAMICS,
             Material.CONDUCTIVEPOLYMERS,
             Material.BIOTECHCONDUCTORS),
 
-    Crystals(true, 6, Material.CRYSTALSHARDS,
+    Crystals(6, Material.CRYSTALSHARDS,
             Material.UNCUTFOCUSCRYSTALS,
             Material.FOCUSCRYSTALS,
             Material.REFINEDFOCUSCRYSTALS,
             Material.EXQUISITEFOCUSCRYSTALS),
 
-    Heat(true, 7, Material.HEATCONDUCTIONWIRING,
+    Heat(7, Material.HEATCONDUCTIONWIRING,
             Material.HEATDISPERSIONPLATE,
             Material.HEATEXCHANGERS,
             Material.HEATVANES,
             Material.PROTOHEATRADIATORS),
 
-    Mechanical_Components(true, 8, Material.MECHANICALSCRAP,
+    Mechanical_Components(8, Material.MECHANICALSCRAP,
             Material.MECHANICALEQUIPMENT,
             Material.MECHANICALCOMPONENTS,
             Material.CONFIGURABLECOMPONENTS,
             Material.IMPROVISEDCOMPONENTS),
 
-    Shielding(true, 9, Material.WORNSHIELDEMITTERS,
+    Shielding(9, Material.WORNSHIELDEMITTERS,
             Material.SHIELDEMITTERS,
             Material.SHIELDINGSENSORS,
             Material.COMPOUNDSHIELDING,
             Material.IMPERIALSHIELDING),
 
-    Thermic(true, 10, Material.TEMPEREDALLOYS,
+    Thermic(10, Material.TEMPEREDALLOYS,
             Material.HEATRESISTANTCERAMICS,
             Material.PRECIPITATEDALLOYS,
             Material.THERMICALLOYS,
@@ -141,37 +139,37 @@ public enum MaterialSubCategory implements ProcurementCategory
     Data
      */
 
-    Data_Archives(true, 1, Material.BULKSCANDATA,
+    Data_Archives(1, Material.BULKSCANDATA,
             Material.SCANARCHIVES,
             Material.SCANDATABANKS,
             Material.ENCODEDSCANDATA,
             Material.CLASSIFIEDSCANDATA),
 
-    Emission_Data(true, 2, Material.SCRAMBLEDEMISSIONDATA,
+    Emission_Data(2, Material.SCRAMBLEDEMISSIONDATA,
             Material.ARCHIVEDEMISSIONDATA,
             Material.EMISSIONDATA,
             Material.DECODEDEMISSIONDATA,
             Material.COMPACTEMISSIONSDATA),
 
-    Encoded_Firmware(true, 3, Material.LEGACYFIRMWARE,
+    Encoded_Firmware(3, Material.LEGACYFIRMWARE,
             Material.CONSUMERFIRMWARE,
             Material.INDUSTRIALFIRMWARE,
             Material.SECURITYFIRMWARE,
             Material.EMBEDDEDFIRMWARE),
 
-    Encryption_Files(true, 4, Material.ENCRYPTEDFILES,
+    Encryption_Files(4, Material.ENCRYPTEDFILES,
             Material.ENCRYPTIONCODES,
             Material.SYMMETRICKEYS,
             Material.ENCRYPTIONARCHIVES,
             Material.ADAPTIVEENCRYPTORS),
 
-    Shield_Data(true, 5, Material.SHIELDCYCLERECORDINGS,
+    Shield_Data(5, Material.SHIELDCYCLERECORDINGS,
             Material.SHIELDSOAKANALYSIS,
             Material.SHIELDDENSITYREPORTS,
             Material.SHIELDPATTERNANALYSIS,
             Material.SHIELDFREQUENCYDATA),
 
-    Wake_Scans(true, 6, Material.DISRUPTEDWAKEECHOES,
+    Wake_Scans(6, Material.DISRUPTEDWAKEECHOES,
             Material.FSDTELEMETRY,
             Material.WAKESOLUTIONS,
             Material.HYPERSPACETRAJECTORIES,
@@ -200,74 +198,15 @@ public enum MaterialSubCategory implements ProcurementCategory
 
     UNKNOWN(-100);
 
-    private static final double downgradeMultiplier = 3;
-    private static final double upgradeMultiplier = 6;
-
     private final int numericalValue;
     private final Material[] materials;
 
     MaterialSubCategory(int numericalValue, Material... materials)
     {
-        this(false, numericalValue, materials);
-    }
-
-    MaterialSubCategory(boolean tradeable, int numericalValue, Material... materials)
-    {
         this.numericalValue = numericalValue;
         this.materials = materials;
-
-        if (tradeable) calculateTradeCosts(materials);
-
     }
 
-    private static void calculateTradeCosts(Material ... materials)
-    {
-        // for each of the materials in this sub-category, we need to calculate the trade costs required to
-        // trade some number of one material, for some number of another.
-        Stream.of(materials).forEach(material ->
-        {
-            // get the numerical value of this material's grade
-            int thisGrade = material.getGrade().getNumericalValue();
-
-            // now for all related materials (and filtering out THIS material which is unneeded for trades)
-            // use the related material's grade to calculate how much it costs to trade for this one, and
-            // how many of this material trading the related material will yield.
-            Stream.of(materials)
-                    .filter(relatedMaterial -> relatedMaterial != material)
-                    .forEach(relatedMaterial ->
-                    {
-                        // get the numerical value of the trade candidate's grade, and compare it with this
-                        // material's grade to determine the cost to convert between the two
-                        int thatGrade = relatedMaterial.getGrade().getNumericalValue();
-                        Pair<Integer, Integer> tradeValues = calculateTreadCost(thatGrade, thisGrade);
-
-                        // the the trade amount required would exceed the maximum storage capacity of the item,
-                        // there's no point in adding it as a trade cost because it can never be attained
-                        if (tradeValues.getKey() > relatedMaterial.getGrade().getMaximumQuantity()) return;
-
-                        material.addTradeCost(new CostData(relatedMaterial, tradeValues.getKey()), tradeValues.getValue());
-                    });
-        });
-    }
-
-    private static Pair<Integer, Integer> calculateTreadCost(int from, int to)
-    {
-        int tradeCost;
-        int tradeYield;
-        if (from > to)
-        {
-            tradeCost = 1;
-            double gradeDiff = (double) (from - to);
-            tradeYield = (int) Math.pow(downgradeMultiplier, gradeDiff);
-        }
-        else
-        {
-            tradeYield = 1;
-            int gradeDiff = to - from;
-            tradeCost = (int) Math.pow(upgradeMultiplier, gradeDiff);
-        }
-        return new Pair<>(tradeCost, tradeYield);
-    }
 
     public Stream<Material> materials()
     {

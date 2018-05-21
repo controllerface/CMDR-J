@@ -2,6 +2,7 @@ package com.controllerface.edeps.ui.costs;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
+import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
@@ -12,9 +13,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -24,6 +28,38 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
 {
     private static double baseFontSize = -1;
     private static String baseFontFamily = null;
+    private final Function<ProcurementCost, Integer> checkInventory;
+    private final Predicate<ProcurementCost> isInCache;
+
+    private static final Comparator<ProcurementRecipe> bestCostYieldRatio =
+            (a, b)->
+            {
+                int aCost = a.costStream().filter(c -> c.getQuantity() > 0)
+                        .mapToInt(CostData::getQuantity).sum();
+
+                int bCost = b.costStream().filter(c -> c.getQuantity() > 0)
+                        .mapToInt(CostData::getQuantity).sum();
+
+                int aYield = a.costStream().filter(c -> c.getQuantity() < 0)
+                        .mapToInt(CostData::getQuantity)
+                        .map(Math::abs)
+                        .sum();
+
+                int bYield = b.costStream().filter(c -> c.getQuantity() < 0)
+                        .mapToInt(CostData::getQuantity)
+                        .map(Math::abs)
+                        .sum();
+
+                if (aCost == bCost) return bYield - aYield;
+
+                return aCost - bCost;
+            };
+
+    public CostDataCell(Function<ProcurementCost, Integer> checkInventory, Predicate<ProcurementCost> isInCache)
+    {
+        this.checkInventory = checkInventory;
+        this.isInCache = isInCache;
+    }
 
     @Override
     protected void updateItem(ItemCostData item, boolean empty)
@@ -108,16 +144,98 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
                 Material costMaterial = ((Material) item.getCost());
                 if (costMaterial.getBlueprint().recipeStream().count() > 0)
                 {
-                    locationContainer.getChildren().add(new Separator());
+                    List<Label> recommendTrades = new ArrayList<>();
+                    List<Label> avoidedTrades = new ArrayList<>();
+                    List<Label> insufficientTrades = new ArrayList<>();
 
-                    String test = ((Material) item.getCost()).getBlueprint().recipeStream()
-                            .map(ProcurementRecipe::getDisplayLabel)
-                            .collect(Collectors.joining("\n"));
+                    Separator separator = new Separator();
+                    separator.setPadding(new Insets(5,0,0,0));
+                    locationContainer.getChildren().add(separator);
 
-                    Label trades = new Label(test);
-                    trades.setFont(UIFunctions.Fonts.size1Font);
+                    ((Material) item.getCost())
+                            .getBlueprint().recipeStream()
+                            .sorted(bestCostYieldRatio)
+                            .forEach(recipe->
+                            {
+                                Label label = new Label(recipe.getDisplayLabel());
 
-                    locationContainer.getChildren().add(trades);
+                                boolean cannotAfford = recipe.costStream()
+                                        .filter(costData -> costData.getQuantity()>0)
+                                        .anyMatch(costData -> checkInventory.apply(costData.getCost()) < costData.getQuantity());
+
+                                boolean isCached = recipe.costStream()
+                                        .filter(costData -> costData.getQuantity()>0)
+                                        .anyMatch(costData -> isInCache.test(costData.getCost()));
+
+                                label.setFont(UIFunctions.Fonts.size1Font);
+
+                                if (isCached)
+                                {
+                                    label.setTextFill(UIFunctions.Fonts.darkOrange);
+                                    avoidedTrades.add(label);
+                                }
+                                else if (cannotAfford)
+                                {
+                                    label.setTextFill(UIFunctions.Fonts.negativeRed);
+                                    insufficientTrades.add(label);
+                                }
+                                else recommendTrades.add(label);
+                            });
+
+                    if (recommendTrades.isEmpty())
+                    {
+                        Label noTrades = new Label("No Recommended Trades");
+                        noTrades.setFont(UIFunctions.Fonts.size1Font);
+                        locationContainer.getChildren().add(noTrades);
+                    }
+                    else
+                    {
+                        Label tradeLabel = new Label("Recommended Trades");
+                        tradeLabel.setFont(UIFunctions.Fonts.size1Font);
+                        TitledPane tradePane = new TitledPane();
+                        Tooltip tooltip = new Tooltip("Recommended trades, ranked by best cost/yield ratio");
+                        tooltip.setFont(UIFunctions.Fonts.size1Font);
+                        tradeLabel.setTooltip(tooltip);
+                        tradePane.setAnimated(false);
+                        tradePane.setExpanded(false);
+                        tradePane.setGraphic(tradeLabel);
+                        VBox vBox = new VBox();
+                        recommendTrades.stream().forEach(trade->vBox.getChildren().add(trade));
+                        tradePane.setContent(vBox);
+                        locationContainer.getChildren().add(tradePane);
+                    }
+
+                    if (!avoidedTrades.isEmpty() || !insufficientTrades.isEmpty())
+                    {
+                        String labelText = recommendTrades.isEmpty() ? "Possible Trades" : "Other Trades";
+                        Label tradeLabel = new Label(labelText);
+                        tradeLabel.setFont(UIFunctions.Fonts.size1Font);
+                        TitledPane tradePane = new TitledPane();
+                        Tooltip tooltip = new Tooltip("Trades which are not optimal or for witch you\n have insufficient materials to complete the trade");
+                        tooltip.setFont(UIFunctions.Fonts.size1Font);
+                        tradeLabel.setTooltip(tooltip);
+                        tradePane.setAnimated(false);
+                        tradePane.setExpanded(false);
+                        tradePane.setGraphic(tradeLabel);
+                        VBox vBox = new VBox();
+                        if (!avoidedTrades.isEmpty())
+                        {
+                            Label avoidLabel = new Label("Conflicts with Ongoing Tasks");
+                            avoidLabel.setFont(UIFunctions.Fonts.size1Font);
+                            vBox.getChildren().add(avoidLabel);
+                            avoidedTrades.stream().forEach(trade -> vBox.getChildren().add(trade));
+                        }
+                        if (!insufficientTrades.isEmpty())
+                        {
+                            Label insufficientLabel = new Label("Insufficient Materials");
+                            insufficientLabel.setFont(UIFunctions.Fonts.size1Font);
+                            vBox.getChildren().add(insufficientLabel);
+                            insufficientTrades.stream().forEach(trade->vBox.getChildren().add(trade));
+                        }
+
+                        tradePane.setContent(vBox);
+                        locationContainer.getChildren().add(tradePane);
+                    }
                 }
             }
 

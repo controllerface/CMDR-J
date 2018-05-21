@@ -31,6 +31,7 @@ import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.controllerface.edeps.threads.UserTransaction;
+import com.controllerface.edeps.ui.costs.CostDataCell;
 import com.controllerface.edeps.ui.inventory.InventoryDisplayCell;
 import com.controllerface.edeps.ui.inventory.InventoryGradeCell;
 import com.controllerface.edeps.ui.procurements.ProcurementListCell;
@@ -169,6 +170,8 @@ public class UIController
 
     private boolean initialzed = false;
 
+    private final Set<ProcurementCost> taskCache = new HashSet<>();
+
     private final CommanderData commanderData = new CommanderData();
 
     private ObservableList<ProcurementTaskData> procSelectorBackingList = FXCollections.observableArrayList();
@@ -271,6 +274,7 @@ public class UIController
                     // costs so we can check for any that need to be removed after adjustment
                     List<ItemCostData> toRemove = taskCostBackingList.stream()
                             .filter(costToAdjust -> costAdjustments.stream().anyMatch(costToAdjust::matches))
+                            .peek(costToAdjust -> taskCache.add(costToAdjust.getCost()))
                             .peek(costToAdjust ->
                             {
                                 CostData toAdjust = costAdjustments.stream()
@@ -279,6 +283,7 @@ public class UIController
                                 costToAdjust.setCount(costToAdjust.getCount() + toAdjust.getQuantity());
                             })
                             .filter(adjustedCost -> adjustedCost.getCount() <= 0)
+                            .peek(removedCost -> taskCache.remove(removedCost.getCost()))
                             .collect(Collectors.toList());
 
                     taskCostBackingList.removeAll(toRemove);
@@ -577,7 +582,7 @@ public class UIController
         taskCostNeedColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
 
         taskCostNameColumn.setCellValueFactory(UIFunctions.Data.costNameCellValueFactory);
-        taskCostNameColumn.setCellFactory(UIFunctions.Data.boldCostStringCellFactory);
+        taskCostNameColumn.setCellFactory((x) -> new CostDataCell(commanderData::hasItem, taskCache::contains));
 
         statNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
         statValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
@@ -800,7 +805,7 @@ public class UIController
         return modifications;
     }
 
-    private TreeItem<ProcurementTaskData> makeModTree()
+    private TreeItem<ProcurementTaskData> makeModificationTree()
     {
         TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Engineering Modifications"));
 
@@ -920,10 +925,10 @@ public class UIController
         TreeItem<ProcurementTaskData> root = new TreeItem<>(new ProcurementTaskData("root"));
 
         // create and add the various procurement sub-trees to the root object
-        root.getChildren().addAll(makeTradeTree(),
-                makeSynthesisTree(),
-                makeModTree(),
+        root.getChildren().addAll(makeModificationTree(),
                 makeExperimentTree(),
+                makeSynthesisTree(),
+                makeTradeTree(),
                 makeTechnologyTree());
 
         // set the root as expanded by default

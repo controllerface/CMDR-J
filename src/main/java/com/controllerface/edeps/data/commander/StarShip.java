@@ -98,7 +98,7 @@ public class StarShip
         statistics.add(new ShipStatisticData(ShipStat.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
     }
 
-    private Stream<ShipModuleData> safeStream(ObservableList<ShipModuleData> modules)
+    private synchronized Stream<ShipModuleData> safeStream(ObservableList<ShipModuleData> modules)
     {
         List<ShipModuleData> buffer = new ArrayList<>(modules);
         return buffer.stream();
@@ -423,7 +423,7 @@ public class StarShip
 
         // first check for an actual shield generator. The game ensures there will only ever be one generator
         // equipped, so there should only be one or none.
-        ShipModuleData shieldGenerator = optionalInternals.stream()
+        ShipModuleData shieldGenerator = safeStream(optionalInternals)
                 .filter(m->m.getModule().modificationType() == ModificationType.Shield_Generator)
                 .findAny().orElse(null);
 

@@ -1,9 +1,14 @@
 package com.controllerface.edeps.data.procurements;
 
+import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
+import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
+import com.sun.prism.Material;
 import javafx.util.Pair;
 
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -57,6 +62,25 @@ public class ProcurementRecipeData
     public boolean matches(Pair<ProcurementType, ProcurementRecipe> pair)
     {
         // todo: need logic for trade recipes, check costs/products to determine match
+
+        if (pair.getKey() instanceof MaterialTradeType)
+        {
+            boolean bothTrades = type instanceof  MaterialTradeType;
+            if (!bothTrades) return false;
+
+            boolean typeMatch = type == pair.getKey();
+            if (!typeMatch) return false;
+
+            Set<ProcurementCost> theseCosts = recipe.costStream()
+                    .map(CostData::getCost)
+                    .collect(Collectors.toSet());
+
+            Set<ProcurementCost> thoseCosts = pair.getValue().costStream()
+                    .map(CostData::getCost)
+                    .collect(Collectors.toSet());
+
+            return theseCosts.equals(thoseCosts);
+        }
 
         return recipe == pair.getValue() && type == pair.getKey();
     }

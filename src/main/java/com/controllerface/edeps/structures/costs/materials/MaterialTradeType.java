@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 public enum MaterialTradeType implements ProcurementType
 {
 
-    Raw(MaterialSubCategory.Raw_Elements_1,
+    Raw_Elements(MaterialSubCategory.Raw_Elements_1,
             MaterialSubCategory.Raw_Elements_2,
             MaterialSubCategory.Raw_Elements_3,
             MaterialSubCategory.Raw_Elements_4,
@@ -20,7 +20,7 @@ public enum MaterialTradeType implements ProcurementType
             MaterialSubCategory.Raw_Elements_6,
             MaterialSubCategory.Raw_Elements_7),
 
-    Manufactured(MaterialSubCategory.Alloys,
+    Manufactured_Materials(MaterialSubCategory.Alloys,
             MaterialSubCategory.Capacitors,
             MaterialSubCategory.Chemical,
             MaterialSubCategory.Composite,
@@ -31,7 +31,7 @@ public enum MaterialTradeType implements ProcurementType
             MaterialSubCategory.Shielding,
             MaterialSubCategory.Thermic),
 
-    Encoded(MaterialSubCategory.Data_Archives,
+    Encoded_Data(MaterialSubCategory.Data_Archives,
             MaterialSubCategory.Emission_Data,
             MaterialSubCategory.Encoded_Firmware,
             MaterialSubCategory.Encryption_Files,
@@ -48,74 +48,84 @@ public enum MaterialTradeType implements ProcurementType
     MaterialTradeType(MaterialSubCategory ... subCategories)
     {
         this.subCategories = subCategories;
+        calculateSubCategoryTradeCosts(subCategories);
     }
 
-
-    private static void calculateCrossTradeCosts(MaterialSubCategory ... subCategories)
+    private static void calculateSubCategoryTradeCosts(MaterialSubCategory ... subCategories)
     {
-        // todo: go through them
+        // loop through all the sub-categories and calculate trade costs for all cross-sub-category trades.
+        // Note that trades made within the same category do not need to be calculated here because they are done
+        // within the subcategories themselves upon creation.
+        Stream.of(subCategories)
+                .peek(MaterialTradeType::calculateInCategoryTradeCosts)
+                .forEach(subCategory -> Stream.of(subCategories)
+                        .filter(otherSubCategory -> otherSubCategory != subCategory)
+                        .forEach(otherSubCategory -> calculateCrossCategoryTradeCosts(subCategory, otherSubCategory)));
     }
 
 
 
-    private static void calculateTradeCosts(Material ... materials)
+    private static void calculateInCategoryTradeCosts(MaterialSubCategory subCategory)
     {
         // for each of the materials in this sub-category, we need to calculate the trade costs required to
         // trade some number of one material, for some number of another.
-        Stream.of(materials).forEach(material ->
+        subCategory.materials().forEach(material ->
         {
-            // get the numerical value of this material's grade
-            int thisGrade = material.getGrade().getNumericalValue();
-
             // now for all related materials (and filtering out THIS material which is unneeded for trades)
             // use the related material's grade to calculate how much it costs to trade for this one, and
             // how many of this material trading the related material will yield.
-            Stream.of(materials)
+            subCategory.materials()
                     .filter(relatedMaterial -> relatedMaterial != material)
-                    .forEach(relatedMaterial ->
-                    {
-                        // get the numerical value of the trade candidate's grade, and compare it with this
-                        // material's grade to determine the cost to convert between the two
-                        int thatGrade = relatedMaterial.getGrade().getNumericalValue();
-                        Pair<Integer, Integer> tradeValues = calculateTreadCost(thatGrade, thisGrade);
-
-                        // the the trade amount required would exceed the maximum storage capacity of the item,
-                        // there's no point in adding it as a trade cost because it can never be attained
-                        if (tradeValues.getKey() > relatedMaterial.getGrade().getMaximumQuantity()) return;
-
-                        material.addTradeCost(new CostData(relatedMaterial, tradeValues.getKey()), tradeValues.getValue());
-                    });
+                    .forEach(relatedMaterial -> calculateMaterialTradeCost(0, material, relatedMaterial));
         });
     }
 
-    private static Pair<Integer, Integer> calculateTreadCost(int from, int to)
+
+
+    private static void calculateCrossCategoryTradeCosts(MaterialSubCategory costs, MaterialSubCategory products)
+    {
+        Stream.of(products)
+                .flatMap(MaterialSubCategory::materials)
+                .forEach(product -> Stream.of(costs)
+                        .flatMap(MaterialSubCategory::materials)
+                        .forEach(cost -> calculateMaterialTradeCost(1, product, cost)));
+    }
+
+    private static void calculateMaterialTradeCost(int penalty, Material material, Material relatedMaterial)
+    {
+        int thisGrade = material.getGrade().getNumericalValue();
+
+        // get the numerical value of the trade candidate's grade, and compare it with this
+        // material's grade to determine the cost to convert between the two
+        int thatGrade = relatedMaterial.getGrade().getNumericalValue();
+        Pair<Integer, Integer> tradeValues = calculateTreadCost(penalty, thatGrade, thisGrade);
+
+        // the the trade amount required would exceed the maximum storage capacity of the item,
+        // there's no point in adding it as a trade cost because it can never be attained
+        if (tradeValues.getKey() > relatedMaterial.getGrade().getMaximumQuantity()) return;
+
+        material.addTradeCost(new CostData(relatedMaterial, tradeValues.getKey()), tradeValues.getValue());
+    }
+
+
+    private static Pair<Integer, Integer> calculateTreadCost(int penalty, int from, int to)
     {
         int tradeCost;
         int tradeYield;
         if (from > to)
         {
-            tradeCost = 2;
-            int gradeDiff = from - to - 1;
+            tradeCost = 1 + penalty;
+            int gradeDiff = from - to - penalty;
             tradeYield = (int) Math.pow(downgradeMultiplier, gradeDiff);
         }
         else
         {
             tradeYield = 1;
-            int gradeDiff = to - from + 1;
+            int gradeDiff = to - from + penalty;
             tradeCost = (int) Math.pow(upgradeMultiplier, gradeDiff);
         }
         return new Pair<>(tradeCost, tradeYield);
     }
-
-
-
-
-
-
-
-
-
-
 
     public Stream<MaterialSubCategory> subCategoryStream()
     {
@@ -126,5 +136,11 @@ public enum MaterialTradeType implements ProcurementType
     public String getName()
     {
         return name();
+    }
+
+    @Override
+    public String toString()
+    {
+        return super.toString().replace("_"," ");
     }
 }

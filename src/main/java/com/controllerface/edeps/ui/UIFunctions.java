@@ -32,6 +32,7 @@ import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -51,11 +52,17 @@ public class UIFunctions
 {
     public static final int scrollBarAllowance = 20;
 
+    public static class Symbols
+    {
+        public static final String DEGREES = new String(new byte[]{(byte)0x00,(byte)0xb0}, StandardCharsets.UTF_16);
+        public static final String INFINITY = new String(new byte[]{(byte)0x22,(byte)0x1e}, StandardCharsets.UTF_16);
+    }
+
     public static class Fonts
     {
         public static final Color positiveBlue = Color.rgb(0x00, 0xb3, 0xf7);
         public static final Color negativeRed = Color.rgb(0xff, 0x00, 0x00);
-        static final Color neutralBlack = Color.rgb(0x00, 0x00, 0x00);
+        public static final Color neutralBlack = Color.rgb(0x00, 0x00, 0x00);
         public static final Color standardOrange = Color.rgb(0xff, 0x71, 0x00);
         public static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
         public static final Color darkOrange = Color.rgb(0xb7, 0x52, 0x00);
@@ -126,8 +133,6 @@ public class UIFunctions
             return new SimpleStringProperty(String.valueOf(left));
         };
 
-        static final Callback<TableColumn<ItemCostData, ItemCostData>, TableCell<ItemCostData, ItemCostData>>
-                boldCostStringCellFactory = (x) -> new CostDataCell();
 
         static final Callback<TableColumn<ItemCostData, String>, TableCell<ItemCostData, String>>
                 boldCostNumberCellFactory = (x) -> new CostValueCell();

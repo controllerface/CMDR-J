@@ -1,5 +1,7 @@
 package com.controllerface.edeps.structures.equipment;
 
+import com.controllerface.edeps.ui.UIFunctions;
+
 /**
  * ALl possible item effects, both modifiable/experimental and base stats are represented. In some cases, an effect IS
  * a base stat this can also be modified (ex: ammo clip size on Multi-cannons and the High Capacity mod) and in others,
@@ -28,7 +30,7 @@ public enum ItemEffect
     DistributorDraw("MW", "Distributor Draw", false),
     PowerDraw("MW", "Power Draw", false),
     ThermalLoad("", "Thermal Load", false),
-    MaxAngle("°", "Max Angle", true),
+    MaxAngle(UIFunctions.Symbols.DEGREES, "Max Angle", true),
     MaximumRange("M", "Maximum Range", true),
     MaxRange("M", "Max Range", true), // todo: determine use, probably sensors, moddable? alias of above?
 
@@ -73,7 +75,7 @@ public enum ItemEffect
     BurstSize("", "Burst Size", true),
     DamagePerSecond("DMG/S", "Damage per Second", true),
     FalloffRange("M", "Falloff Range", true),
-    Jitter("°","Jitter", false),
+    Jitter(UIFunctions.Symbols.DEGREES,"Jitter", false),
     ReloadTime("S", "Reload Time", false),
     RoundsPerShot("", "Rounds per Shot", true),
     ShotSpeed("M/S","Shot Speed", true),
@@ -189,11 +191,11 @@ public enum ItemEffect
     DSS_AngleMult("%", "Scan Angle Increase", true),
     DSS_RangeMult("%", "Scan Range Increase", true),
     DSS_RateMult("%", "Scan Rate Increase", true),
-    FSDInterdictorFacingLimit("°", "Facing Limit", true),
+    FSDInterdictorFacingLimit(UIFunctions.Symbols.DEGREES, "Facing Limit", true),
     FSDInterdictorRange("S", "Range", true),
     ScannerRange("M", "Range", true),
     ScannerTimeToScan("S", "Time to Scan", false),
-    SensorTargetScanAngle("°", "Max Angle", true),
+    SensorTargetScanAngle(UIFunctions.Symbols.DEGREES, "Max Angle", true),
 
 
     /*
