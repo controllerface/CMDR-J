@@ -1,12 +1,25 @@
 # EDEPS
-Elite Dangerous Engineering Procurement System - Alpha (Working Title)
+**Elite Dangerous Engineering Procurement System - Alpha (Working Title)**
 
-I play a lot of Elite: Dangerous, and I wanted to try my hand at building an app, similar to (the very useful) EDEngineer (https://github.com/msarilar/EDEngineer) but more tailored to my personal needs and tastes, and written in Java (using JavaFX as the UI framework). 
+The immediate goal of this project is to provide the user with a means to plan the procurement of items, engineering effects, and other tasks. The app also provides some supplemental about the players ship, including weapon and internal module loadout, and a listing of stats and modifications for each module. The player's inventory, consisting of all engineering materials and cargo, is listed in categorized tabs for reference.
 
-The core focus, at least right now is a working proof-of-concept app that provides helpful functionality, geared mostly toward planning out engineering focused ship builds. The main component of the app is a "procurements" list, from which the user can select various craftable items in the game. Each craftable item that is selected creates a "task" in the "task list", and for each task, the materials and/or commodities required are added to a "needed items" list.
+##### Current Status
 
-For each planned task, there is a counter that can be incremented or decremented to "order" more of the desired item. The "needed items" list is calculated by multiplying the counts of each task by the number of components required to craft one of the desired items. Effectively, this is more or less a special purpose spreadsheet :-) For right now, that's really all this is, though i'm rapidly finding myself adding little bits of functionality as I go.
+Currently still focusing on fleshing out the core functionality. For the time being, I am not focusing on colors, fonts, spacing or other style related tasks otehr than those to make the UI more or less acceptable.
 
-At the moment, the app more or less "works" though there are admittedly some minor bugs. At the moment, All of the available crafting items are supported (i think). This includes all Synthesis recipes, engineering mods, experimental effects, and technology broker items. For every "recipe" in each of these categories, the effects and costs were extracted from the eminently useful INARA Elite Dangerous Companion (https://inara.cz/). I have noticed a few discrepancies between the values from INARA and the actual in-game items, so there is still some work to be done to correct these discrepancies.
+The UI consists of several tabbed panels, with categories of functionality grouped together, below is a general outline of how each tab is currently functioning.
 
-I also plan to add a "current ship loadout" tab to the app that lists in full detail, every statistic of your current ship, including all modifications and experimental effects and the degree and value fo the changes they have on the stock components.
+* **Ship Loadout Tab**
+    * This tab has 4 sub tabs, ship statistics, core internals, optional internals, and hardpoints. The module sub-tabs are all working as intended, but the ship statistics tab is still pretty rough. I am still not completely sure of the entirety of all the stats I want to put on that panel and how exactly to organize them, but will probably apply a similar look and feel to the other panels.
+
+* **Procurement Tasks tab**
+    * This tab contains three "Sections" arranged vertically as described below. At this time, the functionality of this panel is complete, though some incidental features may be added, particularly to the procurement selection tree.
+        1. **Procurement Selection Tree** (top section)
+            * The left side contains a tree structure with all available tasks, organized by categories. Selecting a task type from the tree will display all of the grades (in the case of modifications) or related procurement tasks of the selected type in the list on the right-hand side. Tasks selectied from this list will appear in the task list.
+        2. **Task List** (middle section)
+            * Selected tasks appear in this list. Tasks are presented as collapsed drop-down panels, when clicked the panel is expanded. Within the expanded panel is a list of all the task's pertinent information, typically the procurement costs and any applicable effects of the task.
+        3. **Cost List** (bottom section)
+            * The cumulative costs of all the tasks in the task list are reflected in this list, with a "need" column displaying the total number of the item needed to fulfil some task in the task list. Similarly to the task list, costs are displayed in expandable drop downs which, when expanded provide more details about the item. Details include known locations where the item can be found, and if applicable, further drop downs will include any trades that can be made to procure the needed item.
+
+ * **Inventory Tab**
+    * This tab contains 4 sub-tabs, displaying the player's inventory of raw, manufactured, and data crafting materials, as well as a tab for the ship's cargo, if any is present.
