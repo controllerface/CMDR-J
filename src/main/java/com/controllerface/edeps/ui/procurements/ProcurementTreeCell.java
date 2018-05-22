@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * Created by Stephen on 4/1/2018.
+ * Created by Controllerface on 4/1/2018.
  */
 public class ProcurementTreeCell extends TreeCell<ProcurementTaskData>
 {

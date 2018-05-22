@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 
 /**
- * Created by Stephen on 5/7/2018.
+ * Created by Controllerface on 5/7/2018.
  */
 public class StatDisplayCell extends TableCell<ShipStatisticData, ShipStatisticData>
 {

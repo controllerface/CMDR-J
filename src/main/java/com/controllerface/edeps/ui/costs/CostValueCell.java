@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 /**
- * Created by Stephen on 4/26/2018.
+ * Created by Controllerface on 4/26/2018.
  */
 public class CostValueCell extends TableCell<ItemCostData, String>
 {

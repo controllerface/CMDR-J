@@ -16,7 +16,7 @@ import java.util.function.BiConsumer;
  * in which they are queued. When there are no transactions, this thread will block until one is
  * queued, avoiding unnecessary CPU usage.
  *
- * Created by Stephen on 4/4/2018.
+ * Created by Controllerface on 4/4/2018.
  */
 public class TransactionProcessingTask implements Runnable
 {

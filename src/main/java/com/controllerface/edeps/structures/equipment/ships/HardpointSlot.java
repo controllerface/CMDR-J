@@ -5,7 +5,7 @@ import com.controllerface.edeps.Statistic;
 import java.util.Arrays;
 
 /**
- * Created by Stephen on 4/18/2018.
+ * Created by Controllerface on 4/18/2018.
  */
 public enum HardpointSlot implements Statistic
 {

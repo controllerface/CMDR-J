@@ -31,7 +31,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Created by sroebuck on 5/10/2018.
+ * Created by Controllerface on 5/10/2018.
  */
 public class InventoryDisplayCell extends TableCell<InventoryData, InventoryData>
 {

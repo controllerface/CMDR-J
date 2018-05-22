@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 
 /**
- * Created by Stephen on 4/8/2018.
+ * Created by Controllerface on 4/8/2018.
  */
 public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRecipeData>
 {

@@ -20,7 +20,7 @@ import java.util.stream.Stream;
  *
  * NOTE: Mutable state data object
  *
- * Created by Stephen on 3/20/2018.
+ * Created by Controllerface on 3/20/2018.
  */
 public abstract class InventoryStorageBin
 {

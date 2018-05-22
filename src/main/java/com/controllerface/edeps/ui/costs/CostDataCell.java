@@ -22,7 +22,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Created by Stephen on 4/26/2018.
+ * Created by Controllerface on 4/26/2018.
  */
 public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
 {

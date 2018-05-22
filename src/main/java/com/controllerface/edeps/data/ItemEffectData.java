@@ -4,7 +4,7 @@ import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.ui.UIFunctions;
 
 /**
- * Created by Stephen on 5/13/2018.
+ * Created by Controllerface on 5/13/2018.
  */
 public class ItemEffectData
 {

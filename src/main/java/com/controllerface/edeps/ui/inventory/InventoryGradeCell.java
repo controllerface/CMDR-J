@@ -7,7 +7,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
 
 /**
- * Created by sroebuck on 5/10/2018.
+ * Created by Controllerface on 5/10/2018.
  */
 public class InventoryGradeCell extends TableCell<InventoryData, InventoryData>
 {

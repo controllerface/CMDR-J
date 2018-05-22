@@ -10,7 +10,7 @@ import java.util.stream.Stream;
  * Container class intended to hold several individual item effects, to group them together, for example to store all
  * the standard effects of a weapon, or all fo the modifications done to some module.
  *
- * Created by Stephen on 4/6/2018.
+ * Created by Controllerface on 4/6/2018.
  */
 public class ItemEffects
 {

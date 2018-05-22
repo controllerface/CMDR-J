@@ -9,7 +9,7 @@ import com.controllerface.edeps.structures.equipment.ItemEffect;
 import java.util.List;
 
 /**
- * Created by Stephen on 5/2/2018.
+ * Created by Controllerface on 5/2/2018.
  */
 public class ShipModuleData
 {

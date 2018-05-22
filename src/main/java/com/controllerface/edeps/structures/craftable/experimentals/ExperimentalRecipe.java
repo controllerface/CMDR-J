@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
- * Created by Stephen on 4/10/2018.
+ * Created by Controllerface on 4/10/2018.
  */
 @SuppressWarnings("unchecked")
 public enum ExperimentalRecipe implements ProcurementRecipe

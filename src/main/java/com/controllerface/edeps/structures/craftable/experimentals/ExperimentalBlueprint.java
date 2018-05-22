@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
- * Created by Stephen on 4/11/2018.
+ * Created by Controllerface on 4/11/2018.
  */
 public enum ExperimentalBlueprint implements ProcurementBlueprint
 {

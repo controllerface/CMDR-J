@@ -19,7 +19,7 @@ import java.util.Arrays;
  * JSON data for these compartment slots in the same manner as all of the other JSON objects, and should be somewhat
  * resistant to API changes whereby an index number changes.
  *
- * Created by Stephen on 4/18/2018.
+ * Created by Controllerface on 4/18/2018.
  */
 public enum OptionalInternalSlot implements Statistic
 {

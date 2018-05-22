@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * any constituent costs of the recipe itself to be calculated bu multiplying their individual costs by the total count
  * of the desired task/recipe.
  *
- * Created by Stephen on 4/2/2018.
+ * Created by Controllerface on 4/2/2018.
  */
 public class ProcurementRecipeData
 {

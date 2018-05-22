@@ -7,7 +7,7 @@ import com.controllerface.edeps.data.ItemEffects;
 import java.util.Arrays;
 
 /**
- * Created by Stephen on 4/25/2018.
+ * Created by Controllerface on 4/25/2018.
  */
 public enum Cosmetic implements ShipModule
 {

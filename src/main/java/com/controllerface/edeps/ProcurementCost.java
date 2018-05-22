@@ -5,7 +5,7 @@ import com.controllerface.edeps.structures.equipment.ItemGrade;
 import java.util.List;
 
 /**
- * Created by Stephen on 4/11/2018.
+ * Created by Controllerface on 4/11/2018.
  */
 public interface ProcurementCost
 {

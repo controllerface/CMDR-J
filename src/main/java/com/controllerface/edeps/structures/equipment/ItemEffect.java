@@ -14,7 +14,7 @@ import com.controllerface.edeps.ui.UIFunctions;
  *
  * NOTE: DO NOT RENAME THESE ENUM VALUES*
  *
- * Created by Stephen on 4/6/2018.
+ * Created by Controllerface on 4/6/2018.
  */
 public enum ItemEffect
 {

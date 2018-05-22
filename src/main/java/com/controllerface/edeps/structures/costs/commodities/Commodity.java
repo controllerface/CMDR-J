@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Stephen on 4/11/2018.
+ * Created by Controllerface on 4/11/2018.
  */
 public enum Commodity implements ProcurementCost
 {

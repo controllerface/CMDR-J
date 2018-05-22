@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Stephen on 5/7/2018.
+ * Created by Controllerface on 5/7/2018.
  */
 public class ModuleDisplayCell extends TableCell<ShipModuleData, ShipModuleData>
 {

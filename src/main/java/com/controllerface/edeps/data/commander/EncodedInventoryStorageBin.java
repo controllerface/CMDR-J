@@ -10,7 +10,7 @@ import com.controllerface.edeps.structures.costs.materials.MaterialType;
  *
  * NOTE: Mutable state data object
  *
- * Created by Stephen on 3/21/2018.
+ * Created by Controllerface on 3/21/2018.
  */
 public class EncodedInventoryStorageBin extends InventoryStorageBin
 {

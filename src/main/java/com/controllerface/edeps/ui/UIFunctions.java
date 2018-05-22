@@ -46,7 +46,7 @@ import java.util.function.Function;
  * for example the Data subclass houses various cell and cell data functions used to define how various table cells
  * are created or displayed.
  *
- * Created by Stephen on 4/19/2018.
+ * Created by Controllerface on 4/19/2018.
  */
 public class UIFunctions
 {

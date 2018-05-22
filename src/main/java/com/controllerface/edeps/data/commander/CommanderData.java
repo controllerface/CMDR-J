@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * NOTE: Mutable state data object
  *
- * Created by Stephen on 4/4/2018.
+ * Created by Controllerface on 4/4/2018.
  */
 public class CommanderData
 {

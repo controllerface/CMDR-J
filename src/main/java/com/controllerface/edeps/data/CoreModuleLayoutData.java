@@ -8,7 +8,7 @@ import com.controllerface.edeps.structures.equipment.modules.ModuleSize;
  * is used to store these sizes for reference, allowing a UI to present the user with a range of compatible modules
  * from an exhaustive list that may contain several modules, some of which are compatible and some of which are not.
  *
- * Created by Stephen on 4/16/2018.
+ * Created by Controllerface on 4/16/2018.
  */
 public class CoreModuleLayoutData
 {

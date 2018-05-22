@@ -1,7 +1,7 @@
 package com.controllerface.edeps.structures.equipment.modules;
 
 /**
- * Created by Stephen on 4/16/2018.
+ * Created by Controllerface on 4/16/2018.
  */
 public enum HardPointSize
 {

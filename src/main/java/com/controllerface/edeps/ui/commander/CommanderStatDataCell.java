@@ -8,7 +8,7 @@ import javafx.scene.text.FontWeight;
 import javafx.util.Pair;
 
 /**
- * Created by Stephen on 4/26/2018.
+ * Created by Controllerface on 4/26/2018.
  */
 public class CommanderStatDataCell extends TableCell<Pair<Statistic, String>, String>
 {

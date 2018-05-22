@@ -14,7 +14,7 @@ import java.util.function.Function;
  * refills). Then if the user decides they need 20 of these refills, they would use some UI control to increase the
  * count to 20, which in turn would call setCount(20) to update this object with the new count.
  *
- * Created by Stephen on 4/2/2018.
+ * Created by Controllerface on 4/2/2018.
  */
 public class ItemCostData
 {

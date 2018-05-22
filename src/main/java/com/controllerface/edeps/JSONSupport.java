@@ -13,7 +13,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
- * Created by sroebuck on 5/3/2018.
+ * Created by Controllerface on 5/3/2018.
  */
 public class JSONSupport
 {

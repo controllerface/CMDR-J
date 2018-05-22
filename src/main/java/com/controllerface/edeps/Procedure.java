@@ -8,7 +8,7 @@ package com.controllerface.edeps;
  * mechanism whereby some class (A) creates an instance of some other class (B) and A wishes to provide
  * B with a simple signaling mechanism that does not require B to have any knowledge of A.
  *
- * Created by Stephen on 4/13/2018.
+ * Created by Controllerface on 4/13/2018.
  */
 @FunctionalInterface
 public interface Procedure

@@ -26,7 +26,7 @@ import java.util.stream.Stream;
  * Task thread that keeps a CommanderData synchronized by monitoring the player's journal entries,
  * adding transactions to the transaction queue that modify the inventory when relevant events occur.
  *
- * Created by Stephen on 4/4/2018.
+ * Created by Controllerface on 4/4/2018.
  */
 public class JournalSyncTask implements Runnable
 {

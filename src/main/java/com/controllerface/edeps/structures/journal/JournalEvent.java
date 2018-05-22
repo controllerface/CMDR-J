@@ -33,7 +33,7 @@ import java.util.function.Consumer;
  * location, making it easy to share functionality among different methods where possible. The intention is that, for
  * maintenance and addition of new events, the bulk of the work to support them would be contained in this one class.
  *
- * Created by Stephen on 4/16/2018.
+ * Created by Controllerface on 4/16/2018.
  */
 
 @SuppressWarnings("unchecked")

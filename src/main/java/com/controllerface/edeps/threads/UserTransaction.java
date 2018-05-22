@@ -6,7 +6,7 @@ import com.controllerface.edeps.ProcurementType;
 import javafx.util.Pair;
 
 /**
- * Created by Stephen on 5/5/2018.
+ * Created by Controllerface on 5/5/2018.
  */
 public class UserTransaction
 {

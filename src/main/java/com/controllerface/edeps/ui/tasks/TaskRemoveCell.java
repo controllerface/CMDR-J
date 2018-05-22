@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 
 /**
- * Created by Stephen on 4/2/2018.
+ * Created by Controllerface on 4/2/2018.
  */
 public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>
 {

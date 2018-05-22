@@ -12,7 +12,7 @@ import javafx.util.Pair;
 import java.util.Arrays;
 
 /**
- * Created by Stephen on 4/25/2018.
+ * Created by Controllerface on 4/25/2018.
  */
 @SuppressWarnings("unchecked")
 public enum OptionalInternalShieldModule implements ShipModule

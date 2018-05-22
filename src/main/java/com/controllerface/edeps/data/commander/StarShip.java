@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
- * Created by Stephen on 4/24/2018.
+ * Created by Controllerface on 4/24/2018.
  *
  * Storage object used to manage a commander's ship
  *

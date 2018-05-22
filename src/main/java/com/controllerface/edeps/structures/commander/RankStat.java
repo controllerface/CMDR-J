@@ -5,7 +5,7 @@ import com.controllerface.edeps.Statistic;
 import java.util.function.Function;
 
 /**
- * Created by Stephen on 4/17/2018.
+ * Created by Controllerface on 4/17/2018.
  */
 public enum RankStat implements Statistic
 {

@@ -6,7 +6,7 @@ import java.text.NumberFormat;
 import java.util.function.Function;
 
 /**
- * Created by Stephen on 4/17/2018.
+ * Created by Controllerface on 4/17/2018.
  */
 public enum PlayerStat implements Statistic
 {

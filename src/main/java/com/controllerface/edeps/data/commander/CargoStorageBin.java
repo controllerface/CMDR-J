@@ -12,14 +12,13 @@ import java.util.Arrays;
  *
  * NOTE: Mutable state data object
  *
- * Created by Stephen on 3/21/2018.
+ * Created by Controllerface on 3/21/2018.
  */
 public class CargoStorageBin extends InventoryStorageBin
 {
     @Override
     public boolean check(ProcurementCost item)
     {
-        // todo: maybe also check the contiutanet types, just in case
         return item instanceof Commodity;
     }
 

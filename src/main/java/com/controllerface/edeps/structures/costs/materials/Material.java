@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * An enumeration of all the crafting materials in Elite: Dangerous
  *
- * Created by Stephen on 3/20/2018.
+ * Created by Controllerface on 3/20/2018.
  */
 public enum Material implements ProcurementCost
 {

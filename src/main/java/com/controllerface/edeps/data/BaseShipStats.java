@@ -4,7 +4,7 @@ import com.controllerface.edeps.structures.equipment.ships.ShipManufacturer;
 import com.controllerface.edeps.structures.equipment.ships.ShipSize;
 
 /**
- * Created by Stephen on 4/30/2018.
+ * Created by Controllerface on 4/30/2018.
  */
 public class BaseShipStats
 {

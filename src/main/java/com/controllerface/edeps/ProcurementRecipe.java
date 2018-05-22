@@ -7,7 +7,7 @@ import com.controllerface.edeps.structures.equipment.ItemGrade;
 import java.util.stream.Stream;
 
 /**
- * Created by Stephen on 4/10/2018.
+ * Created by Controllerface on 4/10/2018.
  */
 public interface ProcurementRecipe
 {

@@ -7,7 +7,7 @@ import javafx.util.Pair;
 import java.util.stream.Stream;
 
 /**
- * Created by Stephen on 5/19/2018.
+ * Created by Controllerface on 5/19/2018.
  */
 public enum MaterialTradeType implements ProcurementType
 {

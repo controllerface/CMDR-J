@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 /**
  * An enumeration of all the crafting material categories in Elite: Dangerous
  *
- * Created by Stephen on 3/20/2018.
+ * Created by Controllerface on 3/20/2018.
  */
 public enum MaterialSubCategory implements ProcurementCategory
 {

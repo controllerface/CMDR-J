@@ -10,7 +10,7 @@ import com.controllerface.edeps.ProcurementCost;
  *
  * NOTE: Immutable static data object
  *
- * Created by Stephen on 3/27/2018.
+ * Created by Controllerface on 3/27/2018.
  */
 public class CostData
 {

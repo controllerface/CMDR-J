@@ -3,7 +3,7 @@ package com.controllerface.edeps.structures.equipment.ships;
 import com.controllerface.edeps.Statistic;
 
 /**
- * Created by Stephen on 4/18/2018.
+ * Created by Controllerface on 4/18/2018.
  */
 public enum CosmeticSlot implements Statistic
 {

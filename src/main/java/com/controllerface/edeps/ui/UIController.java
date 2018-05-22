@@ -71,7 +71,7 @@ import java.util.stream.Stream;
  * Notes:
  *  - Uses JavaFX
  *
- * Created by Stephen on 3/20/2018.
+ * Created by Controllerface on 3/20/2018.
  */
 public class UIController
 {

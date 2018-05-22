@@ -1,7 +1,7 @@
 package com.controllerface.edeps.structures.equipment.ships;
 
 /**
- * Created by Stephen on 4/30/2018.
+ * Created by Controllerface on 4/30/2018.
  */
 public enum ShipManufacturer
 {

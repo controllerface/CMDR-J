@@ -3,7 +3,7 @@ package com.controllerface.edeps.structures.equipment;
 /**
  * An enumeration of items grades in Elite: Dangerous. Some grade values may be used for multiple purposes
  *
- * Created by Stephen on 3/20/2018.
+ * Created by Controllerface on 3/20/2018.
  */
 public enum ItemGrade
 {

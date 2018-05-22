@@ -5,7 +5,7 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.structures.costs.materials.MaterialSubCategory;
 
 /**
- * Created by Stephen on 3/27/2018.
+ * Created by Controllerface on 3/27/2018.
  *
  * NOTE: Mutable state data object
  *

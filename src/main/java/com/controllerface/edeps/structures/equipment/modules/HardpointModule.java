@@ -11,7 +11,7 @@ import com.controllerface.edeps.structures.equipment.ItemEffect;
 import java.util.Arrays;
 
 /**
- * Created by Stephen on 4/24/2018.
+ * Created by Controllerface on 4/24/2018.
  */
 @SuppressWarnings("unchecked")
 public enum HardpointModule implements ShipModule
