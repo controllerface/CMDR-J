@@ -86,38 +86,6 @@ public class UIFunctions
      */
     static class Data
     {
-        static final Callback<TableColumn<ShipModuleData, ShipModuleData>, TableCell<ShipModuleData, ShipModuleData>>
-                moduleDisplayCellFactory = (x) -> new ModuleDisplayCell();
-
-    /*
-     procurement List: Roll/Mod Blueprint
-     */
-
-        static final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProcurementRecipeData>, ObservableValue<ProcurementRecipeData>>
-                modRollCellValueFactory = (modRecipe) -> new ReadOnlyObjectWrapper<>(modRecipe.getValue());
-
-        static final Function<BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer>,
-            Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>>
-                makeModRollCellFactory = (func) -> (x) -> new TaskCountCell(func);
-
-        static final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, ProcurementRecipeData>, ObservableValue<ProcurementRecipeData>>
-                modNameCellValueFactory = (modRecipe) ->new ReadOnlyObjectWrapper<>(modRecipe.getValue());
-
-        static final Function<Function<ProcurementCost, Integer>,
-                Callback<TableColumn<ProcurementRecipeData, ProcurementRecipeData>, TableCell<ProcurementRecipeData, ProcurementRecipeData>>>
-                makeModNameCellFactory = (func) -> (x) -> new TaskNameCell(func);
-
-        static final Callback<TableColumn.CellDataFeatures<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, ObservableValue<Pair<ProcurementType, ProcurementRecipe>>>
-                modControlCellValueFactory = (modRecipe) -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair());
-
-        static final Function<BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer>,
-            Callback<TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>, TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>>>
-                makeModControlCellFactory = (updateFunction) -> (modRecipe) -> new TaskRemoveCell(updateFunction);
-
-    /*
-     procurement List: Material Need/Have, Progress information
-     */
-
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
                 costNeedCellFactory = (modMaterial) ->
         {
@@ -132,26 +100,6 @@ public class UIFunctions
 
             return new SimpleStringProperty(String.valueOf(left));
         };
-
-
-        static final Callback<TableColumn<ItemCostData, String>, TableCell<ItemCostData, String>>
-                boldCostNumberCellFactory = (x) -> new CostValueCell();
-
-        static final Callback<TableColumn<Pair<Statistic, String>, String>, TableCell<Pair<Statistic, String>, String>>
-                boldStringNameCellFactory = (x) -> new CommanderStatDataCell();
-
-        static final Callback<TableColumn<ShipModuleData, String>, TableCell<ShipModuleData, String>>
-                boldSlotNameCellFactory = (x) -> new SlotNameCell();
-
-        static final Callback<TableColumn<ShipStatisticData, String>, TableCell<ShipStatisticData, String>>
-                boldStatNameCellFactory = (x) -> new StatDataCell();
-
-        static final Callback<TableColumn.CellDataFeatures<ItemCostData, ItemCostData>, ObservableValue<ItemCostData>>
-                costNameCellValueFactory = (modMaterial) -> new ReadOnlyObjectWrapper<>(modMaterial.getValue());
-
-        static Callback<TableColumn<ShipStatisticData, ShipStatisticData>, TableCell<ShipStatisticData, ShipStatisticData>>
-                boldStatDataCellFactory = (x) -> new StatDisplayCell();
-
     }
 
     /**

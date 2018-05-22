@@ -31,11 +31,20 @@ import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.controllerface.edeps.threads.UserTransaction;
+import com.controllerface.edeps.ui.commander.CommanderStatDataCell;
 import com.controllerface.edeps.ui.costs.CostDataCell;
+import com.controllerface.edeps.ui.costs.CostValueCell;
 import com.controllerface.edeps.ui.inventory.InventoryDisplayCell;
 import com.controllerface.edeps.ui.inventory.InventoryGradeCell;
 import com.controllerface.edeps.ui.procurements.ProcurementListCell;
 import com.controllerface.edeps.ui.procurements.ProcurementTreeCell;
+import com.controllerface.edeps.ui.ship.ModuleDisplayCell;
+import com.controllerface.edeps.ui.ship.SlotNameCell;
+import com.controllerface.edeps.ui.ship.StatDataCell;
+import com.controllerface.edeps.ui.ship.StatDisplayCell;
+import com.controllerface.edeps.ui.tasks.TaskCountCell;
+import com.controllerface.edeps.ui.tasks.TaskNameCell;
+import com.controllerface.edeps.ui.tasks.TaskRemoveCell;
 import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -502,24 +511,24 @@ public class UIController
         commanderData.getStarShip().associateHardpointTable(hardpointList);
 
         shipStatisticsNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
-        shipStatisticsNameColumn.setCellFactory(UIFunctions.Data.boldStatNameCellFactory);
+        shipStatisticsNameColumn.setCellFactory(x -> new StatDataCell());
         shipStatisticsDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        shipStatisticsDataColumn.setCellFactory(UIFunctions.Data.boldStatDataCellFactory);
+        shipStatisticsDataColumn.setCellFactory(x -> new StatDisplayCell());
 
         coreModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
-        coreModuleNameColumn.setCellFactory(UIFunctions.Data.boldSlotNameCellFactory);
+        coreModuleNameColumn.setCellFactory(x -> new SlotNameCell());
         coreModuleDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        coreModuleDataColumn.setCellFactory(UIFunctions.Data.moduleDisplayCellFactory);
+        coreModuleDataColumn.setCellFactory(x -> new ModuleDisplayCell());
 
         optionalModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
-        optionalModuleNameColumn.setCellFactory(UIFunctions.Data.boldSlotNameCellFactory);
+        optionalModuleNameColumn.setCellFactory(x -> new SlotNameCell());
         optionalModuleDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        optionalModuleDataColumn.setCellFactory(UIFunctions.Data.moduleDisplayCellFactory);
+        optionalModuleDataColumn.setCellFactory(x -> new ModuleDisplayCell());
 
         hardpointNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
-        hardpointNameColumn.setCellFactory(UIFunctions.Data.boldSlotNameCellFactory);
+        hardpointNameColumn.setCellFactory(x -> new SlotNameCell());
         hardpointDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        hardpointDataColumn.setCellFactory(UIFunctions.Data.moduleDisplayCellFactory);
+        hardpointDataColumn.setCellFactory(x -> new ModuleDisplayCell());
     }
 
     private void initializeUIComponents()
@@ -539,45 +548,53 @@ public class UIController
         initializeInventoryTables();
         initializeShipLoadoutTables();
 
-        taskCountColumn.setCellFactory(UIFunctions.Data.makeModRollCellFactory.apply(procurementListUpdate));
-        taskCountColumn.setCellValueFactory(UIFunctions.Data.modRollCellValueFactory);
+        taskCountColumn.setCellFactory(x -> new TaskCountCell(procurementListUpdate));
+        taskCountColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
-        taskNameColumn.setCellFactory(UIFunctions.Data.makeModNameCellFactory.apply(commanderData::hasItem));
-        taskNameColumn.setCellValueFactory(UIFunctions.Data.modNameCellValueFactory);
-        taskRemoveColumn.setCellFactory(UIFunctions.Data.makeModControlCellFactory.apply(procurementListUpdate));
-        taskRemoveColumn.setCellValueFactory(UIFunctions.Data.modControlCellValueFactory);
+        taskNameColumn.setCellFactory(x -> new TaskNameCell(commanderData::hasItem));
+        taskNameColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
+
+        taskRemoveColumn.setCellFactory(x -> new TaskRemoveCell(procurementListUpdate));
+        taskRemoveColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair()));
 
         taskCostNeedColumn.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
-        taskCostNeedColumn.setCellFactory(UIFunctions.Data.boldCostNumberCellFactory);
+        taskCostNeedColumn.setCellFactory(x -> new CostValueCell());
 
-        taskCostNameColumn.setCellValueFactory(UIFunctions.Data.costNameCellValueFactory);
-        taskCostNameColumn.setCellFactory((x) -> new CostDataCell(commanderData::hasItem, taskCache::contains));
+        taskCostNameColumn.setCellValueFactory(modMaterial -> new ReadOnlyObjectWrapper<>(modMaterial.getValue()));
+        taskCostNameColumn.setCellFactory(x -> new CostDataCell(commanderData::hasItem, taskCache::contains));
 
-        statNameColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getKey().getText()));
-        statValueColumn.setCellValueFactory((stat) -> new SimpleStringProperty(stat.getValue().getValue()));
-        statNameColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
-        statValueColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
+        statNameColumn.setCellValueFactory(stat -> new SimpleStringProperty(stat.getValue().getKey().getText()));
+        statValueColumn.setCellValueFactory(stat -> new SimpleStringProperty(stat.getValue().getValue()));
+        statNameColumn.setCellFactory(x -> new CommanderStatDataCell());
+        statValueColumn.setCellFactory(x -> new CommanderStatDataCell());
 
-        sortTasksByName.setOnAction((e)-> sortTaskTable());
-        sortTasksByGrade.setOnAction((e)-> sortTaskTable());
+        sortTasksByName.setOnAction(e -> sortTaskTable());
+        sortTasksByGrade.setOnAction(e -> sortTaskTable());
 
-        showProcurements.setOnAction((e)-> setProcurementsUIVisibility());
-        showTasks.setOnAction((e)-> setProcurementsUIVisibility());
-        showItemsNeeded.setOnAction((e)-> setProcurementsUIVisibility());
+        showProcurements.setOnAction(e -> setProcurementsUIVisibility());
+        showTasks.setOnAction(e -> setProcurementsUIVisibility());
+        showItemsNeeded.setOnAction(e -> setProcurementsUIVisibility());
 
         commanderData.getStarShip().associateShipGivenName(shipNameLabel);
         commanderData.getStarShip().associateShipDisplayName(shipTypeLabel);
         commanderData.getStarShip().associateShipID(shipIDLabel);
 
-
         // table auto-resize bindings
+        initialzeAutoResizeBindings();
 
+        // fix ugly selection stuff
+        initializeSelectionOverrides();
+    }
+
+    private void initialzeAutoResizeBindings()
+    {
         DoubleBinding rawTableWidthUsed = rawGradeColumn.widthProperty()
                 .add(rawQuantityColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
 
         rawMaterialColumn.prefWidthProperty()
                 .bind(rawTable.widthProperty().subtract(rawTableWidthUsed));
+
 
         DoubleBinding mfdTableWidthUsed = manufacturedGradeColumn.widthProperty()
                 .add(manufacturedQuantityColumn.widthProperty())
@@ -586,6 +603,7 @@ public class UIController
         manufacturedMaterialColumn.prefWidthProperty()
                 .bind(manufacturedTable.widthProperty().subtract(mfdTableWidthUsed));
 
+
         DoubleBinding dataTableWidthUsed = dataGradeColumn.widthProperty()
                 .add(dataQuantityColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
@@ -593,13 +611,13 @@ public class UIController
         dataMaterialColumn.prefWidthProperty()
                 .bind(dataTable.widthProperty().subtract(dataTableWidthUsed));
 
+
         DoubleBinding cargoTableWidthUsed = cargoGradeColumn.widthProperty()
                 .add(cargoQuantityColumn.widthProperty())
                 .add(UIFunctions.scrollBarAllowance);
 
         cargoItemColumn.prefWidthProperty()
                 .bind(cargoTable.widthProperty().subtract(cargoTableWidthUsed));
-
 
 
         DoubleBinding recipeTableWidthUsed = taskCountColumn.widthProperty()
@@ -610,12 +628,14 @@ public class UIController
                 .bind(procurementTaskTable.widthProperty()
                         .subtract(recipeTableWidthUsed));
 
+
         DoubleBinding costTableWidthUsed = taskCostNeedColumn.widthProperty()
                 .add(UIFunctions.scrollBarAllowance);
 
         taskCostNameColumn.prefWidthProperty()
                 .bind(taskCostTable.widthProperty()
                         .subtract(costTableWidthUsed));
+
 
         DoubleBinding shipTable1WidthUsed = coreModuleNameColumn.widthProperty()
                 .add(UIFunctions.scrollBarAllowance);
@@ -624,6 +644,7 @@ public class UIController
                 .bind(coreModuleList.widthProperty()
                         .subtract(shipTable1WidthUsed));
 
+
         DoubleBinding shipTable2WidthUsed = optionalModuleNameColumn.widthProperty()
                 .add(UIFunctions.scrollBarAllowance);
 
@@ -631,108 +652,98 @@ public class UIController
                 .bind(optionalModuleList.widthProperty()
                         .subtract(shipTable2WidthUsed));
 
+
         DoubleBinding shipTable3WidthUsed = hardpointNameColumn.widthProperty()
                 .add(UIFunctions.scrollBarAllowance);
 
         hardpointDataColumn.prefWidthProperty()
                 .bind(hardpointList.widthProperty()
                         .subtract(shipTable3WidthUsed));
+    }
 
-
-        // fix ugly selection stuff
-
-
+    private void initializeSelectionOverrides()
+    {
         procurementTree.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> procurementTree.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> procurementTree.getSelectionModel().clearSelection()));
 
         procurementList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> procurementList.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> procurementList.getSelectionModel().clearSelection()));
 
         rawTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> rawTable.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> rawTable.getSelectionModel().clearSelection()));
 
         manufacturedTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> manufacturedTable.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> manufacturedTable.getSelectionModel().clearSelection()));
 
         dataTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> dataTable.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> dataTable.getSelectionModel().clearSelection()));
 
         cargoTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> cargoTable.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> cargoTable.getSelectionModel().clearSelection()));
 
         procurementTaskTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> procurementTaskTable.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> procurementTaskTable.getSelectionModel().clearSelection()));
 
         taskCostTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> taskCostTable.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> taskCostTable.getSelectionModel().clearSelection()));
 
         statTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> statTable.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> statTable.getSelectionModel().clearSelection()));
 
         shipStatisticsTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> shipStatisticsTable.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> shipStatisticsTable.getSelectionModel().clearSelection()));
 
         coreModuleList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> coreModuleList.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> coreModuleList.getSelectionModel().clearSelection()));
 
         optionalModuleList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> optionalModuleList.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> optionalModuleList.getSelectionModel().clearSelection()));
 
         hardpointList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-        {
-            Platform.runLater(() -> hardpointList.getSelectionModel().clearSelection());
-        });
+                Platform.runLater(() -> hardpointList.getSelectionModel().clearSelection()));
     }
 
     private TreeItem<ProcurementTaskData> makeTradeTree()
     {
         TreeItem<ProcurementTaskData> materialTrades = new TreeItem<>(new ProcurementTaskData("Material Trades"));
+
+        // loop through all possible trades
         Stream.of(MaterialTradeType.values())
                 .forEach(tradeCategory ->
                 {
+                    // add a collapsible category label
                     TreeItem<ProcurementTaskData> categoryItem =
                             new TreeItem<>(new ProcurementTaskData(tradeCategory.toString()));
+
+                    // for this category, loop through trade sub-categories it contains
                     tradeCategory.subCategoryStream()
                             .filter(subCategory -> subCategory != MaterialSubCategory.UNKNOWN)
                             .forEach(subCategory ->
                             {
+                                // add a collapsible subcategory label
                                 TreeItem<ProcurementTaskData> subCatItem =
                                         new TreeItem<>(new ProcurementTaskData(subCategory.toString()));
+
+                                // for this subcategory, loop through all materials it contains
                                 subCategory.materials()
                                         .forEach(material ->
                                         {
+                                            // add a collapsible a selectable material label
                                             TreeItem<ProcurementTaskData> bluePrintItem =
                                                     new TreeItem<>(new ProcurementTaskData(tradeCategory, material.getBlueprint()));
-                                             subCatItem.getChildren().add(bluePrintItem);
+
+                                            // add the material item to the subcategory
+                                            subCatItem.getChildren().add(bluePrintItem);
                                         });
+
+                                // add the subcategory item to the category
                                 categoryItem.getChildren().add(subCatItem);
                             });
+
+                    // add the category item to the root
                     materialTrades.getChildren().add(categoryItem);
                 });
+
         return materialTrades;
     }
 
@@ -755,7 +766,7 @@ public class UIController
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
-                    // add a collapsible blueprint label
+                    // add a selectable blueprint label
                     TreeItem<ProcurementTaskData> bluePrintItem = new TreeItem<>(new ProcurementTaskData(type, blueprint));
 
                     // add the blueprint item to this mod type
@@ -792,7 +803,7 @@ public class UIController
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
-                    // add a collapsible blueprint label
+                    // add a selectable blueprint label
                     TreeItem<ProcurementTaskData> bluePrintItem = new TreeItem<>(new ProcurementTaskData(type, blueprint));
 
                     // add the blueprint item to this mod type
@@ -823,23 +834,16 @@ public class UIController
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
-                // add a collapsible mod type label
-                //TreeItem<ProcurementTaskData> typeItem = new TreeItem<>(new ProcurementTaskData(type.toString()));
-
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
-                    // add a collapsible blueprint label
+                    // add a selectable blueprint label
                     TreeItem<ProcurementTaskData> bluePrintItem = new TreeItem<>(new ProcurementTaskData(type, blueprint));
 
                     // add the blueprint item to this mod type
-                    //typeItem.getChildren().add(bluePrintItem);
                     categoryItem.getChildren().add(bluePrintItem);
 
                 });
-
-                // add the type item to this category
-                //categoryItem.getChildren().add(typeItem);
             });
 
             // add this category to the root
