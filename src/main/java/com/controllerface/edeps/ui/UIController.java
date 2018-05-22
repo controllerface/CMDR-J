@@ -129,9 +129,6 @@ public class UIController
     @FXML private TableColumn<ItemCostData, String> taskCostNeedColumn;
     @FXML private TableColumn<ItemCostData, ItemCostData> taskCostNameColumn;
 
-    // The observable list backing the task cost table view
-    private ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableList(new ArrayList<>());
-
     // player stats
     @FXML private TableView<Pair<Statistic, String>> statTable;
     @FXML private TableColumn<Pair<Statistic, String>, String> statNameColumn;
@@ -174,10 +171,13 @@ public class UIController
 
     private final CommanderData commanderData = new CommanderData();
 
-    private ObservableList<ProcurementTaskData> procSelectorBackingList = FXCollections.observableArrayList();
+    private final ObservableList<ProcurementTaskData> procSelectorBackingList = FXCollections.observableArrayList();
 
     // The observable list backing the task list table view
     private final ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableArrayList();
+
+    // The observable list backing the task cost table view
+    private final ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableArrayList();
 
 
     /*
@@ -895,9 +895,9 @@ public class UIController
         // create and add the various procurement sub-trees to the root object
         root.getChildren().addAll(makeModificationTree(),
                 makeExperimentTree(),
-                makeSynthesisTree(),
+                makeTechnologyTree(),
                 makeTradeTree(),
-                makeTechnologyTree());
+                makeSynthesisTree());
 
         // set the root as expanded by default
         root.setExpanded(true);
