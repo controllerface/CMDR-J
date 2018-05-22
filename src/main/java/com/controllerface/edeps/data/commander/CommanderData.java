@@ -8,7 +8,9 @@ import com.controllerface.edeps.structures.costs.commodities.CommodityType;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.costs.materials.MaterialType;
 import com.controllerface.edeps.structures.equipment.ships.Ship;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -55,24 +57,32 @@ public class CommanderData
     private final Map<Statistic, String> stats = new ConcurrentHashMap<>(new LinkedHashMap<>());
 
 
-    public ObservableList<InventoryData> observableCargo()
+    public void associateCargoTable(TableView<InventoryData> cargoTable)
     {
-        return cargo.observableInventory();
+        cargoTable.setItems(cargo.observableInventory());
+        cargo.observableInventory()
+                .addListener((ListChangeListener<InventoryData>) c -> cargoTable.refresh());
     }
 
-    public ObservableList<InventoryData> observableRawMaterials()
+    public void associateRawTable(TableView<InventoryData> rawtable)
     {
-        return rawMats.observableInventory();
+        rawtable.setItems(rawMats.observableInventory());
+        rawMats.observableInventory()
+                .addListener((ListChangeListener<InventoryData>) c -> rawtable.refresh());
     }
 
-    public ObservableList<InventoryData> observableManufacturedMaterials()
+    public void associateManufacturedTable(TableView<InventoryData> mfdTable)
     {
-        return mfdMats.observableInventory();
+        mfdTable.setItems(mfdMats.observableInventory());
+        mfdMats.observableInventory()
+                .addListener((ListChangeListener<InventoryData>) c -> mfdTable.refresh());
     }
 
-    public ObservableList<InventoryData> observableDataMaterials()
+    public void associateDataTable(TableView<InventoryData> dataTable)
     {
-        return dataMats.observableInventory();
+        dataTable.setItems(dataMats.observableInventory());
+        dataMats.observableInventory()
+                .addListener((ListChangeListener<InventoryData>) c -> dataTable.refresh());
     }
 
     /**

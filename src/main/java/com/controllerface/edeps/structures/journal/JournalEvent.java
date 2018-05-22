@@ -338,8 +338,15 @@ public enum JournalEvent
     /**
      * Written when synthesizing items
      */
-    Synthesis((context) -> ((List<Map<String, Object>>) context.getRawData().get("Materials"))
-            .forEach(material -> adjustMaterialCountDown(context, material))),
+    Synthesis((context) ->
+    {
+        String synthType = ((String) context.getRawData().get("Name"));
+
+        // todo: need a way to check max cargo size. This will be "up to four" limpets, depending on cargo space
+        if (synthType.contains("Limpet")) adjust(context, Commodity.DRONES, 4);
+        ((List<Map<String, Object>>) context.getRawData().get("Materials"))
+                .forEach(material -> adjustMaterialCountDown(context, material));
+    }),
 
     /**
      * Written when contributing materials to a community goal

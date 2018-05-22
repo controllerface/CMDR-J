@@ -23,7 +23,7 @@ public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<Procur
 {
     private final HBox controls = new HBox();
 
-    private AtomicBoolean initialized = new AtomicBoolean(false);
+    //private AtomicBoolean initialized = new AtomicBoolean(false);
 
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> blueprintUpdate;
 
@@ -39,13 +39,13 @@ public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<Procur
 
         if (item == null || empty)
         {
-            initialized.set(false);
+            //initialized.set(false);
             setGraphic(null);
             return;
         }
 
-        if (!initialized.getAndSet(true))
-        {
+//        if (!initialized.getAndSet(true))
+//        {
             controls.getChildren().clear();
             final Button removeButton = new Button("x");
 
@@ -84,6 +84,6 @@ public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<Procur
             controls.getChildren().add(removeButton);
 
             setGraphic(controls);
-        }
+//        }
     }
 }

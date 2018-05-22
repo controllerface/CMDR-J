@@ -412,26 +412,10 @@ public class UIController
     private void initializeInventoryTables()
     {
         // associate the inventory lists with the table view UI elements that display their contents
-        rawTable.setItems(commanderData.observableRawMaterials());
-        dataTable.setItems(commanderData.observableDataMaterials());
-        manufacturedTable.setItems(commanderData.observableManufacturedMaterials());
-        cargoTable.setItems(commanderData.observableCargo());
-
-        // for each of the inventory lists, we need to add a listener that refreshes the corresponding UI table
-        // when the backing list is updated.
-        // todo: the refresh lambdas should store and re-apply existing sorts on the table
-        // todo: it may be necessary to use Platform.runLater() to ensure no UI thread exceptions when sorting
-        commanderData.observableCargo().addListener((ListChangeListener<InventoryData>)
-                c -> cargoTable.refresh());
-
-        commanderData.observableDataMaterials().addListener((ListChangeListener<InventoryData>)
-                c -> dataTable.refresh());
-
-        commanderData.observableManufacturedMaterials().addListener((ListChangeListener<InventoryData>)
-                c -> manufacturedTable.refresh());
-
-        commanderData.observableRawMaterials().addListener((ListChangeListener<InventoryData>)
-                c -> rawTable.refresh());
+        commanderData.associateCargoTable(cargoTable);
+        commanderData.associateRawTable(rawTable);
+        commanderData.associateManufacturedTable(manufacturedTable);
+        commanderData.associateDataTable(dataTable);
 
         // set sorting comparators for each data column
         rawGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
@@ -511,26 +495,11 @@ public class UIController
 
     private void initializeShipLoadoutTables()
     {
-        shipStatisticsTable.setItems(commanderData.getStarShip().getStatistics());
-        coreModuleList.setItems(commanderData.getStarShip().getCoreInternals());
-        optionalModuleList.setItems(commanderData.getStarShip().getOptionalInternals());
-        hardpointList.setItems(commanderData.getStarShip().getHardpoints());
+        commanderData.getStarShip().associateStatisticsTable(shipStatisticsTable);
 
-        commanderData.getStarShip().getStatistics()
-                .addListener((ListChangeListener<ShipStatisticData>)
-                        c -> shipStatisticsTable.refresh());
-
-        commanderData.getStarShip().getCoreInternals()
-                .addListener((ListChangeListener<ShipModuleData>)
-                        c -> coreModuleList.refresh());
-
-        commanderData.getStarShip().getOptionalInternals()
-                .addListener((ListChangeListener<ShipModuleData>)
-                        c -> optionalModuleList.refresh());
-
-        commanderData.getStarShip().getHardpoints()
-                .addListener((ListChangeListener<ShipModuleData>)
-                        c -> hardpointList.refresh());
+        commanderData.getStarShip().associateCoreTable(coreModuleList);
+        commanderData.getStarShip().associateOptionalTable(optionalModuleList);
+        commanderData.getStarShip().associateHardpointTable(hardpointList);
 
         shipStatisticsNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
         shipStatisticsNameColumn.setCellFactory(UIFunctions.Data.boldStatNameCellFactory);
@@ -589,7 +558,6 @@ public class UIController
         statNameColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
         statValueColumn.setCellFactory(UIFunctions.Data.boldStringNameCellFactory);
 
-
         sortTasksByName.setOnAction((e)-> sortTaskTable());
         sortTasksByGrade.setOnAction((e)-> sortTaskTable());
 
@@ -597,9 +565,9 @@ public class UIController
         showTasks.setOnAction((e)-> setProcurementsUIVisibility());
         showItemsNeeded.setOnAction((e)-> setProcurementsUIVisibility());
 
-        shipNameLabel.textProperty().bind(commanderData.getStarShip().getShipGivenName());
-        shipTypeLabel.textProperty().bind(commanderData.getStarShip().getShipDisplayName());
-        shipIDLabel.textProperty().bind(commanderData.getStarShip().getShipID());
+        commanderData.getStarShip().associateShipGivenName(shipNameLabel);
+        commanderData.getStarShip().associateShipDisplayName(shipTypeLabel);
+        commanderData.getStarShip().associateShipID(shipIDLabel);
 
 
         // table auto-resize bindings

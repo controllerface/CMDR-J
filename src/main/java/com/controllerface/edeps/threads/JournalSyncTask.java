@@ -119,6 +119,8 @@ public class JournalSyncTask implements Runnable
     private final AtomicInteger lastLine = new AtomicInteger(0);
     private final AtomicReference<String> currentJournalFile = new AtomicReference<>("");
 
+    private long lastFileSize = 0;
+
     private final Procedure updateFunction;
 
 
@@ -146,7 +148,8 @@ public class JournalSyncTask implements Runnable
                     StandardWatchEventKinds.ENTRY_MODIFY,
                     StandardWatchEventKinds.OVERFLOW);
             System.out.println("Journal Folder : " + watchKey.watchable());
-            System.out.println("Journal File: " + currentJournalFile.get());
+            System.out.println("\u001b" + "[32m" + "Journal File: " + currentJournalFile.get());
+            //System.out.println("Journal File: " + currentJournalFile.get());
         }
         catch (IOException e)
         {
@@ -178,9 +181,16 @@ public class JournalSyncTask implements Runnable
 
                 if (check == null) continue;
 
-                if (!check.exists())
+                if (lastFileSize != check.length())
                 {
-                    go = false;
+                    System.out.println("File size changed: " + lastFileSize + " to: " + check.length());
+                    lastFileSize = check.length();
+                }
+
+
+                if (check.exists())
+                {
+                    reInitializeJournalData();
                 }
                 continue;
             }
@@ -200,6 +210,7 @@ public class JournalSyncTask implements Runnable
 
                         if (next.getName().equals(currentJournalFile.get()))
                         {
+                            System.out.println("watch key triggered");
                             processJournalFile(next);
                         }
                         else
@@ -240,6 +251,7 @@ public class JournalSyncTask implements Runnable
     {
         List<String> journalLines = new ArrayList<>();
         journalFile = file;
+        lastFileSize = journalFile.length();
         currentJournalFile.set(file.getName());
 
         try
@@ -278,6 +290,29 @@ public class JournalSyncTask implements Runnable
                 .forEach(this::processJSONEvent);
     }
 
+    private void reInitializeJournalData()
+    {
+
+        File[] journalFiles = journalPath.toFile().listFiles((directory, file) -> file.startsWith("Journal"));
+
+        // todo: maybe print an error of some kind
+        if (journalFiles == null) return;
+
+        File currentName = Arrays.stream(journalFiles)
+                .sorted(newestJournalFile)
+                .limit(1).findAny().orElse(null);
+
+        // todo: maybe print an error of some kind
+        if (currentName == null) return;
+
+        if (!currentName.getName().equals(currentJournalFile.get()))
+        {
+            System.out.println("new journal detected: " + currentName.getName());
+            readJournalLines(currentName)
+                .filter(hasSupportedEvent)
+                .forEach(this::processJSONEvent);
+        }
+    }
     /**
      * Processes a generic JSON event, delegating final processing to a specific method based on the event type
      *

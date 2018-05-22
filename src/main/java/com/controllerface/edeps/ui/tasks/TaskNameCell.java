@@ -58,8 +58,8 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
 
     private void createOrUpdate(ProcurementRecipeData item)
     {
-        if (!initialized.getAndSet(true))
-        {
+//        if (!initialized.getAndSet(true))
+//        {
             descriptionContainer.getChildren().clear();
             Accordion accordion = new Accordion();
 
@@ -115,7 +115,7 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
             accordion.getPanes().add(titledPane);
 
             descriptionContainer.getChildren().add(accordion);
-        }
+        //}
 
         nameLabel.setText(item.asPair().getKey().toString() + " :: " + item.asPair().getValue().getDisplayLabel());
         updateProgressBar(item);

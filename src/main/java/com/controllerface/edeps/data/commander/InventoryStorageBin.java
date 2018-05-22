@@ -9,6 +9,7 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -54,7 +55,11 @@ public abstract class InventoryStorageBin
      */
     Stream<InventoryData> inventory()
     {
-        return inventoryItems.stream();
+        synchronized (inventoryItems)
+        {
+            List<InventoryData> copyBuffer = inventoryItems.stream().collect(Collectors.toList());
+            return copyBuffer.stream();
+        }
     }
 
 
@@ -67,7 +72,10 @@ public abstract class InventoryStorageBin
      */
     void clear()
     {
-        inventoryItems.clear();
+        synchronized (inventoryItems)
+        {
+            inventoryItems.clear();
+        }
         init();
     }
 
@@ -82,10 +90,13 @@ public abstract class InventoryStorageBin
     {
         if (check(item))
         {
-            return inventory()
-                    .filter(inventoryItem -> inventoryItem.getItem() == item)
-                    .map(InventoryData::getQuantity)
-                    .findFirst().orElse(0);
+            synchronized (inventoryItems)
+            {
+                return inventoryItems.stream()
+                        .filter(inventoryItem -> inventoryItem.getItem() == item)
+                        .map(InventoryData::getQuantity)
+                        .findFirst().orElse(0);
+            }
         }
         return -1;
     }
@@ -104,16 +115,19 @@ public abstract class InventoryStorageBin
     {
         if (check(item))
         {
-            inventory()
-                    .filter(inventoryItem -> inventoryItem.getItem() == item)
-                    .findFirst().map(inventoryItem -> inventoryItem.adjustCount(count))
-                    .orElseGet((() -> inventoryItems.add(new InventoryData(item, count))));
+            synchronized (inventoryItems)
+            {
+                inventoryItems.stream()
+                        .filter(inventoryItem -> inventoryItem.getItem() == item)
+                        .findFirst().map(inventoryItem -> inventoryItem.adjustCount(count))
+                        .orElseGet((() -> inventoryItems.add(new InventoryData(item, count))));
 
-            // this is  hacky, but ensures the list triggers a change event so any observing UI elements will
-            // be refreshed. This is a better alternative to requiring this class to maintain a reference to
-            // an observing elements and notify them manually
-            InventoryData dummy = inventoryItems.remove(0);
-            inventoryItems.add(0, dummy);
+                // this is  hacky, but ensures the list triggers a change event so any observing UI elements will
+                // be refreshed. This is a better alternative to requiring this class to maintain a reference to
+                // an observing elements and notify them manually
+                InventoryData dummy = inventoryItems.remove(0);
+                inventoryItems.add(0, dummy);
+            }
         }
     }
 }
