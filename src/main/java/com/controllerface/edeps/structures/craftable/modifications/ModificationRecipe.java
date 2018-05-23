@@ -4319,7 +4319,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     @Override
     public String getDisplayLabel()
     {
-        return parentBlueprintName + " :: " + getShortLabel();
+        return getShortLabel() + " :: " +  parentBlueprintName;
     }
 
     @Override

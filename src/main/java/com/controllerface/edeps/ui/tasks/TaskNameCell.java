@@ -79,7 +79,16 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
             nameLabel.setFont(UIFunctions.Fonts.size2Font);
             nameLabel.paddingProperty().set(new Insets(2,5,2,5));
 
-            // costs
+
+        // effects
+        item.asPair().getValue().effects().effectStream()
+                .map(UIFunctions.Convert.effectToLabel)
+                .sorted(UIFunctions.Sort.byGoodness)
+                .forEach(label -> costEffectContainer.getChildren().add(label));
+
+        costEffectContainer.getChildren().add(separator);
+
+        // costs
             item.asPair().getValue().costStream()
                     .map(c->
                     {
@@ -91,20 +100,14 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
                                 ? "+" + Math.abs(c.getQuantity()) * item.getCount()
                                 : "-" + c.getQuantity() * item.getCount();
 
-                        Label next = new Label(quantity + "x " + c.getCost().getLocalizedName());
+                        Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
                         next.setFont(UIFunctions.Fonts.size1Font);
                         next.setTextFill(hasEnough ? UIFunctions.Fonts.neutralBlack : UIFunctions.Fonts.negativeRed);
                         return next;
                     })
                     .forEach(label -> costEffectContainer.getChildren().add(label));
 
-            costEffectContainer.getChildren().add(separator);
 
-            // effects
-            item.asPair().getValue().effects().effectStream()
-                    .map(UIFunctions.Convert.effectToLabel)
-                    .sorted(UIFunctions.Sort.byGoodness)
-                    .forEach(label -> costEffectContainer.getChildren().add(label));
 
             titledPane.setContent(costEffectContainer);
             updateProgressBar(item);
@@ -120,7 +123,7 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
             descriptionContainer.getChildren().add(accordion);
         //}
 
-        nameLabel.setText(item.asPair().getKey().toString() + " :: " + item.asPair().getValue().getDisplayLabel());
+        nameLabel.setText(item.asPair().getValue().getDisplayLabel() + " :: " + item.asPair().getKey().toString());
         updateProgressBar(item);
     }
 

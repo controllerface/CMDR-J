@@ -16,24 +16,9 @@
                      <children>
                         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox>
-                                 <children>
-                                    <Label fx:id="shipNameLabel" layoutX="204.0" layoutY="20.0" text="unknown name">
-                                       <font>
-                                          <Font name="System Bold Italic" size="36.0" />
-                                       </font>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                       <HBox.margin>
-                                          <Insets left="10.0" right="10.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
                               <HBox layoutX="10.0" layoutY="10.0">
                                  <children>
-                                    <Label layoutX="20.0" layoutY="10.0" text="ID:">
+                                    <Label fx:id="shipMakeLabel" layoutX="77.0" layoutY="10.0" text="unknown manufacturer">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -41,30 +26,16 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
                                        <HBox.margin>
-                                          <Insets left="10.0" right="-5.0" top="-10.0" />
+                                          <Insets left="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="shipIDLabel" layoutX="73.0" layoutY="10.0" text="unknown ID">
+                                    <Label layoutX="20.0" layoutY="10.0" text="::">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
-                                       <HBox.margin>
-                                          <Insets top="-10.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label layoutX="20.0" layoutY="20.0" text="Type:">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                       <HBox.margin>
-                                          <Insets left="10.0" right="-5.0" top="-10.0" />
-                                       </HBox.margin>
                                     </Label>
                                     <Label fx:id="shipTypeLabel" text="unknown ship">
                                        <font>
@@ -74,7 +45,44 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
                                        <HBox.margin>
-                                          <Insets top="-10.0" />
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label fx:id="shipIDLabel" text="unknown ID">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="8.0" top="-15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label text="::">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets top="-18.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="shipNameLabel" text="unknown name">
+                                       <font>
+                                          <Font name="System Bold Italic" size="36.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets top="-15.0" />
                                        </HBox.margin>
                                     </Label>
                                  </children>

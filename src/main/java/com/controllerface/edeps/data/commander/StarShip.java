@@ -32,9 +32,10 @@ import java.util.stream.Stream;
 public class StarShip
 {
     private Ship ship;
-    private final SimpleStringProperty shipDisplayName = new SimpleStringProperty("None");
-    private final SimpleStringProperty shipGivenName = new SimpleStringProperty("None");
     private final SimpleStringProperty shipID = new SimpleStringProperty("None");
+    private final SimpleStringProperty shipGivenName = new SimpleStringProperty("None");
+    private final SimpleStringProperty shipDisplayName = new SimpleStringProperty("None");
+    private final SimpleStringProperty shipManufacturerName = new SimpleStringProperty("None");
 
     private double currentFuel = 0d; // todo: use this
 
@@ -94,17 +95,24 @@ public class StarShip
             shipDisplayName.set(ship.getBaseShipStats().getDisplayName());
         }
 
+        synchronized (shipManufacturerName)
+        {
+            shipManufacturerName.set(ship.getBaseShipStats().getManufacturer().toString());
+        }
+
         synchronized (statistics)
         {
             statistics.clear();
 
             statistics.add(new ShipStatisticData(ship.getBaseShipStats().getShipSize()));
-            statistics.add(new ShipStatisticData(ship.getBaseShipStats().getManufacturer()));
+            statistics.add(new ShipStatisticData(ShipStat.Mass_Lock_Factor, ship.getBaseShipStats().getMassLockFactor()));
+            statistics.add(new ShipStatisticData(ShipStat.Crew_Seats, ship.getBaseShipStats().getCrewSeats()));
+            statistics.add(new ShipStatisticData(ShipStat.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
 
-            statistics.add(new ShipStatisticData(ShipStat.Hull_Hardness, ship.getBaseShipStats().getHullHardness()));
-            statistics.add(new ShipStatisticData(ShipStat.Armor_Rating, ship.getBaseShipStats().getArmorRating()));
-            statistics.add(new ShipStatisticData(ShipStat.Base_Shield, ship.getBaseShipStats().getShield()));
             statistics.add(new ShipStatisticData(ShipStat.Base_Hull_Mass, ship.getBaseShipStats().getHullMass()));
+
+            statistics.add(new ShipStatisticData(ShipStat.Unladen_Mass, calculateUnladenHullMass()));
+
 
             statistics.add(new ShipStatisticData(ShipStat.Agility, ship.getBaseShipStats().getAgility()));
             statistics.add(new ShipStatisticData(ShipStat.Speed, ship.getBaseShipStats().getSpeed()));
@@ -112,9 +120,9 @@ public class StarShip
             statistics.add(new ShipStatisticData(ShipStat.Max_Speed, ship.getBaseShipStats().getMaxSpeed()));
             statistics.add(new ShipStatisticData(ShipStat.Max_Boost_Speed, ship.getBaseShipStats().getMaxBoostSpeed()));
 
-            statistics.add(new ShipStatisticData(ShipStat.Mass_Lock_Factor, ship.getBaseShipStats().getMassLockFactor()));
-            statistics.add(new ShipStatisticData(ShipStat.Crew_Seats, ship.getBaseShipStats().getCrewSeats()));
-            statistics.add(new ShipStatisticData(ShipStat.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
+            statistics.add(new ShipStatisticData(ShipStat.Hull_Hardness, ship.getBaseShipStats().getHullHardness()));
+            statistics.add(new ShipStatisticData(ShipStat.Armor_Rating, ship.getBaseShipStats().getArmorRating()));
+            statistics.add(new ShipStatisticData(ShipStat.Base_Shield, ship.getBaseShipStats().getShield()));
         }
     }
 
@@ -147,6 +155,11 @@ public class StarShip
         return buffer.stream();
     }
 
+    public void associateShipManufacturer(Label makeLabel)
+    {
+        makeLabel.textProperty().bind(shipManufacturerName);
+    }
+
     public void associateShipDisplayName(Label displayLabel)
     {
         displayLabel.textProperty().bind(shipDisplayName);
@@ -161,6 +174,7 @@ public class StarShip
     {
         shipIDLabel.textProperty().bind(shipID);
     }
+
 
     public void associateStatisticsTable(TableView<ShipStatisticData> statTable)
     {
@@ -261,7 +275,6 @@ public class StarShip
         {
             resetStats();
 
-            double totalHullMass = calculateUnladenHullMass();
             double hullStrength = calculateCurrentHullStrength();
             double shieldStrength = calculateCurrentShieldStrength();
 
@@ -276,7 +289,6 @@ public class StarShip
 
             synchronized (statistics)
             {
-                statistics.add(new ShipStatisticData(ShipStat.Unladen_Mass, totalHullMass));
 
                 statistics.add(new ShipStatisticData(ShipStat.Shield_Strength, shieldStrength));
                 statistics.add(new ShipStatisticData(ShipStat.Shield_Kinetic_Resistance, shieldKineticResistance));

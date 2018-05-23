@@ -146,9 +146,11 @@ public class UIController
     @FXML private CheckBox showTasks;
     @FXML private CheckBox showItemsNeeded;
 
+
+    @FXML private Label shipIDLabel;
     @FXML private Label shipNameLabel;
     @FXML private Label shipTypeLabel;
-    @FXML private Label shipIDLabel;
+    @FXML private Label shipMakeLabel;
 
     @FXML private TableView<ShipStatisticData> shipStatisticsTable;
     @FXML private TableColumn<ShipStatisticData, String> shipStatisticsNameColumn;
@@ -604,6 +606,7 @@ public class UIController
         showTasks.setOnAction(e -> setProcurementsUIVisibility());
         showItemsNeeded.setOnAction(e -> setProcurementsUIVisibility());
 
+        commanderData.getStarShip().associateShipManufacturer(shipMakeLabel);
         commanderData.getStarShip().associateShipGivenName(shipNameLabel);
         commanderData.getStarShip().associateShipDisplayName(shipTypeLabel);
         commanderData.getStarShip().associateShipID(shipIDLabel);
@@ -738,6 +741,7 @@ public class UIController
 
         // loop through all possible trades
         Stream.of(MaterialTradeType.values())
+                .filter(type->type!=MaterialTradeType.UNKNOWN)
                 .forEach(tradeCategory ->
                 {
                     // add a collapsible category label

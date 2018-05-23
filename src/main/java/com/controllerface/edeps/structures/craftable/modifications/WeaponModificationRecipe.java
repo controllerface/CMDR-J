@@ -594,7 +594,7 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
     @Override
     public String getDisplayLabel()
     {
-        return parentBlueprintName + " :: " + getShortLabel();
+        return getShortLabel() + " :: " +  parentBlueprintName;
     }
 
     @Override
