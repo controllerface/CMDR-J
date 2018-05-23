@@ -38,6 +38,8 @@ public enum MaterialTradeType implements ProcurementType
             MaterialSubCategory.Shield_Data,
             MaterialSubCategory.Wake_Scans),
 
+    UNKNOWN(),
+
     ;
 
     private static final double downgradeMultiplier = 3;
@@ -49,6 +51,15 @@ public enum MaterialTradeType implements ProcurementType
     {
         this.subCategories = subCategories;
         calculateSubCategoryTradeCosts(subCategories);
+    }
+
+    public static ProcurementType findMatchingType(Material material)
+    {
+        return Stream.of(values())
+                .filter(sc->sc.subCategoryStream()
+                        .flatMap(MaterialSubCategory::materials)
+                        .anyMatch(m -> m == material))
+                .findFirst().orElse(UNKNOWN);
     }
 
     private static void calculateSubCategoryTradeCosts(MaterialSubCategory ... subCategories)

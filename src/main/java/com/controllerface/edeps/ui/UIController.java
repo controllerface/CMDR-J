@@ -51,7 +51,6 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -178,6 +177,8 @@ public class UIController
 
     private final Set<ProcurementCost> taskCache = new HashSet<>();
 
+    private final Map<ProcurementCost, Integer> tradeCache = new HashMap<>();
+
     private final CommanderData commanderData = new CommanderData();
 
     private final ObservableList<ProcurementTaskData> procSelectorBackingList = FXCollections.observableArrayList();
@@ -279,11 +280,33 @@ public class UIController
                             .map(taskCost -> new CostData(taskCost.getCost(), taskCost.getQuantity() * diff))
                             .collect(Collectors.toList());
 
+                    if (recipe.getValue() instanceof MaterialTradeRecipe)
+                    {
+                        recipe.getValue().costStream()
+                                .filter(costData -> costData.getQuantity() < 0)
+                                .forEach(costData ->
+                                {
+                                    int yield = Math.abs(costData.getQuantity());
+                                    int yieldAdjustment = yield * adjustment;
+                                    int current = tradeCache.computeIfAbsent(costData.getCost(), (x) -> 0);
+                                    current += yieldAdjustment;
+                                    if (current<=0) tradeCache.remove(costData.getCost());
+                                    else tradeCache.put(costData.getCost(), current);
+                                });
+                    }
+
                     // loop through the cost list and make the actual adjustments, and then collect the adjusted
                     // costs so we can check for any that need to be removed after adjustment
                     List<ItemCostData> toRemove = taskCostBackingList.stream()
                             .filter(costToAdjust -> costAdjustments.stream().anyMatch(costToAdjust::matches))
-                            .peek(costToAdjust -> taskCache.add(costToAdjust.getCost()))
+                            .peek(costToAdjust ->
+                            {
+                                // we don't want to count trade costs as cached, because the task is used to filter
+                                // trades from the recommended trades drop down. If we cache the trade costs for these,
+                                // the a recommended trade becomes unrecommended as soon as it is added.
+                                if (recipe.getValue() instanceof MaterialTradeRecipe) return;
+                                taskCache.add(costToAdjust.getCost());
+                            })
                             .peek(costToAdjust ->
                             {
                                 CostData toAdjust = costAdjustments.stream()
@@ -410,12 +433,18 @@ public class UIController
     private void initializeTextPlaceholders()
     {
         // set placeholder labels shown when the procurement list is empty
-        Label recipeTableLabel = new Label("Use the Procurement Tasks menu to select tasks");
+        Label procListLabel = new Label("<---- Select a task category from the tree on the left");
+        Label recipeTableLabel = new Label("Selected tasks will appear here");
         Label costTableLabel = new Label("Items needed for selected tasks will appear here");
+
+        procListLabel.setFont(UIFunctions.Fonts.size1Font);
         recipeTableLabel.setFont(UIFunctions.Fonts.size1Font);
         costTableLabel.setFont(UIFunctions.Fonts.size1Font);
+
+        procurementList.setPlaceholder(procListLabel);
         procurementTaskTable.setPlaceholder(recipeTableLabel);
         taskCostTable.setPlaceholder(costTableLabel);
+
     }
 
     private void initializeInventoryTables()
@@ -551,7 +580,7 @@ public class UIController
         taskCountColumn.setCellFactory(x -> new TaskCountCell(procurementListUpdate));
         taskCountColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
-        taskNameColumn.setCellFactory(x -> new TaskNameCell(commanderData::hasItem));
+        taskNameColumn.setCellFactory(x -> new TaskNameCell(commanderData::hasItem, tradeCache::get));
         taskNameColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
         taskRemoveColumn.setCellFactory(x -> new TaskRemoveCell(procurementListUpdate));
@@ -561,7 +590,7 @@ public class UIController
         taskCostNeedColumn.setCellFactory(x -> new CostValueCell());
 
         taskCostNameColumn.setCellValueFactory(modMaterial -> new ReadOnlyObjectWrapper<>(modMaterial.getValue()));
-        taskCostNameColumn.setCellFactory(x -> new CostDataCell(commanderData::hasItem, taskCache::contains));
+        taskCostNameColumn.setCellFactory(x -> new CostDataCell(addTaskToProcurementList, commanderData::hasItem, taskCache::contains, tradeCache::get));
 
         statNameColumn.setCellValueFactory(stat -> new SimpleStringProperty(stat.getValue().getKey().getText()));
         statValueColumn.setCellValueFactory(stat -> new SimpleStringProperty(stat.getValue().getValue()));

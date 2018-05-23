@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -32,10 +33,12 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
 
     private AtomicBoolean initialized = new AtomicBoolean(false);
     private final Function<ProcurementCost, Integer> checkInventory;
+    private final Function<ProcurementCost, Integer> pendingTradeYield;
 
-    public TaskNameCell(Function<ProcurementCost, Integer> checkInventory)
+    public TaskNameCell(Function<ProcurementCost, Integer> checkInventory, Function<ProcurementCost, Integer> pendingTradeYield)
     {
         this.checkInventory = checkInventory;
+        this.pendingTradeYield = pendingTradeYield;
     }
 
     @Override
@@ -121,8 +124,10 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
         updateProgressBar(item);
     }
 
-    private double calculateProgress(ProcurementRecipeData procurementRecipeData)
+    private Pair<Double, Boolean> calculateProgress(ProcurementRecipeData procurementRecipeData)
     {
+        AtomicBoolean usesTrade = new AtomicBoolean(false);
+
         // get the number of "rolls" required for this task
         int count = procurementRecipeData.getCount();
 
@@ -133,9 +138,24 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
                 .mapToInt(cost->
                 {
                     int banked = checkInventory.apply(cost.getCost());
+
                     int calculatedCost = (cost.getQuantity() * count);
+
                     accumulatedTotal.addAndGet(calculatedCost);
+
                     int surplus = banked - calculatedCost;
+
+                    // only check pending trades if we're in the red without them
+                    if (surplus < 0)
+                    {
+                        Integer pendingYield = pendingTradeYield.apply(cost.getCost());
+                        if (pendingYield != null && pendingYield > 0)
+                        {
+                            usesTrade.set(true);
+                            surplus = banked + pendingYield - calculatedCost;
+                        }
+                    }
+
                     return surplus < 0
                             ? -1 * surplus
                             : 0;
@@ -144,7 +164,7 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
 
         if (count == lastCount && accumulatedTotal.get() == lastTotal && missing == lastMissing)
         {
-            return lastProgress;
+            return new Pair<>(lastProgress, usesTrade.get());
         }
 
         lastCount = count;
@@ -155,18 +175,26 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
                 ? (double) (lastTotal - lastMissing) / (double)(lastTotal)
                 : 1;
 
-        return lastProgress;
+        return new Pair<>(lastProgress, usesTrade.get());
     }
 
     private void updateProgressBar(ProcurementRecipeData procurementRecipeData)
     {
-        progressBar.setProgress(calculateProgress(procurementRecipeData));
-        if (progressBar.getProgress() >= 1.0)
-        {
-            progressBar.setStyle("-fx-accent: #00b3f7");
-        }
-        else progressBar.setStyle("-fx-accent: #ff0000 ");
+        Pair<Double, Boolean> progressData = calculateProgress(procurementRecipeData);
+        progressBar.setProgress(progressData.getKey());
 
+        if (progressData.getValue())
+        {
+            progressBar.setStyle("-fx-accent: #b061ff");
+        }
+        else
+        {
+            if (progressBar.getProgress() >= 1.0)
+            {
+                progressBar.setStyle("-fx-accent: #00b3f7");
+            }
+            else progressBar.setStyle("-fx-accent: #ff0000 ");
+        }
         progressBar.applyCss();
     }
 }

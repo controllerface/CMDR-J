@@ -4,8 +4,10 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
+import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
 import com.controllerface.edeps.structures.costs.materials.MaterialType;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.geometry.Insets;
@@ -17,9 +19,9 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * Created by Controllerface on 4/26/2018.
@@ -30,6 +32,8 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
     private static String baseFontFamily = null;
     private final Function<ProcurementCost, Integer> checkInventory;
     private final Predicate<ProcurementCost> isInCache;
+    private final Function<ProcurementCost, Integer> pendingTradeYield;
+    private final Consumer<ProcurementTaskData> addtask;
 
     private static final Comparator<ProcurementRecipe> bestCostYieldRatio =
             (a, b)->
@@ -55,10 +59,15 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
                 return aCost - bCost;
             };
 
-    public CostDataCell(Function<ProcurementCost, Integer> checkInventory, Predicate<ProcurementCost> isInCache)
+    public CostDataCell(Consumer<ProcurementTaskData> addtask,
+                        Function<ProcurementCost, Integer> checkInventory,
+                        Predicate<ProcurementCost> isInCache,
+                        Function<ProcurementCost, Integer> pendingTradeYield)
     {
+        this.addtask = addtask;
         this.checkInventory = checkInventory;
         this.isInCache = isInCache;
+        this.pendingTradeYield = pendingTradeYield;
     }
 
     @Override
@@ -118,7 +127,17 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
             {
                 progressBar.setStyle("-fx-accent: #00b3f7");
             }
-            else progressBar.setStyle("-fx-accent: #ff0000");
+            else
+            {
+                Integer pending = pendingTradeYield.apply(cost);
+                if (pending != null)
+                {
+                    double adjustedProgress = ((double) item.getHave() + pending) / ((double) item.getNeed());
+                    progressBar.setProgress(adjustedProgress);
+                    progressBar.setStyle("-fx-accent: #b061ff");
+                }
+                else progressBar.setStyle("-fx-accent: #ff0000");
+            }
 
             hbox.getChildren().addAll(progressBar, costLabel);
 
@@ -144,7 +163,7 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
                 Material costMaterial = ((Material) item.getCost());
                 if (costMaterial.getBlueprint().recipeStream().count() > 0)
                 {
-                    List<Label> recommendTrades = new ArrayList<>();
+                    List<Button> recommendTrades = new ArrayList<>();
                     List<Label> avoidedTrades = new ArrayList<>();
                     List<Label> insufficientTrades = new ArrayList<>();
 
@@ -179,7 +198,26 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
                                     label.setTextFill(UIFunctions.Fonts.negativeRed);
                                     insufficientTrades.add(label);
                                 }
-                                else recommendTrades.add(label);
+                                else
+                                {
+                                    CostData tradeCost = recipe.costStream()
+                                            .filter(costData -> costData.getQuantity()>0).findAny()
+                                            .orElse(null);
+
+                                    // todo: report error
+                                    if (tradeCost == null) return;
+
+                                    ProcurementTaskData tradeTask = new ProcurementTaskData(MaterialTradeType
+                                            .findMatchingType(((Material) tradeCost.getCost())), recipe);
+                                    Button button = new Button(recipe.getDisplayLabel());
+                                    button.setFont(UIFunctions.Fonts.size1Font);
+                                    button.alignmentProperty().setValue(Pos.CENTER_LEFT);
+                                    button.setOnMouseClicked((e)->
+                                    {
+                                        addtask.accept(tradeTask);
+                                    });
+                                    recommendTrades.add(button);
+                                }
                             });
 
                     if (recommendTrades.isEmpty())
@@ -200,7 +238,10 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
                         tradePane.setExpanded(false);
                         tradePane.setGraphic(tradeLabel);
                         VBox vBox = new VBox();
-                        recommendTrades.stream().forEach(trade->vBox.getChildren().add(trade));
+                        vBox.fillWidthProperty().setValue(true);
+                        recommendTrades.stream()
+                                .peek(trade->trade.prefWidthProperty().bind(vBox.widthProperty()))
+                                .forEach(trade->vBox.getChildren().add(trade));
                         tradePane.setContent(vBox);
                         locationContainer.getChildren().add(tradePane);
                     }
