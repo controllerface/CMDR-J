@@ -11,6 +11,9 @@ import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.costs.materials.MaterialSubCategory;
+import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.ui.commander.CommanderStatDataCell;
 import com.controllerface.edeps.ui.costs.CostDataCell;
 import com.controllerface.edeps.ui.costs.CostValueCell;
@@ -34,8 +37,11 @@ import javafx.util.Pair;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class stores several stateless functions and utility objects that are used to build or modify the GUI. These
@@ -51,6 +57,48 @@ import java.util.function.Function;
 public class UIFunctions
 {
     public static final int scrollBarAllowance = 20;
+
+    public static class BonusWeekend
+    {
+        private static CostData reduceCost(CostData cost)
+        {
+            // get the cost grade
+            ItemGrade itemGrade = cost.getCost().getGrade();
+
+            // very common is already lowest, no change
+            if (itemGrade == ItemGrade.VERY_COMMON) return cost;
+
+            // get the correct material sub category
+            Material reducedMaterial = ((MaterialSubCategory) MaterialSubCategory
+                    .findMatchingSubCategory(cost.getCost()))
+                    .materials()
+                    .filter(m->
+                    {
+                        ItemGrade candidateGrade = m.getGrade();
+                        switch (itemGrade)
+                        {
+                            case COMMON: return candidateGrade == ItemGrade.VERY_COMMON;
+                            case STANDARD: return candidateGrade == ItemGrade.COMMON;
+                            case RARE: return candidateGrade == ItemGrade.STANDARD;
+                            case VERY_RARE: return candidateGrade == ItemGrade.RARE;
+                        }
+                        return false;
+                    }).findFirst().orElse(null);
+
+            System.out.println("orig: " + cost.getCost() + " adj.: " + reducedMaterial);
+            return new CostData(reducedMaterial, cost.getQuantity());
+        }
+
+        public static Function<CostData[], CostData[]> reduceCosts =
+                (costs) ->
+                {
+                    List<CostData> reducedCosts = Stream.of(costs)
+                            .map(BonusWeekend::reduceCost)
+                            .collect(Collectors.toList());
+
+                    return reducedCosts.toArray(new CostData[reducedCosts.size()]);
+                };
+    }
 
     public static class Symbols
     {

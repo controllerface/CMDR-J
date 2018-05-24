@@ -7,6 +7,7 @@ import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.equipment.ItemGrade;
+import com.controllerface.edeps.ui.UIFunctions;
 import javafx.util.Pair;
 
 import java.util.Arrays;
@@ -4278,8 +4279,8 @@ public enum ModificationRecipe implements ProcurementRecipe
     {
         this.grade = grade;
         this.effects = effects;
-        this.cost = cost;
-        Arrays.stream(cost).forEach(c->c.getCost().associate(this));
+        this.cost = UIFunctions.BonusWeekend.reduceCosts.apply(cost);
+        Arrays.stream(this.cost).forEach(c->c.getCost().associate(this));
     }
 
     @Override

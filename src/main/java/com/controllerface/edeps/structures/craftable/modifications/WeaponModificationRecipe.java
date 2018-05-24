@@ -1,15 +1,22 @@
 package com.controllerface.edeps.structures.craftable.modifications;
 
+import com.controllerface.edeps.ProcurementCategory;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.ItemEffectData;
 import com.controllerface.edeps.data.ItemEffects;
 import com.controllerface.edeps.data.procurements.CostData;
+import com.controllerface.edeps.structures.costs.commodities.CommodityCategory;
 import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.costs.materials.MaterialSubCategory;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.equipment.ItemGrade;
+import com.controllerface.edeps.ui.UIFunctions;
 import javafx.util.Pair;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -553,9 +560,47 @@ public enum WeaponModificationRecipe implements ProcurementRecipe
     {
         this.grade = grade;
         this.effects = effects;
-        this.cost = cost;
-        Arrays.stream(cost).forEach(c->c.getCost().associate(this));
+        this.cost = UIFunctions.BonusWeekend.reduceCosts.apply(cost);
+        Arrays.stream(this.cost).forEach(c->c.getCost().associate(this));
     }
+
+//    private CostData reduceCost(CostData cost)
+//    {
+//        // get the cost grade
+//        ItemGrade itemGrade = cost.getCost().getGrade();
+//
+//        // very common is already lowest, no change
+//        if (itemGrade == ItemGrade.VERY_COMMON) return cost;
+//
+//        // get the correct material sub category
+//        Material reducedMaterial = ((MaterialSubCategory) MaterialSubCategory
+//                .findMatchingSubCategory(cost.getCost()))
+//                .materials()
+//                .filter(m->
+//                {
+//                    ItemGrade candidateGrade = m.getGrade();
+//                    switch (itemGrade)
+//                    {
+//                        case COMMON: return candidateGrade == ItemGrade.VERY_COMMON;
+//                        case STANDARD: return candidateGrade == ItemGrade.COMMON;
+//                        case RARE: return candidateGrade == ItemGrade.STANDARD;
+//                        case VERY_RARE: return candidateGrade == ItemGrade.RARE;
+//                    }
+//                    return false;
+//                }).findFirst().orElse(null);
+//
+//        System.out.println("orig: " + cost.getCost() + " adj.: " + reducedMaterial);
+//        return new CostData(reducedMaterial, cost.getQuantity());
+//    }
+//
+//    private CostData[] reduceCosts(CostData[] costs)
+//    {
+//        List<CostData> reducedCosts = Stream.of(costs)
+//                .map(this::reduceCost)
+//                .collect(Collectors.toList());
+//
+//        return reducedCosts.toArray(new CostData[reducedCosts.size()]);
+//    }
 
     @Override
     public ItemGrade getGrade()
