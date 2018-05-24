@@ -737,7 +737,7 @@ public class UIController
 
     private TreeItem<ProcurementTaskData> makeTradeTree()
     {
-        TreeItem<ProcurementTaskData> materialTrades = new TreeItem<>(new ProcurementTaskData("Material Trades"));
+        TreeItem<ProcurementTaskData> materialTrades = new TreeItem<>(new ProcurementTaskData(MaterialTradeType.UNKNOWN, "Material Trades"));
 
         // loop through all possible trades
         Stream.of(MaterialTradeType.values())
@@ -746,7 +746,7 @@ public class UIController
                 {
                     // add a collapsible category label
                     TreeItem<ProcurementTaskData> categoryItem =
-                            new TreeItem<>(new ProcurementTaskData(tradeCategory.toString()));
+                            new TreeItem<>(new ProcurementTaskData(tradeCategory, tradeCategory.toString()));
 
                     // for this category, loop through trade sub-categories it contains
                     tradeCategory.subCategoryStream()
@@ -755,7 +755,7 @@ public class UIController
                             {
                                 // add a collapsible subcategory label
                                 TreeItem<ProcurementTaskData> subCatItem =
-                                        new TreeItem<>(new ProcurementTaskData(subCategory.toString()));
+                                        new TreeItem<>(new ProcurementTaskData(tradeCategory, subCategory.toString()));
 
                                 // for this subcategory, loop through all materials it contains
                                 subCategory.materials()
@@ -933,8 +933,8 @@ public class UIController
         root.getChildren().addAll(makeModificationTree(),
                 makeExperimentTree(),
                 makeTechnologyTree(),
-                makeTradeTree(),
-                makeSynthesisTree());
+                makeSynthesisTree(),
+                makeTradeTree());
 
         // set the root as expanded by default
         root.setExpanded(true);

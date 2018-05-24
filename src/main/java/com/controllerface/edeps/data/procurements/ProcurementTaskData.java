@@ -27,6 +27,14 @@ public class ProcurementTaskData
         this.blueprint = null;
     }
 
+    public ProcurementTaskData(ProcurementType type, String text)
+    {
+        this.text = text;
+        this.type = type;
+        this.recipe = null;
+        this.blueprint = null;
+    }
+
     public ProcurementTaskData(ProcurementType type, ProcurementRecipe recipe)
     {
         this.text = recipe.toString();

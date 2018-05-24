@@ -117,6 +117,7 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
             costLabel.setPrefHeight(20);
             costLabel.setFont(UIFunctions.Fonts.size2Font);
             costLabel.paddingProperty().set(new Insets(2,5,2,5));
+
             double progress = ((double) item.getHave()) / ((double) item.getNeed());
 
             ProgressBar progressBar = new ProgressBar(progress);
@@ -130,13 +131,24 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
             else
             {
                 Integer pending = pendingTradeYield.apply(cost);
+                double adjustedProgress = progress;
+
                 if (pending != null)
                 {
-                    double adjustedProgress = ((double) item.getHave() + pending) / ((double) item.getNeed());
-                    progressBar.setProgress(adjustedProgress);
-                    progressBar.setStyle("-fx-accent: #b061ff");
+                    adjustedProgress = ((double) item.getHave() + pending) / ((double) item.getNeed());
                 }
-                else progressBar.setStyle("-fx-accent: #ff0000");
+                progressBar.setProgress(adjustedProgress);
+
+                if (adjustedProgress >= 1.0)
+                {
+                    progressBar.setStyle("-fx-accent: #d9b3ff");
+                }
+                else
+                {
+                    if (pending == null) progressBar.setStyle("-fx-accent: #ff0000");
+                    else progressBar.setStyle("-fx-accent: #ffaaaa");
+
+                }
             }
 
             hbox.getChildren().addAll(progressBar, costLabel);
@@ -145,11 +157,10 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
             labelBox.alignmentProperty().set(Pos.CENTER);
             VBox locationContainer = new VBox();
 
-            Label locationLabel = new Label(item.getCost().getLocationInformation());
+            Label locationLabel = new Label(item.getCost().getGrade() + "\n" + item.getCost().getLocationInformation());
             locationLabel.setFont(UIFunctions.Fonts.size1Font);
             locationLabel.alignmentProperty().set(Pos.CENTER_LEFT);
             locationContainer.getChildren().add(locationLabel);
-            titledPane.setGraphic(labelBox);
             titledPane.setContent(locationContainer);
             titledPane.alignmentProperty().set(Pos.CENTER_LEFT);
 

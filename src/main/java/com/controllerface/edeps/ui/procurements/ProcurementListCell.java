@@ -1,6 +1,8 @@
 package com.controllerface.edeps.ui.procurements;
 
 import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.ProcurementRecipe;
+import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.ui.UIFunctions;
@@ -8,10 +10,12 @@ import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Pair;
 
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +55,6 @@ public class ProcurementListCell extends ListCell<ProcurementTaskData>
         if (item.getRecipe() != null)
         {
             VBox buttonBox = new VBox(1);
-            buttonBox.prefWidthProperty().bind(parentWidth.subtract((UIFunctions.scrollBarAllowance * 2) + 5));
             Label gradeLabel = new Label(item.getRecipe().getShortLabel() + "  ");
             gradeLabel.setFont(UIFunctions.Fonts.size3Font);
             gradeLabel.paddingProperty().setValue(new Insets(0,0,0,5));
@@ -111,15 +114,101 @@ public class ProcurementListCell extends ListCell<ProcurementTaskData>
             buttonBox.getChildren().addAll(hBox);
             hBox.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
-            Button button = new Button();
-            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            button.setGraphic(buttonBox);
-            button.setOnMouseClicked((e) -> addMod.accept(this.getItem()));
-            progressIndicator.setOnMouseClicked((e)->button.getOnMouseClicked().handle(e));
 
-            button.setTooltip(progressIndicator.getTooltip());
 
-            setGraphic(button);
+            //Button button = new Button();
+            //button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            //button.setGraphic(buttonBox);
+
+            //progressIndicator.setOnMouseClicked((e)->button.getOnMouseClicked().handle(e));
+
+            //button.setTooltip(progressIndicator.getTooltip());
+
+            TitledPane infoPane = new TitledPane();
+            infoPane.setExpanded(false);
+            infoPane.setAnimated(false);
+            infoPane.setGraphic(buttonBox);
+            infoPane.setTooltip(progressIndicator.getTooltip());
+
+
+
+            VBox costEffectContainer = new VBox();
+            costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+
+            Separator separator = new Separator();
+            separator.setPrefHeight(10);
+
+            // effects
+            item.getRecipe().effects().effectStream()
+                    .map(UIFunctions.Convert.effectToLabel)
+                    .sorted(UIFunctions.Sort.byGoodness)
+                    .forEach(label -> costEffectContainer.getChildren().add(label));
+
+            costEffectContainer.getChildren().add(separator);
+
+            // costs
+           item.getRecipe().costStream()
+                    .map(c->
+                    {
+                        String quantity = c.getQuantity() < 0
+                                ? "+" + Math.abs(c.getQuantity())
+                                : "-" + c.getQuantity();
+                        Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
+                        next.setFont(UIFunctions.Fonts.size1Font);
+                        return next;
+                    })
+                    .forEach(label -> costEffectContainer.getChildren().add(label));
+
+            infoPane.setContent(costEffectContainer);
+
+            infoPane.prefWidthProperty().bind(this.widthProperty().subtract(50));
+
+
+
+
+
+
+
+
+
+
+
+
+            Button add = new Button();
+
+            // Plus
+            Line line1 = new Line();
+            line1.setStroke(Color.BLACK);
+            line1.setStrokeWidth(3);
+            line1.setStartX(2);
+            line1.setEndX(12);
+            line1.setStartY(12);
+            line1.setEndY(12);
+
+            Line line2 = new Line();
+            line2.setStroke(Color.BLACK);
+            line2.setStrokeWidth(3);
+            line2.setStartX(7);
+            line2.setEndX(7);
+            line2.setStartY(7);
+            line2.setEndY(17);
+
+            Pane addGraphic  = new Pane(line1, line2);
+
+            add.setAlignment(Pos.CENTER);
+            add.setOnMouseClicked((e) -> addMod.accept(this.getItem()));
+
+            add.setFont(UIFunctions.Fonts.size2Font);
+            add.prefHeightProperty().set(33);
+            add.prefWidthProperty().set(33);
+            add.setGraphic(addGraphic);
+            HBox container = new HBox();
+
+            container.prefWidthProperty().bind(this.widthProperty().subtract(UIFunctions.scrollBarAllowance));
+
+            container.getChildren().addAll(add, infoPane);
+
+            setGraphic(container);
             setText(null);
         }
         else

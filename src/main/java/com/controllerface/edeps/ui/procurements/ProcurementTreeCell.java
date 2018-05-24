@@ -1,6 +1,7 @@
 package com.controllerface.edeps.ui.procurements;
 
 import com.controllerface.edeps.data.procurements.ProcurementTaskData;
+import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.beans.property.SimpleStringProperty;
@@ -76,9 +77,12 @@ public class ProcurementTreeCell extends TreeCell<ProcurementTaskData>
         }
         else thisItem = item;
 
+        Label text = new Label(item.toString());
+        if (item.getType() != null && item.getType() instanceof MaterialTradeType)
+        {
+            text.setTextFill(UIFunctions.Fonts.darkOrange);
+        }
 
-
-        Text text = new Text(item.toString());
         if (this.getTreeItem().isLeaf())
         {
             text.underlineProperty().setValue(true);

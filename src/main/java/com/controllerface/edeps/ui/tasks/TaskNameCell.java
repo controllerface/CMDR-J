@@ -1,7 +1,10 @@
 package com.controllerface.edeps.ui.tasks;
 
 import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.ProcurementRecipe;
+import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -61,27 +64,26 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
 
     private void createOrUpdate(ProcurementRecipeData item)
     {
-//        if (!initialized.getAndSet(true))
-//        {
-            descriptionContainer.getChildren().clear();
-            Accordion accordion = new Accordion();
+        Pair<ProcurementType, ProcurementRecipe> recipePair = item.asPair();
 
-            TitledPane titledPane = new TitledPane();
-            titledPane.setAnimated(false);
+        descriptionContainer.getChildren().clear();
 
-            VBox costEffectContainer = new VBox();
-            costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+        TitledPane titledPane = new TitledPane();
+        titledPane.setAnimated(false);
+        titledPane.setExpanded(false);
 
-            Separator separator = new Separator();
-            separator.setPrefHeight(10);
+        VBox costEffectContainer = new VBox();
+        costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
 
-            nameLabel.setPrefHeight(20);
-            nameLabel.setFont(UIFunctions.Fonts.size2Font);
-            nameLabel.paddingProperty().set(new Insets(2,5,2,5));
+        Separator separator = new Separator();
+        separator.setPrefHeight(10);
 
+        nameLabel.setPrefHeight(20);
+        nameLabel.setFont(UIFunctions.Fonts.size2Font);
+        nameLabel.paddingProperty().set(new Insets(2, 5, 2, 5));
 
         // effects
-        item.asPair().getValue().effects().effectStream()
+        recipePair.getValue().effects().effectStream()
                 .map(UIFunctions.Convert.effectToLabel)
                 .sorted(UIFunctions.Sort.byGoodness)
                 .forEach(label -> costEffectContainer.getChildren().add(label));
@@ -89,41 +91,44 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
         costEffectContainer.getChildren().add(separator);
 
         // costs
-            item.asPair().getValue().costStream()
-                    .map(c->
-                    {
-                        boolean isYield = c.getQuantity() < 0;
-                        boolean hasEnough = isYield ||
-                                checkInventory.apply(c.getCost()) >= c.getQuantity() * item.getCount();
+        recipePair.getValue().costStream()
+                .map(c->
+                {
+                    boolean isYield = c.getQuantity() < 0;
+                    boolean hasEnough = isYield ||
+                            checkInventory.apply(c.getCost()) >= c.getQuantity() * item.getCount();
 
-                        String quantity = c.getQuantity() < 0
-                                ? "+" + Math.abs(c.getQuantity()) * item.getCount()
-                                : "-" + c.getQuantity() * item.getCount();
+                    String quantity = c.getQuantity() < 0
+                            ? "+" + Math.abs(c.getQuantity()) * item.getCount()
+                            : "-" + c.getQuantity() * item.getCount();
 
-                        Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
-                        next.setFont(UIFunctions.Fonts.size1Font);
-                        next.setTextFill(hasEnough ? UIFunctions.Fonts.neutralBlack : UIFunctions.Fonts.negativeRed);
-                        return next;
-                    })
-                    .forEach(label -> costEffectContainer.getChildren().add(label));
+                    Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
+                    next.setFont(UIFunctions.Fonts.size1Font);
+                    next.setTextFill(hasEnough ? UIFunctions.Fonts.neutralBlack : UIFunctions.Fonts.negativeRed);
+                    return next;
+                })
+                .forEach(label -> costEffectContainer.getChildren().add(label));
+
+        titledPane.setContent(costEffectContainer);
 
 
 
-            titledPane.setContent(costEffectContainer);
-            updateProgressBar(item);
 
-            // clicking the progress bar should expand the enclosing titled pane
-            progressBar.setOnMouseClicked((e)->titledPane.setExpanded(!titledPane.isExpanded()));
+        updateProgressBar(item);
 
-            titledPane.setGraphic(new HBox(progressBar, nameLabel));
-            ((HBox) titledPane.getGraphic()).setAlignment(Pos.CENTER);
+        // clicking the progress bar should expand the enclosing titled pane
+        progressBar.setOnMouseClicked((e)->titledPane.setExpanded(!titledPane.isExpanded()));
 
-            accordion.getPanes().add(titledPane);
+        titledPane.setGraphic(new HBox(progressBar, nameLabel));
+        ((HBox) titledPane.getGraphic()).setAlignment(Pos.CENTER);
 
-            descriptionContainer.getChildren().add(accordion);
-        //}
+        descriptionContainer.getChildren().add(titledPane);
 
-        nameLabel.setText(item.asPair().getValue().getDisplayLabel() + " :: " + item.asPair().getKey().toString());
+        nameLabel.setText(recipePair.getKey().toString() + " :: " + recipePair.getValue().getDisplayLabel());
+        if (recipePair.getKey() instanceof MaterialTradeType)
+        {
+            nameLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+        }
         updateProgressBar(item);
     }
 
@@ -188,7 +193,11 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
 
         if (progressData.getValue())
         {
-            progressBar.setStyle("-fx-accent: #b061ff");
+            if (progressBar.getProgress() >= 1.0)
+            {
+                progressBar.setStyle("-fx-accent: #d9b3ff");
+            }
+            else progressBar.setStyle("-fx-accent: #ffaaaa");
         }
         else
         {
