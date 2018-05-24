@@ -129,6 +129,7 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
         {
             nameLabel.setTextFill(UIFunctions.Fonts.darkOrange);
         }
+        else nameLabel.setTextFill(UIFunctions.Fonts.neutralBlack);
         updateProgressBar(item);
     }
 
