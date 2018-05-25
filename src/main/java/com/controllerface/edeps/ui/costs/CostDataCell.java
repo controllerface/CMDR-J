@@ -223,10 +223,7 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
                                     Button button = new Button(recipe.getDisplayLabel());
                                     button.setFont(UIFunctions.Fonts.size1Font);
                                     button.alignmentProperty().setValue(Pos.CENTER_LEFT);
-                                    button.setOnMouseClicked((e)->
-                                    {
-                                        addtask.accept(tradeTask);
-                                    });
+                                    button.setOnMouseClicked((e)-> addtask.accept(tradeTask));
                                     recommendTrades.add(button);
                                 }
                             });
