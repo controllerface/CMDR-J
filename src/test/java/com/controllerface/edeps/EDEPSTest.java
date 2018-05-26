@@ -3,16 +3,20 @@ package com.controllerface.edeps;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
+import jdk.nashorn.api.scripting.NashornScriptEngine;
+import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.junit.Test;
 
+import javax.script.AbstractScriptEngine;
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -21,6 +25,28 @@ import java.util.stream.IntStream;
  */
 public class EDEPSTest
 {
+    @Test
+    public void testJSONthing() throws Exception
+    {
+        Map<String, Object> testin = new HashMap<>();
+        Map<String, Object> test2 = new HashMap<>();
+        test2.put("key2","value2");
+        testin.put("key1",test2);
+
+        String testJSON = "{\"key\":\"value\"}";
+        ScriptEngine scriptEngine = new NashornScriptEngineFactory().getScriptEngine();
+        ScriptObjectMirror json = ((ScriptObjectMirror) scriptEngine.get("JSON"));
+        ScriptObjectMirror test = ((ScriptObjectMirror) json.callMember("parse", testJSON));
+        ScriptObjectMirror empty = ((ScriptObjectMirror) json.callMember("parse", "{}"));
+        System.out.println(test.get("key"));
+
+        empty.putAll(test2);
+
+        String testOut = ((String) json.callMember("stringify", empty));
+
+        System.out.println(testOut);
+    }
+
     @Test
     public void main() throws Exception
     {

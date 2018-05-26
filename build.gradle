@@ -1,6 +1,4 @@
 
-apply plugin: 'java'
-apply plugin: 'java-library-distribution'
 apply plugin: 'application'
 
 mainClassName = "com.controllerface.edeps.EDEPS"
@@ -18,7 +16,7 @@ dependencies {
 jar {
     manifest {
         attributes 'Main-Class' : 'com.controllerface.edeps.EDEPS',
-                'Class-Path': configurations.runtime.files.collect { "lib/$it.name" }.join(' ')
+                'Class-Path': configurations.runtime.files.collect { "$it.name" }.join(' ')
     }
 }
 
