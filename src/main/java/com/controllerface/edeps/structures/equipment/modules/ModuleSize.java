@@ -19,5 +19,8 @@ public enum ModuleSize
     SIZE_4_MILITARY,
     SIZE_5_MILITARY,
 
+    SIZE_5_RESERVED,
+    SIZE_6_RESERVED,
+
     ;
 }

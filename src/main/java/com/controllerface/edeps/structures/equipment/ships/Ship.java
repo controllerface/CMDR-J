@@ -52,11 +52,11 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
                     .build()),
 
     cobramkiii(
@@ -98,12 +98,12 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     cobramkiv(
@@ -146,14 +146,14 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_3)
                     .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     diamondbackxl(
@@ -196,12 +196,12 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
                     .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     diamondback(
@@ -245,10 +245,10 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
                     .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
                     .build()),
 
     dolphin(
@@ -289,13 +289,13 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_5_RESERVED)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     eagle(
@@ -335,11 +335,11 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_2_MILITARY)
-                    .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2_MILITARY)
+                    .addModule(ModuleSize.SIZE_1)
+                    .addModule(ModuleSize.SIZE_1)
                     .build()),
 
     hauler(
@@ -378,10 +378,10 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_1)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
                     .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_1)
                     .build()),
 
     empire_courier(
@@ -424,12 +424,12 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
                     .build()),
 
     empire_eagle(
@@ -469,11 +469,11 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_2_MILITARY)
-                    .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2_MILITARY)
+                    .addModule(ModuleSize.SIZE_1)
+                    .addModule(ModuleSize.SIZE_1)
                     .build()),
 
     sidewinder(
@@ -513,10 +513,10 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_1)
                     .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_1)
+                    .addModule(ModuleSize.SIZE_1)
                     .build()),
 
     viper(
@@ -703,14 +703,14 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_4_MILITARY)
                     .addModule(ModuleSize.SIZE_4_MILITARY)
                     .addModule(ModuleSize.SIZE_4_MILITARY)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     asp(
@@ -756,13 +756,13 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     asp_scout(
@@ -804,12 +804,12 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     federation_dropship_mkii(
@@ -853,14 +853,14 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_4_MILITARY)
                     .addModule(ModuleSize.SIZE_4_MILITARY)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     federation_dropship(
@@ -905,15 +905,15 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_4_MILITARY)
                     .addModule(ModuleSize.SIZE_4_MILITARY)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     federation_gunship(
@@ -961,14 +961,14 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_4_MILITARY)
-                    .addModule(ModuleSize.SIZE_4_MILITARY)
-                    .addModule(ModuleSize.SIZE_4_MILITARY)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     ferdelance(
@@ -1013,11 +1013,11 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_1)
                     .build()),
 
     independant_trader(
@@ -1061,12 +1061,12 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     python(
@@ -1111,15 +1111,15 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     type6(
@@ -1160,13 +1160,13 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     anaconda(
@@ -1219,18 +1219,18 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_7)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_5_MILITARY)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_7)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     belugaliner(
@@ -1278,17 +1278,17 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6_RESERVED)
+                    .addModule(ModuleSize.SIZE_6_RESERVED)
+                    .addModule(ModuleSize.SIZE_5_RESERVED)
+                    .addModule(ModuleSize.SIZE_5_RESERVED)
                     .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
                     .build()),
 
     federation_corvette(
@@ -1340,18 +1340,18 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
+                    .addModule(ModuleSize.SIZE_7)
+                    .addModule(ModuleSize.SIZE_7)
+                    .addModule(ModuleSize.SIZE_7)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5_MILITARY)
-                    .addModule(ModuleSize.SIZE_5_MILITARY)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_7)
-                    .addModule(ModuleSize.SIZE_7)
-                    .addModule(ModuleSize.SIZE_7)
                     .build()),
 
     empire_trader(
@@ -1395,14 +1395,14 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_7)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     cutter(
@@ -1454,17 +1454,17 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_8)
+                    .addModule(ModuleSize.SIZE_8)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
                     .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5_MILITARY)
-                    .addModule(ModuleSize.SIZE_5_MILITARY)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_8)
-                    .addModule(ModuleSize.SIZE_8)
+                    .addModule(ModuleSize.SIZE_3)
                     .build()),
 
     orca(
@@ -1507,14 +1507,14 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_6_RESERVED)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5_RESERVED)
                     .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     type9_military(
@@ -1568,17 +1568,17 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_8)
+                    .addModule(ModuleSize.SIZE_7)
+                    .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_5_MILITARY)
                     .addModule(ModuleSize.SIZE_5_MILITARY)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_7)
-                    .addModule(ModuleSize.SIZE_8)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     type7(
@@ -1622,15 +1622,15 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
                     .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
-                    .addModule(ModuleSize.SIZE_6)
                     .build()),
 
     type9(
@@ -1676,16 +1676,16 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_8)
+                    .addModule(ModuleSize.SIZE_8)
                     .addModule(ModuleSize.SIZE_7)
-                    .addModule(ModuleSize.SIZE_8)
-                    .addModule(ModuleSize.SIZE_8)
+                    .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     ;
