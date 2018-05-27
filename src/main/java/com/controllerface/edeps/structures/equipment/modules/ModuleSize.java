@@ -5,7 +5,6 @@ package com.controllerface.edeps.structures.equipment.modules;
  */
 public enum ModuleSize
 {
-    SIZE_0,
     SIZE_1,
     SIZE_2,
     SIZE_3,
@@ -14,6 +13,11 @@ public enum ModuleSize
     SIZE_6,
     SIZE_7,
     SIZE_8,
+
+    SIZE_2_MILITARY,
+    SIZE_3_MILITARY,
+    SIZE_4_MILITARY,
+    SIZE_5_MILITARY,
 
     ;
 }

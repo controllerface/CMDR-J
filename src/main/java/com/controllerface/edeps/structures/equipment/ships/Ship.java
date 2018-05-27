@@ -337,7 +337,7 @@ public enum Ship
             OptionalModuleLayoutData.builder()
                     .addModule(ModuleSize.SIZE_1)
                     .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2_MILITARY)
                     .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_3)
                     .build()),
@@ -471,7 +471,7 @@ public enum Ship
             OptionalModuleLayoutData.builder()
                     .addModule(ModuleSize.SIZE_1)
                     .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2_MILITARY)
                     .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_3)
                     .build()),
@@ -558,11 +558,11 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_1)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3_MILITARY)
                     .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_1)
                     .build()),
 
     viper_mkiv(
@@ -604,13 +604,13 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3_MILITARY)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_3)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
                     .build()),
 
     vulture(
@@ -652,12 +652,12 @@ public enum Ship
                     .build(),
 
             OptionalModuleLayoutData.builder()
-                    .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_1)
-                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
                     .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_1)
+                    .addModule(ModuleSize.SIZE_1)
                     .build()),
 
     typex(
@@ -706,9 +706,9 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_6)
                     .build()),
@@ -857,8 +857,8 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_3)
                     .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_5)
                     .build()),
@@ -909,8 +909,8 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_3)
                     .addModule(ModuleSize.SIZE_3)
                     .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_6)
@@ -963,9 +963,9 @@ public enum Ship
             OptionalModuleLayoutData.builder()
                     .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_2)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
-                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
+                    .addModule(ModuleSize.SIZE_4_MILITARY)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_6)
@@ -1226,7 +1226,7 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
                     .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_6)
@@ -1345,8 +1345,8 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
                     .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_7)
@@ -1458,8 +1458,8 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
                     .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_6)
@@ -1574,8 +1574,8 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
-                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
+                    .addModule(ModuleSize.SIZE_5_MILITARY)
                     .addModule(ModuleSize.SIZE_6)
                     .addModule(ModuleSize.SIZE_7)
                     .addModule(ModuleSize.SIZE_8)
