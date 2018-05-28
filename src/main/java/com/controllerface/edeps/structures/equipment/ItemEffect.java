@@ -73,7 +73,7 @@ public enum ItemEffect
     RateOfFire("/S", "Rate of Fire", true),
     BurstRateOfFire("","Burst Rate of Fire", true),
     BurstSize("", "Burst Size", true),
-    DamagePerSecond("DMG/S", "Damage per Second", true),
+    DamagePerSecond("/S", "Damage per Second", true),
     FalloffRange("M", "Falloff Range", true),
     Jitter(UIFunctions.Symbols.DEGREES,"Jitter", false),
     ReloadTime("S", "Reload Time", false),
@@ -214,15 +214,14 @@ public enum ItemEffect
     DroneRepairCapacity("", "Repair Capacity", true),
 
 
-
     /*
     Automated Field Repair Unit
      */
 
-
     AFMRepairCapacity("", "Repair Capacity", true),
     AFMRepairConsumption("A/S", "Repair Consumption", false),
     AFMRepairPerAmmo("R/A", "Repair Rating", true),
+
 
     /*
     Electronic Counter Measures
@@ -233,6 +232,7 @@ public enum ItemEffect
     ECMRange("", "", true),
     ECMTimeToCharge("", "", false),
 
+
     /*
     Passenger Cabins
      */
@@ -240,9 +240,11 @@ public enum ItemEffect
     CabinCapacity("", "Cabin Capacity", true),
     CabinClass("", "Cabin Class", true),
 
+
     /*
     Various Module Specific Stats
      */
+
     CargoCapacity("T", "Cargo Capacity", true),
     ChaffJamDuration("S", "Chaff Duration", true),
     FuelCapacity("T", "Fuel Capacity", true),
@@ -251,7 +253,6 @@ public enum ItemEffect
     OxygenTimeCapacity("S","Emergency Oxygen", true),
     RefineryBins("Bins", "Refinery Bins", true),
     ThermalDrain("H/S", "Thermal Drain", true),
-
 
 
     /*
@@ -281,10 +282,9 @@ public enum ItemEffect
     enumerated stats, for example basic ammo synthesis.
      */
 
-    planetary_approach("","Planetary Approach and Landing Capabilities", true),
-
-    empty("-","Empty Compartment", true),
-
+    // placeholder effects for certain modules that don't have intrinsic effects, but need something to display
+    empty("-","Empty Compartment", true), // used for the "empty" module so it doesn't look odd
+    planetary_approach("","Planetary Approach and Landing Capabilities", true), // planetary approach suite
 
     // synthetic effects, used for synthesis recipes
     rearm("", "", true),                // ammunition replenishment
@@ -297,7 +297,6 @@ public enum ItemEffect
     hull_strength("", "", true),        // srv hull
     heat_dissipation("", "", false),    // heat sink refill
 
-
     // synthetic effects, used for tech broker weapons effects
     enzyme_munitions("", "", true),
     meta_alloy_reinforcement("", "", true),
@@ -308,7 +307,6 @@ public enum ItemEffect
     hybrid_power("", "", true),
     plasma_weapon("", "", true),
     shard_shell("", "", true),
-
 
     // synthetic effects, used for experimental engineer effects
     area_fsd_reboot("", "", true),
@@ -340,7 +338,9 @@ public enum ItemEffect
     target_thrusters_reboot("", "", true),
     target_tracking_reduced("", "", true),
     target_wing_shield_regeneration("", "", true),
-    wing_shield_regeneration_increased("", "", true);
+    wing_shield_regeneration_increased("", "", true),
+
+    ;
 
     private final boolean moreIsGood;
     private final String text;

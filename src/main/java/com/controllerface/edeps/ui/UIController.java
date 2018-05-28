@@ -1101,7 +1101,6 @@ public class UIController
             showTasks.setDisable(false);
             showItemsNeeded.setDisable(false);
         }
-
     }
 
     @SuppressWarnings("unchecked")
