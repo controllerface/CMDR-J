@@ -185,8 +185,11 @@ public class ModuleDisplayCell extends TableCell<ShipModuleData, ShipModuleData>
 
             // base stats, filtered so any stats that have stored modifiers are skipped
             item.getModule().itemEffects().effectStream()
-                    .filter(p->item.getModifiers().stream()
-                            .noneMatch(x->x.getEffect().equals(p.getEffect())))
+                    .filter(p ->
+                    {
+                        return item.getModifiers().stream()
+                                .noneMatch(x -> x.getEffect().equals(p.getEffect()));
+                    })
                     .map(effectPair ->
                     {
                         Label label =  new Label(effectPair.getValueString());

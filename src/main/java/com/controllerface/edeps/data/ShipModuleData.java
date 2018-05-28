@@ -6,6 +6,7 @@ import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalR
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -172,6 +173,7 @@ public class ShipModuleData
 
         public ShipModuleData build()
         {
+            if (modifiers == null) modifiers = new ArrayList<>();
             return new ShipModuleData(this);
         }
     }

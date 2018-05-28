@@ -283,6 +283,9 @@ public enum ItemEffect
 
     planetary_approach("","Planetary Approach and Landing Capabilities", true),
 
+    empty("-","Empty Compartment", true),
+
+
     // synthetic effects, used for synthesis recipes
     rearm("", "", true),                // ammunition replenishment
     refuel("", "", true),               // fuel replenishment

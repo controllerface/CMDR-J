@@ -431,6 +431,62 @@ public enum JournalEvent
      */
     PowerplayDeliver((context) -> adjustCommodityTypeDown(context, context.getRawData())),
 
+    /**
+     * Written when a currently equipped module is stored, removing it from the current ship
+     */
+    ModuleStore((JournalEvent::emptySlotFromData)),
+
+    /**
+     * Written when a currently equipped module is sold, removing it from the current ship
+     */
+    ModuleSell((JournalEvent::emptySlotFromData)),
+
+    /**
+     * Written when buying a new module, equipping it to the current ship
+     */
+    ModuleBuy((context ->
+    {
+        Map<String, Object> data =  context.getRawData();
+        String slotKey = ((String) data.get("Slot"));
+        String moduleKey = ((String) data.get("BuyItem"))
+                .replace("$","")
+                .replace("_name;","");
+
+        Statistic slot = determineStatType(slotKey);
+        ShipModule module = determineModuleType(moduleKey);
+
+        ShipModuleData shipModuleData = new ShipModuleData.Builder()
+                .setModuleName(slot)
+                .setModule(module)
+                .build();
+
+        context.getCommanderData().setShipModule(shipModuleData);
+    })),
+
+    /**
+     * Written when retrieving a module from storage, equipping it to the current ship
+     *
+     * todo: engineering modifiers will need to be calculated
+     */
+    ModuleRetrieve((context ->
+    {
+        Map<String, Object> data =  context.getRawData();
+        String slotKey = ((String) data.get("Slot"));
+        String moduleKey = ((String) data.get("RetrievedItem"))
+                .replace("$","")
+                .replace("_name;","");
+
+        Statistic slot = determineStatType(slotKey);
+        ShipModule module = determineModuleType(moduleKey);
+
+        ShipModuleData shipModuleData = new ShipModuleData.Builder()
+                .setModuleName(slot)
+                .setModule(module)
+                .build();
+
+        context.getCommanderData().setShipModule(shipModuleData);
+    })),
+
     ;
 
     /**
@@ -633,6 +689,13 @@ public enum JournalEvent
     private static double getStatDouble(EventProcessingContext context, Statistic stat)
     {
         return Double.parseDouble(getStatString(context, stat));
+    }
+
+    private static void emptySlotFromData(EventProcessingContext context)
+    {
+        String slotKey = ((String) context.getRawData().get("Slot"));
+        Statistic slot = determineStatType(slotKey);
+        setSlotFromData(context, slot, EmptyModule.EMPTY_MODULE, null);
     }
 
     private static void setSlotFromData(EventProcessingContext context,
