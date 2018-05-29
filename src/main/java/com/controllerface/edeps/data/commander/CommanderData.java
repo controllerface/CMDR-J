@@ -59,30 +59,22 @@ public class CommanderData
 
     public void associateCargoTable(TableView<InventoryData> cargoTable)
     {
-        cargoTable.setItems(cargo.observableInventory());
-        cargo.observableInventory()
-                .addListener((ListChangeListener<InventoryData>) c -> cargoTable.refresh());
+        cargo.associateTableView(cargoTable);
     }
 
-    public void associateRawTable(TableView<InventoryData> rawtable)
+    public void associateRawTable(TableView<InventoryData> rawTable)
     {
-        rawtable.setItems(rawMats.observableInventory());
-        rawMats.observableInventory()
-                .addListener((ListChangeListener<InventoryData>) c -> rawtable.refresh());
+        rawMats.associateTableView(rawTable);
     }
 
     public void associateManufacturedTable(TableView<InventoryData> mfdTable)
     {
-        mfdTable.setItems(mfdMats.observableInventory());
-        mfdMats.observableInventory()
-                .addListener((ListChangeListener<InventoryData>) c -> mfdTable.refresh());
+        mfdMats.associateTableView(mfdTable);
     }
 
     public void associateDataTable(TableView<InventoryData> dataTable)
     {
-        dataTable.setItems(dataMats.observableInventory());
-        dataMats.observableInventory()
-                .addListener((ListChangeListener<InventoryData>) c -> dataTable.refresh());
+        dataMats.associateTableView(dataTable);
     }
 
     /**

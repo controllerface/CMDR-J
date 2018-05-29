@@ -1,17 +1,14 @@
 package com.controllerface.edeps.data.commander;
 
 import com.controllerface.edeps.ProcurementCost;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
+import javafx.scene.control.TableView;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * An abstract storage bin object, used to keep track of a single category of items. Implementations will contain
@@ -24,8 +21,20 @@ import java.util.stream.Stream;
  */
 public abstract class InventoryStorageBin
 {
-    private final ObservableList<InventoryData> inventoryItems =
-            FXCollections.synchronizedObservableList(FXCollections.observableArrayList());
+    /**
+     * This is the actual backing list of the inventory object. Note that the list is a concurrent variant
+     * (CopyOnWriteArrayList) yet access to the list is still synchronized. This is intentional as mutations to the
+     * inventory (additions/subtractions) must not collide and must be done in-order. However once the mutations are
+     * done, synchronization of the UI must occur only on the UI thread. As mutations CAN occur in rapid succession
+     * (especially at startup) the backing list MUST allow at least one read and oen write to occur simultaneously.
+     */
+    private final List<InventoryData> inventory = new CopyOnWriteArrayList<>();
+
+    /**
+     * This is the "observable" list that is used by JavaFX to automatically control what items are visible in the UI.
+     * It is extremely important to ensure updates to this list occur ONLY from the JavaFX UI thread.
+     */
+    private final ObservableList<InventoryData> observableInventory = FXCollections.observableArrayList();
 
     /**
      * Implementations of InventoryStorageBin must implement this method to provide callers with a means to check if
@@ -47,23 +56,11 @@ public abstract class InventoryStorageBin
         init();
     }
 
-    /**
-     * Creates a Stream of all the supported inventory items for a given implementation of InventoryStorageBin. Note
-     * that items with 0 counts will still be present in the stream.
-     *
-     * @return stream of all stored items in this InventoryStorageBin implementation
-     */
-    Stream<InventoryData> inventory()
+    public void associateTableView(TableView<InventoryData> tableView)
     {
-        synchronized (inventoryItems)
-        {
-            List<InventoryData> copyBuffer = inventoryItems.stream().collect(Collectors.toList());
-            return copyBuffer.stream();
-        }
+        tableView.setItems(observableInventory);
+        observableInventory.addListener((ListChangeListener<InventoryData>) c -> tableView.refresh());
     }
-
-
-    ObservableList<InventoryData> observableInventory(){return inventoryItems;}
 
     /**
      * Empties out and re-initializes this InventoryStorageBin implementation's storage. Typically used when re-setting
@@ -72,9 +69,10 @@ public abstract class InventoryStorageBin
      */
     void clear()
     {
-        synchronized (inventoryItems)
+        synchronized (inventory)
         {
-            inventoryItems.clear();
+            inventory.clear();
+            synchronizeUI();
         }
         init();
     }
@@ -84,15 +82,15 @@ public abstract class InventoryStorageBin
      * the named ProcurementCost is not supported for this storage bin, -1 is returned
      *
      * @param item the ProcurementCost item to retrieve the count of
-     * @return teh count of the named ProcurementCost item within this storage bin, or -1 if the item is not supported
+     * @return the count of the named ProcurementCost item within this storage bin, or -1 if the item is not supported
      */
     int hasItem(ProcurementCost item)
     {
         if (check(item))
         {
-            synchronized (inventoryItems)
+            synchronized (inventory)
             {
-                return inventoryItems.stream()
+                return inventory.stream()
                         .filter(inventoryItem -> inventoryItem.getItem() == item)
                         .map(InventoryData::getQuantity)
                         .findFirst().orElse(0);
@@ -115,19 +113,40 @@ public abstract class InventoryStorageBin
     {
         if (check(item))
         {
-            synchronized (inventoryItems)
+            synchronized (inventory)
             {
-                inventoryItems.stream()
+                inventory.stream()
                         .filter(inventoryItem -> inventoryItem.getItem() == item)
                         .findFirst().map(inventoryItem -> inventoryItem.adjustCount(count))
-                        .orElseGet((() -> inventoryItems.add(new InventoryData(item, count))));
+                        .orElseGet((() -> inventory.add(new InventoryData(item, count))));
 
-                // this is  hacky, but ensures the list triggers a change event so any observing UI elements will
-                // be refreshed. This is a better alternative to requiring this class to maintain a reference to
-                // an observing elements and notify them manually
-                InventoryData dummy = inventoryItems.remove(0);
-                inventoryItems.add(0, dummy);
+                synchronizeUI();
             }
         }
+    }
+
+    /**
+     * Synchronizes the observable inventory items with the internal items list. This is done separately so any
+     * calculations related to inventory adjustment can performed up front and then reflected in the UI on the JavaFX
+     * UI thread.
+     *
+     * Note that this method is always called from INSIDE a block that is synchronized on the ACTUAL inventory list,
+     * ensuring that calls to THIS method (which is synchronized on the observable UI list) are queued in the same
+     * order. This is intentional, and leverages the documented behavior of the {@linkplain Platform#runLater(Runnable)}
+     * method, specifically the fact that "The Runnables are executed in the order they are posted".
+     *
+     * Synchronization on the observable list may seem superfluous, but is necessary to ensure that mutations to the
+     * observed UI elements happen in exactly the same order as the mutations to the actual inventory list.
+     */
+    private void synchronizeUI()
+    {
+        Platform.runLater(()->
+        {
+            synchronized (observableInventory)
+            {
+                observableInventory.clear();
+                observableInventory.addAll(inventory);
+            }
+        });
     }
 }
