@@ -23,16 +23,14 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class ProcurementTreeCell extends TreeCell<ProcurementTaskData>
 {
-    private final ObservableList<ProcurementTaskData> outputList;
-    private final SimpleStringProperty outputLabel;
-
     private ProcurementTaskData thisItem = null;
 
     public ProcurementTreeCell(ObservableList<ProcurementTaskData> outputList, SimpleStringProperty outputLabel)
     {
-        this.outputList = outputList;
-        this.outputLabel = outputLabel;
-
+        // NOTE: the output list and label used here are part of the UI, so must only be updated on the JavaFX UI
+        // thread. Luckily event handlers automatically trigger in that thread so there's no extra work needed here,
+        // but care should be exercised that the objects aren't touched in non-UI threads later on. Make sure they
+        // don't leak.
         this.setOnMouseClicked((e)->
         {
             if (this.getTreeItem() == null) return;

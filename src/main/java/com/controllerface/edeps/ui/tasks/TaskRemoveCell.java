@@ -23,8 +23,6 @@ public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<Procur
 {
     private final HBox controls = new HBox();
 
-    //private AtomicBoolean initialized = new AtomicBoolean(false);
-
     private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> blueprintUpdate;
 
     public TaskRemoveCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> blueprintUpdate)
@@ -39,51 +37,47 @@ public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<Procur
 
         if (item == null || empty)
         {
-            //initialized.set(false);
             setGraphic(null);
             return;
         }
 
-//        if (!initialized.getAndSet(true))
-//        {
-            controls.getChildren().clear();
-            final Button removeButton = new Button("x");
+        controls.getChildren().clear();
+        final Button removeButton = new Button("x");
 
-            Line line = new Line();
-            line.setStroke(Color.BLACK);
-            line.setStrokeWidth(3);
-            line.setStartX(-3);
-            line.setEndX(7);
-            line.setStartY(1);
-            line.setEndY(11);
+        Line line = new Line();
+        line.setStroke(Color.BLACK);
+        line.setStrokeWidth(3);
+        line.setStartX(-3);
+        line.setEndX(7);
+        line.setStartY(1);
+        line.setEndY(11);
 
-            Line line2 = new Line();
-            line2.setStroke(Color.BLACK);
-            line2.setStrokeWidth(3);
-            line2.setStartX(-3);
-            line2.setEndX(7);
-            line2.setStartY(11);
-            line2.setEndY(1);
+        Line line2 = new Line();
+        line2.setStroke(Color.BLACK);
+        line2.setStrokeWidth(3);
+        line2.setStartX(-3);
+        line2.setEndX(7);
+        line2.setStartY(11);
+        line2.setEndY(1);
 
-            Pane box  = new Pane(line, line2);
+        Pane box  = new Pane(line, line2);
 
-            removeButton.setGraphic(box);
-            removeButton.setMaxWidth(20d);
-            removeButton.setMinWidth(20d);
-            removeButton.setMaxHeight(20d);
-            removeButton.setMinHeight(20d);
-            removeButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        removeButton.setGraphic(box);
+        removeButton.setMaxWidth(20d);
+        removeButton.setMinWidth(20d);
+        removeButton.setMaxHeight(20d);
+        removeButton.setMinHeight(20d);
+        removeButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
-            removeButton.setOnAction((e) ->
-            {
-                int val = blueprintUpdate.apply(0, item);
-                while (val > 0) val = blueprintUpdate.apply( -val, item);
-            });
+        removeButton.setOnAction((e) ->
+        {
+            int val = blueprintUpdate.apply(0, item);
+            while (val > 0) val = blueprintUpdate.apply( -val, item);
+        });
 
-            removeButton.setTooltip(new Tooltip("Remove this recipe"));
-            controls.getChildren().add(removeButton);
+        removeButton.setTooltip(new Tooltip("Remove this recipe"));
+        controls.getChildren().add(removeButton);
 
-            setGraphic(controls);
-//        }
+        setGraphic(controls);
     }
 }

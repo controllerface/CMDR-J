@@ -19,7 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * Created by Controllerface on 3/20/2018.
  */
-public abstract class InventoryStorageBin
+abstract class InventoryStorageBin
 {
     /**
      * This is the actual backing list of the inventory object. Note that the list is a concurrent variant
@@ -54,9 +54,10 @@ public abstract class InventoryStorageBin
     InventoryStorageBin()
     {
         init();
+        synchronize();
     }
 
-    public void associateTableView(TableView<InventoryData> tableView)
+    void associateTableView(TableView<InventoryData> tableView)
     {
         tableView.setItems(observableInventory);
         observableInventory.addListener((ListChangeListener<InventoryData>) c -> tableView.refresh());
@@ -72,9 +73,9 @@ public abstract class InventoryStorageBin
         synchronized (inventory)
         {
             inventory.clear();
-            synchronizeUI();
+            init();
+            synchronize();
         }
-        init();
     }
 
     /**
@@ -120,9 +121,22 @@ public abstract class InventoryStorageBin
                         .findFirst().map(inventoryItem -> inventoryItem.adjustCount(count))
                         .orElseGet((() -> inventory.add(new InventoryData(item, count))));
 
-                synchronizeUI();
+                synchronize();
             }
         }
+    }
+
+    /**
+     * Intended for use only by sub-classes, to initialize an item count to zero. Used during initial construction and
+     * when resetting the internal storage. This method bypasses sync and check() methods for efficiency, as reloading
+     * the entire set of items would incur a lot of needless sync overhead. For that reason it is very important that
+     * it is NEVER exposed externally as it would be impossible to tightly control its use.
+     *
+     * @param item the item to initialize
+     */
+    void initializeItem(ProcurementCost item)
+    {
+        inventory.add(new InventoryData(item, 0));
     }
 
     /**
@@ -138,7 +152,7 @@ public abstract class InventoryStorageBin
      * Synchronization on the observable list may seem superfluous, but is necessary to ensure that mutations to the
      * observed UI elements happen in exactly the same order as the mutations to the actual inventory list.
      */
-    private void synchronizeUI()
+    private void synchronize()
     {
         Platform.runLater(()->
         {

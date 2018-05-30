@@ -5,9 +5,9 @@ import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationType;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.equipment.ships.*;
+import com.controllerface.edeps.ui.UIFunctions;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableStringValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -19,6 +19,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
 
 /**
@@ -39,121 +40,17 @@ public class StarShip
 
     private double currentFuel = 0d; // todo: use this
 
-    private final ObservableList<ShipStatisticData> statistics = FXCollections.observableArrayList();
-    private final ObservableList<ShipModuleData> coreInternals = FXCollections.observableArrayList();
-    private final ObservableList<ShipModuleData> optionalInternals = FXCollections.observableArrayList();
-    private final ObservableList<ShipModuleData> hardpoints = FXCollections.observableArrayList();
+    private final List<ShipStatisticData> statistics = new CopyOnWriteArrayList<>();
+    private final List<ShipModuleData> coreInternals = new CopyOnWriteArrayList<>();
+    private final List<ShipModuleData> optionalInternals = new CopyOnWriteArrayList<>();
+    private final List<ShipModuleData> hardpoints = new CopyOnWriteArrayList<>();
 
-    public StarShip() {}
+    private final ObservableList<ShipStatisticData> observableStatistics = FXCollections.observableArrayList();
+    private final ObservableList<ShipModuleData> observableCoreInternals = FXCollections.observableArrayList();
+    private final ObservableList<ShipModuleData> observableOptionalInternals = FXCollections.observableArrayList();
+    private final ObservableList<ShipModuleData> observableHardpoints = FXCollections.observableArrayList();
 
-    public void setShip(Ship ship)
-    {
-        this.ship = ship;
-
-        synchronized (coreInternals)
-        {
-            coreInternals.clear();
-        }
-        synchronized (optionalInternals)
-        {
-            optionalInternals.clear();
-        }
-        synchronized (hardpoints)
-        {
-            hardpoints.clear();
-        }
-
-        initializeBaseStats();
-    }
-
-    public void setGivenName(String givenName)
-    {
-        if (givenName == null) return;
-        Platform.runLater(()->shipGivenName.set(givenName));
-    }
-
-    public void setShipID(String ID)
-    {
-        if (ID == null) return;
-        Platform.runLater(()-> shipID.set(ID.toUpperCase()));
-    }
-
-    public void setCurrentFuel(double currentFuel)
-    {
-        this.currentFuel = currentFuel;
-    }
-
-    private void initializeBaseStats()
-    {
-        Platform.runLater(this::resetStats);
-    }
-
-    private void resetStats()
-    {
-        synchronized (shipDisplayName)
-        {
-            shipDisplayName.set(ship.getBaseShipStats().getDisplayName());
-        }
-
-        synchronized (shipManufacturerName)
-        {
-            shipManufacturerName.set(ship.getBaseShipStats().getManufacturer().toString());
-        }
-
-        synchronized (statistics)
-        {
-            statistics.clear();
-
-            statistics.add(new ShipStatisticData(ship.getBaseShipStats().getShipSize()));
-            statistics.add(new ShipStatisticData(ShipStat.Mass_Lock_Factor, ship.getBaseShipStats().getMassLockFactor()));
-            statistics.add(new ShipStatisticData(ShipStat.Crew_Seats, ship.getBaseShipStats().getCrewSeats()));
-            statistics.add(new ShipStatisticData(ShipStat.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
-
-            statistics.add(new ShipStatisticData(ShipStat.Base_Hull_Mass, ship.getBaseShipStats().getHullMass()));
-
-            statistics.add(new ShipStatisticData(ShipStat.Unladen_Mass, calculateUnladenHullMass()));
-
-
-            statistics.add(new ShipStatisticData(ShipStat.Agility, ship.getBaseShipStats().getAgility()));
-            statistics.add(new ShipStatisticData(ShipStat.Speed, ship.getBaseShipStats().getSpeed()));
-            statistics.add(new ShipStatisticData(ShipStat.Boost_Speed, ship.getBaseShipStats().getBoostSpeed()));
-            statistics.add(new ShipStatisticData(ShipStat.Max_Speed, ship.getBaseShipStats().getMaxSpeed()));
-            statistics.add(new ShipStatisticData(ShipStat.Max_Boost_Speed, ship.getBaseShipStats().getMaxBoostSpeed()));
-
-            statistics.add(new ShipStatisticData(ShipStat.Hull_Hardness, ship.getBaseShipStats().getHullHardness()));
-            statistics.add(new ShipStatisticData(ShipStat.Armor_Rating, ship.getBaseShipStats().getArmorRating()));
-            statistics.add(new ShipStatisticData(ShipStat.Base_Shield, ship.getBaseShipStats().getShield()));
-        }
-    }
-
-    private synchronized Stream<ShipModuleData> safeStream(ObservableList<ShipModuleData> modules)
-    {
-        List<ShipModuleData> buffer = new ArrayList<>();
-
-        if (modules == coreInternals)
-        {
-            synchronized (coreInternals)
-            {
-                buffer.addAll(coreInternals);
-            }
-        }
-        if (modules == optionalInternals)
-        {
-            synchronized (optionalInternals)
-            {
-                buffer.addAll(optionalInternals);
-            }
-        }
-        if (modules == hardpoints)
-        {
-            synchronized (hardpoints)
-            {
-                buffer.addAll(hardpoints);
-            }
-        }
-
-        return buffer.stream();
-    }
+    StarShip() {}
 
     public void associateShipManufacturer(Label makeLabel)
     {
@@ -175,45 +72,208 @@ public class StarShip
         shipIDLabel.textProperty().bind(shipID);
     }
 
-
     public void associateStatisticsTable(TableView<ShipStatisticData> statTable)
     {
-        synchronized (statistics)
-        {
-            statTable.setItems(statistics);
-            statistics.addListener((ListChangeListener<ShipStatisticData>) c -> statTable.refresh());
-        }
+        statTable.setItems(observableStatistics);
+        observableStatistics.addListener((ListChangeListener<ShipStatisticData>) c -> statTable.refresh());
     }
 
     public void associateCoreTable(TableView<ShipModuleData> coreTable)
     {
-        synchronized (coreInternals)
-        {
-            coreTable.setItems(coreInternals);
-            coreInternals.addListener((ListChangeListener<ShipModuleData>) c -> coreTable.refresh());
-        }
+        coreTable.setItems(observableCoreInternals);
+        observableCoreInternals.addListener((ListChangeListener<ShipModuleData>) c -> coreTable.refresh());
     }
 
     public void associateOptionalTable(TableView<ShipModuleData> optionalTable)
     {
-        synchronized (optionalInternals)
-        {
-            optionalTable.setItems(optionalInternals);
-            optionalInternals.addListener((ListChangeListener<ShipModuleData>) c -> optionalTable.refresh());
-        }
+        optionalTable.setItems(observableOptionalInternals);
+        observableOptionalInternals.addListener((ListChangeListener<ShipModuleData>) c -> optionalTable.refresh());
     }
 
     public void associateHardpointTable(TableView<ShipModuleData> hardpointTable)
     {
+        hardpointTable.setItems(observableHardpoints);
+        observableHardpoints.addListener((ListChangeListener<ShipModuleData>) c -> hardpointTable.refresh());
+    }
+
+    private void synchronizeStatistics()
+    {
+        Platform.runLater(()->
+        {
+            synchronized (observableStatistics)
+            {
+                observableStatistics.clear();
+                observableStatistics.addAll(statistics);
+            }
+        });
+    }
+
+    private void synchronizeCoreInternals()
+    {
+        Platform.runLater(()->
+        {
+            synchronized (observableCoreInternals)
+            {
+                observableCoreInternals.clear();
+                observableCoreInternals.addAll(coreInternals);
+            }
+        });
+    }
+
+    private void synchronizeOptionalInternals()
+    {
+        Platform.runLater(()->
+        {
+            synchronized (observableOptionalInternals)
+            {
+                observableOptionalInternals.clear();
+                observableOptionalInternals.addAll(optionalInternals);
+            }
+        });
+    }
+
+    private void synchronizeHardpoints()
+    {
+        Platform.runLater(()->
+        {
+            synchronized (observableHardpoints)
+            {
+                observableHardpoints.clear();
+                observableHardpoints.addAll(hardpoints);
+            }
+        });
+    }
+
+    public void setShip(Ship ship)
+    {
+        this.ship = ship;
+
+        synchronized (coreInternals)
+        {
+            coreInternals.clear();
+            synchronizeCoreInternals();
+        }
+
+        synchronized (optionalInternals)
+        {
+            optionalInternals.clear();
+            synchronizeOptionalInternals();
+        }
+
         synchronized (hardpoints)
         {
-            hardpointTable.setItems(hardpoints);
-            hardpoints.addListener((ListChangeListener<ShipModuleData>) c -> hardpointTable.refresh());
+            hardpoints.clear();
+            synchronizeHardpoints();
+        }
+
+        resetBaseStats();
+    }
+
+    public void setGivenName(String givenName)
+    {
+        if (givenName == null) return;
+        Platform.runLater(() ->
+        {
+            synchronized (shipGivenName)
+            {
+                shipGivenName.set(givenName);
+            }
+        });
+    }
+
+    public void setShipID(String ID)
+    {
+        if (ID == null) return;
+        Platform.runLater(() ->
+        {
+            synchronized (shipID)
+            {
+                shipID.set(ID.toUpperCase());
+            }
+        });
+    }
+
+    public void setCurrentFuel(double currentFuel)
+    {
+        this.currentFuel = currentFuel;
+    }
+
+    private void resetBaseStats()
+    {
+        // make a local copy just to be safe
+        final String displayName = ship.getBaseShipStats().getDisplayName();
+        final String manufacturer = ship.getBaseShipStats().getManufacturer().toString();
+
+        Platform.runLater(()->
+        {
+            synchronized (shipDisplayName)
+            {
+                shipDisplayName.set(displayName);
+            }
+
+            synchronized (shipManufacturerName)
+            {
+                shipManufacturerName.set(manufacturer);
+            }
+        });
+
+        synchronized (statistics)
+        {
+            statistics.clear();
+
+            statistics.add(new ShipStatisticData(ship.getBaseShipStats().getShipSize()));
+            statistics.add(new ShipStatisticData(ShipStat.Mass_Lock_Factor, ship.getBaseShipStats().getMassLockFactor()));
+            statistics.add(new ShipStatisticData(ShipStat.Crew_Seats, ship.getBaseShipStats().getCrewSeats()));
+            statistics.add(new ShipStatisticData(ShipStat.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
+
+            statistics.add(new ShipStatisticData(ShipStat.Base_Hull_Mass, ship.getBaseShipStats().getHullMass()));
+
+            statistics.add(new ShipStatisticData(ShipStat.Agility, ship.getBaseShipStats().getAgility()));
+            statistics.add(new ShipStatisticData(ShipStat.Speed, ship.getBaseShipStats().getSpeed()));
+            statistics.add(new ShipStatisticData(ShipStat.Boost_Speed, ship.getBaseShipStats().getBoostSpeed()));
+            statistics.add(new ShipStatisticData(ShipStat.Max_Speed, ship.getBaseShipStats().getMaxSpeed()));
+            statistics.add(new ShipStatisticData(ShipStat.Max_Boost_Speed, ship.getBaseShipStats().getMaxBoostSpeed()));
+
+            statistics.add(new ShipStatisticData(ShipStat.Hull_Hardness, ship.getBaseShipStats().getHullHardness()));
+            statistics.add(new ShipStatisticData(ShipStat.Armor_Rating, ship.getBaseShipStats().getArmorRating()));
+            statistics.add(new ShipStatisticData(ShipStat.Base_Shield, ship.getBaseShipStats().getShield()));
+
+            synchronizeStatistics();
         }
     }
 
+    private synchronized Stream<ShipModuleData> safeStream(List<ShipModuleData> modules)
+    {
+        List<ShipModuleData> buffer = new ArrayList<>();
 
-    public synchronized void installShipModule(ShipModuleData shipModuleData)
+        if (modules == coreInternals)
+        {
+            synchronized (coreInternals)
+            {
+                buffer.addAll(coreInternals);
+            }
+        }
+
+        if (modules == optionalInternals)
+        {
+            synchronized (optionalInternals)
+            {
+                buffer.addAll(optionalInternals);
+            }
+        }
+
+        if (modules == hardpoints)
+        {
+            synchronized (hardpoints)
+            {
+                buffer.addAll(hardpoints);
+            }
+        }
+
+        return buffer.stream();
+    }
+
+    synchronized void installShipModule(ShipModuleData shipModuleData)
     {
         // todo: perform checking for support in the Ship object
 
@@ -228,6 +288,7 @@ public class StarShip
             {
                 coreInternals.remove(shipModuleData);
                 coreInternals.add(shipModuleData);
+                synchronizeCoreInternals();
             }
         }
 
@@ -237,6 +298,7 @@ public class StarShip
             {
                 optionalInternals.remove(shipModuleData);
                 optionalInternals.add(shipModuleData);
+                synchronizeOptionalInternals();
             }
         }
 
@@ -246,6 +308,7 @@ public class StarShip
             {
                 hardpoints.remove(shipModuleData);
                 hardpoints.add(shipModuleData);
+                synchronizeHardpoints();
             }
         }
 
@@ -268,48 +331,40 @@ public class StarShip
      */
     private void calculateCurrentStats()
     {
+        double hullStrength = calculateCurrentHullStrength();
+        double shieldStrength = calculateCurrentShieldStrength();
 
-        //todo: this is pretty inefficient, since it clears and resets all stats for each module. Monitor performance
-        // over time and if there are big lags at startup, consider fine tuning this to only make targeted changes
-        Platform.runLater(()->
+        double armourCausticResistance = calculateResistance(ShipStat.Armour_Caustic_Resistance);
+        double armourExplosiveResistance = calculateResistance(ShipStat.Armour_Explosive_Resistance);
+        double armourKineticResistance = calculateResistance(ShipStat.Armour_Kinetic_Resistance);
+        double armourThermalResistance = calculateResistance(ShipStat.Armour_Thermal_Resistance);
+
+        double shieldExplosiveResistance = calculateResistance(ShipStat.Shield_Explosive_Resistance);
+        double shieldKineticResistance = calculateResistance(ShipStat.Shield_Kinetic_Resistance);
+        double shieldThermalResistance = calculateResistance(ShipStat.Shield_Thermal_Resistance);
+
+        synchronized (statistics)
         {
-            resetStats();
+            resetBaseStats();
 
-            double hullStrength = calculateCurrentHullStrength();
-            double shieldStrength = calculateCurrentShieldStrength();
+            statistics.add(new ShipStatisticData(ShipStat.Unladen_Mass, calculateUnladenHullMass()));
 
-            double armourCausticResistance = calculateResistance(ShipStat.Armour_Caustic_Resistance);
-            double armourExplosiveResistance = calculateResistance(ShipStat.Armour_Explosive_Resistance);
-            double armourKineticResistance = calculateResistance(ShipStat.Armour_Kinetic_Resistance);
-            double armourThermalResistance = calculateResistance(ShipStat.Armour_Thermal_Resistance);
+            statistics.add(new ShipStatisticData(ShipStat.Shield_Strength, shieldStrength));
+            statistics.add(new ShipStatisticData(ShipStat.Shield_Kinetic_Resistance, shieldKineticResistance));
+            statistics.add(new ShipStatisticData(ShipStat.Shield_Thermal_Resistance, shieldThermalResistance));
+            statistics.add(new ShipStatisticData(ShipStat.Shield_Explosive_Resistance, shieldExplosiveResistance));
 
-            double shieldExplosiveResistance = calculateResistance(ShipStat.Shield_Explosive_Resistance);
-            double shieldKineticResistance = calculateResistance(ShipStat.Shield_Kinetic_Resistance);
-            double shieldThermalResistance = calculateResistance(ShipStat.Shield_Thermal_Resistance);
+            statistics.add(new ShipStatisticData(ShipStat.Hull_Strength, hullStrength));
+            statistics.add(new ShipStatisticData(ShipStat.Armour_Kinetic_Resistance, armourKineticResistance));
+            statistics.add(new ShipStatisticData(ShipStat.Armour_Thermal_Resistance, armourThermalResistance));
+            statistics.add(new ShipStatisticData(ShipStat.Armour_Explosive_Resistance, armourExplosiveResistance));
+            statistics.add(new ShipStatisticData(ShipStat.Armour_Caustic_Resistance, armourCausticResistance));
 
-            synchronized (statistics)
-            {
-
-                statistics.add(new ShipStatisticData(ShipStat.Shield_Strength, shieldStrength));
-                statistics.add(new ShipStatisticData(ShipStat.Shield_Kinetic_Resistance, shieldKineticResistance));
-                statistics.add(new ShipStatisticData(ShipStat.Shield_Thermal_Resistance, shieldThermalResistance));
-                statistics.add(new ShipStatisticData(ShipStat.Shield_Explosive_Resistance, shieldExplosiveResistance));
-
-                statistics.add(new ShipStatisticData(ShipStat.Hull_Strength, hullStrength));
-                statistics.add(new ShipStatisticData(ShipStat.Armour_Kinetic_Resistance, armourKineticResistance));
-                statistics.add(new ShipStatisticData(ShipStat.Armour_Thermal_Resistance, armourThermalResistance));
-                statistics.add(new ShipStatisticData(ShipStat.Armour_Explosive_Resistance, armourExplosiveResistance));
-                statistics.add(new ShipStatisticData(ShipStat.Armour_Caustic_Resistance, armourCausticResistance));
-            }
-        });
+            synchronizeStatistics();
+        }
     }
 
-
-    private double mapRange(double a1, double a2, double b1, double b2, double s){
-        return b1 + ((s - a1)*(b2 - b1))/(a2 - a1);
-    }
-
-    double getArmorResistanceTotal(ItemEffect resistanceEffect)
+    private double getArmorResistanceTotal(ItemEffect resistanceEffect)
     {
         List<Double> resistances = new ArrayList<>();
 
@@ -344,13 +399,13 @@ public class StarShip
 
         if (calculatedResistance > 25)
         {
-            calculatedResistance = mapRange(25, 100, 25, 75, calculatedResistance);
+            calculatedResistance = UIFunctions.Data.mapRange(calculatedResistance, 25, 100, 25, 75);
         }
 
         return calculatedResistance;
     }
 
-    double getShieldResistanceTotal(ItemEffect resistanceEffect)
+    private double getShieldResistanceTotal(ItemEffect resistanceEffect)
     {
         List<Double> resistances = new ArrayList<>();
 
@@ -383,7 +438,7 @@ public class StarShip
 
         if (calculatedResistance > 50 && resistanceEffect != ItemEffect.ExplosiveResistance)
         {
-            calculatedResistance = mapRange(50, 100, 50, 75, calculatedResistance);
+            calculatedResistance = UIFunctions.Data.mapRange(calculatedResistance, 50, 100, 50, 75);
         }
 
         return calculatedResistance;
@@ -391,7 +446,7 @@ public class StarShip
 
     private double calculateResistance(ShipStat resistanceType)
     {
-        double calculatedResistance = 0;
+        double calculatedResistance;
         switch (resistanceType)
         {
             case Armour_Caustic_Resistance:
@@ -648,10 +703,12 @@ public class StarShip
         {
             buffer.addAll(coreInternals);
         }
+
         synchronized (optionalInternals)
         {
             buffer.addAll(optionalInternals);
         }
+
         synchronized (hardpoints)
         {
             buffer.addAll(hardpoints);

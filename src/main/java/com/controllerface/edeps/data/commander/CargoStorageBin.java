@@ -14,7 +14,7 @@ import java.util.Arrays;
  *
  * Created by Controllerface on 3/21/2018.
  */
-public class CargoStorageBin extends InventoryStorageBin
+class CargoStorageBin extends InventoryStorageBin
 {
     @Override
     public boolean check(ProcurementCost item)
@@ -28,6 +28,6 @@ public class CargoStorageBin extends InventoryStorageBin
         Arrays.stream(CommodityType.values())
                 .flatMap(CommodityType::categories)
                 .flatMap(CommodityCategory::commodities)
-                .forEach(commodity -> addItem(commodity, 0));
+                .forEach(this::initializeItem);
     }
 }

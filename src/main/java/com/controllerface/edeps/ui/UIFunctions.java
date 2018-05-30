@@ -84,7 +84,7 @@ public class UIFunctions
     /**
      * Callback and Callback producing functions that control how various UI elements are created and displayed
      */
-    static class Data
+    public static class Data
     {
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
                 costNeedCellFactory = (modMaterial) ->
@@ -100,6 +100,23 @@ public class UIFunctions
 
             return new SimpleStringProperty(String.valueOf(left));
         };
+
+
+        /**
+         * Standard mathematical range mapping function. Accepts a number within a given range and maps it to a
+         * corresponding value in a different range.
+         *
+         * @param input the numerical value to map from the input range to the output range
+         * @param inputMin low end of the input range, the s parameter should be greater than or equal to this value
+         * @param inputMax high end of the input range, the s parameter should be less than or equal to this value
+         * @param outputMin low end of the output range, the return value will be greater than or equal to this value
+         * @param outputMax high end of the output range, the return value will be less than or equal to this value
+         * @return the result of applying the mapping function on the inputValue from the input range to the output range
+         */
+        public static double mapRange(double input, double inputMin, double inputMax, double outputMin, double outputMax)
+        {
+            return outputMin + ((input - inputMin) * (outputMax - outputMin)) / (inputMax - inputMin);
+        }
     }
 
     /**

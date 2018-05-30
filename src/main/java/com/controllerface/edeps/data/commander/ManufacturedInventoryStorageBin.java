@@ -12,7 +12,7 @@ import com.controllerface.edeps.structures.costs.materials.MaterialType;
  *
  * Created by Controllerface on 3/21/2018.
  */
-public class ManufacturedInventoryStorageBin extends InventoryStorageBin
+class ManufacturedInventoryStorageBin extends InventoryStorageBin
 {
     @Override
     public boolean check(ProcurementCost item)
@@ -26,6 +26,6 @@ public class ManufacturedInventoryStorageBin extends InventoryStorageBin
     {
         MaterialType.MANUFACTURED.categories()
                 .flatMap(MaterialSubCategory::materials)
-                .forEach(material -> addItem(material,0));
+                .forEach(this::initializeItem);
     }
 }

@@ -64,6 +64,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -89,7 +90,11 @@ public class UIController
     =============================
      */
 
+    // This is the top level UI element
     @FXML private TabPane mainPane;
+
+    // a tab used for debug info. Will be hidden by default
+    // todo: consider removing this in the future. will add a "console" that can have debug info based on debug flag
     @FXML private Tab debugTab;
 
     // Procurement tree
@@ -146,7 +151,6 @@ public class UIController
     @FXML private CheckBox showTasks;
     @FXML private CheckBox showItemsNeeded;
 
-
     @FXML private Label shipIDLabel;
     @FXML private Label shipNameLabel;
     @FXML private Label shipTypeLabel;
@@ -168,6 +172,14 @@ public class UIController
     @FXML private TableColumn<ShipModuleData, String> hardpointNameColumn;
     @FXML private TableColumn<ShipModuleData, ShipModuleData> hardpointDataColumn;
 
+    /*
+    Backing lists for the procurement task UI elements
+     */
+
+    private final ObservableList<ProcurementTaskData> procSelectorBackingList = FXCollections.observableArrayList();
+
+    private final ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableArrayList();
+    private final ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableArrayList();
 
     /*
     =======================
@@ -176,205 +188,22 @@ public class UIController
      */
 
     private boolean initialzed = false;
-
     private final Set<ProcurementCost> taskCostCache = new HashSet<>();
-
     private final Map<ProcurementCost, Integer> tradeYieldCache = new HashMap<>();
-
     private final CommanderData commanderData = new CommanderData();
 
-    private final ObservableList<ProcurementTaskData> procSelectorBackingList = FXCollections.observableArrayList();
-
-    // The observable list backing the task list table view
-    private final ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableArrayList();
-
-    // The observable list backing the task cost table view
-    private final ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableArrayList();
-
+    private final List<ProcurementRecipeData> taskList = new CopyOnWriteArrayList<>();
+    private final List<ItemCostData> costList = new CopyOnWriteArrayList<>();
 
     /*
-    Functional object providing a generic way to adjust the count of a given blueprint in current procurement list. If,
-    after applying the given adjustment, the count of that blueprint within the list drops to zero or lower, the
-    blueprint is completely removed from the list. After adjustment is made, the UI is automatically updated to reflect
-    the changes.
-
-    adjustment: amount to adjust the blueprint by - positive to add to count, negative to subtract
-    recipe: pair object used to determine the mod type and related recipe to adjust
-    returns: the new count of the given mod
-     */
-    private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> procurementListUpdate =
-            (adjustment, recipe)->
-            {
-                // because this can be called asynchronously and there's math involved, best to synchronize
-                // so the counts don't get messed up
-                synchronized (taskBackingList)
-                {
-                    // find the task we need to adjust
-                    ProcurementRecipeData data = taskBackingList.stream()
-                            .filter(task -> task.matches(recipe))
-                            .findFirst().orElse(null);
-
-                    // if this happens, we don't currently have this task in the list, so we need to determine what to
-                    // do next based on the adjustment amount
-                    if (data == null)
-                    {
-                        // this this was a 0 adjustment or negative, just return -1 indicating the task is not present
-                        if (adjustment <= 0) return -1;
-
-                        // otherwise, this is an indication that we should add this new task to the list, so we create
-                        // a new one, and initialize the count to zero, as the actual adjustment logic can then work
-                        // the same for new and existing tasks
-                        else
-                        {
-                            data = new ProcurementRecipeData(recipe.getKey(), recipe.getValue(), 0);
-                            taskBackingList.add(data);
-
-                            // initialize the costs as well, if they are not already present in the cost list. It is
-                            // critical to ensure a new item is added ONLY if it's not already present, which is
-                            // possible if another task requires some amount of the same material as this one.
-                            // Otherwise, duplicate entries will end up in the list
-                            recipe.getValue().costStream()
-                                    .filter(costData -> costData.getQuantity() > 0)
-                                    .map(CostData::getCost)
-                                    .filter(taskCost -> taskCostBackingList.stream()
-                                            .noneMatch(knownCost -> knownCost.getCost().equals(taskCost)))
-                                    .forEach(taskCost->
-                                    {
-                                        ItemCostData newItem = new ItemCostData(taskCost, this.commanderData::hasItem);
-                                        taskCostBackingList.add(newItem);
-                                    });
-                        }
-                    }
-
-                    // grab the count before adjustment so we can tell how much the final adjustment actually was
-                    int oldCount = data.getCount();
-
-                    // here we do a quick sanity count, in case the count is already at the maximum. if that's the case,
-                    // we will not adjust further, just return the count
-                    if (oldCount == 999) return oldCount;
-
-                    // now, we can continue with the adjustment.
-                    int newCount = oldCount + adjustment;
-
-                    // We max out at 999, just because the UI will get weird and it's unlikely anyone will want/need
-                    // anywhere near that many tasks of a given type. If the adjustment would bring the value over that
-                    // maximum, we'll clamp it.
-                    if (newCount > 999) newCount = 999;
-
-                    // just in case, we also need to check that the adjustment would bring the count below zero. if that
-                    // would occur, we clamp the new count to 0
-                    if (newCount < 0) newCount = 0;
-
-                    // now we ACTUALLY set the new count, performing the adjustment
-                    data.setCount(newCount);
-
-                    // to make sure we've cleaned everything up, if the new count became 0, remove the task
-                    if (newCount == 0) taskBackingList.remove(data);
-
-                    // figure out what the difference was, we'll need this to calculate the cost adjustment
-                    int costDifference = newCount - oldCount;
-
-                    // now we need to calculate the cost adjustments that this task adjustment requires. To do this,
-                    // we find all the costs of this recipe, and multiply the required cost by the cost difference
-                    List<CostData> costAdjustments = recipe.getValue().costStream()
-                            .filter(costData -> costData.getQuantity() > 0)
-                            .map(taskCost -> new CostData(taskCost.getCost(), taskCost.getQuantity() * costDifference))
-                            .collect(Collectors.toList());
-
-                    // if this is a trade recipe, calculate the total pending trade yield and store it. Some UI
-                    // elements use this information to determine how they measure progress toward a tracked task.
-                    if (recipe.getValue() instanceof MaterialTradeRecipe)
-                    {
-                        // in practice, these recipes will always have two costs, and one will be negative, indicating
-                        // that the "cost" is a actually a trade yield. So we stream the costs and filter in only
-                        // costs with a negative value to get the yield.
-                        recipe.getValue().costStream()
-                                .filter(costData -> costData.getQuantity() < 0)
-                                .forEach(costData ->
-                                {
-                                    // since the cost will be negative, use absolute value
-                                    int yield = Math.abs(costData.getQuantity());
-
-                                    // the yield adjustment is applied to the current count of this cost
-                                    int yieldAdjustment = yield * adjustment;
-
-                                    // grab the current pending yield for this trade, init to zero if not present
-                                    int current = tradeYieldCache.computeIfAbsent(costData.getCost(), (x) -> 0);
-
-                                    // apply the adjustment to the current cost
-                                    current += yieldAdjustment;
-
-                                    // if the adjustment would make the quantity zero or less, remove the cached item
-                                    if (current <= 0) tradeYieldCache.remove(costData.getCost());
-
-                                    // otherwise, update the cached pending yield
-                                    else tradeYieldCache.put(costData.getCost(), current);
-                                });
-                    }
-
-                    // loop through the cost list and make the actual adjustments, then collect the adjusted
-                    // costs so we can check for any that need to be removed after adjustment.
-                    List<ItemCostData> toRemove = taskCostBackingList.stream()
-                            .filter(costToAdjust -> costAdjustments.stream().anyMatch(costToAdjust::matches))
-                            .peek(costToAdjust ->
-                            {
-                                // we don't want to count trade costs as cached, because the cache is used to filter
-                                // trades from the recommended trades drop down. If we cache the trade costs for these,
-                                // the a recommended trade becomes unrecommended as soon as it is added.
-                                if (recipe.getValue() instanceof MaterialTradeRecipe) return;
-
-                                // add this cost to the cost cache. note that the quantity is not captured, all that
-                                // is needed is the cost item itself.
-                                taskCostCache.add(costToAdjust.getCost());
-                            })
-                            .peek(costToAdjust ->
-                            {
-                                CostData toAdjust = costAdjustments.stream()
-                                        .filter(costToAdjust::matches)
-                                        .findFirst().orElse(null);
-
-                                if (toAdjust == null) return;
-
-                                costToAdjust.setCount(costToAdjust.getCount() + toAdjust.getQuantity());
-                            })
-                            .filter(adjustedCost -> adjustedCost.getCount() <= 0)
-                            .peek(removedCost -> taskCostCache.remove(removedCost.getCost()))
-                            .collect(Collectors.toList());
-
-                    taskCostBackingList.removeAll(toRemove);
-
-                    syncUI();
-
-                    procurementTaskTable.refresh();
-                    taskCostTable.refresh();
-
-                    return newCount;
-                }
-            };
-
-    /*
-    This is a convenience wrapper around the procurementListUpdate function, used for cases where the calling code does
-    not need to get the post adjustment value after the adjustment is made.
-     */
-    private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> adjustBlueprint =
-            procurementListUpdate::apply;
-
-    private final BiConsumer<ProcurementCost, Integer> adjustItem =
-            (a, b) ->
-            {
-                commanderData.adjustItem(a, b);
-                if (taskCostTable != null) taskCostTable.refresh();
-            };
-
-    /*
-    Consumer function that accepts a ProcurementTaskData and adds it to the procurement list. If the task already exists in the
-    list, this effectively increments the count of that by 1
+    Consumer function that accepts a ProcurementTaskData and adds it to the procurement list. If the task already
+    exists in the list, this effectively increments the count of that by 1
      */
     private final Consumer<ProcurementTaskData> addTaskToProcurementList =
-            (mod)->
+            (task)->
             {
-                Pair<ProcurementType, ProcurementRecipe> ref = new Pair<>(mod.getType(), mod.getRecipe());
-                adjustBlueprint.accept(1, ref);
+                Pair<ProcurementType, ProcurementRecipe> ref = new Pair<>(task.getType(), task.getRecipe());
+                procurementListUpdate(1, ref);
             };
 
     public UIController()
@@ -385,9 +214,18 @@ public class UIController
         // and player inventory in sync
         BlockingQueue<UserTransaction> transactionQueue = new LinkedBlockingQueue<>();
 
+        // convenience function that adjusts items and also refreshes teh cost table. This is useful because the
+        // item adjustment isn't directly related to the cost table, so adjustments won't automatically trigger a
+        // refresh. This allows the table to be refreshed in one function without leaking references into other scopes
+        BiConsumer<ProcurementCost, Integer> adjustItem = (item, amount) ->
+        {
+            commanderData.adjustItem(item, amount);
+            if (taskCostTable != null) taskCostTable.refresh();
+        };
+
         // transaction processor
         Runnable transactionProcessingTask =
-                new TransactionProcessingTask(this::syncUI, adjustItem, adjustBlueprint, transactionQueue);
+                new TransactionProcessingTask(this::syncUI, adjustItem, this::procurementListUpdate, transactionQueue);
 
         Thread transactionThread = new Thread(transactionProcessingTask);
         transactionThread.setDaemon(true);
@@ -399,6 +237,184 @@ public class UIController
         inventoryThread.setDaemon(true);
         inventoryThread.start();
     }
+
+    private void synchronizeBackingLists()
+    {
+        synchronized (taskBackingList)
+        {
+            taskBackingList.clear();
+            taskBackingList.addAll(taskList);
+        }
+
+        synchronized (taskCostBackingList)
+        {
+            taskCostBackingList.clear();
+            taskCostBackingList.addAll(costList);
+        }
+    }
+
+    private Integer procurementListUpdate(Integer adjustment, Pair<ProcurementType, ProcurementRecipe> recipe)
+    {
+        // because this can be called asynchronously and there's math involved, best to synchronize
+        // so the counts don't get messed up
+        synchronized (taskList)
+        {
+            // find the task we need to adjust
+            ProcurementRecipeData data = taskList.stream()
+                    .filter(task -> task.matches(recipe))
+                    .findFirst().orElse(null);
+
+            // if this happens, we don't currently have this task in the list, so we need to determine what to
+            // do next based on the adjustment amount
+            if (data == null)
+            {
+                // this this was a 0 adjustment or negative, just return -1 indicating the task is not present
+                if (adjustment <= 0) return -1;
+
+                    // otherwise, this is an indication that we should add this new task to the list, so we create
+                    // a new one, and initialize the count to zero, as the actual adjustment logic can then work
+                    // the same for new and existing tasks
+                else
+                {
+                    data = new ProcurementRecipeData(recipe.getKey(), recipe.getValue(), 0);
+                    taskList.add(data);
+
+                    // initialize the costs as well, if they are not already present in the cost list. It is
+                    // critical to ensure a new item is added ONLY if it's not already present, which is
+                    // possible if another task requires some amount of the same material as this one.
+                    // Otherwise, duplicate entries will end up in the list
+                    recipe.getValue().costStream()
+                            .filter(costData -> costData.getQuantity() > 0)
+                            .map(CostData::getCost)
+                            .filter(taskCost -> costList.stream()
+                                    .noneMatch(knownCost -> knownCost.getCost().equals(taskCost)))
+                            .forEach(taskCost->
+                            {
+                                ItemCostData newItem = new ItemCostData(taskCost, this.commanderData::hasItem);
+                                costList.add(newItem);
+                            });
+                }
+            }
+
+            // grab the count before adjustment so we can tell how much the final adjustment actually was
+            int oldCount = data.getCount();
+
+            // here we do a quick sanity count, in case the count is already at the maximum. if that's the case,
+            // we will not adjust further, just return the count
+            if (oldCount == 999) return oldCount;
+
+            // now, we can continue with the adjustment.
+            int newCount = oldCount + adjustment;
+
+            // We max out at 999, just because the UI will get weird and it's unlikely anyone will want/need
+            // anywhere near that many tasks of a given type. If the adjustment would bring the value over that
+            // maximum, we'll clamp it.
+            if (newCount > 999) newCount = 999;
+
+            // just in case, we also need to check that the adjustment would bring the count below zero. if that
+            // would occur, we clamp the new count to 0
+            if (newCount < 0) newCount = 0;
+
+            // now we ACTUALLY set the new count, performing the adjustment
+            data.setCount(newCount);
+
+            // to make sure we've cleaned everything up, if the new count became 0, remove the task
+            if (newCount == 0) taskList.remove(data);
+
+            // figure out what the difference was, we'll need this to calculate the cost adjustment
+            int costDifference = newCount - oldCount;
+
+            // now we need to calculate the cost adjustments that this task adjustment requires. To do this,
+            // we find all the costs of this recipe, and multiply the required cost by the cost difference
+            List<CostData> costAdjustments = recipe.getValue().costStream()
+                    .filter(costData -> costData.getQuantity() > 0)
+                    .map(taskCost -> new CostData(taskCost.getCost(), taskCost.getQuantity() * costDifference))
+                    .collect(Collectors.toList());
+
+            // if this is a trade recipe, calculate the total pending trade yield and store it. Some UI
+            // elements use this information to determine how they measure progress toward a tracked task.
+            if (recipe.getValue() instanceof MaterialTradeRecipe)
+            {
+                // in practice, these recipes will always have two costs, and one will be negative, indicating
+                // that the "cost" is a actually a trade yield. So we stream the costs and filter in only
+                // costs with a negative value to get the yield.
+                recipe.getValue().costStream()
+                        .filter(costData -> costData.getQuantity() < 0)
+                        .forEach(costData ->
+                        {
+                            // since the cost will be negative, use absolute value
+                            int yield = Math.abs(costData.getQuantity());
+
+                            // the yield adjustment is applied to the current count of this cost
+                            int yieldAdjustment = yield * adjustment;
+
+                            // grab the current pending yield for this trade, init to zero if not present
+                            int current = tradeYieldCache.computeIfAbsent(costData.getCost(), (x) -> 0);
+
+                            // apply the adjustment to the current cost
+                            current += yieldAdjustment;
+
+                            // if the adjustment would make the quantity zero or less, remove the cached item
+                            if (current <= 0) tradeYieldCache.remove(costData.getCost());
+
+                                // otherwise, update the cached pending yield
+                            else tradeYieldCache.put(costData.getCost(), current);
+                        });
+            }
+
+            // loop through the cost list and make the actual adjustments, then collect the adjusted
+            // costs so we can check for any that need to be removed after adjustment.
+            List<ItemCostData> toRemove = costList.stream()
+                    .filter(costToAdjust -> costAdjustments.stream().anyMatch(costToAdjust::matches))
+                    .peek(costToAdjust ->
+                    {
+                        // we don't want to count trade costs as cached, because the cache is used to filter
+                        // trades from the recommended trades drop down. If we cache the trade costs for these,
+                        // the a recommended trade becomes unrecommended as soon as it is added.
+                        if (recipe.getValue() instanceof MaterialTradeRecipe) return;
+
+                        // add this cost to the cost cache. note that the quantity is not captured, all that
+                        // is needed is the cost item itself.
+                        taskCostCache.add(costToAdjust.getCost());
+                    })
+                    .peek(costToAdjust ->
+                    {
+                        CostData toAdjust = costAdjustments.stream()
+                                .filter(costToAdjust::matches)
+                                .findFirst().orElse(null);
+
+                        if (toAdjust == null) return;
+
+                        costToAdjust.setCount(costToAdjust.getCount() + toAdjust.getQuantity());
+                    })
+                    .filter(adjustedCost -> adjustedCost.getCount() <= 0)
+                    .peek(removedCost -> taskCostCache.remove(removedCost.getCost()))
+                    .collect(Collectors.toList());
+
+            costList.removeAll(toRemove);
+
+            syncUI();
+
+            procurementTaskTable.refresh();
+            taskCostTable.refresh();
+
+            if (Platform.isFxApplicationThread()) synchronizeBackingLists();
+            else Platform.runLater(this::synchronizeBackingLists);
+
+            return newCount;
+        }
+    }
+
+    /*
+    Functional object providing a generic way to adjust the count of a given blueprint in current procurement list. If,
+    after applying the given adjustment, the count of that blueprint within the list drops to zero or lower, the
+    blueprint is completely removed from the list. After adjustment is made, the UI is automatically updated to reflect
+    the changes.
+
+    adjustment: amount to adjust the blueprint by - positive to add to count, negative to subtract
+    recipe: pair object used to determine the mod type and related recipe to adjust
+    returns: the new count of the given mod
+     */
 
     @FXML
     public void stop()
@@ -591,8 +607,8 @@ public class UIController
         procurementLabel.textProperty().bind(labelText);
         procurementTree.setCellFactory(param -> new ProcurementTreeCell(procSelectorBackingList, labelText));
         procurementList.setItems(procSelectorBackingList);
-        procurementList.setCellFactory(param ->
-                new ProcurementListCell(addTaskToProcurementList, commanderData::hasItem, procurementList.widthProperty()));
+        procurementList.setCellFactory(param -> new ProcurementListCell(addTaskToProcurementList,
+                commanderData::hasItem, procurementList.widthProperty()));
 
         procurementTaskTable.setItems(taskBackingList);
         taskCostTable.setItems(taskCostBackingList);
@@ -600,20 +616,21 @@ public class UIController
         initializeInventoryTables();
         initializeShipLoadoutTables();
 
-        taskCountColumn.setCellFactory(x -> new TaskCountCell(procurementListUpdate));
+        taskCountColumn.setCellFactory(x -> new TaskCountCell(this::procurementListUpdate));
         taskCountColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
         taskNameColumn.setCellFactory(x -> new TaskNameCell(commanderData::hasItem, tradeYieldCache::get));
         taskNameColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
-        taskRemoveColumn.setCellFactory(x -> new TaskRemoveCell(procurementListUpdate));
+        taskRemoveColumn.setCellFactory(x -> new TaskRemoveCell(this::procurementListUpdate));
         taskRemoveColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair()));
 
         taskCostNeedColumn.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
         taskCostNeedColumn.setCellFactory(x -> new CostValueCell());
 
         taskCostNameColumn.setCellValueFactory(modMaterial -> new ReadOnlyObjectWrapper<>(modMaterial.getValue()));
-        taskCostNameColumn.setCellFactory(x -> new CostDataCell(addTaskToProcurementList, commanderData::hasItem, taskCostCache::contains, tradeYieldCache::get));
+        taskCostNameColumn.setCellFactory(x -> new CostDataCell(addTaskToProcurementList,
+                commanderData::hasItem, taskCostCache::contains, tradeYieldCache::get));
 
         statNameColumn.setCellValueFactory(stat -> new SimpleStringProperty(stat.getValue().getKey().getText()));
         statValueColumn.setCellValueFactory(stat -> new SimpleStringProperty(stat.getValue().getValue()));
@@ -1171,7 +1188,7 @@ public class UIController
     {
         Map<String, Object> data = new HashMap<>();
 
-        List<Map<String, Object>> tasks = taskBackingList.stream()
+        List<Map<String, Object>> tasks = taskList.stream()
                 .map(e->
                 {
                     // todo: it may be beneficial to store the JSON output logic inside the procurement type
@@ -1227,14 +1244,13 @@ public class UIController
 
         Map<String, Object> data = JSONSupport.Parse.jsonFile.apply(file);
 
-        taskBackingList.clear();
+        taskList.clear();
 
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> tasks = ((List<Map<String, Object>>) data.get("tasks"));
         tasks.forEach(taskEntry ->
         {
             //todo: if this is a trade recipe, we need to read the price/product costs in the JSON object
-
 
             AtomicReference<ProcurementType> procType = new AtomicReference<>();
             AtomicReference<ProcurementRecipe> recipeType = new AtomicReference<>();
@@ -1297,7 +1313,7 @@ public class UIController
                 }
             });
 
-            adjustBlueprint.accept(count.get(),new Pair<>(procType.get(), recipeType.get()));
+            procurementListUpdate(count.get(), new Pair<>(procType.get(), recipeType.get()));
         });
 
         if (initialzed) syncUI();

@@ -26,6 +26,6 @@ public class RawInventoryStorageBin extends InventoryStorageBin
     {
         MaterialType.RAW.categories()
                 .flatMap(MaterialSubCategory::materials)
-                .forEach(material -> addItem(material,0));
+                .forEach(this::initializeItem);
     }
 }
