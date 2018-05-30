@@ -49,7 +49,25 @@ public class ModuleDisplayCell extends TableCell<ShipModuleData, ShipModuleData>
 
             if (m != null)
             {
-                Label modification = new Label(" :: G" + item.getLevel() + " " + m.toString());
+                boolean needsRefresh = item.getModifiers().isEmpty();
+
+                String labelText = " :: G" + item.getLevel() + " " + m.toString();
+                if (needsRefresh)
+                {
+                    labelText += " (*needs refresh*) ";
+                }
+
+                Label modification = new Label(labelText);
+
+                if (needsRefresh)
+                {
+                    Tooltip refreshNotice = new Tooltip("This module was retrieved from storage in outfitting\n" +
+                            "Exit outfitting menu to refresh this module's statistics");
+
+                    refreshNotice.setFont(UIFunctions.Fonts.size2Font);
+                    modification.setTooltip(refreshNotice);
+                }
+
                 modification.setFont(UIFunctions.Fonts.size3Font);
                 modification.setTextFill(UIFunctions.Fonts.darkOrange);
                 nameBox.getChildren().add(modification);
