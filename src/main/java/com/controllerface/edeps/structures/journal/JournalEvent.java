@@ -465,11 +465,11 @@ public enum JournalEvent
 
     /**
      * Written when retrieving a module from storage, equipping it to the current ship
-     *
-     * todo: engineering modifiers will need to be calculated
      */
     ModuleRetrieve((context ->
     {
+        ShipModuleData.Builder dataBuilder = new ShipModuleData.Builder();
+
         Map<String, Object> data =  context.getRawData();
         String slotKey = ((String) data.get("Slot"));
         String moduleKey = ((String) data.get("RetrievedItem"))
@@ -479,12 +479,21 @@ public enum JournalEvent
         Statistic slot = determineStatType(slotKey);
         ShipModule module = determineModuleType(moduleKey);
 
-        ShipModuleData shipModuleData = new ShipModuleData.Builder()
-                .setModuleName(slot)
+        dataBuilder
                 .setModule(module)
-                .build();
+                .setModuleName(slot);
 
-        context.getCommanderData().setShipModule(shipModuleData);
+        if (data.containsKey("EngineerModifications"))
+        {
+            String modificationName = ((String) data.get("EngineerModifications"));
+            ModificationBlueprint modificationBlueprint = determineModificationBlueprint(modificationName);
+            Integer level = ((Integer) data.get("Level"));
+
+            dataBuilder.setModificationBlueprint(modificationBlueprint);
+            dataBuilder.setLevel(level);
+        }
+
+        context.getCommanderData().setShipModule(dataBuilder.build());
     })),
 
     ;
