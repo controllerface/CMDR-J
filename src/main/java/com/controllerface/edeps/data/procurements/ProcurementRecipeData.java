@@ -3,6 +3,7 @@ package com.controllerface.edeps.data.procurements;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
+import com.controllerface.edeps.data.MaterialTradeRecipe;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
 import com.sun.prism.Material;
 import javafx.util.Pair;
@@ -42,6 +43,11 @@ public class ProcurementRecipeData
                 recipe.costStream()
                         .map(c-> " - " + c.getCost().getLocalizedName())
                         .collect(Collectors.joining("\n"));
+    }
+
+    public boolean isTrade()
+    {
+        return recipe instanceof MaterialTradeRecipe;
     }
 
     public void setCount(int amount)

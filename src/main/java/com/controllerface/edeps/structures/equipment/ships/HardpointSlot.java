@@ -9,10 +9,13 @@ import java.util.Arrays;
  */
 public enum HardpointSlot implements Statistic
 {
-    SmallHardpoint1("Small Hardpoint"),
-    SmallHardpoint2("Small Hardpoint"),
-    SmallHardpoint3("Small Hardpoint"),
-    SmallHardpoint4("Small Hardpoint"),
+    HugeHardpoint1("Huge Hardpoint"),
+    HugeHardpoint2("Huge Hardpoint"),
+
+    LargeHardpoint1("Large Hardpoint"),
+    LargeHardpoint2("Large Hardpoint"),
+    LargeHardpoint3("Large Hardpoint"),
+    LargeHardpoint4("Large Hardpoint"),
 
     MediumHardpoint1("Medium Hardpoint"),
     MediumHardpoint2("Medium Hardpoint"),
@@ -20,13 +23,10 @@ public enum HardpointSlot implements Statistic
     MediumHardpoint4("Medium Hardpoint"),
     MediumHardpoint5("Medium Hardpoint"),
 
-    LargeHardpoint1("Large Hardpoint"),
-    LargeHardpoint2("Large Hardpoint"),
-    LargeHardpoint3("Large Hardpoint"),
-    LargeHardpoint4("Large Hardpoint"),
-
-    HugeHardpoint1("Huge Hardpoint"),
-    HugeHardpoint2("Huge Hardpoint"),
+    SmallHardpoint1("Small Hardpoint"),
+    SmallHardpoint2("Small Hardpoint"),
+    SmallHardpoint3("Small Hardpoint"),
+    SmallHardpoint4("Small Hardpoint"),
 
     TinyHardpoint1("Utility Mount"),
     TinyHardpoint2("Utility Mount"),

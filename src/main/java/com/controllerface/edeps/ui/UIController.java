@@ -52,6 +52,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -179,7 +180,10 @@ public class UIController
     private final ObservableList<ProcurementTaskData> procSelectorBackingList = FXCollections.observableArrayList();
 
     private final ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableArrayList();
+    private final SortedList<ProcurementRecipeData> sortedTasks = new SortedList<>(taskBackingList, UIFunctions.Sort.tasksByName);
+
     private final ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableArrayList();
+    private final SortedList<ItemCostData> sortedCosts = new SortedList<>(taskCostBackingList, UIFunctions.Sort.costsByNeed);
 
     /*
     =======================
@@ -610,8 +614,8 @@ public class UIController
         procurementList.setCellFactory(param -> new ProcurementListCell(addTaskToProcurementList,
                 commanderData::hasItem, procurementList.widthProperty()));
 
-        procurementTaskTable.setItems(taskBackingList);
-        taskCostTable.setItems(taskCostBackingList);
+        procurementTaskTable.setItems(sortedTasks);
+        taskCostTable.setItems(sortedCosts);
 
         initializeInventoryTables();
         initializeShipLoadoutTables();
@@ -637,8 +641,8 @@ public class UIController
         statNameColumn.setCellFactory(x -> new CommanderStatDataCell());
         statValueColumn.setCellFactory(x -> new CommanderStatDataCell());
 
-        sortTasksByName.setOnAction(e -> sortTaskTable());
-        sortTasksByGrade.setOnAction(e -> sortTaskTable());
+        sortTasksByName.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.tasksByName));
+        sortTasksByGrade.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.taskByGrade));
 
         showProcurements.setOnAction(e -> setProcurementsUIVisibility());
         showTasks.setOnAction(e -> setProcurementsUIVisibility());
@@ -1001,61 +1005,37 @@ public class UIController
         cargoTable.getItems().sort(UIFunctions.Sort.itemByCount);
     }
 
-    private void sortTaskTable()
-    {
-        if (procurementTaskTable.getItems().size() > 0)
-        {
-            procurementTaskTable.getItems().sort((a, b) ->
-            {
-                if (sortTasksByGrade.isSelected())
-                {
-                    return ItemGrade.compare(a.asPair().getValue().getGrade(),
-                            b.asPair().getValue().getGrade());
-                }
-                if (sortTasksByName.isSelected())
-                {
-                    String as = a.asPair().getKey().toString() + a.asPair().getValue().toString();
-                    String bs = b.asPair().getKey().toString() + b.asPair().getValue().toString();
-                    return as.compareTo(bs);
-                }
-                else return a.toString().compareTo(b.toString());
-            });
-        }
-    }
-
     private void syncUI()
     {
         if (!initialzed) return;
 
         statTable.getItems().clear();
 
-        sortTaskTable();
-
-        if (taskCostTable.getItems().size() > 0)
-        {
-            taskCostTable.getItems().sort((a, b)->
-            {
-                int aNeed = a.getNeed();
-                int bNeed = b.getNeed();
-                int aHave = a.getHave();
-                int bHave = b.getHave();
-                boolean aok = aHave >= aNeed;
-                boolean bok = bHave >= bNeed;
-
-                int r2;
-
-                if (aok && bok) r2 = 0;
-                else if (aok || bok) r2 = aok ? 1 : -1;
-                else
-                {
-                    int aDiff = Math.abs(aNeed - aHave);
-                    int bDiff = Math.abs(bNeed - bHave);
-                    r2 = bDiff - aDiff;
-                }
-
-                return r2;
-            });
-        }
+//        if (taskCostTable.getItems().size() > 0)
+//        {
+//            taskCostTable.getItems().sort((a, b)->
+//            {
+//                int aNeed = a.getNeed();
+//                int bNeed = b.getNeed();
+//                int aHave = a.getHave();
+//                int bHave = b.getHave();
+//                boolean aok = aHave >= aNeed;
+//                boolean bok = bHave >= bNeed;
+//
+//                int r2;
+//
+//                if (aok && bok) r2 = 0;
+//                else if (aok || bok) r2 = aok ? 1 : -1;
+//                else
+//                {
+//                    int aDiff = Math.abs(aNeed - aHave);
+//                    int bDiff = Math.abs(bNeed - bHave);
+//                    r2 = bDiff - aDiff;
+//                }
+//
+//                return r2;
+//            });
+//        }
 
         setProcurementsUIVisibility();
 

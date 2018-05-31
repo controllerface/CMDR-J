@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 
@@ -74,26 +75,53 @@ public class StarShip
 
     public void associateStatisticsTable(TableView<ShipStatisticData> statTable)
     {
-        statTable.setItems(observableStatistics);
+        SortedList<ShipStatisticData> sorted = new SortedList<>(observableStatistics);
+        statTable.setItems(sorted);
+
         observableStatistics.addListener((ListChangeListener<ShipStatisticData>) c -> statTable.refresh());
+        sorted.setComparator((a, b)-> a.stat().compareTo(b.stat()));
     }
 
     public void associateCoreTable(TableView<ShipModuleData> coreTable)
     {
-        coreTable.setItems(observableCoreInternals);
+        SortedList<ShipModuleData> sorted = new SortedList<>(observableCoreInternals);
+        coreTable.setItems(sorted);
+
         observableCoreInternals.addListener((ListChangeListener<ShipModuleData>) c -> coreTable.refresh());
+        sorted.setComparator((a, b)->
+        {
+            CoreInternalSlot slotA = ((CoreInternalSlot) a.getModuleName());
+            CoreInternalSlot slotB = ((CoreInternalSlot) b.getModuleName());
+            return slotA.compareTo(slotB);
+        });
     }
 
     public void associateOptionalTable(TableView<ShipModuleData> optionalTable)
     {
-        optionalTable.setItems(observableOptionalInternals);
+        SortedList<ShipModuleData> sorted = new SortedList<>(observableOptionalInternals);
+        optionalTable.setItems(sorted);
+
         observableOptionalInternals.addListener((ListChangeListener<ShipModuleData>) c -> optionalTable.refresh());
+        sorted.setComparator((a, b)->
+        {
+            OptionalInternalSlot slotA = ((OptionalInternalSlot) a.getModuleName());
+            OptionalInternalSlot slotB = ((OptionalInternalSlot) b.getModuleName());
+            return slotA.compareTo(slotB);
+        });
     }
 
     public void associateHardpointTable(TableView<ShipModuleData> hardpointTable)
     {
-        hardpointTable.setItems(observableHardpoints);
+        SortedList<ShipModuleData> sorted = new SortedList<>(observableHardpoints);
+        hardpointTable.setItems(sorted);
+
         observableHardpoints.addListener((ListChangeListener<ShipModuleData>) c -> hardpointTable.refresh());
+        sorted.setComparator((a, b)->
+        {
+            HardpointSlot slotA = ((HardpointSlot) a.getModuleName());
+            HardpointSlot slotB = ((HardpointSlot) b.getModuleName());
+            return slotA.compareTo(slotB);
+        });
     }
 
     private void synchronizeStatistics()

@@ -6,27 +6,32 @@ package com.controllerface.edeps.structures.equipment.ships;
 public enum ShipStat
 {
     Size,
+    Mass_Lock_Factor,
+    Crew_Seats,
+    SLF_Capable,
+    Manufacturer,
+    Base_Cost,
+
     Agility,
-    Base_Hull_Mass,
-    Hull_Hardness,
     Speed,
     Max_Speed,
     Boost_Speed,
     Max_Boost_Speed,
+
+    Base_Hull_Mass,
+    Hull_Hardness,
+
     Armor_Rating,
     Base_Shield,
-    Manufacturer,
-    Base_Cost,
-    Mass_Lock_Factor,
-    Crew_Seats,
-    SLF_Capable,
 
     Unladen_Mass,
-    Hull_Strength,
+
     Shield_Strength,
     Shield_Explosive_Resistance,
     Shield_Kinetic_Resistance,
     Shield_Thermal_Resistance,
+
+    Hull_Strength,
     Armour_Caustic_Resistance,
     Armour_Explosive_Resistance,
     Armour_Kinetic_Resistance,

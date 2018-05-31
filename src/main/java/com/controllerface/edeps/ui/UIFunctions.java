@@ -5,12 +5,14 @@ import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.ItemEffectData;
+import com.controllerface.edeps.data.MaterialTradeRecipe;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.ui.commander.CommanderStatDataCell;
 import com.controllerface.edeps.ui.costs.CostDataCell;
 import com.controllerface.edeps.ui.costs.CostValueCell;
@@ -63,8 +65,8 @@ public class UIFunctions
         public static final Color positiveBlue = Color.rgb(0x00, 0xb3, 0xf7);
         public static final Color negativeRed = Color.rgb(0xff, 0x00, 0x00);
         public static final Color neutralBlack = Color.rgb(0x00, 0x00, 0x00);
-        public static final Color standardOrange = Color.rgb(0xff, 0x71, 0x00);
-        public static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
+        //public static final Color standardOrange = Color.rgb(0xff, 0x71, 0x00);
+        //public static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
         public static final Color darkOrange = Color.rgb(0xb7, 0x52, 0x00);
         public static final Color darkYellow = Color.rgb(0xb7, 0x7d, 0x00);
 
@@ -74,7 +76,7 @@ public class UIFunctions
         static final double size3 = baseFont.getSize() + (baseFont.getSize() / 3);
         static final double size4 = baseFont.getSize() + (baseFont.getSize() / 2);
 
-        public static final Font size0Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, baseFont.getSize());
+        //public static final Font size0Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, baseFont.getSize());
         public static final Font size1Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size1);
         public static final Font size2Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size2);
         public static final Font size3Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size3);
@@ -181,19 +183,6 @@ public class UIFunctions
 
             return nextLabel;
         };
-
-
-        public static BiFunction<Boolean, CostData, Label> costToLabel = (hasEnough, cost) ->
-        {
-            String quantity = cost.getQuantity() < 0
-                    ? "+" + Math.abs(cost.getQuantity())
-                    : "-" + cost.getQuantity();
-
-            Label next = new Label(quantity + "x " + cost.getCost().getLocalizedName());
-            next.setFont(Fonts.size1Font);
-            next.setTextFill(hasEnough ? Fonts.neutralBlack : Fonts.negativeRed);
-            return next;
-        };
     }
 
     /**
@@ -224,5 +213,56 @@ public class UIFunctions
         // numerically lowest to highest
         static final Comparator<Label> quantityByNumericValue =
                 Comparator.comparingInt(a -> Integer.parseInt(a.getText()));
+
+        // sorts procurement tasks by name, and ensure trade tasks always come after all other task types
+        static final Comparator<ProcurementRecipeData> tasksByName =
+                (a, b)->
+                {
+                    if (a.isTrade() != b.isTrade())
+                    {
+                        return a.isTrade() ? 1 : -1;
+                    }
+
+                    String as = a.asPair().getKey().toString() + a.asPair().getValue().toString();
+                    String bs = b.asPair().getKey().toString() + b.asPair().getValue().toString();
+                    return as.compareTo(bs);
+                };
+
+        // sorts procurement tasks by grade, and ensure trade tasks always come after all other task types
+        static final Comparator<ProcurementRecipeData> taskByGrade =
+                (a, b) ->
+                {
+                    if (a.isTrade() != b.isTrade())
+                    {
+                        return a.isTrade() ? 1 : -1;
+                    }
+
+                    return ItemGrade.compare(a.asPair().getValue().getGrade(), b.asPair().getValue().getGrade());
+                };
+
+        // trade costs sorted by absolute need, with highest need always sorted first
+        static final Comparator<ItemCostData> costsByNeed =
+                (a, b)->
+                {
+                    int aNeed = a.getNeed();
+                    int bNeed = b.getNeed();
+                    int aHave = a.getHave();
+                    int bHave = b.getHave();
+                    boolean aok = aHave >= aNeed;
+                    boolean bok = bHave >= bNeed;
+
+                    int r2;
+
+                    if (aok && bok) r2 = 0;
+                    else if (aok || bok) r2 = aok ? 1 : -1;
+                    else
+                    {
+                        int aDiff = Math.abs(aNeed - aHave);
+                        int bDiff = Math.abs(bNeed - bHave);
+                        r2 = bDiff - aDiff;
+                    }
+
+                    return r2;
+                };
     }
 }

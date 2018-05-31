@@ -63,6 +63,11 @@ public class ShipStatisticData
         statType = Type.MANUFACTURER;
     }
 
+    public ShipStat stat()
+    {
+        return shipStat;
+    }
+
     public String statName()
     {
         return shipStat.toString();
