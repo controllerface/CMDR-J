@@ -59,33 +59,6 @@ public class JournalSyncTask implements Runnable
      * that are useful for the ship tab. In this set, we want all values in the CoreInternalSlot, CosmeticSlot,
      * HardpointSlot, and OptionalInternalSlot enums.
      */
-    public static Set<Statistic> allStats  =
-            Stream.concat(Arrays.stream(CoreInternalSlot.values()),
-                    Stream.concat(Arrays.stream(CosmeticSlot.values()),
-                            Stream.concat(Arrays.stream(HardpointSlot.values()),
-                                    Stream.concat(Arrays.stream(OptionalInternalSlot.values()),
-                                            Stream.concat(Arrays.stream(PlayerStat.values()),
-                                                    Arrays.stream(RankStat.values()))))))
-                    .collect(Collectors.toSet());
-
-
-    /**
-     * Defines all of the relevant stats for the Commander tab. This consists of all the values of the PlayerStat enum
-     */
-    public static Set<Statistic> playerStats = Arrays.stream(PlayerStat.values()).collect(Collectors.toSet());
-
-
-    /**
-     * Defines all of the relevant stats for the Rank tab. This consists of all the values of the RankStat enum
-     */
-    public static Set<Statistic> rankStats = Arrays.stream(RankStat.values()).collect(Collectors.toSet());
-
-
-    /**
-     * For ship stats, we want to combine several groups of stats together, and add a couple of "player" stats as well
-     * that are useful for the ship tab. In this set, we want all values in the CoreInternalSlot, CosmeticSlot,
-     * HardpointSlot, and OptionalInternalSlot enums.
-     */
     public static Set<Statistic> shipStats =
             Stream.concat(Arrays.stream(CoreInternalSlot.values()),                 // Core Modules
                     Stream.concat(Arrays.stream(CosmeticSlot.values()),             // Cosmetics
@@ -121,14 +94,8 @@ public class JournalSyncTask implements Runnable
 
     private long lastFileSize = 0;
 
-    private final Procedure updateFunction;
-
-
-    public JournalSyncTask(Procedure updateFunction,
-                           CommanderData commanderData,
-                           BlockingQueue<UserTransaction> transactions)
+    public JournalSyncTask(CommanderData commanderData, BlockingQueue<UserTransaction> transactions)
     {
-        this.updateFunction = updateFunction;
         this.commanderData = commanderData;
         this.transactions = transactions;
     }
@@ -335,7 +302,7 @@ public class JournalSyncTask implements Runnable
 
 
         // todo: abstract transactions further and eliminate need to pass commanderData into the context object
-        EventProcessingContext context = new EventProcessingContext(data, transactions, commanderData, updateFunction);
+        EventProcessingContext context = new EventProcessingContext(data, transactions, commanderData);
         event.process(context);
     }
 }

@@ -53,6 +53,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -179,9 +180,11 @@ public class UIController
 
     private final ObservableList<ProcurementTaskData> procSelectorBackingList = FXCollections.observableArrayList();
 
+    // the backing list for tracked tasks, and a sorted wrapper used to keep the UI view sorted
     private final ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableArrayList();
     private final SortedList<ProcurementRecipeData> sortedTasks = new SortedList<>(taskBackingList, UIFunctions.Sort.tasksByName);
 
+    // the backing list for needed items/costs, and a sorted wrapper used to keep the UI view sorted
     private final ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableArrayList();
     private final SortedList<ItemCostData> sortedCosts = new SortedList<>(taskCostBackingList, UIFunctions.Sort.costsByNeed);
 
@@ -200,8 +203,8 @@ public class UIController
     private final List<ItemCostData> costList = new CopyOnWriteArrayList<>();
 
     /*
-    Consumer function that accepts a ProcurementTaskData and adds it to the procurement list. If the task already
-    exists in the list, this effectively increments the count of that by 1
+    Convenience consumer function that accepts a ProcurementTaskData and adds it to the procurement list. If the task
+    already exists in the list, this effectively increments the count of that by 1
      */
     private final Consumer<ProcurementTaskData> addTaskToProcurementList =
             (task)->
@@ -229,14 +232,13 @@ public class UIController
 
         // transaction processor
         Runnable transactionProcessingTask =
-                new TransactionProcessingTask(this::syncUI, adjustItem, this::procurementListUpdate, transactionQueue);
-
+                new TransactionProcessingTask(adjustItem, this::procurementListUpdate, transactionQueue);
         Thread transactionThread = new Thread(transactionProcessingTask);
         transactionThread.setDaemon(true);
         transactionThread.start();
 
         // disk monitor
-        Runnable inventorySyncTask = new JournalSyncTask(this::syncUI, commanderData, transactionQueue);
+        Runnable inventorySyncTask = new JournalSyncTask(commanderData, transactionQueue);
         Thread inventoryThread = new Thread(inventorySyncTask);
         inventoryThread.setDaemon(true);
         inventoryThread.start();
@@ -397,8 +399,6 @@ public class UIController
 
             costList.removeAll(toRemove);
 
-            syncUI();
-
             procurementTaskTable.refresh();
             taskCostTable.refresh();
 
@@ -466,9 +466,6 @@ public class UIController
                     .filter(t->t.equals(debugTab)).findFirst()
                     .ifPresent(t->mainPane.getTabs().remove(t));
         }
-
-        // sync the UI now that everything is set up
-        syncUI();
 
         sortInventory();
     }
@@ -1005,42 +1002,11 @@ public class UIController
         cargoTable.getItems().sort(UIFunctions.Sort.itemByCount);
     }
 
-    private void syncUI()
-    {
-        if (!initialzed) return;
-
-        statTable.getItems().clear();
-
-//        if (taskCostTable.getItems().size() > 0)
-//        {
-//            taskCostTable.getItems().sort((a, b)->
-//            {
-//                int aNeed = a.getNeed();
-//                int bNeed = b.getNeed();
-//                int aHave = a.getHave();
-//                int bHave = b.getHave();
-//                boolean aok = aHave >= aNeed;
-//                boolean bok = bHave >= bNeed;
-//
-//                int r2;
-//
-//                if (aok && bok) r2 = 0;
-//                else if (aok || bok) r2 = aok ? 1 : -1;
-//                else
-//                {
-//                    int aDiff = Math.abs(aNeed - aHave);
-//                    int bDiff = Math.abs(bNeed - bHave);
-//                    r2 = bDiff - aDiff;
-//                }
-//
-//                return r2;
-//            });
-//        }
-
-        setProcurementsUIVisibility();
-
-        statTable.refresh();
-    }
+//    private void syncUI()
+//    {
+//        if (!initialzed) return;
+//        //setProcurementsUIVisibility();
+//    }
 
     private void setProcurementsUIVisibility()
     {
@@ -1295,7 +1261,5 @@ public class UIController
 
             procurementListUpdate(count.get(), new Pair<>(procType.get(), recipeType.get()));
         });
-
-        if (initialzed) syncUI();
     }
 }

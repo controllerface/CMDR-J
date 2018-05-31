@@ -15,18 +15,14 @@ public class EventProcessingContext
     private final BlockingQueue<UserTransaction> transactions;
     private final CommanderData commanderData;
     private final Map<String, Object> rawData;
-    private final Procedure updateFunction;
-
 
     public EventProcessingContext(Map<String, Object> rawData,
                                   BlockingQueue<UserTransaction> transactions,
-                                  CommanderData commanderData,
-                                  Procedure updateFunction)
+                                  CommanderData commanderData)
     {
         this.rawData = rawData;
         this.transactions = transactions;
         this.commanderData = commanderData;
-        this.updateFunction = updateFunction;
     }
 
     public Map<String, Object> getRawData()
@@ -42,10 +38,5 @@ public class EventProcessingContext
     public CommanderData getCommanderData()
     {
         return commanderData;
-    }
-
-    public Procedure getUpdateFunction()
-    {
-        return updateFunction;
     }
 }

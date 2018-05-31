@@ -20,17 +20,14 @@ import java.util.function.BiConsumer;
  */
 public class TransactionProcessingTask implements Runnable
 {
-    private final Procedure updateFunction;
     private final BiConsumer<ProcurementCost, Integer> inventoryAdjustment;
     private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> blueprintAdjustment;
     private final BlockingQueue<UserTransaction> transactions;
 
-    public TransactionProcessingTask(Procedure updateFunction,
-                                     BiConsumer<ProcurementCost, Integer> inventoryAdjustment,
+    public TransactionProcessingTask(BiConsumer<ProcurementCost, Integer> inventoryAdjustment,
                                      BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> blueprintAdjustment,
                                      BlockingQueue<UserTransaction> transactionQueue)
     {
-        this.updateFunction = updateFunction;
         this.inventoryAdjustment = inventoryAdjustment;
         this.blueprintAdjustment = blueprintAdjustment;
         this.transactions = transactionQueue;
@@ -75,10 +72,6 @@ public class TransactionProcessingTask implements Runnable
                     blueprintAdjustment.accept(nextTransaction.getTransactionAmount(), nextTransaction.getBlueprint());
                     break;
             }
-
-
-            // call the update procedure to signal that the inventory has changed
-            updateFunction.call();
         }
     }
 }

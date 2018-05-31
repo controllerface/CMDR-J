@@ -60,8 +60,6 @@ public enum JournalEvent
         setStatFromData(context, PlayerStat.Ship);
         setStatFromData(context, PlayerStat.Ship_Name);
         setStatFromData(context, PlayerStat.Ship_Ident);
-
-        context.getUpdateFunction().call();
     }),
 
     /**
@@ -73,8 +71,6 @@ public enum JournalEvent
 
         ((List<Map<String, Object>>) context.getRawData().get("Inventory")).stream()
                 .forEach(item -> adjustCommodityCount(context, item));
-
-        context.getUpdateFunction().call();
     }),
 
     /**
@@ -94,8 +90,6 @@ public enum JournalEvent
 
         ((List<Map<String, Object>>) data.get("Encoded")).stream()
                 .forEach(item -> adjustMaterialCount(context, item));
-
-        context.getUpdateFunction().call();
     }),
 
     /**
@@ -109,8 +103,6 @@ public enum JournalEvent
         setStatFromData(context, RankStat.Rank_Empire);
         setStatFromData(context, RankStat.Rank_Federation);
         setStatFromData(context, RankStat.Rank_CQC);
-
-        context.getUpdateFunction().call();
     }),
 
     /**
@@ -124,8 +116,6 @@ public enum JournalEvent
         setStatFromData(context, RankStat.Progress_Empire);
         setStatFromData(context, RankStat.Progress_Federation);
         setStatFromData(context, RankStat.Progress_CQC);
-
-        context.getUpdateFunction().call();
     }),
 
     /**
@@ -137,8 +127,6 @@ public enum JournalEvent
         setStatFromData(context, RankStat.Reputation_Federation);
         setStatFromData(context, RankStat.Reputation_Alliance);
         setStatFromData(context, RankStat.Reputation_Independent);
-
-        context.getUpdateFunction().call();
     }),
 
     /**
@@ -171,8 +159,6 @@ public enum JournalEvent
 
         ((List<Map<String, Object>>) context.getRawData().get("Modules")).stream()
                 .forEach(module -> setSlotFromLoadout(context, module));
-
-        context.getUpdateFunction().call();
     }),
 
     /**
