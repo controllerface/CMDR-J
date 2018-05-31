@@ -264,5 +264,30 @@ public class UIFunctions
 
                     return r2;
                 };
+
+        // trade task by best cost/yield ratio
+        public static final Comparator<ProcurementRecipe> bestCostYieldRatio =
+                (a, b)->
+                {
+                    int aCost = a.costStream().filter(c -> c.getQuantity() > 0)
+                            .mapToInt(CostData::getQuantity).sum();
+
+                    int bCost = b.costStream().filter(c -> c.getQuantity() > 0)
+                            .mapToInt(CostData::getQuantity).sum();
+
+                    int aYield = a.costStream().filter(c -> c.getQuantity() < 0)
+                            .mapToInt(CostData::getQuantity)
+                            .map(Math::abs)
+                            .sum();
+
+                    int bYield = b.costStream().filter(c -> c.getQuantity() < 0)
+                            .mapToInt(CostData::getQuantity)
+                            .map(Math::abs)
+                            .sum();
+
+                    if (aCost == bCost) return bYield - aYield;
+
+                    return aCost - bCost;
+                };
     }
 }

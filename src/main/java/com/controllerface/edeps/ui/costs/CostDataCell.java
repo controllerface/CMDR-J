@@ -28,36 +28,10 @@ import java.util.function.Predicate;
  */
 public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
 {
-    private static double baseFontSize = -1;
-    private static String baseFontFamily = null;
     private final Function<ProcurementCost, Integer> checkInventory;
     private final Predicate<ProcurementCost> isInCache;
     private final Function<ProcurementCost, Integer> pendingTradeYield;
     private final Consumer<ProcurementTaskData> addtask;
-
-    private static final Comparator<ProcurementRecipe> bestCostYieldRatio =
-            (a, b)->
-            {
-                int aCost = a.costStream().filter(c -> c.getQuantity() > 0)
-                        .mapToInt(CostData::getQuantity).sum();
-
-                int bCost = b.costStream().filter(c -> c.getQuantity() > 0)
-                        .mapToInt(CostData::getQuantity).sum();
-
-                int aYield = a.costStream().filter(c -> c.getQuantity() < 0)
-                        .mapToInt(CostData::getQuantity)
-                        .map(Math::abs)
-                        .sum();
-
-                int bYield = b.costStream().filter(c -> c.getQuantity() < 0)
-                        .mapToInt(CostData::getQuantity)
-                        .map(Math::abs)
-                        .sum();
-
-                if (aCost == bCost) return bYield - aYield;
-
-                return aCost - bCost;
-            };
 
     public CostDataCell(Consumer<ProcurementTaskData> addtask,
                         Function<ProcurementCost, Integer> checkInventory,
@@ -99,19 +73,9 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
                 type = type.substring(0,1)
                         .concat(type.substring(1,type.length()).toLowerCase());
             }
+
             else if (cost instanceof Commodity) type = Commodity.class.getSimpleName();
             else type = "Unknown";
-
-
-            synchronized (this)
-            {
-                if (baseFontSize == -1 && baseFontFamily == null)
-                {
-                    baseFontSize = getFont().getSize();
-                    baseFontSize += baseFontSize / 4;
-                    baseFontFamily = getFont().getFamily();
-                }
-            }
 
             Label costLabel = new Label(type + " :: "  + cost.getLocalizedName()) ;
             costLabel.setPrefHeight(20);
@@ -184,17 +148,17 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
 
                     ((Material) item.getCost())
                             .getBlueprint().recipeStream()
-                            .sorted(bestCostYieldRatio)
+                            .sorted(UIFunctions.Sort.bestCostYieldRatio)
                             .forEach(recipe->
                             {
                                 Label label = new Label(recipe.getDisplayLabel());
 
                                 boolean cannotAfford = recipe.costStream()
-                                        .filter(costData -> costData.getQuantity()>0)
+                                        .filter(costData -> costData.getQuantity() > 0)
                                         .anyMatch(costData -> checkInventory.apply(costData.getCost()) < costData.getQuantity());
 
                                 boolean isCached = recipe.costStream()
-                                        .filter(costData -> costData.getQuantity()>0)
+                                        .filter(costData -> costData.getQuantity() > 0)
                                         .anyMatch(costData -> isInCache.test(costData.getCost()));
 
                                 label.setFont(UIFunctions.Fonts.size1Font);
