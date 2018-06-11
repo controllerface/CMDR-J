@@ -8,12 +8,12 @@ import com.controllerface.edeps.structures.costs.commodities.CommodityType;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.costs.materials.MaterialType;
 import com.controllerface.edeps.structures.equipment.ships.Ship;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -173,61 +173,86 @@ public class CommanderData
      */
     public void adjustItem(ProcurementCost cost, int adjustment)
     {
+        Objects.requireNonNull(cost);
+
         if (cost instanceof Material)
         {
-            MaterialType type = MaterialType.findMatchingType(((Material) cost));
+            Optional<MaterialType> matchingType = MaterialType.findMatchingType(((Material) cost));
 
-            switch (type)
+            if (matchingType.isPresent())
             {
-                case RAW: rawMats.addItem(cost, adjustment);
-                    break;
+                switch (matchingType.get())
+                {
+                    case RAW: rawMats.addItem(cost, adjustment);
+                        break;
 
-                case MANUFACTURED: mfdMats.addItem(cost, adjustment);
-                    break;
+                    case MANUFACTURED: mfdMats.addItem(cost, adjustment);
+                        break;
 
-                case ENCODED: dataMats.addItem(cost, adjustment);
-                    break;
+                    case ENCODED: dataMats.addItem(cost, adjustment);
+                        break;
+                }
+            }
+            else
+            {
+                System.err.println("No matching Material type for: " + cost);
             }
         }
 
         if (cost instanceof Commodity)
         {
-            CommodityType type = CommodityType.findMatchingType(((Commodity) cost));
+            Optional<CommodityType> matchingType = CommodityType.findMatchingType(((Commodity) cost));
 
-            switch (type)
+            if (matchingType.isPresent())
             {
-                case COMMODITY:
-                case FACTION:
-                    cargo.addItem(cost, adjustment);
-                    break;
+                cargo.addItem(cost, adjustment);
+            }
+            else
+            {
+                System.err.println("No matching Commodity type for: " + cost);
             }
         }
     }
 
     public int hasItem(ProcurementCost cost)
     {
+        Objects.requireNonNull(cost);
+
         if (cost instanceof Material)
         {
-            switch (MaterialType.findMatchingType(((Material) cost)))
+            Optional<MaterialType> matchingType = MaterialType.findMatchingType(((Material) cost));
+
+            if (matchingType.isPresent())
             {
-                case RAW:
-                    return rawMats.hasItem(cost);
+                switch (matchingType.get())
+                {
+                    case RAW:
+                        return rawMats.hasItem(cost);
 
-                case MANUFACTURED:
-                    return mfdMats.hasItem(cost);
+                    case MANUFACTURED:
+                        return mfdMats.hasItem(cost);
 
-                case ENCODED:
-                    return dataMats.hasItem(cost);
+                    case ENCODED:
+                        return dataMats.hasItem(cost);
+                }
+            }
+            else
+            {
+                System.err.println("No matching Material type for: " + cost);
             }
         }
 
         if (cost instanceof Commodity)
         {
-            switch (CommodityType.findMatchingType(((Commodity) cost)))
+            Optional<CommodityType> matchingType = CommodityType.findMatchingType(((Commodity) cost));
+
+            if (matchingType.isPresent())
             {
-                case COMMODITY:
-                case FACTION:
-                    return cargo.hasItem(cost);
+                return cargo.hasItem(cost);
+            }
+            else
+            {
+                System.err.println("No matching Commodity type for: " + cost);
             }
         }
 

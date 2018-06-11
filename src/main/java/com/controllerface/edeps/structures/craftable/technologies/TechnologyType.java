@@ -2,7 +2,7 @@ package com.controllerface.edeps.structures.craftable.technologies;
 
 import com.controllerface.edeps.ProcurementType;
 
-import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.stream.Stream;
 
 /**
@@ -10,32 +10,32 @@ import java.util.stream.Stream;
  */
 public enum TechnologyType implements ProcurementType
 {
-    Human_Weapons(TechnologyBlueprint.Enzyme_Missile_Rack_Fixed,
+    Human_Weapons(EnumSet.of(TechnologyBlueprint.Enzyme_Missile_Rack_Fixed,
             TechnologyBlueprint.Remote_Release_Flechette_Launcher_Turreted,
-            TechnologyBlueprint.Shock_Cannon),
+            TechnologyBlueprint.Shock_Cannon)),
 
-    Human_Optional_Internal(TechnologyBlueprint.Corrosion_Resistant_Cargo_Rack,
-            TechnologyBlueprint.Meta_Alloy_Hull_Reinforcement),
+    Human_Optional_Internal(EnumSet.of(TechnologyBlueprint.Corrosion_Resistant_Cargo_Rack,
+            TechnologyBlueprint.Meta_Alloy_Hull_Reinforcement)),
 
-    Guardian_Weapons(TechnologyBlueprint.Guardian_Gauss_Cannon,
+    Guardian_Weapons(EnumSet.of(TechnologyBlueprint.Guardian_Gauss_Cannon,
             TechnologyBlueprint.Guardian_Plasma_Charger,
-            TechnologyBlueprint.Guardian_Shard_Cannon),
+            TechnologyBlueprint.Guardian_Shard_Cannon)),
 
-    Guardian_Optional_Internal(TechnologyBlueprint.Guardian_FSD_Booster),
+    Guardian_Optional_Internal(EnumSet.of(TechnologyBlueprint.Guardian_FSD_Booster)),
 
-    Guardian_Core_Internal(TechnologyBlueprint.Guardian_Power_Plant,
-            TechnologyBlueprint.Guardian_Hybrid_Power_Distributor);
+    Guardian_Core_Internal(EnumSet.of(TechnologyBlueprint.Guardian_Power_Plant,
+            TechnologyBlueprint.Guardian_Hybrid_Power_Distributor));
 
-    private final TechnologyBlueprint[] blueprints;
+    private final EnumSet<TechnologyBlueprint> blueprints;
 
-    TechnologyType(TechnologyBlueprint ... blueprints)
+    TechnologyType(EnumSet<TechnologyBlueprint> blueprints)
     {
         this.blueprints = blueprints;
     }
 
     public Stream<TechnologyBlueprint> blueprintStream()
     {
-        return Arrays.stream(blueprints);
+        return blueprints.stream();
     }
 
     @Override

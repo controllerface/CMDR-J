@@ -27,6 +27,7 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -49,8 +50,20 @@ public class InventoryDisplayCell extends TableCell<InventoryData, InventoryData
 
         ProcurementCost cost = item.getItem();
         String category = "";
-        if (cost instanceof Material) category = MaterialSubCategory.findMatchingSubCategory(cost).toString();
-        else if (cost instanceof Commodity) category = CommodityCategory.findMatchingCategory(cost).toString();
+        if (cost instanceof Material)
+        {
+            Optional<MaterialSubCategory> matchingSubCategory = MaterialSubCategory.findMatchingSubCategory(cost);
+            category = matchingSubCategory.isPresent()
+                    ? matchingSubCategory.get().toString()
+                    : "(Unknown Material)" + cost;
+        }
+        else if (cost instanceof Commodity)
+        {
+            Optional<CommodityCategory> matchingCategory = CommodityCategory.findMatchingCategory(cost);
+            category = matchingCategory.isPresent()
+                    ? matchingCategory.get().toString()
+                    : "(Unknown Commodity)" + cost;
+        }
 
         String materialName = category + " :: " + item.getItem().getLocalizedName();
 

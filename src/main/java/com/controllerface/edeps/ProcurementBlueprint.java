@@ -7,5 +7,5 @@ import java.util.stream.Stream;
  */
 public interface ProcurementBlueprint
 {
-    Stream<ProcurementRecipe> recipeStream();
+    Stream<? extends ProcurementRecipe> recipeStream();
 }

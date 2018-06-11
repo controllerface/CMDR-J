@@ -11,6 +11,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -209,11 +210,15 @@ public enum Material implements ProcurementCost
         tradeCosts.add(new Pair<>(tradeCost, -1 * count));
     }
 
-    public ProcurementBlueprint getBlueprint()
+    public Optional<ProcurementBlueprint> getTradeBlueprint()
     {
-        return new MaterialTradeBlueprint(this, tradeCosts.stream()
+        if (tradeCosts.isEmpty()) return Optional.empty();
+
+        List<ProcurementRecipe> tradeRecipes = tradeCosts.stream()
                 .map(c->new MaterialTradeRecipe(c.getKey(), new CostData(this, c.getValue())))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+
+        return Optional.of(new MaterialTradeBlueprint(this, tradeRecipes));
     }
 
     public void setLocationInformation(String locationInformation)

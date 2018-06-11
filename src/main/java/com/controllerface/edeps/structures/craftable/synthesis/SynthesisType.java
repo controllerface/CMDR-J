@@ -2,7 +2,7 @@ package com.controllerface.edeps.structures.craftable.synthesis;
 
 import com.controllerface.edeps.ProcurementType;
 
-import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.stream.Stream;
 
 /**
@@ -10,44 +10,44 @@ import java.util.stream.Stream;
  */
 public enum SynthesisType implements ProcurementType
 {
-    Ammunition(SynthesisBlueprint.Small_Calibre_Munitions,
+    Ammunition(EnumSet.of(SynthesisBlueprint.Small_Calibre_Munitions,
             SynthesisBlueprint.Large_Calibre_Munitions,
             SynthesisBlueprint.High_Velocity_Munitions,
             SynthesisBlueprint.Explosives_Munitions,
-            SynthesisBlueprint.Plasma_Munitions),
+            SynthesisBlueprint.Plasma_Munitions)),
 
-    Human_Tech(SynthesisBlueprint.Flechette_Launcher_Munitions,
-            SynthesisBlueprint.Enzyme_Missile_Munitions),
+    Human_Tech(EnumSet.of(SynthesisBlueprint.Flechette_Launcher_Munitions,
+            SynthesisBlueprint.Enzyme_Missile_Munitions)),
 
-    Anti_Xeno(SynthesisBlueprint.AX_Explosive_Munitions,
+    Anti_Xeno(EnumSet.of(SynthesisBlueprint.AX_Explosive_Munitions,
             SynthesisBlueprint.AX_Remote_Flak_Munitions,
-            SynthesisBlueprint.AX_Small_Calibre_Munitions),
+            SynthesisBlueprint.AX_Small_Calibre_Munitions)),
 
-    Guardian_Tech(SynthesisBlueprint.Guardian_Gauss_Cannon_Munitions,
+    Guardian_Tech(EnumSet.of(SynthesisBlueprint.Guardian_Gauss_Cannon_Munitions,
             SynthesisBlueprint.Guardian_Plasma_Charger_Munitions,
-            SynthesisBlueprint.Guardian_Shard_Cannon_Munitions),
+            SynthesisBlueprint.Guardian_Shard_Cannon_Munitions)),
 
-    SRV(SynthesisBlueprint.SRV_Refuel,
+    SRV(EnumSet.of(SynthesisBlueprint.SRV_Refuel,
             SynthesisBlueprint.SRV_Repair,
-            SynthesisBlueprint.SRV_Ammo_Restock),
+            SynthesisBlueprint.SRV_Ammo_Restock)),
 
-    Ship(SynthesisBlueprint.Chaff,
+    Ship(EnumSet.of(SynthesisBlueprint.Chaff,
             SynthesisBlueprint.Limpets,
             SynthesisBlueprint.Heat_Sink,
             SynthesisBlueprint.AFM_Refill,
             SynthesisBlueprint.Life_Support,
-            SynthesisBlueprint.FSD_Injection);
+            SynthesisBlueprint.FSD_Injection));
 
-    private final SynthesisBlueprint[] blueprints;
+    private final EnumSet<SynthesisBlueprint> blueprints;
 
-    SynthesisType(SynthesisBlueprint ... blueprints)
+    SynthesisType(EnumSet<SynthesisBlueprint> blueprints)
     {
         this.blueprints = blueprints;
     }
 
     public Stream<SynthesisBlueprint> blueprintStream()
     {
-        return Arrays.stream(blueprints);
+        return blueprints.stream();
     }
 
     @Override

@@ -4,6 +4,8 @@ import com.controllerface.edeps.ProcurementCategory;
 import com.controllerface.edeps.ProcurementCost;
 
 import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -11,9 +13,9 @@ import java.util.stream.Stream;
  */
 public enum CommodityCategory implements ProcurementCategory
 {
-    Drones(0, Commodity.DRONES),
+    Drones(EnumSet.of(Commodity.DRONES)),
 
-    Chemicals(1, Commodity.EXPLOSIVES,
+    Chemicals(EnumSet.of(Commodity.EXPLOSIVES,
             Commodity.HYDROGENFUEL,
             Commodity.HYDROGENPEROXIDE,
             Commodity.LIQUIDOXYGEN,
@@ -27,9 +29,9 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.HIPORGANOPHOSPHATES,
             Commodity.KOROKUNGPELLETS,
             Commodity.MEDBSTARLUBE,
-            Commodity.TOXANDJIVIROCIDE),
+            Commodity.TOXANDJIVIROCIDE)),
 
-    Consumer_Items(2, Commodity.CLOTHING,
+    Consumer_Items(EnumSet.of(Commodity.CLOTHING,
             Commodity.CONSUMERTECHNOLOGY,
             Commodity.DOMESTICAPPLIANCES,
             Commodity.EVACUATIONSHELTER,
@@ -60,9 +62,9 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.ULTRACOMPACTPROCESSOR,
             Commodity.UZUMOKULOWGWINGS,
             Commodity.VIDAVANTIANLACE,
-            Commodity.ZEESSZEANTGRUBGLUE),
+            Commodity.ZEESSZEANTGRUBGLUE)),
 
-    Foods(3, Commodity.ALGAE,
+    Foods(EnumSet.of(Commodity.ALGAE,
             Commodity.ANIMALMEAT,
             Commodity.COFFEE,
             Commodity.FISH,
@@ -111,9 +113,9 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.VOIDEXTRACTCOFFEE,
             Commodity.WHEEMETEWHEATCAKES,
             Commodity.WITCHHAULKOBEBEEF,
-            Commodity.ETHGREZETEABUDS),
+            Commodity.ETHGREZETEABUDS)),
 
-    Industrial_Materials(4, Commodity.CERAMICCOMPOSITES,
+    Industrial_Materials(EnumSet.of(Commodity.CERAMICCOMPOSITES,
             Commodity.CMMCOMPOSITE,
             Commodity.INSULATINGMEMBRANE,
             Commodity.METAALLOYS,
@@ -121,9 +123,9 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.NEOFABRICINSULATION,
             Commodity.POLYMERS,
             Commodity.SEMICONDUCTORS,
-            Commodity.SUPERCONDUCTORS),
+            Commodity.SUPERCONDUCTORS)),
 
-    Legal_Drugs(5, Commodity.BEER,
+    Legal_Drugs(EnumSet.of(Commodity.BEER,
             Commodity.BOOTLEGLIQUOR,
             Commodity.LIQUOR,
             Commodity.NARCOTICS,
@@ -156,9 +158,9 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.THRUTISCREAM,
             Commodity.WOLFFESH,
             Commodity.WUTHIELOKUFROTH,
-            Commodity.YASOKONDILEAF),
+            Commodity.YASOKONDILEAF)),
 
-    Machinery(6, Commodity.ARTICULATIONMOTORS,
+    Machinery(EnumSet.of(Commodity.ARTICULATIONMOTORS,
             Commodity.ATMOSPHERICPROCESSORS,
             Commodity.BUILDINGFABRICATORS,
             Commodity.CROPHARVESTERS,
@@ -184,9 +186,9 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.GIANTVERRIX,
             Commodity.NONEUCLIDIANEXOTANKS,
             Commodity.VOLKHABBEEDRONES,
-            Commodity.WULPAHYPERBORESYSTEMS),
+            Commodity.WULPAHYPERBORESYSTEMS)),
 
-    Medicines(7, Commodity.ADVANCEDMEDICINES,
+    Medicines(EnumSet.of(Commodity.ADVANCEDMEDICINES,
             Commodity.AGRIMEDICINES,
             Commodity.BASICMEDICINES,
             Commodity.COMBATSTABILISERS,
@@ -200,9 +202,9 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.TERRAMATERBLOODBORES,
             Commodity.VHERCULISBODYRUB,
             Commodity.VEGASLIMWEED,
-            Commodity.WATERSOFSHINTARA),
+            Commodity.WATERSOFSHINTARA)),
 
-    Metals(8, Commodity.ALUMINIUM,
+    Metals(EnumSet.of(Commodity.ALUMINIUM,
             Commodity.BERYLLIUM,
             Commodity.BISMUTH,
             Commodity.COBALT,
@@ -228,9 +230,9 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.CHERBONESBLOODCRYSTALS,
             Commodity.HELVETITJPEARLS,
             Commodity.NGADANDARIFIREOPALS,
-            Commodity.SOTHISCRYSTALLINEGOLD),
+            Commodity.SOTHISCRYSTALLINEGOLD)),
 
-    Minerals(9, Commodity.BAUXITE,
+    Minerals(EnumSet.of(Commodity.BAUXITE,
             Commodity.BERTRANDITE,
             Commodity.BROMELLITE,
             Commodity.COLTAN,
@@ -249,9 +251,9 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.PYROPHYLLITE,
             Commodity.RUTILE,
             Commodity.TAAFFEITE,
-            Commodity.URANINITE),
+            Commodity.URANINITE)),
 
-    Salvage(10, Commodity.AIRELICS,
+    Salvage(EnumSet.of(Commodity.AIRELICS,
             Commodity.USSCARGOANCIENTARTEFACT,
             Commodity.ANCIENTCASKET,
             Commodity.ANCIENTORB,
@@ -312,13 +314,13 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.UNSTABLEDATACORE,
             Commodity.WRECKAGECOMPONENTS,
             Commodity.GALACTICTRAVELGUIDES,
-            Commodity.PERSONALGIFTS),
+            Commodity.PERSONALGIFTS)),
 
-    Slaves(11, Commodity.IMPERIALSLAVES,
+    Slaves(EnumSet.of(Commodity.IMPERIALSLAVES,
             Commodity.SLAVES,
-            Commodity.MASTERCHEFS),
+            Commodity.MASTERCHEFS)),
 
-    Technology(12, Commodity.ADVANCEDCATALYSERS,
+    Technology(EnumSet.of(Commodity.ADVANCEDCATALYSERS,
             Commodity.ANIMALMONITORS,
             Commodity.AQUAPONICSYSTEMS,
             Commodity.AUTOFABRICATORS,
@@ -337,9 +339,9 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.STRUCTURALREGULATORS,
             Commodity.TELEMETRYSUITE,
             Commodity.AZCANCRIFORMULA42,
-            Commodity.XIHEBIOMORPHICCOMPANIONS),
+            Commodity.XIHEBIOMORPHICCOMPANIONS)),
 
-    Textiles(13, Commodity.CONDUCTIVEFABRICS,
+    Textiles(EnumSet.of(Commodity.CONDUCTIVEFABRICS,
             Commodity.LEATHER,
             Commodity.MILITARYGRADEFABRICS,
             Commodity.NATURALFABRICS,
@@ -350,14 +352,14 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.DAMNACARAPACES,
             Commodity.JOTUNMOOKAH,
             Commodity.RAPABAOSNAKESKINS,
-            Commodity.VANAYEQUICERATOMORPHAFUR),
+            Commodity.VANAYEQUICERATOMORPHAFUR)),
 
-    Waste(14, Commodity.BIOWASTE,
+    Waste(EnumSet.of(Commodity.BIOWASTE,
             Commodity.CHEMICALWASTE,
             Commodity.SCRAP,
-            Commodity.TOXICWASTE),
+            Commodity.TOXICWASTE)),
 
-    Weapons(15, Commodity.BATTLEWEAPONS,
+    Weapons(EnumSet.of(Commodity.BATTLEWEAPONS,
             Commodity.LANDMINES,
             Commodity.NONLETHALWEAPONS,
             Commodity.PERSONALWEAPONS,
@@ -366,11 +368,11 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.GILYASIGNATUREWEAPONS,
             Commodity.HIP118311SWARM,
             Commodity.HOLVADUELLINGBLADES,
-            Commodity.KAMORINHISTORICWEAPONS),
+            Commodity.KAMORINHISTORICWEAPONS)),
 
 
 
-    Power_Play(16, Commodity.AISLINGMEDIAMATERIALS,
+    Power_Play(EnumSet.of(Commodity.AISLINGMEDIAMATERIALS,
             Commodity.AISLINGMEDIARESOURCES,
             Commodity.AISLINGPROMOTIONALMATERIALS,
             Commodity.ALLIANCETRADEAGREEMENTS,
@@ -407,42 +409,39 @@ public enum CommodityCategory implements ProcurementCategory
             Commodity.OUTOFDATEGOODS,
             Commodity.UNDERGROUNDSUPPORT,
             Commodity.GROMCOUNTERINTELLIGENCE,
-            Commodity.GROMWARTROPHIES),
+            Commodity.GROMWARTROPHIES)),
 
-    UNKNOWN(-100);
+    ;
 
-    private final int numericalValue;
-    private final Commodity[] commodities;
+    private final EnumSet<Commodity> commodities;
 
-    CommodityCategory(int numericalValue, Commodity... commodities)
+    CommodityCategory(EnumSet<Commodity> commodities)
     {
-        this.numericalValue = numericalValue;
         this.commodities = commodities;
     }
 
     public boolean hasCommodity(Commodity commodity)
     {
-        return commodities()
-                .anyMatch(m -> m == commodity);
+        return commodities.contains(commodity);
     }
 
-    public static ProcurementCategory findMatchingCategory(ProcurementCost cost)
+    public static Optional<CommodityCategory> findMatchingCategory(ProcurementCost cost)
     {
-        if (!(cost instanceof Commodity)) return UNKNOWN;
+        if (!(cost instanceof Commodity)) return Optional.empty();
         Commodity commodity = ((Commodity) cost);
         return Arrays.stream(values())
                 .filter(category->category.hasCommodity(commodity))
-                .findFirst().orElse(UNKNOWN);
+                .findFirst();
     }
     public Stream<Commodity> commodities()
     {
-        return Arrays.stream(commodities);
+        return commodities.stream();
     }
 
     @Override
     public int getNumericalValue()
     {
-        return numericalValue;
+        return this.ordinal();
     }
 
     @Override

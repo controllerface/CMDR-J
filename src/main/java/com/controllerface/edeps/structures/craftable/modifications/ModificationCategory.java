@@ -1,6 +1,6 @@
 package com.controllerface.edeps.structures.craftable.modifications;
 
-import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.stream.Stream;
 
 /**
@@ -8,7 +8,7 @@ import java.util.stream.Stream;
  */
 public enum ModificationCategory
 {
-    Weapon_Hardpoints(ModificationType.Beam_Laser,
+    Weapon_Hardpoints(EnumSet.of(ModificationType.Beam_Laser,
             ModificationType.Burst_Laser,
             ModificationType.Pulse_Laser,
             ModificationType.Cannon,
@@ -19,18 +19,18 @@ public enum ModificationCategory
             ModificationType.Torpedo_Pylon,
             ModificationType.Mine_Launcher,
             ModificationType.Plasma_Accelerator,
-            ModificationType.Rail_Gun),
+            ModificationType.Rail_Gun)),
 
-    Utility_Mounts(ModificationType.Chaff_Launcher,
+    Utility_Mounts(EnumSet.of(ModificationType.Chaff_Launcher,
             ModificationType.Heat_Sink_Launcher,
             ModificationType.Point_Defense,
             ModificationType.Electronic_Countermeasures,
             ModificationType.Frame_Shift_Wake_Scanner,
             ModificationType.Kill_Warrant_Scanner,
             ModificationType.Manifest_Scanner,
-            ModificationType.Shield_Booster),
+            ModificationType.Shield_Booster)),
 
-    Optional_Internal(ModificationType.Auto_Field_Maintenence_Unit,
+    Optional_Internal(EnumSet.of(ModificationType.Auto_Field_Maintenence_Unit,
             ModificationType.Hull_Reinforcement_Package,
             ModificationType.Detailed_Surface_Scanner,
             ModificationType.Refinery,
@@ -41,26 +41,26 @@ public enum ModificationCategory
             ModificationType.Fuel_Transfer_Limpet,
             ModificationType.Hatch_Breaker_Limpet,
             ModificationType.Shield_Cell_Bank,
-            ModificationType.Shield_Generator),
+            ModificationType.Shield_Generator)),
 
-    Core_Internal(ModificationType.Frame_Shift_Drive,
+    Core_Internal(EnumSet.of(ModificationType.Frame_Shift_Drive,
             ModificationType.Life_Support,
             ModificationType.Power_Distributor,
             ModificationType.Power_Plant,
             ModificationType.Sensors,
             ModificationType.Thrusters,
-            ModificationType.Bulkheads);
+            ModificationType.Bulkheads));
 
-    private final ModificationType[] modificationTypes;
+    private final EnumSet<ModificationType> modificationTypes;
 
-    ModificationCategory(ModificationType ... modificationTypes)
+    ModificationCategory(EnumSet<ModificationType> modificationTypes)
     {
         this.modificationTypes = modificationTypes;
     }
 
     public Stream<ModificationType> typeStream()
     {
-        return Arrays.stream(modificationTypes);
+        return modificationTypes.stream();
     }
 
     @Override

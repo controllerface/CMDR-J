@@ -2,7 +2,6 @@ package com.controllerface.edeps.structures.craftable.experimentals;
 
 import com.controllerface.edeps.ProcurementType;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
@@ -39,16 +38,16 @@ public enum ExperimentalType implements ProcurementType
     Thrusters(ExperimentalBlueprint.Thrusters),
     Bulkheads(ExperimentalBlueprint.Bulkheads);
 
-    private final ExperimentalBlueprint[] blueprints;
+    private final ExperimentalBlueprint blueprint;
 
-    ExperimentalType(ExperimentalBlueprint... blueprints)
+    ExperimentalType(ExperimentalBlueprint blueprint)
     {
-        this.blueprints = blueprints;
+        this.blueprint = blueprint;
     }
 
     public Stream<ExperimentalBlueprint> blueprintStream()
     {
-        return Arrays.stream(blueprints);
+        return Stream.of(blueprint);
     }
 
     @Override

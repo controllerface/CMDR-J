@@ -1,9 +1,8 @@
 package com.controllerface.edeps.structures.craftable.technologies;
 
 import com.controllerface.edeps.ProcurementBlueprint;
-import com.controllerface.edeps.ProcurementRecipe;
 
-import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.stream.Stream;
 
 /**
@@ -14,58 +13,60 @@ public enum  TechnologyBlueprint implements ProcurementBlueprint
     // Human
 
     Corrosion_Resistant_Cargo_Rack("Corrosion Resistant Cargo Rack",
-            TechnologyRecipe.Corrosion_Resistant_Cargo_Rack),
+            EnumSet.of(TechnologyRecipe.Corrosion_Resistant_Cargo_Rack)),
 
     Enzyme_Missile_Rack_Fixed("Enzyme Missile Rack",
-            TechnologyRecipe.Enzyme_Missile_Rack_Fixed),
+            EnumSet.of(TechnologyRecipe.Enzyme_Missile_Rack_Fixed)),
 
     Meta_Alloy_Hull_Reinforcement("Meta Alloy Hull Reinforcement",
-            TechnologyRecipe.Meta_Alloy_Hull_Reinforcement),
+            EnumSet.of(TechnologyRecipe.Meta_Alloy_Hull_Reinforcement)),
 
     Remote_Release_Flechette_Launcher_Turreted("Remote Release Flechette Launcher",
-            TechnologyRecipe.Remote_Release_Flechette_Launcher_Fixed,
-            TechnologyRecipe.Remote_Release_Flechette_Launcher_Turreted),
+            EnumSet.of(TechnologyRecipe.Remote_Release_Flechette_Launcher_Fixed,
+            TechnologyRecipe.Remote_Release_Flechette_Launcher_Turreted)),
 
     Shock_Cannon("Shock Cannon",
-            TechnologyRecipe.Shock_Cannon_Fixed,
+            EnumSet.of(TechnologyRecipe.Shock_Cannon_Fixed,
             TechnologyRecipe.Shock_Cannon_Gimballed,
-            TechnologyRecipe.Shock_Cannon_Turreted),
+            TechnologyRecipe.Shock_Cannon_Turreted)),
 
 
     // Guardian
 
     Guardian_FSD_Booster("Guardian FSD Booster",
-            TechnologyRecipe.Guardian_FSD_Booster),
+            EnumSet.of(TechnologyRecipe.Guardian_FSD_Booster)),
 
     Guardian_Gauss_Cannon("Guardian Gauss Cannon",
-            TechnologyRecipe.Guardian_Gauss_Cannon_Fixed),
+            EnumSet.of(TechnologyRecipe.Guardian_Gauss_Cannon_Fixed)),
 
     Guardian_Hybrid_Power_Distributor("Guardian Hybrid Power Distributor",
-            TechnologyRecipe.Guardian_Hybrid_Power_Distributor),
+            EnumSet.of(TechnologyRecipe.Guardian_Hybrid_Power_Distributor)),
 
     Guardian_Plasma_Charger("Guardian Plasma Charger",
-            TechnologyRecipe.Guardian_Plasma_Charger_Fixed,
-            TechnologyRecipe.Guardian_Plasma_Charger_Turreted),
+            EnumSet.of(TechnologyRecipe.Guardian_Plasma_Charger_Fixed,
+            TechnologyRecipe.Guardian_Plasma_Charger_Turreted)),
 
     Guardian_Power_Plant("Guardian Power Plant",
-            TechnologyRecipe.Guardian_Hybrid_Power_Plant),
+            EnumSet.of(TechnologyRecipe.Guardian_Hybrid_Power_Plant)),
 
     Guardian_Shard_Cannon("Guardian Shard Cannon",
-            TechnologyRecipe.Guardian_Shard_Cannon_Fixed,
-            TechnologyRecipe.Guardian_Shard_Cannon_Turreted);
+            EnumSet.of(TechnologyRecipe.Guardian_Shard_Cannon_Fixed,
+            TechnologyRecipe.Guardian_Shard_Cannon_Turreted)),
 
-    private final TechnologyRecipe[] recipes;
+    ;
+
+    private final EnumSet<TechnologyRecipe> recipes;
     private final String text;
 
-    TechnologyBlueprint(String text, TechnologyRecipe ... recipes)
+    TechnologyBlueprint(String text, EnumSet<TechnologyRecipe> recipes)
     {
         this.text = text;
         this.recipes = recipes;
     }
 
-    public Stream<ProcurementRecipe> recipeStream()
+    public Stream<TechnologyRecipe> recipeStream()
     {
-        return Arrays.stream(recipes);
+        return recipes.stream();
     }
 
     @Override

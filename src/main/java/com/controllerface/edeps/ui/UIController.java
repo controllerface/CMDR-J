@@ -12,7 +12,6 @@ import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
 import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
-import com.controllerface.edeps.structures.costs.materials.MaterialSubCategory;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalCategory;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
@@ -857,11 +856,10 @@ public class UIController
 
     private TreeItem<ProcurementTaskData> makeTradeTree()
     {
-        TreeItem<ProcurementTaskData> materialTrades = new TreeItem<>(new ProcurementTaskData(MaterialTradeType.UNKNOWN, "Material Trades"));
+        TreeItem<ProcurementTaskData> materialTrades = new TreeItem<>(new ProcurementTaskData("Material Trades"));
 
         // loop through all possible trades
         Stream.of(MaterialTradeType.values())
-                .filter(type->type!=MaterialTradeType.UNKNOWN)
                 .forEach(tradeCategory ->
                 {
                     // add a collapsible category label
@@ -870,7 +868,6 @@ public class UIController
 
                     // for this category, loop through trade sub-categories it contains
                     tradeCategory.subCategoryStream()
-                            .filter(subCategory -> subCategory != MaterialSubCategory.UNKNOWN)
                             .forEach(subCategory ->
                             {
                                 // add a collapsible subcategory label
@@ -878,16 +875,16 @@ public class UIController
                                         new TreeItem<>(new ProcurementTaskData(tradeCategory, subCategory.toString()));
 
                                 // for this subcategory, loop through all materials it contains
-                                subCategory.materials()
-                                        .forEach(material ->
+                                subCategory.materials().forEach(material -> material.getTradeBlueprint()
+                                        .ifPresent(tradeBlueprint->
                                         {
                                             // add a collapsible a selectable material label
                                             TreeItem<ProcurementTaskData> bluePrintItem =
-                                                    new TreeItem<>(new ProcurementTaskData(tradeCategory, material.getBlueprint()));
+                                                    new TreeItem<>(new ProcurementTaskData(tradeCategory, tradeBlueprint));
 
                                             // add the material item to the subcategory
                                             subCatItem.getChildren().add(bluePrintItem);
-                                        });
+                                        }));
 
                                 // add the subcategory item to the category
                                 categoryItem.getChildren().add(subCatItem);

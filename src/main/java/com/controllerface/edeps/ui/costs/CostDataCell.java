@@ -1,7 +1,7 @@
 package com.controllerface.edeps.ui.costs;
 
+import com.controllerface.edeps.ProcurementBlueprint;
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementTaskData;
@@ -17,8 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -69,9 +69,14 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
             String type;
             if (cost instanceof Material)
             {
-                type = MaterialType.findMatchingType(((Material) cost)).name();
-                type = type.substring(0,1)
-                        .concat(type.substring(1,type.length()).toLowerCase());
+                Optional<MaterialType> matchingType = MaterialType.findMatchingType(((Material) cost));
+
+                if (matchingType.isPresent())
+                {
+                    type = matchingType.get().toString();
+                    type = type.substring(0,1).concat(type.substring(1, type.length()).toLowerCase());
+                }
+                else type = "(Unknown Material) " + cost;
             }
 
             else if (cost instanceof Commodity) type = Commodity.class.getSimpleName();
@@ -136,7 +141,9 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
             if (progress < 1.0 && item.getCost() instanceof Material)
             {
                 Material costMaterial = ((Material) item.getCost());
-                if (costMaterial.getBlueprint().recipeStream().count() > 0)
+                Optional<ProcurementBlueprint> tradeBlueprint = costMaterial.getTradeBlueprint();
+
+                if (tradeBlueprint.isPresent())
                 {
                     List<Button> recommendTrades = new ArrayList<>();
                     List<Label> avoidedTrades = new ArrayList<>();
@@ -146,8 +153,7 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
                     separator.setPadding(new Insets(5,0,0,0));
                     locationContainer.getChildren().add(separator);
 
-                    ((Material) item.getCost())
-                            .getBlueprint().recipeStream()
+                    tradeBlueprint.get().recipeStream()
                             .sorted(UIFunctions.Sort.bestCostYieldRatio)
                             .forEach(recipe->
                             {
@@ -182,13 +188,18 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
                                     // todo: report error
                                     if (tradeCost == null) return;
 
-                                    ProcurementTaskData tradeTask = new ProcurementTaskData(MaterialTradeType
-                                            .findMatchingType(((Material) tradeCost.getCost())), recipe);
-                                    Button button = new Button(recipe.getDisplayLabel());
-                                    button.setFont(UIFunctions.Fonts.size1Font);
-                                    button.alignmentProperty().setValue(Pos.CENTER_LEFT);
-                                    button.setOnMouseClicked((e)-> addtask.accept(tradeTask));
-                                    recommendTrades.add(button);
+                                    Optional<MaterialTradeType> tradeType =
+                                            MaterialTradeType.findMatchingTradeType(((Material) tradeCost.getCost()));
+
+                                    if (tradeType.isPresent())
+                                    {
+                                        ProcurementTaskData tradeTask = new ProcurementTaskData(tradeType.get(), recipe);
+                                        Button button = new Button(recipe.getDisplayLabel());
+                                        button.setFont(UIFunctions.Fonts.size1Font);
+                                        button.alignmentProperty().setValue(Pos.CENTER_LEFT);
+                                        button.setOnMouseClicked((e)-> addtask.accept(tradeTask));
+                                        recommendTrades.add(button);
+                                    }
                                 }
                             });
 

@@ -4,6 +4,9 @@ import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.procurements.CostData;
 import javafx.util.Pair;
 
+import java.util.EnumSet;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -12,15 +15,15 @@ import java.util.stream.Stream;
 public enum MaterialTradeType implements ProcurementType
 {
 
-    Raw_Elements(MaterialSubCategory.Raw_Elements_1,
+    Raw_Elements(EnumSet.of(MaterialSubCategory.Raw_Elements_1,
             MaterialSubCategory.Raw_Elements_2,
             MaterialSubCategory.Raw_Elements_3,
             MaterialSubCategory.Raw_Elements_4,
             MaterialSubCategory.Raw_Elements_5,
             MaterialSubCategory.Raw_Elements_6,
-            MaterialSubCategory.Raw_Elements_7),
+            MaterialSubCategory.Raw_Elements_7)),
 
-    Manufactured_Materials(MaterialSubCategory.Alloys,
+    Manufactured_Materials(EnumSet.of(MaterialSubCategory.Alloys,
             MaterialSubCategory.Capacitors,
             MaterialSubCategory.Chemical,
             MaterialSubCategory.Composite,
@@ -29,52 +32,48 @@ public enum MaterialTradeType implements ProcurementType
             MaterialSubCategory.Heat,
             MaterialSubCategory.Mechanical_Components,
             MaterialSubCategory.Shielding,
-            MaterialSubCategory.Thermic),
+            MaterialSubCategory.Thermic)),
 
-    Encoded_Data(MaterialSubCategory.Data_Archives,
+    Encoded_Data(EnumSet.of(MaterialSubCategory.Data_Archives,
             MaterialSubCategory.Emission_Data,
             MaterialSubCategory.Encoded_Firmware,
             MaterialSubCategory.Encryption_Files,
             MaterialSubCategory.Shield_Data,
-            MaterialSubCategory.Wake_Scans),
-
-    UNKNOWN(),
+            MaterialSubCategory.Wake_Scans)),
 
     ;
 
     private static final double downgradeMultiplier = 3;
     private static final double upgradeMultiplier = 6;
-    private final MaterialSubCategory[] subCategories;
+    private final EnumSet<MaterialSubCategory> subCategories;
 
-
-    MaterialTradeType(MaterialSubCategory ... subCategories)
+    MaterialTradeType(EnumSet<MaterialSubCategory> subCategories)
     {
         this.subCategories = subCategories;
         calculateSubCategoryTradeCosts(subCategories);
     }
 
-    public static ProcurementType findMatchingType(Material material)
+    public static Optional<MaterialTradeType> findMatchingTradeType(Material material)
     {
+        Objects.requireNonNull(material);
+
         return Stream.of(values())
-                .filter(sc->sc.subCategoryStream()
-                        .flatMap(MaterialSubCategory::materials)
-                        .anyMatch(m -> m == material))
-                .findFirst().orElse(UNKNOWN);
+                .filter(tradeType -> tradeType.subCategoryStream()
+                        .anyMatch(subCategory -> subCategory.hasMaterial(material)))
+                .findFirst();
     }
 
-    private static void calculateSubCategoryTradeCosts(MaterialSubCategory ... subCategories)
+    private static void calculateSubCategoryTradeCosts(EnumSet<MaterialSubCategory> subCategories)
     {
         // loop through all the sub-categories and calculate trade costs for all cross-sub-category trades.
         // Note that trades made within the same category do not need to be calculated here because they are done
         // within the subcategories themselves upon creation.
-        Stream.of(subCategories)
+        subCategories.stream()
                 .peek(MaterialTradeType::calculateInCategoryTradeCosts)
-                .forEach(subCategory -> Stream.of(subCategories)
+                .forEach(subCategory ->subCategories.stream()
                         .filter(otherSubCategory -> otherSubCategory != subCategory)
                         .forEach(otherSubCategory -> calculateCrossCategoryTradeCosts(subCategory, otherSubCategory)));
     }
-
-
 
     private static void calculateInCategoryTradeCosts(MaterialSubCategory subCategory)
     {
@@ -90,8 +89,6 @@ public enum MaterialTradeType implements ProcurementType
                     .forEach(relatedMaterial -> calculateMaterialTradeCost(0, material, relatedMaterial));
         });
     }
-
-
 
     private static void calculateCrossCategoryTradeCosts(MaterialSubCategory costs, MaterialSubCategory products)
     {
@@ -140,7 +137,7 @@ public enum MaterialTradeType implements ProcurementType
 
     public Stream<MaterialSubCategory> subCategoryStream()
     {
-        return Stream.of(subCategories);
+        return subCategories.stream();
     }
 
     @Override

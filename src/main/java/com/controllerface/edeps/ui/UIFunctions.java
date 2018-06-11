@@ -1,42 +1,23 @@
 package com.controllerface.edeps.ui;
 
-import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
-import com.controllerface.edeps.ProcurementType;
-import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.ItemEffectData;
-import com.controllerface.edeps.data.MaterialTradeRecipe;
-import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.InventoryData;
-import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
 import com.controllerface.edeps.structures.equipment.ItemGrade;
-import com.controllerface.edeps.ui.commander.CommanderStatDataCell;
-import com.controllerface.edeps.ui.costs.CostDataCell;
-import com.controllerface.edeps.ui.costs.CostValueCell;
-import com.controllerface.edeps.ui.ship.ModuleDisplayCell;
-import com.controllerface.edeps.ui.ship.SlotNameCell;
-import com.controllerface.edeps.ui.ship.StatDataCell;
-import com.controllerface.edeps.ui.ship.StatDisplayCell;
-import com.controllerface.edeps.ui.tasks.TaskNameCell;
-import com.controllerface.edeps.ui.tasks.TaskCountCell;
-import com.controllerface.edeps.ui.tasks.TaskRemoveCell;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
-import javafx.util.Pair;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -197,13 +178,13 @@ public class UIFunctions
                         ? -1
                         : 1;
 
-        // sort InventoryData objects alphabetically, by category
+        // sort InventoryData objects by category ordinal
         static final Comparator<InventoryData> itemByCategory =
-                Comparator.comparingInt(a -> a.getCategory().getNumericalValue());
+                Comparator.comparingInt(InventoryData::getCategoryOrdinal);
 
-        // sort InventoryData objects numerically by grade, lowest to highest
+        // sort InventoryData objects by grade, lowest to highest
         static final Comparator<InventoryData> itemByGrade =
-                Comparator.comparingInt(a -> a.getItem().getGrade().getNumericalValue());
+                Comparator.comparingInt(InventoryData::getGradeOrdinal);
 
         // sort InventoryData objects numerically by count, highest to lowest
         static final Comparator<InventoryData> itemByCount =

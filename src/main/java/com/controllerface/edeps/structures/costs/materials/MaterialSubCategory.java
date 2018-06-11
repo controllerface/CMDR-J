@@ -4,6 +4,8 @@ import com.controllerface.edeps.ProcurementCategory;
 import com.controllerface.edeps.ProcurementCost;
 
 import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -17,108 +19,108 @@ public enum MaterialSubCategory implements ProcurementCategory
     Raw Elements
      */
 
-    Raw_Elements_1(1, Material.CARBON,
+    Raw_Elements_1(1, EnumSet.of(Material.CARBON,
             Material.VANADIUM,
             Material.NIOBIUM,
-            Material.YTTRIUM),
+            Material.YTTRIUM)),
 
-    Raw_Elements_2(2, Material.PHOSPHORUS,
+    Raw_Elements_2(2, EnumSet.of(Material.PHOSPHORUS,
             Material.CHROMIUM,
             Material.MOLYBDENUM,
-            Material.TECHNETIUM),
+            Material.TECHNETIUM)),
 
-    Raw_Elements_3(3, Material.SULPHUR,
+    Raw_Elements_3(3, EnumSet.of(Material.SULPHUR,
             Material.MANGANESE,
             Material.CADMIUM,
-            Material.RUTHENIUM),
+            Material.RUTHENIUM)),
 
-    Raw_Elements_4(4, Material.IRON,
+    Raw_Elements_4(4, EnumSet.of(Material.IRON,
             Material.ZINC,
             Material.TIN,
-            Material.SELENIUM),
+            Material.SELENIUM)),
 
-    Raw_Elements_5(5, Material.NICKEL,
+    Raw_Elements_5(5, EnumSet.of(Material.NICKEL,
             Material.GERMANIUM,
             Material.TUNGSTEN,
-            Material.TELLURIUM),
+            Material.TELLURIUM)),
 
-    Raw_Elements_6(6, Material.RHENIUM,
+    Raw_Elements_6(6, EnumSet.of(Material.RHENIUM,
             Material.ARSENIC,
             Material.MERCURY,
-            Material.POLONIUM),
+            Material.POLONIUM)),
 
-    Raw_Elements_7(7, Material.LEAD,
+    Raw_Elements_7(7, EnumSet.of(Material.LEAD,
             Material.ZIRCONIUM,
             Material.BORON,
-            Material.ANTIMONY),
+            Material.ANTIMONY)),
 
 
     /*
     Manufactured
      */
 
-    Alloys(1, Material.SALVAGEDALLOYS,
+    Alloys(1, EnumSet.of(Material.SALVAGEDALLOYS,
             Material.GALVANISINGALLOYS,
             Material.PHASEALLOYS,
             Material.PROTOLIGHTALLOYS,
-            Material.PROTORADIOLICALLOYS),
+            Material.PROTORADIOLICALLOYS)),
 
-    Capacitors(2, Material.GRIDRESISTORS,
+    Capacitors(2, EnumSet.of(Material.GRIDRESISTORS,
             Material.HYBRIDCAPACITORS,
             Material.ELECTROCHEMICALARRAYS,
             Material.POLYMERCAPACITORS,
-            Material.MILITARYSUPERCAPACITORS),
+            Material.MILITARYSUPERCAPACITORS)),
 
-    Chemical(3, Material.CHEMICALSTORAGEUNITS,
+    Chemical(3, EnumSet.of(Material.CHEMICALSTORAGEUNITS,
             Material.CHEMICALPROCESSORS,
             Material.CHEMICALDISTILLERY,
             Material.CHEMICALMANIPULATORS,
-            Material.PHARMACEUTICALISOLATORS),
+            Material.PHARMACEUTICALISOLATORS)),
 
-    Composite(4, Material.COMPACTCOMPOSITES,
+    Composite(4, EnumSet.of(Material.COMPACTCOMPOSITES,
             Material.FILAMENTCOMPOSITES,
             Material.HIGHDENSITYCOMPOSITES,
             Material.FEDPROPRIETARYCOMPOSITES,
-            Material.FEDCORECOMPOSITES),
+            Material.FEDCORECOMPOSITES)),
 
-    Conductive(5, Material.BASICCONDUCTORS,
+    Conductive(5, EnumSet.of(Material.BASICCONDUCTORS,
             Material.CONDUCTIVECOMPONENTS,
             Material.CONDUCTIVECERAMICS,
             Material.CONDUCTIVEPOLYMERS,
-            Material.BIOTECHCONDUCTORS),
+            Material.BIOTECHCONDUCTORS)),
 
-    Crystals(6, Material.CRYSTALSHARDS,
+    Crystals(6, EnumSet.of(Material.CRYSTALSHARDS,
             Material.UNCUTFOCUSCRYSTALS,
             Material.FOCUSCRYSTALS,
             Material.REFINEDFOCUSCRYSTALS,
-            Material.EXQUISITEFOCUSCRYSTALS),
+            Material.EXQUISITEFOCUSCRYSTALS)),
 
-    Heat(7, Material.HEATCONDUCTIONWIRING,
+    Heat(7, EnumSet.of(Material.HEATCONDUCTIONWIRING,
             Material.HEATDISPERSIONPLATE,
             Material.HEATEXCHANGERS,
             Material.HEATVANES,
-            Material.PROTOHEATRADIATORS),
+            Material.PROTOHEATRADIATORS)),
 
-    Mechanical_Components(8, Material.MECHANICALSCRAP,
+    Mechanical_Components(8, EnumSet.of(Material.MECHANICALSCRAP,
             Material.MECHANICALEQUIPMENT,
             Material.MECHANICALCOMPONENTS,
             Material.CONFIGURABLECOMPONENTS,
-            Material.IMPROVISEDCOMPONENTS),
+            Material.IMPROVISEDCOMPONENTS)),
 
-    Shielding(9, Material.WORNSHIELDEMITTERS,
+    Shielding(9, EnumSet.of(Material.WORNSHIELDEMITTERS,
             Material.SHIELDEMITTERS,
             Material.SHIELDINGSENSORS,
             Material.COMPOUNDSHIELDING,
-            Material.IMPERIALSHIELDING),
+            Material.IMPERIALSHIELDING)),
 
-    Thermic(10, Material.TEMPEREDALLOYS,
+    Thermic(10, EnumSet.of(Material.TEMPEREDALLOYS,
             Material.HEATRESISTANTCERAMICS,
             Material.PRECIPITATEDALLOYS,
             Material.THERMICALLOYS,
-            Material.MILITARYGRADEALLOYS),
+            Material.MILITARYGRADEALLOYS)),
 
     // Thargoid Manufactured
-    Thargoid_Technology(11, Material.UNKNOWNCARAPACE,
+    Thargoid_Technology(11, EnumSet.of(Material.UNKNOWNCARAPACE,
             Material.TG_BIOMECHANICALCONDUITS,
             Material.TG_PROPULSIONELEMENT,
             Material.UNKNOWNENERGYCELL,
@@ -126,82 +128,82 @@ public enum MaterialSubCategory implements ProcurementCategory
             Material.TG_WRECKAGECOMPONENTS,
             Material.UNKNOWNTECHNOLOGYCOMPONENTS,
             Material.UNKNOWNENERGYSOURCE,
-            Material.UNKNOWNORGANICCIRCUITRY),
+            Material.UNKNOWNORGANICCIRCUITRY)),
 
     // Guardian Manufactured
-    Guardian_Technology(12, Material.GUARDIAN_POWERCELL,
+    Guardian_Technology(12, EnumSet.of(Material.GUARDIAN_POWERCELL,
             Material.GUARDIAN_SENTINEL_WRECKAGECOMPONENTS,
             Material.GUARDIAN_POWERCONDUIT,
             Material.GUARDIAN_SENTINEL_WEAPONPARTS,
-            Material.GUARDIAN_TECHCOMPONENT),
+            Material.GUARDIAN_TECHCOMPONENT)),
 
     /*
     Data
      */
 
-    Data_Archives(1, Material.BULKSCANDATA,
+    Data_Archives(1, EnumSet.of(Material.BULKSCANDATA,
             Material.SCANARCHIVES,
             Material.SCANDATABANKS,
             Material.ENCODEDSCANDATA,
-            Material.CLASSIFIEDSCANDATA),
+            Material.CLASSIFIEDSCANDATA)),
 
-    Emission_Data(2, Material.SCRAMBLEDEMISSIONDATA,
+    Emission_Data(2, EnumSet.of(Material.SCRAMBLEDEMISSIONDATA,
             Material.ARCHIVEDEMISSIONDATA,
             Material.EMISSIONDATA,
             Material.DECODEDEMISSIONDATA,
-            Material.COMPACTEMISSIONSDATA),
+            Material.COMPACTEMISSIONSDATA)),
 
-    Encoded_Firmware(3, Material.LEGACYFIRMWARE,
+    Encoded_Firmware(3, EnumSet.of(Material.LEGACYFIRMWARE,
             Material.CONSUMERFIRMWARE,
             Material.INDUSTRIALFIRMWARE,
             Material.SECURITYFIRMWARE,
-            Material.EMBEDDEDFIRMWARE),
+            Material.EMBEDDEDFIRMWARE)),
 
-    Encryption_Files(4, Material.ENCRYPTEDFILES,
+    Encryption_Files(4, EnumSet.of(Material.ENCRYPTEDFILES,
             Material.ENCRYPTIONCODES,
             Material.SYMMETRICKEYS,
             Material.ENCRYPTIONARCHIVES,
-            Material.ADAPTIVEENCRYPTORS),
+            Material.ADAPTIVEENCRYPTORS)),
 
-    Shield_Data(5, Material.SHIELDCYCLERECORDINGS,
+    Shield_Data(5, EnumSet.of(Material.SHIELDCYCLERECORDINGS,
             Material.SHIELDSOAKANALYSIS,
             Material.SHIELDDENSITYREPORTS,
             Material.SHIELDPATTERNANALYSIS,
-            Material.SHIELDFREQUENCYDATA),
+            Material.SHIELDFREQUENCYDATA)),
 
-    Wake_Scans(6, Material.DISRUPTEDWAKEECHOES,
+    Wake_Scans(6, EnumSet.of(Material.DISRUPTEDWAKEECHOES,
             Material.FSDTELEMETRY,
             Material.WAKESOLUTIONS,
             Material.HYPERSPACETRAJECTORIES,
-            Material.DATAMINEDWAKE),
+            Material.DATAMINEDWAKE)),
 
     // Thargoid Data
-    Thargoid_Data(7, Material.TG_STRUCTURALDATA,
+    Thargoid_Data(7, EnumSet.of(Material.TG_STRUCTURALDATA,
             Material.TG_SHIPFLIGHTDATA,
             Material.TG_SHIPSYSTEMSDATA,
             Material.TG_COMPOSITIONDATA,
             Material.UNKNOWNSHIPSIGNATURE,
             Material.TG_RESIDUEDATA,
-            Material.UNKNOWNWAKEDATA),
+            Material.UNKNOWNWAKEDATA)),
 
     // Guardian Blueprint Data
-    Guardian_Blueprint_Data(8, Material.GUARDIAN_MODULEBLUEPRINT,
+    Guardian_Blueprint_Data(8, EnumSet.of(Material.GUARDIAN_MODULEBLUEPRINT,
                   Material.GUARDIAN_VESSELBLUEPRINT,
-                  Material.GUARDIAN_WEAPONBLUEPRINT),
+                  Material.GUARDIAN_WEAPONBLUEPRINT)),
 
     // Guardian Obelisk Data
-    Guardian_Obelisk_Data(9, Material.ANCIENTHISTORICALDATA,
+    Guardian_Obelisk_Data(9, EnumSet.of(Material.ANCIENTHISTORICALDATA,
             Material.ANCIENTCULTURALDATA,
             Material.ANCIENTBIOLOGICALDATA,
             Material.ANCIENTLANGUAGEDATA,
-            Material.ANCIENTTECHNOLOGICALDATA),
+            Material.ANCIENTTECHNOLOGICALDATA)),
 
-    UNKNOWN(-100);
+    ;
 
     private final int numericalValue;
-    private final Material[] materials;
+    private final EnumSet<Material> materials;
 
-    MaterialSubCategory(int numericalValue, Material... materials)
+    MaterialSubCategory(int numericalValue, EnumSet<Material> materials)
     {
         this.numericalValue = numericalValue;
         this.materials = materials;
@@ -210,22 +212,21 @@ public enum MaterialSubCategory implements ProcurementCategory
 
     public Stream<Material> materials()
     {
-        return Arrays.stream(materials);
+        return materials.stream();
     }
 
     public boolean hasMaterial(Material material)
     {
-        return materials()
-                .anyMatch(m -> m == material);
+        return materials.contains(material);
     }
 
-    public static ProcurementCategory findMatchingSubCategory(ProcurementCost cost)
+    public static Optional<MaterialSubCategory> findMatchingSubCategory(ProcurementCost cost)
     {
-        if (!(cost instanceof Material)) return UNKNOWN;
+        if (!(cost instanceof Material)) return Optional.empty();
         Material material = ((Material) cost);
         return Arrays.stream(values())
                 .filter(category->category.hasMaterial(material))
-                .findFirst().orElse(UNKNOWN);
+                .findFirst();
     }
 
     @Override

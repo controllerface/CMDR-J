@@ -1,6 +1,5 @@
 package com.controllerface.edeps.data.commander;
 
-import com.controllerface.edeps.ProcurementCategory;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.structures.costs.materials.MaterialSubCategory;
 
@@ -12,19 +11,19 @@ import com.controllerface.edeps.structures.costs.materials.MaterialSubCategory;
  */
 public class InventoryData
 {
-    private final ProcurementCategory category;
     private int quantity;
-
     private final ProcurementCost material;
+    private final int gradeOrdinal;
+    private final int categoryOrdinal;
 
-    public InventoryData(ProcurementCost material, int quantity)
+    InventoryData(ProcurementCost material, int quantity)
     {
         this.material = material;
-
-        // todo: stop needing category here, do a runtime lookup instead
-        this.category = MaterialSubCategory.findMatchingSubCategory(material);
-
         this.quantity = quantity;
+        this.gradeOrdinal = material.getGrade().getNumericalValue();
+        this.categoryOrdinal = MaterialSubCategory.findMatchingSubCategory(material)
+                .map(MaterialSubCategory::getNumericalValue)
+                .orElse(-1);
     }
 
     @Override
@@ -33,14 +32,19 @@ public class InventoryData
         return material + " : " + quantity;
     }
 
-    public ProcurementCategory getCategory()
-    {
-        return category;
-    }
-
     public ProcurementCost getItem()
     {
         return material;
+    }
+
+    public int getGradeOrdinal()
+    {
+        return gradeOrdinal;
+    }
+
+    public int getCategoryOrdinal()
+    {
+        return categoryOrdinal;
     }
 
     public int getQuantity()
@@ -48,7 +52,7 @@ public class InventoryData
         return quantity;
     }
 
-    public boolean adjustCount(int adjustment)
+    boolean adjustCount(int adjustment)
     {
         this.quantity += adjustment;
         return quantity >= 0;

@@ -1,6 +1,8 @@
 package com.controllerface.edeps.structures.costs.commodities;
 
 import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -8,7 +10,7 @@ import java.util.stream.Stream;
  */
 public enum CommodityType
 {
-    COMMODITY(CommodityCategory.Chemicals,
+    COMMODITY(EnumSet.of(CommodityCategory.Chemicals,
             CommodityCategory.Consumer_Items,
             CommodityCategory.Legal_Drugs,
             CommodityCategory.Foods,
@@ -23,30 +25,29 @@ public enum CommodityType
             CommodityCategory.Textiles,
             CommodityCategory.Waste,
             CommodityCategory.Weapons,
-            CommodityCategory.Drones),
+            CommodityCategory.Drones)),
 
-    FACTION(CommodityCategory.Power_Play),
+    FACTION(EnumSet.of(CommodityCategory.Power_Play)),
 
-    UNKNOWN();
+    ;
 
-    private final CommodityCategory[] categories;
+    private final EnumSet<CommodityCategory> categories;
 
-    CommodityType(CommodityCategory ... categories)
+    CommodityType(EnumSet<CommodityCategory> categories)
     {
         this.categories = categories;
     }
 
     public Stream<CommodityCategory> categories()
     {
-        return Arrays.stream(categories);
+        return categories.stream();
     }
 
-    public static CommodityType findMatchingType(Commodity commodity)
+    public static Optional<CommodityType> findMatchingType(Commodity commodity)
     {
         return Arrays.stream(values())
-                .filter(type -> type.categories()
-                        .anyMatch(category -> category.hasCommodity(commodity)))
-                .findFirst().orElse(UNKNOWN);
+                .filter(type -> type.categories().anyMatch(category -> category.hasCommodity(commodity)))
+                .findFirst();
     }
 
 }

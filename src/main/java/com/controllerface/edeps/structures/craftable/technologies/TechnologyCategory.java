@@ -1,6 +1,6 @@
 package com.controllerface.edeps.structures.craftable.technologies;
 
-import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.stream.Stream;
 
 /**
@@ -8,24 +8,24 @@ import java.util.stream.Stream;
  */
 public enum TechnologyCategory
 {
-    Human(TechnologyType.Human_Weapons,
-            TechnologyType.Human_Optional_Internal),
+    Human(EnumSet.of(TechnologyType.Human_Weapons,
+            TechnologyType.Human_Optional_Internal)),
 
-    Guardian(TechnologyType.Guardian_Weapons,
+    Guardian(EnumSet.of(TechnologyType.Guardian_Weapons,
             TechnologyType.Guardian_Optional_Internal,
-            TechnologyType.Guardian_Core_Internal);
+            TechnologyType.Guardian_Core_Internal));
 
 
-    private final TechnologyType[] modificationTypes;
+    private final EnumSet<TechnologyType> modificationTypes;
 
-    TechnologyCategory(TechnologyType ... modificationTypes)
+    TechnologyCategory(EnumSet<TechnologyType> modificationTypes)
     {
         this.modificationTypes = modificationTypes;
     }
 
     public Stream<TechnologyType> typeStream()
     {
-        return Arrays.stream(modificationTypes);
+        return modificationTypes.stream();
     }
 
     @Override

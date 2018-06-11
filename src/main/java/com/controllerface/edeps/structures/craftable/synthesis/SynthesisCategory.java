@@ -1,6 +1,6 @@
 package com.controllerface.edeps.structures.craftable.synthesis;
 
-import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.stream.Stream;
 
 /**
@@ -8,24 +8,24 @@ import java.util.stream.Stream;
  */
 public enum SynthesisCategory
 {
-    Munitions(SynthesisType.Ammunition,
+    Munitions(EnumSet.of(SynthesisType.Ammunition,
             SynthesisType.Human_Tech,
             SynthesisType.Anti_Xeno,
-            SynthesisType.Guardian_Tech),
+            SynthesisType.Guardian_Tech)),
 
-    Utility(SynthesisType.SRV,
-            SynthesisType.Ship);
+    Utility(EnumSet.of(SynthesisType.SRV,
+            SynthesisType.Ship));
 
-    private final SynthesisType[] modificationTypes;
+    private final EnumSet<SynthesisType> modificationTypes;
 
-    SynthesisCategory(SynthesisType ... modificationTypes)
+    SynthesisCategory(EnumSet<SynthesisType> modificationTypes)
     {
         this.modificationTypes = modificationTypes;
     }
 
     public Stream<SynthesisType> typeStream()
     {
-        return Arrays.stream(modificationTypes);
+        return modificationTypes.stream();
     }
 
     @Override
