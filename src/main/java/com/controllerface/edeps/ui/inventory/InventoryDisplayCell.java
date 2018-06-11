@@ -36,6 +36,26 @@ import java.util.stream.Collectors;
  */
 public class InventoryDisplayCell extends TableCell<InventoryData, InventoryData>
 {
+    /**
+     * Special formatting function for modifications and experimental effects. Since they have some odd cases
+     * the basic .replace("_"," ") call isn't enough to make it look right
+     */
+    private static Function<String, String> formatModString = (s)->
+    {
+        int i = s.lastIndexOf("_");
+        if (i == -1) return s;
+        String r = s.substring(0,i).replace("_"," ");
+
+        // remove duplicate "sensor sensor" strings, while preserving ACTUAL sensors (i.e. radar) labels
+        if (r.startsWith("Sensor") && !"Sensor".equals(r)) r = r.replace("Sensor ","");
+
+        // add spaces between capitalized groups. i.e. LooksLikeThis -> Looks Like This
+        r = r.length() <= 3 ? r : Arrays.stream(r.split("(?=\\p{Lu})")).collect(Collectors.joining(" "));
+
+        // fix up some cases where FSD is spaced out as F S D and has no trailing space
+        return r.replace("F S D","FSD ");
+    };
+
     @Override
     protected void updateItem(InventoryData item, boolean empty)
     {
@@ -133,51 +153,44 @@ public class InventoryDisplayCell extends TableCell<InventoryData, InventoryData
             if (i instanceof TechnologyRecipe) tech.add(i);
         });
 
-        Function<String, String> f = (s)->
-        {
-            int i = s.lastIndexOf("_");
-            if (i == -1) return s;
-            String r = s.substring(0,i).replace("_"," ");
-            if (r.startsWith("Sensor") && !"Sensor".equals(r)) r = r.replace("Sensor ","");
-            r = r.length() <= 3 ? r : Arrays.stream(r.split("(?=\\p{Lu})")).collect(Collectors.joining(" "));
-            return r.replace("F S D","FSD ");
-        };
+        String synthesis = syns.isEmpty()
+                ? ""
+                : Arrays.stream(SynthesisBlueprint.values())
+                        .flatMap(blueprint-> blueprint.recipeStream()
+                                .filter(syns::contains)
+                                .distinct()
+                                .map(r -> blueprint.name() + " :: " + r.getGrade())
+                                .map(s -> s.replace("_", " ")))
+                        .collect(Collectors.joining("\n - ","\nSynthesis:\n - ", "\n"));
 
-        String synthesis = Arrays.stream(SynthesisBlueprint.values())
-                .flatMap(blueprint-> blueprint.recipeStream()
-                        .filter(syns::contains)
-                        .distinct()
-                        .map(r -> blueprint.name() + " :: " + r.getGrade())
-                        .map(s -> s.replace("_", " ")))
-                .collect(Collectors.joining("\n - "));
-        synthesis = synthesis.isEmpty() ? "" : "\nSynthesis:\n - " + synthesis;
+        String modifications = mods.isEmpty() && weap.isEmpty()
+                ? ""
+                : Arrays.stream(ModificationBlueprint.values())
+                        .flatMap(blueprint-> blueprint.recipeStream()
+                                .filter(recipe -> mods.contains(recipe) || weap.contains(recipe))
+                                .distinct()
+                                .map(r->formatModString.apply(blueprint.name()) + " :: " + r.getDisplayLabel()))
+                        .collect(Collectors.joining("\n - ","\nModifications:\n - ", "\n"));
 
-        String modifications = Arrays.stream(ModificationBlueprint.values())
-                .flatMap(blueprint-> blueprint.recipeStream()
-                        .filter(recipe -> mods.contains(recipe) || weap.contains(recipe))
-                        .distinct()
-                        .map(r->f.apply(blueprint.name()) + " :: " + r.getDisplayLabel()))
-                .collect(Collectors.joining("\n - "));
-        modifications = modifications.isEmpty() ? "" : "\n\nModifications:\n - " + modifications;
+        String experimentals = spec.isEmpty()
+                ? ""
+                : Arrays.stream(ExperimentalBlueprint.values())
+                        .flatMap(blueprint-> blueprint.recipeStream()
+                                .filter(spec::contains)
+                                .distinct()
+                                .map(r -> blueprint.name() + " :: " + r.getDisplayLabel())
+                                .map(s -> s.replace("_", " ")))
+                        .collect(Collectors.joining("\n - ","\nExperimental Effects:\n - ", "\n"));
 
-        String experimentals = Arrays.stream(ExperimentalBlueprint.values())
-                .flatMap(blueprint-> blueprint.recipeStream()
-                        .filter(spec::contains)
-                        .distinct()
-                        .map(r -> blueprint.name() + " :: " + r.getDisplayLabel())
-                        .map(s -> s.replace("_", " ")))
-                .collect(Collectors.joining("\n - "));
-        experimentals = experimentals.isEmpty() ? "" : "\n\nExperimental Effects:\n - " + experimentals;
-
-        String technology = Arrays.stream(TechnologyBlueprint.values())
-                .flatMap(blueprint-> blueprint.recipeStream()
-                        .filter(tech::contains)
-                        .distinct()
-                        .map(r -> blueprint.name() + " :: " + r.getShortLabel())
-                        .map(s -> s.replace("_", " ")))
-                .collect(Collectors.joining("\n - "));
-        technology = technology.isEmpty() ? "" : "\n\nTech Broker Unlocks:\n - " + technology;
-
+        String technology = tech.isEmpty()
+                ? ""
+                : Arrays.stream(TechnologyBlueprint.values())
+                        .flatMap(blueprint-> blueprint.recipeStream()
+                                .filter(tech::contains)
+                                .distinct()
+                                .map(r -> blueprint.name() + " :: " + r.getShortLabel())
+                                .map(s -> s.replace("_", " ")))
+                        .collect(Collectors.joining("\n - ","\nTech Broker Unlocks:\n - ", "\n"));
 
         String associated = synthesis + modifications + experimentals + technology;
 
