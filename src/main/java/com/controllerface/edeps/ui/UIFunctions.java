@@ -5,7 +5,7 @@ import com.controllerface.edeps.data.ItemEffectData;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
-import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.structures.equipment.ItemGrade;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -196,7 +196,7 @@ public class UIFunctions
                 Comparator.comparingInt(a -> Integer.parseInt(a.getText()));
 
         // sorts procurement tasks by name, and ensure trade tasks always come after all other task types
-        static final Comparator<ProcurementRecipeData> tasksByName =
+        static final Comparator<ProcurementTaskData> tasksByName =
                 (a, b)->
                 {
                     if (a.isTrade() != b.isTrade())
@@ -210,7 +210,7 @@ public class UIFunctions
                 };
 
         // sorts procurement tasks by grade, and ensure trade tasks always come after all other task types
-        static final Comparator<ProcurementRecipeData> taskByGrade =
+        static final Comparator<ProcurementTaskData> taskByGrade =
                 (a, b) ->
                 {
                     if (a.isTrade() != b.isTrade())

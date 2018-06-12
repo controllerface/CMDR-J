@@ -4,7 +4,7 @@ import com.controllerface.edeps.ProcurementBlueprint;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
-import com.controllerface.edeps.data.procurements.ProcurementTaskData;
+import com.controllerface.edeps.data.procurements.ProcurementTask;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
@@ -31,9 +31,9 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
     private final Function<ProcurementCost, Integer> checkInventory;
     private final Predicate<ProcurementCost> isInCache;
     private final Function<ProcurementCost, Integer> pendingTradeYield;
-    private final Consumer<ProcurementTaskData> addtask;
+    private final Consumer<ProcurementTask> addtask;
 
-    public CostDataCell(Consumer<ProcurementTaskData> addtask,
+    public CostDataCell(Consumer<ProcurementTask> addtask,
                         Function<ProcurementCost, Integer> checkInventory,
                         Predicate<ProcurementCost> isInCache,
                         Function<ProcurementCost, Integer> pendingTradeYield)
@@ -193,7 +193,7 @@ public class CostDataCell extends TableCell<ItemCostData, ItemCostData>
 
                                     if (tradeType.isPresent())
                                     {
-                                        ProcurementTaskData tradeTask = new ProcurementTaskData(tradeType.get(), recipe);
+                                        ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), recipe);
                                         Button button = new Button(recipe.getDisplayLabel());
                                         button.setFont(UIFunctions.Fonts.size1Font);
                                         button.alignmentProperty().setValue(Pos.CENTER_LEFT);

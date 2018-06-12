@@ -1,74 +1,91 @@
 package com.controllerface.edeps.data.procurements;
 
-import com.controllerface.edeps.ProcurementBlueprint;
+import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
+import com.controllerface.edeps.data.MaterialTradeRecipe;
+import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
+import com.sun.prism.Material;
+import javafx.util.Pair;
+
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
- * Data storage object used in the "procurement tree" to hold the type and individual recipe of a possible item that
- * a player can craft. This object is used for both leaf and non-leaf nodes in the tree, with non-leaf nodes using a
- * supplied string as the text to display, and leaf nodes requiring the actual type and recipe values, which are used
- * to supply the display text.
+ * Represents a single "recipe" also referred to as a "procurement task" or just "task", that the user has selected for
+ * completion. A user selects these tasks from the "procurement tree" adding them to a type of "to-do" list. Entries in
+ * this list themselves have a count, representing completion of the same task multiple times. As such, the count value
+ * of this object is mutable, to allow for a given instance of this recipe to be requested multiple times, and allows
+ * any constituent costs of the recipe itself to be calculated bu multiplying their individual costs by the total count
+ * of the desired task/recipe.
  *
- * Created by Controllerface on 3/31/2018.
+ * Created by Controllerface on 4/2/2018.
  */
 public class ProcurementTaskData
 {
-    private final String text;
     private final ProcurementType type;
     private final ProcurementRecipe recipe;
-    private final ProcurementBlueprint blueprint;
+    private final AtomicInteger count;
 
-    public ProcurementTaskData(String text)
+    public ProcurementTaskData(ProcurementType type, ProcurementRecipe recipe, int count)
     {
-        this.text = text;
-        this.type = null;
-        this.recipe = null;
-        this.blueprint = null;
-    }
-
-    public ProcurementTaskData(ProcurementType type, String text)
-    {
-        this.text = text;
-        this.type = type;
-        this.recipe = null;
-        this.blueprint = null;
-    }
-
-    public ProcurementTaskData(ProcurementType type, ProcurementRecipe recipe)
-    {
-        this.text = recipe.toString();
         this.type = type;
         this.recipe = recipe;
-        this.blueprint = null;
-    }
-
-    public ProcurementTaskData(ProcurementType type, ProcurementBlueprint blueprint)
-    {
-        this.text = blueprint.toString();
-        this.type = type;
-        this.recipe = null;
-        this.blueprint = blueprint;
-    }
-
-    public ProcurementType getType()
-    {
-        return type;
-    }
-
-    public ProcurementRecipe getRecipe()
-    {
-        return recipe;
-    }
-
-    public ProcurementBlueprint getBlueprint()
-    {
-        return blueprint;
+        this.count = new AtomicInteger(count);
     }
 
     @Override
     public String toString()
     {
-        return text;
+        return type.toString() + " : " + recipe.toString() + "\n" +
+                recipe.costStream()
+                        .map(c-> " - " + c.getCost().getLocalizedName())
+                        .collect(Collectors.joining("\n"));
+    }
+
+    public boolean isTrade()
+    {
+        return recipe instanceof MaterialTradeRecipe;
+    }
+
+    public void setCount(int amount)
+    {
+        count.set(amount);
+    }
+
+    public Pair<ProcurementType, ProcurementRecipe> asPair()
+    {
+        return new Pair<>(type, recipe);
+    }
+
+    public int getCount()
+    {
+        return count.get();
+    }
+
+    public boolean matches(Pair<ProcurementType, ProcurementRecipe> pair)
+    {
+        if (pair.getKey() instanceof MaterialTradeType)
+        {
+            boolean bothTrades = type instanceof  MaterialTradeType;
+            if (!bothTrades) return false;
+
+            boolean typeMatch = type == pair.getKey();
+            if (!typeMatch) return false;
+
+            Set<ProcurementCost> theseCosts = recipe.costStream()
+                    .map(CostData::getCost)
+                    .collect(Collectors.toSet());
+
+            Set<ProcurementCost> thoseCosts = pair.getValue().costStream()
+                    .map(CostData::getCost)
+                    .collect(Collectors.toSet());
+
+            return theseCosts.equals(thoseCosts);
+        }
+
+        return recipe == pair.getValue() && type == pair.getKey();
     }
 }

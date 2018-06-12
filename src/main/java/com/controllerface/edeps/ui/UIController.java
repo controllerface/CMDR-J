@@ -8,8 +8,8 @@ import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
-import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
 import com.controllerface.edeps.data.procurements.ProcurementTaskData;
+import com.controllerface.edeps.data.procurements.ProcurementTask;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
@@ -32,7 +32,7 @@ import com.controllerface.edeps.threads.UserTransaction;
 import com.controllerface.edeps.ui.commander.CommanderStatDataCell;
 import com.controllerface.edeps.ui.costs.CostDataCell;
 import com.controllerface.edeps.ui.costs.CostValueCell;
-import com.controllerface.edeps.ui.inventory.InventoryDisplayCell;
+import com.controllerface.edeps.ui.inventory.InventoryDataCell;
 import com.controllerface.edeps.ui.inventory.InventoryGradeCell;
 import com.controllerface.edeps.ui.procurements.ProcurementListCell;
 import com.controllerface.edeps.ui.procurements.ProcurementTreeCell;
@@ -129,8 +129,8 @@ public class UIController
     // Procurement tree/list selector components
     @FXML private HBox procurementBox;
     @FXML private Label procurementLabel;
-    @FXML private TreeView<ProcurementTaskData> procurementTree;
-    @FXML private ListView<ProcurementTaskData> procurementList;
+    @FXML private TreeView<ProcurementTask> procurementTree;
+    @FXML private ListView<ProcurementTask> procurementList;
 
     // Task list container pane
     @FXML private AnchorPane taskPane;
@@ -140,10 +140,10 @@ public class UIController
     @FXML private RadioButton sortTasksByGrade;
 
     // Task list and columns
-    @FXML private TableView<ProcurementRecipeData> procurementTaskTable;
-    @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> taskCountColumn;
-    @FXML private TableColumn<ProcurementRecipeData, ProcurementRecipeData> taskNameColumn;
-    @FXML private TableColumn<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>> taskRemoveColumn;
+    @FXML private TableView<ProcurementTaskData> procurementTaskTable;
+    @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> taskCountColumn;
+    @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> taskNameColumn;
+    @FXML private TableColumn<ProcurementTaskData, Pair<ProcurementType, ProcurementRecipe>> taskRemoveColumn;
 
     // Items needed/costs table and columns
     @FXML private TableView<ItemCostData> taskCostTable;
@@ -197,11 +197,11 @@ public class UIController
     Backing lists for the procurement task UI elements
      */
 
-    private final ObservableList<ProcurementTaskData> procSelectorBackingList = FXCollections.observableArrayList();
+    private final ObservableList<ProcurementTask> procSelectorBackingList = FXCollections.observableArrayList();
 
     // the backing list for tracked tasks, and a sorted wrapper used to keep the UI view sorted
-    private final ObservableList<ProcurementRecipeData> taskBackingList = FXCollections.observableArrayList();
-    private final SortedList<ProcurementRecipeData> sortedTasks = new SortedList<>(taskBackingList, UIFunctions.Sort.tasksByName);
+    private final ObservableList<ProcurementTaskData> taskBackingList = FXCollections.observableArrayList();
+    private final SortedList<ProcurementTaskData> sortedTasks = new SortedList<>(taskBackingList, UIFunctions.Sort.tasksByName);
 
     // the backing list for needed items/costs, and a sorted wrapper used to keep the UI view sorted
     private final ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableArrayList();
@@ -242,7 +242,7 @@ public class UIController
      * done and resulting mutations to this list are complete, THEN the UI backing lists are synced with the contents
      * of this list. This is a best practice to ensure that heavy computations are not done on the UI thread.
      */
-    private final List<ProcurementRecipeData> taskList = new CopyOnWriteArrayList<>();
+    private final List<ProcurementTaskData> taskList = new CopyOnWriteArrayList<>();
 
     /**
      * This list functions the same way as the "raw" task list, only for the constituent costs of the tracked tasks.
@@ -250,10 +250,10 @@ public class UIController
     private final List<ItemCostData> costList = new CopyOnWriteArrayList<>();
 
     /*
-    Convenience consumer function that accepts a ProcurementTaskData and adds it to the procurement list. If the task
+    Convenience consumer function that accepts a ProcurementTask and adds it to the procurement list. If the task
     already exists in the list, this effectively increments the count of that by 1
      */
-    private final Consumer<ProcurementTaskData> addTaskToProcurementList =
+    private final Consumer<ProcurementTask> addTaskToProcurementList =
             (task)->
             {
                 Pair<ProcurementType, ProcurementRecipe> ref = new Pair<>(task.getType(), task.getRecipe());
@@ -487,11 +487,11 @@ public class UIController
         dataGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
         cargoGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
 
-        // This call back simply creates a new custom InventoryDisplayCell which is used int he center "data" columns
+        // This call back simply creates a new custom InventoryDataCell which is used int he center "data" columns
         // of the various inventory UI tables. The custom cell contains the display logic and supports all of the
         // various item categories, so we can re use it for all of the data columns
         final Callback<TableColumn<InventoryData, InventoryData>, TableCell<InventoryData, InventoryData>>
-                inventoryItemCellFactory = (x) -> new InventoryDisplayCell();
+                inventoryItemCellFactory = (x) -> new InventoryDataCell();
 
         rawMaterialColumn.setCellFactory(inventoryItemCellFactory);
         manufacturedMaterialColumn.setCellFactory(inventoryItemCellFactory);
@@ -711,7 +711,7 @@ public class UIController
         synchronized (taskList)
         {
             // find the task we need to adjust
-            ProcurementRecipeData data = taskList.stream()
+            ProcurementTaskData data = taskList.stream()
                     .filter(storedTask -> storedTask.matches(task))
                     .findFirst().orElse(null);
 
@@ -727,7 +727,7 @@ public class UIController
                     // the same for new and existing tasks
                 else
                 {
-                    data = new ProcurementRecipeData(task.getKey(), task.getValue(), 0);
+                    data = new ProcurementTaskData(task.getKey(), task.getValue(), 0);
                     taskList.add(data);
 
                     // initialize the costs as well, if they are not already present in the cost list. It is
@@ -854,33 +854,33 @@ public class UIController
         }
     }
 
-    private TreeItem<ProcurementTaskData> makeTradeTree()
+    private TreeItem<ProcurementTask> makeTradeTree()
     {
-        TreeItem<ProcurementTaskData> materialTrades = new TreeItem<>(new ProcurementTaskData("Material Trades"));
+        TreeItem<ProcurementTask> materialTrades = new TreeItem<>(new ProcurementTask("Material Trades"));
 
         // loop through all possible trades
         Stream.of(MaterialTradeType.values())
                 .forEach(tradeCategory ->
                 {
                     // add a collapsible category label
-                    TreeItem<ProcurementTaskData> categoryItem =
-                            new TreeItem<>(new ProcurementTaskData(tradeCategory, tradeCategory.toString()));
+                    TreeItem<ProcurementTask> categoryItem =
+                            new TreeItem<>(new ProcurementTask(tradeCategory, tradeCategory.toString()));
 
                     // for this category, loop through trade sub-categories it contains
                     tradeCategory.subCategoryStream()
                             .forEach(subCategory ->
                             {
                                 // add a collapsible subcategory label
-                                TreeItem<ProcurementTaskData> subCatItem =
-                                        new TreeItem<>(new ProcurementTaskData(tradeCategory, subCategory.toString()));
+                                TreeItem<ProcurementTask> subCatItem =
+                                        new TreeItem<>(new ProcurementTask(tradeCategory, subCategory.toString()));
 
                                 // for this subcategory, loop through all materials it contains
                                 subCategory.materials().forEach(material -> material.getTradeBlueprint()
                                         .ifPresent(tradeBlueprint->
                                         {
                                             // add a collapsible a selectable material label
-                                            TreeItem<ProcurementTaskData> bluePrintItem =
-                                                    new TreeItem<>(new ProcurementTaskData(tradeCategory, tradeBlueprint));
+                                            TreeItem<ProcurementTask> bluePrintItem =
+                                                    new TreeItem<>(new ProcurementTask(tradeCategory, tradeBlueprint));
 
                                             // add the material item to the subcategory
                                             subCatItem.getChildren().add(bluePrintItem);
@@ -897,27 +897,27 @@ public class UIController
         return materialTrades;
     }
 
-    private TreeItem<ProcurementTaskData> makeSynthesisTree()
+    private TreeItem<ProcurementTask> makeSynthesisTree()
     {
-        TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Synthesis"));
+        TreeItem<ProcurementTask> modifications = new TreeItem<>(new ProcurementTask("Synthesis"));
 
         // loop through all mod categories
         Arrays.stream(SynthesisCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcurementTaskData> categoryItem = new TreeItem<>(new ProcurementTaskData(category.toString()));
+            TreeItem<ProcurementTask> categoryItem = new TreeItem<>(new ProcurementTask(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcurementTaskData> typeItem = new TreeItem<>(new ProcurementTaskData(type.toString()));
+                TreeItem<ProcurementTask> typeItem = new TreeItem<>(new ProcurementTask(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a selectable blueprint label
-                    TreeItem<ProcurementTaskData> bluePrintItem = new TreeItem<>(new ProcurementTaskData(type, blueprint));
+                    TreeItem<ProcurementTask> bluePrintItem = new TreeItem<>(new ProcurementTask(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -934,27 +934,27 @@ public class UIController
         return modifications;
     }
 
-    private TreeItem<ProcurementTaskData> makeModificationTree()
+    private TreeItem<ProcurementTask> makeModificationTree()
     {
-        TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Engineering Modifications"));
+        TreeItem<ProcurementTask> modifications = new TreeItem<>(new ProcurementTask("Engineering Modifications"));
 
         // loop through all mod categories
         Arrays.stream(ModificationCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcurementTaskData> categoryItem = new TreeItem<>(new ProcurementTaskData(category.toString()));
+            TreeItem<ProcurementTask> categoryItem = new TreeItem<>(new ProcurementTask(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcurementTaskData> typeItem = new TreeItem<>(new ProcurementTaskData(type.toString()));
+                TreeItem<ProcurementTask> typeItem = new TreeItem<>(new ProcurementTask(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a selectable blueprint label
-                    TreeItem<ProcurementTaskData> bluePrintItem = new TreeItem<>(new ProcurementTaskData(type, blueprint));
+                    TreeItem<ProcurementTask> bluePrintItem = new TreeItem<>(new ProcurementTask(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -971,15 +971,15 @@ public class UIController
         return modifications;
     }
 
-    private TreeItem<ProcurementTaskData> makeExperimentTree()
+    private TreeItem<ProcurementTask> makeExperimentTree()
     {
-        TreeItem<ProcurementTaskData> experiments = new TreeItem<>(new ProcurementTaskData("Experimental Effects"));
+        TreeItem<ProcurementTask> experiments = new TreeItem<>(new ProcurementTask("Experimental Effects"));
 
         // loop through all mod categories
         Arrays.stream(ExperimentalCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcurementTaskData> categoryItem = new TreeItem<>(new ProcurementTaskData(category.toString()));
+            TreeItem<ProcurementTask> categoryItem = new TreeItem<>(new ProcurementTask(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
@@ -988,7 +988,7 @@ public class UIController
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a selectable blueprint label
-                    TreeItem<ProcurementTaskData> bluePrintItem = new TreeItem<>(new ProcurementTaskData(type, blueprint));
+                    TreeItem<ProcurementTask> bluePrintItem = new TreeItem<>(new ProcurementTask(type, blueprint));
 
                     // add the blueprint item to this mod type
                     categoryItem.getChildren().add(bluePrintItem);
@@ -1003,27 +1003,27 @@ public class UIController
         return experiments;
     }
 
-    private TreeItem<ProcurementTaskData> makeTechnologyTree()
+    private TreeItem<ProcurementTask> makeTechnologyTree()
     {
-        TreeItem<ProcurementTaskData> modifications = new TreeItem<>(new ProcurementTaskData("Tech Broker Unlocks"));
+        TreeItem<ProcurementTask> modifications = new TreeItem<>(new ProcurementTask("Tech Broker Unlocks"));
 
         // loop through all mod categories
         Arrays.stream(TechnologyCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcurementTaskData> categoryItem = new TreeItem<>(new ProcurementTaskData(category.toString()));
+            TreeItem<ProcurementTask> categoryItem = new TreeItem<>(new ProcurementTask(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcurementTaskData> typeItem = new TreeItem<>(new ProcurementTaskData(type.toString()));
+                TreeItem<ProcurementTask> typeItem = new TreeItem<>(new ProcurementTask(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ProcurementTaskData> bluePrintItem = new TreeItem<>(new ProcurementTaskData(type, blueprint));
+                    TreeItem<ProcurementTask> bluePrintItem = new TreeItem<>(new ProcurementTask(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -1044,7 +1044,7 @@ public class UIController
     private void makeProcurementTree()
     {
         // create an root object for procurements
-        TreeItem<ProcurementTaskData> root = new TreeItem<>(new ProcurementTaskData("root"));
+        TreeItem<ProcurementTask> root = new TreeItem<>(new ProcurementTask("root"));
 
         // create and add the various procurement sub-trees to the root object
         root.getChildren().addAll(makeModificationTree(),

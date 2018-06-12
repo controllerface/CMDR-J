@@ -3,7 +3,7 @@ package com.controllerface.edeps.ui.tasks;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
-import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.geometry.Insets;
@@ -20,7 +20,7 @@ import java.util.function.Function;
 /**
  * Created by Controllerface on 4/8/2018.
  */
-public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRecipeData>
+public class TaskNameCell extends TableCell<ProcurementTaskData, ProcurementTaskData>
 {
     // main graphic node that contains the visible contents
     private final VBox descriptionContainer = new VBox();
@@ -45,7 +45,7 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
     }
 
     @Override
-    protected void updateItem(ProcurementRecipeData item, boolean empty)
+    protected void updateItem(ProcurementTaskData item, boolean empty)
     {
         super.updateItem(item, empty);
         if (item == null || empty)
@@ -62,7 +62,7 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
         setGraphic(descriptionContainer);
     }
 
-    private void createOrUpdate(ProcurementRecipeData item)
+    private void createOrUpdate(ProcurementTaskData item)
     {
         Pair<ProcurementType, ProcurementRecipe> recipePair = item.asPair();
 
@@ -111,9 +111,6 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
 
         titledPane.setContent(costEffectContainer);
 
-
-
-
         updateProgressBar(item);
 
         // clicking the progress bar should expand the enclosing titled pane
@@ -133,16 +130,16 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
         updateProgressBar(item);
     }
 
-    private Pair<Double, Boolean> calculateProgress(ProcurementRecipeData procurementRecipeData)
+    private Pair<Double, Boolean> calculateProgress(ProcurementTaskData procurementTaskData)
     {
         AtomicBoolean usesTrade = new AtomicBoolean(false);
 
         // get the number of "rolls" required for this task
-        int count = procurementRecipeData.getCount();
+        int count = procurementTaskData.getCount();
 
         AtomicInteger accumulatedTotal = new AtomicInteger(0);
 
-        int missing = procurementRecipeData.asPair().getValue().costStream()
+        int missing = procurementTaskData.asPair().getValue().costStream()
                 .filter(c->c.getQuantity() > 0)
                 .mapToInt(cost->
                 {
@@ -187,9 +184,9 @@ public class TaskNameCell extends TableCell<ProcurementRecipeData, ProcurementRe
         return new Pair<>(lastProgress, usesTrade.get());
     }
 
-    private void updateProgressBar(ProcurementRecipeData procurementRecipeData)
+    private void updateProgressBar(ProcurementTaskData procurementTaskData)
     {
-        Pair<Double, Boolean> progressData = calculateProgress(procurementRecipeData);
+        Pair<Double, Boolean> progressData = calculateProgress(procurementTaskData);
         progressBar.setProgress(progressData.getKey());
 
         if (progressData.getValue())

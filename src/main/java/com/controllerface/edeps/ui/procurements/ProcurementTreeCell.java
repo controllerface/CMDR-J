@@ -1,31 +1,24 @@
 package com.controllerface.edeps.ui.procurements;
 
-import com.controllerface.edeps.data.procurements.ProcurementTaskData;
+import com.controllerface.edeps.data.procurements.ProcurementTask;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Created by Controllerface on 4/1/2018.
  */
-public class ProcurementTreeCell extends TreeCell<ProcurementTaskData>
+public class ProcurementTreeCell extends TreeCell<ProcurementTask>
 {
-    private ProcurementTaskData thisItem = null;
+    private ProcurementTask thisItem = null;
 
-    public ProcurementTreeCell(ObservableList<ProcurementTaskData> outputList, SimpleStringProperty outputLabel)
+    public ProcurementTreeCell(ObservableList<ProcurementTask> outputList, SimpleStringProperty outputLabel)
     {
         // NOTE: the output list and label used here are part of the UI, so must only be updated on the JavaFX UI
         // thread. Luckily event handlers automatically trigger in that thread so there's no extra work needed here,
@@ -50,7 +43,7 @@ public class ProcurementTreeCell extends TreeCell<ProcurementTaskData>
                 outputLabel.set(displayText);
 
                 thisItem.getBlueprint().recipeStream()
-                        .map(recipe -> new ProcurementTaskData(thisItem.getType(), recipe))
+                        .map(recipe -> new ProcurementTask(thisItem.getType(), recipe))
                         .forEach(outputList::add);
             }
 
@@ -63,7 +56,7 @@ public class ProcurementTreeCell extends TreeCell<ProcurementTaskData>
     }
 
     @Override
-    protected void updateItem(ProcurementTaskData item, boolean empty)
+    protected void updateItem(ProcurementTask item, boolean empty)
     {
         super.updateItem(item, empty);
 

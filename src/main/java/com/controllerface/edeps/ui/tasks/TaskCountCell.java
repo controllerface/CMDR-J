@@ -2,7 +2,7 @@ package com.controllerface.edeps.ui.tasks;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
-import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,18 +13,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.util.Pair;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 
 /**
  * Created by Controllerface on 4/8/2018.
  */
-public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementRecipeData>
+public class TaskCountCell extends TableCell<ProcurementTaskData, ProcurementTaskData>
 {
     private final Label countLabel = new Label();
     private final Button subtractButton = new Button("-");
@@ -38,7 +34,7 @@ public class TaskCountCell extends TableCell<ProcurementRecipeData, ProcurementR
     }
 
     @Override
-    protected void updateItem(ProcurementRecipeData item, boolean empty)
+    protected void updateItem(ProcurementTaskData item, boolean empty)
     {
         super.updateItem(item, empty);
         if (item == null) setGraphic(null);

@@ -2,7 +2,7 @@ package com.controllerface.edeps.ui.tasks;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
-import com.controllerface.edeps.data.procurements.ProcurementRecipeData;
+import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
@@ -13,13 +13,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Pair;
 
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 
 /**
  * Created by Controllerface on 4/2/2018.
  */
-public class TaskRemoveCell extends TableCell<ProcurementRecipeData, Pair<ProcurementType, ProcurementRecipe>>
+public class TaskRemoveCell extends TableCell<ProcurementTaskData, Pair<ProcurementType, ProcurementRecipe>>
 {
     private final HBox controls = new HBox();
 

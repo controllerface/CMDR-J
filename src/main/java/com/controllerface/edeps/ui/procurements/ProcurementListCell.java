@@ -1,10 +1,8 @@
 package com.controllerface.edeps.ui.procurements;
 
 import com.controllerface.edeps.ProcurementCost;
-import com.controllerface.edeps.ProcurementRecipe;
-import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.procurements.CostData;
-import com.controllerface.edeps.data.procurements.ProcurementTaskData;
+import com.controllerface.edeps.data.procurements.ProcurementTask;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Insets;
@@ -13,9 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.util.Pair;
 
 import java.util.HashSet;
 import java.util.List;
@@ -28,13 +23,13 @@ import java.util.stream.Collectors;
 /**
  * Created by Controllerface on 5/4/2018.
  */
-public class ProcurementListCell extends ListCell<ProcurementTaskData>
+public class ProcurementListCell extends ListCell<ProcurementTask>
 {
-    private final Consumer<ProcurementTaskData> addMod;
+    private final Consumer<ProcurementTask> addMod;
     private final Function<ProcurementCost, Integer> checkMat;
     private final ReadOnlyDoubleProperty parentWidth;
 
-    public ProcurementListCell(Consumer<ProcurementTaskData> addMod, Function<ProcurementCost, Integer> checkMat, ReadOnlyDoubleProperty parentWidth)
+    public ProcurementListCell(Consumer<ProcurementTask> addMod, Function<ProcurementCost, Integer> checkMat, ReadOnlyDoubleProperty parentWidth)
     {
         this.addMod = addMod;
         this.checkMat = checkMat;
@@ -42,7 +37,7 @@ public class ProcurementListCell extends ListCell<ProcurementTaskData>
     }
 
     @Override
-    protected void updateItem(ProcurementTaskData item, boolean empty)
+    protected void updateItem(ProcurementTask item, boolean empty)
     {
         super.updateItem(item, empty);
         if (item == null || empty)
