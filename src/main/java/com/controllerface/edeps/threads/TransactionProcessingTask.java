@@ -1,10 +1,8 @@
 package com.controllerface.edeps.threads;
 
-import com.controllerface.edeps.Procedure;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
-import com.controllerface.edeps.data.commander.CommanderData;
 import javafx.util.Pair;
 
 import java.util.concurrent.BlockingQueue;
