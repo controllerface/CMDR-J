@@ -12,6 +12,7 @@ public class InventoryDataCell extends TableCell<InventoryData, InventoryData>
     protected void updateItem(InventoryData item, boolean empty)
     {
         super.updateItem(item, empty);
+
         if (item == null || empty)
         {
             setText(null);

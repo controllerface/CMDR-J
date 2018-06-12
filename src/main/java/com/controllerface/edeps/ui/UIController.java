@@ -41,7 +41,7 @@ import com.controllerface.edeps.ui.ship.SlotNameCell;
 import com.controllerface.edeps.ui.ship.StatDataCell;
 import com.controllerface.edeps.ui.ship.StatDisplayCell;
 import com.controllerface.edeps.ui.tasks.TaskCountCell;
-import com.controllerface.edeps.ui.tasks.TaskNameCell;
+import com.controllerface.edeps.ui.tasks.TaskDataCell;
 import com.controllerface.edeps.ui.tasks.TaskRemoveCell;
 import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
@@ -381,7 +381,7 @@ public class UIController
         taskCountColumn.setCellFactory(x -> new TaskCountCell(this::procurementListUpdate));
         taskCountColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
-        taskNameColumn.setCellFactory(x -> new TaskNameCell(commanderData::hasItem, tradeYieldCache::get));
+        taskNameColumn.setCellFactory(x -> new TaskDataCell(commanderData::hasItem, tradeYieldCache::get));
         taskNameColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
         taskRemoveColumn.setCellFactory(x -> new TaskRemoveCell(this::procurementListUpdate));
@@ -391,8 +391,7 @@ public class UIController
         taskCostNeedColumn.setCellFactory(x -> new CostValueCell());
 
         taskCostNameColumn.setCellValueFactory(modMaterial -> new ReadOnlyObjectWrapper<>(modMaterial.getValue()));
-        taskCostNameColumn.setCellFactory(x -> new CostDataCell(addTaskToProcurementList,
-                commanderData::hasItem, taskCostCache::contains, tradeYieldCache::get));
+        taskCostNameColumn.setCellFactory(x -> new CostDataCell());
 
         sortTasksByName.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.tasksByName));
         sortTasksByGrade.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.taskByGrade));
@@ -727,7 +726,7 @@ public class UIController
                     // the same for new and existing tasks
                 else
                 {
-                    data = new ProcurementTaskData(task.getKey(), task.getValue(), 0);
+                    data = new ProcurementTaskData(task.getKey(), task.getValue(), 0, commanderData::hasItem, tradeYieldCache::get);
                     taskList.add(data);
 
                     // initialize the costs as well, if they are not already present in the cost list. It is
@@ -737,13 +736,13 @@ public class UIController
                     task.getValue().costStream()
                             .filter(costData -> costData.getQuantity() > 0)
                             .map(CostData::getCost)
-                            .filter(taskCost -> costList.stream()
-                                    .noneMatch(knownCost -> knownCost.getCost().equals(taskCost)))
-                            .forEach(taskCost->
-                            {
-                                ItemCostData newItem = new ItemCostData(taskCost, this.commanderData::hasItem);
-                                costList.add(newItem);
-                            });
+                            .filter(taskCost -> costList.stream().noneMatch(cost -> cost.getCost().equals(taskCost)))
+                            .map(taskCost ->  new ItemCostData(taskCost,
+                                    commanderData::hasItem,
+                                    taskCostCache::contains,
+                                    tradeYieldCache::get,
+                                    addTaskToProcurementList))
+                            .forEach(costList::add);
                 }
             }
 
@@ -836,9 +835,9 @@ public class UIController
 
                         if (toAdjust == null) return;
 
-                        costToAdjust.setCount(costToAdjust.getCount() + toAdjust.getQuantity());
+                        costToAdjust.setNeed(costToAdjust.getNeed() + toAdjust.getQuantity());
                     })
-                    .filter(adjustedCost -> adjustedCost.getCount() <= 0)
+                    .filter(adjustedCost -> adjustedCost.getNeed() <= 0)
                     .peek(removedCost -> taskCostCache.remove(removedCost.getCost()))
                     .collect(Collectors.toList());
 

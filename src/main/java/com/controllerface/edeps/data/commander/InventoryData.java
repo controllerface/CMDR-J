@@ -15,7 +15,6 @@ import com.controllerface.edeps.structures.craftable.synthesis.SynthesisBlueprin
 import com.controllerface.edeps.structures.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.edeps.structures.craftable.technologies.TechnologyBlueprint;
 import com.controllerface.edeps.structures.craftable.technologies.TechnologyRecipe;
-import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -78,6 +77,7 @@ public class InventoryData
         this.categoryOrdinal = MaterialSubCategory.findMatchingSubCategory(material)
                 .map(MaterialSubCategory::getNumericalValue)
                 .orElse(-1);
+        progressBar.setPadding(new Insets(0,10,0,0));
     }
 
     private void renderProgress()
@@ -87,7 +87,7 @@ public class InventoryData
         progressBar.setStyle("-fx-accent: #ff7100");
     }
 
-    private void renderComponent()
+    private void render()
     {
         ProcurementCost cost = getItem();
         String category = "";
@@ -108,9 +108,6 @@ public class InventoryData
 
         String materialName = category + " :: " + getItem().getLocalizedName();
 
-        ItemGrade grade = getItem().getGrade();
-
-        //VBox descriptionContainer = new VBox();
         Accordion accordion = new Accordion();
         TitledPane titledPane = new TitledPane();
         titledPane.setAnimated(false);
@@ -124,20 +121,13 @@ public class InventoryData
 
         renderProgress();
 
-        //todo: fix progress for commodities
-//        if (maximum > 0)
-//        {
+        if (getItem().getGrade().getMaximumQuantity() != -1) labelBox.getChildren().add(progressBar);
 
-//            double progress = ((double) quantity / (double)maximum);
-//            progressBar.setProgress(progress);
-//            progressBar.setStyle("-fx-accent: #ff7100");
-            labelBox.getChildren().add(progressBar);
-        //}
+        //todo: fix progress for commodities
 
         VBox locationContainer = new VBox();
 
         label.setFont(UIFunctions.Fonts.size2Font);
-        label.setPadding(new Insets(0,0,0,10));
         label.alignmentProperty().set(Pos.CENTER_LEFT);
         labelBox.getChildren().add(label);
         labelBox.alignmentProperty().set(Pos.CENTER_LEFT);
@@ -284,7 +274,7 @@ public class InventoryData
     {
         if (!initialRenderComplete.getAndSet(true))
         {
-            renderComponent();
+            render();
         }
     }
 
