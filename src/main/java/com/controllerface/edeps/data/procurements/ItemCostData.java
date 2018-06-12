@@ -42,6 +42,7 @@ public class ItemCostData
     private final Function<ProcurementCost, Integer> checkInventory;
     private final Predicate<ProcurementCost> isInCache;
     private final Function<ProcurementCost, Integer> pendingTradeYield;
+    private final Function<ProcurementCost, Integer> pendingTradeCost;
     private final Consumer<ProcurementTask> addTask;
 
     private final VBox descriptionContainer = new VBox();
@@ -57,12 +58,14 @@ public class ItemCostData
                         Function<ProcurementCost, Integer> checkInventory,
                         Predicate<ProcurementCost> isInCache,
                         Function<ProcurementCost, Integer> pendingTradeYield,
+                        Function<ProcurementCost, Integer> pendingTradeCost,
                         Consumer<ProcurementTask> addTask)
     {
         this.cost = cost;
         this.checkInventory = checkInventory;
         this.isInCache = isInCache;
         this.pendingTradeYield = pendingTradeYield;
+        this.pendingTradeCost = pendingTradeCost;
         this.addTask = addTask;
     }
 
@@ -116,6 +119,8 @@ public class ItemCostData
                 List<Button> recommendTrades = new ArrayList<>();
                 List<Label> avoidedTrades = new ArrayList<>();
                 List<Label> insufficientTrades = new ArrayList<>();
+                List<Label> overCommittedTrades = new ArrayList<>();
+
 
                 Separator separator = new Separator();
                 separator.setPadding(new Insets(5,0,0,0));
@@ -135,6 +140,15 @@ public class ItemCostData
                                     .filter(costData -> costData.getQuantity() > 0)
                                     .anyMatch(costData -> isInCache.test(costData.getCost()));
 
+                            boolean overCommitted = !cannotAfford && recipe.costStream()
+                                    .filter(costData -> costData.getQuantity() > 0)
+                                    .anyMatch(costData ->
+                                    {
+                                        Integer committedCost = pendingTradeCost.apply(costData.getCost());
+                                        if (committedCost == null) return false;
+                                        return (checkInventory.apply(costData.getCost()) - committedCost) < costData.getQuantity();
+                                    });
+
                             label.setFont(UIFunctions.Fonts.size1Font);
 
                             if (isCached)
@@ -146,6 +160,11 @@ public class ItemCostData
                             {
                                 label.setTextFill(UIFunctions.Fonts.negativeRed);
                                 insufficientTrades.add(label);
+                            }
+                            else if (overCommitted)
+                            {
+                                label.setTextFill(UIFunctions.Fonts.darkYellow);
+                                overCommittedTrades.add(label);
                             }
                             else
                             {
@@ -200,7 +219,7 @@ public class ItemCostData
                     locationContainer.getChildren().add(tradePane);
                 }
 
-                if (avoidedTrades.isEmpty() && insufficientTrades.isEmpty())
+                if (avoidedTrades.isEmpty() && insufficientTrades.isEmpty() && overCommittedTrades.isEmpty())
                 {
                     otherTradesExpanded.set(false);
                 }
@@ -219,6 +238,13 @@ public class ItemCostData
                     tradePane.expandedProperty()
                             .addListener((observable, oldValue, newValue) -> otherTradesExpanded.set(newValue));
                     VBox vBox = new VBox();
+                    if (!overCommittedTrades.isEmpty())
+                    {
+                        Label committedLabel = new Label("Committed to Other Trades");
+                        committedLabel.setFont(UIFunctions.Fonts.size1Font);
+                        vBox.getChildren().add(committedLabel);
+                        overCommittedTrades.stream().forEach(trade -> vBox.getChildren().add(trade));
+                    }
                     if (!avoidedTrades.isEmpty())
                     {
                         Label avoidLabel = new Label("Conflicts with Ongoing Tasks");

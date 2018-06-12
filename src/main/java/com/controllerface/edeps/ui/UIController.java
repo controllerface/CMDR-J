@@ -237,6 +237,14 @@ public class UIController
     private final Map<ProcurementCost, Integer> tradeYieldCache = new HashMap<>();
 
     /**
+     * Keeps track of materials that MAY be procured at some time in the future, provided a trade task is completed.
+     * For example, if the player adds a trade task to trade 1 unit Vanadium for 3 units Carbon, the 3 units of Carbon
+     * will be added to this map. Note that all yields are accumulated this way in the map. I.e, if the player also
+     * adds a trade task to trade 1 units of Niobium for 9 units of Carbon, this map will contain 12 units of carbon.
+     */
+    private final Map<ProcurementCost, Integer> tradeCostCache = new HashMap<>();
+
+    /**
      * This list is the "raw" task list. When the user adds or removes tasks, or when a task is completed (thereby
      * removing it from the list), it is THIS list that is actually modified. After calculations for adjustments are
      * done and resulting mutations to this list are complete, THEN the UI backing lists are synced with the contents
@@ -741,6 +749,7 @@ public class UIController
                                     commanderData::hasItem,
                                     taskCostCache::contains,
                                     tradeYieldCache::get,
+                                    tradeCostCache::get,
                                     addTaskToProcurementList))
                             .forEach(costList::add);
                 }
@@ -786,29 +795,51 @@ public class UIController
             if (task.getValue() instanceof MaterialTradeRecipe)
             {
                 // in practice, these recipes will always have two costs, and one will be negative, indicating
-                // that the "cost" is a actually a trade yield. So we stream the costs and filter in only
-                // costs with a negative value to get the yield.
+                // that the "cost" is a actually a trade yield. The other is the actual cost. Both values are
+                // accumulated in a cache to allow for their cumulative values to be considered in calculations
                 task.getValue().costStream()
-                        .filter(costData -> costData.getQuantity() < 0)
                         .forEach(costData ->
                         {
-                            // since the cost will be negative, use absolute value
-                            int yield = Math.abs(costData.getQuantity());
+                            if (costData.getQuantity() < 0)
+                            {
+                                // since the cost will be negative, use absolute value
+                                int yield = Math.abs(costData.getQuantity());
 
-                            // the yield adjustment is applied to the current count of this cost
-                            int yieldAdjustment = yield * adjustment;
+                                // the yield adjustment is applied to the current count of this cost
+                                int yieldAdjustment = yield * adjustment;
 
-                            // grab the current pending yield for this trade, init to zero if not present
-                            int current = tradeYieldCache.computeIfAbsent(costData.getCost(), (x) -> 0);
+                                // grab the current pending yield for this trade, init to zero if not present
+                                int current = tradeYieldCache.computeIfAbsent(costData.getCost(), (x) -> 0);
 
-                            // apply the adjustment to the current cost
-                            current += yieldAdjustment;
+                                // apply the adjustment to the current cost
+                                current += yieldAdjustment;
 
-                            // if the adjustment would make the quantity zero or less, remove the cached item
-                            if (current <= 0) tradeYieldCache.remove(costData.getCost());
+                                // if the adjustment would make the quantity zero or less, remove the cached item
+                                if (current <= 0) tradeYieldCache.remove(costData.getCost());
 
-                                // otherwise, update the cached pending yield
-                            else tradeYieldCache.put(costData.getCost(), current);
+                                    // otherwise, update the cached pending yield
+                                else tradeYieldCache.put(costData.getCost(), current);
+                            }
+                            else
+                            {
+                                // since the cost will be negative, use absolute value
+                                int tradeCost = costData.getQuantity();
+
+                                // the yield adjustment is applied to the current count of this cost
+                                int costAdjustment = tradeCost * adjustment;
+
+                                // grab the current pending yield for this trade, init to zero if not present
+                                int current = tradeCostCache.computeIfAbsent(costData.getCost(), (x) -> 0);
+
+                                // apply the adjustment to the current cost
+                                current += costAdjustment;
+
+                                // if the adjustment would make the quantity zero or less, remove the cached item
+                                if (current <= 0) tradeCostCache.remove(costData.getCost());
+
+                                    // otherwise, update the cached pending yield
+                                else tradeCostCache.put(costData.getCost(), current);
+                            }
                         });
             }
 
