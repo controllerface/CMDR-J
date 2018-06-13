@@ -44,6 +44,8 @@ public enum JournalEvent
      */
     LoadGame((context) ->
     {
+        logGeneralMessage(context, "Commander Data Loaded");
+
         setStatFromData(context, PlayerStat.Commander);
         setStatFromData(context, PlayerStat.Credits);
         setStatFromData(context, PlayerStat.Game_Mode);
@@ -67,6 +69,8 @@ public enum JournalEvent
      */
     Cargo((context) ->
     {
+        logInventoryMessage(context, "Reloading Cargo");
+
         context.getCommanderData().clearCargo();
 
         ((List<Map<String, Object>>) context.getRawData().get("Inventory")).stream()
@@ -78,6 +82,8 @@ public enum JournalEvent
      */
     Materials((context)->
     {
+        logInventoryMessage(context, "Reloading Material Storage");
+
         context.getCommanderData().clearMaterials();
 
         Map<String, Object> data = context.getRawData();
@@ -97,6 +103,8 @@ public enum JournalEvent
      */
     Rank((context) ->
     {
+        logGeneralMessage(context, "Reloading Current Rank Status");
+
         setStatFromData(context, RankStat.Rank_Combat);
         setStatFromData(context, RankStat.Rank_Trade);
         setStatFromData(context, RankStat.Rank_Explore );
@@ -110,6 +118,8 @@ public enum JournalEvent
      */
     Progress((context) ->
     {
+        logGeneralMessage(context, "Reloading Rank Progress");
+
         setStatFromData(context, RankStat.Progress_Combat);
         setStatFromData(context, RankStat.Progress_Trade);
         setStatFromData(context, RankStat.Progress_Explore);
@@ -123,6 +133,8 @@ public enum JournalEvent
      */
     Reputation((context) ->
     {
+        logGeneralMessage(context, "Reloading Faction Reputation");
+
         setStatFromData(context, RankStat.Reputation_Empire);
         setStatFromData(context, RankStat.Reputation_Federation);
         setStatFromData(context, RankStat.Reputation_Alliance);
@@ -135,6 +147,8 @@ public enum JournalEvent
      */
     Loadout((context) ->
     {
+        logLoadoutMessage(context, "Reloading Ship Loadout");
+
         JournalSyncTask.shipStats.forEach(context.getCommanderData()::removeStat);
 
         setStatFromData(context, CoreInternalSlot.Ship);
@@ -146,6 +160,7 @@ public enum JournalEvent
         try
         {
             ship = Ship.findShip(shipName);
+            logLoadoutMessage(context, "Star Ship: " + ship.getBaseShipStats().getDisplayName());
             context.getCommanderData().setShip(ship);
             context.getCommanderData().getStarShip()
                     .setGivenName(getStatString(context, CoreInternalSlot.ShipName));
@@ -166,6 +181,8 @@ public enum JournalEvent
      */
     EngineerContribution((context)->
     {
+        logEngineeringMessage(context, "Engineering Contribution");
+
         Map<String, Object> data = context.getRawData();
 
         if (data.get("Material") != null) adjustMaterialQuantityDown(context, data);
@@ -178,6 +195,8 @@ public enum JournalEvent
      */
     MissionCompleted((context)->
     {
+        logGeneralMessage(context, "Mission Completed");
+
         Map<String, Object> data = context.getRawData();
 
         if (data.get("MaterialsReward") != null)
@@ -209,6 +228,8 @@ public enum JournalEvent
      */
     TechnologyBroker((context)->
     {
+        logLoadoutMessage(context, "Tech Broker Item Unlocked");
+
         if (context.getRawData().get("Materials") != null)
         {
             ((List<Map<String, Object>>) context.getRawData().get("Materials"))
@@ -265,6 +286,7 @@ public enum JournalEvent
             }
 
             ProcurementRecipe experimentalRecipe = ExperimentalRecipe.valueOf(experimentalEffect);
+            logEngineeringMessage(context, "Applied Experimental Effect: " + experimentalRecipe.getDisplayLabel());
             adjustBlueprintDown(context, experimentalType, experimentalRecipe, 1);
         }
         else
@@ -298,6 +320,7 @@ public enum JournalEvent
                 }
             }
 
+            logEngineeringMessage(context, "Applied Modification: " + modificationType + " :: " + modificationRecipe.getDisplayLabel());
             adjustBlueprintDown(context, modificationType, modificationRecipe, 1);
         }
 
@@ -327,6 +350,8 @@ public enum JournalEvent
     Synthesis((context) ->
     {
         String synthType = ((String) context.getRawData().get("Name"));
+
+        logInventoryMessage(context, "Synthesis Complete: " + synthType);
 
         // todo: need a way to check max cargo size. This will be "up to four" limpets, depending on cargo space
         if (synthType.contains("Limpet")) adjust(context, Commodity.DRONES, 4);
@@ -440,6 +465,8 @@ public enum JournalEvent
 
         Statistic slot = determineStatType(slotKey);
         ShipModule module = determineModuleType(moduleKey);
+
+        logLoadoutMessage(context, "Purchased Module: " + module.displayText());
 
         ShipModuleData shipModuleData = new ShipModuleData.Builder()
                 .setModuleName(slot)
@@ -673,7 +700,10 @@ public enum JournalEvent
      */
     private static void setStatFromData(EventProcessingContext context, Statistic stat)
     {
-        context.getCommanderData().setStat(stat, getStatString(context, stat));
+        String value = getStatString(context, stat);
+        context.getCommanderData().setStat(stat, value);
+        if (stat != PlayerStat.Ship && stat != CoreInternalSlot.Ship)
+            logGeneralMessage(context, stat.getText() + " = " + value);
     }
 
     private static String getStatString(EventProcessingContext context, Statistic stat)
@@ -705,6 +735,10 @@ public enum JournalEvent
         ModificationBlueprint modificationBlueprint = null;
         ExperimentalRecipe experimentalRecipe = null;
 
+        StringBuilder messageBuffer = new StringBuilder();
+        messageBuffer.append(slot.getText())
+                .append(" :: ").append(module.displayText());
+
         List<ModifierData> modifiers = new ArrayList<>();
 
         if (engineering != null)
@@ -716,6 +750,12 @@ public enum JournalEvent
 
             level = ((Integer) engineering.get("Level"));
             quality = ((Double) engineering.get("Quality"));
+            if (modificationBlueprint != null) messageBuffer.append(" :: ")
+                    .append(" G").append(level).append(" ")
+                    .append(modificationBlueprint);
+
+            if (experimentalRecipe != null) messageBuffer.append(" :: ").append(experimentalRecipe.getDisplayLabel());
+
             ((List<Map<String, Object>>) engineering.get("Modifiers"))
                     .forEach(modifier ->
                     {
@@ -752,6 +792,7 @@ public enum JournalEvent
                 .build();
 
         context.getCommanderData().setShipModule(shipModuleData);
+        logLoadoutMessage(context, messageBuffer.toString());
     }
 
     /**
@@ -776,12 +817,6 @@ public enum JournalEvent
             if (module == null) System.err.println("Ignoring Module: " + moduleKey);
             return;
         }
-
-        // useful for debugging
-        context.getCommanderData().setStat(slot, moduleKey);
-
-        // modules may not have any engineering data. If so, just return
-        //if (engineering == null) return;
 
         setSlotFromData(context, slot, module, engineering);
     }
@@ -951,6 +986,10 @@ public enum JournalEvent
     {
         UserTransaction transaction = new UserTransaction(count, cost);
         context.getTransactions().add(transaction);
+
+        boolean gain = count > 0;
+        String message = ((gain) ? ("+" + count) : + count) + " " + cost.getLocalizedName();
+        logInventoryMessage(context, message);
     }
 
     private static void adjustBlueprint(EventProcessingContext context,
@@ -982,5 +1021,38 @@ public enum JournalEvent
     {
         UserTransaction transaction = new UserTransaction(((-1) * count), cost);
         context.getTransactions().add(transaction);
+    }
+
+    private static void logGeneralMessage(EventProcessingContext context, String message)
+    {
+        logMessage(context, UserTransaction.MessageType.GENERAL, message);
+    }
+
+    private static void logInventoryMessage(EventProcessingContext context, String message)
+    {
+        logMessage(context, UserTransaction.MessageType.INVENTORY, message);
+    }
+
+    private static void logLoadoutMessage(EventProcessingContext context, String message)
+    {
+        logMessage(context, UserTransaction.MessageType.LOADOUT, message);
+    }
+
+    private static void logEngineeringMessage(EventProcessingContext context, String message)
+    {
+        logMessage(context, UserTransaction.MessageType.ENGINEERING, message);
+    }
+    private static void logExplorationMessage(EventProcessingContext context, String message)
+    {
+        logMessage(context, UserTransaction.MessageType.EXPLORATION, message);
+    }
+    private static void logCombatMessage(EventProcessingContext context, String message)
+    {
+        logMessage(context, UserTransaction.MessageType.COMBAT, message);
+    }
+
+    private static void logMessage(EventProcessingContext context, UserTransaction.MessageType messageType, String message)
+    {
+        context.getTransactions().add(new UserTransaction(messageType, message));
     }
 }

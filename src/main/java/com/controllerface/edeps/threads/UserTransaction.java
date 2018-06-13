@@ -10,50 +10,87 @@ import javafx.util.Pair;
  */
 public class UserTransaction
 {
-    public enum Type
+    public enum TransactionType
     {
         INVENTORY,
-        BLUEPRINT
+        BLUEPRINT,
+        MESSAGE
+    }
+
+    public enum MessageType
+    {
+        GENERAL,
+        INVENTORY,
+        LOADOUT,
+        ENGINEERING,
+        COMBAT,
+        EXPLORATION
     }
 
     private final ProcurementCost inventoryItem;
     private final Pair<ProcurementType, ProcurementRecipe> blueprint;
     private final int transactionAmount;
-    private final Type transactionType;
+    private final TransactionType transactionType;
+    private final String message;
+    private final MessageType messageType;
+
 
     public UserTransaction(int transactionAmount, ProcurementCost inventoryItem)
     {
-        this.transactionType = Type.INVENTORY;
+        this.transactionType = TransactionType.INVENTORY;
         this.inventoryItem = inventoryItem;
         this.transactionAmount = transactionAmount;
         this.blueprint = null;
-
+        this.message = null;
+        this.messageType = null;
     }
 
     public UserTransaction(int transactionAmount, Pair<ProcurementType, ProcurementRecipe> blueprint)
     {
-        this.transactionType = Type.BLUEPRINT;
+        this.transactionType = TransactionType.BLUEPRINT;
         this.transactionAmount = transactionAmount;
         this.blueprint = blueprint;
         this.inventoryItem = null;
+        this.message = null;
+        this.messageType = null;
     }
 
-    public ProcurementCost getInventoryItem()
+    public UserTransaction(MessageType messageType, String message)
+    {
+        this.transactionType = TransactionType.MESSAGE;
+        this.messageType = messageType;
+        this.message = message;
+        this.inventoryItem = null;
+        this.transactionAmount = 0;
+        this.blueprint = null;
+    }
+
+    ProcurementCost getInventoryItem()
     {
         return inventoryItem;
     }
 
-    public Pair<ProcurementType, ProcurementRecipe> getBlueprint()
+    Pair<ProcurementType, ProcurementRecipe> getBlueprint()
     {
         return blueprint;
     }
 
-    public int getTransactionAmount()
+    public String getMessage()
+    {
+        return message;
+    }
+
+    public MessageType getMessageType()
+    {
+        return messageType;
+    }
+
+    int getTransactionAmount()
     {
         return transactionAmount;
     }
 
-    public Type getTransactionType()
+    TransactionType getTransactionType()
     {
         return transactionType;
     }

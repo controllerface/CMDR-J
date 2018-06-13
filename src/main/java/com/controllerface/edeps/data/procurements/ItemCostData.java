@@ -11,8 +11,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +67,10 @@ public class ItemCostData
         this.pendingTradeYield = pendingTradeYield;
         this.pendingTradeCost = pendingTradeCost;
         this.addTask = addTask;
+
+        locationContainer
+                .setBackground(new Background(new BackgroundFill(Color
+                        .rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @Override

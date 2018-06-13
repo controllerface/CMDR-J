@@ -7,6 +7,7 @@ import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.structures.equipment.ItemGrade;
+import com.controllerface.edeps.threads.UserTransaction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
@@ -18,6 +19,7 @@ import javafx.util.Callback;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.function.Function;
 
 /**
@@ -34,6 +36,40 @@ import java.util.function.Function;
 public class UIFunctions
 {
     public static final int scrollBarAllowance = 20;
+
+    public static final EnumMap<UserTransaction.MessageType, Color> messageColors =
+            new EnumMap<>(UserTransaction.MessageType.class);
+    static
+    {
+        for (UserTransaction.MessageType messageType : UserTransaction.MessageType.values())
+        {
+            Color color;
+            switch (messageType)
+            {
+                case GENERAL: color = Color.DARKCYAN;
+                    break;
+
+                case INVENTORY: color = Color.DARKBLUE;
+                    break;
+
+                case LOADOUT: color = Color.DARKORCHID;
+                    break;
+
+                case ENGINEERING: color = Color.DARKORANGE;
+                    break;
+
+                case COMBAT: color = Color.DARKRED;
+                    break;
+
+                case EXPLORATION: color = Color.DARKMAGENTA;
+                    break;
+
+                default: color = Color.BLACK;
+                    break;
+            }
+            messageColors.put(messageType, color);
+        }
+    }
 
     public static class Symbols
     {

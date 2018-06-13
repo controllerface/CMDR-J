@@ -20,8 +20,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -141,6 +141,10 @@ public class InventoryData
         locationInfo.alignmentProperty().set(Pos.CENTER_LEFT);
         locationContainer.getChildren().add(locationLabel);
         locationContainer.getChildren().add(locationInfo);
+        locationContainer
+                .setBackground(new Background(new BackgroundFill(Color
+                        .rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+
         titledPane.setGraphic(labelBox);
         titledPane.setContent(locationContainer);
         titledPane.alignmentProperty().set(Pos.CENTER_LEFT);

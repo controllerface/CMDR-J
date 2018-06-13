@@ -2,6 +2,7 @@ package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.*;
 import com.controllerface.edeps.data.MaterialTradeRecipe;
+import com.controllerface.edeps.data.MessageData;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.CommanderData;
 import com.controllerface.edeps.data.commander.InventoryData;
@@ -49,13 +50,18 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
@@ -179,19 +185,7 @@ public class UIController
     @FXML private TableColumn<InventoryData, InventoryData> cargoItemColumn;
     @FXML private TableColumn<InventoryData, Label> cargoQuantityColumn;
 
-    /*
-    Commander Data/Debug Tab
-     */
-
-    // a tab used for debug info. Will be hidden by default
-    // todo: consider removing this in the future. will add a "console" that can have debug info based on debug flag
-    @FXML private Tab debugTab;
-
-    // player stats
-    @FXML private TableView<Pair<Statistic, String>> statTable;
-    @FXML private TableColumn<Pair<Statistic, String>, String> statNameColumn;
-    @FXML private TableColumn<Pair<Statistic, String>, String> statValueColumn;
-
+    @FXML private ListView<MessageData> consoleMessageList;
 
     /*
     Backing lists for the procurement task UI elements
@@ -206,6 +200,9 @@ public class UIController
     // the backing list for needed items/costs, and a sorted wrapper used to keep the UI view sorted
     private final ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableArrayList();
     private final SortedList<ItemCostData> sortedCosts = new SortedList<>(taskCostBackingList, UIFunctions.Sort.costsByNeed);
+
+    private final ObservableList<MessageData> consoleBackingList = FXCollections.observableArrayList();
+
 
     /*
     =============================
@@ -257,6 +254,8 @@ public class UIController
      */
     private final List<ItemCostData> costList = new CopyOnWriteArrayList<>();
 
+    private final List<MessageData> messageList = new CopyOnWriteArrayList<>();
+
     /*
     Convenience consumer function that accepts a ProcurementTask and adds it to the procurement list. If the task
     already exists in the list, this effectively increments the count of that by 1
@@ -287,7 +286,7 @@ public class UIController
 
         // transaction processor
         Runnable transactionProcessingTask =
-                new TransactionProcessingTask(adjustItem, this::procurementListUpdate, transactionQueue);
+                new TransactionProcessingTask(adjustItem, this::procurementListUpdate, this::messageLogger, transactionQueue);
         Thread transactionThread = new Thread(transactionProcessingTask);
         transactionThread.setDaemon(true);
         transactionThread.start();
@@ -344,9 +343,8 @@ public class UIController
         }
         else
         {
-            mainPane.getTabs().stream()
-                    .filter(t->t.equals(debugTab)).findFirst()
-                    .ifPresent(t->mainPane.getTabs().remove(t));
+            // todo: implement
+            System.out.println("Debug mode currently not implemented");
         }
 
         sortInventory();
@@ -364,11 +362,42 @@ public class UIController
         initializeAutoResizeBindings();
         initializeSelectionOverrides();
 
-        // Commander Data/Debug stats. todo: may remove these in the future
-        statNameColumn.setCellValueFactory(stat -> new SimpleStringProperty(stat.getValue().getKey().getText()));
-        statValueColumn.setCellValueFactory(stat -> new SimpleStringProperty(stat.getValue().getValue()));
-        statNameColumn.setCellFactory(x -> new CommanderStatDataCell());
-        statValueColumn.setCellFactory(x -> new CommanderStatDataCell());
+        consoleMessageList.setItems(consoleBackingList);
+        consoleBackingList.addListener((ListChangeListener<MessageData>) c -> consoleMessageList.refresh());
+        consoleMessageList.setCellFactory(new Callback<ListView<MessageData>, ListCell<MessageData>>()
+        {
+            @Override
+            public ListCell<MessageData> call(ListView<MessageData> param)
+            {
+                return new ListCell<MessageData>()
+                {
+                    @Override
+                    protected void updateItem(MessageData item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+                        if (item == null || empty)
+                        {
+                            setText(null);
+                            setGraphic(null);
+                            return;
+                        }
+                        HBox hBox = new HBox();
+
+                        hBox.setAlignment(Pos.CENTER_LEFT);
+
+                        Label typeLabel = new Label(item.getMessageType() + "  ");
+                        typeLabel.setTextFill(UIFunctions.messageColors.get(item.getMessageType()));
+                        typeLabel.setFont(UIFunctions.Fonts.size1Font);
+
+                        Label message = new Label(item.getMessage());
+                        message.setFont(UIFunctions.Fonts.size4Font);
+                        hBox.getChildren().addAll(typeLabel, message);
+
+                        setGraphic(hBox);
+                    }
+                };
+            }
+        });
     }
 
     /**
@@ -389,7 +418,7 @@ public class UIController
         taskCountColumn.setCellFactory(x -> new TaskCountCell(this::procurementListUpdate));
         taskCountColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
-        taskNameColumn.setCellFactory(x -> new TaskDataCell(commanderData::hasItem, tradeYieldCache::get));
+        taskNameColumn.setCellFactory(x -> new TaskDataCell());
         taskNameColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
         taskRemoveColumn.setCellFactory(x -> new TaskRemoveCell(this::procurementListUpdate));
@@ -660,9 +689,6 @@ public class UIController
         taskCostTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
                 Platform.runLater(() -> taskCostTable.getSelectionModel().clearSelection()));
 
-        statTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> statTable.getSelectionModel().clearSelection()));
-
         shipStatisticsTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
                 Platform.runLater(() -> shipStatisticsTable.getSelectionModel().clearSelection()));
 
@@ -692,6 +718,22 @@ public class UIController
             taskCostBackingList.clear();
             taskCostBackingList.addAll(costList);
         }
+    }
+
+    private void messageLogger(UserTransaction.MessageType messageType, String message)
+    {
+        synchronized (messageList)
+        {
+            messageList.add(new MessageData(message, messageType));
+            while (messageList.size() > 500) messageList.remove(0);
+        }
+
+        Platform.runLater(()->
+        {
+            consoleBackingList.clear();
+            consoleBackingList.addAll(messageList);
+            consoleMessageList.scrollTo(consoleBackingList.size());
+        });
     }
 
     /**
