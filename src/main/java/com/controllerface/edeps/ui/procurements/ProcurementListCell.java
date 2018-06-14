@@ -1,6 +1,7 @@
 package com.controllerface.edeps.ui.procurements;
 
 import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.data.ItemEffects;
 import com.controllerface.edeps.data.StarSystem;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ProcurementTask;
@@ -112,15 +113,6 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
             hBox.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
 
-
-            //Button button = new Button();
-            //button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            //button.setGraphic(buttonBox);
-
-            //progressIndicator.setOnMouseClicked((e)->button.getOnMouseClicked().handle(e));
-
-            //button.setTooltip(progressIndicator.getTooltip());
-
             TitledPane infoPane = new TitledPane();
             infoPane.setExpanded(false);
             infoPane.setAnimated(false);
@@ -130,24 +122,7 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
             VBox costEffectContainer = new VBox();
             costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
 
-            List<Engineer> engineers = Engineer.findSupportedEngineers(item.getType(), item.getRecipe().getGrade());
-            if (!engineers.isEmpty())
-            {
-                for (Engineer engineer : engineers)
-                {
-                    Label engineerLabel = new Label(engineer.getFullName() + " :: "
-                            + engineer.getLocation().getSystemName());
-                    engineerLabel.setFont(UIFunctions.Fonts.size1Font);
-                    engineerLabel.setTextFill(UIFunctions.Fonts.darkOrange);
-                    costEffectContainer.getChildren().add(engineerLabel);
-                }
-                Separator separator = new Separator();
-                separator.setPrefHeight(10);
-                costEffectContainer.getChildren().add(separator);
-            }
 
-            Separator separator = new Separator();
-            separator.setPrefHeight(10);
 
             // effects
             item.getRecipe().effects().effectStream()
@@ -155,7 +130,12 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
                     .sorted(UIFunctions.Sort.byGoodness)
                     .forEach(label -> costEffectContainer.getChildren().add(label));
 
-            costEffectContainer.getChildren().add(separator);
+            if (item.getRecipe().effects() != ItemEffects.EMPTY)
+            {
+                Separator separator = new Separator();
+                separator.setPrefHeight(10);
+                costEffectContainer.getChildren().add(separator);
+            }
 
             // costs
            item.getRecipe().costStream()
@@ -170,19 +150,26 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
                     })
                     .forEach(label -> costEffectContainer.getChildren().add(label));
 
+
+            List<Engineer> engineers = Engineer.findSupportedEngineers(item.getType(), item.getRecipe().getGrade());
+            if (!engineers.isEmpty())
+            {
+                Separator separator2 = new Separator();
+                separator2.setPrefHeight(10);
+                costEffectContainer.getChildren().add(separator2);
+
+                for (Engineer engineer : engineers)
+                {
+                    Label engineerLabel = new Label(engineer.getFullName() + " :: "
+                            + engineer.getLocation().getSystemName());
+                    engineerLabel.setFont(UIFunctions.Fonts.size1Font);
+                    engineerLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+                    costEffectContainer.getChildren().add(engineerLabel);
+                }
+            }
+
             infoPane.setContent(costEffectContainer);
-
             infoPane.prefWidthProperty().bind(this.widthProperty().subtract(50));
-
-
-
-
-
-
-
-
-
-
 
 
             Button add = new Button();

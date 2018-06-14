@@ -3,6 +3,7 @@ package com.controllerface.edeps.data.procurements;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
+import com.controllerface.edeps.data.ItemEffects;
 import com.controllerface.edeps.data.MaterialTradeRecipe;
 import com.controllerface.edeps.data.StarSystem;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
@@ -256,29 +257,6 @@ public class ProcurementTaskData
     {
         costEffectContainer.getChildren().clear();
 
-        if (!engineers.isEmpty())
-        {
-            for (Engineer engineer : engineers)
-            {
-                StarSystem currentSystem = getCurrentSystem.get();
-                double distance = currentSystem.distanceBetween(engineer.getLocation());
-                Label engineerLabel = new Label(engineer.getFullName() + " :: "
-                        + engineer.getLocation().getSystemName() + " (" + distance + " Ly)");
-                Tooltip locationTip = new Tooltip(engineer.getFullName() + " is " + distance +
-                        " light years from your current location ("+currentSystem.getSystemName()+")");
-                locationTip.setFont(UIFunctions.Fonts.size1Font);
-                engineerLabel.setTooltip(locationTip);
-                engineerLabel.setFont(UIFunctions.Fonts.size1Font);
-                engineerLabel.setTextFill(UIFunctions.Fonts.darkOrange);
-                costEffectContainer.getChildren().add(engineerLabel);
-            }
-            Separator separator = new Separator();
-            separator.setPrefHeight(10);
-            costEffectContainer.getChildren().add(separator);
-        }
-
-        Separator separator = new Separator();
-        separator.setPrefHeight(10);
 
         // effects
         recipe.effects().effectStream()
@@ -286,7 +264,13 @@ public class ProcurementTaskData
                 .sorted(UIFunctions.Sort.byGoodness)
                 .forEach(label -> costEffectContainer.getChildren().add(label));
 
-        costEffectContainer.getChildren().add(separator);
+        if (recipe.effects() != ItemEffects.EMPTY)
+        {
+            Separator separator = new Separator();
+            separator.setPrefHeight(10);
+            costEffectContainer.getChildren().add(separator);
+        }
+
 
         // costs
         recipe.costStream()
@@ -306,6 +290,30 @@ public class ProcurementTaskData
                     return next;
                 })
                 .forEach(label -> costEffectContainer.getChildren().add(label));
+
+
+        if (!engineers.isEmpty())
+        {
+            Separator separator2 = new Separator();
+            separator2.setPrefHeight(10);
+            costEffectContainer.getChildren().add(separator2);
+
+            for (Engineer engineer : engineers)
+            {
+                StarSystem currentSystem = getCurrentSystem.get();
+                double distance = currentSystem.distanceBetween(engineer.getLocation());
+                Label engineerLabel = new Label(engineer.getFullName() + " :: "
+                        + engineer.getLocation().getSystemName() + " (" + distance + " Ly)");
+                Tooltip locationTip = new Tooltip(engineer.getFullName() + " is " + distance +
+                        " light years from your current location ("+currentSystem.getSystemName()+")");
+                locationTip.setFont(UIFunctions.Fonts.size1Font);
+                engineerLabel.setTooltip(locationTip);
+                engineerLabel.setFont(UIFunctions.Fonts.size1Font);
+                engineerLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+                costEffectContainer.getChildren().add(engineerLabel);
+            }
+
+        }
 
     }
 

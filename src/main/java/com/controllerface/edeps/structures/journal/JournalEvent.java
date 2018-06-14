@@ -68,6 +68,7 @@ public enum JournalEvent
     Location((context ->
     {
         String name = ((String) context.getRawData().get("StarSystem"));
+        logExplorationMessage(context, "Spawned in the " + name + " System");
         List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
         StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
         context.getCommanderData().getLocation().setStarSystem(system);
@@ -76,6 +77,7 @@ public enum JournalEvent
     FSDJump((context ->
     {
         String name = ((String) context.getRawData().get("StarSystem"));
+        logExplorationMessage(context, "Arrived in the " + name + " System");
         List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
         StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
         context.getCommanderData().getLocation().setStarSystem(system);
@@ -508,6 +510,8 @@ public enum JournalEvent
 
         Statistic slot = determineStatType(slotKey);
         ShipModule module = determineModuleType(moduleKey);
+
+        logLoadoutMessage(context, "Retrieved Module: " + module.displayText());
 
         dataBuilder
                 .setModule(module)
