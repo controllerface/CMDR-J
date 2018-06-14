@@ -3,6 +3,7 @@ package com.controllerface.edeps.data.commander;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.ShipModuleData;
+import com.controllerface.edeps.data.StarSystem;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.commodities.CommodityType;
 import com.controllerface.edeps.structures.costs.materials.Material;
@@ -30,6 +31,8 @@ public class CommanderData
      * The Commander's star ship. Changes as the commander switches ships or modules
      */
     private final StarShip starShip = new StarShip();
+
+    private final CommanderLocation location = new CommanderLocation();
 
     /**
      * Market salable Commodities and other items (like power play items, limpets, etc.) are stored in cargo
@@ -110,6 +113,16 @@ public class CommanderData
     public StarShip getStarShip()
     {
         return starShip;
+    }
+
+    public void setLocation(StarSystem starSystem)
+    {
+        location.setStarSystem(starSystem);
+    }
+
+    public CommanderLocation getLocation()
+    {
+        return location;
     }
 
     /**

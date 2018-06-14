@@ -4,23 +4,24 @@ import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.MaterialTradeRecipe;
+import com.controllerface.edeps.data.StarSystem;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
+import com.controllerface.edeps.structures.engineers.Engineer;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -58,17 +59,24 @@ public class ProcurementTaskData
     private final Function<ProcurementCost, Integer> checkInventory;
     private final Function<ProcurementCost, Integer> pendingTradeYield;
 
+    private final Supplier<StarSystem> getCurrentSystem;
+
+    private final List<Engineer> engineers;
+
     public ProcurementTaskData(ProcurementType type,
                                ProcurementRecipe recipe,
                                int count,
                                Function<ProcurementCost, Integer> checkInventory,
-                               Function<ProcurementCost, Integer> pendingTradeYield)
+                               Function<ProcurementCost, Integer> pendingTradeYield,
+                               Supplier<StarSystem> getCurrentSystem)
     {
         this.type = type;
         this.recipe = recipe;
         this.count = new AtomicInteger(count);
         this.checkInventory = checkInventory;
         this.pendingTradeYield = pendingTradeYield;
+        this.getCurrentSystem = getCurrentSystem;
+        this.engineers = Engineer.findSupportedEngineers(type, recipe.getGrade());
 
         costEffectContainer
                 .setBackground(new Background(new BackgroundFill(Color
@@ -247,6 +255,27 @@ public class ProcurementTaskData
     private void renderEffects()
     {
         costEffectContainer.getChildren().clear();
+
+        if (!engineers.isEmpty())
+        {
+            for (Engineer engineer : engineers)
+            {
+                StarSystem currentSystem = getCurrentSystem.get();
+                double distance = currentSystem.distanceBetween(engineer.getLocation());
+                Label engineerLabel = new Label(engineer.getFullName() + " :: "
+                        + engineer.getLocation().getSystemName() + " (" + distance + " Ly)");
+                Tooltip locationTip = new Tooltip(engineer.getFullName() + " is " + distance +
+                        " light years from your current location ("+currentSystem.getSystemName()+")");
+                locationTip.setFont(UIFunctions.Fonts.size1Font);
+                engineerLabel.setTooltip(locationTip);
+                engineerLabel.setFont(UIFunctions.Fonts.size1Font);
+                engineerLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+                costEffectContainer.getChildren().add(engineerLabel);
+            }
+            Separator separator = new Separator();
+            separator.setPrefHeight(10);
+            costEffectContainer.getChildren().add(separator);
+        }
 
         Separator separator = new Separator();
         separator.setPrefHeight(10);

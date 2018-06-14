@@ -2,6 +2,7 @@ package com.controllerface.edeps.ui;
 
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.ItemEffectData;
+import com.controllerface.edeps.data.StarSystem;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
@@ -17,6 +18,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.EnumMap;
@@ -135,6 +138,21 @@ public class UIFunctions
         public static double mapRange(double input, double inputMin, double inputMax, double outputMin, double outputMax)
         {
             return outputMin + ((input - inputMin) * (outputMax - outputMin)) / (inputMax - inputMin);
+        }
+
+        /**
+         * Rounding function for double values. Uses an intermediate BigDecimal object to round (not truncate)
+         *
+         * @param value double value to round
+         * @param precision number of digits to round to
+         * @return the input value, rounded tot he desired precision
+         */
+        public static double round(double value, int precision)
+        {
+            if (precision < 0) return value;
+            BigDecimal decimal = new BigDecimal(value);
+            decimal = decimal.setScale(precision, RoundingMode.HALF_UP);
+            return decimal.doubleValue();
         }
     }
 

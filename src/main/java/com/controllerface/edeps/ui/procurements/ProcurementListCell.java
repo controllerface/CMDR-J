@@ -1,8 +1,10 @@
 package com.controllerface.edeps.ui.procurements;
 
 import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.data.StarSystem;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ProcurementTask;
+import com.controllerface.edeps.structures.engineers.Engineer;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Insets;
@@ -125,10 +127,24 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
             infoPane.setGraphic(buttonBox);
             infoPane.setTooltip(progressIndicator.getTooltip());
 
-
-
             VBox costEffectContainer = new VBox();
             costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+
+            List<Engineer> engineers = Engineer.findSupportedEngineers(item.getType(), item.getRecipe().getGrade());
+            if (!engineers.isEmpty())
+            {
+                for (Engineer engineer : engineers)
+                {
+                    Label engineerLabel = new Label(engineer.getFullName() + " :: "
+                            + engineer.getLocation().getSystemName());
+                    engineerLabel.setFont(UIFunctions.Fonts.size1Font);
+                    engineerLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+                    costEffectContainer.getChildren().add(engineerLabel);
+                }
+                Separator separator = new Separator();
+                separator.setPrefHeight(10);
+                costEffectContainer.getChildren().add(separator);
+            }
 
             Separator separator = new Separator();
             separator.setPrefHeight(10);

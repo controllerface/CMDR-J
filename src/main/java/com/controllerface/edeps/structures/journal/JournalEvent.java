@@ -3,6 +3,7 @@ package com.controllerface.edeps.structures.journal;
 import com.controllerface.edeps.*;
 import com.controllerface.edeps.data.ModifierData;
 import com.controllerface.edeps.data.ShipModuleData;
+import com.controllerface.edeps.data.StarSystem;
 import com.controllerface.edeps.structures.commander.PlayerStat;
 import com.controllerface.edeps.structures.commander.RankStat;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
@@ -63,6 +64,22 @@ public enum JournalEvent
         setStatFromData(context, PlayerStat.Ship_Name);
         setStatFromData(context, PlayerStat.Ship_Ident);
     }),
+
+    Location((context ->
+    {
+        String name = ((String) context.getRawData().get("StarSystem"));
+        List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
+        StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
+        context.getCommanderData().getLocation().setStarSystem(system);
+    })),
+
+    FSDJump((context ->
+    {
+        String name = ((String) context.getRawData().get("StarSystem"));
+        List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
+        StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
+        context.getCommanderData().getLocation().setStarSystem(system);
+    })),
 
     /**
      * Main cargo event: written at startup, when loading from main menu

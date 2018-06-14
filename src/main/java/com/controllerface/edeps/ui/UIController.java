@@ -30,7 +30,6 @@ import com.controllerface.edeps.structures.craftable.technologies.TechnologyType
 import com.controllerface.edeps.threads.JournalSyncTask;
 import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.controllerface.edeps.threads.UserTransaction;
-import com.controllerface.edeps.ui.commander.CommanderStatDataCell;
 import com.controllerface.edeps.ui.costs.CostDataCell;
 import com.controllerface.edeps.ui.costs.CostValueCell;
 import com.controllerface.edeps.ui.inventory.InventoryDataCell;
@@ -58,10 +57,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
@@ -100,6 +96,8 @@ public class UIController
     /*
     Ship Loadout Tab
      */
+
+    @FXML private Label locationLabel;
 
     @FXML private Label shipIDLabel;
     @FXML private Label shipNameLabel;
@@ -336,14 +334,10 @@ public class UIController
         try {properties.load(this.getClass().getResourceAsStream("/config.properties"));}
         catch (IOException e) {e.printStackTrace();}
 
+        // todo: implement, maybe dump certain data to the info log? or possibly have a debug tab
         String debug = properties.getProperty("debug");
         if (debug != null && debug.equals("true"))
         {
-            System.out.println("DEBUg!!");
-        }
-        else
-        {
-            // todo: implement
             System.out.println("Debug mode currently not implemented");
         }
 
@@ -550,6 +544,7 @@ public class UIController
      */
     private void initializeShipLoadoutTab()
     {
+        commanderData.getLocation().associateStarStystem(locationLabel);
         commanderData.getStarShip().associateShipManufacturer(shipMakeLabel);
         commanderData.getStarShip().associateShipGivenName(shipNameLabel);
         commanderData.getStarShip().associateShipDisplayName(shipTypeLabel);
@@ -776,7 +771,12 @@ public class UIController
                     // the same for new and existing tasks
                 else
                 {
-                    data = new ProcurementTaskData(task.getKey(), task.getValue(), 0, commanderData::hasItem, tradeYieldCache::get);
+                    data = new ProcurementTaskData(task.getKey(),
+                            task.getValue(),
+                            0,
+                            commanderData::hasItem,
+                            tradeYieldCache::get,
+                            commanderData.getLocation()::getStarSystem);
                     taskList.add(data);
 
                     // initialize the costs as well, if they are not already present in the cost list. It is

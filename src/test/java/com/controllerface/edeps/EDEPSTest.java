@@ -2,6 +2,7 @@ package com.controllerface.edeps;
 
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.engineers.Engineer;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
@@ -25,6 +26,12 @@ import java.util.stream.IntStream;
  */
 public class EDEPSTest
 {
+    @Test
+    public void testDistance()
+    {
+        System.out.println(Engineer.TIANA_FORTUNE.getLocation().distanceBetween(Engineer.BILL_TURNER.getLocation()));
+    }
+
     @Test
     public void testJSONthing() throws Exception
     {
