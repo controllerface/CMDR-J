@@ -5,8 +5,6 @@ import com.controllerface.edeps.ui.UIFunctions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 /**
  * Created by Controllerface on 4/26/2018.

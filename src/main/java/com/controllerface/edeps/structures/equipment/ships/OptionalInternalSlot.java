@@ -1,7 +1,6 @@
 package com.controllerface.edeps.structures.equipment.ships;
 
 import com.controllerface.edeps.Statistic;
-import com.controllerface.edeps.structures.equipment.modules.OptionalInternalModule;
 
 import java.util.Arrays;
 

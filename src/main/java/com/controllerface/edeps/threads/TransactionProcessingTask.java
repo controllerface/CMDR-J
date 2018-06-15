@@ -7,7 +7,6 @@ import javafx.util.Pair;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 /**
  * Task thread that keeps a CommanderData synchronized by executing transactions that modify it.

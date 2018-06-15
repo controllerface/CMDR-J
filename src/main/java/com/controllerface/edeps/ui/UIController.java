@@ -1,6 +1,9 @@
 package com.controllerface.edeps.ui;
 
-import com.controllerface.edeps.*;
+import com.controllerface.edeps.JSONSupport;
+import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.ProcurementRecipe;
+import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.MaterialTradeRecipe;
 import com.controllerface.edeps.data.MessageData;
 import com.controllerface.edeps.data.ShipModuleData;
@@ -9,8 +12,8 @@ import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
-import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.data.procurements.ProcurementTask;
+import com.controllerface.edeps.data.procurements.ProcurementTaskData;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;

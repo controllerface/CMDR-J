@@ -2,7 +2,6 @@ package com.controllerface.edeps.structures.equipment.ships;
 
 import com.controllerface.edeps.Statistic;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**

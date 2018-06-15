@@ -2,7 +2,6 @@ package com.controllerface.edeps.ui.procurements;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.data.ItemEffects;
-import com.controllerface.edeps.data.StarSystem;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ProcurementTask;
 import com.controllerface.edeps.structures.engineers.Engineer;

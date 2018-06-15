@@ -1,7 +1,7 @@
 package com.controllerface.edeps.ui.inventory;
 
 import com.controllerface.edeps.data.commander.InventoryData;
-import javafx.scene.control.*;
+import javafx.scene.control.TableCell;
 
 /**
  * Created by Controllerface on 5/10/2018.

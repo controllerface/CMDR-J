@@ -1,12 +1,8 @@
 package com.controllerface.edeps.ui.ship;
 
-import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.scene.control.TableCell;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.util.Pair;
 
 /**
  * Created by Controllerface on 4/26/2018.

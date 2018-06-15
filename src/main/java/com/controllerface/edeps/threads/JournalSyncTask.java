@@ -1,9 +1,9 @@
 package com.controllerface.edeps.threads;
 
-import com.controllerface.edeps.*;
+import com.controllerface.edeps.EventProcessingContext;
+import com.controllerface.edeps.JSONSupport;
+import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.data.commander.CommanderData;
-import com.controllerface.edeps.structures.commander.PlayerStat;
-import com.controllerface.edeps.structures.commander.RankStat;
 import com.controllerface.edeps.structures.equipment.ships.CoreInternalSlot;
 import com.controllerface.edeps.structures.equipment.ships.CosmeticSlot;
 import com.controllerface.edeps.structures.equipment.ships.HardpointSlot;

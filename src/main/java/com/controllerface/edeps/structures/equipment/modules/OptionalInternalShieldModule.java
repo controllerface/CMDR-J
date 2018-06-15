@@ -7,7 +7,6 @@ import com.controllerface.edeps.data.ItemEffects;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalType;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationType;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
-import javafx.util.Pair;
 
 import java.util.Arrays;
 

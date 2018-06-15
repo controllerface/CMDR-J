@@ -2,7 +2,6 @@ package com.controllerface.edeps;
 
 import com.controllerface.edeps.data.commander.CommanderData;
 import com.controllerface.edeps.threads.UserTransaction;
-import javafx.util.Pair;
 
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;

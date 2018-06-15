@@ -4,11 +4,10 @@ import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.data.ItemEffectData;
 import com.controllerface.edeps.data.ItemEffects;
 import com.controllerface.edeps.data.procurements.CostData;
-import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
+import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.equipment.ItemGrade;
-import javafx.util.Pair;
 
 import java.util.Arrays;
 import java.util.stream.Stream;

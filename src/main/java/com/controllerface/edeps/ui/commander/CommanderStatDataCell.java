@@ -3,8 +3,6 @@ package com.controllerface.edeps.ui.commander;
 import com.controllerface.edeps.Statistic;
 import com.controllerface.edeps.ui.UIFunctions;
 import javafx.scene.control.TableCell;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.util.Pair;
 
 /**
