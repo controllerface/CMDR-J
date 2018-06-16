@@ -6,16 +6,21 @@ import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.procurements.CostData;
 import com.controllerface.edeps.data.procurements.ItemCostData;
 import com.controllerface.edeps.data.procurements.ProcurementTaskData;
+import com.controllerface.edeps.structures.equipment.ItemEffect;
 import com.controllerface.edeps.structures.equipment.ItemGrade;
 import com.controllerface.edeps.threads.UserTransaction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
+import javafx.util.Pair;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -121,6 +126,60 @@ public class UIFunctions
 
             return new SimpleStringProperty(String.valueOf(left));
         };
+
+        public static final Callback<TableColumn<Pair<ItemEffect, Label>, Label>, TableCell<Pair<ItemEffect, Label>, Label>>
+                moduleEffectValueFactory = (param) -> new TableCell<Pair<ItemEffect, Label>, Label>()
+        {
+            @Override
+            protected void updateItem(Label item, boolean empty)
+            {
+                super.updateItem(item, empty);
+                if (item == null || empty) setGraphic(null);
+                else
+                {
+                    setAlignment(Pos.CENTER_RIGHT);
+                    item.setPadding(new Insets(0,5,0,0));
+                    setGraphic(item);
+                }
+            }
+        };
+
+        public static final Callback<TableColumn<Pair<ItemEffect, Label>, Label>, TableCell<Pair<ItemEffect, Label>, Label>>
+                moduleEffectUnitFactory = (param) -> new TableCell<Pair<ItemEffect, Label>, Label>()
+        {
+            @Override
+            protected void updateItem(Label item, boolean empty)
+            {
+                super.updateItem(item, empty);
+                if (item == null || empty) setGraphic(null);
+                else
+                {
+                    setAlignment(Pos.CENTER_LEFT);
+                    setGraphic(item);
+                }
+            }
+        };
+
+
+        public static final Callback<TableColumn<Pair<ItemEffect, Label>, Pair<ItemEffect, Label>>, TableCell<Pair<ItemEffect, Label>, Pair<ItemEffect, Label>>>
+                moduleNameCellFactory = (param) -> new TableCell<Pair<ItemEffect, Label>, Pair<ItemEffect, Label>>()
+        {
+            @Override
+            protected void updateItem(Pair<ItemEffect, Label> item, boolean empty)
+            {
+                super.updateItem(item, empty);
+                if (item == null || empty)
+                {
+                    setGraphic(null);
+                    return;
+                }
+                Label name = new Label(item.getKey().toString());
+                name.setFont(Fonts.size2Font);
+                name.setPadding(new Insets(0,0,0,5));
+                setGraphic(name);
+            }
+        };
+
 
 
         /**

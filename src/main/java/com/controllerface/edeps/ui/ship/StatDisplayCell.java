@@ -2,7 +2,6 @@ package com.controllerface.edeps.ui.ship;
 
 import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.ui.UIFunctions;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 
 /**
@@ -14,16 +13,15 @@ public class StatDisplayCell extends TableCell<ShipStatisticData, ShipStatisticD
     protected void updateItem(ShipStatisticData item, boolean empty)
     {
         super.updateItem(item, empty);
-        if (item == null)
+
+        if (item == null || empty)
         {
+            setText(null);
             setGraphic(null);
             return;
         }
-        if (!empty)
-        {
-            Label label = new Label(item.statDisplayValue());
-            label.setFont(UIFunctions.Fonts.size3Font);
-            setGraphic(label);
-        }
+
+        super.setText(item.statDisplayValue());
+        setFont(UIFunctions.Fonts.size3Font);
     }
 }

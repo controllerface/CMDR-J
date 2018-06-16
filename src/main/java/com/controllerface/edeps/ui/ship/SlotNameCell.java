@@ -11,34 +11,21 @@ import javafx.scene.control.TableCell;
  */
 public class SlotNameCell extends TableCell<ShipModuleData, String>
 {
-    private static double baseFontSize = -1;
-    private static String baseFontFamily = null;
-
     @Override
     protected void updateItem(String item, boolean empty)
     {
         super.updateItem(item, empty);
 
-        if (item == null)
+        if (item == null || empty)
         {
-            super.setText(null);
-            super.setGraphic(null);
+            setText(null);
+            setGraphic(null);
+            return;
         }
-        else
-        {
-            super.setText(item);
-            synchronized (this)
-            {
-                if (baseFontSize == -1 && baseFontFamily == null)
-                {
-                    baseFontSize = getFont().getSize();
-                    baseFontSize += baseFontSize / 4;
-                    baseFontFamily = getFont().getFamily();
-                }
-            }
-            setFont(UIFunctions.Fonts.size2Font);
-            setAlignment(Pos.TOP_RIGHT);
-            paddingProperty().set(new Insets(8,5,0,0));
-        }
+
+        super.setText(item);
+        setFont(UIFunctions.Fonts.size2Font);
+        setAlignment(Pos.TOP_RIGHT);
+        paddingProperty().set(new Insets(8,5,0,0));
     }
 }
