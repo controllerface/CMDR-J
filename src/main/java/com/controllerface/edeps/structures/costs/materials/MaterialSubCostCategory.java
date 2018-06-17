@@ -1,6 +1,6 @@
 package com.controllerface.edeps.structures.costs.materials;
 
-import com.controllerface.edeps.ProcurementCategory;
+import com.controllerface.edeps.ProcurementCostCategory;
 import com.controllerface.edeps.ProcurementCost;
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  *
  * Created by Controllerface on 3/20/2018.
  */
-public enum MaterialSubCategory implements ProcurementCategory
+public enum MaterialSubCostCategory implements ProcurementCostCategory
 {
     /*
     Raw Elements
@@ -203,7 +203,7 @@ public enum MaterialSubCategory implements ProcurementCategory
     private final int numericalValue;
     private final EnumSet<Material> materials;
 
-    MaterialSubCategory(int numericalValue, EnumSet<Material> materials)
+    MaterialSubCostCategory(int numericalValue, EnumSet<Material> materials)
     {
         this.numericalValue = numericalValue;
         this.materials = materials;
@@ -220,7 +220,7 @@ public enum MaterialSubCategory implements ProcurementCategory
         return materials.contains(material);
     }
 
-    public static Optional<MaterialSubCategory> findMatchingSubCategory(ProcurementCost cost)
+    public static Optional<MaterialSubCostCategory> findMatchingSubCategory(ProcurementCost cost)
     {
         if (!(cost instanceof Material)) return Optional.empty();
         Material material = ((Material) cost);

@@ -12,47 +12,47 @@ import java.util.stream.Stream;
  */
 public enum MaterialType
 {
-    RAW(EnumSet.of(MaterialSubCategory.Raw_Elements_1,
-            MaterialSubCategory.Raw_Elements_2,
-            MaterialSubCategory.Raw_Elements_3,
-            MaterialSubCategory.Raw_Elements_4,
-            MaterialSubCategory.Raw_Elements_5,
-            MaterialSubCategory.Raw_Elements_6,
-            MaterialSubCategory.Raw_Elements_7)),
+    RAW(EnumSet.of(MaterialSubCostCategory.Raw_Elements_1,
+            MaterialSubCostCategory.Raw_Elements_2,
+            MaterialSubCostCategory.Raw_Elements_3,
+            MaterialSubCostCategory.Raw_Elements_4,
+            MaterialSubCostCategory.Raw_Elements_5,
+            MaterialSubCostCategory.Raw_Elements_6,
+            MaterialSubCostCategory.Raw_Elements_7)),
 
-    MANUFACTURED(EnumSet.of(MaterialSubCategory.Chemical,
-            MaterialSubCategory.Thermic,
-            MaterialSubCategory.Heat,
-            MaterialSubCategory.Conductive,
-            MaterialSubCategory.Mechanical_Components,
-            MaterialSubCategory.Capacitors,
-            MaterialSubCategory.Shielding,
-            MaterialSubCategory.Composite,
-            MaterialSubCategory.Crystals,
-            MaterialSubCategory.Alloys,
-            MaterialSubCategory.Thargoid_Technology,
-            MaterialSubCategory.Guardian_Technology)),
+    MANUFACTURED(EnumSet.of(MaterialSubCostCategory.Chemical,
+            MaterialSubCostCategory.Thermic,
+            MaterialSubCostCategory.Heat,
+            MaterialSubCostCategory.Conductive,
+            MaterialSubCostCategory.Mechanical_Components,
+            MaterialSubCostCategory.Capacitors,
+            MaterialSubCostCategory.Shielding,
+            MaterialSubCostCategory.Composite,
+            MaterialSubCostCategory.Crystals,
+            MaterialSubCostCategory.Alloys,
+            MaterialSubCostCategory.Thargoid_Technology,
+            MaterialSubCostCategory.Guardian_Technology)),
 
-    ENCODED(EnumSet.of(MaterialSubCategory.Emission_Data,
-            MaterialSubCategory.Wake_Scans,
-            MaterialSubCategory.Shield_Data,
-            MaterialSubCategory.Encryption_Files,
-            MaterialSubCategory.Data_Archives,
-            MaterialSubCategory.Encoded_Firmware,
-            MaterialSubCategory.Thargoid_Data,
-            MaterialSubCategory.Guardian_Blueprint_Data,
-            MaterialSubCategory.Guardian_Obelisk_Data)),
+    ENCODED(EnumSet.of(MaterialSubCostCategory.Emission_Data,
+            MaterialSubCostCategory.Wake_Scans,
+            MaterialSubCostCategory.Shield_Data,
+            MaterialSubCostCategory.Encryption_Files,
+            MaterialSubCostCategory.Data_Archives,
+            MaterialSubCostCategory.Encoded_Firmware,
+            MaterialSubCostCategory.Thargoid_Data,
+            MaterialSubCostCategory.Guardian_Blueprint_Data,
+            MaterialSubCostCategory.Guardian_Obelisk_Data)),
 
     ;
 
-    private final EnumSet<MaterialSubCategory> categories;
+    private final EnumSet<MaterialSubCostCategory> categories;
 
-    MaterialType(EnumSet<MaterialSubCategory> categories)
+    MaterialType(EnumSet<MaterialSubCostCategory> categories)
     {
         this.categories = categories;
     }
 
-    public Stream<MaterialSubCategory> categories()
+    public Stream<MaterialSubCostCategory> categories()
     {
         return categories.stream();
     }

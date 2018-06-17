@@ -1,6 +1,6 @@
 package com.controllerface.edeps.structures.costs.commodities;
 
-import com.controllerface.edeps.ProcurementCategory;
+import com.controllerface.edeps.ProcurementCostCategory;
 import com.controllerface.edeps.ProcurementCost;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 4/11/2018.
  */
-public enum CommodityCategory implements ProcurementCategory
+public enum CommodityCostCategory implements ProcurementCostCategory
 {
     Drones(EnumSet.of(Commodity.DRONES)),
 
@@ -415,7 +415,7 @@ public enum CommodityCategory implements ProcurementCategory
 
     private final EnumSet<Commodity> commodities;
 
-    CommodityCategory(EnumSet<Commodity> commodities)
+    CommodityCostCategory(EnumSet<Commodity> commodities)
     {
         this.commodities = commodities;
     }
@@ -425,7 +425,7 @@ public enum CommodityCategory implements ProcurementCategory
         return commodities.contains(commodity);
     }
 
-    public static Optional<CommodityCategory> findMatchingCategory(ProcurementCost cost)
+    public static Optional<CommodityCostCategory> findMatchingCategory(ProcurementCost cost)
     {
         if (!(cost instanceof Commodity)) return Optional.empty();
         Commodity commodity = ((Commodity) cost);

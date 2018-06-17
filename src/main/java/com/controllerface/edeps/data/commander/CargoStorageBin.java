@@ -2,13 +2,13 @@ package com.controllerface.edeps.data.commander;
 
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
-import com.controllerface.edeps.structures.costs.commodities.CommodityCategory;
+import com.controllerface.edeps.structures.costs.commodities.CommodityCostCategory;
 import com.controllerface.edeps.structures.costs.commodities.CommodityType;
 
 import java.util.Arrays;
 
 /**
- * Storage bin object for Raw crafting materials
+ * Storage bin object for cargo items such as standard commodities, rare items, limpets, and power play objects
  *
  * NOTE: Mutable state data object
  *
@@ -27,7 +27,7 @@ class CargoStorageBin extends InventoryStorageBin
     {
         Arrays.stream(CommodityType.values())
                 .flatMap(CommodityType::categories)
-                .flatMap(CommodityCategory::commodities)
+                .flatMap(CommodityCostCategory::commodities)
                 .forEach(this::initializeItem);
     }
 }

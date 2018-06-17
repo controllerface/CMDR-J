@@ -2,6 +2,7 @@ package com.controllerface.edeps.data.procurements;
 
 import com.controllerface.edeps.ProcurementBlueprint;
 import com.controllerface.edeps.ProcurementCost;
+import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
@@ -16,12 +17,14 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Represents a single item type and count of that type, required to craft some specific craftable item. Objects of
@@ -53,6 +56,27 @@ public class ItemCostData
 
     private final AtomicBoolean recommendedTradesExpanded = new AtomicBoolean(false);
     private final AtomicBoolean otherTradesExpanded = new AtomicBoolean(false);
+
+    private enum TradeClassification
+    {
+        UNAFFORDABLE,
+        CONFLICTING,
+        COMMITTED,
+        RECOMMENDED
+    }
+
+    private static class ClassifiedTrade
+    {
+        private final TradeClassification classification;
+        private final ProcurementRecipe tradeRecipe;
+
+        private ClassifiedTrade(TradeClassification classification, ProcurementRecipe tradeRecipe)
+        {
+            this.classification = classification;
+            this.tradeRecipe = tradeRecipe;
+        }
+    }
+
 
     public ItemCostData(ProcurementCost cost,
                         Function<ProcurementCost, Integer> checkInventory,
@@ -125,17 +149,14 @@ public class ItemCostData
                 List<Label> insufficientTrades = new ArrayList<>();
                 List<Label> overCommittedTrades = new ArrayList<>();
 
-
                 Separator separator = new Separator();
                 separator.setPadding(new Insets(5,0,0,0));
                 locationContainer.getChildren().add(separator);
 
-                tradeBlueprint.get().recipeStream()
+                List<ClassifiedTrade> classifiedTrades = tradeBlueprint.get().recipeStream()
                         .sorted(UIFunctions.Sort.bestCostYieldRatio)
-                        .forEach(recipe->
+                        .map(recipe->
                         {
-                            Label label = new Label(recipe.getDisplayLabel());
-
                             boolean cannotAfford = recipe.costStream()
                                     .filter(costData -> costData.getQuantity() > 0)
                                     .anyMatch(costData -> checkInventory.apply(costData.getCost()) < costData.getQuantity());
@@ -153,46 +174,77 @@ public class ItemCostData
                                         return (checkInventory.apply(costData.getCost()) - committedCost) < costData.getQuantity();
                                     });
 
+                            TradeClassification classification;
+                            if (cannotAfford) classification = TradeClassification.UNAFFORDABLE;
+                            else if (isCached) classification = TradeClassification.CONFLICTING;
+                            else if (overCommitted) classification = TradeClassification.COMMITTED;
+                            else classification = TradeClassification.RECOMMENDED;
+
+                            return new ClassifiedTrade(classification, recipe);
+                        }).collect(Collectors.toList());
+
+
+                classifiedTrades.stream()
+                        .filter(trade -> trade.classification == TradeClassification.RECOMMENDED)
+                        .map(trade ->
+                        {
+                            CostData tradeCost = trade.tradeRecipe.costStream()
+                                    .filter(costData -> costData.getQuantity()>0).findAny()
+                                    .orElse(null);
+
+                            // todo: report error
+                            if (tradeCost == null) return null;
+
+                            Optional<MaterialTradeType> tradeType =
+                                    MaterialTradeType.findMatchingTradeType(((Material) tradeCost.getCost()));
+
+                            if (tradeType.isPresent())
+                            {
+                                ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), trade.tradeRecipe);
+                                Button button = new Button(trade.tradeRecipe.getDisplayLabel());
+                                button.setFont(UIFunctions.Fonts.size1Font);
+                                button.alignmentProperty().setValue(Pos.CENTER_LEFT);
+                                button.setOnMouseClicked((e)-> addTask.accept(tradeTask));
+                                return button;
+                            }
+                            return null;
+                        })
+                        .filter(Objects::nonNull)
+                        .forEach(recommendTrades::add);
+
+                classifiedTrades.stream()
+                        .filter(trade -> trade.classification == TradeClassification.UNAFFORDABLE)
+                        .map(trade ->
+                        {
+                            Label label = new Label(trade.tradeRecipe.getDisplayLabel());
                             label.setFont(UIFunctions.Fonts.size1Font);
+                            label.setTextFill(UIFunctions.Fonts.negativeRed);
+                            return label;
+                        })
+                        .forEach(insufficientTrades::add);
 
-                            if (isCached)
-                            {
-                                label.setTextFill(UIFunctions.Fonts.darkOrange);
-                                avoidedTrades.add(label);
-                            }
-                            else if (cannotAfford)
-                            {
-                                label.setTextFill(UIFunctions.Fonts.negativeRed);
-                                insufficientTrades.add(label);
-                            }
-                            else if (overCommitted)
-                            {
-                                label.setTextFill(UIFunctions.Fonts.darkYellow);
-                                overCommittedTrades.add(label);
-                            }
-                            else
-                            {
-                                CostData tradeCost = recipe.costStream()
-                                        .filter(costData -> costData.getQuantity()>0).findAny()
-                                        .orElse(null);
+                classifiedTrades.stream()
+                        .filter(trade -> trade.classification == TradeClassification.CONFLICTING)
+                        .map(trade ->
+                        {
+                            Label label = new Label(trade.tradeRecipe.getDisplayLabel());
+                            label.setFont(UIFunctions.Fonts.size1Font);
+                            label.setTextFill(UIFunctions.Fonts.darkOrange);
+                            return label;
+                        })
+                        .forEach(avoidedTrades::add);
 
-                                // todo: report error
-                                if (tradeCost == null) return;
+                classifiedTrades.stream()
+                        .filter(trade -> trade.classification == TradeClassification.COMMITTED)
+                        .map(trade ->
+                        {
+                            Label label = new Label(trade.tradeRecipe.getDisplayLabel());
+                            label.setFont(UIFunctions.Fonts.size1Font);
+                            label.setTextFill(UIFunctions.Fonts.darkYellow);
+                            return label;
+                        })
+                        .forEach(overCommittedTrades::add);
 
-                                Optional<MaterialTradeType> tradeType =
-                                        MaterialTradeType.findMatchingTradeType(((Material) tradeCost.getCost()));
-
-                                if (tradeType.isPresent())
-                                {
-                                    ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), recipe);
-                                    Button button = new Button(recipe.getDisplayLabel());
-                                    button.setFont(UIFunctions.Fonts.size1Font);
-                                    button.alignmentProperty().setValue(Pos.CENTER_LEFT);
-                                    button.setOnMouseClicked((e)-> addTask.accept(tradeTask));
-                                    recommendTrades.add(button);
-                                }
-                            }
-                        });
 
                 if (recommendTrades.isEmpty())
                 {
@@ -247,21 +299,21 @@ public class ItemCostData
                         Label committedLabel = new Label("Committed to Other Trades");
                         committedLabel.setFont(UIFunctions.Fonts.size1Font);
                         vBox.getChildren().add(committedLabel);
-                        overCommittedTrades.stream().forEach(trade -> vBox.getChildren().add(trade));
+                        overCommittedTrades.forEach(trade -> vBox.getChildren().add(trade));
                     }
                     if (!avoidedTrades.isEmpty())
                     {
                         Label avoidLabel = new Label("Conflicts with Ongoing Tasks");
                         avoidLabel.setFont(UIFunctions.Fonts.size1Font);
                         vBox.getChildren().add(avoidLabel);
-                        avoidedTrades.stream().forEach(trade -> vBox.getChildren().add(trade));
+                        avoidedTrades.forEach(trade -> vBox.getChildren().add(trade));
                     }
                     if (!insufficientTrades.isEmpty())
                     {
                         Label insufficientLabel = new Label("Insufficient Materials");
                         insufficientLabel.setFont(UIFunctions.Fonts.size1Font);
                         vBox.getChildren().add(insufficientLabel);
-                        insufficientTrades.stream().forEach(trade->vBox.getChildren().add(trade));
+                        insufficientTrades.forEach(trade->vBox.getChildren().add(trade));
                     }
 
                     tradePane.setContent(vBox);
@@ -337,36 +389,6 @@ public class ItemCostData
         costLabel.setPrefHeight(20);
         costLabel.setFont(UIFunctions.Fonts.size2Font);
         costLabel.paddingProperty().set(new Insets(2,5,2,5));
-
-//        progressBar.setProgress(progress);
-//
-//        if (progress >= 1.0)
-//        {
-//            progressBar.setStyle("-fx-accent: #00b3f7");
-//        }
-//        else
-//        {
-//            Integer pending = pendingTradeYield.apply(cost);
-//            double adjustedProgress = progress;
-//
-//            if (pending != null)
-//            {
-//                adjustedProgress = ((double) getHave() + pending) / ((double) getNeed());
-//            }
-//            progressBar.setProgress(adjustedProgress);
-//
-//            if (adjustedProgress >= 1.0)
-//            {
-//                progressBar.setStyle("-fx-accent: #d9b3ff");
-//            }
-//            else
-//            {
-//                if (pending == null) progressBar.setStyle("-fx-accent: #ff0000");
-//                else progressBar.setStyle("-fx-accent: #ffaaaa");
-//
-//            }
-//        }
-
 
         renderProgress();
 

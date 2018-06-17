@@ -3,9 +3,9 @@ package com.controllerface.edeps.data.commander;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
-import com.controllerface.edeps.structures.costs.commodities.CommodityCategory;
+import com.controllerface.edeps.structures.costs.commodities.CommodityCostCategory;
 import com.controllerface.edeps.structures.costs.materials.Material;
-import com.controllerface.edeps.structures.costs.materials.MaterialSubCategory;
+import com.controllerface.edeps.structures.costs.materials.MaterialSubCostCategory;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalBlueprint;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
@@ -74,8 +74,8 @@ public class InventoryData
         this.material = material;
         this.quantity = quantity;
         this.gradeOrdinal = material.getGrade().getNumericalValue();
-        this.categoryOrdinal = MaterialSubCategory.findMatchingSubCategory(material)
-                .map(MaterialSubCategory::getNumericalValue)
+        this.categoryOrdinal = MaterialSubCostCategory.findMatchingSubCategory(material)
+                .map(MaterialSubCostCategory::getNumericalValue)
                 .orElse(-1);
         progressBar.setPadding(new Insets(0,10,0,0));
     }
@@ -93,14 +93,14 @@ public class InventoryData
         String category = "";
         if (cost instanceof Material)
         {
-            Optional<MaterialSubCategory> matchingSubCategory = MaterialSubCategory.findMatchingSubCategory(cost);
+            Optional<MaterialSubCostCategory> matchingSubCategory = MaterialSubCostCategory.findMatchingSubCategory(cost);
             category = matchingSubCategory.isPresent()
                     ? matchingSubCategory.get().toString()
                     : "(Unknown Material)" + cost;
         }
         else if (cost instanceof Commodity)
         {
-            Optional<CommodityCategory> matchingCategory = CommodityCategory.findMatchingCategory(cost);
+            Optional<CommodityCostCategory> matchingCategory = CommodityCostCategory.findMatchingCategory(cost);
             category = matchingCategory.isPresent()
                     ? matchingCategory.get().toString()
                     : "(Unknown Commodity)" + cost;
