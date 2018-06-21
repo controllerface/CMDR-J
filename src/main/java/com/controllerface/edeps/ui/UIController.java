@@ -562,7 +562,7 @@ public class UIController
      */
     private void initializeShipLoadoutTab()
     {
-        commanderData.getLocation().associateStarStystem(locationLabel);
+        commanderData.getLocation().associateStarSystem(locationLabel);
         commanderData.getStarShip().associateShipManufacturer(shipMakeLabel);
         commanderData.getStarShip().associateShipGivenName(shipNameLabel);
         commanderData.getStarShip().associateShipDisplayName(shipTypeLabel);

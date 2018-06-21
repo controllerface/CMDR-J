@@ -10,35 +10,35 @@ import java.util.stream.Stream;
  */
 public enum CommodityType
 {
-    COMMODITY(EnumSet.of(CommodityCategory.Chemicals,
-            CommodityCategory.Consumer_Items,
-            CommodityCategory.Legal_Drugs,
-            CommodityCategory.Foods,
-            CommodityCategory.Industrial_Materials,
-            CommodityCategory.Machinery,
-            CommodityCategory.Medicines,
-            CommodityCategory.Metals,
-            CommodityCategory.Minerals,
-            CommodityCategory.Salvage,
-            CommodityCategory.Slaves,
-            CommodityCategory.Technology,
-            CommodityCategory.Textiles,
-            CommodityCategory.Waste,
-            CommodityCategory.Weapons,
-            CommodityCategory.Drones)),
+    COMMODITY(EnumSet.of(CommodityCostCategory.Chemicals,
+            CommodityCostCategory.Consumer_Items,
+            CommodityCostCategory.Legal_Drugs,
+            CommodityCostCategory.Foods,
+            CommodityCostCategory.Industrial_Materials,
+            CommodityCostCategory.Machinery,
+            CommodityCostCategory.Medicines,
+            CommodityCostCategory.Metals,
+            CommodityCostCategory.Minerals,
+            CommodityCostCategory.Salvage,
+            CommodityCostCategory.Slaves,
+            CommodityCostCategory.Technology,
+            CommodityCostCategory.Textiles,
+            CommodityCostCategory.Waste,
+            CommodityCostCategory.Weapons,
+            CommodityCostCategory.Drones)),
 
-    FACTION(EnumSet.of(CommodityCategory.Power_Play)),
+    FACTION(EnumSet.of(CommodityCostCategory.Power_Play)),
 
     ;
 
-    private final EnumSet<CommodityCategory> categories;
+    private final EnumSet<CommodityCostCategory> categories;
 
-    CommodityType(EnumSet<CommodityCategory> categories)
+    CommodityType(EnumSet<CommodityCostCategory> categories)
     {
         this.categories = categories;
     }
 
-    public Stream<CommodityCategory> categories()
+    public Stream<CommodityCostCategory> categories()
     {
         return categories.stream();
     }

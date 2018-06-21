@@ -13,7 +13,7 @@ public class CommanderLocation
     private StarSystem starSystem;
     private final SimpleStringProperty currentLocation = new SimpleStringProperty("Nowhere");
 
-    public void associateStarStystem(Label systemLabel)
+    public void associateStarSystem(Label systemLabel)
     {
         systemLabel.textProperty().bind(currentLocation);
     }
