@@ -162,6 +162,9 @@ public class UIController
     Inventory Panel
      */
 
+    @FXML private TabPane inventoryTab;
+    @FXML private CheckBox showZeroQuantities;
+
     // Raw materials
     @FXML private TableView<InventoryData> rawTable;
     @FXML private TableColumn<InventoryData, InventoryData> rawGradeColumn;
@@ -443,13 +446,28 @@ public class UIController
         Label recipeTableLabel = new Label("Selected tasks will appear here");
         Label costTableLabel = new Label("Items needed for selected tasks will appear here");
 
-        procListLabel.setFont(UIFunctions.Fonts.size1Font);
-        recipeTableLabel.setFont(UIFunctions.Fonts.size1Font);
-        costTableLabel.setFont(UIFunctions.Fonts.size1Font);
+        procListLabel.setFont(UIFunctions.Fonts.size4Font);
+        recipeTableLabel.setFont(UIFunctions.Fonts.size4Font);
+        costTableLabel.setFont(UIFunctions.Fonts.size4Font);
 
         procurementList.setPlaceholder(procListLabel);
         procurementTaskTable.setPlaceholder(recipeTableLabel);
         taskCostTable.setPlaceholder(costTableLabel);
+
+        Label cargoTableLabel = new Label("You are not carrying any cargo");
+        Label rawTableLabel = new Label("You are not carrying any raw materials");
+        Label mfdTableLabel = new Label("You are not carrying any manufactured materials");
+        Label dataTableLabel = new Label("You are not carrying any encoded data");
+
+        cargoTableLabel.setFont(UIFunctions.Fonts.size4Font);
+        rawTableLabel.setFont(UIFunctions.Fonts.size4Font);
+        mfdTableLabel.setFont(UIFunctions.Fonts.size4Font);
+        dataTableLabel.setFont(UIFunctions.Fonts.size4Font);
+
+        cargoTable.setPlaceholder(cargoTableLabel);
+        rawTable.setPlaceholder(rawTableLabel);
+        manufacturedTable.setPlaceholder(mfdTableLabel);
+        dataTable.setPlaceholder(dataTableLabel);
     }
 
     /**
@@ -458,10 +476,10 @@ public class UIController
     private void initializeInventoryTables()
     {
         // associate the inventory lists with the table view UI elements that display their contents
-        commanderData.associateCargoTable(cargoTable);
-        commanderData.associateRawTable(rawTable);
-        commanderData.associateManufacturedTable(manufacturedTable);
-        commanderData.associateDataTable(dataTable);
+        commanderData.associateCargoTable(cargoTable, showZeroQuantities);
+        commanderData.associateRawTable(rawTable, showZeroQuantities);
+        commanderData.associateManufacturedTable(manufacturedTable, showZeroQuantities);
+        commanderData.associateDataTable(dataTable, showZeroQuantities);
 
         // set sorting comparators for each data column
         rawGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);

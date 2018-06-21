@@ -5,10 +5,13 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 /**
  * An abstract storage bin object, used to keep track of a single category of items. Implementations will contain
@@ -46,6 +49,15 @@ abstract class InventoryStorageBin
     protected abstract boolean check(ProcurementCost item);
 
     /**
+     * A CheckBox UI element that controls the UI synchronization process. This is initialized to a non-null instance
+     * and defaulted to "unchecked" as a defensive measure to ensure that, in the absence of this being set to an
+     * actual user facing checkbox, the observable items will have some default behavior. In this case, the default
+     * behavior will be to hide zero quantity elements from the observable view. Care should be taken not to set this
+     * value to null.
+     */
+    private CheckBox showZeroQuantities = new CheckBox();
+
+    /**
      * Called by the abstract class upon creating to setup the storage bin. Typically, this will initialize all of
      * the supported ProcurementCost items for a given implementation with 0 counts.
      */
@@ -53,12 +65,19 @@ abstract class InventoryStorageBin
 
     InventoryStorageBin()
     {
+        showZeroQuantities.setSelected(false);
         init();
         synchronize();
     }
 
-    void associateTableView(TableView<InventoryData> tableView)
+    void associateTableView(TableView<InventoryData> tableView, CheckBox showZeroQuantities)
     {
+        if (showZeroQuantities != null)
+        {
+            this.showZeroQuantities = showZeroQuantities;
+            this.showZeroQuantities.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> synchronize());
+        }
+
         tableView.setItems(observableInventory);
         observableInventory.addListener((ListChangeListener<InventoryData>) c -> tableView.refresh());
     }
@@ -159,7 +178,15 @@ abstract class InventoryStorageBin
             synchronized (observableInventory)
             {
                 observableInventory.clear();
-                observableInventory.addAll(inventory);
+                if (showZeroQuantities.isSelected()) observableInventory.addAll(inventory);
+                else
+                {
+                    List<InventoryData> nonZeroItems = inventory.stream()
+                            .filter(item -> item.getQuantity() > 0)
+                            .collect(Collectors.toList());
+
+                    observableInventory.addAll(nonZeroItems);
+                }
             }
         });
     }

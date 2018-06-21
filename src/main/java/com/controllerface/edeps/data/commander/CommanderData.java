@@ -9,6 +9,7 @@ import com.controllerface.edeps.structures.costs.commodities.CommodityType;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.costs.materials.MaterialType;
 import com.controllerface.edeps.structures.equipment.ships.Ship;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
 
 import java.util.LinkedHashMap;
@@ -60,24 +61,24 @@ public class CommanderData
     private final Map<Statistic, String> stats = new ConcurrentHashMap<>(new LinkedHashMap<>());
 
 
-    public void associateCargoTable(TableView<InventoryData> cargoTable)
+    public void associateCargoTable(TableView<InventoryData> cargoTable, CheckBox showZeroQuantities)
     {
-        cargo.associateTableView(cargoTable);
+        cargo.associateTableView(cargoTable, showZeroQuantities);
     }
 
-    public void associateRawTable(TableView<InventoryData> rawTable)
+    public void associateRawTable(TableView<InventoryData> rawTable, CheckBox showZeroQuantities)
     {
-        rawMats.associateTableView(rawTable);
+        rawMats.associateTableView(rawTable, showZeroQuantities);
     }
 
-    public void associateManufacturedTable(TableView<InventoryData> mfdTable)
+    public void associateManufacturedTable(TableView<InventoryData> mfdTable, CheckBox showZeroQuantities)
     {
-        mfdMats.associateTableView(mfdTable);
+        mfdMats.associateTableView(mfdTable, showZeroQuantities);
     }
 
-    public void associateDataTable(TableView<InventoryData> dataTable)
+    public void associateDataTable(TableView<InventoryData> dataTable, CheckBox showZeroQuantities)
     {
-        dataMats.associateTableView(dataTable);
+        dataMats.associateTableView(dataTable, showZeroQuantities);
     }
 
     /**
