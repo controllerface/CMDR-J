@@ -12,7 +12,7 @@
    <children>
       <TabPane fx:id="mainPane" layoutX="14.0" layoutY="14.0" prefHeight="950.0" prefWidth="1130.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-            <Tab text="Ship Loadout">
+            <Tab text="Loadout">
               <content>
                 <AnchorPane>
                      <children>
@@ -97,7 +97,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
                                        <HBox.margin>
-                                          <Insets top="-18.0" />
+                                          <Insets top="-15.0" />
                                        </HBox.margin>
                                     </Label>
                                     <Label fx:id="shipNameLabel" text="unknown name">
@@ -259,7 +259,7 @@
                                         <content>
                                             <TableView fx:id="rawTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                                                 <columns>
-                                                    <TableColumn fx:id="rawQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Have" />
+                                                    <TableColumn fx:id="rawQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantity" />
                                                     <TableColumn fx:id="rawMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
                                                     <TableColumn fx:id="rawGradeColumn" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Grade" />
                                                 </columns>
@@ -270,7 +270,7 @@
                                         <content>
                                             <TableView fx:id="manufacturedTable" prefHeight="200.0" prefWidth="200.0">
                                                 <columns>
-                                                    <TableColumn fx:id="manufacturedQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Have" />
+                                                    <TableColumn fx:id="manufacturedQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantity" />
                                                     <TableColumn fx:id="manufacturedMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
                                                     <TableColumn fx:id="manufacturedGradeColumn" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Grade" />
                                                 </columns>
@@ -281,7 +281,7 @@
                                         <content>
                                             <TableView fx:id="dataTable" prefHeight="371.0" prefWidth="551.0">
                                                 <columns>
-                                                    <TableColumn fx:id="dataQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Have" />
+                                                    <TableColumn fx:id="dataQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantity" />
                                                     <TableColumn fx:id="dataMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
                                                     <TableColumn fx:id="dataGradeColumn" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Grade" />
                                                 </columns>
@@ -292,7 +292,7 @@
                                        <content>
                                           <TableView fx:id="cargoTable" prefHeight="371.0" prefWidth="551.0">
                                              <columns>
-                                                <TableColumn fx:id="cargoQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Have" />
+                                                <TableColumn fx:id="cargoQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantity" />
                                                 <TableColumn fx:id="cargoItemColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="204.0" resizable="false" text="Commodity" />
                                                 <TableColumn fx:id="cargoGradeColumn" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Type" />
                                              </columns>
@@ -311,7 +311,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Procurement Tasks">
+          <Tab text="Tasks">
             <content>
               <AnchorPane>
                      <children>
@@ -329,10 +329,13 @@
                                     </Label>
                                     <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="showProcurements" alignment="CENTER" mnemonicParsing="false" selected="true" text="Procurements ">
+                                          <CheckBox fx:id="showProcurements" alignment="CENTER" mnemonicParsing="false" selected="true" text="Procurement Tasks">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
+                                             <padding>
+                                                <Insets right="5.0" />
+                                             </padding>
                                           </CheckBox>
                                        </children>
                                        <HBox.margin>
@@ -341,10 +344,13 @@
                                     </AnchorPane>
                                     <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="showTasks" alignment="CENTER" mnemonicParsing="false" selected="true" text="Tasks ">
+                                          <CheckBox fx:id="showTasks" alignment="CENTER" mnemonicParsing="false" selected="true" text="Tracked Tasks ">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
+                                             <padding>
+                                                <Insets right="5.0" />
+                                             </padding>
                                           </CheckBox>
                                        </children>
                                        <HBox.margin>
@@ -353,10 +359,13 @@
                                     </AnchorPane>
                                     <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="showItemsNeeded" alignment="CENTER" mnemonicParsing="false" selected="true" text="Items Needed ">
+                                          <CheckBox fx:id="showItemsNeeded" alignment="CENTER" mnemonicParsing="false" selected="true" text="Tracked Items">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
+                                             <padding>
+                                                <Insets right="5.0" />
+                                             </padding>
                                           </CheckBox>
                                        </children>
                                        <HBox.margin>
@@ -394,7 +403,7 @@
                                              <children>
                                                 <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="25.0">
                                                    <children>
-                                                      <Label alignment="TOP_LEFT" text="Sort Tasks">
+                                                      <Label alignment="TOP_LEFT" text="Sort Tracked Tasks">
                                                          <HBox.margin>
                                                             <Insets left="5.0" right="5.0" />
                                                          </HBox.margin>
@@ -426,7 +435,7 @@
                                                 <TableView fx:id="procurementTaskTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
                                                     <TableColumn fx:id="taskCountColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Count" />
-                                                    <TableColumn fx:id="taskNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" resizable="false" sortable="false" text="Tasks" />
+                                                    <TableColumn fx:id="taskNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" resizable="false" sortable="false" text="Tracked Tasks" />
                                                       <TableColumn fx:id="taskRemoveColumn" editable="false" maxWidth="598.0" minWidth="23.0" prefWidth="28.0" resizable="false" sortable="false" />
                                                   </columns>
                                                 </TableView>
@@ -437,7 +446,7 @@
                                     <TableView fx:id="taskCostTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                       <columns>
                                           <TableColumn fx:id="taskCostNeedColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Need" />
-                                          <TableColumn fx:id="taskCostNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="291.0" resizable="false" sortable="false" text="Items Needed" />
+                                          <TableColumn fx:id="taskCostNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="291.0" resizable="false" sortable="false" text="Tracked Items" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -448,7 +457,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Information Log">
+            <Tab text="Event Log">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

@@ -442,9 +442,9 @@ public class UIController
     private void initializeTextPlaceholders()
     {
         // set placeholder labels shown when the procurement list is empty
-        Label procListLabel = new Label("<---- Select a task category from the tree on the left");
-        Label recipeTableLabel = new Label("Selected tasks will appear here");
-        Label costTableLabel = new Label("Items needed for selected tasks will appear here");
+        Label procListLabel = new Label("<---- Select a Procurement Task Category");
+        Label recipeTableLabel = new Label("Tracked Tasks Will Appear Here");
+        Label costTableLabel = new Label("Tracked Items Will Appear Here");
 
         procListLabel.setFont(UIFunctions.Fonts.size4Font);
         recipeTableLabel.setFont(UIFunctions.Fonts.size4Font);
