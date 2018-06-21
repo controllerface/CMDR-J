@@ -71,7 +71,7 @@ public enum JournalEvent
         logExplorationMessage(context, "Spawned in the " + name + " System");
         List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
         StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
-        context.getCommanderData().getLocation().setStarSystem(system);
+        context.getCommanderData().setLocation(system);
     })),
 
     FSDJump((context ->
@@ -80,7 +80,7 @@ public enum JournalEvent
         logExplorationMessage(context, "Arrived in the " + name + " System");
         List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
         StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
-        context.getCommanderData().getLocation().setStarSystem(system);
+        context.getCommanderData().setLocation(system);
     })),
 
     /**

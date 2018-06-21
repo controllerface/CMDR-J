@@ -48,6 +48,7 @@ import com.controllerface.edeps.ui.tasks.TaskDataCell;
 import com.controllerface.edeps.ui.tasks.TaskRemoveCell;
 import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -74,8 +75,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
+import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -111,15 +111,15 @@ public class UIController
     @FXML private TableColumn<ShipStatisticData, String> shipStatisticsNameColumn;
     @FXML private TableColumn<ShipStatisticData, ShipStatisticData> shipStatisticsDataColumn;
 
-    @FXML private TableView<ShipModuleData> coreModuleList;
+    @FXML private TableView<ShipModuleData> coreModuleTable;
     @FXML private TableColumn<ShipModuleData, String> coreModuleNameColumn;
     @FXML private TableColumn<ShipModuleData, ShipModuleData> coreModuleDataColumn;
 
-    @FXML private TableView<ShipModuleData> optionalModuleList;
+    @FXML private TableView<ShipModuleData> optionalModuleTable;
     @FXML private TableColumn<ShipModuleData, String> optionalModuleNameColumn;
     @FXML private TableColumn<ShipModuleData, ShipModuleData> optionalModuleDataColumn;
 
-    @FXML private TableView<ShipModuleData> hardpointList;
+    @FXML private TableView<ShipModuleData> hardpointTable;
     @FXML private TableColumn<ShipModuleData, String> hardpointNameColumn;
     @FXML private TableColumn<ShipModuleData, ShipModuleData> hardpointDataColumn;
 
@@ -204,14 +204,11 @@ public class UIController
 
     private final ObservableList<MessageData> consoleBackingList = FXCollections.observableArrayList();
 
-
     /*
     =============================
     === END UI Components area ===
     =============================
      */
-
-
 
     /**
      * Holds all of the data related to a commander (i.e. the player's on-disk data). While running, this application
@@ -553,9 +550,9 @@ public class UIController
         commanderData.getStarShip().associateShipDisplayName(shipTypeLabel);
         commanderData.getStarShip().associateShipID(shipIDLabel);
         commanderData.getStarShip().associateStatisticsTable(shipStatisticsTable);
-        commanderData.getStarShip().associateCoreTable(coreModuleList);
-        commanderData.getStarShip().associateOptionalTable(optionalModuleList);
-        commanderData.getStarShip().associateHardpointTable(hardpointList);
+        commanderData.getStarShip().associateCoreTable(coreModuleTable);
+        commanderData.getStarShip().associateOptionalTable(optionalModuleTable);
+        commanderData.getStarShip().associateHardpointTable(hardpointTable);
 
         shipStatisticsNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
         shipStatisticsNameColumn.setCellFactory(x -> new StatDataCell());
@@ -584,77 +581,16 @@ public class UIController
      */
     private void initializeAutoResizeBindings()
     {
-        DoubleBinding rawTableWidthUsed = rawGradeColumn.widthProperty()
-                .add(rawQuantityColumn.widthProperty())
-                .add(UIFunctions.scrollBarAllowance);
-
-        rawMaterialColumn.prefWidthProperty()
-                .bind(rawTable.widthProperty().subtract(rawTableWidthUsed));
-
-
-        DoubleBinding mfdTableWidthUsed = manufacturedGradeColumn.widthProperty()
-                .add(manufacturedQuantityColumn.widthProperty())
-                .add(UIFunctions.scrollBarAllowance);
-
-        manufacturedMaterialColumn.prefWidthProperty()
-                .bind(manufacturedTable.widthProperty().subtract(mfdTableWidthUsed));
-
-
-        DoubleBinding dataTableWidthUsed = dataGradeColumn.widthProperty()
-                .add(dataQuantityColumn.widthProperty())
-                .add(UIFunctions.scrollBarAllowance);
-
-        dataMaterialColumn.prefWidthProperty()
-                .bind(dataTable.widthProperty().subtract(dataTableWidthUsed));
-
-
-        DoubleBinding cargoTableWidthUsed = cargoGradeColumn.widthProperty()
-                .add(cargoQuantityColumn.widthProperty())
-                .add(UIFunctions.scrollBarAllowance);
-
-        cargoItemColumn.prefWidthProperty()
-                .bind(cargoTable.widthProperty().subtract(cargoTableWidthUsed));
-
-
-        DoubleBinding recipeTableWidthUsed = taskCountColumn.widthProperty()
-                .add(taskRemoveColumn.widthProperty())
-                .add(UIFunctions.scrollBarAllowance);
-
-        taskNameColumn.prefWidthProperty()
-                .bind(procurementTaskTable.widthProperty()
-                        .subtract(recipeTableWidthUsed));
-
-
-        DoubleBinding costTableWidthUsed = taskCostNeedColumn.widthProperty()
-                .add(UIFunctions.scrollBarAllowance);
-
-        taskCostNameColumn.prefWidthProperty()
-                .bind(taskCostTable.widthProperty()
-                        .subtract(costTableWidthUsed));
-
-
-        DoubleBinding shipTable1WidthUsed = coreModuleNameColumn.widthProperty()
-                .add(UIFunctions.scrollBarAllowance);
-
-        coreModuleDataColumn.prefWidthProperty()
-                .bind(coreModuleList.widthProperty()
-                        .subtract(shipTable1WidthUsed));
-
-
-        DoubleBinding shipTable2WidthUsed = optionalModuleNameColumn.widthProperty()
-                .add(UIFunctions.scrollBarAllowance);
-
-        optionalModuleDataColumn.prefWidthProperty()
-                .bind(optionalModuleList.widthProperty()
-                        .subtract(shipTable2WidthUsed));
-
-
-        DoubleBinding shipTable3WidthUsed = hardpointNameColumn.widthProperty()
-                .add(UIFunctions.scrollBarAllowance);
-
-        hardpointDataColumn.prefWidthProperty()
-                .bind(hardpointList.widthProperty()
-                        .subtract(shipTable3WidthUsed));
+        bindTableResize(shipStatisticsTable, shipStatisticsDataColumn);
+        bindTableResize(rawTable, rawMaterialColumn);
+        bindTableResize(manufacturedTable, manufacturedMaterialColumn);
+        bindTableResize(dataTable, dataMaterialColumn);
+        bindTableResize(cargoTable, cargoItemColumn);
+        bindTableResize(procurementTaskTable, taskNameColumn);
+        bindTableResize(taskCostTable, taskCostNameColumn);
+        bindTableResize(coreModuleTable, coreModuleDataColumn);
+        bindTableResize(optionalModuleTable, optionalModuleDataColumn);
+        bindTableResize(hardpointTable, hardpointDataColumn);
     }
 
     /**
@@ -663,41 +599,104 @@ public class UIController
      */
     private void initializeSelectionOverrides()
     {
-        procurementTree.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> procurementTree.getSelectionModel().clearSelection()));
+        disableListSelection(consoleMessageList);
 
-        procurementList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> procurementList.getSelectionModel().clearSelection()));
+        disableTreeSelection(procurementTree);
+        disableListSelection(procurementList);
 
-        rawTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> rawTable.getSelectionModel().clearSelection()));
+        disableTableSelection(rawTable);
+        disableTableSelection(manufacturedTable);
+        disableTableSelection(dataTable);
+        disableTableSelection(cargoTable);
 
-        manufacturedTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> manufacturedTable.getSelectionModel().clearSelection()));
+        disableTableSelection(procurementTaskTable);
+        disableTableSelection(taskCostTable);
 
-        dataTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> dataTable.getSelectionModel().clearSelection()));
+        disableTableSelection(shipStatisticsTable);
+        disableTableSelection(coreModuleTable);
+        disableTableSelection(optionalModuleTable);
+        disableTableSelection(hardpointTable);
+    }
 
-        cargoTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> cargoTable.getSelectionModel().clearSelection()));
+    /**
+     * Binds a given table column's width to a variable size equal to the "free" horizontal space in its parent table.
+     * This variable value automatically updates as the containing table is re-sized. In order to work effectively, all
+     * other columns in the provided table should have static widths, and in general the total widths of other columns
+     * combined should leave some reasonable amount of free space. When calculating the space to use, the value of
+     * {@link UIFunctions#scrollBarAllowance} will be used to ensure scroll bars will work properly.
+     *
+     * The provided table and column must not be null, and the provided column must actually be a child of the table
+     * or this method will have no effect.
+     *
+     * @param table parent table to derive the base width value from
+     * @param column child column to bind to the "free" space in the table
+     */
+    private <T> void bindTableResize(TableView<T> table, TableColumn<T, ?> column)
+    {
+        // sanity checks
+        Objects.requireNonNull(table);
+        Objects.requireNonNull(column);
+        if (!table.getColumns().contains(column)) return;
 
-        procurementTaskTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> procurementTaskTable.getSelectionModel().clearSelection()));
+        // collect sibling widths
+        List<ReadOnlyDoubleProperty> siblingWidths = table.getColumns().stream()
+                .filter(childColumn -> !childColumn.equals(column))
+                .map(TableColumnBase::widthProperty)
+                .collect(Collectors.toList());
 
-        taskCostTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> taskCostTable.getSelectionModel().clearSelection()));
+        // initialize binding with the scrollbar allowance
+        DoubleBinding bindingWidth = table.widthProperty().subtract(UIFunctions.scrollBarAllowance);
 
-        shipStatisticsTable.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> shipStatisticsTable.getSelectionModel().clearSelection()));
+        // subtract all sibling widths from the calculated width binding
+        for (ReadOnlyDoubleProperty siblingWidth : siblingWidths)
+        {
+            bindingWidth = bindingWidth.subtract(siblingWidth);
+        }
 
-        coreModuleList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> coreModuleList.getSelectionModel().clearSelection()));
+        // set the calculated binding
+        column.prefWidthProperty().bind(bindingWidth);
+    }
 
-        optionalModuleList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> optionalModuleList.getSelectionModel().clearSelection()));
+    /**
+     * Binds a selection listener to a TreeView object that automatically clears the object's selection, having the
+     * visual effect of disabling the colored selection box around the selected item. The container object that the
+     * TreeView is within will still have a very small outline of the selection color, which is unfortunately
+     * unavoidable. This is however better visually than the jarring selection highlight.
+     *
+     * @param treeView tree view object to "disable" selection behavior
+     */
+    private void disableTreeSelection(TreeView treeView)
+    {
+        treeView.getSelectionModel().selectedIndexProperty()
+                .addListener((x,y,z) -> Platform.runLater(() -> treeView.getSelectionModel().clearSelection()));
+    }
 
-        hardpointList.getSelectionModel().selectedIndexProperty().addListener((observable, oldvalue, newValue) ->
-                Platform.runLater(() -> hardpointList.getSelectionModel().clearSelection()));
+    /**
+     * Binds a selection listener to a ListView object that automatically clears the object's selection, having the
+     * visual effect of disabling the colored selection box around the selected item. The container object that the
+     * ListView is within will still have a very small outline of the selection color, which is unfortunately
+     * unavoidable. This is however better visually than the jarring selection highlight.
+     *
+     * @param listView list view object to "disable" selection behavior
+     */
+    private void disableListSelection(ListView listView)
+    {
+        listView.getSelectionModel().selectedIndexProperty()
+                .addListener((x,y,z) -> Platform.runLater(() -> listView.getSelectionModel().clearSelection()));
+    }
+
+    /**
+     * Binds a selection listener to a TableView object that automatically clears the object's selection, having the
+     * visual effect of disabling the colored selection box around the selected item. The container object that the
+     * TableView is within will still have a very small outline of the selection color, which is unfortunately
+     * unavoidable. This is however better visually than the jarring selection highlight.
+     *
+     * @param tableView table view object to "disable" selection behavior
+     */
+    private void disableTableSelection(TableView tableView)
+    {
+        tableView.getSelectionModel().selectedIndexProperty()
+                .addListener((x,y,z) -> Platform.runLater(() -> tableView.getSelectionModel().clearSelection()));
     }
 
     /**
