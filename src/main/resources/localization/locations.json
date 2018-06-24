@@ -211,7 +211,7 @@
       "Produced by: Industrial",
       "Consumed by: Agricultural"
     ],
-    "MICROBIALFURNACES": [
+    "HELIOSTATICFURNACES": [
       "Produced by: High Tech",
       "Consumed by: Refinery"
     ],
@@ -378,7 +378,7 @@
     "LITHIUMHYDROXIDE": [
       ""
     ],
-    "LOWTEMPERATUREDIAMONDS": [
+    "LOWTEMPERATUREDIAMOND": [
       ""
     ],
     "METHANECLATHRATE": [
@@ -444,7 +444,7 @@
     "USSCARGOBLACKBOX": [
       ""
     ],
-    "COMMERCIALSAMPLES": [
+    "COMERCIALSAMPLES": [
       ""
     ],
     "DAMAGEDESCAPEPOD": [
@@ -462,7 +462,7 @@
     "ENCRYPTEDCORRESPONDENCE": [
       ""
     ],
-    "ENCRYPTEDDATASTORAGE": [
+    "ENCRIPTEDDATASTORAGE": [
       ""
     ],
     "USSCARGOEXPERIMENTALCHEMICALS": [
@@ -480,7 +480,7 @@
     "HOSTAGE": [
       ""
     ],
-    "LARGESURVEYDATACACHE": [
+    "LARGEEXPLORATIONDATACASH": [
       ""
     ],
     "MILITARYINTELLIGENCE": [
@@ -525,7 +525,7 @@
     "SCIENTIFICSAMPLES": [
       ""
     ],
-    "SMALLSURVEYDATACACHE": [
+    "SMALLEXPLORATIONDATACASH": [
       ""
     ],
     "SPACEPIONEERRELICS": [

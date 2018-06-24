@@ -116,6 +116,16 @@ public class CommanderData
         return starShip;
     }
 
+    public void setStation(String station)
+    {
+        location.setStation(station);
+    }
+
+    public void setEconomy(String economy)
+    {
+        location.setEconomy(economy);
+    }
+
     public void setLocation(StarSystem starSystem)
     {
         location.setStarSystem(starSystem);

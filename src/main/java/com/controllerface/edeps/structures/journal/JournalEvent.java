@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * This enum defines all of the Journal API events that are currently supported. By convention, enum value names are
@@ -65,10 +66,65 @@ public enum JournalEvent
         setStatFromData(context, PlayerStat.Ship_Ident);
     }),
 
+    Docked((context ->
+    {
+        String name = ((String) context.getRawData().get("StationName"));
+        List<Map<String, Object>> economies = ((List<Map<String,Object>>) context.getRawData().get("StationEconomies"));
+        String economy = economies.stream()
+                .map(economyType -> ((String) economyType.get("Name_Localised")))
+                .collect(Collectors.joining(", "));
+
+        logTravelMessage(context, "Docked at " + name + " :: " + economy + " Economy");
+
+        context.getCommanderData().setStation(name);
+        context.getCommanderData().setEconomy(economy);
+
+    })),
+
+    Undocked((context ->
+    {
+        String name = ((String) context.getRawData().get("StationName"));
+        logTravelMessage(context, "Leaving " + name);
+
+        context.getCommanderData().setStation("Undocked");
+        context.getCommanderData().setEconomy("No Market");
+    })),
+
+    StartJump((context ->
+    {
+        String jumpType = ((String) context.getRawData().get("JumpType"));
+
+        logTravelMessage(context, jumpType + " Jump Initiated");
+
+        String system = ((String) context.getRawData().get("StarSystem"));
+        if (system !=null)
+        {
+            String currentSystem = context.getCommanderData().getLocation().getStarSystem().getSystemName();
+            logTravelMessage(context, "Leaving the " + currentSystem + " System; Jumping to " + system);
+        }
+
+        context.getCommanderData().setStation("Undocked");
+        context.getCommanderData().setEconomy("No Market");
+    })),
+
+
+    SupercruiseEntry((context ->
+    {
+        String system = ((String) context.getRawData().get("StarSystem"));
+        logTravelMessage(context, system + " :: Entered Supercruise");
+    })),
+
+    SupercruiseExit((context ->
+    {
+        String system = ((String) context.getRawData().get("StarSystem"));
+        String body = ((String) context.getRawData().get("Body"));
+        logTravelMessage(context, system + " :: Exited Supercruise Near " + body);
+    })),
+
     Location((context ->
     {
         String name = ((String) context.getRawData().get("StarSystem"));
-        logExplorationMessage(context, "Spawned in the " + name + " System");
+        logTravelMessage(context, "Spawned in the " + name + " System");
         List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
         StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
         context.getCommanderData().setLocation(system);
@@ -77,7 +133,7 @@ public enum JournalEvent
     FSDJump((context ->
     {
         String name = ((String) context.getRawData().get("StarSystem"));
-        logExplorationMessage(context, "Arrived in the " + name + " System");
+        logTravelMessage(context, "Arrived in the " + name + " System");
         List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
         StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
         context.getCommanderData().setLocation(system);
@@ -265,12 +321,20 @@ public enum JournalEvent
     /**
      * Written when materials are collected
      */
-    MaterialCollected((context)-> adjustMaterialCount(context, context.getRawData())),
+    MaterialCollected((context) ->
+    {
+        logInventoryMessage(context, "Material Collected");
+        adjustMaterialCount(context, context.getRawData());
+    }),
 
     /**
      * Written when materials are discarded
      */
-    MaterialDiscarded((context)-> adjustMaterialCountDown(context, context.getRawData())),
+    MaterialDiscarded((context) ->
+    {
+        logInventoryMessage(context, "Material Discarded");
+        adjustMaterialCountDown(context, context.getRawData());
+    }),
 
     /**
      * Written when a engineering mod or experimental effect is crafted
@@ -278,6 +342,8 @@ public enum JournalEvent
     EngineerCraft((context) ->
     {
         Map<String, Object> rawData = context.getRawData();
+
+        logEngineeringMessage(context, "Engineering Enhancement Performed");
 
         // remove the materials used in the crafting process
         ((List<Map<String, Object>>) rawData.get("Ingredients"))
@@ -359,6 +425,7 @@ public enum JournalEvent
      */
     MaterialTrade((context) ->
     {
+        logInventoryMessage(context, "Material Trade Completed");
         adjustMaterialQuantity(context, ((Map<String, Object>) context.getRawData().get("Received")));
         adjustMaterialQuantityDown(context, ((Map<String, Object>) context.getRawData().get("Paid")));
     }),
@@ -381,13 +448,18 @@ public enum JournalEvent
     /**
      * Written when contributing materials to a community goal
      */
-    ScientificResearch((context) -> adjustMaterialCountDown(context, context.getRawData())),
+    ScientificResearch((context) ->
+    {
+        logInventoryMessage(context, "Scientific Research Contribution Completed");
+        adjustMaterialCountDown(context, context.getRawData());
+    }),
 
     /**
      * Written when collecting commodity items
      */
     CollectCargo((context) ->
     {
+        logInventoryMessage(context, "Cargo Collected");
         String name = ((String) context.getRawData().get("Type")).toUpperCase();
         adjust(context, new Pair<>(name, 1), AdjustmentType.COMMODITY);
     }),
@@ -395,23 +467,36 @@ public enum JournalEvent
     /**
      * Written when ejecting commodities from cargo
      */
-    EjectCargo((context) -> adjustCommodityTypeDown(context, context.getRawData())),
+    EjectCargo((context) ->
+    {
+        logInventoryMessage(context, "Cargo Ejected");
+        adjustCommodityTypeDown(context, context.getRawData());
+    }),
 
     /**
      * Written when buying commodities from a market
      */
-    MarketBuy((context) -> adjustCommodityType(context, context.getRawData())),
+    MarketBuy((context) ->
+    {
+        logInventoryMessage(context, "Commodity Purchased");
+        adjustCommodityType(context, context.getRawData());
+    }),
 
     /**
      * Written when celling commodities to a market
      */
-    MarketSell((context) -> adjustCommodityTypeDown(context, context.getRawData())),
+    MarketSell((context) ->
+    {
+        logInventoryMessage(context, "Commodity Sold");
+        adjustCommodityTypeDown(context, context.getRawData());
+    }),
 
     /**
      * Written when a commodity has been refined through collection of mining fragments
      */
     MiningRefined((context) ->
     {
+        logInventoryMessage(context, "Commodity Refined");
         String name = ((String) context.getRawData().get("Type")).toUpperCase();
         adjust(context, new Pair<>(name, 1), AdjustmentType.COMMODITY);
     }),
@@ -427,10 +512,12 @@ public enum JournalEvent
         switch (updateType)
         {
             case "Deliver":
+                logInventoryMessage(context, "Cargo Delivered");
                 adjustDown(context, pair, AdjustmentType.COMMODITY);
                 break;
 
             case "Collect":
+                logInventoryMessage(context, "Cargo Collected");
                 adjust(context, pair, AdjustmentType.COMMODITY);
                 break;
         }
@@ -439,43 +526,73 @@ public enum JournalEvent
     /**
      * Written when buying limpet drones
      */
-    BuyDrones((context) -> adjust(context, Commodity.DRONES, ((int) context.getRawData().get("Count")))),
+    BuyDrones((context) ->
+    {
+        logInventoryMessage(context, "Limpet Drones Purchased");
+        adjust(context, Commodity.DRONES, ((int) context.getRawData().get("Count")));
+    }),
 
     /**
      * Written when selling limpet drones
      */
-    SellDrones((context) -> adjustDown(context, Commodity.DRONES, ((int) context.getRawData().get("Count")))),
+    SellDrones((context) ->
+    {
+        logInventoryMessage(context, "Limpet Drones Sold");
+        adjustDown(context, Commodity.DRONES, ((int) context.getRawData().get("Count")));
+    }),
 
     /**
      * Written when launching a limpet drone
      */
-    LaunchDrone((context) -> adjustDown(context, Commodity.DRONES, 1)),
+    LaunchDrone((context) ->
+    {
+        logInventoryMessage(context, "Limpet Drone Launched");
+        adjustDown(context, Commodity.DRONES, 1);
+    }),
 
     /**
      * Written when collecting powerplay specific cargo items
      */
-    PowerplayCollect((context) -> adjustCommodityType(context, context.getRawData())),
+    PowerplayCollect((context) ->
+    {
+        logInventoryMessage(context, "PowerPlay Item Collected");
+        adjustCommodityType(context, context.getRawData());
+    }),
 
     /**
      * Written when delivering powerplay specific cargo items
      */
-    PowerplayDeliver((context) -> adjustCommodityTypeDown(context, context.getRawData())),
+    PowerplayDeliver((context) ->
+    {
+        logInventoryMessage(context, "PowerPlay Item Delivered");
+        adjustCommodityTypeDown(context, context.getRawData());
+    }),
 
     /**
      * Written when a currently equipped module is stored, removing it from the current ship
      */
-    ModuleStore((JournalEvent::emptySlotFromData)),
+    ModuleStore((context) ->
+    {
+        logInventoryMessage(context, "Module Stored");
+        JournalEvent.emptySlotFromData(context);
+    }),
 
     /**
      * Written when a currently equipped module is sold, removing it from the current ship
      */
-    ModuleSell((JournalEvent::emptySlotFromData)),
+    ModuleSell((context) ->
+    {
+        logInventoryMessage(context, "Module Sold");
+        JournalEvent.emptySlotFromData(context);
+    }),
 
     /**
      * Written when buying a new module, equipping it to the current ship
      */
     ModuleBuy((context ->
     {
+        logInventoryMessage(context, "Module Purchased");
+
         Map<String, Object> data =  context.getRawData();
         String slotKey = ((String) data.get("Slot"));
         String moduleKey = ((String) data.get("BuyItem"))
@@ -500,6 +617,8 @@ public enum JournalEvent
      */
     ModuleRetrieve((context ->
     {
+        logInventoryMessage(context, "Module Retrieved from Storage");
+
         ShipModuleData.Builder dataBuilder = new ShipModuleData.Builder();
 
         Map<String, Object> data =  context.getRawData();
@@ -1063,9 +1182,9 @@ public enum JournalEvent
     {
         logMessage(context, UserTransaction.MessageType.ENGINEERING, message);
     }
-    private static void logExplorationMessage(EventProcessingContext context, String message)
+    private static void logTravelMessage(EventProcessingContext context, String message)
     {
-        logMessage(context, UserTransaction.MessageType.EXPLORATION, message);
+        logMessage(context, UserTransaction.MessageType.TRAVEL, message);
     }
     private static void logCombatMessage(EventProcessingContext context, String message)
     {

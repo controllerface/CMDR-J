@@ -96,6 +96,10 @@ public class UIController
     @FXML private TabPane mainPane;
 
 
+    @FXML private Label economyLabel;
+    @FXML private Label stationLabel;
+
+
     /*
     Ship Loadout Tab
      */
@@ -563,6 +567,9 @@ public class UIController
     private void initializeShipLoadoutTab()
     {
         commanderData.getLocation().associateStarSystem(locationLabel);
+        commanderData.getLocation().associateSpaceStation(stationLabel);
+        commanderData.getLocation().associateEconomy(economyLabel);
+
         commanderData.getStarShip().associateShipManufacturer(shipMakeLabel);
         commanderData.getStarShip().associateShipGivenName(shipNameLabel);
         commanderData.getStarShip().associateShipDisplayName(shipTypeLabel);

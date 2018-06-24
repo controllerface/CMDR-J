@@ -68,7 +68,7 @@ public class UIFunctions
                 case COMBAT: color = Color.DARKRED;
                     break;
 
-                case EXPLORATION: color = Color.DARKMAGENTA;
+                case TRAVEL: color = Color.DARKMAGENTA;
                     break;
 
                 default: color = Color.BLACK;
