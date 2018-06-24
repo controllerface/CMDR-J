@@ -66,6 +66,13 @@ public enum JournalEvent
         setStatFromData(context, PlayerStat.Ship_Ident);
     }),
 
+    USSDrop((context ->
+    {
+        String type = ((String) context.getRawData().get("USSType_Localised"));
+        Integer threatLevel = ((Integer) context.getRawData().get("USSThreat"));
+        logTravelMessage(context, "Unidentified Signal Source :: " +  type + " :: Threat Level " + threatLevel);
+    })),
+
     Docked((context ->
     {
         String name = ((String) context.getRawData().get("StationName"));
@@ -78,7 +85,6 @@ public enum JournalEvent
 
         context.getCommanderData().setStation(name);
         context.getCommanderData().setEconomy(economy);
-
     })),
 
     Undocked((context ->
@@ -102,11 +108,7 @@ public enum JournalEvent
             String currentSystem = context.getCommanderData().getLocation().getStarSystem().getSystemName();
             logTravelMessage(context, "Leaving the " + currentSystem + " System; Jumping to " + system);
         }
-
-        context.getCommanderData().setStation("Undocked");
-        context.getCommanderData().setEconomy("No Market");
     })),
-
 
     SupercruiseEntry((context ->
     {
