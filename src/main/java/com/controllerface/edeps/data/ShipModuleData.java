@@ -2,6 +2,7 @@ package com.controllerface.edeps.data;
 
 import com.controllerface.edeps.ShipModule;
 import com.controllerface.edeps.Statistic;
+import com.controllerface.edeps.data.commander.Displayable;
 import com.controllerface.edeps.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.edeps.structures.craftable.modifications.ModificationBlueprint;
 import com.controllerface.edeps.structures.equipment.ItemEffect;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Controllerface on 5/2/2018.
  */
-public class ShipModuleData
+public class ShipModuleData implements Displayable
 {
     private final Statistic moduleName;
     private final ShipModule module;
@@ -231,12 +232,12 @@ public class ShipModuleData
     /**
      * For the provided ItemEffect, returns the actual value this item has for that effect, if any.
      * If the module has modifications that override the stock value, this method will return the
-     * modified value. If the provided effect is not present on this module, will return null.
+     * modified value. If the provided effect is not present on this module, will return 0.0d.
      *
      * @param effect the ItemEffect to get the value of from this module
-     * @return the actual applied value on this module for the given effect, or null if the effect is not present
+     * @return the actual applied value on this module for the given effect, or 0.0d if the effect is not present
      */
-    public Double getEffectValue(ItemEffect effect)
+    public double getEffectValue(ItemEffect effect)
     {
         Double stockValue = module.itemEffects().effectStream()
                 .filter(effectData -> effectData.getEffect() == effect)
@@ -249,9 +250,17 @@ public class ShipModuleData
                 .map(ModifierData::getValue)
                 .findAny().orElse(null);
 
-        return modifiedValue == null
-                ? stockValue
-                : modifiedValue;
+        return (modifiedValue == null && stockValue == null)
+                ? 0.0d
+                : modifiedValue == null
+                        ? stockValue
+                        : modifiedValue;
+    }
+
+    @Override
+    public void prepareGraphic()
+    {
+
     }
 
     public synchronized Node getGraphic()

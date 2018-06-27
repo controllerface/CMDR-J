@@ -238,7 +238,7 @@ public class CommanderData
         }
     }
 
-    public int hasItem(ProcurementCost cost)
+    public int amountOf(ProcurementCost cost)
     {
         Objects.requireNonNull(cost);
 
@@ -251,13 +251,13 @@ public class CommanderData
                 switch (matchingType.get())
                 {
                     case RAW:
-                        return rawMats.hasItem(cost);
+                        return rawMats.amountOf(cost);
 
                     case MANUFACTURED:
-                        return mfdMats.hasItem(cost);
+                        return mfdMats.amountOf(cost);
 
                     case ENCODED:
-                        return dataMats.hasItem(cost);
+                        return dataMats.amountOf(cost);
                 }
             }
             else
@@ -272,7 +272,7 @@ public class CommanderData
 
             if (matchingType.isPresent())
             {
-                return cargo.hasItem(cost);
+                return cargo.amountOf(cost);
             }
             else
             {

@@ -3,6 +3,7 @@ package com.controllerface.edeps.data.procurements;
 import com.controllerface.edeps.ProcurementBlueprint;
 import com.controllerface.edeps.ProcurementCost;
 import com.controllerface.edeps.ProcurementRecipe;
+import com.controllerface.edeps.data.commander.Displayable;
 import com.controllerface.edeps.structures.costs.commodities.Commodity;
 import com.controllerface.edeps.structures.costs.materials.Material;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
@@ -25,6 +26,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Represents a single item type and count of that type, required to craft some specific craftable item. Objects of
@@ -37,7 +39,7 @@ import java.util.stream.Collectors;
  *
  * Created by Controllerface on 4/2/2018.
  */
-public class ItemCostData
+public class ItemCostData implements Displayable
 {
     private final ProcurementCost cost;
     private final AtomicInteger count = new AtomicInteger(0);
@@ -144,10 +146,6 @@ public class ItemCostData
 
             if (tradeBlueprint.isPresent())
             {
-                List<Button> recommendTrades = new ArrayList<>();
-                List<Label> avoidedTrades = new ArrayList<>();
-                List<Label> insufficientTrades = new ArrayList<>();
-                List<Label> overCommittedTrades = new ArrayList<>();
 
                 Separator separator = new Separator();
                 separator.setPadding(new Insets(5,0,0,0));
@@ -184,35 +182,85 @@ public class ItemCostData
                         }).collect(Collectors.toList());
 
 
-                classifiedTrades.stream()
+                List<Button> recommendTrades = classifiedTrades.stream()
                         .filter(trade -> trade.classification == TradeClassification.RECOMMENDED)
                         .map(trade ->
                         {
                             CostData tradeCost = trade.tradeRecipe.costStream()
-                                    .filter(costData -> costData.getQuantity()>0).findAny()
+                                    .filter(costData -> costData.getQuantity() > 0).findAny()
                                     .orElse(null);
 
-                            // todo: report error
                             if (tradeCost == null) return null;
+
+                            CostData tradeYield = trade.tradeRecipe.costStream()
+                                    .filter(costData -> costData.getQuantity() <= 0).findAny()
+                                    .orElse(null);
+
+                            if (tradeYield == null) return null;
+
 
                             Optional<MaterialTradeType> tradeType =
                                     MaterialTradeType.findMatchingTradeType(((Material) tradeCost.getCost()));
 
                             if (tradeType.isPresent())
                             {
+                                String ratio = tradeCost.getCost().getGrade() + " for " + tradeYield.getCost().getGrade();
                                 ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), trade.tradeRecipe);
-                                Button button = new Button(trade.tradeRecipe.getDisplayLabel());
-                                button.setFont(UIFunctions.Fonts.size1Font);
-                                button.alignmentProperty().setValue(Pos.CENTER_LEFT);
+
+                                VBox btnhldr = new VBox();
+                                HBox btnlbl = new HBox();
+
+                                Label desc = new Label(trade.tradeRecipe.getDisplayLabel());
+                                desc.setFont(UIFunctions.Fonts.size1Font);
+                                desc.alignmentProperty().setValue(Pos.CENTER_LEFT);
+
+                                Label desc2 = new Label(ratio);
+                                desc2.setFont(UIFunctions.Fonts.size1Font);
+                                desc2.setTextFill(UIFunctions.Fonts.darkOrange);
+                                desc2.alignmentProperty().setValue(Pos.CENTER_RIGHT);
+
+                                AtomicInteger gen = new AtomicInteger(0);
+
+                                Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
+                                int commited = (committedCost == null) ? 0 : committedCost;
+
+                                int have = checkInventory.apply(tradeCost.getCost()) - commited;
+
+                                long max = IntStream.generate(gen::incrementAndGet)
+                                        .map(i -> i * tradeCost.getQuantity())
+                                        .limit(99)
+                                        .filter(i -> have >= i)
+                                        .count();
+
+                                Label desc3 = new Label(" ("+String.format("%02d", max)+")");
+                                desc3.setFont(UIFunctions.Fonts.size1Font);
+                                desc3.setTextFill(UIFunctions.Fonts.darkYellow);
+                                desc3.alignmentProperty().setValue(Pos.CENTER);
+
+
+
+                                Region region1 = new Region();
+                                HBox.setHgrow(region1, Priority.ALWAYS);
+                                Region region2 = new Region();
+                                HBox.setHgrow(region2, Priority.ALWAYS);
+
+                                btnlbl.getChildren().add(desc);
+                                btnlbl.getChildren().add(region1);
+                                btnlbl.getChildren().add(desc2);
+                                btnlbl.getChildren().add(desc3);
+                                btnhldr.getChildren().add(btnlbl);
+
+                                Button button = new Button();
+                                button.setGraphic(btnhldr);
                                 button.setOnMouseClicked((e)-> addTask.accept(tradeTask));
                                 return button;
                             }
                             return null;
                         })
                         .filter(Objects::nonNull)
-                        .forEach(recommendTrades::add);
+                        .collect(Collectors.toList());
 
-                classifiedTrades.stream()
+                List<Label> insufficientTrades = classifiedTrades.stream()
                         .filter(trade -> trade.classification == TradeClassification.UNAFFORDABLE)
                         .map(trade ->
                         {
@@ -221,9 +269,9 @@ public class ItemCostData
                             label.setTextFill(UIFunctions.Fonts.negativeRed);
                             return label;
                         })
-                        .forEach(insufficientTrades::add);
+                        .collect(Collectors.toList());
 
-                classifiedTrades.stream()
+                List<Label> avoidedTrades = classifiedTrades.stream()
                         .filter(trade -> trade.classification == TradeClassification.CONFLICTING)
                         .map(trade ->
                         {
@@ -232,9 +280,9 @@ public class ItemCostData
                             label.setTextFill(UIFunctions.Fonts.darkOrange);
                             return label;
                         })
-                        .forEach(avoidedTrades::add);
+                        .collect(Collectors.toList());
 
-                classifiedTrades.stream()
+                List<Label> overCommittedTrades = classifiedTrades.stream()
                         .filter(trade -> trade.classification == TradeClassification.COMMITTED)
                         .map(trade ->
                         {
@@ -243,7 +291,7 @@ public class ItemCostData
                             label.setTextFill(UIFunctions.Fonts.darkYellow);
                             return label;
                         })
-                        .forEach(overCommittedTrades::add);
+                        .collect(Collectors.toList());
 
 
                 if (recommendTrades.isEmpty())

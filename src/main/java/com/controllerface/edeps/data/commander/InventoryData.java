@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  * NOTE: Mutable state data object
  *
  */
-public class InventoryData
+public class InventoryData implements Displayable
 {
     private int quantity;
     private final ProcurementCost material;

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
@@ -270,7 +271,7 @@ public class StarShip
         }
     }
 
-    private synchronized Stream<ShipModuleData> safeStream(List<ShipModuleData> modules)
+    private synchronized Stream<ShipModuleData> bufferedStream(List<ShipModuleData> modules)
     {
         List<ShipModuleData> buffer = new ArrayList<>();
 
@@ -392,35 +393,35 @@ public class StarShip
         }
     }
 
+    private static final Predicate<Double> nonZero = (x) -> Objects.requireNonNull(x) != 0.0d;
+
     private double getArmorResistanceTotal(ItemEffect resistanceEffect)
     {
-        List<Double> resistances = new ArrayList<>();
+        Stream.Builder<Double> resistances = Stream.builder();
 
-        safeStream(coreInternals)
-                .filter(module -> module.getModule().modificationType()==ModificationType.Bulkheads)
+        coreInternals.stream()
+                .filter(module -> module.getModule().modificationType() == ModificationType.Bulkheads)
                 .map(module -> module.getEffectValue(resistanceEffect))
-                .filter(Objects::nonNull)
-                .filter(x->x!=0)
+                .filter(nonZero)
                 .mapToDouble(Double::doubleValue)
                 .map(next -> 100d - next)
                 .map(Math::abs)
                 .map(next -> next / 100d)
-                .forEach(resistances::add);
+                .forEach(resistances::accept);
 
-        safeStream(optionalInternals)
-                .filter(module -> module.getModule().modificationType()==ModificationType.Hull_Reinforcement_Package)
+        optionalInternals.stream()
+                .filter(module -> module.getModule().modificationType() == ModificationType.Hull_Reinforcement_Package)
                 .map(module -> module.getEffectValue(resistanceEffect))
-                .filter(Objects::nonNull)
-                .filter(x->x!=0)
+                .filter(nonZero)
                 .mapToDouble(Double::doubleValue)
                 .map(next -> 100d - next)
                 .map(Math::abs)
                 .map(next -> next / 100d)
-                .forEach(resistances::add);
+                .forEach(resistances::accept);
 
-        double rawResistance = resistances.stream()
+        double rawResistance = resistances.build()
                 .mapToDouble(Double::doubleValue)
-                .reduce(1, (a,b) -> a*b);
+                .reduce(1, (a, b) -> a * b);
 
         double calculatedResistance = 100 - rawResistance * 100d;
 
@@ -437,7 +438,7 @@ public class StarShip
     {
         List<Double> resistances = new ArrayList<>();
 
-        safeStream(optionalInternals)
+        optionalInternals.stream()
                 .filter(module -> module.getModule().modificationType() == ModificationType.Shield_Generator)
                 .map(module -> module.getEffectValue(resistanceEffect))
                 .filter(Objects::nonNull)
@@ -447,7 +448,7 @@ public class StarShip
                 .map(next -> next / 100d)
                 .forEach(resistances::add);
 
-        safeStream(hardpoints)
+        hardpoints.stream()
                 .filter(module -> module.getModule().modificationType() == ModificationType.Shield_Booster)
                 .map(module -> module.getEffectValue(resistanceEffect))
                 .filter(Objects::nonNull)
@@ -539,7 +540,7 @@ public class StarShip
         // loop through all the modules that can have hull reinforcement. For now, this
         // means only optional internals, but if this changes in the future, loop through
         // all relevant modules
-        double hullReinforcement = safeStream(optionalInternals)
+        double hullReinforcement = optionalInternals.stream()
                 .map(module -> module.getEffectValue(ItemEffect.DefenceModifierHealthAddition))
                 .filter(Objects::nonNull)
                 .mapToDouble(Double::doubleValue)
@@ -547,7 +548,7 @@ public class StarShip
 
         // right now, only armour modules can add hull boost, so we can loop through just the core
         // internals and filter in armour modules. In practice, this will only ever find one module
-        double hullBoost = safeStream(coreInternals)
+        double hullBoost = coreInternals.stream()
                 .filter(m->m.getModuleName() == CoreInternalSlot.Armour)
                 .map(a->a.getEffectValue(ItemEffect.DefenceModifierHealthMultiplier))
                 .filter(Objects::nonNull)
@@ -586,7 +587,7 @@ public class StarShip
 
         // first check for an actual shield generator. The game ensures there will only ever be one generator
         // equipped, so there should only be one or none.
-        ShipModuleData shieldGenerator = safeStream(optionalInternals)
+        ShipModuleData shieldGenerator = optionalInternals.stream()
                 .filter(m->m.getModule().modificationType() == ModificationType.Shield_Generator)
                 .findAny().orElse(null);
 
@@ -707,7 +708,7 @@ public class StarShip
         double shieldMultiplier = (minimumStrength + strengthPower * strengthRangeDifference) / 100d;
 
         // calculate the sum of 1 + all shield booster values, and divide by 100 for use as a percentage increase
-        double accumulatedBoost = 1 + safeStream(hardpoints)
+        double accumulatedBoost = 1 + bufferedStream(hardpoints)
                 .filter(hardpoint -> hardpoint.getModule().modificationType()==ModificationType.Shield_Booster)
                 .map(hardpoint -> hardpoint.getEffectValue(ItemEffect.DefenceModifierShieldMultiplier))
                 .filter(Objects::nonNull)

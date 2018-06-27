@@ -6,6 +6,7 @@ import com.controllerface.edeps.ProcurementType;
 import com.controllerface.edeps.data.ItemEffects;
 import com.controllerface.edeps.data.MaterialTradeRecipe;
 import com.controllerface.edeps.data.StarSystem;
+import com.controllerface.edeps.data.commander.Displayable;
 import com.controllerface.edeps.structures.costs.materials.MaterialTradeType;
 import com.controllerface.edeps.structures.engineers.Engineer;
 import com.controllerface.edeps.ui.UIFunctions;
@@ -35,8 +36,10 @@ import java.util.stream.Collectors;
  *
  * Created by Controllerface on 4/2/2018.
  */
-public class ProcurementTaskData
+public class ProcurementTaskData implements Displayable
 {
+    private final AtomicInteger count;
+
     // main graphic node that contains the visible contents
     private final VBox descriptionContainer = new VBox();
 
@@ -53,7 +56,6 @@ public class ProcurementTaskData
 
     private final ProcurementType type;
     private final ProcurementRecipe recipe;
-    private final AtomicInteger count;
 
     private final AtomicBoolean initialRenderComplete = new AtomicBoolean(false);
 
@@ -64,25 +66,40 @@ public class ProcurementTaskData
 
     private final List<Engineer> engineers;
 
-    public ProcurementTaskData(ProcurementType type,
-                               ProcurementRecipe recipe,
-                               int count,
-                               Function<ProcurementCost, Integer> checkInventory,
-                               Function<ProcurementCost, Integer> pendingTradeYield,
-                               Supplier<StarSystem> getCurrentSystem)
+    private ProcurementTaskData(Builder builder)
     {
-        this.type = type;
-        this.recipe = recipe;
-        this.count = new AtomicInteger(count);
-        this.checkInventory = checkInventory;
-        this.pendingTradeYield = pendingTradeYield;
-        this.getCurrentSystem = getCurrentSystem;
+        this.count = new AtomicInteger(builder.count);
+        this.type = builder.type;
+        this.recipe = builder.recipe;
+        this.checkInventory = builder.checkInventory;
+        this.pendingTradeYield = builder.pendingTradeYield;
+        this.getCurrentSystem = builder.getCurrentSystem;
         this.engineers = Engineer.findSupportedEngineers(type, recipe.getGrade());
 
         costEffectContainer
                 .setBackground(new Background(new BackgroundFill(Color
                         .rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
     }
+
+//    public ProcurementTaskData(ProcurementType type,
+//                               ProcurementRecipe recipe,
+//                               int count,
+//                               Function<ProcurementCost, Integer> checkInventory,
+//                               Function<ProcurementCost, Integer> pendingTradeYield,
+//                               Supplier<StarSystem> getCurrentSystem)
+//    {
+//        this.type = type;
+//        this.recipe = recipe;
+//        this.count = new AtomicInteger(count);
+//        this.checkInventory = checkInventory;
+//        this.pendingTradeYield = pendingTradeYield;
+//        this.getCurrentSystem = getCurrentSystem;
+//        this.engineers = Engineer.findSupportedEngineers(type, recipe.getGrade());
+//
+//        costEffectContainer
+//                .setBackground(new Background(new BackgroundFill(Color
+//                        .rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+//    }
 
     @Override
     public String toString()
@@ -329,5 +346,63 @@ public class ProcurementTaskData
     public Node getGraphic()
     {
         return descriptionContainer;
+    }
+
+
+    public static class Builder
+    {
+
+        private final int count;
+        private ProcurementType type;
+        private ProcurementRecipe recipe;
+        private Function<ProcurementCost, Integer> checkInventory;
+        private Function<ProcurementCost, Integer> pendingTradeYield;
+        private Supplier<StarSystem> getCurrentSystem;
+
+        public Builder(int count)
+        {
+            this.count = count;
+        }
+
+        public Builder setType(ProcurementType type)
+        {
+            this.type = type;
+            return this;
+        }
+
+        public Builder setRecipe(ProcurementRecipe recipe)
+        {
+            this.recipe = recipe;
+            return this;
+        }
+
+//        public Builder setCount(int count)
+//        {
+//            this.count = count;
+//            return this;
+//        }
+
+        public Builder setCheckInventory(Function<ProcurementCost, Integer> checkInventory)
+        {
+            this.checkInventory = checkInventory;
+            return this;
+        }
+
+        public Builder setPendingTradeYield(Function<ProcurementCost, Integer> pendingTradeYield)
+        {
+            this.pendingTradeYield = pendingTradeYield;
+            return this;
+        }
+
+        public Builder setGetCurrentSystem(Supplier<StarSystem> getCurrentSystem)
+        {
+            this.getCurrentSystem = getCurrentSystem;
+            return this;
+        }
+
+        public ProcurementTaskData createProcurementTaskData()
+        {
+            return new ProcurementTaskData(this);
+        }
     }
 }

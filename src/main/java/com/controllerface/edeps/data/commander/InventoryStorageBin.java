@@ -104,7 +104,7 @@ abstract class InventoryStorageBin
      * @param item the ProcurementCost item to retrieve the count of
      * @return the count of the named ProcurementCost item within this storage bin, or -1 if the item is not supported
      */
-    int hasItem(ProcurementCost item)
+    int amountOf(ProcurementCost item)
     {
         if (check(item))
         {

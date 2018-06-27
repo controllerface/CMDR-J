@@ -8,6 +8,7 @@ import com.controllerface.edeps.data.MaterialTradeRecipe;
 import com.controllerface.edeps.data.MessageData;
 import com.controllerface.edeps.data.ShipModuleData;
 import com.controllerface.edeps.data.commander.CommanderData;
+import com.controllerface.edeps.data.commander.Displayable;
 import com.controllerface.edeps.data.commander.InventoryData;
 import com.controllerface.edeps.data.commander.ShipStatisticData;
 import com.controllerface.edeps.data.procurements.CostData;
@@ -35,7 +36,6 @@ import com.controllerface.edeps.threads.TransactionProcessingTask;
 import com.controllerface.edeps.threads.UserTransaction;
 import com.controllerface.edeps.ui.costs.CostDataCell;
 import com.controllerface.edeps.ui.costs.CostValueCell;
-import com.controllerface.edeps.ui.inventory.InventoryDataCell;
 import com.controllerface.edeps.ui.inventory.InventoryGradeCell;
 import com.controllerface.edeps.ui.procurements.ProcurementListCell;
 import com.controllerface.edeps.ui.procurements.ProcurementTreeCell;
@@ -94,7 +94,6 @@ public class UIController
 
     // This is the top level UI element
     @FXML private TabPane mainPane;
-
 
     @FXML private Label economyLabel;
     @FXML private Label stationLabel;
@@ -159,7 +158,7 @@ public class UIController
     // Items needed/costs table and columns
     @FXML private TableView<ItemCostData> taskCostTable;
     @FXML private TableColumn<ItemCostData, String> taskCostNeedColumn;
-    @FXML private TableColumn<ItemCostData, ItemCostData> taskCostNameColumn;
+    @FXML private TableColumn<Displayable, Displayable> taskCostNameColumn;
 
 
     /*
@@ -411,7 +410,7 @@ public class UIController
         procurementTree.setCellFactory(param -> new ProcurementTreeCell(procSelectorBackingList, labelText));
         procurementList.setItems(procSelectorBackingList);
         procurementList.setCellFactory(param -> new ProcurementListCell(addTaskToProcurementList,
-                commanderData::hasItem, procurementList.widthProperty()));
+                commanderData::amountOf, procurementList.widthProperty()));
 
         procurementTaskTable.setItems(sortedTasks);
         taskCostTable.setItems(sortedCosts);
@@ -542,8 +541,16 @@ public class UIController
         // This call back simply creates a new custom InventoryDataCell which is used int he center "data" columns
         // of the various inventory UI tables. The custom cell contains the display logic and supports all of the
         // various item categories, so we can re use it for all of the data columns
+
+        // todo: use this for other displayables
+        @SuppressWarnings("unchecked")
         final Callback<TableColumn<InventoryData, InventoryData>, TableCell<InventoryData, InventoryData>>
-                inventoryItemCellFactory = (x) -> new InventoryDataCell();
+                inventoryItemCellFactory = (x) ->
+        {
+            TableCell c = new CostDataCell();
+            return ((TableCell<InventoryData, InventoryData>) c);
+        };
+
 
         rawMaterialColumn.setCellFactory(inventoryItemCellFactory);
         manufacturedMaterialColumn.setCellFactory(inventoryItemCellFactory);
@@ -656,7 +663,7 @@ public class UIController
      * @param table parent table to derive the base width value from
      * @param column child column to bind to the "free" space in the table
      */
-    private <T> void bindTableResize(TableView<T> table, TableColumn<T, ?> column)
+    private <T> void bindTableResize(TableView<T> table, TableColumn<?, ?> column)
     {
         // sanity checks
         Objects.requireNonNull(table);
@@ -690,7 +697,7 @@ public class UIController
      *
      * @param treeView tree view object to "disable" selection behavior
      */
-    private void disableTreeSelection(TreeView treeView)
+    private void disableTreeSelection(TreeView<ProcurementTask> treeView)
     {
         treeView.getSelectionModel().selectedIndexProperty()
                 .addListener((x,y,z) -> Platform.runLater(() -> treeView.getSelectionModel().clearSelection()));
@@ -798,12 +805,14 @@ public class UIController
                     // the same for new and existing tasks
                 else
                 {
-                    data = new ProcurementTaskData(task.getKey(),
-                            task.getValue(),
-                            0,
-                            commanderData::hasItem,
-                            tradeYieldCache::get,
-                            commanderData.getLocation()::getStarSystem);
+                    data = new ProcurementTaskData.Builder(0)
+                            .setType(task.getKey())
+                            .setRecipe(task.getValue())
+//                            .setCount(0)
+                            .setCheckInventory(commanderData::amountOf)
+                            .setPendingTradeYield(tradeYieldCache::get)
+                            .setGetCurrentSystem(commanderData.getLocation()::getStarSystem).createProcurementTaskData();
+
                     taskList.add(data);
 
                     // initialize the costs as well, if they are not already present in the cost list. It is
@@ -815,7 +824,7 @@ public class UIController
                             .map(CostData::getCost)
                             .filter(taskCost -> costList.stream().noneMatch(cost -> cost.getCost().equals(taskCost)))
                             .map(taskCost ->  new ItemCostData(taskCost,
-                                    commanderData::hasItem,
+                                    commanderData::amountOf,
                                     taskCostCache::contains,
                                     tradeYieldCache::get,
                                     tradeCostCache::get,
