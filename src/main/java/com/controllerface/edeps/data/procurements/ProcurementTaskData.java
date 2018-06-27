@@ -81,26 +81,6 @@ public class ProcurementTaskData implements Displayable
                         .rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
-//    public ProcurementTaskData(ProcurementType type,
-//                               ProcurementRecipe recipe,
-//                               int count,
-//                               Function<ProcurementCost, Integer> checkInventory,
-//                               Function<ProcurementCost, Integer> pendingTradeYield,
-//                               Supplier<StarSystem> getCurrentSystem)
-//    {
-//        this.type = type;
-//        this.recipe = recipe;
-//        this.count = new AtomicInteger(count);
-//        this.checkInventory = checkInventory;
-//        this.pendingTradeYield = pendingTradeYield;
-//        this.getCurrentSystem = getCurrentSystem;
-//        this.engineers = Engineer.findSupportedEngineers(type, recipe.getGrade());
-//
-//        costEffectContainer
-//                .setBackground(new Background(new BackgroundFill(Color
-//                        .rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
-//    }
-
     @Override
     public String toString()
     {
@@ -247,22 +227,19 @@ public class ProcurementTaskData implements Displayable
     private void renderProgress()
     {
         Pair<Double, Boolean> progressData = calculateProgress(this);
+
+        boolean usesTrade = progressData.getValue();
+        boolean hasEnough = progressData.getKey() >= 1.0;
         progressBar.setProgress(progressData.getKey());
 
-        if (progressData.getValue())
+        if (usesTrade || isTrade())
         {
-            if (progressBar.getProgress() >= 1.0)
-            {
-                progressBar.setStyle("-fx-accent: #d9b3ff");
-            }
+            if (hasEnough) { progressBar.setStyle("-fx-accent: #ff7100"); }
             else progressBar.setStyle("-fx-accent: #ffaaaa");
         }
         else
         {
-            if (progressBar.getProgress() >= 1.0)
-            {
-                progressBar.setStyle("-fx-accent: #00b3f7");
-            }
+            if (hasEnough) { progressBar.setStyle("-fx-accent: #00b3f7"); }
             else progressBar.setStyle("-fx-accent: #ff0000 ");
         }
         progressBar.applyCss();

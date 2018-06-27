@@ -16,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -71,11 +70,13 @@ public class ItemCostData implements Displayable
     {
         private final TradeClassification classification;
         private final ProcurementRecipe tradeRecipe;
+        private final long max;
 
-        private ClassifiedTrade(TradeClassification classification, ProcurementRecipe tradeRecipe)
+        private ClassifiedTrade(TradeClassification classification, ProcurementRecipe tradeRecipe, long max)
         {
             this.classification = classification;
             this.tradeRecipe = tradeRecipe;
+            this.max = max;
         }
     }
 
@@ -155,6 +156,15 @@ public class ItemCostData implements Displayable
                         .sorted(UIFunctions.Sort.bestCostYieldRatio)
                         .map(recipe->
                         {
+                            CostData tradeCost = recipe.costStream()
+                                    .filter(costData -> costData.getQuantity() > 0).findAny()
+                                    .orElse(null);
+
+                            Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
+                            int committed = (committedCost == null) ? 0 : committedCost;
+                            int have = checkInventory.apply(tradeCost.getCost()) - committed;
+
+
                             boolean cannotAfford = recipe.costStream()
                                     .filter(costData -> costData.getQuantity() > 0)
                                     .anyMatch(costData -> checkInventory.apply(costData.getCost()) < costData.getQuantity());
@@ -167,10 +177,15 @@ public class ItemCostData implements Displayable
                                     .filter(costData -> costData.getQuantity() > 0)
                                     .anyMatch(costData ->
                                     {
-                                        Integer committedCost = pendingTradeCost.apply(costData.getCost());
+                                        //Integer committedCost = pendingTradeCost.apply(costData.getCost());
                                         if (committedCost == null) return false;
-                                        return (checkInventory.apply(costData.getCost()) - committedCost) < costData.getQuantity();
+                                        return (checkInventory.apply(costData.getCost()) - committed) < costData.getQuantity();
                                     });
+
+                            long max = IntStream.range(1, 100)
+                                    .map(i -> i * tradeCost.getQuantity())
+                                    .filter(i -> have >= i)
+                                    .count();
 
                             TradeClassification classification;
                             if (cannotAfford) classification = TradeClassification.UNAFFORDABLE;
@@ -178,9 +193,19 @@ public class ItemCostData implements Displayable
                             else if (overCommitted) classification = TradeClassification.COMMITTED;
                             else classification = TradeClassification.RECOMMENDED;
 
-                            return new ClassifiedTrade(classification, recipe);
+                            return new ClassifiedTrade(classification, recipe, max);
                         }).collect(Collectors.toList());
 
+
+                ClassifiedTrade best = classifiedTrades.stream()
+                        .sorted((a,b)->(int)(b.max - a.max))
+                        .findFirst().orElse(null);
+
+                if (best != null)
+                {
+                    classifiedTrades.remove(best);
+                    classifiedTrades.add(0, best);
+                }
 
                 List<Button> recommendTrades = classifiedTrades.stream()
                         .filter(trade -> trade.classification == TradeClassification.RECOMMENDED)
@@ -222,17 +247,16 @@ public class ItemCostData implements Displayable
                                 AtomicInteger gen = new AtomicInteger(0);
 
                                 Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
-                                int commited = (committedCost == null) ? 0 : committedCost;
+                                int committed = (committedCost == null) ? 0 : committedCost;
 
-                                int have = checkInventory.apply(tradeCost.getCost()) - commited;
+                                int have = checkInventory.apply(tradeCost.getCost()) - committed;
 
-                                long max = IntStream.generate(gen::incrementAndGet)
+                                long max = IntStream.range(1, 100)
                                         .map(i -> i * tradeCost.getQuantity())
-                                        .limit(99)
                                         .filter(i -> have >= i)
                                         .count();
 
-                                Label desc3 = new Label(" ("+String.format("%02d", max)+")");
+                                Label desc3 = new Label(" (" + String.format("%02d", max) + ")");
                                 desc3.setFont(UIFunctions.Fonts.size1Font);
                                 desc3.setTextFill(UIFunctions.Fonts.darkYellow);
                                 desc3.alignmentProperty().setValue(Pos.CENTER);
@@ -306,20 +330,39 @@ public class ItemCostData implements Displayable
                     Label tradeLabel = new Label("Recommended Trades");
                     tradeLabel.setFont(UIFunctions.Fonts.size1Font);
                     TitledPane tradePane = new TitledPane();
-                    Tooltip tooltip = new Tooltip("Recommended trades, ranked by best cost/yield ratio");
-                    tooltip.setFont(UIFunctions.Fonts.size1Font);
-                    tradeLabel.setTooltip(tooltip);
                     tradePane.setAnimated(false);
                     tradePane.setExpanded(recommendedTradesExpanded.get());
                     tradePane.setGraphic(tradeLabel);
                     tradePane.expandedProperty()
                             .addListener((observable, oldValue, newValue) -> recommendedTradesExpanded.set(newValue));
-                    VBox vBox = new VBox();
-                    vBox.fillWidthProperty().setValue(true);
+
+                    VBox tradeBox = new VBox();
+                    tradeBox.fillWidthProperty().setValue(true);
+
+                    Label topLabel = new Label("Top Trade");
+                    topLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+
+                    topLabel.setFont(UIFunctions.Fonts.size2Font);
+                    Button topTrade = recommendTrades.remove(0);
+
+                    topTrade.prefWidthProperty().bind(tradeBox.widthProperty());
+
+                    tradeBox.getChildren().addAll(topLabel, topTrade);
+
+                    if (!recommendTrades.isEmpty())
+                    {
+                        Separator sep = new Separator();
+                        sep.setPadding(new Insets(5,0,5,0));
+                        tradeBox.getChildren().add(sep);
+                    }
+
+
+
                     recommendTrades.stream()
-                            .peek(trade->trade.prefWidthProperty().bind(vBox.widthProperty()))
-                            .forEach(trade->vBox.getChildren().add(trade));
-                    tradePane.setContent(vBox);
+                            .peek(trade->trade.prefWidthProperty().bind(tradeBox.widthProperty()))
+                            .forEach(trade->tradeBox.getChildren().add(trade));
+
+                    tradePane.setContent(tradeBox);
                     locationContainer.getChildren().add(tradePane);
                 }
 
@@ -394,7 +437,7 @@ public class ItemCostData implements Displayable
 
             if (adjustedProgress >= 1.0)
             {
-                progressBar.setStyle("-fx-accent: #d9b3ff");
+                progressBar.setStyle("-fx-accent: #ff7100");
             }
             else
             {
