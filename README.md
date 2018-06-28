@@ -1,6 +1,6 @@
 # CMDR J
 
-Installation:https://github.com/controllerface/CMDR-J/wiki/Installation-Guide
+Installation: https://github.com/controllerface/CMDR-J/wiki/Installation-Guide
 
 Usage Guide: https://github.com/controllerface/CMDR-J/wiki/Usage-Guide
 
