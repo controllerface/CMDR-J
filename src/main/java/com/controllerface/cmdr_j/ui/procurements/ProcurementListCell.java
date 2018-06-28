@@ -1,0 +1,254 @@
+package com.controllerface.cmdr_j.ui.procurements;
+
+import com.controllerface.cmdr_j.ProcurementCost;
+import com.controllerface.cmdr_j.data.ItemEffects;
+import com.controllerface.cmdr_j.data.procurements.CostData;
+import com.controllerface.cmdr_j.data.procurements.ProcurementTask;
+import com.controllerface.cmdr_j.structures.engineers.Engineer;
+import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+/**
+ * Created by Controllerface on 5/4/2018.
+ */
+public class ProcurementListCell extends ListCell<ProcurementTask>
+{
+    private final Consumer<ProcurementTask> addMod;
+    private final Function<ProcurementCost, Integer> checkMat;
+    private final ReadOnlyDoubleProperty parentWidth;
+
+    public ProcurementListCell(Consumer<ProcurementTask> addMod, Function<ProcurementCost, Integer> checkMat, ReadOnlyDoubleProperty parentWidth)
+    {
+        this.addMod = addMod;
+        this.checkMat = checkMat;
+        this.parentWidth = parentWidth;
+    }
+
+    @Override
+    protected void updateItem(ProcurementTask item, boolean empty)
+    {
+        super.updateItem(item, empty);
+        if (item == null || empty)
+        {
+            setGraphic(null);
+            setText(null);
+            return;
+        }
+
+        if (item.getRecipe() != null)
+        {
+            VBox buttonBox = new VBox(1);
+            Label gradeLabel = new Label(item.getRecipe().getShortLabel() + "  ");
+            gradeLabel.setFont(UIFunctions.Fonts.size3Font);
+            gradeLabel.paddingProperty().setValue(new Insets(0,0,0,5));
+
+            List<CostData> data = this.getItem()
+                    .getRecipe()
+                    .costStream()
+                    .filter(c->c.getQuantity() > 0)
+                    .collect(Collectors.toList());
+
+            int count = data.size();
+            AtomicInteger good = new AtomicInteger(0);
+            data.forEach(d->
+            {
+                if(checkMat.apply(d.getCost())>=d.getQuantity())
+                {
+                    good.incrementAndGet();
+                }
+            });
+
+            AtomicInteger loops = new AtomicInteger(0);
+            Set<CostData> missingSet = new HashSet<>();
+            if (good.get() == count)
+            {
+                AtomicInteger innerGood = new AtomicInteger(count);
+                while (innerGood.get() == count)
+                {
+                    loops.getAndIncrement();
+                    innerGood.set(0);
+                    data.forEach(m->
+                    {
+                        if(checkMat.apply(m.getCost()) >= (m.getQuantity()* loops.get() + 1))
+                        {
+                            innerGood.incrementAndGet();
+                        }
+                    });
+                }
+            }
+            else
+            {
+                data.forEach(m ->
+                {
+                    int ch = checkMat.apply(m.getCost());
+                    if(ch < m.getQuantity())
+                    {
+                        missingSet.add(m);
+                    }
+                });
+            }
+
+            double progress = ((double) good.get())/ ((double) count);
+
+            ProgressBar progressIndicator = createProgressIndicator(progress, loops.get(),  data, missingSet);
+
+            HBox hBox = new HBox(1);
+            hBox.getChildren().addAll(progressIndicator, gradeLabel);
+            buttonBox.getChildren().addAll(hBox);
+            hBox.alignmentProperty().setValue(Pos.CENTER_LEFT);
+
+
+            TitledPane infoPane = new TitledPane();
+            infoPane.setExpanded(false);
+            infoPane.setAnimated(false);
+            infoPane.setGraphic(buttonBox);
+            infoPane.setTooltip(progressIndicator.getTooltip());
+
+            VBox costEffectContainer = new VBox();
+            costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+
+
+
+            // effects
+            item.getRecipe().effects().effectStream()
+                    .map(UIFunctions.Convert.effectToLabel)
+                    .sorted(UIFunctions.Sort.byGoodness)
+                    .forEach(label -> costEffectContainer.getChildren().add(label));
+
+            if (item.getRecipe().effects() != ItemEffects.EMPTY)
+            {
+                Separator separator = new Separator();
+                separator.setPrefHeight(10);
+                costEffectContainer.getChildren().add(separator);
+            }
+
+            // costs
+           item.getRecipe().costStream()
+                    .map(c->
+                    {
+                        String quantity = c.getQuantity() < 0
+                                ? "+" + Math.abs(c.getQuantity())
+                                : "-" + c.getQuantity();
+                        Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
+                        next.setFont(UIFunctions.Fonts.size1Font);
+                        return next;
+                    })
+                    .forEach(label -> costEffectContainer.getChildren().add(label));
+
+
+            List<Engineer> engineers = Engineer.findSupportedEngineers(item.getType(), item.getRecipe().getGrade());
+            if (!engineers.isEmpty())
+            {
+                Separator separator2 = new Separator();
+                separator2.setPrefHeight(10);
+                costEffectContainer.getChildren().add(separator2);
+
+                for (Engineer engineer : engineers)
+                {
+                    Label engineerLabel = new Label(engineer.getFullName() + " :: "
+                            + engineer.getLocation().getSystemName());
+                    engineerLabel.setFont(UIFunctions.Fonts.size1Font);
+                    engineerLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+                    costEffectContainer.getChildren().add(engineerLabel);
+                }
+            }
+
+            infoPane.setContent(costEffectContainer);
+            infoPane.prefWidthProperty().bind(this.widthProperty().subtract(50));
+
+
+            Button add = new Button();
+
+            // Plus
+            Line line1 = new Line();
+            line1.setStroke(Color.BLACK);
+            line1.setStrokeWidth(3);
+            line1.setStartX(2);
+            line1.setEndX(12);
+            line1.setStartY(12);
+            line1.setEndY(12);
+
+            Line line2 = new Line();
+            line2.setStroke(Color.BLACK);
+            line2.setStrokeWidth(3);
+            line2.setStartX(7);
+            line2.setEndX(7);
+            line2.setStartY(7);
+            line2.setEndY(17);
+
+            Pane addGraphic  = new Pane(line1, line2);
+
+            add.setAlignment(Pos.CENTER);
+            add.setOnMouseClicked((e) -> addMod.accept(this.getItem()));
+
+            add.setFont(UIFunctions.Fonts.size2Font);
+            add.prefHeightProperty().set(33);
+            add.prefWidthProperty().set(33);
+            add.setGraphic(addGraphic);
+            HBox container = new HBox();
+
+            container.prefWidthProperty().bind(this.widthProperty().subtract(UIFunctions.scrollBarAllowance));
+
+            container.getChildren().addAll(add, infoPane);
+
+            setGraphic(container);
+            setText(null);
+        }
+        else
+        {
+            setText(item.toString());
+        }
+    }
+
+    private ProgressBar createProgressIndicator(double progress, int surplus, List<CostData> data, Set<CostData> missingSet)
+    {
+        ProgressBar progressIndicator = new ProgressBar(progress);
+        progressIndicator.prefHeight(10);
+
+        Tooltip tooltip;
+
+        if (progress >= 1)
+        {
+            progressIndicator.setStyle("-fx-accent: #00b3f7;");
+
+            String msg = data.stream()
+                    .filter(d -> d.getQuantity() > 0)
+                    .map(d-> checkMat.apply(d.getCost()) + " x " +
+                            d.getCost().getLocalizedName()).collect(Collectors.joining("\n","\n","\n"));
+
+            tooltip = new Tooltip("You can craft " + surplus + " of this item" + msg);
+        }
+        else
+        {
+            progressIndicator.setStyle("-fx-accent: #ff0000;");
+
+            String suffix = missingSet.size() > 1 ? "s" : "";
+            String missingMessage = "You need the following component" + suffix + " to craft this item:" +
+                    missingSet.stream()
+                            .filter(x -> x.getQuantity() > 0)
+                            .map(x-> x.getQuantity()+ " x " + x.getCost().getLocalizedName())
+                            .collect(Collectors.joining("\n","\n","\n"));
+
+            tooltip = new Tooltip(missingMessage);
+        }
+
+        tooltip.setFont(UIFunctions.Fonts.size3Font);
+        progressIndicator.setTooltip(tooltip);
+
+        return progressIndicator;
+    }
+}

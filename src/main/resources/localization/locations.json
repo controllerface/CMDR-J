@@ -73,7 +73,7 @@
       "Consumed by All Economies",
       "Illegal in prison colonies and Federal or Alliance aligned theocracies"
     ],
-    "NARCOTICS": [
+    "BASICNARCOTICS": [
       "Produced by Agricultural, High Tech and Industrial Economies",
       "Consumed by All Economies except High Tech and Industrial",
       "Illegal in all but anarchies and dictatorships"
@@ -141,7 +141,7 @@
       "Can be purchased Darnielle\u0027s Progress in the Maia System",
       "Can be obtained by destroying Thargoid \"Barnacles\""
     ],
-    "MICROWEAVECOOLINGHOSES": [
+    "COOLINGHOSES": [
       "Consumed by Industrial and Military Economies"
     ],
     "NEOFABRICINSULATION": [
@@ -162,7 +162,7 @@
     "ARTICULATIONMOTORS": [
       "Consumed by: High Tech"
     ],
-    "ATMOSPHERICPROCESSORS": [
+    "ATMOSPHERICEXTRACTORS": [
       "Produced by: Industrial",
       "Consumed by: Terraforming and Agricultural"
     ],
@@ -179,7 +179,7 @@
       "Consumed by: High Tech, Industrial and Military",
       "Known to be found at Chadwick Port in the Gladutjin system"
     ],
-    "ENERGYGRIDASSEMBLY": [
+    "POWERGRIDASSEMBLY": [
       "Produced by: Industrial/Refinery near the Stafkarl system",
       "Consumed by: High Tech and Military",
       "Known to be found at Pailes Enterprise in the 40 Ceti system."
@@ -207,7 +207,7 @@
       "Consumed by: High Tech",
       "Known to be found at Steiner Platform in the Aasgaa system."
     ],
-    "MARINEEQUIPMENT": [
+    "MARINESUPPLIES": [
       "Produced by: Industrial",
       "Consumed by: Agricultural"
     ],
@@ -246,7 +246,7 @@
       "Consumed by: Industrial (Surface)",
       "Known to be found at Grassmann Station in the Findalibila system"
     ],
-    "SKIMMERCOMPONENTS": [
+    "SKIMERCOMPONENTS": [
       "Produced by: Industrial",
       "Consumed by All Economies (Surface) except Industrial (Surface)"
     ],
@@ -261,7 +261,7 @@
     "ADVANCEDMEDICINES": [
       ""
     ],
-    "AGRIMEDICINES": [
+    "AGRICULTURALMEDICINES": [
       ""
     ],
     "BASICMEDICINES": [
@@ -612,7 +612,7 @@
     "HAZARDOUSENVIRONMENTSUITS": [
       ""
     ],
-    "HARDWAREDIAGNOSTICSENSOR": [
+    "DIAGNOSTICSENSOR": [
       ""
     ],
     "IONDISTRIBUTOR": [
