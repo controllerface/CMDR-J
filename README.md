@@ -1,4 +1,4 @@
-# Commander J
+# CMDR J
 Installation: https://github.com/controllerface/EDEPS/wiki/Installation-Instructions
 Usage Guide: https://github.com/controllerface/EDEPS/wiki/Usage-Guide
 
