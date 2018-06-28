@@ -1,12 +1,8 @@
-# EDEPS
-**Elite Dangerous Engineering Procurement System - Alpha (Working Title)**
-
+# Commander J
 Installation: https://github.com/controllerface/EDEPS/wiki/Installation-Instructions
-
 Usage Guide: https://github.com/controllerface/EDEPS/wiki/Usage-Guide
 
-
-The immediate goal of this project is to provide the user with a means to plan the procurement of items, engineering effects, and other tasks. The app also provides some supplemental about the players ship, including weapon and internal module loadout, and a listing of stats and modifications for each module. The player's inventory, consisting of all engineering materials and cargo, is listed in categorized tabs for reference.
+The immediate goal of this project is to provide the user with a means to plan the procurement of items, engineering effects, and other tasks while playing Elite: Dangerous. The app also provides some supplemental about the players ship, including weapon and internal module loadout, and a listing of stats and modifications for each module. The player's inventory, consisting of all engineering materials and cargo, is listed in categorized tabs for reference.
 
 ##### Current Status
 
