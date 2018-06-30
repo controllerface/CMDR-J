@@ -193,7 +193,6 @@ public class JournalSyncTask implements Runnable
 
     private void processEventFile(File file, boolean readAll)
     {
-
         FileReader reader = null;
         try
         {
@@ -223,6 +222,7 @@ public class JournalSyncTask implements Runnable
         {
             e1.printStackTrace();
         }
+        System.out.println("File read: " + file.getName());
     }
 
     private Stream<String> readLines(File file)
@@ -297,7 +297,6 @@ public class JournalSyncTask implements Runnable
 
     private void reInitializeJournalData()
     {
-
         File[] journalFiles = journalPath.toFile().listFiles((directory, file) -> file.startsWith("Journal"));
 
         // todo: maybe print an error of some kind

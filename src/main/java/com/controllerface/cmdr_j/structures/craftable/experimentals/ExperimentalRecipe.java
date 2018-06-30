@@ -55,7 +55,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_auto_loader("Auto Loader", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.auto_reload_while_firing, 0d)
+                    new ItemEffectData(ItemEffect.Auto_Reload_While_Firing, 0d)
             ),
             new CostData(Material.MECHANICALEQUIPMENT, 4),
             new CostData(Material.MECHANICALCOMPONENTS, 3),
@@ -95,7 +95,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_concordant_sequence("Concordant Sequence", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.wing_shield_regeneration_increased, 0d),
+                    new ItemEffectData(ItemEffect.Wing_Shield_Regeneration_Increased, 0d),
                     new ItemEffectData(ItemEffect.ThermalLoad, 50d)
             ),
             new CostData(Material.FOCUSCRYSTALS, 5),
@@ -104,7 +104,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_corrosive_shell("Corrosive Shell", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_armor_hardness_reduced, 0d),
+                    new ItemEffectData(ItemEffect.Target_Armor_Hardness_Reduced, 0d),
                     new ItemEffectData(ItemEffect.AmmoMaximum, -20d)
             ),
             new CostData(Material.CHEMICALSTORAGEUNITS, 5),
@@ -113,7 +113,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_blinding_shell("Dazzle Shell", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_sensor_acuity_reduced, 0d)
+                    new ItemEffectData(ItemEffect.Target_Sensor_Acuity_Reduced, 0d)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),
             new CostData(Material.MANGANESE, 4),
@@ -152,7 +152,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_dispersal_field("Dispersal Field", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_tracking_reduced, 0d)
+                    new ItemEffectData(ItemEffect.Target_Tracking_Reduced, 0d)
             ),
             new CostData(Material.CONDUCTIVECOMPONENTS, 5),
             new CostData(Material.HYBRIDCAPACITORS, 5),
@@ -234,7 +234,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_drag_munitions("Drag Munitions", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_speed_reduced, 0d)
+                    new ItemEffectData(ItemEffect.Target_Speed_Reduced, 0d)
             ),
             new CostData(Material.CARBON, 5),
             new CostData(Material.GRIDRESISTORS, 5),
@@ -250,7 +250,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_emissive_munitions("Emissive Munitions", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_signature_increased, 0d),
+                    new ItemEffectData(ItemEffect.Target_Signature_Increased, 0d),
                     new ItemEffectData(ItemEffect.ThermalLoad, 100d)
             ),
             new CostData(Material.MECHANICALEQUIPMENT, 5),
@@ -274,7 +274,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
     // figure out how to handle this
     special_feedback_cascade("Feedback Cascade (Legacy)", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_shield_cell_disrupted, 0d),
+                    new ItemEffectData(ItemEffect.Target_Shield_Cell_Disrupted, 0d),
                     new ItemEffectData(ItemEffect.Damage, -20d)
             ),
             new CostData(Material.SYMMETRICKEYS, 5),
@@ -284,7 +284,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_feedback_cascade_cooled("Feedback Cascade", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_shield_cell_disrupted, 0d),
+                    new ItemEffectData(ItemEffect.Target_Shield_Cell_Disrupted, 0d),
                     new ItemEffectData(ItemEffect.Damage, -20d),
                     new ItemEffectData(ItemEffect.ThermalLoad, -40d)
             ),
@@ -345,7 +345,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_force_shell("Force Shell", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_pushed_off_course, 0d),
+                    new ItemEffectData(ItemEffect.Target_Pushed_Off_Course, 0d),
                     new ItemEffectData(ItemEffect.ShotSpeed, -16.67d)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),
@@ -355,7 +355,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_fsd_interrupt("FSD Interrupt", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_fsd_reboot, 0d),
+                    new ItemEffectData(ItemEffect.Target_FSD_Reboot, 0d),
                     new ItemEffectData(ItemEffect.Damage, -30d),
                     new ItemEffectData(ItemEffect.RateOfFire, -50d)
             ),
@@ -376,7 +376,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_high_yield_shell("High Yield Shell", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.damage_partially_explosive, 0d),
+                    new ItemEffectData(ItemEffect.Damage_Partially_Explosive, 0d),
                     new ItemEffectData(ItemEffect.RateOfFire, -11.11d)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),
@@ -386,7 +386,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_incendiary_rounds("Incendiary Rounds", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.damage_partially_thermal, 0d),
+                    new ItemEffectData(ItemEffect.Damage_Partially_Thermal, 0d),
                     new ItemEffectData(ItemEffect.RateOfFire, -5.26d),
                     new ItemEffectData(ItemEffect.ThermalLoad, 200d)
             ),
@@ -397,7 +397,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_inertial_impact("Inertial Impact", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.damage_partially_kinetic, 0d),
+                    new ItemEffectData(ItemEffect.Damage_Partially_Kinetic, 0d),
                     new ItemEffectData(ItemEffect.Damage, 50d),
                     new ItemEffectData(ItemEffect.Jitter, 3d)
             ),
@@ -407,7 +407,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_ion_disruptor("Ion Disruptor", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_thrusters_reboot, 0d)
+                    new ItemEffectData(ItemEffect.Target_Thrusters_Reboot, 0d)
             ),
             new CostData(Material.SULPHUR, 5),
             new CostData(Material.PHOSPHORUS, 5),
@@ -447,7 +447,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_mass_lock_munition("Mass Lock Munition", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_fsd_inhibited, 0d)
+                    new ItemEffectData(ItemEffect.Target_FSD_Inhibited, 0d)
             ),
             new CostData(Material.MECHANICALEQUIPMENT, 5),
             new CostData(Material.HIGHDENSITYCOMPOSITES, 3),
@@ -495,7 +495,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_overload_munitions("Overload Munitions", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.damage_partially_thermal, 0d)
+                    new ItemEffectData(ItemEffect.Damage_Partially_Thermal, 0d)
             ),
             new CostData(Material.FILAMENTCOMPOSITES, 5),
             new CostData(Material.ENCRYPTIONCODES, 4),
@@ -513,7 +513,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_penetrator_munitions("Penetrator Munitions", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_module_damage, 0d)
+                    new ItemEffectData(ItemEffect.Target_Module_Damage, 0d)
             ),
             new CostData(Material.GALVANISINGALLOYS, 5),
             new CostData(Material.ELECTROCHEMICALARRAYS, 3),
@@ -521,7 +521,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_penetrator_payload("Penetrator Payload", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_module_damage, 0d)
+                    new ItemEffectData(ItemEffect.Target_Module_Damage, 0d)
             ),
             new CostData(Material.MECHANICALCOMPONENTS, 3),
             new CostData(Material.TUNGSTEN, 3),
@@ -530,7 +530,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_phasing_sequence("Phasing Sequence", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.part_of_damage_through_shields, 0d),
+                    new ItemEffectData(ItemEffect.Part_of_Damage_Through_Shields, 0d),
                     new ItemEffectData(ItemEffect.Damage, -10d)
             ),
             new CostData(Material.FOCUSCRYSTALS, 5),
@@ -542,7 +542,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
     // figure out how to handle this
     special_plasma_slug("Plasma Slug (Legacy)", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.reload_from_ship_fuel, 0d),
+                    new ItemEffectData(ItemEffect.Reload_from_Ship_Fuel, 0d),
                     new ItemEffectData(ItemEffect.Damage, -10d),
                     new ItemEffectData(ItemEffect.AmmoMaximum, -100d)
             ),
@@ -553,7 +553,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_plasma_slug_cooled("Plasma Slug", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.reload_from_ship_fuel, 0d),
+                    new ItemEffectData(ItemEffect.Reload_from_Ship_Fuel, 0d),
                     new ItemEffectData(ItemEffect.Damage, -10d),
                     new ItemEffectData(ItemEffect.ThermalLoad, -40d),
                     new ItemEffectData(ItemEffect.AmmoMaximum, -100d)
@@ -565,7 +565,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_radiant_canister("Radiant Canister", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.area_heat_increased_sensors_disrupted, 0d)
+                    new ItemEffectData(ItemEffect.Area_Heat_Increased_Sensors_Disrupted, 0d)
             ),
             new CostData(Material.POLONIUM, 1),
             new CostData(Material.PHASEALLOYS, 3),
@@ -601,7 +601,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_regeneration_sequence("Regeneration Sequence", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_wing_shield_regeneration, 0d),
+                    new ItemEffectData(ItemEffect.Target_Wing_Shield_Regeneration, 0d),
                     new ItemEffectData(ItemEffect.Damage, -10d)
             ),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 3),
@@ -610,7 +610,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_reverberating_cascade("Reverberating Cascade", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_shield_generator_damaged, 0d)
+                    new ItemEffectData(ItemEffect.Target_Shield_Generator_Damaged, 0d)
             ),
             new CostData(Material.CONFIGURABLECOMPONENTS, 2),
             new CostData(Material.SCANDATABANKS, 3),
@@ -619,7 +619,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_scramble_spectrum("Scramble Spectrum", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_module_malfunction, 0d),
+                    new ItemEffectData(ItemEffect.Target_Module_Malfunction, 0d),
                     new ItemEffectData(ItemEffect.RateOfFire, -11.11d)
             ),
             new CostData(Material.CRYSTALSHARDS, 5),
@@ -628,7 +628,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_screening_shell("Screening Shell", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.effectiveness_increase_against_munitions, 0d),
+                    new ItemEffectData(ItemEffect.Effectiveness_Increase_Against_Munitions, 0d),
                     new ItemEffectData(ItemEffect.ReloadTime, -50d)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),
@@ -638,7 +638,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_shiftlock_canister("Shift-Lock Canister", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.area_fsd_reboot, 0d)
+                    new ItemEffectData(ItemEffect.Area_FSD_Reboot, 0d)
             ),
             new CostData(Material.TEMPEREDALLOYS, 5),
             new CostData(Material.WAKESOLUTIONS, 3),
@@ -646,7 +646,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_smart_rounds("Smart Rounds", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.no_damage_to_untargeted_ships, 0d)
+                    new ItemEffectData(ItemEffect.No_Damage_to_Untargeted_Ships, 0d)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),
             new CostData(Material.SECURITYFIRMWARE, 3),
@@ -737,7 +737,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
     // figure out how to handle this
     special_super_penetrator("Super Penetrator (Legacy)", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_module_damage, 0d),
+                    new ItemEffectData(ItemEffect.Target_Module_Damage, 0d),
                     new ItemEffectData(ItemEffect.ReloadTime, 50d)
             ),
             new CostData(Material.PROTOLIGHTALLOYS, 3),
@@ -747,7 +747,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_super_penetrator_cooled("Super Penetrator", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_module_damage, 0d),
+                    new ItemEffectData(ItemEffect.Target_Module_Damage, 0d),
                     new ItemEffectData(ItemEffect.ThermalLoad, -40d)
             ),
             new CostData(Material.PROTOLIGHTALLOYS, 3),
@@ -757,7 +757,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_lock_breaker("Target Lock Breaker", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_loses_target_lock, 0d)
+                    new ItemEffectData(ItemEffect.Target_Loses_Target_Lock, 0d)
             ),
             new CostData(Material.SELENIUM, 5),
             new CostData(Material.SECURITYFIRMWARE, 3),
@@ -765,7 +765,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_thermal_cascade("Thermal Cascade", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.shielded_target_heat_increased, 0d)
+                    new ItemEffectData(ItemEffect.Shielded_Target_Heat_Increased, 0d)
             ),
             new CostData(Material.HEATCONDUCTIONWIRING, 5),
             new CostData(Material.HYBRIDCAPACITORS, 4),
@@ -774,7 +774,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_thermal_conduit("Thermal Conduit", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.damage_increases_with_heat_level, 0d)
+                    new ItemEffectData(ItemEffect.Damage_Increases_with_Heat_Level, 0d)
             ),
             new CostData(Material.HEATDISPERSIONPLATE, 5),
             new CostData(Material.SULPHUR, 5),
@@ -782,7 +782,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_thermal_shock("Thermal Shock", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.target_heat_increased, 0d),
+                    new ItemEffectData(ItemEffect.Target_Heat_Increased, 0d),
                     new ItemEffectData(ItemEffect.Damage, -10d)
             ),
             new CostData(Material.UNCUTFOCUSCRYSTALS, 5),
@@ -818,7 +818,7 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     special_thermal_vent("Thermal Vent", ItemGrade.Experimental, new ItemEffects
             (
-                    new ItemEffectData(ItemEffect.heat_reduced_when_striking_target, 0d)
+                    new ItemEffectData(ItemEffect.Heat_Reduced_when_Striking_Target, 0d)
             ),
             new CostData(Material.UNCUTFOCUSCRYSTALS, 5),
             new CostData(Material.CONDUCTIVEPOLYMERS, 3),

@@ -51,7 +51,9 @@ public class CommanderJ extends Application
 
         primaryStage.setTitle("CMDR J");
         primaryStage.setScene(scene);
+        System.out.println("Showing");
         primaryStage.show();
+        System.out.println("Shown");
 
         primaryStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST,
                 (e)->
@@ -62,6 +64,8 @@ public class CommanderJ extends Application
                     System.out.println("W:"+primaryStage.getWidth());
 
                 });
+
+        System.out.println("done?");
     }
 
     @Override

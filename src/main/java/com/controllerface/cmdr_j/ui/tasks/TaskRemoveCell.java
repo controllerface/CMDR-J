@@ -3,6 +3,8 @@ package com.controllerface.cmdr_j.ui.tasks;
 import com.controllerface.cmdr_j.ProcurementRecipe;
 import com.controllerface.cmdr_j.ProcurementType;
 import com.controllerface.cmdr_j.data.procurements.ProcurementTaskData;
+import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
@@ -46,26 +48,28 @@ public class TaskRemoveCell extends TableCell<ProcurementTaskData, Pair<Procurem
         Line line = new Line();
         line.setStroke(Color.BLACK);
         line.setStrokeWidth(3);
-        line.setStartX(-3);
-        line.setEndX(7);
-        line.setStartY(1);
-        line.setEndY(11);
+
+        line.setStartX(4);
+        line.setStartY(7);
+        line.setEndX(14);
+        line.setEndY(17);
 
         Line line2 = new Line();
         line2.setStroke(Color.BLACK);
         line2.setStrokeWidth(3);
-        line2.setStartX(-3);
-        line2.setEndX(7);
-        line2.setStartY(11);
-        line2.setEndY(1);
+
+        line2.setStartX(14);
+        line2.setStartY(7);
+        line2.setEndX(4);
+        line2.setEndY(17);
 
         Pane box  = new Pane(line, line2);
 
         removeButton.setGraphic(box);
-        removeButton.setMaxWidth(20d);
-        removeButton.setMinWidth(20d);
-        removeButton.setMaxHeight(20d);
-        removeButton.setMinHeight(20d);
+        removeButton.setMaxWidth(33d);
+        removeButton.setMinWidth(33d);
+        removeButton.setMaxHeight(33d);
+        removeButton.setMinHeight(33d);
         removeButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
         removeButton.setOnAction((e) ->
@@ -74,8 +78,12 @@ public class TaskRemoveCell extends TableCell<ProcurementTaskData, Pair<Procurem
             while (val > 0) val = blueprintUpdate.apply( -val, item);
         });
 
-        removeButton.setTooltip(new Tooltip("Remove this recipe"));
+        Tooltip tooltip = new Tooltip("Remove this Task");
+        tooltip.setFont(UIFunctions.Fonts.size2Font);
+        removeButton.setTooltip(tooltip);
         controls.getChildren().add(removeButton);
+
+        controls.setAlignment(Pos.TOP_CENTER);
 
         setGraphic(controls);
     }

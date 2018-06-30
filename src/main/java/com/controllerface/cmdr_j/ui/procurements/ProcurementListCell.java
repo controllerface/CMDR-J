@@ -119,7 +119,7 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
             infoPane.setTooltip(progressIndicator.getTooltip());
 
             VBox costEffectContainer = new VBox();
-            costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+            costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
 
 
 

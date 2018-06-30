@@ -10,6 +10,7 @@ import com.controllerface.cmdr_j.data.commander.Displayable;
 import com.controllerface.cmdr_j.structures.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.structures.engineers.Engineer;
 import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -76,9 +77,11 @@ public class ProcurementTaskData implements Displayable
         this.getCurrentSystem = builder.getCurrentSystem;
         this.engineers = Engineer.findSupportedEngineers(type, recipe.getGrade());
 
+        progressBar.setPadding(new Insets(8,6,0,6));
+
         costEffectContainer
                 .setBackground(new Background(new BackgroundFill(Color
-                        .rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+                        .rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @Override
@@ -108,7 +111,7 @@ public class ProcurementTaskData implements Displayable
     public void setCount(int amount)
     {
         count.set(amount);
-        renderProgress();
+        Platform.runLater(this::renderProgress);
     }
 
     public boolean matches(Pair<ProcurementType, ProcurementRecipe> pair)
@@ -147,16 +150,18 @@ public class ProcurementTaskData implements Displayable
 
         nameLabel.setPrefHeight(20);
         nameLabel.setFont(UIFunctions.Fonts.size2Font);
-        nameLabel.paddingProperty().set(new Insets(2, 5, 2, 5));
+        nameLabel.paddingProperty().set(new Insets(2, 0, 2, 0));
 
         titledPane.setContent(costEffectContainer);
 
         renderEffects();
 
         // clicking the progress bar should expand the enclosing titled pane
-        progressBar.setOnMouseClicked((e)->titledPane.setExpanded(!titledPane.isExpanded()));
+        //progressBar.setOnMouseClicked((e)->titledPane.setExpanded(!titledPane.isExpanded()));
 
-        titledPane.setGraphic(new HBox(progressBar, nameLabel));
+        titledPane.setGraphic(new HBox(
+                //progressBar,
+                nameLabel));
         ((HBox) titledPane.getGraphic()).setAlignment(Pos.CENTER);
 
         descriptionContainer.getChildren().add(titledPane);
@@ -325,6 +330,10 @@ public class ProcurementTaskData implements Displayable
         return descriptionContainer;
     }
 
+    public ProgressBar getProgressBar()
+    {
+        return progressBar;
+    }
 
     public static class Builder
     {

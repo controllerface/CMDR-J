@@ -8,7 +8,7 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
  * the effect is only available via mod or experimental effect (ex: wing shield regen on Regeneration sequence effect).
  *
  * There are also a few "synthetic" effects in this list that are not actually found in the journal API, but are used
- * here to make integration with certain components easier. For example, the "rearm" effect is present on all synthesis
+ * here to make integration with certain components easier. For example, the "Rearm" effect is present on all synthesis
  * recipes that restore ammo for a weapon. This effect serves mainly as an indicator to the user of the effect of the
  * recipe when viewing it in the UI.
  *
@@ -287,58 +287,58 @@ public enum ItemEffect
     planetary_approach("","Planetary Approach and Landing Capabilities", true), // planetary approach suite
 
     // synthetic effects, used for synthesis recipes
-    rearm("", "", true),                // ammunition replenishment
-    refuel("", "", true),               // fuel replenishment
-    repair("", "", true),               // srv repair
-    refill("", "", true),               // non-damage ammunition replenishment
-    repair_speed("", "", true),         // afmu speed
-    damage_boost("", "", true),         // ammo damage boost
-    fuel_efficiency("", "", true),      // srv fuel
-    hull_strength("", "", true),        // srv hull
-    heat_dissipation("", "", false),    // heat sink refill
+    Rearm("", "", true),                // ammunition replenishment
+    Refuel("", "", true),               // fuel replenishment
+    Repair("", "", true),               // srv Repair
+    Refill("", "", true),               // non-damage ammunition replenishment
+    Repair_Speed("", "", true),         // afmu speed
+    Damage_Boost("", "", true),         // ammo damage boost
+    Fuel_Efficiency("", "", true),      // srv fuel
+    Hull_Strength("", "", true),        // srv hull
+    Heat_Dissipation("", "", false),    // heat sink refill
 
     // synthetic effects, used for tech broker weapons effects
-    enzyme_munitions("", "", true),
-    meta_alloy_reinforcement("", "", true),
-    remote_release_shell("", "", true),
-    shock_shell("", "", true),
-    fsd_boost("", "", true),
-    gauss_shell("", "", true),
-    hybrid_power("", "", true),
-    plasma_weapon("", "", true),
-    shard_shell("", "", true),
+    Enzyme_Munitions("", "", true),
+    Meta_Alloy_Reinforcement("", "", true),
+    Remote_Release_Shell("", "", true),
+    Shock_Shell("", "", true),
+    FSD_Boost("", "", true),
+    Gauss_Shell("", "", true),
+    Hybrid_Power("", "", true),
+    Plasma_Weapon("", "", true),
+    Shard_Shell("", "", true),
 
     // synthetic effects, used for experimental engineer effects
-    area_fsd_reboot("", "", true),
-    area_heat_increased_sensors_disrupted("", "", true),
-    auto_reload_while_firing("", "", true),
-    damage_increases_with_heat_level("", "", true),
-    damage_partially_explosive("", "", true),
-    damage_partially_kinetic("", "", true),
-    damage_partially_thermal("", "", true),
-    effectiveness_increase_against_munitions("", "", true),
-    heat_reduced_when_striking_target("", "", true),
-    no_damage_to_untargeted_ships("", "", true),
-    part_of_damage_through_shields("", "", true),
-    reload_from_ship_fuel("", "", true),
-    shielded_target_heat_increased("", "", true),
-    target_armor_hardness_reduced("", "", true),
-    target_fsd_inhibited("", "", true),
-    target_fsd_reboot("", "", true),
-    target_heat_increased("", "", true),
-    target_loses_target_lock("", "", true),
-    target_module_damage("", "", true),
-    target_module_malfunction("", "", true),
-    target_pushed_off_course("", "", true),
-    target_sensor_acuity_reduced("", "", true),
-    target_shield_cell_disrupted("", "", true),
-    target_shield_generator_damaged("", "", true),
-    target_signature_increased("", "", true),
-    target_speed_reduced("", "", true),
-    target_thrusters_reboot("", "", true),
-    target_tracking_reduced("", "", true),
-    target_wing_shield_regeneration("", "", true),
-    wing_shield_regeneration_increased("", "", true),
+    Area_FSD_Reboot("", "", true),
+    Area_Heat_Increased_Sensors_Disrupted("", "", true),
+    Auto_Reload_While_Firing("", "", true),
+    Damage_Increases_with_Heat_Level("", "", true),
+    Damage_Partially_Explosive("", "", true),
+    Damage_Partially_Kinetic("", "", true),
+    Damage_Partially_Thermal("", "", true),
+    Effectiveness_Increase_Against_Munitions("", "", true),
+    Heat_Reduced_when_Striking_Target("", "", true),
+    No_Damage_to_Untargeted_Ships("", "", true),
+    Part_of_Damage_Through_Shields("", "", true),
+    Reload_from_Ship_Fuel("", "", true),
+    Shielded_Target_Heat_Increased("", "", true),
+    Target_Armor_Hardness_Reduced("", "", true),
+    Target_FSD_Inhibited("", "", true),
+    Target_FSD_Reboot("", "", true),
+    Target_Heat_Increased("", "", true),
+    Target_Loses_Target_Lock("", "", true),
+    Target_Module_Damage("", "", true),
+    Target_Module_Malfunction("", "", true),
+    Target_Pushed_Off_Course("", "", true),
+    Target_Sensor_Acuity_Reduced("", "", true),
+    Target_Shield_Cell_Disrupted("", "", true),
+    Target_Shield_Generator_Damaged("", "", true),
+    Target_Signature_Increased("", "", true),
+    Target_Speed_Reduced("", "", true),
+    Target_Thrusters_Reboot("", "", true),
+    Target_Tracking_Reduced("", "", true),
+    Target_Wing_Shield_Regeneration("", "", true),
+    Wing_Shield_Regeneration_Increased("", "", true),
 
     ;
 

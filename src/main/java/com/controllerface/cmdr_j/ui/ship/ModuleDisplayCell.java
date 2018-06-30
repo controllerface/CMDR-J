@@ -18,6 +18,7 @@ public class ModuleDisplayCell extends TableCell<ShipModuleData, ShipModuleData>
             setGraphic(null);
             return;
         }
+        shipModule.prepareGraphic();
         setGraphic(shipModule.getGraphic());
     }
 }

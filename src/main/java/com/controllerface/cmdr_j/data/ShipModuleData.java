@@ -172,7 +172,7 @@ public class ShipModuleData implements Displayable
         renderEffectTable(effectsContainer);
 
         HBox statContainer = new HBox();
-        statContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+        statContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
         statContainer.getChildren().add(detailsContainer);
 
         VBox moduleDataContainer = new VBox();

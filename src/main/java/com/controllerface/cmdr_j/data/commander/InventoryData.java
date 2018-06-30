@@ -16,9 +16,12 @@ import com.controllerface.cmdr_j.structures.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyBlueprint;
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -77,7 +80,7 @@ public class InventoryData implements Displayable
         this.categoryOrdinal = MaterialSubCostCategory.findMatchingSubCategory(material)
                 .map(MaterialSubCostCategory::getNumericalValue)
                 .orElse(-1);
-        progressBar.setPadding(new Insets(0,10,0,0));
+        progressBar.setPadding(new Insets(6,6,0,6));
     }
 
     private void renderProgress()
@@ -89,6 +92,7 @@ public class InventoryData implements Displayable
 
     private void render()
     {
+        descriptionContainer.getChildren().clear();
         ProcurementCost cost = getItem();
         String category = "";
         if (cost instanceof Material)
@@ -108,20 +112,18 @@ public class InventoryData implements Displayable
 
         String materialName = category + " :: " + getItem().getLocalizedName();
 
-        Accordion accordion = new Accordion();
+
+        //Accordion accordion = new Accordion();
         TitledPane titledPane = new TitledPane();
         titledPane.setAnimated(false);
-        descriptionContainer.getChildren().add(accordion);
-        accordion.getPanes().add(titledPane);
+        titledPane.expandedProperty().setValue(false);
+        descriptionContainer.getChildren().add(titledPane);
         descriptionContainer.setAlignment(Pos.CENTER_LEFT);
 
         Label label = new Label(materialName);
-        HBox labelBox = new HBox();
-        labelBox.alignmentProperty().set(Pos.CENTER);
-
         renderProgress();
 
-        if (getItem().getGrade().getMaximumQuantity() != -1) labelBox.getChildren().add(progressBar);
+
 
         //todo: fix progress for commodities
 
@@ -129,8 +131,31 @@ public class InventoryData implements Displayable
 
         label.setFont(UIFunctions.Fonts.size2Font);
         label.alignmentProperty().set(Pos.CENTER_LEFT);
+
+        VBox overBox = new VBox();
+        overBox.fillWidthProperty().setValue(true);
+        HBox labelBox = new HBox();
         labelBox.getChildren().add(label);
-        labelBox.alignmentProperty().set(Pos.CENTER_LEFT);
+
+//        if (getItem().getGrade().getMaximumQuantity() != -1)
+//        {
+//            Region region = new Region();
+//            HBox.setHgrow(region, Priority.ALWAYS);
+//            labelBox.getChildren().add(region);
+//            labelBox.getChildren().add(progressBar);
+//            HBox.setHgrow(labelBox, Priority.ALWAYS);
+//
+////            Parent parent = titledPane.getParent();
+////            if (parent instanceof VBox)
+////            {
+//////                region.prefWidthProperty().bind(((VBox) parent).widthProperty().subtract(progressBar.widthProperty())
+//////                        .subtract(label.widthProperty()));
+////            }
+//        }
+        overBox.getChildren().add(labelBox);
+
+
+
 
 
         Label locationLabel = new Label("Relevant Locations");
@@ -143,9 +168,9 @@ public class InventoryData implements Displayable
         locationContainer.getChildren().add(locationInfo);
         locationContainer
                 .setBackground(new Background(new BackgroundFill(Color
-                        .rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+                        .rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
 
-        titledPane.setGraphic(labelBox);
+        titledPane.setGraphic(overBox);
         titledPane.setContent(locationContainer);
         titledPane.alignmentProperty().set(Pos.CENTER_LEFT);
 
@@ -285,5 +310,10 @@ public class InventoryData implements Displayable
     public Node getGraphic()
     {
         return descriptionContainer;
+    }
+
+    public ProgressBar getProgressBar()
+    {
+        return progressBar;
     }
 }

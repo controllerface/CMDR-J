@@ -15,12 +15,12 @@ public enum CoreInternalSlot implements Statistic
     ShipCockpit("Cockpit"),
     CargoHatch("Cargo Hatch"),
     Armour("Bulkheads"),
-    PowerPlant("Power Plant"),
-    MainEngines("Thrusters"),
-    FrameShiftDrive("Frame Shift Drive"),
-    LifeSupport("Life Support System"),
-    PowerDistributor("Power Distributor"),
-    Radar("Sensors"),
+    PowerPlant("Reactor Bay"),
+    MainEngines("Main Engines"),
+    FrameShiftDrive("Hyper Drive"),
+    LifeSupport("Environmental Control"),
+    PowerDistributor("Power Coupling"),
+    Radar("Sensor Suite"),
     FuelTank("Fuel Tank"),
 
     ;

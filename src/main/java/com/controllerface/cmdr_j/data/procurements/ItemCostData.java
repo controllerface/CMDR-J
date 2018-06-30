@@ -8,13 +8,16 @@ import com.controllerface.cmdr_j.structures.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.structures.costs.materials.Material;
 import com.controllerface.cmdr_j.structures.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.structures.costs.materials.MaterialType;
+import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
 import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 
 import java.util.List;
 import java.util.Objects;
@@ -95,9 +98,11 @@ public class ItemCostData implements Displayable
         this.pendingTradeCost = pendingTradeCost;
         this.addTask = addTask;
 
+        progressBar.setPadding(new Insets(8,6,0,6));
+
         locationContainer
                 .setBackground(new Background(new BackgroundFill(Color
-                        .rgb(0xDD, 0xDD, 0xDD), CornerRadii.EMPTY, Insets.EMPTY)));
+                        .rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @Override
@@ -119,7 +124,7 @@ public class ItemCostData implements Displayable
     public void setNeed(int count)
     {
         this.count.set(count);
-        renderProgress();
+        Platform.runLater(this::renderProgress);
     }
 
     public ProcurementCost getCost()
@@ -131,6 +136,33 @@ public class ItemCostData implements Displayable
     {
         return costData.getCost() == this.cost;
     }
+
+
+    private Region doit(ItemGrade grade)
+    {
+        final Region svgShape = new Region();
+        SVGPath svg = grade.getIcon();
+        svgShape.setShape(svg);
+
+        double sizeh = 22;
+        double sizew = 25;
+
+        svgShape.setMinSize(sizew, sizeh);
+        svgShape.setPrefSize(sizew, sizeh);
+        svgShape.setMaxSize(sizew, sizeh);
+        svgShape.setStyle("-fx-background-color: #b75200;");
+        double originalWidth = svg.prefWidth(-1);
+        double originalHeight = svg.prefHeight(originalWidth);
+
+        double scaleX = sizew / originalWidth;
+        double scaleY = sizeh / originalHeight;
+
+        svg.setScaleX(scaleX);
+        svg.setScaleY(scaleY);
+        return svgShape;
+    }
+
+
 
     private void renderTrades(double progress)
     {
@@ -229,7 +261,13 @@ public class ItemCostData implements Displayable
 
                             if (tradeType.isPresent())
                             {
-                                String ratio = tradeCost.getCost().getGrade() + " for " + tradeYield.getCost().getGrade();
+                                Region from = doit(tradeCost.getCost().getGrade());
+                                Region to = doit(tradeYield.getCost().getGrade());
+
+                                Label toLabel = new Label(" to ");
+                                toLabel.setFont(UIFunctions.Fonts.size1Font);
+                                HBox convBox = new HBox(from, toLabel, to);
+
                                 ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), trade.tradeRecipe);
 
                                 VBox btnhldr = new VBox();
@@ -238,13 +276,6 @@ public class ItemCostData implements Displayable
                                 Label desc = new Label(trade.tradeRecipe.getDisplayLabel());
                                 desc.setFont(UIFunctions.Fonts.size1Font);
                                 desc.alignmentProperty().setValue(Pos.CENTER_LEFT);
-
-                                Label desc2 = new Label(ratio);
-                                desc2.setFont(UIFunctions.Fonts.size1Font);
-                                desc2.setTextFill(UIFunctions.Fonts.darkOrange);
-                                desc2.alignmentProperty().setValue(Pos.CENTER_RIGHT);
-
-                                AtomicInteger gen = new AtomicInteger(0);
 
                                 Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
                                 int committed = (committedCost == null) ? 0 : committedCost;
@@ -256,12 +287,9 @@ public class ItemCostData implements Displayable
                                         .filter(i -> have >= i)
                                         .count();
 
-                                Label desc3 = new Label(" (" + String.format("%02d", max) + ")");
+                                Label desc3 = new Label("  (" + String.format("%02d", max) + ")");
                                 desc3.setFont(UIFunctions.Fonts.size1Font);
-                                desc3.setTextFill(UIFunctions.Fonts.darkYellow);
                                 desc3.alignmentProperty().setValue(Pos.CENTER);
-
-
 
                                 Region region1 = new Region();
                                 HBox.setHgrow(region1, Priority.ALWAYS);
@@ -270,7 +298,7 @@ public class ItemCostData implements Displayable
 
                                 btnlbl.getChildren().add(desc);
                                 btnlbl.getChildren().add(region1);
-                                btnlbl.getChildren().add(desc2);
+                                btnlbl.getChildren().add(convBox);
                                 btnlbl.getChildren().add(desc3);
                                 btnhldr.getChildren().add(btnlbl);
 
@@ -479,12 +507,11 @@ public class ItemCostData implements Displayable
         Label costLabel = new Label(type + " :: "  + cost.getLocalizedName()) ;
         costLabel.setPrefHeight(20);
         costLabel.setFont(UIFunctions.Fonts.size2Font);
-        costLabel.paddingProperty().set(new Insets(2,5,2,5));
+        costLabel.paddingProperty().set(new Insets(2,0,2,0));
 
         renderProgress();
 
-        progressBar.setOnMouseClicked((e)->titledPane.setExpanded(!titledPane.isExpanded()));
-        hbox.getChildren().addAll(progressBar, costLabel);
+        hbox.getChildren().add(costLabel);
 
         HBox labelBox = new HBox();
         labelBox.alignmentProperty().set(Pos.CENTER);
@@ -513,5 +540,10 @@ public class ItemCostData implements Displayable
     public Node getGraphic()
     {
         return descriptionContainer;
+    }
+
+    public ProgressBar getProgressBar()
+    {
+        return progressBar;
     }
 }

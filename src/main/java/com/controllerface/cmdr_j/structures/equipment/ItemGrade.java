@@ -1,5 +1,9 @@
 package com.controllerface.cmdr_j.structures.equipment;
 
+import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.scene.Node;
+import javafx.scene.shape.SVGPath;
+
 /**
  * An enumeration of items grades in Elite: Dangerous. Some grade values may be used for multiple purposes
  *
@@ -16,11 +20,11 @@ public enum ItemGrade
     GRADE_4(4, "Grade 4"),
     GRADE_5(5, "Grade 5"),
 
-    VERY_COMMON(1, 300, "Very Common"),
-    COMMON(2, 250, "Common"),
-    STANDARD(3, 200, "Standard"),
-    RARE(4, 150, "Rare"),
-    VERY_RARE(5, 100, "Very Rare"),
+    VERY_COMMON(1, 300, "Very Common", UIFunctions.Icons.materialGrade1),
+    COMMON(2, 250, "Common", UIFunctions.Icons.materialGrade2),
+    STANDARD(3, 200, "Standard", UIFunctions.Icons.materialGrade3),
+    RARE(4, 150, "Rare", UIFunctions.Icons.materialGrade4),
+    VERY_RARE(5, 100, "Very Rare", UIFunctions.Icons.materialGrade5),
 
     /*
     Used for Engineer experimental effects
@@ -62,28 +66,35 @@ public enum ItemGrade
     private final int maximumQuantity;
     private final String text;
     private final String locationDescription;
+    private final SVGPath icon;
 
     ItemGrade(int numericalValue, String text)
     {
-        this(numericalValue, -1, text, "");
+        this(numericalValue, -1, text, "", null);
     }
 
     ItemGrade(int numericalValue, int maximumQuantity, String text)
     {
-        this(numericalValue, maximumQuantity, text, "");
+        this(numericalValue, maximumQuantity, text, "", null);
+    }
+
+    ItemGrade(int numericalValue, int maximumQuantity, String text, SVGPath icon)
+    {
+        this(numericalValue, maximumQuantity, text, "", icon);
     }
 
     ItemGrade(int numericalValue, String text, String locationDescription)
     {
-        this(numericalValue, -1, text, locationDescription);
+        this(numericalValue, -1, text, locationDescription, null);
     }
 
-    ItemGrade(int numericalValue, int maximumQuantity, String text, String locationDescription)
+    ItemGrade(int numericalValue, int maximumQuantity, String text, String locationDescription, SVGPath icon)
     {
         this.numericalValue = numericalValue;
         this.maximumQuantity = maximumQuantity;
         this.text = text;
         this.locationDescription = locationDescription;
+        this.icon = icon;
     }
 
     @Override
@@ -105,6 +116,11 @@ public enum ItemGrade
     public int getMaximumQuantity()
     {
         return maximumQuantity;
+    }
+
+    public SVGPath getIcon()
+    {
+        return icon;
     }
 
     public static int compare(ItemGrade a, ItemGrade b)

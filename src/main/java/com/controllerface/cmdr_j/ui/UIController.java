@@ -31,6 +31,7 @@ import com.controllerface.cmdr_j.structures.craftable.synthesis.SynthesisType;
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyCategory;
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyType;
+import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
 import com.controllerface.cmdr_j.threads.TransactionProcessingTask;
 import com.controllerface.cmdr_j.threads.UserTransaction;
@@ -62,6 +63,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
@@ -70,13 +73,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -153,12 +156,15 @@ public class UIController
     @FXML private TableView<ProcurementTaskData> procurementTaskTable;
     @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> taskCountColumn;
     @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> taskNameColumn;
+    @FXML private TableColumn<ProcurementTaskData, ProgressBar> taskProgressColumn;
     @FXML private TableColumn<ProcurementTaskData, Pair<ProcurementType, ProcurementRecipe>> taskRemoveColumn;
 
     // Items needed/costs table and columns
     @FXML private TableView<ItemCostData> taskCostTable;
     @FXML private TableColumn<ItemCostData, String> taskCostNeedColumn;
     @FXML private TableColumn<Displayable, Displayable> taskCostNameColumn;
+    @FXML private TableColumn<ItemCostData, ItemGrade> taskCostGradeColumn;
+    @FXML private TableColumn<ItemCostData, ProgressBar> taskCostProgressColumn;
 
 
     /*
@@ -173,18 +179,21 @@ public class UIController
     @FXML private TableView<InventoryData> rawTable;
     @FXML private TableColumn<InventoryData, InventoryData> rawGradeColumn;
     @FXML private TableColumn<InventoryData, InventoryData> rawMaterialColumn;
+    @FXML private TableColumn<InventoryData, ProgressBar> rawMaterialProgressColumn;
     @FXML private TableColumn<InventoryData, Label> rawQuantityColumn;
 
     // Manufactured materials
     @FXML private TableView<InventoryData> manufacturedTable;
     @FXML private TableColumn<InventoryData, InventoryData> manufacturedGradeColumn;
     @FXML private TableColumn<InventoryData, InventoryData> manufacturedMaterialColumn;
+    @FXML private TableColumn<InventoryData, ProgressBar> manufacturedProgressColumn;
     @FXML private TableColumn<InventoryData, Label> manufacturedQuantityColumn;
 
     // Data materials
     @FXML private TableView<InventoryData> dataTable;
     @FXML private TableColumn<InventoryData, InventoryData> dataGradeColumn;
     @FXML private TableColumn<InventoryData, InventoryData> dataMaterialColumn;
+    @FXML private TableColumn<InventoryData, ProgressBar> dataProgressColumn;
     @FXML private TableColumn<InventoryData, Label> dataQuantityColumn;
 
     // Cargo
@@ -259,7 +268,12 @@ public class UIController
      */
     private final List<ItemCostData> costList = new CopyOnWriteArrayList<>();
 
-    private final List<MessageData> messageList = new CopyOnWriteArrayList<>();
+    //private final List<MessageData> messageList = new CopyOnWriteArrayList<>();
+
+    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+    private final BlockingQueue<MessageData> messageQueue = new LinkedBlockingDeque<>();
+    private final AtomicBoolean hasMessages = new AtomicBoolean(false);
 
     /*
     Convenience consumer function that accepts a ProcurementTask and adds it to the procurement list. If the task
@@ -301,6 +315,33 @@ public class UIController
         Thread inventoryThread = new Thread(inventorySyncTask);
         inventoryThread.setDaemon(true);
         inventoryThread.start();
+
+        executorService.scheduleAtFixedRate(this::processMessages, 0, 1, TimeUnit.SECONDS);
+    }
+
+    private void consumeNextMessageBlock(List<MessageData> msgs)
+    {
+        consoleBackingList.addAll(msgs);
+        while (consoleBackingList.size() > 500) consoleBackingList.remove(0);
+        consoleMessageList.scrollTo(consoleBackingList.size());
+    }
+
+    private void processMessages()
+    {
+        if (hasMessages.getAndSet(false))
+        {
+            List<MessageData> msgs = IntStream.range(0, 100)
+                    .mapToObj(i -> messageQueue.poll())
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+
+            if (messageQueue.isEmpty()) hasMessages.set(false);
+            else
+            {
+                hasMessages.set(true);
+            }
+            Platform.runLater(()->consumeNextMessageBlock(msgs));
+        }
     }
 
     /**
@@ -313,6 +354,7 @@ public class UIController
         try
         {
             toJson();
+            executorService.shutdown();
         }
         catch (IOException e)
         {
@@ -419,6 +461,8 @@ public class UIController
         taskCountColumn.setCellFactory(x -> new TaskCountCell(this::procurementListUpdate));
         taskCountColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
+        taskProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
+
         taskNameColumn.setCellFactory(x -> new TaskDataCell());
         taskNameColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
@@ -430,6 +474,67 @@ public class UIController
 
         taskCostNameColumn.setCellValueFactory(modMaterial -> new ReadOnlyObjectWrapper<>(modMaterial.getValue()));
         taskCostNameColumn.setCellFactory(x -> new CostDataCell());
+
+        taskCostProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
+
+        taskCostGradeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getCost().getGrade()));
+        taskCostGradeColumn.setCellFactory(new Callback<TableColumn<ItemCostData, ItemGrade>, TableCell<ItemCostData, ItemGrade>>()
+        {
+            @Override
+            public TableCell<ItemCostData, ItemGrade> call(TableColumn<ItemCostData, ItemGrade> param)
+            {
+                return new TableCell<ItemCostData, ItemGrade>()
+                {
+                    @Override
+                    protected void updateItem(ItemGrade item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+                        if (item == null || empty)
+                        {
+                            setText(null);
+                            setGraphic(null);
+                            return;
+                        }
+
+                        HBox hBox = new HBox();
+                        SVGPath icon = item.getIcon() == null ?  UIFunctions.Icons.cargo : item.getIcon();
+
+                        final Region svgShape = new Region();
+                        svgShape.setShape(icon);
+
+                        double sizew = 28;
+                        double sizeh = item.getIcon() == null ? sizew : 26;
+
+                        double topPad = item.getIcon() == null ? 2 : 4;
+
+
+                        svgShape.setMinSize(sizew, sizeh);
+                        svgShape.setPrefSize(sizew, sizeh);
+                        svgShape.setMaxSize(sizew, sizeh);
+
+                        if (item.getIcon() == null)
+                        {
+                            svgShape.setStyle("-fx-background-color: black;");
+                        }
+                        else svgShape.setStyle("-fx-background-color: #b75200;");
+
+                        double originalWidth = icon.prefWidth(-1);
+                        double originalHeight = icon.prefHeight(originalWidth);
+
+                        double scaleX = sizew / originalWidth;
+                        double scaleY = sizeh / originalHeight;
+
+                        icon.setScaleX(scaleX);
+                        icon.setScaleY(scaleY);
+                        hBox.getChildren().add(svgShape);
+                        hBox.setPadding(new Insets(topPad,0,0,0));
+                        hBox.setAlignment(Pos.TOP_CENTER);
+
+                        setGraphic(hBox);
+                    }
+                };
+            }
+        });
 
         sortTasksByName.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.tasksByName));
         sortTasksByGrade.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.taskByGrade));
@@ -472,6 +577,10 @@ public class UIController
         rawTable.setPlaceholder(rawTableLabel);
         manufacturedTable.setPlaceholder(mfdTableLabel);
         dataTable.setPlaceholder(dataTableLabel);
+
+        Label messageLabel = new Label("Loading Message Log...");
+        messageLabel.setFont(UIFunctions.Fonts.size4Font);
+        consoleMessageList.setPlaceholder(messageLabel);
     }
 
     /**
@@ -505,7 +614,15 @@ public class UIController
                 inventoryQuantityCellFactory = (materialData) ->
         {
             int quantity = materialData.getValue().getQuantity();
-            Label label = new Label(String.valueOf(quantity));
+            int max = materialData.getValue().getItem().getGrade().getMaximumQuantity();
+            Label label = new Label();
+            String q = String.format("%1$" + 3 + "s", quantity);
+            if (max != -1)
+            {
+                q += " / " + max;
+            }
+            label.setText(q);
+
             label.paddingProperty().setValue(new Insets(5,0,0,0));
             label.setFont(UIFunctions.Fonts.size2Font);
             return new ReadOnlyObjectWrapper<>(label);
@@ -539,7 +656,7 @@ public class UIController
         dataGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
         cargoGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
 
-        // This call back simply creates a new custom InventoryDataCell which is used int he center "data" columns
+        // This call back simply creates a new custom data cell which is used int he center "data" columns
         // of the various inventory UI tables. The custom cell contains the display logic and supports all of the
         // various item categories, so we can re use it for all of the data columns
 
@@ -557,6 +674,10 @@ public class UIController
         manufacturedMaterialColumn.setCellFactory(inventoryItemCellFactory);
         dataMaterialColumn.setCellFactory(inventoryItemCellFactory);
         cargoItemColumn.setCellFactory(inventoryItemCellFactory);
+
+        rawMaterialProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
+        manufacturedProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
+        dataProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
 
         // the "item grade" columns use a very similar structure to the "data" columns, with the same read-only wrapper
         // factory but different custom data cells. This callback provides the custom cells for the item grades
@@ -752,18 +873,8 @@ public class UIController
 
     private void messageLogger(UserTransaction.MessageType messageType, String message)
     {
-        synchronized (messageList)
-        {
-            messageList.add(new MessageData(message, messageType));
-            while (messageList.size() > 500) messageList.remove(0);
-        }
-
-        Platform.runLater(()->
-        {
-            consoleBackingList.clear();
-            consoleBackingList.addAll(messageList);
-            consoleMessageList.scrollTo(consoleBackingList.size());
-        });
+        messageQueue.add(new MessageData(message, messageType));
+        hasMessages.set(true);
     }
 
     /**

@@ -249,6 +249,15 @@ public enum JournalEvent
         setStatFromData(context, RankStat.Reputation_Independent);
     }),
 
+    SetUserShipName((context) ->
+    {
+        logLoadoutMessage(context, "Reloading Ship Name");
+        String shipName = ((String) context.getRawData().get("UserShipName"));
+        String shipID = ((String) context.getRawData().get("UserShipId"));
+        context.getCommanderData().getStarShip().setGivenName(shipName);
+        context.getCommanderData().getStarShip().setShipID(shipID);
+    }),
+
     /**
      * Loadout event: written at startup, when loading from main menu, and after being destroyed in an SRV and
      * teleporting back to your ship.
@@ -530,7 +539,7 @@ public enum JournalEvent
     MiningRefined((context) ->
     {
         logInventoryMessage(context, "Commodity Refined");
-        String name = ((String) context.getRawData().get("Type")).toUpperCase();
+        String name = ((String) context.getRawData().get("Type")).replace("$","").replace("_name;","").toUpperCase();
         adjust(context, new Pair<>(name, 1), AdjustmentType.COMMODITY);
     }),
 

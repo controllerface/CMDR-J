@@ -11,7 +11,9 @@ import javafx.scene.Node;
 public interface Displayable
 {
     /**
-     * Gets the graphical representation of the object
+     * Gets the graphical representation of the object.
+     *
+     * Caution: This method should ONLY be called from the JavaFX Ui thread.
      *
      * @return a JavaFX {@linkplain Node} containing a graphical representation of the object
      */
