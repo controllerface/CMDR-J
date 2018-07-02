@@ -5,11 +5,9 @@ package com.controllerface.cmdr_j;
 
 import com.controllerface.cmdr_j.ui.UIController;
 import javafx.application.Application;
-import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -43,6 +41,9 @@ public class CommanderJ extends Application
     @Override
     public void start(Stage primaryStage)
     {
+        primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN,
+                (e)->controller.showVisuals());
+
         Parent root = loadRoot();
         root.getStyleClass().add("main");
 

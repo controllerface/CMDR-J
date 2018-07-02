@@ -57,6 +57,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -68,6 +70,7 @@ import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -334,20 +337,15 @@ public class UIController
         }
     }
 
-    /**
-     * Reflectively called by JavaFX after this class is instantiated. This is where the UI components are filled with
-     * their respective data.
-     */
-    @FXML
-    public void initialize()
+    public void showVisuals()
     {
+        //synchronizeBackingLists();
         initializeUIComponents();
 
         // build the procurement task selection tree
-        makeProcurementTree();
+        fromJson();
 
         // load the auto-save data from disk
-        fromJson();
 
         // set initialized flag
 
@@ -363,7 +361,41 @@ public class UIController
         }
 
         sortInventory();
+    }
+
+    /**
+     * Reflectively called by JavaFX after this class is instantiated. This is where the UI components are filled with
+     * their respective data.
+     */
+    @FXML
+    public void initialize()
+    {
+        makeProcurementTree();
         startupTasks();
+
+//        initializeUIComponents();
+//
+//        // build the procurement task selection tree
+//        makeProcurementTree();
+//
+//        // load the auto-save data from disk
+//        fromJson();
+//
+//        // set initialized flag
+//
+//        Properties properties = new Properties();
+//        try {properties.load(this.getClass().getResourceAsStream("/config.properties"));}
+//        catch (IOException e) {e.printStackTrace();}
+//
+//        // todo: implement, maybe dump certain data to the info log? or possibly have a debug tab
+//        String debug = properties.getProperty("debug");
+//        if (debug != null && debug.equals("true"))
+//        {
+//            System.out.println("Debug mode currently not implemented");
+//        }
+//
+//        sortInventory();
+//        startupTasks();
     }
 
     private void startupTasks()
@@ -869,22 +901,16 @@ public class UIController
      */
     private void synchronizeBackingLists()
     {
-        // Note: It would seem logical in both block below to use the addAll() list methods rather than iterating and
-        // adding each item separately, as is done here. Unfortunately, using that method can sometimes cause the UI
-        // to skip notifying the sorted list wrapper. In particular, when first starting up the GUI, if addAll is used,
-        // the ListView that uses the sorted list will appear unsorted until the contents change. Adding each item one
-        // at a time forces the list to fire a change event
-
         synchronized (taskBackingList)
         {
             taskBackingList.clear();
-            taskList.forEach(taskBackingList::add);
+            taskBackingList.addAll(taskList);
         }
 
         synchronized (taskCostBackingList)
         {
             taskCostBackingList.clear();
-            costList.forEach(taskCostBackingList::add);
+            taskCostBackingList.addAll(costList);
         }
     }
 
