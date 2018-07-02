@@ -439,7 +439,7 @@
                                                   <columns>
                                                       <TableColumn fx:id="taskRemoveColumn" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" resizable="false" sortable="false" />
                                                     <TableColumn fx:id="taskNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" resizable="false" sortable="false" text="Tracked Tasks" />
-                                                      <TableColumn fx:id="taskProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Progress" />
+                                                      <TableColumn fx:id="taskProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Progress" />
                                                     <TableColumn fx:id="taskCountColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Count" />
                                                   </columns>
                                                 </TableView>
@@ -449,9 +449,9 @@
                                     </AnchorPane>
                                     <TableView fx:id="taskCostTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                       <columns>
-                                          <TableColumn fx:id="taskCostGradeColumn" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" text="Grade" />
+                                          <TableColumn fx:id="taskCostGradeColumn" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" sortable="false" text="Grade" />
                                           <TableColumn fx:id="taskCostNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="291.0" resizable="false" sortable="false" text="Tracked Items" />
-                                          <TableColumn fx:id="taskCostProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Progress" />
+                                          <TableColumn fx:id="taskCostProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Progress" />
                                           <TableColumn fx:id="taskCostNeedColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Need" />
                                       </columns>
                                     </TableView>

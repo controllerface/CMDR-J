@@ -166,6 +166,29 @@ public enum Engineer
     private final EnumMap<ModificationType, ItemGrade> modifications = new EnumMap<>(ModificationType.class);
     private final EnumSet<ExperimentalType> experimentals = EnumSet.noneOf(ExperimentalType.class);
 
+    /**
+     * Main Constructor
+     *
+     * SafeVarargs notes:
+     *  - The varargs argument {@code tasks} is used purely for extracting the data from the task pairs, and storing
+     *  the keys/values in separate maps. The maps are used at runtime as lookup tables for easily associating items
+     *  that can be modified and the Engineer who can perform the modification. Without the SafeVarags annotation, this
+     *  class causes a compile time warning about possible heap pollution. This is because of the {@code Pair<>} object
+     *  which has generic type parameters. This usage pattern is difficult for a java compiler to optimize because of
+     *  how the type system is implemented, thus is warns the user about code that exhibits this behavior.
+     *
+     *  - We Are asserting here that the behavior as specified is acceptable, because the usage of the Pair object as
+     *  an intermediary is purely for convenience. The actual Pair objects are very short-lived, statically created
+     *  when this enum class is instantiated by the JVM. The Pairs are created as the enum values are constructed, and
+     *  the keys/values are immediately extracted and stored in their appropriate places. The pair then falls out of
+     *  scope and should be garbage collected. This behavior is private to this class and therefore isn't open to
+     *  accidental misuse from outside classes.
+     *
+     * @param fullName the full name of this engineer
+     * @param location StarSystem where this engineer can be found
+     * @param tasks tasks(Modifications and Experimental Effects) that this Engineer can perform
+     */
+    @SafeVarargs
     Engineer(String fullName, StarSystem location, Pair<Pair<ModificationType, ExperimentalType>, ItemGrade> ... tasks)
     {
         this.fullName = fullName;

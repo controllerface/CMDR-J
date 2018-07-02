@@ -5,9 +5,11 @@ package com.controllerface.cmdr_j;
 
 import com.controllerface.cmdr_j.ui.UIController;
 import javafx.application.Application;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -51,9 +53,7 @@ public class CommanderJ extends Application
 
         primaryStage.setTitle("CMDR J");
         primaryStage.setScene(scene);
-        System.out.println("Showing");
         primaryStage.show();
-        System.out.println("Shown");
 
         primaryStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST,
                 (e)->
@@ -64,8 +64,6 @@ public class CommanderJ extends Application
                     System.out.println("W:"+primaryStage.getWidth());
 
                 });
-
-        System.out.println("done?");
     }
 
     @Override

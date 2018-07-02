@@ -13,9 +13,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
@@ -1161,7 +1159,7 @@ public class UIFunctions
                 Comparator.comparingInt(a -> {
                     try
                     {
-                        return Integer.parseInt(a.getText());
+                        return Integer.parseInt(a.getText().trim());
                     }
                     catch (Exception e)
                     {
@@ -1170,6 +1168,9 @@ public class UIFunctions
                         return Integer.parseInt(stripped);
                     }
                 });
+
+        static final Comparator<ProgressBar> progressByValue =
+                Comparator.comparingDouble(ProgressIndicator::getProgress);
 
         // sorts procurement tasks by name, and ensure trade tasks always come after all other task types
         static final Comparator<ProcurementTaskData> tasksByName =

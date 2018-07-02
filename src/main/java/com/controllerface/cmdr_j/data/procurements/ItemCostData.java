@@ -138,7 +138,7 @@ public class ItemCostData implements Displayable
     }
 
 
-    private Region doit(ItemGrade grade)
+    private Region generateIcon(ItemGrade grade)
     {
         final Region svgShape = new Region();
         SVGPath svg = grade.getIcon();
@@ -207,12 +207,8 @@ public class ItemCostData implements Displayable
 
                             boolean overCommitted = !cannotAfford && recipe.costStream()
                                     .filter(costData -> costData.getQuantity() > 0)
-                                    .anyMatch(costData ->
-                                    {
-                                        //Integer committedCost = pendingTradeCost.apply(costData.getCost());
-                                        if (committedCost == null) return false;
-                                        return (checkInventory.apply(costData.getCost()) - committed) < costData.getQuantity();
-                                    });
+                                    .anyMatch(costData -> committedCost != null &&
+                                            (checkInventory.apply(costData.getCost()) - committed) < costData.getQuantity());
 
                             long max = IntStream.range(1, 100)
                                     .map(i -> i * tradeCost.getQuantity())
@@ -261,8 +257,8 @@ public class ItemCostData implements Displayable
 
                             if (tradeType.isPresent())
                             {
-                                Region from = doit(tradeCost.getCost().getGrade());
-                                Region to = doit(tradeYield.getCost().getGrade());
+                                Region from = generateIcon(tradeCost.getCost().getGrade());
+                                Region to = generateIcon(tradeYield.getCost().getGrade());
 
                                 Label toLabel = new Label(" to ");
                                 toLabel.setFont(UIFunctions.Fonts.size1Font);

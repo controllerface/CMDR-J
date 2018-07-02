@@ -163,8 +163,8 @@ public class UIController
     @FXML private TableView<ItemCostData> taskCostTable;
     @FXML private TableColumn<ItemCostData, String> taskCostNeedColumn;
     @FXML private TableColumn<Displayable, Displayable> taskCostNameColumn;
-    @FXML private TableColumn<ItemCostData, ItemGrade> taskCostGradeColumn;
     @FXML private TableColumn<ItemCostData, ProgressBar> taskCostProgressColumn;
+    @FXML private TableColumn<ItemCostData, ItemGrade> taskCostGradeColumn;
 
 
     /*
@@ -289,34 +289,6 @@ public class UIController
     public UIController()
     {
         localizeData();
-
-        // this is the transaction queue the transaction processor and inventory threads will use to keep the UI
-        // and player inventory in sync
-        BlockingQueue<UserTransaction> transactionQueue = new LinkedBlockingQueue<>();
-
-        // convenience function that adjusts items and also refreshes teh cost table. This is useful because the
-        // item adjustment isn't directly related to the cost table, so adjustments won't automatically trigger a
-        // refresh. This allows the table to be refreshed in one function without leaking references into other scopes
-        BiConsumer<ProcurementCost, Integer> adjustItem = (item, amount) ->
-        {
-            commanderData.adjustItem(item, amount);
-            if (taskCostTable != null) taskCostTable.refresh();
-        };
-
-        // transaction processor
-        Runnable transactionProcessingTask =
-                new TransactionProcessingTask(adjustItem, this::procurementListUpdate, this::messageLogger, transactionQueue);
-        Thread transactionThread = new Thread(transactionProcessingTask);
-        transactionThread.setDaemon(true);
-        transactionThread.start();
-
-        // disk monitor
-        Runnable inventorySyncTask = new JournalSyncTask(commanderData, transactionQueue);
-        Thread inventoryThread = new Thread(inventorySyncTask);
-        inventoryThread.setDaemon(true);
-        inventoryThread.start();
-
-        executorService.scheduleAtFixedRate(this::processMessages, 0, 1, TimeUnit.SECONDS);
     }
 
     private void consumeNextMessageBlock(List<MessageData> msgs)
@@ -391,6 +363,38 @@ public class UIController
         }
 
         sortInventory();
+        startupTasks();
+    }
+
+    private void startupTasks()
+    {
+        // this is the transaction queue the transaction processor and inventory threads will use to keep the UI
+        // and player inventory in sync
+        BlockingQueue<UserTransaction> transactionQueue = new LinkedBlockingQueue<>();
+
+        // convenience function that adjusts items and also refreshes teh cost table. This is useful because the
+        // item adjustment isn't directly related to the cost table, so adjustments won't automatically trigger a
+        // refresh. This allows the table to be refreshed in one function without leaking references into other scopes
+        BiConsumer<ProcurementCost, Integer> adjustItem = (item, amount) ->
+        {
+            commanderData.adjustItem(item, amount);
+            if (taskCostTable != null) taskCostTable.refresh();
+        };
+
+        // transaction processor
+        Runnable transactionProcessingTask =
+                new TransactionProcessingTask(adjustItem, this::procurementListUpdate, this::messageLogger, transactionQueue);
+        Thread transactionThread = new Thread(transactionProcessingTask);
+        transactionThread.setDaemon(true);
+        transactionThread.start();
+
+        // disk monitor
+        Runnable inventorySyncTask = new JournalSyncTask(commanderData, transactionQueue);
+        Thread inventoryThread = new Thread(inventorySyncTask);
+        inventoryThread.setDaemon(true);
+        inventoryThread.start();
+
+        executorService.scheduleAtFixedRate(this::processMessages, 0, 1, TimeUnit.SECONDS);
     }
 
     /**
@@ -399,14 +403,16 @@ public class UIController
     private void initializeUIComponents()
     {
         initializeTextPlaceholders();
-        initializeProcurementTab();
         initializeInventoryTables();
         initializeShipLoadoutTab();
         initializeAutoResizeBindings();
         initializeSelectionOverrides();
+        initializeProcurementTab();
 
         consoleMessageList.setItems(consoleBackingList);
         consoleBackingList.addListener((ListChangeListener<MessageData>) c -> consoleMessageList.refresh());
+
+        // todo: abstract this factory out to UIFunctions or something
         consoleMessageList.setCellFactory(new Callback<ListView<MessageData>, ListCell<MessageData>>()
         {
             @Override
@@ -679,6 +685,11 @@ public class UIController
         manufacturedProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
         dataProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
 
+        rawMaterialProgressColumn.setComparator(UIFunctions.Sort.progressByValue);
+        manufacturedProgressColumn.setComparator(UIFunctions.Sort.progressByValue);
+        dataProgressColumn.setComparator(UIFunctions.Sort.progressByValue);
+
+
         // the "item grade" columns use a very similar structure to the "data" columns, with the same read-only wrapper
         // factory but different custom data cells. This callback provides the custom cells for the item grades
         final Callback<TableColumn<InventoryData, InventoryData>, TableCell<InventoryData, InventoryData>>
@@ -858,16 +869,22 @@ public class UIController
      */
     private void synchronizeBackingLists()
     {
+        // Note: It would seem logical in both block below to use the addAll() list methods rather than iterating and
+        // adding each item separately, as is done here. Unfortunately, using that method can sometimes cause the UI
+        // to skip notifying the sorted list wrapper. In particular, when first starting up the GUI, if addAll is used,
+        // the ListView that uses the sorted list will appear unsorted until the contents change. Adding each item one
+        // at a time forces the list to fire a change event
+
         synchronized (taskBackingList)
         {
             taskBackingList.clear();
-            taskBackingList.addAll(taskList);
+            taskList.forEach(taskBackingList::add);
         }
 
         synchronized (taskCostBackingList)
         {
             taskCostBackingList.clear();
-            taskCostBackingList.addAll(costList);
+            costList.forEach(taskCostBackingList::add);
         }
     }
 
@@ -1063,9 +1080,8 @@ public class UIController
                     .collect(Collectors.toList());
 
             costList.removeAll(toRemove);
-
-            procurementTaskTable.refresh();
-            taskCostTable.refresh();
+            //procurementTaskTable.refresh();
+            //taskCostTable.refresh();
 
             if (Platform.isFxApplicationThread()) synchronizeBackingLists();
             else Platform.runLater(this::synchronizeBackingLists);

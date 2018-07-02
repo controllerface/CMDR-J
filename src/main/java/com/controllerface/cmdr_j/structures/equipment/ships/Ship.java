@@ -661,7 +661,6 @@ public enum Ship
                     .build()),
 
 
-    // todo: find Krait's actual name in journal file
     Krait_MkII(
             BaseShipStats.builder()
                     .setDisplayName("Krait Mk II")
@@ -716,7 +715,6 @@ public enum Ship
                     .build()
     ),
 
-    // todo: find Challenger's actual name in journal file
     typex_3(
             BaseShipStats.builder()
                     .setDisplayName("Alliance Challenger")
