@@ -4,10 +4,12 @@ import com.controllerface.cmdr_j.ProcurementBlueprint;
 import com.controllerface.cmdr_j.ProcurementCost;
 import com.controllerface.cmdr_j.ProcurementRecipe;
 import com.controllerface.cmdr_j.data.procurements.CostData;
+import com.controllerface.cmdr_j.data.procurements.ProcurementTask;
 import com.controllerface.cmdr_j.structures.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.structures.costs.commodities.CommodityCostCategory;
 import com.controllerface.cmdr_j.structures.costs.materials.Material;
 import com.controllerface.cmdr_j.structures.costs.materials.MaterialSubCostCategory;
+import com.controllerface.cmdr_j.structures.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalBlueprint;
 import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationBlueprint;
@@ -18,6 +20,9 @@ import com.controllerface.cmdr_j.structures.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyBlueprint;
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableNumberValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -25,13 +30,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Data container for an individual item in a player's inventory. This class also contains a graphical representation
@@ -90,6 +94,24 @@ public class InventoryData implements Displayable
     private final String categoryString;
 
     /**
+     * Stores a newline (\n) delimited list of string names for all the tasks associated with this item
+     */
+    private final String assoctiatedString;
+
+    private final SimpleIntegerProperty haveCount = new SimpleIntegerProperty();
+
+
+    //private final Predicate<ProcurementCost> isInCache;
+    //private final Function<ProcurementCost, Integer> pendingTradeYield;
+
+    private final Function<ProcurementCost, Integer> checkInventory;
+    private final Function<ProcurementCost, Integer> pendingTradeCost;
+    private final Consumer<ProcurementTask> addTask;
+
+
+
+
+    /**
      * Special formatting function for modifications and experimental effects. Since they have some odd cases
      * the basic .replace("_"," ") call isn't enough to make it look right
      */
@@ -109,7 +131,11 @@ public class InventoryData implements Displayable
         return r.replace("F S D","FSD ");
     };
 
-    InventoryData(ProcurementCost inventoryItem, int quantity)
+    InventoryData(ProcurementCost inventoryItem,
+                  int quantity,
+                  Function<ProcurementCost, Integer> checkInventory,
+                  Function<ProcurementCost, Integer> pendingTradeCost,
+                  Consumer<ProcurementTask> addTask)
     {
         this.inventoryItem = inventoryItem;
         this.quantity = quantity;
@@ -117,8 +143,12 @@ public class InventoryData implements Displayable
         this.categoryOrdinal = MaterialSubCostCategory.findMatchingSubCategory(inventoryItem)
                 .map(MaterialSubCostCategory::getNumericalValue)
                 .orElse(-1);
+        this.checkInventory = checkInventory;
+        this.pendingTradeCost = pendingTradeCost;
+        this.addTask = addTask;
 
         this.categoryString = getCategoryString();
+        this.assoctiatedString = generateAssociatedString();
 
         mainGraphic.setAlignment(Pos.CENTER_LEFT);
 
@@ -195,94 +225,15 @@ public class InventoryData implements Displayable
         return locationInfoLabel;
     }
 
-    /**
-     * Generates a TitledPane object used to house all of the information about the item. The pane's "title" in this
-     * case if the name of the inventory item. When the pane is expanded (by clicking on it) the full details and
-     * extra information about the item is displayed.
-     *
-     * @return TitledPane used to hold item information
-     */
-    private TitledPane createItemDataPane()
+    private String generateAssociatedString()
     {
-        TitledPane dataPanel = new TitledPane();
-        dataPanel.setAnimated(false);
-        dataPanel.expandedProperty().setValue(false);
-        dataPanel.setGraphic(createNameLabel());
-        dataPanel.alignmentProperty().set(Pos.CENTER_LEFT);
-        return dataPanel;
-    }
-
-    /**
-     * Renders the main UI component
-     */
-    private void render()
-    {
-        // render any progress first
-        renderProgress();
-
-        // just in case there was somehow something placed in the main component, we should clear it out
-        mainGraphic.getChildren().clear();
-
-        // this pane is the main UI element. By default it is not expanded, containing just a short description of
-        // the item. When expanded, it will show more detailed information about the item including any relevant
-        // locations in-game where the player might find or purchase the item, as well as known uses (if any) and
-        // if tradeable at a material trader, any relevant trades.
-        TitledPane itemDataPane = createItemDataPane();
-
-        // add the data pane to the main graphic object
-        mainGraphic.getChildren().add(itemDataPane);
-
-        // WORKING AREA: upgrade/downgrade trade listings
-        if (getItem() instanceof Material)
-        {
-
-            Optional<MaterialSubCostCategory> materialSubCostCategory =
-                    MaterialSubCostCategory.findMatchingSubCategory(getItem());
-
-            if (materialSubCostCategory.isPresent())
-            {
-                Optional<ProcurementBlueprint> tradeBlueprint = ((Material) getItem()).getTradeBlueprint();
-                if (tradeBlueprint.isPresent())
-                {
-                    tradeBlueprint.get().recipeStream()
-                            .forEach(r ->
-                            {
-                                Optional<CostData> cost1 = r.costStream().findFirst();
-                                Optional<CostData> cost2 = r.costStream().reduce((a, b) -> b);
-
-                                if (cost1.isPresent() && cost2.isPresent())
-                                {
-                                    if (materialSubCostCategory.get().hasMaterial(((Material) cost1.get().getCost())))
-                                    {
-
-                                        cost1.get().getCost().getGrade()
-                                                .compareTo(cost2.get().getCost().getGrade());
-
-                                        System.out.println("DEBUG:" + cost1.get().toString() + "->" +cost2.get().toString());
-                                    }
-                                }
-                            });
-                }
-            }
-        }
-        // END WORKING AREA
-
-
-
-        VBox itemDetails = new VBox();
-        itemDetails.getChildren().add(createLocationHeaderLabel());
-        itemDetails.getChildren().add(createLocationInfoLabel());
-        itemDetails.setBackground(new Background(new BackgroundFill(
-                Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
-
-
         List<ProcurementRecipe> synthesisRecipes = new ArrayList<>();
         List<ProcurementRecipe> modificationRecipes = new ArrayList<>();
         List<ProcurementRecipe> experimentalRecipes = new ArrayList<>();
         List<ProcurementRecipe> weaponModRecipes = new ArrayList<>();
         List<ProcurementRecipe> techBrokerRecipes = new ArrayList<>();
 
-        getItem().getAssociated().forEach(i->
+        inventoryItem.getAssociated().forEach(i->
         {
             if (i instanceof SynthesisRecipe) synthesisRecipes.add(i);
             if (i instanceof ModificationRecipe) modificationRecipes.add(i);
@@ -291,6 +242,8 @@ public class InventoryData implements Displayable
             if (i instanceof TechnologyRecipe) techBrokerRecipes.add(i);
         });
 
+
+        //todo: make these buttons instead of just strings
         String synthesis = synthesisRecipes.isEmpty()
                 ? ""
                 : Arrays.stream(SynthesisBlueprint.values())
@@ -330,36 +283,209 @@ public class InventoryData implements Displayable
                                 .map(s -> s.replace("_", " ")))
                         .collect(Collectors.joining("\n - ","\nTech Broker Unlocks:\n - ", "\n"));
 
-        String associated = synthesis + modifications + experiments + techUnlocks;
+        return synthesis + modifications + experiments + techUnlocks;
+    }
+
+
+    /**
+     * Generates a TitledPane object used to house all of the information about the item. The pane's "title" in this
+     * case if the name of the inventory item. When the pane is expanded (by clicking on it) the full details and
+     * extra information about the item is displayed.
+     *
+     * @return TitledPane used to hold item information
+     */
+    private TitledPane createItemDataPane()
+    {
+        TitledPane dataPanel = new TitledPane();
+        dataPanel.setAnimated(false);
+        dataPanel.expandedProperty().setValue(false);
+        dataPanel.setGraphic(createNameLabel());
+        dataPanel.alignmentProperty().set(Pos.CENTER_LEFT);
+        dataPanel.setOnMouseEntered((e)->renderHave());
+        return dataPanel;
+    }
+
+    private void renderHave()
+    {
+        Integer committedCost = pendingTradeCost.apply(inventoryItem);
+        int committed = (committedCost == null) ? 0 : committedCost;
+        int have = checkInventory.apply(inventoryItem) - committed;
+        haveCount.set(have);
+    }
+
+    /**
+     * Renders the main UI component
+     */
+    private void render()
+    {
+        // render any progress first
+        renderProgress();
+
+        // just in case there was somehow something placed in the main component, we should clear it out
+        mainGraphic.getChildren().clear();
+
+        // this pane is the main UI element. By default it is not expanded, containing just a short description of
+        // the item. When expanded, it will show more detailed information about the item including any relevant
+        // locations in-game where the player might find or purchase the item, as well as known uses (if any) and
+        // if tradeable at a material trader, any relevant trades.
+        TitledPane itemDataPane = createItemDataPane();
+
+        // add the data pane to the main graphic object
+        mainGraphic.getChildren().add(itemDataPane);
+
+        List<Button> buttons = new ArrayList<>();
+
+        VBox itemDetails = new VBox();
+
+
+        // WORKING AREA: upgrade/downgrade trade listings
+        if (getItem() instanceof Material)
+        {
+
+            Optional<MaterialSubCostCategory> materialSubCostCategory =
+                    MaterialSubCostCategory.findMatchingSubCategory(getItem());
+
+            if (materialSubCostCategory.isPresent())
+            {
+
+                buttons = materialSubCostCategory.get().materials()
+                        .filter(material -> material != inventoryItem)
+                        .map(material -> material.getTradeBlueprint().orElse(null))
+                        .filter(Objects::nonNull)
+                        .flatMap(ProcurementBlueprint::recipeStream)
+                        .filter(r->r.costStream().findFirst().get().getCost() == inventoryItem)
+                        .map(recipe->
+                        {
+                            Optional<CostData> possibleTradeCost = recipe.costStream().findFirst();
+                            Optional<CostData> possibleTradeYield = recipe.costStream().reduce((a, b) -> b);
+
+                            if (possibleTradeCost.isPresent() && possibleTradeYield.isPresent())
+                            {
+                                if (materialSubCostCategory.get().hasMaterial(((Material) possibleTradeCost.get().getCost())))
+                                {
+                                    CostData tradeCost = possibleTradeCost.get();
+                                    CostData tradeYield = possibleTradeYield.get();
+
+                                    Optional<MaterialTradeType> tradeType =
+                                            MaterialTradeType.findMatchingTradeType(((Material) tradeCost.getCost()));
+
+                                    if (tradeType.isPresent())
+                                    {
+                                        Region from = UIFunctions.Convert.createMaterialIconRegion(tradeCost.getCost().getGrade().getIcon(), 25, 22);
+                                        Region to = UIFunctions.Convert.createMaterialIconRegion(tradeYield.getCost().getGrade().getIcon(), 25, 22);
+
+                                        Label toLabel = new Label(" to ");
+                                        toLabel.setFont(UIFunctions.Fonts.size1Font);
+                                        HBox convBox = new HBox(from, toLabel, to);
+
+                                        ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), recipe);
+
+                                        VBox btnhldr = new VBox();
+                                        HBox btnlbl = new HBox();
+
+                                        Label descOpen = new Label();
+                                        Label descHave = new Label();
+                                        Label descClose = new Label();
+
+                                        descOpen.setFont(UIFunctions.Fonts.size1Font);
+                                        descHave.setFont(UIFunctions.Fonts.size1Font);
+                                        descClose.setFont(UIFunctions.Fonts.size1Font);
+
+                                        renderHave();
+
+//                                        Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
+//                                        int committed = (committedCost == null) ? 0 : committedCost;
+//                                        int have = checkInventory.apply(tradeCost.getCost()) - committed;
+//                                        haveCount.set(String.valueOf(have));
+
+                                        String x = tradeCost.getQuantity()
+                                                + " "
+                                                + tradeCost.getCost().getLocalizedName()
+                                                + " for "
+                                                + Math.abs(tradeYield.getQuantity())
+                                                + " "
+                                                + tradeYield.getCost().getLocalizedName()
+                                                + " (";
+
+                                        descOpen.setText(x);
+                                        descHave.textProperty().bind(haveCount.asString());
+                                        descClose.setText(")");
+
+                                        Region region1 = new Region();
+                                        HBox.setHgrow(region1, Priority.ALWAYS);
+                                        Region region2 = new Region();
+                                        HBox.setHgrow(region2, Priority.ALWAYS);
+
+                                        btnlbl.getChildren().add(descOpen);
+                                        btnlbl.getChildren().add(descHave);
+                                        btnlbl.getChildren().add(descClose);
+
+                                        btnlbl.getChildren().add(region1);
+                                        btnlbl.getChildren().add(convBox);
+                                        btnhldr.getChildren().add(btnlbl);
+
+                                        Button button = new Button();
+                                        button.setGraphic(btnhldr);
+                                        button.prefWidthProperty().bind(itemDetails.widthProperty());
+                                        button.setOnMouseClicked((e) -> {
+                                            addTask.accept(tradeTask);
+                                            renderHave();
+                                        });
+                                        return button;
+                                    }
+                                }
+                            }
+                            return null;
+                        })
+                        .collect(Collectors.toList());
+            }
+
+        }
+        // END WORKING AREA
+
+
+
+        itemDetails.getChildren().add(createLocationHeaderLabel());
+        itemDetails.getChildren().add(createLocationInfoLabel());
+        itemDetails.setBackground(new Background(new BackgroundFill(
+                Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
 
         Separator separator = new Separator();
         separator.paddingProperty().set(new Insets(5,0,5,0));
         itemDetails.getChildren().add(separator);
 
-        Label label1 = new Label(associated.trim());
-        label1.setFont(UIFunctions.Fonts.size1Font);
 
-        if (associated.isEmpty())
+        if (!buttons.isEmpty()) itemDetails.getChildren().addAll(buttons);
+
+
+        if (assoctiatedString.isEmpty())
         {
-            label1.setText("No Known Uses");
-            itemDetails.getChildren().add(label1);
+            Label noUses = new Label();
+            noUses.setFont(UIFunctions.Fonts.size1Font);
+            noUses.setText("No Crafting Uses");
+            itemDetails.getChildren().add(noUses);
         }
         else
         {
-            TitledPane pane = new TitledPane();
-            VBox vBox = new VBox();
-            HBox hBox = new HBox();
-            hBox.getChildren().add(label1);
-            vBox.getChildren().add(pane);
-            vBox.alignmentProperty().set(Pos.CENTER_LEFT);
-            pane.setAnimated(false);
+            TitledPane knownUsesPane = new TitledPane();
+            knownUsesPane.setAnimated(false);
+            knownUsesPane.setExpanded(false);
 
-            label1.setText(associated.trim());
-            pane.setContent(hBox);
             Label useLabel = new Label("Known Uses");
             useLabel.setFont(UIFunctions.Fonts.size1Font);
-            pane.setGraphic(useLabel);
-            pane.setExpanded(false);
+
+            Label associatedTasks = new Label(assoctiatedString.trim());
+            associatedTasks.setFont(UIFunctions.Fonts.size1Font);
+
+
+            VBox vBox = new VBox();
+            HBox hBox = new HBox();
+            hBox.getChildren().add(associatedTasks);
+            vBox.getChildren().add(knownUsesPane);
+            vBox.alignmentProperty().set(Pos.CENTER_LEFT);
+
+            knownUsesPane.setContent(hBox);
+            knownUsesPane.setGraphic(useLabel);
             itemDetails.getChildren().add(vBox);
             itemDetails.setAlignment(Pos.CENTER_LEFT);
         }

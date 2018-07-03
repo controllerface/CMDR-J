@@ -14,6 +14,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
@@ -1070,6 +1071,27 @@ public class UIFunctions
      */
     public static class Convert
     {
+
+        public static Region createMaterialIconRegion(SVGPath svg, double width, double height)
+        {
+            final Region svgShape = new Region();
+            svgShape.setShape(svg);
+
+            svgShape.setMinSize(width, height);
+            svgShape.setPrefSize(width, height);
+            svgShape.setMaxSize(width, height);
+            svgShape.setStyle("-fx-background-color: #b75200;");
+            double originalWidth = svg.prefWidth(-1);
+            double originalHeight = svg.prefHeight(originalWidth);
+
+            double scaleX = width / originalWidth;
+            double scaleY = height / originalHeight;
+
+            svg.setScaleX(scaleX);
+            svg.setScaleY(scaleY);
+            return svgShape;
+        }
+
         // Creates a Label object from a Pair<ItemEffect, Double>. The provided pair represents the effect that some
         // modification or experimental effect would have on whatever item it is applied to, and the magnitude of that
         // effect. If the magnitude is a positive number, it would be added to the base value of any modified item, and

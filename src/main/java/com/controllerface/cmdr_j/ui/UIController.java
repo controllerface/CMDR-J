@@ -57,8 +57,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -70,7 +68,6 @@ import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -230,12 +227,6 @@ public class UIController
      */
 
     /**
-     * Holds all of the data related to a commander (i.e. the player's on-disk data). While running, this application
-     * will continuously update the data in this object based on events that are written to the player's Journal file
-     */
-    private final CommanderData commanderData = new CommanderData();
-
-    /**
      * This set acts as cache to keep track of what costs are currently being tracked as constituent costs of tasks
      * that the user has added to their task list. This is used by some UI elements to determine if a given item is
      * being tracked as a cost or not.
@@ -288,6 +279,12 @@ public class UIController
                 Pair<ProcurementType, ProcurementRecipe> ref = new Pair<>(task.getType(), task.getRecipe());
                 procurementListUpdate(1, ref);
             };
+
+    /**
+     * Holds all of the data related to a commander (i.e. the player's on-disk data). While running, this application
+     * will continuously update the data in this object based on events that are written to the player's Journal file
+     */
+    private final CommanderData commanderData = new CommanderData(tradeCostCache::get, addTaskToProcurementList);
 
     public UIController()
     {
@@ -1106,8 +1103,9 @@ public class UIController
                     .collect(Collectors.toList());
 
             costList.removeAll(toRemove);
-            //procurementTaskTable.refresh();
-            //taskCostTable.refresh();
+            procurementTaskTable.refresh();
+            taskCostTable.refresh();
+            rawTable.refresh();
 
             if (Platform.isFxApplicationThread()) synchronizeBackingLists();
             else Platform.runLater(this::synchronizeBackingLists);

@@ -9,9 +9,11 @@ import com.controllerface.cmdr_j.data.StarSystem;
 import com.controllerface.cmdr_j.data.commander.Displayable;
 import com.controllerface.cmdr_j.structures.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.structures.engineers.Engineer;
+import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -20,6 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -155,23 +158,35 @@ public class ProcurementTaskData implements Displayable
         titledPane.setContent(costEffectContainer);
 
         renderEffects();
+        HBox nameContainer = new HBox();
+        if (isTrade())
+        {
+            recipePair.getValue().costStream().findFirst()
+                    .map(CostData::getCost)
+                    .map(ProcurementCost::getGrade)
+                    .map(ItemGrade::getIcon)
+                    .filter(Objects::nonNull)
+                    .map(icon -> UIFunctions.Convert.createMaterialIconRegion(icon, 28, 25))
+                    .ifPresent(nameContainer.getChildren()::add);
 
-        // clicking the progress bar should expand the enclosing titled pane
-        //progressBar.setOnMouseClicked((e)->titledPane.setExpanded(!titledPane.isExpanded()));
-
-        titledPane.setGraphic(new HBox(
-                //progressBar,
-                nameLabel));
+            Separator separator = new Separator();
+            separator.setPadding(new Insets(0,5,0,10));
+            separator.setOrientation(Orientation.VERTICAL);
+            nameContainer.getChildren().add(separator);
+        }
+        nameContainer.getChildren().add(nameLabel);
+        titledPane.setGraphic(nameContainer);
         ((HBox) titledPane.getGraphic()).setAlignment(Pos.CENTER);
 
         descriptionContainer.getChildren().add(titledPane);
 
         nameLabel.setText(recipePair.getKey().toString() + " :: " + recipePair.getValue().getDisplayLabel());
-        if (recipePair.getKey() instanceof MaterialTradeType)
-        {
-            nameLabel.setTextFill(UIFunctions.Fonts.darkOrange);
-        }
-        else nameLabel.setTextFill(UIFunctions.Fonts.neutralBlack);
+//        if (recipePair.getKey() instanceof MaterialTradeType)
+//        {
+//            nameLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+//        }
+//        else
+            nameLabel.setTextFill(UIFunctions.Fonts.neutralBlack);
         renderProgress();
     }
 
@@ -237,7 +252,7 @@ public class ProcurementTaskData implements Displayable
         boolean hasEnough = progressData.getKey() >= 1.0;
         progressBar.setProgress(progressData.getKey());
 
-        if (usesTrade || isTrade())
+        if (usesTrade)
         {
             if (hasEnough) { progressBar.setStyle("-fx-accent: #ff7100"); }
             else progressBar.setStyle("-fx-accent: #ffaaaa");

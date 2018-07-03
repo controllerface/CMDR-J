@@ -7,10 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.FillRule;
-import javafx.scene.shape.Path;
 import javafx.scene.shape.SVGPath;
 
 /**
@@ -41,25 +38,10 @@ public class InventoryGradeCell extends TableCell<InventoryData, InventoryData>
         }
         else
         {
-            final Region svgShape = new Region();
             SVGPath svg = item.getItem().getGrade().getIcon();
-            svgShape.setShape(svg);
 
-            double sizeh = 25;
-            double sizew = 28;
+            final Region svgShape = UIFunctions.Convert.createMaterialIconRegion(svg, 28, 25);
 
-            svgShape.setMinSize(sizew, sizeh);
-            svgShape.setPrefSize(sizew, sizeh);
-            svgShape.setMaxSize(sizew, sizeh);
-            svgShape.setStyle("-fx-background-color: #b75200;");
-            double originalWidth = svg.prefWidth(-1);
-            double originalHeight = svg.prefHeight(originalWidth);
-
-            double scaleX = sizew / originalWidth;
-            double scaleY = sizeh / originalHeight;
-
-            svg.setScaleX(scaleX);
-            svg.setScaleY(scaleY);
             hBox.getChildren().add(svgShape);
 
             hBox.setPadding(new Insets(2,0,0,0));

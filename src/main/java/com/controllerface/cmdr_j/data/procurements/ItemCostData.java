@@ -11,6 +11,8 @@ import com.controllerface.cmdr_j.structures.costs.materials.MaterialType;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -179,9 +181,8 @@ public class ItemCostData implements Displayable
 
             if (tradeBlueprint.isPresent())
             {
-
                 Separator separator = new Separator();
-                separator.setPadding(new Insets(5,0,0,0));
+                separator.setPadding(new Insets(5,0,5,0));
                 locationContainer.getChildren().add(separator);
 
                 List<ClassifiedTrade> classifiedTrades = tradeBlueprint.get().recipeStream()
@@ -225,14 +226,23 @@ public class ItemCostData implements Displayable
                         }).collect(Collectors.toList());
 
 
-                ClassifiedTrade best = classifiedTrades.stream()
-                        .sorted((a,b)->(int)(b.max - a.max))
-                        .findFirst().orElse(null);
+                Optional<ClassifiedTrade> bestTrade = classifiedTrades.stream()
+                        .filter(trade -> trade.classification == TradeClassification.RECOMMENDED)
+                        .sorted((a, b)->(int)(b.max - a.max))
+                        .findFirst();
 
-                if (best != null)
+                if (bestTrade.isPresent())
                 {
-                    classifiedTrades.remove(best);
-                    classifiedTrades.add(0, best);
+                    // move the best trade to the top of the list
+                    classifiedTrades.remove(bestTrade.get());
+                    classifiedTrades.add(0, bestTrade.get());
+
+
+
+
+
+
+
                 }
 
                 List<Button> recommendTrades = classifiedTrades.stream()
@@ -269,14 +279,23 @@ public class ItemCostData implements Displayable
                                 VBox btnhldr = new VBox();
                                 HBox btnlbl = new HBox();
 
-                                Label desc = new Label(trade.tradeRecipe.getDisplayLabel());
+                                Label desc = new Label();
                                 desc.setFont(UIFunctions.Fonts.size1Font);
                                 desc.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
                                 Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
                                 int committed = (committedCost == null) ? 0 : committedCost;
-
                                 int have = checkInventory.apply(tradeCost.getCost()) - committed;
+
+                                String x = tradeCost.getQuantity()
+                                        + " for "
+                                        + Math.abs(tradeYield.getQuantity())
+                                        + " :: "
+                                        + trade.tradeRecipe.getShortLabel()
+                                        + " (" + have + ")";
+
+                                desc.setText(x);
+
 
                                 long max = IntStream.range(1, 100)
                                         .map(i -> i * tradeCost.getQuantity())
@@ -351,7 +370,7 @@ public class ItemCostData implements Displayable
                 }
                 else
                 {
-                    Label tradeLabel = new Label("Recommended Trades");
+                    Label tradeLabel = new Label("Possible Trades");
                     tradeLabel.setFont(UIFunctions.Fonts.size1Font);
                     TitledPane tradePane = new TitledPane();
                     tradePane.setAnimated(false);
@@ -363,28 +382,23 @@ public class ItemCostData implements Displayable
                     VBox tradeBox = new VBox();
                     tradeBox.fillWidthProperty().setValue(true);
 
-                    Label topLabel = new Label("Top Trade");
-                    topLabel.setTextFill(UIFunctions.Fonts.darkOrange);
-
-                    topLabel.setFont(UIFunctions.Fonts.size2Font);
                     Button topTrade = recommendTrades.remove(0);
-
-                    topTrade.prefWidthProperty().bind(tradeBox.widthProperty());
-
-                    tradeBox.getChildren().addAll(topLabel, topTrade);
-
-                    if (!recommendTrades.isEmpty())
-                    {
-                        Separator sep = new Separator();
-                        sep.setPadding(new Insets(5,0,5,0));
-                        tradeBox.getChildren().add(sep);
-                    }
 
 
 
                     recommendTrades.stream()
                             .peek(trade->trade.prefWidthProperty().bind(tradeBox.widthProperty()))
                             .forEach(trade->tradeBox.getChildren().add(trade));
+
+
+                    Label topLabel = new Label("Top Trade");
+                    topLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+                    topLabel.setFont(UIFunctions.Fonts.size2Font);
+                    Separator sep = new Separator();
+                    sep.setPadding(new Insets(5,0,5,0));
+                    tradeBox.getChildren().add(sep);
+                    topTrade.prefWidthProperty().bind(locationContainer.widthProperty());
+                    locationContainer.getChildren().addAll(topLabel, topTrade, sep);
 
                     tradePane.setContent(tradeBox);
                     locationContainer.getChildren().add(tradePane);
@@ -396,7 +410,7 @@ public class ItemCostData implements Displayable
                 }
                 else
                 {
-                    String labelText = recommendTrades.isEmpty() ? "Possible Trades" : "Other Trades";
+                    String labelText = "Unavailable Trades";
                     Label tradeLabel = new Label(labelText);
                     tradeLabel.setFont(UIFunctions.Fonts.size1Font);
                     TitledPane tradePane = new TitledPane();

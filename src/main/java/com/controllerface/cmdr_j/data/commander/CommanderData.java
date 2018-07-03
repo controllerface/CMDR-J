@@ -4,6 +4,7 @@ import com.controllerface.cmdr_j.ProcurementCost;
 import com.controllerface.cmdr_j.Statistic;
 import com.controllerface.cmdr_j.data.ShipModuleData;
 import com.controllerface.cmdr_j.data.StarSystem;
+import com.controllerface.cmdr_j.data.procurements.ProcurementTask;
 import com.controllerface.cmdr_j.structures.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.structures.costs.commodities.CommodityType;
 import com.controllerface.cmdr_j.structures.costs.materials.Material;
@@ -17,6 +18,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * This class is intended to store all relevant data related to the Commander (player), such as inventory, ship loadout
@@ -28,6 +31,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CommanderData
 {
+
+    private final Function<ProcurementCost, Integer> pendingTradeCost;
+    private final Consumer<ProcurementTask> addTask;
+
     /**
      * The Commander's star ship. Changes as the commander switches ships or modules
      */
@@ -38,27 +45,38 @@ public class CommanderData
     /**
      * Market salable Commodities and other items (like power play items, limpets, etc.) are stored in cargo
      */
-    private final InventoryStorageBin cargo = new CargoStorageBin();
+    private final InventoryStorageBin cargo;
 
     /**
      * Raw element crafting materials
      */
-    private final InventoryStorageBin rawMats = new RawInventoryStorageBin();
+    private final InventoryStorageBin rawMats;
 
     /**
      * Manufactured crafting materials
      */
-    private final InventoryStorageBin mfdMats = new ManufacturedInventoryStorageBin();
+    private final InventoryStorageBin mfdMats;
 
     /**
      * Encoded data crafting materials
      */
-    private final InventoryStorageBin dataMats = new EncodedInventoryStorageBin();
+    private final InventoryStorageBin dataMats;
 
     /**
      * Various commander statistics
      */
     private final Map<Statistic, String> stats = new ConcurrentHashMap<>(new LinkedHashMap<>());
+
+    public CommanderData(Function<ProcurementCost, Integer> pendingTradeCost, Consumer<ProcurementTask> addTask)
+    {
+        this.pendingTradeCost = pendingTradeCost;
+        this.addTask = addTask;
+
+        cargo = new CargoStorageBin(this.pendingTradeCost, this.addTask);
+        rawMats = new RawInventoryStorageBin(this.pendingTradeCost, this.addTask);
+        mfdMats = new ManufacturedInventoryStorageBin(this.pendingTradeCost, this.addTask);
+        dataMats = new EncodedInventoryStorageBin(this.pendingTradeCost, this.addTask);
+    }
 
 
     public void associateCargoTable(TableView<InventoryData> cargoTable, CheckBox showZeroQuantities)

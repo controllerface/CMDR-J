@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.data.commander;
 
 import com.controllerface.cmdr_j.ProcurementCost;
+import com.controllerface.cmdr_j.data.procurements.ProcurementTask;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -11,6 +12,8 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -57,14 +60,25 @@ abstract class InventoryStorageBin
      */
     private CheckBox showZeroQuantities = new CheckBox();
 
+
+    private final Function<ProcurementCost, Integer> pendingTradeCost;
+    private final Consumer<ProcurementTask> addTask;
+
+
+
+
+
     /**
      * Called by the abstract class upon creating to setup the storage bin. Typically, this will initialize all of
      * the supported ProcurementCost items for a given implementation with 0 counts.
      */
     public abstract void init();
 
-    InventoryStorageBin()
+    InventoryStorageBin(Function<ProcurementCost, Integer> pendingTradeCost,
+                        Consumer<ProcurementTask> addTask)
     {
+        this.pendingTradeCost = pendingTradeCost;
+        this.addTask = addTask;
         showZeroQuantities.setSelected(false);
         init();
         synchronize();
@@ -138,7 +152,7 @@ abstract class InventoryStorageBin
                 inventory.stream()
                         .filter(inventoryItem -> inventoryItem.getItem() == item)
                         .findFirst().map(inventoryItem -> inventoryItem.adjustCount(count))
-                        .orElseGet((() -> inventory.add(new InventoryData(item, count))));
+                        .orElseGet((() -> inventory.add(new InventoryData(item, count, this::amountOf, pendingTradeCost, addTask))));
 
                 synchronize();
             }
@@ -155,7 +169,7 @@ abstract class InventoryStorageBin
      */
     void initializeItem(ProcurementCost item)
     {
-        inventory.add(new InventoryData(item, 0));
+        inventory.add(new InventoryData(item, 0, this::amountOf, pendingTradeCost, addTask));
     }
 
     /**

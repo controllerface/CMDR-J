@@ -115,20 +115,6 @@
                               </HBox>
                               <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0">
                                 <tabs>
-                                    <Tab text="Ship Statistics">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <TableView fx:id="shipStatisticsTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                  <columns>
-                                                    <TableColumn fx:id="shipStatisticsNameColumn" prefWidth="200.0" sortable="false" text="Statistic" />
-                                                    <TableColumn fx:id="shipStatisticsDataColumn" prefWidth="929.0" sortable="false" />
-                                                  </columns>
-                                                </TableView>
-                                             </children>
-                                          </AnchorPane>
-                                      </content>
-                                    </Tab>
                                   <Tab text="Core Internals">
                                     <content>
                                       <AnchorPane>
@@ -166,6 +152,20 @@
                                                       <TableColumn fx:id="hardpointNameColumn" prefWidth="195.0" sortable="false" text="Hardpoint" />
                                                       <TableColumn fx:id="hardpointDataColumn" prefWidth="206.0" sortable="false" />
                                                    </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </Tab>
+                                    <Tab text="Ship Statistics">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView fx:id="shipStatisticsTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="shipStatisticsNameColumn" prefWidth="200.0" sortable="false" text="Statistic" />
+                                                    <TableColumn fx:id="shipStatisticsDataColumn" prefWidth="929.0" sortable="false" />
+                                                  </columns>
                                                 </TableView>
                                              </children>
                                           </AnchorPane>
