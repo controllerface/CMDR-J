@@ -20,18 +20,25 @@ import com.controllerface.cmdr_j.structures.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyBlueprint;
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableNumberValue;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.util.*;
+import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -99,10 +106,7 @@ public class InventoryData implements Displayable
     private final String assoctiatedString;
 
     private final SimpleIntegerProperty haveCount = new SimpleIntegerProperty();
-
-
-    //private final Predicate<ProcurementCost> isInCache;
-    //private final Function<ProcurementCost, Integer> pendingTradeYield;
+    private final SimpleBooleanProperty hasTrades = new SimpleBooleanProperty(false);
 
     private final Function<ProcurementCost, Integer> checkInventory;
     private final Function<ProcurementCost, Integer> pendingTradeCost;
@@ -175,21 +179,15 @@ public class InventoryData implements Displayable
         String category = "";
         if (inventoryItem instanceof Material)
         {
-            Optional<MaterialSubCostCategory> matchingSubCategory =
-                    MaterialSubCostCategory.findMatchingSubCategory(inventoryItem);
-
-            category = matchingSubCategory.isPresent()
-                    ? matchingSubCategory.get().toString()
-                    : "(Unknown Material)" + inventoryItem;
+            category = MaterialSubCostCategory.findMatchingSubCategory(inventoryItem)
+                    .map(MaterialSubCostCategory::toString)
+                    .orElseGet(() -> "(Unknown Material)" + inventoryItem);
         }
         else if (inventoryItem instanceof Commodity)
         {
-            Optional<CommodityCostCategory> matchingCategory =
-                    CommodityCostCategory.findMatchingCategory(inventoryItem);
-
-            category = matchingCategory.isPresent()
-                    ? matchingCategory.get().toString()
-                    : "(Unknown Commodity)" + inventoryItem;
+            category = CommodityCostCategory.findMatchingCategory(inventoryItem)
+                    .map(CommodityCostCategory::toString)
+                    .orElseGet(() -> "(Unknown Commodity)" + inventoryItem);
         }
         return category;
     }
@@ -212,7 +210,7 @@ public class InventoryData implements Displayable
     private Label createLocationHeaderLabel()
     {
         Label locationHeaderLabel = new Label("Relevant Locations");
-        locationHeaderLabel.underlineProperty().setValue(true);
+        locationHeaderLabel.setTextFill(UIFunctions.Fonts.darkOrange);
         locationHeaderLabel.setFont(UIFunctions.Fonts.size2Font);
         return locationHeaderLabel;
     }
@@ -311,6 +309,7 @@ public class InventoryData implements Displayable
         int committed = (committedCost == null) ? 0 : committedCost;
         int have = checkInventory.apply(inventoryItem) - committed;
         haveCount.set(have);
+        hasTrades.set(committed > 0);
     }
 
     /**
@@ -333,7 +332,8 @@ public class InventoryData implements Displayable
         // add the data pane to the main graphic object
         mainGraphic.getChildren().add(itemDataPane);
 
-        List<Button> buttons = new ArrayList<>();
+        List<Button> upgrades = new ArrayList<>();
+        List<Button> downgrades = new ArrayList<>();
 
         VBox itemDetails = new VBox();
 
@@ -345,100 +345,111 @@ public class InventoryData implements Displayable
             Optional<MaterialSubCostCategory> materialSubCostCategory =
                     MaterialSubCostCategory.findMatchingSubCategory(getItem());
 
-            if (materialSubCostCategory.isPresent())
-            {
+            materialSubCostCategory.ifPresent(materialSubCostCategory1 -> materialSubCostCategory1.materials()
+                    .filter(material -> material != inventoryItem)
+                    .map(material -> material.getTradeBlueprint().orElse(null))
+                    .filter(Objects::nonNull)
+                    .flatMap(ProcurementBlueprint::recipeStream)
+                    .filter(r -> r.costStream().findFirst().get().getCost() == inventoryItem)
+                    .forEach(recipe ->
+                    {
+                        Optional<CostData> possibleTradeCost = recipe.costStream().findFirst();
+                        Optional<CostData> possibleTradeYield = recipe.costStream().reduce((a, b) -> b);
 
-                buttons = materialSubCostCategory.get().materials()
-                        .filter(material -> material != inventoryItem)
-                        .map(material -> material.getTradeBlueprint().orElse(null))
-                        .filter(Objects::nonNull)
-                        .flatMap(ProcurementBlueprint::recipeStream)
-                        .filter(r->r.costStream().findFirst().get().getCost() == inventoryItem)
-                        .map(recipe->
+                        if (possibleTradeCost.isPresent() && possibleTradeYield.isPresent())
                         {
-                            Optional<CostData> possibleTradeCost = recipe.costStream().findFirst();
-                            Optional<CostData> possibleTradeYield = recipe.costStream().reduce((a, b) -> b);
-
-                            if (possibleTradeCost.isPresent() && possibleTradeYield.isPresent())
+                            if (materialSubCostCategory1.hasMaterial(((Material) possibleTradeCost.get().getCost())))
                             {
-                                if (materialSubCostCategory.get().hasMaterial(((Material) possibleTradeCost.get().getCost())))
+                                CostData tradeCost = possibleTradeCost.get();
+                                CostData tradeYield = possibleTradeYield.get();
+
+                                Optional<MaterialTradeType> tradeType =
+                                        MaterialTradeType.findMatchingTradeType(((Material) tradeCost.getCost()));
+
+                                if (tradeType.isPresent())
                                 {
-                                    CostData tradeCost = possibleTradeCost.get();
-                                    CostData tradeYield = possibleTradeYield.get();
+                                    boolean upgrade = tradeCost.getCost().getGrade()
+                                            .compareTo(tradeYield.getCost().getGrade()) < 0;
 
-                                    Optional<MaterialTradeType> tradeType =
-                                            MaterialTradeType.findMatchingTradeType(((Material) tradeCost.getCost()));
+                                    Region from = UIFunctions.Convert.createMaterialIconRegion(tradeCost.getCost()
+                                            .getGrade()
+                                            .getIcon(), 25, 22);
 
-                                    if (tradeType.isPresent())
+                                    Region to = UIFunctions.Convert.createMaterialIconRegion(tradeYield.getCost()
+                                            .getGrade()
+                                            .getIcon(), 25, 22);
+
+                                    Label toLabel = new Label(" to ");
+                                    toLabel.setFont(UIFunctions.Fonts.size1Font);
+                                    HBox convBox = new HBox(from, toLabel, to);
+
+                                    ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), recipe);
+
+                                    VBox btnhldr = new VBox();
+                                    HBox btnlbl = new HBox();
+
+                                    Label descOpen = new Label();
+                                    Label descHave = new Label();
+                                    Label descClose = new Label();
+
+                                    descOpen.setFont(UIFunctions.Fonts.size1Font);
+                                    descHave.setFont(UIFunctions.Fonts.size1Font);
+                                    descClose.setFont(UIFunctions.Fonts.size1Font);
+
+                                    renderHave();
+
+                                    String x = tradeCost.getQuantity()
+                                            + " "
+                                            + tradeCost.getCost().getLocalizedName()
+                                            + " for "
+                                            + Math.abs(tradeYield.getQuantity())
+                                            + " "
+                                            + tradeYield.getCost().getLocalizedName()
+                                            + " (";
+
+                                    descOpen.setText(x);
+
+                                    descHave.textProperty().bind(haveCount.asString());
+                                    descHave.textFillProperty()
+                                            .bind(Bindings.when(hasTrades)
+                                                    .then(UIFunctions.Fonts.darkOrange)
+                                                    .otherwise(UIFunctions.Fonts.neutralBlack));
+
+                                    descClose.setText(")");
+
+                                    Region region1 = new Region();
+                                    HBox.setHgrow(region1, Priority.ALWAYS);
+                                    Region region2 = new Region();
+                                    HBox.setHgrow(region2, Priority.ALWAYS);
+
+                                    btnlbl.getChildren().add(descOpen);
+                                    btnlbl.getChildren().add(descHave);
+                                    btnlbl.getChildren().add(descClose);
+
+                                    btnlbl.getChildren().add(region1);
+                                    btnlbl.getChildren().add(convBox);
+                                    btnhldr.getChildren().add(btnlbl);
+
+                                    Button button = new Button();
+                                    button.setGraphic(btnhldr);
+                                    button.prefWidthProperty().bind(itemDetails.widthProperty());
+                                    button.setOnMouseClicked((e) ->
                                     {
-                                        Region from = UIFunctions.Convert.createMaterialIconRegion(tradeCost.getCost().getGrade().getIcon(), 25, 22);
-                                        Region to = UIFunctions.Convert.createMaterialIconRegion(tradeYield.getCost().getGrade().getIcon(), 25, 22);
-
-                                        Label toLabel = new Label(" to ");
-                                        toLabel.setFont(UIFunctions.Fonts.size1Font);
-                                        HBox convBox = new HBox(from, toLabel, to);
-
-                                        ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), recipe);
-
-                                        VBox btnhldr = new VBox();
-                                        HBox btnlbl = new HBox();
-
-                                        Label descOpen = new Label();
-                                        Label descHave = new Label();
-                                        Label descClose = new Label();
-
-                                        descOpen.setFont(UIFunctions.Fonts.size1Font);
-                                        descHave.setFont(UIFunctions.Fonts.size1Font);
-                                        descClose.setFont(UIFunctions.Fonts.size1Font);
-
+                                        addTask.accept(tradeTask);
                                         renderHave();
-
-//                                        Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
-//                                        int committed = (committedCost == null) ? 0 : committedCost;
-//                                        int have = checkInventory.apply(tradeCost.getCost()) - committed;
-//                                        haveCount.set(String.valueOf(have));
-
-                                        String x = tradeCost.getQuantity()
-                                                + " "
-                                                + tradeCost.getCost().getLocalizedName()
-                                                + " for "
-                                                + Math.abs(tradeYield.getQuantity())
-                                                + " "
-                                                + tradeYield.getCost().getLocalizedName()
-                                                + " (";
-
-                                        descOpen.setText(x);
-                                        descHave.textProperty().bind(haveCount.asString());
-                                        descClose.setText(")");
-
-                                        Region region1 = new Region();
-                                        HBox.setHgrow(region1, Priority.ALWAYS);
-                                        Region region2 = new Region();
-                                        HBox.setHgrow(region2, Priority.ALWAYS);
-
-                                        btnlbl.getChildren().add(descOpen);
-                                        btnlbl.getChildren().add(descHave);
-                                        btnlbl.getChildren().add(descClose);
-
-                                        btnlbl.getChildren().add(region1);
-                                        btnlbl.getChildren().add(convBox);
-                                        btnhldr.getChildren().add(btnlbl);
-
-                                        Button button = new Button();
-                                        button.setGraphic(btnhldr);
-                                        button.prefWidthProperty().bind(itemDetails.widthProperty());
-                                        button.setOnMouseClicked((e) -> {
-                                            addTask.accept(tradeTask);
-                                            renderHave();
-                                        });
-                                        return button;
+                                    });
+                                    if (upgrade)
+                                    {
+                                        upgrades.add(button);
+                                    }
+                                    else
+                                    {
+                                        downgrades.add(button);
                                     }
                                 }
                             }
-                            return null;
-                        })
-                        .collect(Collectors.toList());
-            }
+                        }
+                    }));
 
         }
         // END WORKING AREA
@@ -451,11 +462,29 @@ public class InventoryData implements Displayable
                 Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
 
         Separator separator = new Separator();
-        separator.paddingProperty().set(new Insets(5,0,5,0));
+        separator.paddingProperty().set(new Insets(5,0,0,0));
         itemDetails.getChildren().add(separator);
 
 
-        if (!buttons.isEmpty()) itemDetails.getChildren().addAll(buttons);
+        if (!upgrades.isEmpty())
+        {
+            Label upgradeLabel = new Label("Upgrades");
+            upgradeLabel.setPadding(new Insets(5,0,2,0));
+            upgradeLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+            upgradeLabel.setFont(UIFunctions.Fonts.size2Font);
+            itemDetails.getChildren().add(upgradeLabel);
+            itemDetails.getChildren().addAll(upgrades);
+        }
+
+        if (!downgrades.isEmpty())
+        {
+            Label downgradeLabel = new Label("Downgrades");
+            downgradeLabel.setPadding(new Insets(5,0,2,0));
+            downgradeLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+            downgradeLabel.setFont(UIFunctions.Fonts.size2Font);
+            itemDetails.getChildren().add(downgradeLabel);
+            itemDetails.getChildren().addAll(downgrades);
+        }
 
 
         if (assoctiatedString.isEmpty())

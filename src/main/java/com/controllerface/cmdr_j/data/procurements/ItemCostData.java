@@ -169,10 +169,17 @@ public class ItemCostData implements Displayable
     private void renderTrades(double progress)
     {
         locationContainer.getChildren().clear();
-        Label locationLabel = new Label(cost.getGrade() + "\n" + cost.getLocationInformation());
-        locationLabel.setFont(UIFunctions.Fonts.size1Font);
-        locationLabel.alignmentProperty().set(Pos.CENTER_LEFT);
-        locationContainer.getChildren().add(locationLabel);
+
+
+        Label locationLabel = new Label("Relevant Locations");
+        locationLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+        locationLabel.setFont(UIFunctions.Fonts.size2Font);
+
+        Label locationInfo = new Label(cost.getLocationInformation());
+        locationInfo.setFont(UIFunctions.Fonts.size1Font);
+        locationInfo.alignmentProperty().set(Pos.CENTER_LEFT);
+
+        locationContainer.getChildren().addAll(locationLabel, locationInfo);
 
         if (progress < 1.0 && cost instanceof Material)
         {
@@ -236,13 +243,6 @@ public class ItemCostData implements Displayable
                     // move the best trade to the top of the list
                     classifiedTrades.remove(bestTrade.get());
                     classifiedTrades.add(0, bestTrade.get());
-
-
-
-
-
-
-
                 }
 
                 List<Button> recommendTrades = classifiedTrades.stream()
@@ -295,7 +295,6 @@ public class ItemCostData implements Displayable
                                         + " (" + have + ")";
 
                                 desc.setText(x);
-
 
                                 long max = IntStream.range(1, 100)
                                         .map(i -> i * tradeCost.getQuantity())
@@ -361,36 +360,20 @@ public class ItemCostData implements Displayable
                         .collect(Collectors.toList());
 
 
+
                 if (recommendTrades.isEmpty())
                 {
                     recommendedTradesExpanded.set(false);
-                    Label noTrades = new Label("No Recommended Trades");
-                    noTrades.setFont(UIFunctions.Fonts.size1Font);
+                    Label noTrades = new Label("No Available Trades");
+                    noTrades.setTextFill(UIFunctions.Fonts.darkOrange);
+                    noTrades.setFont(UIFunctions.Fonts.size2Font);
                     locationContainer.getChildren().add(noTrades);
                 }
                 else
                 {
-                    Label tradeLabel = new Label("Possible Trades");
-                    tradeLabel.setFont(UIFunctions.Fonts.size1Font);
-                    TitledPane tradePane = new TitledPane();
-                    tradePane.setAnimated(false);
-                    tradePane.setExpanded(recommendedTradesExpanded.get());
-                    tradePane.setGraphic(tradeLabel);
-                    tradePane.expandedProperty()
-                            .addListener((observable, oldValue, newValue) -> recommendedTradesExpanded.set(newValue));
-
                     VBox tradeBox = new VBox();
-                    tradeBox.fillWidthProperty().setValue(true);
 
                     Button topTrade = recommendTrades.remove(0);
-
-
-
-                    recommendTrades.stream()
-                            .peek(trade->trade.prefWidthProperty().bind(tradeBox.widthProperty()))
-                            .forEach(trade->tradeBox.getChildren().add(trade));
-
-
                     Label topLabel = new Label("Top Trade");
                     topLabel.setTextFill(UIFunctions.Fonts.darkOrange);
                     topLabel.setFont(UIFunctions.Fonts.size2Font);
@@ -400,8 +383,32 @@ public class ItemCostData implements Displayable
                     topTrade.prefWidthProperty().bind(locationContainer.widthProperty());
                     locationContainer.getChildren().addAll(topLabel, topTrade, sep);
 
-                    tradePane.setContent(tradeBox);
-                    locationContainer.getChildren().add(tradePane);
+                    Label tradesLabel = new Label("Other Trades");
+                    tradesLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+                    tradesLabel.setFont(UIFunctions.Fonts.size2Font);
+                    locationContainer.getChildren().add(tradesLabel);
+
+
+                    if (!recommendTrades.isEmpty())
+                    {
+                        Label tradeLabel = new Label("Available Trades");
+                        tradeLabel.setFont(UIFunctions.Fonts.size1Font);
+                        TitledPane tradePane = new TitledPane();
+                        tradePane.setAnimated(false);
+                        tradePane.setExpanded(recommendedTradesExpanded.get());
+                        tradePane.setGraphic(tradeLabel);
+                        tradePane.expandedProperty()
+                                .addListener((observable, oldValue, newValue) -> recommendedTradesExpanded.set(newValue));
+
+                        tradeBox.fillWidthProperty().setValue(true);
+
+                        recommendTrades.stream()
+                                .peek(trade->trade.prefWidthProperty().bind(tradeBox.widthProperty()))
+                                .forEach(trade->tradeBox.getChildren().add(trade));
+
+                        tradePane.setContent(tradeBox);
+                        locationContainer.getChildren().add(tradePane);
+                    }
                 }
 
                 if (avoidedTrades.isEmpty() && insufficientTrades.isEmpty() && overCommittedTrades.isEmpty())
