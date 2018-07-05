@@ -21,28 +21,20 @@ import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyBlu
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableNumberValue;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 import java.util.*;
-import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Data container for an individual item in a player's inventory. This class also contains a graphical representation
@@ -103,7 +95,7 @@ public class InventoryData implements Displayable
     /**
      * Stores a newline (\n) delimited list of string names for all the tasks associated with this item
      */
-    private final String assoctiatedString;
+    private final String associatedString;
 
     private final SimpleIntegerProperty haveCount = new SimpleIntegerProperty();
     private final SimpleBooleanProperty hasTrades = new SimpleBooleanProperty(false);
@@ -113,7 +105,10 @@ public class InventoryData implements Displayable
     private final Consumer<ProcurementTask> addTask;
 
 
+    private final VBox itemDetails = new VBox();
 
+    private final List<Button> upgrades = new ArrayList<>();
+    private final List<Button> downgrades = new ArrayList<>();
 
     /**
      * Special formatting function for modifications and experimental effects. Since they have some odd cases
@@ -152,11 +147,16 @@ public class InventoryData implements Displayable
         this.addTask = addTask;
 
         this.categoryString = getCategoryString();
-        this.assoctiatedString = generateAssociatedString();
+        this.associatedString = generateAssociatedString();
 
         mainGraphic.setAlignment(Pos.CENTER_LEFT);
+        itemDetails.setAlignment(Pos.CENTER_LEFT);
 
         capacityBar.setPadding(new Insets(6,6,0,6));
+
+
+        doThing();
+
     }
 
     /**
@@ -312,34 +312,11 @@ public class InventoryData implements Displayable
         hasTrades.set(committed > 0);
     }
 
-    /**
-     * Renders the main UI component
-     */
-    private void render()
+
+
+    private void doThing()
     {
-        // render any progress first
-        renderProgress();
-
-        // just in case there was somehow something placed in the main component, we should clear it out
-        mainGraphic.getChildren().clear();
-
-        // this pane is the main UI element. By default it is not expanded, containing just a short description of
-        // the item. When expanded, it will show more detailed information about the item including any relevant
-        // locations in-game where the player might find or purchase the item, as well as known uses (if any) and
-        // if tradeable at a material trader, any relevant trades.
-        TitledPane itemDataPane = createItemDataPane();
-
-        // add the data pane to the main graphic object
-        mainGraphic.getChildren().add(itemDataPane);
-
-        List<Button> upgrades = new ArrayList<>();
-        List<Button> downgrades = new ArrayList<>();
-
-        VBox itemDetails = new VBox();
-
-
-        // WORKING AREA: upgrade/downgrade trade listings
-        if (getItem() instanceof Material)
+        if (inventoryItem instanceof Material)
         {
 
             Optional<MaterialSubCostCategory> materialSubCostCategory =
@@ -431,6 +408,9 @@ public class InventoryData implements Displayable
                                     btnhldr.getChildren().add(btnlbl);
 
                                     Button button = new Button();
+
+                                    //button.disableProperty().bind(Bindings.when(canAfford()).then(false).otherwise(true));
+
                                     button.setGraphic(btnhldr);
                                     button.prefWidthProperty().bind(itemDetails.widthProperty());
                                     button.setOnMouseClicked((e) ->
@@ -452,8 +432,30 @@ public class InventoryData implements Displayable
                     }));
 
         }
-        // END WORKING AREA
+    }
 
+
+    /**
+     * Renders the main UI component
+     */
+    private void render()
+    {
+        // render any progress first
+        renderProgress();
+
+        renderHave();
+
+        // just in case there was somehow something placed in the main component, we should clear it out
+        mainGraphic.getChildren().clear();
+
+        // this pane is the main UI element. By default it is not expanded, containing just a short description of
+        // the item. When expanded, it will show more detailed information about the item including any relevant
+        // locations in-game where the player might find or purchase the item, as well as known uses (if any) and
+        // if tradeable at a material trader, any relevant trades.
+        TitledPane itemDataPane = createItemDataPane();
+
+        // add the data pane to the main graphic object
+        mainGraphic.getChildren().add(itemDataPane);
 
 
         itemDetails.getChildren().add(createLocationHeaderLabel());
@@ -487,7 +489,7 @@ public class InventoryData implements Displayable
         }
 
 
-        if (assoctiatedString.isEmpty())
+        if (associatedString.isEmpty())
         {
             Label noUses = new Label();
             noUses.setFont(UIFunctions.Fonts.size1Font);
@@ -496,27 +498,52 @@ public class InventoryData implements Displayable
         }
         else
         {
-            TitledPane knownUsesPane = new TitledPane();
-            knownUsesPane.setAnimated(false);
-            knownUsesPane.setExpanded(false);
-
-            Label useLabel = new Label("Known Uses");
-            useLabel.setFont(UIFunctions.Fonts.size1Font);
-
-            Label associatedTasks = new Label(assoctiatedString.trim());
-            associatedTasks.setFont(UIFunctions.Fonts.size1Font);
+            Label knownUsesLabel = new Label("Known Uses");
+            knownUsesLabel.setPadding(new Insets(5,0,2,0));
+            knownUsesLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+            knownUsesLabel.setFont(UIFunctions.Fonts.size2Font);
+            itemDetails.getChildren().add(knownUsesLabel);
 
 
             VBox vBox = new VBox();
-            HBox hBox = new HBox();
-            hBox.getChildren().add(associatedTasks);
-            vBox.getChildren().add(knownUsesPane);
-            vBox.alignmentProperty().set(Pos.CENTER_LEFT);
+            String parts[] = associatedString.split("\n\n");
+            for (String category : parts)
+            {
+                boolean title = false;
+                String items[] = category.trim().split("\n");
 
-            knownUsesPane.setContent(hBox);
-            knownUsesPane.setGraphic(useLabel);
+                TitledPane knownUsesDropDown = new TitledPane();
+                VBox knownUses = new VBox();
+
+                for (String descLine : items)
+                {
+                    if (!title)
+                    {
+                        title=true;
+                        Label useLabel = new Label(descLine);
+                        useLabel.setFont(UIFunctions.Fonts.size1Font);
+                        knownUsesDropDown.setGraphic(useLabel);
+                    }
+                    else
+                    {
+                        Label associatedTasks = new Label(descLine);
+                        associatedTasks.setFont(UIFunctions.Fonts.size1Font);
+                        knownUses.getChildren().add(associatedTasks);
+
+                        knownUsesDropDown.setAnimated(false);
+                        knownUsesDropDown.setExpanded(false);
+                        //vBox.getChildren().add(knownUsesDropDown);
+                    }
+                }
+
+                knownUsesDropDown.setContent(knownUses);
+                vBox.getChildren().add(knownUsesDropDown);
+
+
+            }
+
             itemDetails.getChildren().add(vBox);
-            itemDetails.setAlignment(Pos.CENTER_LEFT);
+
         }
 
         itemDataPane.setContent(itemDetails);

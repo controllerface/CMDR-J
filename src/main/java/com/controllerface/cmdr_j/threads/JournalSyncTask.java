@@ -103,6 +103,8 @@ public class JournalSyncTask implements Runnable
     @Override
     public void run()
     {
+        Thread.currentThread().setName("Commander Journal Sync");
+
         initializeJournalData();
 
         WatchKey watchKey;

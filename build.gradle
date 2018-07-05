@@ -21,5 +21,5 @@ jar {
 }
 
 startScripts{
-    defaultJvmOpts = ["-Xmx128m"]
+    defaultJvmOpts = ["-Xmx512m"]
 }

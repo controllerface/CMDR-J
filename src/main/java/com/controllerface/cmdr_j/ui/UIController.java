@@ -300,6 +300,7 @@ public class UIController
 
     private void processMessages()
     {
+        Thread.currentThread().setName("Message Processor");
         if (hasMessages.getAndSet(false))
         {
             List<MessageData> msgs = IntStream.range(0, 100)
@@ -358,6 +359,7 @@ public class UIController
         }
 
         sortInventory();
+        setProcurementsUIVisibility();
     }
 
     /**
@@ -936,82 +938,87 @@ public class UIController
      */
     private Integer procurementListUpdate(Integer adjustment, Pair<ProcurementType, ProcurementRecipe> task)
     {
-        // because this can be called asynchronously and there's math involved, best to synchronize
-        // so the counts don't get messed up
-        synchronized (taskList)
+
+        // find the task we need to adjust
+        AtomicReference<ProcurementTaskData> data = new AtomicReference<>(taskList.stream()
+                .filter(storedTask -> storedTask.matches(task))
+                .findFirst().orElse(null));
+
+
+        // if this happens, we don't currently have this task in the list, so we need to determine what to
+        // do next based on the adjustment amount
+        if (data.get() == null)
         {
-            // find the task we need to adjust
-            ProcurementTaskData data = taskList.stream()
-                    .filter(storedTask -> storedTask.matches(task))
-                    .findFirst().orElse(null);
 
-            // if this happens, we don't currently have this task in the list, so we need to determine what to
-            // do next based on the adjustment amount
-            if (data == null)
+            // this this was a 0 adjustment or negative, just return -1 indicating the task is not present
+            if (adjustment <= 0) return -1;
+
+                // otherwise, this is an indication that we should add this new task to the list, so we create
+                // a new one, and initialize the count to zero, as the actual adjustment logic can then work
+                // the same for new and existing tasks
+            else
             {
-                // this this was a 0 adjustment or negative, just return -1 indicating the task is not present
-                if (adjustment <= 0) return -1;
 
-                    // otherwise, this is an indication that we should add this new task to the list, so we create
-                    // a new one, and initialize the count to zero, as the actual adjustment logic can then work
-                    // the same for new and existing tasks
-                else
-                {
-                    data = new ProcurementTaskData.Builder(0)
-                            .setType(task.getKey())
-                            .setRecipe(task.getValue())
+                data.set(new ProcurementTaskData.Builder(0)
+                        .setType(task.getKey())
+                        .setRecipe(task.getValue())
 //                            .setCount(0)
-                            .setCheckInventory(commanderData::amountOf)
-                            .setPendingTradeYield(tradeYieldCache::get)
-                            .setGetCurrentSystem(commanderData.getLocation()::getStarSystem).createProcurementTaskData();
+                        .setCheckInventory(commanderData::amountOf)
+                        .setPendingTradeYield(tradeYieldCache::get)
+                        .setGetCurrentSystem(commanderData.getLocation()::getStarSystem).createProcurementTaskData());
 
-                    taskList.add(data);
 
-                    // initialize the costs as well, if they are not already present in the cost list. It is
-                    // critical to ensure a new item is added ONLY if it's not already present, which is
-                    // possible if another task requires some amount of the same material as this one.
-                    // Otherwise, duplicate entries will end up in the list
-                    task.getValue().costStream()
-                            .filter(costData -> costData.getQuantity() > 0)
-                            .map(CostData::getCost)
-                            .filter(taskCost -> costList.stream().noneMatch(cost -> cost.getCost().equals(taskCost)))
-                            .map(taskCost ->  new ItemCostData(taskCost,
-                                    commanderData::amountOf,
-                                    taskCostCache::contains,
-                                    tradeYieldCache::get,
-                                    tradeCostCache::get,
-                                    addTaskToProcurementList))
-                            .forEach(costList::add);
-                }
+                taskList.add(data.get());
+
+
+                // initialize the costs as well, if they are not already present in the cost list. It is
+                // critical to ensure a new item is added ONLY if it's not already present, which is
+                // possible if another task requires some amount of the same material as this one.
+                // Otherwise, duplicate entries will end up in the list
+                task.getValue().costStream()
+                        .filter(costData -> costData.getQuantity() > 0)
+                        .map(CostData::getCost)
+                        .filter(taskCost -> costList.stream().noneMatch(cost -> cost.getCost().equals(taskCost)))
+                        .map(taskCost ->  new ItemCostData(taskCost,
+                                commanderData::amountOf,
+                                taskCostCache::contains,
+                                tradeYieldCache::get,
+                                tradeCostCache::get,
+                                addTaskToProcurementList))
+                        .forEach(costList::add);
             }
+        }
 
-            // grab the count before adjustment so we can tell how much the final adjustment actually was
-            int oldCount = data.getCount();
+        // grab the count before adjustment so we can tell how much the final adjustment actually was
+        int oldCount = data.get().getCount();
 
-            // here we do a quick sanity count, in case the count is already at the maximum. if that's the case,
-            // we will not adjust further, just return the count
-            if (oldCount == 999) return oldCount;
+        // here we do a quick sanity count, in case the count is already at the maximum. if that's the case,
+        // we will not adjust further, just return the count
+        if (oldCount == 999) return oldCount;
 
-            // now, we can continue with the adjustment.
-            int newCount = oldCount + adjustment;
+        // now, we can continue with the adjustment.
+        AtomicInteger newCount = new AtomicInteger(oldCount + adjustment);
 
-            // We max out at 999, just because the UI will get weird and it's unlikely anyone will want/need
-            // anywhere near that many tasks of a given type. If the adjustment would bring the value over that
-            // maximum, we'll clamp it.
-            if (newCount > 999) newCount = 999;
+        // We max out at 999, just because the UI will get weird and it's unlikely anyone will want/need
+        // anywhere near that many tasks of a given type. If the adjustment would bring the value over that
+        // maximum, we'll clamp it.
+        if (newCount.get() > 999) newCount.set(999);
 
-            // just in case, we also need to check that the adjustment would bring the count below zero. if that
-            // would occur, we clamp the new count to 0
-            if (newCount < 0) newCount = 0;
+        // just in case, we also need to check that the adjustment would bring the count below zero. if that
+        // would occur, we clamp the new count to 0
+        if (newCount.get() < 0) newCount.set(0);
 
-            // now we ACTUALLY set the new count, performing the adjustment
-            data.setCount(newCount);
+        // now we ACTUALLY set the new count, performing the adjustment
+        data.get().setCount(newCount.get());
 
+
+        //executorService.submit(()->
+        //{
             // to make sure we've cleaned everything up, if the new count became 0, remove the task
-            if (newCount == 0) taskList.remove(data);
+            if (newCount.get() == 0) taskList.remove(data.get());
 
             // figure out what the difference was, we'll need this to calculate the cost adjustment
-            int costDifference = newCount - oldCount;
+            int costDifference = newCount.get() - oldCount;
 
             // now we need to calculate the cost adjustments that this task adjustment requires. To do this,
             // we find all the costs of this recipe, and multiply the required cost by the cost difference
@@ -1073,9 +1080,12 @@ public class UIController
                         });
             }
 
+
             // loop through the cost list and make the actual adjustments, then collect the adjusted
             // costs so we can check for any that need to be removed after adjustment.
-            List<ItemCostData> toRemove = costList.stream()
+
+
+            costList.stream()
                     .filter(costToAdjust -> costAdjustments.stream().anyMatch(costToAdjust::matches))
                     .peek(costToAdjust ->
                     {
@@ -1100,18 +1110,16 @@ public class UIController
                     })
                     .filter(adjustedCost -> adjustedCost.getNeed() <= 0)
                     .peek(removedCost -> taskCostCache.remove(removedCost.getCost()))
-                    .collect(Collectors.toList());
+                    .forEach(costList::remove);
 
-            costList.removeAll(toRemove);
-            procurementTaskTable.refresh();
-            taskCostTable.refresh();
             rawTable.refresh();
 
-            if (Platform.isFxApplicationThread()) synchronizeBackingLists();
-            else Platform.runLater(this::synchronizeBackingLists);
+            //if (Platform.isFxApplicationThread()) synchronizeBackingLists();
+            //else
+            Platform.runLater(this::synchronizeBackingLists);
+        //});
 
-            return newCount;
-        }
+        return newCount.get();
     }
 
     private TreeItem<ProcurementTask> makeTradeTree()

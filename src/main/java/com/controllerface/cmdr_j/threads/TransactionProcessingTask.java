@@ -37,6 +37,7 @@ public class TransactionProcessingTask implements Runnable
     @Override
     public void run()
     {
+        Thread.currentThread().setName("Transaction Processor");
         boolean go = true;
         while (go)
         {

@@ -350,6 +350,20 @@ public class ProcurementTaskData implements Displayable
         return progressBar;
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this) return true;
+        if (obj instanceof ProcurementTaskData)
+        {
+            ProcurementTaskData other = ((ProcurementTaskData) obj);
+            boolean item = recipe.equals(other.recipe);
+            boolean count = this.count.get() == other.count.get();
+            return item && count;
+        }
+        else return false;
+    }
+
     public static class Builder
     {
 

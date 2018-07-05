@@ -9,8 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Pair;
@@ -70,6 +69,9 @@ public class TaskRemoveCell extends TableCell<ProcurementTaskData, Pair<Procurem
         removeButton.setMinWidth(33d);
         removeButton.setMaxHeight(33d);
         removeButton.setMinHeight(33d);
+
+        removeButton.setStyle("-fx-base: #ee8888;");
+
         removeButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
         removeButton.setOnAction((e) ->
