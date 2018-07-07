@@ -649,6 +649,7 @@ public enum JournalEvent
         ShipModuleData shipModuleData = new ShipModuleData.Builder()
                 .setModuleName(slot)
                 .setModule(module)
+                .setUserTransactions(context.getTransactions())
                 .build();
 
         context.getCommanderData().setShipModule(shipModuleData);
@@ -662,6 +663,7 @@ public enum JournalEvent
         logInventoryMessage(context, "Module Retrieved from Storage");
 
         ShipModuleData.Builder dataBuilder = new ShipModuleData.Builder();
+        dataBuilder.setUserTransactions(context.getTransactions());
 
         Map<String, Object> data =  context.getRawData();
         String slotKey = ((String) data.get("Slot"));
@@ -971,6 +973,7 @@ public enum JournalEvent
                 .setExperimentalEffectRecipe(experimentalRecipe)
                 .setLevel(level)
                 .setQuality(quality)
+                .setUserTransactions(context.getTransactions())
                 .build();
 
         context.getCommanderData().setShipModule(shipModuleData);

@@ -8,6 +8,9 @@ import com.controllerface.cmdr_j.structures.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.structures.costs.materials.Material;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
+import com.controllerface.cmdr_j.ui.Icon;
+import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.scene.shape.SVGPath;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -188,6 +191,8 @@ public enum TechnologyRecipe implements ProcurementRecipe
     private final ItemEffects effects;
     private final String label;
 
+    private static Icon icon = new Icon(UIFunctions.Icons.techBroker, 25, 25);
+
     TechnologyRecipe(ItemGrade grade, String label, ItemEffects effects, CostData... cost)
     {
         this.grade = grade;
@@ -241,5 +246,11 @@ public enum TechnologyRecipe implements ProcurementRecipe
     public String getName()
     {
         return name();
+    }
+
+    @Override
+    public Icon getIcon()
+    {
+        return icon;
     }
 }

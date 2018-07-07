@@ -7,6 +7,9 @@ import com.controllerface.cmdr_j.data.procurements.CostData;
 import com.controllerface.cmdr_j.structures.costs.materials.Material;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
+import com.controllerface.cmdr_j.ui.Icon;
+import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.scene.shape.SVGPath;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -4273,6 +4276,8 @@ public enum ModificationRecipe implements ProcurementRecipe
     private final CostData[] cost;
     private final ItemEffects effects;
 
+    private static Icon icon = new Icon(UIFunctions.Icons.engineering, 25, 30);
+
     ModificationRecipe(ItemGrade grade, ItemEffects effects, CostData... cost)
     {
         this.grade = grade;
@@ -4325,5 +4330,11 @@ public enum ModificationRecipe implements ProcurementRecipe
     public String getName()
     {
         return name();
+    }
+
+    @Override
+    public Icon getIcon()
+    {
+        return icon;
     }
 }

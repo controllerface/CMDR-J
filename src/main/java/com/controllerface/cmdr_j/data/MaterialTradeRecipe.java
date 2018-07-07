@@ -4,6 +4,9 @@ import com.controllerface.cmdr_j.ProcurementRecipe;
 import com.controllerface.cmdr_j.data.procurements.CostData;
 import com.controllerface.cmdr_j.structures.costs.materials.Material;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
+import com.controllerface.cmdr_j.ui.Icon;
+import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.scene.shape.SVGPath;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +22,8 @@ public class MaterialTradeRecipe implements ProcurementRecipe
     private final String name;
     private final String label;
     private final String shortLabel;
+
+    private static Icon icon = new Icon(UIFunctions.Icons.materialTrade, 25, 25);
 
     public MaterialTradeRecipe(CostData price, CostData product)
     {
@@ -113,6 +118,12 @@ public class MaterialTradeRecipe implements ProcurementRecipe
     public void setParentBlueprintName(String blueprintName)
     {
 
+    }
+
+    @Override
+    public Icon getIcon()
+    {
+        return icon;
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.controllerface.cmdr_j;
 import com.controllerface.cmdr_j.data.ItemEffects;
 import com.controllerface.cmdr_j.data.procurements.CostData;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
+import com.controllerface.cmdr_j.ui.Icon;
+import javafx.scene.shape.SVGPath;
 
 import java.util.stream.Stream;
 
@@ -21,5 +23,6 @@ public interface ProcurementRecipe
     ItemEffects effects();
     String getName();
     ItemGrade getGrade();
+    Icon getIcon();
     void setParentBlueprintName(String blueprintName);
 }

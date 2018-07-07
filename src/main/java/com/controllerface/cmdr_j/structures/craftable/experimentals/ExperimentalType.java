@@ -1,7 +1,10 @@
 package com.controllerface.cmdr_j.structures.craftable.experimentals;
 
+import com.controllerface.cmdr_j.ProcurementBlueprint;
 import com.controllerface.cmdr_j.ProcurementType;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -60,5 +63,11 @@ public enum ExperimentalType implements ProcurementType
     public String getName()
     {
         return name();
+    }
+
+    @Override
+    public List<ProcurementBlueprint> getBluePrints()
+    {
+        return Collections.singletonList(blueprint);
     }
 }

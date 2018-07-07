@@ -36,10 +36,12 @@ import com.controllerface.cmdr_j.threads.JournalSyncTask;
 import com.controllerface.cmdr_j.threads.TransactionProcessingTask;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 import com.controllerface.cmdr_j.ui.costs.CostDataCell;
+import com.controllerface.cmdr_j.ui.costs.CostGradeCell;
 import com.controllerface.cmdr_j.ui.costs.CostValueCell;
 import com.controllerface.cmdr_j.ui.inventory.InventoryGradeCell;
 import com.controllerface.cmdr_j.ui.procurements.ProcurementListCell;
 import com.controllerface.cmdr_j.ui.procurements.ProcurementTreeCell;
+import com.controllerface.cmdr_j.ui.procurements.TaskTypeCell;
 import com.controllerface.cmdr_j.ui.ship.ModuleDisplayCell;
 import com.controllerface.cmdr_j.ui.ship.SlotNameCell;
 import com.controllerface.cmdr_j.ui.ship.StatDataCell;
@@ -154,6 +156,7 @@ public class UIController
 
     // Task list and columns
     @FXML private TableView<ProcurementTaskData> procurementTaskTable;
+    @FXML private TableColumn<ProcurementTaskData, ProcurementRecipe> taskTypeColumn;
     @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> taskCountColumn;
     @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> taskNameColumn;
     @FXML private TableColumn<ProcurementTaskData, ProgressBar> taskProgressColumn;
@@ -500,11 +503,14 @@ public class UIController
 
         taskProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
 
-        taskNameColumn.setCellFactory(x -> new TaskDataCell());
-        taskNameColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
+        taskTypeColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair().getValue()));
+        taskTypeColumn.setCellFactory(x-> new TaskTypeCell());
 
-        taskRemoveColumn.setCellFactory(x -> new TaskRemoveCell(this::procurementListUpdate));
+        taskNameColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
+        taskNameColumn.setCellFactory(x -> new TaskDataCell());
+
         taskRemoveColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair()));
+        taskRemoveColumn.setCellFactory(x -> new TaskRemoveCell(this::procurementListUpdate));
 
         taskCostNeedColumn.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
         taskCostNeedColumn.setCellFactory(x -> new CostValueCell());
@@ -515,63 +521,7 @@ public class UIController
         taskCostProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
 
         taskCostGradeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getCost().getGrade()));
-        taskCostGradeColumn.setCellFactory(new Callback<TableColumn<ItemCostData, ItemGrade>, TableCell<ItemCostData, ItemGrade>>()
-        {
-            @Override
-            public TableCell<ItemCostData, ItemGrade> call(TableColumn<ItemCostData, ItemGrade> param)
-            {
-                return new TableCell<ItemCostData, ItemGrade>()
-                {
-                    @Override
-                    protected void updateItem(ItemGrade item, boolean empty)
-                    {
-                        super.updateItem(item, empty);
-                        if (item == null || empty)
-                        {
-                            setText(null);
-                            setGraphic(null);
-                            return;
-                        }
-
-                        HBox hBox = new HBox();
-                        SVGPath icon = item.getIcon() == null ?  UIFunctions.Icons.cargo : item.getIcon();
-
-                        final Region svgShape = new Region();
-                        svgShape.setShape(icon);
-
-                        double sizew = 28;
-                        double sizeh = item.getIcon() == null ? sizew : 26;
-
-                        double topPad = item.getIcon() == null ? 2 : 4;
-
-
-                        svgShape.setMinSize(sizew, sizeh);
-                        svgShape.setPrefSize(sizew, sizeh);
-                        svgShape.setMaxSize(sizew, sizeh);
-
-                        if (item.getIcon() == null)
-                        {
-                            svgShape.setStyle("-fx-background-color: black;");
-                        }
-                        else svgShape.setStyle("-fx-background-color: #b75200;");
-
-                        double originalWidth = icon.prefWidth(-1);
-                        double originalHeight = icon.prefHeight(originalWidth);
-
-                        double scaleX = sizew / originalWidth;
-                        double scaleY = sizeh / originalHeight;
-
-                        icon.setScaleX(scaleX);
-                        icon.setScaleY(scaleY);
-                        hBox.getChildren().add(svgShape);
-                        hBox.setPadding(new Insets(topPad,0,0,0));
-                        hBox.setAlignment(Pos.TOP_CENTER);
-
-                        setGraphic(hBox);
-                    }
-                };
-            }
-        });
+        taskCostGradeColumn.setCellFactory(x -> new CostGradeCell());
 
         sortTasksByName.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.tasksByName));
         sortTasksByGrade.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.taskByGrade));

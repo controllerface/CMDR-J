@@ -1,11 +1,13 @@
 package com.controllerface.cmdr_j.data;
 
-import com.controllerface.cmdr_j.ShipModule;
-import com.controllerface.cmdr_j.Statistic;
+import com.controllerface.cmdr_j.*;
 import com.controllerface.cmdr_j.data.commander.Displayable;
+import com.controllerface.cmdr_j.data.procurements.CostData;
 import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationBlueprint;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
+import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
+import com.controllerface.cmdr_j.threads.UserTransaction;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -15,12 +17,15 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by Controllerface on 5/2/2018.
@@ -35,6 +40,7 @@ public class ShipModuleData implements Displayable
     private final List<ModifierData> modifiers;
     private final int level;
     private final double quality;
+    private final BlockingQueue<UserTransaction> userTransactions;
 
     private final TitledPane displayPane = new TitledPane();
     private final AtomicBoolean initialRenderComplete = new AtomicBoolean(false);
@@ -48,6 +54,46 @@ public class ShipModuleData implements Displayable
         this.experimentalEffectRecipe = builder.experimentalEffectRecipe;
         this.level = builder.level;
         this.quality = builder.quality;
+        this.userTransactions = builder.userTransactions;
+    }
+
+    private Button createTaskButton(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    {
+        HBox layoutBox = new HBox();
+        Label nameLabel = new Label(recipePair.getValue().getDisplayLabel());
+        nameLabel.setFont(UIFunctions.Fonts.size1Font);
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        layoutBox.getChildren().addAll(nameLabel, spacer);
+
+        recipePair.getValue().costStream()
+                .map(CostData::getCost)
+                .map(ProcurementCost::getGrade)
+                .map(ItemGrade::getIcon)
+                .map(icon -> icon == null ? UIFunctions.Icons.cargo : icon)
+                .map(icon -> UIFunctions.Convert.createMaterialIconRegion(icon, 25, 22))
+                .forEach(r->layoutBox.getChildren().add(r));
+
+        Button button = new Button();
+        button.setGraphic(layoutBox);
+
+        button.setOnAction(event -> userTransactions.add(new UserTransaction(1, recipePair)));
+
+        return button;
+    }
+
+    /**
+     * Maps a {@code ProcurementBlueprint} object to a {@code Pair<ProcurementType, ProcurementRecipe>} object,
+     * suitable for adding as a new task the the tracked task list.
+     *
+     * @param blueprint ProcurementBlueprint to map
+     * @return a new Pair<ProcurementType, ProcurementRecipe>
+     */
+    private Stream<Pair<ProcurementType, ProcurementRecipe>> mapBlueprint(ProcurementBlueprint blueprint)
+    {
+        return blueprint.recipeStream().map(recipe -> new Pair<>(module.modificationType(), recipe));
     }
 
     private void renderModificationInfo(HBox moduleNameContainer, VBox detailsContainer)
@@ -81,7 +127,7 @@ public class ShipModuleData implements Displayable
             modProgressBox.setAlignment(Pos.CENTER_LEFT);
 
             // this is the static progress text
-            Label modProgressLabel = new Label("Modification Progress: ");
+            Label modProgressLabel = new Label("Current Modification Progress: ");
             modProgressLabel.setFont(UIFunctions.Fonts.size2Font);
             modProgressLabel.setPadding(new Insets(0,0,5,0));
 
@@ -106,6 +152,72 @@ public class ShipModuleData implements Displayable
             special.setTextFill(UIFunctions.Fonts.darkYellow);
             moduleNameContainer.getChildren().add(special);
         }
+
+        // WORKING AREA
+        // write code here
+
+        ProcurementType m = module.modificationType();
+        ProcurementType e = module.experimentalType();
+        if (m != null || e != null)
+        {
+
+
+            if (m != null)
+            {
+                TitledPane modPane = new TitledPane();
+                modPane.setText("Available Modifications");
+                modPane.setTextFill(UIFunctions.Fonts.darkOrange);
+                modPane.setFont(UIFunctions.Fonts.size2Font);
+                modPane.setExpanded(false);
+                modPane.setAnimated(false);
+                VBox modBox = new VBox();
+
+                m.getBluePrints()
+                        .stream()
+                        .flatMap(this::mapBlueprint)
+                        .map(this::createTaskButton)
+                        .peek(b ->
+                        {
+                            b.setTextAlignment(TextAlignment.LEFT);
+                            b.prefWidthProperty().bind(modPane.widthProperty());
+                        })
+                        .forEach(b -> modBox.getChildren().add(b));
+
+                modPane.setContent(modBox);
+                detailsContainer.getChildren().add(modPane);
+            }
+
+            if (e != null)
+            {
+                TitledPane expPane = new TitledPane();
+                expPane.setText("Experimental Effects");
+                expPane.setTextFill(UIFunctions.Fonts.darkYellow);
+                expPane.setFont(UIFunctions.Fonts.size2Font);
+                expPane.setExpanded(false);
+                expPane.setAnimated(false);
+                VBox expBox = new VBox();
+
+                e.getBluePrints()
+                        .stream()
+                        .flatMap(this::mapBlueprint)
+                        .map(this::createTaskButton)
+                        .peek(b ->
+                        {
+                            b.setTextAlignment(TextAlignment.LEFT);
+                            b.prefWidthProperty().bind(expPane.widthProperty());
+                        })
+                        .forEach(b -> expBox.getChildren().add(b));
+
+                expPane.setContent(expBox);
+                detailsContainer.getChildren().add(expPane);
+            }
+
+
+
+        }
+
+
+        // END WORKING AREA
     }
 
     private void renderEffectTable(VBox effectsContainer)
@@ -132,6 +244,16 @@ public class ShipModuleData implements Displayable
             return new ReadOnlyObjectWrapper<>(unit);
         });
 
+        TitledPane statPane = new TitledPane();
+        statPane.setExpanded(false);
+        statPane.setAnimated(false);
+        statPane.setText("Module Statistics");
+        statPane.setFont(UIFunctions.Fonts.size2Font);
+
+        VBox statBox = new VBox();
+        statBox.fillWidthProperty().set(true);
+
+
         TableView<Pair<ItemEffect, Label>> effectTable = new TableView<>();
 
         effectTable.getColumns().add(nameColumn);
@@ -142,14 +264,18 @@ public class ShipModuleData implements Displayable
                 .bind(effectTable.prefWidthProperty()
                         .subtract(valueColumn.prefWidthProperty())
                         .subtract(unitColumn.prefWidthProperty())
-                        .subtract(2d));
+                        .subtract(35d));
 
         effectTable.fixedCellSizeProperty().setValue(30);
         effectTable.setItems(FXCollections.observableArrayList(effects));
-        effectTable.setPrefHeight((effects.size() * 30) + 28);
+        effectTable.setPrefHeight((effects.size() * 30) + 34);
 
-        effectTable.prefWidthProperty().bind(displayPane.widthProperty().subtract(25));
-        effectsContainer.getChildren().add(effectTable);
+        effectTable.prefWidthProperty().bind(displayPane.widthProperty().subtract(30));
+
+        statBox.getChildren().add(effectTable);
+        statPane.setContent(statBox);
+
+        effectsContainer.getChildren().add(statPane);
     }
 
     private void renderDisplayGraphic()
@@ -299,6 +425,8 @@ public class ShipModuleData implements Displayable
         private ExperimentalRecipe experimentalEffectRecipe;
         private int level;
         private double quality;
+        private BlockingQueue<UserTransaction> userTransactions;
+
 
         public Builder setModuleName(Statistic moduleName)
         {
@@ -339,6 +467,12 @@ public class ShipModuleData implements Displayable
         public Builder setQuality(Double quality)
         {
             if (quality != null) this.quality = quality;
+            return this;
+        }
+
+        public Builder setUserTransactions(BlockingQueue<UserTransaction> userTransactions)
+        {
+            if (userTransactions != null) this.userTransactions = userTransactions;
             return this;
         }
 

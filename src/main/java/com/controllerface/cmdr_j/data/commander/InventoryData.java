@@ -155,7 +155,7 @@ public class InventoryData implements Displayable
         capacityBar.setPadding(new Insets(6,6,0,6));
 
 
-        doThing();
+        findMaterialTrades();
 
     }
 
@@ -313,8 +313,7 @@ public class InventoryData implements Displayable
     }
 
 
-
-    private void doThing()
+    private void findMaterialTrades()
     {
         if (inventoryItem instanceof Material)
         {
@@ -322,6 +321,7 @@ public class InventoryData implements Displayable
             Optional<MaterialSubCostCategory> materialSubCostCategory =
                     MaterialSubCostCategory.findMatchingSubCategory(getItem());
 
+            // separate any in-category material trades into upgrade/downgrade lists
             materialSubCostCategory.ifPresent(materialSubCostCategory1 -> materialSubCostCategory1.materials()
                     .filter(material -> material != inventoryItem)
                     .map(material -> material.getTradeBlueprint().orElse(null))
@@ -359,7 +359,6 @@ public class InventoryData implements Displayable
                                     Label toLabel = new Label(" to ");
                                     toLabel.setFont(UIFunctions.Fonts.size1Font);
                                     HBox convBox = new HBox(from, toLabel, to);
-
                                     ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), recipe);
 
                                     VBox btnhldr = new VBox();

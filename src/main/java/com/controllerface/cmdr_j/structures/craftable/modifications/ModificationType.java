@@ -1,8 +1,11 @@
 package com.controllerface.cmdr_j.structures.craftable.modifications;
 
+import com.controllerface.cmdr_j.ProcurementBlueprint;
 import com.controllerface.cmdr_j.ProcurementType;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -244,5 +247,11 @@ public enum ModificationType implements ProcurementType
     public String getName()
     {
         return name();
+    }
+
+    @Override
+    public List<ProcurementBlueprint> getBluePrints()
+    {
+        return new ArrayList<>(blueprints) ;
     }
 }

@@ -1,12 +1,11 @@
 package com.controllerface.cmdr_j.structures.costs.materials;
 
+import com.controllerface.cmdr_j.ProcurementBlueprint;
 import com.controllerface.cmdr_j.ProcurementType;
 import com.controllerface.cmdr_j.data.procurements.CostData;
 import javafx.util.Pair;
 
-import java.util.EnumSet;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -144,6 +143,12 @@ public enum MaterialTradeType implements ProcurementType
     public String getName()
     {
         return name();
+    }
+
+    @Override
+    public List<ProcurementBlueprint> getBluePrints()
+    {
+        return Collections.emptyList();
     }
 
     @Override
