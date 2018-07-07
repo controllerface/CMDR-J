@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Pair;
 
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
 /**
@@ -26,9 +27,9 @@ public class TaskCountCell extends TableCell<ProcurementTaskData, ProcurementTas
     private final Button subtractButton = new Button("-");
     private final Button addButton = new Button("+");
     private final HBox buttonBox =  new HBox(subtractButton, countLabel, addButton);
-    private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate;
+    private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> inventoryUpdate;
 
-    public TaskCountCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> inventoryUpdate)
+    public TaskCountCell(BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> inventoryUpdate)
     {
         this.inventoryUpdate = inventoryUpdate;
     }
@@ -87,9 +88,9 @@ public class TaskCountCell extends TableCell<ProcurementTaskData, ProcurementTas
             countLabel.setAlignment(Pos.CENTER);
             countLabel.setFont(UIFunctions.Fonts.size4Font);
 
-            subtractButton.setOnAction((e) -> inventoryUpdate.apply(-1, item.asPair()));
+            subtractButton.setOnAction((e) -> inventoryUpdate.accept(-1, item.asPair()));
 
-            addButton.setOnAction((e) -> inventoryUpdate.apply(1, item.asPair()));
+            addButton.setOnAction((e) -> inventoryUpdate.accept(1, item.asPair()));
 
             setGraphic(buttonBox);
         }

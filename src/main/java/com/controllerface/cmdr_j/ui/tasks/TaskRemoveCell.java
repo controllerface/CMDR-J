@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Pair;
 
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
 /**
@@ -23,9 +24,9 @@ public class TaskRemoveCell extends TableCell<ProcurementTaskData, Pair<Procurem
 {
     private final HBox controls = new HBox();
 
-    private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> blueprintUpdate;
+    private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> blueprintUpdate;
 
-    public TaskRemoveCell(BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> blueprintUpdate)
+    public TaskRemoveCell(BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> blueprintUpdate)
     {
         this.blueprintUpdate = blueprintUpdate;
     }
@@ -74,11 +75,7 @@ public class TaskRemoveCell extends TableCell<ProcurementTaskData, Pair<Procurem
 
         removeButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
-        removeButton.setOnAction((e) ->
-        {
-            int val = blueprintUpdate.apply(0, item);
-            while (val > 0) val = blueprintUpdate.apply( -val, item);
-        });
+        removeButton.setOnAction((e) -> blueprintUpdate.accept(-9999, item));
 
         Tooltip tooltip = new Tooltip("Remove this Task");
         tooltip.setFont(UIFunctions.Fonts.size2Font);

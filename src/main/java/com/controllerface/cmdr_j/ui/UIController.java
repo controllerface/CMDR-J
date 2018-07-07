@@ -269,6 +269,10 @@ public class UIController
 
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
+    // this is the transaction queue the transaction processor and inventory threads will use to keep the UI
+    // and player inventory in sync
+    private final BlockingQueue<UserTransaction> transactionQueue = new LinkedBlockingQueue<>();
+
     private final BlockingQueue<MessageData> messageQueue = new LinkedBlockingDeque<>();
     private final AtomicBoolean hasMessages = new AtomicBoolean(false);
 
@@ -276,12 +280,14 @@ public class UIController
     Convenience consumer function that accepts a ProcurementTask and adds it to the procurement list. If the task
     already exists in the list, this effectively increments the count of that by 1
      */
+
+    private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> addPairToProcurementList =
+            (count, task) -> transactionQueue.add(new UserTransaction(count, task));
+
     private final Consumer<ProcurementTask> addTaskToProcurementList =
-            (task)->
-            {
-                Pair<ProcurementType, ProcurementRecipe> ref = new Pair<>(task.getType(), task.getRecipe());
-                procurementListUpdate(1, ref);
-            };
+            (task) -> addPairToProcurementList.accept(1, new Pair<>(task.getType(), task.getRecipe()));
+
+
 
     /**
      * Holds all of the data related to a commander (i.e. the player's on-disk data). While running, this application
@@ -374,38 +380,10 @@ public class UIController
     {
         makeProcurementTree();
         startupTasks();
-
-//        initializeUIComponents();
-//
-//        // build the procurement task selection tree
-//        makeProcurementTree();
-//
-//        // load the auto-save data from disk
-//        fromJson();
-//
-//        // set initialized flag
-//
-//        Properties properties = new Properties();
-//        try {properties.load(this.getClass().getResourceAsStream("/config.properties"));}
-//        catch (IOException e) {e.printStackTrace();}
-//
-//        // todo: implement, maybe dump certain data to the info log? or possibly have a debug tab
-//        String debug = properties.getProperty("debug");
-//        if (debug != null && debug.equals("true"))
-//        {
-//            System.out.println("Debug mode currently not implemented");
-//        }
-//
-//        sortInventory();
-//        startupTasks();
     }
 
     private void startupTasks()
     {
-        // this is the transaction queue the transaction processor and inventory threads will use to keep the UI
-        // and player inventory in sync
-        BlockingQueue<UserTransaction> transactionQueue = new LinkedBlockingQueue<>();
-
         // convenience function that adjusts items and also refreshes teh cost table. This is useful because the
         // item adjustment isn't directly related to the cost table, so adjustments won't automatically trigger a
         // refresh. This allows the table to be refreshed in one function without leaking references into other scopes
@@ -498,7 +476,7 @@ public class UIController
         procurementTaskTable.setItems(sortedTasks);
         taskCostTable.setItems(sortedCosts);
 
-        taskCountColumn.setCellFactory(x -> new TaskCountCell(this::procurementListUpdate));
+        taskCountColumn.setCellFactory(x -> new TaskCountCell(addPairToProcurementList));
         taskCountColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
         taskProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
@@ -510,7 +488,7 @@ public class UIController
         taskNameColumn.setCellFactory(x -> new TaskDataCell());
 
         taskRemoveColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair()));
-        taskRemoveColumn.setCellFactory(x -> new TaskRemoveCell(this::procurementListUpdate));
+        taskRemoveColumn.setCellFactory(x -> new TaskRemoveCell(addPairToProcurementList));
 
         taskCostNeedColumn.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
         taskCostNeedColumn.setCellFactory(x -> new CostValueCell());
@@ -888,7 +866,6 @@ public class UIController
      */
     private Integer procurementListUpdate(Integer adjustment, Pair<ProcurementType, ProcurementRecipe> task)
     {
-
         // find the task we need to adjust
         AtomicReference<ProcurementTaskData> data = new AtomicReference<>(taskList.stream()
                 .filter(storedTask -> storedTask.matches(task))
@@ -1549,7 +1526,7 @@ public class UIController
                 }
             });
 
-            procurementListUpdate(count.get(), new Pair<>(procType.get(), recipeType.get()));
+            transactionQueue.add(new UserTransaction(count.get(), new Pair<>(procType.get(), recipeType.get())));
         });
     }
 }

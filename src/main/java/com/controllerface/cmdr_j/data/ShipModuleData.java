@@ -37,6 +37,7 @@ public class ShipModuleData implements Displayable
 
     private final ModificationBlueprint modificationBlueprint;
     private final ExperimentalRecipe experimentalEffectRecipe;
+
     private final List<ModifierData> modifiers;
     private final int level;
     private final double quality;
@@ -133,6 +134,7 @@ public class ShipModuleData implements Displayable
 
             // here we set up the progress percentage value
             Label modProgressValue = new Label();
+            modProgressValue.setTextFill(UIFunctions.Fonts.darkOrange);
             modProgressValue.setFont(UIFunctions.Fonts.size2Font);
             modProgressValue.setPadding(new Insets(0,0,5,0));
             modProgressValue.setText((int)(quality * 100d) + "%");
@@ -174,12 +176,25 @@ public class ShipModuleData implements Displayable
 
                 m.getBluePrints()
                         .stream()
-                        .flatMap(this::mapBlueprint)
-                        .map(this::createTaskButton)
-                        .peek(b ->
+                        .map(bp->
                         {
-                            b.setTextAlignment(TextAlignment.LEFT);
-                            b.prefWidthProperty().bind(modPane.widthProperty());
+                            TitledPane gradePane = new TitledPane();
+                            gradePane.setText(bp.toString());
+                            gradePane.setFont(UIFunctions.Fonts.size1Font);
+                            gradePane.setExpanded(false);
+                            gradePane.setAnimated(false);
+                            VBox gradeBox = new VBox();
+
+                            mapBlueprint(bp)
+                                    .map(this::createTaskButton)
+                                    .peek(b ->
+                                    {
+                                        b.setTextAlignment(TextAlignment.LEFT);
+                                        b.prefWidthProperty().bind(modPane.widthProperty());
+                                    })
+                                    .forEach(b -> gradeBox.getChildren().add(b));
+                            gradePane.setContent(gradeBox);
+                            return gradePane;
                         })
                         .forEach(b -> modBox.getChildren().add(b));
 
@@ -227,12 +242,13 @@ public class ShipModuleData implements Displayable
         TableColumn<Pair<ItemEffect, Label>, Pair<ItemEffect, Label>> nameColumn = new TableColumn<>();
         nameColumn.setCellValueFactory((param) -> new ReadOnlyObjectWrapper<>(param.getValue()));
         nameColumn.setCellFactory(UIFunctions.Data.moduleNameCellFactory);
-        nameColumn.setText("Module Statistics");
+        nameColumn.setText("Statistic");
 
         TableColumn<Pair<ItemEffect, Label>, Label> valueColumn = new TableColumn<>();
         valueColumn.prefWidthProperty().set(125);
         valueColumn.setCellFactory(UIFunctions.Data.moduleEffectValueFactory);
         valueColumn.setCellValueFactory((param) -> new ReadOnlyObjectWrapper<>(param.getValue().getValue()));
+        valueColumn.setText("Value");
 
         TableColumn<Pair<ItemEffect, Label>, Label> unitColumn = new TableColumn<>();
         unitColumn.prefWidthProperty().set(75);
@@ -243,6 +259,8 @@ public class ShipModuleData implements Displayable
             unit.setFont(UIFunctions.Fonts.size2Font);
             return new ReadOnlyObjectWrapper<>(unit);
         });
+        unitColumn.setText("Unit");
+
 
         TitledPane statPane = new TitledPane();
         statPane.setExpanded(false);

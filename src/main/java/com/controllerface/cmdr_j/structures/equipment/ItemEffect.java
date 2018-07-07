@@ -43,7 +43,6 @@ public enum ItemEffect
     EngineHeatRate("H/MW", "Thermal Load", false),
     FSDHeatRate("H/MW", "Thermal Load", false),
 
-
     EngineMinimumMass("T", "Minimum Mass", true),
     ShieldGenMinimumMass("T", "Minimum Mass", true),
 
