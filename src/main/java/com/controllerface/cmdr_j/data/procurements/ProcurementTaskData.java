@@ -159,21 +159,6 @@ public class ProcurementTaskData implements Displayable
 
         renderEffects();
         HBox nameContainer = new HBox();
-        if (isTrade())
-        {
-            recipePair.getValue().costStream().findFirst()
-                    .map(CostData::getCost)
-                    .map(ProcurementCost::getGrade)
-                    .map(ItemGrade::getIcon)
-                    .filter(Objects::nonNull)
-                    .map(icon -> UIFunctions.Convert.createMaterialIconRegion(icon, 28, 25))
-                    .ifPresent(nameContainer.getChildren()::add);
-
-            Separator separator = new Separator();
-            separator.setPadding(new Insets(0,5,0,10));
-            separator.setOrientation(Orientation.VERTICAL);
-            nameContainer.getChildren().add(separator);
-        }
         nameContainer.getChildren().add(nameLabel);
         titledPane.setGraphic(nameContainer);
         ((HBox) titledPane.getGraphic()).setAlignment(Pos.CENTER);
@@ -181,12 +166,7 @@ public class ProcurementTaskData implements Displayable
         descriptionContainer.getChildren().add(titledPane);
 
         nameLabel.setText(recipePair.getKey().toString() + " :: " + recipePair.getValue().getDisplayLabel());
-//        if (recipePair.getKey() instanceof MaterialTradeType)
-//        {
-//            nameLabel.setTextFill(UIFunctions.Fonts.darkOrange);
-//        }
-//        else
-            nameLabel.setTextFill(UIFunctions.Fonts.neutralBlack);
+        nameLabel.setTextFill(UIFunctions.Fonts.neutralBlack);
         renderProgress();
     }
 
