@@ -49,6 +49,7 @@ import com.controllerface.cmdr_j.ui.ship.StatDisplayCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskCountCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskDataCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskRemoveCell;
+import com.sun.javafx.event.EventDispatchChainImpl;
 import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -59,17 +60,24 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.SVGPath;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
+import javax.xml.stream.EventFilter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -287,13 +295,14 @@ public class UIController
     private final Consumer<ProcurementTask> addTaskToProcurementList =
             (task) -> addPairToProcurementList.accept(1, new Pair<>(task.getType(), task.getRecipe()));
 
-
+    private final Consumer<ProcurementTask> addTaskToProcurementList_direct =
+            (task) -> procurementListUpdate(1, new Pair<>(task.getType(), task.getRecipe()));
 
     /**
      * Holds all of the data related to a commander (i.e. the player's on-disk data). While running, this application
      * will continuously update the data in this object based on events that are written to the player's Journal file
      */
-    private final CommanderData commanderData = new CommanderData(tradeCostCache::get, addTaskToProcurementList);
+    private final CommanderData commanderData = new CommanderData(tradeCostCache::get, addTaskToProcurementList_direct);
 
     public UIController()
     {
@@ -660,6 +669,11 @@ public class UIController
         cargoGradeColumn.setCellFactory(inventoryGradeCellFactory);
     }
 
+
+    private Set<ScrollEvent> modifiedScrolls = Collections.synchronizedSet(new HashSet<>());
+    private Set<Object> targets = Collections.synchronizedSet(new HashSet<>());
+
+
     /**
      * Sets up the ship loadout tab
      */
@@ -677,6 +691,65 @@ public class UIController
         commanderData.getStarShip().associateCoreTable(coreModuleTable);
         commanderData.getStarShip().associateOptionalTable(optionalModuleTable);
         commanderData.getStarShip().associateHardpointTable(hardpointTable);
+
+
+//        coreModuleTable.addEventFilter(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>()
+//        {
+//            @Override
+//            public void handle(ScrollEvent event)
+//            {
+//                if (!targets.contains(event.getTarget()))
+//                {
+//                    event.consume();
+//
+//
+//                    double deltaY = event.getDeltaY();
+//                    if (deltaY == -40) deltaY = -20;
+//                    if (deltaY == 40) deltaY = 20;
+//
+//
+//                    ScrollEvent scrollEvent = new ScrollEvent(
+//                            event.getEventType(),
+//                            event.getTarget(),
+//                            event.getEventType(),
+//                            event.getX(),
+//                            event.getY(),
+//                            event.getScreenX(),
+//                            event.getScreenY(),
+//                            event.isShiftDown(),
+//                            event.isControlDown(),
+//                            event.isAltDown(),
+//                            event.isMetaDown(),
+//                            event.isDirect(),
+//                            event.isInertia(),
+//                            event.getDeltaX(),
+//
+//                            deltaY,
+//                            //event.getDeltaY(),
+//
+//                            event.getTotalDeltaX(),
+//                            event.getTotalDeltaY(),
+//                            event.getTextDeltaXUnits(),
+//                            event.getTextDeltaX(),
+//                            event.getTextDeltaYUnits(),
+//                            event.getTextDeltaY(),
+//                            event.getTouchCount(),
+//                            event.getPickResult());
+//
+//                    targets.add(event.getTarget());
+//                    coreModuleTable.fireEvent(scrollEvent);
+//                }
+//                else
+//                {
+//                    targets.remove(event.getTarget());
+//                }
+//            }
+//        });
+
+
+
+
+
 
         shipStatisticsNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
         shipStatisticsNameColumn.setCellFactory(x -> new StatDataCell());

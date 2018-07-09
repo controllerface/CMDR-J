@@ -1618,7 +1618,9 @@
     "UNKNOWNENERGYSOURCE": [
       "Destroyed Unknown artefact",
       "USS (Anomaly)",
-      "Thargoid site"
+      "Known Thargoid sites:",
+      "- Planetary Body: HIP 17862 6 c a, Latitude: 30.32, Longitude: -98.58",
+      "- Planetary Body: HIP 17403 A 4 a, Latitude: -34.98, Longitude: -141.41"
     ],
     "SHIELDEMITTERS": [
       "Ship salvage (Combat ships)",

@@ -5,6 +5,7 @@ import com.controllerface.cmdr_j.data.commander.Displayable;
 import com.controllerface.cmdr_j.data.procurements.CostData;
 import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationBlueprint;
+import com.controllerface.cmdr_j.structures.engineers.Engineer;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
 import com.controllerface.cmdr_j.threads.UserTransaction;
@@ -58,32 +59,7 @@ public class ShipModuleData implements Displayable
         this.userTransactions = builder.userTransactions;
     }
 
-    private Button createTaskButton(Pair<ProcurementType, ProcurementRecipe> recipePair)
-    {
-        HBox layoutBox = new HBox();
-        Label nameLabel = new Label(recipePair.getValue().getDisplayLabel());
-        nameLabel.setFont(UIFunctions.Fonts.size1Font);
 
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-
-        layoutBox.getChildren().addAll(nameLabel, spacer);
-
-        recipePair.getValue().costStream()
-                .map(CostData::getCost)
-                .map(ProcurementCost::getGrade)
-                .map(ItemGrade::getIcon)
-                .map(icon -> icon == null ? UIFunctions.Icons.cargo : icon)
-                .map(icon -> UIFunctions.Convert.createMaterialIconRegion(icon, 25, 22))
-                .forEach(r->layoutBox.getChildren().add(r));
-
-        Button button = new Button();
-        button.setGraphic(layoutBox);
-
-        button.setOnAction(event -> userTransactions.add(new UserTransaction(1, recipePair)));
-
-        return button;
-    }
 
     /**
      * Maps a {@code ProcurementBlueprint} object to a {@code Pair<ProcurementType, ProcurementRecipe>} object,
@@ -96,6 +72,124 @@ public class ShipModuleData implements Displayable
     {
         return blueprint.recipeStream().map(recipe -> new Pair<>(module.modificationType(), recipe));
     }
+
+
+    private HBox createRecipeControl(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    {
+        HBox container = new HBox();
+
+        Button button = createTaskButton(recipePair);
+        TitledPane infoPane = createInfoPane(recipePair);
+        infoPane.prefWidthProperty().bind(container.widthProperty());
+        container.getChildren().addAll(button, infoPane);
+        return container;
+    }
+
+    private Button createTaskButton(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    {
+//        HBox layoutBox = new HBox();
+//        Label nameLabel = new Label(recipePair.getValue().getDisplayLabel());
+//        nameLabel.setFont(UIFunctions.Fonts.size1Font);
+//
+//        Region spacer = new Region();
+//        HBox.setHgrow(spacer, Priority.ALWAYS);
+//
+//        layoutBox.getChildren().addAll(nameLabel, spacer);
+//
+//        recipePair.getValue().costStream()
+//                .map(CostData::getCost)
+//                .map(ProcurementCost::getGrade)
+//                .map(ItemGrade::getIcon)
+//                .map(icon -> icon == null ? UIFunctions.Icons.cargo : icon)
+//                .map(icon -> UIFunctions.Convert.createMaterialIconRegion(icon, 25, 22))
+//                .forEach(r->layoutBox.getChildren().add(r));
+
+        Button button = new Button();
+
+        button.setStyle("-fx-base: #88ee88;");
+
+        button.setText("+");
+        button.setFont(UIFunctions.Fonts.size1Font);
+
+        Tooltip tooltip = new Tooltip();
+        tooltip.setFont(UIFunctions.Fonts.size1Font);
+        tooltip.setText("Add " + recipePair.getValue().getDisplayLabel() + " to Tracked Tasks");
+        button.setTooltip(tooltip);
+
+//        button.setGraphic(layoutBox);
+
+        button.setOnAction(event -> userTransactions.add(new UserTransaction(1, recipePair)));
+
+        return button;
+    }
+
+    private TitledPane createInfoPane(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    {
+        TitledPane infoPane = new TitledPane();
+        infoPane.setExpanded(false);
+        infoPane.setAnimated(false);
+
+        Label nameLabel = new Label(recipePair.getValue().getDisplayLabel());
+        nameLabel.setFont(UIFunctions.Fonts.size1Font);
+        infoPane.setGraphic(nameLabel);
+
+
+        VBox costEffectContainer = new VBox();
+        costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
+
+
+
+        // effects
+        recipePair.getValue().effects().effectStream()
+                .map(UIFunctions.Convert.effectToLabel)
+                .sorted(UIFunctions.Sort.byGoodness)
+                .forEach(label -> costEffectContainer.getChildren().add(label));
+
+        if (recipePair.getValue().effects() != ItemEffects.EMPTY)
+        {
+            Separator separator = new Separator();
+            separator.setPrefHeight(10);
+            costEffectContainer.getChildren().add(separator);
+        }
+
+        // costs
+        recipePair.getValue().costStream()
+                .map(c->
+                {
+                    String quantity = c.getQuantity() < 0
+                            ? "+" + Math.abs(c.getQuantity())
+                            : "-" + c.getQuantity();
+                    Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
+                    next.setFont(UIFunctions.Fonts.size1Font);
+                    return next;
+                })
+                .forEach(label -> costEffectContainer.getChildren().add(label));
+
+
+        List<Engineer> engineers = Engineer.findSupportedEngineers(recipePair.getKey(), recipePair.getValue().getGrade());
+        if (!engineers.isEmpty())
+        {
+            Separator separator2 = new Separator();
+            separator2.setPrefHeight(10);
+            costEffectContainer.getChildren().add(separator2);
+
+            for (Engineer engineer : engineers)
+            {
+                Label engineerLabel = new Label(engineer.getFullName() + " :: "
+                        + engineer.getLocation().getSystemName());
+                engineerLabel.setFont(UIFunctions.Fonts.size1Font);
+                engineerLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+                costEffectContainer.getChildren().add(engineerLabel);
+            }
+        }
+
+        infoPane.setContent(costEffectContainer);
+        //infoPane.prefWidthProperty().bind(this.widthProperty().subtract(50));
+
+        return infoPane;
+    }
+
+
 
     private void renderModificationInfo(HBox moduleNameContainer, VBox detailsContainer)
     {
@@ -158,13 +252,11 @@ public class ShipModuleData implements Displayable
         // WORKING AREA
         // write code here
 
-        ProcurementType m = module.modificationType();
-        ProcurementType e = module.experimentalType();
-        if (m != null || e != null)
+        ProcurementType modificationType = module.modificationType();
+        ProcurementType experimentalType = module.experimentalType();
+        if (modificationType != null || experimentalType != null)
         {
-
-
-            if (m != null)
+            if (modificationType != null)
             {
                 TitledPane modPane = new TitledPane();
                 modPane.setText("Available Modifications");
@@ -174,23 +266,23 @@ public class ShipModuleData implements Displayable
                 modPane.setAnimated(false);
                 VBox modBox = new VBox();
 
-                m.getBluePrints()
+                modificationType.getBluePrints()
                         .stream()
-                        .map(bp->
+                        .map(blueprint ->
                         {
                             TitledPane gradePane = new TitledPane();
-                            gradePane.setText(bp.toString());
+                            gradePane.setText(blueprint.toString());
                             gradePane.setFont(UIFunctions.Fonts.size1Font);
                             gradePane.setExpanded(false);
                             gradePane.setAnimated(false);
                             VBox gradeBox = new VBox();
 
-                            mapBlueprint(bp)
-                                    .map(this::createTaskButton)
-                                    .peek(b ->
+                            mapBlueprint(blueprint)
+                                    .map(this::createRecipeControl)
+                                    .peek(button ->
                                     {
-                                        b.setTextAlignment(TextAlignment.LEFT);
-                                        b.prefWidthProperty().bind(modPane.widthProperty());
+                                        //button.setTextAlignment(TextAlignment.LEFT);
+                                        button.prefWidthProperty().bind(modPane.widthProperty());
                                     })
                                     .forEach(b -> gradeBox.getChildren().add(b));
                             gradePane.setContent(gradeBox);
@@ -202,7 +294,7 @@ public class ShipModuleData implements Displayable
                 detailsContainer.getChildren().add(modPane);
             }
 
-            if (e != null)
+            if (experimentalType != null)
             {
                 TitledPane expPane = new TitledPane();
                 expPane.setText("Experimental Effects");
@@ -212,23 +304,20 @@ public class ShipModuleData implements Displayable
                 expPane.setAnimated(false);
                 VBox expBox = new VBox();
 
-                e.getBluePrints()
+                experimentalType.getBluePrints()
                         .stream()
                         .flatMap(this::mapBlueprint)
-                        .map(this::createTaskButton)
-                        .peek(b ->
+                        .map(this::createRecipeControl)
+                        .peek(button ->
                         {
-                            b.setTextAlignment(TextAlignment.LEFT);
-                            b.prefWidthProperty().bind(expPane.widthProperty());
+                            //button.setTextAlignment(TextAlignment.LEFT);
+                            button.prefWidthProperty().bind(expPane.widthProperty());
                         })
                         .forEach(b -> expBox.getChildren().add(b));
 
                 expPane.setContent(expBox);
                 detailsContainer.getChildren().add(expPane);
             }
-
-
-
         }
 
 

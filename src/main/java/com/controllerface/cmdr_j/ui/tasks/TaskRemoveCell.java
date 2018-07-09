@@ -77,7 +77,7 @@ public class TaskRemoveCell extends TableCell<ProcurementTaskData, Pair<Procurem
 
         removeButton.setOnAction((e) -> blueprintUpdate.accept(-9999, item));
 
-        Tooltip tooltip = new Tooltip("Remove this Task");
+        Tooltip tooltip = new Tooltip("Remove " + item.getValue().getDisplayLabel() + " from Tracked Tasks");
         tooltip.setFont(UIFunctions.Fonts.size2Font);
         removeButton.setTooltip(tooltip);
         controls.getChildren().add(removeButton);
