@@ -119,7 +119,7 @@
                                     <content>
                                       <AnchorPane>
                                              <children>
-                                                <TableView fx:id="coreModuleTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="coreModuleTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
                                                     <TableColumn fx:id="coreModuleNameColumn" prefWidth="195.0" sortable="false" text="Core Module" />
                                                     <TableColumn fx:id="coreModuleDataColumn" minWidth="0.0" prefWidth="243.0" sortable="false" />

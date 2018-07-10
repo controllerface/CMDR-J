@@ -669,11 +669,6 @@ public class UIController
         cargoGradeColumn.setCellFactory(inventoryGradeCellFactory);
     }
 
-
-    private Set<ScrollEvent> modifiedScrolls = Collections.synchronizedSet(new HashSet<>());
-    private Set<Object> targets = Collections.synchronizedSet(new HashSet<>());
-
-
     /**
      * Sets up the ship loadout tab
      */
@@ -691,65 +686,6 @@ public class UIController
         commanderData.getStarShip().associateCoreTable(coreModuleTable);
         commanderData.getStarShip().associateOptionalTable(optionalModuleTable);
         commanderData.getStarShip().associateHardpointTable(hardpointTable);
-
-
-//        coreModuleTable.addEventFilter(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>()
-//        {
-//            @Override
-//            public void handle(ScrollEvent event)
-//            {
-//                if (!targets.contains(event.getTarget()))
-//                {
-//                    event.consume();
-//
-//
-//                    double deltaY = event.getDeltaY();
-//                    if (deltaY == -40) deltaY = -20;
-//                    if (deltaY == 40) deltaY = 20;
-//
-//
-//                    ScrollEvent scrollEvent = new ScrollEvent(
-//                            event.getEventType(),
-//                            event.getTarget(),
-//                            event.getEventType(),
-//                            event.getX(),
-//                            event.getY(),
-//                            event.getScreenX(),
-//                            event.getScreenY(),
-//                            event.isShiftDown(),
-//                            event.isControlDown(),
-//                            event.isAltDown(),
-//                            event.isMetaDown(),
-//                            event.isDirect(),
-//                            event.isInertia(),
-//                            event.getDeltaX(),
-//
-//                            deltaY,
-//                            //event.getDeltaY(),
-//
-//                            event.getTotalDeltaX(),
-//                            event.getTotalDeltaY(),
-//                            event.getTextDeltaXUnits(),
-//                            event.getTextDeltaX(),
-//                            event.getTextDeltaYUnits(),
-//                            event.getTextDeltaY(),
-//                            event.getTouchCount(),
-//                            event.getPickResult());
-//
-//                    targets.add(event.getTarget());
-//                    coreModuleTable.fireEvent(scrollEvent);
-//                }
-//                else
-//                {
-//                    targets.remove(event.getTarget());
-//                }
-//            }
-//        });
-
-
-
-
-
 
         shipStatisticsNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
         shipStatisticsNameColumn.setCellFactory(x -> new StatDataCell());
@@ -788,6 +724,17 @@ public class UIController
         bindTableResize(coreModuleTable, coreModuleDataColumn);
         bindTableResize(optionalModuleTable, optionalModuleDataColumn);
         bindTableResize(hardpointTable, hardpointDataColumn);
+
+        shipStatisticsTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        coreModuleTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        optionalModuleTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        hardpointTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        procurementTaskTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        taskCostTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        rawTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        manufacturedTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        dataTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        cargoTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
     }
 
     /**
