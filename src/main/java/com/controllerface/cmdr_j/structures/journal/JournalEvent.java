@@ -15,6 +15,7 @@ import com.controllerface.cmdr_j.structures.equipment.modules.*;
 import com.controllerface.cmdr_j.structures.equipment.ships.*;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
 import com.controllerface.cmdr_j.threads.UserTransaction;
+import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -62,6 +63,72 @@ public enum JournalEvent
         setStatFromData(context, PlayerStat.Ship);
         setStatFromData(context, PlayerStat.Ship_Name);
         setStatFromData(context, PlayerStat.Ship_Ident);
+    }),
+
+
+    HullDamage((context) ->
+    {
+        boolean player = ((boolean) context.getRawData().get("PlayerPilot"));
+        Boolean fighter = ((Boolean) context.getRawData().get("Fighter"));
+        double damage = ((double) context.getRawData().get("Health"));
+
+        String message = (player
+                ? "You are"
+                : "Your" + ((fighter != null && fighter)
+                        ? " fighter is"
+                        : " mothership is"))
+                + " taking damage";
+
+        logGeneralMessage(context, message);
+        logGeneralMessage(context, "Hull integrity at " + UIFunctions.Data.round(damage * 100, 2) + "%");
+    }),
+
+    ShieldState((context) ->
+    {
+        boolean restored = ((boolean) context.getRawData().get("ShieldsUp"));
+        String message = "Shields " + (restored ? "Restored" : "Disabled");
+        logGeneralMessage(context, message);
+    }),
+
+    HeatWarning((context)-> logGeneralMessage(context, "Heat Level Critical")),
+
+    UnderAttack((context)->
+    {
+        String target = ((String) context.getRawData().get("Target"));
+        String verb = target.equalsIgnoreCase("You") ? " are " : " is ";
+        logCombatMessage(context, target + verb + "under attack");
+    }),
+
+    Bounty((context)->
+    {
+        String victim = ((String) context.getRawData().get("VictimFaction"));
+        String target = ((String) context.getRawData().get("Target"));
+        int reward;
+        String benefactor;
+
+        if (context.getRawData().get("Rewards") == null)
+        {
+            reward = ((int) context.getRawData().get("Reward"));
+            benefactor = ((String) context.getRawData().get("Faction"));
+        }
+        else
+        {
+            reward = ((int) context.getRawData().get("TotalReward"));
+            benefactor = ((List<Map<String, Object>>) context.getRawData().get("Rewards")).stream()
+                    .map(r-> ((String) r.get("Faction")))
+                    .collect(Collectors.joining(", ","Rewarding Faction(s): ",""));
+        }
+
+        logCombatMessage(context, "You destroyed " + victim + " " + target + " for " + reward + " credits paid by " + benefactor);
+    }),
+
+    FactionKillBond((context)->
+    {
+        String victim = ((String) context.getRawData().get("VictimFaction"));
+        int reward = ((int) context.getRawData().get("Reward"));
+        String benefactor = ((String) context.getRawData().get("AwardingFaction"));
+
+        logCombatMessage(context, "You destroyed a " + victim + " for " + reward + " credits paid by " + benefactor);
     }),
 
     Market((context)->
@@ -385,7 +452,7 @@ public enum JournalEvent
     {
         Map<String, Object> rawData = context.getRawData();
 
-        logEngineeringMessage(context, "Engineering Enhancement Performed");
+        logEngineeringMessage(context, "Engineering Enhancement Costs :");
 
         // remove the materials used in the crafting process
         ((List<Map<String, Object>>) rawData.get("Ingredients"))
