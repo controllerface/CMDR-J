@@ -9,23 +9,23 @@ import com.controllerface.cmdr_j.data.StarSystem;
 import com.controllerface.cmdr_j.data.commander.Displayable;
 import com.controllerface.cmdr_j.structures.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.structures.engineers.Engineer;
-import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.util.Pair;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -43,6 +43,7 @@ import java.util.stream.Collectors;
 public class ProcurementTaskData implements Displayable
 {
     private final AtomicInteger count;
+    private final SimpleIntegerProperty countDisplay = new SimpleIntegerProperty();
 
     // main graphic node that contains the visible contents
     private final VBox descriptionContainer = new VBox();
@@ -65,18 +66,24 @@ public class ProcurementTaskData implements Displayable
 
     private final Function<ProcurementCost, Integer> checkInventory;
     private final Function<ProcurementCost, Integer> pendingTradeYield;
+    private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> inventoryUpdate;
 
     private final Supplier<StarSystem> getCurrentSystem;
 
     private final List<Engineer> engineers;
 
+    private final HBox spinner;
+
+
     private ProcurementTaskData(Builder builder)
     {
         this.count = new AtomicInteger(builder.count);
+        countDisplay.set(this.count.get());
         this.type = builder.type;
         this.recipe = builder.recipe;
         this.checkInventory = builder.checkInventory;
         this.pendingTradeYield = builder.pendingTradeYield;
+        this.inventoryUpdate = builder.inventoryUpdate;
         this.getCurrentSystem = builder.getCurrentSystem;
         this.engineers = Engineer.findSupportedEngineers(type, recipe.getGrade());
 
@@ -85,6 +92,8 @@ public class ProcurementTaskData implements Displayable
         costEffectContainer
                 .setBackground(new Background(new BackgroundFill(Color
                         .rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
+
+        this.spinner = makeSpinner();
     }
 
     @Override
@@ -94,6 +103,72 @@ public class ProcurementTaskData implements Displayable
                 recipe.costStream()
                         .map(c-> " - " + c.getCost().getLocalizedName())
                         .collect(Collectors.joining("\n"));
+    }
+
+
+    private HBox makeSpinner()
+    {
+        Label countLabel = new Label();
+
+        Button subtractButton = new Button("-");
+        Button addButton = new Button("+");
+
+        // Plus
+        Line line1 = new Line();
+        line1.setStroke(Color.BLACK);
+        line1.setStrokeWidth(3);
+        line1.setStartX(-3);
+        line1.setEndX(7);
+        line1.setStartY(12);
+        line1.setEndY(12);
+
+        Line line2 = new Line();
+        line2.setStroke(Color.BLACK);
+        line2.setStrokeWidth(3);
+        line2.setStartX(2);
+        line2.setEndX(2);
+        line2.setStartY(7);
+        line2.setEndY(17);
+
+        // Minus
+        Line line3 = new Line();
+        line3.setStroke(Color.BLACK);
+        line3.setStrokeWidth(3);
+        line3.setStartX(-3);
+        line3.setEndX(7);
+        line3.setStartY(12);
+        line3.setEndY(12);
+
+        Pane addGraphic  = new Pane(line1, line2);
+        Pane subGraphic  = new Pane(line3);
+
+        addGraphic.setPrefHeight(23);
+        subGraphic.setPrefHeight(23);
+
+        addButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        addButton.setAlignment(Pos.CENTER);
+        subtractButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        subtractButton.setAlignment(Pos.CENTER);
+
+        addButton.setGraphic(addGraphic);
+        subtractButton.setGraphic(subGraphic);
+
+        countLabel.textProperty().bind(countDisplay.asString());
+        countLabel.setPrefWidth(54);
+        countLabel.setMaxWidth(54);
+        countLabel.setMinWidth(54);
+        countLabel.setAlignment(Pos.CENTER);
+        countLabel.setFont(UIFunctions.Fonts.size4Font);
+
+        subtractButton.setOnAction((e) -> inventoryUpdate.accept(-1, asPair()));
+        addButton.setOnAction((e) -> inventoryUpdate.accept(1, asPair()));
+
+        return new HBox(subtractButton, countLabel, addButton);
+    }
+
+    public Node getSpinner()
+    {
+        return spinner;
     }
 
     public Pair<ProcurementType, ProcurementRecipe> asPair()
@@ -226,6 +301,8 @@ public class ProcurementTaskData implements Displayable
 
     private void renderProgress()
     {
+        countDisplay.set(count.get());
+
         Pair<Double, Boolean> progressData = calculateProgress(this);
 
         boolean usesTrade = progressData.getValue();
@@ -352,6 +429,7 @@ public class ProcurementTaskData implements Displayable
         private ProcurementRecipe recipe;
         private Function<ProcurementCost, Integer> checkInventory;
         private Function<ProcurementCost, Integer> pendingTradeYield;
+        private BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> inventoryUpdate;
         private Supplier<StarSystem> getCurrentSystem;
 
         public Builder(int count)
@@ -386,6 +464,12 @@ public class ProcurementTaskData implements Displayable
         public Builder setPendingTradeYield(Function<ProcurementCost, Integer> pendingTradeYield)
         {
             this.pendingTradeYield = pendingTradeYield;
+            return this;
+        }
+
+        public Builder setInventoryUpdate(BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> inventoryUpdate)
+        {
+            this.inventoryUpdate = inventoryUpdate;
             return this;
         }
 

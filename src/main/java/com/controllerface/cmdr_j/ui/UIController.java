@@ -49,7 +49,6 @@ import com.controllerface.cmdr_j.ui.ship.StatDisplayCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskCountCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskDataCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskRemoveCell;
-import com.sun.javafx.event.EventDispatchChainImpl;
 import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -60,24 +59,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.EventHandler;
-import javafx.event.EventTarget;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.shape.SVGPath;
-import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
-import javax.xml.stream.EventFilter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -87,7 +77,8 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.*;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -295,14 +286,14 @@ public class UIController
     private final Consumer<ProcurementTask> addTaskToProcurementList =
             (task) -> addPairToProcurementList.accept(1, new Pair<>(task.getType(), task.getRecipe()));
 
-    private final Consumer<ProcurementTask> addTaskToProcurementList_direct =
+    private final Consumer<ProcurementTask> addTaskPairToProcurementList_direct =
             (task) -> procurementListUpdate(1, new Pair<>(task.getType(), task.getRecipe()));
 
     /**
      * Holds all of the data related to a commander (i.e. the player's on-disk data). While running, this application
      * will continuously update the data in this object based on events that are written to the player's Journal file
      */
-    private final CommanderData commanderData = new CommanderData(tradeCostCache::get, addTaskToProcurementList_direct);
+    private final CommanderData commanderData = new CommanderData(tradeCostCache::get, addTaskPairToProcurementList_direct);
 
     public UIController()
     {
@@ -356,10 +347,13 @@ public class UIController
     public void showVisuals()
     {
         //synchronizeBackingLists();
+        System.out.println("Init UI Components");
         initializeUIComponents();
+        System.out.println("Done Init UI Components");
 
-        // build the procurement task selection tree
+        System.out.println("Load JSON");
         fromJson();
+        System.out.println("Done Load JSON");
 
         // load the auto-save data from disk
 
@@ -485,7 +479,7 @@ public class UIController
         procurementTaskTable.setItems(sortedTasks);
         taskCostTable.setItems(sortedCosts);
 
-        taskCountColumn.setCellFactory(x -> new TaskCountCell(addPairToProcurementList));
+        taskCountColumn.setCellFactory(x -> new TaskCountCell());
         taskCountColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
         taskProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
@@ -909,10 +903,11 @@ public class UIController
                 data.set(new ProcurementTaskData.Builder(0)
                         .setType(task.getKey())
                         .setRecipe(task.getValue())
-//                            .setCount(0)
                         .setCheckInventory(commanderData::amountOf)
                         .setPendingTradeYield(tradeYieldCache::get)
-                        .setGetCurrentSystem(commanderData.getLocation()::getStarSystem).createProcurementTaskData());
+                        .setInventoryUpdate(addPairToProcurementList)
+                        .setGetCurrentSystem(commanderData.getLocation()::getStarSystem)
+                        .createProcurementTaskData());
 
 
                 taskList.add(data.get());
@@ -958,113 +953,105 @@ public class UIController
         // now we ACTUALLY set the new count, performing the adjustment
         data.get().setCount(newCount.get());
 
+        // to make sure we've cleaned everything up, if the new count became 0, remove the task
+        if (newCount.get() == 0) taskList.remove(data.get());
 
-        //executorService.submit(()->
-        //{
-            // to make sure we've cleaned everything up, if the new count became 0, remove the task
-            if (newCount.get() == 0) taskList.remove(data.get());
+        // figure out what the difference was, we'll need this to calculate the cost adjustment
+        int costDifference = newCount.get() - oldCount;
 
-            // figure out what the difference was, we'll need this to calculate the cost adjustment
-            int costDifference = newCount.get() - oldCount;
+        // now we need to calculate the cost adjustments that this task adjustment requires. To do this,
+        // we find all the costs of this recipe, and multiply the required cost by the cost difference
+        List<CostData> costAdjustments = task.getValue().costStream()
+                .filter(costData -> costData.getQuantity() > 0)
+                .map(taskCost -> new CostData(taskCost.getCost(), taskCost.getQuantity() * costDifference))
+                .collect(Collectors.toList());
 
-            // now we need to calculate the cost adjustments that this task adjustment requires. To do this,
-            // we find all the costs of this recipe, and multiply the required cost by the cost difference
-            List<CostData> costAdjustments = task.getValue().costStream()
-                    .filter(costData -> costData.getQuantity() > 0)
-                    .map(taskCost -> new CostData(taskCost.getCost(), taskCost.getQuantity() * costDifference))
-                    .collect(Collectors.toList());
-
-            // if this is a trade recipe, calculate the total pending trade yield and store it. Some UI
-            // elements use this information to determine how they measure progress toward a tracked task.
-            if (task.getValue() instanceof MaterialTradeRecipe)
-            {
-                // in practice, these recipes will always have two costs, and one will be negative, indicating
-                // that the "cost" is a actually a trade yield. The other is the actual cost. Both values are
-                // accumulated in a cache to allow for their cumulative values to be considered in calculations
-                task.getValue().costStream()
-                        .forEach(costData ->
+        // if this is a trade recipe, calculate the total pending trade yield and store it. Some UI
+        // elements use this information to determine how they measure progress toward a tracked task.
+        if (task.getValue() instanceof MaterialTradeRecipe)
+        {
+            // in practice, these recipes will always have two costs, and one will be negative, indicating
+            // that the "cost" is a actually a trade yield. The other is the actual cost. Both values are
+            // accumulated in a cache to allow for their cumulative values to be considered in calculations
+            task.getValue().costStream()
+                    .forEach(costData ->
+                    {
+                        if (costData.getQuantity() < 0)
                         {
-                            if (costData.getQuantity() < 0)
-                            {
-                                // since the cost will be negative, use absolute value
-                                int yield = Math.abs(costData.getQuantity());
+                            // since the cost will be negative, use absolute value
+                            int yield = Math.abs(costData.getQuantity());
 
-                                // the yield adjustment is applied to the current count of this cost
-                                int yieldAdjustment = yield * adjustment;
+                            // the yield adjustment is applied to the current count of this cost
+                            int yieldAdjustment = yield * adjustment;
 
-                                // grab the current pending yield for this trade, init to zero if not present
-                                int current = tradeYieldCache.computeIfAbsent(costData.getCost(), (x) -> 0);
+                            // grab the current pending yield for this trade, init to zero if not present
+                            int current = tradeYieldCache.computeIfAbsent(costData.getCost(), (x) -> 0);
 
-                                // apply the adjustment to the current cost
-                                current += yieldAdjustment;
+                            // apply the adjustment to the current cost
+                            current += yieldAdjustment;
 
-                                // if the adjustment would make the quantity zero or less, remove the cached item
-                                if (current <= 0) tradeYieldCache.remove(costData.getCost());
+                            // if the adjustment would make the quantity zero or less, remove the cached item
+                            if (current <= 0) tradeYieldCache.remove(costData.getCost());
 
-                                    // otherwise, update the cached pending yield
-                                else tradeYieldCache.put(costData.getCost(), current);
-                            }
-                            else
-                            {
-                                // since the cost will be negative, use absolute value
-                                int tradeCost = costData.getQuantity();
+                            // otherwise, update the cached pending yield
+                            else tradeYieldCache.put(costData.getCost(), current);
+                        }
+                        else
+                        {
+                            // since the cost will be negative, use absolute value
+                            int tradeCost = costData.getQuantity();
 
-                                // the yield adjustment is applied to the current count of this cost
-                                int costAdjustment = tradeCost * adjustment;
+                            // the yield adjustment is applied to the current count of this cost
+                            int costAdjustment = tradeCost * adjustment;
 
-                                // grab the current pending yield for this trade, init to zero if not present
-                                int current = tradeCostCache.computeIfAbsent(costData.getCost(), (x) -> 0);
+                            // grab the current pending yield for this trade, init to zero if not present
+                            int current = tradeCostCache.computeIfAbsent(costData.getCost(), (x) -> 0);
 
-                                // apply the adjustment to the current cost
-                                current += costAdjustment;
+                            // apply the adjustment to the current cost
+                            current += costAdjustment;
 
-                                // if the adjustment would make the quantity zero or less, remove the cached item
-                                if (current <= 0) tradeCostCache.remove(costData.getCost());
+                            // if the adjustment would make the quantity zero or less, remove the cached item
+                            if (current <= 0) tradeCostCache.remove(costData.getCost());
 
-                                    // otherwise, update the cached pending yield
-                                else tradeCostCache.put(costData.getCost(), current);
-                            }
-                        });
-            }
+                            // otherwise, update the cached pending yield
+                            else tradeCostCache.put(costData.getCost(), current);
+                        }
+                    });
+        }
 
+        // loop through the cost list and make the actual adjustments, then collect the adjusted
+        // costs so we can check for any that need to be removed after adjustment.
+        costList.stream()
+                .filter(costToAdjust -> costAdjustments.stream().anyMatch(costToAdjust::matches))
+                .peek(costToAdjust ->
+                {
+                    // we don't want to count trade costs as cached, because the cache is used to filter
+                    // trades from the recommended trades drop down. If we cache the trade costs for these,
+                    // the a recommended trade becomes unrecommended as soon as it is added.
+                    if (task.getValue() instanceof MaterialTradeRecipe) return;
 
-            // loop through the cost list and make the actual adjustments, then collect the adjusted
-            // costs so we can check for any that need to be removed after adjustment.
+                    // add this cost to the cost cache. note that the quantity is not captured, all that
+                    // is needed is the cost item itself.
+                    taskCostCache.add(costToAdjust.getCost());
+                })
+                .peek(costToAdjust ->
+                {
+                    CostData toAdjust = costAdjustments.stream()
+                            .filter(costToAdjust::matches)
+                            .findFirst().orElse(null);
 
+                    if (toAdjust == null) return;
 
-            costList.stream()
-                    .filter(costToAdjust -> costAdjustments.stream().anyMatch(costToAdjust::matches))
-                    .peek(costToAdjust ->
-                    {
-                        // we don't want to count trade costs as cached, because the cache is used to filter
-                        // trades from the recommended trades drop down. If we cache the trade costs for these,
-                        // the a recommended trade becomes unrecommended as soon as it is added.
-                        if (task.getValue() instanceof MaterialTradeRecipe) return;
+                    costToAdjust.setNeed(costToAdjust.getNeed() + toAdjust.getQuantity());
+                })
+                .filter(adjustedCost -> adjustedCost.getNeed() <= 0)
+                .peek(removedCost -> taskCostCache.remove(removedCost.getCost()))
+                .forEach(costList::remove);
 
-                        // add this cost to the cost cache. note that the quantity is not captured, all that
-                        // is needed is the cost item itself.
-                        taskCostCache.add(costToAdjust.getCost());
-                    })
-                    .peek(costToAdjust ->
-                    {
-                        CostData toAdjust = costAdjustments.stream()
-                                .filter(costToAdjust::matches)
-                                .findFirst().orElse(null);
+        rawTable.refresh();
 
-                        if (toAdjust == null) return;
-
-                        costToAdjust.setNeed(costToAdjust.getNeed() + toAdjust.getQuantity());
-                    })
-                    .filter(adjustedCost -> adjustedCost.getNeed() <= 0)
-                    .peek(removedCost -> taskCostCache.remove(removedCost.getCost()))
-                    .forEach(costList::remove);
-
-            rawTable.refresh();
-
-            //if (Platform.isFxApplicationThread()) synchronizeBackingLists();
-            //else
-            Platform.runLater(this::synchronizeBackingLists);
-        //});
+        if (Platform.isFxApplicationThread()) synchronizeBackingLists();
+        else Platform.runLater(this::synchronizeBackingLists);
 
         return newCount.get();
     }
