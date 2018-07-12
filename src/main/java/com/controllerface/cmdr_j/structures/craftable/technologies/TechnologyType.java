@@ -24,7 +24,10 @@ public enum TechnologyType implements ProcurementType
             TechnologyBlueprint.Guardian_Plasma_Charger,
             TechnologyBlueprint.Guardian_Shard_Cannon)),
 
-    Guardian_Optional_Internal(EnumSet.of(TechnologyBlueprint.Guardian_FSD_Booster)),
+    Guardian_Optional_Internal(EnumSet.of(TechnologyBlueprint.Guardian_FSD_Booster,
+            TechnologyBlueprint.Guardian_Shield_Booster,
+            TechnologyBlueprint.Guardian_Hull_Reinforcement,
+            TechnologyBlueprint.Guardian_Module_Reinforcement)),
 
     Guardian_Core_Internal(EnumSet.of(TechnologyBlueprint.Guardian_Power_Plant,
             TechnologyBlueprint.Guardian_Hybrid_Power_Distributor));
