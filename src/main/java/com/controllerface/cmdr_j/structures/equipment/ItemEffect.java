@@ -141,7 +141,7 @@ public enum ItemEffect
      */
 
     FSDFuelUseIncrease("", "", true),
-    FSDJumpRangeBoost("", "", true),
+    FSDJumpRangeBoost("LY", "Jump Range Increase", true),
     MaxFuelPerJump("T", "Maximum Fuel per Jump" ,true),
 
 

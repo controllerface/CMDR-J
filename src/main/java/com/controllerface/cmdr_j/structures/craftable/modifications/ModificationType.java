@@ -119,7 +119,7 @@ public enum ModificationType implements ProcurementType
             ModificationBlueprint.ECM_Shielded)),
 
     Frame_Shift_Wake_Scanner(EnumSet.of(ModificationBlueprint.Sensor_WakeScanner_FastScan,
-            ModificationBlueprint.WakeScanner_LightWeight,
+            ModificationBlueprint.Misc_LightWeight,
             ModificationBlueprint.Sensor_WakeScanner_LongRange,
             ModificationBlueprint.WakeScanner_Reinforced,
             ModificationBlueprint.WakeScanner_Shielded,
@@ -194,7 +194,7 @@ public enum ModificationType implements ProcurementType
             ModificationBlueprint.FSD_LongRange,
             ModificationBlueprint.FSD_Shielded)),
 
-    Life_Support(EnumSet.of(ModificationBlueprint.LifeSupport_LightWeight,
+    Life_Support(EnumSet.of(ModificationBlueprint.Misc_LightWeight,
             ModificationBlueprint.LifeSupport_Reinforced,
             ModificationBlueprint.LifeSupport_Shielded)),
 

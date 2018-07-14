@@ -261,8 +261,8 @@
                                                 <columns>
                                                     <TableColumn fx:id="rawMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
                                                     <TableColumn fx:id="rawGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
-                                                <TableColumn fx:id="rawMaterialProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
                                                     <TableColumn fx:id="rawQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
+                                                <TableColumn fx:id="rawMaterialProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
                                                 </columns>
                                             </TableView>
                                         </content>
@@ -273,8 +273,8 @@
                                                 <columns>
                                                     <TableColumn fx:id="manufacturedMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
                                                     <TableColumn fx:id="manufacturedGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
-                                                <TableColumn fx:id="manufacturedProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
                                                     <TableColumn fx:id="manufacturedQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
+                                                <TableColumn fx:id="manufacturedProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
                                                 </columns>
                                             </TableView>
                                         </content>
@@ -285,8 +285,8 @@
                                                 <columns>
                                                     <TableColumn fx:id="dataMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
                                                     <TableColumn fx:id="dataGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
-                                                <TableColumn fx:id="dataProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
                                                     <TableColumn fx:id="dataQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
+                                                <TableColumn fx:id="dataProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
                                                 </columns>
                                             </TableView>
                                         </content>
@@ -296,7 +296,7 @@
                                           <TableView fx:id="cargoTable" prefHeight="371.0" prefWidth="551.0">
                                              <columns>
                                                 <TableColumn fx:id="cargoItemColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="204.0" resizable="false" text="Commodity" />
-                                                <TableColumn fx:id="cargoGradeColumn" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Type" />
+                                                <TableColumn fx:id="cargoGradeColumn" editable="false" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Type" />
                                                 <TableColumn fx:id="cargoQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantity" />
                                              </columns>
                                           </TableView>
@@ -419,8 +419,8 @@
                                                       <TableColumn fx:id="taskRemoveColumn" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" resizable="false" sortable="false" />
                                                     <TableColumn fx:id="taskNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" resizable="false" sortable="false" text="Tracked Tasks" />
                                                       <TableColumn fx:id="taskTypeColumn" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" text="Type" />
-                                                      <TableColumn fx:id="taskProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Progress" />
                                                     <TableColumn fx:id="taskCountColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Count" />
+                                                      <TableColumn fx:id="taskProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Progress" />
                                                   </columns>
                                                 </TableView>
                                              </children>
@@ -431,8 +431,8 @@
                                       <columns>
                                           <TableColumn fx:id="taskCostNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="291.0" resizable="false" sortable="false" text="Tracked Items" />
                                           <TableColumn fx:id="taskCostGradeColumn" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" sortable="false" text="Grade" />
-                                          <TableColumn fx:id="taskCostProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Progress" />
                                           <TableColumn fx:id="taskCostNeedColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Need" />
+                                          <TableColumn fx:id="taskCostProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Progress" />
                                       </columns>
                                     </TableView>
                                     <HBox fx:id="procurementBox">

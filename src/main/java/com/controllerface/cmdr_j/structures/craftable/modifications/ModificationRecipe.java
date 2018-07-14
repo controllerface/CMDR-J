@@ -4143,14 +4143,14 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.RUTHENIUM, 1),
             new CostData(Material.SHIELDDENSITYREPORTS, 1)),
 
-    WakeScanner_LightWeight_1(ItemGrade.GRADE_1, new ItemEffects
+    Misc_LightWeight_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -10d),
                     new ItemEffectData(ItemEffect.Mass, -45d)
             ),
             new CostData(Material.PHOSPHORUS, 1)),
 
-    WakeScanner_LightWeight_2(ItemGrade.GRADE_2, new ItemEffects
+    Misc_LightWeight_2(ItemGrade.GRADE_2, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -20d),
                     new ItemEffectData(ItemEffect.Mass, -55d)
@@ -4158,7 +4158,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MANGANESE, 1),
             new CostData(Material.SALVAGEDALLOYS, 1)),
 
-    WakeScanner_LightWeight_3(ItemGrade.GRADE_3, new ItemEffects
+    Misc_LightWeight_3(ItemGrade.GRADE_3, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -30d),
                     new ItemEffectData(ItemEffect.Mass, -65d)
@@ -4167,7 +4167,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MANGANESE, 1),
             new CostData(Material.SALVAGEDALLOYS, 1)),
 
-    WakeScanner_LightWeight_4(ItemGrade.GRADE_4, new ItemEffects
+    Misc_LightWeight_4(ItemGrade.GRADE_4, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -40d),
                     new ItemEffectData(ItemEffect.Mass, -75d)
@@ -4176,7 +4176,7 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PHASEALLOYS, 1),
             new CostData(Material.PROTOLIGHTALLOYS, 1)),
 
-    WakeScanner_LightWeight_5(ItemGrade.GRADE_5, new ItemEffects
+    Misc_LightWeight_5(ItemGrade.GRADE_5, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -50d),
                     new ItemEffectData(ItemEffect.Mass, -85d)
