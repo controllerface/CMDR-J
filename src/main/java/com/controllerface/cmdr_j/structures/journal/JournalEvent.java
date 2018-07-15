@@ -331,7 +331,7 @@ public enum JournalEvent
      */
     Loadout((context) ->
     {
-        logLoadoutMessage(context, "Reloading Ship Loadout");
+        logLoadoutMessage(context, "Entering Star Ship");
 
         JournalSyncTask.shipStats.forEach(context.getCommanderData()::removeStat);
 
@@ -344,7 +344,7 @@ public enum JournalEvent
         try
         {
             ship = Ship.findShip(shipName);
-            logLoadoutMessage(context, "Star Ship: " + ship.getBaseShipStats().getDisplayName());
+            logLoadoutMessage(context, "Ship Type: " + ship.getBaseShipStats().getDisplayName());
             context.getCommanderData().setShip(ship);
             context.getCommanderData().getStarShip()
                     .setGivenName(getStatString(context, CoreInternalSlot.ShipName));

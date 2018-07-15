@@ -35,10 +35,10 @@ import java.util.stream.Stream;
 public class StarShip
 {
     private Ship ship;
-    private final SimpleStringProperty shipID = new SimpleStringProperty("None");
-    private final SimpleStringProperty shipGivenName = new SimpleStringProperty("None");
-    private final SimpleStringProperty shipDisplayName = new SimpleStringProperty("None");
-    private final SimpleStringProperty shipManufacturerName = new SimpleStringProperty("None");
+    private final SimpleStringProperty shipID = new SimpleStringProperty("Loading...");
+    private final SimpleStringProperty shipGivenName = new SimpleStringProperty("Loading...");
+    private final SimpleStringProperty shipDisplayName = new SimpleStringProperty("Loading...");
+    private final SimpleStringProperty shipManufacturerName = new SimpleStringProperty("Loading...");
 
     private double currentFuel = 0d; // todo: use this
 

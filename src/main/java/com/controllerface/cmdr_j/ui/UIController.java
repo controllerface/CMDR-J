@@ -549,6 +549,10 @@ public class UIController
         Label messageLabel = new Label("Loading Message Log...");
         messageLabel.setFont(UIFunctions.Fonts.size4Font);
         consoleMessageList.setPlaceholder(messageLabel);
+
+        Label messageLabel2 = new Label("Not currently in a ship...");
+        messageLabel2.setFont(UIFunctions.Fonts.size4Font);
+        coreModuleTable.setPlaceholder(messageLabel2);
     }
 
     /**
