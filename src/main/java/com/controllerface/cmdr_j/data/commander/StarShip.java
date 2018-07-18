@@ -576,7 +576,7 @@ public class StarShip
         Before the total shield strength can be calculated, we must first determine the minimum and maximum mass
         and strength characteristics of the shield generator. When a modification is a applied to the optimal mass
         or optimal strength values of a shield generator, it also affects the associated minimum and maximum values
-        of that characteristic. Unfortunately, the Loadout event only contains modified value for the optimal mass
+        of that characteristic. Unfortunately, the LoadoutHandler event only contains modified value for the optimal mass
         and/or strength stats. Fortunately calculating them is fairly easy, simply be determining the % change from
         the stock value and applying it to the minimum/maximum values as well.
 

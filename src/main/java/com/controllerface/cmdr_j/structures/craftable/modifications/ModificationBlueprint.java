@@ -354,7 +354,7 @@ public enum ModificationBlueprint implements ProcurementBlueprint
             ModificationRecipe.PointDefence_LightWeight_4,
             ModificationRecipe.PointDefence_LightWeight_5),
 
-    PointDefence_PointDefenseCapacity("Ammo Capacity",
+    Misc_PointDefenseCapacity("Ammo Capacity",
             ModificationRecipe.PointDefence_PointDefenseCapacity_1),
 
     PointDefence_Reinforced("Reinforced",

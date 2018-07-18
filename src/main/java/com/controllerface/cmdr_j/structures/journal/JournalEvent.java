@@ -1,26 +1,17 @@
 package com.controllerface.cmdr_j.structures.journal;
 
-import com.controllerface.cmdr_j.*;
-import com.controllerface.cmdr_j.data.ModifierData;
-import com.controllerface.cmdr_j.data.ShipModuleData;
+import com.controllerface.cmdr_j.EventProcessingContext;
 import com.controllerface.cmdr_j.data.StarSystem;
-import com.controllerface.cmdr_j.structures.commander.PlayerStat;
 import com.controllerface.cmdr_j.structures.commander.RankStat;
 import com.controllerface.cmdr_j.structures.costs.commodities.Commodity;
-import com.controllerface.cmdr_j.structures.costs.materials.Material;
-import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalRecipe;
-import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationBlueprint;
-import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
-import com.controllerface.cmdr_j.structures.equipment.modules.*;
-import com.controllerface.cmdr_j.structures.equipment.ships.*;
-import com.controllerface.cmdr_j.threads.JournalSyncTask;
-import com.controllerface.cmdr_j.threads.UserTransaction;
-import com.controllerface.cmdr_j.ui.UIFunctions;
+import com.controllerface.cmdr_j.structures.journal.events.*;
 import javafx.util.Pair;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import static com.controllerface.cmdr_j.structures.journal.JournalEventTransactions.*;
 
 /**
  * This enum defines all of the Journal API events that are currently supported. By convention, enum value names are
@@ -43,54 +34,13 @@ public enum JournalEvent
     /**
      * Main game load event: written at startup, when loading from main menu
      */
-    LoadGame((context) ->
-    {
-        logGeneralMessage(context, "Commander Data Loaded");
+    LoadGame(new LoadGameHandler()),
 
-        setStatFromData(context, PlayerStat.Commander);
-        setStatFromData(context, PlayerStat.Credits);
-        setStatFromData(context, PlayerStat.Game_Mode);
+    HullDamage(new HullDamageHandler()),
 
-        if (context.getRawData().get("Group") != null) setStatFromData(context, PlayerStat.Private_Group);
-        if (context.getRawData().get("Loan") != null) setStatFromData(context, PlayerStat.Loan);
+    ShieldState(new ShieldStateHandler()),
 
-        setStatFromData(context, PlayerStat.Fuel_Level);
-        setStatFromData(context, PlayerStat.Fuel_Capacity);
-
-        context.getCommanderData().getStarShip()
-                .setCurrentFuel(getStatDouble(context, PlayerStat.Fuel_Level));
-
-        setStatFromData(context, PlayerStat.Ship);
-        setStatFromData(context, PlayerStat.Ship_Name);
-        setStatFromData(context, PlayerStat.Ship_Ident);
-    }),
-
-
-    HullDamage((context) ->
-    {
-        boolean player = ((boolean) context.getRawData().get("PlayerPilot"));
-        Boolean fighter = ((Boolean) context.getRawData().get("Fighter"));
-        double damage = ((double) context.getRawData().get("Health"));
-
-        String message = (player
-                ? "You are"
-                : "Your" + ((fighter != null && fighter)
-                        ? " fighter is"
-                        : " mothership is"))
-                + " taking damage";
-
-        logGeneralMessage(context, message);
-        logGeneralMessage(context, "Hull integrity at " + UIFunctions.Data.round(damage * 100, 2) + "%");
-    }),
-
-    ShieldState((context) ->
-    {
-        boolean restored = ((boolean) context.getRawData().get("ShieldsUp"));
-        String message = "Shields " + (restored ? "Restored" : "Disabled");
-        logGeneralMessage(context, message);
-    }),
-
-    HeatWarning((context)-> logGeneralMessage(context, "Heat Level Critical")),
+    HeatWarning(new HeatWarningHandler()),
 
     UnderAttack((context)->
     {
@@ -329,36 +279,7 @@ public enum JournalEvent
      * Loadout event: written at startup, when loading from main menu, and after being destroyed in an SRV and
      * teleporting back to your ship.
      */
-    Loadout((context) ->
-    {
-        logLoadoutMessage(context, "Entering Star Ship");
-
-        JournalSyncTask.shipStats.forEach(context.getCommanderData()::removeStat);
-
-        setStatFromData(context, CoreInternalSlot.Ship);
-        setStatFromData(context, CoreInternalSlot.ShipName);
-        setStatFromData(context, CoreInternalSlot.ShipIdent);
-
-        String shipName = context.getCommanderData().getStat(CoreInternalSlot.Ship);
-        Ship ship = null;
-        try
-        {
-            ship = Ship.findShip(shipName);
-            logLoadoutMessage(context, "Ship Type: " + ship.getBaseShipStats().getDisplayName());
-            context.getCommanderData().setShip(ship);
-            context.getCommanderData().getStarShip()
-                    .setGivenName(getStatString(context, CoreInternalSlot.ShipName));
-            context.getCommanderData().getStarShip()
-                    .setShipID(getStatString(context, CoreInternalSlot.ShipIdent));
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        ((List<Map<String, Object>>) context.getRawData().get("Modules")).stream()
-                .forEach(module -> setSlotFromLoadout(context, module));
-    }),
+    Loadout(new LoadoutHandler()),
 
     /**
      * Written when contributing items to an engineer in order to gain their favor
@@ -450,83 +371,8 @@ public enum JournalEvent
      */
     EngineerCraft((context) ->
     {
-        Map<String, Object> rawData = context.getRawData();
-
         logEngineeringMessage(context, "Engineering Enhancement Costs :");
-
-        // remove the materials used in the crafting process
-        ((List<Map<String, Object>>) rawData.get("Ingredients"))
-                .forEach(ingredient -> adjustMaterialCountDown(context, ingredient));
-
-        String modificationEffect = ((String) rawData.get("BlueprintName"));
-        String experimentalEffect = ((String) rawData.get("ApplyExperimentalEffect"));
-        String moduleName = ((String) rawData.get("Module"));
-
-        ShipModule module = determineModuleType(moduleName);
-        if (module == null)
-        {
-            if (module == null) System.err.println("Ignoring Module: " + moduleName);
-            return;
-        }
-
-        // if this crafting event is for applying an experimental effect
-        if (experimentalEffect != null)
-        {
-            ProcurementType experimentalType = module.experimentalType();
-            if (experimentalType == null)
-            {
-                System.err.println("No experimental effects are registered for: " + module.displayText());
-                return;
-            }
-
-            ProcurementRecipe experimentalRecipe = ExperimentalRecipe.valueOf(experimentalEffect);
-            logEngineeringMessage(context, "Applied Experimental Effect: " + experimentalRecipe.getDisplayLabel());
-            adjustBlueprintDown(context, experimentalType, experimentalRecipe, 1);
-        }
-        else
-        {
-            ProcurementType modificationType = module.modificationType();
-            if (modificationType == null)
-            {
-                System.err.println("No engineering modifications are registered for: " + module.displayText());
-                return;
-            }
-
-            int grade = ((int) rawData.get("Level"));
-
-            ProcurementBlueprint blueprint = ModificationBlueprint.valueOf(modificationEffect);
-            ProcurementRecipe modificationRecipe = blueprint.recipeStream()
-                    .filter(recipe -> recipe.getGrade().getNumericalValue() == grade)
-                    .findFirst().orElse(null);
-
-
-            // findRecipe() or something like that
-
-            if (modificationRecipe == null)
-            {
-                System.err.println("No recipe of grade: " + grade + " found for blueprint: " + blueprint +
-                        "\n Attempting to fall back to any existing recipe ");
-                modificationRecipe = blueprint.recipeStream().findAny().orElse(null);
-                if (modificationRecipe == null)
-                {
-                    throw new RuntimeException(" Could not find any recipes for: "
-                            + blueprint + " might need to update...");
-                }
-            }
-
-            logEngineeringMessage(context, "Applied Modification: " + modificationType + " :: " + modificationRecipe.getDisplayLabel());
-            adjustBlueprintDown(context, modificationType, modificationRecipe, 1);
-        }
-
-        String slotKey = ((String) rawData.get("Slot"));
-        Statistic slot = determineStatType(slotKey);
-        if (slot == null)
-        {
-            if (slot == null) System.err.println("Ignoring Slot: " + slotKey);
-            return;
-        }
-        context.getCommanderData().setStat(slot, moduleName);
-        setSlotFromData(context, slot, module, rawData);
+        processEngineerUpgrade(context);
     }),
 
     /**
@@ -544,12 +390,11 @@ public enum JournalEvent
      */
     Synthesis((context) ->
     {
-        String synthType = ((String) context.getRawData().get("Name"));
-
-        logInventoryMessage(context, "Synthesis Complete: " + synthType);
+        String name = ((String) context.getRawData().get("Name"));
+        logInventoryMessage(context, "Synthesis Complete: " + name);
 
         // todo: need a way to check max cargo size. This will be "up to four" limpets, depending on cargo space
-        if (synthType.contains("Limpet")) adjust(context, Commodity.DRONES, 4);
+        if (name.contains("Limpet")) adjust(context, Commodity.DRONES, 4);
         ((List<Map<String, Object>>) context.getRawData().get("Materials"))
                 .forEach(material -> adjustMaterialCountDown(context, material));
     }),
@@ -683,7 +528,7 @@ public enum JournalEvent
     ModuleStore((context) ->
     {
         logInventoryMessage(context, "Module Stored");
-        JournalEvent.emptySlotFromData(context);
+        JournalEventTransactions.emptySlotFromData(context);
     }),
 
     /**
@@ -692,7 +537,7 @@ public enum JournalEvent
     ModuleSell((context) ->
     {
         logInventoryMessage(context, "Module Sold");
-        JournalEvent.emptySlotFromData(context);
+        JournalEventTransactions.emptySlotFromData(context);
     }),
 
     /**
@@ -701,25 +546,7 @@ public enum JournalEvent
     ModuleBuy((context ->
     {
         logInventoryMessage(context, "Module Purchased");
-
-        Map<String, Object> data =  context.getRawData();
-        String slotKey = ((String) data.get("Slot"));
-        String moduleKey = ((String) data.get("BuyItem"))
-                .replace("$","")
-                .replace("_name;","");
-
-        Statistic slot = determineStatType(slotKey);
-        ShipModule module = determineModuleType(moduleKey);
-
-        logLoadoutMessage(context, "Purchased Module: " + module.displayText());
-
-        ShipModuleData shipModuleData = new ShipModuleData.Builder()
-                .setModuleName(slot)
-                .setModule(module)
-                .setUserTransactions(context.getTransactions())
-                .build();
-
-        context.getCommanderData().setShipModule(shipModuleData);
+        processBuyModule(context);
     })),
 
     /**
@@ -728,57 +555,27 @@ public enum JournalEvent
     ModuleRetrieve((context ->
     {
         logInventoryMessage(context, "Module Retrieved from Storage");
-
-        ShipModuleData.Builder dataBuilder = new ShipModuleData.Builder();
-        dataBuilder.setUserTransactions(context.getTransactions());
-
-        Map<String, Object> data =  context.getRawData();
-        String slotKey = ((String) data.get("Slot"));
-        String moduleKey = ((String) data.get("RetrievedItem"))
-                .replace("$","")
-                .replace("_name;","");
-
-        Statistic slot = determineStatType(slotKey);
-        ShipModule module = determineModuleType(moduleKey);
-
-        logLoadoutMessage(context, "Retrieved Module: " + module.displayText());
-
-        dataBuilder
-                .setModule(module)
-                .setModuleName(slot);
-
-        if (data.containsKey("EngineerModifications"))
-        {
-            String modificationName = ((String) data.get("EngineerModifications"));
-            ModificationBlueprint modificationBlueprint = determineModificationBlueprint(modificationName);
-            Integer level = ((Integer) data.get("Level"));
-
-            dataBuilder.setModificationBlueprint(modificationBlueprint);
-            dataBuilder.setLevel(level);
-        }
-
-        context.getCommanderData().setShipModule(dataBuilder.build());
+        processRetrieveModule(context);
     })),
 
     ;
 
     /**
-     * Internal enum, used to make the adjustment methods easier for both material and commodity adjustments
-     */
-    private enum AdjustmentType
-    {
-        COMMODITY,
-        MATERIAL
-    }
-
-    /**
      * Stores the event processing logic for the corresponding event
      */
     private final Consumer<EventProcessingContext> eventConsumer;
+    private final JournalEventHandler event;
 
     JournalEvent(Consumer<EventProcessingContext> eventConsumer)
     {
         this.eventConsumer = eventConsumer;
+        this.event = null;
+    }
+
+    JournalEvent(JournalEventHandler event)
+    {
+        this.eventConsumer = null;
+        this.event = event;
     }
 
     /**
@@ -788,523 +585,7 @@ public enum JournalEvent
      */
     public void process(EventProcessingContext eventProcessingContext)
     {
-        eventConsumer.accept(eventProcessingContext);
-    }
-
-    /**
-     * Determines what statistic type is being represented by a given String name, and returns the matching object, or
-     * null if the name is not recognized.
-     *
-     * @param statName the String name of a Statistic enum type
-     * @return the Statistic enum value matching the provided name, or null if the name is not valid
-     */
-    private static Statistic determineStatType(String statName)
-    {
-        Statistic statistic;
-
-        try {statistic = CoreInternalSlot.valueOf(statName);}
-        catch (Exception e) {statistic = null;}
-        if (statistic != null) return statistic;
-
-        try {statistic = CosmeticSlot.valueOf(statName);}
-        catch (Exception e) {statistic = null;}
-        if (statistic != null) return statistic;
-
-        try {statistic = HardpointSlot.valueOf(statName);}
-        catch (Exception e) {statistic = null;}
-        if (statistic != null) return statistic;
-
-        try {statistic = OptionalInternalSlot.valueOf(statName);}
-        catch (Exception e) {statistic = null;}
-        if (statistic != null) return statistic;
-
-        return null;
-    }
-
-    private static ModificationBlueprint determineModificationBlueprint(String modname)
-    {
-        ModificationBlueprint modificationBlueprint;
-
-        try
-        {
-            modificationBlueprint = ModificationBlueprint.valueOf(modname);
-        }
-        catch (Exception e)
-        {
-            modificationBlueprint = null;
-        }
-        return modificationBlueprint;
-    }
-
-
-    private static ExperimentalRecipe determineExperimentalRecipe(String expname)
-    {
-        ExperimentalRecipe modificationBlueprint;
-
-        try
-        {
-            modificationBlueprint = ExperimentalRecipe.valueOf(expname);
-        }
-        catch (Exception e)
-        {
-            modificationBlueprint = null;
-        }
-        return modificationBlueprint;
-    }
-
-
-    private static ShipModule determineModuleType(String moduleName)
-    {
-        ShipModule module;
-
-        try {module = HardpointModule.findModule(moduleName);}
-        catch (Exception e) {module = null;}
-        if (module != null) return module;
-
-        try {module = CoreInternalModule.findModule(moduleName);}
-        catch (Exception e) {module = null;}
-        if (module != null) return module;
-
-        try {module = OptionalInternalModule.findModule(moduleName);}
-        catch (Exception e) {module = null;}
-        if (module != null) return module;
-
-        try {module = OptionalInternalShieldModule.findModule(moduleName);}
-        catch (Exception e) {module = null;}
-        if (module != null) return module;
-
-        try {module = Cosmetic.findCosmetic(moduleName);}
-        catch (Exception e) {module = null;}
-        if (module != null) return module;
-
-        return null;
-    }
-
-    /**
-     * Extracts a Pair<String, Integer> pair from a raw JSON object, where the String key and Integer value are
-     * extracted from the ray JSON object by using the keys "Name" and "Count" respectively
-     *
-     * @param data raw JSON data
-     * @return the extracted Pair<String, Integer> object
-     */
-    private static Pair<String, Integer> extractNameCountPair(Map<String, Object> data)
-    {
-        return extractPair(data, "Name", "Count");
-    }
-
-    /**
-     * Extracts a Pair<String, Integer> pair from a raw JSON object, where the String key and Integer value are
-     * extracted from the ray JSON object by using the keys "Type" and "Count" respectively
-     *
-     * @param data raw JSON data
-     * @return the extracted Pair<String, Integer> object
-     */
-    private static Pair<String, Integer> extractTypeCountPair(Map<String, Object> data)
-    {
-        return extractPair(data, "Type", "Count");
-    }
-
-    /**
-     * Extracts a Pair<String, Integer> pair from a raw JSON object, where the String key and Integer value are
-     * extracted from the ray JSON object by using the keys "Material" and "Quantity" respectively
-     *
-     * @param data raw JSON data
-     * @return the extracted Pair<String, Integer> object
-     */
-    private static Pair<String, Integer> extractMaterialQuantityPair(Map<String, Object> data)
-    {
-        return extractPair(data, "Material", "Quantity");
-    }
-
-    /**
-     * Extracts a Pair<String, Integer> pair from a raw JSON object, where the String key and Integer value are
-     * extracted from the ray JSON object by using the keys "Commodity" and "Quantity" respectively
-     *
-     * @param data raw JSON data
-     * @return the extracted Pair<String, Integer> object
-     */
-    private static Pair<String, Integer> extractCommodityQuantityPair(Map<String, Object> data)
-    {
-        return extractPair(data, "Commodity", "Quantity");
-    }
-
-    /**
-     * Extracts a Pair<String, Integer> pair from a raw JSON object, where the String key and Integer value are
-     * extracted from the ray JSON object by using the value of the provided keyName and valueName arguments
-     *
-     * @param data raw JSON data
-     * @param keyName key string to use to extract the returned pair's key name from the raw JSON object
-     * @param valueName key string to use to extract the returned pair's value from the raw JSON object
-     * @return the extracted Pair<String, Integer> object
-     */
-    private static Pair<String, Integer> extractPair(Map<String, Object> data, String keyName, String valueName)
-    {
-        return new Pair<>(data.get(keyName).toString().toUpperCase(), Integer.parseInt(data.get(valueName).toString()));
-    }
-
-    /**
-     * Sets a Statistic value on a context specific CommanderData object using a context specific raw JSON object
-     * to extract the stat value
-     *
-     * @param context the current event processing context
-     * @param stat the statistic type to set the value of
-     */
-    private static void setStatFromData(EventProcessingContext context, Statistic stat)
-    {
-        String value = getStatString(context, stat);
-        context.getCommanderData().setStat(stat, value);
-        if (stat != PlayerStat.Ship && stat != CoreInternalSlot.Ship)
-            logGeneralMessage(context, stat.getText() + " = " + value);
-    }
-
-    private static String getStatString(EventProcessingContext context, Statistic stat)
-    {
-        return stat.format(context.getRawData().get(stat.getKey()));
-    }
-
-    private static double getStatDouble(EventProcessingContext context, Statistic stat)
-    {
-        return Double.parseDouble(getStatString(context, stat));
-    }
-
-    private static void emptySlotFromData(EventProcessingContext context)
-    {
-        String slotKey = ((String) context.getRawData().get("Slot"));
-        Statistic slot = determineStatType(slotKey);
-        setSlotFromData(context, slot, EmptyModule.EMPTY_MODULE, null);
-    }
-
-    private static void setSlotFromData(EventProcessingContext context,
-                                        Statistic slot,
-                                        ShipModule module,
-                                        Map<String, Object> engineering)
-    {
-        Integer level = 0;
-        Double quality = 0d;
-        String modificationName = null;
-        String experimentalEffectName = null;
-        ModificationBlueprint modificationBlueprint = null;
-        ExperimentalRecipe experimentalRecipe = null;
-
-        StringBuilder messageBuffer = new StringBuilder();
-        messageBuffer.append(slot.getText())
-                .append(" :: ").append(module.displayText());
-
-        List<ModifierData> modifiers = new ArrayList<>();
-
-        if (engineering != null)
-        {
-            modificationName = ((String) engineering.get("BlueprintName"));
-            experimentalEffectName = ((String) engineering.get("ExperimentalEffect"));
-            modificationBlueprint = determineModificationBlueprint(modificationName);
-            experimentalRecipe = determineExperimentalRecipe(experimentalEffectName);
-
-            level = ((Integer) engineering.get("Level"));
-            quality = ((Double) engineering.get("Quality"));
-            if (modificationBlueprint != null) messageBuffer.append(" :: ")
-                    .append(" G").append(level).append(" ")
-                    .append(modificationBlueprint);
-
-            if (experimentalRecipe != null) messageBuffer.append(" :: ").append(experimentalRecipe.getDisplayLabel());
-
-            ((List<Map<String, Object>>) engineering.get("Modifiers"))
-                    .forEach(modifier ->
-                    {
-                        ItemEffect effect = ItemEffect.valueOf(((String) modifier.get("Label")));
-                        double value = ((double) modifier.get("Value"));
-                        double originalValue = ((double) modifier.get("OriginalValue"));
-                        boolean lessIsGood = ((int) modifier.get("LessIsGood")) == 1;
-                        modifiers.add(new ModifierData(effect, value, originalValue, lessIsGood));
-                    });
-        }
-
-
-        if (modificationName != null && modificationBlueprint == null)
-        {
-            System.out.println("Unknown Modification:" + modificationName);
-            modificationBlueprint = ModificationBlueprint.Unknown;
-        }
-
-        if (experimentalEffectName != null && experimentalRecipe == null)
-        {
-            System.out.println("Unknown Experimental Effect:" + experimentalEffectName);
-            experimentalRecipe = ExperimentalRecipe.Unknown;
-        }
-
-
-        ShipModuleData shipModuleData = new ShipModuleData.Builder()
-                .setModuleName(slot)
-                .setModule(module)
-                .setModifiers(modifiers)
-                .setModificationBlueprint(modificationBlueprint)
-                .setExperimentalEffectRecipe(experimentalRecipe)
-                .setLevel(level)
-                .setQuality(quality)
-                .setUserTransactions(context.getTransactions())
-                .build();
-
-        context.getCommanderData().setShipModule(shipModuleData);
-        logLoadoutMessage(context, messageBuffer.toString());
-    }
-
-    /**
-     * Sets a ship internal slot specific Statistic value on a context specific CommanderData object using a context
-     * specific raw JSON object to extract the slot name and value
-     *
-     * @param context the current event processing context
-     * @param data the raw JSON object from which to extract the slot name and value
-     */
-    private static void setSlotFromLoadout(EventProcessingContext context, Map<String, Object> data)
-    {
-        String slotKey = ((String) data.get("Slot"));
-        String moduleKey = ((String) data.get("Item"));
-
-        Statistic slot = determineStatType(slotKey);
-        ShipModule module = determineModuleType(moduleKey);
-        Map<String, Object> engineering = ((Map<String, Object>) data.get("Engineering"));
-
-        if (slot == null || module == null)
-        {
-            if (slot == null) System.err.println("Ignoring Slot: " + slotKey);
-            if (module == null) System.err.println("Ignoring Module: " + moduleKey);
-            return;
-        }
-
-        setSlotFromData(context, slot, module, engineering);
-    }
-
-    /**
-     * Increments the count of a commodity in a context specific CommanderData object
-     *
-     * [Type, Count] variant
-     *
-     * @param context the current event processing context
-     * @param data the raw JSON object from which to extract the commodity type and value
-     */
-    private static void adjustCommodityType(EventProcessingContext context, Map<String, Object> data)
-    {
-        adjust(context, extractTypeCountPair(data), AdjustmentType.COMMODITY);
-    }
-
-    /**
-     * Decrements the count of a commodity in a context specific CommanderData object
-     *
-     * [Type, Count] variant
-     *
-     * @param context the current event processing context
-     * @param data the raw JSON object from which to extract the commodity type and value
-     */
-    private static void adjustCommodityTypeDown(EventProcessingContext context, Map<String, Object> data)
-    {
-        adjustDown(context, extractTypeCountPair(data), AdjustmentType.COMMODITY);
-    }
-
-    /**
-     * Increments the count of a commodity in a context specific CommanderData object
-     *
-     * [Name, Count] variant
-     *
-     * @param context the current event processing context
-     * @param data the raw JSON object from which to extract the commodity type and value
-     */
-    private static void adjustCommodityCount(EventProcessingContext context, Map<String, Object> data)
-    {
-        adjust(context, extractNameCountPair(data), AdjustmentType.COMMODITY);
-    }
-
-    /**
-     * Decrements the count of a commodity in a context specific CommanderData object
-     *
-     * [Name, Count] variant
-     *
-     * @param context the current event processing context
-     * @param data the raw JSON object from which to extract the commodity type and value
-     */
-    private static void adjustCommodityCountDown(EventProcessingContext context, Map<String, Object> data)
-    {
-        adjustDown(context, extractNameCountPair(data), AdjustmentType.COMMODITY);
-    }
-
-    /**
-     * Increments the count of a material in a context specific CommanderData object
-     *
-     * [Name, Count] variant
-     *
-     * @param context the current event processing context
-     * @param data the raw JSON object from which to extract the material type and value
-     */
-    private static void adjustMaterialCount(EventProcessingContext context, Map<String, Object> data)
-    {
-        adjust(context, extractNameCountPair(data), AdjustmentType.MATERIAL);
-    }
-
-    /**
-     * Decrements the count of a material in a context specific CommanderData object
-     *
-     * [Name, Count] variant
-     *
-     * @param context the current event processing context
-     * @param data the raw JSON object from which to extract the material type and value
-     */
-    private static void adjustMaterialCountDown(EventProcessingContext context, Map<String, Object> data)
-    {
-        adjustDown(context, extractNameCountPair(data), AdjustmentType.MATERIAL);
-    }
-
-    /**
-     * Increments the count of a material in a context specific CommanderData object
-     *
-     * [Material, Quantity] variant
-     *
-     * @param context the current event processing context
-     * @param data the raw JSON object from which to extract the material type and value
-     */
-    private static void adjustMaterialQuantity(EventProcessingContext context, Map<String, Object> data)
-    {
-        adjust(context, extractMaterialQuantityPair(data), AdjustmentType.MATERIAL);
-    }
-
-    /**
-     * Decrements the count of a material in a context specific CommanderData object
-     *
-     * [Material, Quantity] variant
-     *
-     * @param context the current event processing context
-     * @param data the raw JSON object from which to extract the material type and value
-     */
-    private static void adjustMaterialQuantityDown(EventProcessingContext context, Map<String, Object> data)
-    {
-        adjustDown(context, extractMaterialQuantityPair(data), AdjustmentType.MATERIAL);
-    }
-
-    /**
-     * Decrements the count of a commodity in a context specific CommanderData object
-     *
-     * [Material, Quantity] variant
-     *
-     * @param context the current event processing context
-     * @param data the raw JSON object from which to extract the commodity type and value
-     */
-    private static void adjustCommodityQuantityDown(EventProcessingContext context, Map<String, Object> data)
-    {
-        adjustDown(context, extractCommodityQuantityPair(data), AdjustmentType.COMMODITY);
-    }
-
-    /**
-     * Increments the count of an inventory item in a context specific CommanderData object
-     *
-     * @param context the current event processing context
-     * @param pair a Pair<String, Integer> object describing the item type and amount to adjust
-     * @param adjustmentType either COMMODITY or MATERIAL based on the type of item to adjust
-     */
-    private static void adjust(EventProcessingContext context, Pair<String, Integer> pair, AdjustmentType adjustmentType)
-    {
-        ProcurementCost cost;
-        switch (adjustmentType)
-        {
-            case COMMODITY:
-                cost = Commodity.valueOf(pair.getKey());
-                break;
-
-            case MATERIAL:
-                cost = Material.valueOf(pair.getKey());
-                break;
-
-            default: return;
-        }
-        adjust(context, cost, pair.getValue());
-    }
-
-    /**
-     * Decrements the count of an inventory item in a context specific CommanderData object
-     *
-     * @param context the current event processing context
-     * @param pair a Pair<String, Integer> object describing the item type and amount to adjust
-     * @param adjustmentType either COMMODITY or MATERIAL based on the type of item to adjust
-     */
-    private static void adjustDown(EventProcessingContext context, Pair<String, Integer> pair, AdjustmentType adjustmentType)
-    {
-        adjust(context, new Pair<>(pair.getKey(), -1 * pair.getValue()), adjustmentType);
-    }
-
-    /**
-     * Increments the count of an inventory item in a context specific CommanderData object
-     *
-     * @param context the current event processing context
-     * @param cost the item type to adjust
-     * @param count the amount by which to adjust the provided item
-     */
-    private static void adjust(EventProcessingContext context, ProcurementCost cost, int count)
-    {
-        UserTransaction transaction = new UserTransaction(count, cost);
-        context.getTransactions().add(transaction);
-
-        boolean gain = count > 0;
-        String message = ((gain) ? ("+" + count) : + count) + " " + cost.getLocalizedName();
-        logInventoryMessage(context, message);
-    }
-
-    private static void adjustBlueprint(EventProcessingContext context,
-                                        ProcurementType procurementType,
-                                        ProcurementRecipe procurementRecipe,
-                                        int amount)
-    {
-        Pair<ProcurementType, ProcurementRecipe> bluePrint = new Pair<>(procurementType, procurementRecipe);
-        UserTransaction transaction = new UserTransaction(amount, bluePrint);
-        context.getTransactions().add(transaction);
-    }
-
-    private static void adjustBlueprintDown(EventProcessingContext context,
-                                            ProcurementType procurementType,
-                                            ProcurementRecipe procurementRecipe,
-                                            int amount)
-    {
-        adjustBlueprint(context,procurementType,procurementRecipe, (-1 * amount));
-    }
-
-    /**
-     * Decrements the count of an inventory item in a context specific CommanderData object
-     *
-     * @param context the current event processing context
-     * @param cost the item type to adjust
-     * @param count the amount by which to adjust the provided item
-     */
-    private static void adjustDown(EventProcessingContext context, ProcurementCost cost, int count)
-    {
-        UserTransaction transaction = new UserTransaction(((-1) * count), cost);
-        context.getTransactions().add(transaction);
-    }
-
-    private static void logGeneralMessage(EventProcessingContext context, String message)
-    {
-        logMessage(context, UserTransaction.MessageType.GENERAL, message);
-    }
-
-    private static void logInventoryMessage(EventProcessingContext context, String message)
-    {
-        logMessage(context, UserTransaction.MessageType.INVENTORY, message);
-    }
-
-    private static void logLoadoutMessage(EventProcessingContext context, String message)
-    {
-        logMessage(context, UserTransaction.MessageType.LOADOUT, message);
-    }
-
-    private static void logEngineeringMessage(EventProcessingContext context, String message)
-    {
-        logMessage(context, UserTransaction.MessageType.ENGINEERING, message);
-    }
-    private static void logTravelMessage(EventProcessingContext context, String message)
-    {
-        logMessage(context, UserTransaction.MessageType.TRAVEL, message);
-    }
-    private static void logCombatMessage(EventProcessingContext context, String message)
-    {
-        logMessage(context, UserTransaction.MessageType.COMBAT, message);
-    }
-
-    private static void logMessage(EventProcessingContext context, UserTransaction.MessageType messageType, String message)
-    {
-        context.getTransactions().add(new UserTransaction(messageType, message));
+        if (eventConsumer == null) event.handle(eventProcessingContext);
+        else eventConsumer.accept(eventProcessingContext);
     }
 }

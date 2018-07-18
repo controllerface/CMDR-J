@@ -104,7 +104,7 @@ public class UIController
 
 
     /*
-    Ship Loadout Tab
+    Ship LoadoutHandler Tab
      */
 
     @FXML private Label locationLabel;

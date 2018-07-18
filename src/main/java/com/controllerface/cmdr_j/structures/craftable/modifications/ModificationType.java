@@ -109,7 +109,7 @@ public enum ModificationType implements ProcurementType
             ModificationBlueprint.HeatSinkLauncher_Reinforced,
             ModificationBlueprint.HeatSinkLauncher_Shielded)),
 
-    Point_Defense(EnumSet.of(ModificationBlueprint.PointDefence_PointDefenseCapacity,
+    Point_Defense(EnumSet.of(ModificationBlueprint.Misc_PointDefenseCapacity,
             ModificationBlueprint.PointDefence_LightWeight,
             ModificationBlueprint.PointDefence_Reinforced,
             ModificationBlueprint.PointDefence_Shielded)),
