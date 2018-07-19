@@ -18,15 +18,9 @@ public class OptionalModuleLayoutData
         this.slots = builder.slots.toArray(h);
     }
 
-    public ModuleSize[] getSlots()
-    {
-        return slots;
-    }
+    public ModuleSize[] getSlots() { return slots; }
 
-    public static Builder builder()
-    {
-        return new Builder();
-    }
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder
     {

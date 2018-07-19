@@ -1,15 +1,15 @@
-package com.controllerface.cmdr_j.structures.journal.events;
+package com.controllerface.cmdr_j.data.events.stats.status;
 
 import com.controllerface.cmdr_j.EventProcessingContext;
-import com.controllerface.cmdr_j.structures.commander.PlayerStat;
+import com.controllerface.cmdr_j.data.events.JournalEventHandler;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 
-import static com.controllerface.cmdr_j.structures.journal.JournalEventTransactions.*;
+import static com.controllerface.cmdr_j.data.events.JournalEventTransactions.*;
 
 /**
  * Created by Stephen on 7/18/2018.
  */
-public class HullDamageHandler extends JournalEventHandler
+public class HullDamageHandler implements JournalEventHandler
 {
     @Override
     @SuppressWarnings("unchecked")

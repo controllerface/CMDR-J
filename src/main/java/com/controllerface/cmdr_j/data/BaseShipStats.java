@@ -45,91 +45,24 @@ public class BaseShipStats
         this.slfCapable = builder.slfCapable;
     }
 
+    public String getDisplayName() { return displayName; }
+    public ShipSize getShipSize() { return shipSize; }
+    public ShipManufacturer getManufacturer() { return manufacturer; }
+    public double getAgility() { return agility; }
+    public double getHullMass() { return hullMass; }
+    public double getHullHardness() { return hullHardness; }
+    public double getSpeed() { return speed; }
+    public double getMaxSpeed() {return maxSpeed; }
+    public double getBoostSpeed() { return boostSpeed; }
+    public double getMaxBoostSpeed() { return maxBoostSpeed; }
+    public double getArmorRating() { return armorRating; }
+    public double getShield() { return shield; }
+    public double getBaseCost() { return baseCost; }
+    public int getMassLockFactor() { return massLockFactor; }
+    public int getCrewSeats() { return crewSeats; }
+    public boolean isSlfCapable() { return slfCapable; }
 
-    public String getDisplayName()
-    {
-        return displayName;
-    }
-
-    public ShipSize getShipSize()
-    {
-        return shipSize;
-    }
-
-    public ShipManufacturer getManufacturer()
-    {
-        return manufacturer;
-    }
-
-    public double getAgility()
-    {
-        return agility;
-    }
-
-    public double getHullMass()
-    {
-        return hullMass;
-    }
-
-    public double getHullHardness()
-    {
-        return hullHardness;
-    }
-
-    public double getSpeed()
-    {
-        return speed;
-    }
-
-    public double getMaxSpeed()
-    {
-        return maxSpeed;
-    }
-
-    public double getBoostSpeed()
-    {
-        return boostSpeed;
-    }
-
-    public double getMaxBoostSpeed()
-    {
-        return maxBoostSpeed;
-    }
-
-    public double getArmorRating()
-    {
-        return armorRating;
-    }
-
-    public double getShield()
-    {
-        return shield;
-    }
-
-    public double getBaseCost()
-    {
-        return baseCost;
-    }
-
-    public int getMassLockFactor()
-    {
-        return massLockFactor;
-    }
-
-    public int getCrewSeats()
-    {
-        return crewSeats;
-    }
-
-    public boolean isSlfCapable()
-    {
-        return slfCapable;
-    }
-
-    public static Builder builder()
-    {
-        return new Builder();
-    }
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder
     {
@@ -248,7 +181,6 @@ public class BaseShipStats
 
         public BaseShipStats build()
         {
-
             if (displayName == null) throw new UnsupportedOperationException("displayName must be set");
             if (shipSize == null) throw new UnsupportedOperationException("shipSize must be set");
             if (manufacturer == null) throw new UnsupportedOperationException("manufacturer must be set");

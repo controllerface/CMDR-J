@@ -88,7 +88,6 @@ public class JournalSyncTask implements Runnable
     private final BlockingQueue<UserTransaction> transactions;
 
     private Path journalPath;
-    private File journalFile;
     private final AtomicInteger lastLine = new AtomicInteger(0);
     private final AtomicReference<String> currentJournalFile = new AtomicReference<>("");
 
@@ -247,8 +246,7 @@ public class JournalSyncTask implements Runnable
     private Stream<String> readJournalLines(File file)
     {
         List<String> journalLines = new ArrayList<>();
-        journalFile = file;
-        lastFileSize = journalFile.length();
+        lastFileSize = file.length();
         currentJournalFile.set(file.getName());
 
         try

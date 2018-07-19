@@ -1,13 +1,14 @@
-package com.controllerface.cmdr_j.structures.journal.events;
+package com.controllerface.cmdr_j.data.events.stats.status;
 
 import com.controllerface.cmdr_j.EventProcessingContext;
+import com.controllerface.cmdr_j.data.events.JournalEventHandler;
 
-import static com.controllerface.cmdr_j.structures.journal.JournalEventTransactions.logGeneralMessage;
+import static com.controllerface.cmdr_j.data.events.JournalEventTransactions.logGeneralMessage;
 
 /**
  * Created by Stephen on 7/18/2018.
  */
-public class ShieldStateHandler extends JournalEventHandler
+public class ShieldStateHandler implements JournalEventHandler
 {
     @Override
     @SuppressWarnings("unchecked")

@@ -1,6 +1,7 @@
-package com.controllerface.cmdr_j.structures.journal.events;
+package com.controllerface.cmdr_j.data.events.stats.ship;
 
 import com.controllerface.cmdr_j.EventProcessingContext;
+import com.controllerface.cmdr_j.data.events.JournalEventHandler;
 import com.controllerface.cmdr_j.structures.equipment.ships.CoreInternalSlot;
 import com.controllerface.cmdr_j.structures.equipment.ships.Ship;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
@@ -8,14 +9,17 @@ import com.controllerface.cmdr_j.threads.JournalSyncTask;
 import java.util.List;
 import java.util.Map;
 
-import static com.controllerface.cmdr_j.structures.journal.JournalEventTransactions.*;
-import static com.controllerface.cmdr_j.structures.journal.JournalEventTransactions.extractStatString;
-import static com.controllerface.cmdr_j.structures.journal.JournalEventTransactions.setStatFromData;
+import static com.controllerface.cmdr_j.data.events.JournalEventTransactions.*;
+import static com.controllerface.cmdr_j.data.events.JournalEventTransactions.extractStatString;
+import static com.controllerface.cmdr_j.data.events.JournalEventTransactions.setStatFromData;
 
 /**
+ * Loadout event: written at startup, when loading from main menu, and after being destroyed in an SRV and
+ * teleporting back to your ship.
+ *
  * Created by Stephen on 7/18/2018.
  */
-public class LoadoutHandler extends JournalEventHandler
+public class LoadoutHandler implements JournalEventHandler
 {
     @Override
     @SuppressWarnings("unchecked")

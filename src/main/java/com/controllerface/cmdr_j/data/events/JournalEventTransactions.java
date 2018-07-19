@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.structures.journal;
+package com.controllerface.cmdr_j.data.events;
 
 import com.controllerface.cmdr_j.*;
 import com.controllerface.cmdr_j.data.ModifierData;
@@ -11,7 +11,7 @@ import com.controllerface.cmdr_j.structures.craftable.modifications.Modification
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
 import com.controllerface.cmdr_j.structures.equipment.modules.*;
 import com.controllerface.cmdr_j.structures.equipment.ships.*;
-import com.controllerface.cmdr_j.threads.JournalSyncTask;
+import com.controllerface.cmdr_j.structures.journal.JournalEvent;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 import javafx.util.Pair;
 
@@ -34,7 +34,7 @@ public class JournalEventTransactions
     /**
      * Internal enum, used to make the adjustment methods easier for both material and commodity adjustments
      */
-    enum AdjustmentType
+    public enum AdjustmentType
     {
         COMMODITY,
         MATERIAL
@@ -55,7 +55,7 @@ public class JournalEventTransactions
         logMessage(context, MessageType.GENERAL, message);
     }
 
-    static void logInventoryMessage(EventProcessingContext context, String message)
+    public static void logInventoryMessage(EventProcessingContext context, String message)
     {
         logMessage(context, MessageType.INVENTORY, message);
     }
@@ -65,17 +65,17 @@ public class JournalEventTransactions
         logMessage(context, MessageType.LOADOUT, message);
     }
 
-    static void logEngineeringMessage(EventProcessingContext context, String message)
+    public static void logEngineeringMessage(EventProcessingContext context, String message)
     {
         logMessage(context, MessageType.ENGINEERING, message);
     }
 
-    static void logTravelMessage(EventProcessingContext context, String message)
+    public static void logTravelMessage(EventProcessingContext context, String message)
     {
         logMessage(context, MessageType.TRAVEL, message);
     }
 
-    static void logCombatMessage(EventProcessingContext context, String message)
+    public static void logCombatMessage(EventProcessingContext context, String message)
     {
         logMessage(context, MessageType.COMBAT, message);
     }
@@ -178,7 +178,7 @@ public class JournalEventTransactions
      * @param valueName key string to use to extract the returned pair's value from the raw JSON object
      * @return the extracted Pair<String, Integer> object
      */
-    static Pair<String, Integer> extractPair(Map<String, Object> data, String keyName, String valueName)
+    public static Pair<String, Integer> extractPair(Map<String, Object> data, String keyName, String valueName)
     {
         return new Pair<>(data.get(keyName).toString().toUpperCase(), Integer.parseInt(data.get(valueName).toString()));
     }
@@ -281,7 +281,7 @@ public class JournalEventTransactions
      * @param cost the item type to adjust
      * @param count the amount by which to adjust the provided item
      */
-    static void adjust(EventProcessingContext context, ProcurementCost cost, int count)
+    public static void adjust(EventProcessingContext context, ProcurementCost cost, int count)
     {
         UserTransaction transaction = new UserTransaction(count, cost);
         context.getTransactions().add(transaction);
@@ -298,7 +298,7 @@ public class JournalEventTransactions
      * @param cost the item type to adjust
      * @param count the amount by which to adjust the provided item
      */
-    static void adjustDown(EventProcessingContext context, ProcurementCost cost, int count)
+    public static void adjustDown(EventProcessingContext context, ProcurementCost cost, int count)
     {
         adjust(context, cost, -1 * count);
     }
@@ -310,7 +310,7 @@ public class JournalEventTransactions
      * @param pair a Pair<String, Integer> object describing the item type and amount to adjust
      * @param adjustmentType either COMMODITY or MATERIAL based on the type of item to adjust
      */
-    static void adjust(EventProcessingContext context, Pair<String, Integer> pair, AdjustmentType adjustmentType)
+    public static void adjust(EventProcessingContext context, Pair<String, Integer> pair, AdjustmentType adjustmentType)
     {
         ProcurementCost cost;
         switch (adjustmentType)
@@ -335,7 +335,7 @@ public class JournalEventTransactions
      * @param pair a Pair<String, Integer> object describing the item type and amount to adjust
      * @param adjustmentType either COMMODITY or MATERIAL based on the type of item to adjust
      */
-    static void adjustDown(EventProcessingContext context, Pair<String, Integer> pair, AdjustmentType adjustmentType)
+    public static void adjustDown(EventProcessingContext context, Pair<String, Integer> pair, AdjustmentType adjustmentType)
     {
         adjust(context, new Pair<>(pair.getKey(), -1 * pair.getValue()), adjustmentType);
     }
@@ -348,7 +348,7 @@ public class JournalEventTransactions
      * @param context the current event processing context
      * @param data the raw JSON object from which to extract the commodity type and value
      */
-    static void adjustCommodityType(EventProcessingContext context, Map<String, Object> data)
+    public static void adjustCommodityType(EventProcessingContext context, Map<String, Object> data)
     {
         adjust(context, extractTypeCountPair(data), AdjustmentType.COMMODITY);
     }
@@ -361,7 +361,7 @@ public class JournalEventTransactions
      * @param context the current event processing context
      * @param data the raw JSON object from which to extract the commodity type and value
      */
-    static void adjustCommodityTypeDown(EventProcessingContext context, Map<String, Object> data)
+    public static void adjustCommodityTypeDown(EventProcessingContext context, Map<String, Object> data)
     {
         adjustDown(context, extractTypeCountPair(data), AdjustmentType.COMMODITY);
     }
@@ -374,7 +374,7 @@ public class JournalEventTransactions
      * @param context the current event processing context
      * @param data the raw JSON object from which to extract the commodity type and value
      */
-    static void adjustCommodityCount(EventProcessingContext context, Map<String, Object> data)
+    public static void adjustCommodityCount(EventProcessingContext context, Map<String, Object> data)
     {
         adjust(context, extractNameCountPair(data), AdjustmentType.COMMODITY);
     }
@@ -387,7 +387,7 @@ public class JournalEventTransactions
      * @param context the current event processing context
      * @param data the raw JSON object from which to extract the commodity type and value
      */
-    static void adjustCommodityCountDown(EventProcessingContext context, Map<String, Object> data)
+    public static void adjustCommodityCountDown(EventProcessingContext context, Map<String, Object> data)
     {
         adjustDown(context, extractNameCountPair(data), AdjustmentType.COMMODITY);
     }
@@ -400,7 +400,7 @@ public class JournalEventTransactions
      * @param context the current event processing context
      * @param data the raw JSON object from which to extract the commodity type and value
      */
-    static void adjustCommodityQuantityDown(EventProcessingContext context, Map<String, Object> data)
+    public static void adjustCommodityQuantityDown(EventProcessingContext context, Map<String, Object> data)
     {
         adjustDown(context, extractCommodityQuantityPair(data), AdjustmentType.COMMODITY);
     }
@@ -413,7 +413,7 @@ public class JournalEventTransactions
      * @param context the current event processing context
      * @param data the raw JSON object from which to extract the material type and value
      */
-    static void adjustMaterialCount(EventProcessingContext context, Map<String, Object> data)
+    public static void adjustMaterialCount(EventProcessingContext context, Map<String, Object> data)
     {
         adjust(context, extractNameCountPair(data), AdjustmentType.MATERIAL);
     }
@@ -426,7 +426,7 @@ public class JournalEventTransactions
      * @param context the current event processing context
      * @param data the raw JSON object from which to extract the material type and value
      */
-    static void adjustMaterialCountDown(EventProcessingContext context, Map<String, Object> data)
+    public static void adjustMaterialCountDown(EventProcessingContext context, Map<String, Object> data)
     {
         adjustDown(context, extractNameCountPair(data), AdjustmentType.MATERIAL);
     }
@@ -439,7 +439,7 @@ public class JournalEventTransactions
      * @param context the current event processing context
      * @param data the raw JSON object from which to extract the material type and value
      */
-    static void adjustMaterialQuantity(EventProcessingContext context, Map<String, Object> data)
+    public static void adjustMaterialQuantity(EventProcessingContext context, Map<String, Object> data)
     {
         adjust(context, extractMaterialQuantityPair(data), AdjustmentType.MATERIAL);
     }
@@ -452,7 +452,7 @@ public class JournalEventTransactions
      * @param context the current event processing context
      * @param data the raw JSON object from which to extract the material type and value
      */
-    static void adjustMaterialQuantityDown(EventProcessingContext context, Map<String, Object> data)
+    public static void adjustMaterialQuantityDown(EventProcessingContext context, Map<String, Object> data)
     {
         adjustDown(context, extractMaterialQuantityPair(data), AdjustmentType.MATERIAL);
     }
@@ -462,7 +462,7 @@ public class JournalEventTransactions
     Ship Slot Adjustments
      */
 
-    static void emptySlotFromData(EventProcessingContext context)
+    public static void emptySlotFromData(EventProcessingContext context)
     {
         String slotKey = ((String) context.getRawData().get("Slot"));
         Statistic slot = determineStatType(slotKey);
@@ -575,7 +575,7 @@ public class JournalEventTransactions
         setSlotFromData(context, slot, module, engineering);
     }
 
-    static void processBuyModule(EventProcessingContext context)
+    public static void processBuyModule(EventProcessingContext context)
     {
         Map<String, Object> data =  context.getRawData();
         String slotKey = ((String) data.get("Slot"));
@@ -597,7 +597,7 @@ public class JournalEventTransactions
         context.getCommanderData().setShipModule(shipModuleData);
     }
 
-    static void processRetrieveModule(EventProcessingContext context)
+    public static void processRetrieveModule(EventProcessingContext context)
     {
         ShipModuleData.Builder dataBuilder = new ShipModuleData.Builder();
         dataBuilder.setUserTransactions(context.getTransactions());
@@ -661,7 +661,7 @@ public class JournalEventTransactions
 //    }
 
     @SuppressWarnings("unchecked") // uses documented JSON object structure
-    static void processEngineerUpgrade(EventProcessingContext context)
+    public static void processEngineerUpgrade(EventProcessingContext context)
     {
         Map<String, Object> data = context.getRawData();
         // remove the materials used in the crafting process

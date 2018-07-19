@@ -31,45 +31,15 @@ public class CoreModuleLayoutData
         this.fuelTank = builder.fuelTank;
     }
 
-    public ModuleSize getPowerPlant()
-    {
-        return powerPlant;
-    }
+    public ModuleSize getPowerPlant() { return powerPlant; }
+    public ModuleSize getThrusters() { return thrusters; }
+    public ModuleSize getFrameShiftDrive() { return frameShiftDrive; }
+    public ModuleSize getLifeSupport() { return lifeSupport; }
+    public ModuleSize getPowerDistributor() { return powerDistributor; }
+    public ModuleSize getSensors() { return sensors; }
+    public ModuleSize getFuelTank() { return fuelTank; }
 
-    public ModuleSize getThrusters()
-    {
-        return thrusters;
-    }
-
-    public ModuleSize getFrameShiftDrive()
-    {
-        return frameShiftDrive;
-    }
-
-    public ModuleSize getLifeSupport()
-    {
-        return lifeSupport;
-    }
-
-    public ModuleSize getPowerDistributor()
-    {
-        return powerDistributor;
-    }
-
-    public ModuleSize getSensors()
-    {
-        return sensors;
-    }
-
-    public ModuleSize getFuelTank()
-    {
-        return fuelTank;
-    }
-
-    public static Builder builder()
-    {
-        return new Builder();
-    }
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder
     {

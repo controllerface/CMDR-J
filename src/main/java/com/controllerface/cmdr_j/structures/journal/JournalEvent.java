@@ -1,17 +1,39 @@
 package com.controllerface.cmdr_j.structures.journal;
 
 import com.controllerface.cmdr_j.EventProcessingContext;
-import com.controllerface.cmdr_j.data.StarSystem;
-import com.controllerface.cmdr_j.structures.commander.RankStat;
-import com.controllerface.cmdr_j.structures.costs.commodities.Commodity;
-import com.controllerface.cmdr_j.structures.journal.events.*;
-import javafx.util.Pair;
-
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
-import static com.controllerface.cmdr_j.structures.journal.JournalEventTransactions.*;
+import com.controllerface.cmdr_j.data.events.*;
+import com.controllerface.cmdr_j.data.events.items.bounties.BountyHandler;
+import com.controllerface.cmdr_j.data.events.items.bounties.FactionKillBondHandler;
+import com.controllerface.cmdr_j.data.events.items.commodities.*;
+import com.controllerface.cmdr_j.data.events.items.engineers.EngineerContributionHandler;
+import com.controllerface.cmdr_j.data.events.items.engineers.EngineerCraftHandler;
+import com.controllerface.cmdr_j.data.events.items.engineers.TechnologyBrokerHandler;
+import com.controllerface.cmdr_j.data.events.items.materials.MaterialCollectedHandler;
+import com.controllerface.cmdr_j.data.events.items.materials.MaterialDiscardedHandler;
+import com.controllerface.cmdr_j.data.events.items.materials.MaterialTradeHandler;
+import com.controllerface.cmdr_j.data.events.items.materials.SynthesisHandler;
+import com.controllerface.cmdr_j.data.events.items.missions.MissionCompletedHandler;
+import com.controllerface.cmdr_j.data.events.items.missions.ScientificResearchHandler;
+import com.controllerface.cmdr_j.data.events.items.modules.ModuleBuyHandler;
+import com.controllerface.cmdr_j.data.events.items.modules.ModuleRetrieveHandler;
+import com.controllerface.cmdr_j.data.events.items.modules.ModuleSellHandler;
+import com.controllerface.cmdr_j.data.events.items.modules.ModuleStoreHandler;
+import com.controllerface.cmdr_j.data.events.items.powerplay.PowerplayCollectHandler;
+import com.controllerface.cmdr_j.data.events.items.powerplay.PowerplayDeliverHandler;
+import com.controllerface.cmdr_j.data.events.stats.factions.ProgressHandler;
+import com.controllerface.cmdr_j.data.events.stats.factions.RankHandler;
+import com.controllerface.cmdr_j.data.events.stats.factions.ReputationHandler;
+import com.controllerface.cmdr_j.data.events.stats.market.MarketHandler;
+import com.controllerface.cmdr_j.data.events.stats.ship.LoadoutHandler;
+import com.controllerface.cmdr_j.data.events.stats.ship.SetUserShipNameHandler;
+import com.controllerface.cmdr_j.data.events.stats.startup.CargoHandler;
+import com.controllerface.cmdr_j.data.events.stats.startup.LoadGameHandler;
+import com.controllerface.cmdr_j.data.events.stats.startup.MaterialsHandler;
+import com.controllerface.cmdr_j.data.events.stats.status.HeatWarningHandler;
+import com.controllerface.cmdr_j.data.events.stats.status.HullDamageHandler;
+import com.controllerface.cmdr_j.data.events.stats.status.ShieldStateHandler;
+import com.controllerface.cmdr_j.data.events.stats.status.UnderAttackHandler;
+import com.controllerface.cmdr_j.data.events.stats.travel.*;
 
 /**
  * This enum defines all of the Journal API events that are currently supported. By convention, enum value names are
@@ -31,551 +53,115 @@ import static com.controllerface.cmdr_j.structures.journal.JournalEventTransacti
 @SuppressWarnings("unchecked")
 public enum JournalEvent
 {
-    /**
-     * Main game load event: written at startup, when loading from main menu
+    /*
+    Factions
      */
-    LoadGame(new LoadGameHandler()),
+    Progress(new ProgressHandler()),
+    Rank(new RankHandler()),
+    Reputation(new ReputationHandler()),
 
-    HullDamage(new HullDamageHandler()),
-
-    ShieldState(new ShieldStateHandler()),
-
-    HeatWarning(new HeatWarningHandler()),
-
-    UnderAttack((context)->
-    {
-        String target = ((String) context.getRawData().get("Target"));
-        String verb = target.equalsIgnoreCase("You") ? " are " : " is ";
-        logCombatMessage(context, target + verb + "under attack");
-    }),
-
-    Bounty((context)->
-    {
-        String victim = ((String) context.getRawData().get("VictimFaction"));
-        String target = ((String) context.getRawData().get("Target"));
-        int reward;
-        String benefactor;
-
-        if (context.getRawData().get("Rewards") == null)
-        {
-            reward = ((int) context.getRawData().get("Reward"));
-            benefactor = ((String) context.getRawData().get("Faction"));
-        }
-        else
-        {
-            reward = ((int) context.getRawData().get("TotalReward"));
-            benefactor = ((List<Map<String, Object>>) context.getRawData().get("Rewards")).stream()
-                    .map(r-> ((String) r.get("Faction")))
-                    .collect(Collectors.joining(", ","Rewarding Faction(s): ",""));
-        }
-
-        logCombatMessage(context, "You destroyed " + victim + " " + target + " for " + reward + " credits paid by " + benefactor);
-    }),
-
-    FactionKillBond((context)->
-    {
-        String victim = ((String) context.getRawData().get("VictimFaction"));
-        int reward = ((int) context.getRawData().get("Reward"));
-        String benefactor = ((String) context.getRawData().get("AwardingFaction"));
-
-        logCombatMessage(context, "You destroyed a " + victim + " for " + reward + " credits paid by " + benefactor);
-    }),
-
-    Market((context)->
-    {
-        //todo: handle this
-        System.out.println("Market");
-        if (context.getRawData().get("Items")==null) return;
-
-        ((List<Map<String, Object>>) context.getRawData().get("Items")).stream()
-                .map(item ->
-                {
-                    String name = ((String) item.get("Name"));
-                    if (name == null) return null;
-
-                    String c = name.replace("$", "").replace("_name;", "").toUpperCase();
-                    Commodity commodity = Commodity.valueOf(c);
-                    String x = commodity.getLocalizedName();
-                    int buy = ((int) item.get("BuyPrice"));
-                    int sell = ((int) item.get("SellPrice"));
-                    boolean imports = ((boolean) item.get("Consumer"));
-                    boolean exports = ((boolean) item.get("Producer"));
-
-                    Set<String> modifiers = new HashSet<>();
-                    if (imports) modifiers.add("Imports");
-                    if (exports) modifiers.add("Exports");
-
-                    String m = modifiers.stream().collect(Collectors.joining(" and "));
-
-
-                    return x + " :: Buy: "+ buy + " :: Sell: "+ sell + " :: Market: " + m;
-                })
-                .filter(Objects::nonNull)
-                .forEach(System.out::println);
-    }),
-
-    USSDrop((context ->
-    {
-        String type = ((String) context.getRawData().get("USSType_Localised"));
-        Integer threatLevel = ((Integer) context.getRawData().get("USSThreat"));
-        logTravelMessage(context, "Unidentified Signal Source :: " +  type + " :: Threat Level " + threatLevel);
-    })),
-
-    Docked((context ->
-    {
-        String name = ((String) context.getRawData().get("StationName"));
-        List<Map<String, Object>> economies = ((List<Map<String,Object>>) context.getRawData().get("StationEconomies"));
-        String economy = economies.stream()
-                .map(economyType -> ((String) economyType.get("Name_Localised")))
-                .collect(Collectors.joining(", "));
-
-        logTravelMessage(context, "Docked at " + name + " :: " + economy + " Economy");
-
-        context.getCommanderData().setStation(name);
-        context.getCommanderData().setEconomy(economy);
-    })),
-
-    Undocked((context ->
-    {
-        String name = ((String) context.getRawData().get("StationName"));
-        logTravelMessage(context, "Leaving " + name);
-
-        context.getCommanderData().setStation("Undocked");
-        context.getCommanderData().setEconomy("No Market");
-    })),
-
-    StartJump((context ->
-    {
-        String jumpType = ((String) context.getRawData().get("JumpType"));
-
-        logTravelMessage(context, jumpType + " Jump Initiated");
-
-        String system = ((String) context.getRawData().get("StarSystem"));
-        if (system !=null)
-        {
-            String currentSystem = context.getCommanderData().getLocation().getStarSystem().getSystemName();
-            logTravelMessage(context, "Leaving the " + currentSystem + " System; Jumping to " + system);
-        }
-    })),
-
-    SupercruiseEntry((context ->
-    {
-        String system = ((String) context.getRawData().get("StarSystem"));
-        logTravelMessage(context, system + " :: Entered Supercruise");
-    })),
-
-    SupercruiseExit((context ->
-    {
-        String system = ((String) context.getRawData().get("StarSystem"));
-        String body = ((String) context.getRawData().get("Body"));
-        logTravelMessage(context, system + " :: Exited Supercruise Near " + body);
-    })),
-
-    Location((context ->
-    {
-        String name = ((String) context.getRawData().get("StarSystem"));
-        logTravelMessage(context, "Spawned in the " + name + " System");
-        List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
-        StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
-        context.getCommanderData().setLocation(system);
-    })),
-
-    FSDJump((context ->
-    {
-        String name = ((String) context.getRawData().get("StarSystem"));
-        logTravelMessage(context, "Arrived in the " + name + " System");
-        List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
-        StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
-        context.getCommanderData().setLocation(system);
-    })),
-
-    /**
-     * Main cargo event: written at startup, when loading from main menu
+    /*
+    Market
      */
-    Cargo((context) ->
-    {
-        logInventoryMessage(context, "Reloading Cargo");
+    Market(new MarketHandler()),
 
-        context.getCommanderData().clearCargo();
-
-        ((List<Map<String, Object>>) context.getRawData().get("Inventory")).stream()
-                .forEach(item -> adjustCommodityCount(context, item));
-    }),
-
-    /**
-     * Main material storage event: written at startup, when loading from main menu
-     */
-    Materials((context)->
-    {
-        logInventoryMessage(context, "Reloading Material Storage");
-
-        context.getCommanderData().clearMaterials();
-
-        Map<String, Object> data = context.getRawData();
-
-        ((List<Map<String, Object>>) data.get("Raw")).stream()
-                .forEach(item -> adjustMaterialCount(context, item));
-
-        ((List<Map<String, Object>>) data.get("Manufactured")).stream()
-                .forEach(item -> adjustMaterialCount(context, item));
-
-        ((List<Map<String, Object>>) data.get("Encoded")).stream()
-                .forEach(item -> adjustMaterialCount(context, item));
-    }),
-
-    /**
-     * Rank event: written at startup, when loading from main menu
-     */
-    Rank((context) ->
-    {
-        logGeneralMessage(context, "Reloading Current Rank Status");
-
-        setStatFromData(context, RankStat.Rank_Combat);
-        setStatFromData(context, RankStat.Rank_Trade);
-        setStatFromData(context, RankStat.Rank_Explore );
-        setStatFromData(context, RankStat.Rank_Empire);
-        setStatFromData(context, RankStat.Rank_Federation);
-        setStatFromData(context, RankStat.Rank_CQC);
-    }),
-
-    /**
-     * Rank progress event: written at startup, when loading from main menu
-     */
-    Progress((context) ->
-    {
-        logGeneralMessage(context, "Reloading Rank Progress");
-
-        setStatFromData(context, RankStat.Progress_Combat);
-        setStatFromData(context, RankStat.Progress_Trade);
-        setStatFromData(context, RankStat.Progress_Explore);
-        setStatFromData(context, RankStat.Progress_Empire);
-        setStatFromData(context, RankStat.Progress_Federation);
-        setStatFromData(context, RankStat.Progress_CQC);
-    }),
-
-    /**
-     * Reputation event: written at startup, when loading from main menu
-     */
-    Reputation((context) ->
-    {
-        logGeneralMessage(context, "Reloading Faction Reputation");
-
-        setStatFromData(context, RankStat.Reputation_Empire);
-        setStatFromData(context, RankStat.Reputation_Federation);
-        setStatFromData(context, RankStat.Reputation_Alliance);
-        setStatFromData(context, RankStat.Reputation_Independent);
-    }),
-
-    SetUserShipName((context) ->
-    {
-        logLoadoutMessage(context, "Reloading Ship Name");
-        String shipName = ((String) context.getRawData().get("UserShipName"));
-        String shipID = ((String) context.getRawData().get("UserShipId"));
-        context.getCommanderData().getStarShip().setGivenName(shipName);
-        context.getCommanderData().getStarShip().setShipID(shipID);
-    }),
-
-    /**
-     * Loadout event: written at startup, when loading from main menu, and after being destroyed in an SRV and
-     * teleporting back to your ship.
+    /*
+    Ship
      */
     Loadout(new LoadoutHandler()),
+    SetUserShipName(new SetUserShipNameHandler()),
 
-    /**
-     * Written when contributing items to an engineer in order to gain their favor
+    /*
+    Startup
      */
-    EngineerContribution((context)->
-    {
-        logEngineeringMessage(context, "Engineering Contribution");
+    Cargo(new CargoHandler()),
+    LoadGame(new LoadGameHandler()),
+    Materials(new MaterialsHandler()),
 
-        Map<String, Object> data = context.getRawData();
-
-        if (data.get("Material") != null) adjustMaterialQuantityDown(context, data);
-
-        if (data.get("Commodity") != null) adjustCommodityQuantityDown(context, data);
-    }),
-
-    /**
-     * Written when a mission is completed
+    /*
+    Status
      */
-    MissionCompleted((context)->
-    {
-        logGeneralMessage(context, "Mission Completed");
+    HeatWarning(new HeatWarningHandler()),
+    HullDamage(new HullDamageHandler()),
+    ShieldState(new ShieldStateHandler()),
+    UnderAttack(new UnderAttackHandler()),
 
-        Map<String, Object> data = context.getRawData();
-
-        if (data.get("MaterialsReward") != null)
-        {
-            ((List<Map<String, Object>>) data.get("MaterialsReward"))
-                    .forEach(reward -> adjustMaterialCount(context, reward));
-        }
-
-        if (data.get("CommodityReward") != null)
-        {
-            ((List<Map<String, Object>>) data.get("CommodityReward"))
-                    .forEach(reward -> adjustCommodityCount(context, reward));
-        }
-
-        if (data.get("Commodity") != null)
-        {
-            String name = ((String) data.get("Commodity"))
-                    .replace("$","")
-                    .replace("_Name;","")
-                    .toUpperCase();
-
-            Integer count = ((Integer) data.get("Count"));
-            adjustDown(context, new Pair<>(name, count), AdjustmentType.COMMODITY);
-        }
-    }),
-
-    /**
-     * Written when unlocking an item from a tech broker
+    /*
+    Travel
      */
-    TechnologyBroker((context)->
-    {
-        logLoadoutMessage(context, "Tech Broker Item Unlocked");
+    Docked(new DockedHandler()),
+    FSDJump(new FSDJumpHandler()),
+    Location(new LocationHandler()),
+    StartJump(new StartJumpHandler()),
+    SupercruiseEntry(new SupercruiseEntryHandler()),
+    SupercruiseExit(new SupercruiseExitHandler()),
+    Undocked(new UndockedHandler()),
+    USSDrop(new USSDropHandler()),
 
-        if (context.getRawData().get("Materials") != null)
-        {
-            ((List<Map<String, Object>>) context.getRawData().get("Materials"))
-                    .forEach(materialCost -> adjustMaterialCountDown(context, materialCost));
-        }
-
-        if (context.getRawData().get("Commodities") != null)
-        {
-            ((List<Map<String, Object>>) context.getRawData().get("Commodities"))
-                    .forEach(commodityCost -> adjustCommodityCountDown(context, commodityCost));
-        }
-    }),
-
-    /**
-     * Written when materials are collected
+    /*
+    Bounties
      */
-    MaterialCollected((context) ->
-    {
-        logInventoryMessage(context, "Material Collected");
-        adjustMaterialCount(context, context.getRawData());
-    }),
+    Bounty(new BountyHandler()),
+    FactionKillBond(new FactionKillBondHandler()),
 
-    /**
-     * Written when materials are discarded
+    /*
+    Commodities
      */
-    MaterialDiscarded((context) ->
-    {
-        logInventoryMessage(context, "Material Discarded");
-        adjustMaterialCountDown(context, context.getRawData());
-    }),
+    BuyDrones(new BuyDronesHandler()),
+    CargoDepot(new CargoDepotHandler()),
+    CollectCargo(new CollectCargoHandler()),
+    EjectCargo(new EjectCargoHandler()),
+    LaunchDrone(new LaunchDroneHandler()),
+    MarketBuy(new MarketBuyHandler()),
+    MarketSell(new MarketSellHandler()),
+    MiningRefined(new MiningRefinedHandler()),
+    SellDrones(new SellDronesHandler()),
 
-    /**
-     * Written when a engineering mod or experimental effect is crafted
+    /*
+    Engineers
      */
-    EngineerCraft((context) ->
-    {
-        logEngineeringMessage(context, "Engineering Enhancement Costs :");
-        processEngineerUpgrade(context);
-    }),
+    EngineerContribution(new EngineerContributionHandler()),
+    EngineerCraft(new EngineerCraftHandler()),
+    TechnologyBroker(new TechnologyBrokerHandler()),
 
-    /**
-     * Written when using a material trader to trade one type of material for another
+    /*
+    Materials
      */
-    MaterialTrade((context) ->
-    {
-        logInventoryMessage(context, "Material Trade Completed");
-        adjustMaterialQuantity(context, ((Map<String, Object>) context.getRawData().get("Received")));
-        adjustMaterialQuantityDown(context, ((Map<String, Object>) context.getRawData().get("Paid")));
-    }),
+    MaterialCollected(new MaterialCollectedHandler()),
+    MaterialDiscarded(new MaterialDiscardedHandler()),
+    MaterialTrade(new MaterialTradeHandler()),
+    Synthesis(new SynthesisHandler()),
 
-    /**
-     * Written when synthesizing items
+    /*
+    Missions
      */
-    Synthesis((context) ->
-    {
-        String name = ((String) context.getRawData().get("Name"));
-        logInventoryMessage(context, "Synthesis Complete: " + name);
+    MissionCompleted(new MissionCompletedHandler()),
+    ScientificResearch(new ScientificResearchHandler()),
 
-        // todo: need a way to check max cargo size. This will be "up to four" limpets, depending on cargo space
-        if (name.contains("Limpet")) adjust(context, Commodity.DRONES, 4);
-        ((List<Map<String, Object>>) context.getRawData().get("Materials"))
-                .forEach(material -> adjustMaterialCountDown(context, material));
-    }),
-
-    /**
-     * Written when contributing materials to a community goal
+    /*
+    Modules
      */
-    ScientificResearch((context) ->
-    {
-        logInventoryMessage(context, "Scientific Research Contribution Completed");
-        adjustMaterialCountDown(context, context.getRawData());
-    }),
+    ModuleBuy(new ModuleBuyHandler()),
+    ModuleRetrieve(new ModuleRetrieveHandler()),
+    ModuleSell(new ModuleSellHandler()),
+    ModuleStore(new ModuleStoreHandler()),
 
-    /**
-     * Written when collecting commodity items
+    /*
+    PowerPlay
      */
-    CollectCargo((context) ->
-    {
-        logInventoryMessage(context, "Cargo Collected");
-        String name = ((String) context.getRawData().get("Type")).toUpperCase();
-        adjust(context, new Pair<>(name, 1), AdjustmentType.COMMODITY);
-    }),
-
-    /**
-     * Written when ejecting commodities from cargo
-     */
-    EjectCargo((context) ->
-    {
-        logInventoryMessage(context, "Cargo Ejected");
-        adjustCommodityTypeDown(context, context.getRawData());
-    }),
-
-    /**
-     * Written when buying commodities from a market
-     */
-    MarketBuy((context) ->
-    {
-        logInventoryMessage(context, "Commodity Purchased");
-        adjustCommodityType(context, context.getRawData());
-    }),
-
-    /**
-     * Written when celling commodities to a market
-     */
-    MarketSell((context) ->
-    {
-        logInventoryMessage(context, "Commodity Sold");
-        adjustCommodityTypeDown(context, context.getRawData());
-    }),
-
-    /**
-     * Written when a commodity has been refined through collection of mining fragments
-     */
-    MiningRefined((context) ->
-    {
-        logInventoryMessage(context, "Commodity Refined");
-        String name = ((String) context.getRawData().get("Type")).replace("$","").replace("_name;","").toUpperCase();
-        adjust(context, new Pair<>(name, 1), AdjustmentType.COMMODITY);
-    }),
-
-    /**
-     * Written when a cargo delivery wing mission status updates
-     */
-    CargoDepot((context) ->
-    {
-        String updateType = ((String) context.getRawData().get("UpdateType"));
-        Pair<String, Integer> pair = extractPair(context.getRawData(), "CargoType", "Count");
-
-        switch (updateType)
-        {
-            case "Deliver":
-                logInventoryMessage(context, "Cargo Delivered");
-                adjustDown(context, pair, AdjustmentType.COMMODITY);
-                break;
-
-            case "Collect":
-                logInventoryMessage(context, "Cargo Collected");
-                adjust(context, pair, AdjustmentType.COMMODITY);
-                break;
-        }
-    }),
-
-    /**
-     * Written when buying limpet drones
-     */
-    BuyDrones((context) ->
-    {
-        logInventoryMessage(context, "Limpet Drones Purchased");
-        adjust(context, Commodity.DRONES, ((int) context.getRawData().get("Count")));
-    }),
-
-    /**
-     * Written when selling limpet drones
-     */
-    SellDrones((context) ->
-    {
-        logInventoryMessage(context, "Limpet Drones Sold");
-        adjustDown(context, Commodity.DRONES, ((int) context.getRawData().get("Count")));
-    }),
-
-    /**
-     * Written when launching a limpet drone
-     */
-    LaunchDrone((context) ->
-    {
-        logInventoryMessage(context, "Limpet Drone Launched");
-        adjustDown(context, Commodity.DRONES, 1);
-    }),
-
-    /**
-     * Written when collecting powerplay specific cargo items
-     */
-    PowerplayCollect((context) ->
-    {
-        logInventoryMessage(context, "PowerPlay Item Collected");
-        adjustCommodityType(context, context.getRawData());
-    }),
-
-    /**
-     * Written when delivering powerplay specific cargo items
-     */
-    PowerplayDeliver((context) ->
-    {
-        logInventoryMessage(context, "PowerPlay Item Delivered");
-        adjustCommodityTypeDown(context, context.getRawData());
-    }),
-
-    /**
-     * Written when a currently equipped module is stored, removing it from the current ship
-     */
-    ModuleStore((context) ->
-    {
-        logInventoryMessage(context, "Module Stored");
-        JournalEventTransactions.emptySlotFromData(context);
-    }),
-
-    /**
-     * Written when a currently equipped module is sold, removing it from the current ship
-     */
-    ModuleSell((context) ->
-    {
-        logInventoryMessage(context, "Module Sold");
-        JournalEventTransactions.emptySlotFromData(context);
-    }),
-
-    /**
-     * Written when buying a new module, equipping it to the current ship
-     */
-    ModuleBuy((context ->
-    {
-        logInventoryMessage(context, "Module Purchased");
-        processBuyModule(context);
-    })),
-
-    /**
-     * Written when retrieving a module from storage, equipping it to the current ship
-     */
-    ModuleRetrieve((context ->
-    {
-        logInventoryMessage(context, "Module Retrieved from Storage");
-        processRetrieveModule(context);
-    })),
+    PowerplayCollect(new PowerplayCollectHandler()),
+    PowerplayDeliver(new PowerplayDeliverHandler()),
 
     ;
 
     /**
      * Stores the event processing logic for the corresponding event
      */
-    private final Consumer<EventProcessingContext> eventConsumer;
-    private final JournalEventHandler event;
+    private final JournalEventHandler handler;
 
-    JournalEvent(Consumer<EventProcessingContext> eventConsumer)
+    JournalEvent(JournalEventHandler handler)
     {
-        this.eventConsumer = eventConsumer;
-        this.event = null;
-    }
-
-    JournalEvent(JournalEventHandler event)
-    {
-        this.eventConsumer = null;
-        this.event = event;
+        this.handler = handler;
     }
 
     /**
@@ -585,7 +171,6 @@ public enum JournalEvent
      */
     public void process(EventProcessingContext eventProcessingContext)
     {
-        if (eventConsumer == null) event.handle(eventProcessingContext);
-        else eventConsumer.accept(eventProcessingContext);
+        handler.handle(eventProcessingContext);
     }
 }

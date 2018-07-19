@@ -21,15 +21,9 @@ public class HardPointLayoutData
         this.slots = builder.slots.toArray(h);
     }
 
-    public HardPointSize[] getSlots()
-    {
-        return slots;
-    }
+    public HardPointSize[] getSlots() { return slots; }
 
-    public static Builder builder()
-    {
-        return new Builder();
-    }
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder
     {

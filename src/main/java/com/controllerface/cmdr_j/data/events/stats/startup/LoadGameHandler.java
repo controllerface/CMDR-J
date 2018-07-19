@@ -1,20 +1,17 @@
-package com.controllerface.cmdr_j.structures.journal.events;
+package com.controllerface.cmdr_j.data.events.stats.startup;
 
 import com.controllerface.cmdr_j.EventProcessingContext;
+import com.controllerface.cmdr_j.data.events.JournalEventHandler;
 import com.controllerface.cmdr_j.structures.commander.PlayerStat;
-import com.controllerface.cmdr_j.structures.equipment.ships.CoreInternalSlot;
-import com.controllerface.cmdr_j.structures.equipment.ships.Ship;
-import com.controllerface.cmdr_j.threads.JournalSyncTask;
 
-import java.util.List;
-import java.util.Map;
-
-import static com.controllerface.cmdr_j.structures.journal.JournalEventTransactions.*;
+import static com.controllerface.cmdr_j.data.events.JournalEventTransactions.*;
 
 /**
+ * Main game load event: written at startup, when loading from main menu
+ *
  * Created by Stephen on 7/18/2018.
  */
-public class LoadGameHandler extends JournalEventHandler
+public class LoadGameHandler implements JournalEventHandler
 {
     @Override
     @SuppressWarnings("unchecked")

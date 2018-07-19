@@ -21,11 +21,8 @@ public class StarSystem
     }
 
     public String getSystemName() { return systemName; }
-
     public double getxPos() { return xPos; }
-
     public double getyPos() { return yPos; }
-
     public double getzPos() { return zPos; }
 
     public double distanceBetween(StarSystem that)

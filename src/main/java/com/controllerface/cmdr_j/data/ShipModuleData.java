@@ -59,7 +59,8 @@ public class ShipModuleData implements Displayable
         this.userTransactions = builder.userTransactions;
     }
 
-
+    public Statistic getModuleName() { return moduleName; }
+    public ShipModule getModule() { return module; }
 
     /**
      * Maps a {@code ProcurementBlueprint} object to a {@code Pair<ProcurementType, ProcurementRecipe>} object,
@@ -87,23 +88,6 @@ public class ShipModuleData implements Displayable
 
     private Button createTaskButton(Pair<ProcurementType, ProcurementRecipe> recipePair)
     {
-//        HBox layoutBox = new HBox();
-//        Label nameLabel = new Label(recipePair.getValue().getDisplayLabel());
-//        nameLabel.setFont(UIFunctions.Fonts.size1Font);
-//
-//        Region spacer = new Region();
-//        HBox.setHgrow(spacer, Priority.ALWAYS);
-//
-//        layoutBox.getChildren().addAll(nameLabel, spacer);
-//
-//        recipePair.getValue().costStream()
-//                .map(CostData::getCost)
-//                .map(ProcurementCost::getGrade)
-//                .map(ItemGrade::getIcon)
-//                .map(icon -> icon == null ? UIFunctions.Icons.cargo : icon)
-//                .map(icon -> UIFunctions.Convert.createMaterialIconRegion(icon, 25, 22))
-//                .forEach(r->layoutBox.getChildren().add(r));
-
         Button button = new Button();
 
         button.setStyle("-fx-base: #88ee88;");
@@ -115,8 +99,6 @@ public class ShipModuleData implements Displayable
         tooltip.setFont(UIFunctions.Fonts.size1Font);
         tooltip.setText("Add " + recipePair.getValue().getDisplayLabel() + " to Tracked Tasks");
         button.setTooltip(tooltip);
-
-//        button.setGraphic(layoutBox);
 
         button.setOnAction(event -> userTransactions.add(new UserTransaction(1, recipePair)));
 
@@ -184,12 +166,8 @@ public class ShipModuleData implements Displayable
         }
 
         infoPane.setContent(costEffectContainer);
-        //infoPane.prefWidthProperty().bind(this.widthProperty().subtract(50));
-
         return infoPane;
     }
-
-
 
     private void renderModificationInfo(HBox moduleNameContainer, VBox detailsContainer)
     {
@@ -319,9 +297,6 @@ public class ShipModuleData implements Displayable
                 detailsContainer.getChildren().add(expPane);
             }
         }
-
-
-        // END WORKING AREA
     }
 
     private void renderEffectTable(VBox effectsContainer)
@@ -452,15 +427,7 @@ public class ShipModuleData implements Displayable
         return effects;
     }
 
-    public Statistic getModuleName()
-    {
-        return moduleName;
-    }
 
-    public ShipModule getModule()
-    {
-        return module;
-    }
 
     /**
      * For the provided ItemEffect, returns the actual value this item has for that effect, if any.
@@ -491,10 +458,7 @@ public class ShipModuleData implements Displayable
     }
 
     @Override
-    public void prepareGraphic()
-    {
-
-    }
+    public void prepareGraphic() {}
 
     public synchronized Node getGraphic()
     {

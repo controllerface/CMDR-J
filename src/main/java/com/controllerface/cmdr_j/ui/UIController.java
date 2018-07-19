@@ -275,11 +275,6 @@ public class UIController
     private final BlockingQueue<MessageData> messageQueue = new LinkedBlockingDeque<>();
     private final AtomicBoolean hasMessages = new AtomicBoolean(false);
 
-    /*
-    Convenience consumer function that accepts a ProcurementTask and adds it to the procurement list. If the task
-    already exists in the list, this effectively increments the count of that by 1
-     */
-
     private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> addPairToProcurementList =
             (count, task) -> transactionQueue.add(new UserTransaction(count, task));
 

@@ -12,7 +12,6 @@ public class ModifierData
     private final double originalValue;
     private final boolean lessIsGood;
 
-
     public ModifierData(ItemEffect effect, double value, double originalValue, boolean lessIsGood)
     {
         this.effect = effect;
@@ -21,23 +20,8 @@ public class ModifierData
         this.lessIsGood = lessIsGood;
     }
 
-    public ItemEffect getEffect()
-    {
-        return effect;
-    }
-
-    public double getValue()
-    {
-        return value;
-    }
-
-    public double getOriginalValue()
-    {
-        return originalValue;
-    }
-
-    public boolean isLessIsGood()
-    {
-        return lessIsGood;
-    }
+    public ItemEffect getEffect() { return effect; }
+    public double getValue() { return value; }
+    double getOriginalValue() { return originalValue; }
+    boolean isLessIsGood() { return lessIsGood; }
 }

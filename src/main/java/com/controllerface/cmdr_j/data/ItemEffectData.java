@@ -26,27 +26,16 @@ public class ItemEffectData
         this.stringValue = doubleValue == Double.MAX_VALUE ? UIFunctions.Symbols.INFINITY : null;
     }
 
-    public ItemEffect getEffect()
-    {
-        return effect;
-    }
+    public ItemEffect getEffect() { return effect; }
+    public double getDoubleValue() { return doubleValue == null ? 0.0 : doubleValue; }
+    public String getStringValue() { return stringValue; }
 
     public boolean isNumerical()
     {
         return doubleValue != null;
     }
 
-    public double getDoubleValue()
-    {
-        return doubleValue;
-    }
-
-    public String getStringValue()
-    {
-        return stringValue;
-    }
-
-    public String getValueString()
+    String getValueString()
     {
         return stringValue == null ? String.valueOf(doubleValue) : stringValue;
     }
