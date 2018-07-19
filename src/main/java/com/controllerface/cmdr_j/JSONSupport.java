@@ -64,7 +64,6 @@ public class JSONSupport
             writer.writeValue(outputStream, json);
         }
 
-
         public static final BiFunction<File, Map<String, Object>, Boolean> jsonToFile = (file, json) ->
         {
             try(OutputStream fileStream = new FileOutputStream(file))
