@@ -1359,47 +1359,19 @@ public class UIController
                 .forEach((key, value) ->
                 {
                     ProcurementCost material = Material.valueOf(key);
-                    material.setLocalizedName(((String) value));
+                    material.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
+                    List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
+                    material.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
                 });
 
         ((Map<String, Object>) data.get("commodities"))
                 .forEach((key, value) ->
                 {
                     ProcurementCost commodity = Commodity.valueOf(key);
-                    commodity.setLocalizedName(((String) value));
-                });
-
-        InputStream locStream = null;
-        try
-        {
-            URL localizationData = getClass().getResource("/localization/locations.json");
-            locStream = localizationData.openStream();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        Map<String, Object> locData = JSONSupport.Parse.jsonStream.apply(locStream);
-
-        ((Map<String, Object>) locData.get("materials"))
-                .forEach((key, value) ->
-                {
-                    ProcurementCost material = Material.valueOf(key);
-
-                    List<String> locations = ((List<String>) value);
-
-                    material.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
-                });
-
-        ((Map<String, Object>) locData.get("commodities"))
-                .forEach((key, value) ->
-                {
-                    ProcurementCost commodity = Commodity.valueOf(key);
-
-                    List<String> locations = ((List<String>) value);
-
+                    commodity.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
+                    List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
                     commodity.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
+
                 });
     }
 

@@ -1,524 +1,3294 @@
 {
-  "commodities":
-  {
-    "EXPLOSIVES" : "Explosives",
-    "HYDROGENFUEL" : "Hydrogen Fuel",
-    "HYDROGENPEROXIDE" : "Hydrogen Peroxide",
-    "LIQUIDOXYGEN" : "Liquid Oxygen",
-    "MINERALOIL" : "Mineral Oil",
-    "NERVEAGENTS" : "Nerve Agents",
-    "PESTICIDES" : "Pesticides",
-    "SURFACESTABILISERS" : "Surface Stabilisers",
-    "SYNTHETICREAGENTS" : "Synthetic Reagents",
-    "WATER" : "Water",
-    "CLOTHING" : "Clothing",
-    "CONSUMERTECHNOLOGY" : "Consumer Technology",
-    "DOMESTICAPPLIANCES" : "Domestic Appliances",
-    "EVACUATIONSHELTER" : "Evacuation Shelter",
-    "SURVIVALEQUIPMENT" : "Survival Equipment",
-    "BEER" : "Beer",
-    "BOOTLEGLIQUOR" : "Bootleg Liquor",
-    "LIQUOR" : "Liquor",
-    "BASICNARCOTICS" : "Narcotics",
-    "TOBACCO" : "Tobacco",
-    "WINE" : "Wine",
-    "ALGAE" : "Algae",
-    "ANIMALMEAT" : "Animal Meat",
-    "COFFEE" : "Coffee",
-    "FISH" : "Fish",
-    "FOODCARTRIDGES" : "Food Cartridges",
-    "FRUITANDVEGETABLES" : "Fruit and Vegetables",
-    "GRAIN" : "Grain",
-    "SYNTHETICMEAT" : "Synthetic Meat",
-    "TEA" : "Tea",
-    "CERAMICCOMPOSITES" : "Ceramic Composites",
-    "CMMCOMPOSITE" : "CMM composite",
-    "INSULATINGMEMBRANE" : "Insulating Membrane",
-    "METAALLOYS" : "Meta-Alloys",
-    "COOLINGHOSES" : "Microweave Cooling Hoses",
-    "NEOFABRICINSULATION" : "Neofabric Insulation",
-    "POLYMERS" : "Polymers",
-    "SEMICONDUCTORS" : "Semiconductors",
-    "SUPERCONDUCTORS" : "Superconductors",
-    "ARTICULATIONMOTORS" : "Articulation Motors",
-    "ATMOSPHERICEXTRACTORS" : "Atmospheric Processors",
-    "BUILDINGFABRICATORS" : "Building Fabricators",
-    "CROPHARVESTERS" : "Crop Harvesters",
-    "EMERGENCYPOWERCELLS" : "Emergency Power Cells",
-    "POWERGRIDASSEMBLY" : "Energy Grid Assembly",
-    "EXHAUSTMANIFOLD" : "Exhaust Manifold",
-    "GEOLOGICALEQUIPMENT" : "Geological Equipment",
-    "HEATSINKINTERLINK" : "Heatsink Interlink",
-    "HNSHOCKMOUNT" : "HN Shock Mount",
-    "MAGNETICEMITTERCOIL" : "Magnetic Emitter Coil",
-    "MARINESUPPLIES" : "Marine Equipment",
-    "HELIOSTATICFURNACES" : "Microbial Furnaces",
-    "MINERALEXTRACTORS" : "Mineral Extractors",
-    "MODULARTERMINALS" : "Modular Terminals",
-    "POWERCONVERTER" : "Power Converter",
-    "POWERGENERATORS" : "Power Generators",
-    "POWERTRANSFERBUS" : "Power Transfer Bus",
-    "RADIATIONBAFFLE" : "Radiation Baffle",
-    "REINFORCEDMOUNTINGPLATE" : "Reinforced Mounting Plate",
-    "SKIMERCOMPONENTS" : "Skimmer Components",
-    "THERMALCOOLINGUNITS" : "Thermal Cooling Units",
-    "WATERPURIFIERS" : "Water Purifiers",
-    "ADVANCEDMEDICINES" : "Advanced Medicines",
-    "AGRICULTURALMEDICINES" : "Agrimedicines",
-    "BASICMEDICINES" : "Basic Medicines",
-    "COMBATSTABILISERS" : "Combat Stabilisers",
-    "PERFORMANCEENHANCERS" : "Performance Enhancers",
-    "PROGENITORCELLS" : "Progenitor Cells",
-    "ALUMINIUM" : "Aluminium",
-    "BERYLLIUM" : "Beryllium",
-    "BISMUTH" : "Bismuth",
-    "COBALT" : "Cobalt",
-    "COPPER" : "Copper",
-    "GALLIUM" : "Gallium",
-    "GOLD" : "Gold",
-    "HAFNIUM178" : "Hafnium 178",
-    "INDIUM" : "Indium",
-    "LANTHANUM" : "Lanthanum",
-    "LITHIUM" : "Lithium",
-    "OSMIUM" : "Osmium",
-    "PALLADIUM" : "Palladium",
-    "PLATINUM" : "Platinum",
-    "PLATINUMALLOY" : "Platinum Alloy",
-    "PRASEODYMIUM" : "Praseodymium",
-    "SAMARIUM" : "Samarium",
-    "SILVER" : "Silver",
-    "TANTALUM" : "Tantalum",
-    "THALLIUM" : "Thallium",
-    "THORIUM" : "Thorium",
-    "TITANIUM" : "Titanium",
-    "URANIUM" : "Uranium",
-    "BAUXITE" : "Bauxite",
-    "BERTRANDITE" : "Bertrandite",
-    "BROMELLITE" : "Bromellite",
-    "COLTAN" : "Coltan",
-    "CRYOLITE" : "Cryolite",
-    "GALLITE" : "Gallite",
-    "GOSLARITE" : "Goslarite",
-    "INDITE" : "Indite",
-    "JADEITE" : "Jadeite",
-    "LEPIDOLITE" : "Lepidolite",
-    "LITHIUMHYDROXIDE" : "Lithium Hydroxide",
-    "LOWTEMPERATUREDIAMOND" : "Low Temperature Diamonds",
-    "METHANECLATHRATE" : "Methane Clathrate",
-    "METHANOLMONOHYDRATECRYSTALS" : "Methanol Monohydrate Crystals",
-    "MOISSANITE" : "Moissanite",
-    "PAINITE" : "Painite",
-    "PYROPHYLLITE" : "Pyrophyllite",
-    "RUTILE" : "Rutile",
-    "TAAFFEITE" : "Taaffeite",
-    "URANINITE" : "Uraninite",
-    "AIRELICS" : "Airelics",
-    "USSCARGOANCIENTARTEFACT" : "Ancient Artefact",
-    "ANCIENTCASKET" : "Ancient Casket",
-    "ANCIENTORB" : "Ancient Orb",
-    "ANCIENTRELIC" : "Ancient Relic",
-    "ANCIENTTABLET" : "Ancient Tablet",
-    "ANCIENTTOTEM" : "Ancient Totem",
-    "ANCIENTURN" : "Ancient Urn",
-    "ANTIMATTERCONTAINMENTUNIT" : "Antimatter Containment Unit",
-    "ANTIQUEJEWELLERY" : "Antique Jewellery",
-    "ANTIQUITIES" : "Antiquities",
-    "ASSAULTPLANS" : "Assault Plans",
-    "USSCARGOBLACKBOX" : "Blackbox",
-    "COMERCIALSAMPLES" : "Commercial Samples",
-    "DAMAGEDESCAPEPOD" : "Damaged Escape Pod",
-    "DATACORE" : "Data Core",
-    "DIPLOMATICBAG" : "Diplomatic Bag",
-    "EARTHRELICS" : "Earth Relics",
-    "ENCRYPTEDCORRESPONDENCE" : "Encrypted Correspondence",
-    "ENCRIPTEDDATASTORAGE" : "Encrypted Data Storage",
-    "USSCARGOEXPERIMENTALCHEMICALS" : "Experimental Chemicals",
-    "FOSSILREMNANTS" : "Fossil Remnants",
-    "GENEBANK" : "Gene Bank",
-    "GEOLOGICALSAMPLES" : "Geological Samples",
-    "HOSTAGE" : "Hostage",
-    "LARGEEXPLORATIONDATACASH" : "Large Survey Data Cache",
-    "MILITARYINTELLIGENCE" : "Military Intelligence",
-    "USSCARGOMILITARYPLANS" : "Military Plans",
-    "MYSTERIOUSIDOL" : "Mysterious Idol",
-    "OCCUPIEDESCAPEPOD" : "Occupied Escape Pod",
-    "PERSONALEFFECTS" : "Personal Effects",
-    "POLITICALPRISONER" : "Political Prisoner",
-    "PRECIOUSGEMS" : "Precious Gems",
-    "PROHIBITEDRESEARCHMATERIALS" : "Prohibited Research Materials",
-    "USSCARGOPROTOTYPETECH" : "Prototype Tech",
-    "USSCARGORAREARTWORK" : "Rare Artwork",
-    "USSCARGOREBELTRANSMISSIONS" : "Rebel Transmissions",
-    "SAP8CORECONTAINER" : "Sap 8 Core Container",
-    "SCIENTIFICRESEARCH" : "Scientific Research",
-    "SCIENTIFICSAMPLES" : "Scientific Samples",
-    "SMALLEXPLORATIONDATACASH" : "Small Survey Data Cache",
-    "SPACEPIONEERRELICS" : "Space Pioneer Relics",
-    "TACTICALDATA" : "Tactical Data",
-    "USSCARGOTECHNICALBLUEPRINTS" : "Technical Blueprints",
-    "THARGOIDBASILISKTISSUESAMPLE" : "Thargoid Basilisk Tissue Sample",
-    "THARGOIDBIOLOGICALMATTER" : "Thargoid Biological Matter",
-    "THARGOIDCYCLOPSTISSUESAMPLE" : "Thargoid Cyclops Tissue Sample",
-    "THARGOIDHEART" : "Thargoid Heart",
-    "THARGOIDLINK" : "Thargoid Link",
-    "THARGOIDMEDUSATISSUESAMPLE" : "Thargoid Medusa Tissue Sample",
-    "THARGOIDPROBE" : "Thargoid Probe",
-    "THARGOIDRESIN" : "Thargoid Resin",
-    "THARGOIDSCOUTTISSUESAMPLE" : "Thargoid Scout Tissue Sample",
-    "THARGOIDSENSOR" : "Thargoid Sensor",
-    "THARGOIDTECHNOLOGYSAMPLES" : "Thargoid Technology Samples",
-    "TIMECAPSULE" : "Time Capsule",
-    "USSCARGOTRADEDATA" : "Trade Data",
-    "TRINKETSOFHIDDENFORTUNE" : "Trinkets Of Hidden Fortune",
-    "UNSTABLEDATACORE" : "Unstable Data Core",
-    "WRECKAGECOMPONENTS" : "Wreckage Components",
-    "IMPERIALSLAVES" : "Imperial Slaves",
-    "SLAVES" : "Slaves",
-    "ADVANCEDCATALYSERS" : "Advanced Catalysers",
-    "ANIMALMONITORS" : "Animal Monitors",
-    "AQUAPONICSYSTEMS" : "Aquaponic Systems",
-    "AUTOFABRICATORS" : "Auto-fabricators",
-    "BIOREDUCINGLICHEN" : "Bio-reducing Lichen",
-    "COMPUTERCOMPONENTS" : "Computer Components",
-    "HAZARDOUSENVIRONMENTSUITS" : "Hazardous Environment Suits",
-    "DIAGNOSTICSENSOR" : "Hardware Diagnostic Sensor",
-    "IONDISTRIBUTOR" : "Ion Distributor",
-    "TERRAINENRICHMENTSYSTEMS" : "Land Enrichment Systems",
-    "MEDICALDIAGNOSTICEQUIPMENT" : "Medical Diagnostic Equipment",
-    "MICROCONTROLLERS" : "Micro-controllers",
-    "MUONIMAGER" : "Muon Imager",
-    "NANOBREAKERS" : "Nano Breakers",
-    "RESONATINGSEPARATORS" : "Resonating Separators",
-    "ROBOTICS" : "Robotics",
-    "STRUCTURALREGULATORS" : "Structural Regulators",
-    "TELEMETRYSUITE" : "Telemetry Suite",
-    "CONDUCTIVEFABRICS" : "Conductive Fabrics",
-    "LEATHER" : "Leather",
-    "MILITARYGRADEFABRICS" : "Military Grade Fabrics",
-    "NATURALFABRICS" : "Natural Fabrics",
-    "SYNTHETICFABRICS" : "Synthetic Fabrics",
-    "BIOWASTE" : "Bio-waste",
-    "CHEMICALWASTE" : "Chemical Waste",
-    "SCRAP" : "Scrap",
-    "TOXICWASTE" : "Toxic Waste",
-    "BATTLEWEAPONS" : "Battle Weapons",
-    "LANDMINES" : "Landmines",
-    "NONLETHALWEAPONS" : "Non-lethal Weapons",
-    "PERSONALWEAPONS" : "Personal Weapons",
-    "REACTIVEARMOUR" : "Reactive Armour",
-    "DRONES" : "Limpet",
-    "AEPYORNISEGG" : "Aepyornis Egg",
-    "AGANIPPERUSH" : "Aganippe Rush",
-    "ALACARAKMOSKINART" : "Alacarakmo Skin Art",
-    "ALBINOQUECHUAMAMMOTH" : "Albino Quechua Mammoth",
-    "ALTAIRIANSKIN" : "Altairian Skin",
-    "ALYABODYSOAP" : "Alya Body Soap",
-    "ANDULIGAFIREWORKS" : "Anduliga Fireworks",
-    "ANYNACOFFEE" : "Anyna Coffee",
-    "AROUCACONVENTUALSWEETS" : "Arouca Conventual Sweets",
-    "AZCANCRIFORMULA42" : "Az Cancri Formula 42",
-    "AZUREMILK" : "Azure Milk",
-    "BALTAHSINEVACUUMKRILL" : "Baltah Sine Vacuum Krill",
-    "BANKIAMPHIBIOUSLEATHER" : "Banki Amphibious Leather",
-    "BASTSNAKEGIN" : "Bast Snake Gin",
-    "BELALANSRAYLEATHER" : "Belalans Ray Leather",
-    "BORASETANIPATHOGENETICS" : "Borasetani Pathogenetics",
-    "BUCKYBALLBEERMATS" : "Buckyball Beer Mats",
-    "BURNHAMBILEDISTILLATE" : "Burnham Bile Distillate",
-    "CD75KITTENBRANDCOFFEE" : "CD-75 Kitten Brand Coffee",
-    "CENTAURIMEGAGIN" : "Centauri Mega Gin",
-    "CEREMONIALHEIKETEA" : "Ceremonial Heike Tea",
-    "CETIRABBITS" : "Ceti Rabbits",
-    "CHAMELEONCLOTH" : "Chameleon Cloth",
-    "CHATEAUDEAEGAEON" : "Chateau De Aegaeon",
-    "CHERBONESBLOODCRYSTALS" : "Cherbones Blood Crystals",
-    "CHIERIDANIMARINEPASTE" : "Chi Eridani Marine Paste",
-    "COQUIMSPONGIFORMVICTUALS" : "Coquim Spongiform Victuals",
-    "CROMSILVERFESH" : "Crom Silver Fesh",
-    "CRYSTALLINESPHERES" : "Crystalline Spheres",
-    "DAMNACARAPACES" : "Damna Carapaces",
-    "DELTAPHOENICISPALMS" : "Delta Phoenicis Palms",
-    "DEURINGASTRUFFLES" : "Deuringas Truffles",
-    "DISOMACORN" : "Diso Ma Corn",
-    "EDENAPPLESOFAERIAL" : "Edenapplesofaerial",
-    "ELEUTHERMALS" : "Eleuthermals",
-    "ERANINPEARLWHISKEY" : "Eranin Pearl Whiskey",
-    "ESHUUMBRELLAS" : "Eshu Umbrellas",
-    "ESUSEKUCAVIAR" : "Esuseku Caviar",
-    "ETHGREZETEABUDS" : "Ethgreze Tea Buds",
-    "FUJINTEA" : "Fujin Tea",
-    "GALACTICTRAVELGUIDES" : "Galactic Travel Guides",
-    "GEAWENDANCEDUST" : "Geawen Dance Dust",
-    "GERASIANGUEUZEBEER" : "Gerasian Gueuze Beer",
-    "GIANTIRUKAMASNAILS" : "Giant Irukama Snails",
-    "GIANTVERRIX" : "Giant Verrix",
-    "GILYASIGNATUREWEAPONS" : "Gilya Signature Weapons",
-    "GOMANYAUPONCOFFEE" : "Goman Yaupon Coffee",
-    "HAIDNEBLACKBREW" : "Haidne Black Brew",
-    "HARMASILVERSEARUM" : "Harma Silver Sea Rum",
-    "HAVASUPAIDREAMCATCHER" : "Havasupai Dream Catcher",
-    "HELVETITJPEARLS" : "Helvetitj Pearls",
-    "HIP10175BUSHMEAT" : "HIP 10175 Bush Meat",
-    "HIP118311SWARM" : "HIP 118311 Swarm",
-    "HIPORGANOPHOSPHATES" : "HIP Organophosphates",
-    "HIPPROTOSQUID" : "Hip Proto-Squid",
-    "HOLVADUELLINGBLADES" : "Holva Duelling Blades",
-    "HONESTYPILLS" : "Honesty Pills",
-    "HR7221WHEAT" : "HR 7221 Wheat",
-    "INDIBOURBON" : "Indi Bourbon",
-    "JAQUESQUINENTIANSTILL" : "Jaques Quinentian Still",
-    "JARADHARREPUZZLEBOX" : "Jaradharre Puzzle Box",
-    "JAROUARICE" : "Jaroua Rice",
-    "JOTUNMOOKAH" : "Jotun Mookah",
-    "KACHIRIGINFILTERLEECHES" : "Kachirigin Filter Leeches",
-    "KAMITRACIGARS" : "Kamitra Cigars",
-    "KAMORINHISTORICWEAPONS" : "Kamorin Historic Weapons",
-    "KARETIICOUTURE" : "Karetii Couture",
-    "KARSUKILOCUSTS" : "Karsuki Locusts",
-    "KINAGOVIOLINS" : "Kinago Violins",
-    "KONGGAALE" : "Kongga Ale",
-    "KOROKUNGPELLETS" : "Koro Kung Pellets",
-    "LAVIANBRANDY" : "Lavian Brandy",
-    "ALIENEGGS" : "Leathery Eggs",
-    "LEESTIANEVILJUICE" : "Leestian Evil Juice",
-    "LIVEHECATESEAWORMS" : "Live Hecate Sea Worms",
-    "LTTHYPERSWEET" : "LTT Hyper Sweet",
-    "LUCANONIONHEAD" : "Lucan Onionhead",
-    "LYRAEWEED" : "Lyrae Weed",
-    "MASTERCHEFS" : "Master Chefs",
-    "MECHUCOSHIGHTEA" : "Mechucos High Tea",
-    "MEDBSTARLUBE" : "Medb Starlube",
-    "MOKOJINGBEASTFEAST" : "Mokojing Beast Feast",
-    "MOMUSBOGSPANIEL" : "Momus Bog Spaniel",
-    "MOTRONAEXPERIENCEJELLY" : "Motrona Experience Jelly",
-    "MUKUSUBIICHITINOS" : "Mukusubii Chitin-Os",
-    "MULACHIGIANTFUNGUS" : "Mulachi Giant Fungus",
-    "NERITUSBERRIES" : "Neritus Berries",
-    "NGADANDARIFIREOPALS" : "Ngadandari Fire Opals",
-    "NGUNAMODERNANTIQUES" : "Nguna Modern Antiques",
-    "NJANGARISADDLES" : "Njangari Saddles",
-    "NONEUCLIDIANEXOTANKS" : "Non-Euclidian Exotanks",
-    "OCHOENGCHILLIES" : "Ochoeng Chillies",
-    "ONIONHEAD" : "Onionhead",
-    "ONIONHEADALPHASTRAIN" : "Onionhead Alpha Strain",
-    "ONIONHEADBETASTRAIN" : "Onionhead Beta Strain",
-    "OPHIUCHEXINOARTEFACTS" : "Ophiuch Exino Artefacts",
-    "ORRERIANVICIOUSBREW" : "Orrerian Vicious Brew",
-    "PANTAAPRAYERSTICKS" : "Pantaa Prayer Sticks",
-    "PAVONISEARGRUBS" : "Pavonis Ear Grubs",
-    "PERSONALGIFTS" : "Personal Gifts",
-    "RAJUKRUMULTISTOVES" : "Rajukru Multi-Stoves",
-    "RAPABAOSNAKESKINS" : "Rapa Bao Snake Skins",
-    "RUSANIOLDSMOKEY" : "Rusani Old Smokey",
-    "SANUMADECORATIVEMEAT" : "Sanuma Decorative Meat",
-    "SAXONWINE" : "Saxon Wine",
-    "SHANSCHARISORCHID" : "Shans Charis Orchid",
-    "SOONTILLRELICS" : "Soontill Relics",
-    "SOTHISCRYSTALLINEGOLD" : "Sothis Crystalline Gold",
-    "TANMARKTRANQUILTEA" : "Tanmark Tranquil Tea",
-    "TARACHSPICE" : "Tarach Spice",
-    "TAURICHIMES" : "Tauri Chimes",
-    "TERRAMATERBLOODBORES" : "Terra Mater Blood Bores",
-    "THEHUTTONMUG" : "The Hutton Mug",
-    "THRUTISCREAM" : "Thrutis Cream",
-    "TIOLCEWASTE2PASTEUNITS" : "Tiolce Waste2paste Units",
-    "TOXANDJIVIROCIDE" : "Toxandji Virocide",
-    "ULTRACOMPACTPROCESSOR" : "Ultra-Compact Processor",
-    "USZAIANTREEGRUB" : "Uszaian Tree Grub",
-    "UTGAROARMILLENNIALEGGS" : "Utgaroar Millennial Eggs",
-    "UZUMOKULOWGWINGS" : "Uzumoku Low-G Wings",
-    "VHERCULISBODYRUB" : "V Herculis Body Rub",
-    "VANAYEQUICERATOMORPHAFUR" : "Vanayequi Ceratomorpha Fur",
-    "VEGASLIMWEED" : "Vega Slimweed",
-    "VIDAVANTIANLACE" : "Vidavantian Lace",
-    "VOIDEXTRACTCOFFEE" : "Void Extract Coffee",
-    "VOLKHABBEEDRONES" : "Volkhab Bee Drones",
-    "WATERSOFSHINTARA" : "Waters Of Shintara",
-    "WHEEMETEWHEATCAKES" : "Wheemete Wheat Cakes",
-    "WITCHHAULKOBEBEEF" : "Witchhaul Kobe Beef",
-    "WOLFFESH" : "Wolf Fesh",
-    "WULPAHYPERBORESYSTEMS" : "Wulpa Hyperbore Systems",
-    "WUTHIELOKUFROTH" : "Wuthielo Ku Froth",
-    "XIHEBIOMORPHICCOMPANIONS" : "Xihe Biomorphic Companions",
-    "YASOKONDILEAF" : "Yaso Kondi Leaf",
-    "ZEESSZEANTGRUBGLUE" : "Zeessze Ant Grub Glue",
-    "AISLINGMEDIAMATERIALS" : "Aisling Media Materials",
-    "AISLINGMEDIARESOURCES" : "Aisling Media Resources",
-    "AISLINGPROMOTIONALMATERIALS" : "Aisling Promotional Materials",
-    "ALLIANCETRADEAGREEMENTS" : "Alliance Trade Agreements",
-    "ALLIANCELEGASLATIVECONTRACTS" : "Alliance Legaslative Contracts",
-    "ALLIANCELEGASLATIVERECORDS" : "Alliance Legaslative Records",
-    "LAVIGNYCORRUPTIONDOSSIERS" : "Lavigny Corruption Dossiers",
-    "LAVIGNYFIELDSUPPLIES" : "Lavigny Field Supplies",
-    "LAVIGNYGARISONSUPPLIES" : "Lavigny Garison Supplies",
-    "RESTRICTEDPACKAGE" : "Restricted Package",
-    "LIBERALCAMPAIGNMATERIALS" : "Liberal Campaign Materials",
-    "FEDERALAID" : "Federal Aid",
-    "FEDERALTRADECONTRACTS" : "Federal Trade Contracts",
-    "LOANEDARMS" : "Loaned Arms",
-    "PATREUSFIELDSUPPLIES" : "Patreus Field Supplies",
-    "PATREUSGARISONSUPPLIES" : "Patreus Garison Supplies",
-    "RESTRICTEDINTEL" : "Restricted Intel",
-    "REPUBLICANFIELDSUPPLIES" : "Republican Field Supplies",
-    "REPUBLICANGARISONSUPPLIES" : "Republican Garison Supplies",
-    "SIRIUSFRANCHISEPACKAGE" : "Sirius Franchise Package",
-    "SIRIUSCOMMERCIALCONTRACTS" : "Sirius Commercial Contracts",
-    "SIRIUSINDUSTRIALEQUIPMENT" : "Sirius Industrial Equipment",
-    "TORVALCOMMERCIALCONTRACTS" : "Torval Commercial Contracts",
-    "IMPERIALPRISONER" : "Imperial Prisoner",
-    "UTOPIANPUBLICITY" : "Utopian Publicity",
-    "UTOPIANFIELDSUPPLIES" : "Utopian Field Supplies",
-    "UTOPIANDISSIDENT" : "Utopian Dissident",
-    "ILLICITCONSIGNMENT" : "Illicit Consignment",
-    "UNMARKEDWEAPONS" : "Unmarked Weapons",
-    "ONIONHEADSAMPLES" : "Onionhead Samples",
-    "COUNTERCULTURESUPPORT" : "Counterculture Support",
-    "MARKEDSLAVES" : "Marked Slaves",
-    "TORVALDEEDS" : "Torval Deeds",
-    "ONIONHEADDERIVATIVES" : "Onionhead Derivatives",
-    "OUTOFDATEGOODS" : "Out Of Date Goods",
-    "UNDERGROUNDSUPPORT" : "Underground Support",
-    "GROMCOUNTERINTELLIGENCE" : "Grom Counter Intelligence",
-    "GROMWARTROPHIES" : "Grom War Trophies"
+  "commodities": {
+    "EXPLOSIVES": {
+      "name": "Explosives",
+      "locations": [
+        "Produced by High Tech (Surface) and Refinery Economies",
+        "Consumed by Extraction Economies"
+      ]
+    },
+    "HYDROGENFUEL": {
+      "name": "Hydrogen Fuel",
+      "locations": [
+        "Produced and Consumed by All Economies",
+        "Note: this fuel is not compatible with star ship power plants"
+      ]
+    },
+    "HYDROGENPEROXIDE": {
+      "name": "Hydrogen Peroxide",
+      "locations": [
+        "Consumed by Refinery and Industrial Economies"
+      ]
+    },
+    "LIQUIDOXYGEN": {
+      "name": "Liquid Oxygen",
+      "locations": [
+        "Produced by Refinery Economies",
+        "Consumed by Industrial Economies"
+      ]
+    },
+    "MINERALOIL": {
+      "name": "Mineral Oil",
+      "locations": [
+        "Produced by Agricultural Economies",
+        "Consumed by Refinery Economies"
+      ]
+    },
+    "NERVEAGENTS": {
+      "name": "Nerve Agents",
+      "locations": [
+        "Produced by Refinery (Surface) Economies",
+        "Consumed by High Tech (Surface) and Military Economies"
+      ]
+    },
+    "PESTICIDES": {
+      "name": "Pesticides",
+      "locations": [
+        "Produced by High Tech Economies",
+        "Consumed by Agricultural Economies"
+      ]
+    },
+    "SURFACESTABILISERS": {
+      "name": "Surface Stabilisers",
+      "locations": [
+        "Produced by Refinery Economies (Surface)",
+        "Consumed by All Economies (Surface) except Refinery"
+      ]
+    },
+    "SYNTHETICREAGENTS": {
+      "name": "Synthetic Reagents",
+      "locations": [
+        "Produced by Refinery Economies(Surface)",
+        "Consumed by High Tech and Military Economies"
+      ]
+    },
+    "WATER": {
+      "name": "Water",
+      "locations": [
+        "Produced by Agricultural and Extraction Economies (Surface)",
+        "Consumed by All Economies but Agricultural and Extraction (Surface)"
+      ]
+    },
+    "CLOTHING": {
+      "name": "Clothing",
+      "locations": [
+        "Produced by Industrial Economies",
+        "Consumed by All Economies"
+      ]
+    },
+    "CONSUMERTECHNOLOGY": {
+      "name": "Consumer Technology",
+      "locations": [
+        "Produced by High Tech Economies",
+        "Consumed by All Economies except High Tech",
+        "Illegal in prison colonies and theocracies"
+      ]
+    },
+    "DOMESTICAPPLIANCES": {
+      "name": "Domestic Appliances",
+      "locations": [
+        "Produced by Industrial Economies",
+        "Consumed by All Economies"
+      ]
+    },
+    "EVACUATIONSHELTER": {
+      "name": "Evacuation Shelter",
+      "locations": [
+        "Produced by High Tech Economies",
+        "Consumed by All Economies (Surface) except High Tech"
+      ]
+    },
+    "SURVIVALEQUIPMENT": {
+      "name": "Survival Equipment",
+      "locations": [
+        "Produced by Industrial Economies",
+        "Consumed by: All Economies (Surface) except Industrial"
+      ]
+    },
+    "BEER": {
+      "name": "Beer",
+      "locations": [
+        "Produced by Agricultural Economies",
+        "Consumed by All Economies",
+        "Illegal in prison colonies and Federal theocracies"
+      ]
+    },
+    "BOOTLEGLIQUOR": {
+      "name": "Bootleg Liquor",
+      "locations": [
+        "Currently Unavailable"
+      ]
+    },
+    "LIQUOR": {
+      "name": "Liquor",
+      "locations": [
+        "Produced by Agricultural and Industrial Economies",
+        "Consumed by All Economies",
+        "Illegal in prison colonies and Federal or Alliance aligned theocracies"
+      ]
+    },
+    "BASICNARCOTICS": {
+      "name": "Narcotics",
+      "locations": [
+        "Produced by Agricultural, High Tech and Industrial Economies",
+        "Consumed by All Economies except High Tech and Industrial",
+        "Illegal in all but anarchies and dictatorships"
+      ]
+    },
+    "TOBACCO": {
+      "name": "Tobacco",
+      "locations": [
+        "Produced by Agricultural Economies",
+        "Consumed by All Economies",
+        "Illegal in Imperial prison colonies and corporate markets",
+        "Illegal in most Federal worlds and independent theocracies and corporate governed worlds"
+      ]
+    },
+    "WINE": {
+      "name": "Wine",
+      "locations": [
+        "Produced by Agricultural Economies",
+        "Consumed by All Economies",
+        "Illegal in prison colonies and Federal aligned theocracies"
+      ]
+    },
+    "ALGAE": {
+      "name": "Algae",
+      "locations": [
+        "Produced by Agricultural Economies",
+        "Consumed by Industrial and Military Economies"
+      ]
+    },
+    "ANIMALMEAT": {
+      "name": "Animal Meat",
+      "locations": [
+        "Produced by Agricultural Economies",
+        "Consumed by All Economies except Agricultural"
+      ]
+    },
+    "COFFEE": {
+      "name": "Coffee",
+      "locations": [
+        "Produced by Agricultural Economies",
+        "Consumed by All Economies except Agricultural"
+      ]
+    },
+    "FISH": {
+      "name": "Fish",
+      "locations": [
+        "Produced by Agricultural Economies",
+        "Consumed by All Economies except Agricultural"
+      ]
+    },
+    "FOODCARTRIDGES": {
+      "name": "Food Cartridges",
+      "locations": [
+        "Produced by Industrial Economies",
+        "Consumed by All Economies except Agricultural and Industrial"
+      ]
+    },
+    "FRUITANDVEGETABLES": {
+      "name": "Fruit and Vegetables",
+      "locations": [
+        "Produced by Agricultural Economies",
+        "Consumed by All Economies"
+      ]
+    },
+    "GRAIN": {
+      "name": "Grain",
+      "locations": [
+        "Produced by Agricultural Economies",
+        "Consumed by All Economies except Agricultural"
+      ]
+    },
+    "SYNTHETICMEAT": {
+      "name": "Synthetic Meat",
+      "locations": [
+        "Produced by High Tech Economies",
+        "Consumed by All Economies except High Tech and Agricultural"
+      ]
+    },
+    "TEA": {
+      "name": "Tea",
+      "locations": [
+        "Produced by Agricultural Economies",
+        "Consumed by All Economies except Agricultural"
+      ]
+    },
+    "CERAMICCOMPOSITES": {
+      "name": "Ceramic Composites",
+      "locations": [
+        "Produced by Refinery Economies (Surface)",
+        "Consumed by Industrial and High Tech Economies"
+      ]
+    },
+    "CMMCOMPOSITE": {
+      "name": "CMM composite",
+      "locations": [
+        "Produced by Refinery Economies (Surface)",
+        "Consumed by High Tech, Industrial and Military Economies"
+      ]
+    },
+    "INSULATINGMEMBRANE": {
+      "name": "Insulating Membrane",
+      "locations": [
+        "Produced by Refinery Economies (Space)",
+        "Consumed by High Tech, Industrial and Military Economies"
+      ]
+    },
+    "METAALLOYS": {
+      "name": "Meta-Alloys",
+      "locations": [
+        "Can be purchased Darnielle's Progress in the Maia System",
+        "Can be obtained by destroying Thargoid \"Barnacles\""
+      ]
+    },
+    "COOLINGHOSES": {
+      "name": "Microweave Cooling Hoses",
+      "locations": [
+        "Consumed by Industrial and Military Economies"
+      ]
+    },
+    "NEOFABRICINSULATION": {
+      "name": "Neofabric Insulation",
+      "locations": [
+        "Consumed by High Tech and Military Economies"
+      ]
+    },
+    "POLYMERS": {
+      "name": "Polymers",
+      "locations": [
+        "Produced by Refinery Economies",
+        "Consumed by Military, Terraforming and Industrial Economies"
+      ]
+    },
+    "SEMICONDUCTORS": {
+      "name": "Semiconductors",
+      "locations": [
+        "Produced by Refinery Economies",
+        "Consumed by Terraforming and Industrial Economies"
+      ]
+    },
+    "SUPERCONDUCTORS": {
+      "name": "Superconductors",
+      "locations": [
+        "Produced by: Refinery",
+        "Consumed by: Terraforming, High Tech and Industrial"
+      ]
+    },
+    "ARTICULATIONMOTORS": {
+      "name": "Articulation Motors",
+      "locations": [
+        "Consumed by: High Tech"
+      ]
+    },
+    "ATMOSPHERICEXTRACTORS": {
+      "name": "Atmospheric Processors",
+      "locations": [
+        "Produced by: Industrial",
+        "Consumed by: Terraforming and Agricultural"
+      ]
+    },
+    "BUILDINGFABRICATORS": {
+      "name": "Building Fabricators",
+      "locations": [
+        "Produced by: Industrial",
+        "Consumed by: Colony (Surface), Extraction (Surface), High Tech (Surface), Military (Surface) and Tourist (Surface)"
+      ]
+    },
+    "CROPHARVESTERS": {
+      "name": "Crop Harvesters",
+      "locations": [
+        "Produced by: Industrial",
+        "Consumed by: Agricultural"
+      ]
+    },
+    "EMERGENCYPOWERCELLS": {
+      "name": "Emergency Power Cells",
+      "locations": [
+        "Produced by: High Tech/Refinery near the Akhenaten system",
+        "Consumed by: High Tech, Industrial and Military",
+        "Known to be found at Chadwick Port in the Gladutjin system"
+      ]
+    },
+    "POWERGRIDASSEMBLY": {
+      "name": "Energy Grid Assembly",
+      "locations": [
+        "Produced by: Industrial/Refinery near the Stafkarl system",
+        "Consumed by: High Tech and Military",
+        "Known to be found at Pailes Enterprise in the 40 Ceti system."
+      ]
+    },
+    "EXHAUSTMANIFOLD": {
+      "name": "Exhaust Manifold",
+      "locations": [
+        "Produced by: Industrial/Refinery near the Run system",
+        "Consumed by: High Tech",
+        "Known to be found at Somerville Station in the Kharpulo system."
+      ]
+    },
+    "GEOLOGICALEQUIPMENT": {
+      "name": "Geological Equipment",
+      "locations": [
+        "Produced by: Industrial",
+        "Consumed by: Colony (Surface), Extraction (Surface), Military (Surface) and High Tech (Surface)"
+      ]
+    },
+    "HEATSINKINTERLINK": {
+      "name": "Heatsink Interlink",
+      "locations": [
+        "Produced by: Industrial/Refinery near the Myrbat system",
+        "Consumed by: High Tech",
+        "Known to be found at Gresley Enterprise in the LHS 3980 system"
+      ]
+    },
+    "HNSHOCKMOUNT": {
+      "name": "HN Shock Mount",
+      "locations": [
+        "Produced by: Industrial",
+        "Consumed by: High Tech and Military"
+      ]
+    },
+    "MAGNETICEMITTERCOIL": {
+      "name": "Magnetic Emitter Coil",
+      "locations": [
+        "Produced by: Industrial/Refinery near the Leesti system",
+        "Consumed by: High Tech",
+        "Known to be found at Steiner Platform in the Aasgaa system."
+      ]
+    },
+    "MARINESUPPLIES": {
+      "name": "Marine Equipment",
+      "locations": [
+        "Produced by: Industrial",
+        "Consumed by: Agricultural"
+      ]
+    },
+    "HELIOSTATICFURNACES": {
+      "name": "Microbial Furnaces",
+      "locations": [
+        "Produced by: High Tech",
+        "Consumed by: Refinery"
+      ]
+    },
+    "MINERALEXTRACTORS": {
+      "name": "Mineral Extractors",
+      "locations": [
+        "Produced by: Industrial",
+        "Consumed by: Extraction"
+      ]
+    },
+    "MODULARTERMINALS": {
+      "name": "Modular Terminals",
+      "locations": [
+        "Consumed by: High Tech"
+      ]
+    },
+    "POWERCONVERTER": {
+      "name": "Power Converter",
+      "locations": [
+        "Produced by: Industrial/Extraction near the Lakota system",
+        "Consumed by: High Tech",
+        "Known to be found at Shukor Dock in the Perun system"
+      ]
+    },
+    "POWERGENERATORS": {
+      "name": "Power Generators",
+      "locations": [
+        "Produced by: Industrial",
+        "Consumed by All Economies except Industrial"
+      ]
+    },
+    "POWERTRANSFERBUS": {
+      "name": "Power Transfer Bus",
+      "locations": [
+        "Produced by: Industrial/Extraction near the Cilbien Zu system",
+        "Consumed by: High Tech (Surface)",
+        "Known to be found at Haignere Orbital in the Wuthawchu system"
+      ]
+    },
+    "RADIATIONBAFFLE": {
+      "name": "Radiation Baffle",
+      "locations": [
+        "Produced by: Industrial/Extraction near the Heget system",
+        "Consumed by: Military",
+        "Known to be found at Sopwith Arsenal in the Taevaisa system"
+      ]
+    },
+    "REINFORCEDMOUNTINGPLATE": {
+      "name": "Reinforced Mounting Plate",
+      "locations": [
+        "Produced by: Extraction/Refinery near the Eurybia system",
+        "Consumed by: Industrial (Surface)",
+        "Known to be found at Grassmann Station in the Findalibila system"
+      ]
+    },
+    "SKIMERCOMPONENTS": {
+      "name": "Skimmer Components",
+      "locations": [
+        "Produced by: Industrial",
+        "Consumed by All Economies (Surface) except Industrial (Surface)"
+      ]
+    },
+    "THERMALCOOLINGUNITS": {
+      "name": "Thermal Cooling Units",
+      "locations": [
+        "Produced by: Industrial",
+        "Consumed by: Colony (Surface), Extraction (Surface), High Tech (Surface), Military (Surface) and Tourist (Surface)"
+      ]
+    },
+    "WATERPURIFIERS": {
+      "name": "Water Purifiers",
+      "locations": [
+        "Produced by: Industrial",
+        "Consumed by All Economies except Industrial"
+      ]
+    },
+    "ADVANCEDMEDICINES": {
+      "name": "Advanced Medicines",
+      "locations": [
+        ""
+      ]
+    },
+    "AGRICULTURALMEDICINES": {
+      "name": "Agrimedicines",
+      "locations": [
+        ""
+      ]
+    },
+    "BASICMEDICINES": {
+      "name": "Basic Medicines",
+      "locations": [
+        ""
+      ]
+    },
+    "COMBATSTABILISERS": {
+      "name": "Combat Stabilisers",
+      "locations": [
+        ""
+      ]
+    },
+    "PERFORMANCEENHANCERS": {
+      "name": "Performance Enhancers",
+      "locations": [
+        ""
+      ]
+    },
+    "PROGENITORCELLS": {
+      "name": "Progenitor Cells",
+      "locations": [
+        ""
+      ]
+    },
+    "ALUMINIUM": {
+      "name": "Aluminium",
+      "locations": [
+        ""
+      ]
+    },
+    "BERYLLIUM": {
+      "name": "Beryllium",
+      "locations": [
+        ""
+      ]
+    },
+    "BISMUTH": {
+      "name": "Bismuth",
+      "locations": [
+        ""
+      ]
+    },
+    "COBALT": {
+      "name": "Cobalt",
+      "locations": [
+        ""
+      ]
+    },
+    "COPPER": {
+      "name": "Copper",
+      "locations": [
+        ""
+      ]
+    },
+    "GALLIUM": {
+      "name": "Gallium",
+      "locations": [
+        ""
+      ]
+    },
+    "GOLD": {
+      "name": "Gold",
+      "locations": [
+        ""
+      ]
+    },
+    "HAFNIUM178": {
+      "name": "Hafnium 178",
+      "locations": [
+        ""
+      ]
+    },
+    "INDIUM": {
+      "name": "Indium",
+      "locations": [
+        ""
+      ]
+    },
+    "LANTHANUM": {
+      "name": "Lanthanum",
+      "locations": [
+        ""
+      ]
+    },
+    "LITHIUM": {
+      "name": "Lithium",
+      "locations": [
+        ""
+      ]
+    },
+    "OSMIUM": {
+      "name": "Osmium",
+      "locations": [
+        ""
+      ]
+    },
+    "PALLADIUM": {
+      "name": "Palladium",
+      "locations": [
+        ""
+      ]
+    },
+    "PLATINUM": {
+      "name": "Platinum",
+      "locations": [
+        ""
+      ]
+    },
+    "PLATINUMALLOY": {
+      "name": "Platinum Alloy",
+      "locations": [
+        ""
+      ]
+    },
+    "PRASEODYMIUM": {
+      "name": "Praseodymium",
+      "locations": [
+        ""
+      ]
+    },
+    "SAMARIUM": {
+      "name": "Samarium",
+      "locations": [
+        ""
+      ]
+    },
+    "SILVER": {
+      "name": "Silver",
+      "locations": [
+        ""
+      ]
+    },
+    "TANTALUM": {
+      "name": "Tantalum",
+      "locations": [
+        ""
+      ]
+    },
+    "THALLIUM": {
+      "name": "Thallium",
+      "locations": [
+        ""
+      ]
+    },
+    "THORIUM": {
+      "name": "Thorium",
+      "locations": [
+        ""
+      ]
+    },
+    "TITANIUM": {
+      "name": "Titanium",
+      "locations": [
+        ""
+      ]
+    },
+    "URANIUM": {
+      "name": "Uranium",
+      "locations": [
+        ""
+      ]
+    },
+    "BAUXITE": {
+      "name": "Bauxite",
+      "locations": [
+        ""
+      ]
+    },
+    "BERTRANDITE": {
+      "name": "Bertrandite",
+      "locations": [
+        ""
+      ]
+    },
+    "BROMELLITE": {
+      "name": "Bromellite",
+      "locations": [
+        ""
+      ]
+    },
+    "COLTAN": {
+      "name": "Coltan",
+      "locations": [
+        ""
+      ]
+    },
+    "CRYOLITE": {
+      "name": "Cryolite",
+      "locations": [
+        ""
+      ]
+    },
+    "GALLITE": {
+      "name": "Gallite",
+      "locations": [
+        ""
+      ]
+    },
+    "GOSLARITE": {
+      "name": "Goslarite",
+      "locations": [
+        ""
+      ]
+    },
+    "INDITE": {
+      "name": "Indite",
+      "locations": [
+        ""
+      ]
+    },
+    "JADEITE": {
+      "name": "Jadeite",
+      "locations": [
+        ""
+      ]
+    },
+    "LEPIDOLITE": {
+      "name": "Lepidolite",
+      "locations": [
+        ""
+      ]
+    },
+    "LITHIUMHYDROXIDE": {
+      "name": "Lithium Hydroxide",
+      "locations": [
+        ""
+      ]
+    },
+    "LOWTEMPERATUREDIAMOND": {
+      "name": "Low Temperature Diamonds",
+      "locations": [
+        ""
+      ]
+    },
+    "METHANECLATHRATE": {
+      "name": "Methane Clathrate",
+      "locations": [
+        ""
+      ]
+    },
+    "METHANOLMONOHYDRATECRYSTALS": {
+      "name": "Methanol Monohydrate Crystals",
+      "locations": [
+        ""
+      ]
+    },
+    "MOISSANITE": {
+      "name": "Moissanite",
+      "locations": [
+        ""
+      ]
+    },
+    "PAINITE": {
+      "name": "Painite",
+      "locations": [
+        ""
+      ]
+    },
+    "PYROPHYLLITE": {
+      "name": "Pyrophyllite",
+      "locations": [
+        ""
+      ]
+    },
+    "RUTILE": {
+      "name": "Rutile",
+      "locations": [
+        ""
+      ]
+    },
+    "TAAFFEITE": {
+      "name": "Taaffeite",
+      "locations": [
+        ""
+      ]
+    },
+    "URANINITE": {
+      "name": "Uraninite",
+      "locations": [
+        ""
+      ]
+    },
+    "AIRELICS": {
+      "name": "Airelics",
+      "locations": [
+        ""
+      ]
+    },
+    "USSCARGOANCIENTARTEFACT": {
+      "name": "Ancient Artefact",
+      "locations": [
+        ""
+      ]
+    },
+    "ANCIENTCASKET": {
+      "name": "Ancient Casket",
+      "locations": [
+        ""
+      ]
+    },
+    "ANCIENTORB": {
+      "name": "Ancient Orb",
+      "locations": [
+        ""
+      ]
+    },
+    "ANCIENTRELIC": {
+      "name": "Ancient Relic",
+      "locations": [
+        ""
+      ]
+    },
+    "ANCIENTTABLET": {
+      "name": "Ancient Tablet",
+      "locations": [
+        ""
+      ]
+    },
+    "ANCIENTTOTEM": {
+      "name": "Ancient Totem",
+      "locations": [
+        ""
+      ]
+    },
+    "ANCIENTURN": {
+      "name": "Ancient Urn",
+      "locations": [
+        ""
+      ]
+    },
+    "ANTIMATTERCONTAINMENTUNIT": {
+      "name": "Antimatter Containment Unit",
+      "locations": [
+        ""
+      ]
+    },
+    "ANTIQUEJEWELLERY": {
+      "name": "Antique Jewellery",
+      "locations": [
+        ""
+      ]
+    },
+    "ANTIQUITIES": {
+      "name": "Antiquities",
+      "locations": [
+        ""
+      ]
+    },
+    "ASSAULTPLANS": {
+      "name": "Assault Plans",
+      "locations": [
+        ""
+      ]
+    },
+    "USSCARGOBLACKBOX": {
+      "name": "Blackbox",
+      "locations": [
+        ""
+      ]
+    },
+    "COMERCIALSAMPLES": {
+      "name": "Commercial Samples",
+      "locations": [
+        ""
+      ]
+    },
+    "DAMAGEDESCAPEPOD": {
+      "name": "Damaged Escape Pod",
+      "locations": [
+        ""
+      ]
+    },
+    "DATACORE": {
+      "name": "Data Core",
+      "locations": [
+        ""
+      ]
+    },
+    "DIPLOMATICBAG": {
+      "name": "Diplomatic Bag",
+      "locations": [
+        ""
+      ]
+    },
+    "EARTHRELICS": {
+      "name": "Earth Relics",
+      "locations": [
+        ""
+      ]
+    },
+    "ENCRYPTEDCORRESPONDENCE": {
+      "name": "Encrypted Correspondence",
+      "locations": [
+        ""
+      ]
+    },
+    "ENCRIPTEDDATASTORAGE": {
+      "name": "Encrypted Data Storage",
+      "locations": [
+        ""
+      ]
+    },
+    "USSCARGOEXPERIMENTALCHEMICALS": {
+      "name": "Experimental Chemicals",
+      "locations": [
+        ""
+      ]
+    },
+    "FOSSILREMNANTS": {
+      "name": "Fossil Remnants",
+      "locations": [
+        ""
+      ]
+    },
+    "GENEBANK": {
+      "name": "Gene Bank",
+      "locations": [
+        ""
+      ]
+    },
+    "GEOLOGICALSAMPLES": {
+      "name": "Geological Samples",
+      "locations": [
+        ""
+      ]
+    },
+    "HOSTAGE": {
+      "name": "Hostage",
+      "locations": [
+        ""
+      ]
+    },
+    "LARGEEXPLORATIONDATACASH": {
+      "name": "Large Survey Data Cache",
+      "locations": [
+        ""
+      ]
+    },
+    "MILITARYINTELLIGENCE": {
+      "name": "Military Intelligence",
+      "locations": [
+        ""
+      ]
+    },
+    "USSCARGOMILITARYPLANS": {
+      "name": "Military Plans",
+      "locations": [
+        ""
+      ]
+    },
+    "MYSTERIOUSIDOL": {
+      "name": "Mysterious Idol",
+      "locations": [
+        ""
+      ]
+    },
+    "OCCUPIEDESCAPEPOD": {
+      "name": "Occupied Escape Pod",
+      "locations": [
+        ""
+      ]
+    },
+    "PERSONALEFFECTS": {
+      "name": "Personal Effects",
+      "locations": [
+        ""
+      ]
+    },
+    "POLITICALPRISONER": {
+      "name": "Political Prisoner",
+      "locations": [
+        ""
+      ]
+    },
+    "PRECIOUSGEMS": {
+      "name": "Precious Gems",
+      "locations": [
+        ""
+      ]
+    },
+    "PROHIBITEDRESEARCHMATERIALS": {
+      "name": "Prohibited Research Materials",
+      "locations": [
+        ""
+      ]
+    },
+    "USSCARGOPROTOTYPETECH": {
+      "name": "Prototype Tech",
+      "locations": [
+        ""
+      ]
+    },
+    "USSCARGORAREARTWORK": {
+      "name": "Rare Artwork",
+      "locations": [
+        ""
+      ]
+    },
+    "USSCARGOREBELTRANSMISSIONS": {
+      "name": "Rebel Transmissions",
+      "locations": [
+        ""
+      ]
+    },
+    "SAP8CORECONTAINER": {
+      "name": "Sap 8 Core Container",
+      "locations": [
+        ""
+      ]
+    },
+    "SCIENTIFICRESEARCH": {
+      "name": "Scientific Research",
+      "locations": [
+        ""
+      ]
+    },
+    "SCIENTIFICSAMPLES": {
+      "name": "Scientific Samples",
+      "locations": [
+        ""
+      ]
+    },
+    "SMALLEXPLORATIONDATACASH": {
+      "name": "Small Survey Data Cache",
+      "locations": [
+        ""
+      ]
+    },
+    "SPACEPIONEERRELICS": {
+      "name": "Space Pioneer Relics",
+      "locations": [
+        ""
+      ]
+    },
+    "TACTICALDATA": {
+      "name": "Tactical Data",
+      "locations": [
+        ""
+      ]
+    },
+    "USSCARGOTECHNICALBLUEPRINTS": {
+      "name": "Technical Blueprints",
+      "locations": [
+        ""
+      ]
+    },
+    "THARGOIDBASILISKTISSUESAMPLE": {
+      "name": "Thargoid Basilisk Tissue Sample",
+      "locations": [
+        ""
+      ]
+    },
+    "THARGOIDBIOLOGICALMATTER": {
+      "name": "Thargoid Biological Matter",
+      "locations": [
+        ""
+      ]
+    },
+    "THARGOIDCYCLOPSTISSUESAMPLE": {
+      "name": "Thargoid Cyclops Tissue Sample",
+      "locations": [
+        ""
+      ]
+    },
+    "THARGOIDHEART": {
+      "name": "Thargoid Heart",
+      "locations": [
+        ""
+      ]
+    },
+    "THARGOIDLINK": {
+      "name": "Thargoid Link",
+      "locations": [
+        ""
+      ]
+    },
+    "THARGOIDMEDUSATISSUESAMPLE": {
+      "name": "Thargoid Medusa Tissue Sample",
+      "locations": [
+        ""
+      ]
+    },
+    "THARGOIDPROBE": {
+      "name": "Thargoid Probe",
+      "locations": [
+        ""
+      ]
+    },
+    "THARGOIDRESIN": {
+      "name": "Thargoid Resin",
+      "locations": [
+        ""
+      ]
+    },
+    "THARGOIDSCOUTTISSUESAMPLE": {
+      "name": "Thargoid Scout Tissue Sample",
+      "locations": [
+        ""
+      ]
+    },
+    "THARGOIDSENSOR": {
+      "name": "Thargoid Sensor",
+      "locations": [
+        ""
+      ]
+    },
+    "THARGOIDTECHNOLOGYSAMPLES": {
+      "name": "Thargoid Technology Samples",
+      "locations": [
+        ""
+      ]
+    },
+    "TIMECAPSULE": {
+      "name": "Time Capsule",
+      "locations": [
+        ""
+      ]
+    },
+    "USSCARGOTRADEDATA": {
+      "name": "Trade Data",
+      "locations": [
+        ""
+      ]
+    },
+    "TRINKETSOFHIDDENFORTUNE": {
+      "name": "Trinkets Of Hidden Fortune",
+      "locations": [
+        ""
+      ]
+    },
+    "UNSTABLEDATACORE": {
+      "name": "Unstable Data Core",
+      "locations": [
+        ""
+      ]
+    },
+    "WRECKAGECOMPONENTS": {
+      "name": "Wreckage Components",
+      "locations": [
+        ""
+      ]
+    },
+    "IMPERIALSLAVES": {
+      "name": "Imperial Slaves",
+      "locations": [
+        ""
+      ]
+    },
+    "SLAVES": {
+      "name": "Slaves",
+      "locations": [
+        ""
+      ]
+    },
+    "ADVANCEDCATALYSERS": {
+      "name": "Advanced Catalysers",
+      "locations": [
+        ""
+      ]
+    },
+    "ANIMALMONITORS": {
+      "name": "Animal Monitors",
+      "locations": [
+        ""
+      ]
+    },
+    "AQUAPONICSYSTEMS": {
+      "name": "Aquaponic Systems",
+      "locations": [
+        ""
+      ]
+    },
+    "AUTOFABRICATORS": {
+      "name": "Auto-fabricators",
+      "locations": [
+        ""
+      ]
+    },
+    "BIOREDUCINGLICHEN": {
+      "name": "Bio-reducing Lichen",
+      "locations": [
+        ""
+      ]
+    },
+    "COMPUTERCOMPONENTS": {
+      "name": "Computer Components",
+      "locations": [
+        ""
+      ]
+    },
+    "HAZARDOUSENVIRONMENTSUITS": {
+      "name": "Hazardous Environment Suits",
+      "locations": [
+        ""
+      ]
+    },
+    "DIAGNOSTICSENSOR": {
+      "name": "Hardware Diagnostic Sensor",
+      "locations": [
+        ""
+      ]
+    },
+    "IONDISTRIBUTOR": {
+      "name": "Ion Distributor",
+      "locations": [
+        ""
+      ]
+    },
+    "TERRAINENRICHMENTSYSTEMS": {
+      "name": "Land Enrichment Systems",
+      "locations": [
+        ""
+      ]
+    },
+    "MEDICALDIAGNOSTICEQUIPMENT": {
+      "name": "Medical Diagnostic Equipment",
+      "locations": [
+        ""
+      ]
+    },
+    "MICROCONTROLLERS": {
+      "name": "Micro-controllers",
+      "locations": [
+        ""
+      ]
+    },
+    "MUONIMAGER": {
+      "name": "Muon Imager",
+      "locations": [
+        ""
+      ]
+    },
+    "NANOBREAKERS": {
+      "name": "Nano Breakers",
+      "locations": [
+        ""
+      ]
+    },
+    "RESONATINGSEPARATORS": {
+      "name": "Resonating Separators",
+      "locations": [
+        ""
+      ]
+    },
+    "ROBOTICS": {
+      "name": "Robotics",
+      "locations": [
+        ""
+      ]
+    },
+    "STRUCTURALREGULATORS": {
+      "name": "Structural Regulators",
+      "locations": [
+        ""
+      ]
+    },
+    "TELEMETRYSUITE": {
+      "name": "Telemetry Suite",
+      "locations": [
+        ""
+      ]
+    },
+    "CONDUCTIVEFABRICS": {
+      "name": "Conductive Fabrics",
+      "locations": [
+        ""
+      ]
+    },
+    "LEATHER": {
+      "name": "Leather",
+      "locations": [
+        ""
+      ]
+    },
+    "MILITARYGRADEFABRICS": {
+      "name": "Military Grade Fabrics",
+      "locations": [
+        ""
+      ]
+    },
+    "NATURALFABRICS": {
+      "name": "Natural Fabrics",
+      "locations": [
+        ""
+      ]
+    },
+    "SYNTHETICFABRICS": {
+      "name": "Synthetic Fabrics",
+      "locations": [
+        ""
+      ]
+    },
+    "BIOWASTE": {
+      "name": "Bio-waste",
+      "locations": [
+        ""
+      ]
+    },
+    "CHEMICALWASTE": {
+      "name": "Chemical Waste",
+      "locations": [
+        ""
+      ]
+    },
+    "SCRAP": {
+      "name": "Scrap",
+      "locations": [
+        ""
+      ]
+    },
+    "TOXICWASTE": {
+      "name": "Toxic Waste",
+      "locations": [
+        ""
+      ]
+    },
+    "BATTLEWEAPONS": {
+      "name": "Battle Weapons",
+      "locations": [
+        ""
+      ]
+    },
+    "LANDMINES": {
+      "name": "Landmines",
+      "locations": [
+        ""
+      ]
+    },
+    "NONLETHALWEAPONS": {
+      "name": "Non-lethal Weapons",
+      "locations": [
+        ""
+      ]
+    },
+    "PERSONALWEAPONS": {
+      "name": "Personal Weapons",
+      "locations": [
+        ""
+      ]
+    },
+    "REACTIVEARMOUR": {
+      "name": "Reactive Armour",
+      "locations": [
+        ""
+      ]
+    },
+    "DRONES": {
+      "name": "Limpet",
+      "locations": [
+        ""
+      ]
+    },
+    "AEPYORNISEGG": {
+      "name": "Aepyornis Egg",
+      "locations": [
+        ""
+      ]
+    },
+    "AGANIPPERUSH": {
+      "name": "Aganippe Rush",
+      "locations": [
+        ""
+      ]
+    },
+    "ALACARAKMOSKINART": {
+      "name": "Alacarakmo Skin Art",
+      "locations": [
+        ""
+      ]
+    },
+    "ALBINOQUECHUAMAMMOTH": {
+      "name": "Albino Quechua Mammoth",
+      "locations": [
+        ""
+      ]
+    },
+    "ALTAIRIANSKIN": {
+      "name": "Altairian Skin",
+      "locations": [
+        ""
+      ]
+    },
+    "ALYABODYSOAP": {
+      "name": "Alya Body Soap",
+      "locations": [
+        ""
+      ]
+    },
+    "ANDULIGAFIREWORKS": {
+      "name": "Anduliga Fireworks",
+      "locations": [
+        ""
+      ]
+    },
+    "ANYNACOFFEE": {
+      "name": "Anyna Coffee",
+      "locations": [
+        ""
+      ]
+    },
+    "AROUCACONVENTUALSWEETS": {
+      "name": "Arouca Conventual Sweets",
+      "locations": [
+        ""
+      ]
+    },
+    "AZCANCRIFORMULA42": {
+      "name": "Az Cancri Formula 42",
+      "locations": [
+        ""
+      ]
+    },
+    "AZUREMILK": {
+      "name": "Azure Milk",
+      "locations": [
+        ""
+      ]
+    },
+    "BALTAHSINEVACUUMKRILL": {
+      "name": "Baltah Sine Vacuum Krill",
+      "locations": [
+        ""
+      ]
+    },
+    "BANKIAMPHIBIOUSLEATHER": {
+      "name": "Banki Amphibious Leather",
+      "locations": [
+        ""
+      ]
+    },
+    "BASTSNAKEGIN": {
+      "name": "Bast Snake Gin",
+      "locations": [
+        ""
+      ]
+    },
+    "BELALANSRAYLEATHER": {
+      "name": "Belalans Ray Leather",
+      "locations": [
+        ""
+      ]
+    },
+    "BORASETANIPATHOGENETICS": {
+      "name": "Borasetani Pathogenetics",
+      "locations": [
+        ""
+      ]
+    },
+    "BUCKYBALLBEERMATS": {
+      "name": "Buckyball Beer Mats",
+      "locations": [
+        ""
+      ]
+    },
+    "BURNHAMBILEDISTILLATE": {
+      "name": "Burnham Bile Distillate",
+      "locations": [
+        ""
+      ]
+    },
+    "CD75KITTENBRANDCOFFEE": {
+      "name": "CD-75 Kitten Brand Coffee",
+      "locations": [
+        ""
+      ]
+    },
+    "CENTAURIMEGAGIN": {
+      "name": "Centauri Mega Gin",
+      "locations": [
+        ""
+      ]
+    },
+    "CEREMONIALHEIKETEA": {
+      "name": "Ceremonial Heike Tea",
+      "locations": [
+        ""
+      ]
+    },
+    "CETIRABBITS": {
+      "name": "Ceti Rabbits",
+      "locations": [
+        ""
+      ]
+    },
+    "CHAMELEONCLOTH": {
+      "name": "Chameleon Cloth",
+      "locations": [
+        ""
+      ]
+    },
+    "CHATEAUDEAEGAEON": {
+      "name": "Chateau De Aegaeon",
+      "locations": [
+        ""
+      ]
+    },
+    "CHERBONESBLOODCRYSTALS": {
+      "name": "Cherbones Blood Crystals",
+      "locations": [
+        ""
+      ]
+    },
+    "CHIERIDANIMARINEPASTE": {
+      "name": "Chi Eridani Marine Paste",
+      "locations": [
+        ""
+      ]
+    },
+    "COQUIMSPONGIFORMVICTUALS": {
+      "name": "Coquim Spongiform Victuals",
+      "locations": [
+        ""
+      ]
+    },
+    "CROMSILVERFESH": {
+      "name": "Crom Silver Fesh",
+      "locations": [
+        ""
+      ]
+    },
+    "CRYSTALLINESPHERES": {
+      "name": "Crystalline Spheres",
+      "locations": [
+        ""
+      ]
+    },
+    "DAMNACARAPACES": {
+      "name": "Damna Carapaces",
+      "locations": [
+        ""
+      ]
+    },
+    "DELTAPHOENICISPALMS": {
+      "name": "Delta Phoenicis Palms",
+      "locations": [
+        ""
+      ]
+    },
+    "DEURINGASTRUFFLES": {
+      "name": "Deuringas Truffles",
+      "locations": [
+        ""
+      ]
+    },
+    "DISOMACORN": {
+      "name": "Diso Ma Corn",
+      "locations": [
+        ""
+      ]
+    },
+    "EDENAPPLESOFAERIAL": {
+      "name": "Edenapplesofaerial",
+      "locations": [
+        ""
+      ]
+    },
+    "ELEUTHERMALS": {
+      "name": "Eleuthermals",
+      "locations": [
+        ""
+      ]
+    },
+    "ERANINPEARLWHISKEY": {
+      "name": "Eranin Pearl Whiskey",
+      "locations": [
+        ""
+      ]
+    },
+    "ESHUUMBRELLAS": {
+      "name": "Eshu Umbrellas",
+      "locations": [
+        ""
+      ]
+    },
+    "ESUSEKUCAVIAR": {
+      "name": "Esuseku Caviar",
+      "locations": [
+        ""
+      ]
+    },
+    "ETHGREZETEABUDS": {
+      "name": "Ethgreze Tea Buds",
+      "locations": [
+        ""
+      ]
+    },
+    "FUJINTEA": {
+      "name": "Fujin Tea",
+      "locations": [
+        ""
+      ]
+    },
+    "GALACTICTRAVELGUIDES": {
+      "name": "Galactic Travel Guides",
+      "locations": [
+        ""
+      ]
+    },
+    "GEAWENDANCEDUST": {
+      "name": "Geawen Dance Dust",
+      "locations": [
+        ""
+      ]
+    },
+    "GERASIANGUEUZEBEER": {
+      "name": "Gerasian Gueuze Beer",
+      "locations": [
+        ""
+      ]
+    },
+    "GIANTIRUKAMASNAILS": {
+      "name": "Giant Irukama Snails",
+      "locations": [
+        ""
+      ]
+    },
+    "GIANTVERRIX": {
+      "name": "Giant Verrix",
+      "locations": [
+        ""
+      ]
+    },
+    "GILYASIGNATUREWEAPONS": {
+      "name": "Gilya Signature Weapons",
+      "locations": [
+        ""
+      ]
+    },
+    "GOMANYAUPONCOFFEE": {
+      "name": "Goman Yaupon Coffee",
+      "locations": [
+        ""
+      ]
+    },
+    "HAIDNEBLACKBREW": {
+      "name": "Haidne Black Brew",
+      "locations": [
+        ""
+      ]
+    },
+    "HARMASILVERSEARUM": {
+      "name": "Harma Silver Sea Rum",
+      "locations": [
+        ""
+      ]
+    },
+    "HAVASUPAIDREAMCATCHER": {
+      "name": "Havasupai Dream Catcher",
+      "locations": [
+        ""
+      ]
+    },
+    "HELVETITJPEARLS": {
+      "name": "Helvetitj Pearls",
+      "locations": [
+        ""
+      ]
+    },
+    "HIP10175BUSHMEAT": {
+      "name": "HIP 10175 Bush Meat",
+      "locations": [
+        ""
+      ]
+    },
+    "HIP118311SWARM": {
+      "name": "HIP 118311 Swarm",
+      "locations": [
+        ""
+      ]
+    },
+    "HIPORGANOPHOSPHATES": {
+      "name": "HIP Organophosphates",
+      "locations": [
+        ""
+      ]
+    },
+    "HIPPROTOSQUID": {
+      "name": "Hip Proto-Squid",
+      "locations": [
+        ""
+      ]
+    },
+    "HOLVADUELLINGBLADES": {
+      "name": "Holva Duelling Blades",
+      "locations": [
+        ""
+      ]
+    },
+    "HONESTYPILLS": {
+      "name": "Honesty Pills",
+      "locations": [
+        ""
+      ]
+    },
+    "HR7221WHEAT": {
+      "name": "HR 7221 Wheat",
+      "locations": [
+        ""
+      ]
+    },
+    "INDIBOURBON": {
+      "name": "Indi Bourbon",
+      "locations": [
+        ""
+      ]
+    },
+    "JAQUESQUINENTIANSTILL": {
+      "name": "Jaques Quinentian Still",
+      "locations": [
+        ""
+      ]
+    },
+    "JARADHARREPUZZLEBOX": {
+      "name": "Jaradharre Puzzle Box",
+      "locations": [
+        ""
+      ]
+    },
+    "JAROUARICE": {
+      "name": "Jaroua Rice",
+      "locations": [
+        ""
+      ]
+    },
+    "JOTUNMOOKAH": {
+      "name": "Jotun Mookah",
+      "locations": [
+        ""
+      ]
+    },
+    "KACHIRIGINFILTERLEECHES": {
+      "name": "Kachirigin Filter Leeches",
+      "locations": [
+        ""
+      ]
+    },
+    "KAMITRACIGARS": {
+      "name": "Kamitra Cigars",
+      "locations": [
+        ""
+      ]
+    },
+    "KAMORINHISTORICWEAPONS": {
+      "name": "Kamorin Historic Weapons",
+      "locations": [
+        ""
+      ]
+    },
+    "KARETIICOUTURE": {
+      "name": "Karetii Couture",
+      "locations": [
+        ""
+      ]
+    },
+    "KARSUKILOCUSTS": {
+      "name": "Karsuki Locusts",
+      "locations": [
+        ""
+      ]
+    },
+    "KINAGOVIOLINS": {
+      "name": "Kinago Violins",
+      "locations": [
+        ""
+      ]
+    },
+    "KONGGAALE": {
+      "name": "Kongga Ale",
+      "locations": [
+        ""
+      ]
+    },
+    "KOROKUNGPELLETS": {
+      "name": "Koro Kung Pellets",
+      "locations": [
+        ""
+      ]
+    },
+    "LAVIANBRANDY": {
+      "name": "Lavian Brandy",
+      "locations": [
+        ""
+      ]
+    },
+    "ALIENEGGS": {
+      "name": "Leathery Eggs",
+      "locations": [
+        ""
+      ]
+    },
+    "LEESTIANEVILJUICE": {
+      "name": "Leestian Evil Juice",
+      "locations": [
+        ""
+      ]
+    },
+    "LIVEHECATESEAWORMS": {
+      "name": "Live Hecate Sea Worms",
+      "locations": [
+        ""
+      ]
+    },
+    "LTTHYPERSWEET": {
+      "name": "LTT Hyper Sweet",
+      "locations": [
+        ""
+      ]
+    },
+    "LUCANONIONHEAD": {
+      "name": "Lucan Onionhead",
+      "locations": [
+        ""
+      ]
+    },
+    "LYRAEWEED": {
+      "name": "Lyrae Weed",
+      "locations": [
+        ""
+      ]
+    },
+    "MASTERCHEFS": {
+      "name": "Master Chefs",
+      "locations": [
+        ""
+      ]
+    },
+    "MECHUCOSHIGHTEA": {
+      "name": "Mechucos High Tea",
+      "locations": [
+        ""
+      ]
+    },
+    "MEDBSTARLUBE": {
+      "name": "Medb Starlube",
+      "locations": [
+        ""
+      ]
+    },
+    "MOKOJINGBEASTFEAST": {
+      "name": "Mokojing Beast Feast",
+      "locations": [
+        ""
+      ]
+    },
+    "MOMUSBOGSPANIEL": {
+      "name": "Momus Bog Spaniel",
+      "locations": [
+        ""
+      ]
+    },
+    "MOTRONAEXPERIENCEJELLY": {
+      "name": "Motrona Experience Jelly",
+      "locations": [
+        ""
+      ]
+    },
+    "MUKUSUBIICHITINOS": {
+      "name": "Mukusubii Chitin-Os",
+      "locations": [
+        ""
+      ]
+    },
+    "MULACHIGIANTFUNGUS": {
+      "name": "Mulachi Giant Fungus",
+      "locations": [
+        ""
+      ]
+    },
+    "NERITUSBERRIES": {
+      "name": "Neritus Berries",
+      "locations": [
+        ""
+      ]
+    },
+    "NGADANDARIFIREOPALS": {
+      "name": "Ngadandari Fire Opals",
+      "locations": [
+        ""
+      ]
+    },
+    "NGUNAMODERNANTIQUES": {
+      "name": "Nguna Modern Antiques",
+      "locations": [
+        ""
+      ]
+    },
+    "NJANGARISADDLES": {
+      "name": "Njangari Saddles",
+      "locations": [
+        ""
+      ]
+    },
+    "NONEUCLIDIANEXOTANKS": {
+      "name": "Non-Euclidian Exotanks",
+      "locations": [
+        ""
+      ]
+    },
+    "OCHOENGCHILLIES": {
+      "name": "Ochoeng Chillies",
+      "locations": [
+        ""
+      ]
+    },
+    "ONIONHEAD": {
+      "name": "Onionhead",
+      "locations": [
+        ""
+      ]
+    },
+    "ONIONHEADALPHASTRAIN": {
+      "name": "Onionhead Alpha Strain",
+      "locations": [
+        ""
+      ]
+    },
+    "ONIONHEADBETASTRAIN": {
+      "name": "Onionhead Beta Strain",
+      "locations": [
+        ""
+      ]
+    },
+    "OPHIUCHEXINOARTEFACTS": {
+      "name": "Ophiuch Exino Artefacts",
+      "locations": [
+        ""
+      ]
+    },
+    "ORRERIANVICIOUSBREW": {
+      "name": "Orrerian Vicious Brew",
+      "locations": [
+        ""
+      ]
+    },
+    "PANTAAPRAYERSTICKS": {
+      "name": "Pantaa Prayer Sticks",
+      "locations": [
+        ""
+      ]
+    },
+    "PAVONISEARGRUBS": {
+      "name": "Pavonis Ear Grubs",
+      "locations": [
+        ""
+      ]
+    },
+    "PERSONALGIFTS": {
+      "name": "Personal Gifts",
+      "locations": [
+        ""
+      ]
+    },
+    "RAJUKRUMULTISTOVES": {
+      "name": "Rajukru Multi-Stoves",
+      "locations": [
+        ""
+      ]
+    },
+    "RAPABAOSNAKESKINS": {
+      "name": "Rapa Bao Snake Skins",
+      "locations": [
+        ""
+      ]
+    },
+    "RUSANIOLDSMOKEY": {
+      "name": "Rusani Old Smokey",
+      "locations": [
+        ""
+      ]
+    },
+    "SANUMADECORATIVEMEAT": {
+      "name": "Sanuma Decorative Meat",
+      "locations": [
+        ""
+      ]
+    },
+    "SAXONWINE": {
+      "name": "Saxon Wine",
+      "locations": [
+        ""
+      ]
+    },
+    "SHANSCHARISORCHID": {
+      "name": "Shans Charis Orchid",
+      "locations": [
+        ""
+      ]
+    },
+    "SOONTILLRELICS": {
+      "name": "Soontill Relics",
+      "locations": [
+        ""
+      ]
+    },
+    "SOTHISCRYSTALLINEGOLD": {
+      "name": "Sothis Crystalline Gold",
+      "locations": [
+        ""
+      ]
+    },
+    "TANMARKTRANQUILTEA": {
+      "name": "Tanmark Tranquil Tea",
+      "locations": [
+        ""
+      ]
+    },
+    "TARACHSPICE": {
+      "name": "Tarach Spice",
+      "locations": [
+        ""
+      ]
+    },
+    "TAURICHIMES": {
+      "name": "Tauri Chimes",
+      "locations": [
+        ""
+      ]
+    },
+    "TERRAMATERBLOODBORES": {
+      "name": "Terra Mater Blood Bores",
+      "locations": [
+        ""
+      ]
+    },
+    "THEHUTTONMUG": {
+      "name": "The Hutton Mug",
+      "locations": [
+        ""
+      ]
+    },
+    "THRUTISCREAM": {
+      "name": "Thrutis Cream",
+      "locations": [
+        ""
+      ]
+    },
+    "TIOLCEWASTE2PASTEUNITS": {
+      "name": "Tiolce Waste2paste Units",
+      "locations": [
+        ""
+      ]
+    },
+    "TOXANDJIVIROCIDE": {
+      "name": "Toxandji Virocide",
+      "locations": [
+        ""
+      ]
+    },
+    "ULTRACOMPACTPROCESSOR": {
+      "name": "Ultra-Compact Processor",
+      "locations": [
+        ""
+      ]
+    },
+    "USZAIANTREEGRUB": {
+      "name": "Uszaian Tree Grub",
+      "locations": [
+        ""
+      ]
+    },
+    "UTGAROARMILLENNIALEGGS": {
+      "name": "Utgaroar Millennial Eggs",
+      "locations": [
+        ""
+      ]
+    },
+    "UZUMOKULOWGWINGS": {
+      "name": "Uzumoku Low-G Wings",
+      "locations": [
+        ""
+      ]
+    },
+    "VHERCULISBODYRUB": {
+      "name": "V Herculis Body Rub",
+      "locations": [
+        ""
+      ]
+    },
+    "VANAYEQUICERATOMORPHAFUR": {
+      "name": "Vanayequi Ceratomorpha Fur",
+      "locations": [
+        ""
+      ]
+    },
+    "VEGASLIMWEED": {
+      "name": "Vega Slimweed",
+      "locations": [
+        ""
+      ]
+    },
+    "VIDAVANTIANLACE": {
+      "name": "Vidavantian Lace",
+      "locations": [
+        ""
+      ]
+    },
+    "VOIDEXTRACTCOFFEE": {
+      "name": "Void Extract Coffee",
+      "locations": [
+        ""
+      ]
+    },
+    "VOLKHABBEEDRONES": {
+      "name": "Volkhab Bee Drones",
+      "locations": [
+        ""
+      ]
+    },
+    "WATERSOFSHINTARA": {
+      "name": "Waters Of Shintara",
+      "locations": [
+        ""
+      ]
+    },
+    "WHEEMETEWHEATCAKES": {
+      "name": "Wheemete Wheat Cakes",
+      "locations": [
+        ""
+      ]
+    },
+    "WITCHHAULKOBEBEEF": {
+      "name": "Witchhaul Kobe Beef",
+      "locations": [
+        ""
+      ]
+    },
+    "WOLFFESH": {
+      "name": "Wolf Fesh",
+      "locations": [
+        ""
+      ]
+    },
+    "WULPAHYPERBORESYSTEMS": {
+      "name": "Wulpa Hyperbore Systems",
+      "locations": [
+        ""
+      ]
+    },
+    "WUTHIELOKUFROTH": {
+      "name": "Wuthielo Ku Froth",
+      "locations": [
+        ""
+      ]
+    },
+    "XIHEBIOMORPHICCOMPANIONS": {
+      "name": "Xihe Biomorphic Companions",
+      "locations": [
+        ""
+      ]
+    },
+    "YASOKONDILEAF": {
+      "name": "Yaso Kondi Leaf",
+      "locations": [
+        ""
+      ]
+    },
+    "ZEESSZEANTGRUBGLUE": {
+      "name": "Zeessze Ant Grub Glue",
+      "locations": [
+        ""
+      ]
+    },
+    "AISLINGMEDIAMATERIALS": {
+      "name": "Aisling Media Materials",
+      "locations": [
+        ""
+      ]
+    },
+    "AISLINGMEDIARESOURCES": {
+      "name": "Aisling Media Resources",
+      "locations": [
+        ""
+      ]
+    },
+    "AISLINGPROMOTIONALMATERIALS": {
+      "name": "Aisling Promotional Materials",
+      "locations": [
+        ""
+      ]
+    },
+    "ALLIANCETRADEAGREEMENTS": {
+      "name": "Alliance Trade Agreements",
+      "locations": [
+        ""
+      ]
+    },
+    "ALLIANCELEGASLATIVECONTRACTS": {
+      "name": "Alliance Legaslative Contracts",
+      "locations": [
+        ""
+      ]
+    },
+    "ALLIANCELEGASLATIVERECORDS": {
+      "name": "Alliance Legaslative Records",
+      "locations": [
+        ""
+      ]
+    },
+    "LAVIGNYCORRUPTIONDOSSIERS": {
+      "name": "Lavigny Corruption Dossiers",
+      "locations": [
+        ""
+      ]
+    },
+    "LAVIGNYFIELDSUPPLIES": {
+      "name": "Lavigny Field Supplies",
+      "locations": [
+        ""
+      ]
+    },
+    "LAVIGNYGARISONSUPPLIES": {
+      "name": "Lavigny Garison Supplies",
+      "locations": [
+        ""
+      ]
+    },
+    "RESTRICTEDPACKAGE": {
+      "name": "Restricted Package",
+      "locations": [
+        ""
+      ]
+    },
+    "LIBERALCAMPAIGNMATERIALS": {
+      "name": "Liberal Campaign Materials",
+      "locations": [
+        ""
+      ]
+    },
+    "FEDERALAID": {
+      "name": "Federal Aid",
+      "locations": [
+        ""
+      ]
+    },
+    "FEDERALTRADECONTRACTS": {
+      "name": "Federal Trade Contracts",
+      "locations": [
+        ""
+      ]
+    },
+    "LOANEDARMS": {
+      "name": "Loaned Arms",
+      "locations": [
+        ""
+      ]
+    },
+    "PATREUSFIELDSUPPLIES": {
+      "name": "Patreus Field Supplies",
+      "locations": [
+        ""
+      ]
+    },
+    "PATREUSGARISONSUPPLIES": {
+      "name": "Patreus Garison Supplies",
+      "locations": [
+        ""
+      ]
+    },
+    "RESTRICTEDINTEL": {
+      "name": "Restricted Intel",
+      "locations": [
+        ""
+      ]
+    },
+    "REPUBLICANFIELDSUPPLIES": {
+      "name": "Republican Field Supplies",
+      "locations": [
+        ""
+      ]
+    },
+    "REPUBLICANGARISONSUPPLIES": {
+      "name": "Republican Garison Supplies",
+      "locations": [
+        ""
+      ]
+    },
+    "SIRIUSFRANCHISEPACKAGE": {
+      "name": "Sirius Franchise Package",
+      "locations": [
+        ""
+      ]
+    },
+    "SIRIUSCOMMERCIALCONTRACTS": {
+      "name": "Sirius Commercial Contracts",
+      "locations": [
+        ""
+      ]
+    },
+    "SIRIUSINDUSTRIALEQUIPMENT": {
+      "name": "Sirius Industrial Equipment",
+      "locations": [
+        ""
+      ]
+    },
+    "TORVALCOMMERCIALCONTRACTS": {
+      "name": "Torval Commercial Contracts",
+      "locations": [
+        ""
+      ]
+    },
+    "IMPERIALPRISONER": {
+      "name": "Imperial Prisoner",
+      "locations": [
+        ""
+      ]
+    },
+    "UTOPIANPUBLICITY": {
+      "name": "Utopian Publicity",
+      "locations": [
+        ""
+      ]
+    },
+    "UTOPIANFIELDSUPPLIES": {
+      "name": "Utopian Field Supplies",
+      "locations": [
+        ""
+      ]
+    },
+    "UTOPIANDISSIDENT": {
+      "name": "Utopian Dissident",
+      "locations": [
+        ""
+      ]
+    },
+    "ILLICITCONSIGNMENT": {
+      "name": "Illicit Consignment",
+      "locations": [
+        ""
+      ]
+    },
+    "UNMARKEDWEAPONS": {
+      "name": "Unmarked Weapons",
+      "locations": [
+        ""
+      ]
+    },
+    "ONIONHEADSAMPLES": {
+      "name": "Onionhead Samples",
+      "locations": [
+        ""
+      ]
+    },
+    "COUNTERCULTURESUPPORT": {
+      "name": "Counterculture Support",
+      "locations": [
+        ""
+      ]
+    },
+    "MARKEDSLAVES": {
+      "name": "Marked Slaves",
+      "locations": [
+        ""
+      ]
+    },
+    "TORVALDEEDS": {
+      "name": "Torval Deeds",
+      "locations": [
+        ""
+      ]
+    },
+    "ONIONHEADDERIVATIVES": {
+      "name": "Onionhead Derivatives",
+      "locations": [
+        ""
+      ]
+    },
+    "OUTOFDATEGOODS": {
+      "name": "Out Of Date Goods",
+      "locations": [
+        ""
+      ]
+    },
+    "UNDERGROUNDSUPPORT": {
+      "name": "Underground Support",
+      "locations": [
+        ""
+      ]
+    },
+    "GROMCOUNTERINTELLIGENCE": {
+      "name": "Grom Counter Intelligence",
+      "locations": [
+        ""
+      ]
+    },
+    "GROMWARTROPHIES": {
+      "name": "Grom War Trophies",
+      "locations": [
+        ""
+      ]
+    }
   },
-  "materials":
-  {
-    "ADAPTIVEENCRYPTORS": "Adaptive Encryptors Capture",
-    "ARCHIVEDEMISSIONDATA": "Irregular Emission Data",
-    "BULKSCANDATA": "Anomalous Bulk Scan Data",
-    "CLASSIFIEDSCANDATA": "Classified Scan Fragment",
-    "COMPACTEMISSIONSDATA": "Abnormal Compact Emissions Data",
-    "CONSUMERFIRMWARE": "Modified Consumer Firmware",
-    "DATAMINEDWAKE": "Datamined Wake Exceptions",
-    "DECODEDEMISSIONDATA": "Decoded Emission Data",
-    "DISRUPTEDWAKEECHOES": "Atypical Disrupted Wake Echoes",
-    "EMBEDDEDFIRMWARE": "Modified Embedded Firmware",
-    "EMISSIONDATA": "Unexpected Emission Data",
-    "ENCODEDSCANDATA": "Divergent Scan Data",
-    "ENCRYPTEDFILES": "Unusual Encrypted Files",
-    "ENCRYPTIONARCHIVES": "Atypical Encryption Archives",
-    "ENCRYPTIONCODES": "Tagged Encryption Codes",
-    "FSDTELEMETRY": "Anomalous FSD Telemetry",
-    "HYPERSPACETRAJECTORIES": "Eccentric Hyperspace Trajectories",
-    "INDUSTRIALFIRMWARE": "Cracked Industrial Firmware",
-    "LEGACYFIRMWARE": "Specialised Legacy Firmware",
-    "SCANARCHIVES": "Unidentified Scan Archives",
-    "SCANDATABANKS": "Classified Scan Databanks",
-    "SCRAMBLEDEMISSIONDATA": "Exceptional Scrambled Emission Data",
-    "SECURITYFIRMWARE": "Security Firmware Patch",
-    "SHIELDCYCLERECORDINGS": "Distorted Shield Cycle Recordings",
-    "SHIELDDENSITYREPORTS": "Untypical Shield Scans",
-    "SHIELDFREQUENCYDATA": "Peculiar Shield Frequency Data",
-    "SHIELDPATTERNANALYSIS": "Aberrant Shield Pattern Analysis",
-    "SHIELDSOAKANALYSIS": "Inconsistent Shield Soak Analysis",
-    "SYMMETRICKEYS": "Open Symmetric Keys",
-    "WAKESOLUTIONS": "Strange Wake Solutions",
-    "BASICCONDUCTORS": "Basic Conductors",
-    "BIOTECHCONDUCTORS": "Biotech Conductors",
-    "CHEMICALDISTILLERY": "Chemical Distillery",
-    "CHEMICALMANIPULATORS": "Chemical Manipulators",
-    "CHEMICALPROCESSORS": "Chemical Processors",
-    "CHEMICALSTORAGEUNITS": "Chemical Storage Units",
-    "COMPACTCOMPOSITES": "Compact Composites",
-    "COMPOUNDSHIELDING": "Compound Shielding",
-    "CONDUCTIVECERAMICS": "Conductive Ceramics",
-    "CONDUCTIVECOMPONENTS": "Conductive Components",
-    "CONDUCTIVEPOLYMERS": "Conductive Polymers",
-    "CONFIGURABLECOMPONENTS": "Configurable Components",
-    "CRYSTALSHARDS": "Crystal Shards",
-    "ELECTROCHEMICALARRAYS": "Electrochemical Arrays",
-    "EXQUISITEFOCUSCRYSTALS": "Exquisite Focus Crystals",
-    "FEDCORECOMPOSITES": "Core Dynamics Composites",
-    "FEDPROPRIETARYCOMPOSITES": "Proprietary Composites",
-    "FILAMENTCOMPOSITES": "Filament Composites",
-    "FOCUSCRYSTALS": "Focus Crystals",
-    "GALVANISINGALLOYS": "Galvanising Alloys",
-    "GRIDRESISTORS": "Grid Resistors",
-    "HEATCONDUCTIONWIRING": "Heat Conduction Wiring",
-    "HEATDISPERSIONPLATE": "Heat Dispersion Plate",
-    "HEATEXCHANGERS": "Heat Exchangers",
-    "HEATRESISTANTCERAMICS": "Heat Resistant Ceramics",
-    "HEATVANES": "Heat Vanes",
-    "HIGHDENSITYCOMPOSITES": "High Density Composites",
-    "HYBRIDCAPACITORS": "Hybrid Capacitors",
-    "IMPERIALSHIELDING": "Imperial Shielding",
-    "IMPROVISEDCOMPONENTS": "Improvised Components",
-    "MECHANICALCOMPONENTS": "Mechanical Components",
-    "MECHANICALEQUIPMENT": "Mechanical Equipment",
-    "MECHANICALSCRAP": "Mechanical Scrap",
-    "MILITARYGRADEALLOYS": "Military Grade Alloys",
-    "MILITARYSUPERCAPACITORS": "Military Supercapacitors",
-    "PHARMACEUTICALISOLATORS": "Pharmaceutical Isolators",
-    "PHASEALLOYS": "Phase Alloys",
-    "POLYMERCAPACITORS": "Polymer Capacitors",
-    "PRECIPITATEDALLOYS": "Precipitated Alloys",
-    "PROTOHEATRADIATORS": "Proto Heat Radiators",
-    "PROTOLIGHTALLOYS": "Proto Light Alloys",
-    "PROTORADIOLICALLOYS": "Proto Radiolic Alloys",
-    "REFINEDFOCUSCRYSTALS": "Refined Focus Crystals",
-    "SALVAGEDALLOYS": "Salvaged Alloys",
-    "SHIELDEMITTERS": "Shield Emitters",
-    "SHIELDINGSENSORS": "Shielding Sensors",
-    "TEMPEREDALLOYS": "Tempered Alloys",
-    "THERMICALLOYS": "Thermic Alloys",
-    "UNCUTFOCUSCRYSTALS": "Flawed Focus Crystals",
-    "WORNSHIELDEMITTERS": "Worn Shield Emitters",
-    "ANTIMONY": "Antimony",
-    "ARSENIC": "Arsenic",
-    "BORON": "Boron",
-    "CADMIUM": "Cadmium",
-    "CARBON": "Carbon",
-    "CHROMIUM": "Chromium",
-    "GERMANIUM": "Germanium",
-    "IRON": "Iron",
-    "LEAD": "Lead",
-    "MANGANESE": "Manganese",
-    "MERCURY": "Mercury",
-    "MOLYBDENUM": "Molybdenum",
-    "NICKEL": "Nickel",
-    "NIOBIUM": "Niobium",
-    "PHOSPHORUS": "Phosphorus",
-    "POLONIUM": "Polonium",
-    "RHENIUM": "Rhenium",
-    "RUTHENIUM": "Ruthenium",
-    "SELENIUM": "Selenium",
-    "SULPHUR": "Sulphur",
-    "TECHNETIUM": "Technetium",
-    "TELLURIUM": "Tellurium",
-    "TIN": "Tin",
-    "TUNGSTEN": "Tungsten",
-    "VANADIUM": "Vanadium",
-    "YTTRIUM": "Yttrium",
-    "ZINC": "Zinc",
-    "ZIRCONIUM": "Zirconium",
-    "ANCIENTBIOLOGICALDATA" : "Pattern Alpha Obelisk Data",
-    "ANCIENTCULTURALDATA" : "Pattern Beta Obelisk Data",
-    "ANCIENTLANGUAGEDATA" : "Pattern Delta Obelisk Data",
-    "ANCIENTTECHNOLOGICALDATA" : "Pattern Epsilon Obelisk Data",
-    "ANCIENTHISTORICALDATA" : "Pattern Gamma Obelisk Data",
-    "GUARDIAN_MODULEBLUEPRINT" : "Guardian Module Blueprint Segment",
-    "GUARDIAN_VESSELBLUEPRINT" : "Guardian Vessel Blueprint Segment",
-    "GUARDIAN_WEAPONBLUEPRINT" : "Guardian Weapon Blueprint Segment",
-    "TG_STRUCTURALDATA" : "Thargoid Structural Data",
-    "TG_SHIPFLIGHTDATA" : "Ship Flight Data",
-    "TG_SHIPSYSTEMSDATA" : "Ship Systems Data",
-    "TG_COMPOSITIONDATA" : "Thargoid Material Composition Data",
-    "UNKNOWNSHIPSIGNATURE" : "Thargoid Ship Signature",
-    "TG_RESIDUEDATA" : "Thargoid Residue Data",
-    "UNKNOWNWAKEDATA" : "Thargoid Wake Data",
-    "GUARDIAN_POWERCELL" : "Guardian Power Cell",
-    "GUARDIAN_SENTINEL_WRECKAGECOMPONENTS" : "Guardian Sentinel Wreckage Components",
-    "GUARDIAN_POWERCONDUIT" : "Guardian Power Conduit",
-    "GUARDIAN_SENTINEL_WEAPONPARTS" : "Guardian Sentinel Weapon Parts",
-    "GUARDIAN_TECHCOMPONENT" : "Guardian Technology Component",
-    "UNKNOWNCARAPACE" : "Thargoid Carapace",
-    "TG_BIOMECHANICALCONDUITS" : "Bio Mechanical Conduits",
-    "TG_PROPULSIONELEMENT" : "Propulsion Elements",
-    "UNKNOWNENERGYCELL" : "Thargoid Energy Cell",
-    "TG_WEAPONPARTS" : "Weapon Parts",
-    "TG_WRECKAGECOMPONENTS" : "Wreckage Components",
-    "UNKNOWNTECHNOLOGYCOMPONENTS" : "Thargoid Technological Components",
-    "UNKNOWNENERGYSOURCE" : "Sensor Fragment",
-    "UNKNOWNORGANICCIRCUITRY" : "Thargoid Organic Circuitry"
+  "materials": {
+    "ADAPTIVEENCRYPTORS": {
+      "name": "Adaptive Encryptors Capture",
+      "locations": [
+        "Surface POI",
+        "USS"
+      ]
+    },
+    "ANCIENTBIOLOGICALDATA": {
+      "name": "Pattern Alpha Obelisk Data",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "ANCIENTCULTURALDATA": {
+      "name": "Pattern Beta Obelisk Data",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "ANCIENTHISTORICALDATA": {
+      "name": "Pattern Gamma Obelisk Data",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "ANCIENTLANGUAGEDATA": {
+      "name": "Pattern Delta Obelisk Data",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "ANCIENTTECHNOLOGICALDATA": {
+      "name": "Pattern Epsilon Obelisk Data",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "ANTIMONY": {
+      "name": "Antimony",
+      "locations": [
+        "Surface prospecting"
+      ]
+    },
+    "ARCHIVEDEMISSIONDATA": {
+      "name": "Irregular Emission Data",
+      "locations": [
+        "Mission reward",
+        "USS"
+      ]
+    },
+    "ARSENIC": {
+      "name": "Arsenic",
+      "locations": [
+        "Surface prospecting",
+        "Mining",
+        "Mission reward"
+      ]
+    },
+    "BASICCONDUCTORS": {
+      "name": "Basic Conductors",
+      "locations": [
+        "Ship salvage (Transport ships)"
+      ]
+    },
+    "BIOTECHCONDUCTORS": {
+      "name": "Biotech Conductors",
+      "locations": [
+        "Mission reward"
+      ]
+    },
+    "BORON": {
+      "name": "Boron",
+      "locations": [
+        "Mining"
+      ]
+    },
+    "BULKSCANDATA": {
+      "name": "Anomalous Bulk Scan Data",
+      "locations": [
+        "Ship scanning (Transport ships)",
+        "Mission reward"
+      ]
+    },
+    "CADMIUM": {
+      "name": "Cadmium",
+      "locations": [
+        "Surface prospecting",
+        "Mining"
+      ]
+    },
+    "CARBON": {
+      "name": "Carbon",
+      "locations": [
+        "Surface prospecting",
+        "Mining",
+        "Mining (Ice rings)"
+      ]
+    },
+    "CHEMICALDISTILLERY": {
+      "name": "Chemical Distillery",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS"
+      ]
+    },
+    "CHEMICALMANIPULATORS": {
+      "name": "Chemical Manipulators",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "Surface POI",
+        "USS (Convoy dispersal pattern)"
+      ]
+    },
+    "CHEMICALPROCESSORS": {
+      "name": "Chemical Processors",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "CHEMICALSTORAGEUNITS": {
+      "name": "Chemical Storage Units",
+      "locations": [
+        "Ship salvage (Transport ships)"
+      ]
+    },
+    "CHROMIUM": {
+      "name": "Chromium",
+      "locations": [
+        "Surface prospecting",
+        "Mining (Ice rings)"
+      ]
+    },
+    "CLASSIFIEDSCANDATA": {
+      "name": "Classified Scan Fragment",
+      "locations": [
+        "Surface data point",
+        "Mission reward",
+        "Ship scanning (Military & authority ships)"
+      ]
+    },
+    "COMPACTCOMPOSITES": {
+      "name": "Compact Composites",
+      "locations": [
+        "USS",
+        "Surface POI"
+      ]
+    },
+    "COMPACTEMISSIONSDATA": {
+      "name": "Abnormal Compact Emissions Data",
+      "locations": [
+        "USS (Encoded emissions)",
+        "Ship scanning (Combat ships)",
+        "Mission reward"
+      ]
+    },
+    "COMPOUNDSHIELDING": {
+      "name": "Compound Shielding",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "USS (Encoded emissions)",
+        "Mission reward"
+      ]
+    },
+    "CONDUCTIVECERAMICS": {
+      "name": "Conductive Ceramics",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS (Degraded emissions/Anarchy)"
+      ]
+    },
+    "CONDUCTIVECOMPONENTS": {
+      "name": "Conductive Components",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS (Degraded emissions/Anarchy)"
+      ]
+    },
+    "CONDUCTIVEPOLYMERS": {
+      "name": "Conductive Polymers",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "Surface POI",
+        "Mission reward"
+      ]
+    },
+    "CONFIGURABLECOMPONENTS": {
+      "name": "Configurable Components",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS (Combat aftermath)",
+        "USS (Encoded emissions)"
+      ]
+    },
+    "CONSUMERFIRMWARE": {
+      "name": "Modified Consumer Firmware",
+      "locations": [
+        "Mission reward",
+        "USS",
+        "Surface data point"
+      ]
+    },
+    "CRYSTALSHARDS": {
+      "name": "Crystal Shards",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "Surface POI"
+      ]
+    },
+    "DATAMINEDWAKE": {
+      "name": "Datamined Wake Exceptions",
+      "locations": [
+        "High wake scanning",
+        "Mission reward",
+        "USS (Encoded emissions)"
+      ]
+    },
+    "DECODEDEMISSIONDATA": {
+      "name": "Decoded Emission Data",
+      "locations": [
+        "Ship scanning (Combat ships)",
+        "Mission reward"
+      ]
+    },
+    "DISRUPTEDWAKEECHOES": {
+      "name": "Atypical Disrupted Wake Echoes",
+      "locations": [
+        "High wake scanning",
+        "Mission reward"
+      ]
+    },
+    "ELECTROCHEMICALARRAYS": {
+      "name": "Electrochemical Arrays",
+      "locations": [
+        "Ship salvage (Military & authority ships)",
+        "USS (Degraded emissions/Anarchy)"
+      ]
+    },
+    "EMBEDDEDFIRMWARE": {
+      "name": "Modified Embedded Firmware",
+      "locations": [
+        "Surface data point",
+        "Mission reward"
+      ]
+    },
+    "EMISSIONDATA": {
+      "name": "Unexpected Emission Data",
+      "locations": [
+        "Ship scanning (Combat ships)",
+        "USS"
+      ]
+    },
+    "ENCODEDSCANDATA": {
+      "name": "Divergent Scan Data",
+      "locations": [
+        "Surface data point",
+        "Mission reward"
+      ]
+    },
+    "ENCRYPTEDFILES": {
+      "name": "Unusual Encrypted Files",
+      "locations": [
+        "Surface data point",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "ENCRYPTIONARCHIVES": {
+      "name": "Atypical Encryption Archives",
+      "locations": [
+        "Surface POI"
+      ]
+    },
+    "ENCRYPTIONCODES": {
+      "name": "Tagged Encryption Codes",
+      "locations": [
+        "Surface data point",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "EXQUISITEFOCUSCRYSTALS": {
+      "name": "Exquisite Focus Crystals",
+      "locations": [
+        "Mission reward"
+      ]
+    },
+    "FEDCORECOMPOSITES": {
+      "name": "Core Dynamics Composites",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "USS (High grade emissions)"
+      ]
+    },
+    "FEDPROPRIETARYCOMPOSITES": {
+      "name": "Proprietary Composites",
+      "locations": [
+        "USS (Encoded emissions)",
+        "USS (High grade emissions)",
+        "Mission reward"
+      ]
+    },
+    "FILAMENTCOMPOSITES": {
+      "name": "Filament Composites",
+      "locations": [
+        "Ship salvage (Military & authority ships)",
+        "USS"
+      ]
+    },
+    "FOCUSCRYSTALS": {
+      "name": "Focus Crystals",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "USS"
+      ]
+    },
+    "FSDTELEMETRY": {
+      "name": "Anomalous FSD Telemetry",
+      "locations": [
+        "High wake scanning",
+        "Mission reward"
+      ]
+    },
+    "GALVANISINGALLOYS": {
+      "name": "Galvanising Alloys",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "GERMANIUM": {
+      "name": "Germanium",
+      "locations": [
+        "Surface prospecting",
+        "Mission reward"
+      ]
+    },
+    "GRIDRESISTORS": {
+      "name": "Grid Resistors",
+      "locations": [
+        "Ship salvage (Military & authority ships)",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "GUARDIAN_MODULEBLUEPRINT": {
+      "name": "Guardian Module Blueprint Segment",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "GUARDIAN_POWERCELL": {
+      "name": "Guardian Power Cell",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "GUARDIAN_POWERCONDUIT": {
+      "name": "Guardian Power Conduit",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "GUARDIAN_SENTINEL_WEAPONPARTS": {
+      "name": "Guardian Sentinel Weapon Parts",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "GUARDIAN_SENTINEL_WRECKAGECOMPONENTS": {
+      "name": "Guardian Sentinel Wreckage Components",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "GUARDIAN_TECHCOMPONENT": {
+      "name": "Guardian Technology Component",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "GUARDIAN_VESSELBLUEPRINT": {
+      "name": "Guardian Vessel Blueprint Segment",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "GUARDIAN_WEAPONBLUEPRINT": {
+      "name": "Guardian Weapon Blueprint Segment",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "HEATCONDUCTIONWIRING": {
+      "name": "Heat Conduction Wiring",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "HEATDISPERSIONPLATE": {
+      "name": "Heat Dispersion Plate",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "HEATEXCHANGERS": {
+      "name": "Heat Exchangers",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS (Degraded emissions/Anarchy)"
+      ]
+    },
+    "HEATRESISTANTCERAMICS": {
+      "name": "Heat Resistant Ceramics",
+      "locations": [
+        "Ship salvage (Military & authority ships)"
+      ]
+    },
+    "HEATVANES": {
+      "name": "Heat Vanes",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "HIGHDENSITYCOMPOSITES": {
+      "name": "High Density Composites",
+      "locations": [
+        "Ship salvage (Military & authority ships)",
+        "USS"
+      ]
+    },
+    "HYBRIDCAPACITORS": {
+      "name": "Hybrid Capacitors",
+      "locations": [
+        "Ship salvage (Military & authority ships)",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "HYPERSPACETRAJECTORIES": {
+      "name": "Eccentric Hyperspace Trajectories",
+      "locations": [
+        "High wake scanning"
+      ]
+    },
+    "IMPERIALSHIELDING": {
+      "name": "Imperial Shielding",
+      "locations": [
+        "USS (High grade emissions)",
+        "Mission reward"
+      ]
+    },
+    "IMPROVISEDCOMPONENTS": {
+      "name": "Improvised Components",
+      "locations": [
+        "USS (High grade emissions)",
+        "Mission reward"
+      ]
+    },
+    "INDUSTRIALFIRMWARE": {
+      "name": "Cracked Industrial Firmware",
+      "locations": [
+        "Surface data point",
+        "Mission reward"
+      ]
+    },
+    "IRON": {
+      "name": "Iron",
+      "locations": [
+        "Surface prospecting",
+        "Mining",
+        "Mining (Ice rings)"
+      ]
+    },
+    "LEAD": {
+      "name": "Lead",
+      "locations": [
+        "Mining"
+      ]
+    },
+    "LEGACYFIRMWARE": {
+      "name": "Specialised Legacy Firmware",
+      "locations": [
+        "Mission reward",
+        "Surface data point",
+        "USS"
+      ]
+    },
+    "MANGANESE": {
+      "name": "Manganese",
+      "locations": [
+        "Surface prospecting",
+        "Mission reward"
+      ]
+    },
+    "MECHANICALCOMPONENTS": {
+      "name": "Mechanical Components",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS (Combat aftermath)"
+      ]
+    },
+    "MECHANICALEQUIPMENT": {
+      "name": "Mechanical Equipment",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS"
+      ]
+    },
+    "MECHANICALSCRAP": {
+      "name": "Mechanical Scrap",
+      "locations": [
+        "Ship salvage (Transport ships)",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "MERCURY": {
+      "name": "Mercury",
+      "locations": [
+        "Surface prospecting"
+      ]
+    },
+    "MILITARYGRADEALLOYS": {
+      "name": "Military Grade Alloys",
+      "locations": [
+        "USS (High grade emissions)",
+        "Mission reward"
+      ]
+    },
+    "MILITARYSUPERCAPACITORS": {
+      "name": "Military Supercapacitors",
+      "locations": [
+        "USS (High grade emissions)",
+        "Mission reward"
+      ]
+    },
+    "MOLYBDENUM": {
+      "name": "Molybdenum",
+      "locations": [
+        "Surface prospecting",
+        "Mission reward"
+      ]
+    },
+    "NICKEL": {
+      "name": "Nickel",
+      "locations": [
+        "Surface prospecting",
+        "Mining",
+        "Mining (Ice rings)"
+      ]
+    },
+    "NIOBIUM": {
+      "name": "Niobium",
+      "locations": [
+        "Surface prospecting",
+        "Mission reward"
+      ]
+    },
+    "PHARMACEUTICALISOLATORS": {
+      "name": "Pharmaceutical Isolators",
+      "locations": [
+        "Mission reward",
+        "USS (High grade emissions)"
+      ]
+    },
+    "PHASEALLOYS": {
+      "name": "Phase Alloys",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "USS"
+      ]
+    },
+    "PHOSPHORUS": {
+      "name": "Phosphorus",
+      "locations": [
+        "Surface prospecting",
+        "Mining",
+        "Mining (Ice rings)"
+      ]
+    },
+    "POLONIUM": {
+      "name": "Polonium",
+      "locations": [
+        "Surface prospecting",
+        "Mission reward"
+      ]
+    },
+    "POLYMERCAPACITORS": {
+      "name": "Polymer Capacitors",
+      "locations": [
+        "Ship salvage (Military & authority ships)",
+        "USS (Convoy dispersal pattern)",
+        "Mission reward"
+      ]
+    },
+    "PRECIPITATEDALLOYS": {
+      "name": "Precipitated Alloys",
+      "locations": [
+        "Ship salvage (Military & authority ships)",
+        "Mission reward"
+      ]
+    },
+    "PROTOHEATRADIATORS": {
+      "name": "Proto Heat Radiators",
+      "locations": [
+        "USS (High grade emissions)",
+        "Mission reward"
+      ]
+    },
+    "PROTOLIGHTALLOYS": {
+      "name": "Proto Light Alloys",
+      "locations": [
+        "USS (High grade emissions)",
+        "Mission reward"
+      ]
+    },
+    "PROTORADIOLICALLOYS": {
+      "name": "Proto Radiolic Alloys",
+      "locations": [
+        "USS (High grade emissions)"
+      ]
+    },
+    "REFINEDFOCUSCRYSTALS": {
+      "name": "Refined Focus Crystals",
+      "locations": [
+        "Mission reward",
+        "USS (Weapons fire)"
+      ]
+    },
+    "RHENIUM": {
+      "name": "Rhenium",
+      "locations": [
+        "Mining"
+      ]
+    },
+    "RUTHENIUM": {
+      "name": "Ruthenium",
+      "locations": [
+        "Surface prospecting"
+      ]
+    },
+    "SALVAGEDALLOYS": {
+      "name": "Salvaged Alloys",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "USS (Combat aftermath)"
+      ]
+    },
+    "SCANARCHIVES": {
+      "name": "Unidentified Scan Archives",
+      "locations": [
+        "Ship scanning (Transport ships)"
+      ]
+    },
+    "SCANDATABANKS": {
+      "name": "Classified Scan Databanks",
+      "locations": [
+        "Ship scanning (Transport ships)",
+        "Surface POI"
+      ]
+    },
+    "SCRAMBLEDEMISSIONDATA": {
+      "name": "Exceptional Scrambled Emission Data",
+      "locations": [
+        "Ship scanning",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "SECURITYFIRMWARE": {
+      "name": "Security Firmware Patch",
+      "locations": [
+        "Surface data point",
+        "Mission reward"
+      ]
+    },
+    "SELENIUM": {
+      "name": "Selenium",
+      "locations": [
+        "Surface prospecting",
+        "Mission reward"
+      ]
+    },
+    "SHIELDCYCLERECORDINGS": {
+      "name": "Distorted Shield Cycle Recordings",
+      "locations": [
+        "Ship scanning (Transport ships)",
+        "Mission reward"
+      ]
+    },
+    "SHIELDDENSITYREPORTS": {
+      "name": "Untypical Shield Scans",
+      "locations": [
+        "Ship scanning (Combat ships)"
+      ]
+    },
+    "SHIELDEMITTERS": {
+      "name": "Shield Emitters",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "USS"
+      ]
+    },
+    "SHIELDFREQUENCYDATA": {
+      "name": "Peculiar Shield Frequency Data",
+      "locations": [
+        "Ship scanning",
+        "Mission reward"
+      ]
+    },
+    "SHIELDINGSENSORS": {
+      "name": "Shielding Sensors",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "SHIELDPATTERNANALYSIS": {
+      "name": "Aberrant Shield Pattern Analysis",
+      "locations": [
+        "Ship scanning (Combat ships)",
+        "Mission reward"
+      ]
+    },
+    "SHIELDSOAKANALYSIS": {
+      "name": "Inconsistent Shield Soak Analysis",
+      "locations": [
+        "Ship scanning (Transport ships)",
+        "Mission reward"
+      ]
+    },
+    "SULPHUR": {
+      "name": "Sulphur",
+      "locations": [
+        "Surface prospecting",
+        "Mining",
+        "Mining (Ice rings)"
+      ]
+    },
+    "SYMMETRICKEYS": {
+      "name": "Open Symmetric Keys",
+      "locations": [
+        "Surface data point",
+        "USS",
+        "Mission reward"
+      ]
+    },
+    "TECHNETIUM": {
+      "name": "Technetium",
+      "locations": [
+        "Surface prospecting"
+      ]
+    },
+    "TELLURIUM": {
+      "name": "Tellurium",
+      "locations": [
+        "Surface prospecting"
+      ]
+    },
+    "TEMPEREDALLOYS": {
+      "name": "Tempered Alloys",
+      "locations": [
+        "Ship salvage (Combat ships)"
+      ]
+    },
+    "TG_BIOMECHANICALCONDUITS": {
+      "name": "Bio Mechanical Conduits",
+      "locations": [
+        "Thargoid ship encounter"
+      ]
+    },
+    "TG_COMPOSITIONDATA": {
+      "name": "Thargoid Material Composition Data",
+      "locations": [
+        "Thargoid site"
+      ]
+    },
+    "TG_PROPULSIONELEMENT": {
+      "name": "Propulsion Elements",
+      "locations": [
+        "Thargoid ship encounter"
+      ]
+    },
+    "TG_RESIDUEDATA": {
+      "name": "Thargoid Residue Data",
+      "locations": [
+        "Thargoid site"
+      ]
+    },
+    "TG_SHIPFLIGHTDATA": {
+      "name": "Ship Flight Data",
+      "locations": [
+        "Thargoid ship encounter"
+      ]
+    },
+    "TG_SHIPSYSTEMSDATA": {
+      "name": "Ship Systems Data",
+      "locations": [
+        "Thargoid ship encounter"
+      ]
+    },
+    "TG_STRUCTURALDATA": {
+      "name": "Thargoid Structural Data",
+      "locations": [
+        "Thargoid site"
+      ]
+    },
+    "TG_WEAPONPARTS": {
+      "name": "Weapon Parts",
+      "locations": [
+        "Thargoid ship encounter"
+      ]
+    },
+    "TG_WRECKAGECOMPONENTS": {
+      "name": "Wreckage Components",
+      "locations": [
+        "Thargoid ship encounter"
+      ]
+    },
+    "THERMICALLOYS": {
+      "name": "Thermic Alloys",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "Mission reward"
+      ]
+    },
+    "TIN": {
+      "name": "Tin",
+      "locations": [
+        "Surface prospecting"
+      ]
+    },
+    "TUNGSTEN": {
+      "name": "Tungsten",
+      "locations": [
+        "Surface prospecting"
+      ]
+    },
+    "UNCUTFOCUSCRYSTALS": {
+      "name": "Flawed Focus Crystals",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "USS (Combat aftermath)"
+      ]
+    },
+    "UNKNOWNCARAPACE": {
+      "name": "Thargoid Carapace",
+      "locations": [
+        "Thargoid site"
+      ]
+    },
+    "UNKNOWNENERGYCELL": {
+      "name": "Thargoid Energy Cell",
+      "locations": [
+        "Thargoid site"
+      ]
+    },
+    "UNKNOWNENERGYSOURCE": {
+      "name": "Sensor Fragment",
+      "locations": [
+        "Destroyed Unknown artefact",
+        "USS (Anomaly)",
+        "Known Thargoid sites:",
+        "- Planetary Body: HIP 17862 6 c a, Latitude: 30.32, Longitude: -98.58",
+        "- Planetary Body: HIP 17403 A 4 a, Latitude: -34.98, Longitude: -141.41"
+      ]
+    },
+    "UNKNOWNORGANICCIRCUITRY": {
+      "name": "Thargoid Organic Circuitry",
+      "locations": [
+        "Thargoid site"
+      ]
+    },
+    "UNKNOWNSHIPSIGNATURE": {
+      "name": "Thargoid Ship Signature",
+      "locations": [
+        "Thargoid ship encounter",
+        "Thargoid site"
+      ]
+    },
+    "UNKNOWNTECHNOLOGYCOMPONENTS": {
+      "name": "Thargoid Technological Components",
+      "locations": [
+        "Thargoid site"
+      ]
+    },
+    "UNKNOWNWAKEDATA": {
+      "name": "Thargoid Wake Data",
+      "locations": [
+        "Thargoid ship encounter"
+      ]
+    },
+    "VANADIUM": {
+      "name": "Vanadium",
+      "locations": [
+        "Surface prospecting",
+        "Mining (Ice rings)"
+      ]
+    },
+    "WAKESOLUTIONS": {
+      "name": "Strange Wake Solutions",
+      "locations": [
+        "High wake scanning",
+        "Mission reward"
+      ]
+    },
+    "WORNSHIELDEMITTERS": {
+      "name": "Worn Shield Emitters",
+      "locations": [
+        "Ship salvage (Combat ships)",
+        "USS"
+      ]
+    },
+    "YTTRIUM": {
+      "name": "Yttrium",
+      "locations": [
+        "Surface prospecting"
+      ]
+    },
+    "ZINC": {
+      "name": "Zinc",
+      "locations": [
+        "Surface prospecting"
+      ]
+    },
+    "ZIRCONIUM": {
+      "name": "Zirconium",
+      "locations": [
+        "Surface prospecting",
+        "Mining"
+      ]
+    }
   }
 }
