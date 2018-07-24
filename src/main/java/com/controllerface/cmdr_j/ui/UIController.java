@@ -1418,18 +1418,26 @@ public class UIController
 
         data.put("tasks", tasks);
 
-        File file = new File("data.json");
+        File file = new File(DATA_FOLDER, "tasks.json");
         if (!file.exists() && !file.createNewFile()) throw new RuntimeException("Could not create file");
         JSONSupport.Write.jsonToFile.apply(file, data);
     }
 
+    private static final String DATA_FOLDER = System.getProperty("user.home")
+            + File.separator + "CMDR_J";
+
     @SuppressWarnings("unchecked")
     private void fromJson()
     {
-        File file = new File("data.json");
+        File file = new File(DATA_FOLDER, "tasks.json");
+        if (!file.getParentFile().mkdirs() && !file.getParentFile().exists())
+        {
+            System.err.println("Parent directory inaccessible");
+            return;
+        }
         if (!file.exists())
         {
-            System.err.println("data.json File not found");
+            System.err.println("tasks.json File not found");
             return;
         }
 
