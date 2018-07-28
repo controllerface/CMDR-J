@@ -476,5 +476,6 @@
             </Tab>
         </tabs>
       </TabPane>
+      <ProgressBar fx:id="messageProgress" layoutX="235.0" layoutY="10.0" prefWidth="200.0" progress="0.0" />
    </children>
 </AnchorPane>

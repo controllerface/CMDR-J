@@ -102,6 +102,7 @@ public class UIController
     @FXML private Label economyLabel;
     @FXML private Label stationLabel;
 
+    @FXML private ProgressBar messageProgress;
 
     /*
     Ship LoadoutHandler Tab
@@ -272,6 +273,8 @@ public class UIController
     // and player inventory in sync
     private final BlockingQueue<UserTransaction> transactionQueue = new LinkedBlockingQueue<>();
 
+    private final AtomicInteger queuedMessages = new AtomicInteger(0);
+    private final AtomicInteger processedMessages = new AtomicInteger(0);
     private final BlockingQueue<MessageData> messageQueue = new LinkedBlockingDeque<>();
     private final AtomicBoolean hasMessages = new AtomicBoolean(false);
 
@@ -298,14 +301,25 @@ public class UIController
     private void consumeNextMessageBlock(List<MessageData> msgs)
     {
         consoleBackingList.addAll(msgs);
+        processedMessages.addAndGet(msgs.size());
+
+        double p = (double) processedMessages.get() / (double) queuedMessages.get();
+
+        messageProgress.setProgress(p);
+        if (messageProgress.getProgress() >= 1.0) messageProgress.visibleProperty().setValue(false);
+
         while (consoleBackingList.size() > 500) consoleBackingList.remove(0);
         consoleMessageList.scrollTo(consoleBackingList.size());
+
     }
 
+    /**
+     * NOTE: not intended to run from multiple threads
+     */
     private void processMessages()
     {
         Thread.currentThread().setName("Message Processor");
-        if (hasMessages.getAndSet(false))
+        if (hasMessages.get())
         {
             List<MessageData> msgs = IntStream.range(0, 100)
                     .mapToObj(i -> messageQueue.poll())
@@ -858,6 +872,8 @@ public class UIController
     {
         messageQueue.add(new MessageData(message, messageType));
         hasMessages.set(true);
+        messageProgress.visibleProperty().setValue(true);
+        queuedMessages.incrementAndGet();
     }
 
     /**
