@@ -79,7 +79,7 @@ public enum Commodity implements ProcurementCost
     MODULARTERMINALS(ItemGrade.Mission),
     POWERCONVERTER(ItemGrade.Space),
     POWERGENERATORS(ItemGrade.Space),
-    POWERTRANSFERBUS(ItemGrade.Space),
+    POWERTRANSFERCONDUITS(ItemGrade.Space),
     RADIATIONBAFFLE(ItemGrade.Space),
     REINFORCEDMOUNTINGPLATE(ItemGrade.Space),
     SKIMERCOMPONENTS(ItemGrade.Space),

@@ -715,8 +715,15 @@ public class StarShip
                 .mapToDouble(Double::doubleValue)
                 .sum() / 100d;
 
+        // calculate all shield reinforcement
+        double accumulatedShieldReinforcment = optionalInternals.stream()
+                .map(m->m.getEffectValue(ItemEffect.DefenceModifierShieldAddition))
+                .filter(Objects::nonNull)
+                .filter(i -> i != 0.0)
+                .mapToDouble(i -> i).sum();
+
         // apply all the multipliers to the ship's base shield value to calculate the total shield strength
-        double calculatedShield = baseShield * shieldMultiplier * accumulatedBoost;
+        double calculatedShield = (baseShield * shieldMultiplier * accumulatedBoost) + accumulatedShieldReinforcment;
 
         // round the result to nearest whole number to match the in-game UI
         return round(calculatedShield, 0);

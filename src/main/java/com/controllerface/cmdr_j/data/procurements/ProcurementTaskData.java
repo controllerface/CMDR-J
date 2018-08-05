@@ -372,11 +372,11 @@ public class ProcurementTaskData implements Displayable
             for (Engineer engineer : engineers)
             {
                 StarSystem currentSystem = getCurrentSystem.get();
-                double distance = currentSystem.distanceBetween(engineer.getLocation());
+                double distance = currentSystem==null ? 0.0 : currentSystem.distanceBetween(engineer.getLocation());
                 Label engineerLabel = new Label(engineer.getFullName() + " :: "
                         + engineer.getLocation().getSystemName() + " (" + distance + " Ly)");
                 Tooltip locationTip = new Tooltip(engineer.getFullName() + " is " + distance +
-                        " light years from your current location ("+currentSystem.getSystemName()+")");
+                        " light years from your current location ("+(currentSystem==null?"nowhere":currentSystem.getSystemName())+")");
                 locationTip.setFont(UIFunctions.Fonts.size1Font);
                 engineerLabel.setTooltip(locationTip);
                 engineerLabel.setFont(UIFunctions.Fonts.size1Font);

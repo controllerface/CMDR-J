@@ -77,6 +77,7 @@ public enum JournalEvent
     Cargo(new CargoHandler()),
     LoadGame(new LoadGameHandler()),
     Materials(new MaterialsHandler()),
+    Fileheader((JournalEventHandler) context -> {}),
 
     /*
     Status

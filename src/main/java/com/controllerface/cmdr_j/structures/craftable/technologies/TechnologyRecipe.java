@@ -10,7 +10,6 @@ import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
-import javafx.scene.shape.SVGPath;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -102,7 +101,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.RHENIUM, 24),
             new CostData(Material.TECHNETIUM, 22),
             new CostData(Material.VANADIUM, 28),
-            new CostData(Commodity.POWERTRANSFERBUS, 12)),
+            new CostData(Commodity.POWERTRANSFERCONDUITS, 12)),
 
     Shock_Cannon_Gimballed_Medium(ItemGrade.Technology, "Medium Gimballed", new ItemEffects
             (
@@ -132,7 +131,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.TUNGSTEN, 22),
             new CostData(Material.RHENIUM, 20),
             new CostData(Material.TECHNETIUM, 28),
-            new CostData(Commodity.POWERTRANSFERBUS, 8)),
+            new CostData(Commodity.POWERTRANSFERCONDUITS, 8)),
 
 
     // Guardian
@@ -265,7 +264,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.GUARDIAN_SENTINEL_WRECKAGECOMPONENTS, 20),
             new CostData(Material.GUARDIAN_TECHCOMPONENT, 18),
             new CostData(Material.CARBON, 14),
-            new CostData(Commodity.POWERTRANSFERBUS, 12)),
+            new CostData(Commodity.POWERTRANSFERCONDUITS, 12)),
 
     Guardian_Shard_Cannon_Turreted_Large(ItemGrade.Technology, "Large Turreted", new ItemEffects
             (

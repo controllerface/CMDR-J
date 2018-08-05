@@ -177,7 +177,7 @@ public enum CommodityCostCategory implements ProcurementCostCategory
             Commodity.MODULARTERMINALS,
             Commodity.POWERCONVERTER,
             Commodity.POWERGENERATORS,
-            Commodity.POWERTRANSFERBUS,
+            Commodity.POWERTRANSFERCONDUITS,
             Commodity.RADIATIONBAFFLE,
             Commodity.REINFORCEDMOUNTINGPLATE,
             Commodity.SKIMERCOMPONENTS,

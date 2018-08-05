@@ -399,7 +399,7 @@
         "Consumed by All Economies except Industrial"
       ]
     },
-    "POWERTRANSFERBUS": {
+    "POWERTRANSFERCONDUITS": {
       "name": "Power Transfer Bus",
       "locations": [
         "Produced by: Industrial/Extraction near the Cilbien Zu system",
