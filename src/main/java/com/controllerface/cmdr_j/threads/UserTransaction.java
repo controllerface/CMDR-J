@@ -24,7 +24,8 @@ public class UserTransaction
         LOADOUT,
         ENGINEERING,
         COMBAT,
-        TRAVEL
+        TRAVEL,
+        EXPLORATION
     }
 
     private final ProcurementCost inventoryItem;

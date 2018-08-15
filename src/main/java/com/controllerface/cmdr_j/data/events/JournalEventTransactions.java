@@ -75,6 +75,11 @@ public class JournalEventTransactions
         logMessage(context, MessageType.TRAVEL, message);
     }
 
+    public static void logExplorationMessage(EventProcessingContext context, String message)
+    {
+        logMessage(context, MessageType.EXPLORATION, message);
+    }
+
     public static void logCombatMessage(EventProcessingContext context, String message)
     {
         logMessage(context, MessageType.COMBAT, message);

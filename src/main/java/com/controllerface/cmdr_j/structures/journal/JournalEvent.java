@@ -34,6 +34,15 @@ import com.controllerface.cmdr_j.data.events.handlers.stats.status.HullDamageHan
 import com.controllerface.cmdr_j.data.events.handlers.stats.status.ShieldStateHandler;
 import com.controllerface.cmdr_j.data.events.handlers.stats.status.UnderAttackHandler;
 import com.controllerface.cmdr_j.data.events.handlers.stats.travel.*;
+import com.controllerface.cmdr_j.ui.UIFunctions;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import static com.controllerface.cmdr_j.data.events.JournalEventTransactions.logExplorationMessage;
+import static com.controllerface.cmdr_j.data.events.JournalEventTransactions.logGeneralMessage;
+import static com.controllerface.cmdr_j.data.events.JournalEventTransactions.logTravelMessage;
 
 /**
  * This enum defines all of the Journal API events that are currently supported. By convention, enum value names are
@@ -70,6 +79,90 @@ public enum JournalEvent
      */
     Loadout(new LoadoutHandler()),
     SetUserShipName(new SetUserShipNameHandler()),
+    FuelScoop((JournalEventHandler) context ->
+    {
+        double scooped = ((double) context.getRawData().get("Scooped"));
+        double total = ((double) context.getRawData().get("Total"));
+        logGeneralMessage(context, "Scooped " + scooped + " Tons of fuel; Current Fuel Level:  " + total + " Tons");
+    }),
+    DiscoveryScan((JournalEventHandler) context ->
+    {
+        int bodies = ((int) context.getRawData().get("Bodies"));
+        logExplorationMessage(context, "Discovery Scanner found " + bodies + (bodies > 1 ? " bodies" : " body"));
+    }),
+
+    Scan(new JournalEventHandler()
+    {
+        @Override
+        public void handle(EventProcessingContext context)
+        {
+            String body = ((String) context.getRawData().get("BodyName"));
+            logExplorationMessage(context, "Scanned " + body);
+
+            String scanType = ((String) context.getRawData().get("ScanType"));
+            String planetClass = ((String) context.getRawData().get("PlanetClass"));
+
+            if (scanType.equalsIgnoreCase("Detailed"))
+            {
+                logExplorationMessage(context, "Detailed Scan Information :");
+
+                // star
+                if (planetClass == null)
+                {
+                    String starType = ((String) context.getRawData().get("StarType"));
+                    Double stellarMass = ((Double) context.getRawData().get("StellarMass"));
+                    Double radius = ((Double) context.getRawData().get("Radius"));
+                    Double surfaceTemperature = ((Double) context.getRawData().get("SurfaceTemperature"));
+
+
+                    logExplorationMessage(context, " - Class " + starType + " Star");
+                    logExplorationMessage(context, " - Solar Masses: " + stellarMass);
+                    logExplorationMessage(context, " - Radius: " + radius);
+                    logExplorationMessage(context, " - Surface Temperature: " + surfaceTemperature);
+
+
+                }
+
+                // planet or moon
+                else
+                {
+                    logExplorationMessage(context, " - World Type :  " + planetClass);
+                }
+
+                Double rotationPeriod = ((Double) context.getRawData().get("RotationPeriod"));
+                if (rotationPeriod != null)
+                {
+                    Double axialTilt = ((Double) context.getRawData().get("AxialTilt"));
+                    logExplorationMessage(context, " - Rotational Period: " + rotationPeriod + " Sec.");
+                    logExplorationMessage(context, " - Axial Tilt: " + axialTilt + " " + UIFunctions.Symbols.DEGREES);
+                }
+
+
+
+                Double semiMajorAxis = ((Double) context.getRawData().get("SemiMajorAxis"));
+                // main star
+                if (semiMajorAxis == null)
+                {
+                    logExplorationMessage(context, " - Single-Star System");
+
+                }
+                else
+                {
+                    Double eccentricity = ((Double) context.getRawData().get("Eccentricity"));
+                    Double orbitalInclination = ((Double) context.getRawData().get("OrbitalInclination"));
+                    Double periapsis = ((Double) context.getRawData().get("Periapsis"));
+                    Double orbitalPeriod = ((Double) context.getRawData().get("OrbitalPeriod"));
+
+                    logExplorationMessage(context, " - Semi-Major Axis: " + semiMajorAxis + " km");
+                    logExplorationMessage(context, " - Eccentricity: " + eccentricity);
+                    logExplorationMessage(context, " - Orbital Inclination: " + orbitalInclination);
+                    logExplorationMessage(context, " - Periapsis: " + periapsis);
+                    logExplorationMessage(context, " - Orbital Period: " + orbitalPeriod);
+                }
+
+            }
+        }
+    }),
 
     /*
     Startup
@@ -90,6 +183,14 @@ public enum JournalEvent
     /*
     Travel
      */
+
+    ApproachBody((JournalEventHandler) context ->
+    {
+        String system = ((String) context.getRawData().get("StarSystem"));
+        String body = ((String) context.getRawData().get("Body"));
+        logTravelMessage(context, "Aproaching " + body + " in " + system);
+    }),
+
     Docked(new DockedHandler()),
     FSDJump(new FSDJumpHandler()),
     Location(new LocationHandler()),
