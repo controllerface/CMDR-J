@@ -449,8 +449,11 @@ public class StarShip
                 .forEach(resistances::add);
 
         hardpoints.stream()
-                .filter(module -> module.getModule().modificationType() == ModificationType.Shield_Booster)
-                .map(module -> module.getEffectValue(resistanceEffect))
+                .filter(hardpoint -> hardpoint.getModule() != null)
+                .filter(hardpoint -> hardpoint.getModule().modificationType() != null)
+                .filter(hardpoint -> hardpoint.getModule().modificationType() == ModificationType.Shield_Booster)
+                .filter(hardpoint -> hardpoint.getModule().modificationType() == ModificationType.Shield_Booster)
+                .map(hardpoint -> hardpoint.getEffectValue(resistanceEffect))
                 .filter(Objects::nonNull)
                 .filter(x->x!=0)
                 .mapToDouble(Double::doubleValue)
@@ -709,7 +712,10 @@ public class StarShip
 
         // calculate the sum of 1 + all shield booster values, and divide by 100 for use as a percentage increase
         double accumulatedBoost = 1 + bufferedStream(hardpoints)
-                .filter(hardpoint -> hardpoint.getModule().modificationType()==ModificationType.Shield_Booster)
+                .filter(Objects::nonNull)
+                .filter(hardpoint -> hardpoint.getModule() != null)
+                .filter(hardpoint -> hardpoint.getModule().modificationType() != null)
+                .filter(hardpoint -> hardpoint.getModule().modificationType() == ModificationType.Shield_Booster)
                 .map(hardpoint -> hardpoint.getEffectValue(ItemEffect.DefenceModifierShieldMultiplier))
                 .filter(Objects::nonNull)
                 .mapToDouble(Double::doubleValue)

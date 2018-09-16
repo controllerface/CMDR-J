@@ -5262,60 +5262,7 @@ public enum CoreInternalModule implements ShipModule
     // todo: find ENUM value for this
     // Guardian Hybrid Power Distributor
 
-    int_guardianfsdbooster_size1("1H Guardian FSD Booster",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.75d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 4d)
-            )),
 
-    int_guardianfsdbooster_size2("2H Guardian FSD Booster",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.98d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 6d)
-            )),
-
-    int_guardianfsdbooster_size3("3H Guardian FSD Booster",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.27d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 7.75d)
-            )),
-
-    int_guardianfsdbooster_size4("4H Guardian FSD Booster",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.65d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 9.25d)
-            )),
-
-    int_guardianfsdbooster_size5("5H Guardian FSD Booster",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 2.14d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 10.5d)
-            )),
 
 
 
@@ -5323,6 +5270,7 @@ public enum CoreInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 1.5d),
                     new ItemEffectData(ItemEffect.Integrity, 56d),
                     new ItemEffectData(ItemEffect.PowerCapacity, 12.7d),
@@ -5333,6 +5281,7 @@ public enum CoreInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 2.9d),
                     new ItemEffectData(ItemEffect.Integrity, 70d),
                     new ItemEffectData(ItemEffect.PowerCapacity, 15.8d),
@@ -5343,6 +5292,7 @@ public enum CoreInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 5.9d),
                     new ItemEffectData(ItemEffect.Integrity, 88d),
                     new ItemEffectData(ItemEffect.PowerCapacity, 20.6d),
@@ -5353,6 +5303,7 @@ public enum CoreInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 11.7d),
                     new ItemEffectData(ItemEffect.Integrity, 106d),
                     new ItemEffectData(ItemEffect.PowerCapacity, 26.9d),
@@ -5363,6 +5314,7 @@ public enum CoreInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 23.4d),
                     new ItemEffectData(ItemEffect.Integrity, 124d),
                     new ItemEffectData(ItemEffect.PowerCapacity, 33.3d),
@@ -5373,6 +5325,7 @@ public enum CoreInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 46.8d),
                     new ItemEffectData(ItemEffect.Integrity, 144d),
                     new ItemEffectData(ItemEffect.PowerCapacity, 39.6d),
@@ -5383,6 +5336,7 @@ public enum CoreInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 93.6d),
                     new ItemEffectData(ItemEffect.Integrity, 165d),
                     new ItemEffectData(ItemEffect.PowerCapacity, 47.5d),

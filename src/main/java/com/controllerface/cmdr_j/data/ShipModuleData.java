@@ -9,6 +9,7 @@ import com.controllerface.cmdr_j.structures.engineers.Engineer;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
 import com.controllerface.cmdr_j.threads.UserTransaction;
+import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -18,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Pair;
 
@@ -171,6 +173,33 @@ public class ShipModuleData implements Displayable
 
     private void renderModificationInfo(HBox moduleNameContainer, VBox detailsContainer)
     {
+        boolean guardian = module.itemEffects().effectStream()
+                .filter(e->e.getEffect()== ItemEffect.guardian)
+                .findFirst().isPresent();
+
+        if (guardian)
+        {
+            double sizew = 22;
+            double sizeh = 18;
+
+            HBox guardianBox = new HBox();
+            guardianBox.setAlignment(Pos.CENTER);
+            SVGPath icon = UIFunctions.Icons.guardian;
+
+            final Region svgShape = new Region();
+            svgShape.setShape(icon);
+            svgShape.setMinSize(sizew, sizeh);
+            svgShape.setPrefSize(sizew, sizeh);
+            svgShape.setMaxSize(sizew, sizeh);
+            svgShape.setLayoutX(5);
+            svgShape.setStyle("-fx-background-color: #0077cc;");
+
+            guardianBox.getChildren().add(svgShape);
+
+            moduleNameContainer.getChildren().add(guardianBox);
+
+        }
+
         if (modificationBlueprint != null)
         {
             // in some cases, a blueprint can temporarily be set with no modifiers. This state requires some extra
@@ -178,12 +207,31 @@ public class ShipModuleData implements Displayable
             boolean needsRefresh = modifiers.isEmpty();
 
             // generate the text and Label object, setting up the font/color, add the label to the name container
-            String labelText = " :: G" + level + " " + modificationBlueprint.toString();
+            String labelText = " G" + level + " " + modificationBlueprint.toString() +" ";
+            double sizew = 18;
+            double sizeh = 20;
+            HBox modBox = new HBox();
+            modBox.setAlignment(Pos.CENTER);
+            SVGPath icon = UIFunctions.Icons.engineering;
+
+            final Region svgShape = new Region();
+            svgShape.setShape(icon);
+            svgShape.setMinSize(sizew, sizeh);
+            svgShape.setPrefSize(sizew, sizeh);
+            svgShape.setMaxSize(sizew, sizeh);
+            svgShape.setLayoutX(5);
+            svgShape.setStyle("-fx-background-color: #b75200;");
+
             if (needsRefresh) { labelText += " (*needs refresh*) "; }
+
             Label modificationLabel = new Label(labelText);
             modificationLabel.setFont(UIFunctions.Fonts.size3Font);
             modificationLabel.setTextFill(UIFunctions.Fonts.darkOrange);
-            moduleNameContainer.getChildren().add(modificationLabel);
+
+            modBox.getChildren().add(svgShape);
+            modBox.getChildren().add(modificationLabel);
+
+            moduleNameContainer.getChildren().add(modBox);
 
             // if we need a refresh, also add a tooltip to make it clearer what needs to be done to refresh the module
             if (needsRefresh)
@@ -221,10 +269,28 @@ public class ShipModuleData implements Displayable
 
         if (experimentalEffectRecipe != null)
         {
-            Label special = new Label(" :: " + experimentalEffectRecipe.getDisplayLabel());
+            Label special = new Label(" " + experimentalEffectRecipe.getDisplayLabel());
             special.setFont(UIFunctions.Fonts.size3Font);
             special.setTextFill(UIFunctions.Fonts.darkYellow);
-            moduleNameContainer.getChildren().add(special);
+
+            double sizew = 18;
+            double sizeh = 20;
+            HBox expBox = new HBox();
+            expBox.setAlignment(Pos.CENTER);
+            SVGPath icon = UIFunctions.Icons.engineering;
+
+            final Region svgShape = new Region();
+            svgShape.setShape(icon);
+            svgShape.setMinSize(sizew, sizeh);
+            svgShape.setPrefSize(sizew, sizeh);
+            svgShape.setMaxSize(sizew, sizeh);
+            svgShape.setLayoutX(5);
+            svgShape.setStyle("-fx-background-color: #b77d00;");
+
+            expBox.getChildren().add(svgShape);
+            expBox.getChildren().add(special);
+
+            moduleNameContainer.getChildren().add(expBox);
         }
 
         // WORKING AREA
@@ -362,7 +428,7 @@ public class ShipModuleData implements Displayable
 
     private void renderDisplayGraphic()
     {
-        Label moduleLabel = new Label(module.displayText());
+        Label moduleLabel = new Label(module.displayText() + " ");
         moduleLabel.setFont(UIFunctions.Fonts.size3Font);
 
         HBox moduleNameContainer = new HBox();
@@ -396,6 +462,7 @@ public class ShipModuleData implements Displayable
     {
         // base stats, filtered so any stats that have stored modifiers are skipped
         List<Pair<ItemEffect, Label>> effects = module.itemEffects().effectStream()
+                .filter(e -> e.getEffect() != ItemEffect.guardian) // this is a marker effect, handled elsewhere
                 .filter(p -> modifiers.stream().noneMatch(x -> x.getEffect().equals(p.getEffect())))
                 .map(effectPair ->
                 {

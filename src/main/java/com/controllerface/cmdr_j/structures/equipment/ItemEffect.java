@@ -284,6 +284,7 @@ public enum ItemEffect
     // placeholder effects for certain modules that don't have intrinsic effects, but need something to display
     empty("-","Empty Compartment", true), // used for the "empty" module so it doesn't look odd
     planetary_approach("","Planetary Approach and Landing Capabilities", true), // planetary approach suite
+    guardian("", "", true),              //is a guardian module
 
     // synthetic effects, used for synthesis recipes
     Rearm("", "", true),                // ammunition replenishment
@@ -306,6 +307,7 @@ public enum ItemEffect
     Hybrid_Power("", "", true),
     Plasma_Weapon("", "", true),
     Shard_Shell("", "", true),
+    Damage_Multiplier_at_Full_Charge("", "", true),
 
     // synthetic effects, used for experimental engineer effects
     Area_FSD_Reboot("", "", true),

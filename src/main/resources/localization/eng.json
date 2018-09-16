@@ -786,6 +786,12 @@
         ""
       ]
     },
+    "ANCIENTKEY": {
+      "name": "Ancient Key",
+      "locations": [
+        ""
+      ]
+    },
     "ANTIMATTERCONTAINMENTUNIT": {
       "name": "Antimatter Containment Unit",
       "locations": [

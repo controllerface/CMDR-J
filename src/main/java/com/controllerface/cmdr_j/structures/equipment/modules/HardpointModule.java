@@ -2932,6 +2932,31 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
             )),
 
+    hpt_guardian_plasmalauncher_fixed_large("Large Fixed Guardian Plasma Charger",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 8),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 3.10),
+                    new ItemEffectData(ItemEffect.Damage_Multiplier_at_Full_Charge, 17.0),
+                    new ItemEffectData(ItemEffect.Damage, 3.9),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 2.42),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 6.2),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 95),
+                    new ItemEffectData(ItemEffect.MaximumRange, 3000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 1200),
+                    new ItemEffectData(ItemEffect.RateOfFire, 5.0),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 15),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 200),
+                    new ItemEffectData(ItemEffect.RoundsPerShot, 1),
+                    new ItemEffectData(ItemEffect.ReloadTime, 3),
+                    new ItemEffectData(ItemEffect.BreachDamage, 1.0),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 50),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 80),
+                    new ItemEffectData(ItemEffect.DamageType, "Absolute"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
+            )),
 
     /**
      * Human Tech Broker Weapons

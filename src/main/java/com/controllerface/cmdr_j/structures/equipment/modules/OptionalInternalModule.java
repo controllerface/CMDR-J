@@ -3728,8 +3728,65 @@ public enum OptionalInternalModule implements ShipModule
      * Guardian Internal Modules
      */
 
-    // todo: find ENUM values for this
-    // Guardian FSD Booster (currently disabled in game, may be a while before its back)
+    int_guardianfsdbooster_size1("1H Guardian FSD Booster",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 1.3d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.75d),
+                    new ItemEffectData(ItemEffect.Integrity, 32d),
+                    new ItemEffectData(ItemEffect.BootTime, 15d),
+                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 4d)
+            )),
+
+    int_guardianfsdbooster_size2("2H Guardian FSD Booster",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 1.3d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.98d),
+                    new ItemEffectData(ItemEffect.Integrity, 32d),
+                    new ItemEffectData(ItemEffect.BootTime, 15d),
+                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 6d)
+            )),
+
+    int_guardianfsdbooster_size3("3H Guardian FSD Booster",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 1.3d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.27d),
+                    new ItemEffectData(ItemEffect.Integrity, 32d),
+                    new ItemEffectData(ItemEffect.BootTime, 15d),
+                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 7.75d)
+            )),
+
+    int_guardianfsdbooster_size4("4H Guardian FSD Booster",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 1.3d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.65d),
+                    new ItemEffectData(ItemEffect.Integrity, 32d),
+                    new ItemEffectData(ItemEffect.BootTime, 15d),
+                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 9.25d)
+            )),
+
+    int_guardianfsdbooster_size5("5H Guardian FSD Booster",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 1.3d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 2.14d),
+                    new ItemEffectData(ItemEffect.Integrity, 32d),
+                    new ItemEffectData(ItemEffect.BootTime, 15d),
+                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 10.5d)
+            )),
 
     /**
      * Human Tech Broker Internal Modules

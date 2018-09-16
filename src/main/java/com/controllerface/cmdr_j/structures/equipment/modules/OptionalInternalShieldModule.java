@@ -1896,6 +1896,7 @@ public enum OptionalInternalShieldModule implements ShipModule
 
     int_guardianshieldreinforcement_size1_class1("1E Guardian Shield Reinforcement Package", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 2d),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.35d),
                     new ItemEffectData(ItemEffect.Integrity, 36d),
@@ -1904,6 +1905,7 @@ public enum OptionalInternalShieldModule implements ShipModule
 
     int_guardianshieldreinforcement_size1_class2("1D Guardian Shield Reinforcement Package", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 1d),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.46d),
                     new ItemEffectData(ItemEffect.Integrity, 36d),
@@ -1912,6 +1914,7 @@ public enum OptionalInternalShieldModule implements ShipModule
 
     int_guardianshieldreinforcement_size2_class1("2E Guardian Shield Reinforcement Package", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4d),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.56d),
                     new ItemEffectData(ItemEffect.Integrity, 36d),
@@ -1920,6 +1923,7 @@ public enum OptionalInternalShieldModule implements ShipModule
 
     int_guardianshieldreinforcement_size2_class2("2D Guardian Shield Reinforcement Package", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 2d),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.67d),
                     new ItemEffectData(ItemEffect.Integrity, 36d),
@@ -1929,6 +1933,7 @@ public enum OptionalInternalShieldModule implements ShipModule
 
     int_guardianshieldreinforcement_size3_class1("3E Guardian Shield Reinforcement Package", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 8d),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.74d),
                     new ItemEffectData(ItemEffect.Integrity, 36d),
@@ -1937,6 +1942,7 @@ public enum OptionalInternalShieldModule implements ShipModule
 
     int_guardianshieldreinforcement_size3_class2("3D Guardian Shield Reinforcement Package", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4d),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.84d),
                     new ItemEffectData(ItemEffect.Integrity, 36d),
@@ -1945,6 +1951,7 @@ public enum OptionalInternalShieldModule implements ShipModule
 
     int_guardianshieldreinforcement_size4_class1("4E Guardian Shield Reinforcement Package", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 16d),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.95d),
                     new ItemEffectData(ItemEffect.Integrity, 36d),
@@ -1953,6 +1960,7 @@ public enum OptionalInternalShieldModule implements ShipModule
 
     int_guardianshieldreinforcement_size4_class2("4D Guardian Shield Reinforcement Package", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 8d),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.05d),
                     new ItemEffectData(ItemEffect.Integrity, 36d),
@@ -1961,6 +1969,7 @@ public enum OptionalInternalShieldModule implements ShipModule
 
     int_guardianshieldreinforcement_size5_class1("5E Guardian Shield Reinforcement Package", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 32d),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.16d),
                     new ItemEffectData(ItemEffect.Integrity, 36d),
@@ -1969,6 +1978,7 @@ public enum OptionalInternalShieldModule implements ShipModule
 
     int_guardianshieldreinforcement_size5_class2("5D Guardian Shield Reinforcement Package", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 16d),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.26d),
                     new ItemEffectData(ItemEffect.Integrity, 36d),

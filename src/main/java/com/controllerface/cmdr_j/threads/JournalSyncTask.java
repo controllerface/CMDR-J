@@ -73,15 +73,20 @@ public class JournalSyncTask implements Runnable
             .map(Enum::name)
             .collect(Collectors.toSet());
 
-    private BiPredicate<String, String> hasEvent =
-            (event, line) -> line.contains("\"event\":\"" + event + "\"");
-
     /**
      * Function used to filter in JSON event lines that we explicitly support
      */
-    private Predicate<String> hasSupportedEvent =
-            (line) -> journalEvents.stream()
-                    .anyMatch(event -> hasEvent.test(event, line));
+    private Predicate<Map<String, Object>> hasSupportedEvent =
+            (line) ->
+            {
+                String eventName = (String) line.get("event");
+                boolean supported = journalEvents.stream().anyMatch(event -> event.equals(eventName));
+                if (!supported)
+                {
+                    System.out.println("Unsupported Event: " + eventName);
+                }
+                return supported;
+            };
 
 
     private final CommanderData commanderData;
@@ -117,7 +122,6 @@ public class JournalSyncTask implements Runnable
                     StandardWatchEventKinds.OVERFLOW);
             System.out.println("Journal Folder : " + watchKey.watchable());
             System.out.println("\u001b" + "[32m" + "Journal File: " + currentJournalFile.get());
-            //System.out.println("Journal File: " + currentJournalFile.get());
         }
         catch (IOException e)
         {
@@ -202,7 +206,8 @@ public class JournalSyncTask implements Runnable
                 reader = new FileReader(file);
                 BufferedReader buf = new BufferedReader(reader);
                 String rawEvent = buf.lines().collect(Collectors.joining());
-                if (hasSupportedEvent.test(rawEvent)) processJSONEvent(rawEvent);
+                Map<String, Object> data = JSONSupport.Parse.jsonString.apply(rawEvent);
+                if (hasSupportedEvent.test(data)) processJSONEvent(data);
             }
             else
             {
@@ -213,7 +218,8 @@ public class JournalSyncTask implements Runnable
                 {
                     if (currentLine.incrementAndGet() > lastLine.get())
                     {
-                        if (hasSupportedEvent.test(rawEvent)) processJSONEvent(rawEvent);
+                        Map<String, Object> data = JSONSupport.Parse.jsonString.apply(rawEvent);
+                        if (hasSupportedEvent.test(data)) processJSONEvent(data);
                     }
                 });
                 lastLine.set(currentLine.get());
@@ -279,10 +285,12 @@ public class JournalSyncTask implements Runnable
 
         if (marketFiles != null && marketFiles.length > 0)
         {
-            processJSONEvent(Arrays.stream(marketFiles)
+            String jsonString = Arrays.stream(marketFiles)
                     .limit(1)
                     .flatMap(this::readLines)
-                    .collect(Collectors.joining()));
+                    .collect(Collectors.joining());
+
+            processJSONEvent(JSONSupport.Parse.jsonString.apply(jsonString));
         }
 
         // todo: maybe print an error of some kind
@@ -291,6 +299,7 @@ public class JournalSyncTask implements Runnable
         Arrays.stream(journalFiles)
                 .sorted(newestJournalFile)
                 .limit(1).flatMap(this::readJournalLines)
+                .map(JSONSupport.Parse.jsonString)
                 .filter(hasSupportedEvent)
                 .forEach(this::processJSONEvent);
     }
@@ -313,28 +322,27 @@ public class JournalSyncTask implements Runnable
         {
             System.out.println("new journal detected: " + currentName.getName());
             readJournalLines(currentName)
-                .filter(hasSupportedEvent)
-                .forEach(this::processJSONEvent);
+                    .map(JSONSupport.Parse.jsonString)
+                    .filter(hasSupportedEvent)
+                    .forEach(this::processJSONEvent);
         }
     }
     /**
      * Processes a generic JSON event, delegating final processing to a specific method based on the event type
      *
-     * @param json raw JSON event to process
+     * @param data raw JSON event to process
      */
-    private void processJSONEvent(String json)
+    private void processJSONEvent(Map<String, Object> data)
     {
         JournalEvent event;
-        Map<String, Object> data;
         try
         {
-            data = JSONSupport.Parse.jsonString.apply(json);
             String eventName = ((String) data.get("event"));
             event = JournalEvent.valueOf(eventName);
         }
         catch (Exception e)
         {
-            throw new RuntimeException("Error reading journal data: " + json, e);
+            throw new RuntimeException("Error reading journal data", e);
         }
 
 

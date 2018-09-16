@@ -126,6 +126,8 @@ public class UIFunctions
         public static final SVGPath materialGrade4 = new SVGPath();
         public static final SVGPath materialGrade5 = new SVGPath();
 
+        public static final SVGPath guardian = new SVGPath();
+
         public static final SVGPath materialTrade = new SVGPath();
         public static final SVGPath synthesisGeneral = new SVGPath();
         public static final SVGPath engineering = new SVGPath();
@@ -133,6 +135,7 @@ public class UIFunctions
 
         static
         {
+            guardian.setContent(readIcon("/icons/guardian"));
             materialTrade.setContent(readIcon("/icons/materialTrade"));
             synthesisGeneral.setContent(readIcon("/icons/synthesis"));
             engineering.setContent(readIcon("/icons/engineering"));

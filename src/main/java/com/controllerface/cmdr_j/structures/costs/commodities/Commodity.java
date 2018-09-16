@@ -150,6 +150,7 @@ public enum Commodity implements ProcurementCost
     ANCIENTTABLET(ItemGrade.Salvage),
     ANCIENTTOTEM(ItemGrade.Salvage),
     ANCIENTURN(ItemGrade.Salvage),
+    ANCIENTKEY(ItemGrade.Salvage),
     ANTIMATTERCONTAINMENTUNIT(ItemGrade.Salvage),
     ANTIQUEJEWELLERY(ItemGrade.Salvage),
     ANTIQUITIES(ItemGrade.Salvage),
