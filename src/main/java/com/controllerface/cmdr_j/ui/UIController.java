@@ -7,6 +7,7 @@ import com.controllerface.cmdr_j.ProcurementType;
 import com.controllerface.cmdr_j.data.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.data.MessageData;
 import com.controllerface.cmdr_j.data.ShipModuleData;
+import com.controllerface.cmdr_j.data.WindowDimensions;
 import com.controllerface.cmdr_j.data.commander.CommanderData;
 import com.controllerface.cmdr_j.data.commander.Displayable;
 import com.controllerface.cmdr_j.data.commander.InventoryData;
@@ -340,11 +341,11 @@ public class UIController
      * unexpected way, this may not be called.
      */
     @FXML
-    public void stop()
+    public void stop(WindowDimensions windowDimensions)
     {
         try
         {
-            toJson();
+            toJson(Optional.of(windowDimensions));
             executorService.shutdown();
         }
         catch (IOException e)
@@ -353,7 +354,9 @@ public class UIController
         }
     }
 
-    public void showVisuals()
+    private WindowDimensions windowDimensions;
+
+    public WindowDimensions showVisuals()
     {
         //synchronizeBackingLists();
         System.out.println("Init UI Components");
@@ -381,6 +384,8 @@ public class UIController
 
         sortInventory();
         setProcurementsUIVisibility();
+
+        return windowDimensions;
     }
 
     /**
@@ -1391,9 +1396,20 @@ public class UIController
                 });
     }
 
-    private void toJson() throws IOException
+    private void toJson(Optional<WindowDimensions> windowDimensions) throws IOException
     {
+        // this is the raw JSON object that is saved to disk
         Map<String, Object> data = new HashMap<>();
+
+        if (windowDimensions.isPresent())
+        {
+            Map<String, Object> dimensionData = new LinkedHashMap<>();
+            dimensionData.put("x",windowDimensions.get().getX());
+            dimensionData.put("y",windowDimensions.get().getY());
+            dimensionData.put("h",windowDimensions.get().getHeight());
+            dimensionData.put("w",windowDimensions.get().getWidth());
+            data.put("window", dimensionData);
+        }
 
         List<Map<String, Object>> tasks = taskList.stream()
                 .map(e->
@@ -1436,6 +1452,7 @@ public class UIController
 
         File file = new File(DATA_FOLDER, "tasks.json");
         if (!file.exists() && !file.createNewFile()) throw new RuntimeException("Could not create file");
+
         JSONSupport.Write.jsonToFile.apply(file, data);
     }
 
@@ -1458,6 +1475,19 @@ public class UIController
         }
 
         Map<String, Object> data = JSONSupport.Parse.jsonFile.apply(file);
+
+        if (data.get("window") != null)
+        {
+            Map<String, Object> window = ((Map<String, Object>) data.get("window"));
+
+            windowDimensions = WindowDimensions.builder()
+                    .setX(((double) window.get("x")))
+                    .setY(((double) window.get("y")))
+                    .setHeight(((double) window.get("h")))
+                    .setWidth(((double) window.get("w")))
+                    .build();
+        }
+        else windowDimensions = WindowDimensions.builder().build();
 
         taskList.clear();
 

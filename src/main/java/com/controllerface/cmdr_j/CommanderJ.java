@@ -3,6 +3,7 @@
  */
 package com.controllerface.cmdr_j;
 
+import com.controllerface.cmdr_j.data.WindowDimensions;
 import com.controllerface.cmdr_j.ui.UIController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,8 @@ import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class CommanderJ extends Application
 {
@@ -21,6 +24,11 @@ public class CommanderJ extends Application
         launch(args);
     }
     UIController controller;
+
+    volatile double x = 0;
+    volatile double y = 0;
+    volatile double height = 0;
+    volatile double width = 0;
 
     private Parent loadRoot()
     {
@@ -41,36 +49,65 @@ public class CommanderJ extends Application
     @Override
     public void start(Stage primaryStage)
     {
+        primaryStage.setTitle("CMDR J");
+
+        AtomicReference<WindowDimensions> dimensions = new AtomicReference<>();
+        CountDownLatch showLatch = new CountDownLatch(1);
+
         primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN,
-                (e)->controller.showVisuals());
+                (e) ->
+                {
+                    dimensions.set(controller.showVisuals());
+                    showLatch.countDown();
+                });
+
+        primaryStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST,
+                (e) ->
+                {
+                    x = primaryStage.getX();
+                    y = primaryStage.getY();
+                    height = primaryStage.getHeight();
+                    width = primaryStage.getWidth();
+                });
 
         Parent root = loadRoot();
         root.getStyleClass().add("main");
-
         Scene scene = new Scene(root);
-
-        // todo: play with this later
-        //scene.getStylesheets().add("/cmdr_j.css");
-
-        primaryStage.setTitle("CMDR J");
+        //scene.getStylesheets().add("/cmdr_j.css"); todo: play with this later
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        primaryStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST,
-                (e)->
-                {
-                    System.out.println("X:"+primaryStage.getX());
-                    System.out.println("Y:"+primaryStage.getY());
-                    System.out.println("H:"+primaryStage.getHeight());
-                    System.out.println("W:"+primaryStage.getWidth());
+        try
+        {
+            showLatch.await();
+            primaryStage.setX(dimensions.get().getX());
+            primaryStage.setY(dimensions.get().getY());
+            primaryStage.setHeight(dimensions.get().getHeight());
+            primaryStage.setWidth(dimensions.get().getWidth());
+            System.out.println("shown!");
 
-                });
+
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void stop() throws Exception
     {
         super.stop();
-        controller.stop();
+
+        WindowDimensions windowDimensions = WindowDimensions.builder()
+                .setX(x)
+                .setY(y)
+                .setHeight(height)
+                .setWidth(width)
+                .build();
+
+        controller.stop(windowDimensions);
     }
+
 }

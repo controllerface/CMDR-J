@@ -121,7 +121,7 @@
                                              <children>
                                                 <TableView fx:id="coreModuleTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
-                                                    <TableColumn fx:id="coreModuleNameColumn" prefWidth="195.0" sortable="false" text="Core Module" />
+                                                    <TableColumn fx:id="coreModuleNameColumn" prefWidth="195.0" sortable="false" text="Core Module Slot" />
                                                     <TableColumn fx:id="coreModuleDataColumn" minWidth="0.0" prefWidth="243.0" sortable="false" />
                                                   </columns>
                                                 </TableView>
@@ -135,7 +135,7 @@
                                              <children>
                                                 <TableView fx:id="optionalModuleTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="optionalModuleNameColumn" prefWidth="195.0" sortable="false" text="Optional Module" />
+                                                      <TableColumn fx:id="optionalModuleNameColumn" prefWidth="195.0" sortable="false" text="Optional Module Slot" />
                                                       <TableColumn fx:id="optionalModuleDataColumn" minWidth="0.0" prefWidth="233.0" sortable="false" />
                                                    </columns>
                                                 </TableView>
@@ -149,7 +149,7 @@
                                              <children>
                                                 <TableView fx:id="hardpointTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="hardpointNameColumn" prefWidth="195.0" sortable="false" text="Hardpoint" />
+                                                      <TableColumn fx:id="hardpointNameColumn" prefWidth="195.0" sortable="false" text="Hardpoint Slot" />
                                                       <TableColumn fx:id="hardpointDataColumn" prefWidth="206.0" sortable="false" />
                                                    </columns>
                                                 </TableView>
