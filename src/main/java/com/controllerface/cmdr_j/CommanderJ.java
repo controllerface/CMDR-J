@@ -27,8 +27,8 @@ public class CommanderJ extends Application
 
     volatile double x = 0;
     volatile double y = 0;
-    volatile double height = 0;
     volatile double width = 0;
+    volatile double height = 0;
 
     private Parent loadRoot()
     {
@@ -66,8 +66,8 @@ public class CommanderJ extends Application
                 {
                     x = primaryStage.getX();
                     y = primaryStage.getY();
-                    height = primaryStage.getHeight();
                     width = primaryStage.getWidth();
+                    height = primaryStage.getHeight();
                 });
 
         Parent root = loadRoot();
@@ -82,8 +82,8 @@ public class CommanderJ extends Application
             showLatch.await();
             primaryStage.setX(dimensions.get().getX());
             primaryStage.setY(dimensions.get().getY());
-            primaryStage.setHeight(dimensions.get().getHeight());
             primaryStage.setWidth(dimensions.get().getWidth());
+            primaryStage.setHeight(dimensions.get().getHeight());
             System.out.println("shown!");
 
 
@@ -103,8 +103,8 @@ public class CommanderJ extends Application
         WindowDimensions windowDimensions = WindowDimensions.builder()
                 .setX(x)
                 .setY(y)
-                .setHeight(height)
                 .setWidth(width)
+                .setHeight(height)
                 .build();
 
         controller.stop(windowDimensions);

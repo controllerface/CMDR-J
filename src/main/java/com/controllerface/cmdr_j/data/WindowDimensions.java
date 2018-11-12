@@ -7,15 +7,15 @@ public class WindowDimensions
 {
     private final double x;
     private final double y;
-    private final double height;
     private final double width;
+    private final double height;
 
-    private WindowDimensions(double x, double y, double height, double width)
+    private WindowDimensions(Builder builder)
     {
-        this.x = x;
-        this.y = y;
-        this.height = height;
-        this.width = width;
+        this.x = builder.x;
+        this.y = builder.y;
+        this.width = builder.w;
+        this.height = builder.h;
     }
 
     public static Builder builder()
@@ -33,22 +33,22 @@ public class WindowDimensions
         return y;
     }
 
-    public double getHeight()
-    {
-        return height;
-    }
-
     public double getWidth()
     {
         return width;
     }
 
+    public double getHeight()
+    {
+        return height;
+    }
+
     public static class Builder
     {
         double x = 0;
-        double y = 100;
-        double h = 100;
-        double w = 100;
+        double y = 0;
+        double w = 960;
+        double h = 540;
 
         public Builder setX(double x)
         {
@@ -62,21 +62,21 @@ public class WindowDimensions
             return this;
         }
 
-        public Builder setHeight(double h)
-        {
-            this.h = h;
-            return this;
-        }
-
         public Builder setWidth(double w)
         {
             this.w = w;
             return this;
         }
 
+        public Builder setHeight(double h)
+        {
+            this.h = h;
+            return this;
+        }
+
         public WindowDimensions build()
         {
-            return new WindowDimensions(x, y, h, w);
+            return new WindowDimensions(this);
         }
     }
 }

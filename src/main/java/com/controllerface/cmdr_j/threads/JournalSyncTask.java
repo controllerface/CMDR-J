@@ -121,7 +121,7 @@ public class JournalSyncTask implements Runnable
                     StandardWatchEventKinds.ENTRY_MODIFY,
                     StandardWatchEventKinds.OVERFLOW);
             System.out.println("Journal Folder : " + watchKey.watchable());
-            System.out.println("\u001b" + "[32m" + "Journal File: " + currentJournalFile.get());
+            System.out.println("Journal File: " + currentJournalFile.get());
         }
         catch (IOException e)
         {
@@ -133,7 +133,7 @@ public class JournalSyncTask implements Runnable
         {
             try
             {
-                watchKey = watchService.poll(5, TimeUnit.SECONDS);
+                watchKey = watchService.poll(1, TimeUnit.SECONDS);
             }
             catch (InterruptedException e)
             {
@@ -182,13 +182,11 @@ public class JournalSyncTask implements Runnable
 
                         if (next.getName().equals(currentJournalFile.get()))
                         {
-                            System.out.println("watch key triggered");
                             processEventFile(next, false);
                         }
                         else
                         {
                             // todo: process other files (market, outfitting, etc.)
-                            System.out.println("File updated: " + next.getName());
                             processEventFile(next, true);
                         }
                     });
@@ -206,6 +204,13 @@ public class JournalSyncTask implements Runnable
                 reader = new FileReader(file);
                 BufferedReader buf = new BufferedReader(reader);
                 String rawEvent = buf.lines().collect(Collectors.joining());
+
+                // the watch key can sometimes trigger twice ina  row, once before
+                // the file is ready and once after. It is not clear why this happens,
+                // but this effectively ensures we don't crash when the file is not ready
+                // when the key is triggered.
+                if (rawEvent.isEmpty()) {return;}
+
                 Map<String, Object> data = JSONSupport.Parse.jsonString.apply(rawEvent);
                 if (hasSupportedEvent.test(data)) processJSONEvent(data);
             }
