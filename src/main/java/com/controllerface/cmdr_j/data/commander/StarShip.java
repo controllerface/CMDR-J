@@ -229,6 +229,8 @@ public class StarShip
 
     private void resetBaseStats()
     {
+        if (ship == null) return;
+
         // make a local copy just to be safe
         final String displayName = ship.getBaseShipStats().getDisplayName();
         final String manufacturer = ship.getBaseShipStats().getManufacturer().toString();
@@ -523,6 +525,7 @@ public class StarShip
      */
     private double calculateCurrentHullStrength()
     {
+        if (ship == null) return 0.0d;
         /*
         There are two statistics that affect hull strength, "hull boost" and "hull reinforcement".
 
@@ -737,6 +740,8 @@ public class StarShip
 
     private double calculateUnladenHullMass()
     {
+        if (ship == null) return 0.0d;
+
         List<ShipModuleData> buffer = new ArrayList<>();
 
         double hullMass = ship.getBaseShipStats().getHullMass();

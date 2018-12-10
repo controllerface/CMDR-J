@@ -204,6 +204,20 @@ public enum Commodity implements ProcurementCost
     UNSTABLEDATACORE(ItemGrade.Salvage),
     WRECKAGECOMPONENTS(ItemGrade.Salvage),
 
+    UNKNOWNARTIFACT(ItemGrade.Salvage),
+    UNKNOWNARTIFACT2(ItemGrade.Salvage),
+    UNKNOWNARTIFACT3(ItemGrade.Salvage),
+    UNKNOWNRESIN(ItemGrade.Salvage),
+    UNKNOWNBIOLOGICALMATTER(ItemGrade.Salvage),
+    UNKNOWNTECHNOLOGYSAMPLES(ItemGrade.Salvage),
+
+    THARGOIDTISSUESAMPLETYPE1(ItemGrade.Salvage),
+    THARGOIDTISSUESAMPLETYPE2(ItemGrade.Salvage),
+    THARGOIDTISSUESAMPLETYPE3(ItemGrade.Salvage),
+    THARGOIDTISSUESAMPLETYPE4(ItemGrade.Salvage),
+
+
+
     // Slaves
     IMPERIALSLAVES(ItemGrade.Space),
     SLAVES(ItemGrade.Space),

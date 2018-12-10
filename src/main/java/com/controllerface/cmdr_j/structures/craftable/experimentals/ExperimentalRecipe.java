@@ -543,18 +543,18 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     // todo: this is a legacy mod, so should not be craftable, but may appear in journal files.
     // figure out how to handle this
-    special_plasma_slug("Plasma Slug (Legacy)", ItemGrade.Experimental, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Reload_from_Ship_Fuel, 0d),
-                    new ItemEffectData(ItemEffect.Damage, -10d),
-                    new ItemEffectData(ItemEffect.AmmoMaximum, -100d)
-            ),
-            new CostData(Material.HEATEXCHANGERS, 3),
-            new CostData(Material.EMBEDDEDFIRMWARE, 2),
-            new CostData(Material.REFINEDFOCUSCRYSTALS, 2),
-            new CostData(Material.MERCURY, 4)),
+//    special_plasma_slug("Plasma Slug (Legacy)", ItemGrade.Experimental, new ItemEffects
+//            (
+//                    new ItemEffectData(ItemEffect.Reload_from_Ship_Fuel, 0d),
+//                    new ItemEffectData(ItemEffect.Damage, -10d),
+//                    new ItemEffectData(ItemEffect.AmmoMaximum, -100d)
+//            ),
+//            new CostData(Material.HEATEXCHANGERS, 3),
+//            new CostData(Material.EMBEDDEDFIRMWARE, 2),
+//            new CostData(Material.REFINEDFOCUSCRYSTALS, 2),
+//            new CostData(Material.MERCURY, 4)),
 
-    special_plasma_slug_cooled("Plasma Slug", ItemGrade.Experimental, new ItemEffects
+    special_plasma_slug("Plasma Slug", ItemGrade.Experimental, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Reload_from_Ship_Fuel, 0d),
                     new ItemEffectData(ItemEffect.Damage, -10d),

@@ -1104,6 +1104,43 @@
         ""
       ]
     },
+
+    "UNKNOWNARTIFACT": {
+      "name": "UNKNOWN ARTIFACT",
+      "locations": [
+        ""
+      ]
+    },
+    "UNKNOWNARTIFACT2": {
+      "name": "UNKNOWN ARTIFACT 2",
+      "locations": [
+        ""
+      ]
+    },
+    "UNKNOWNARTIFACT3": {
+      "name": "UNKNOWN ARTIFACT 3",
+      "locations": [
+        ""
+      ]
+    },
+    "UNKNOWNRESIN": {
+      "name": "UNKNOWN RESIN",
+      "locations": [
+        ""
+      ]
+    },
+    "UNKNOWNBIOLOGICALMATTER": {
+      "name": "UNKNOWN BIOLOGICAL MATTER",
+      "locations": [
+        ""
+      ]
+    },
+    "UNKNOWNTECHNOLOGYSAMPLES": {
+      "name": "UNKNOWN TECHNOLOGY SAMPLES",
+      "locations": [
+        ""
+      ]
+    },
     "IMPERIALSLAVES": {
       "name": "Imperial Slaves",
       "locations": [

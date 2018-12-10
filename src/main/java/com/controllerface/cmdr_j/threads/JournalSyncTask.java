@@ -47,6 +47,12 @@ public class JournalSyncTask implements Runnable
                 String name2 = file2.toPath().getFileName().toString();
                 String[] n2a = name2.split("\\.");
 
+                if (n1a.length < 2 || n2a.length < 2)
+                {
+                    if (n1a.length < 2 && n2a.length < 2) return 0;
+                    else return n1a.length < 2 ? 1 : -1;
+                }
+
                 long timestamp1 = Long.parseLong(n1a[1]);
                 long timestamp2 = Long.parseLong(n2a[1]);
 
