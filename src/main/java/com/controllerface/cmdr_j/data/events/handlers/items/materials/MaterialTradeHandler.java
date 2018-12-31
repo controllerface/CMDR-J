@@ -19,7 +19,12 @@ public class MaterialTradeHandler implements JournalEventHandler
     public void handle(EventProcessingContext context)
     {
         logInventoryMessage(context, "Material Trade Completed");
-        adjustMaterialQuantity(context, ((Map<String, Object>) context.getRawData().get("Received")));
-        adjustMaterialQuantityDown(context, ((Map<String, Object>) context.getRawData().get("Paid")));
+
+        Map<String, Object> paid = ((Map<String, Object>) context.getRawData().get("Paid"));
+        Map<String, Object> received = ((Map<String, Object>) context.getRawData().get("Received"));
+
+        adjustMaterialQuantity(context, received);
+        adjustMaterialQuantityDown(context, paid);
+        processMaterialTrade(context);
     }
 }

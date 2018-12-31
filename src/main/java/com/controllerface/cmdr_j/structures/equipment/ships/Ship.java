@@ -668,7 +668,7 @@ public enum Ship
                     .setManufacturer(ShipManufacturer.Faulcon_DeLacy)
                     .setAgility(126)
                     .setHullMass(320)
-                    .setHullHardness(65)
+                    .setHullHardness(55)
                     .setSpeed(150)
                     .setMaxSpeed(174)
                     .setBoostSpeed(330)
@@ -711,6 +711,59 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_6)
+                    .addModule(ModuleSize.SIZE_6)
+                    .build()
+    ),
+
+    Krait_Light(
+            BaseShipStats.builder()
+                    .setDisplayName("Krait Phantom")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Faulcon_DeLacy)
+                    .setAgility(126)
+                    .setHullMass(270)
+                    .setHullHardness(60)
+                    .setSpeed(250)
+                    .setMaxSpeed(290)
+                    .setBoostSpeed(350)
+                    .setMaxBoostSpeed(406)
+                    .setArmorRating(324)
+                    .setShield(200)
+                    .setBaseCost(44_139_676)
+                    .setMassLockFactor(17)
+                    .setCrewSeats(2)
+                    .setSlfCapable(true)
+                    .build(),
+
+            CoreModuleLayoutData.builder()
+                    .setPowerPlant(ModuleSize.SIZE_7)
+                    .setThrusters(ModuleSize.SIZE_6)
+                    .setFrameShiftDrive(ModuleSize.SIZE_5)
+                    .setLifeSupport(ModuleSize.SIZE_4)
+                    .setPowerDistributor(ModuleSize.SIZE_7)
+                    .setSensors(ModuleSize.SIZE_6)
+                    .setFuelTank(ModuleSize.SIZE_5)
+                    .build(),
+
+            HardPointLayoutData.builder()
+                    .addHardPoint(HardPointSize.Medium)
+                    .addHardPoint(HardPointSize.Medium)
+                    .addHardPoint(HardPointSize.Large)
+                    .addHardPoint(HardPointSize.Large)
+                    .addHardPoint(HardPointSize.Tiny)
+                    .addHardPoint(HardPointSize.Tiny)
+                    .addHardPoint(HardPointSize.Tiny)
+                    .addHardPoint(HardPointSize.Tiny)
+                    .build(),
+
+            OptionalModuleLayoutData.builder()
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_5)
                     .addModule(ModuleSize.SIZE_6)
                     .build()
     ),
@@ -1129,6 +1182,55 @@ public enum Ship
                     .addModule(ModuleSize.SIZE_4)
                     .addModule(ModuleSize.SIZE_2)
                     .addModule(ModuleSize.SIZE_1)
+                    .build()),
+
+    mamba(
+            BaseShipStats.builder()
+                    .setDisplayName("Mamba")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Zorgon_Peterson)
+                    .setAgility(117)
+                    .setHullMass(250)
+                    .setHullHardness(65)
+                    .setSpeed(310)
+                    .setMaxSpeed(360)
+                    .setBoostSpeed(380)
+                    .setMaxBoostSpeed(441)
+                    .setArmorRating(225)
+                    .setShield(270)
+                    .setBaseCost(56_289_969)
+                    .setMassLockFactor(12)
+                    .setCrewSeats(2)
+                    .build(),
+
+            CoreModuleLayoutData.builder()
+                    .setPowerPlant(ModuleSize.SIZE_6)
+                    .setThrusters(ModuleSize.SIZE_5)
+                    .setFrameShiftDrive(ModuleSize.SIZE_4)
+                    .setLifeSupport(ModuleSize.SIZE_4)
+                    .setPowerDistributor(ModuleSize.SIZE_6)
+                    .setSensors(ModuleSize.SIZE_4)
+                    .setFuelTank(ModuleSize.SIZE_3)
+                    .build(),
+
+            HardPointLayoutData.builder()
+                    .addHardPoint(HardPointSize.Tiny)
+                    .addHardPoint(HardPointSize.Tiny)
+                    .addHardPoint(HardPointSize.Tiny)
+                    .addHardPoint(HardPointSize.Tiny)
+                    .addHardPoint(HardPointSize.Small)
+                    .addHardPoint(HardPointSize.Small)
+                    .addHardPoint(HardPointSize.Large)
+                    .addHardPoint(HardPointSize.Large)
+                    .addHardPoint(HardPointSize.Huge)
+                    .build(),
+
+            OptionalModuleLayoutData.builder()
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
                     .build()),
 
     independant_trader(

@@ -1,11 +1,13 @@
 package com.controllerface.cmdr_j.data.events;
 
 import com.controllerface.cmdr_j.*;
+import com.controllerface.cmdr_j.data.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.data.ModifierData;
 import com.controllerface.cmdr_j.data.ShipModuleData;
 import com.controllerface.cmdr_j.structures.commander.PlayerStat;
 import com.controllerface.cmdr_j.structures.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.structures.costs.materials.Material;
+import com.controllerface.cmdr_j.structures.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationBlueprint;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
@@ -18,6 +20,7 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.controllerface.cmdr_j.threads.UserTransaction.*;
 
@@ -664,6 +667,64 @@ public class JournalEventTransactions
 //        ((List<Map<String, Object>>) context.getRawData().get("Modules")).stream()
 //                .forEach(module -> setSlotFromLoadout(context, module));
 //    }
+
+    public static void processMaterialTrade(EventProcessingContext context)
+    {
+        //        CostData price = new CostData(priceMaterial, ((int) costObject.get("count")));
+//        CostData yield = new CostData(yieldMaterial, ((int) yieldObject.get("count")));
+//        MaterialTradeRecipe recipe =  new MaterialTradeRecipe(price, yield);
+
+        // adjust blueprint down
+
+        //1. find a matching trade in the enum
+
+        //2. determine quantities for this trade
+
+        //3. divide single cost by this trade's cost to get the multiplier
+
+        //4. adjust blueprint of the trade buy the multiplier
+
+        Map<String, Object> paid = ((Map<String, Object>) context.getRawData().get("Paid"));
+        Map<String, Object> received = ((Map<String, Object>) context.getRawData().get("Received"));
+
+        int cost = ((int) paid.get("Quantity"));
+        int yield = ((int) received.get("Quantity"));
+
+        Material priceMaterial = Material.valueOf(((String) paid.get("Material")).toUpperCase());
+        Material yieldMaterial = Material.valueOf(((String) received.get("Material")).toUpperCase());
+
+        ProcurementRecipe recipe = yieldMaterial.getTradeBlueprint()
+                .map(b -> b.recipeStream()
+                        .filter(r -> r.costStream()
+                                .filter(c -> c.getQuantity() > 0)
+                                .filter(c-> c.getCost().equals(priceMaterial))
+                                .findFirst().orElse(null) != null)
+                        .filter(Objects::nonNull)
+                        .findFirst()
+                        .orElse(null))
+                .orElse(null);
+
+        ProcurementType t = MaterialTradeType.findMatchingTradeType(priceMaterial).orElse(null);
+
+        System.out.println("c: " + priceMaterial);
+        System.out.println("r: " + yieldMaterial);
+
+        int unitCost = recipe.costStream().map(c->c.getQuantity())
+                .filter(c -> c > 0)
+                .findFirst().orElse(0);
+
+        System.out.println("ppu: " + unitCost);
+
+        int mult = cost / unitCost;
+
+        System.out.println("mult: " + mult);
+
+        if (recipe != null)
+        {
+            System.out.println("Recipe: " + recipe.getDisplayLabel());
+            adjustBlueprintDown(context, t, recipe, mult);
+        }
+    }
 
     @SuppressWarnings("unchecked") // uses documented JSON object structure
     public static void processEngineerUpgrade(EventProcessingContext context)

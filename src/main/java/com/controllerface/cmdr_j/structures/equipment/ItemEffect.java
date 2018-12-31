@@ -190,6 +190,7 @@ public enum ItemEffect
     DSS_AngleMult("%", "Scan Angle Increase", true),
     DSS_RangeMult("%", "Scan Range Increase", true),
     DSS_RateMult("%", "Scan Rate Increase", true),
+    DSS_PatchRadius("%", "Probe Radius", true),
     FSDInterdictorFacingLimit(UIFunctions.Symbols.DEGREES, "Facing Limit", true),
     FSDInterdictorRange("S", "Range", true),
     ScannerRange("M", "Range", true),

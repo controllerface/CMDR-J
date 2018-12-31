@@ -53,10 +53,17 @@ public class JournalSyncTask implements Runnable
                     else return n1a.length < 2 ? 1 : -1;
                 }
 
-                long timestamp1 = Long.parseLong(n1a[1]);
-                long timestamp2 = Long.parseLong(n2a[1]);
-
-                return (int) (timestamp2 - timestamp1);
+                try
+                {
+                    long timestamp1 = Long.parseLong(n1a[1]);
+                    long timestamp2 = Long.parseLong(n2a[1]);
+                    return (int) (timestamp2 - timestamp1);
+                }
+                catch (NumberFormatException e)
+                {
+                    e.printStackTrace();
+                    throw e;
+                }
             };
 
 
@@ -290,7 +297,7 @@ public class JournalSyncTask implements Runnable
         File journalFolder = new File(JOURNAL_FOLDER);
         journalPath = journalFolder.toPath();
 
-        File[] journalFiles = journalFolder.listFiles((directory, file) -> file.startsWith("Journal"));
+        File[] journalFiles = journalFolder.listFiles((directory, file) -> file.startsWith("Journal") && file.endsWith(".log"));
 
         File[] marketFiles = journalFolder.listFiles(((dir, name) -> name.contains("Market")));
 
@@ -317,7 +324,8 @@ public class JournalSyncTask implements Runnable
 
     private void reInitializeJournalData()
     {
-        File[] journalFiles = journalPath.toFile().listFiles((directory, file) -> file.startsWith("Journal"));
+        File[] journalFiles = journalPath.toFile()
+                .listFiles((directory, file) -> file.startsWith("Journal") && file.endsWith(".log"));
 
         // todo: maybe print an error of some kind
         if (journalFiles == null) return;

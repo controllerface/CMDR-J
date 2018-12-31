@@ -141,6 +141,16 @@ public enum Commodity implements ProcurementCost
     TAAFFEITE(ItemGrade.POI),
     URANINITE(ItemGrade.Space),
 
+    // Core Deposits
+    RHODPLUMSITE(ItemGrade.Mining),
+    SERENDIBITE(ItemGrade.Mining),
+    MONAZITE(ItemGrade.Mining),
+    MUSGRAVITE(ItemGrade.Mining),
+    BENITOITE(ItemGrade.Mining),
+    GRANDIDIERITE(ItemGrade.Mining),
+    ALEXANDRITE(ItemGrade.Mining),
+    OPAL(ItemGrade.Mining),
+
     // Salvage
     AIRELICS(ItemGrade.Salvage),
     USSCARGOANCIENTARTEFACT(ItemGrade.Salvage),
