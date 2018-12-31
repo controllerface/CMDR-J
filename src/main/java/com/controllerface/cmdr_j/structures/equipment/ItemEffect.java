@@ -161,7 +161,7 @@ public enum ItemEffect
     SRV
      */
 
-    NumBuggySlots("", "SRV Bays", true),
+    NumBuggySlots("", "Hangar Bays", true),
     VehicleArmourHealth("", "", true),
     VehicleCargoCapacity("", "", true),
     VehicleFuelCapacity("", "", true),
