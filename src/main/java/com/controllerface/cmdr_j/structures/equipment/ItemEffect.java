@@ -230,7 +230,7 @@ public enum ItemEffect
     ECMCooldown("", "", false),
     ECMHeat("", "", false),
     ECMRange("", "", true),
-    ECMTimeToCharge("", "", false),
+    ECMTimeToCharge("S", "Charge Time", false),
 
 
     /*

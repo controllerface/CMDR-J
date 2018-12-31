@@ -2131,7 +2131,7 @@ public enum HardpointModule implements ShipModule
 
 
     /**
-     * Mining Lasers
+     * Mining Equipment
      */
     hpt_mininglaser_fixed_small("Small Fixed Mining Laser",
             null,
@@ -2238,7 +2238,100 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
             )),
 
+    hpt_mining_seismchrgwarhd_fixed_medium("Medium Fixed Seismic Charge Launcher",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.20),
+                    new ItemEffectData(ItemEffect.Damage_Multiplier_at_Full_Charge, 1),
+                    new ItemEffectData(ItemEffect.Damage, 15),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 350),
+                    new ItemEffectData(ItemEffect.BurstSize, 1),
+                    new ItemEffectData(ItemEffect.BurstRateOfFire, -1),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 72),
+                    new ItemEffectData(ItemEffect.ReloadTime, 1),
+                    new ItemEffectData(ItemEffect.RoundsPerShot, 1),
+                    new ItemEffectData(ItemEffect.ECMTimeToCharge, 2),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 35),
+                    new ItemEffectData(ItemEffect.BreachDamage, 3),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 0),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 0),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
+            )),
 
+    hpt_mining_subsurfdispmisle_fixed_medium("Medium Fixed Sub-Surface Displacement Missile",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 4),
+                    new ItemEffectData(ItemEffect.Integrity, 51),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.01),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 2.5),
+                    new ItemEffectData(ItemEffect.Damage, 5),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 550),
+                    new ItemEffectData(ItemEffect.BurstSize, 1),
+                    new ItemEffectData(ItemEffect.BurstRateOfFire, -1),
+                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, 96),
+                    new ItemEffectData(ItemEffect.ReloadTime, 2),
+                    new ItemEffectData(ItemEffect.RoundsPerShot, 1),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 0.21),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 2.9),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 25),
+                    new ItemEffectData(ItemEffect.BreachDamage, .5),
+                    new ItemEffectData(ItemEffect.Jitter, 0),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 10),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 20),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
+            )),
+
+    hpt_mining_abrblstr_fixed_small("Small Fixed Abrasion Blaster",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 2),
+                    new ItemEffectData(ItemEffect.Integrity, 40),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.34),
+                    new ItemEffectData(ItemEffect.DamagePerSecond, 20),
+                    new ItemEffectData(ItemEffect.Damage, 4),
+                    new ItemEffectData(ItemEffect.DistributorDraw, 2),
+                    new ItemEffectData(ItemEffect.ThermalLoad, 2),
+                    new ItemEffectData(ItemEffect.ArmourPenetration, 18),
+                    new ItemEffectData(ItemEffect.MaximumRange, 1_000),
+                    new ItemEffectData(ItemEffect.ShotSpeed, 667),
+                    new ItemEffectData(ItemEffect.RateOfFire, 5),
+                    new ItemEffectData(ItemEffect.BurstRateOfFire, -1),
+                    new ItemEffectData(ItemEffect.BurstSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 1),
+                    new ItemEffectData(ItemEffect.AmmoMaximum, Double.MAX_VALUE),
+                    new ItemEffectData(ItemEffect.RoundsPerShot, 1),
+                    new ItemEffectData(ItemEffect.ReloadTime, 0),
+                    new ItemEffectData(ItemEffect.BreachDamage, 0.6),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 10),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 20),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1_000)
+            )),
+
+    hpt_mrascanner_size0_class4("Pulse Wave Analyzer",
+            null,
+            null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.Mass, 1.3),
+                    new ItemEffectData(ItemEffect.Integrity, 56),
+                    new ItemEffectData(ItemEffect.PowerDraw, 1.6),
+                    new ItemEffectData(ItemEffect.BootTime, 3),
+                    new ItemEffectData(ItemEffect.ScannerRange, 21_000),
+                    new ItemEffectData(ItemEffect.MaxAngle, 15),
+                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 3)
+            )),
     /**
      * Shield Boosters
      */
