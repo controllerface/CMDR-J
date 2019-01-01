@@ -34,7 +34,6 @@ import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyRec
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyType;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
-import com.controllerface.cmdr_j.threads.TransactionProcessingTask;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 import com.controllerface.cmdr_j.ui.costs.CostDataCell;
 import com.controllerface.cmdr_j.ui.costs.CostGradeCell;
@@ -207,6 +206,10 @@ public class UIController
     @FXML private TableColumn<InventoryData, Label> cargoQuantityColumn;
 
     @FXML private ListView<MessageData> consoleMessageList;
+
+    // Status
+    @FXML private Label status_fuel;
+    @FXML private Label status_cargo;
 
     /*
     Backing lists for the procurement task UI elements
@@ -411,8 +414,62 @@ public class UIController
         };
 
         // transaction processor
-        Runnable transactionProcessingTask =
-                new TransactionProcessingTask(adjustItem, this::procurementListUpdate, this::messageLogger, transactionQueue);
+        Runnable transactionProcessingTask = () -> {
+            Thread.currentThread().setName("Transaction Processor");
+            boolean go = true;
+            while (go)
+            {
+                // always be nice and exit if already interrupted
+                if (Thread.currentThread().isInterrupted())
+                {
+                    go = false;
+                    continue;
+                }
+
+                // get the next transaction
+                UserTransaction nextTransaction;
+                try
+                {
+                    // this call blocks until a transaction is ready
+                    nextTransaction = transactionQueue.take();
+                }
+                catch (InterruptedException e)
+                {
+                    // interruption while waiting for a transaction also triggers an exit
+                    go = false;
+                    continue;
+                }
+
+                // perform the transaction
+                switch (nextTransaction.getTransactionType())
+                {
+
+                    case INVENTORY:
+                        adjustItem.accept(nextTransaction.getInventoryItem(), nextTransaction.getTransactionAmount());
+                        break;
+
+                    case BLUEPRINT:
+                        procurementListUpdate(nextTransaction.getTransactionAmount(), nextTransaction.getBlueprint());
+                        break;
+
+                    case MESSAGE:
+                        messageLogger(nextTransaction.getMessageType(), nextTransaction.getMessage());
+                        break;
+
+                    case STATUS:
+                        Platform.runLater(()->
+                        {
+                            Map<String, Object> statusObject = nextTransaction.getStatusObject();
+                            status_fuel.setText(statusObject.get("Fuel").toString() + " Tons");
+                            status_cargo.setText(statusObject.get("Cargo").toString() + " Tons");
+                        });
+                        break;
+                }
+            }
+        };
+
+
+        //new TransactionProcessingTask(adjustItem, this::procurementListUpdate, this::messageLogger, transactionQueue);
         Thread transactionThread = new Thread(transactionProcessingTask);
         transactionThread.setDaemon(true);
         transactionThread.start();

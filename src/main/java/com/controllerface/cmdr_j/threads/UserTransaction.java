@@ -5,6 +5,8 @@ import com.controllerface.cmdr_j.ProcurementRecipe;
 import com.controllerface.cmdr_j.ProcurementType;
 import javafx.util.Pair;
 
+import java.util.Map;
+
 /**
  * Created by Controllerface on 5/5/2018.
  */
@@ -12,6 +14,7 @@ public class UserTransaction
 {
     public enum TransactionType
     {
+        STATUS,
         INVENTORY,
         BLUEPRINT,
         MESSAGE
@@ -31,6 +34,7 @@ public class UserTransaction
     private final ProcurementCost inventoryItem;
     private final Pair<ProcurementType, ProcurementRecipe> blueprint;
     private final int transactionAmount;
+    private final Map<String, Object> statusObject;
     private final TransactionType transactionType;
     private final String message;
     private final MessageType messageType;
@@ -41,6 +45,7 @@ public class UserTransaction
         this.transactionType = TransactionType.INVENTORY;
         this.inventoryItem = inventoryItem;
         this.transactionAmount = transactionAmount;
+        this.statusObject = null;
         this.blueprint = null;
         this.message = null;
         this.messageType = null;
@@ -51,6 +56,7 @@ public class UserTransaction
         this.transactionType = TransactionType.BLUEPRINT;
         this.transactionAmount = transactionAmount;
         this.blueprint = blueprint;
+        this.statusObject = null;
         this.inventoryItem = null;
         this.message = null;
         this.messageType = null;
@@ -61,17 +67,34 @@ public class UserTransaction
         this.transactionType = TransactionType.MESSAGE;
         this.messageType = messageType;
         this.message = message;
-        this.inventoryItem = null;
         this.transactionAmount = 0;
+        this.statusObject = null;
+        this.inventoryItem = null;
         this.blueprint = null;
     }
 
-    ProcurementCost getInventoryItem()
+    public UserTransaction(Map<String, Object> statusObject)
+    {
+        this.transactionType = TransactionType.STATUS;
+        this.statusObject = statusObject;
+        this.messageType = null;
+        this.message = null;
+        this.transactionAmount = 0;
+        this.inventoryItem = null;
+        this.blueprint = null;
+    }
+
+    public Map<String, Object> getStatusObject()
+    {
+        return statusObject;
+    }
+
+    public ProcurementCost getInventoryItem()
     {
         return inventoryItem;
     }
 
-    Pair<ProcurementType, ProcurementRecipe> getBlueprint()
+    public Pair<ProcurementType, ProcurementRecipe> getBlueprint()
     {
         return blueprint;
     }
@@ -86,12 +109,12 @@ public class UserTransaction
         return messageType;
     }
 
-    int getTransactionAmount()
+    public int getTransactionAmount()
     {
         return transactionAmount;
     }
 
-    TransactionType getTransactionType()
+    public TransactionType getTransactionType()
     {
         return transactionType;
     }

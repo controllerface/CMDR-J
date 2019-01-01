@@ -2133,9 +2133,7 @@ public enum HardpointModule implements ShipModule
     /**
      * Mining Equipment
      */
-    hpt_mininglaser_fixed_small("Small Fixed Mining Laser",
-            null,
-            null,
+    hpt_mininglaser_fixed_small("Small Fixed Mining Laser", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
@@ -2154,9 +2152,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
             )),
 
-    hpt_mininglaser_turret_small("Small Turreted Mining Laser",
-            null,
-            null,
+    hpt_mininglaser_turret_small("Small Turreted Mining Laser", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
@@ -2175,9 +2171,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
             )),
 
-    hpt_mininglaser_fixed_small_advanced("Small Fixed Mining Lance",
-            null,
-            null,
+    hpt_mininglaser_fixed_small_advanced("Small Fixed Mining Lance", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
@@ -2196,9 +2190,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
             )),
 
-    hpt_mininglaser_fixed_medium("Medium Fixed Mining Laser",
-            null,
-            null,
+    hpt_mininglaser_fixed_medium("Medium Fixed Mining Laser", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -2217,9 +2209,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
             )),
 
-    hpt_mininglaser_turret_medium("Medium Turreted Mining Laser",
-            null,
-            null,
+    hpt_mininglaser_turret_medium("Medium Turreted Mining Laser", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -2238,9 +2228,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 300)
             )),
 
-    hpt_mining_seismchrgwarhd_fixed_medium("Medium Fixed Seismic Charge Launcher",
-            null,
-            null,
+    hpt_mining_seismchrgwarhd_fixed_medium("Medium Fixed Seismic Charge Launcher", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -2265,9 +2253,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
-    hpt_mining_subsurfdispmisle_fixed_medium("Medium Fixed Sub-Surface Displacement Missile",
-            null,
-            null,
+    hpt_mining_subsurfdispmisle_fixed_medium("Medium Fixed Sub-Surface Displacement Missile", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -2292,9 +2278,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageType, "Explosive")
             )),
 
-    hpt_mining_abrblstr_fixed_small("Small Fixed Abrasion Blaster",
-            null,
-            null,
+    hpt_mining_abrblstr_fixed_small("Small Fixed Abrasion Blaster", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 2),
                     new ItemEffectData(ItemEffect.Integrity, 40),
@@ -2320,9 +2304,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1_000)
             )),
 
-    hpt_mrascanner_size0_class4("Pulse Wave Analyzer",
-            null,
-            null,
+    hpt_mrascanner_size0_class4("Pulse Wave Analyzer", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 1.3),
                     new ItemEffectData(ItemEffect.Integrity, 56),
@@ -2690,9 +2672,7 @@ public enum HardpointModule implements ShipModule
     /**
      * Experimental (AEGIS, Anti-Thargoid) Weapons and Items
      */
-    hpt_atmulticannon_fixed_medium("Medium Fixed Anti-Thargoid Multi-Cannon",
-            null,
-            null,
+    hpt_atmulticannon_fixed_medium("Medium Fixed Anti-Thargoid Multi-Cannon", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -2715,9 +2695,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
-    hpt_atmulticannon_turret_medium("Medium Turreted Anti-Thargoid Multi-Cannon",
-            null,
-            null,
+    hpt_atmulticannon_turret_medium("Medium Turreted Anti-Thargoid Multi-Cannon", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -2741,9 +2719,7 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_atmulticannon_fixed_large("Large Fixed Anti-Thargoid Multi-Cannon",
-            null,
-            null,
+    hpt_atmulticannon_fixed_large("Large Fixed Anti-Thargoid Multi-Cannon", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
@@ -2766,9 +2742,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2000)
             )),
 
-    hpt_atmulticannon_turret_large("Large Turreted Anti-Thargoid Multi-Cannon",
-            null,
-            null,
+    hpt_atmulticannon_turret_large("Large Turreted Anti-Thargoid Multi-Cannon", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
@@ -2792,9 +2766,7 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_atdumbfiremissile_fixed_medium("Medium Fixed Anti-Thargoid Missile Rack",
-            null,
-            null,
+    hpt_atdumbfiremissile_fixed_medium("Medium Fixed Anti-Thargoid Missile Rack", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -2816,9 +2788,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
-    hpt_atdumbfiremissile_turret_medium("Medium Turreted Anti-Thargoid Missile Rack",
-            null,
-            null,
+    hpt_atdumbfiremissile_turret_medium("Medium Turreted Anti-Thargoid Missile Rack", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -2842,9 +2812,7 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_atdumbfiremissile_fixed_large("Large Fixed Anti-Thargoid Missile Rack",
-            null,
-            null,
+    hpt_atdumbfiremissile_fixed_large("Large Fixed Anti-Thargoid Missile Rack", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
@@ -2866,9 +2834,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
-    hpt_atdumbfiremissile_turret_large("Large Turreted Anti-Thargoid Missile Rack",
-            null,
-            null,
+    hpt_atdumbfiremissile_turret_large("Large Turreted Anti-Thargoid Missile Rack", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
@@ -2892,9 +2858,7 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_flakmortar_fixed_medium("Medium Fixed Remote Release Flak Launcher",
-            null,
-            null,
+    hpt_flakmortar_fixed_medium("Medium Fixed Remote Release Flak Launcher", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -2916,9 +2880,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 0)
             )),
 
-    hpt_flakmortar_turret_medium("Medium Turreted Remote Release Flak Launcher",
-            null,
-            null,
+    hpt_flakmortar_turret_medium("Medium Turreted Remote Release Flak Launcher", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -2949,10 +2911,9 @@ public enum HardpointModule implements ShipModule
     // Guardian Shard Cannon/Fixed
     // Guardian Shard Cannon/Turreted
 
-    hpt_guardian_gausscannon_fixed_medium("Medium Fixed Guardian Gauss Cannon",
-            null,
-            null,
+    hpt_guardian_gausscannon_fixed_medium("Medium Fixed Guardian Gauss Cannon", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 42),
                     new ItemEffectData(ItemEffect.PowerDraw, 2.61),
@@ -2973,10 +2934,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1500)
             )),
 
-    hpt_guardian_plasmalauncher_fixed_medium("Medium Fixed Guardian Plasma Charger",
-            null,
-            null,
+    hpt_guardian_plasmalauncher_fixed_medium("Medium Fixed Guardian Plasma Charger", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 42),
                     new ItemEffectData(ItemEffect.PowerDraw, 2.13),
@@ -2999,10 +2959,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
             )),
 
-    hpt_guardian_plasmalauncher_turret_medium("Medium Turreted Guardian Plasma Charger",
-            null,
-            null,
+    hpt_guardian_plasmalauncher_turret_medium("Medium Turreted Guardian Plasma Charger", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 42),
                     new ItemEffectData(ItemEffect.PowerDraw, 2.01),
@@ -3025,10 +2984,9 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
             )),
 
-    hpt_guardian_plasmalauncher_fixed_large("Large Fixed Guardian Plasma Charger",
-            null,
-            null,
+    hpt_guardian_plasmalauncher_fixed_large("Large Fixed Guardian Plasma Charger", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 3.10),
@@ -3057,9 +3015,7 @@ public enum HardpointModule implements ShipModule
 
     // todo: verify ENUM values for these, they may be guessed
 
-    hpt_causticmissile_fixed_medium("Medium Fixed Enzyme Missile Rack",
-            null,
-            null,
+    hpt_causticmissile_fixed_medium("Medium Fixed Enzyme Missile Rack", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -3080,9 +3036,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageType, "Caustic")
             )),
 
-    hpt_flechettelauncher_fixed_medium("Medium Fixed Remote Release Flechette Launcher",
-            null,
-            null,
+    hpt_flechettelauncher_fixed_medium("Medium Fixed Remote Release Flechette Launcher", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -3103,9 +3057,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             )),
 
-    hpt_flechettelauncher_turret_medium("Medium Turreted Remote Release Flechette Launcher",
-            null,
-            null,
+    hpt_flechettelauncher_turret_medium("Medium Turreted Remote Release Flechette Launcher", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -3127,9 +3079,7 @@ public enum HardpointModule implements ShipModule
             )),
 
 
-    hpt_plasmashockcannon_fixed_medium("Medium Fixed Shock Cannon",
-            null,
-            null,
+    hpt_plasmashockcannon_fixed_medium("Medium Fixed Shock Cannon", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -3152,9 +3102,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2500)
             )),
 
-    hpt_plasmashockcannon_gimbal_medium("Medium Gimballed Shock Cannon",
-            null,
-            null,
+    hpt_plasmashockcannon_gimbal_medium("Medium Gimballed Shock Cannon", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
@@ -3177,9 +3125,7 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2500)
             )),
 
-    hpt_plasmashockcannon_turret_medium("Medium Turreted Shock Cannon",
-            null,
-            null,
+    hpt_plasmashockcannon_turret_medium("Medium Turreted Shock Cannon", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),

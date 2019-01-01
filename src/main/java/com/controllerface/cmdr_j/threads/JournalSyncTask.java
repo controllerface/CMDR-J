@@ -222,7 +222,7 @@ public class JournalSyncTask implements Runnable
                 // the file is ready and once after. It is not clear why this happens,
                 // but this effectively ensures we don't crash when the file is not ready
                 // when the key is triggered.
-                if (rawEvent.isEmpty()) {return;}
+                if (rawEvent.isEmpty()) { return; }
 
                 Map<String, Object> data = JSONSupport.Parse.jsonString.apply(rawEvent);
                 if (hasSupportedEvent.test(data)) processJSONEvent(data);

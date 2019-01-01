@@ -34,6 +34,7 @@ import com.controllerface.cmdr_j.data.events.handlers.stats.status.HullDamageHan
 import com.controllerface.cmdr_j.data.events.handlers.stats.status.ShieldStateHandler;
 import com.controllerface.cmdr_j.data.events.handlers.stats.status.UnderAttackHandler;
 import com.controllerface.cmdr_j.data.events.handlers.stats.travel.*;
+import com.controllerface.cmdr_j.threads.UserTransaction;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 
 import java.util.List;
@@ -180,6 +181,11 @@ public enum JournalEvent
     /*
     Status
      */
+    Status((JournalEventHandler) context ->
+    {
+        context.getTransactions().add(new UserTransaction(context.getRawData()));
+    }),
+
     HeatWarning(new HeatWarningHandler()),
     HullDamage(new HullDamageHandler()),
     ShieldState(new ShieldStateHandler()),
