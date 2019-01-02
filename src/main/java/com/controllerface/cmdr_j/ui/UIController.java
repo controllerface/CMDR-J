@@ -208,8 +208,17 @@ public class UIController
     @FXML private ListView<MessageData> consoleMessageList;
 
     // Status
+    @FXML private Label status_body;
     @FXML private Label status_fuel;
     @FXML private Label status_cargo;
+    @FXML private Label status_altitude;
+    @FXML private Label status_latitude;
+    @FXML private Label status_longitude;
+    @FXML private Label status_heading;
+
+    @FXML private Label market_id;
+    @FXML private Label market_name;
+
 
     /*
     Backing lists for the procurement task UI elements
@@ -456,12 +465,48 @@ public class UIController
                         messageLogger(nextTransaction.getMessageType(), nextTransaction.getMessage());
                         break;
 
+                    case ARRIVAL:
+                        if (Platform.isFxApplicationThread()) status_body.setText(nextTransaction.getMessage());
+                        else Platform.runLater(() -> status_body.setText(nextTransaction.getMessage()));
+                        break;
+
+                    case MARKET:
+                        if (Platform.isFxApplicationThread())
+                        {
+                            market_name.setText(nextTransaction.getMessage());
+                            market_id.setText(nextTransaction.getStatusObject().get("MarketID").toString());
+                        }
+                        else
+                        {
+                            Platform.runLater(()->
+                            {
+                                market_name.setText(nextTransaction.getMessage());
+                                market_id.setText(nextTransaction.getStatusObject().get("MarketID").toString());
+                            });
+                        }
+                        break;
+
                     case STATUS:
                         Platform.runLater(()->
                         {
                             Map<String, Object> statusObject = nextTransaction.getStatusObject();
-                            status_fuel.setText(statusObject.get("Fuel").toString() + " Tons");
-                            status_cargo.setText(statusObject.get("Cargo").toString() + " Tons");
+                            status_fuel.setText(statusObject.get("Fuel") + " Tons");
+                            status_cargo.setText(statusObject.get("Cargo") + " Tons");
+
+                            Object Altitude  = statusObject.get("Altitude");
+                            Object Latitude  = statusObject.get("Latitude");
+                            Object Longitude  = statusObject.get("Longitude");
+                            Object Heading  = statusObject.get("Heading");
+
+                            status_altitude.setText("0.0");
+                            status_latitude.setText("0.0");
+                            status_longitude.setText("0.0");
+                            status_heading.setText("0.0");
+
+                            if (Altitude != null) status_altitude.setText(Altitude.toString());
+                            if (Latitude != null) status_latitude.setText(Latitude.toString());
+                            if (Longitude != null) status_longitude.setText(Longitude.toString());
+                            if (Heading != null) status_heading.setText(Heading.toString());
                         });
                         break;
                 }

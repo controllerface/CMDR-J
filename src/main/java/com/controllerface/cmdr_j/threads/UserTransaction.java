@@ -15,6 +15,8 @@ public class UserTransaction
     public enum TransactionType
     {
         STATUS,
+        ARRIVAL,
+        MARKET,
         INVENTORY,
         BLUEPRINT,
         MESSAGE
@@ -79,6 +81,28 @@ public class UserTransaction
         this.statusObject = statusObject;
         this.messageType = null;
         this.message = null;
+        this.transactionAmount = 0;
+        this.inventoryItem = null;
+        this.blueprint = null;
+    }
+
+    public UserTransaction(String arrivalLocation)
+    {
+        this.transactionType = TransactionType.ARRIVAL;
+        this.message = arrivalLocation;
+        this.statusObject = null;
+        this.messageType = null;
+        this.transactionAmount = 0;
+        this.inventoryItem = null;
+        this.blueprint = null;
+    }
+
+    public UserTransaction(String market, Map<String, Object> marketData)
+    {
+        this.transactionType = TransactionType.MARKET;
+        this.message = market;
+        this.statusObject = marketData;
+        this.messageType = null;
         this.transactionAmount = 0;
         this.inventoryItem = null;
         this.blueprint = null;

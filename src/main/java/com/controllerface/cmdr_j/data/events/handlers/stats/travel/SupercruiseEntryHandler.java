@@ -4,6 +4,7 @@ import com.controllerface.cmdr_j.EventProcessingContext;
 import com.controllerface.cmdr_j.data.events.handlers.JournalEventHandler;
 
 import static com.controllerface.cmdr_j.data.events.JournalEventTransactions.logTravelMessage;
+import static com.controllerface.cmdr_j.data.events.JournalEventTransactions.processArrival;
 
 /**
  * Created by Stephen on 7/18/2018.
@@ -16,5 +17,6 @@ public class SupercruiseEntryHandler implements JournalEventHandler
     {
         String system = ((String) context.getRawData().get("StarSystem"));
         logTravelMessage(context, system + " :: Entered Supercruise");
+        processArrival(context, "(Supercruise)");
     }
 }

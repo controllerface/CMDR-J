@@ -4,6 +4,7 @@ import com.controllerface.cmdr_j.*;
 import com.controllerface.cmdr_j.data.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.data.ModifierData;
 import com.controllerface.cmdr_j.data.ShipModuleData;
+import com.controllerface.cmdr_j.data.procurements.CostData;
 import com.controllerface.cmdr_j.structures.commander.PlayerStat;
 import com.controllerface.cmdr_j.structures.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.structures.costs.materials.Material;
@@ -17,10 +18,8 @@ import com.controllerface.cmdr_j.structures.journal.JournalEvent;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.controllerface.cmdr_j.threads.UserTransaction.*;
 
@@ -668,30 +667,72 @@ public class JournalEventTransactions
 //                .forEach(module -> setSlotFromLoadout(context, module));
 //    }
 
+    public static void processMarket(EventProcessingContext context)
+    {
+        String market = context.getRawData().get("StationName") + " in " + context.getRawData().get("StarSystem");
+        context.getTransactions().add(new UserTransaction(market, context.getRawData()));
+
+        if (context.getRawData().get("Items")==null) return;
+
+
+        ((List<Map<String, Object>>) context.getRawData().get("Items")).stream()
+                .map(item ->
+                {
+                    String name = ((String) item.get("Name"));
+                    if (name == null) return null;
+
+                    String c = name.replace("$", "").replace("_name;", "").toUpperCase();
+                    Commodity commodity = Commodity.valueOf(c);
+                    String x = commodity.getLocalizedName();
+                    int buy = ((int) item.get("BuyPrice"));
+                    int sell = ((int) item.get("SellPrice"));
+                    boolean imports = ((boolean) item.get("Consumer"));
+                    boolean exports = ((boolean) item.get("Producer"));
+
+                    Set<String> modifiers = new HashSet<>();
+                    if (imports) modifiers.add("Imports");
+                    if (exports) modifiers.add("Exports");
+
+                    String m = modifiers.stream().collect(Collectors.joining(" and "));
+
+
+                    return x + " :: Buy: "+ buy + " :: Sell: "+ sell + " :: Market: " + m;
+                })
+                .filter(Objects::nonNull)
+                .forEach(System.out::println);
+    }
+
+    public static void processArrival(EventProcessingContext context, String arrivalBody)
+    {
+        context.getTransactions().add(new UserTransaction(arrivalBody));
+    }
+
+    @SuppressWarnings("unchecked")
     public static void processMaterialTrade(EventProcessingContext context)
     {
-        //        CostData price = new CostData(priceMaterial, ((int) costObject.get("count")));
-//        CostData yield = new CostData(yieldMaterial, ((int) yieldObject.get("count")));
-//        MaterialTradeRecipe recipe =  new MaterialTradeRecipe(price, yield);
-
-        // adjust blueprint down
-
-        //1. find a matching trade in the enum
-
-        //2. determine quantities for this trade
-
-        //3. divide single cost by this trade's cost to get the multiplier
-
-        //4. adjust blueprint of the trade buy the multiplier
-
         Map<String, Object> paid = ((Map<String, Object>) context.getRawData().get("Paid"));
         Map<String, Object> received = ((Map<String, Object>) context.getRawData().get("Received"));
 
-        int cost = ((int) paid.get("Quantity"));
-        int yield = ((int) received.get("Quantity"));
-
         Material priceMaterial = Material.valueOf(((String) paid.get("Material")).toUpperCase());
         Material yieldMaterial = Material.valueOf(((String) received.get("Material")).toUpperCase());
+
+// TODO: test this version and switch to it if it works.
+//        yieldMaterial.getTradeBlueprint()
+//                .map(blueprint -> blueprint.recipeStream()
+//                        .filter(recipe -> recipe.costStream()
+//                                .filter(price -> price.getQuantity() > 0)
+//                                .filter(price -> price.getCost().equals(priceMaterial))
+//                                .findAny().isPresent())
+//                        .findFirst().orElse(null))
+//                .ifPresent(recipe -> MaterialTradeType.findMatchingTradeType(priceMaterial)
+//                        .ifPresent(tradeType -> recipe.costStream().map(CostData::getQuantity)
+//                                .filter(quantity -> quantity > 0)
+//                                .findFirst()
+//                                .ifPresent(unitCost ->
+//                                {
+//                                    int count = ((int) paid.get("Quantity")) / unitCost;
+//                                    adjustBlueprintDown(context, tradeType, recipe, count);
+//                                })));
 
         ProcurementRecipe recipe = yieldMaterial.getTradeBlueprint()
                 .map(b -> b.recipeStream()
@@ -704,26 +745,20 @@ public class JournalEventTransactions
                         .orElse(null))
                 .orElse(null);
 
-        ProcurementType t = MaterialTradeType.findMatchingTradeType(priceMaterial).orElse(null);
+        if (recipe == null) return;
 
-        System.out.println("c: " + priceMaterial);
-        System.out.println("r: " + yieldMaterial);
+        ProcurementType tradeType = MaterialTradeType
+                .findMatchingTradeType(priceMaterial)
+                .orElse(null);
 
-        int unitCost = recipe.costStream().map(c->c.getQuantity())
-                .filter(c -> c > 0)
+        int unitCost = recipe.costStream().map(CostData::getQuantity)
+                .filter(quantity -> quantity > 0)
                 .findFirst().orElse(0);
 
-        System.out.println("ppu: " + unitCost);
+        int cost = ((int) paid.get("Quantity"));
+        int count = cost / unitCost;
 
-        int mult = cost / unitCost;
-
-        System.out.println("mult: " + mult);
-
-        if (recipe != null)
-        {
-            System.out.println("Recipe: " + recipe.getDisplayLabel());
-            adjustBlueprintDown(context, t, recipe, mult);
-        }
+        adjustBlueprintDown(context, tradeType, recipe, count);
     }
 
     @SuppressWarnings("unchecked") // uses documented JSON object structure

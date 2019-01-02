@@ -29,7 +29,9 @@ public class TaskTypeCell extends TableCell<ProcurementTaskData, ProcurementReci
         }
 
         HBox hBox = new HBox();
-        SVGPath icon = item.getIcon() == null ?  UIFunctions.Icons.cargo : item.getIcon().getIconPath();
+        SVGPath icon = item.getIcon() == null
+                ? UIFunctions.Icons.cargo
+                : item.getIcon().getIconPath();
 
         final Region svgShape = new Region();
         svgShape.setShape(icon);
