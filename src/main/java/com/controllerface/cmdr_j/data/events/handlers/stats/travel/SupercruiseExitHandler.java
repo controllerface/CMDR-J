@@ -17,11 +17,7 @@ public class SupercruiseExitHandler implements JournalEventHandler
     {
         String system = ((String) context.getRawData().get("StarSystem"));
         String body = ((String) context.getRawData().get("Body"));
-        String type = ((String) context.getRawData().get("BodyType"));
         logTravelMessage(context, system + " :: Exited Supercruise Near " + body);
-
-        String arrival = "Station".equals(type) ? "Space Station" : body;
-
-        processArrival(context, arrival);
+        processArrival(context, body);
     }
 }

@@ -8,10 +8,7 @@ import com.controllerface.cmdr_j.data.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.data.MessageData;
 import com.controllerface.cmdr_j.data.ShipModuleData;
 import com.controllerface.cmdr_j.data.WindowDimensions;
-import com.controllerface.cmdr_j.data.commander.CommanderData;
-import com.controllerface.cmdr_j.data.commander.Displayable;
-import com.controllerface.cmdr_j.data.commander.InventoryData;
-import com.controllerface.cmdr_j.data.commander.ShipStatisticData;
+import com.controllerface.cmdr_j.data.commander.*;
 import com.controllerface.cmdr_j.data.procurements.CostData;
 import com.controllerface.cmdr_j.data.procurements.ItemCostData;
 import com.controllerface.cmdr_j.data.procurements.ProcurementTask;
@@ -53,6 +50,7 @@ import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -214,10 +212,28 @@ public class UIController
     @FXML private Label status_altitude;
     @FXML private Label status_latitude;
     @FXML private Label status_longitude;
+    @FXML private Label status_marked_lat;
+    @FXML private Label status_marked_long;
     @FXML private Label status_heading;
+    @FXML private Label status_bearing;
+
+    @FXML private Button status_mark;
 
     @FXML private Label market_id;
     @FXML private Label market_name;
+    @FXML private TableView<MarketData> market_table;
+    @FXML private TableColumn<MarketData, String> market_commodity_col;
+    @FXML private TableColumn<MarketData, String> market_import_export;
+    @FXML private TableColumn<MarketData, Integer> market_buy_col;
+    @FXML private TableColumn<MarketData, Integer> market_sell_col;
+    @FXML private TableColumn<MarketData, Integer> market_mean_col;
+    @FXML private TableColumn<MarketData, Integer> market_stock_col;
+    @FXML private TableColumn<MarketData, Integer> market_income_col;
+    @FXML private TableColumn<MarketData, Integer> market_profit_col;
+    @FXML private TableColumn<MarketData, Integer> market_demand_col;
+
+
+
 
 
     /*
@@ -319,7 +335,11 @@ public class UIController
         double p = (double) processedMessages.get() / (double) queuedMessages.get();
 
         messageProgress.setProgress(p);
-        if (messageProgress.getProgress() >= 1.0) messageProgress.visibleProperty().setValue(false);
+        if (messageProgress.getProgress() >= 1.0)
+        {
+            messageProgress.visibleProperty().setValue(false);
+            messageProgress.setProgress(0.0d);
+        }
 
         while (consoleBackingList.size() > 500) consoleBackingList.remove(0);
         consoleMessageList.scrollTo(consoleBackingList.size());
@@ -409,6 +429,94 @@ public class UIController
     {
         makeProcurementTree();
         startupTasks();
+
+
+        // TODO: code below should be in separate method(s)
+
+        market_commodity_col.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
+        market_import_export.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getMarket()));
+
+        market_buy_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getBuy()).asObject());
+        market_sell_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getSell()).asObject());
+        market_mean_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getMean()).asObject());
+        market_stock_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getStock()).asObject());
+        market_demand_col.setCellValueFactory(param ->
+        {
+            int demand = param.getValue().getDemand() > 1
+                    ? param.getValue().getDemand()
+                    : 0;
+
+            return new SimpleIntegerProperty(demand).asObject();
+        });
+
+
+        market_income_col.setCellValueFactory(param ->
+        {
+            int profit = param.getValue().getBuy() == 0 || param.getValue().getStock() == 0
+                    ? 0
+                    : param.getValue().getMean() - param.getValue().getBuy();
+
+            return new SimpleIntegerProperty(profit).asObject();
+        });
+
+        market_profit_col.setCellValueFactory(param ->
+        {
+            int profit = param.getValue().getDemand() == 1
+                    ? 0
+                    : param.getValue().getSell() - param.getValue().getMean();
+
+            return new SimpleIntegerProperty(profit).asObject();
+        });
+
+        status_mark.onMouseClickedProperty().setValue((e)->
+        {
+            markedLat = Double.valueOf(status_latitude.getText());
+            markedLong = Double.valueOf(status_longitude.getText());
+        });
+    }
+
+    private double markedLat = 0.0;
+    private double markedLong = 0.0;
+
+    private void updateMarketTable(UserTransaction nextTransaction)
+    {
+        market_name.setText(nextTransaction.getMessage());
+        market_id.setText(nextTransaction.getStatusObject().get("MarketID").toString());
+
+        if (nextTransaction.getStatusObject().get("Items") != null)
+        {
+            @SuppressWarnings("unchecked")
+            List<MarketData> data =
+                    ((List<Map<String, Object>>) nextTransaction.getStatusObject().get("Items"))
+                            .stream()
+                            .map(object ->
+                            {
+                                boolean produces = ((boolean) object.get("Producer"));
+                                boolean consumes = ((boolean) object.get("Consumer"));
+
+                                // This ternary is hilarious on purpose
+                                String market = produces && consumes
+                                        ? "Both"
+                                        : produces
+                                                ? "Exports"
+                                                : consumes
+                                                        ? "Imports"
+                                                        : "None";
+
+                                return MarketData.builder().setMarket(market)
+                                        .setName(((String) object.get("Name_Localised")))
+                                        .setBuy(((int) object.get("BuyPrice")))
+                                        .setSell(((int) object.get("SellPrice")))
+                                        .setMean(((int) object.get("MeanPrice")))
+                                        .setStock(((int) object.get("Stock")))
+                                        .setDemand(((int) object.get("Demand")))
+                                        .build();
+                            })
+                            .collect(Collectors.toList());
+
+            market_table.getItems().clear();
+            market_table.getItems().addAll(data);
+        }
     }
 
     private void startupTasks()
@@ -471,19 +579,8 @@ public class UIController
                         break;
 
                     case MARKET:
-                        if (Platform.isFxApplicationThread())
-                        {
-                            market_name.setText(nextTransaction.getMessage());
-                            market_id.setText(nextTransaction.getStatusObject().get("MarketID").toString());
-                        }
-                        else
-                        {
-                            Platform.runLater(()->
-                            {
-                                market_name.setText(nextTransaction.getMessage());
-                                market_id.setText(nextTransaction.getStatusObject().get("MarketID").toString());
-                            });
-                        }
+                        if (Platform.isFxApplicationThread()) { updateMarketTable(nextTransaction); }
+                        else { Platform.runLater(() -> updateMarketTable(nextTransaction)); }
                         break;
 
                     case STATUS:
@@ -507,6 +604,17 @@ public class UIController
                             if (Latitude != null) status_latitude.setText(Latitude.toString());
                             if (Longitude != null) status_longitude.setText(Longitude.toString());
                             if (Heading != null) status_heading.setText(Heading.toString());
+
+                            if (Altitude == null || Latitude == null || Longitude == null || Heading == null) return;
+
+                            double lat = Double.valueOf(Latitude.toString());
+                            double lon = Double.valueOf(Longitude.toString());
+
+                            status_bearing.setText(String.valueOf(UIFunctions.Data
+                                    .calculateBearingAngle(lat, lon, markedLat, markedLong)));
+
+                            status_marked_lat.setText(String.valueOf(markedLat));
+                            status_marked_long.setText(String.valueOf(markedLong));
                         });
                         break;
                 }

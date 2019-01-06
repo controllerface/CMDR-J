@@ -30,6 +30,9 @@ import java.util.EnumMap;
 import java.util.Scanner;
 import java.util.function.Function;
 
+import static java.lang.Math.atan2;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 /**
  * This class stores several stateless functions and utility objects that are used to build or modify the GUI. These
  * functions are stored here in an effort to keep the UI controller classes and various custom cell/display object
@@ -94,6 +97,8 @@ public class UIFunctions
         //public static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
         public static final Color darkOrange = Color.rgb(0xb7, 0x52, 0x00);
         public static final Color darkYellow = Color.rgb(0xb7, 0x7d, 0x00);
+        public static final Color hotBlue = Color.rgb(0x00, 0x77, 0xcc);
+
 
         static final Font baseFont = Font.getDefault();
         static final double size1 = baseFont.getSize() + (baseFont.getSize() / 5);
@@ -253,6 +258,22 @@ public class UIFunctions
             BigDecimal decimal = new BigDecimal(value);
             decimal = decimal.setScale(precision, RoundingMode.HALF_UP);
             return decimal.doubleValue();
+        }
+
+
+        public static double calculateBearingAngle(double startLatitude, double startLongitude, double endLatitude, double endLongitude)
+        {
+            double phiStart = Math.toRadians(startLatitude);
+            double phiEnd = Math.toRadians(endLatitude);
+            double delta = Math.toRadians(endLongitude - startLongitude);
+
+            double ordinate = (sin(delta) * cos(phiEnd));
+            double abscissa = (cos(phiStart) * sin(phiEnd) - sin(phiStart) * cos(phiEnd) * cos(delta));
+            double theta = atan2(ordinate, abscissa);
+
+            double bearing = Math.toDegrees(theta);
+            if (bearing < 0 ) { bearing = bearing + 360; }
+            return round(bearing, 2);
         }
     }
 

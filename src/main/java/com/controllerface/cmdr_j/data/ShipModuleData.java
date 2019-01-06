@@ -8,6 +8,9 @@ import com.controllerface.cmdr_j.structures.craftable.modifications.Modification
 import com.controllerface.cmdr_j.structures.engineers.Engineer;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
+import com.controllerface.cmdr_j.structures.equipment.modules.HardpointModule;
+import com.controllerface.cmdr_j.structures.equipment.modules.OptionalInternalModule;
+import com.controllerface.cmdr_j.structures.equipment.modules.OptionalInternalShieldModule;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
@@ -183,7 +186,7 @@ public class ShipModuleData implements Displayable
             double sizeh = 18;
 
             HBox guardianBox = new HBox();
-            guardianBox.setAlignment(Pos.CENTER);
+            guardianBox.setAlignment(Pos.CENTER_LEFT);
             SVGPath icon = UIFunctions.Icons.guardian;
 
             final Region svgShape = new Region();
@@ -194,10 +197,51 @@ public class ShipModuleData implements Displayable
             svgShape.setLayoutX(5);
             svgShape.setStyle("-fx-background-color: #0077cc;");
 
+
+
+            String text = "Guardian Module";
+
+            if (module instanceof HardpointModule)
+            {
+                text = "Guardian Weapon";
+            }
+            else if (module instanceof OptionalInternalModule)
+            {
+                if (module == OptionalInternalModule.int_guardianfsdbooster_size1
+                        || module == OptionalInternalModule.int_guardianfsdbooster_size2
+                        || module == OptionalInternalModule.int_guardianfsdbooster_size3
+                        || module == OptionalInternalModule.int_guardianfsdbooster_size4
+                        || module == OptionalInternalModule.int_guardianfsdbooster_size5)
+                {
+                    text = "FSD Range";
+                }
+            }
+            else if (module instanceof OptionalInternalShieldModule)
+            {
+                if (module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size1_class1
+                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size1_class2
+                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size2_class1
+                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size2_class2
+                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size3_class1
+                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size3_class2
+                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size4_class1
+                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size4_class2
+                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size5_class1
+                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size5_class2)
+                {
+                    text = "Shield Strength";
+                }
+            }
+
+            Label modificationLabel = new Label(text);
+            modificationLabel.setFont(UIFunctions.Fonts.size3Font);
+            modificationLabel.setTextFill(UIFunctions.Fonts.hotBlue);
+            modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
+
             guardianBox.getChildren().add(svgShape);
+            guardianBox.getChildren().add(modificationLabel);
 
             moduleNameContainer.getChildren().add(guardianBox);
-
         }
 
         if (modificationBlueprint != null)
@@ -211,7 +255,7 @@ public class ShipModuleData implements Displayable
             double sizew = 18;
             double sizeh = 20;
             HBox modBox = new HBox();
-            modBox.setAlignment(Pos.CENTER);
+            modBox.setAlignment(Pos.CENTER_LEFT);
             SVGPath icon = UIFunctions.Icons.engineering;
 
             final Region svgShape = new Region();
@@ -227,6 +271,7 @@ public class ShipModuleData implements Displayable
             Label modificationLabel = new Label(labelText);
             modificationLabel.setFont(UIFunctions.Fonts.size3Font);
             modificationLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+            modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
             modBox.getChildren().add(svgShape);
             modBox.getChildren().add(modificationLabel);
@@ -272,11 +317,10 @@ public class ShipModuleData implements Displayable
             Label special = new Label(" " + experimentalEffectRecipe.getDisplayLabel());
             special.setFont(UIFunctions.Fonts.size3Font);
             special.setTextFill(UIFunctions.Fonts.darkYellow);
-
             double sizew = 18;
             double sizeh = 20;
             HBox expBox = new HBox();
-            expBox.setAlignment(Pos.CENTER);
+            expBox.setAlignment(Pos.CENTER_LEFT);
             SVGPath icon = UIFunctions.Icons.engineering;
 
             final Region svgShape = new Region();
@@ -430,6 +474,7 @@ public class ShipModuleData implements Displayable
     {
         Label moduleLabel = new Label(module.displayText() + " ");
         moduleLabel.setFont(UIFunctions.Fonts.size3Font);
+        moduleLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
         HBox moduleNameContainer = new HBox();
         moduleNameContainer.getChildren().add(moduleLabel);
@@ -449,11 +494,11 @@ public class ShipModuleData implements Displayable
         statContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
         statContainer.getChildren().add(detailsContainer);
 
-        VBox moduleDataContainer = new VBox();
-        moduleDataContainer.getChildren().add(moduleNameContainer);
-
+        //VBox moduleDataContainer = new VBox();
+        //moduleDataContainer.getChildren().add(moduleNameContainer);
+        //moduleDataContainer.alignmentProperty().setValue(Pos.CENTER_LEFT);
         displayPane.setContent(statContainer);
-        displayPane.setGraphic(moduleDataContainer);
+        displayPane.setGraphic(moduleNameContainer);
         displayPane.setExpanded(false);
         displayPane.setAnimated(false);
     }

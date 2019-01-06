@@ -73,7 +73,7 @@ public class CommanderJ extends Application
         Parent root = loadRoot();
         root.getStyleClass().add("main");
         Scene scene = new Scene(root);
-        //scene.getStylesheets().add("/cmdr_j.css"); todo: play with this later
+        scene.getStylesheets().add("/cmdrj.css"); //todo: play with this later
         primaryStage.setScene(scene);
         primaryStage.show();
 

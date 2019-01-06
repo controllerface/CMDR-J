@@ -716,49 +716,22 @@ public class JournalEventTransactions
         Material priceMaterial = Material.valueOf(((String) paid.get("Material")).toUpperCase());
         Material yieldMaterial = Material.valueOf(((String) received.get("Material")).toUpperCase());
 
-// TODO: test this version and switch to it if it works.
-//        yieldMaterial.getTradeBlueprint()
-//                .map(blueprint -> blueprint.recipeStream()
-//                        .filter(recipe -> recipe.costStream()
-//                                .filter(price -> price.getQuantity() > 0)
-//                                .filter(price -> price.getCost().equals(priceMaterial))
-//                                .findAny().isPresent())
-//                        .findFirst().orElse(null))
-//                .ifPresent(recipe -> MaterialTradeType.findMatchingTradeType(priceMaterial)
-//                        .ifPresent(tradeType -> recipe.costStream().map(CostData::getQuantity)
-//                                .filter(quantity -> quantity > 0)
-//                                .findFirst()
-//                                .ifPresent(unitCost ->
-//                                {
-//                                    int count = ((int) paid.get("Quantity")) / unitCost;
-//                                    adjustBlueprintDown(context, tradeType, recipe, count);
-//                                })));
-
-        ProcurementRecipe recipe = yieldMaterial.getTradeBlueprint()
-                .map(b -> b.recipeStream()
-                        .filter(r -> r.costStream()
-                                .filter(c -> c.getQuantity() > 0)
-                                .filter(c-> c.getCost().equals(priceMaterial))
-                                .findFirst().orElse(null) != null)
-                        .filter(Objects::nonNull)
-                        .findFirst()
-                        .orElse(null))
-                .orElse(null);
-
-        if (recipe == null) return;
-
-        ProcurementType tradeType = MaterialTradeType
-                .findMatchingTradeType(priceMaterial)
-                .orElse(null);
-
-        int unitCost = recipe.costStream().map(CostData::getQuantity)
-                .filter(quantity -> quantity > 0)
-                .findFirst().orElse(0);
-
-        int cost = ((int) paid.get("Quantity"));
-        int count = cost / unitCost;
-
-        adjustBlueprintDown(context, tradeType, recipe, count);
+        yieldMaterial.getTradeBlueprint()
+                .map(blueprint -> blueprint.recipeStream()
+                        .filter(recipe -> recipe.costStream()
+                                .filter(price -> price.getQuantity() > 0)
+                                .filter(price -> price.getCost().equals(priceMaterial))
+                                .findAny().isPresent())
+                        .findFirst().orElse(null))
+                .ifPresent(recipe -> MaterialTradeType.findMatchingTradeType(priceMaterial)
+                        .ifPresent(tradeType -> recipe.costStream().map(CostData::getQuantity)
+                                .filter(quantity -> quantity > 0)
+                                .findFirst()
+                                .ifPresent(unitCost ->
+                                {
+                                    int count = ((int) paid.get("Quantity")) / unitCost;
+                                    adjustBlueprintDown(context, tradeType, recipe, count);
+                                })));
     }
 
     @SuppressWarnings("unchecked") // uses documented JSON object structure
