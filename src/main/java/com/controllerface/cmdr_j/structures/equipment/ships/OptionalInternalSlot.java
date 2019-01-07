@@ -22,6 +22,15 @@ import java.util.Arrays;
  */
 public enum OptionalInternalSlot implements Statistic
 {
+    Slot00_Size1("Size 1 Compartment"),
+    Slot00_Size2("Size 2 Compartment"),
+    Slot00_Size3("Size 3 Compartment"),
+    Slot00_Size4("Size 4 Compartment"),
+    Slot00_Size5("Size 5 Compartment"),
+    Slot00_Size6("Size 6 Compartment"),
+    Slot00_Size7("Size 7 Compartment"),
+    Slot00_Size8("Size 8 Compartment"),
+
     Slot01_Size1("Size 1 Compartment"),
     Slot01_Size2("Size 2 Compartment"),
     Slot01_Size3("Size 3 Compartment"),

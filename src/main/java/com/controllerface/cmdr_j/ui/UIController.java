@@ -395,9 +395,9 @@ public class UIController
         initializeUIComponents();
         System.out.println("Done Init UI Components");
 
-        System.out.println("Load JSON");
-        fromJson();
-        System.out.println("Done Load JSON");
+//        System.out.println("Load JSON");
+//        fromJson();
+//        System.out.println("Done Load JSON");
 
         // load the auto-save data from disk
 
@@ -428,7 +428,11 @@ public class UIController
     public void initialize()
     {
         makeProcurementTree();
+        startTransactionProcessor();
         startupTasks();
+        System.out.println("Load JSON");
+        fromJson();
+        System.out.println("Done Load JSON");
 
 
         // TODO: code below should be in separate method(s)
@@ -519,7 +523,10 @@ public class UIController
         }
     }
 
-    private void startupTasks()
+    boolean empty = false;
+
+
+    private void startTransactionProcessor()
     {
         // convenience function that adjusts items and also refreshes teh cost table. This is useful because the
         // item adjustment isn't directly related to the cost table, so adjustments won't automatically trigger a
@@ -618,15 +625,18 @@ public class UIController
                         });
                         break;
                 }
+                empty = transactionQueue.isEmpty();
             }
         };
-
 
         //new TransactionProcessingTask(adjustItem, this::procurementListUpdate, this::messageLogger, transactionQueue);
         Thread transactionThread = new Thread(transactionProcessingTask);
         transactionThread.setDaemon(true);
         transactionThread.start();
+    }
 
+    private void startupTasks()
+    {
         // disk monitor
         Runnable inventorySyncTask = new JournalSyncTask(commanderData, transactionQueue);
         Thread inventoryThread = new Thread(inventorySyncTask);
@@ -634,6 +644,18 @@ public class UIController
         inventoryThread.start();
 
         executorService.scheduleAtFixedRate(this::processMessages, 0, 1, TimeUnit.SECONDS);
+
+        while (!empty)
+        {
+            try
+            {
+                Thread.sleep(1000);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

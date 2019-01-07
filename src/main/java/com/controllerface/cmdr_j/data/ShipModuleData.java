@@ -3,8 +3,12 @@ package com.controllerface.cmdr_j.data;
 import com.controllerface.cmdr_j.*;
 import com.controllerface.cmdr_j.data.commander.Displayable;
 import com.controllerface.cmdr_j.data.procurements.CostData;
+import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalBlueprint;
 import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationBlueprint;
+import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationRecipe;
+import com.controllerface.cmdr_j.structures.craftable.modifications.WeaponModificationRecipe;
+import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.structures.engineers.Engineer;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
@@ -76,7 +80,16 @@ public class ShipModuleData implements Displayable
      */
     private Stream<Pair<ProcurementType, ProcurementRecipe>> mapBlueprint(ProcurementBlueprint blueprint)
     {
-        return blueprint.recipeStream().map(recipe -> new Pair<>(module.modificationType(), recipe));
+        return blueprint.recipeStream().map(recipe ->
+        {
+            ProcurementType type = recipe instanceof ModificationRecipe || recipe instanceof WeaponModificationRecipe
+                    ? module.modificationType()
+                    : recipe instanceof ExperimentalRecipe
+                            ? module.experimentalType()
+                            : module.modificationType(); // todo: handle other types of recipes
+
+            return new Pair<>(type, recipe);
+        });
     }
 
 
