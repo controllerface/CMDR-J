@@ -154,9 +154,7 @@ public enum ModificationType implements ProcurementType
             ModificationBlueprint.HullReinforcement_Advanced,
             ModificationBlueprint.HullReinforcement_HeavyDuty)),
 
-    Detailed_Surface_Scanner(EnumSet.of(ModificationBlueprint.Sensor_FastScan,
-            ModificationBlueprint.Sensor_SurfaceScanner_LongRange,
-            ModificationBlueprint.Sensor_SurfaceScanner_WideAngle)),
+    Detailed_Surface_Scanner(EnumSet.of(ModificationBlueprint.Sensor_Expanded)),
 
     Refinery(EnumSet.of(ModificationBlueprint.Refineries_Shielded)),
 

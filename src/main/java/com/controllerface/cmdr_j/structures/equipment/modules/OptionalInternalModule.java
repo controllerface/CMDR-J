@@ -3659,9 +3659,7 @@ public enum OptionalInternalModule implements ShipModule
                     new ItemEffectData(ItemEffect.Mass, 1.3d),
                     new ItemEffectData(ItemEffect.PowerDraw, 0d),
                     new ItemEffectData(ItemEffect.BootTime, 0d),
-                    new ItemEffectData(ItemEffect.DSS_RangeMult, 0d),
-                    new ItemEffectData(ItemEffect.DSS_AngleMult, 0d),
-                    new ItemEffectData(ItemEffect.DSS_RateMult, 0d)
+                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 0d)
             )),
 
 

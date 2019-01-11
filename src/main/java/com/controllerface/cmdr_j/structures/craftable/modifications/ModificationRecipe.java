@@ -3600,131 +3600,149 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALCOMPONENTS, 1),
             new CostData(Material.TIN, 1)),
 
-    Sensor_FastScan_1(ItemGrade.GRADE_1, new ItemEffects
+//    Sensor_FastScan_1(ItemGrade.GRADE_1, new ItemEffects
+//            (
+//                    new ItemEffectData(ItemEffect.Mass, 20d),
+//                    new ItemEffectData(ItemEffect.DSS_RateMult, 20d)
+//            ),
+//            new CostData(Material.PHOSPHORUS, 1)),
+//
+//    Sensor_FastScan_2(ItemGrade.GRADE_2, new ItemEffects
+//            (
+//                    new ItemEffectData(ItemEffect.Mass, 40d),
+//                    new ItemEffectData(ItemEffect.DSS_RateMult, 35d)
+//            ),
+//            new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
+//            new CostData(Material.PHOSPHORUS, 1)),
+//
+//    Sensor_FastScan_3(ItemGrade.GRADE_3, new ItemEffects
+//            (
+//                    new ItemEffectData(ItemEffect.Mass, 60d),
+//                    new ItemEffectData(ItemEffect.DSS_RateMult, 50d)
+//            ),
+//            new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
+//            new CostData(Material.SYMMETRICKEYS, 1),
+//            new CostData(Material.PHOSPHORUS, 1)),
+//
+//    Sensor_FastScan_4(ItemGrade.GRADE_4, new ItemEffects
+//            (
+//                    new ItemEffectData(ItemEffect.Mass, 80d),
+//                    new ItemEffectData(ItemEffect.DSS_RateMult, 65d)
+//            ),
+//            new CostData(Material.ENCRYPTIONARCHIVES, 1),
+//            new CostData(Material.FOCUSCRYSTALS, 1),
+//            new CostData(Material.MANGANESE, 1)),
+//
+//    Sensor_FastScan_5(ItemGrade.GRADE_5, new ItemEffects
+//            (
+//                    new ItemEffectData(ItemEffect.Mass, 100d),
+//                    new ItemEffectData(ItemEffect.DSS_RateMult, 80d)
+//            ),
+//            new CostData(Material.ADAPTIVEENCRYPTORS, 1),
+//            new CostData(Material.ARSENIC, 1),
+//            new CostData(Material.REFINEDFOCUSCRYSTALS, 1)),
+
+//    Sensor_SurfaceScanner_LongRange_1(ItemGrade.GRADE_1, new ItemEffects
+//            (
+//                    new ItemEffectData(ItemEffect.Mass, 20d),
+//                    new ItemEffectData(ItemEffect.Range, 40d)
+//            ),
+//            new CostData(Material.IRON, 1)),
+//
+//    Sensor_SurfaceScanner_LongRange_2(ItemGrade.GRADE_2, new ItemEffects
+//            (
+//                    new ItemEffectData(ItemEffect.Mass, 40d),
+//                    new ItemEffectData(ItemEffect.Range, 80d)
+//            ),
+//            new CostData(Material.HYBRIDCAPACITORS, 1),
+//            new CostData(Material.IRON, 1)),
+//
+//    Sensor_SurfaceScanner_LongRange_3(ItemGrade.GRADE_3, new ItemEffects
+//            (
+//                    new ItemEffectData(ItemEffect.Mass, 60d),
+//                    new ItemEffectData(ItemEffect.Range, 120d)
+//            ),
+//            new CostData(Material.HYBRIDCAPACITORS, 1),
+//            new CostData(Material.IRON, 1),
+//            new CostData(Material.EMISSIONDATA, 1)),
+//
+//    Sensor_SurfaceScanner_LongRange_4(ItemGrade.GRADE_4, new ItemEffects
+//            (
+//                    new ItemEffectData(ItemEffect.Mass, 80d),
+//                    new ItemEffectData(ItemEffect.Range, 160d)
+//            ),
+//            new CostData(Material.DECODEDEMISSIONDATA, 1),
+//            new CostData(Material.ELECTROCHEMICALARRAYS, 1),
+//            new CostData(Material.GERMANIUM, 1)),
+//
+//    Sensor_SurfaceScanner_LongRange_5(ItemGrade.GRADE_5, new ItemEffects
+//            (
+//                    new ItemEffectData(ItemEffect.Mass, 100d),
+//                    new ItemEffectData(ItemEffect.Range, 200d)
+//            ),
+//            new CostData(Material.COMPACTEMISSIONSDATA, 1),
+//            new CostData(Material.NIOBIUM, 1),
+//            new CostData(Material.POLYMERCAPACITORS, 1)),
+
+
+
+
+
+
+
+
+
+
+    Sensor_Expanded_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.DSS_RateMult, 20d)
-            ),
-            new CostData(Material.PHOSPHORUS, 1)),
-
-    Sensor_FastScan_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 40d),
-                    new ItemEffectData(ItemEffect.DSS_RateMult, 35d)
-            ),
-            new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
-            new CostData(Material.PHOSPHORUS, 1)),
-
-    Sensor_FastScan_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 60d),
-                    new ItemEffectData(ItemEffect.DSS_RateMult, 50d)
-            ),
-            new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
-            new CostData(Material.SYMMETRICKEYS, 1),
-            new CostData(Material.PHOSPHORUS, 1)),
-
-    Sensor_FastScan_4(ItemGrade.GRADE_4, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.DSS_RateMult, 65d)
-            ),
-            new CostData(Material.ENCRYPTIONARCHIVES, 1),
-            new CostData(Material.FOCUSCRYSTALS, 1),
-            new CostData(Material.MANGANESE, 1)),
-
-    Sensor_FastScan_5(ItemGrade.GRADE_5, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 100d),
-                    new ItemEffectData(ItemEffect.DSS_RateMult, 80d)
-            ),
-            new CostData(Material.ADAPTIVEENCRYPTORS, 1),
-            new CostData(Material.ARSENIC, 1),
-            new CostData(Material.REFINEDFOCUSCRYSTALS, 1)),
-
-    Sensor_SurfaceScanner_LongRange_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Range, 40d)
-            ),
-            new CostData(Material.IRON, 1)),
-
-    Sensor_SurfaceScanner_LongRange_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 40d),
-                    new ItemEffectData(ItemEffect.Range, 80d)
-            ),
-            new CostData(Material.HYBRIDCAPACITORS, 1),
-            new CostData(Material.IRON, 1)),
-
-    Sensor_SurfaceScanner_LongRange_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 60d),
-                    new ItemEffectData(ItemEffect.Range, 120d)
-            ),
-            new CostData(Material.HYBRIDCAPACITORS, 1),
-            new CostData(Material.IRON, 1),
-            new CostData(Material.EMISSIONDATA, 1)),
-
-    Sensor_SurfaceScanner_LongRange_4(ItemGrade.GRADE_4, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Range, 160d)
-            ),
-            new CostData(Material.DECODEDEMISSIONDATA, 1),
-            new CostData(Material.ELECTROCHEMICALARRAYS, 1),
-            new CostData(Material.GERMANIUM, 1)),
-
-    Sensor_SurfaceScanner_LongRange_5(ItemGrade.GRADE_5, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 100d),
-                    new ItemEffectData(ItemEffect.Range, 200d)
-            ),
-            new CostData(Material.COMPACTEMISSIONSDATA, 1),
-            new CostData(Material.NIOBIUM, 1),
-            new CostData(Material.POLYMERCAPACITORS, 1)),
-
-    Sensor_SurfaceScanner_WideAngle_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, 40d)
+                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 10d)
             ),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_SurfaceScanner_WideAngle_2(ItemGrade.GRADE_2, new ItemEffects
+    Sensor_Expanded_2(ItemGrade.GRADE_2, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 40d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, 80d)
+                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 20d)
             ),
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_SurfaceScanner_WideAngle_3(ItemGrade.GRADE_3, new ItemEffects
+    Sensor_Expanded_3(ItemGrade.GRADE_3, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 60d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, 120d)
+                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 30d)
             ),
-            new CostData(Material.SCANDATABANKS, 1),
+            new CostData(Material.PHASEALLOYS, 1),
             new CostData(Material.GERMANIUM, 1),
             new CostData(Material.MECHANICALSCRAP, 1)),
 
-    Sensor_SurfaceScanner_WideAngle_4(ItemGrade.GRADE_4, new ItemEffects
+    Sensor_Expanded_4(ItemGrade.GRADE_4, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, 160d)
+                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 40d)
             ),
-            new CostData(Material.ENCODEDSCANDATA, 1),
+            new CostData(Material.PROTOLIGHTALLOYS, 1),
             new CostData(Material.MECHANICALEQUIPMENT, 1),
             new CostData(Material.NIOBIUM, 1)),
 
-    Sensor_SurfaceScanner_WideAngle_5(ItemGrade.GRADE_5, new ItemEffects
+    Sensor_Expanded_5(ItemGrade.GRADE_5, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Mass, 100d),
-                    new ItemEffectData(ItemEffect.SensorTargetScanAngle, 200d)
+                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 50d)
             ),
-            new CostData(Material.CLASSIFIEDSCANDATA, 1),
+            new CostData(Material.PROTORADIOLICALLOYS, 1),
             new CostData(Material.MECHANICALCOMPONENTS, 1),
             new CostData(Material.TIN, 1)),
+
+
+
+
+
+
+
+
+
 
     Sensor_WakeScanner_FastScan_1(ItemGrade.GRADE_1, new ItemEffects
             (
