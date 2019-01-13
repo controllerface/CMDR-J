@@ -53,7 +53,7 @@
                                     </AnchorPane>
                                     <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="showProcurements" alignment="CENTER" mnemonicParsing="false" text="Procurements">
+                                          <CheckBox fx:id="showProcurements" alignment="CENTER" mnemonicParsing="false" text="Task Selector">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -424,19 +424,28 @@
                                     </Tab>
                                     <Tab text="Market">
                                        <content>
-                                          <TableView fx:id="market_table" prefHeight="200.0" prefWidth="200.0">
-                                            <columns>
-                                              <TableColumn fx:id="market_commodity_col" prefWidth="297.0" text="Commodity" />
-                                              <TableColumn fx:id="market_buy_col" minWidth="0.0" prefWidth="70.0" text="Buy" />
-                                                <TableColumn fx:id="market_sell_col" prefWidth="70.0" text="Sell" />
-                                                <TableColumn fx:id="market_mean_col" prefWidth="70.0" text="Mean" />
-                                                <TableColumn fx:id="market_income_col" prefWidth="70.0" text="Income" />
-                                                <TableColumn fx:id="market_profit_col" prefWidth="70.0" text="Profit" />
-                                                <TableColumn fx:id="market_stock_col" prefWidth="70.0" text="Stock" />
-                                                <TableColumn fx:id="market_demand_col" prefWidth="70.0" text="Demand" />
-                                                <TableColumn fx:id="market_import_export" prefWidth="70.0" text="Trade" />
-                                            </columns>
-                                          </TableView>
+                                          <VBox>
+                                             <children>
+                                                <TableView fx:id="market_table" prefHeight="1000.0" prefWidth="200.0" styleClass="market_table">
+                                                  <columns>
+                                                    <TableColumn fx:id="market_commodity_col" prefWidth="297.0" text="Import Commodity" />
+                                                      <TableColumn fx:id="market_demand_col" editable="false" prefWidth="125.0" resizable="false" text="Demand" />
+                                                      <TableColumn fx:id="market_sell_col" prefWidth="100.0" text="Sell" />
+                                                      <TableColumn fx:id="market_mean_col" prefWidth="70.0" text="Mean" />
+                                                      <TableColumn fx:id="market_profit_col" prefWidth="100.0" text="Profit" />
+                                                  </columns>
+                                                </TableView>
+                                                <TableView fx:id="market_table1" layoutX="10.0" layoutY="10.0" prefHeight="1000.0" prefWidth="200.0" styleClass="market_table">
+                                                   <columns>
+                                                      <TableColumn fx:id="market_commodity_col1" prefWidth="297.0" text="Export Commodity" />
+                                                      <TableColumn fx:id="market_stock_col1" prefWidth="125.0" text="Stock" />
+                                                      <TableColumn fx:id="market_buy_col1" minWidth="0.0" prefWidth="100.0" text="Buy" />
+                                                      <TableColumn fx:id="market_mean_col1" prefWidth="70.0" text="Mean" />
+                                                      <TableColumn fx:id="market_income_col1" prefWidth="100.0" text="Income" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </VBox>
                                        </content>
                                     </Tab>
                                  </tabs>

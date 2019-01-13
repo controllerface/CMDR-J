@@ -221,18 +221,30 @@ public class UIController
 
     @FXML private Label market_id;
     @FXML private Label market_name;
+
     @FXML private TableView<MarketData> market_table;
     @FXML private TableColumn<MarketData, String> market_commodity_col;
-    @FXML private TableColumn<MarketData, String> market_import_export;
-    @FXML private TableColumn<MarketData, Integer> market_buy_col;
+    //@FXML private TableColumn<MarketData, String> market_import_export;
+    //@FXML private TableColumn<MarketData, Integer> market_buy_col;
     @FXML private TableColumn<MarketData, Integer> market_sell_col;
     @FXML private TableColumn<MarketData, Integer> market_mean_col;
-    @FXML private TableColumn<MarketData, Integer> market_stock_col;
-    @FXML private TableColumn<MarketData, Integer> market_income_col;
+    //@FXML private TableColumn<MarketData, Integer> market_stock_col;
+    //@FXML private TableColumn<MarketData, Integer> market_income_col;
     @FXML private TableColumn<MarketData, Integer> market_profit_col;
     @FXML private TableColumn<MarketData, Integer> market_demand_col;
 
 
+    @FXML private TableView<MarketData> market_table1;
+    @FXML private TableColumn<MarketData, String> market_commodity_col1;
+    //@FXML private TableColumn<MarketData, String> market_import_export1;
+    @FXML private TableColumn<MarketData, Integer> market_buy_col1;
+    //@FXML private TableColumn<MarketData, Integer> market_sell_col1;
+    @FXML private TableColumn<MarketData, Integer> market_mean_col1;
+    @FXML private TableColumn<MarketData, Integer> market_stock_col1;
+    @FXML private TableColumn<MarketData, Integer> market_income_col1;
+
+    //@FXML private TableColumn<MarketData, Integer> market_profit_col1;
+    //@FXML private TableColumn<MarketData, Integer> market_demand_col1;
 
 
 
@@ -438,12 +450,8 @@ public class UIController
         // TODO: code below should be in separate method(s)
 
         market_commodity_col.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
-        market_import_export.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getMarket()));
-
-        market_buy_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getBuy()).asObject());
         market_sell_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getSell()).asObject());
         market_mean_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getMean()).asObject());
-        market_stock_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getStock()).asObject());
         market_demand_col.setCellValueFactory(param ->
         {
             int demand = param.getValue().getDemand() > 1
@@ -454,20 +462,30 @@ public class UIController
         });
 
 
-        market_income_col.setCellValueFactory(param ->
-        {
-            int profit = param.getValue().getBuy() == 0 || param.getValue().getStock() == 0
-                    ? 0
-                    : param.getValue().getMean() - param.getValue().getBuy();
-
-            return new SimpleIntegerProperty(profit).asObject();
-        });
-
         market_profit_col.setCellValueFactory(param ->
         {
             int profit = param.getValue().getDemand() == 1
                     ? 0
                     : param.getValue().getSell() - param.getValue().getMean();
+
+            return new SimpleIntegerProperty(profit).asObject();
+        });
+
+
+
+
+
+        market_commodity_col1.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
+        market_buy_col1.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getBuy()).asObject());
+        //market_sell_col1.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getSell()).asObject());
+        market_mean_col1.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getMean()).asObject());
+        market_stock_col1.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getStock()).asObject());
+
+        market_income_col1.setCellValueFactory(param ->
+        {
+            int profit = param.getValue().getBuy() == 0 || param.getValue().getStock() == 0
+                    ? 0
+                    : param.getValue().getMean() - param.getValue().getBuy();
 
             return new SimpleIntegerProperty(profit).asObject();
         });
@@ -482,6 +500,7 @@ public class UIController
     private double markedLat = 0.0;
     private double markedLong = 0.0;
 
+    @SuppressWarnings("unchecked")
     private void updateMarketTable(UserTransaction nextTransaction)
     {
         market_name.setText(nextTransaction.getMessage());
@@ -489,37 +508,50 @@ public class UIController
 
         if (nextTransaction.getStatusObject().get("Items") != null)
         {
-            @SuppressWarnings("unchecked")
-            List<MarketData> data =
-                    ((List<Map<String, Object>>) nextTransaction.getStatusObject().get("Items"))
-                            .stream()
-                            .map(object ->
-                            {
-                                boolean produces = ((boolean) object.get("Producer"));
-                                boolean consumes = ((boolean) object.get("Consumer"));
+            List<MarketData> imports = new ArrayList<>();
+            List<MarketData> exports = new ArrayList<>();
 
-                                // This ternary is hilarious on purpose
-                                String market = produces && consumes
-                                        ? "Both"
-                                        : produces
-                                                ? "Exports"
-                                                : consumes
-                                                        ? "Imports"
-                                                        : "None";
+            ((List<Map<String, Object>>) nextTransaction.getStatusObject().get("Items"))
+                    .stream()
+                    .map(object ->
+                    {
+                        boolean produces = ((boolean) object.get("Producer"));
+                        boolean consumes = ((boolean) object.get("Consumer"));
 
-                                return MarketData.builder().setMarket(market)
-                                        .setName(((String) object.get("Name_Localised")))
-                                        .setBuy(((int) object.get("BuyPrice")))
-                                        .setSell(((int) object.get("SellPrice")))
-                                        .setMean(((int) object.get("MeanPrice")))
-                                        .setStock(((int) object.get("Stock")))
-                                        .setDemand(((int) object.get("Demand")))
-                                        .build();
-                            })
-                            .collect(Collectors.toList());
+                        // This ternary is hilarious on purpose
+                        String market = produces && consumes ? "Both"
+                                : produces ? "Exports"
+                                        : consumes ? "Imports"
+                                                : "None";
+
+                        return MarketData.builder().setMarket(market)
+                                .setName(((String) object.get("Name_Localised")))
+                                .setBuy(((int) object.get("BuyPrice")))
+                                .setSell(((int) object.get("SellPrice")))
+                                .setMean(((int) object.get("MeanPrice")))
+                                .setStock(((int) object.get("Stock")))
+                                .setDemand(((int) object.get("Demand")))
+                                .build();
+                    })
+                    .forEach(data ->
+                    {
+                        if (data.getMarket().equals("Imports")) imports.add(data);
+                        if (data.getMarket().equals("Exports")) exports.add(data);
+
+                        if (data.getMarket().equals("Both"))
+                        {
+                            imports.add(data);
+                            exports.add(data);
+                        }
+
+                        if (data.getMarket().equals("None")) messageLogger(UserTransaction.MessageType.GENERAL,
+                                "Commodity: " + data.getName() + " listed with no import or export information");
+                    });
 
             market_table.getItems().clear();
-            market_table.getItems().addAll(data);
+            market_table.getItems().addAll(imports);
+            market_table1.getItems().clear();
+            market_table1.getItems().addAll(exports);
         }
     }
 
@@ -764,8 +796,8 @@ public class UIController
      */
     private void initializeTextPlaceholders()
     {
-        // set placeholder labels shown when the procurement list is empty
-        Label procListLabel = new Label("<---- Select a Procurement Task Category");
+        // set placeholder labels shown when the task list is empty
+        Label procListLabel = new Label("<---- Select a Task Category");
         Label recipeTableLabel = new Label("Tracked Tasks Will Appear Here");
         Label costTableLabel = new Label("Tracked Items Will Appear Here");
 
