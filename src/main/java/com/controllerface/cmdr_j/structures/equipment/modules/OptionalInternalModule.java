@@ -3721,10 +3721,204 @@ public enum OptionalInternalModule implements ShipModule
             )),
 
 
-
     /**
      * Guardian Internal Modules
      */
+
+    // todo: add the stats for power plants
+
+    int_guardianpowerplant_size2("2A Guardian Hybrid Power Plant", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerplant_size3("3A Guardian Hybrid Power Plant", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerplant_size4("4A Guardian Hybrid Power Plant", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerplant_size5("5A Guardian Hybrid Power Plant", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerplant_size6("6A Guardian Hybrid Power Plant", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerplant_size7("7A Guardian Hybrid Power Plant", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerplant_size8("8A Guardian Hybrid Power Plant", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+
+
+
+
+
+    // todo: add the stats for power distributors
+
+    int_guardianpowerdistributor_size1("1A Guardian Hybrid Power Distributor", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerdistributor_size2("2A Guardian Hybrid Power Distributor", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerdistributor_size3("3A Guardian Hybrid Power Distributor", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerdistributor_size4("4A Guardian Hybrid Power Distributor", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerdistributor_size5("5A Guardian Hybrid Power Distributor", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerdistributor_size6("6A Guardian Hybrid Power Distributor", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerdistributor_size7("7A Guardian Hybrid Power Distributor", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+    int_guardianpowerdistributor_size8("8A Guardian Hybrid Power Distributor", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+
+
+
+
+
+    // todo: add all of these
+    int_guardianhullreinforcement_size1_class1("1E Guardian Hull Reinforcement Package", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d)
+            )),
+
+
+
+
+
+    int_guardianmodulereinforcement_size1_class1("1E Guardian Module Reinforcement Package", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 2d),
+                    new ItemEffectData(ItemEffect.Integrity, 85d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.27d),
+                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
+            )),
+
+    int_guardianmodulereinforcement_size1_class2("1D Guardian Module Reinforcement Package", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 1d),
+                    new ItemEffectData(ItemEffect.Integrity, 77d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
+                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
+            )),
+
+    int_guardianmodulereinforcement_size2_class1("2E Guardian Module Reinforcement Package", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 4d),
+                    new ItemEffectData(ItemEffect.Integrity, 127d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
+                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
+            )),
+
+    int_guardianmodulereinforcement_size2_class2("2D Guardian Module Reinforcement Package", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 2d),
+                    new ItemEffectData(ItemEffect.Integrity, 116d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.47d),
+                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
+            )),
+
+    int_guardianmodulereinforcement_size3_class1("3E Guardian Module Reinforcement Package", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 8d),
+                    new ItemEffectData(ItemEffect.Integrity, 187d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.54d),
+                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
+            )),
+
+    int_guardianmodulereinforcement_size3_class2("3D Guardian Module Reinforcement Package", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 4d),
+                    new ItemEffectData(ItemEffect.Integrity, 171d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.61d),
+                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
+            )),
+
+    int_guardianmodulereinforcement_size4_class1("4E Guardian Module Reinforcement Package", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 16d),
+                    new ItemEffectData(ItemEffect.Integrity, 286d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.68d),
+                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
+            )),
+
+    int_guardianmodulereinforcement_size4_class2("4D Guardian Module Reinforcement Package", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 8d),
+                    new ItemEffectData(ItemEffect.Integrity, 259d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.74d),
+                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
+            )),
+
+    int_guardianmodulereinforcement_size5_class1("5E Guardian Module Reinforcement Package", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 32d),
+                    new ItemEffectData(ItemEffect.Integrity, 424d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.81d),
+                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
+            )),
+
+    int_guardianmodulereinforcement_size5_class2("5D Guardian Module Reinforcement Package", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.Mass, 16d),
+                    new ItemEffectData(ItemEffect.Integrity, 385d),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.88d),
+                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
+            )),
+
+
+
+
+
+
 
     int_guardianfsdbooster_size1("1H Guardian FSD Booster",
             null,

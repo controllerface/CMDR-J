@@ -2907,9 +2907,62 @@ public enum HardpointModule implements ShipModule
      * Guardian Weapons
      */
 
-    // todo: find ENUM values for these
-    // Guardian Shard Cannon/Fixed
-    // Guardian Shard Cannon/Turreted
+
+    hpt_guardian_shardcannon_fixed_small("Small Fixed Guardian Shard Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1700)
+            )),
+
+    hpt_guardian_shardcannon_turret_small("Small Turreted Guardian Shard Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1700)
+            )),
+
+    hpt_guardian_shardcannon_fixed_medium("Medium Fixed Guardian Shard Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1700)
+            )),
+
+    hpt_guardian_shardcannon_turret_medium("Medium Turreted Guardian Shard Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1700)
+            )),
+
+
+    hpt_guardian_shardcannon_fixed_large("Large Fixed Guardian Shard Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1700)
+            )),
+
+    hpt_guardian_shardcannon_turret_large("Large Turreted Guardian Shard Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1700)
+            )),
+
+
+
+
+
+
+
+    hpt_guardian_gausscannon_fixed_small("Small Fixed Guardian Gauss Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1500)
+            )),
 
     hpt_guardian_gausscannon_fixed_medium("Medium Fixed Guardian Gauss Cannon", null, null,
             new ItemEffects(
@@ -2933,6 +2986,35 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageType, "Thermal"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1500)
             )),
+
+
+
+
+
+
+
+
+
+
+    hpt_guardian_plasmalauncher_fixed_small("Small Fixed Guardian Plasma Charger", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.DamageType, "Absolute"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
+            )),
+
+    hpt_guardian_plasmalauncher_turret_small("Small Turreted Guardian Plasma Charger", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
+                    new ItemEffectData(ItemEffect.DamageType, "Absolute"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
+            )),
+
+
+
+
+
+
 
     hpt_guardian_plasmalauncher_fixed_medium("Medium Fixed Guardian Plasma Charger", null, null,
             new ItemEffects(
@@ -3005,6 +3087,13 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.BreachDamage, 1.0),
                     new ItemEffectData(ItemEffect.MinBreachChance, 50),
                     new ItemEffectData(ItemEffect.MaxBreachChance, 80),
+                    new ItemEffectData(ItemEffect.DamageType, "Absolute"),
+                    new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
+            )),
+
+    hpt_guardian_plasmalauncher_turret_large("Large Turreted Guardian Plasma Charger", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.guardian, 1d),
                     new ItemEffectData(ItemEffect.DamageType, "Absolute"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
             )),
@@ -3147,6 +3236,57 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 2500)
             )),
+
+
+
+
+
+    hpt_plasmashockcannon_fixed_small("Small Fixed Shock Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic")
+            )),
+
+    hpt_plasmashockcannon_gimbal_small("Small Gimballed Shock Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic")
+            )),
+
+    hpt_plasmashockcannon_turret_small("Small Turreted Shock Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic")
+            )),
+
+
+
+
+    hpt_plasmashockcannon_fixed_large("Large Fixed Shock Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic")
+            )),
+
+    hpt_plasmashockcannon_gimbal_large("Large Gimballed Shock Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic")
+            )),
+
+    hpt_plasmashockcannon_turret_large("Large Turreted Shock Cannon", null, null,
+            new ItemEffects(
+                    new ItemEffectData(ItemEffect.DamageType, "Kinetic")
+            )),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     ;
 

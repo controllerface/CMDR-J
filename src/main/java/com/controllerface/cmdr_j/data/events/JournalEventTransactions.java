@@ -707,6 +707,15 @@ public class JournalEventTransactions
         context.getTransactions().add(new UserTransaction(arrivalBody));
     }
 
+
+
+    public static void processTechUnlock(EventProcessingContext context)
+    {
+        // get the ItemsUnlocked key, each item will be a module recipe, each one needs to be checked
+    }
+
+
+
     @SuppressWarnings("unchecked")
     public static void processMaterialTrade(EventProcessingContext context)
     {

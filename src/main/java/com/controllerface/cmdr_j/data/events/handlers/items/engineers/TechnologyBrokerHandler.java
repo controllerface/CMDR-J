@@ -31,5 +31,11 @@ public class TechnologyBrokerHandler implements JournalEventHandler
         {
             ((List<Map<String, Object>>) context.getRawData().get("Commodities"))
                     .forEach(commodityCost -> adjustCommodityCountDown(context, commodityCost));
-        }    }
+        }
+
+
+        processTechUnlock(context);
+
+
+    }
 }
