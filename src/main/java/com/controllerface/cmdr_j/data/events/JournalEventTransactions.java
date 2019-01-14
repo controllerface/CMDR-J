@@ -11,6 +11,9 @@ import com.controllerface.cmdr_j.structures.costs.materials.Material;
 import com.controllerface.cmdr_j.structures.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationBlueprint;
+import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyBlueprint;
+import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyRecipe;
+import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyType;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
 import com.controllerface.cmdr_j.structures.equipment.modules.*;
 import com.controllerface.cmdr_j.structures.equipment.ships.*;
@@ -709,8 +712,41 @@ public class JournalEventTransactions
 
 
 
+    @SuppressWarnings("unchecked")
     public static void processTechUnlock(EventProcessingContext context)
     {
+        if (context.getRawData().get("Materials") != null)
+        {
+            ((List<Map<String, Object>>) context.getRawData().get("Materials"))
+                    .forEach(materialCost -> adjustMaterialCountDown(context, materialCost));
+        }
+
+        if (context.getRawData().get("Commodities") != null)
+        {
+            ((List<Map<String, Object>>) context.getRawData().get("Commodities"))
+                    .forEach(commodityCost -> adjustCommodityCountDown(context, commodityCost));
+        }
+
+        if (context.getRawData().get("ItemsUnlocked") != null)
+        {
+            ((List<Map<String, Object>>) context.getRawData().get("ItemsUnlocked")).stream()
+                    .map(unlockedItem ->
+                    {
+                        String name = ((String) unlockedItem.get("Name")).toLowerCase();
+                        ShipModule module = determineModuleType(name);
+                        if (module != null)
+                        {
+                            return TechnologyRecipe.findRecipeForModule(module).orElse(null);
+                        }
+                        return null;
+                    })
+                    .filter(Objects::nonNull).findAny()
+                    .ifPresent(recipe -> TechnologyBlueprint.findBluePrintByRecipe(recipe)
+                            .ifPresent(blueprint -> TechnologyType.findTypeByBlueprint(blueprint)
+                                    .ifPresent(type -> adjustBlueprintDown(context, type, recipe,1))));
+        }
+
+
         // get the ItemsUnlocked key, each item will be a module recipe, each one needs to be checked
     }
 

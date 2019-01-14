@@ -16,6 +16,7 @@ import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -25,7 +26,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
 {
     // Human
 
-    Corrosion_Resistant_Cargo_Rack(OptionalInternalModule.int_corrosionproofcargorack_size4_class1,
+    Corrosion_Resistant_Cargo_Rack(new ShipModule[]{OptionalInternalModule.int_corrosionproofcargorack_size4_class1},
             ItemGrade.Technology, "4E Cargo Rack",
             new ItemEffects
                     (
@@ -37,7 +38,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Commodity.RADIATIONBAFFLE, 22),
             new CostData(Commodity.NEOFABRICINSULATION, 12)),
 
-    Enzyme_Missile_Rack_Fixed_Medium(HardpointModule.hpt_causticmissile_fixed_medium,
+    Enzyme_Missile_Rack_Fixed_Medium(new ShipModule[]{HardpointModule.hpt_causticmissile_fixed_medium},
             ItemGrade.Technology, "Medium Fixed",
             new ItemEffects
                     (
@@ -49,8 +50,19 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.MOLYBDENUM, 16),
             new CostData(Commodity.RADIATIONBAFFLE, 6)),
 
-    // todo: these need multiples for for the different size
-    Meta_Alloy_Hull_Reinforcement(OptionalInternalModule.int_metaalloyhullreinforcement_size1_class1,
+    Meta_Alloy_Hull_Reinforcement(new ShipModule[]
+            {
+                    OptionalInternalModule.int_metaalloyhullreinforcement_size1_class1,
+                    OptionalInternalModule.int_metaalloyhullreinforcement_size1_class2,
+                    OptionalInternalModule.int_metaalloyhullreinforcement_size2_class1,
+                    OptionalInternalModule.int_metaalloyhullreinforcement_size2_class2,
+                    OptionalInternalModule.int_metaalloyhullreinforcement_size3_class1,
+                    OptionalInternalModule.int_metaalloyhullreinforcement_size3_class2,
+                    OptionalInternalModule.int_metaalloyhullreinforcement_size4_class1,
+                    OptionalInternalModule.int_metaalloyhullreinforcement_size4_class2,
+                    OptionalInternalModule.int_metaalloyhullreinforcement_size5_class1,
+                    OptionalInternalModule.int_metaalloyhullreinforcement_size5_class2
+            },
             ItemGrade.Technology, "Hull Reinforcement Package",
             new ItemEffects
                     (
@@ -62,7 +74,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Commodity.METAALLOYS, 16),
             new CostData(Commodity.REINFORCEDMOUNTINGPLATE, 12)),
 
-    Remote_Release_Flechette_Launcher_Fixed_Medium(HardpointModule.hpt_flechettelauncher_fixed_medium,
+    Remote_Release_Flechette_Launcher_Fixed_Medium(new ShipModule[]{HardpointModule.hpt_flechettelauncher_fixed_medium},
             ItemGrade.Technology, "Medium Fixed",
             new ItemEffects
                     (
@@ -74,7 +86,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.GERMANIUM, 26),
             new CostData(Commodity.CMMCOMPOSITE, 8)),
 
-    Remote_Release_Flechette_Launcher_Turreted_Medium(HardpointModule.hpt_flechettelauncher_turret_medium,
+    Remote_Release_Flechette_Launcher_Turreted_Medium(new ShipModule[]{HardpointModule.hpt_flechettelauncher_turret_medium},
             ItemGrade.Technology, "Medium Turreted",
             new ItemEffects
                     (
@@ -87,7 +99,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Commodity.ARTICULATIONMOTORS, 10)),
 
 
-    Shock_Cannon_Fixed_Large(HardpointModule.hpt_plasmashockcannon_fixed_large,
+    Shock_Cannon_Fixed_Large(new ShipModule[]{HardpointModule.hpt_plasmashockcannon_fixed_large},
             ItemGrade.Technology, "Large Fixed",
             new ItemEffects
                     (
@@ -100,7 +112,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Commodity.POWERCONVERTER, 8)),
 
 
-    Shock_Cannon_Fixed_Medium(HardpointModule.hpt_plasmashockcannon_fixed_medium,
+    Shock_Cannon_Fixed_Medium(new ShipModule[]{HardpointModule.hpt_plasmashockcannon_fixed_medium},
             ItemGrade.Technology, "Medium Fixed",
             new ItemEffects
                     (
@@ -112,7 +124,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.TECHNETIUM, 28),
             new CostData(Commodity.IONDISTRIBUTOR, 6)),
 
-    Shock_Cannon_Gimballed_Large(HardpointModule.hpt_plasmashockcannon_gimbal_large,
+    Shock_Cannon_Gimballed_Large(new ShipModule[]{HardpointModule.hpt_plasmashockcannon_gimbal_large},
             ItemGrade.Technology, "Large Gimballed",
             new ItemEffects
                     (
@@ -124,7 +136,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.VANADIUM, 28),
             new CostData(Commodity.POWERTRANSFERCONDUITS, 12)),
 
-    Shock_Cannon_Gimballed_Medium(HardpointModule.hpt_plasmashockcannon_gimbal_medium,
+    Shock_Cannon_Gimballed_Medium(new ShipModule[]{HardpointModule.hpt_plasmashockcannon_gimbal_medium},
             ItemGrade.Technology, "Medium Gimballed",
             new ItemEffects
                     (
@@ -136,7 +148,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.VANADIUM, 24),
             new CostData(Commodity.POWERCONVERTER, 10)),
 
-    Shock_Cannon_Turreted_Large(HardpointModule.hpt_plasmashockcannon_turret_large,
+    Shock_Cannon_Turreted_Large(new ShipModule[]{HardpointModule.hpt_plasmashockcannon_turret_large},
             ItemGrade.Technology, "Large Turreted",
             new ItemEffects
                     (
@@ -148,7 +160,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.TECHNETIUM, 24),
             new CostData(Commodity.IONDISTRIBUTOR, 10)),
 
-    Shock_Cannon_Turreted_Medium(HardpointModule.hpt_plasmashockcannon_turret_medium,
+    Shock_Cannon_Turreted_Medium(new ShipModule[]{HardpointModule.hpt_plasmashockcannon_turret_medium},
             ItemGrade.Technology, "Medium Turreted",
             new ItemEffects
                     (
@@ -163,17 +175,19 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     // Guardian
 
-    Guardian_FSD_Booster(OptionalInternalModule.int_guardianfsdbooster_size1, ItemGrade.Technology, "FSD Boost Module", new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.FSD_Boost, 0d)
-            ),
+    Guardian_FSD_Booster(new ShipModule[]{OptionalInternalModule.int_guardianfsdbooster_size1},
+            ItemGrade.Technology, "FSD Boost Module",
+            new ItemEffects
+                    (
+                            new ItemEffectData(ItemEffect.FSD_Boost, 0d)
+                    ),
             new CostData(Material.GUARDIAN_MODULEBLUEPRINT, 1),
             new CostData(Material.GUARDIAN_POWERCELL, 21),
             new CostData(Material.GUARDIAN_TECHCOMPONENT, 21),
             new CostData(Material.FOCUSCRYSTALS, 24),
             new CostData(Commodity.HNSHOCKMOUNT, 8)),
 
-    Guardian_Shield_Booster(OptionalInternalShieldModule.int_guardianshieldreinforcement_size1_class1,
+    Guardian_Shield_Booster(new ShipModule[]{OptionalInternalShieldModule.int_guardianshieldreinforcement_size1_class1},
             ItemGrade.Technology, "Shield Boost",
             new ItemEffects
                     (
@@ -185,7 +199,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.ANCIENTLANGUAGEDATA, 24),
             new CostData(Commodity.DIAGNOSTICSENSOR, 8)),
 
-    Guardian_Hull_Reinforcement(OptionalInternalModule.int_guardianhullreinforcement_size1_class1,
+    Guardian_Hull_Reinforcement(new ShipModule[]{OptionalInternalModule.int_guardianhullreinforcement_size1_class1},
             ItemGrade.Technology, "Hull Reinforcement Package",
             new ItemEffects
                     (
@@ -197,7 +211,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.ANCIENTHISTORICALDATA, 16),
             new CostData(Commodity.REINFORCEDMOUNTINGPLATE, 12)),
 
-    Guardian_Module_Reinforcement(OptionalInternalModule.int_guardianmodulereinforcement_size1_class1,
+    Guardian_Module_Reinforcement(new ShipModule[]{OptionalInternalModule.int_guardianmodulereinforcement_size1_class1},
             ItemGrade.Technology, "Module Reinforcement Package",
             new ItemEffects
                     (
@@ -209,7 +223,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.GUARDIAN_POWERCONDUIT, 20),
             new CostData(Commodity.REINFORCEDMOUNTINGPLATE, 9)),
 
-    Guardian_Gauss_Cannon_Fixed_Medium(HardpointModule.hpt_plasmashockcannon_fixed_medium,
+    Guardian_Gauss_Cannon_Fixed_Medium(new ShipModule[]{HardpointModule.hpt_plasmashockcannon_fixed_medium},
             ItemGrade.Technology, "Medium Fixed",
             new ItemEffects
                     (
@@ -221,7 +235,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.MANGANESE, 15),
             new CostData(Commodity.MAGNETICEMITTERCOIL, 6)),
 
-    Guardian_Hybrid_Power_Distributor(OptionalInternalModule.int_guardianpowerdistributor_size1,
+    Guardian_Hybrid_Power_Distributor(new ShipModule[]{OptionalInternalModule.int_guardianpowerdistributor_size1},
             ItemGrade.Technology, "Power Distributor",
             new ItemEffects
                     (
@@ -233,7 +247,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.PHASEALLOYS, 18),
             new CostData(Commodity.HEATSINKINTERLINK, 6)),
 
-    Guardian_Hybrid_Power_Plant(OptionalInternalModule.int_guardianpowerplant_size2,
+    Guardian_Hybrid_Power_Plant(new ShipModule[]{OptionalInternalModule.int_guardianpowerplant_size2},
             ItemGrade.Technology, "Power Plant",
             new ItemEffects
                     (
@@ -245,7 +259,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.HEATRESISTANTCERAMICS, 15),
             new CostData(Commodity.POWERGRIDASSEMBLY, 10)),
 
-    Guardian_Plasma_Charger_Fixed_Large(HardpointModule.hpt_guardian_plasmalauncher_fixed_large,
+    Guardian_Plasma_Charger_Fixed_Large(new ShipModule[]{HardpointModule.hpt_guardian_plasmalauncher_fixed_large},
             ItemGrade.Technology, "Large Fixed",
             new ItemEffects
                     (
@@ -257,7 +271,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 28),
             new CostData(Commodity.COOLINGHOSES, 10)),
 
-    Guardian_Plasma_Charger_Fixed_Medium(HardpointModule.hpt_guardian_plasmalauncher_fixed_medium,
+    Guardian_Plasma_Charger_Fixed_Medium(new ShipModule[]{HardpointModule.hpt_guardian_plasmalauncher_fixed_medium},
             ItemGrade.Technology, "Medium Fixed",
             new ItemEffects
                     (
@@ -269,7 +283,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 14),
             new CostData(Commodity.COOLINGHOSES, 8)),
 
-    Guardian_Plasma_Charger_Turreted_Large(HardpointModule.hpt_guardian_plasmalauncher_turret_large,
+    Guardian_Plasma_Charger_Turreted_Large(new ShipModule[]{HardpointModule.hpt_guardian_plasmalauncher_turret_large},
             ItemGrade.Technology, "Large Turreted",
             new ItemEffects
                     (
@@ -281,7 +295,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 26),
             new CostData(Commodity.ARTICULATIONMOTORS, 10)),
 
-    Guardian_Plasma_Charger_Turreted_Medium(HardpointModule.hpt_guardian_plasmalauncher_turret_medium,
+    Guardian_Plasma_Charger_Turreted_Medium(new ShipModule[]{HardpointModule.hpt_guardian_plasmalauncher_turret_medium},
             ItemGrade.Technology, "Medium Turreted",
             new ItemEffects
                     (
@@ -293,7 +307,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.CHROMIUM, 16),
             new CostData(Commodity.ARTICULATIONMOTORS, 8)),
 
-    Guardian_Shard_Cannon_Fixed_Large(HardpointModule.hpt_guardian_shardcannon_fixed_large,
+    Guardian_Shard_Cannon_Fixed_Large(new ShipModule[]{HardpointModule.hpt_guardian_shardcannon_fixed_large},
             ItemGrade.Technology, "Large Fixed",
             new ItemEffects
                     (
@@ -305,7 +319,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 20),
             new CostData(Commodity.MICROCONTROLLERS, 18)),
 
-    Guardian_Shard_Cannon_Fixed_Medium(HardpointModule.hpt_guardian_shardcannon_fixed_medium,
+    Guardian_Shard_Cannon_Fixed_Medium(new ShipModule[]{HardpointModule.hpt_guardian_shardcannon_fixed_medium},
             ItemGrade.Technology, "Medium Fixed",
             new ItemEffects
                     (
@@ -317,7 +331,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 14),
             new CostData(Commodity.POWERTRANSFERCONDUITS, 12)),
 
-    Guardian_Shard_Cannon_Turreted_Large(HardpointModule.hpt_guardian_shardcannon_turret_large,
+    Guardian_Shard_Cannon_Turreted_Large(new ShipModule[]{HardpointModule.hpt_guardian_shardcannon_turret_large},
             ItemGrade.Technology, "Large Turreted",
             new ItemEffects
                     (
@@ -329,7 +343,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.CARBON, 28),
             new CostData(Commodity.MICROCONTROLLERS, 12)),
 
-    Guardian_Shard_Cannon_Turreted_Medium(HardpointModule.hpt_guardian_shardcannon_turret_medium,
+    Guardian_Shard_Cannon_Turreted_Medium(new ShipModule[]{HardpointModule.hpt_guardian_shardcannon_turret_medium},
             ItemGrade.Technology, "Medium Turreted",
             new ItemEffects
                     (
@@ -346,13 +360,13 @@ public enum TechnologyRecipe implements ProcurementRecipe
     private final CostData[] cost;
     private final ItemEffects effects;
     private final String label;
-    private final ShipModule module;
+    private final ShipModule[] modules;
 
     private static Icon icon = new Icon(UIFunctions.Icons.techBroker, 25, 25);
 
-    TechnologyRecipe(ShipModule module, ItemGrade grade, String label, ItemEffects effects, CostData... cost)
+    TechnologyRecipe(ShipModule[] modules, ItemGrade grade, String label, ItemEffects effects, CostData... cost)
     {
-        this.module = module;
+        this.modules = modules;
         this.grade = grade;
         this.label = label;
         this.effects = effects;
@@ -366,9 +380,16 @@ public enum TechnologyRecipe implements ProcurementRecipe
         return grade;
     }
 
-    public ShipModule getModule()
+    public ShipModule[] getModules()
     {
-        return module;
+        return modules;
+    }
+
+    public static Optional<TechnologyRecipe> findRecipeForModule(ShipModule module)
+    {
+        return Stream.of(TechnologyRecipe.values())
+                .filter(recipe -> Stream.of(recipe.modules).anyMatch(mod -> mod == module))
+                .findFirst();
     }
 
     public Stream<CostData> costStream()

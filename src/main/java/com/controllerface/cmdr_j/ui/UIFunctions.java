@@ -30,9 +30,8 @@ import java.util.EnumMap;
 import java.util.Scanner;
 import java.util.function.Function;
 
-import static java.lang.Math.atan2;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
+import static java.lang.Math.*;
+
 /**
  * This class stores several stateless functions and utility objects that are used to build or modify the GUI. These
  * functions are stored here in an effort to keep the UI controller classes and various custom cell/display object
@@ -97,6 +96,8 @@ public class UIFunctions
         //public static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
         public static final Color darkOrange = Color.rgb(0xb7, 0x52, 0x00);
         public static final Color darkYellow = Color.rgb(0xb7, 0x7d, 0x00);
+        public static final Color darkRed = Color.rgb(0xb7, 0x00, 0x00);
+
         public static final Color hotBlue = Color.rgb(0x00, 0x77, 0xcc);
 
 
@@ -124,19 +125,17 @@ public class UIFunctions
         }
 
         public static final SVGPath cargo = new SVGPath();
-
         public static final SVGPath materialGrade1 = new SVGPath();
         public static final SVGPath materialGrade2 = new SVGPath();
         public static final SVGPath materialGrade3 = new SVGPath();
         public static final SVGPath materialGrade4 = new SVGPath();
         public static final SVGPath materialGrade5 = new SVGPath();
-
         public static final SVGPath guardian = new SVGPath();
-
         public static final SVGPath materialTrade = new SVGPath();
         public static final SVGPath synthesisGeneral = new SVGPath();
         public static final SVGPath engineering = new SVGPath();
         public static final SVGPath techBroker = new SVGPath();
+        public static final SVGPath aegis = new SVGPath();
 
         static
         {
@@ -144,6 +143,7 @@ public class UIFunctions
             materialTrade.setContent(readIcon("/icons/materialTrade"));
             synthesisGeneral.setContent(readIcon("/icons/synthesis"));
             engineering.setContent(readIcon("/icons/engineering"));
+            aegis.setContent(readIcon("/icons/aegis"));
             techBroker.setContent(readIcon("/icons/techBroker"));
             cargo.setContent(readIcon("/icons/cargo"));
             materialGrade1.setContent(readIcon("/icons/materialGrade1"));
@@ -260,19 +260,35 @@ public class UIFunctions
             return decimal.doubleValue();
         }
 
-
-        public static double calculateBearingAngle(double startLatitude, double startLongitude, double endLatitude, double endLongitude)
+        /**
+         * Finds the bearing, in degrees, that an observer at a given set of coordinates should travel in order to move
+         * toward a point at a different set of co-ordinates. Coordinates are given as latitude/longitude pairs
+         * representing the current location and the destination. The returned bearing value is converted to the angle
+         * range between 0 and 360 (as opposed to between -180 and 180) and is rounded to 2 decimal places.
+         *
+         * NOTE: uses static import of {@linkplain java.lang.Math}
+         *
+         * @param locationLatitude latitude of the current location
+         * @param locationLongitude longitude of the current location
+         * @param destinationLatitude latitude of the destination
+         * @param destinationLongitude longitude of the destination
+         * @return bearing angle from the current location that will lead to the destination
+         */
+        static double calculateBearingAngle(double locationLatitude,
+                                            double locationLongitude,
+                                            double destinationLatitude,
+                                            double destinationLongitude)
         {
-            double phiStart = Math.toRadians(startLatitude);
-            double phiEnd = Math.toRadians(endLatitude);
-            double delta = Math.toRadians(endLongitude - startLongitude);
+            double phiStart = toRadians(locationLatitude);
+            double phiEnd = toRadians(destinationLatitude);
+            double delta = toRadians(destinationLongitude - locationLongitude);
 
             double ordinate = (sin(delta) * cos(phiEnd));
             double abscissa = (cos(phiStart) * sin(phiEnd) - sin(phiStart) * cos(phiEnd) * cos(delta));
             double theta = atan2(ordinate, abscissa);
 
-            double bearing = Math.toDegrees(theta);
-            if (bearing < 0 ) { bearing = bearing + 360; }
+            double bearing = toDegrees(theta);
+            if (bearing < 0 ) { bearing += 360; }
             return round(bearing, 2);
         }
     }
@@ -282,7 +298,6 @@ public class UIFunctions
      */
     public static class Convert
     {
-
         public static Region createMaterialIconRegion(SVGPath svg, double width, double height)
         {
             final Region svgShape = new Region();
@@ -448,8 +463,8 @@ public class UIFunctions
                     else if (aok || bok) r2 = aok ? 1 : -1;
                     else
                     {
-                        int aDiff = Math.abs(aNeed - aHave);
-                        int bDiff = Math.abs(bNeed - bHave);
+                        int aDiff = abs(aNeed - aHave);
+                        int bDiff = abs(bNeed - bHave);
                         r2 = bDiff - aDiff;
                     }
 

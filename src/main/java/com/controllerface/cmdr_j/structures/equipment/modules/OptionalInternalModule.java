@@ -1606,7 +1606,11 @@ public enum OptionalInternalModule implements ShipModule
     int_corrosionproofcargorack_size1_class1("1E Corrosion Resistant Cargo Rack",
             null,
             null,
-            new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 1d))),
+            new ItemEffects
+                    (
+                            new ItemEffectData(ItemEffect.experimental, 1d),
+                            new ItemEffectData(ItemEffect.CargoCapacity, 1d)
+                    )),
 
     int_cargorack_size1_class1("1E Cargo Rack",
             null,
@@ -1616,7 +1620,11 @@ public enum OptionalInternalModule implements ShipModule
     int_corrosionproofcargorack_size1_class2("1F Corrosion Resistant Cargo Rack",
             null,
             null,
-            new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 2d))),
+            new ItemEffects
+                    (
+                            new ItemEffectData(ItemEffect.experimental, 1d),
+                            new ItemEffectData(ItemEffect.CargoCapacity, 2d)
+                    )),
 
     int_cargorack_size2_class1("2E Cargo Rack",
             null,
@@ -1636,7 +1644,11 @@ public enum OptionalInternalModule implements ShipModule
     int_corrosionproofcargorack_size4_class1("4E Corrosion Resistant Cargo Rack",
             null,
             null,
-            new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 16d))),
+            new ItemEffects
+                    (
+                            new ItemEffectData(ItemEffect.experimental, 1d),
+                            new ItemEffectData(ItemEffect.CargoCapacity, 16d)
+                    )),
 
     int_cargorack_size5_class1("5E Cargo Rack",
             null,
@@ -3990,6 +4002,7 @@ public enum OptionalInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 2d),
                     new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 72d),
                     new ItemEffectData(ItemEffect.CausticResistance, 3d)
@@ -3998,6 +4011,7 @@ public enum OptionalInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 2d),
                     new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 99d),
                     new ItemEffectData(ItemEffect.CausticResistance, 3d)
@@ -4006,6 +4020,7 @@ public enum OptionalInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4d),
                     new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 135d),
                     new ItemEffectData(ItemEffect.CausticResistance, 3d)
@@ -4014,6 +4029,7 @@ public enum OptionalInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 2d),
                     new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 171d),
                     new ItemEffectData(ItemEffect.CausticResistance, 3d)
@@ -4022,6 +4038,7 @@ public enum OptionalInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 8d),
                     new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 207d),
                     new ItemEffectData(ItemEffect.CausticResistance, 3d)
@@ -4030,6 +4047,7 @@ public enum OptionalInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4d),
                     new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 234d),
                     new ItemEffectData(ItemEffect.CausticResistance, 3d)
@@ -4038,6 +4056,7 @@ public enum OptionalInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 16d),
                     new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 270d),
                     new ItemEffectData(ItemEffect.CausticResistance, 3d)
@@ -4046,6 +4065,7 @@ public enum OptionalInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 8d),
                     new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 297d),
                     new ItemEffectData(ItemEffect.CausticResistance, 3d)
@@ -4054,6 +4074,7 @@ public enum OptionalInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 32d),
                     new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 324d),
                     new ItemEffectData(ItemEffect.CausticResistance, 3d)
@@ -4062,6 +4083,7 @@ public enum OptionalInternalModule implements ShipModule
             null,
             null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 16d),
                     new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 351d),
                     new ItemEffectData(ItemEffect.CausticResistance, 3d)

@@ -8,6 +8,7 @@ import com.controllerface.cmdr_j.data.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.data.StarSystem;
 import com.controllerface.cmdr_j.data.commander.Displayable;
 import com.controllerface.cmdr_j.structures.costs.materials.MaterialTradeType;
+import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyType;
 import com.controllerface.cmdr_j.structures.engineers.Engineer;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
@@ -196,7 +197,7 @@ public class ProcurementTaskData implements Displayable
     {
         if (pair.getKey() instanceof MaterialTradeType)
         {
-            boolean bothTrades = type instanceof  MaterialTradeType;
+            boolean bothTrades = type instanceof MaterialTradeType;
             if (!bothTrades) return false;
 
             boolean typeMatch = type == pair.getKey();
@@ -211,6 +212,11 @@ public class ProcurementTaskData implements Displayable
                     .collect(Collectors.toSet());
 
             return theseCosts.equals(thoseCosts);
+        }
+
+        if (pair.getKey() instanceof TechnologyType)
+        {
+            // todo: handle tech broker unlock
         }
 
         return recipe == pair.getValue() && type == pair.getKey();

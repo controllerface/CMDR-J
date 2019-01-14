@@ -6,6 +6,7 @@ import com.controllerface.cmdr_j.ProcurementType;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -42,6 +43,13 @@ public enum TechnologyType implements ProcurementType
     public Stream<TechnologyBlueprint> blueprintStream()
     {
         return blueprints.stream();
+    }
+
+    public static Optional<TechnologyType> findTypeByBlueprint(TechnologyBlueprint blueprint)
+    {
+        return Stream.of(TechnologyType.values())
+                .filter(techType -> techType.getBluePrints().stream().anyMatch(bp -> bp == blueprint))
+                .findAny();
     }
 
     @Override

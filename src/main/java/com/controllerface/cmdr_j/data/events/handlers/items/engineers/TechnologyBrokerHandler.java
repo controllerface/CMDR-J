@@ -20,22 +20,6 @@ public class TechnologyBrokerHandler implements JournalEventHandler
     public void handle(EventProcessingContext context)
     {
         logLoadoutMessage(context, "Tech Broker Item Unlocked");
-
-        if (context.getRawData().get("Materials") != null)
-        {
-            ((List<Map<String, Object>>) context.getRawData().get("Materials"))
-                    .forEach(materialCost -> adjustMaterialCountDown(context, materialCost));
-        }
-
-        if (context.getRawData().get("Commodities") != null)
-        {
-            ((List<Map<String, Object>>) context.getRawData().get("Commodities"))
-                    .forEach(commodityCost -> adjustCommodityCountDown(context, commodityCost));
-        }
-
-
         processTechUnlock(context);
-
-
     }
 }

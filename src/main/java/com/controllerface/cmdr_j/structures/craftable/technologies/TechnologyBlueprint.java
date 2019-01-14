@@ -3,12 +3,13 @@ package com.controllerface.cmdr_j.structures.craftable.technologies;
 import com.controllerface.cmdr_j.ProcurementBlueprint;
 
 import java.util.EnumSet;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
  * Created by Controllerface on 4/12/2018.
  */
-public enum  TechnologyBlueprint implements ProcurementBlueprint
+public enum TechnologyBlueprint implements ProcurementBlueprint
 {
     // Human
 
@@ -74,6 +75,12 @@ public enum  TechnologyBlueprint implements ProcurementBlueprint
     {
         this.text = text;
         this.recipes = recipes;
+    }
+
+    public static Optional<TechnologyBlueprint> findBluePrintByRecipe(TechnologyRecipe recipe)
+    {
+        return Stream.of(TechnologyBlueprint.values()).filter(bp->bp.recipeStream().anyMatch(r->r==recipe))
+                .findAny();
     }
 
     public Stream<TechnologyRecipe> recipeStream()

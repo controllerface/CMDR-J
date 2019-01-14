@@ -2,21 +2,16 @@ package com.controllerface.cmdr_j.data;
 
 import com.controllerface.cmdr_j.*;
 import com.controllerface.cmdr_j.data.commander.Displayable;
-import com.controllerface.cmdr_j.data.procurements.CostData;
-import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalBlueprint;
 import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationBlueprint;
 import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationRecipe;
 import com.controllerface.cmdr_j.structures.craftable.modifications.WeaponModificationRecipe;
-import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.structures.engineers.Engineer;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
-import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
 import com.controllerface.cmdr_j.structures.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.structures.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.structures.equipment.modules.OptionalInternalShieldModule;
 import com.controllerface.cmdr_j.threads.UserTransaction;
-import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -27,7 +22,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
-import javafx.scene.text.TextAlignment;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -187,74 +181,121 @@ public class ShipModuleData implements Displayable
         return infoPane;
     }
 
+    private void renderGuardianInfo(HBox moduleNameContainer)
+    {
+        double sizew = 22;
+        double sizeh = 18;
+
+        HBox guardianBox = new HBox();
+        guardianBox.setAlignment(Pos.CENTER_LEFT);
+        SVGPath icon = UIFunctions.Icons.guardian;
+
+        final Region svgShape = new Region();
+        svgShape.setShape(icon);
+        svgShape.setMinSize(sizew, sizeh);
+        svgShape.setPrefSize(sizew, sizeh);
+        svgShape.setMaxSize(sizew, sizeh);
+        svgShape.setLayoutX(5);
+        svgShape.setStyle("-fx-background-color: #0077cc;");
+
+        String text = "Guardian Module";
+
+        if (module instanceof HardpointModule)
+        {
+            text = "Guardian Weapon";
+        }
+        else if (module instanceof OptionalInternalModule)
+        {
+            if (module == OptionalInternalModule.int_guardianfsdbooster_size1
+                    || module == OptionalInternalModule.int_guardianfsdbooster_size2
+                    || module == OptionalInternalModule.int_guardianfsdbooster_size3
+                    || module == OptionalInternalModule.int_guardianfsdbooster_size4
+                    || module == OptionalInternalModule.int_guardianfsdbooster_size5)
+            {
+                text = "FSD Range";
+            }
+        }
+        else if (module instanceof OptionalInternalShieldModule)
+        {
+            if (module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size1_class1
+                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size1_class2
+                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size2_class1
+                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size2_class2
+                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size3_class1
+                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size3_class2
+                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size4_class1
+                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size4_class2
+                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size5_class1
+                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size5_class2)
+            {
+                text = "Shield Strength";
+            }
+        }
+
+        Label modificationLabel = new Label(text);
+        modificationLabel.setFont(UIFunctions.Fonts.size3Font);
+        modificationLabel.setTextFill(UIFunctions.Fonts.hotBlue);
+        modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
+
+        guardianBox.getChildren().add(svgShape);
+        guardianBox.getChildren().add(modificationLabel);
+
+        moduleNameContainer.getChildren().add(guardianBox);
+    }
+
+    private void renderExperimentalInfo(HBox moduleNameContainer)
+    {
+        double sizew = 22;
+        double sizeh = 18;
+
+        HBox guardianBox = new HBox();
+        guardianBox.setAlignment(Pos.CENTER_LEFT);
+        SVGPath icon = UIFunctions.Icons.aegis;
+
+        final Region svgShape = new Region();
+        svgShape.setShape(icon);
+        svgShape.setMinSize(sizew, sizeh);
+        svgShape.setPrefSize(sizew, sizeh);
+        svgShape.setMaxSize(sizew, sizeh);
+        svgShape.setLayoutX(5);
+        svgShape.setStyle("-fx-background-color: #b70000;");
+
+        String text = " Experimental Module";
+
+        if (module instanceof HardpointModule)
+        {
+            text = " Experimental Weapon";
+        }
+
+        Label modificationLabel = new Label(text);
+        modificationLabel.setFont(UIFunctions.Fonts.size3Font);
+        modificationLabel.setTextFill(UIFunctions.Fonts.darkRed);
+        modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
+
+        guardianBox.getChildren().add(svgShape);
+        guardianBox.getChildren().add(modificationLabel);
+
+        moduleNameContainer.getChildren().add(guardianBox);
+    }
+
     private void renderModificationInfo(HBox moduleNameContainer, VBox detailsContainer)
     {
         boolean guardian = module.itemEffects().effectStream()
                 .filter(e->e.getEffect()== ItemEffect.guardian)
                 .findFirst().isPresent();
 
+        boolean experimental = module.itemEffects().effectStream()
+                .filter(e->e.getEffect()== ItemEffect.experimental)
+                .findFirst().isPresent();
+
+        if (experimental)
+        {
+            renderExperimentalInfo(moduleNameContainer);
+        }
+
         if (guardian)
         {
-            double sizew = 22;
-            double sizeh = 18;
-
-            HBox guardianBox = new HBox();
-            guardianBox.setAlignment(Pos.CENTER_LEFT);
-            SVGPath icon = UIFunctions.Icons.guardian;
-
-            final Region svgShape = new Region();
-            svgShape.setShape(icon);
-            svgShape.setMinSize(sizew, sizeh);
-            svgShape.setPrefSize(sizew, sizeh);
-            svgShape.setMaxSize(sizew, sizeh);
-            svgShape.setLayoutX(5);
-            svgShape.setStyle("-fx-background-color: #0077cc;");
-
-
-
-            String text = "Guardian Module";
-
-            if (module instanceof HardpointModule)
-            {
-                text = "Guardian Weapon";
-            }
-            else if (module instanceof OptionalInternalModule)
-            {
-                if (module == OptionalInternalModule.int_guardianfsdbooster_size1
-                        || module == OptionalInternalModule.int_guardianfsdbooster_size2
-                        || module == OptionalInternalModule.int_guardianfsdbooster_size3
-                        || module == OptionalInternalModule.int_guardianfsdbooster_size4
-                        || module == OptionalInternalModule.int_guardianfsdbooster_size5)
-                {
-                    text = "FSD Range";
-                }
-            }
-            else if (module instanceof OptionalInternalShieldModule)
-            {
-                if (module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size1_class1
-                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size1_class2
-                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size2_class1
-                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size2_class2
-                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size3_class1
-                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size3_class2
-                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size4_class1
-                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size4_class2
-                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size5_class1
-                        || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size5_class2)
-                {
-                    text = "Shield Strength";
-                }
-            }
-
-            Label modificationLabel = new Label(text);
-            modificationLabel.setFont(UIFunctions.Fonts.size3Font);
-            modificationLabel.setTextFill(UIFunctions.Fonts.hotBlue);
-            modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
-
-            guardianBox.getChildren().add(svgShape);
-            guardianBox.getChildren().add(modificationLabel);
-
-            moduleNameContainer.getChildren().add(guardianBox);
+            renderGuardianInfo(moduleNameContainer);
         }
 
         if (modificationBlueprint != null)
@@ -520,8 +561,15 @@ public class ShipModuleData implements Displayable
     {
         // base stats, filtered so any stats that have stored modifiers are skipped
         List<Pair<ItemEffect, Label>> effects = module.itemEffects().effectStream()
-                .filter(e -> e.getEffect() != ItemEffect.guardian) // this is a marker effect, handled elsewhere
-                .filter(p -> modifiers.stream().noneMatch(x -> x.getEffect().equals(p.getEffect())))
+
+                // these are marker effects, handled elsewhere so filter out
+                .filter(effectData -> effectData.getEffect() != ItemEffect.guardian)
+                .filter(effectData -> effectData.getEffect() != ItemEffect.experimental)
+
+                // filter out any stats that are affected by modifiers
+                .filter(effectData -> modifiers.stream()
+                        .noneMatch(modifierData -> modifierData.getEffect().equals(effectData.getEffect())))
+
                 .map(effectPair ->
                 {
                     Label label =  new Label(effectPair.getValueString());
