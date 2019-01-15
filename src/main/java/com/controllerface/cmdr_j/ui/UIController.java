@@ -46,6 +46,7 @@ import com.controllerface.cmdr_j.ui.ship.StatDisplayCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskCountCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskDataCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskRemoveCell;
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -60,12 +61,20 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Rotate;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -80,6 +89,10 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 /**
  * UI Controller class for Elite Dangerous Engineer Procurement System
@@ -224,28 +237,21 @@ public class UIController
 
     @FXML private TableView<MarketData> market_table;
     @FXML private TableColumn<MarketData, String> market_commodity_col;
-    //@FXML private TableColumn<MarketData, String> market_import_export;
-    //@FXML private TableColumn<MarketData, Integer> market_buy_col;
     @FXML private TableColumn<MarketData, Integer> market_sell_col;
     @FXML private TableColumn<MarketData, Integer> market_mean_col;
-    //@FXML private TableColumn<MarketData, Integer> market_stock_col;
-    //@FXML private TableColumn<MarketData, Integer> market_income_col;
     @FXML private TableColumn<MarketData, Integer> market_profit_col;
     @FXML private TableColumn<MarketData, Integer> market_demand_col;
 
 
     @FXML private TableView<MarketData> market_table1;
     @FXML private TableColumn<MarketData, String> market_commodity_col1;
-    //@FXML private TableColumn<MarketData, String> market_import_export1;
     @FXML private TableColumn<MarketData, Integer> market_buy_col1;
-    //@FXML private TableColumn<MarketData, Integer> market_sell_col1;
     @FXML private TableColumn<MarketData, Integer> market_mean_col1;
     @FXML private TableColumn<MarketData, Integer> market_stock_col1;
     @FXML private TableColumn<MarketData, Integer> market_income_col1;
 
-    //@FXML private TableColumn<MarketData, Integer> market_profit_col1;
-    //@FXML private TableColumn<MarketData, Integer> market_demand_col1;
 
+    @FXML private Canvas minimap;
 
 
     /*
@@ -430,6 +436,111 @@ public class UIController
         setProcurementsUIVisibility();
 
         return windowDimensions;
+    }
+
+
+//    private double[] rot(double angle, double ... p)
+//    {
+//        double px = p[0];
+//        double py = p[1];
+//        double cx = p[2];
+//        double cy = p[3];
+//
+////        Or like this:
+////        To rotate a point 'p' around another point/origin 'c' simply subtract c from p, then rotate p and add c.
+////
+//        px -= cx;
+//        py -= cy;
+////
+//      double newx = px * cos(angle) - py * sin(angle);
+//      double newy = px * sin(angle) + py * cos(angle);
+////
+//        px = newx + cx;
+//        py = newy + cy;
+//
+//        return new double[]{px, py};
+//    }
+
+//    double w = 350.0;
+//    double h = 250.0;
+    Paint p = Color.BLACK;
+
+
+
+    public void renderMiniMap()
+    {
+        double w = minimap.getWidth();
+        double h = minimap.getHeight();
+        System.out.println("banana");
+
+        //minimap.getGraphicsContext2D().clearRect(0, 0, w, h);
+
+
+        minimap.getGraphicsContext2D().rect(0, 0, w, h);
+
+//        if (p == Color.BLACK) p = Color.RED;
+//        else p = Color.BLACK;
+
+        minimap.getGraphicsContext2D().setFill(Color.rgb(51,17,0));
+        minimap.getGraphicsContext2D().fillRect(0,0,w,h);
+
+        // border
+        minimap.getGraphicsContext2D().rect(0.0, 0.0, w, h);
+        minimap.getGraphicsContext2D().setStroke(Color.DARKORANGE);
+        minimap.getGraphicsContext2D().setLineWidth(5);
+        minimap.getGraphicsContext2D().stroke();
+        minimap.getGraphicsContext2D().closePath();
+
+        double cX = w / 2;
+        double cY = h / 2;
+
+        double topX = cX;
+        double topY = cY - 10;
+
+        double leftX = cX - 5;
+        double leftY = cY + 10;
+
+        double midX = cX;
+        double midY = cY + 5;
+
+        double rightX = cX + 5;
+        double rightY = cY + 10;
+
+        double angle = Double.valueOf(status_heading.getText());
+
+
+        Affine baseTransform = minimap.getGraphicsContext2D().getTransform();
+        Affine rot = baseTransform.clone();
+        rot.append(new Rotate(angle, cX, cY));
+
+        minimap.getGraphicsContext2D().setTransform(rot);
+
+        minimap.getGraphicsContext2D().setFill(Color.ORANGE);
+        minimap.getGraphicsContext2D().fillPolygon(new double[]{topX, leftX, midX, rightX},
+                new double[]{topY, leftY, midY, rightY}, 4);
+
+        minimap.getGraphicsContext2D().setTransform(baseTransform);
+
+        double currentLat = Double.valueOf(status_latitude.getText());
+        double currentLong = Double.valueOf(status_longitude.getText());
+
+        double mX = currentLong - markedLong;
+        mX*=100;
+        double mY = currentLat - markedLat;
+        mY*=100;
+
+        System.out.println("diff "+ mX + " :: " + mY);
+
+        System.out.println("center "+ cX + " :: " + cY);
+
+        double newX = cX - mX;
+        double newY = cY + mY;
+
+        System.out.println("new "+ newX + " :: " + newY);
+
+        minimap.getGraphicsContext2D().setFill(Color.DARKORANGE);
+        minimap.getGraphicsContext2D().fillPolygon(new double[]{newX - 3, newX - 3, newX + 3, newX + 3},
+                new double[]{newY - 3, newY + 3, newY + 3, newY - 3}, 4);
     }
 
     /**
@@ -654,6 +765,8 @@ public class UIController
 
                             status_marked_lat.setText(String.valueOf(markedLat));
                             status_marked_long.setText(String.valueOf(markedLong));
+
+                            renderMiniMap();
                         });
                         break;
                 }

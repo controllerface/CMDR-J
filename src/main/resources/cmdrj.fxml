@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
@@ -869,6 +871,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
+                        <Canvas fx:id="minimap" height="250.0" layoutX="565.0" layoutY="7.0" width="350.0" />
                      </children>
                   </AnchorPane>
               </content>

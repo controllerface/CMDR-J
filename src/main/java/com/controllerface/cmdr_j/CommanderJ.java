@@ -5,6 +5,7 @@ package com.controllerface.cmdr_j;
 
 import com.controllerface.cmdr_j.data.WindowDimensions;
 import com.controllerface.cmdr_j.ui.UIController;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
