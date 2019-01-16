@@ -183,6 +183,7 @@ public enum Commodity implements ProcurementCost
     USSCARGOMILITARYPLANS(ItemGrade.Salvage),
     MYSTERIOUSIDOL(ItemGrade.Salvage),
     OCCUPIEDESCAPEPOD(ItemGrade.Salvage),
+    OCCUPIEDCRYOPOD(ItemGrade.Salvage),
     PERSONALEFFECTS(ItemGrade.Salvage),
     POLITICALPRISONER(ItemGrade.Salvage),
     PRECIOUSGEMS(ItemGrade.Salvage),

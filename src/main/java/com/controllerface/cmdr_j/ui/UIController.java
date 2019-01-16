@@ -439,48 +439,12 @@ public class UIController
     }
 
 
-//    private double[] rot(double angle, double ... p)
-//    {
-//        double px = p[0];
-//        double py = p[1];
-//        double cx = p[2];
-//        double cy = p[3];
-//
-////        Or like this:
-////        To rotate a point 'p' around another point/origin 'c' simply subtract c from p, then rotate p and add c.
-////
-//        px -= cx;
-//        py -= cy;
-////
-//      double newx = px * cos(angle) - py * sin(angle);
-//      double newy = px * sin(angle) + py * cos(angle);
-////
-//        px = newx + cx;
-//        py = newy + cy;
-//
-//        return new double[]{px, py};
-//    }
-
-//    double w = 350.0;
-//    double h = 250.0;
-    Paint p = Color.BLACK;
-
-
-
     public void renderMiniMap()
     {
         double w = minimap.getWidth();
         double h = minimap.getHeight();
-        System.out.println("banana");
-
-        //minimap.getGraphicsContext2D().clearRect(0, 0, w, h);
-
 
         minimap.getGraphicsContext2D().rect(0, 0, w, h);
-
-//        if (p == Color.BLACK) p = Color.RED;
-//        else p = Color.BLACK;
-
         minimap.getGraphicsContext2D().setFill(Color.rgb(51,17,0));
         minimap.getGraphicsContext2D().fillRect(0,0,w,h);
 
@@ -529,14 +493,8 @@ public class UIController
         double mY = currentLat - markedLat;
         mY*=100;
 
-        System.out.println("diff "+ mX + " :: " + mY);
-
-        System.out.println("center "+ cX + " :: " + cY);
-
         double newX = cX - mX;
         double newY = cY + mY;
-
-        System.out.println("new "+ newX + " :: " + newY);
 
         minimap.getGraphicsContext2D().setFill(Color.DARKORANGE);
         minimap.getGraphicsContext2D().fillPolygon(new double[]{newX - 3, newX - 3, newX + 3, newX + 3},

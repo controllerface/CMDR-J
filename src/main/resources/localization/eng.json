@@ -924,6 +924,12 @@
         ""
       ]
     },
+    "OCCUPIEDCRYOPOD": {
+      "name": "Occupied Cryo Pod",
+      "locations": [
+        ""
+      ]
+    },
     "PERSONALEFFECTS": {
       "name": "Personal Effects",
       "locations": [
