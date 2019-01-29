@@ -18,14 +18,26 @@
 /*Controls text color universally*/
 .common *.text{
 	-fx-fill:goldenrod;
-	Font.loadFont(getClass().getResourceAsStream("/resources/sintony.ttf"), 14);
+	/* Font.loadFont(getClass().getResourceAsStream("/resources/sintony.ttf"), 14); */
 	-fx-font-family:sintony;
 	-fx-font-size:20;
 }
 
+.common *.text:hover{
+	-fx-fill:orange;
+	-fx-region-background:blue;
+}
 
-/*Controls style for tab selectors and surrounding region*/
+
+
+/* Controls style for tab selectors and surrounding region */
+
 .tab-header-area{
+	-fx-background:black;
+	-fx-min-height:25px;
+}
+
+.tab-header-background{
 	-fx-background:black;
 }
 
@@ -35,9 +47,31 @@
 .headers-region .tab:selected{
 	-fx-background-color:black;
 }
+/*checkmark specific styles*/
+.common .box
+{
+	-fx-background-color:radial-gradientradial-gradient(center 50% 50%, radius 150%,black 5%, goldenrod 50%, orange 70%);
+}
 
+.common .mark{	
+	visibility:false;
+}
+.check-box:selected .box{
+	-fx-text-fill:red;
+	-fx-background-color:goldenrod;
+}
+
+.check-box:selected .mark{
+
+	-fx-background-color:goldenrod;
+}
+.radio-button:selected .radio{
+		-fx-background-color:goldenrod;
+}.radio-button .radio{
+		-fx-background-color:goldenrod;
+}
 /*styles for tables*/
-/*tasks table*/
+
 
 #tableHead{
 	-fx-background-color:black;
@@ -50,8 +84,26 @@
 .table-row-cell:filled:odd{
 	-fx-background-color:#101010;
 }
+
+.table-view{
+	-fx-background-color:black;
+}
+.list-view{
+	-fx-background-color:black;
+}
 .table-view{
 	-fx-table-cell-border-color:black;
+}
+
+.table-view *.column-header{
+	-fx-background-color:black;
+}
+.table-view *.filler{
+	-fx-background-color:black;
+}
+
+.tab-pane{
+	-fx-background-color:black;
 }
 /*TreeView*/
 
@@ -65,7 +117,7 @@
 
 .tree-cell *.tree-disclosure-node{
 	-fx-fill-color:orange;
-	-fx-control-inner-background;
+	-fx-control-inner-background:pink;
 
 	-fx-text-background-color:orange;
 }
@@ -76,6 +128,8 @@
 .list-cell:filled:odd{
 	-fx-background-color:#101010;
 }
+
+
 /* #test
 {	
 	-fx-text-base-color:goldenrod;

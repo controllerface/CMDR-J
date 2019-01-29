@@ -11,17 +11,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1061.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllerface.cmdr_j.ui.UIController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1061.0" prefWidth="1130.0" styleClass="common" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllerface.cmdr_j.ui.UIController">
    <children>
-      <TabPane id="common" fx:id="mainPane" layoutX="14.0" layoutY="14.0" prefHeight="950.0" prefWidth="1130.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="mainPane" layoutX="14.0" layoutY="14.0" prefHeight="950.0" prefWidth="1130.0" styleClass="common" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Tasks">
+          <Tab styleClass="common" text="Tasks">
             <content>
               <AnchorPane>
                      <children>
-                        <VBox styleClass="common" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox id="tableHead" alignment="CENTER_LEFT" minHeight="25.0">
+                              <HBox alignment="CENTER_LEFT" minHeight="25.0">
                                  <children>
                                     <AnchorPane>
                                        <children>
@@ -99,7 +99,7 @@
                                        <children>
                                           <VBox fx:id="taskContols" minHeight="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <TableView id="tableHead" fx:id="procurementTaskTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="procurementTaskTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
                                                       <TableColumn fx:id="taskRemoveColumn" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" resizable="false" sortable="false" />
                                                     <TableColumn fx:id="taskNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" resizable="false" sortable="false" text="Tracked Tasks" />
@@ -112,7 +112,7 @@
                                           </VBox>
                                        </children>
                                     </AnchorPane>
-                                    <TableView id="tableHead" fx:id="taskCostTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <TableView fx:id="taskCostTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                       <columns>
                                           <TableColumn fx:id="taskCostNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="291.0" resizable="false" sortable="false" text="Tracked Items" />
                                           <TableColumn fx:id="taskCostGradeColumn" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" sortable="false" text="Grade" />
@@ -122,8 +122,8 @@
                                     </TableView>
                                     <HBox fx:id="procurementBox">
                                        <children>
-                                          <TreeView fx:id="procurementTree" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="9800.0" style="-fx-region-background: black;" styleClass="common" />
-                                          <VBox styleClass="common">
+                                          <TreeView fx:id="procurementTree" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="9800.0" />
+                                          <VBox>
                                              <children>
                                                 <Label fx:id="procurementLabel" minHeight="35.0" text="Placeholder">
                                                    <font>
@@ -878,6 +878,6 @@
             </Tab>
         </tabs>
       </TabPane>
-      <ProgressBar fx:id="messageProgress" layoutX="219.0" layoutY="10.0" prefWidth="200.0" progress="0.0" />
+      <ProgressBar fx:id="messageProgress" layoutX="654.0" layoutY="10.0" prefHeight="18.0" prefWidth="187.0" progress="0.0" />
    </children>
 </AnchorPane>
