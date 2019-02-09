@@ -3,8 +3,10 @@ package com.controllerface.cmdr_j.threads;
 import com.controllerface.cmdr_j.ProcurementCost;
 import com.controllerface.cmdr_j.ProcurementRecipe;
 import com.controllerface.cmdr_j.ProcurementType;
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -24,13 +26,27 @@ public class UserTransaction
 
     public enum MessageType
     {
-        GENERAL,
-        INVENTORY,
-        LOADOUT,
-        ENGINEERING,
-        COMBAT,
-        TRAVEL,
-        EXPLORATION
+        GENERAL(Color.BLACK),
+        INVENTORY(Color.web("#4d804d")),
+        LOADOUT(Color.web("#0034ff")),
+        ENGINEERING(Color.web("#ffb366")),
+        COMBAT(Color.web("#b31a1a")),
+        TRAVEL(Color.web("#999999")),
+        EXPLORATION(Color.web("#7345ff")),
+
+        ;
+
+        final Color color;
+
+        MessageType(Color color)
+        {
+            this.color = color;
+        }
+
+        public Color getColor()
+        {
+            return color;
+        }
     }
 
     private final ProcurementCost inventoryItem;

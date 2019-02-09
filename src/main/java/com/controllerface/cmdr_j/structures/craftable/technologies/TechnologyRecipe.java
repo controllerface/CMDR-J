@@ -9,6 +9,7 @@ import com.controllerface.cmdr_j.structures.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.structures.costs.materials.Material;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
+import com.controllerface.cmdr_j.structures.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.structures.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.structures.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.structures.equipment.modules.OptionalInternalShieldModule;
@@ -247,7 +248,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.PHASEALLOYS, 18),
             new CostData(Commodity.HEATSINKINTERLINK, 6)),
 
-    Guardian_Hybrid_Power_Plant(new ShipModule[]{OptionalInternalModule.int_guardianpowerplant_size2},
+    Guardian_Hybrid_Power_Plant(new ShipModule[]{CoreInternalModule.int_guardianpowerplant_size2},
             ItemGrade.Technology, "Power Plant",
             new ItemEffects
                     (

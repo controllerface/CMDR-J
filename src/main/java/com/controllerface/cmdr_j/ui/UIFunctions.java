@@ -47,40 +47,6 @@ public class UIFunctions
 {
     public static final int scrollBarAllowance = 20;
 
-    public static final EnumMap<UserTransaction.MessageType, Color> messageColors =
-            new EnumMap<>(UserTransaction.MessageType.class);
-    static
-    {
-        for (UserTransaction.MessageType messageType : UserTransaction.MessageType.values())
-        {
-            Color color;
-            switch (messageType)
-            {
-                case GENERAL: color = Color.DARKCYAN;
-                    break;
-
-                case INVENTORY: color = Color.DARKBLUE;
-                    break;
-
-                case LOADOUT: color = Color.DARKORCHID;
-                    break;
-
-                case ENGINEERING: color = Color.DARKORANGE;
-                    break;
-
-                case COMBAT: color = Color.DARKRED;
-                    break;
-
-                case TRAVEL: color = Color.DARKMAGENTA;
-                    break;
-
-                default: color = Color.BLACK;
-                    break;
-            }
-            messageColors.put(messageType, color);
-        }
-    }
-
     public static class Symbols
     {
         public static final String DEGREES = new String(new byte[]{(byte)0x00,(byte)0xb0}, StandardCharsets.UTF_16);

@@ -46,13 +46,13 @@ import com.controllerface.cmdr_j.ui.ship.StatDisplayCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskCountCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskDataCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskRemoveCell;
-import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -66,15 +66,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Shape;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
-import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -86,13 +83,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
 
 /**
  * UI Controller class for Elite Dangerous Engineer Procurement System
@@ -253,6 +249,21 @@ public class UIController
 
     @FXML private Canvas minimap;
 
+    @FXML private ColorPicker msg_general_color;
+    @FXML private ColorPicker msg_inventory_color;
+    @FXML private ColorPicker msg_loadout_color;
+    @FXML private ColorPicker msg_engineering_color;
+    @FXML private ColorPicker msg_combat_color;
+    @FXML private ColorPicker msg_travel_color;
+    @FXML private ColorPicker msg_exploration_color;
+
+    @FXML private CheckBox msg_general_filter;
+    @FXML private CheckBox msg_inventory_filter;
+    @FXML private CheckBox msg_loadout_filter;
+    @FXML private CheckBox msg_engineering_filter;
+    @FXML private CheckBox msg_combat_filter;
+    @FXML private CheckBox msg_travel_filter;
+    @FXML private CheckBox msg_exploration_filter;
 
     /*
     Backing lists for the procurement task UI elements
@@ -269,6 +280,7 @@ public class UIController
     private final SortedList<ItemCostData> sortedCosts = new SortedList<>(taskCostBackingList, UIFunctions.Sort.costsByNeed);
 
     private final ObservableList<MessageData> consoleBackingList = FXCollections.observableArrayList();
+    //private final Map<MessageData, Integer> hiddenMessages = new HashMap<>();
 
     /*
     =============================
@@ -322,6 +334,8 @@ public class UIController
 
     private final AtomicInteger queuedMessages = new AtomicInteger(0);
     private final AtomicInteger processedMessages = new AtomicInteger(0);
+    private final Map<UserTransaction.MessageType, Boolean> messageTypeFilters = new HashMap<>();
+
     private final BlockingQueue<MessageData> messageQueue = new LinkedBlockingDeque<>();
     private final AtomicBoolean hasMessages = new AtomicBoolean(false);
 
@@ -347,7 +361,11 @@ public class UIController
 
     private void consumeNextMessageBlock(List<MessageData> msgs)
     {
-        consoleBackingList.addAll(msgs);
+        msgs.stream()
+                .filter(Objects::nonNull)
+                .filter((m) -> messageTypeFilters.get(m.getMessageType()))
+                .forEach(consoleBackingList::add);
+
         processedMessages.addAndGet(msgs.size());
 
         double p = (double) processedMessages.get() / (double) queuedMessages.get();
@@ -361,7 +379,6 @@ public class UIController
 
         while (consoleBackingList.size() > 500) consoleBackingList.remove(0);
         consoleMessageList.scrollTo(consoleBackingList.size());
-
     }
 
     /**
@@ -445,7 +462,7 @@ public class UIController
         double h = minimap.getHeight();
 
         minimap.getGraphicsContext2D().rect(0, 0, w, h);
-        minimap.getGraphicsContext2D().setFill(Color.rgb(51,17,0));
+        minimap.getGraphicsContext2D().setFill(Color.rgb(51, 17, 0));
         minimap.getGraphicsContext2D().fillRect(0,0,w,h);
 
         // border
@@ -489,35 +506,25 @@ public class UIController
         double currentLong = Double.valueOf(status_longitude.getText());
 
         double mX = currentLong - markedLong;
-        mX*=100;
+        mX*=10000;
         double mY = currentLat - markedLat;
-        mY*=100;
+        mY*=10000; // todo: these multipliers need to change based on SRV or Ship
 
-        double newX = cX - mX;
-        double newY = cY + mY;
+        double markX = cX - mX;
+        double markY = cY + mY;
+
+        double distance = UIFunctions.Data.round(Point2D
+                .distance(currentLong, currentLat, markedLong, markedLat) * 1000, 2);
 
         minimap.getGraphicsContext2D().setFill(Color.DARKORANGE);
-        minimap.getGraphicsContext2D().fillPolygon(new double[]{newX - 3, newX - 3, newX + 3, newX + 3},
-                new double[]{newY - 3, newY + 3, newY + 3, newY - 3}, 4);
+        minimap.getGraphicsContext2D().fillPolygon(new double[]{markX - 3, markX - 3, markX + 3, markX + 3},
+                new double[]{markY - 3, markY + 3, markY + 3, markY - 3}, 4);
+
+        minimap.getGraphicsContext2D().fillText(String.valueOf(distance), markX + 5, markY);
     }
 
-    /**
-     * Reflectively called by JavaFX after this class is instantiated. This is where the UI components are filled with
-     * their respective data.
-     */
-    @FXML
-    public void initialize()
+    private void processMarketData()
     {
-        makeProcurementTree();
-        startTransactionProcessor();
-        startupTasks();
-        System.out.println("Load JSON");
-        fromJson();
-        System.out.println("Done Load JSON");
-
-
-        // TODO: code below should be in separate method(s)
-
         market_commodity_col.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
         market_sell_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getSell()).asObject());
         market_mean_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getMean()).asObject());
@@ -540,13 +547,8 @@ public class UIController
             return new SimpleIntegerProperty(profit).asObject();
         });
 
-
-
-
-
         market_commodity_col1.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
         market_buy_col1.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getBuy()).asObject());
-        //market_sell_col1.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getSell()).asObject());
         market_mean_col1.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getMean()).asObject());
         market_stock_col1.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getStock()).asObject());
 
@@ -558,6 +560,76 @@ public class UIController
 
             return new SimpleIntegerProperty(profit).asObject();
         });
+    }
+
+    /**
+     * Reflectively called by JavaFX after this class is instantiated. This is where the UI components are filled with
+     * their respective data.
+     */
+    @FXML
+    public void initialize()
+    {
+        makeProcurementTree();
+        startTransactionProcessor();
+        startupTasks();
+        System.out.println("Load JSON");
+        fromJson();
+        System.out.println("Done Load JSON");
+
+
+        messageTypeFilters.put(UserTransaction.MessageType.GENERAL, msg_general_filter.isSelected());
+        messageTypeFilters.put(UserTransaction.MessageType.INVENTORY, msg_inventory_filter.isSelected());
+        messageTypeFilters.put(UserTransaction.MessageType.LOADOUT, msg_loadout_filter.isSelected());
+        messageTypeFilters.put(UserTransaction.MessageType.ENGINEERING, msg_engineering_filter.isSelected());
+        messageTypeFilters.put(UserTransaction.MessageType.COMBAT, msg_combat_filter.isSelected());
+        messageTypeFilters.put(UserTransaction.MessageType.TRAVEL, msg_travel_filter.isSelected());
+        messageTypeFilters.put(UserTransaction.MessageType.EXPLORATION, msg_exploration_filter.isSelected());
+
+        // TODO: code below should be in separate method(s)
+
+        msg_general_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
+        {
+            messageTypeFilters.put(UserTransaction.MessageType.GENERAL, newValue);
+        });
+
+        msg_inventory_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
+        {
+            messageTypeFilters.put(UserTransaction.MessageType.INVENTORY, newValue);
+        });
+
+        msg_loadout_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
+        {
+            messageTypeFilters.put(UserTransaction.MessageType.LOADOUT, newValue);
+        });
+
+        msg_engineering_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
+        {
+            messageTypeFilters.put(UserTransaction.MessageType.ENGINEERING, newValue);
+        });
+
+        msg_combat_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
+        {
+            messageTypeFilters.put(UserTransaction.MessageType.COMBAT, newValue);
+        });
+
+        msg_travel_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
+        {
+            messageTypeFilters.put(UserTransaction.MessageType.TRAVEL, newValue);
+        });
+
+        msg_exploration_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
+        {
+            messageTypeFilters.put(UserTransaction.MessageType.EXPLORATION, newValue);
+        });
+
+
+        msg_combat_color.setValue(UserTransaction.MessageType.COMBAT.getColor());
+        msg_engineering_color.setValue(UserTransaction.MessageType.ENGINEERING.getColor());
+        msg_exploration_color.setValue(UserTransaction.MessageType.EXPLORATION.getColor());
+        msg_general_color.setValue(UserTransaction.MessageType.GENERAL.getColor());
+        msg_inventory_color.setValue(UserTransaction.MessageType.INVENTORY.getColor());
+        msg_loadout_color.setValue(UserTransaction.MessageType.LOADOUT.getColor());
+        msg_travel_color.setValue(UserTransaction.MessageType.TRAVEL.getColor());
 
         status_mark.onMouseClickedProperty().setValue((e)->
         {
@@ -761,6 +833,13 @@ public class UIController
         }
     }
 
+    private Supplier<Boolean> cssReload;
+
+    public void setCSSReloadFunction(Supplier<Boolean> cssReload)
+    {
+        this.cssReload = cssReload;
+        cssReload.get();
+    }
     /**
      * Calls the various methods that set up each tab in the UI
      */
@@ -799,7 +878,7 @@ public class UIController
                         hBox.setAlignment(Pos.CENTER_LEFT);
 
                         Label typeLabel = new Label(item.getMessageType() + "  ");
-                        typeLabel.setTextFill(UIFunctions.messageColors.get(item.getMessageType()));
+                        typeLabel.setTextFill(item.getMessageType().getColor());
                         typeLabel.setFont(UIFunctions.Fonts.size1Font);
 
                         Label message = new Label(item.getMessage());

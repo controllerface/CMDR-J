@@ -5,7 +5,6 @@ package com.controllerface.cmdr_j;
 
 import com.controllerface.cmdr_j.data.WindowDimensions;
 import com.controllerface.cmdr_j.ui.UIController;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -74,9 +73,15 @@ public class CommanderJ extends Application
         Parent root = loadRoot();
         root.getStyleClass().add("main");
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/cmdrj.css"); //todo: play with this later
+        scene.getStylesheets().add("/cmdrj.css");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        controller.setCSSReloadFunction(()->
+        {
+            scene.getStylesheets().clear();
+            return scene.getStylesheets().add("/cmdrj.css");
+        });
 
         try
         {
@@ -85,15 +90,11 @@ public class CommanderJ extends Application
             primaryStage.setY(dimensions.get().getY());
             primaryStage.setWidth(dimensions.get().getWidth());
             primaryStage.setHeight(dimensions.get().getHeight());
-            System.out.println("shown!");
-
-
         }
         catch (InterruptedException e)
         {
             e.printStackTrace();
         }
-
     }
 
     @Override

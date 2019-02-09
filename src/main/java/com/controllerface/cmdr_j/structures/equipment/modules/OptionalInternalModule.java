@@ -3737,48 +3737,6 @@ public enum OptionalInternalModule implements ShipModule
      * Guardian Internal Modules
      */
 
-    // todo: add the stats for power plants
-
-    int_guardianpowerplant_size2("2A Guardian Hybrid Power Plant", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
-
-    int_guardianpowerplant_size3("3A Guardian Hybrid Power Plant", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
-
-    int_guardianpowerplant_size4("4A Guardian Hybrid Power Plant", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
-
-    int_guardianpowerplant_size5("5A Guardian Hybrid Power Plant", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
-
-    int_guardianpowerplant_size6("6A Guardian Hybrid Power Plant", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
-
-    int_guardianpowerplant_size7("7A Guardian Hybrid Power Plant", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
-
-    int_guardianpowerplant_size8("8A Guardian Hybrid Power Plant", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
-
-
-
-
-
-
     // todo: add the stats for power distributors
 
     int_guardianpowerdistributor_size1("1A Guardian Hybrid Power Distributor", null, null,

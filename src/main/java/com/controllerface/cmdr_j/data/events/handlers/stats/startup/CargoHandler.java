@@ -21,15 +21,18 @@ public class CargoHandler implements JournalEventHandler
     @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
-        logInventoryMessage(context, "Reloading Cargo");
-
-        context.getCommanderData().clearCargo();
-
         if (context.getRawData().get("Inventory") == null) return;
 
-        ((List<Map<String, Object>>) context.getRawData().get("Inventory")).stream()
-                .forEach(item -> {
-                    adjustCommodityCount(context, item);
-                });
+        logInventoryMessage(context, "Reloading Cargo");
+
+        String vessel = ((String) context.getRawData().get("Vessel"));
+
+        if (vessel.equalsIgnoreCase("Ship"))
+        {
+            context.getCommanderData().clearCargo();
+
+            ((List<Map<String, Object>>) context.getRawData().get("Inventory")).stream()
+                    .forEach(item -> adjustCommodityCount(context, item));
+        }
     }
 }
