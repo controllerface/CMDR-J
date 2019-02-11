@@ -10,6 +10,67 @@
 .market_table .column-header-background .nested-column-header .column-header
 {
   -fx-alignment: CENTER;
-  -fx-font-size: 12;
+  -fx-font-size: 20;
   -fx-font-weight: bold;
+}
+
+
+/*Controls text color universally*/
+.common *.text{
+	-fx-fill:goldenrod;
+	-fx-font-family:sintony;
+	-fx-font-size:20;
+}
+
+
+/*Controls style for tab selectors and surrounding region*/
+.tab-header-area{
+	-fx-background:black;
+}
+
+.headers-region{
+	-fx-color:black;
+}
+.headers-region .tab:selected{
+	-fx-background-color:black;
+}
+
+/*styles for tables*/
+/*tasks table*/
+
+#tableHead{
+	-fx-background-color:black;
+	-fx-body-color:black;
+	-fx-color:black;
+	}
+.table-row-cell:filled:even{
+	-fx-background-color:black;
+}
+.table-row-cell:filled:odd{
+	-fx-background-color:#101010;
+}
+.table-view{
+	-fx-table-cell-border-color:black;
+}
+/*TreeView*/
+
+.common .tree-view{
+	-fx-background-color:black;
+}
+
+.common .tree-cell{
+	-fx-background-color:black;
+}
+
+.tree-cell *.tree-disclosure-node{
+	-fx-fill-color:orange;
+	-fx-control-inner-background;
+	-fx-text-background-color:orange;
+}
+
+.list-cell:filled:even{
+	-fx-background-color:black;
+}
+.list-cell:filled:odd{
+	-fx-background-color:#101010;
 }
