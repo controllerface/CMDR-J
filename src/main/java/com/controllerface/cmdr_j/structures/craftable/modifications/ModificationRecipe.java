@@ -4,12 +4,17 @@ import com.controllerface.cmdr_j.ProcurementRecipe;
 import com.controllerface.cmdr_j.data.ItemEffectData;
 import com.controllerface.cmdr_j.data.ItemEffects;
 import com.controllerface.cmdr_j.data.procurements.CostData;
+import com.controllerface.cmdr_j.data.procurements.recipes.afmu.AFM_Shielded_1;
+import com.controllerface.cmdr_j.data.procurements.recipes.afmu.AFM_Shielded_2;
+import com.controllerface.cmdr_j.data.procurements.recipes.afmu.AFM_Shielded_3;
+import com.controllerface.cmdr_j.data.procurements.recipes.afmu.AFM_Shielded_4;
+import com.controllerface.cmdr_j.data.procurements.recipes.armour.*;
 import com.controllerface.cmdr_j.structures.costs.materials.Material;
 import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
 import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
-import javafx.scene.shape.SVGPath;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -20,292 +25,40 @@ import java.util.stream.Stream;
 @SuppressWarnings("unchecked")
 public enum ModificationRecipe implements ProcurementRecipe
 {
-    AFM_Shielded_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Integrity, 60d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 20d)
-            ),
-            new CostData(Material.WORNSHIELDEMITTERS, 1)),
+    AFM_Shielded_1(new AFM_Shielded_1()),
+    AFM_Shielded_2(new AFM_Shielded_2()),
+    AFM_Shielded_3(new AFM_Shielded_3()),
+    AFM_Shielded_4(new AFM_Shielded_4()),
 
-    AFM_Shielded_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Integrity, 120d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 40d)
-            ),
-            new CostData(Material.CARBON, 1),
-            new CostData(Material.SHIELDEMITTERS, 1)),
+    Armour_Advanced_1(new Armour_Advanced_1()),
+    Armour_Advanced_2(new Armour_Advanced_2()),
+    Armour_Advanced_3(new Armour_Advanced_3()),
+    Armour_Advanced_4(new Armour_Advanced_4()),
+    Armour_Advanced_5(new Armour_Advanced_5()),
 
-    AFM_Shielded_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Integrity, 180d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 60d)
-            ),
-            new CostData(Material.CARBON, 1),
-            new CostData(Material.HIGHDENSITYCOMPOSITES, 1),
-            new CostData(Material.SHIELDEMITTERS, 1)),
+    Armour_Explosive_1(new Armour_Explosive_1()),
+    Armour_Explosive_2(new Armour_Explosive_2()),
+    Armour_Explosive_3(new Armour_Explosive_3()),
+    Armour_Explosive_4(new Armour_Explosive_4()),
+    Armour_Explosive_5(new Armour_Explosive_5()),
 
-    AFM_Shielded_4(ItemGrade.GRADE_4, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Integrity, 240d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 80d)
-            ),
-            new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1),
-            new CostData(Material.SHIELDINGSENSORS, 1),
-            new CostData(Material.VANADIUM, 1)),
+    Armour_HeavyDuty_1(new Armour_HeavyDuty_1()),
+    Armour_HeavyDuty_2(new Armour_HeavyDuty_2()),
+    Armour_HeavyDuty_3(new Armour_HeavyDuty_3()),
+    Armour_HeavyDuty_4(new Armour_HeavyDuty_4()),
+    Armour_HeavyDuty_5(new Armour_HeavyDuty_5()),
 
-    Armour_Advanced_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 4.2d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, -1d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 3.6d),
-                    new ItemEffectData(ItemEffect.Mass, -15d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 3d)
-            ),
-            new CostData(Material.IRON, 1)),
+    Armour_Kinetic_1(new Armour_Kinetic_1()),
+    Armour_Kinetic_2(new Armour_Kinetic_2()),
+    Armour_Kinetic_3(new Armour_Kinetic_3()),
+    Armour_Kinetic_4(new Armour_Kinetic_4()),
+    Armour_Kinetic_5(new Armour_Kinetic_5()),
 
-    Armour_Advanced_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 8.4d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, -2d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 7.2d),
-                    new ItemEffectData(ItemEffect.Mass, -25d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 6d)
-            ),
-            new CostData(Material.CONDUCTIVECOMPONENTS, 1),
-            new CostData(Material.IRON, 1)),
-
-    Armour_Advanced_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 12.6d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, -3d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 10.8d),
-                    new ItemEffectData(ItemEffect.Mass, -35d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 9d)
-            ),
-            new CostData(Material.CONDUCTIVECOMPONENTS, 1),
-            new CostData(Material.HIGHDENSITYCOMPOSITES, 1),
-            new CostData(Material.IRON, 1)),
-
-    Armour_Advanced_4(ItemGrade.GRADE_4, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 16.8d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, -4d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 14.4d),
-                    new ItemEffectData(ItemEffect.Mass, -45d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 12d)
-            ),
-            new CostData(Material.CONDUCTIVECERAMICS, 1),
-            new CostData(Material.GERMANIUM, 1),
-            new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1)),
-
-    Armour_Advanced_5(ItemGrade.GRADE_5, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 21d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, -5d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 18d),
-                    new ItemEffectData(ItemEffect.Mass, -55d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 15d)
-            ),
-            new CostData(Material.CONDUCTIVECERAMICS, 1),
-            new CostData(Material.MILITARYGRADEALLOYS, 1),
-            new CostData(Material.TIN, 1)),
-
-    Armour_Explosive_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 16.8d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -5d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, -4d)
-            ),
-            new CostData(Material.NICKEL, 1)),
-
-    Armour_Explosive_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 26.6d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -7d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, -6d)
-            ),
-            new CostData(Material.CARBON, 1),
-            new CostData(Material.ZINC, 1)),
-
-    Armour_Explosive_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 36.4d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -10d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, -8d)
-            ),
-            new CostData(Material.SALVAGEDALLOYS, 1),
-            new CostData(Material.VANADIUM, 1)),
-
-    Armour_Explosive_4(ItemGrade.GRADE_4, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 46.2d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -12d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, -10d)
-            ),
-            new CostData(Material.GALVANISINGALLOYS, 1),
-            new CostData(Material.MERCURY, 1),
-            new CostData(Material.TUNGSTEN, 1)),
-
-    Armour_Explosive_5(ItemGrade.GRADE_5, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 56d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -14d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, -12d)
-            ),
-            new CostData(Material.MOLYBDENUM, 1),
-            new CostData(Material.PHASEALLOYS, 1),
-            new CostData(Material.RUTHENIUM, 1)),
-
-    Armour_HeavyDuty_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 1.4d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, 12d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 1.2d),
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 1d)
-            ),
-            new CostData(Material.CARBON, 1)),
-
-    Armour_HeavyDuty_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 2.8d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, 17d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 2.4d),
-                    new ItemEffectData(ItemEffect.Mass, 15d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 2d)
-            ),
-            new CostData(Material.CARBON, 1),
-            new CostData(Material.SHIELDEMITTERS, 1)),
-
-    Armour_HeavyDuty_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 4.2d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, 22d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 3.6d),
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 3d)
-            ),
-            new CostData(Material.CARBON, 1),
-            new CostData(Material.HIGHDENSITYCOMPOSITES, 1),
-            new CostData(Material.SHIELDEMITTERS, 1)),
-
-    Armour_HeavyDuty_4(ItemGrade.GRADE_4, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 5.6d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, 27d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 4.8d),
-                    new ItemEffectData(ItemEffect.Mass, 25d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 4d)
-            ),
-            new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1),
-            new CostData(Material.SHIELDINGSENSORS, 1),
-            new CostData(Material.VANADIUM, 1)),
-
-    Armour_HeavyDuty_5(ItemGrade.GRADE_5, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 7d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, 32d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 6d),
-                    new ItemEffectData(ItemEffect.Mass, 30d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 5d)
-            ),
-            new CostData(Material.COMPOUNDSHIELDING, 1),
-            new CostData(Material.FEDCORECOMPOSITES, 1),
-            new CostData(Material.TUNGSTEN, 1)),
-
-    Armour_Kinetic_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, -6d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 14.4d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, -4d)
-            ),
-            new CostData(Material.NICKEL, 1)),
-
-    Armour_Kinetic_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, -8d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 22.8d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, -6d)
-            ),
-            new CostData(Material.NICKEL, 1),
-            new CostData(Material.VANADIUM, 1)),
-
-    Armour_Kinetic_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, -11d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 31.2d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, -8d)
-            ),
-            new CostData(Material.HIGHDENSITYCOMPOSITES, 1),
-            new CostData(Material.SALVAGEDALLOYS, 1),
-            new CostData(Material.VANADIUM, 1)),
-
-    Armour_Kinetic_4(ItemGrade.GRADE_4, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, -14d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 39.6d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, -10d)
-            ),
-            new CostData(Material.GALVANISINGALLOYS, 1),
-            new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1),
-            new CostData(Material.TUNGSTEN, 1)),
-
-    Armour_Kinetic_5(ItemGrade.GRADE_5, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, -17d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 48d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, -12d)
-            ),
-            new CostData(Material.FEDCORECOMPOSITES, 1),
-            new CostData(Material.MOLYBDENUM, 1),
-            new CostData(Material.PHASEALLOYS, 1)),
-
-    Armour_Thermic_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, -6d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -5d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 12d)
-            ),
-            new CostData(Material.HEATCONDUCTIONWIRING, 1)),
-
-    Armour_Thermic_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, -8d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -7d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 19d)
-            ),
-            new CostData(Material.HEATDISPERSIONPLATE, 1),
-            new CostData(Material.NICKEL, 1)),
-
-    Armour_Thermic_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, -11d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -10d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 26d)
-            ),
-            new CostData(Material.HEATEXCHANGERS, 1),
-            new CostData(Material.SALVAGEDALLOYS, 1),
-            new CostData(Material.VANADIUM, 1)),
-
-    Armour_Thermic_4(ItemGrade.GRADE_4, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, -14d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -12d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 33d)
-            ),
-            new CostData(Material.GALVANISINGALLOYS, 1),
-            new CostData(Material.HEATVANES, 1),
-            new CostData(Material.TUNGSTEN, 1)),
-
-    Armour_Thermic_5(ItemGrade.GRADE_5, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, -17d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -14d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 40d)
-            ),
-            new CostData(Material.MOLYBDENUM, 1),
-            new CostData(Material.PHASEALLOYS, 1),
-            new CostData(Material.PROTOHEATRADIATORS, 1)),
+    Armour_Thermic_1(new Armour_Thermic_1()),
+    Armour_Thermic_2(new Armour_Thermic_2()),
+    Armour_Thermic_3(new Armour_Thermic_3()),
+    Armour_Thermic_4(new Armour_Thermic_4()),
+    Armour_Thermic_5(new Armour_Thermic_5()),
 
     CargoScanner_LightWeight_1(ItemGrade.GRADE_1, new ItemEffects
             (
@@ -349,6 +102,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PROTOLIGHTALLOYS, 1),
             new CostData(Material.PROTORADIOLICALLOYS, 1)),
 
+
+
+
     CargoScanner_Reinforced_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, 60d),
@@ -390,6 +146,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1),
             new CostData(Material.MOLYBDENUM, 1),
             new CostData(Material.TECHNETIUM, 1)),
+
+
+
 
     CargoScanner_Shielded_1(ItemGrade.GRADE_1, new ItemEffects
             (
@@ -433,6 +192,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FEDCORECOMPOSITES, 1),
             new CostData(Material.TUNGSTEN, 1)),
 
+
+
+
     ChaffLauncher_ChaffCapacity_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.AmmoMaximum, 50d),
@@ -442,6 +204,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALSCRAP, 1),
             new CostData(Material.NIOBIUM, 1),
             new CostData(Material.VANADIUM, 1)),
+
+
+
 
     ChaffLauncher_LightWeight_1(ItemGrade.GRADE_1, new ItemEffects
             (
@@ -485,6 +250,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.PROTOLIGHTALLOYS, 1),
             new CostData(Material.PROTORADIOLICALLOYS, 1)),
 
+
+
+
     ChaffLauncher_Reinforced_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, 60d),
@@ -526,6 +294,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.HIGHDENSITYCOMPOSITES, 1),
             new CostData(Material.MOLYBDENUM, 1),
             new CostData(Material.TECHNETIUM, 1)),
+
+
+
 
     ChaffLauncher_Shielded_1(ItemGrade.GRADE_1, new ItemEffects
             (
@@ -569,6 +340,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.FEDCORECOMPOSITES, 1),
             new CostData(Material.TUNGSTEN, 1)),
 
+
+
+
     CollectionLimpet_LightWeight_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -10d),
@@ -610,6 +384,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.CONDUCTIVECERAMICS, 1),
             new CostData(Material.PROTOLIGHTALLOYS, 1),
             new CostData(Material.PROTORADIOLICALLOYS, 1)),
+
+
+
 
     CollectionLimpet_Reinforced_1(ItemGrade.GRADE_1, new ItemEffects
             (
@@ -653,6 +430,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MOLYBDENUM, 1),
             new CostData(Material.TECHNETIUM, 1)),
 
+
+
+
     CollectionLimpet_Shielded_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, 60d),
@@ -694,6 +474,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.COMPOUNDSHIELDING, 1),
             new CostData(Material.FEDCORECOMPOSITES, 1),
             new CostData(Material.TUNGSTEN, 1)),
+
+
+
 
     ShieldBooster_Explosive_1(ItemGrade.GRADE_1, new ItemEffects
             (
@@ -741,6 +524,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDPATTERNANALYSIS, 1),
             new CostData(Material.EXQUISITEFOCUSCRYSTALS, 1),
             new CostData(Material.NIOBIUM, 1)),
+
+
+
 
     ShieldBooster_HeavyDuty_1(ItemGrade.GRADE_1, new ItemEffects
             (
@@ -794,6 +580,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.POLYMERCAPACITORS, 1),
             new CostData(Material.SHIELDDENSITYREPORTS, 1)),
 
+
+
+
     ShieldBooster_Kinetic_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.ExplosiveResistance, -1d),
@@ -840,6 +629,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.SHIELDPATTERNANALYSIS, 1),
             new CostData(Material.EXQUISITEFOCUSCRYSTALS, 1),
             new CostData(Material.PHASEALLOYS, 1)),
+
+
+
 
     ShieldBooster_Resistive_1(ItemGrade.GRADE_1, new ItemEffects
             (
@@ -898,6 +690,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.IMPERIALSHIELDING, 1),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 1)),
 
+
+
+
     ShieldBooster_Thermic_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.ExplosiveResistance, -1d),
@@ -945,6 +740,9 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.EXQUISITEFOCUSCRYSTALS, 1),
             new CostData(Material.HEATEXCHANGERS, 1)),
 
+
+
+    
     ECM_LightWeight_1(ItemGrade.GRADE_1, new ItemEffects
             (
                     new ItemEffectData(ItemEffect.Integrity, -10d),
@@ -3600,98 +3398,6 @@ public enum ModificationRecipe implements ProcurementRecipe
             new CostData(Material.MECHANICALCOMPONENTS, 1),
             new CostData(Material.TIN, 1)),
 
-//    Sensor_FastScan_1(ItemGrade.GRADE_1, new ItemEffects
-//            (
-//                    new ItemEffectData(ItemEffect.Mass, 20d),
-//                    new ItemEffectData(ItemEffect.DSS_RateMult, 20d)
-//            ),
-//            new CostData(Material.PHOSPHORUS, 1)),
-//
-//    Sensor_FastScan_2(ItemGrade.GRADE_2, new ItemEffects
-//            (
-//                    new ItemEffectData(ItemEffect.Mass, 40d),
-//                    new ItemEffectData(ItemEffect.DSS_RateMult, 35d)
-//            ),
-//            new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
-//            new CostData(Material.PHOSPHORUS, 1)),
-//
-//    Sensor_FastScan_3(ItemGrade.GRADE_3, new ItemEffects
-//            (
-//                    new ItemEffectData(ItemEffect.Mass, 60d),
-//                    new ItemEffectData(ItemEffect.DSS_RateMult, 50d)
-//            ),
-//            new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
-//            new CostData(Material.SYMMETRICKEYS, 1),
-//            new CostData(Material.PHOSPHORUS, 1)),
-//
-//    Sensor_FastScan_4(ItemGrade.GRADE_4, new ItemEffects
-//            (
-//                    new ItemEffectData(ItemEffect.Mass, 80d),
-//                    new ItemEffectData(ItemEffect.DSS_RateMult, 65d)
-//            ),
-//            new CostData(Material.ENCRYPTIONARCHIVES, 1),
-//            new CostData(Material.FOCUSCRYSTALS, 1),
-//            new CostData(Material.MANGANESE, 1)),
-//
-//    Sensor_FastScan_5(ItemGrade.GRADE_5, new ItemEffects
-//            (
-//                    new ItemEffectData(ItemEffect.Mass, 100d),
-//                    new ItemEffectData(ItemEffect.DSS_RateMult, 80d)
-//            ),
-//            new CostData(Material.ADAPTIVEENCRYPTORS, 1),
-//            new CostData(Material.ARSENIC, 1),
-//            new CostData(Material.REFINEDFOCUSCRYSTALS, 1)),
-
-//    Sensor_SurfaceScanner_LongRange_1(ItemGrade.GRADE_1, new ItemEffects
-//            (
-//                    new ItemEffectData(ItemEffect.Mass, 20d),
-//                    new ItemEffectData(ItemEffect.Range, 40d)
-//            ),
-//            new CostData(Material.IRON, 1)),
-//
-//    Sensor_SurfaceScanner_LongRange_2(ItemGrade.GRADE_2, new ItemEffects
-//            (
-//                    new ItemEffectData(ItemEffect.Mass, 40d),
-//                    new ItemEffectData(ItemEffect.Range, 80d)
-//            ),
-//            new CostData(Material.HYBRIDCAPACITORS, 1),
-//            new CostData(Material.IRON, 1)),
-//
-//    Sensor_SurfaceScanner_LongRange_3(ItemGrade.GRADE_3, new ItemEffects
-//            (
-//                    new ItemEffectData(ItemEffect.Mass, 60d),
-//                    new ItemEffectData(ItemEffect.Range, 120d)
-//            ),
-//            new CostData(Material.HYBRIDCAPACITORS, 1),
-//            new CostData(Material.IRON, 1),
-//            new CostData(Material.EMISSIONDATA, 1)),
-//
-//    Sensor_SurfaceScanner_LongRange_4(ItemGrade.GRADE_4, new ItemEffects
-//            (
-//                    new ItemEffectData(ItemEffect.Mass, 80d),
-//                    new ItemEffectData(ItemEffect.Range, 160d)
-//            ),
-//            new CostData(Material.DECODEDEMISSIONDATA, 1),
-//            new CostData(Material.ELECTROCHEMICALARRAYS, 1),
-//            new CostData(Material.GERMANIUM, 1)),
-//
-//    Sensor_SurfaceScanner_LongRange_5(ItemGrade.GRADE_5, new ItemEffects
-//            (
-//                    new ItemEffectData(ItemEffect.Mass, 100d),
-//                    new ItemEffectData(ItemEffect.Range, 200d)
-//            ),
-//            new CostData(Material.COMPACTEMISSIONSDATA, 1),
-//            new CostData(Material.NIOBIUM, 1),
-//            new CostData(Material.POLYMERCAPACITORS, 1)),
-
-
-
-
-
-
-
-
-
 
     Sensor_Expanded_1(ItemGrade.GRADE_1, new ItemEffects
             (
@@ -4289,15 +3995,28 @@ public enum ModificationRecipe implements ProcurementRecipe
 
     ;
 
+    private final ProcurementRecipe delegate;
+
     private String parentBlueprintName;
     private final ItemGrade grade;
     private final CostData[] cost;
     private final ItemEffects effects;
 
-    private static Icon icon = new Icon(UIFunctions.Icons.engineering, 25, 30);
+    public static Icon icon = new Icon(UIFunctions.Icons.engineering, 25, 30);
+
+    ModificationRecipe(@NotNull ProcurementRecipe delegate)
+    {
+        this.delegate = delegate;
+
+        this.grade = null;
+        this.cost = null;
+        this.effects = null;
+    }
 
     ModificationRecipe(ItemGrade grade, ItemEffects effects, CostData... cost)
     {
+        this.delegate = null;
+
         this.grade = grade;
         this.effects = effects;
         this.cost = cost;
@@ -4307,52 +4026,61 @@ public enum ModificationRecipe implements ProcurementRecipe
     @Override
     public ItemGrade getGrade()
     {
-        return grade;
+        if (delegate == null) return grade;
+        else return delegate.getGrade();
     }
 
     public Stream<CostData> costStream()
     {
-        return Arrays.stream(cost);
+        if (delegate ==null) return Arrays.stream(cost);
+        else return delegate.costStream();
     }
 
     public ItemEffects effects()
     {
-        return effects;
+        if (delegate == null) return effects;
+        else return delegate.effects();
     }
 
     @Override
     public void setParentBlueprintName(String parentBlueprintName)
     {
-        this.parentBlueprintName = parentBlueprintName;
+        if (delegate == null) this.parentBlueprintName = parentBlueprintName;
+        else delegate.setParentBlueprintName(parentBlueprintName);
     }
 
     @Override
     public String toString()
     {
-        return super.toString().replace("_"," ");
+        if (delegate == null) return super.toString().replace("_"," ");
+        else return delegate.toString();
     }
 
     @Override
     public String getShortLabel()
     {
-        return grade.toString();
+        if (delegate == null) return grade.toString();
+        else return delegate.getShortLabel();
     }
 
     @Override
     public String getDisplayLabel()
     {
-        return getShortLabel() + " :: " +  parentBlueprintName;
+        if (delegate == null) return getShortLabel() + " :: " +  parentBlueprintName;
+        return delegate.getDisplayLabel();
     }
 
     @Override
     public String getName()
     {
-        return name();
+        if (delegate == null) return name();
+        else return delegate.getName();
     }
 
     @Override
     public Icon getIcon()
     {
-        return icon;
+        if (delegate == null) return icon;
+        else return delegate.getIcon();
     }
 }

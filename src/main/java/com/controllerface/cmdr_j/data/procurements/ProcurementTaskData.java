@@ -8,6 +8,7 @@ import com.controllerface.cmdr_j.data.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.data.StarSystem;
 import com.controllerface.cmdr_j.data.commander.Displayable;
 import com.controllerface.cmdr_j.structures.costs.materials.MaterialTradeType;
+import com.controllerface.cmdr_j.structures.costs.special.AnyCost;
 import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyType;
 import com.controllerface.cmdr_j.structures.engineers.Engineer;
 import com.controllerface.cmdr_j.ui.UIFunctions;
@@ -88,7 +89,7 @@ public class ProcurementTaskData implements Displayable
         this.getCurrentSystem = builder.getCurrentSystem;
         this.engineers = Engineer.findSupportedEngineers(type, recipe.getGrade());
 
-        progressBar.setPadding(new Insets(8,6,0,6));
+        //progressBar.setPadding(new Insets(8,6,0,6));
 
         costEffectContainer
                 .setBackground(new Background(new BackgroundFill(Color
@@ -310,6 +311,8 @@ public class ProcurementTaskData implements Displayable
         countDisplay.set(count.get());
 
         Pair<Double, Boolean> progressData = calculateProgress(this);
+
+        boolean anyTrades = pendingTradeYield.apply(AnyCost.ANY_COST) > 0;
 
         boolean usesTrade = progressData.getValue();
         boolean hasEnough = progressData.getKey() >= 1.0;

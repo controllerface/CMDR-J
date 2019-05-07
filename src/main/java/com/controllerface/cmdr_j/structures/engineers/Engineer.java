@@ -159,6 +159,8 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon), ItemGrade.GRADE_3),
             new Pair<>(new Pair<>(ModificationType.Cannon, ExperimentalType.Cannon), ItemGrade.GRADE_2)),
 
+    //TODO: need to add the Colonia engineers, maybe clean this class up
+
     ;
 
     private final String fullName;

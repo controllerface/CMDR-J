@@ -60,6 +60,7 @@ public enum ItemGrade
 
     MaterialTrade(0, -1, "Trade"),
 
+    Any(0,-1,"Any"),
     ;
 
     private final int numericalValue;

@@ -82,6 +82,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -346,6 +347,10 @@ public class UIController
 
     private final Consumer<ProcurementTask> addTaskPairToProcurementList_direct =
             (task) -> procurementListUpdate(1, new Pair<>(task.getType(), task.getRecipe()));
+
+    private final Function<ProcurementCost, Integer> calculateTradeYield = (item) -> item.getGrade() == ItemGrade.Any
+            ? tradeYieldCache.values().stream().mapToInt(y -> y).sum()
+            : tradeYieldCache.get(item);
 
     /**
      * Holds all of the data related to a commander (i.e. the player's on-disk data). While running, this application
@@ -1403,7 +1408,7 @@ public class UIController
                         .setType(task.getKey())
                         .setRecipe(task.getValue())
                         .setCheckInventory(commanderData::amountOf)
-                        .setPendingTradeYield(tradeYieldCache::get)
+                        .setPendingTradeYield(calculateTradeYield)
                         .setInventoryUpdate(addPairToProcurementList)
                         .setGetCurrentSystem(commanderData.getLocation()::getStarSystem)
                         .createProcurementTaskData());
@@ -1423,7 +1428,7 @@ public class UIController
                         .map(taskCost ->  new ItemCostData(taskCost,
                                 commanderData::amountOf,
                                 taskCostCache::contains,
-                                tradeYieldCache::get,
+                                calculateTradeYield,
                                 tradeCostCache::get,
                                 addTaskToProcurementList))
                         .forEach(costList::add);
@@ -1497,7 +1502,7 @@ public class UIController
                         }
                         else
                         {
-                            // since the cost will be negative, use absolute value
+                            // since the cost will be positive, use value as-is
                             int tradeCost = costData.getQuantity();
 
                             // the yield adjustment is applied to the current count of this cost

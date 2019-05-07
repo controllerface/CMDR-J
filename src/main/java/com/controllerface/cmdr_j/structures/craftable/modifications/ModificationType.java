@@ -163,7 +163,7 @@ public enum ModificationType implements ProcurementType
 
     Fuel_Scoop(EnumSet.of(ModificationBlueprint.FuelScoop_Shielded)),
 
-    Collector_Limpet_Controller(EnumSet.of(ModificationBlueprint.CollectionLimpet_LightWeight,
+    Collector_Limpet_Controller(EnumSet.of(ModificationBlueprint.Misc_LightWeight,
             ModificationBlueprint.CollectionLimpet_Reinforced,
             ModificationBlueprint.CollectionLimpet_Shielded)),
 
