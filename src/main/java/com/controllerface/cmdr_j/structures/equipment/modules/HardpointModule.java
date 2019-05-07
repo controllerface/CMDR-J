@@ -2674,6 +2674,7 @@ public enum HardpointModule implements ShipModule
      */
     hpt_atmulticannon_fixed_medium("Medium Fixed Anti-Thargoid Multi-Cannon", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.46),
@@ -2697,6 +2698,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_atmulticannon_turret_medium("Medium Turreted Anti-Thargoid Multi-Cannon", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.5),
@@ -2721,6 +2723,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_atmulticannon_fixed_large("Large Fixed Anti-Thargoid Multi-Cannon", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.64),
@@ -2744,6 +2747,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_atmulticannon_turret_large("Large Turreted Anti-Thargoid Multi-Cannon", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.64),
@@ -2768,6 +2772,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_atdumbfiremissile_fixed_medium("Medium Fixed Anti-Thargoid Missile Rack", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -2790,6 +2795,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_atdumbfiremissile_turret_medium("Medium Turreted Anti-Thargoid Missile Rack", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -2814,6 +2820,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_atdumbfiremissile_fixed_large("Large Fixed Anti-Thargoid Missile Rack", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.62),
@@ -2836,6 +2843,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_atdumbfiremissile_turret_large("Large Turreted Anti-Thargoid Missile Rack", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 8),
                     new ItemEffectData(ItemEffect.Integrity, 64),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.75),
@@ -2860,6 +2868,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_flakmortar_fixed_medium("Medium Fixed Remote Release Flak Launcher", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -2882,6 +2891,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_flakmortar_turret_medium("Medium Turreted Remote Release Flak Launcher", null, null,
             new ItemEffects(
+                    new ItemEffectData(ItemEffect.experimental, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -2951,12 +2961,6 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1700)
             )),
 
-
-
-
-
-
-
     hpt_guardian_gausscannon_fixed_small("Small Fixed Guardian Gauss Cannon", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.guardian, 1d),
@@ -2987,15 +2991,6 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1500)
             )),
 
-
-
-
-
-
-
-
-
-
     hpt_guardian_plasmalauncher_fixed_small("Small Fixed Guardian Plasma Charger", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.guardian, 1d),
@@ -3009,12 +3004,6 @@ public enum HardpointModule implements ShipModule
                     new ItemEffectData(ItemEffect.DamageType, "Absolute"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1000)
             )),
-
-
-
-
-
-
 
     hpt_guardian_plasmalauncher_fixed_medium("Medium Fixed Guardian Plasma Charger", null, null,
             new ItemEffects(
@@ -3106,7 +3095,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_causticmissile_fixed_medium("Medium Fixed Enzyme Missile Rack", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -3128,7 +3117,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_flechettelauncher_fixed_medium("Medium Fixed Remote Release Flechette Launcher", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -3150,7 +3139,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_flechettelauncher_turret_medium("Medium Turreted Remote Release Flechette Launcher", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 1.2),
@@ -3173,7 +3162,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_plasmashockcannon_fixed_medium("Medium Fixed Shock Cannon", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.57),
@@ -3197,7 +3186,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_plasmashockcannon_gimbal_medium("Medium Gimballed Shock Cannon", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.61),
@@ -3221,7 +3210,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_plasmashockcannon_turret_medium("Medium Turreted Shock Cannon", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.Mass, 4),
                     new ItemEffectData(ItemEffect.Integrity, 51),
                     new ItemEffectData(ItemEffect.PowerDraw, 0.5),
@@ -3249,19 +3238,19 @@ public enum HardpointModule implements ShipModule
 
     hpt_plasmashockcannon_fixed_small("Small Fixed Shock Cannon", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             )),
 
     hpt_plasmashockcannon_gimbal_small("Small Gimballed Shock Cannon", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             )),
 
     hpt_plasmashockcannon_turret_small("Small Turreted Shock Cannon", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             )),
 
@@ -3270,19 +3259,19 @@ public enum HardpointModule implements ShipModule
 
     hpt_plasmashockcannon_fixed_large("Large Fixed Shock Cannon", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             )),
 
     hpt_plasmashockcannon_gimbal_large("Large Gimballed Shock Cannon", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             )),
 
     hpt_plasmashockcannon_turret_large("Large Turreted Shock Cannon", null, null,
             new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
+                    new ItemEffectData(ItemEffect.human, 1d),
                     new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             )),
 

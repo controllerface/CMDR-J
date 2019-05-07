@@ -286,7 +286,9 @@ public enum ItemEffect
     empty("-","Empty Compartment", true), // used for the "empty" module so it doesn't look odd
     planetary_approach("","Planetary Approach and Landing Capabilities", true), // planetary approach suite
     guardian("", "", true),              //is a guardian module
+    human("", "", true),                 //is a experimental human tech broker module
     experimental("", "", true),          //is a experimental human module
+
 
 
     // synthetic effects, used for synthesis recipes

@@ -243,7 +243,7 @@ public class ShipModuleData implements Displayable
         moduleNameContainer.getChildren().add(guardianBox);
     }
 
-    private void renderExperimentalInfo(HBox moduleNameContainer)
+    private void renderExperimentalInfo(HBox moduleNameContainer, boolean fromTechBroker)
     {
         double sizew = 22;
         double sizeh = 18;
@@ -258,7 +258,9 @@ public class ShipModuleData implements Displayable
         svgShape.setPrefSize(sizew, sizeh);
         svgShape.setMaxSize(sizew, sizeh);
         svgShape.setLayoutX(5);
-        svgShape.setStyle("-fx-background-color: #b70000;");
+
+        if (fromTechBroker) svgShape.setStyle("-fx-background-color: #b70000;");
+        else svgShape.setStyle("-fx-background-color: #b77d00;");
 
         String text = " Experimental Module";
 
@@ -269,7 +271,10 @@ public class ShipModuleData implements Displayable
 
         Label modificationLabel = new Label(text);
         modificationLabel.setFont(UIFunctions.Fonts.size3Font);
-        modificationLabel.setTextFill(UIFunctions.Fonts.darkRed);
+
+        if (fromTechBroker) modificationLabel.setTextFill(UIFunctions.Fonts.darkRed);
+        else modificationLabel.setTextFill(UIFunctions.Fonts.darkYellow);
+
         modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
         guardianBox.getChildren().add(svgShape);
@@ -280,17 +285,27 @@ public class ShipModuleData implements Displayable
 
     private void renderModificationInfo(HBox moduleNameContainer, VBox detailsContainer)
     {
-        boolean guardian = module.itemEffects().effectStream()
-                .filter(e->e.getEffect()== ItemEffect.guardian)
-                .findFirst().isPresent();
-
         boolean experimental = module.itemEffects().effectStream()
                 .filter(e->e.getEffect()== ItemEffect.experimental)
                 .findFirst().isPresent();
 
+        boolean human = module.itemEffects().effectStream()
+                .filter(e->e.getEffect()== ItemEffect.human)
+                .findFirst().isPresent();
+
+        boolean guardian = module.itemEffects().effectStream()
+                .filter(e->e.getEffect()== ItemEffect.guardian)
+                .findFirst().isPresent();
+
+
+        if (human)
+        {
+            renderExperimentalInfo(moduleNameContainer, true);
+        }
+
         if (experimental)
         {
-            renderExperimentalInfo(moduleNameContainer);
+            renderExperimentalInfo(moduleNameContainer, false);
         }
 
         if (guardian)
