@@ -3,18 +3,21 @@
  */
 package com.controllerface.cmdr_j;
 
-import com.controllerface.cmdr_j.data.WindowDimensions;
+import com.controllerface.cmdr_j.classes.WindowDimensions;
 import com.controllerface.cmdr_j.ui.UIController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class CommanderJ extends Application
@@ -72,16 +75,45 @@ public class CommanderJ extends Application
 
         Parent root = loadRoot();
         root.getStyleClass().add("main");
+        String cssFile = CommanderJ.class.getResource("/cmdrj.css").toExternalForm();
+        System.out.println(cssFile);
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/cmdrj.css");
+        root.getStylesheets().add(cssFile);
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        controller.setCSSReloadFunction(()->
+        AtomicBoolean x = new AtomicBoolean(false);
+
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, t ->
         {
-            scene.getStylesheets().clear();
-            return scene.getStylesheets().add("/cmdrj.css");
+            System.out.println(t.getCode());
+
+            if(t.getCode()== KeyCode.F5)
+            {
+                System.out.println("F5 pressed");
+
+                String cssFile2;
+                if (x.get())
+                {
+                    cssFile2 = CommanderJ.class.getResource("/cmdrj2.css").toExternalForm();
+                    x.set(false);
+                }
+                else
+                {
+                    cssFile2 = CommanderJ.class.getResource("/cmdrj.css").toExternalForm();
+                    x.set(true);
+                }
+
+                root.getStylesheets().clear();
+                root.getStylesheets().add(cssFile2);
+            }
         });
+
+//        controller.setCSSReloadFunction(()->
+//        {
+//            scene.getStylesheets().clear();
+//            return scene.getStylesheets().add("/cmdrj.css");
+//        });
 
         try
         {

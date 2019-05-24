@@ -1,10 +1,10 @@
 package com.controllerface.cmdr_j.ui.procurements;
 
-import com.controllerface.cmdr_j.ProcurementCost;
-import com.controllerface.cmdr_j.data.ItemEffects;
-import com.controllerface.cmdr_j.data.procurements.CostData;
-import com.controllerface.cmdr_j.data.procurements.ProcurementTask;
-import com.controllerface.cmdr_j.structures.engineers.Engineer;
+import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.procurements.CostData;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementTask;
+import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Insets;

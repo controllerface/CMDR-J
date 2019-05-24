@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.ui.tasks;
 
-import com.controllerface.cmdr_j.data.procurements.ProcurementTaskData;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementTaskData;
 import javafx.scene.control.TableCell;
 
 /**

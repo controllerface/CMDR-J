@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.ui.costs;
 
-import com.controllerface.cmdr_j.data.commander.Displayable;
+import com.controllerface.cmdr_j.ui.Displayable;
 import javafx.scene.control.TableCell;
 
 /**

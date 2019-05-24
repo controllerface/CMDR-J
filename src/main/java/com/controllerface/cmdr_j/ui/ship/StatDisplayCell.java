@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.ui.ship;
 
-import com.controllerface.cmdr_j.data.commander.ShipStatisticData;
+import com.controllerface.cmdr_j.classes.commander.ShipStatisticData;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.scene.control.TableCell;
 

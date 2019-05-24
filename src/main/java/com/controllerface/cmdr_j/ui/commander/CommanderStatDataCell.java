@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.ui.commander;
 
-import com.controllerface.cmdr_j.Statistic;
+import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.scene.control.TableCell;
 import javafx.util.Pair;

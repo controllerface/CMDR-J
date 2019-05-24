@@ -1,8 +1,8 @@
 package com.controllerface.cmdr_j.ui.procurements;
 
-import com.controllerface.cmdr_j.data.procurements.ProcurementTask;
-import com.controllerface.cmdr_j.structures.costs.materials.MaterialTradeType;
-import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalType;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementTask;
+import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;

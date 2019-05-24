@@ -1,10 +1,10 @@
 package com.controllerface.cmdr_j;
 
-import com.controllerface.cmdr_j.structures.engineers.Engineer;
-import com.controllerface.cmdr_j.structures.equipment.modules.CoreInternalModule;
-import com.controllerface.cmdr_j.structures.equipment.modules.HardpointModule;
-import com.controllerface.cmdr_j.structures.equipment.modules.OptionalInternalModule;
-import com.controllerface.cmdr_j.structures.equipment.modules.OptionalInternalShieldModule;
+import com.controllerface.cmdr_j.enums.engineers.Engineer;
+import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalShieldModule;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,21 +1,21 @@
 package com.controllerface.cmdr_j.ui.tasks;
 
-import com.controllerface.cmdr_j.ProcurementRecipe;
-import com.controllerface.cmdr_j.ProcurementType;
-import com.controllerface.cmdr_j.data.procurements.ProcurementTaskData;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementTaskData;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Pair;
 
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 /**
  * Created by Controllerface on 4/2/2018.

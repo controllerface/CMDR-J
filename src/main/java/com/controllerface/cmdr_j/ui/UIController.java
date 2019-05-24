@@ -1,35 +1,33 @@
 package com.controllerface.cmdr_j.ui;
 
 import com.controllerface.cmdr_j.JSONSupport;
-import com.controllerface.cmdr_j.ProcurementCost;
-import com.controllerface.cmdr_j.ProcurementRecipe;
-import com.controllerface.cmdr_j.ProcurementType;
-import com.controllerface.cmdr_j.data.MaterialTradeRecipe;
-import com.controllerface.cmdr_j.data.MessageData;
-import com.controllerface.cmdr_j.data.ShipModuleData;
-import com.controllerface.cmdr_j.data.WindowDimensions;
-import com.controllerface.cmdr_j.data.commander.*;
-import com.controllerface.cmdr_j.data.procurements.CostData;
-import com.controllerface.cmdr_j.data.procurements.ItemCostData;
-import com.controllerface.cmdr_j.data.procurements.ProcurementTask;
-import com.controllerface.cmdr_j.data.procurements.ProcurementTaskData;
-import com.controllerface.cmdr_j.structures.costs.commodities.Commodity;
-import com.controllerface.cmdr_j.structures.costs.materials.Material;
-import com.controllerface.cmdr_j.structures.costs.materials.MaterialTradeType;
-import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalCategory;
-import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalRecipe;
-import com.controllerface.cmdr_j.structures.craftable.experimentals.ExperimentalType;
-import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationCategory;
-import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationRecipe;
-import com.controllerface.cmdr_j.structures.craftable.modifications.ModificationType;
-import com.controllerface.cmdr_j.structures.craftable.modifications.WeaponModificationRecipe;
-import com.controllerface.cmdr_j.structures.craftable.synthesis.SynthesisCategory;
-import com.controllerface.cmdr_j.structures.craftable.synthesis.SynthesisRecipe;
-import com.controllerface.cmdr_j.structures.craftable.synthesis.SynthesisType;
-import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyCategory;
-import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyRecipe;
-import com.controllerface.cmdr_j.structures.craftable.technologies.TechnologyType;
-import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
+import com.controllerface.cmdr_j.classes.MaterialTradeRecipe;
+import com.controllerface.cmdr_j.classes.MessageData;
+import com.controllerface.cmdr_j.classes.ShipModuleData;
+import com.controllerface.cmdr_j.classes.WindowDimensions;
+import com.controllerface.cmdr_j.classes.commander.CommanderData;
+import com.controllerface.cmdr_j.classes.commander.InventoryData;
+import com.controllerface.cmdr_j.classes.commander.MarketData;
+import com.controllerface.cmdr_j.classes.commander.ShipStatisticData;
+import com.controllerface.cmdr_j.classes.procurements.*;
+import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
+import com.controllerface.cmdr_j.enums.costs.materials.Material;
+import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalCategory;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
+import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationCategory;
+import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
+import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
+import com.controllerface.cmdr_j.enums.craftable.modifications.WeaponModificationRecipe;
+import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisCategory;
+import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
+import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisType;
+import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
+import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
+import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyType;
+import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
+import com.controllerface.cmdr_j.enums.journal.JournalEvent;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 import com.controllerface.cmdr_j.ui.costs.CostDataCell;
@@ -87,8 +85,6 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import static java.lang.Math.abs;
 
 /**
  * UI Controller class for Elite Dangerous Engineer Procurement System
@@ -187,67 +183,78 @@ public class UIController
     // Raw materials
     @FXML private Tab rawMatsTab;
     @FXML private TableView<InventoryData> rawTable;
-    @FXML private TableColumn<InventoryData, InventoryData> rawGradeColumn;
     @FXML private TableColumn<InventoryData, InventoryData> rawMaterialColumn;
-    @FXML private TableColumn<InventoryData, ProgressBar> rawMaterialProgressColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> rawGradeColumn;
     @FXML private TableColumn<InventoryData, Label> rawQuantityColumn;
+    @FXML private TableColumn<InventoryData, ProgressBar> rawMaterialProgressColumn;
 
     // Manufactured materials
     @FXML private TableView<InventoryData> manufacturedTable;
-    @FXML private TableColumn<InventoryData, InventoryData> manufacturedGradeColumn;
     @FXML private TableColumn<InventoryData, InventoryData> manufacturedMaterialColumn;
-    @FXML private TableColumn<InventoryData, ProgressBar> manufacturedProgressColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> manufacturedGradeColumn;
     @FXML private TableColumn<InventoryData, Label> manufacturedQuantityColumn;
+    @FXML private TableColumn<InventoryData, ProgressBar> manufacturedProgressColumn;
 
     // Data materials
     @FXML private TableView<InventoryData> dataTable;
-    @FXML private TableColumn<InventoryData, InventoryData> dataGradeColumn;
     @FXML private TableColumn<InventoryData, InventoryData> dataMaterialColumn;
-    @FXML private TableColumn<InventoryData, ProgressBar> dataProgressColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> dataGradeColumn;
     @FXML private TableColumn<InventoryData, Label> dataQuantityColumn;
+    @FXML private TableColumn<InventoryData, ProgressBar> dataProgressColumn;
 
     // Cargo
     @FXML private TableView<InventoryData> cargoTable;
-    @FXML private TableColumn<InventoryData, InventoryData> cargoGradeColumn;
     @FXML private TableColumn<InventoryData, InventoryData> cargoItemColumn;
+    @FXML private TableColumn<InventoryData, InventoryData> cargoGradeColumn;
     @FXML private TableColumn<InventoryData, Label> cargoQuantityColumn;
 
-    @FXML private ListView<MessageData> consoleMessageList;
-
-    // Status
-    @FXML private Label status_body;
-    @FXML private Label status_fuel;
-    @FXML private Label status_cargo;
-    @FXML private Label status_altitude;
-    @FXML private Label status_latitude;
-    @FXML private Label status_longitude;
-    @FXML private Label status_marked_lat;
-    @FXML private Label status_marked_long;
-    @FXML private Label status_heading;
-    @FXML private Label status_bearing;
-
-    @FXML private Button status_mark;
-
-    @FXML private Label market_id;
-    @FXML private Label market_name;
-
+    // Imports
     @FXML private TableView<MarketData> market_table;
-    @FXML private TableColumn<MarketData, String> market_commodity_col;
+    @FXML private TableColumn<MarketData, MarketData> market_commodity_col;
     @FXML private TableColumn<MarketData, Integer> market_sell_col;
     @FXML private TableColumn<MarketData, Integer> market_mean_col;
     @FXML private TableColumn<MarketData, Integer> market_profit_col;
     @FXML private TableColumn<MarketData, Integer> market_demand_col;
 
-
+    // Exports
     @FXML private TableView<MarketData> market_table1;
-    @FXML private TableColumn<MarketData, String> market_commodity_col1;
+    @FXML private TableColumn<MarketData, MarketData> market_commodity_col1;
     @FXML private TableColumn<MarketData, Integer> market_buy_col1;
     @FXML private TableColumn<MarketData, Integer> market_mean_col1;
     @FXML private TableColumn<MarketData, Integer> market_stock_col1;
     @FXML private TableColumn<MarketData, Integer> market_income_col1;
 
 
+
+
+    @FXML private ListView<MessageData> consoleMessageList;
+
+    // Status
+    @FXML private Label status_body;
+    @FXML private Label status_fuel;
+    @FXML private Label status_fuel_reservoir;
+    @FXML private Label status_cargo;
+    @FXML private Label status_altitude;
+    @FXML private Label status_latitude;
+    @FXML private Label status_longitude;
+    @FXML private Label status_marked_dist;
+    @FXML private Label status_marked_lat;
+    @FXML private Label status_marked_long;
+    @FXML private Label status_heading;
+    @FXML private Label status_bearing;
+
+    @FXML private Button status_mark;
+    @FXML private ListView<Waypoint> waypointList;
+    @FXML private TextField waypointNameInput;
+
+    @FXML private Label market_id;
+    @FXML private Label market_name;
+
+
+
+
     @FXML private Canvas minimap;
+    @FXML private Slider mapScale;
 
     @FXML private ColorPicker msg_general_color;
     @FXML private ColorPicker msg_inventory_color;
@@ -281,6 +288,11 @@ public class UIController
 
     private final ObservableList<MessageData> consoleBackingList = FXCollections.observableArrayList();
     //private final Map<MessageData, Integer> hiddenMessages = new HashMap<>();
+
+    private final ObservableList<MarketData> market0 = FXCollections.observableArrayList();
+    private final ObservableList<MarketData> market1 = FXCollections.observableArrayList();
+
+
 
     /*
     =============================
@@ -340,7 +352,10 @@ public class UIController
     private final AtomicBoolean hasMessages = new AtomicBoolean(false);
 
     private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> addPairToProcurementList =
-            (count, task) -> transactionQueue.add(new UserTransaction(count, task));
+            (count, task) -> transactionQueue.add(UserTransaction.start(UserTransaction.TransactionType.BLUEPRINT)
+                    .setTransactionAmount(count)
+                    .setBlueprint(task)
+                    .build());
 
     private final Consumer<ProcurementTask> addTaskToProcurementList =
             (task) -> addPairToProcurementList.accept(1, new Pair<>(task.getType(), task.getRecipe()));
@@ -460,76 +475,167 @@ public class UIController
     }
 
 
-    public void renderMiniMap()
+    private boolean inSRV = false;
+    private double lastShipLat = 0;
+    private double lastShipLong = 0;
+
+    private void renderMiniMap()
     {
+        /* Step 1:
+        First order of business is to fill in the background and draw a border around the map itself. The minimap
+        canvas may be re-sized, so we calculate everything based on the current size.
+         */
+
         double w = minimap.getWidth();
         double h = minimap.getHeight();
 
+        // fill the whole canvas with the BG color, starting fresh for this render cycle
         minimap.getGraphicsContext2D().rect(0, 0, w, h);
         minimap.getGraphicsContext2D().setFill(Color.rgb(51, 17, 0));
         minimap.getGraphicsContext2D().fillRect(0,0,w,h);
 
-        // border
+        // draw a border
         minimap.getGraphicsContext2D().rect(0.0, 0.0, w, h);
         minimap.getGraphicsContext2D().setStroke(Color.DARKORANGE);
         minimap.getGraphicsContext2D().setLineWidth(5);
         minimap.getGraphicsContext2D().stroke();
         minimap.getGraphicsContext2D().closePath();
 
-        double cX = w / 2;
-        double cY = h / 2;
 
-        double topX = cX;
-        double topY = cY - 10;
+        /* Step 2:
+        Next we have to draw the player's ship icon, which is a small arrow-like triangle. The arrow must be rotated
+        correctly so the player can use it as a rough directional guide. Note the arrow will always appear in the
+        center of the map, the waypoints will "move" as the player's position changes.
+         */
 
-        double leftX = cX - 5;
-        double leftY = cY + 10;
+        // find where the center of the arrow icon will be
+        double centerX = w / 2;
+        double centerY = h / 2;
 
-        double midX = cX;
-        double midY = cY + 5;
+        // define a y off-set for the "tip" of the arrow. Will re use the center X
+        double topY = centerY - 10;
 
-        double rightX = cX + 5;
-        double rightY = cY + 10;
+        // define a point for the "left fletching" of the arrow
+        double leftX = centerX - 5;
+        double leftY = centerY + 10;
 
+        // define a y off-set for the "nock" of the arrow. Will re use the center X
+        double midY = centerY + 5;
+
+        // define a point for the "right fletching" of the arrow
+        double rightX = centerX + 5;
+        double rightY = centerY + 10;
+
+        // get the current heading
         double angle = Double.valueOf(status_heading.getText());
 
-
+        // save the existing transform so we can return after drawing the arrow, and have a base to rotate from
         Affine baseTransform = minimap.getGraphicsContext2D().getTransform();
+
+        // create our rotation transform from the base one
         Affine rot = baseTransform.clone();
-        rot.append(new Rotate(angle, cX, cY));
 
+        // now actually rotate to the correct angle
+        rot.append(new Rotate(angle, centerX, centerY));
+
+        // set the current transform to our correct rotation, set the color and then actually draw the polygon
         minimap.getGraphicsContext2D().setTransform(rot);
-
         minimap.getGraphicsContext2D().setFill(Color.ORANGE);
-        minimap.getGraphicsContext2D().fillPolygon(new double[]{topX, leftX, midX, rightX},
+        minimap.getGraphicsContext2D().fillPolygon(new double[]{centerX, leftX, centerX, rightX},
                 new double[]{topY, leftY, midY, rightY}, 4);
 
+        // once we're done, set the transform back to normal so remaining draw operations work as expected
         minimap.getGraphicsContext2D().setTransform(baseTransform);
+
+
+        /* Step 3:
+        The process below is what renders the marked waypoint
+        TODO: should handle multiple waypoints
+         */
+
+        waypointList.getItems().forEach(i->
+        {
+            Waypoint selectedWaypoint = waypointList.getSelectionModel().getSelectedItems().get(0);
+
+            Color color = Color.LIGHTBLUE;
+            if (selectedWaypoint != null)
+            {
+                if (i.equals(selectedWaypoint)) color = Color.DARKORANGE;
+            }
+
+            renderWaypoint(i.longitude, i.latitude, centerX, centerY, color, i.name + "\n" + "$D");
+        });
+
+        //renderWaypoint(markedLong, markedLat, centerX, centerY, Color.DARKORANGE, "$D");
+
+        // render closest settlement
+        renderWaypoint(settlementLong, settlementLat, centerX, centerY, Color.YELLOW, settlement + "\n" + "$D");
+
+        if (inSRV)
+        {
+            renderWaypoint(lastShipLong, lastShipLat, centerX, centerY, Color.LIME, shipNameLabel.getText() + "\n" + "$D");
+        }
+
+    }
+
+
+    private void renderWaypoint(double x, double y, double centerX, double centerY, Color color, String text)
+    {
+        //         TODO: should handle multiple waypoints
 
         double currentLat = Double.valueOf(status_latitude.getText());
         double currentLong = Double.valueOf(status_longitude.getText());
 
-        double mX = currentLong - markedLong;
-        mX*=10000;
-        double mY = currentLat - markedLat;
-        mY*=10000; // todo: these multipliers need to change based on SRV or Ship
+        // todo: these multipliers need to change based on SRV or Ship
+        double mX = currentLong - x;
+        mX *= mapScale.getValue();
+        double mY = currentLat - y;
+        mY *= mapScale.getValue();
 
-        double markX = cX - mX;
-        double markY = cY + mY;
+        double markX = centerX - mX;
+        double markY = centerY + mY;
 
         double distance = UIFunctions.Data.round(Point2D
-                .distance(currentLong, currentLat, markedLong, markedLat) * 1000, 2);
+                .distance(currentLong, currentLat, x, y) * 1000, 2);
 
-        minimap.getGraphicsContext2D().setFill(Color.DARKORANGE);
+        if (text == null) text = String.valueOf(distance);
+        else text = text.replaceAll("\\$D",String.valueOf(distance));
+
+        // draw the waypoint on the map
+        minimap.getGraphicsContext2D().setFill(color);
         minimap.getGraphicsContext2D().fillPolygon(new double[]{markX - 3, markX - 3, markX + 3, markX + 3},
                 new double[]{markY - 3, markY + 3, markY + 3, markY - 3}, 4);
 
-        minimap.getGraphicsContext2D().fillText(String.valueOf(distance), markX + 5, markY);
+        // write the distance text near the marked location
+        minimap.getGraphicsContext2D().fillText(text, markX + 5, markY);
     }
 
-    private void processMarketData()
+    private void initializeMarketTables()
     {
-        market_commodity_col.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
+        market_table.setItems(market0);
+        market_table1.setItems(market1);
+
+        bindTableResize(market_table, market_commodity_col);
+        bindTableResize(market_table1, market_commodity_col1);
+
+        @SuppressWarnings("unchecked")
+        final Callback<TableColumn<MarketData, MarketData>, TableCell<MarketData, MarketData>>
+                commodityCellFactory = (x) ->
+        {
+            TableCell c = new CostDataCell();
+
+            return ((TableCell<MarketData, MarketData>) c);
+        };
+
+        final Callback<TableColumn.CellDataFeatures<MarketData, MarketData>, ObservableValue<MarketData>>
+                commodityCellValueFactory = (materialData) -> new ReadOnlyObjectWrapper<>(materialData.getValue());
+
+        market_commodity_col.setCellFactory(commodityCellFactory);
+        market_commodity_col.setCellValueFactory(commodityCellValueFactory);
+        market_commodity_col1.setCellFactory(commodityCellFactory);
+        market_commodity_col1.setCellValueFactory(commodityCellValueFactory);
+
+
         market_sell_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getSell()).asObject());
         market_mean_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getMean()).asObject());
         market_demand_col.setCellValueFactory(param ->
@@ -551,7 +657,6 @@ public class UIController
             return new SimpleIntegerProperty(profit).asObject();
         });
 
-        market_commodity_col1.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
         market_buy_col1.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getBuy()).asObject());
         market_mean_col1.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getMean()).asObject());
         market_stock_col1.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getStock()).asObject());
@@ -579,7 +684,32 @@ public class UIController
         System.out.println("Load JSON");
         fromJson();
         System.out.println("Done Load JSON");
+        initializeMarketTables();
 
+        mapScale.valueProperty().addListener((observable, oldValue, newValue) -> renderMiniMap());
+
+        waypointList.setCellFactory(new Callback<ListView<Waypoint>, ListCell<Waypoint>>()
+        {
+            @Override
+            public ListCell<Waypoint> call(ListView<Waypoint> param)
+            {
+                return new ListCell<Waypoint>()
+                {
+                    @Override
+                    protected void updateItem(Waypoint item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+                        if (item == null || empty)
+                        {
+                            setText(null);
+                            setGraphic(null);
+                            return;
+                        }
+                        setText((item.name == null ? "" : item.name + " ")  + "Lat: " + item.latitude + " Long: " + item.longitude);
+                    }
+                };
+            }
+        });
 
         messageTypeFilters.put(UserTransaction.MessageType.GENERAL, msg_general_filter.isSelected());
         messageTypeFilters.put(UserTransaction.MessageType.INVENTORY, msg_inventory_filter.isSelected());
@@ -637,13 +767,47 @@ public class UIController
 
         status_mark.onMouseClickedProperty().setValue((e)->
         {
-            markedLat = Double.valueOf(status_latitude.getText());
-            markedLong = Double.valueOf(status_longitude.getText());
+            double markedLat = Double.valueOf(status_latitude.getText());
+            double markedLong = Double.valueOf(status_longitude.getText());
+
+            waypointList.getItems().add(new Waypoint(waypointNameInput.getText(), markedLat, markedLong));
         });
     }
 
-    private double markedLat = 0.0;
-    private double markedLong = 0.0;
+
+
+    private class Waypoint
+    {
+        private final String name;
+        private final double latitude;
+        private final double longitude;
+
+        private Waypoint(String name, double latitude, double longitude)
+        {
+            this.name = name;
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }
+
+        public String getName()
+        {
+            return name;
+        }
+
+        public double getLatitude()
+        {
+            return latitude;
+        }
+
+        public double getLongitude()
+        {
+            return longitude;
+        }
+    }
+
+    String settlement = "";
+    private double settlementLat = 0.0;
+    private double settlementLong = 0.0;
 
     @SuppressWarnings("unchecked")
     private void updateMarketTable(UserTransaction nextTransaction)
@@ -671,6 +835,7 @@ public class UIController
 
                         return MarketData.builder().setMarket(market)
                                 .setName(((String) object.get("Name_Localised")))
+                                .setCategory(((String) object.get("Category_Localised")))
                                 .setBuy(((int) object.get("BuyPrice")))
                                 .setSell(((int) object.get("SellPrice")))
                                 .setMean(((int) object.get("MeanPrice")))
@@ -693,10 +858,10 @@ public class UIController
                                 "Commodity: " + data.getName() + " listed with no import or export information");
                     });
 
-            market_table.getItems().clear();
-            market_table.getItems().addAll(imports);
-            market_table1.getItems().clear();
-            market_table1.getItems().addAll(exports);
+            market0.clear();
+            market0.addAll(imports);
+            market1.clear();
+            market1.addAll(exports);
         }
     }
 
@@ -766,8 +931,12 @@ public class UIController
             if (taskCostTable != null) taskCostTable.refresh();
         };
 
+
+        //TODO: refactor this to use TransactionProcessorTask with callbacks
+
         // transaction processor
-        Runnable transactionProcessingTask = () -> {
+        Runnable transactionProcessingTask = () ->
+        {
             Thread.currentThread().setName("Transaction Processor");
             boolean go = true;
             while (go)
@@ -796,6 +965,11 @@ public class UIController
                 // perform the transaction
                 switch (nextTransaction.getTransactionType())
                 {
+                    case VEHICLE:
+                        inSRV = nextTransaction.isInSRV();
+                        lastShipLat = Double.valueOf(status_latitude.getText());
+                        lastShipLong = Double.valueOf(status_longitude.getText());
+                        break;
 
                     case INVENTORY:
                         adjustItem.accept(nextTransaction.getInventoryItem(), nextTransaction.getTransactionAmount());
@@ -810,8 +984,7 @@ public class UIController
                         break;
 
                     case ARRIVAL:
-                        if (Platform.isFxApplicationThread()) status_body.setText(nextTransaction.getMessage());
-                        else Platform.runLater(() -> status_body.setText(nextTransaction.getMessage()));
+                        processArrival(nextTransaction);
                         break;
 
                     case MARKET:
@@ -824,21 +997,17 @@ public class UIController
                         {
                             Map<String, Object> statusObject = nextTransaction.getStatusObject();
 
-
-
                             Integer flags  = ((Integer) statusObject.get("Flags"));
 
                             System.out.println(flags);
                             Status.extractFlags(flags).forEach(System.out::println);
 
+                            @SuppressWarnings("unchecked")
+                            Map<String, Object> fuelData = ((Map<String, Object>) statusObject.get("Fuel"));
 
-
-
-
-
-
-                            status_fuel.setText(statusObject.get("Fuel") + " Tons");
                             status_cargo.setText(statusObject.get("Cargo") + " Tons");
+                            status_fuel.setText(fuelData.get("FuelMain") + " Tons");
+                            status_fuel_reservoir.setText(fuelData.get("FuelReservoir") + " Tons");
 
                             Object Altitude  = statusObject.get("Altitude");
                             Object Latitude  = statusObject.get("Latitude");
@@ -860,11 +1029,24 @@ public class UIController
                             double lat = Double.valueOf(Latitude.toString());
                             double lon = Double.valueOf(Longitude.toString());
 
-                            status_bearing.setText(String.valueOf(UIFunctions.Data
-                                    .calculateBearingAngle(lat, lon, markedLat, markedLong)));
+                            if (!waypointList.getItems().isEmpty())
+                            {
+                                Waypoint selectedWaypoint = waypointList.getSelectionModel().getSelectedItems().get(0);
 
-                            status_marked_lat.setText(String.valueOf(markedLat));
-                            status_marked_long.setText(String.valueOf(markedLong));
+                                if (selectedWaypoint != null)
+                                {
+                                    status_bearing.setText(String.valueOf(UIFunctions.Data
+                                            .calculateBearingAngle(lat, lon, selectedWaypoint.latitude, selectedWaypoint.longitude)));
+
+                                    status_marked_lat.setText(String.valueOf(selectedWaypoint.latitude));
+                                    status_marked_long.setText(String.valueOf(selectedWaypoint.longitude));
+
+                                    double distance = UIFunctions.Data.round(Point2D
+                                            .distance(lon, lat, selectedWaypoint.longitude, selectedWaypoint.latitude) * 1000, 2);
+
+                                    status_marked_dist.setText(String.valueOf(distance));
+                                }
+                            }
 
                             renderMiniMap();
                         });
@@ -874,7 +1056,6 @@ public class UIController
             }
         };
 
-        //new TransactionProcessingTask(adjustItem, this::procurementListUpdate, this::messageLogger, transactionQueue);
         Thread transactionThread = new Thread(transactionProcessingTask);
         transactionThread.setDaemon(true);
         transactionThread.start();
@@ -1363,6 +1544,36 @@ public class UIController
         hasMessages.set(true);
         messageProgress.visibleProperty().setValue(true);
         queuedMessages.incrementAndGet();
+    }
+
+    private void processArrival(UserTransaction nextTransaction)
+    {
+        Consumer<UserTransaction> doWork = (transaction) ->
+        {
+            status_body.setText(transaction.getMessage());
+
+            Map<String, Object> data = transaction.getStatusObject();
+            if (data == null) return;
+
+            String event = ((String) nextTransaction.getStatusObject().get("event"));
+            if (event == null) return;
+
+            if (event.equalsIgnoreCase(JournalEvent.ApproachSettlement.name()))
+            {
+                settlement = ((String) data.get("Name_Localised"));
+
+                // todo:
+
+                if (data.get("Latitude") != null && data.get("Longitude") != null)
+                {
+                    settlementLat = ((Double) data.get("Latitude"));
+                    settlementLong = ((Double) data.get("Longitude"));
+                }
+            }
+        };
+
+        if (Platform.isFxApplicationThread()) doWork.accept(nextTransaction);
+        else Platform.runLater(() -> doWork.accept(nextTransaction));
     }
 
     /**
@@ -2042,7 +2253,10 @@ public class UIController
                 }
             });
 
-            transactionQueue.add(new UserTransaction(count.get(), new Pair<>(procType.get(), recipeType.get())));
+            transactionQueue.add(UserTransaction.start(UserTransaction.TransactionType.BLUEPRINT)
+                    .setTransactionAmount(count.get())
+                    .setBlueprint(new Pair<>(procType.get(), recipeType.get()))
+                    .build());
         });
     }
 }

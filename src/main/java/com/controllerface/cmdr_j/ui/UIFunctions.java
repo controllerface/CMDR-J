@@ -1,14 +1,13 @@
 package com.controllerface.cmdr_j.ui;
 
-import com.controllerface.cmdr_j.ProcurementRecipe;
-import com.controllerface.cmdr_j.data.ItemEffectData;
-import com.controllerface.cmdr_j.data.commander.InventoryData;
-import com.controllerface.cmdr_j.data.procurements.CostData;
-import com.controllerface.cmdr_j.data.procurements.ItemCostData;
-import com.controllerface.cmdr_j.data.procurements.ProcurementTaskData;
-import com.controllerface.cmdr_j.structures.equipment.ItemEffect;
-import com.controllerface.cmdr_j.structures.equipment.ItemGrade;
-import com.controllerface.cmdr_j.threads.UserTransaction;
+import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.commander.InventoryData;
+import com.controllerface.cmdr_j.classes.procurements.CostData;
+import com.controllerface.cmdr_j.classes.procurements.ItemCostData;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementTaskData;
+import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -26,7 +25,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
-import java.util.EnumMap;
 import java.util.Scanner;
 import java.util.function.Function;
 

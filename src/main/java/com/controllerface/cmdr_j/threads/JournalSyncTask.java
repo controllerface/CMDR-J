@@ -1,14 +1,14 @@
 package com.controllerface.cmdr_j.threads;
 
-import com.controllerface.cmdr_j.EventProcessingContext;
 import com.controllerface.cmdr_j.JSONSupport;
-import com.controllerface.cmdr_j.Statistic;
-import com.controllerface.cmdr_j.data.commander.CommanderData;
-import com.controllerface.cmdr_j.structures.equipment.ships.CoreInternalSlot;
-import com.controllerface.cmdr_j.structures.equipment.ships.CosmeticSlot;
-import com.controllerface.cmdr_j.structures.equipment.ships.HardpointSlot;
-import com.controllerface.cmdr_j.structures.equipment.ships.OptionalInternalSlot;
-import com.controllerface.cmdr_j.structures.journal.JournalEvent;
+import com.controllerface.cmdr_j.classes.commander.CommanderData;
+import com.controllerface.cmdr_j.classes.commander.Statistic;
+import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
+import com.controllerface.cmdr_j.enums.equipment.ships.CoreInternalSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.CosmeticSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.HardpointSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.OptionalInternalSlot;
+import com.controllerface.cmdr_j.enums.journal.JournalEvent;
 
 import java.io.*;
 import java.nio.file.*;
@@ -17,7 +17,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

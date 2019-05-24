@@ -1,12 +1,11 @@
 package com.controllerface.cmdr_j.threads;
 
-import com.controllerface.cmdr_j.ProcurementCost;
-import com.controllerface.cmdr_j.ProcurementRecipe;
-import com.controllerface.cmdr_j.ProcurementType;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
-import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -21,7 +20,8 @@ public class UserTransaction
         MARKET,
         INVENTORY,
         BLUEPRINT,
-        MESSAGE
+        MESSAGE,
+        VEHICLE,
     }
 
     public enum MessageType
@@ -49,79 +49,57 @@ public class UserTransaction
         }
     }
 
-    private final ProcurementCost inventoryItem;
-    private final Pair<ProcurementType, ProcurementRecipe> blueprint;
-    private final int transactionAmount;
-    private final Map<String, Object> statusObject;
     private final TransactionType transactionType;
+
+    private final boolean inSRV;
+    private final int transactionAmount;
     private final String message;
     private final MessageType messageType;
+    private final ProcurementCost inventoryItem;
+    private final Map<String, Object> statusObject;
+    private final Pair<ProcurementType, ProcurementRecipe> blueprint;
 
 
-    public UserTransaction(int transactionAmount, ProcurementCost inventoryItem)
+    private UserTransaction(Builder builder)
     {
-        this.transactionType = TransactionType.INVENTORY;
-        this.inventoryItem = inventoryItem;
-        this.transactionAmount = transactionAmount;
-        this.statusObject = null;
-        this.blueprint = null;
-        this.message = null;
-        this.messageType = null;
+        this.inSRV = builder.inSRV;
+        this.transactionType = builder.transactionType;
+        this.transactionAmount = builder.transactionAmount;
+        this.message = builder.message;
+        this.messageType = builder.messageType;
+        this.inventoryItem = builder.inventoryItem;
+        this.statusObject = builder.statusObject;
+        this.blueprint = builder.blueprint;
     }
 
-    public UserTransaction(int transactionAmount, Pair<ProcurementType, ProcurementRecipe> blueprint)
+    public static Builder start(TransactionType transactionType)
     {
-        this.transactionType = TransactionType.BLUEPRINT;
-        this.transactionAmount = transactionAmount;
-        this.blueprint = blueprint;
-        this.statusObject = null;
-        this.inventoryItem = null;
-        this.message = null;
-        this.messageType = null;
+        return new Builder(transactionType);
     }
 
-    public UserTransaction(MessageType messageType, String message)
+    public TransactionType getTransactionType()
     {
-        this.transactionType = TransactionType.MESSAGE;
-        this.messageType = messageType;
-        this.message = message;
-        this.transactionAmount = 0;
-        this.statusObject = null;
-        this.inventoryItem = null;
-        this.blueprint = null;
+        return transactionType;
     }
 
-    public UserTransaction(Map<String, Object> statusObject)
+    public boolean isInSRV()
     {
-        this.transactionType = TransactionType.STATUS;
-        this.statusObject = statusObject;
-        this.messageType = null;
-        this.message = null;
-        this.transactionAmount = 0;
-        this.inventoryItem = null;
-        this.blueprint = null;
+        return inSRV;
     }
 
-    public UserTransaction(String arrivalLocation)
+    public int getTransactionAmount()
     {
-        this.transactionType = TransactionType.ARRIVAL;
-        this.message = arrivalLocation;
-        this.statusObject = null;
-        this.messageType = null;
-        this.transactionAmount = 0;
-        this.inventoryItem = null;
-        this.blueprint = null;
+        return transactionAmount;
     }
 
-    public UserTransaction(String market, Map<String, Object> marketData)
+    public String getMessage()
     {
-        this.transactionType = TransactionType.MARKET;
-        this.message = market;
-        this.statusObject = marketData;
-        this.messageType = null;
-        this.transactionAmount = 0;
-        this.inventoryItem = null;
-        this.blueprint = null;
+        return message;
+    }
+
+    public MessageType getMessageType()
+    {
+        return messageType;
     }
 
     public Map<String, Object> getStatusObject()
@@ -139,23 +117,71 @@ public class UserTransaction
         return blueprint;
     }
 
-    public String getMessage()
-    {
-        return message;
-    }
 
-    public MessageType getMessageType()
-    {
-        return messageType;
-    }
 
-    public int getTransactionAmount()
-    {
-        return transactionAmount;
-    }
 
-    public TransactionType getTransactionType()
+    public static class Builder
     {
-        return transactionType;
+        private final TransactionType transactionType;
+        private boolean inSRV;
+        private int transactionAmount;
+        private String message;
+        private MessageType messageType;
+        private ProcurementCost inventoryItem;
+        private Map<String, Object> statusObject;
+        private Pair<ProcurementType, ProcurementRecipe> blueprint;
+
+
+        public Builder(TransactionType transactionType)
+        {
+            this.transactionType = transactionType;
+        }
+
+        public Builder setInSRV(boolean inSRV)
+        {
+            this.inSRV = inSRV;
+            return this;
+        }
+
+        public Builder setTransactionAmount(int transactionAmount)
+        {
+            this.transactionAmount = transactionAmount;
+            return this;
+        }
+
+        public Builder setMessage(String message)
+        {
+            this.message = message;
+            return this;
+        }
+
+        public Builder setMessageType(MessageType messageType)
+        {
+            this.messageType = messageType;
+            return this;
+        }
+
+        public Builder setInventoryItem(ProcurementCost inventoryItem)
+        {
+            this.inventoryItem = inventoryItem;
+            return this;
+        }
+
+        public Builder setStatusObject(Map<String, Object> statusObject)
+        {
+            this.statusObject = statusObject;
+            return this;
+        }
+
+        public Builder setBlueprint(Pair<ProcurementType, ProcurementRecipe> blueprint)
+        {
+            this.blueprint = blueprint;
+            return this;
+        }
+
+        public UserTransaction build()
+        {
+            return new UserTransaction(this);
+        }
     }
 }

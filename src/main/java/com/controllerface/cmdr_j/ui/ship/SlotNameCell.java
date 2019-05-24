@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.ui.ship;
 
-import com.controllerface.cmdr_j.data.ShipModuleData;
+import com.controllerface.cmdr_j.classes.ShipModuleData;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
