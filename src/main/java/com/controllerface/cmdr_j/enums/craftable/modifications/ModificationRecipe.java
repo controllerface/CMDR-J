@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.enums.craftable.modifications;
 
-import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.procurements.CostData;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
@@ -9,9 +8,6 @@ import com.controllerface.cmdr_j.classes.procurements.recipes.armour.explosive.*
 import com.controllerface.cmdr_j.classes.procurements.recipes.armour.heavyduty.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.armour.kinetic.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.armour.thermic.*;
-import com.controllerface.cmdr_j.classes.procurements.recipes.misc.fastscan.*;
-import com.controllerface.cmdr_j.classes.procurements.recipes.misc.longrange.*;
-import com.controllerface.cmdr_j.classes.procurements.recipes.misc.wideangle.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.chafflauncher.capacity.ChaffLauncher_ChaffCapacity_1;
 import com.controllerface.cmdr_j.classes.procurements.recipes.distributor.eng.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.distributor.highcapacity.*;
@@ -36,9 +32,12 @@ import com.controllerface.cmdr_j.classes.procurements.recipes.interdictor.longra
 import com.controllerface.cmdr_j.classes.procurements.recipes.interdictor.longrange.FSDinterdictor_LongRange_2;
 import com.controllerface.cmdr_j.classes.procurements.recipes.interdictor.longrange.FSDinterdictor_LongRange_3;
 import com.controllerface.cmdr_j.classes.procurements.recipes.interdictor.longrange.FSDinterdictor_LongRange_4;
+import com.controllerface.cmdr_j.classes.procurements.recipes.misc.fastscan.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.misc.lightweight.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.misc.longrange.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.misc.reinforced.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.misc.shielded.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.misc.wideangle.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.pointdefense.capacity.PointDefence_PointDefenseCapacity_1;
 import com.controllerface.cmdr_j.classes.procurements.recipes.powerplant.armoured.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.powerplant.boosted.*;
@@ -61,18 +60,16 @@ import com.controllerface.cmdr_j.classes.procurements.recipes.shieldcellbank.spe
 import com.controllerface.cmdr_j.classes.procurements.recipes.shieldcellbank.specialized.ShieldCellBank_Specialized_4;
 import com.controllerface.cmdr_j.classes.procurements.recipes.shieldgenerator.kinetic.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.shieldgenerator.optimised.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.shieldgenerator.reinforced.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.shieldgenerator.thermic.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.surfacescanner.expanded.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.thrusters.clean.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.thrusters.dirty.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.thrusters.reinforced.*;
-import com.controllerface.cmdr_j.enums.costs.materials.Material;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
-import com.controllerface.cmdr_j.ui.UIFunctions;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
@@ -443,203 +440,76 @@ public enum ModificationRecipe implements ProcurementRecipe
     ShieldGenerator_Optimised_4(new ShieldGenerator_Optimised_4()),
     ShieldGenerator_Optimised_5(new ShieldGenerator_Optimised_5()),
 
-    ShieldGenerator_Reinforced_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.BrokenRegenRate, -10d),
-                    new ItemEffectData(ItemEffect.DistributorDraw, 4d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 22.5d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 2.7d),
-                    new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 14d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 5.4d)
-            ),
-            new CostData(Material.PHOSPHORUS, 1)),
+    ShieldGenerator_Reinforced_1(new ShieldGenerator_Reinforced_1()),
+    ShieldGenerator_Reinforced_2(new ShieldGenerator_Reinforced_2()),
+    ShieldGenerator_Reinforced_3(new ShieldGenerator_Reinforced_3()),
+    ShieldGenerator_Reinforced_4(new ShieldGenerator_Reinforced_4()),
+    ShieldGenerator_Reinforced_5(new ShieldGenerator_Reinforced_5()),
 
-    ShieldGenerator_Reinforced_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.BrokenRegenRate, -10d),
-                    new ItemEffectData(ItemEffect.DistributorDraw, 6d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 37.5d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 4.5d),
-                    new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 20d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 9d)
-            ),
-            new CostData(Material.CONDUCTIVECOMPONENTS, 1),
-            new CostData(Material.PHOSPHORUS, 1)),
-
-    ShieldGenerator_Reinforced_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.BrokenRegenRate, -10d),
-                    new ItemEffectData(ItemEffect.DistributorDraw, 8d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 52.5d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 6.3d),
-                    new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 26d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 12.6d)
-            ),
-            new CostData(Material.CONDUCTIVECOMPONENTS, 1),
-            new CostData(Material.MECHANICALCOMPONENTS, 1),
-            new CostData(Material.PHOSPHORUS, 1)),
-
-    ShieldGenerator_Reinforced_4(ItemGrade.GRADE_4, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.BrokenRegenRate, -10d),
-                    new ItemEffectData(ItemEffect.DistributorDraw, 10d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 67.5d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 8.1d),
-                    new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 32d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 16.2d)
-            ),
-            new CostData(Material.CONDUCTIVECERAMICS, 1),
-            new CostData(Material.CONFIGURABLECOMPONENTS, 1),
-            new CostData(Material.MANGANESE, 1)),
-
-    ShieldGenerator_Reinforced_5(ItemGrade.GRADE_5, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.BrokenRegenRate, -10d),
-                    new ItemEffectData(ItemEffect.DistributorDraw, 12d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 82.5d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 9.9d),
-                    new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 38d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 19.8d)
-            ),
-            new CostData(Material.ARSENIC, 1),
-            new CostData(Material.CONDUCTIVEPOLYMERS, 1),
-            new CostData(Material.IMPROVISEDCOMPONENTS, 1)),
-
-    ShieldGenerator_Thermic_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Integrity, 20d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -2d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 12d)
-            ),
-            new CostData(Material.SHIELDCYCLERECORDINGS, 1)),
-
-    ShieldGenerator_Thermic_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Integrity, 25d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -5d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 24d)
-            ),
-            new CostData(Material.SHIELDCYCLERECORDINGS, 1),
-            new CostData(Material.GERMANIUM, 1)),
-
-    ShieldGenerator_Thermic_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Integrity, 30d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -7d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 36d)
-            ),
-            new CostData(Material.SHIELDCYCLERECORDINGS, 1),
-            new CostData(Material.GERMANIUM, 1),
-            new CostData(Material.SELENIUM, 1)),
-
-    ShieldGenerator_Thermic_4(ItemGrade.GRADE_4, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Integrity, 35d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -10d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 48d)
-            ),
-            new CostData(Material.FOCUSCRYSTALS, 1),
-            new CostData(Material.SHIELDSOAKANALYSIS, 1),
-            new CostData(Material.MERCURY, 1)),
-
-    ShieldGenerator_Thermic_5(ItemGrade.GRADE_5, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.KineticResistance, -12d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 60d)
-            ),
-            new CostData(Material.REFINEDFOCUSCRYSTALS, 1),
-            new CostData(Material.RUTHENIUM, 1),
-            new CostData(Material.SHIELDDENSITYREPORTS, 1)),
+    ShieldGenerator_Thermic_1(new ShieldGenerator_Thermic_1()),
+    ShieldGenerator_Thermic_2(new ShieldGenerator_Thermic_2()),
+    ShieldGenerator_Thermic_3(new ShieldGenerator_Thermic_3()),
+    ShieldGenerator_Thermic_4(new ShieldGenerator_Thermic_4()),
+    ShieldGenerator_Thermic_5(new ShieldGenerator_Thermic_5()),
 
     ;
 
     private final ProcurementRecipe delegate;
 
-    private String parentBlueprintName;
-    private final ItemGrade grade;
-    private final CostData[] cost;
-    private final ItemEffects effects;
-
-    public static Icon icon = new Icon(UIFunctions.Icons.engineering, 25, 30);
-
     ModificationRecipe(@NotNull ProcurementRecipe delegate)
     {
         this.delegate = delegate;
-
-        this.grade = null;
-        this.cost = null;
-        this.effects = null;
-    }
-
-    ModificationRecipe(ItemGrade grade, ItemEffects effects, CostData... cost)
-    {
-        this.delegate = null;
-
-        this.grade = grade;
-        this.effects = effects;
-        this.cost = cost;
-        Arrays.stream(cost).forEach(c->c.getCost().associate(this));
     }
 
     @Override
     public ItemGrade getGrade()
     {
-        if (delegate == null) return grade;
-        else return delegate.getGrade();
+        return delegate.getGrade();
     }
 
     public Stream<CostData> costStream()
     {
-        if (delegate ==null) return Arrays.stream(cost);
-        else return delegate.costStream();
+        return delegate.costStream();
     }
 
     public ItemEffects effects()
     {
-        if (delegate == null) return effects;
-        else return delegate.effects();
+        return delegate.effects();
     }
 
     @Override
     public void setParentBlueprintName(String parentBlueprintName)
     {
-        if (delegate == null) this.parentBlueprintName = parentBlueprintName;
-        else delegate.setParentBlueprintName(parentBlueprintName);
+        delegate.setParentBlueprintName(parentBlueprintName);
     }
 
     @Override
     public String toString()
     {
-        if (delegate == null) return super.toString().replace("_"," ");
-        else return delegate.toString();
+        return delegate.toString();
     }
 
     @Override
     public String getShortLabel()
     {
-        if (delegate == null) return grade.toString();
-        else return delegate.getShortLabel();
+        return delegate.getShortLabel();
     }
 
     @Override
     public String getDisplayLabel()
     {
-        if (delegate == null) return getShortLabel() + " :: " +  parentBlueprintName;
         return delegate.getDisplayLabel();
     }
 
     @Override
     public String getName()
     {
-        if (delegate == null) return name();
-        else return delegate.getName();
+        return delegate.getName();
     }
 
     @Override
     public Icon getIcon()
     {
-        if (delegate == null) return icon;
-        else return delegate.getIcon();
+        return delegate.getIcon();
     }
 }

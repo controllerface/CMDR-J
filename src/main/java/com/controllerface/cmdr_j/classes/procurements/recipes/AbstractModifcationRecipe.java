@@ -3,9 +3,9 @@ package com.controllerface.cmdr_j.classes.procurements.recipes;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.procurements.CostData;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
 import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
+import com.controllerface.cmdr_j.ui.UIFunctions;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -17,6 +17,8 @@ public abstract class AbstractModifcationRecipe implements ProcurementRecipe
     private final CostData[] cost;
     private final ItemEffects effects;
     private final String name;
+
+    private static Icon defaultIcon = new Icon(UIFunctions.Icons.engineering, 25, 30);
 
     public AbstractModifcationRecipe(String name, ItemGrade grade, ItemEffects effects, CostData ... cost)
     {
@@ -66,7 +68,7 @@ public abstract class AbstractModifcationRecipe implements ProcurementRecipe
     @Override
     public Icon getIcon()
     {
-        return ModificationRecipe.icon;
+        return defaultIcon;
     }
 
     @Override
