@@ -8,7 +8,6 @@ import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
-import com.controllerface.cmdr_j.enums.craftable.modifications.WeaponModificationRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
@@ -80,7 +79,7 @@ public class ShipModuleData implements Displayable
     {
         return blueprint.recipeStream().map(recipe ->
         {
-            ProcurementType type = recipe instanceof ModificationRecipe || recipe instanceof WeaponModificationRecipe
+            ProcurementType type = recipe instanceof ModificationRecipe // || recipe instanceof WeaponModificationRecipe
                     ? module.modificationType()
                     : recipe instanceof ExperimentalRecipe
                             ? module.experimentalType()

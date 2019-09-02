@@ -66,6 +66,16 @@ import com.controllerface.cmdr_j.classes.procurements.recipes.surfacescanner.exp
 import com.controllerface.cmdr_j.classes.procurements.recipes.thrusters.clean.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.thrusters.dirty.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.thrusters.reinforced.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.weapons.doubleshot.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.weapons.efficient.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.weapons.focused.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.weapons.highcapacity.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.weapons.lightweight.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.weapons.longrange.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.weapons.overcharged.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.weapons.rapidfire.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.weapons.shortrange.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.weapons.sturdy.*;
 import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import org.jetbrains.annotations.NotNull;
@@ -451,6 +461,72 @@ public enum ModificationRecipe implements ProcurementRecipe
     ShieldGenerator_Thermic_3(new ShieldGenerator_Thermic_3()),
     ShieldGenerator_Thermic_4(new ShieldGenerator_Thermic_4()),
     ShieldGenerator_Thermic_5(new ShieldGenerator_Thermic_5()),
+
+
+
+    /*
+    Weapons
+     */
+
+    Weapon_DoubleShot_1(new Weapon_DoubleShot_1()),
+    Weapon_DoubleShot_2(new Weapon_DoubleShot_2()),
+    Weapon_DoubleShot_3(new Weapon_DoubleShot_3()),
+    Weapon_DoubleShot_4(new Weapon_DoubleShot_4()),
+    Weapon_DoubleShot_5(new Weapon_DoubleShot_5()),
+
+    Weapon_Efficient_1(new Weapon_Efficient_1()),
+    Weapon_Efficient_2(new Weapon_Efficient_2()),
+    Weapon_Efficient_3(new Weapon_Efficient_3()),
+    Weapon_Efficient_4(new Weapon_Efficient_4()),
+    Weapon_Efficient_5(new Weapon_Efficient_5()),
+
+    Weapon_Focused_1(new Weapon_Focused_1()),
+    Weapon_Focused_2(new Weapon_Focused_2()),
+    Weapon_Focused_3(new Weapon_Focused_3()),
+    Weapon_Focused_4(new Weapon_Focused_4()),
+    Weapon_Focused_5(new Weapon_Focused_5()),
+
+    Weapon_HighCapacity_1(new Weapon_HighCapacity_1()),
+    Weapon_HighCapacity_2(new Weapon_HighCapacity_2()),
+    Weapon_HighCapacity_3(new Weapon_HighCapacity_3()),
+    Weapon_HighCapacity_4(new Weapon_HighCapacity_4()),
+    Weapon_HighCapacity_5(new Weapon_HighCapacity_5()),
+
+    Weapon_LightWeight_1(new Weapon_LightWeight_1()),
+    Weapon_LightWeight_2(new Weapon_LightWeight_2()),
+    Weapon_LightWeight_3(new Weapon_LightWeight_3()),
+    Weapon_LightWeight_4(new Weapon_LightWeight_4()),
+    Weapon_LightWeight_5(new Weapon_LightWeight_5()),
+
+    Weapon_LongRange_1(new Weapon_LongRange_1()),
+    Weapon_LongRange_2(new Weapon_LongRange_2()),
+    Weapon_LongRange_3(new Weapon_LongRange_3()),
+    Weapon_LongRange_4(new Weapon_LongRange_4()),
+    Weapon_LongRange_5(new Weapon_LongRange_5()),
+
+    Weapon_Overcharged_1(new Weapon_Overcharged_1()),
+    Weapon_Overcharged_2(new Weapon_Overcharged_2()),
+    Weapon_Overcharged_3(new Weapon_Overcharged_3()),
+    Weapon_Overcharged_4(new Weapon_Overcharged_4()),
+    Weapon_Overcharged_5(new Weapon_Overcharged_5()),
+
+    Weapon_RapidFire_1(new Weapon_RapidFire_1()),
+    Weapon_RapidFire_2(new Weapon_RapidFire_2()),
+    Weapon_RapidFire_3(new Weapon_RapidFire_3()),
+    Weapon_RapidFire_4(new Weapon_RapidFire_4()),
+    Weapon_RapidFire_5(new Weapon_RapidFire_5()),
+
+    Weapon_ShortRange_1(new Weapon_ShortRange_1()),
+    Weapon_ShortRange_2(new Weapon_ShortRange_2()),
+    Weapon_ShortRange_3(new Weapon_ShortRange_3()),
+    Weapon_ShortRange_4(new Weapon_ShortRange_4()),
+    Weapon_ShortRange_5(new Weapon_ShortRange_5()),
+
+    Weapon_Sturdy_1(new Weapon_Sturdy_1()),
+    Weapon_Sturdy_2(new Weapon_Sturdy_2()),
+    Weapon_Sturdy_3(new Weapon_Sturdy_3()),
+    Weapon_Sturdy_4(new Weapon_Sturdy_4()),
+    Weapon_Sturdy_5(new Weapon_Sturdy_5()),
 
     ;
 

@@ -10,7 +10,6 @@ import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalBluep
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
-import com.controllerface.cmdr_j.enums.craftable.modifications.WeaponModificationRecipe;
 import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisBlueprint;
 import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyBlueprint;
@@ -232,7 +231,7 @@ public class InventoryData implements Displayable
         {
             if (i instanceof SynthesisRecipe) synthesisRecipes.add(i);
             if (i instanceof ModificationRecipe) modificationRecipes.add(i);
-            if (i instanceof WeaponModificationRecipe) weaponModRecipes.add(i);
+            //if (i instanceof WeaponModificationRecipe) weaponModRecipes.add(i);
             if (i instanceof ExperimentalRecipe) experimentalRecipes.add(i);
             if (i instanceof TechnologyRecipe) techBrokerRecipes.add(i);
         });

@@ -19,7 +19,6 @@ import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationCategory;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
-import com.controllerface.cmdr_j.enums.craftable.modifications.WeaponModificationRecipe;
 import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisCategory;
 import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisType;
@@ -2228,9 +2227,9 @@ public class UIController
                         recipeType.set(ModificationRecipe.valueOf((String) value));
                         break;
 
-                    case "WeaponModificationRecipe":
-                        recipeType.set(WeaponModificationRecipe.valueOf((String) value));
-                        break;
+//                    case "WeaponModificationRecipe":
+//                        recipeType.set(WeaponModificationRecipe.valueOf((String) value));
+//                        break;
 
                     case "SynthesisRecipe":
                         recipeType.set(SynthesisRecipe.valueOf((String) value));
