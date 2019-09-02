@@ -10,7 +10,7 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public abstract class AbstractModifcationRecipe implements ProcurementRecipe
+public abstract class AbstractRecipe implements ProcurementRecipe
 {
     private String parentBlueprintName;
     private final ItemGrade grade;
@@ -18,16 +18,13 @@ public abstract class AbstractModifcationRecipe implements ProcurementRecipe
     private final ItemEffects effects;
     private final String name;
 
-    private static Icon defaultIcon = new Icon(UIFunctions.Icons.engineering, 25, 30);
-
-    public AbstractModifcationRecipe(String name, ItemGrade grade, ItemEffects effects, CostData ... cost)
+    AbstractRecipe(String name, ItemGrade grade, ItemEffects effects, CostData... cost)
     {
         this.name = name;
         this.grade = grade;
         this.effects = effects;
         this.cost = cost;
     }
-
 
     @Override
     public Stream<CostData> costStream()
@@ -63,12 +60,6 @@ public abstract class AbstractModifcationRecipe implements ProcurementRecipe
     public ItemGrade getGrade()
     {
         return grade;
-    }
-
-    @Override
-    public Icon getIcon()
-    {
-        return defaultIcon;
     }
 
     @Override

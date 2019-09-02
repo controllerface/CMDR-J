@@ -3,12 +3,12 @@ package com.controllerface.cmdr_j.classes.procurements.recipes.shieldgenerator.t
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.classes.procurements.recipes.AbstractModifcationRecipe;
+import com.controllerface.cmdr_j.classes.procurements.recipes.AbstractModificationRecipe;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
 
-public class ShieldGenerator_Thermic_3 extends AbstractModifcationRecipe
+public class ShieldGenerator_Thermic_3 extends AbstractModificationRecipe
 {
     public ShieldGenerator_Thermic_3()
     {

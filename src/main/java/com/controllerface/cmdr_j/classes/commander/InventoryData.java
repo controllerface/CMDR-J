@@ -231,7 +231,6 @@ public class InventoryData implements Displayable
         {
             if (i instanceof SynthesisRecipe) synthesisRecipes.add(i);
             if (i instanceof ModificationRecipe) modificationRecipes.add(i);
-            //if (i instanceof WeaponModificationRecipe) weaponModRecipes.add(i);
             if (i instanceof ExperimentalRecipe) experimentalRecipes.add(i);
             if (i instanceof TechnologyRecipe) techBrokerRecipes.add(i);
         });

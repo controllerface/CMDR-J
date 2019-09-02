@@ -79,7 +79,7 @@ public class ShipModuleData implements Displayable
     {
         return blueprint.recipeStream().map(recipe ->
         {
-            ProcurementType type = recipe instanceof ModificationRecipe // || recipe instanceof WeaponModificationRecipe
+            ProcurementType type = recipe instanceof ModificationRecipe
                     ? module.modificationType()
                     : recipe instanceof ExperimentalRecipe
                             ? module.experimentalType()

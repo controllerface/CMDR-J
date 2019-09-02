@@ -2227,10 +2227,6 @@ public class UIController
                         recipeType.set(ModificationRecipe.valueOf((String) value));
                         break;
 
-//                    case "WeaponModificationRecipe":
-//                        recipeType.set(WeaponModificationRecipe.valueOf((String) value));
-//                        break;
-
                     case "SynthesisRecipe":
                         recipeType.set(SynthesisRecipe.valueOf((String) value));
                         break;

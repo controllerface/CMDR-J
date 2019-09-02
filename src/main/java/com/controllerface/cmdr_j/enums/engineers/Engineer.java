@@ -13,10 +13,19 @@ import java.util.EnumSet;
 import java.util.List;
 
 /**
+ * Implementation note:
+ *
+ * These enum values are generally not referred to directly, but iterated through when searching for an engineer that
+ * supports a specific modification or experimental effect.
+ *
  * Created by Stephen on 6/13/2018.
  */
 public enum Engineer
 {
+    /*
+    The Bubble
+     */
+
     DIDI_VATERMANN("Didi Vatermann", new StarSystem("Vatermann LLC :: Leesti", 72.75, 48.75, 68.25),
             new Pair<>(new Pair<>(ModificationType.Shield_Booster, ExperimentalType.Shield_Booster), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator), ItemGrade.GRADE_3)),
@@ -127,7 +136,7 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Sensors, null), ItemGrade.GRADE_3),
             new Pair<>(new Pair<>(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor), ItemGrade.GRADE_3)),
 
-    PROFESSOR_PALIN("Professor Palin", new StarSystem("Palin Research Centre :: Maia", -81.78125, -149.4375, -343.375),
+    PROFESSOR_PALIN("Professor Palin", new StarSystem("Abel Laboratory :: Arque", 66.5, 38.0625, 61.125),
             new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_3)),
 
@@ -159,8 +168,63 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon), ItemGrade.GRADE_3),
             new Pair<>(new Pair<>(ModificationType.Cannon, ExperimentalType.Cannon), ItemGrade.GRADE_2)),
 
-    //TODO: need to add the Colonia engineers, maybe clean this class up
+    /*
+    Colonia
+     */
 
+    ETIENNE_DORN("Etienne Dorn", new StarSystem("Kraken's Retreat :: Los",-9509.34375,-886.3125,19820.125),
+            new Pair<>(new Pair<>(ModificationType.Sensors, null), ItemGrade.GRADE_3),
+            new Pair<>(new Pair<>(ModificationType.Rail_Gun, ExperimentalType.Rail_Gun), ItemGrade.GRADE_3),
+            new Pair<>(new Pair<>(ModificationType.Power_Plant, ExperimentalType.Power_Plant), ItemGrade.GRADE_3),
+            new Pair<>(new Pair<>(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor), ItemGrade.GRADE_4),
+            new Pair<>(new Pair<>(ModificationType.Plasma_Accelerator, ExperimentalType.Plasma_Accelerator), ItemGrade.GRADE_3),
+            new Pair<>(new Pair<>(ModificationType.Manifest_Scanner, null), ItemGrade.GRADE_1),
+            new Pair<>(new Pair<>(ModificationType.Life_Support, null), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Kill_Warrant_Scanner, null), ItemGrade.GRADE_2),
+            new Pair<>(new Pair<>(ModificationType.Frame_Shift_Wake_Scanner, null), ItemGrade.GRADE_4)),
+
+    MEL_BRANDON("Mel Brandon", new StarSystem("The Brig :: Luchtaine",-9523.3125, -914.46875, 19825.90625),
+            new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Beam_Laser, ExperimentalType.Beam_Laser), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Shield_Booster, ExperimentalType.Shield_Booster), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Shield_Cell_Bank, ExperimentalType.Shield_Cell_Bank), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_4),
+            new Pair<>(new Pair<>(ModificationType.Burst_Laser, ExperimentalType.Burst_Laser), ItemGrade.GRADE_4),
+            new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive_Interdictor, null), ItemGrade.GRADE_3)),
+
+    MARSHA_HICKS("Marsha Hicks", new StarSystem("The Watchtower :: Tir",-9532.9375, -923.4375, 19799.125),
+            new Pair<>(new Pair<>(ModificationType.Collector_Limpet_Controller, null), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Fuel_Scoop, null), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Prospector_Limpet_Controller, null), ItemGrade.GRADE_4),
+            new Pair<>(new Pair<>(ModificationType.Refinery, null), ItemGrade.GRADE_4),
+            new Pair<>(new Pair<>(ModificationType.Cannon, ExperimentalType.Cannon), ItemGrade.GRADE_3),
+            new Pair<>(new Pair<>(ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon), ItemGrade.GRADE_3),
+            new Pair<>(new Pair<>(ModificationType.Fuel_Transfer_Limpet, null), ItemGrade.GRADE_1),
+            new Pair<>(new Pair<>(ModificationType.Hatch_Breaker_Limpet, null), ItemGrade.GRADE_1)),
+
+    PETRA_OLMANOVA("Petra Olmenova", new StarSystem("Sanctuary :: Asura",-9550.28125, -916.65625, 19816.1875),
+            new Pair<>(new Pair<>(ModificationType.Hull_Reinforcement_Package, ExperimentalType.Hull_Reinforcement_Package), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Bulkheads, ExperimentalType.Bulkheads), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Heat_Sink_Launcher, null), ItemGrade.GRADE_4),
+            new Pair<>(new Pair<>(ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack), ItemGrade.GRADE_3),
+            new Pair<>(new Pair<>(ModificationType.Missile_Rack, ExperimentalType.Missile_Rack), ItemGrade.GRADE_3),
+            new Pair<>(new Pair<>(ModificationType.Chaff_Launcher, null), ItemGrade.GRADE_3),
+            new Pair<>(new Pair<>(ModificationType.Point_Defense, null), ItemGrade.GRADE_3),
+            new Pair<>(new Pair<>(ModificationType.Auto_Field_Maintenence_Unit, null), ItemGrade.GRADE_2),
+            new Pair<>(new Pair<>(ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher), ItemGrade.GRADE_1),
+            new Pair<>(new Pair<>(ModificationType.Torpedo_Pylon, ExperimentalType.Torpedo_Pylon), ItemGrade.GRADE_1),
+            new Pair<>(new Pair<>(ModificationType.Electronic_Countermeasures, null), ItemGrade.GRADE_1)),
+
+    /*
+    Witch Head Sector
+     */
+
+    CHLOE_SEDESI("Chloe Sedesi", new StarSystem("Conder's Dock :: Witch Head Sector DL-Y D17",351.96875, -373.46875, -711.09375),
+            new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_5),
+            new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_3)),
     ;
 
     private final String fullName;
