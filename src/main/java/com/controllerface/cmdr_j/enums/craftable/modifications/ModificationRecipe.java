@@ -51,8 +51,17 @@ import com.controllerface.cmdr_j.classes.procurements.recipes.shieldbooster.heav
 import com.controllerface.cmdr_j.classes.procurements.recipes.shieldbooster.kinetic.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.shieldbooster.resistive.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.shieldbooster.thermic.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.shieldcellbank.rapid.ShieldCellBank_Rapid_1;
+import com.controllerface.cmdr_j.classes.procurements.recipes.shieldcellbank.rapid.ShieldCellBank_Rapid_2;
+import com.controllerface.cmdr_j.classes.procurements.recipes.shieldcellbank.rapid.ShieldCellBank_Rapid_3;
+import com.controllerface.cmdr_j.classes.procurements.recipes.shieldcellbank.rapid.ShieldCellBank_Rapid_4;
+import com.controllerface.cmdr_j.classes.procurements.recipes.shieldcellbank.specialized.ShieldCellBank_Specialized_1;
+import com.controllerface.cmdr_j.classes.procurements.recipes.shieldcellbank.specialized.ShieldCellBank_Specialized_2;
+import com.controllerface.cmdr_j.classes.procurements.recipes.shieldcellbank.specialized.ShieldCellBank_Specialized_3;
+import com.controllerface.cmdr_j.classes.procurements.recipes.shieldcellbank.specialized.ShieldCellBank_Specialized_4;
 import com.controllerface.cmdr_j.classes.procurements.recipes.shieldgenerator.kinetic.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.shieldgenerator.optimised.*;
+import com.controllerface.cmdr_j.classes.procurements.recipes.surfacescanner.expanded.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.thrusters.clean.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.thrusters.dirty.*;
 import com.controllerface.cmdr_j.classes.procurements.recipes.thrusters.reinforced.*;
@@ -395,115 +404,27 @@ public enum ModificationRecipe implements ProcurementRecipe
     Detailed Surface Scanner
      */
 
-    Sensor_Expanded_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 10d)
-            ),
-            new CostData(Material.MECHANICALSCRAP, 1)),
+    Sensor_Expanded_1(new Sensor_Misc_Expanded_1()),
+    Sensor_Expanded_2(new Sensor_Misc_Expanded_2()),
+    Sensor_Expanded_3(new Sensor_Misc_Expanded_3()),
+    Sensor_Expanded_4(new Sensor_Misc_Expanded_4()),
+    Sensor_Expanded_5(new Sensor_Misc_Expanded_5()),
 
-    Sensor_Expanded_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 40d),
-                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 20d)
-            ),
-            new CostData(Material.GERMANIUM, 1),
-            new CostData(Material.MECHANICALSCRAP, 1)),
-
-    Sensor_Expanded_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 60d),
-                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 30d)
-            ),
-            new CostData(Material.PHASEALLOYS, 1),
-            new CostData(Material.GERMANIUM, 1),
-            new CostData(Material.MECHANICALSCRAP, 1)),
-
-    Sensor_Expanded_4(ItemGrade.GRADE_4, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 40d)
-            ),
-            new CostData(Material.PROTOLIGHTALLOYS, 1),
-            new CostData(Material.MECHANICALEQUIPMENT, 1),
-            new CostData(Material.NIOBIUM, 1)),
-
-    Sensor_Expanded_5(ItemGrade.GRADE_5, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.Mass, 100d),
-                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 50d)
-            ),
-            new CostData(Material.PROTORADIOLICALLOYS, 1),
-            new CostData(Material.MECHANICALCOMPONENTS, 1),
-            new CostData(Material.TIN, 1)),
 
 
     /*
     Shield Cell Bank
      */
 
-    ShieldCellBank_Rapid_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.ShieldBankDuration, -6d),
-                    new ItemEffectData(ItemEffect.ShieldBankReinforcement, 5d),
-                    new ItemEffectData(ItemEffect.ShieldBankSpinUp, -10d)
-            ),
-            new CostData(Material.SULPHUR, 1)),
+    ShieldCellBank_Rapid_1(new ShieldCellBank_Rapid_1()),
+    ShieldCellBank_Rapid_2(new ShieldCellBank_Rapid_2()),
+    ShieldCellBank_Rapid_3(new ShieldCellBank_Rapid_3()),
+    ShieldCellBank_Rapid_4(new ShieldCellBank_Rapid_4()),
 
-    ShieldCellBank_Rapid_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.ShieldBankDuration, -12d),
-                    new ItemEffectData(ItemEffect.ShieldBankReinforcement, 10d),
-                    new ItemEffectData(ItemEffect.ShieldBankSpinUp, -20d)
-            ),
-            new CostData(Material.CHROMIUM, 1),
-            new CostData(Material.GRIDRESISTORS, 1)),
-
-    ShieldCellBank_Rapid_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.BootTime, 20d),
-                    new ItemEffectData(ItemEffect.ShieldBankDuration, -18d),
-                    new ItemEffectData(ItemEffect.ShieldBankReinforcement, 15d),
-                    new ItemEffectData(ItemEffect.ShieldBankSpinUp, -30d)
-            ),
-            new CostData(Material.HYBRIDCAPACITORS, 1),
-            new CostData(Material.PRECIPITATEDALLOYS, 1),
-            new CostData(Material.SULPHUR, 1)),
-
-    ShieldCellBank_Specialised_1(ItemGrade.GRADE_1, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.BootTime, -8d),
-                    new ItemEffectData(ItemEffect.Integrity, -5d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 10d),
-                    new ItemEffectData(ItemEffect.ShieldBankReinforcement, 4d),
-                    new ItemEffectData(ItemEffect.ThermalLoad, -6d)
-            ),
-            new CostData(Material.LEGACYFIRMWARE, 1)),
-
-    ShieldCellBank_Specialised_2(ItemGrade.GRADE_2, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.BootTime, -16d),
-                    new ItemEffectData(ItemEffect.Integrity, -10d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 15d),
-                    new ItemEffectData(ItemEffect.ShieldBankReinforcement, 6d),
-                    new ItemEffectData(ItemEffect.ThermalLoad, -12d)
-            ),
-            new CostData(Material.CONDUCTIVECOMPONENTS, 1),
-            new CostData(Material.LEGACYFIRMWARE, 1)),
-
-    ShieldCellBank_Specialised_3(ItemGrade.GRADE_3, new ItemEffects
-            (
-                    new ItemEffectData(ItemEffect.BootTime, -24d),
-                    new ItemEffectData(ItemEffect.Integrity, -15d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 20d),
-                    new ItemEffectData(ItemEffect.ShieldBankReinforcement, 8d),
-                    new ItemEffectData(ItemEffect.ThermalLoad, -18d)
-            ),
-            new CostData(Material.CONDUCTIVECOMPONENTS, 1),
-            new CostData(Material.INDUSTRIALFIRMWARE, 1),
-            new CostData(Material.SCRAMBLEDEMISSIONDATA, 1)),
+    ShieldCellBank_Specialised_1(new ShieldCellBank_Specialized_1()),
+    ShieldCellBank_Specialised_2(new ShieldCellBank_Specialized_2()),
+    ShieldCellBank_Specialised_3(new ShieldCellBank_Specialized_3()),
+    ShieldCellBank_Specialised_4(new ShieldCellBank_Specialized_4()),
 
 
     /*
