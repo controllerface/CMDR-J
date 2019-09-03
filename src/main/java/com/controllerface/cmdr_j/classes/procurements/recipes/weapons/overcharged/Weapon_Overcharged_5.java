@@ -7,6 +7,8 @@ import com.controllerface.cmdr_j.classes.procurements.recipes.AbstractModificati
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
+import com.controllerface.cmdr_j.ui.Icon;
+import com.controllerface.cmdr_j.ui.UIFunctions;
 
 public class Weapon_Overcharged_5 extends AbstractModificationRecipe
 {

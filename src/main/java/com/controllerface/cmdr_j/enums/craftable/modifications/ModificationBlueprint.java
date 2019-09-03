@@ -4,6 +4,7 @@ import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -483,6 +484,12 @@ public enum ModificationBlueprint implements ProcurementBlueprint
     public Stream<ProcurementRecipe> recipeStream()
     {
         return Arrays.stream(recipes);
+    }
+
+    public Optional<ProcurementRecipe> byLevel(int level)
+    {
+        if (level > recipes.length) return Optional.empty();
+        return Optional.of(recipes[level-1]);
     }
 
     @Override

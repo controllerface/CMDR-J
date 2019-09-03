@@ -4,1672 +4,305 @@ import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
-import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size2.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size3.AFMU_3A;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size3.AFMU_3C;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size3.AFMU_3D;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size3.AFMU_3E;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size4.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size5.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size6.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size7.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size8.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size1.CargoRack_1E;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size1.CargoRack_1E_CorrosiveResist;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size1.CargoRack_1F_CorrosiveResist;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size2.CargoRack_2E;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size3.CargoRack_3E;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size4.CargoRack_4E;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size4.CargoRack_4E_CorrosiveResist;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size5.CargoRack_5E;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size6.CargoRack_6E;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size7.CargoRack_7E;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size8.CargoRack_8E;
+import com.controllerface.cmdr_j.classes.procurements.modules.fsdinterdictor.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fsdinterdictor.size2.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fsdinterdictor.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fsdinterdictor.size4.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size2.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size4.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size5.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size6.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size7.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size8.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size1.HRP_1D;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size1.HRP_1E;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size2.HRP_2D;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size2.HRP_2E;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size3.HRP_3D;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size3.HRP_3E;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size4.HRP_4D;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size4.HRP_4E;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size5.HRP_5D;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size5.HRP_5E;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size1.MRP_1D;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size1.MRP_1E;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size2.MRP_2D;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size2.MRP_2E;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size3.MRP_3D;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size3.MRP_3E;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size4.MRP_4D;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size4.MRP_4E;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size5.MRP_5D;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size5.MRP_5E;
+import com.controllerface.cmdr_j.classes.procurements.modules.refinery.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.refinery.size2.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.refinery.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.refinery.size4.*;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 import java.util.Arrays;
 
 /**
+ * Implementation note:
+ *
+ * The enum values in this class must match a defined Module name in the game
+ *
  * Created by Controllerface on 4/25/2018.
  */
 @SuppressWarnings("unchecked")
 public enum OptionalInternalModule implements ShipModule
 {
-
     /**
      * Automated Field Maintenance Unit
      */
 
-    int_repairer_size1_class1("1E Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.54d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 1000d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.012d)
-            )),
+    int_repairer_size1_class1(new AFMU_1E()),
+    int_repairer_size1_class2(new AFMU_1D()),
+    int_repairer_size1_class3(new AFMU_1C()),
+    int_repairer_size1_class4(new AFMU_1B()),
+    int_repairer_size1_class5(new AFMU_1A()),
 
-    int_repairer_size1_class2("1D Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 24d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.72d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 900d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.016d)
-            )),
+    int_repairer_size2_class1(new AFMU_2E()),
+    int_repairer_size2_class2(new AFMU_2D()),
+    int_repairer_size2_class3(new AFMU_2C()),
+    int_repairer_size2_class4(new AFMU_2B()),
+    int_repairer_size2_class5(new AFMU_2A()),
 
-    int_repairer_size1_class3("1C Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.9d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 1000d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.02d)
-            )),
+    int_repairer_size3_class1(new AFMU_3E()),
+    int_repairer_size3_class2(new AFMU_3D()),
+    int_repairer_size3_class3(new AFMU_3C()),
+    int_repairer_size3_class4(new AFMU_3D()),
+    int_repairer_size3_class5(new AFMU_3A()),
 
-    int_repairer_size1_class4("1B Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 56d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.04d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 1200d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.023d)
-            )),
+    int_repairer_size4_class1(new AFMU_4E()),
+    int_repairer_size4_class2(new AFMU_4D()),
+    int_repairer_size4_class3(new AFMU_4C()),
+    int_repairer_size4_class4(new AFMU_4B()),
+    int_repairer_size4_class5(new AFMU_4A()),
 
-    int_repairer_size1_class5("1A Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 46d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.26d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 1100d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.028d)
-            )),
+    int_repairer_size5_class1(new AFMU_5E()),
+    int_repairer_size5_class2(new AFMU_5D()),
+    int_repairer_size5_class3(new AFMU_5C()),
+    int_repairer_size5_class4(new AFMU_5B()),
+    int_repairer_size5_class5(new AFMU_5A()),
 
+    int_repairer_size6_class1(new AFMU_6E()),
+    int_repairer_size6_class2(new AFMU_6D()),
+    int_repairer_size6_class3(new AFMU_6C()),
+    int_repairer_size6_class4(new AFMU_6B()),
+    int_repairer_size6_class5(new AFMU_6A()),
 
-    int_repairer_size2_class1("2E Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 41d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.68d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 2300d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.012d)
-            )),
+    int_repairer_size7_class1(new AFMU_7E()),
+    int_repairer_size7_class2(new AFMU_7D()),
+    int_repairer_size7_class3(new AFMU_7C()),
+    int_repairer_size7_class4(new AFMU_7B()),
+    int_repairer_size7_class5(new AFMU_7A()),
 
-    int_repairer_size2_class2("2D Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 31d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.9d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 2100d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.016d)
-            )),
-
-    int_repairer_size2_class3("2C Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.13d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 2300d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.02d)
-            )),
-
-    int_repairer_size2_class4("2B Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 71d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.29d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 2800d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.023d)
-            )),
-
-    int_repairer_size2_class5("2A Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 59d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.58d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 2500d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.028d)
-            )),
-
-
-    int_repairer_size3_class1("3E Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.81d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 3600d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.012d)
-            )),
-
-    int_repairer_size3_class2("3D Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 38d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.08d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 3200d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.016d)
-            )),
-
-    int_repairer_size3_class3("3C Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.35d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 3600d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.02d)
-            )),
-
-    int_repairer_size3_class4("3B Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.55d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 4300d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.023d)
-            )),
-
-    int_repairer_size3_class5("3A Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 74d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.89d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 4000d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.028d)
-            )),
-
-
-    int_repairer_size4_class1("4E Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.99d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 4900d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.012d)
-            )),
-
-    int_repairer_size4_class2("4D Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.32d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 4400d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.016d)
-            )),
-
-    int_repairer_size4_class3("4C Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 80d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.65d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 4900d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.02d)
-            )),
-
-    int_repairer_size4_class4("4B Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 112d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.9d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 5900d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.023d)
-            )),
-
-    int_repairer_size4_class5("4A Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 92d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 2.31d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 5400d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.028d)
-            )),
-
-
-    int_repairer_size5_class1("5E Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.17d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 6100d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.012d)
-            )),
-
-    int_repairer_size5_class2("5D Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 58d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.56d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 5500d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.016d)
-            )),
-
-    int_repairer_size5_class3("5C Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 96d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.95d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 6100d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.02d)
-            )),
-
-    int_repairer_size5_class4("5B Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 134d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 2.24d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 7300d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.023d)
-            )),
-
-    int_repairer_size5_class5("5A Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 110d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 2.73d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 6700d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.028d)
-            )),
-
-
-    int_repairer_size6_class1("6E Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.4d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 7400d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.012d)
-            )),
-
-    int_repairer_size6_class2("6D Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 68d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.86d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 6700d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.016d)
-            )),
-
-    int_repairer_size6_class3("6C Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 113d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 2.33d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 7400d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.02d)
-            )),
-
-    int_repairer_size6_class4("6B Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 158d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 2.67d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 8900d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.023d)
-            )),
-
-    int_repairer_size6_class5("6A Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 130d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 3.26d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 8100d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.028d)
-            )),
-
-
-    int_repairer_size7_class1("7E Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 105d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.58d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 8700d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.012d)
-            )),
-
-    int_repairer_size7_class2("7D Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 79d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 2.1d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 7800d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.016d)
-            )),
-
-    int_repairer_size7_class3("7C Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 131d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 2.63d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 8700d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.02d)
-            )),
-
-    int_repairer_size7_class4("7B Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 183d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 3.02d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 10400d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.023d)
-            )),
-
-    int_repairer_size7_class5("7A Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 151d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 3.68d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 9600d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.028d)
-            )),
-
-
-    int_repairer_size8_class1("8E Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 120d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.8d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 10000d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.012d)
-            )),
-
-    int_repairer_size8_class2("8D Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 2.4d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 9000d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.016d)
-            )),
-
-    int_repairer_size8_class3("8C Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 150d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 3d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 10000d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.02d)
-            )),
-
-    int_repairer_size8_class4("8B Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 210d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 3.45d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 12000d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.023d)
-            )),
-
-    int_repairer_size8_class5("8A Automated Field Maintenance Unit",
-            ModificationType.Auto_Field_Maintenence_Unit,
-            null,
-                    new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 173d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 4.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 9d),
-                    new ItemEffectData(ItemEffect.AFMRepairCapacity, 11000d),
-                    new ItemEffectData(ItemEffect.AFMRepairConsumption, 10d),
-                    new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.028d)
-            )),
-
+    int_repairer_size8_class1(new AFMU_8E()),
+    int_repairer_size8_class2(new AFMU_8D()),
+    int_repairer_size8_class3(new AFMU_8C()),
+    int_repairer_size8_class4(new AFMU_8B()),
+    int_repairer_size8_class5(new AFMU_8A()),
 
 
     /**
      * Hull Reinforcement Packages
      */
 
-    int_hullreinforcement_size1_class1("1E Hull Reinforcement Package",
-            ModificationType.Hull_Reinforcement_Package,
-            ExperimentalType.Hull_Reinforcement_Package,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 80d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 0.5d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 0.5d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 0.5d)
-            )),
+    int_hullreinforcement_size1_class1(new HRP_1E()),
+    int_hullreinforcement_size1_class2(new HRP_1D()),
 
+    int_hullreinforcement_size2_class1(new HRP_2E()),
+    int_hullreinforcement_size2_class2(new HRP_2D()),
 
-    int_hullreinforcement_size1_class2("1D Hull Reinforcement Package",
-            ModificationType.Hull_Reinforcement_Package,
-            ExperimentalType.Hull_Reinforcement_Package,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 110d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 0.5d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 0.5d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 0.5d)
-            )),
+    int_hullreinforcement_size3_class1(new HRP_3E()),
+    int_hullreinforcement_size3_class2(new HRP_3D()),
 
+    int_hullreinforcement_size4_class1(new HRP_4E()),
+    int_hullreinforcement_size4_class2(new HRP_4D()),
 
-    int_hullreinforcement_size2_class1("2E Hull Reinforcement Package",
-            ModificationType.Hull_Reinforcement_Package,
-            ExperimentalType.Hull_Reinforcement_Package,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 4d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 150d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 1d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 1d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 1d)
-            )),
-
-    int_hullreinforcement_size2_class2("2D Hull Reinforcement Package",
-            ModificationType.Hull_Reinforcement_Package,
-            ExperimentalType.Hull_Reinforcement_Package,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 190d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 1d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 1d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 1d)
-            )),
-
-
-    int_hullreinforcement_size3_class1("3E Hull Reinforcement Package",
-            ModificationType.Hull_Reinforcement_Package,
-            ExperimentalType.Hull_Reinforcement_Package,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 230d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 1.5d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 1.5d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 1.5d)
-            )),
-
-    int_hullreinforcement_size3_class2("3D Hull Reinforcement Package",
-            ModificationType.Hull_Reinforcement_Package,
-            ExperimentalType.Hull_Reinforcement_Package,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 4d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 260d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 1.5d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 1.5d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 1.5d)
-            )),
-
-
-    int_hullreinforcement_size4_class1("4E Hull Reinforcement Package",
-            ModificationType.Hull_Reinforcement_Package,
-            ExperimentalType.Hull_Reinforcement_Package,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 16d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 300d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 2d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 2d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 2d)
-            )),
-
-    int_hullreinforcement_size4_class2("4D Hull Reinforcement Package",
-            ModificationType.Hull_Reinforcement_Package,
-            ExperimentalType.Hull_Reinforcement_Package,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 330d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 2d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 2d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 2d)
-            )),
-
-
-    int_hullreinforcement_size5_class1("5E Hull Reinforcement Package",
-            ModificationType.Hull_Reinforcement_Package,
-            ExperimentalType.Hull_Reinforcement_Package,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 360d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 2.5d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 2.5d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 2.5d)
-            )),
-
-    int_hullreinforcement_size5_class2("5D Hull Reinforcement Package",
-            ModificationType.Hull_Reinforcement_Package,
-            ExperimentalType.Hull_Reinforcement_Package,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 16d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 390d),
-                    new ItemEffectData(ItemEffect.KineticResistance, 2.5d),
-                    new ItemEffectData(ItemEffect.ThermicResistance, 2.5d),
-                    new ItemEffectData(ItemEffect.ExplosiveResistance, 2.5d)
-            )),
+    int_hullreinforcement_size5_class1(new HRP_5E()),
+    int_hullreinforcement_size5_class2(new HRP_5D()),
 
 
     /**
      * Module Reinforcement Packages
      */
 
-    int_modulereinforcement_size1_class1("1E Module Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
-            )),
+    int_modulereinforcement_size1_class1(new MRP_1E()),
+    int_modulereinforcement_size1_class2(new MRP_1D()),
 
-    int_modulereinforcement_size1_class2("1D Module Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1d),
-                    new ItemEffectData(ItemEffect.Integrity, 70d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
-            )),
+    int_modulereinforcement_size2_class1(new MRP_2E()),
+    int_modulereinforcement_size2_class2(new MRP_2D()),
 
-    int_modulereinforcement_size2_class1("2E Module Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 4d),
-                    new ItemEffectData(ItemEffect.Integrity, 115d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
-            )),
+    int_modulereinforcement_size3_class1(new MRP_3E()),
+    int_modulereinforcement_size3_class2(new MRP_3D()),
 
-    int_modulereinforcement_size2_class2("2D Module Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 105d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
-            )),
+    int_modulereinforcement_size4_class1(new MRP_4E()),
+    int_modulereinforcement_size4_class2(new MRP_4D()),
 
-    int_modulereinforcement_size3_class1("3E Module Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 170d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
-            )),
+    int_modulereinforcement_size5_class1(new MRP_5E()),
+    int_modulereinforcement_size5_class2(new MRP_5D()),
 
-    int_modulereinforcement_size3_class2("3D Module Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 4d),
-                    new ItemEffectData(ItemEffect.Integrity, 155d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
-            )),
-
-    int_modulereinforcement_size4_class1("4E Module Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 16d),
-                    new ItemEffectData(ItemEffect.Integrity, 260d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
-            )),
-
-    int_modulereinforcement_size4_class2("4D Module Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 235d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
-            )),
-
-    int_modulereinforcement_size5_class1("5E Module Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 385d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
-            )),
-
-    int_modulereinforcement_size5_class2("5D Module Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 16d),
-                    new ItemEffectData(ItemEffect.Integrity, 350d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
-            )),
 
     /**
      * Fuel Scoops
      */
 
-    int_fuelscoop_size1_class1("1E Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.14d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.018d)
-            )),
+    int_fuelscoop_size1_class1(new FuelScoop_1E()),
+    int_fuelscoop_size1_class2(new FuelScoop_1D()),
+    int_fuelscoop_size1_class3(new FuelScoop_1C()),
+    int_fuelscoop_size1_class4(new FuelScoop_1B()),
+    int_fuelscoop_size1_class5(new FuelScoop_1A()),
 
-    int_fuelscoop_size1_class2("1D Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 24d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.18d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.024d)
-            )),
+    int_fuelscoop_size2_class1(new FuelScoop_2E()),
+    int_fuelscoop_size2_class2(new FuelScoop_2D()),
+    int_fuelscoop_size2_class3(new FuelScoop_2C()),
+    int_fuelscoop_size2_class4(new FuelScoop_2B()),
+    int_fuelscoop_size2_class5(new FuelScoop_2A()),
 
-    int_fuelscoop_size1_class3("1C Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.23d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.03d)
-            )),
+    int_fuelscoop_size3_class1(new FuelScoop_3E()),
+    int_fuelscoop_size3_class2(new FuelScoop_3D()),
+    int_fuelscoop_size3_class3(new FuelScoop_3C()),
+    int_fuelscoop_size3_class4(new FuelScoop_3B()),
+    int_fuelscoop_size3_class5(new FuelScoop_3A()),
 
-    int_fuelscoop_size1_class4("1B Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 56d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.036d)
-            )),
+    int_fuelscoop_size4_class1(new FuelScoop_4E()),
+    int_fuelscoop_size4_class2(new FuelScoop_4D()),
+    int_fuelscoop_size4_class3(new FuelScoop_4C()),
+    int_fuelscoop_size4_class4(new FuelScoop_4B()),
+    int_fuelscoop_size4_class5(new FuelScoop_4A()),
 
-    int_fuelscoop_size1_class5("1A Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.32d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.042d)
-            )),
+    int_fuelscoop_size5_class1(new FuelScoop_5E()),
+    int_fuelscoop_size5_class2(new FuelScoop_5D()),
+    int_fuelscoop_size5_class3(new FuelScoop_5C()),
+    int_fuelscoop_size5_class4(new FuelScoop_5B()),
+    int_fuelscoop_size5_class5(new FuelScoop_5A()),
 
+    int_fuelscoop_size6_class1(new FuelScoop_6E()),
+    int_fuelscoop_size6_class2(new FuelScoop_6D()),
+    int_fuelscoop_size6_class3(new FuelScoop_6C()),
+    int_fuelscoop_size6_class4(new FuelScoop_6B()),
+    int_fuelscoop_size6_class5(new FuelScoop_6A()),
 
-    int_fuelscoop_size2_class1("2E Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 41d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.17d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.032d)
-            )),
+    int_fuelscoop_size7_class1(new FuelScoop_7E()),
+    int_fuelscoop_size7_class2(new FuelScoop_7D()),
+    int_fuelscoop_size7_class3(new FuelScoop_7C()),
+    int_fuelscoop_size7_class4(new FuelScoop_7B()),
+    int_fuelscoop_size7_class5(new FuelScoop_7A()),
 
-    int_fuelscoop_size2_class2("2D Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 31d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.22d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.043d)
-            )),
-
-    int_fuelscoop_size2_class3("2C Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.054d)
-            )),
-
-    int_fuelscoop_size2_class4("2B Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 70d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.065d)
-            )),
-
-    int_fuelscoop_size2_class5("2A Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 61d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.39d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.075d)
-            )),
-
-
-    int_fuelscoop_size3_class1("3E Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.075d)
-            )),
-
-    int_fuelscoop_size3_class2("3D Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 38d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.27d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.1d)
-            )),
-
-    int_fuelscoop_size3_class3("3C Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.126d)
-            )),
-
-    int_fuelscoop_size3_class4("3B Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.151d)
-            )),
-
-    int_fuelscoop_size3_class5("3A Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.48d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.176d)
-            )),
-
-
-    int_fuelscoop_size4_class1("4E Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.25d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.147d)
-            )),
-
-    int_fuelscoop_size4_class2("4D Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.33d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.196d)
-            )),
-
-    int_fuelscoop_size4_class3("4C Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 80d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.245d)
-            )),
-
-    int_fuelscoop_size4_class4("4B Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 112d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.49d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.294d)
-            )),
-
-    int_fuelscoop_size4_class5("4A Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 96d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.57d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.342d)
-            )),
-
-
-    int_fuelscoop_size5_class1("5E Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.3d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.247d)
-            )),
-
-    int_fuelscoop_size5_class2("5D Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 58d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.4d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.33d)
-            )),
-
-    int_fuelscoop_size5_class3("5C Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 96d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.5d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.412d)
-            )),
-
-    int_fuelscoop_size5_class4("5B Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 134d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.6d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.494d)
-            )),
-
-    int_fuelscoop_size5_class5("5A Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 115d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.7d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.577d)
-            )),
-
-
-    int_fuelscoop_size6_class1("6E Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.35d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.376d)
-            )),
-
-    int_fuelscoop_size6_class2("6D Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 68d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.47d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.502d)
-            )),
-
-    int_fuelscoop_size6_class3("6C Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 113d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.59d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.627d)
-            )),
-
-    int_fuelscoop_size6_class4("6B Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 158d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.71d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.752d)
-            )),
-
-    int_fuelscoop_size6_class5("6A Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 136d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.83d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.878d)
-            )),
-
-
-    int_fuelscoop_size7_class1("7E Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 105d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.534d)
-            )),
-
-    int_fuelscoop_size7_class2("7D Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 79d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.55d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.712d)
-            )),
-
-    int_fuelscoop_size7_class3("7C Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 131d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.69d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.89d)
-            )),
-
-    int_fuelscoop_size7_class4("7B Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 183d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.83d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 1.068d)
-            )),
-
-    int_fuelscoop_size7_class5("7A Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 157d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.97d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 1.245d)
-            )),
-
-
-    int_fuelscoop_size8_class1("8E Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 120d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.48d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.72d)
-            )),
-
-    int_fuelscoop_size8_class2("8D Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.64d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 0.96d)
-            )),
-
-    int_fuelscoop_size8_class3("8C Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 150d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.8d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 1.2d)
-            )),
-
-    int_fuelscoop_size8_class4("8B Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 210d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.96d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 1.44d)
-            )),
-
-    int_fuelscoop_size8_class5("8A Fuel Scoop",
-            ModificationType.Fuel_Scoop,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 180d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.12d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.FuelScoopRate, 1.68d)
-            )),
-
+    int_fuelscoop_size8_class1(new FuelScoop_8E()),
+    int_fuelscoop_size8_class2(new FuelScoop_8D()),
+    int_fuelscoop_size8_class3(new FuelScoop_8C()),
+    int_fuelscoop_size8_class4(new FuelScoop_8B()),
+    int_fuelscoop_size8_class5(new FuelScoop_8A()),
 
 
     /**
      * Refineries
      */
 
-    int_refinery_size1_class1("1E Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.14d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 1d)
-            )),
+    int_refinery_size1_class1(new Refinery_1E()),
+    int_refinery_size1_class2(new Refinery_1D()),
+    int_refinery_size1_class3(new Refinery_1C()),
+    int_refinery_size1_class4(new Refinery_1B()),
+    int_refinery_size1_class5(new Refinery_1A()),
 
-    int_refinery_size1_class2("1D Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 24d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.18d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 1d)
-            )),
+    int_refinery_size2_class1(new Refinery_2E()),
+    int_refinery_size2_class2(new Refinery_2D()),
+    int_refinery_size2_class3(new Refinery_2C()),
+    int_refinery_size2_class4(new Refinery_2B()),
+    int_refinery_size2_class5(new Refinery_2A()),
 
-    int_refinery_size1_class3("1C Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.23d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 2d)
-            )),
+    int_refinery_size3_class1(new Refinery_3E()),
+    int_refinery_size3_class2(new Refinery_3D()),
+    int_refinery_size3_class3(new Refinery_3C()),
+    int_refinery_size3_class4(new Refinery_3B()),
+    int_refinery_size3_class5(new Refinery_3A()),
 
-    int_refinery_size1_class4("1B Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 56d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 3d)
-            )),
-
-    int_refinery_size1_class5("1A Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.32d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 4d)
-            )),
-
-
-    int_refinery_size2_class1("2E Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 41d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.17d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 2d)
-            )),
-
-    int_refinery_size2_class2("2D Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 31d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.22d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 3d)
-            )),
-
-    int_refinery_size2_class3("2C Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 4d)
-            )),
-
-    int_refinery_size2_class4("2B Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 71d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 5d)
-            )),
-
-    int_refinery_size2_class5("2A Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 61d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.39d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 6d)
-            )),
-
-
-    int_refinery_size3_class1("3E Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 3d)
-            )),
-
-    int_refinery_size3_class2("3D Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 38d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.27d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 4d)
-            )),
-
-    int_refinery_size3_class3("3C Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 6d)
-            )),
-
-    int_refinery_size3_class4("3B Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 7d)
-            )),
-
-    int_refinery_size3_class5("3A Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.48d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 8d)
-            )),
-
-
-    int_refinery_size4_class1("4E Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.25d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 4d)
-            )),
-
-    int_refinery_size4_class2("4D Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.33d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 5d)
-            )),
-
-    int_refinery_size4_class3("4C Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 80d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 7d)
-            )),
-
-    int_refinery_size4_class4("4B Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 112d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.49d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 9d)
-            )),
-
-    int_refinery_size4_class5("4A Refinery",
-            ModificationType.Refinery,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 96d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.57d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.RefineryBins, 10d)
-            )),
-
+    int_refinery_size4_class1(new Refinery_4E()),
+    int_refinery_size4_class2(new Refinery_4D()),
+    int_refinery_size4_class3(new Refinery_4C()),
+    int_refinery_size4_class4(new Refinery_4B()),
+    int_refinery_size4_class5(new Refinery_4A()),
 
 
     /**
      * FSD Interdictors
      */
 
-    int_fsdinterdictor_size1_class1("1E Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.14d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 3d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
+    int_fsdinterdictor_size1_class1(new FSDInterdictor_1E()),
+    int_fsdinterdictor_size1_class2(new FSDInterdictor_1D()),
+    int_fsdinterdictor_size1_class3(new FSDInterdictor_1C()),
+    int_fsdinterdictor_size1_class4(new FSDInterdictor_1B()),
+    int_fsdinterdictor_size1_class5(new FSDInterdictor_1A()),
 
-    int_fsdinterdictor_size1_class2("1D Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 0.5d),
-                    new ItemEffectData(ItemEffect.Integrity, 24d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.18d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 4d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
+    int_fsdinterdictor_size2_class1(new FSDInterdictor_2E()),
+    int_fsdinterdictor_size2_class2(new FSDInterdictor_2D()),
+    int_fsdinterdictor_size2_class3(new FSDInterdictor_2C()),
+    int_fsdinterdictor_size2_class4(new FSDInterdictor_2B()),
+    int_fsdinterdictor_size2_class5(new FSDInterdictor_2A()),
 
-    int_fsdinterdictor_size1_class3("1C Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.23d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 5d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
+    int_fsdinterdictor_size3_class1(new FSDInterdictor_3E()),
+    int_fsdinterdictor_size3_class2(new FSDInterdictor_3D()),
+    int_fsdinterdictor_size3_class3(new FSDInterdictor_3C()),
+    int_fsdinterdictor_size3_class4(new FSDInterdictor_3B()),
+    int_fsdinterdictor_size3_class5(new FSDInterdictor_3A()),
 
-    int_fsdinterdictor_size1_class4("1B Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 56d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 6d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size1_class5("1A Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.32d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 7d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-
-    int_fsdinterdictor_size2_class1("2E Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2.5d),
-                    new ItemEffectData(ItemEffect.Integrity, 41d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.17d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 6d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size2_class2("2D Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1d),
-                    new ItemEffectData(ItemEffect.Integrity, 31d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.22d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 7d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size2_class3("2C Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2.5d),
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 8d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size2_class4("2B Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 4d),
-                    new ItemEffectData(ItemEffect.Integrity, 71d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 9d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size2_class5("2A Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2.5d),
-                    new ItemEffectData(ItemEffect.Integrity, 61d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.39d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 10d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-
-    int_fsdinterdictor_size3_class1("3E Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 9d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size3_class2("3D Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 38d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.27d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 10d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size3_class3("3C Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 11d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size3_class4("3B Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 12d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size3_class5("3A Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.48d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 13d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-
-    int_fsdinterdictor_size4_class1("4E Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.25d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 12d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size4_class2("4D Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 4d),
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.33d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 13d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size4_class3("4C Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.Integrity, 80d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 14d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size4_class4("4B Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 16d),
-                    new ItemEffectData(ItemEffect.Integrity, 112d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.49d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
-    int_fsdinterdictor_size4_class5("4A Frame Shift Drive Interdictor",
-            ModificationType.Frame_Shift_Drive_Interdictor,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.Integrity, 96d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.57d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorRange, 16d),
-                    new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
-            )),
-
+    int_fsdinterdictor_size4_class1(new FSDInterdictor_4E()),
+    int_fsdinterdictor_size4_class2(new FSDInterdictor_4D()),
+    int_fsdinterdictor_size4_class3(new FSDInterdictor_4C()),
+    int_fsdinterdictor_size4_class4(new FSDInterdictor_4B()),
+    int_fsdinterdictor_size4_class5(new FSDInterdictor_4A()),
 
 
     /**
      * Cargo Racks
-     *
-     * Includes Corrosion resistant cargo racks
      */
 
+    int_cargorack_size1_class1(new CargoRack_1E()),
+    int_corrosionproofcargorack_size1_class1(new CargoRack_1E_CorrosiveResist()),
+    int_corrosionproofcargorack_size1_class2(new CargoRack_1F_CorrosiveResist()),
 
+    int_cargorack_size2_class1(new CargoRack_2E()),
 
-    int_corrosionproofcargorack_size1_class1("1E Corrosion Resistant Cargo Rack",
-            null,
-            null,
-            new ItemEffects
-                    (
-                            new ItemEffectData(ItemEffect.experimental, 1d),
-                            new ItemEffectData(ItemEffect.CargoCapacity, 1d)
-                    )),
+    int_cargorack_size3_class1(new CargoRack_3E()),
 
-    int_cargorack_size1_class1("1E Cargo Rack",
-            null,
-            null,
-            new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 2d))),
+    int_cargorack_size4_class1(new CargoRack_4E()),
+    int_corrosionproofcargorack_size4_class1(new CargoRack_4E_CorrosiveResist()),
 
-    int_corrosionproofcargorack_size1_class2("1F Corrosion Resistant Cargo Rack",
-            null,
-            null,
-            new ItemEffects
-                    (
-                            new ItemEffectData(ItemEffect.experimental, 1d),
-                            new ItemEffectData(ItemEffect.CargoCapacity, 2d)
-                    )),
+    int_cargorack_size5_class1(new CargoRack_5E()),
 
-    int_cargorack_size2_class1("2E Cargo Rack",
-            null,
-            null,
-            new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 4d))),
+    int_cargorack_size6_class1(new CargoRack_6E()),
 
-    int_cargorack_size3_class1("3E Cargo Rack",
-            null,
-            null,
-            new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 8d))),
+    int_cargorack_size7_class1(new CargoRack_7E()),
 
-    int_cargorack_size4_class1("4E Cargo Rack",
-            null,
-            null,
-            new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 16d))),
-
-    int_corrosionproofcargorack_size4_class1("4E Corrosion Resistant Cargo Rack",
-            null,
-            null,
-            new ItemEffects
-                    (
-                            new ItemEffectData(ItemEffect.experimental, 1d),
-                            new ItemEffectData(ItemEffect.CargoCapacity, 16d)
-                    )),
-
-    int_cargorack_size5_class1("5E Cargo Rack",
-            null,
-            null,
-            new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 32d))),
-
-    int_cargorack_size6_class1("6E Cargo Rack",
-            null,
-            null,
-            new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 64d))),
-
-    int_cargorack_size7_class1("7E Cargo Rack",
-            null,
-            null,
-            new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 128d))),
-
-    int_cargorack_size8_class1("8E Cargo Rack",
-            null,
-            null,
-            new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 256d))),
-
+    int_cargorack_size8_class1(new CargoRack_8E()),
 
 
     /**
@@ -2111,7 +744,6 @@ public enum OptionalInternalModule implements ShipModule
             )),
 
 
-
     /**
      * Prospector Limpet Controllers
      */
@@ -2378,7 +1010,6 @@ public enum OptionalInternalModule implements ShipModule
                     new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
                     new ItemEffectData(ItemEffect.DroneSpeed, 200d)
             )),
-
 
 
     /**
@@ -2689,7 +1320,6 @@ public enum OptionalInternalModule implements ShipModule
             )),
 
 
-
     /**
      * Repair Limpet Controllers
      */
@@ -2996,7 +1626,6 @@ public enum OptionalInternalModule implements ShipModule
                     new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
                     new ItemEffectData(ItemEffect.DroneSpeed, 200d)
             )),
-
 
 
     /**
@@ -3347,7 +1976,6 @@ public enum OptionalInternalModule implements ShipModule
             )),
 
 
-
     /**
      * Decontamination Limpet Controllers
      */
@@ -3574,7 +2202,6 @@ public enum OptionalInternalModule implements ShipModule
             )),
 
 
-
     /**
      * Fighter Bays
      *
@@ -3620,44 +2247,48 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Discovery Scanners
+     * Discovery Scanners:
+     *
+     * TODO: should no longer be present in new games, disabling them breaks compatibility but I want to keep
+     *   any "legacy" stuff clearly separate. At some point should figure out best way to handle this that keeps
+     *   this class as clean as possible, and old stuff clearly marked as such.
      */
 
-    int_stellarbodydiscoveryscanner_standard("Basic Discovery Scanner",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.DiscoveryScannerRange, 500d),
-                    new ItemEffectData(ItemEffect.DiscoveryScannerPassiveRange, 0.33d),
-                    new ItemEffectData(ItemEffect.MaxAngle, 10d),
-                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)
-            )),
-
-    int_stellarbodydiscoveryscanner_intermediate("Intermediate Discovery Scanner",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.DiscoveryScannerRange, 1000d),
-                    new ItemEffectData(ItemEffect.DiscoveryScannerPassiveRange, 3.34d),
-                    new ItemEffectData(ItemEffect.MaxAngle, 10d),
-                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)
-            )),
-
-    int_stellarbodydiscoveryscanner_advanced("Advanced Discovery Scanner",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.DiscoveryScannerRange, Double.MAX_VALUE),
-                    new ItemEffectData(ItemEffect.DiscoveryScannerPassiveRange, 33.36d),
-                    new ItemEffectData(ItemEffect.MaxAngle, 10d),
-                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)
-            )),
+//    int_stellarbodydiscoveryscanner_standard("Basic Discovery Scanner",
+//            null,
+//            null,
+//            new ItemEffects(
+//                    new ItemEffectData(ItemEffect.Mass, 2d),
+//                    new ItemEffectData(ItemEffect.Integrity, 40d),
+//                    new ItemEffectData(ItemEffect.DiscoveryScannerRange, 500d),
+//                    new ItemEffectData(ItemEffect.DiscoveryScannerPassiveRange, 0.33d),
+//                    new ItemEffectData(ItemEffect.MaxAngle, 10d),
+//                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)
+//            )),
+//
+//    int_stellarbodydiscoveryscanner_intermediate("Intermediate Discovery Scanner",
+//            null,
+//            null,
+//            new ItemEffects(
+//                    new ItemEffectData(ItemEffect.Mass, 2d),
+//                    new ItemEffectData(ItemEffect.Integrity, 40d),
+//                    new ItemEffectData(ItemEffect.DiscoveryScannerRange, 1000d),
+//                    new ItemEffectData(ItemEffect.DiscoveryScannerPassiveRange, 3.34d),
+//                    new ItemEffectData(ItemEffect.MaxAngle, 10d),
+//                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)
+//            )),
+//
+//    int_stellarbodydiscoveryscanner_advanced("Advanced Discovery Scanner",
+//            null,
+//            null,
+//            new ItemEffects(
+//                    new ItemEffectData(ItemEffect.Mass, 2d),
+//                    new ItemEffectData(ItemEffect.Integrity, 40d),
+//                    new ItemEffectData(ItemEffect.DiscoveryScannerRange, Double.MAX_VALUE),
+//                    new ItemEffectData(ItemEffect.DiscoveryScannerPassiveRange, 33.36d),
+//                    new ItemEffectData(ItemEffect.MaxAngle, 10d),
+//                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)
+//            )),
 
 
     /**
@@ -3780,18 +2411,11 @@ public enum OptionalInternalModule implements ShipModule
             )),
 
 
-
-
-
-
     // todo: add all of these
     int_guardianhullreinforcement_size1_class1("1E Guardian Hull Reinforcement Package", null, null,
             new ItemEffects(
                     new ItemEffectData(ItemEffect.guardian, 1d)
             )),
-
-
-
 
 
     int_guardianmodulereinforcement_size1_class1("1E Guardian Module Reinforcement Package", null, null,
@@ -3885,11 +2509,6 @@ public enum OptionalInternalModule implements ShipModule
             )),
 
 
-
-
-
-
-
     int_guardianfsdbooster_size1("1H Guardian FSD Booster",
             null,
             null,
@@ -3953,8 +2572,6 @@ public enum OptionalInternalModule implements ShipModule
     /**
      * Human Tech Broker Internal Modules
      */
-
-    // todo: verify ENUM values for these, they may be guessed
 
     int_metaalloyhullreinforcement_size1_class1("1E Meta-Alloy Hull Reinforcement Package",
             null,
@@ -4054,37 +2671,53 @@ public enum OptionalInternalModule implements ShipModule
     private final ProcurementType experimentalType;
     private final ItemEffects itemEffects;
 
+    private final ShipModule delegate;
+
     OptionalInternalModule(String displayText, ProcurementType modificationType, ProcurementType experimentalType, ItemEffects itemEffects)
     {
         this.modificationType = modificationType;
         this.experimentalType = experimentalType;
         this.displayText = displayText;
         this.itemEffects = itemEffects;
+        this.delegate = null;
+    }
+
+    OptionalInternalModule(ShipModule delegate)
+    {
+        this.delegate = delegate;
+        this.modificationType = null;
+        this.experimentalType = null;
+        this.displayText = null;
+        this.itemEffects = null;
     }
 
     @Override
     public ProcurementType modificationType()
     {
-        return modificationType;
+        if (delegate == null) return modificationType;
+        return delegate.modificationType();
     }
 
     @Override
     public ProcurementType experimentalType()
     {
-        return experimentalType;
+        if (delegate == null) return experimentalType;
+        return delegate.experimentalType();
     }
 
     @Override
     public String displayText()
     {
-        return displayText;
+        if (delegate == null) return displayText;
+        return delegate.displayText();
     }
 
 
     @Override
     public ItemEffects itemEffects()
     {
-        return itemEffects;
+        if (delegate == null) return itemEffects;
+        return delegate.itemEffects();
     }
 
     public static ShipModule findModule(String moduleName) throws Exception

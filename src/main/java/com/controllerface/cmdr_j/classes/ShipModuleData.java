@@ -292,16 +292,13 @@ public class ShipModuleData implements Displayable
     private void renderModificationInfo(HBox moduleNameContainer, VBox detailsContainer)
     {
         boolean experimental = module.itemEffects().effectStream()
-                .filter(e->e.getEffect()== ItemEffect.experimental)
-                .findFirst().isPresent();
+                .anyMatch(e->e.getEffect()== ItemEffect.experimental);
 
         boolean human = module.itemEffects().effectStream()
-                .filter(e->e.getEffect()== ItemEffect.human)
-                .findFirst().isPresent();
+                .anyMatch(e->e.getEffect()== ItemEffect.human);
 
         boolean guardian = module.itemEffects().effectStream()
-                .filter(e->e.getEffect()== ItemEffect.guardian)
-                .findFirst().isPresent();
+                .anyMatch(e->e.getEffect()== ItemEffect.guardian);
 
 
         if (human)
@@ -331,7 +328,10 @@ public class ShipModuleData implements Displayable
             double sizeh = 20;
             HBox modBox = new HBox();
             modBox.setAlignment(Pos.CENTER_LEFT);
-            SVGPath icon = UIFunctions.Icons.engineering;
+
+            SVGPath icon = modificationBlueprint.byLevel(level)
+                    .map(r->r.getIcon().getIconPath())
+                    .orElse(UIFunctions.Icons.engineering);
 
             final Region svgShape = new Region();
             svgShape.setShape(icon);
@@ -396,7 +396,7 @@ public class ShipModuleData implements Displayable
             double sizeh = 20;
             HBox expBox = new HBox();
             expBox.setAlignment(Pos.CENTER_LEFT);
-            SVGPath icon = UIFunctions.Icons.engineering;
+            SVGPath icon = experimentalEffectRecipe.getIcon().getIconPath();
 
             final Region svgShape = new Region();
             svgShape.setShape(icon);
