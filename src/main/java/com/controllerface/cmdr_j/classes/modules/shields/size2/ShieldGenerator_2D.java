@@ -3,8 +3,6 @@ package com.controllerface.cmdr_j.classes.modules.shields.size2;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.shields.AbstractShieldGenerator;
-import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
-import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 public class ShieldGenerator_2D extends AbstractShieldGenerator
