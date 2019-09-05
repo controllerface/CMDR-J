@@ -1,8 +1,17 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
-import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size1.MetaAlloyHRP_1D;
+import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size1.MetaAlloyHRP_1E;
+import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size2.MetaAlloyHRP_2D;
+import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size2.MetaAlloyHRP_2E;
+import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size3.MetaAlloyHRP_3D;
+import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size3.MetaAlloyHRP_3E;
+import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size4.MetaAlloyHRP_4D;
+import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size4.MetaAlloyHRP_4E;
+import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size5.MetaAlloyHRP_5D;
+import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size5.MetaAlloyHRP_5E;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
 import com.controllerface.cmdr_j.classes.modules.afmu.size1.*;
 import com.controllerface.cmdr_j.classes.modules.afmu.size2.*;
@@ -114,7 +123,6 @@ import com.controllerface.cmdr_j.classes.modules.srvbay.size2.*;
 import com.controllerface.cmdr_j.classes.modules.srvbay.size4.*;
 import com.controllerface.cmdr_j.classes.modules.srvbay.size6.*;
 import com.controllerface.cmdr_j.classes.modules.surfacescanner.size0.DetailedSurfaceScanner_1I;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 import java.util.Arrays;
 
@@ -747,142 +755,45 @@ public enum OptionalInternalModule implements ShipModule
      * Human Tech Broker Internal Modules
      */
 
-    int_metaalloyhullreinforcement_size1_class1("1E Meta-Alloy Hull Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 72d),
-                    new ItemEffectData(ItemEffect.CausticResistance, 3d)
-            )),
-    int_metaalloyhullreinforcement_size1_class2("1D Meta-Alloy Hull Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 99d),
-                    new ItemEffectData(ItemEffect.CausticResistance, 3d)
-            )),
-    int_metaalloyhullreinforcement_size2_class1("2E Meta-Alloy Hull Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 4d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 135d),
-                    new ItemEffectData(ItemEffect.CausticResistance, 3d)
-            )),
-    int_metaalloyhullreinforcement_size2_class2("2D Meta-Alloy Hull Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 171d),
-                    new ItemEffectData(ItemEffect.CausticResistance, 3d)
-            )),
-    int_metaalloyhullreinforcement_size3_class1("3E Meta-Alloy Hull Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 207d),
-                    new ItemEffectData(ItemEffect.CausticResistance, 3d)
-            )),
-    int_metaalloyhullreinforcement_size3_class2("3D Meta-Alloy Hull Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 4d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 234d),
-                    new ItemEffectData(ItemEffect.CausticResistance, 3d)
-            )),
-    int_metaalloyhullreinforcement_size4_class1("4E Meta-Alloy Hull Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 16d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 270d),
-                    new ItemEffectData(ItemEffect.CausticResistance, 3d)
-            )),
-    int_metaalloyhullreinforcement_size4_class2("4D Meta-Alloy Hull Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 297d),
-                    new ItemEffectData(ItemEffect.CausticResistance, 3d)
-            )),
-    int_metaalloyhullreinforcement_size5_class1("5E Meta-Alloy Hull Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 324d),
-                    new ItemEffectData(ItemEffect.CausticResistance, 3d)
-            )),
-    int_metaalloyhullreinforcement_size5_class2("5D Meta-Alloy Hull Reinforcement Package",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.experimental, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 16d),
-                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 351d),
-                    new ItemEffectData(ItemEffect.CausticResistance, 3d)
-            )),
+    int_metaalloyhullreinforcement_size1_class1(new MetaAlloyHRP_1E()),
+    int_metaalloyhullreinforcement_size1_class2(new MetaAlloyHRP_1D()),
+
+    int_metaalloyhullreinforcement_size2_class1(new MetaAlloyHRP_2E()),
+    int_metaalloyhullreinforcement_size2_class2(new MetaAlloyHRP_2D()),
+
+    int_metaalloyhullreinforcement_size3_class1(new MetaAlloyHRP_3E()),
+    int_metaalloyhullreinforcement_size3_class2(new MetaAlloyHRP_3D()),
+
+    int_metaalloyhullreinforcement_size4_class1(new MetaAlloyHRP_4E()),
+    int_metaalloyhullreinforcement_size4_class2(new MetaAlloyHRP_4D()),
+
+    int_metaalloyhullreinforcement_size5_class1(new MetaAlloyHRP_5E()),
+    int_metaalloyhullreinforcement_size5_class2(new MetaAlloyHRP_5D()),
 
     ;
 
-    private final String displayText;
-    private final ProcurementType modificationType;
-    private final ProcurementType experimentalType;
-    private final ItemEffects itemEffects;
-
     private final ShipModule delegate;
-
-    OptionalInternalModule(String displayText, ProcurementType modificationType, ProcurementType experimentalType, ItemEffects itemEffects)
-    {
-        this.modificationType = modificationType;
-        this.experimentalType = experimentalType;
-        this.displayText = displayText;
-        this.itemEffects = itemEffects;
-        this.delegate = null;
-    }
 
     OptionalInternalModule(ShipModule delegate)
     {
         this.delegate = delegate;
-        this.modificationType = null;
-        this.experimentalType = null;
-        this.displayText = null;
-        this.itemEffects = null;
     }
 
     @Override
     public ProcurementType modificationType()
     {
-        if (delegate == null) return modificationType;
         return delegate.modificationType();
     }
 
     @Override
     public ProcurementType experimentalType()
     {
-        if (delegate == null) return experimentalType;
         return delegate.experimentalType();
     }
 
     @Override
     public String displayText()
     {
-        if (delegate == null) return displayText;
         return delegate.displayText();
     }
 
@@ -890,7 +801,6 @@ public enum OptionalInternalModule implements ShipModule
     @Override
     public ItemEffects itemEffects()
     {
-        if (delegate == null) return itemEffects;
         return delegate.itemEffects();
     }
 
