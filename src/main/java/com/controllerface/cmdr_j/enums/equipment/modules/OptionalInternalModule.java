@@ -12,6 +12,10 @@ import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size4
 import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size4.MetaAlloyHRP_4E;
 import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size5.MetaAlloyHRP_5D;
 import com.controllerface.cmdr_j.classes.modules.experimental.optional.hrp.size5.MetaAlloyHRP_5E;
+import com.controllerface.cmdr_j.classes.modules.shields.size1.ShieldGenerator_1A;
+import com.controllerface.cmdr_j.classes.modules.shields.size1.ShieldGenerator_1A_Prismatic;
+import com.controllerface.cmdr_j.classes.modules.shields.size1.ShieldGenerator_1C_BiWeave;
+import com.controllerface.cmdr_j.classes.modules.shields.size2.*;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
 import com.controllerface.cmdr_j.classes.modules.afmu.size1.*;
 import com.controllerface.cmdr_j.classes.modules.afmu.size2.*;
@@ -189,47 +193,76 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Hull Reinforcement Packages
+     * Hull Reinforcement Package
      */
 
     int_hullreinforcement_size1_class1(new HRP_1E()),
     int_hullreinforcement_size1_class2(new HRP_1D()),
+    int_guardianhullreinforcement_size1_class1(new GuardianHRP_1E()),
+    int_guardianhullreinforcement_size1_class2(new GuardianHRP_1D()),
+    int_metaalloyhullreinforcement_size1_class1(new MetaAlloyHRP_1E()),
+    int_metaalloyhullreinforcement_size1_class2(new MetaAlloyHRP_1D()),
 
     int_hullreinforcement_size2_class1(new HRP_2E()),
     int_hullreinforcement_size2_class2(new HRP_2D()),
+    int_guardianhullreinforcement_size2_class1(new GuardianHRP_2E()),
+    int_guardianhullreinforcement_size2_class2(new GuardianHRP_2D()),
+    int_metaalloyhullreinforcement_size2_class1(new MetaAlloyHRP_2E()),
+    int_metaalloyhullreinforcement_size2_class2(new MetaAlloyHRP_2D()),
 
     int_hullreinforcement_size3_class1(new HRP_3E()),
     int_hullreinforcement_size3_class2(new HRP_3D()),
+    int_guardianhullreinforcement_size3_class1(new GuardianHRP_3E()),
+    int_guardianhullreinforcement_size3_class2(new GuardianHRP_3D()),
+    int_metaalloyhullreinforcement_size3_class1(new MetaAlloyHRP_3E()),
+    int_metaalloyhullreinforcement_size3_class2(new MetaAlloyHRP_3D()),
 
     int_hullreinforcement_size4_class1(new HRP_4E()),
     int_hullreinforcement_size4_class2(new HRP_4D()),
+    int_guardianhullreinforcement_size4_class1(new GuardianHRP_4E()),
+    int_guardianhullreinforcement_size4_class2(new GuardianHRP_4D()),
+    int_metaalloyhullreinforcement_size4_class1(new MetaAlloyHRP_4E()),
+    int_metaalloyhullreinforcement_size4_class2(new MetaAlloyHRP_4D()),
 
     int_hullreinforcement_size5_class1(new HRP_5E()),
     int_hullreinforcement_size5_class2(new HRP_5D()),
-
+    int_guardianhullreinforcement_size5_class1(new GuardianHRP_5E()),
+    int_guardianhullreinforcement_size5_class2(new GuardianHRP_5D()),
+    int_metaalloyhullreinforcement_size5_class1(new MetaAlloyHRP_5E()),
+    int_metaalloyhullreinforcement_size5_class2(new MetaAlloyHRP_5D()),
 
     /**
-     * Module Reinforcement Packages
+     * Module Reinforcement Package
      */
 
     int_modulereinforcement_size1_class1(new MRP_1E()),
     int_modulereinforcement_size1_class2(new MRP_1D()),
+    int_guardianmodulereinforcement_size1_class1(new GuardianMRP_1E()),
+    int_guardianmodulereinforcement_size1_class2(new GuardianMRP_1D()),
 
     int_modulereinforcement_size2_class1(new MRP_2E()),
     int_modulereinforcement_size2_class2(new MRP_2D()),
+    int_guardianmodulereinforcement_size2_class1(new GuardianMRP_2E()),
+    int_guardianmodulereinforcement_size2_class2(new GuardianMRP_2D()),
 
     int_modulereinforcement_size3_class1(new MRP_3E()),
     int_modulereinforcement_size3_class2(new MRP_3D()),
+    int_guardianmodulereinforcement_size3_class1(new GuardianMRP_3E()),
+    int_guardianmodulereinforcement_size3_class2(new GuardianMRP_3D()),
 
     int_modulereinforcement_size4_class1(new MRP_4E()),
     int_modulereinforcement_size4_class2(new MRP_4D()),
+    int_guardianmodulereinforcement_size4_class1(new GuardianMRP_4E()),
+    int_guardianmodulereinforcement_size4_class2(new GuardianMRP_4D()),
 
     int_modulereinforcement_size5_class1(new MRP_5E()),
     int_modulereinforcement_size5_class2(new MRP_5D()),
+    int_guardianmodulereinforcement_size5_class1(new GuardianMRP_5E()),
+    int_guardianmodulereinforcement_size5_class2(new GuardianMRP_5D()),
 
 
     /**
-     * Fuel Scoops
+     * Fuel Scoop
      */
 
     int_fuelscoop_size1_class1(new FuelScoop_1E()),
@@ -282,7 +315,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Refineries
+     * Refinery
      */
 
     int_refinery_size1_class1(new Refinery_1E()),
@@ -311,7 +344,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * FSD Interdictors
+     * FSD Interdictor
      */
 
     int_fsdinterdictor_size1_class1(new FSDInterdictor_1E()),
@@ -340,7 +373,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Cargo Racks
+     * Cargo Rack
      */
 
     int_cargorack_size1_class1(new CargoRack_1E()),
@@ -364,7 +397,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Passenger Cabins
+     * Passenger Cabin
      */
 
     int_passengercabin_size2_class1(new Cabin_2E()),
@@ -388,7 +421,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Collector Limpet Controllers
+     * Collector Limpet Controller
      */
 
     int_dronecontrol_collection_size1_class1(new CollectorLimpet_1E()),
@@ -417,7 +450,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Prospector Limpet Controllers
+     * Prospector Limpet Controller
      */
 
     int_dronecontrol_prospector_size1_class1(new ProspectorLimpet_1E()),
@@ -446,7 +479,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Fuel Transfer Limpet Controllers
+     * Fuel Transfer Limpet Controller
      */
 
     int_dronecontrol_fueltransfer_size1_class1(new FuelTransferLimpet_1E()),
@@ -475,7 +508,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Repair Limpet Controllers
+     * Repair Limpet Controller
      */
 
     int_dronecontrol_repair_size1_class1(new RepairLimpet_1E()),
@@ -504,7 +537,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Hatch Breaker Limpet Controllers
+     * Hatch Breaker Limpet Controller
      */
 
     int_dronecontrol_resourcesiphon_size1_class1(new HatchBreakerLimpet_1E()),
@@ -533,7 +566,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Decontamination Limpet Controllers
+     * Decontamination Limpet Controller
      */
 
     int_dronecontrol_decontamination_size1_class1(new DecontaminationLimpet_1E()),
@@ -566,7 +599,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * SRV Bays
+     * SRV Bay
      *
      * todo: determine if ammo clip size is the right stat for the vehicle count
      */
@@ -582,7 +615,7 @@ public enum OptionalInternalModule implements ShipModule
 
 
     /**
-     * Fighter Bays
+     * Fighter Bay
      *
      * todo: determine if buggy bay slots is the right stat for the vehicle slots
      * todo: determine if ammo clip size is the right stat for the vehicle count
@@ -593,6 +626,69 @@ public enum OptionalInternalModule implements ShipModule
     int_fighterbay_size6_class1(new FighterBay_6E()),
 
     int_fighterbay_size7_class1(new FighterBay_7E()),
+
+
+    /**
+     * Detailed Surface Scanner
+     */
+
+    int_detailedsurfacescanner_tiny(new DetailedSurfaceScanner_1I()),
+
+
+    /**
+     * Docking Computer
+     */
+
+    int_dockingcomputer_standard(new DockingComputer_1E_Standard()),
+    int_dockingcomputer_advanced(new DockingComputer_1E_Advanced()),
+
+
+    /**
+     * Planetary Approach Suite
+     */
+
+    int_planetapproachsuite(new PlanetarySuite_1I()),
+
+
+    /**
+     * Experimental (AEGIS, Anti-Thargoid) Modules
+     */
+
+    hpt_antiunknownshutdown_tiny(new AntiShutdownField_0F()),
+
+    hpt_xenoscanner_basic_tiny(new XenoScanner_0E()),
+
+
+    /**
+     * Guardian FSD Booster
+     */
+    int_guardianfsdbooster_size1(new GuardianFSDBooster_1H()),
+    int_guardianfsdbooster_size2(new GuardianFSDBooster_2H()),
+    int_guardianfsdbooster_size3(new GuardianFSDBooster_3H()),
+    int_guardianfsdbooster_size4(new GuardianFSDBooster_4H()),
+    int_guardianfsdbooster_size5(new GuardianFSDBooster_5H()),
+
+
+    /**
+     * Shield Generator
+     */
+
+    int_shieldgenerator_size1_class1(new ShieldGenerator_1A()),
+    int_shieldgenerator_size1_class3_fast(new ShieldGenerator_1C_BiWeave()),
+    int_shieldgenerator_size1_class5_strong(new ShieldGenerator_1A_Prismatic()),
+
+    int_shieldgenerator_size2_class1(new ShieldGenerator_2E()),
+    int_shieldgenerator_size2_class2(new ShieldGenerator_2D()),
+    int_shieldgenerator_size2_class3(new ShieldGenerator_2C()),
+    int_shieldgenerator_size2_class4(new ShieldGenerator_2B()),
+    int_shieldgenerator_size2_class5(new ShieldGenerator_2A()),
+    int_shieldgenerator_size2_class3_fast(new ShieldGenerator_2C_BiWeave()),
+    int_shieldgenerator_size2_class5_strong(new ShieldGenerator_2A_Prismatic()),
+
+
+
+
+
 
 
     /**
@@ -639,136 +735,19 @@ public enum OptionalInternalModule implements ShipModule
 //                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)
 //            )),
 
-
-    /**
-     * Detailed Surface Scanner
-     */
-
-    int_detailedsurfacescanner_tiny(new DetailedSurfaceScanner_1I()),
-
-
-    /**
-     * Docking Computer
-     */
-
-    int_dockingcomputer_standard(new DockingComputer_1E_Standard()),
-    int_dockingcomputer_advanced(new DockingComputer_1E_Advanced()),
-
-
-    /**
-     * Planetary Approach Suite
-     */
-
-    int_planetapproachsuite(new PlanetarySuite_1I()),
-
-
-    /**
-     * Experimental (AEGIS, Anti-Thargoid) Modules
-     */
-
-    hpt_antiunknownshutdown_tiny(new AntiShutdownField_0F()),
-
-    hpt_xenoscanner_basic_tiny(new XenoScanner_0E()),
-
-
-    /**
-     * Guardian Internal Modules
-     */
-
     /*
-    Power Distributors
+    Guardian Power Distributor
      */
 
-    // todo: need stats for these
+    // todo: need stats for these, and move to core enum after it is converted
     int_guardianpowerdistributor_size1(new HybridPowerDistributor_1A()),
-
     int_guardianpowerdistributor_size2(new HybridPowerDistributor_2A()),
-
     int_guardianpowerdistributor_size3(new HybridPowerDistributor_3A()),
-
     int_guardianpowerdistributor_size4(new HybridPowerDistributor_4A()),
-
     int_guardianpowerdistributor_size5(new HybridPowerDistributor_5A()),
-
     int_guardianpowerdistributor_size6(new HybridPowerDistributor_6A()),
-
     int_guardianpowerdistributor_size7(new HybridPowerDistributor_7A()),
-
     int_guardianpowerdistributor_size8(new HybridPowerDistributor_8A()),
-
-
-    /*
-    Hull Reinforcement Packages
-     */
-
-    int_guardianhullreinforcement_size1_class1(new GuardianHRP_1E()),
-    int_guardianhullreinforcement_size1_class2(new GuardianHRP_1D()),
-
-    int_guardianhullreinforcement_size2_class1(new GuardianHRP_2E()),
-    int_guardianhullreinforcement_size2_class2(new GuardianHRP_2D()),
-
-    int_guardianhullreinforcement_size3_class1(new GuardianHRP_3E()),
-    int_guardianhullreinforcement_size3_class2(new GuardianHRP_3D()),
-
-    int_guardianhullreinforcement_size4_class1(new GuardianHRP_4E()),
-    int_guardianhullreinforcement_size4_class2(new GuardianHRP_4D()),
-
-    int_guardianhullreinforcement_size5_class1(new GuardianHRP_5E()),
-    int_guardianhullreinforcement_size5_class2(new GuardianHRP_5D()),
-
-
-    /*
-    Module Reinforcement Packages
-     */
-
-    int_guardianmodulereinforcement_size1_class1(new GuardianMRP_1E()),
-    int_guardianmodulereinforcement_size1_class2(new GuardianMRP_1D()),
-
-    int_guardianmodulereinforcement_size2_class1(new GuardianMRP_2E()),
-    int_guardianmodulereinforcement_size2_class2(new GuardianMRP_2D()),
-
-    int_guardianmodulereinforcement_size3_class1(new GuardianMRP_3E()),
-    int_guardianmodulereinforcement_size3_class2(new GuardianMRP_3D()),
-
-    int_guardianmodulereinforcement_size4_class1(new GuardianMRP_4E()),
-    int_guardianmodulereinforcement_size4_class2(new GuardianMRP_4D()),
-
-    int_guardianmodulereinforcement_size5_class1(new GuardianMRP_5E()),
-    int_guardianmodulereinforcement_size5_class2(new GuardianMRP_5D()),
-
-
-    /*
-    FSD Boosters
-     */
-
-    int_guardianfsdbooster_size1(new GuardianFSDBooster_1H()),
-
-    int_guardianfsdbooster_size2(new GuardianFSDBooster_2H()),
-
-    int_guardianfsdbooster_size3(new GuardianFSDBooster_3H()),
-
-    int_guardianfsdbooster_size4(new GuardianFSDBooster_4H()),
-
-    int_guardianfsdbooster_size5(new GuardianFSDBooster_5H()),
-
-    /**
-     * Human Tech Broker Internal Modules
-     */
-
-    int_metaalloyhullreinforcement_size1_class1(new MetaAlloyHRP_1E()),
-    int_metaalloyhullreinforcement_size1_class2(new MetaAlloyHRP_1D()),
-
-    int_metaalloyhullreinforcement_size2_class1(new MetaAlloyHRP_2E()),
-    int_metaalloyhullreinforcement_size2_class2(new MetaAlloyHRP_2D()),
-
-    int_metaalloyhullreinforcement_size3_class1(new MetaAlloyHRP_3E()),
-    int_metaalloyhullreinforcement_size3_class2(new MetaAlloyHRP_3D()),
-
-    int_metaalloyhullreinforcement_size4_class1(new MetaAlloyHRP_4E()),
-    int_metaalloyhullreinforcement_size4_class2(new MetaAlloyHRP_4D()),
-
-    int_metaalloyhullreinforcement_size5_class1(new MetaAlloyHRP_5E()),
-    int_metaalloyhullreinforcement_size5_class2(new MetaAlloyHRP_5D()),
 
     ;
 
