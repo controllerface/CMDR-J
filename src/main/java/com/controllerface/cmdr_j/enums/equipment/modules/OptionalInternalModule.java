@@ -6,22 +6,16 @@ import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
 import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size1.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size2.*;
-import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size3.AFMU_3A;
-import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size3.AFMU_3C;
-import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size3.AFMU_3D;
-import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size3.AFMU_3E;
+import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size3.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size4.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size5.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size6.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size7.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.afmu.size8.*;
-import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size1.CargoRack_1E;
-import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size1.CargoRack_1E_CorrosiveResist;
-import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size1.CargoRack_1F_CorrosiveResist;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size1.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size2.CargoRack_2E;
 import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size3.CargoRack_3E;
-import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size4.CargoRack_4E;
-import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size4.CargoRack_4E_CorrosiveResist;
+import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size4.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size5.CargoRack_5E;
 import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size6.CargoRack_6E;
 import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size7.CargoRack_7E;
@@ -38,26 +32,41 @@ import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size5.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size6.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size7.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size8.*;
-import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size1.HRP_1D;
-import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size1.HRP_1E;
-import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size2.HRP_2D;
-import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size2.HRP_2E;
-import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size3.HRP_3D;
-import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size3.HRP_3E;
-import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size4.HRP_4D;
-import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size4.HRP_4E;
-import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size5.HRP_5D;
-import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size5.HRP_5E;
-import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size1.MRP_1D;
-import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size1.MRP_1E;
-import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size2.MRP_2D;
-import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size2.MRP_2E;
-import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size3.MRP_3D;
-import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size3.MRP_3E;
-import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size4.MRP_4D;
-import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size4.MRP_4E;
-import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size5.MRP_5D;
-import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size5.MRP_5E;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size2.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size4.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size5.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.collectorlimpet.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.collectorlimpet.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.collectorlimpet.size5.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.collectorlimpet.size7.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.fueltransfer.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.fueltransfer.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.fueltransfer.size5.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.fueltransfer.size7.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.hatchbreaker.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.hatchbreaker.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.hatchbreaker.size5.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.hatchbreaker.size7.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.prospector.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.prospector.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.prospector.size5.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.prospector.size7.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.repair.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.repair.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.repair.size5.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.repair.size7.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size2.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size4.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size5.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.passengercabin.size2.Cabin_2E;
+import com.controllerface.cmdr_j.classes.procurements.modules.passengercabin.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.passengercabin.size4.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.passengercabin.size5.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.passengercabin.size6.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.refinery.size1.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.refinery.size2.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.refinery.size3.*;
@@ -74,7 +83,6 @@ import java.util.Arrays;
  *
  * Created by Controllerface on 4/25/2018.
  */
-@SuppressWarnings("unchecked")
 public enum OptionalInternalModule implements ShipModule
 {
     /**
@@ -309,1671 +317,169 @@ public enum OptionalInternalModule implements ShipModule
      * Passenger Cabins
      */
 
-    int_passengercabin_size2_class1("2E Economy Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2.5d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 2d),
-                    new ItemEffectData(ItemEffect.CabinClass, "Economy")
-            )),
+    int_passengercabin_size2_class1(new Cabin_2E()),
 
-    int_passengercabin_size3_class1("3E Economy Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 4d),
-                    new ItemEffectData(ItemEffect.CabinClass, "Economy")
-            )),
+    int_passengercabin_size3_class1(new Cabin_3E()),
+    int_passengercabin_size3_class2(new Cabin_3D()),
 
-    int_passengercabin_size3_class2("3D Business Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 3d),
-                    new ItemEffectData(ItemEffect.CabinClass, "Business")
-            )),
+    int_passengercabin_size4_class1(new Cabin_4E()),
+    int_passengercabin_size4_class2(new Cabin_4D()),
+    int_passengercabin_size4_class3(new Cabin_4C()),
 
-    int_passengercabin_size4_class1("4E Economy Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 8d),
-                    new ItemEffectData(ItemEffect.CabinClass, "Economy")
-            )),
+    int_passengercabin_size5_class1(new Cabin_5E()),
+    int_passengercabin_size5_class2(new Cabin_5D()),
+    int_passengercabin_size5_class3(new Cabin_5C()),
+    int_passengercabin_size5_class4(new Cabin_5B()),
 
-    int_passengercabin_size4_class2("4D Business Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 6d),
-                    new ItemEffectData(ItemEffect.CabinClass, "Business")
-            )),
-
-    int_passengercabin_size4_class3("4C First Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 3d),
-                    new ItemEffectData(ItemEffect.CabinClass, "First")
-            )),
-
-    int_passengercabin_size5_class1("5E Economy Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 16d),
-                    new ItemEffectData(ItemEffect.CabinClass, "Economy")
-            )),
-
-    int_passengercabin_size5_class2("5D Business Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 10d),
-                    new ItemEffectData(ItemEffect.CabinClass, "Business")
-            )),
-
-    int_passengercabin_size5_class3("5C First Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 6d),
-                    new ItemEffectData(ItemEffect.CabinClass, "First")
-            )),
-
-    int_passengercabin_size5_class4("5B Luxury Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 4d),
-                    new ItemEffectData(ItemEffect.CabinClass, "Luxury")
-            )),
-
-    int_passengercabin_size6_class1("6E Economy Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 40d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 32d),
-                    new ItemEffectData(ItemEffect.CabinClass, "Economy")
-            )),
-
-    int_passengercabin_size6_class2("6D Business Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 40d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 18d),
-                    new ItemEffectData(ItemEffect.CabinClass, "Business")
-            )),
-
-    int_passengercabin_size6_class3("6C First Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 40d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 12d),
-                    new ItemEffectData(ItemEffect.CabinClass, "First")
-            )),
-
-    int_passengercabin_size6_class4("6B Luxury Class Passenger Cabin",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 40d),
-                    new ItemEffectData(ItemEffect.CabinCapacity, 8d),
-                    new ItemEffectData(ItemEffect.CabinClass, "Luxury")
-            )),
+    int_passengercabin_size6_class1(new Cabin_6E()),
+    int_passengercabin_size6_class2(new Cabin_6D()),
+    int_passengercabin_size6_class3(new Cabin_6C()),
+    int_passengercabin_size6_class4(new Cabin_6B()),
 
 
     /**
      * Collector Limpet Controllers
      */
 
-    int_dronecontrol_collection_size1_class1("1E Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 0.5d),
-                    new ItemEffectData(ItemEffect.Integrity, 24d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.14d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 800d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
+    int_dronecontrol_collection_size1_class1(new CollectorLimpet_1E()),
+    int_dronecontrol_collection_size1_class2(new CollectorLimpet_1D()),
+    int_dronecontrol_collection_size1_class3(new CollectorLimpet_1C()),
+    int_dronecontrol_collection_size1_class4(new CollectorLimpet_1B()),
+    int_dronecontrol_collection_size1_class5(new CollectorLimpet_1A()),
 
-    int_dronecontrol_collection_size1_class2("1D Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 0.5d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.18d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 600d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
+    int_dronecontrol_collection_size3_class1(new CollectorLimpet_3E()),
+    int_dronecontrol_collection_size3_class2(new CollectorLimpet_3D()),
+    int_dronecontrol_collection_size3_class3(new CollectorLimpet_3C()),
+    int_dronecontrol_collection_size3_class4(new CollectorLimpet_3B()),
+    int_dronecontrol_collection_size3_class5(new CollectorLimpet_3A()),
 
-    int_dronecontrol_collection_size1_class3("1C Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.23d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1000d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 510d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
+    int_dronecontrol_collection_size5_class1(new CollectorLimpet_5E()),
+    int_dronecontrol_collection_size5_class2(new CollectorLimpet_5D()),
+    int_dronecontrol_collection_size5_class3(new CollectorLimpet_5C()),
+    int_dronecontrol_collection_size5_class4(new CollectorLimpet_5B()),
+    int_dronecontrol_collection_size5_class5(new CollectorLimpet_5A()),
 
-    int_dronecontrol_collection_size1_class4("1B Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1400d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 420d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size1_class5("1A Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 56d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.32d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1200d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 720d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-
-    int_dronecontrol_collection_size3_class1("3E Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 38d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 880d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size3_class2("3D Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.27d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 660d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size3_class3("3C Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1100d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 510d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size3_class4("3B Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1540d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 420d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size3_class5("3A Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.48d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1320d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 720d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-
-    int_dronecontrol_collection_size5_class1("5E Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 58d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.3d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1040d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size5_class2("5D Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.4d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 780d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size5_class3("5C Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 96d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.5d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1300d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 510d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size5_class4("5B Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 115d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.6d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1820d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 420d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size5_class5("5A Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 134d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.7d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1560d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 720d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-
-    int_dronecontrol_collection_size7_class1("7E Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 79d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1360d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size7_class2("7D Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 105d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.55d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1020d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size7_class3("7C Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 131d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.69d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1700d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 510d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size7_class4("7B Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 128d),
-                    new ItemEffectData(ItemEffect.Integrity, 157d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.83d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2380d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 420d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
-
-    int_dronecontrol_collection_size7_class5("7A Collector Limpet Controller",
-            ModificationType.Collector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 128d),
-                    new ItemEffectData(ItemEffect.Integrity, 183d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.97d),
-                    new ItemEffectData(ItemEffect.BootTime, 6d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2040d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 720d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
-            )),
+    int_dronecontrol_collection_size7_class1(new CollectorLimpet_7E()),
+    int_dronecontrol_collection_size7_class2(new CollectorLimpet_7D()),
+    int_dronecontrol_collection_size7_class3(new CollectorLimpet_7C()),
+    int_dronecontrol_collection_size7_class4(new CollectorLimpet_7B()),
+    int_dronecontrol_collection_size7_class5(new CollectorLimpet_7A()),
 
 
     /**
      * Prospector Limpet Controllers
      */
 
-    int_dronecontrol_prospector_size1_class1("1E Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 24d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.18d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_prospector_size1_class1(new ProspectorLimpet_1E()),
+    int_dronecontrol_prospector_size1_class2(new ProspectorLimpet_1D()),
+    int_dronecontrol_prospector_size1_class3(new ProspectorLimpet_1C()),
+    int_dronecontrol_prospector_size1_class4(new ProspectorLimpet_1B()),
+    int_dronecontrol_prospector_size1_class5(new ProspectorLimpet_1A()),
 
-    int_dronecontrol_prospector_size1_class2("1D Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 0.5d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.14d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_prospector_size3_class1(new ProspectorLimpet_3E()),
+    int_dronecontrol_prospector_size3_class2(new ProspectorLimpet_3D()),
+    int_dronecontrol_prospector_size3_class3(new ProspectorLimpet_3C()),
+    int_dronecontrol_prospector_size3_class4(new ProspectorLimpet_3B()),
+    int_dronecontrol_prospector_size3_class5(new ProspectorLimpet_3A()),
 
-    int_dronecontrol_prospector_size1_class3("1C Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.23d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_prospector_size5_class1(new ProspectorLimpet_5E()),
+    int_dronecontrol_prospector_size5_class2(new ProspectorLimpet_5D()),
+    int_dronecontrol_prospector_size5_class3(new ProspectorLimpet_5C()),
+    int_dronecontrol_prospector_size5_class4(new ProspectorLimpet_5B()),
+    int_dronecontrol_prospector_size5_class5(new ProspectorLimpet_5A()),
 
-    int_dronecontrol_prospector_size1_class4("1B Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.32d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size1_class5("1A Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 56d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-
-    int_dronecontrol_prospector_size3_class1("3E Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 38d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.27d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size3_class2("3D Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size3_class3("3C Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size3_class4("3B Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.48d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size3_class5("3A Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-
-    int_dronecontrol_prospector_size5_class1("5E Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 58d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.4d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size5_class2("5D Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.3d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size5_class3("5C Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 96d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.5d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size5_class4("5B Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 157d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.97d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size5_class5("5A Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 134d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.6d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-
-    int_dronecontrol_prospector_size7_class1("7E Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 79d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.55d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 8d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size7_class2("7D Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 105d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 8d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size7_class3("7C Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 131d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.69d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 8d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size7_class4("7B Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 128d),
-                    new ItemEffectData(ItemEffect.Integrity, 157d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.97d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 8d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_prospector_size7_class5("7A Prospector Limpet Controller",
-            ModificationType.Prospector_Limpet_Controller,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 183d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.83d),
-                    new ItemEffectData(ItemEffect.BootTime, 4d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 8d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 600d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_prospector_size7_class1(new ProspectorLimpet_7E()),
+    int_dronecontrol_prospector_size7_class2(new ProspectorLimpet_7D()),
+    int_dronecontrol_prospector_size7_class3(new ProspectorLimpet_7C()),
+    int_dronecontrol_prospector_size7_class4(new ProspectorLimpet_7B()),
+    int_dronecontrol_prospector_size7_class5(new ProspectorLimpet_7A()),
 
 
     /**
      * Fuel Transfer Limpet Controllers
      */
 
-    int_dronecontrol_fueltransfer_size1_class1("1E Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 24d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.18d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 600d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
+    int_dronecontrol_fueltransfer_size1_class1(new FuelTransferLimpet_1E()),
+    int_dronecontrol_fueltransfer_size1_class2(new FuelTransferLimpet_1D()),
+    int_dronecontrol_fueltransfer_size1_class3(new FuelTransferLimpet_1C()),
+    int_dronecontrol_fueltransfer_size1_class4(new FuelTransferLimpet_1B()),
+    int_dronecontrol_fueltransfer_size1_class5(new FuelTransferLimpet_1A()),
 
-    int_dronecontrol_fueltransfer_size1_class2("1D Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 0.5d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.14d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 800d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
+    int_dronecontrol_fueltransfer_size3_class1(new FuelTransferLimpet_3E()),
+    int_dronecontrol_fueltransfer_size3_class2(new FuelTransferLimpet_3D()),
+    int_dronecontrol_fueltransfer_size3_class3(new FuelTransferLimpet_3C()),
+    int_dronecontrol_fueltransfer_size3_class4(new FuelTransferLimpet_3B()),
+    int_dronecontrol_fueltransfer_size3_class5(new FuelTransferLimpet_3A()),
 
-    int_dronecontrol_fueltransfer_size1_class3("1C Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.23d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1000d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
+    int_dronecontrol_fueltransfer_size5_class1(new FuelTransferLimpet_5E()),
+    int_dronecontrol_fueltransfer_size5_class2(new FuelTransferLimpet_5D()),
+    int_dronecontrol_fueltransfer_size5_class3(new FuelTransferLimpet_5C()),
+    int_dronecontrol_fueltransfer_size5_class4(new FuelTransferLimpet_5B()),
+    int_dronecontrol_fueltransfer_size5_class5(new FuelTransferLimpet_5A()),
 
-    int_dronecontrol_fueltransfer_size1_class4("1B Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.32d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1200d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size1_class5("1A Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 56d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1400d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-
-    int_dronecontrol_fueltransfer_size3_class1("3E Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 38d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.27d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 660d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size3_class2("3D Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 880d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size3_class3("3C Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1100d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size3_class4("3B Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.48d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1320d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size3_class5("3A Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1540d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-
-    int_dronecontrol_fueltransfer_size5_class1("5E Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 58d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.4d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 780d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size5_class2("5D Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.3d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1040d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size5_class3("5C Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 96d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.5d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1300d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size5_class4("5B Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 157d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.97d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1560d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size5_class5("5A Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 134d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.6d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1820d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-
-    int_dronecontrol_fueltransfer_size7_class1("7E Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 79d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.55d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 8d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1020d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size7_class2("7D Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 105d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 8d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1360d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size7_class3("7C Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 131d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.69d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 8d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1700d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size7_class4("7B Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 128d),
-                    new ItemEffectData(ItemEffect.Integrity, 157d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.97d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 8d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2040d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
-
-    int_dronecontrol_fueltransfer_size7_class5("7A Fuel Transfer Limpet Controller",
-            ModificationType.Fuel_Transfer_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 183d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.83d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 8d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2380d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d),
-                    new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
-            )),
+    int_dronecontrol_fueltransfer_size7_class1(new FuelTransferLimpet_7E()),
+    int_dronecontrol_fueltransfer_size7_class2(new FuelTransferLimpet_7D()),
+    int_dronecontrol_fueltransfer_size7_class3(new FuelTransferLimpet_7C()),
+    int_dronecontrol_fueltransfer_size7_class4(new FuelTransferLimpet_7B()),
+    int_dronecontrol_fueltransfer_size7_class5(new FuelTransferLimpet_7A()),
 
 
     /**
      * Repair Limpet Controllers
      */
 
-    int_dronecontrol_repair_size1_class1("1E Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 24d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.18d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 60d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 600d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_repair_size1_class1(new RepairLimpet_1E()),
+    int_dronecontrol_repair_size1_class2(new RepairLimpet_1D()),
+    int_dronecontrol_repair_size1_class3(new RepairLimpet_1C()),
+    int_dronecontrol_repair_size1_class4(new RepairLimpet_1B()),
+    int_dronecontrol_repair_size1_class5(new RepairLimpet_1A()),
 
-    int_dronecontrol_repair_size1_class2("1D Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 0.5d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.14d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 60d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 800d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_repair_size3_class1(new RepairLimpet_3E()),
+    int_dronecontrol_repair_size3_class2(new RepairLimpet_3D()),
+    int_dronecontrol_repair_size3_class3(new RepairLimpet_3C()),
+    int_dronecontrol_repair_size3_class4(new RepairLimpet_3B()),
+    int_dronecontrol_repair_size3_class5(new RepairLimpet_3A()),
 
-    int_dronecontrol_repair_size1_class3("1C Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.23d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 60d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1000d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_repair_size5_class1(new RepairLimpet_5E()),
+    int_dronecontrol_repair_size5_class2(new RepairLimpet_5D()),
+    int_dronecontrol_repair_size5_class3(new RepairLimpet_5C()),
+    int_dronecontrol_repair_size5_class4(new RepairLimpet_5B()),
+    int_dronecontrol_repair_size5_class5(new RepairLimpet_5A()),
 
-    int_dronecontrol_repair_size1_class4("1B Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.32d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 60d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1200d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size1_class5("1A Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 56d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 60d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1400d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-
-    int_dronecontrol_repair_size3_class1("3E Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 38d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.27d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 180d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 660d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size3_class2("3D Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 180d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 880d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size3_class3("3C Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 180d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1100d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size3_class4("3B Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.48d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 180d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1320d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size3_class5("3A Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 180d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1540d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-
-    int_dronecontrol_repair_size5_class1("5E Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 58d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.4d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 310d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 780d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size5_class2("5D Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.3d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 310d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1040d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size5_class3("5C Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 96d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.5d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 310d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1300d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size5_class4("5B Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 157d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.97d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 310d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1560d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size5_class5("5A Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 134d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.6d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 310d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1820d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-
-    int_dronecontrol_repair_size7_class1("7E Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 79d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.55d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 450d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1020d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size7_class2("7D Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 105d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 450d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1360d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size7_class3("7C Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 131d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.69d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 450d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1700d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size7_class4("7B Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 128d),
-                    new ItemEffectData(ItemEffect.Integrity, 157d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.97d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 450d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2040d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
-
-    int_dronecontrol_repair_size7_class5("7A Repair Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 183d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.83d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 450d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2380d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_repair_size7_class1(new RepairLimpet_7E()),
+    int_dronecontrol_repair_size7_class2(new RepairLimpet_7D()),
+    int_dronecontrol_repair_size7_class3(new RepairLimpet_7C()),
+    int_dronecontrol_repair_size7_class4(new RepairLimpet_7B()),
+    int_dronecontrol_repair_size7_class5(new RepairLimpet_7A()),
 
 
     /**
      * Hatch Breaker Limpet Controllers
      */
 
-    int_dronecontrol_resourcesiphon_size1_class1("1E Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.12d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1500d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 22d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 1d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 6d)
-            )),
+    int_dronecontrol_resourcesiphon_size1_class1(new HatchBreakerLimpet_1E()),
+    int_dronecontrol_resourcesiphon_size1_class2(new HatchBreakerLimpet_1D()),
+    int_dronecontrol_resourcesiphon_size1_class3(new HatchBreakerLimpet_1C()),
+    int_dronecontrol_resourcesiphon_size1_class4(new HatchBreakerLimpet_1B()),
+    int_dronecontrol_resourcesiphon_size1_class5(new HatchBreakerLimpet_1A()),
 
-    int_dronecontrol_resourcesiphon_size1_class2("1D Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 0.5d),
-                    new ItemEffectData(ItemEffect.Integrity, 24d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.16d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2000d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 19d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 2d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 7d)
-            )),
+    int_dronecontrol_resourcesiphon_size3_class1(new HatchBreakerLimpet_3E()),
+    int_dronecontrol_resourcesiphon_size3_class2(new HatchBreakerLimpet_3D()),
+    int_dronecontrol_resourcesiphon_size3_class3(new HatchBreakerLimpet_3C()),
+    int_dronecontrol_resourcesiphon_size3_class4(new HatchBreakerLimpet_3B()),
+    int_dronecontrol_resourcesiphon_size3_class5(new HatchBreakerLimpet_3A()),
 
-    int_dronecontrol_resourcesiphon_size1_class3("1C Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 40d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2500d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 16d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 3d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 8d)
-            )),
+    int_dronecontrol_resourcesiphon_size5_class1(new HatchBreakerLimpet_5E()),
+    int_dronecontrol_resourcesiphon_size5_class2(new HatchBreakerLimpet_5D()),
+    int_dronecontrol_resourcesiphon_size5_class3(new HatchBreakerLimpet_5C()),
+    int_dronecontrol_resourcesiphon_size5_class4(new HatchBreakerLimpet_5B()),
+    int_dronecontrol_resourcesiphon_size5_class5(new HatchBreakerLimpet_5A()),
 
-    int_dronecontrol_resourcesiphon_size1_class4("1B Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 56d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.24d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 3000d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 13d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 4d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 9d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size1_class5("1A Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 48d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 3500d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 5d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 10d)
-            )),
-
-
-    int_dronecontrol_resourcesiphon_size3_class1("3E Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.18d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1620d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 17d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 1d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 6d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size3_class2("3D Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 38d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.24d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2160d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 14d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 2d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 7d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size3_class3("3C Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 64d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.3d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2700d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 12d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 3d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 8d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size3_class4("3B Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 90d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.36d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 3240d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 4d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 9d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size3_class5("3A Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 5d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.42d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 3780d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 7d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 5d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 10d)
-            )),
-
-
-    int_dronecontrol_resourcesiphon_size5_class1("5E Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.3d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 9d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1980d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 11d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 1d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 6d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size5_class2("5D Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 58d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.4d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 6d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2640d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 2d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 7d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size5_class3("5C Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 96d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.5d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 7d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 3300d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 8d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 3d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 8d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size5_class4("5B Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 134d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.6d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 9d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 3960d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 6d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 4d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 9d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size5_class5("5A Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 115d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.7d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 6d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 4620d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 5d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 5d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 10d)
-            )),
-
-
-    int_dronecontrol_resourcesiphon_size7_class1("7E Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 105d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.42d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 18d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2580d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 6d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 1d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 6d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size7_class2("7D Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 79d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.56d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 12d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 3440d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 5d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 2d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 7d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size7_class3("7C Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 131d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.7d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 15d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 4300d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 4d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 3d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 8d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size7_class4("7B Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 128d),
-                    new ItemEffectData(ItemEffect.Integrity, 183d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.84d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 18d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 5160d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 3d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 4d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 9d)
-            )),
-
-    int_dronecontrol_resourcesiphon_size7_class5("7A Hatch Breaker Limpet Controller",
-            ModificationType.Hatch_Breaker_Limpet,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 80d),
-                    new ItemEffectData(ItemEffect.Integrity, 157d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.98d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 12d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 6020d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 120d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 500d),
-                    new ItemEffectData(ItemEffect.DroneHackingTime, 2d),
-                    new ItemEffectData(ItemEffect.DroneMinJettisonedCargo, 5d),
-                    new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 10d)
-            )),
+    int_dronecontrol_resourcesiphon_size7_class1(new HatchBreakerLimpet_7E()),
+    int_dronecontrol_resourcesiphon_size7_class2(new HatchBreakerLimpet_7D()),
+    int_dronecontrol_resourcesiphon_size7_class3(new HatchBreakerLimpet_7C()),
+    int_dronecontrol_resourcesiphon_size7_class4(new HatchBreakerLimpet_7B()),
+    int_dronecontrol_resourcesiphon_size7_class5(new HatchBreakerLimpet_7A()),
 
 
     /**
