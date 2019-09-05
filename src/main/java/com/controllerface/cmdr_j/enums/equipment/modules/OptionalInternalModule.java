@@ -53,6 +53,7 @@ import com.controllerface.cmdr_j.classes.modules.fuelscoop.size5.*;
 import com.controllerface.cmdr_j.classes.modules.fuelscoop.size6.*;
 import com.controllerface.cmdr_j.classes.modules.fuelscoop.size7.*;
 import com.controllerface.cmdr_j.classes.modules.fuelscoop.size8.*;
+import com.controllerface.cmdr_j.classes.modules.generated.*;
 import com.controllerface.cmdr_j.classes.modules.guardian.core.distributor.size1.HybridPowerDistributor_1A;
 import com.controllerface.cmdr_j.classes.modules.guardian.core.distributor.size2.HybridPowerDistributor_2A;
 import com.controllerface.cmdr_j.classes.modules.guardian.core.distributor.size3.HybridPowerDistributor_3A;
@@ -66,26 +67,26 @@ import com.controllerface.cmdr_j.classes.modules.guardian.optional.fsdbooster.si
 import com.controllerface.cmdr_j.classes.modules.guardian.optional.fsdbooster.size3.GuardianFSDBooster_3H;
 import com.controllerface.cmdr_j.classes.modules.guardian.optional.fsdbooster.size4.GuardianFSDBooster_4H;
 import com.controllerface.cmdr_j.classes.modules.guardian.optional.fsdbooster.size5.GuardianFSDBooster_5H;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.hrp.size1.GuardianHRP_1D;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.hrp.size1.GuardianHRP_1E;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.hrp.size2.GuardianHRP_2D;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.hrp.size2.GuardianHRP_2E;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.hrp.size3.GuardianHRP_3D;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.hrp.size3.GuardianHRP_3E;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.hrp.size4.GuardianHRP_4D;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.hrp.size4.GuardianHRP_4E;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.hrp.size5.GuardianHRP_5D;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.hrp.size5.GuardianHRP_5E;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.mrp.size1.GuardianMRP_1D;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.mrp.size1.GuardianMRP_1E;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.mrp.size2.GuardianMRP_2D;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.mrp.size2.GuardianMRP_2E;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.mrp.size3.GuardianMRP_3D;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.mrp.size3.GuardianMRP_3E;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.mrp.size4.GuardianMRP_4D;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.mrp.size4.GuardianMRP_4E;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.mrp.size5.GuardianMRP_5D;
-import com.controllerface.cmdr_j.classes.modules.guardian.optional.mrp.size5.GuardianMRP_5E;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size1.GuardianHRP_1D;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size1.GuardianHRP_1E;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size2.GuardianHRP_2D;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size2.GuardianHRP_2E;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size3.GuardianHRP_3D;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size3.GuardianHRP_3E;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size4.GuardianHRP_4D;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size4.GuardianHRP_4E;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size5.GuardianHRP_5D;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size5.GuardianHRP_5E;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size1.GuardianMRP_1D;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size1.GuardianMRP_1E;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size2.GuardianMRP_2D;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size2.GuardianMRP_2E;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size3.GuardianMRP_3D;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size3.GuardianMRP_3E;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size4.GuardianMRP_4D;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size4.GuardianMRP_4E;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size5.GuardianMRP_5D;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size5.GuardianMRP_5E;
 import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size1.HRP_1D;
 import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size1.HRP_1E;
 import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size2.HRP_2D;
@@ -724,9 +725,120 @@ public enum OptionalInternalModule implements ShipModule
     int_shieldgenerator_size2_class3_fast(new ShieldGenerator_2C_BiWeave()),
     int_shieldgenerator_size2_class5_strong(new ShieldGenerator_2A_Prismatic()),
 
+    int_shieldgenerator_size3_class1(new ShieldGenerator_3E()),
+    int_shieldgenerator_size3_class2(new ShieldGenerator_3D()),
+    int_shieldgenerator_size3_class3(new ShieldGenerator_3C()),
+    int_shieldgenerator_size3_class4(new ShieldGenerator_3B()),
+    int_shieldgenerator_size3_class5(new ShieldGenerator_3A()),
+    int_shieldgenerator_size3_class3_fast(new BiWeaveShieldGenerator_3C()),
+    int_shieldgenerator_size3_class5_strong(new PrismaticShieldGenerator_3A()),
+
+    int_shieldgenerator_size4_class1(new ShieldGenerator_4E()),
+    int_shieldgenerator_size4_class2(new ShieldGenerator_4D()),
+    int_shieldgenerator_size4_class3(new ShieldGenerator_4C()),
+    int_shieldgenerator_size4_class4(new ShieldGenerator_4B()),
+    int_shieldgenerator_size4_class5(new ShieldGenerator_4A()),
+    int_shieldgenerator_size4_class3_fast(new BiWeaveShieldGenerator_4C()),
+    int_shieldgenerator_size4_class5_strong(new PrismaticShieldGenerator_4A()),
+
+    int_shieldgenerator_size5_class1(new ShieldGenerator_5E()),
+    int_shieldgenerator_size5_class2(new ShieldGenerator_5D()),
+    int_shieldgenerator_size5_class3(new ShieldGenerator_5C()),
+    int_shieldgenerator_size5_class4(new ShieldGenerator_5B()),
+    int_shieldgenerator_size5_class5(new ShieldGenerator_5A()),
+    int_shieldgenerator_size5_class3_fast(new BiWeaveShieldGenerator_5C()),
+    int_shieldgenerator_size5_class5_strong(new PrismaticShieldGenerator_5A()),
+
+    int_shieldgenerator_size6_class1(new ShieldGenerator_6E()),
+    int_shieldgenerator_size6_class2(new ShieldGenerator_6D()),
+    int_shieldgenerator_size6_class3(new ShieldGenerator_6C()),
+    int_shieldgenerator_size6_class4(new ShieldGenerator_6B()),
+    int_shieldgenerator_size6_class5(new ShieldGenerator_6A()),
+    int_shieldgenerator_size6_class3_fast(new BiWeaveShieldGenerator_6C()),
+    int_shieldgenerator_size6_class5_strong(new PrismaticShieldGenerator_6A()),
+
+    int_shieldgenerator_size7_class1(new ShieldGenerator_7E()),
+    int_shieldgenerator_size7_class2(new ShieldGenerator_7D()),
+    int_shieldgenerator_size7_class3(new ShieldGenerator_7C()),
+    int_shieldgenerator_size7_class4(new ShieldGenerator_7B()),
+    int_shieldgenerator_size7_class5(new ShieldGenerator_7A()),
+    int_shieldgenerator_size7_class3_fast(new BiWeaveShieldGenerator_7C()),
+    int_shieldgenerator_size7_class5_strong(new PrismaticShieldGenerator_7A()),
+
+    int_shieldgenerator_size8_class1(new ShieldGenerator_8E()),
+    int_shieldgenerator_size8_class2(new ShieldGenerator_8D()),
+    int_shieldgenerator_size8_class3(new ShieldGenerator_8C()),
+    int_shieldgenerator_size8_class4(new ShieldGenerator_8B()),
+    int_shieldgenerator_size8_class5(new ShieldGenerator_8A()),
+    int_shieldgenerator_size8_class3_fast(new BiWeaveShieldGenerator_8c()),
+    int_shieldgenerator_size8_class5_strong(new PrismaticShieldGenerator_8A()),
 
 
 
+    int_shieldcellbank_size1_class1(new ShieldCellBank_1E()),
+    int_shieldcellbank_size1_class2(new ShieldCellBank_1D()),
+    int_shieldcellbank_size1_class3(new ShieldCellBank_1C()),
+    int_shieldcellbank_size1_class4(new ShieldCellBank_1B()),
+    int_shieldcellbank_size1_class5(new ShieldCellBank_1A()),
+
+    int_shieldcellbank_size2_class1(new ShieldCellBank_2E()),
+    int_shieldcellbank_size2_class2(new ShieldCellBank_2D()),
+    int_shieldcellbank_size2_class3(new ShieldCellBank_2C()),
+    int_shieldcellbank_size2_class4(new ShieldCellBank_2B()),
+    int_shieldcellbank_size2_class5(new ShieldCellBank_2A()),
+
+    int_shieldcellbank_size3_class1(new ShieldCellBank_3E()),
+    int_shieldcellbank_size3_class2(new ShieldCellBank_3D()),
+    int_shieldcellbank_size3_class3(new ShieldCellBank_3C()),
+    int_shieldcellbank_size3_class4(new ShieldCellBank_3B()),
+    int_shieldcellbank_size3_class5(new ShieldCellBank_3A()),
+
+    int_shieldcellbank_size4_class1(new ShieldCellBank_4E()),
+    int_shieldcellbank_size4_class2(new ShieldCellBank_4D()),
+    int_shieldcellbank_size4_class3(new ShieldCellBank_4C()),
+    int_shieldcellbank_size4_class4(new ShieldCellBank_4B()),
+    int_shieldcellbank_size4_class5(new ShieldCellBank_4A()),
+
+    int_shieldcellbank_size5_class1(new ShieldCellBank_5E()),
+    int_shieldcellbank_size5_class2(new ShieldCellBank_5D()),
+    int_shieldcellbank_size5_class3(new ShieldCellBank_5C()),
+    int_shieldcellbank_size5_class4(new ShieldCellBank_5B()),
+    int_shieldcellbank_size5_class5(new ShieldCellBank_5A()),
+
+    int_shieldcellbank_size6_class1(new ShieldCellBank_6E()),
+    int_shieldcellbank_size6_class2(new ShieldCellBank_6D()),
+    int_shieldcellbank_size6_class3(new ShieldCellBank_6C()),
+    int_shieldcellbank_size6_class4(new ShieldCellBank_6B()),
+    int_shieldcellbank_size6_class5(new ShieldCellBank_6A()),
+
+    int_shieldcellbank_size7_class1(new ShieldCellBank_7E()),
+    int_shieldcellbank_size7_class2(new ShieldCellBank_7D()),
+    int_shieldcellbank_size7_class3(new ShieldCellBank_7C()),
+    int_shieldcellbank_size7_class4(new ShieldCellBank_7B()),
+    int_shieldcellbank_size7_class5(new ShieldCellBank_7A()),
+
+    int_shieldcellbank_size8_class1(new ShieldCellBank_8E()),
+    int_shieldcellbank_size8_class2(new ShieldCellBank_8D()),
+    int_shieldcellbank_size8_class3(new ShieldCellBank_8C()),
+    int_shieldcellbank_size8_class4(new ShieldCellBank_8B()),
+    int_shieldcellbank_size8_class5(new ShieldCellBank_8A()),
+
+
+
+    int_guardianshieldreinforcement_size1_class1(new GuardianShieldReinforcementPackage_1E()),
+    int_guardianshieldreinforcement_size1_class2(new GuardianShieldReinforcementPackage_1D()),
+
+    int_guardianshieldreinforcement_size2_class1(new GuardianShieldReinforcementPackage_2E()),
+    int_guardianshieldreinforcement_size2_class2(new GuardianShieldReinforcementPackage_2D()),
+
+    int_guardianshieldreinforcement_size3_class1(new GuardianShieldReinforcementPackage_3E()),
+    int_guardianshieldreinforcement_size3_class2(new GuardianShieldReinforcementPackage_3D()),
+
+    int_guardianshieldreinforcement_size4_class1(new GuardianShieldReinforcementPackage_4E()),
+    int_guardianshieldreinforcement_size4_class2(new GuardianShieldReinforcementPackage_4D()),
+
+    int_guardianshieldreinforcement_size5_class1(new GuardianShieldReinforcementPackage_5E()),
+    int_guardianshieldreinforcement_size5_class2(new GuardianShieldReinforcementPackage_5D()),
 
 
 
