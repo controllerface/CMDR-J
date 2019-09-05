@@ -3,7 +3,6 @@ package com.controllerface.cmdr_j.classes.procurements.modules.passengercabin.si
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.procurements.modules.passengercabin.AbstractCabin;
-import com.controllerface.cmdr_j.classes.procurements.modules.refinery.AbstractRefinery;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 public class Cabin_2E extends AbstractCabin

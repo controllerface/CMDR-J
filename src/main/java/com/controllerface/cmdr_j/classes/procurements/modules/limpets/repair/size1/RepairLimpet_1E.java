@@ -2,7 +2,6 @@ package com.controllerface.cmdr_j.classes.procurements.modules.limpets.repair.si
 
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.procurements.modules.limpets.prospector.AbstractProspectorLimpet;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.repair.AbstractRepairLimpet;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 

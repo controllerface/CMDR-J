@@ -20,6 +20,12 @@ import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size5.Ca
 import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size6.CargoRack_6E;
 import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size7.CargoRack_7E;
 import com.controllerface.cmdr_j.classes.procurements.modules.cargorack.size8.CargoRack_8E;
+import com.controllerface.cmdr_j.classes.procurements.modules.dockingcomputer.advanced.DockingComputer_1E_Advanced;
+import com.controllerface.cmdr_j.classes.procurements.modules.dockingcomputer.standard.DockingComputer_1E_Standard;
+import com.controllerface.cmdr_j.classes.procurements.modules.experimental.utility.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.fighterbay.size5.FighterBay_5E;
+import com.controllerface.cmdr_j.classes.procurements.modules.fighterbay.size6.FighterBay_6E;
+import com.controllerface.cmdr_j.classes.procurements.modules.fighterbay.size7.FighterBay_7E;
 import com.controllerface.cmdr_j.classes.procurements.modules.fsdinterdictor.size1.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.fsdinterdictor.size2.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.fsdinterdictor.size3.*;
@@ -32,6 +38,29 @@ import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size5.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size6.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size7.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size8.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.core.distributor.size1.HybridPowerDistributor_1A;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.core.distributor.size2.HybridPowerDistributor_2A;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.core.distributor.size3.HybridPowerDistributor_3A;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.core.distributor.size4.HybridPowerDistributor_4A;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.core.distributor.size5.HybridPowerDistributor_5A;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.core.distributor.size6.HybridPowerDistributor_6A;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.core.distributor.size7.HybridPowerDistributor_7A;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.core.distributor.size8.HybridPowerDistributor_8A;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.fsdbooster.size1.GuardianFSDBooster_1H;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.fsdbooster.size2.GuardianFSDBooster_2H;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.fsdbooster.size3.GuardianFSDBooster_3H;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.fsdbooster.size4.GuardianFSDBooster_4H;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.fsdbooster.size5.GuardianFSDBooster_5H;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.hrp.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.hrp.size2.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.hrp.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.hrp.size4.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.hrp.size5.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.mrp.size1.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.mrp.size2.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.mrp.size3.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.mrp.size4.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.guardian.optional.mrp.size5.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size1.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size2.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.size3.*;
@@ -41,6 +70,10 @@ import com.controllerface.cmdr_j.classes.procurements.modules.limpets.collectorl
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.collectorlimpet.size3.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.collectorlimpet.size5.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.collectorlimpet.size7.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.decontamination.size1.DecontaminationLimpet_1E;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.decontamination.size3.DecontaminationLimpet_3E;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.decontamination.size5.DecontaminationLimpet_5E;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.decontamination.size7.DecontaminationLimpet_7E;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.fueltransfer.size1.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.fueltransfer.size3.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.fueltransfer.size5.*;
@@ -53,10 +86,15 @@ import com.controllerface.cmdr_j.classes.procurements.modules.limpets.prospector
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.prospector.size3.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.prospector.size5.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.prospector.size7.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.recon.size1.ReconLimpet_1E;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.recon.size3.ReconLimpet_3E;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.recon.size5.ReconLimpet_5E;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.recon.size7.ReconLimpet_7E;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.repair.size1.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.repair.size3.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.repair.size5.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.repair.size7.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.limpets.research.size1.ResearchLimpet_1E;
 import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size1.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size2.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.size3.*;
@@ -67,11 +105,15 @@ import com.controllerface.cmdr_j.classes.procurements.modules.passengercabin.siz
 import com.controllerface.cmdr_j.classes.procurements.modules.passengercabin.size4.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.passengercabin.size5.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.passengercabin.size6.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.planetarysuite.size1.PlanetarySuite_1I;
 import com.controllerface.cmdr_j.classes.procurements.modules.refinery.size1.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.refinery.size2.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.refinery.size3.*;
 import com.controllerface.cmdr_j.classes.procurements.modules.refinery.size4.*;
-import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
+import com.controllerface.cmdr_j.classes.procurements.modules.srvbay.size2.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.srvbay.size4.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.srvbay.size6.*;
+import com.controllerface.cmdr_j.classes.procurements.modules.surfacescanner.size0.DetailedSurfaceScanner_1I;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 import java.util.Arrays;
@@ -486,145 +528,33 @@ public enum OptionalInternalModule implements ShipModule
      * Decontamination Limpet Controllers
      */
 
-    int_dronecontrol_decontamination_size1_class1("1E Decontamination Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 24d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.18d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 30d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 600d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_decontamination_size1_class1(new DecontaminationLimpet_1E()),
 
-    int_dronecontrol_decontamination_size3_class1("3E Decontamination Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 51d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 70d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 2d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 880d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_decontamination_size3_class1(new DecontaminationLimpet_3E()),
 
-    int_dronecontrol_decontamination_size5_class1("5E Decontamination Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 96d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.5d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 120d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 3d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 1300d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_decontamination_size5_class1(new DecontaminationLimpet_5E()),
 
-    int_dronecontrol_decontamination_size7_class1("7E Decontamination Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 128d),
-                    new ItemEffectData(ItemEffect.Integrity, 157d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.97d),
-                    new ItemEffectData(ItemEffect.BootTime, 10d),
-                    new ItemEffectData(ItemEffect.DroneRepairCapacity, 180d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 4d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2040d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_decontamination_size7_class1(new DecontaminationLimpet_7E()),
 
 
     /**
      * Recon Limpet Controller
      */
 
-    int_dronecontrol_recon_size1_class1("1E Recon Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Mass, 24d),
-                    new ItemEffectData(ItemEffect.Mass, 0.18d),
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.Mass, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 1200d),
-                    new ItemEffectData(ItemEffect.Mass, 100d),
-                    new ItemEffectData(ItemEffect.Mass, 22d)
-            )),
+    int_dronecontrol_recon_size1_class1(new ReconLimpet_1E()),
 
-    int_dronecontrol_recon_size3_class1("3E Recon Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Mass, 51d),
-                    new ItemEffectData(ItemEffect.Mass, 0.2d),
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.Mass, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 1400d),
-                    new ItemEffectData(ItemEffect.Mass, 100d),
-                    new ItemEffectData(ItemEffect.Mass, 17d)
-            )),
+    int_dronecontrol_recon_size3_class1(new ReconLimpet_3E()),
 
-    int_dronecontrol_recon_size5_class1("5E Recon Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Mass, 96d),
-                    new ItemEffectData(ItemEffect.Mass, 0.5d),
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.Mass, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 1700d),
-                    new ItemEffectData(ItemEffect.Mass, 100d),
-                    new ItemEffectData(ItemEffect.Mass, 13d)
-            )),
+    int_dronecontrol_recon_size5_class1(new ReconLimpet_5E()),
 
-    int_dronecontrol_recon_size7_class1("7E Recon Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 128d),
-                    new ItemEffectData(ItemEffect.Mass, 157d),
-                    new ItemEffectData(ItemEffect.Mass, 0.97d),
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.Mass, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 2000d),
-                    new ItemEffectData(ItemEffect.Mass, 100d),
-                    new ItemEffectData(ItemEffect.Mass, 10d)
-            )),
+    int_dronecontrol_recon_size7_class1(new ReconLimpet_7E()),
 
 
     /**
      * Research Limpet Controller
      */
 
-    int_dronecontrol_unkvesselresearch("Research Limpet Controller",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 20d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.4d),
-                    new ItemEffectData(ItemEffect.BootTime, 0d),
-                    new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
-                    new ItemEffectData(ItemEffect.DroneTargetRange, 2000d),
-                    new ItemEffectData(ItemEffect.DroneLifeTime, 300d),
-                    new ItemEffectData(ItemEffect.DroneSpeed, 200d)
-            )),
+    int_dronecontrol_unkvesselresearch(new ResearchLimpet_1E()),
 
 
     /**
@@ -633,79 +563,14 @@ public enum OptionalInternalModule implements ShipModule
      * todo: determine if ammo clip size is the right stat for the vehicle count
      */
 
-    int_buggybay_size2_class1("2H Planetary Vehicle Hangar",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 12d),
-                    new ItemEffectData(ItemEffect.Integrity, 30d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.25d),
-                    new ItemEffectData(ItemEffect.BootTime, 5d),
-                    new ItemEffectData(ItemEffect.NumBuggySlots, 1d),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 1d)
-            )),
+    int_buggybay_size2_class1(new SRVBay_2H()),
+    int_buggybay_size2_class2(new SRVBay_2G()),
 
-    int_buggybay_size2_class2("2G Planetary Vehicle Hangar",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 6d),
-                    new ItemEffectData(ItemEffect.Integrity, 30d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.75d),
-                    new ItemEffectData(ItemEffect.BootTime, 5d),
-                    new ItemEffectData(ItemEffect.NumBuggySlots, 1d),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 1d)
-            )),
+    int_buggybay_size4_class1(new SRVBay_4H()),
+    int_buggybay_size4_class2(new SRVBay_4G()),
 
-
-    int_buggybay_size4_class1("4H Planetary Vehicle Hangar",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 30d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.4d),
-                    new ItemEffectData(ItemEffect.BootTime, 5d),
-                    new ItemEffectData(ItemEffect.NumBuggySlots, 2d),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 1d)
-            )),
-
-    int_buggybay_size4_class2("4G Planetary Vehicle Hangar",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 10d),
-                    new ItemEffectData(ItemEffect.Integrity, 30d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 5d),
-                    new ItemEffectData(ItemEffect.NumBuggySlots, 2d),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 1d)
-            )),
-
-
-    int_buggybay_size6_class1("6H Planetary Vehicle Hangar",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 34d),
-                    new ItemEffectData(ItemEffect.Integrity, 30d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.6d),
-                    new ItemEffectData(ItemEffect.BootTime, 5d),
-                    new ItemEffectData(ItemEffect.NumBuggySlots, 4d),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 1d)
-            )),
-
-    int_buggybay_size6_class2("6G Planetary Vehicle Hangar",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 17d),
-                    new ItemEffectData(ItemEffect.Integrity, 30d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.8d),
-                    new ItemEffectData(ItemEffect.BootTime, 5d),
-                    new ItemEffectData(ItemEffect.NumBuggySlots, 4d),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 1d)
-            )),
+    int_buggybay_size6_class1(new SRVBay_6H()),
+    int_buggybay_size6_class2(new SRVBay_6G()),
 
 
     /**
@@ -715,41 +580,11 @@ public enum OptionalInternalModule implements ShipModule
      * todo: determine if ammo clip size is the right stat for the vehicle count
      */
 
-    int_fighterbay_size5_class1("5E Fighter Hangar",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 20d),
-                    new ItemEffectData(ItemEffect.Integrity, 60d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.25d),
-                    new ItemEffectData(ItemEffect.BootTime, 5d),
-                    new ItemEffectData(ItemEffect.NumBuggySlots, 1d),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 6d)
-            )),
+    int_fighterbay_size5_class1(new FighterBay_5E()),
 
-    int_fighterbay_size6_class1("6E Fighter Hangar",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 40d),
-                    new ItemEffectData(ItemEffect.Integrity, 80d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.35d),
-                    new ItemEffectData(ItemEffect.BootTime, 5d),
-                    new ItemEffectData(ItemEffect.NumBuggySlots, 2d),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 8d)
-            )),
+    int_fighterbay_size6_class1(new FighterBay_6E()),
 
-    int_fighterbay_size7_class1("7E Fighter Hangar",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 60d),
-                    new ItemEffectData(ItemEffect.Integrity, 120d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.35d),
-                    new ItemEffectData(ItemEffect.BootTime, 5d),
-                    new ItemEffectData(ItemEffect.NumBuggySlots, 2d),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 15d)
-            )),
+    int_fighterbay_size7_class1(new FighterBay_7E()),
 
 
     /**
@@ -801,279 +636,112 @@ public enum OptionalInternalModule implements ShipModule
      * Detailed Surface Scanner
      */
 
-    int_detailedsurfacescanner_tiny("Detailed Surface Scanner",
-            ModificationType.Detailed_Surface_Scanner,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0d),
-                    new ItemEffectData(ItemEffect.BootTime, 0d),
-                    new ItemEffectData(ItemEffect.DSS_PatchRadius, 0d)
-            )),
+    int_detailedsurfacescanner_tiny(new DetailedSurfaceScanner_1I()),
 
 
     /**
      * Docking Computer
      */
 
-    int_dockingcomputer_standard("Standard Docking Computer",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Integrity, 10d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.39d),
-                    new ItemEffectData(ItemEffect.BootTime, 3d)
-            )),
+    int_dockingcomputer_standard(new DockingComputer_1E_Standard()),
+    int_dockingcomputer_advanced(new DockingComputer_1E_Advanced()),
 
 
     /**
      * Planetary Approach Suite
      */
 
-    int_planetapproachsuite("Planetary Approach Suite",
-            null,
-            null,
-            new ItemEffects(new ItemEffectData(ItemEffect.planetary_approach, "Installed"))),
+    int_planetapproachsuite(new PlanetarySuite_1I()),
 
 
     /**
      * Experimental (AEGIS, Anti-Thargoid) Modules
-     *
-     * todo: determine if ECMCooldown is the correct effect for this item's cooldown stat
      */
 
-    hpt_antiunknownshutdown_tiny("Shutdown Field Neutraliser",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 35d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 0d),
-                    new ItemEffectData(ItemEffect.Range, 3000d),
-                    new ItemEffectData(ItemEffect.DistributorDraw, 0.25d),
-                    new ItemEffectData(ItemEffect.ECMCooldown, 10d),
-                    new ItemEffectData(ItemEffect.Mass, 1d)
-            )),
+    hpt_antiunknownshutdown_tiny(new AntiShutdownField_0F()),
 
-    hpt_xenoscanner_basic_tiny("Xeno Scanner",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.Integrity, 56d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                    new ItemEffectData(ItemEffect.BootTime, 2d),
-                    new ItemEffectData(ItemEffect.Range, 500d),
-                    new ItemEffectData(ItemEffect.MaxAngle, 23d),
-                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 10d)
-            )),
+    hpt_xenoscanner_basic_tiny(new XenoScanner_0E()),
 
 
     /**
      * Guardian Internal Modules
      */
 
-    // todo: add the stats for power distributors
+    /*
+    Power Distributors
+     */
 
-    int_guardianpowerdistributor_size1("1A Guardian Hybrid Power Distributor", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
+    // todo: need stats for these
+    int_guardianpowerdistributor_size1(new HybridPowerDistributor_1A()),
 
-    int_guardianpowerdistributor_size2("2A Guardian Hybrid Power Distributor", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
+    int_guardianpowerdistributor_size2(new HybridPowerDistributor_2A()),
 
-    int_guardianpowerdistributor_size3("3A Guardian Hybrid Power Distributor", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
+    int_guardianpowerdistributor_size3(new HybridPowerDistributor_3A()),
 
-    int_guardianpowerdistributor_size4("4A Guardian Hybrid Power Distributor", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
+    int_guardianpowerdistributor_size4(new HybridPowerDistributor_4A()),
 
-    int_guardianpowerdistributor_size5("5A Guardian Hybrid Power Distributor", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
+    int_guardianpowerdistributor_size5(new HybridPowerDistributor_5A()),
 
-    int_guardianpowerdistributor_size6("6A Guardian Hybrid Power Distributor", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
+    int_guardianpowerdistributor_size6(new HybridPowerDistributor_6A()),
 
-    int_guardianpowerdistributor_size7("7A Guardian Hybrid Power Distributor", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
+    int_guardianpowerdistributor_size7(new HybridPowerDistributor_7A()),
 
-    int_guardianpowerdistributor_size8("8A Guardian Hybrid Power Distributor", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
+    int_guardianpowerdistributor_size8(new HybridPowerDistributor_8A()),
 
 
-    // todo: add all of these
-    int_guardianhullreinforcement_size1_class1("1E Guardian Hull Reinforcement Package", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d)
-            )),
+    /*
+    Hull Reinforcement Packages
+     */
+
+    int_guardianhullreinforcement_size1_class1(new GuardianHRP_1E()),
+    int_guardianhullreinforcement_size1_class2(new GuardianHRP_1D()),
+
+    int_guardianhullreinforcement_size2_class1(new GuardianHRP_2E()),
+    int_guardianhullreinforcement_size2_class2(new GuardianHRP_2D()),
+
+    int_guardianhullreinforcement_size3_class1(new GuardianHRP_3E()),
+    int_guardianhullreinforcement_size3_class2(new GuardianHRP_3D()),
+
+    int_guardianhullreinforcement_size4_class1(new GuardianHRP_4E()),
+    int_guardianhullreinforcement_size4_class2(new GuardianHRP_4D()),
+
+    int_guardianhullreinforcement_size5_class1(new GuardianHRP_5E()),
+    int_guardianhullreinforcement_size5_class2(new GuardianHRP_5D()),
 
 
-    int_guardianmodulereinforcement_size1_class1("1E Guardian Module Reinforcement Package", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 85d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.27d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
-            )),
+    /*
+    Module Reinforcement Packages
+     */
 
-    int_guardianmodulereinforcement_size1_class2("1D Guardian Module Reinforcement Package", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 1d),
-                    new ItemEffectData(ItemEffect.Integrity, 77d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
-            )),
+    int_guardianmodulereinforcement_size1_class1(new GuardianMRP_1E()),
+    int_guardianmodulereinforcement_size1_class2(new GuardianMRP_1D()),
 
-    int_guardianmodulereinforcement_size2_class1("2E Guardian Module Reinforcement Package", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 4d),
-                    new ItemEffectData(ItemEffect.Integrity, 127d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.41d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
-            )),
+    int_guardianmodulereinforcement_size2_class1(new GuardianMRP_2E()),
+    int_guardianmodulereinforcement_size2_class2(new GuardianMRP_2D()),
 
-    int_guardianmodulereinforcement_size2_class2("2D Guardian Module Reinforcement Package", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 2d),
-                    new ItemEffectData(ItemEffect.Integrity, 116d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.47d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
-            )),
+    int_guardianmodulereinforcement_size3_class1(new GuardianMRP_3E()),
+    int_guardianmodulereinforcement_size3_class2(new GuardianMRP_3D()),
 
-    int_guardianmodulereinforcement_size3_class1("3E Guardian Module Reinforcement Package", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 187d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.54d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
-            )),
+    int_guardianmodulereinforcement_size4_class1(new GuardianMRP_4E()),
+    int_guardianmodulereinforcement_size4_class2(new GuardianMRP_4D()),
 
-    int_guardianmodulereinforcement_size3_class2("3D Guardian Module Reinforcement Package", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 4d),
-                    new ItemEffectData(ItemEffect.Integrity, 171d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.61d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
-            )),
-
-    int_guardianmodulereinforcement_size4_class1("4E Guardian Module Reinforcement Package", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 16d),
-                    new ItemEffectData(ItemEffect.Integrity, 286d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.68d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
-            )),
-
-    int_guardianmodulereinforcement_size4_class2("4D Guardian Module Reinforcement Package", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 8d),
-                    new ItemEffectData(ItemEffect.Integrity, 259d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.74d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
-            )),
-
-    int_guardianmodulereinforcement_size5_class1("5E Guardian Module Reinforcement Package", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 32d),
-                    new ItemEffectData(ItemEffect.Integrity, 424d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.81d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
-            )),
-
-    int_guardianmodulereinforcement_size5_class2("5D Guardian Module Reinforcement Package", null, null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 16d),
-                    new ItemEffectData(ItemEffect.Integrity, 385d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.88d),
-                    new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
-            )),
+    int_guardianmodulereinforcement_size5_class1(new GuardianMRP_5E()),
+    int_guardianmodulereinforcement_size5_class2(new GuardianMRP_5D()),
 
 
-    int_guardianfsdbooster_size1("1H Guardian FSD Booster",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.75d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 4d)
-            )),
+    /*
+    FSD Boosters
+     */
 
-    int_guardianfsdbooster_size2("2H Guardian FSD Booster",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.98d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 6d)
-            )),
+    int_guardianfsdbooster_size1(new GuardianFSDBooster_1H()),
 
-    int_guardianfsdbooster_size3("3H Guardian FSD Booster",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.27d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 7.75d)
-            )),
+    int_guardianfsdbooster_size2(new GuardianFSDBooster_2H()),
 
-    int_guardianfsdbooster_size4("4H Guardian FSD Booster",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.65d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 9.25d)
-            )),
+    int_guardianfsdbooster_size3(new GuardianFSDBooster_3H()),
 
-    int_guardianfsdbooster_size5("5H Guardian FSD Booster",
-            null,
-            null,
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.guardian, 1d),
-                    new ItemEffectData(ItemEffect.Mass, 1.3d),
-                    new ItemEffectData(ItemEffect.PowerDraw, 2.14d),
-                    new ItemEffectData(ItemEffect.Integrity, 32d),
-                    new ItemEffectData(ItemEffect.BootTime, 15d),
-                    new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 10.5d)
-            )),
+    int_guardianfsdbooster_size4(new GuardianFSDBooster_4H()),
+
+    int_guardianfsdbooster_size5(new GuardianFSDBooster_5H()),
 
     /**
      * Human Tech Broker Internal Modules

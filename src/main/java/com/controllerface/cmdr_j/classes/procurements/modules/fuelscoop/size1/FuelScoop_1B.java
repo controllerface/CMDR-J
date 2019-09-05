@@ -2,9 +2,7 @@ package com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.size1;
 
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.procurements.modules.afmu.AbstractAFMU;
 import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.AbstractFuelScoop;
-import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 public class FuelScoop_1B extends AbstractFuelScoop

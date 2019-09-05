@@ -2,7 +2,6 @@ package com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcmen
 
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.procurements.modules.hullreinforcement.AbstractHullPackage;
 import com.controllerface.cmdr_j.classes.procurements.modules.modulereinforcment.AbstractModulePackage;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 

@@ -3,7 +3,6 @@ package com.controllerface.cmdr_j.classes.procurements.modules.limpets.hatchbrea
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.hatchbreaker.AbstractHatchBreakerLimpet;
-import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 public class HatchBreakerLimpet_3B extends AbstractHatchBreakerLimpet

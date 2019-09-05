@@ -3,7 +3,6 @@ package com.controllerface.cmdr_j.classes.procurements.modules.limpets.prospecto
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.prospector.AbstractProspectorLimpet;
-import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 public class ProspectorLimpet_5C extends AbstractProspectorLimpet

@@ -2,9 +2,7 @@ package com.controllerface.cmdr_j.classes.procurements.modules.limpets.collector
 
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.procurements.modules.fuelscoop.AbstractFuelScoop;
 import com.controllerface.cmdr_j.classes.procurements.modules.limpets.collectorlimpet.AbstractCollectorLimpet;
-import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 public class CollectorLimpet_1E extends AbstractCollectorLimpet
