@@ -1,0 +1,25 @@
+package com.controllerface.cmdr_j.classes.modules.limpets.fueltransfer.size1;
+
+import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.modules.limpets.fueltransfer.AbstractFuelTransferLimpet;
+import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+
+public class FuelTransferLimpet_1C extends AbstractFuelTransferLimpet
+{
+    public FuelTransferLimpet_1C()
+    {
+        super("1C Fuel Transfer Limpet Controller",
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Mass, 1.3d),
+                        new ItemEffectData(ItemEffect.Integrity, 40d),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.23d),
+                        new ItemEffectData(ItemEffect.BootTime, 10d),
+                        new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
+                        new ItemEffectData(ItemEffect.DroneTargetRange, 1000d),
+                        new ItemEffectData(ItemEffect.DroneLifeTime, 60d),
+                        new ItemEffectData(ItemEffect.DroneSpeed, 200d),
+                        new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
+                ));
+    }
+}
