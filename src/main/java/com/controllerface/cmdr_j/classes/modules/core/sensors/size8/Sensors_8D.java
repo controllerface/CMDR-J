@@ -1,9 +1,9 @@
 package com.controllerface.cmdr_j.classes.modules.core.sensors.size8;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.core.sensors.AbstractSensors;
+import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 public class Sensors_8D extends AbstractSensors
 {

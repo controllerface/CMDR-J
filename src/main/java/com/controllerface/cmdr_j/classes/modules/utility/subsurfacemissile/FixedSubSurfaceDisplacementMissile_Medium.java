@@ -1,9 +1,8 @@
 package com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
-import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.AbstractSubsurfaceMissileLauncher;
 
 public class FixedSubSurfaceDisplacementMissile_Medium extends AbstractSubsurfaceMissileLauncher
 {

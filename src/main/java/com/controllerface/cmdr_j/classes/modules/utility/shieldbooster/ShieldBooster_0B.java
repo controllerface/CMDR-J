@@ -1,9 +1,8 @@
 package com.controllerface.cmdr_j.classes.modules.utility.shieldbooster;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
-import com.controllerface.cmdr_j.classes.modules.utility.shieldbooster.AbstractShieldBooster;
 
 public class ShieldBooster_0B extends AbstractShieldBooster
 {

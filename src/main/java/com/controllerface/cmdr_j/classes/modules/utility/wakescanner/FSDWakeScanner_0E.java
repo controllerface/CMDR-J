@@ -1,9 +1,8 @@
 package com.controllerface.cmdr_j.classes.modules.utility.wakescanner;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
-import com.controllerface.cmdr_j.classes.modules.utility.wakescanner.AbstractWakeScanner;
 
 public class FSDWakeScanner_0E extends AbstractWakeScanner
 {

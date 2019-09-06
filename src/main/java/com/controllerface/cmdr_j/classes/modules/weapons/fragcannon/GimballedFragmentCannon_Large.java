@@ -1,9 +1,8 @@
 package com.controllerface.cmdr_j.classes.modules.weapons.fragcannon;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
-import com.controllerface.cmdr_j.classes.modules.weapons.fragcannon.AbstractFragCannon;
 
 public class GimballedFragmentCannon_Large extends AbstractFragCannon
 {

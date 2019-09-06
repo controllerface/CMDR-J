@@ -1,9 +1,8 @@
 package com.controllerface.cmdr_j.classes.modules.utility.pulsewave;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
-import com.controllerface.cmdr_j.classes.modules.utility.pulsewave.AbstractPulseWaveScanner;
 
 public class WaveAnalyzer_Pulse extends AbstractPulseWaveScanner
 {

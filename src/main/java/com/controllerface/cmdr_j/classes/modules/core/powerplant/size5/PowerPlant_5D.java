@@ -1,9 +1,9 @@
 package com.controllerface.cmdr_j.classes.modules.core.powerplant.size5;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.core.powerplant.AbstractPowerPlant;
+import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 public class PowerPlant_5D extends AbstractPowerPlant
 {

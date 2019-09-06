@@ -1,9 +1,8 @@
 package com.controllerface.cmdr_j.classes.modules.utility.manifestscanner;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
-import com.controllerface.cmdr_j.classes.modules.utility.manifestscanner.AbstractManifestScanner;
 
 public class ManifestScanner_0C extends AbstractManifestScanner
 {

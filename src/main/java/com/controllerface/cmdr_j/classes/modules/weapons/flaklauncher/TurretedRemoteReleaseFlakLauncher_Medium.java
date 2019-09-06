@@ -1,9 +1,9 @@
 package com.controllerface.cmdr_j.classes.modules.weapons.flaklauncher;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.AbstractExperimentalModule;
+import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 public class TurretedRemoteReleaseFlakLauncher_Medium extends AbstractExperimentalModule
 {

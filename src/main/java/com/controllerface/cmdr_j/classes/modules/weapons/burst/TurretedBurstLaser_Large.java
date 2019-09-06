@@ -1,9 +1,8 @@
 package com.controllerface.cmdr_j.classes.modules.weapons.burst;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
-import com.controllerface.cmdr_j.classes.modules.weapons.burst.AbstractBurstLaser;
 
 public class TurretedBurstLaser_Large extends AbstractBurstLaser
 {

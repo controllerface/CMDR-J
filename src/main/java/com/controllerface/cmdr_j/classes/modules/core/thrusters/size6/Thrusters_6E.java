@@ -1,9 +1,9 @@
 package com.controllerface.cmdr_j.classes.modules.core.thrusters.size6;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.AbstractThrusters;
+import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 
 public class Thrusters_6E extends AbstractThrusters
 {
