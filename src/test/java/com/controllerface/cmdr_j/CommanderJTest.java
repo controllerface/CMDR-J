@@ -36,6 +36,7 @@ import com.controllerface.cmdr_j.classes.modules.weapons.pulse.AbstractPulseLase
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.AbstractRailGun;
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.AbstractSeekerMissileRack;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.AbstractTorpedoPylon;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
@@ -49,6 +50,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -251,6 +254,8 @@ public class CommanderJTest
     }
 
 
+    private Set<String> seen = new HashSet<>();
+
     @Test
     public void writeOuttest() throws IOException
     {
@@ -269,32 +274,43 @@ public class CommanderJTest
 
         StringBuilder outerBuilder = new StringBuilder();
 
-        Stream.of(HardpointModule.values())
+        Stream.of(ExperimentalRecipe.values())
                 .forEach(v->
                 {
                     StringBuilder stringBuilder = new StringBuilder();
 
-                    String className;
-                    if (v.displayText().contains("Armour"))
-                    {
-                        String x = v.name().split("_")[0];
-                        className = v.displayText().replaceAll(" ","") + "_" + x;
-                    }
-                    else
-                    {
-                        // generate class nameclass name
-                        String [] parts = v.displayText().split(" ");
+                    String className = v.getShortLabel()
+                            .replaceAll(" ","")
+                            .replaceAll("-","")
+                            .replace("(","_")
+                            .replace(")","_");
 
-                        className = Arrays.stream(parts, 1, parts.length)
-                                .collect(Collectors.joining()) + "_" + parts[0];
-                        className = className.replaceAll("-","")
-                                .replaceAll("Standard","");
+                    switch (className)
+                    {
+                        case "AngledPlating":
+                        case "DeepPlating":
+                        case "DoubleBraced":
+                        case "FlowControl":
+                        case "ForceBlock":
+                        case "LayeredPlating":
+                        case "ReflectivePlating":
+                        case "StrippedDown":
+                        case "ThermalSpread":
+                        case "ThermoBlock":
+                            className = className + v.getName();
                     }
 
-                    String displayText = "\"" + v.displayText() + "\"";
+                    if (seen.contains(className))
+                    {
+                        System.out.println("Dupe: " + className);
+                    }
+
+                    seen.add(className);
+
+                    String displayText = "\"" + v.getShortLabel() + "\"";
 
                     // item effects
-                    String s = v.itemEffects().effectStream()
+                    String s = v.effects().effectStream()
                             .map(e->
                             {
                                 String val = e.isNumerical() ? String.valueOf(e.getDoubleValue()) : "\""+e.getStringValue()+"\"";
@@ -307,21 +323,31 @@ public class CommanderJTest
                             .append("()),\n");
 
 
-                    StringPair a = getAbstractClass(v);
+                    String costs = v.costStream()
+                            .map(c->
+                            {
+                                return "new CostData(Material."
+                                        + c.toString()
+                                        .replaceAll(":",", ")
+                                        .replaceFirst(" ","")
+                                        .replaceFirst("  "," ")
+                                        + ")";
+                            })
+                            .collect(Collectors.joining(",\n            "));
 
-                    if (a == null)
-                    {
-                        System.out.println("BAD!" + v);
-                    }
 
                     stringBuilder.append("package com.controllerface.cmdr_j.classes.modules.generated;\n\n");
+
                     stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffects;\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffectData;\n");
+                    stringBuilder.append("import com.controllerface.cmdr_j.classes.procurements.CostData;\n");
+                    stringBuilder.append("import com.controllerface.cmdr_j.classes.recipes.AbstractExperimentalRecipe;\n");
+                    stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.materials.Material;\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.ItemEffect;\n");
-                    stringBuilder.append("import " + a.getSecond() + ";\n");
+                    stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.ItemGrade;\n");
                     stringBuilder.append("\n");
 
-                    stringBuilder.append("public class ").append(className).append(" extends " + a.getFirst() + "\n");
+                    stringBuilder.append("public class ").append(className).append(" extends AbstractExperimentalRecipe\n");
 
                     stringBuilder.append("{\n");
                     stringBuilder.append("    public ").append(className).append("()\n");
@@ -329,25 +355,28 @@ public class CommanderJTest
                     stringBuilder.append("        super(")
                             .append(displayText).append(", ")
                             .append("\n            ")
-                            .append(s).append("        ));\n");
+                            .append(s).append("        ),\n")
+                            .append("            ").append(costs);
+
+                    stringBuilder.append(");\n");
                     stringBuilder.append("    }\n");
                     stringBuilder.append("}");
 
-                    System.out.println(stringBuilder.toString());
-
-                    File next = new File(output,className+".java");
-                    try
-                    {
-                        if (next.createNewFile())
-                        {
-                            PrintStream printStream = new PrintStream(next);
-                            printStream.print(stringBuilder.toString());
-                        }
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
+//                    System.out.println(stringBuilder.toString());
+//
+//                    File next = new File(output,className+".java");
+//                    try
+//                    {
+//                        if (next.createNewFile())
+//                        {
+//                            PrintStream printStream = new PrintStream(next);
+//                            printStream.print(stringBuilder.toString());
+//                        }
+//                    }
+//                    catch (IOException e)
+//                    {
+//                        e.printStackTrace();
+//                    }
 
                 });
 
