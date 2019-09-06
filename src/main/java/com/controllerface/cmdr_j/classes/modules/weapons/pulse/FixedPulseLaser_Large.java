@@ -1,0 +1,31 @@
+package com.controllerface.cmdr_j.classes.modules.weapons.pulse;
+
+import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.classes.modules.weapons.pulse.AbstractPulseLaser;
+
+public class FixedPulseLaser_Large extends AbstractPulseLaser
+{
+    public FixedPulseLaser_Large()
+    {
+        super("Large Fixed Pulse Laser", 
+            new ItemEffects(
+                  new ItemEffectData(ItemEffect.Mass, 8.0),
+                  new ItemEffectData(ItemEffect.Integrity, 64.0),
+                  new ItemEffectData(ItemEffect.PowerDraw, 0.9),
+                  new ItemEffectData(ItemEffect.DamagePerSecond, 18.12),
+                  new ItemEffectData(ItemEffect.Damage, 5.98),
+                  new ItemEffectData(ItemEffect.DistributorDraw, 0.86),
+                  new ItemEffectData(ItemEffect.ThermalLoad, 0.96),
+                  new ItemEffectData(ItemEffect.ArmourPenetration, 52.0),
+                  new ItemEffectData(ItemEffect.MaximumRange, 3000.0),
+                  new ItemEffectData(ItemEffect.RateOfFire, 3.03),
+                  new ItemEffectData(ItemEffect.BreachDamage, 5.1),
+                  new ItemEffectData(ItemEffect.MinBreachChance, 40.0),
+                  new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),
+                  new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                  new ItemEffectData(ItemEffect.DamageFalloffRange, 500.0)
+            ));
+    }
+}

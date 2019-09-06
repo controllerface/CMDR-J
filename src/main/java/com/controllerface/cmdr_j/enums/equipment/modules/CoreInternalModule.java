@@ -55,7 +55,6 @@ import java.util.Arrays;
 /**
  * Created by Controllerface on 4/25/2018.
  */
-@SuppressWarnings("unchecked")
 public enum CoreInternalModule implements ShipModule
 {
     /**

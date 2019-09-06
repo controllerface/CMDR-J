@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes.modules.core.powerplant.size7;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
-import com.controllerface.cmdr_j.classes.modules.guardian.AbstractGuardianModule;
+import com.controllerface.cmdr_j.classes.modules.AbstractGuardianModule;
 
 public class GuardianHybridPowerPlant_7A extends AbstractGuardianModule
 {
