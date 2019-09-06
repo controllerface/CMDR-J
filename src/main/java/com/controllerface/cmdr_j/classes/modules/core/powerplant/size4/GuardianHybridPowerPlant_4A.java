@@ -1,0 +1,21 @@
+package com.controllerface.cmdr_j.classes.modules.core.powerplant.size4;
+
+import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.classes.modules.guardian.AbstractGuardianModule;
+
+public class GuardianHybridPowerPlant_4A extends AbstractGuardianModule
+{
+    public GuardianHybridPowerPlant_4A()
+    {
+        super("4A Guardian Hybrid Power Plant", 
+            new ItemEffects(
+                  new ItemEffectData(ItemEffect.guardian, 1.0),
+                  new ItemEffectData(ItemEffect.Mass, 5.9),
+                  new ItemEffectData(ItemEffect.Integrity, 88.0),
+                  new ItemEffectData(ItemEffect.PowerCapacity, 20.6),
+                  new ItemEffectData(ItemEffect.HeatEfficiency, 0.5)
+            ));
+    }
+}

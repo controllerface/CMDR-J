@@ -1,0 +1,20 @@
+package com.controllerface.cmdr_j.classes.modules.core.powerplant.size2;
+
+import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.classes.modules.core.powerplant.AbstractPowerPlant;
+
+public class PowerPlant_2B extends AbstractPowerPlant
+{
+    public PowerPlant_2B()
+    {
+        super("2B Standard Power Plant", 
+            new ItemEffects(
+                  new ItemEffectData(ItemEffect.Mass, 2.0),
+                  new ItemEffectData(ItemEffect.Integrity, 61.0),
+                  new ItemEffectData(ItemEffect.PowerCapacity, 8.8),
+                  new ItemEffectData(ItemEffect.HeatEfficiency, 0.45)
+            ));
+    }
+}
