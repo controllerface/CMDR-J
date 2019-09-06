@@ -12,7 +12,6 @@ import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
-import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalShieldModule;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 import com.controllerface.cmdr_j.ui.Displayable;
 import com.controllerface.cmdr_j.ui.UIFunctions;
@@ -220,19 +219,16 @@ public class ShipModuleData implements Displayable
             {
                 text = "FSD Range";
             }
-        }
-        else if (module instanceof OptionalInternalShieldModule)
-        {
-            if (module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size1_class1
-                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size1_class2
-                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size2_class1
-                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size2_class2
-                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size3_class1
-                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size3_class2
-                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size4_class1
-                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size4_class2
-                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size5_class1
-                    || module == OptionalInternalShieldModule.int_guardianshieldreinforcement_size5_class2)
+            else if (module == OptionalInternalModule.int_guardianshieldreinforcement_size1_class1
+                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size1_class2
+                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size2_class1
+                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size2_class2
+                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size3_class1
+                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size3_class2
+                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size4_class1
+                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size4_class2
+                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size5_class1
+                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size5_class2)
             {
                 text = "Shield Strength";
             }

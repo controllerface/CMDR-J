@@ -149,10 +149,6 @@ public class JournalEventTransactions
         catch (Exception e) { module = null; }
         if (module != null) return module;
 
-        try { module = OptionalInternalShieldModule.findModule(moduleName); }
-        catch (Exception e) { module = null; }
-        if (module != null) return module;
-
         try { module = Cosmetic.findCosmetic(moduleName); }
         catch (Exception e) { module = null; }
         if (module != null) return module;

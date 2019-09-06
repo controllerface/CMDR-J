@@ -12,7 +12,6 @@ import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
-import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalShieldModule;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 
@@ -188,7 +187,7 @@ public enum TechnologyRecipe implements ProcurementRecipe
             new CostData(Material.FOCUSCRYSTALS, 24),
             new CostData(Commodity.HNSHOCKMOUNT, 8)),
 
-    Guardian_Shield_Booster(new ShipModule[]{OptionalInternalShieldModule.int_guardianshieldreinforcement_size1_class1},
+    Guardian_Shield_Booster(new ShipModule[]{OptionalInternalModule.int_guardianshieldreinforcement_size1_class1},
             ItemGrade.Technology, "Shield Boost",
             new ItemEffects
                     (

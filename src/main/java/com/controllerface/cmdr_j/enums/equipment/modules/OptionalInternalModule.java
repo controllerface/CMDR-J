@@ -53,7 +53,6 @@ import com.controllerface.cmdr_j.classes.modules.fuelscoop.size5.*;
 import com.controllerface.cmdr_j.classes.modules.fuelscoop.size6.*;
 import com.controllerface.cmdr_j.classes.modules.fuelscoop.size7.*;
 import com.controllerface.cmdr_j.classes.modules.fuelscoop.size8.*;
-import com.controllerface.cmdr_j.classes.modules.generated.*;
 import com.controllerface.cmdr_j.classes.modules.guardian.core.distributor.size1.HybridPowerDistributor_1A;
 import com.controllerface.cmdr_j.classes.modules.guardian.core.distributor.size2.HybridPowerDistributor_2A;
 import com.controllerface.cmdr_j.classes.modules.guardian.core.distributor.size3.HybridPowerDistributor_3A;
@@ -67,36 +66,16 @@ import com.controllerface.cmdr_j.classes.modules.guardian.optional.fsdbooster.si
 import com.controllerface.cmdr_j.classes.modules.guardian.optional.fsdbooster.size3.GuardianFSDBooster_3H;
 import com.controllerface.cmdr_j.classes.modules.guardian.optional.fsdbooster.size4.GuardianFSDBooster_4H;
 import com.controllerface.cmdr_j.classes.modules.guardian.optional.fsdbooster.size5.GuardianFSDBooster_5H;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size1.GuardianHRP_1D;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size1.GuardianHRP_1E;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size2.GuardianHRP_2D;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size2.GuardianHRP_2E;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size3.GuardianHRP_3D;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size3.GuardianHRP_3E;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size4.GuardianHRP_4D;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size4.GuardianHRP_4E;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size5.GuardianHRP_5D;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size5.GuardianHRP_5E;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size1.GuardianMRP_1D;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size1.GuardianMRP_1E;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size2.GuardianMRP_2D;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size2.GuardianMRP_2E;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size3.GuardianMRP_3D;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size3.GuardianMRP_3E;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size4.GuardianMRP_4D;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size4.GuardianMRP_4E;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size5.GuardianMRP_5D;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size5.GuardianMRP_5E;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size1.HRP_1D;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size1.HRP_1E;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size2.HRP_2D;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size2.HRP_2E;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size3.HRP_3D;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size3.HRP_3E;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size4.HRP_4D;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size4.HRP_4E;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size5.HRP_5D;
-import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size5.HRP_5E;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size1.*;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size2.*;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size3.*;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size4.*;
+import com.controllerface.cmdr_j.classes.modules.hullreinforcement.size5.*;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size1.*;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size2.*;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size3.*;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size4.*;
+import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size5.*;
 import com.controllerface.cmdr_j.classes.modules.limpets.collectorlimpet.size1.*;
 import com.controllerface.cmdr_j.classes.modules.limpets.collectorlimpet.size3.*;
 import com.controllerface.cmdr_j.classes.modules.limpets.collectorlimpet.size5.*;
@@ -126,45 +105,40 @@ import com.controllerface.cmdr_j.classes.modules.limpets.repair.size3.*;
 import com.controllerface.cmdr_j.classes.modules.limpets.repair.size5.*;
 import com.controllerface.cmdr_j.classes.modules.limpets.repair.size7.*;
 import com.controllerface.cmdr_j.classes.modules.limpets.research.size1.ResearchLimpet_1E;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size1.MRP_1D;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size1.MRP_1E;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size2.MRP_2D;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size2.MRP_2E;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size3.MRP_3D;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size3.MRP_3E;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size4.MRP_4D;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size4.MRP_4E;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size5.MRP_5D;
-import com.controllerface.cmdr_j.classes.modules.modulereinforcment.size5.MRP_5E;
 import com.controllerface.cmdr_j.classes.modules.passengercabin.size2.Cabin_2E;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size3.Cabin_3D;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size3.Cabin_3E;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size4.Cabin_4C;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size4.Cabin_4D;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size4.Cabin_4E;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size5.Cabin_5B;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size5.Cabin_5C;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size5.Cabin_5D;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size5.Cabin_5E;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size6.Cabin_6B;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size6.Cabin_6C;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size6.Cabin_6D;
-import com.controllerface.cmdr_j.classes.modules.passengercabin.size6.Cabin_6E;
+import com.controllerface.cmdr_j.classes.modules.passengercabin.size3.*;
+import com.controllerface.cmdr_j.classes.modules.passengercabin.size4.*;
+import com.controllerface.cmdr_j.classes.modules.passengercabin.size5.*;
+import com.controllerface.cmdr_j.classes.modules.passengercabin.size6.*;
 import com.controllerface.cmdr_j.classes.modules.planetarysuite.size1.PlanetarySuite_1I;
 import com.controllerface.cmdr_j.classes.modules.refinery.size1.*;
 import com.controllerface.cmdr_j.classes.modules.refinery.size2.*;
 import com.controllerface.cmdr_j.classes.modules.refinery.size3.*;
 import com.controllerface.cmdr_j.classes.modules.refinery.size4.*;
-import com.controllerface.cmdr_j.classes.modules.shields.size1.ShieldGenerator_1A;
-import com.controllerface.cmdr_j.classes.modules.shields.size1.ShieldGenerator_1A_Prismatic;
-import com.controllerface.cmdr_j.classes.modules.shields.size1.ShieldGenerator_1C_BiWeave;
-import com.controllerface.cmdr_j.classes.modules.shields.size2.*;
-import com.controllerface.cmdr_j.classes.modules.srvbay.size2.SRVBay_2G;
-import com.controllerface.cmdr_j.classes.modules.srvbay.size2.SRVBay_2H;
-import com.controllerface.cmdr_j.classes.modules.srvbay.size4.SRVBay_4G;
-import com.controllerface.cmdr_j.classes.modules.srvbay.size4.SRVBay_4H;
-import com.controllerface.cmdr_j.classes.modules.srvbay.size6.SRVBay_6G;
-import com.controllerface.cmdr_j.classes.modules.srvbay.size6.SRVBay_6H;
+import com.controllerface.cmdr_j.classes.modules.shieldreinforcement.size1.*;
+import com.controllerface.cmdr_j.classes.modules.shieldreinforcement.size2.*;
+import com.controllerface.cmdr_j.classes.modules.shieldreinforcement.size3.*;
+import com.controllerface.cmdr_j.classes.modules.shieldreinforcement.size4.*;
+import com.controllerface.cmdr_j.classes.modules.shieldreinforcement.size5.*;
+import com.controllerface.cmdr_j.classes.modules.shields.shieldcells.size1.*;
+import com.controllerface.cmdr_j.classes.modules.shields.shieldcells.size2.*;
+import com.controllerface.cmdr_j.classes.modules.shields.shieldcells.size3.*;
+import com.controllerface.cmdr_j.classes.modules.shields.shieldcells.size4.*;
+import com.controllerface.cmdr_j.classes.modules.shields.shieldcells.size5.*;
+import com.controllerface.cmdr_j.classes.modules.shields.shieldcells.size6.*;
+import com.controllerface.cmdr_j.classes.modules.shields.shieldcells.size7.*;
+import com.controllerface.cmdr_j.classes.modules.shields.shieldcells.size8.*;
+import com.controllerface.cmdr_j.classes.modules.shields.generators.size1.*;
+import com.controllerface.cmdr_j.classes.modules.shields.generators.size2.*;
+import com.controllerface.cmdr_j.classes.modules.shields.generators.size3.*;
+import com.controllerface.cmdr_j.classes.modules.shields.generators.size4.*;
+import com.controllerface.cmdr_j.classes.modules.shields.generators.size5.*;
+import com.controllerface.cmdr_j.classes.modules.shields.generators.size6.*;
+import com.controllerface.cmdr_j.classes.modules.shields.generators.size7.*;
+import com.controllerface.cmdr_j.classes.modules.shields.generators.size8.*;
+import com.controllerface.cmdr_j.classes.modules.srvbay.size2.*;
+import com.controllerface.cmdr_j.classes.modules.srvbay.size4.*;
+import com.controllerface.cmdr_j.classes.modules.srvbay.size6.*;
 import com.controllerface.cmdr_j.classes.modules.surfacescanner.size0.DetailedSurfaceScanner_1I;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
 
@@ -730,50 +704,53 @@ public enum OptionalInternalModule implements ShipModule
     int_shieldgenerator_size3_class3(new ShieldGenerator_3C()),
     int_shieldgenerator_size3_class4(new ShieldGenerator_3B()),
     int_shieldgenerator_size3_class5(new ShieldGenerator_3A()),
-    int_shieldgenerator_size3_class3_fast(new BiWeaveShieldGenerator_3C()),
-    int_shieldgenerator_size3_class5_strong(new PrismaticShieldGenerator_3A()),
+    int_shieldgenerator_size3_class3_fast(new ShieldGenerator_3C_BiWeave()),
+    int_shieldgenerator_size3_class5_strong(new ShieldGenerator_3A_Prismatic()),
 
     int_shieldgenerator_size4_class1(new ShieldGenerator_4E()),
     int_shieldgenerator_size4_class2(new ShieldGenerator_4D()),
     int_shieldgenerator_size4_class3(new ShieldGenerator_4C()),
     int_shieldgenerator_size4_class4(new ShieldGenerator_4B()),
     int_shieldgenerator_size4_class5(new ShieldGenerator_4A()),
-    int_shieldgenerator_size4_class3_fast(new BiWeaveShieldGenerator_4C()),
-    int_shieldgenerator_size4_class5_strong(new PrismaticShieldGenerator_4A()),
+    int_shieldgenerator_size4_class3_fast(new ShieldGenerator_4C_BiWeave()),
+    int_shieldgenerator_size4_class5_strong(new ShieldGenerator_4A_Prismatic()),
 
     int_shieldgenerator_size5_class1(new ShieldGenerator_5E()),
     int_shieldgenerator_size5_class2(new ShieldGenerator_5D()),
     int_shieldgenerator_size5_class3(new ShieldGenerator_5C()),
     int_shieldgenerator_size5_class4(new ShieldGenerator_5B()),
     int_shieldgenerator_size5_class5(new ShieldGenerator_5A()),
-    int_shieldgenerator_size5_class3_fast(new BiWeaveShieldGenerator_5C()),
-    int_shieldgenerator_size5_class5_strong(new PrismaticShieldGenerator_5A()),
+    int_shieldgenerator_size5_class3_fast(new ShieldGenerator_5C_BiWeave()),
+    int_shieldgenerator_size5_class5_strong(new ShieldGenerator_5A_Prismatic()),
 
     int_shieldgenerator_size6_class1(new ShieldGenerator_6E()),
     int_shieldgenerator_size6_class2(new ShieldGenerator_6D()),
     int_shieldgenerator_size6_class3(new ShieldGenerator_6C()),
     int_shieldgenerator_size6_class4(new ShieldGenerator_6B()),
     int_shieldgenerator_size6_class5(new ShieldGenerator_6A()),
-    int_shieldgenerator_size6_class3_fast(new BiWeaveShieldGenerator_6C()),
-    int_shieldgenerator_size6_class5_strong(new PrismaticShieldGenerator_6A()),
+    int_shieldgenerator_size6_class3_fast(new ShieldGenerator_6C_BiWeave()),
+    int_shieldgenerator_size6_class5_strong(new ShieldGenerator_6A_Prismatic()),
 
     int_shieldgenerator_size7_class1(new ShieldGenerator_7E()),
     int_shieldgenerator_size7_class2(new ShieldGenerator_7D()),
     int_shieldgenerator_size7_class3(new ShieldGenerator_7C()),
     int_shieldgenerator_size7_class4(new ShieldGenerator_7B()),
     int_shieldgenerator_size7_class5(new ShieldGenerator_7A()),
-    int_shieldgenerator_size7_class3_fast(new BiWeaveShieldGenerator_7C()),
-    int_shieldgenerator_size7_class5_strong(new PrismaticShieldGenerator_7A()),
+    int_shieldgenerator_size7_class3_fast(new ShieldGenerator_7C_BiWeave()),
+    int_shieldgenerator_size7_class5_strong(new ShieldGenerator_7A_Prismatic()),
 
     int_shieldgenerator_size8_class1(new ShieldGenerator_8E()),
     int_shieldgenerator_size8_class2(new ShieldGenerator_8D()),
     int_shieldgenerator_size8_class3(new ShieldGenerator_8C()),
     int_shieldgenerator_size8_class4(new ShieldGenerator_8B()),
     int_shieldgenerator_size8_class5(new ShieldGenerator_8A()),
-    int_shieldgenerator_size8_class3_fast(new BiWeaveShieldGenerator_8c()),
-    int_shieldgenerator_size8_class5_strong(new PrismaticShieldGenerator_8A()),
+    int_shieldgenerator_size8_class3_fast(new ShieldGenerator_8C_BiWeave()),
+    int_shieldgenerator_size8_class5_strong(new ShieldGenerator_8A_Prismatic()),
 
 
+    /**
+     * Shield Cell Bank
+     */
 
     int_shieldcellbank_size1_class1(new ShieldCellBank_1E()),
     int_shieldcellbank_size1_class2(new ShieldCellBank_1D()),
@@ -824,6 +801,9 @@ public enum OptionalInternalModule implements ShipModule
     int_shieldcellbank_size8_class5(new ShieldCellBank_8A()),
 
 
+    /**
+     * Shield Reinforcement
+     */
 
     int_guardianshieldreinforcement_size1_class1(new GuardianShieldReinforcementPackage_1E()),
     int_guardianshieldreinforcement_size1_class2(new GuardianShieldReinforcementPackage_1D()),
@@ -839,7 +819,6 @@ public enum OptionalInternalModule implements ShipModule
 
     int_guardianshieldreinforcement_size5_class1(new GuardianShieldReinforcementPackage_5E()),
     int_guardianshieldreinforcement_size5_class2(new GuardianShieldReinforcementPackage_5D()),
-
 
 
     /**
