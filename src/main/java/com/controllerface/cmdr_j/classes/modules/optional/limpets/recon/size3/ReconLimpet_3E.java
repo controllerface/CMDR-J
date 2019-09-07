@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes.modules.optional.limpets.recon.size3;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.limpets.recon.AbstractReconLimpet;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class ReconLimpet_3E extends AbstractReconLimpet
 {

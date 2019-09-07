@@ -4,7 +4,7 @@ import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 /**
  * Created by Stephen on 5/27/2018.

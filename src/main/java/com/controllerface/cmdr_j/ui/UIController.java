@@ -25,7 +25,7 @@ import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisType;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyType;
-import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.enums.journal.JournalEvent;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
 import com.controllerface.cmdr_j.threads.UserTransaction;

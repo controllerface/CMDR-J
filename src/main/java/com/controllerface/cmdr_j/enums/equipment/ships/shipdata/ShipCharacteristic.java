@@ -1,9 +1,9 @@
-package com.controllerface.cmdr_j.enums.equipment.ships;
+package com.controllerface.cmdr_j.enums.equipment.ships.shipdata;
 
 /**
  * Created by Controllerface on 4/30/2018.
  */
-public enum ShipStat
+public enum ShipCharacteristic
 {
     Size,
     Mass_Lock_Factor,

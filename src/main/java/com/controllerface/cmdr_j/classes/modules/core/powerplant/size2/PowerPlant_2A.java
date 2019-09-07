@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes.modules.core.powerplant.size2;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.core.powerplant.AbstractPowerPlant;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class PowerPlant_2A extends AbstractPowerPlant
 {

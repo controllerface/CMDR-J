@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes.modules.optional.limpets.collectorlimp
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.limpets.collectorlimpet.AbstractCollectorLimpet;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class CollectorLimpet_3C extends AbstractCollectorLimpet
 {

@@ -36,18 +36,20 @@ import com.controllerface.cmdr_j.classes.modules.weapons.pulse.AbstractPulseLase
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.AbstractRailGun;
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.AbstractSeekerMissileRack;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.AbstractTorpedoPylon;
+import com.controllerface.cmdr_j.classes.procurements.CostData;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Basic;
-import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Premium;
-import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Standard;
+import com.controllerface.cmdr_j.classes.recipes.*;
+import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
+import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
+import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
-import com.sun.corba.se.spi.orb.StringPair;
+import javafx.util.Pair;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -87,57 +89,61 @@ public class CommanderJTest
                 .forEach(System.out::println);
     }
 
-    private StringPair getAbstractClass(ProcurementRecipe recipe)
+    private Pair<String, String> getAbstractClass(ProcurementRecipe recipe)
     {
 
         switch (recipe.getGrade())
         {
             case SYNTHESIS_BASIC:
-                return new StringPair(AbstractSynthesisRecipe_Basic.class.getSimpleName(), AbstractSynthesisRecipe_Basic.class.getCanonicalName());
+                return new Pair<>(AbstractSynthesisRecipe_Basic.class.getSimpleName(), AbstractSynthesisRecipe_Basic.class.getCanonicalName());
 
             case SYNTHESIS_STANDARD:
-                return new StringPair(AbstractSynthesisRecipe_Standard.class.getSimpleName(), AbstractSynthesisRecipe_Standard.class.getCanonicalName());
+                return new Pair<>(AbstractSynthesisRecipe_Standard.class.getSimpleName(), AbstractSynthesisRecipe_Standard.class.getCanonicalName());
 
             case SYNTHESIS_PREMIUM:
-                return new StringPair(AbstractSynthesisRecipe_Premium.class.getSimpleName(), AbstractSynthesisRecipe_Premium.class.getCanonicalName());
+                return new Pair<>(AbstractSynthesisRecipe_Premium.class.getSimpleName(), AbstractSynthesisRecipe_Premium.class.getCanonicalName());
+
+            case Technology:
+                return new Pair<>(AbstractTechnologyRecipe.class.getSimpleName(), AbstractTechnologyRecipe.class.getCanonicalName());
         }
+        System.out.println("Bad: " + recipe);
         return null;
     }
 
 
-    private StringPair getAbstractClass(ShipModule module)
+    private Pair<String, String> getAbstractClass(ShipModule module)
     {
         if (module.modificationType() == null)
         {
             String displayText = module.displayText();
             if (displayText.contains("Guardian"))
             {
-                return new StringPair(AbstractGuardianModule.class.getSimpleName(), AbstractGuardianModule.class.getCanonicalName());
+                return new Pair<>(AbstractGuardianModule.class.getSimpleName(), AbstractGuardianModule.class.getCanonicalName());
             }
             if (displayText.contains("Fuel Tank"))
             {
-                return new StringPair(AbstractFuelTank.class.getSimpleName(), AbstractFuelTank.class.getCanonicalName());
+                return new Pair<>(AbstractFuelTank.class.getSimpleName(), AbstractFuelTank.class.getCanonicalName());
             }
             if (displayText.contains("Seismic Charge"))
             {
-                return new StringPair(AbstractSeismicChargeLauncher.class.getSimpleName(), AbstractSeismicChargeLauncher.class.getCanonicalName());
+                return new Pair<>(AbstractSeismicChargeLauncher.class.getSimpleName(), AbstractSeismicChargeLauncher.class.getCanonicalName());
             }
             if (displayText.contains("Sub-Surface"))
             {
-                return new StringPair(AbstractSubsurfaceMissileLauncher.class.getSimpleName(), AbstractSubsurfaceMissileLauncher.class.getCanonicalName());
+                return new Pair<>(AbstractSubsurfaceMissileLauncher.class.getSimpleName(), AbstractSubsurfaceMissileLauncher.class.getCanonicalName());
             }
             if (displayText.contains("Abrasion Blaster"))
             {
-                return new StringPair(AbstractAbrasionBlaster.class.getSimpleName(), AbstractAbrasionBlaster.class.getCanonicalName());
+                return new Pair<>(AbstractAbrasionBlaster.class.getSimpleName(), AbstractAbrasionBlaster.class.getCanonicalName());
             }
             if (displayText.contains("Pulse Wave"))
             {
-                return new StringPair(AbstractPulseWaveScanner.class.getSimpleName(), AbstractPulseWaveScanner.class.getCanonicalName());
+                return new Pair<>(AbstractPulseWaveScanner.class.getSimpleName(), AbstractPulseWaveScanner.class.getCanonicalName());
             }
             if (displayText.contains("Mining Laser")
                     || displayText.contains("Mining Lance"))
             {
-                return new StringPair(AbstractMiningLaser.class.getSimpleName(), AbstractMiningLaser.class.getCanonicalName());
+                return new Pair<>(AbstractMiningLaser.class.getSimpleName(), AbstractMiningLaser.class.getCanonicalName());
             }
             if (displayText.contains("Anti-Thargoid")
                     || displayText.contains("Shock Cannon")
@@ -145,7 +151,7 @@ public class CommanderJTest
                     || displayText.contains("Flechette Launcher")
                     || displayText.contains("Enzyme Missile"))
             {
-                return new StringPair(AbstractExperimentalModule.class.getSimpleName(), AbstractExperimentalModule.class.getCanonicalName());
+                return new Pair<>(AbstractExperimentalModule.class.getSimpleName(), AbstractExperimentalModule.class.getCanonicalName());
             }
             return null;
         }
@@ -157,90 +163,90 @@ public class CommanderJTest
             switch (modificationType)
             {
                 case Beam_Laser:
-                    return new StringPair(AbstractBeamLaser.class.getSimpleName(), AbstractBeamLaser.class.getCanonicalName());
+                    return new Pair<>(AbstractBeamLaser.class.getSimpleName(), AbstractBeamLaser.class.getCanonicalName());
 
                 case Burst_Laser:
-                    return new StringPair(AbstractBurstLaser.class.getSimpleName(), AbstractBurstLaser.class.getCanonicalName());
+                    return new Pair<>(AbstractBurstLaser.class.getSimpleName(), AbstractBurstLaser.class.getCanonicalName());
 
                 case Pulse_Laser:
-                    return new StringPair(AbstractPulseLaser.class.getSimpleName(), AbstractPulseLaser.class.getCanonicalName());
+                    return new Pair<>(AbstractPulseLaser.class.getSimpleName(), AbstractPulseLaser.class.getCanonicalName());
 
                 case Cannon:
-                    return new StringPair(AbstractCannon.class.getSimpleName(), AbstractCannon.class.getCanonicalName());
+                    return new Pair<>(AbstractCannon.class.getSimpleName(), AbstractCannon.class.getCanonicalName());
 
                 case Multi_Cannon:
-                    return new StringPair(AbstractMultiCannon.class.getSimpleName(), AbstractMultiCannon.class.getCanonicalName());
+                    return new Pair<>(AbstractMultiCannon.class.getSimpleName(), AbstractMultiCannon.class.getCanonicalName());
 
                 case Fragment_Cannon:
-                    return new StringPair(AbstractFragCannon.class.getSimpleName(), AbstractFragCannon.class.getCanonicalName());
+                    return new Pair<>(AbstractFragCannon.class.getSimpleName(), AbstractFragCannon.class.getCanonicalName());
 
                 case Missile_Rack:
-                    return new StringPair(AbstractMissileRack.class.getSimpleName(), AbstractMissileRack.class.getCanonicalName());
+                    return new Pair<>(AbstractMissileRack.class.getSimpleName(), AbstractMissileRack.class.getCanonicalName());
 
                 case Seeker_Missile_Rack:
-                    return new StringPair(AbstractSeekerMissileRack.class.getSimpleName(), AbstractSeekerMissileRack.class.getCanonicalName());
+                    return new Pair<>(AbstractSeekerMissileRack.class.getSimpleName(), AbstractSeekerMissileRack.class.getCanonicalName());
 
                 case Torpedo_Pylon:
-                    return new StringPair(AbstractTorpedoPylon.class.getSimpleName(), AbstractTorpedoPylon.class.getCanonicalName());
+                    return new Pair<>(AbstractTorpedoPylon.class.getSimpleName(), AbstractTorpedoPylon.class.getCanonicalName());
 
                 case Mine_Launcher:
-                    return new StringPair(AbstractMineLauncher.class.getSimpleName(), AbstractMineLauncher.class.getCanonicalName());
+                    return new Pair<>(AbstractMineLauncher.class.getSimpleName(), AbstractMineLauncher.class.getCanonicalName());
 
                 case Plasma_Accelerator:
-                    return new StringPair(AbstractPlasmaAccelerator.class.getSimpleName(), AbstractPlasmaAccelerator.class.getCanonicalName());
+                    return new Pair<>(AbstractPlasmaAccelerator.class.getSimpleName(), AbstractPlasmaAccelerator.class.getCanonicalName());
 
                 case Rail_Gun:
-                    return new StringPair(AbstractRailGun.class.getSimpleName(), AbstractRailGun.class.getCanonicalName());
+                    return new Pair<>(AbstractRailGun.class.getSimpleName(), AbstractRailGun.class.getCanonicalName());
 
 
 
                 case Frame_Shift_Drive:
-                    return new StringPair(AbstractFSD.class.getSimpleName(), AbstractFSD.class.getCanonicalName());
+                    return new Pair<>(AbstractFSD.class.getSimpleName(), AbstractFSD.class.getCanonicalName());
 
                 case Life_Support:
-                    return new StringPair(AbstractLifeSupport.class.getSimpleName(), AbstractLifeSupport.class.getCanonicalName());
+                    return new Pair<>(AbstractLifeSupport.class.getSimpleName(), AbstractLifeSupport.class.getCanonicalName());
 
                 case Power_Distributor:
-                    return new StringPair(AbstractPowerDistributor.class.getSimpleName(), AbstractPowerDistributor.class.getCanonicalName());
+                    return new Pair<>(AbstractPowerDistributor.class.getSimpleName(), AbstractPowerDistributor.class.getCanonicalName());
 
                 case Power_Plant:
-                    return new StringPair(AbstractPowerPlant.class.getSimpleName(), AbstractPowerPlant.class.getCanonicalName());
+                    return new Pair<>(AbstractPowerPlant.class.getSimpleName(), AbstractPowerPlant.class.getCanonicalName());
 
                 case Sensors:
-                    return new StringPair(AbstractSensors.class.getSimpleName(), AbstractSensors.class.getCanonicalName());
+                    return new Pair<>(AbstractSensors.class.getSimpleName(), AbstractSensors.class.getCanonicalName());
 
                 case Thrusters:
-                    return new StringPair(AbstractThrusters.class.getSimpleName(), AbstractThrusters.class.getCanonicalName());
+                    return new Pair<>(AbstractThrusters.class.getSimpleName(), AbstractThrusters.class.getCanonicalName());
 
                 case Bulkheads:
-                    return new StringPair(AbstractBulkheads.class.getSimpleName(), AbstractBulkheads.class.getCanonicalName());
+                    return new Pair<>(AbstractBulkheads.class.getSimpleName(), AbstractBulkheads.class.getCanonicalName());
 
 
 
 
                 case Shield_Booster:
-                    return new StringPair(AbstractShieldBooster.class.getSimpleName(), AbstractShieldBooster.class.getCanonicalName());
+                    return new Pair<>(AbstractShieldBooster.class.getSimpleName(), AbstractShieldBooster.class.getCanonicalName());
 
                 case Chaff_Launcher:
-                    return new StringPair(AbstractChaffLauncher.class.getSimpleName(), AbstractChaffLauncher.class.getCanonicalName());
+                    return new Pair<>(AbstractChaffLauncher.class.getSimpleName(), AbstractChaffLauncher.class.getCanonicalName());
 
                 case Heat_Sink_Launcher:
-                    return new StringPair(AbstractHeatsinkLauncher.class.getSimpleName(), AbstractHeatsinkLauncher.class.getCanonicalName());
+                    return new Pair<>(AbstractHeatsinkLauncher.class.getSimpleName(), AbstractHeatsinkLauncher.class.getCanonicalName());
 
                 case Point_Defense:
-                    return new StringPair(AbstractPointDefense.class.getSimpleName(), AbstractPointDefense.class.getCanonicalName());
+                    return new Pair<>(AbstractPointDefense.class.getSimpleName(), AbstractPointDefense.class.getCanonicalName());
 
                 case Electronic_Countermeasures:
-                    return new StringPair(AbstractECM.class.getSimpleName(), AbstractECM.class.getCanonicalName());
+                    return new Pair<>(AbstractECM.class.getSimpleName(), AbstractECM.class.getCanonicalName());
 
                 case Frame_Shift_Wake_Scanner:
-                    return new StringPair(AbstractWakeScanner.class.getSimpleName(), AbstractWakeScanner.class.getCanonicalName());
+                    return new Pair<>(AbstractWakeScanner.class.getSimpleName(), AbstractWakeScanner.class.getCanonicalName());
 
                 case Kill_Warrant_Scanner:
-                    return new StringPair(AbstractKillWarrantScanner.class.getSimpleName(), AbstractKillWarrantScanner.class.getCanonicalName());
+                    return new Pair<>(AbstractKillWarrantScanner.class.getSimpleName(), AbstractKillWarrantScanner.class.getCanonicalName());
 
                 case Manifest_Scanner:
-                    return new StringPair(AbstractManifestScanner.class.getSimpleName(), AbstractManifestScanner.class.getCanonicalName());
+                    return new Pair<>(AbstractManifestScanner.class.getSimpleName(), AbstractManifestScanner.class.getCanonicalName());
 
                 case Auto_Field_Maintenence_Unit:
 
@@ -275,6 +281,13 @@ public class CommanderJTest
     }
 
 
+    private String costType(CostData data)
+    {
+        if (data.getCost() instanceof Material) return "Material."+data.toString();
+        if (data.getCost() instanceof Commodity) return "Commodity."+data.toString();
+        return "";
+    }
+
     private Set<String> seen = new HashSet<>();
 
     @Test
@@ -295,7 +308,7 @@ public class CommanderJTest
 
         StringBuilder outerBuilder = new StringBuilder();
 
-        Stream.of(SynthesisRecipe.values())
+        Stream.of(TechnologyRecipe.values())
                 .forEach(v->
                 {
                     StringBuilder stringBuilder = new StringBuilder();
@@ -339,38 +352,57 @@ public class CommanderJTest
                                 return  "                  new ItemEffectData(ItemEffect." + e.getEffect().name() + ", " + val + ")";
                             }).collect(Collectors.joining(",\n","new ItemEffects(\n","\n    "));
 
+                    String items =
+                            Stream.of(v.getModules())
+                                    .map(m->
+                                    {
+                                        if (m instanceof CoreInternalModule)
+                                        {
+                                            return "        CoreInternalModule."+((CoreInternalModule) m).name();
+                                        }
+                                        if (m instanceof OptionalInternalModule)
+                                        {
+                                            return "        OptionalInternalModule."+((OptionalInternalModule) m).name();
+                                        }
+                                        if (m instanceof HardpointModule)
+                                        {
+                                            return "        HardpointModule."+((HardpointModule) m).name();
+                                        }
+                                        return "";
+                                    })
+                                    .collect(Collectors.joining(",\n"));
+
                     outerBuilder.append(v.name())
                             .append("(new ").append(className)
-                            .append("()),\n");
+                            .append("(),\n")
+                            .append(items)
+                            .append("),\n\n");
 
 
                     String costs = v.costStream()
-                            .map(c->
-                            {
-                                return "new CostData(Material."
-                                        + c.toString()
-                                        .replaceAll(":",", ")
-                                        .replaceFirst(" ","")
-                                        .replaceFirst("  "," ")
-                                        + ")";
-                            })
+                            .map(c -> "new CostData(" + costType(c)
+                                    .replaceAll(":",", ")
+                                    .replaceFirst(" ","")
+                                    .replaceFirst("  "," ")
+                                    + ")")
                             .collect(Collectors.joining(",\n            "));
 
 
-                    StringPair c = getAbstractClass(v);
+                    Pair<String, String> c = getAbstractClass(v);
 
                     stringBuilder.append("package com.controllerface.cmdr_j.classes.modules.generated;\n\n");
 
                     stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffects;\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffectData;\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.classes.procurements.CostData;\n");
-                    stringBuilder.append("import " + c.getSecond() + ";\n");
+                    stringBuilder.append("import " + c.getValue() + ";\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.materials.Material;\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.ItemEffect;\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.ItemGrade;\n");
+                    stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;\n");
+                    stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;\n");
+                    stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;\n");
                     stringBuilder.append("\n");
 
-                    stringBuilder.append("public class ").append(className).append(" extends " + c.getFirst() + "\n");
+                    stringBuilder.append("public class ").append(className).append(" extends " + c.getKey() + "\n");
 
                     stringBuilder.append("{\n");
                     stringBuilder.append("    public ").append(className).append("()\n");
@@ -385,21 +417,21 @@ public class CommanderJTest
                     stringBuilder.append("    }\n");
                     stringBuilder.append("}");
 
-                    System.out.println(stringBuilder.toString());
-
-                    File next = new File(output,className+".java");
-                    try
-                    {
-                        if (next.createNewFile())
-                        {
-                            PrintStream printStream = new PrintStream(next);
-                            printStream.print(stringBuilder.toString());
-                        }
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
+//                    System.out.println(stringBuilder.toString());
+//
+//                    File next = new File(output,className+".java");
+//                    try
+//                    {
+//                        if (next.createNewFile())
+//                        {
+//                            PrintStream printStream = new PrintStream(next);
+//                            printStream.print(stringBuilder.toString());
+//                        }
+//                    }
+//                    catch (IOException e)
+//                    {
+//                        e.printStackTrace();
+//                    }
 
                 });
 

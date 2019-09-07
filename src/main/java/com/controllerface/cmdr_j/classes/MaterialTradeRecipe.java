@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes;
 import com.controllerface.cmdr_j.classes.procurements.CostData;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
-import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 

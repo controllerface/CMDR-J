@@ -477,48 +477,56 @@ public enum CoreInternalModule implements ShipModule
     int_powerdistributor_size1_class3(new PowerDistributor_1C()),
     int_powerdistributor_size1_class4(new PowerDistributor_1B()),
     int_powerdistributor_size1_class5(new PowerDistributor_1A()),
+    int_guardianpowerdistributor_size1(new HybridPowerDistributor_1A()),
 
     int_powerdistributor_size2_class1(new PowerDistributor_2E()),
     int_powerdistributor_size2_class2(new PowerDistributor_2D()),
     int_powerdistributor_size2_class3(new PowerDistributor_2C()),
     int_powerdistributor_size2_class4(new PowerDistributor_2B()),
     int_powerdistributor_size2_class5(new PowerDistributor_2A()),
+    int_guardianpowerdistributor_size2(new HybridPowerDistributor_2A()),
 
     int_powerdistributor_size3_class1(new PowerDistributor_3E()),
     int_powerdistributor_size3_class2(new PowerDistributor_3D()),
     int_powerdistributor_size3_class3(new PowerDistributor_3C()),
     int_powerdistributor_size3_class4(new PowerDistributor_3B()),
     int_powerdistributor_size3_class5(new PowerDistributor_3A()),
+    int_guardianpowerdistributor_size3(new HybridPowerDistributor_3A()),
 
     int_powerdistributor_size4_class1(new PowerDistributor_4E()),
     int_powerdistributor_size4_class2(new PowerDistributor_4D()),
     int_powerdistributor_size4_class3(new PowerDistributor_4C()),
     int_powerdistributor_size4_class4(new PowerDistributor_4B()),
     int_powerdistributor_size4_class5(new PowerDistributor_4A()),
+    int_guardianpowerdistributor_size4(new HybridPowerDistributor_4A()),
 
     int_powerdistributor_size5_class1(new PowerDistributor_5E()),
     int_powerdistributor_size5_class2(new PowerDistributor_5D()),
     int_powerdistributor_size5_class3(new PowerDistributor_5C()),
     int_powerdistributor_size5_class4(new PowerDistributor_5B()),
     int_powerdistributor_size5_class5(new PowerDistributor_5A()),
+    int_guardianpowerdistributor_size5(new HybridPowerDistributor_5A()),
 
     int_powerdistributor_size6_class1(new PowerDistributor_6E()),
     int_powerdistributor_size6_class2(new PowerDistributor_6D()),
     int_powerdistributor_size6_class3(new PowerDistributor_6C()),
     int_powerdistributor_size6_class4(new PowerDistributor_6B()),
     int_powerdistributor_size6_class5(new PowerDistributor_6A()),
+    int_guardianpowerdistributor_size6(new HybridPowerDistributor_6A()),
 
     int_powerdistributor_size7_class1(new PowerDistributor_7E()),
     int_powerdistributor_size7_class2(new PowerDistributor_7D()),
     int_powerdistributor_size7_class3(new PowerDistributor_7C()),
     int_powerdistributor_size7_class4(new PowerDistributor_7B()),
     int_powerdistributor_size7_class5(new PowerDistributor_7A()),
+    int_guardianpowerdistributor_size7(new HybridPowerDistributor_7A()),
 
     int_powerdistributor_size8_class1(new PowerDistributor_8E()),
     int_powerdistributor_size8_class2(new PowerDistributor_8D()),
     int_powerdistributor_size8_class3(new PowerDistributor_8C()),
     int_powerdistributor_size8_class4(new PowerDistributor_8B()),
     int_powerdistributor_size8_class5(new PowerDistributor_8A()),
+    int_guardianpowerdistributor_size8(new HybridPowerDistributor_8A()),
 
 
     /**

@@ -1,15 +1,15 @@
 package com.controllerface.cmdr_j.classes.commander;
 
-import com.controllerface.cmdr_j.enums.equipment.ships.ShipManufacturer;
-import com.controllerface.cmdr_j.enums.equipment.ships.ShipSize;
-import com.controllerface.cmdr_j.enums.equipment.ships.ShipStat;
+import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipManufacturer;
+import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipSize;
+import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacteristic;
 
 /**
  * Created by Controllerface on 5/4/2018.
  */
 public class ShipStatisticData
 {
-    private final ShipStat shipStat;
+    private final ShipCharacteristic shipCharacteristic;
 
     private ShipSize shipSize;
     private ShipManufacturer manufacturer;
@@ -28,49 +28,49 @@ public class ShipStatisticData
         MANUFACTURER
     }
 
-    public ShipStatisticData(ShipStat shipStat, boolean booleanStat)
+    public ShipStatisticData(ShipCharacteristic shipCharacteristic, boolean booleanStat)
     {
-        this.shipStat = shipStat;
+        this.shipCharacteristic = shipCharacteristic;
         this.booleanStat = booleanStat;
         statType = Type.BOOLEAN;
     }
 
-    public ShipStatisticData(ShipStat shipStat, double floatStat)
+    public ShipStatisticData(ShipCharacteristic shipCharacteristic, double floatStat)
     {
-        this.shipStat = shipStat;
+        this.shipCharacteristic = shipCharacteristic;
         this.floatStat = floatStat;
         statType = Type.DOUBLE;
     }
 
-    public ShipStatisticData(ShipStat shipStat, int intStat)
+    public ShipStatisticData(ShipCharacteristic shipCharacteristic, int intStat)
     {
-        this.shipStat = shipStat;
+        this.shipCharacteristic = shipCharacteristic;
         this.intStat = intStat;
         statType = Type.INTEGER;
     }
 
     public ShipStatisticData(ShipSize shipSize)
     {
-        this.shipStat = ShipStat.Size;
+        this.shipCharacteristic = ShipCharacteristic.Size;
         this.shipSize = shipSize;
         statType = Type.SIZE;
     }
 
     public ShipStatisticData(ShipManufacturer manufacturer)
     {
-        this.shipStat = ShipStat.Manufacturer;
+        this.shipCharacteristic = ShipCharacteristic.Manufacturer;
         this.manufacturer = manufacturer;
         statType = Type.MANUFACTURER;
     }
 
-    public ShipStat stat()
+    public ShipCharacteristic stat()
     {
-        return shipStat;
+        return shipCharacteristic;
     }
 
     public String statName()
     {
-        return shipStat.toString();
+        return shipCharacteristic.toString();
     }
 
     public String statDisplayValue()

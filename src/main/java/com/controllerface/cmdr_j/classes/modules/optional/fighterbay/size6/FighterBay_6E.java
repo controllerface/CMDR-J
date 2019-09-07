@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes.modules.optional.fighterbay.size6;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.fighterbay.AbstractFighterBay;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class FighterBay_6E extends AbstractFighterBay
 {

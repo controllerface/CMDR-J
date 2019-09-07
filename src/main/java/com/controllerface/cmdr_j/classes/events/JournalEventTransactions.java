@@ -15,12 +15,12 @@ import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBluep
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyBlueprint;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyType;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.*;
-import com.controllerface.cmdr_j.enums.equipment.ships.CoreInternalSlot;
-import com.controllerface.cmdr_j.enums.equipment.ships.CosmeticSlot;
-import com.controllerface.cmdr_j.enums.equipment.ships.HardpointSlot;
-import com.controllerface.cmdr_j.enums.equipment.ships.OptionalInternalSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
 import com.controllerface.cmdr_j.enums.journal.JournalEvent;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 import javafx.util.Pair;

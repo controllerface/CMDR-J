@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes;
 
-import com.controllerface.cmdr_j.enums.equipment.modules.ModuleSize;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ModuleSize;
 
 import java.util.ArrayList;
 import java.util.List;

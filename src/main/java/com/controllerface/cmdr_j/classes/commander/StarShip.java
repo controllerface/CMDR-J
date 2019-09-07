@@ -3,8 +3,12 @@ package com.controllerface.cmdr_j.classes.commander;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ShipModuleData;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.ships.*;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacteristic;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -253,21 +257,21 @@ public class StarShip
             statistics.clear();
 
             statistics.add(new ShipStatisticData(ship.getBaseShipStats().getShipSize()));
-            statistics.add(new ShipStatisticData(ShipStat.Mass_Lock_Factor, ship.getBaseShipStats().getMassLockFactor()));
-            statistics.add(new ShipStatisticData(ShipStat.Crew_Seats, ship.getBaseShipStats().getCrewSeats()));
-            statistics.add(new ShipStatisticData(ShipStat.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Mass_Lock_Factor, ship.getBaseShipStats().getMassLockFactor()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Crew_Seats, ship.getBaseShipStats().getCrewSeats()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
 
-            statistics.add(new ShipStatisticData(ShipStat.Base_Hull_Mass, ship.getBaseShipStats().getHullMass()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Base_Hull_Mass, ship.getBaseShipStats().getHullMass()));
 
-            statistics.add(new ShipStatisticData(ShipStat.Agility, ship.getBaseShipStats().getAgility()));
-            statistics.add(new ShipStatisticData(ShipStat.Speed, ship.getBaseShipStats().getSpeed()));
-            statistics.add(new ShipStatisticData(ShipStat.Boost_Speed, ship.getBaseShipStats().getBoostSpeed()));
-            statistics.add(new ShipStatisticData(ShipStat.Max_Speed, ship.getBaseShipStats().getMaxSpeed()));
-            statistics.add(new ShipStatisticData(ShipStat.Max_Boost_Speed, ship.getBaseShipStats().getMaxBoostSpeed()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Agility, ship.getBaseShipStats().getAgility()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Speed, ship.getBaseShipStats().getSpeed()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Boost_Speed, ship.getBaseShipStats().getBoostSpeed()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Max_Speed, ship.getBaseShipStats().getMaxSpeed()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Max_Boost_Speed, ship.getBaseShipStats().getMaxBoostSpeed()));
 
-            statistics.add(new ShipStatisticData(ShipStat.Hull_Hardness, ship.getBaseShipStats().getHullHardness()));
-            statistics.add(new ShipStatisticData(ShipStat.Armor_Rating, ship.getBaseShipStats().getArmorRating()));
-            statistics.add(new ShipStatisticData(ShipStat.Base_Shield, ship.getBaseShipStats().getShield()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Hull_Hardness, ship.getBaseShipStats().getHullHardness()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Armor_Rating, ship.getBaseShipStats().getArmorRating()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Base_Shield, ship.getBaseShipStats().getShield()));
 
             synchronizeStatistics();
         }
@@ -365,31 +369,31 @@ public class StarShip
         double hullStrength = calculateCurrentHullStrength();
         double shieldStrength = calculateCurrentShieldStrength();
 
-        double armourCausticResistance = calculateResistance(ShipStat.Armour_Caustic_Resistance);
-        double armourExplosiveResistance = calculateResistance(ShipStat.Armour_Explosive_Resistance);
-        double armourKineticResistance = calculateResistance(ShipStat.Armour_Kinetic_Resistance);
-        double armourThermalResistance = calculateResistance(ShipStat.Armour_Thermal_Resistance);
+        double armourCausticResistance = calculateResistance(ShipCharacteristic.Armour_Caustic_Resistance);
+        double armourExplosiveResistance = calculateResistance(ShipCharacteristic.Armour_Explosive_Resistance);
+        double armourKineticResistance = calculateResistance(ShipCharacteristic.Armour_Kinetic_Resistance);
+        double armourThermalResistance = calculateResistance(ShipCharacteristic.Armour_Thermal_Resistance);
 
-        double shieldExplosiveResistance = calculateResistance(ShipStat.Shield_Explosive_Resistance);
-        double shieldKineticResistance = calculateResistance(ShipStat.Shield_Kinetic_Resistance);
-        double shieldThermalResistance = calculateResistance(ShipStat.Shield_Thermal_Resistance);
+        double shieldExplosiveResistance = calculateResistance(ShipCharacteristic.Shield_Explosive_Resistance);
+        double shieldKineticResistance = calculateResistance(ShipCharacteristic.Shield_Kinetic_Resistance);
+        double shieldThermalResistance = calculateResistance(ShipCharacteristic.Shield_Thermal_Resistance);
 
         synchronized (statistics)
         {
             resetBaseStats();
 
-            statistics.add(new ShipStatisticData(ShipStat.Unladen_Mass, calculateUnladenHullMass()));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Unladen_Mass, calculateUnladenHullMass()));
 
-            statistics.add(new ShipStatisticData(ShipStat.Shield_Strength, shieldStrength));
-            statistics.add(new ShipStatisticData(ShipStat.Shield_Kinetic_Resistance, shieldKineticResistance));
-            statistics.add(new ShipStatisticData(ShipStat.Shield_Thermal_Resistance, shieldThermalResistance));
-            statistics.add(new ShipStatisticData(ShipStat.Shield_Explosive_Resistance, shieldExplosiveResistance));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Strength, shieldStrength));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Kinetic_Resistance, shieldKineticResistance));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Thermal_Resistance, shieldThermalResistance));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Explosive_Resistance, shieldExplosiveResistance));
 
-            statistics.add(new ShipStatisticData(ShipStat.Hull_Strength, hullStrength));
-            statistics.add(new ShipStatisticData(ShipStat.Armour_Kinetic_Resistance, armourKineticResistance));
-            statistics.add(new ShipStatisticData(ShipStat.Armour_Thermal_Resistance, armourThermalResistance));
-            statistics.add(new ShipStatisticData(ShipStat.Armour_Explosive_Resistance, armourExplosiveResistance));
-            statistics.add(new ShipStatisticData(ShipStat.Armour_Caustic_Resistance, armourCausticResistance));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Hull_Strength, hullStrength));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Kinetic_Resistance, armourKineticResistance));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Thermal_Resistance, armourThermalResistance));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Explosive_Resistance, armourExplosiveResistance));
+            statistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Caustic_Resistance, armourCausticResistance));
 
             synchronizeStatistics();
         }
@@ -478,7 +482,7 @@ public class StarShip
         return calculatedResistance;
     }
 
-    private double calculateResistance(ShipStat resistanceType)
+    private double calculateResistance(ShipCharacteristic resistanceType)
     {
         double calculatedResistance;
         switch (resistanceType)

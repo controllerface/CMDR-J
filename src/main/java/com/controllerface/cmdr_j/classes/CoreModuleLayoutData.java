@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes;
 
-import com.controllerface.cmdr_j.enums.equipment.modules.ModuleSize;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ModuleSize;
 
 /**
  * Represents a configuration of "core" modules for a Ship in elite dangerous. All ships have standard modules of

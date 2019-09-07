@@ -5,8 +5,7 @@ import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.procurements.CostData;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Premium;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
-import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class FSD_Injection_Premium extends AbstractSynthesisRecipe_Premium
 {

@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.enums.equipment;
+package com.controllerface.cmdr_j.enums.equipment.modules.stats;
 
 import com.controllerface.cmdr_j.ui.UIFunctions;
 

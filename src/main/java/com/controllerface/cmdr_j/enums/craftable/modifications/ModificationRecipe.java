@@ -76,7 +76,7 @@ import com.controllerface.cmdr_j.classes.recipes.weapons.overcharged.*;
 import com.controllerface.cmdr_j.classes.recipes.weapons.rapidfire.*;
 import com.controllerface.cmdr_j.classes.recipes.weapons.shortrange.*;
 import com.controllerface.cmdr_j.classes.recipes.weapons.sturdy.*;
-import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import org.jetbrains.annotations.NotNull;
 

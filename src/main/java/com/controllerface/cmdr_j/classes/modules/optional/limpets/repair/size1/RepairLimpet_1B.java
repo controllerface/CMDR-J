@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes.modules.optional.limpets.repair.size1;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.limpets.repair.AbstractRepairLimpet;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class RepairLimpet_1B extends AbstractRepairLimpet
 {

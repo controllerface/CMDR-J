@@ -2,7 +2,7 @@ package com.controllerface.cmdr_j.classes.modules.weapons.beam;
 
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class GimballedBeamLaser_Medium extends AbstractBeamLaser
 {

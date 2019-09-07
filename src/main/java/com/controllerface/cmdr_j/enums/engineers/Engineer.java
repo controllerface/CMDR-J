@@ -4,7 +4,7 @@ import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
-import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import javafx.util.Pair;
 
 import java.util.ArrayList;

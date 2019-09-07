@@ -4,10 +4,10 @@ import com.controllerface.cmdr_j.JSONSupport;
 import com.controllerface.cmdr_j.classes.commander.CommanderData;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
-import com.controllerface.cmdr_j.enums.equipment.ships.CoreInternalSlot;
-import com.controllerface.cmdr_j.enums.equipment.ships.CosmeticSlot;
-import com.controllerface.cmdr_j.enums.equipment.ships.HardpointSlot;
-import com.controllerface.cmdr_j.enums.equipment.ships.OptionalInternalSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
 import com.controllerface.cmdr_j.enums.journal.JournalEvent;
 
 import java.io.*;

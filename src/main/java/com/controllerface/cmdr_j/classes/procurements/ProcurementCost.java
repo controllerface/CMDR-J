@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.procurements;
 
-import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
 import java.util.List;
 

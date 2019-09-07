@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes.modules.optional.limpets.hatchbreaker.
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.limpets.hatchbreaker.AbstractHatchBreakerLimpet;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class HatchBreakerLimpet_1B extends AbstractHatchBreakerLimpet
 {

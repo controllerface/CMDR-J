@@ -894,14 +894,7 @@ public enum OptionalInternalModule implements ShipModule
      */
 
     // todo: need stats for these, and move to core enum after it is converted
-    int_guardianpowerdistributor_size1(new HybridPowerDistributor_1A()),
-    int_guardianpowerdistributor_size2(new HybridPowerDistributor_2A()),
-    int_guardianpowerdistributor_size3(new HybridPowerDistributor_3A()),
-    int_guardianpowerdistributor_size4(new HybridPowerDistributor_4A()),
-    int_guardianpowerdistributor_size5(new HybridPowerDistributor_5A()),
-    int_guardianpowerdistributor_size6(new HybridPowerDistributor_6A()),
-    int_guardianpowerdistributor_size7(new HybridPowerDistributor_7A()),
-    int_guardianpowerdistributor_size8(new HybridPowerDistributor_8A()),
+
 
     ;
 

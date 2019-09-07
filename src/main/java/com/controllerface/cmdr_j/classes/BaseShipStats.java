@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes;
 
-import com.controllerface.cmdr_j.enums.equipment.ships.ShipManufacturer;
-import com.controllerface.cmdr_j.enums.equipment.ships.ShipSize;
+import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipManufacturer;
+import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipSize;
 
 /**
  * Created by Controllerface on 4/30/2018.

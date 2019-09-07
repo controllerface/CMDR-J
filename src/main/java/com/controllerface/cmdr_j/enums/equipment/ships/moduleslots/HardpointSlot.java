@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.enums.equipment.ships;
+package com.controllerface.cmdr_j.enums.equipment.ships.moduleslots;
 
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 

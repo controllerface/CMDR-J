@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes;
 
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 /**
  * Created by Controllerface on 5/2/2018.

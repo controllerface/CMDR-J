@@ -2,13 +2,13 @@ package com.controllerface.cmdr_j.classes.recipes;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 
 public abstract class AbstractSynthesisRecipe_Standard extends AbstractRecipe
 {
-    private static Icon synthesisIcon = new Icon(UIFunctions.Icons.synthesisGeneral, 25, 30);
+    private static Icon synthesisIcon = new Icon(UIFunctions.Icons.synthesisStandard, 25, 30);
 
     public AbstractSynthesisRecipe_Standard(String name, ItemEffects effects, CostData ... cost)
     {

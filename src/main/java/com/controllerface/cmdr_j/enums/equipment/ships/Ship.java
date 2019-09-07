@@ -4,8 +4,10 @@ import com.controllerface.cmdr_j.classes.BaseShipStats;
 import com.controllerface.cmdr_j.classes.CoreModuleLayoutData;
 import com.controllerface.cmdr_j.classes.HardPointLayoutData;
 import com.controllerface.cmdr_j.classes.OptionalModuleLayoutData;
-import com.controllerface.cmdr_j.enums.equipment.modules.HardPointSize;
-import com.controllerface.cmdr_j.enums.equipment.modules.ModuleSize;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.HardPointSize;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ModuleSize;
+import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipManufacturer;
+import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipSize;
 
 import java.util.Arrays;
 

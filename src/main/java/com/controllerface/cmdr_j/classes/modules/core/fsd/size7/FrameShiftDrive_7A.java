@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes.modules.core.fsd.size7;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.core.fsd.AbstractFSD;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class FrameShiftDrive_7A extends AbstractFSD
 {

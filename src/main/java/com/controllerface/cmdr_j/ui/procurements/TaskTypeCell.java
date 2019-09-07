@@ -2,7 +2,7 @@ package com.controllerface.cmdr_j.ui.procurements;
 
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementTaskData;
-import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

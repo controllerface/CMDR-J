@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes.modules.weapons.shardcannon;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.AbstractGuardianModule;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class FixedGuardianShardCannon_Small extends AbstractGuardianModule
 {

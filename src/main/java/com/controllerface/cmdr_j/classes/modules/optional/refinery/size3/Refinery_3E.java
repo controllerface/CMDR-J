@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes.modules.optional.refinery.size3;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.refinery.AbstractRefinery;
-import com.controllerface.cmdr_j.enums.equipment.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class Refinery_3E extends AbstractRefinery
 {

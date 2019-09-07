@@ -2,7 +2,7 @@ package com.controllerface.cmdr_j.enums.costs.special;
 
 import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.enums.equipment.ItemGrade;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
 import java.util.List;
 

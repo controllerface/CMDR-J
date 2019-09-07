@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes;
 
-import com.controllerface.cmdr_j.enums.equipment.modules.HardPointSize;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.HardPointSize;
 
 import java.util.ArrayList;
 import java.util.List;
