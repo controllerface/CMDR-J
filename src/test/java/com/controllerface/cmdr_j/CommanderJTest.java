@@ -36,8 +36,13 @@ import com.controllerface.cmdr_j.classes.modules.weapons.pulse.AbstractPulseLase
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.AbstractRailGun;
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.AbstractSeekerMissileRack;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.AbstractTorpedoPylon;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Basic;
+import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Premium;
+import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Standard;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
+import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
@@ -82,6 +87,22 @@ public class CommanderJTest
                 .forEach(System.out::println);
     }
 
+    private StringPair getAbstractClass(ProcurementRecipe recipe)
+    {
+
+        switch (recipe.getGrade())
+        {
+            case SYNTHESIS_BASIC:
+                return new StringPair(AbstractSynthesisRecipe_Basic.class.getSimpleName(), AbstractSynthesisRecipe_Basic.class.getCanonicalName());
+
+            case SYNTHESIS_STANDARD:
+                return new StringPair(AbstractSynthesisRecipe_Standard.class.getSimpleName(), AbstractSynthesisRecipe_Standard.class.getCanonicalName());
+
+            case SYNTHESIS_PREMIUM:
+                return new StringPair(AbstractSynthesisRecipe_Premium.class.getSimpleName(), AbstractSynthesisRecipe_Premium.class.getCanonicalName());
+        }
+        return null;
+    }
 
 
     private StringPair getAbstractClass(ShipModule module)
@@ -274,12 +295,12 @@ public class CommanderJTest
 
         StringBuilder outerBuilder = new StringBuilder();
 
-        Stream.of(ExperimentalRecipe.values())
+        Stream.of(SynthesisRecipe.values())
                 .forEach(v->
                 {
                     StringBuilder stringBuilder = new StringBuilder();
 
-                    String className = v.getShortLabel()
+                    String className = v.name()
                             .replaceAll(" ","")
                             .replaceAll("-","")
                             .replace("(","_")
@@ -336,24 +357,26 @@ public class CommanderJTest
                             .collect(Collectors.joining(",\n            "));
 
 
+                    StringPair c = getAbstractClass(v);
+
                     stringBuilder.append("package com.controllerface.cmdr_j.classes.modules.generated;\n\n");
 
                     stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffects;\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffectData;\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.classes.procurements.CostData;\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.classes.recipes.AbstractExperimentalRecipe;\n");
+                    stringBuilder.append("import " + c.getSecond() + ";\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.materials.Material;\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.ItemEffect;\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.ItemGrade;\n");
                     stringBuilder.append("\n");
 
-                    stringBuilder.append("public class ").append(className).append(" extends AbstractExperimentalRecipe\n");
+                    stringBuilder.append("public class ").append(className).append(" extends " + c.getFirst() + "\n");
 
                     stringBuilder.append("{\n");
                     stringBuilder.append("    public ").append(className).append("()\n");
                     stringBuilder.append("    {\n");
                     stringBuilder.append("        super(")
-                            .append(displayText).append(", ")
+                            .append("\"").append(className.replace("_"," ")).append("\"").append(", ")
                             .append("\n            ")
                             .append(s).append("        ),\n")
                             .append("            ").append(costs);
@@ -362,21 +385,21 @@ public class CommanderJTest
                     stringBuilder.append("    }\n");
                     stringBuilder.append("}");
 
-//                    System.out.println(stringBuilder.toString());
-//
-//                    File next = new File(output,className+".java");
-//                    try
-//                    {
-//                        if (next.createNewFile())
-//                        {
-//                            PrintStream printStream = new PrintStream(next);
-//                            printStream.print(stringBuilder.toString());
-//                        }
-//                    }
-//                    catch (IOException e)
-//                    {
-//                        e.printStackTrace();
-//                    }
+                    System.out.println(stringBuilder.toString());
+
+                    File next = new File(output,className+".java");
+                    try
+                    {
+                        if (next.createNewFile())
+                        {
+                            PrintStream printStream = new PrintStream(next);
+                            printStream.print(stringBuilder.toString());
+                        }
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
 
                 });
 
