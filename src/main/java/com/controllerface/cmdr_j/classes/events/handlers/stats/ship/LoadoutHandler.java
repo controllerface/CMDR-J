@@ -2,8 +2,8 @@ package com.controllerface.cmdr_j.classes.events.handlers.stats.ship;
 
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
-import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
 
 import java.util.List;

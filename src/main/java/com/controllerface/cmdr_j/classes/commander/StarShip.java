@@ -4,7 +4,7 @@ import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ShipModuleData;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
-import com.controllerface.cmdr_j.enums.equipment.ships.*;
+import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;

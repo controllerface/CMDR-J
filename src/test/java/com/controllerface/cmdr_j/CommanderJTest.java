@@ -38,12 +38,13 @@ import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.AbstractS
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.AbstractTorpedoPylon;
 import com.controllerface.cmdr_j.classes.procurements.CostData;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.recipes.*;
+import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Basic;
+import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Premium;
+import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Standard;
+import com.controllerface.cmdr_j.classes.recipes.AbstractTechnologyRecipe;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
-import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
-import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
@@ -55,8 +56,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -2,14 +2,6 @@ package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
-import com.controllerface.cmdr_j.classes.modules.core.distributor.size1.HybridPowerDistributor_1A;
-import com.controllerface.cmdr_j.classes.modules.core.distributor.size2.HybridPowerDistributor_2A;
-import com.controllerface.cmdr_j.classes.modules.core.distributor.size3.HybridPowerDistributor_3A;
-import com.controllerface.cmdr_j.classes.modules.core.distributor.size4.HybridPowerDistributor_4A;
-import com.controllerface.cmdr_j.classes.modules.core.distributor.size5.HybridPowerDistributor_5A;
-import com.controllerface.cmdr_j.classes.modules.core.distributor.size6.HybridPowerDistributor_6A;
-import com.controllerface.cmdr_j.classes.modules.core.distributor.size7.HybridPowerDistributor_7A;
-import com.controllerface.cmdr_j.classes.modules.core.distributor.size8.HybridPowerDistributor_8A;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size1.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size2.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size3.AFMU_3A;

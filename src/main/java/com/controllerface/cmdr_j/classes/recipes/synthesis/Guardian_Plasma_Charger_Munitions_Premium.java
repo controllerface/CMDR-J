@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.recipes.synthesis;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.procurements.CostData;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Premium;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;

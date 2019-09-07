@@ -9,9 +9,9 @@ import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecip
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
-import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 import com.controllerface.cmdr_j.ui.Displayable;
 import com.controllerface.cmdr_j.ui.UIFunctions;
