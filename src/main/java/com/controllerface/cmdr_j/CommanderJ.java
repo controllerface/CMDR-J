@@ -6,6 +6,7 @@ package com.controllerface.cmdr_j;
 import com.controllerface.cmdr_j.classes.WindowDimensions;
 import com.controllerface.cmdr_j.ui.UIController;
 import javafx.application.Application;
+import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,10 +23,10 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class CommanderJ extends Application
 {
-    public static void main(String[] args)
-    {
-        launch(args);
-    }
+//    public static void main(String[] args)
+//    {
+//        launch(args);
+//    }
     UIController controller;
 
     volatile double x = 0;
@@ -49,20 +50,14 @@ public class CommanderJ extends Application
         }
     }
 
+    private AtomicBoolean cbEd = new AtomicBoolean(false);
+
     @Override
     public void start(Stage primaryStage)
     {
         primaryStage.setTitle("CMDR J");
 
         AtomicReference<WindowDimensions> dimensions = new AtomicReference<>();
-        CountDownLatch showLatch = new CountDownLatch(1);
-
-        primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN,
-                (e) ->
-                {
-                    dimensions.set(controller.showVisuals());
-                    showLatch.countDown();
-                });
 
         primaryStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST,
                 (e) ->
@@ -80,14 +75,14 @@ public class CommanderJ extends Application
         Scene scene = new Scene(root);
         root.getStylesheets().add(cssFile);
         primaryStage.setScene(scene);
-        primaryStage.show();
 
+
+        /*
+        TODO: maybe tie refresh to a button/settign menu, etc. Just remember the CSS file has to be CHANGED and
+          then changed back fro JavaFX to notice it. May need a "dummy" file or something just for this.
         AtomicBoolean x = new AtomicBoolean(false);
-
         scene.addEventHandler(KeyEvent.KEY_PRESSED, t ->
         {
-            System.out.println(t.getCode());
-
             if(t.getCode()== KeyCode.F5)
             {
                 System.out.println("F5 pressed");
@@ -108,25 +103,28 @@ public class CommanderJ extends Application
                 root.getStylesheets().add(cssFile2);
             }
         });
+        */
 
-//        controller.setCSSReloadFunction(()->
-//        {
-//            scene.getStylesheets().clear();
-//            return scene.getStylesheets().add("/cmdrj.css");
-//        });
 
-        try
+        dimensions.set(controller.showVisuals());
+
+        primaryStage.show();
+
+        primaryStage.setX(-10000);
+        primaryStage.setY(-10000);
+
+
+        controller.setCB((s)->
         {
-            showLatch.await();
-            primaryStage.setX(dimensions.get().getX());
-            primaryStage.setY(dimensions.get().getY());
-            primaryStage.setWidth(dimensions.get().getWidth());
-            primaryStage.setHeight(dimensions.get().getHeight());
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
+            if (!cbEd.getAndSet(true))
+            {
+                notifyPreloader(new Preloader.StateChangeNotification(Preloader.StateChangeNotification.Type.BEFORE_LOAD));
+                primaryStage.setX(dimensions.get().getX());
+                primaryStage.setY(dimensions.get().getY());
+                primaryStage.setWidth(dimensions.get().getWidth());
+                primaryStage.setHeight(dimensions.get().getHeight());
+            }
+        });
     }
 
     @Override

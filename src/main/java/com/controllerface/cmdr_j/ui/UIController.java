@@ -377,8 +377,16 @@ public class UIController
         localizeData();
     }
 
+    private Consumer<Boolean> cb;
+    public void setCB( Consumer<Boolean> cb)
+    {
+        this.cb = cb;
+    }
+
     private void consumeNextMessageBlock(List<MessageData> msgs)
     {
+        System.out.println("Consuming messages...");
+
         msgs.stream()
                 .filter(Objects::nonNull)
                 .filter((m) -> messageTypeFilters.get(m.getMessageType()))
@@ -393,6 +401,8 @@ public class UIController
         {
             messageProgress.visibleProperty().setValue(false);
             messageProgress.setProgress(0.0d);
+
+            if (cb != null) cb.accept(true);
         }
 
         while (consoleBackingList.size() > 500) consoleBackingList.remove(0);
@@ -469,6 +479,10 @@ public class UIController
 
         sortInventory();
         setProcurementsUIVisibility();
+
+        System.out.println("Done UI Component setup");
+
+        initializeComponents();
 
         return windowDimensions;
     }
@@ -670,12 +684,8 @@ public class UIController
         });
     }
 
-    /**
-     * Reflectively called by JavaFX after this class is instantiated. This is where the UI components are filled with
-     * their respective data.
-     */
-    @FXML
-    public void initialize()
+
+    private void initializeComponents()
     {
         makeProcurementTree();
         startTransactionProcessor();
