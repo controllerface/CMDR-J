@@ -691,7 +691,7 @@ public enum Ship
                     .build()),
 
 
-    Krait_MkII(
+    krait_mkii(
             BaseShipStats.builder()
                     .setDisplayName("Krait Mk II")
                     .setShipSize(ShipSize.Medium)
@@ -746,7 +746,7 @@ public enum Ship
                     .build()
     ),
 
-    Krait_Light(
+    krait_light(
             BaseShipStats.builder()
                     .setDisplayName("Krait Phantom")
                     .setShipSize(ShipSize.Medium)
@@ -808,13 +808,13 @@ public enum Ship
                     .setAgility(138)
                     .setHullMass(450)
                     .setHullHardness(65)
-                    .setSpeed(130)
-                    .setMaxSpeed(151)
+                    .setSpeed(204)
+                    .setMaxSpeed(237)
                     .setBoostSpeed(310)
                     .setMaxBoostSpeed(360)
                     .setArmorRating(540)
                     .setShield(220)
-                    .setBaseCost(20_723_433)
+                    .setBaseCost(28_982_605)
                     .setMassLockFactor(13)
                     .setCrewSeats(2)
                     .build(),
@@ -857,6 +857,62 @@ public enum Ship
                     .build()
     ),
 
+    typex_2(
+            BaseShipStats.builder()
+                    .setDisplayName("Alliance Crusader")
+                    .setShipSize(ShipSize.Medium)
+                    .setManufacturer(ShipManufacturer.Lakon)
+                    .setAgility(128)
+                    .setHullMass(500)
+                    .setHullHardness(65)
+                    .setSpeed(180)
+                    .setMaxSpeed(209)
+                    .setBoostSpeed(300)
+                    .setMaxBoostSpeed(348)
+                    .setArmorRating(540)
+                    .setShield(200)
+                    .setBaseCost(23_675_231)
+                    .setMassLockFactor(13)
+                    .setCrewSeats(2)
+                    .build(),
+
+            CoreModuleLayoutData.builder()
+                    .setPowerPlant(ModuleSize.SIZE_6)
+                    .setThrusters(ModuleSize.SIZE_6)
+                    .setFrameShiftDrive(ModuleSize.SIZE_5)
+                    .setLifeSupport(ModuleSize.SIZE_5)
+                    .setPowerDistributor(ModuleSize.SIZE_6)
+                    .setSensors(ModuleSize.SIZE_4)
+                    .setFuelTank(ModuleSize.SIZE_4)
+                    .build(),
+
+            HardPointLayoutData.builder()
+                    .addHardPoint(HardPointSize.Small)
+                    .addHardPoint(HardPointSize.Small)
+                    .addHardPoint(HardPointSize.Small)
+                    .addHardPoint(HardPointSize.Medium)
+                    .addHardPoint(HardPointSize.Medium)
+                    .addHardPoint(HardPointSize.Large)
+                    .addHardPoint(HardPointSize.Tiny)
+                    .addHardPoint(HardPointSize.Tiny)
+                    .addHardPoint(HardPointSize.Tiny)
+                    .addHardPoint(HardPointSize.Tiny)
+                    .build(),
+
+            OptionalModuleLayoutData.builder()
+                    .addModule(ModuleSize.SIZE_1)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_2)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_3)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_4)
+                    .addModule(ModuleSize.SIZE_5)
+                    .addModule(ModuleSize.SIZE_6)
+                    .build()
+    ),
+
     typex(
             BaseShipStats.builder()
                     .setDisplayName("Alliance Chieftain")
@@ -871,7 +927,7 @@ public enum Ship
                     .setMaxBoostSpeed(383)
                     .setArmorRating(280)
                     .setShield(154)
-                    .setBaseCost(18_992_773)
+                    .setBaseCost(18_991_773)
                     .setMassLockFactor(13)
                     .setCrewSeats(2)
                     .build(),

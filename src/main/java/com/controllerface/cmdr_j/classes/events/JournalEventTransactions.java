@@ -681,7 +681,7 @@ public class JournalEventTransactions
     @SuppressWarnings("unchecked")
     public static void processMarket(EventProcessingContext context)
     {
-        String market = context.getRawData().get("StationName") + " in " + context.getRawData().get("StarSystem");
+        String market = context.getRawData().get("StationName") + ", " + context.getRawData().get("StarSystem");
 
         context.getTransactions().add(UserTransaction.start(TransactionType.MARKET)
                 .setMessage(market)

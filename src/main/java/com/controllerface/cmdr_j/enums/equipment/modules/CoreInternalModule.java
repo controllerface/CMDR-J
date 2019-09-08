@@ -73,11 +73,23 @@ public enum CoreInternalModule implements ShipModule
     ferdelance_armour_mirrored(new MirroredArmour()),
     ferdelance_armour_reactive(new ReactiveArmour()),
 
+    mamba_armour_grade1(new LightweightArmour()),
+    mamba_armour_grade2(new ReinforcedArmour()),
+    mamba_armour_grade3(new MilitaryGradeArmour()),
+    mamba_armour_mirrored(new MirroredArmour()),
+    mamba_armour_reactive(new ReactiveArmour()),
+
     krait_mkii_armour_grade1(new LightweightArmour()),
     krait_mkii_armour_grade2(new ReinforcedArmour()),
     krait_mkii_armour_grade3(new MilitaryGradeArmour()),
     krait_mkii_armour_reactive(new MirroredArmour()),
     krait_mkii_armour_mirrored(new ReactiveArmour()),
+
+    krait_light_armour_grade1(new LightweightArmour()),
+    krait_light_armour_grade2(new ReinforcedArmour()),
+    krait_light_armour_grade3(new MilitaryGradeArmour()),
+    krait_light_armour_reactive(new MirroredArmour()),
+    krait_light_armour_mirrored(new ReactiveArmour()),
 
     python_armour_grade1(new LightweightArmour()),
     python_armour_grade2(new ReinforcedArmour()),
@@ -234,6 +246,12 @@ public enum CoreInternalModule implements ShipModule
     typex_armour_grade3(new MilitaryGradeArmour()),
     typex_armour_mirrored(new MirroredArmour()),
     typex_armour_reactive(new ReactiveArmour()),
+
+    typex_2_armour_grade1(new LightweightArmour()),
+    typex_2_armour_grade2(new ReinforcedArmour()),
+    typex_2_armour_grade3(new MilitaryGradeArmour()),
+    typex_2_armour_mirrored(new MirroredArmour()),
+    typex_2_armour_reactive(new ReactiveArmour()),
 
     typex_3_armour_grade1(new LightweightArmour()),
     typex_3_armour_grade2(new ReinforcedArmour()),
