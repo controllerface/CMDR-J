@@ -47,16 +47,19 @@ public class TaskTypeCell extends TableCell<ProcurementTaskData, ProcurementReci
         {
             svgShape.setStyle("-fx-background-color: #ffb000;");
         }
-        else if (item.getGrade() == ItemGrade.MaterialTrade
-                || item.getGrade() == ItemGrade.GRADE_1
-                || item.getGrade() == ItemGrade.GRADE_2
-                || item.getGrade() == ItemGrade.GRADE_3
-                || item.getGrade() == ItemGrade.GRADE_4
-                || item.getGrade() == ItemGrade.GRADE_5)
-        {
-            svgShape.setStyle("-fx-background-color: #b75200;");
-        }
-        else svgShape.setStyle("-fx-background-color: #000000;");
+
+//        else if (item.getGrade() == ItemGrade.MaterialTrade
+//                || item.getGrade() == ItemGrade.GRADE_1
+//                || item.getGrade() == ItemGrade.GRADE_2
+//                || item.getGrade() == ItemGrade.GRADE_3
+//                || item.getGrade() == ItemGrade.GRADE_4
+//                || item.getGrade() == ItemGrade.GRADE_5)
+//        {
+//            svgShape.setStyle("-fx-background-color: #b75200;");
+//        }
+//        else svgShape.setStyle("-fx-background-color: #000000;");
+
+        else svgShape.setStyle("-fx-background-color: #b75200;");
 
         double originalWidth = icon.prefWidth(-1);
         double originalHeight = icon.prefHeight(originalWidth);

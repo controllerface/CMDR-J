@@ -20,10 +20,10 @@ public enum ItemGrade
     GRADE_5(5, "Grade 5"),
 
     VERY_COMMON(1, 300, "Very Common", UIFunctions.Icons.materialGrade1),
-    COMMON(2, 250, "Common", UIFunctions.Icons.materialGrade2),
-    STANDARD(3, 200, "Standard", UIFunctions.Icons.materialGrade3),
-    RARE(4, 150, "Rare", UIFunctions.Icons.materialGrade4),
-    VERY_RARE(5, 100, "Very Rare", UIFunctions.Icons.materialGrade5),
+    COMMON     (2, 250, "Common", UIFunctions.Icons.materialGrade2),
+    STANDARD   (3, 200, "Standard", UIFunctions.Icons.materialGrade3),
+    RARE       (4, 150, "Rare", UIFunctions.Icons.materialGrade4),
+    VERY_RARE  (5, 100, "Very Rare", UIFunctions.Icons.materialGrade5),
 
     /*
     Used for Engineer experimental effects
@@ -48,7 +48,7 @@ public enum ItemGrade
      */
 
     Drone(0, "Limpet Drone", "Starport Restock Services"),   // standard commodities and salvage
-    Space(1, "Commodity", "Starport Commodity Markets"),   // standard commodities and salvage
+    Space(1, "Commodity", "Starport Commodity Markets", UIFunctions.Icons.cargo),   // standard commodities and salvage
     Planet(2, "Planetary Port", "Planetary Port Commodity Markets"),  // only available at planetary ports
     Mining(3, "Asteroid Mining", "Asteroid and Planetary Ring Mining"),  // attainable by mining only
     Mission(4, "Mission", "Mission Rewards"), // mission reward exclusive
@@ -86,6 +86,11 @@ public enum ItemGrade
     ItemGrade(int numericalValue, String text, String locationDescription)
     {
         this(numericalValue, -1, text, locationDescription, null);
+    }
+
+    ItemGrade(int numericalValue, String text, String locationDescription, SVGPath icon)
+    {
+        this(numericalValue, -1, text, locationDescription, icon);
     }
 
     ItemGrade(int numericalValue, int maximumQuantity, String text, String locationDescription, SVGPath icon)

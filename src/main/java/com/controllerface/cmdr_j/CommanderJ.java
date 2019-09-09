@@ -10,29 +10,24 @@ import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class CommanderJ extends Application
 {
-//    public static void main(String[] args)
-//    {
-//        launch(args);
-//    }
-    UIController controller;
+    private UIController controller;
 
-    volatile double x = 0;
-    volatile double y = 0;
-    volatile double width = 0;
-    volatile double height = 0;
+    private double x = 0;
+    private double y = 0;
+    private double width = 0;
+    private double height = 0;
+
+    private AtomicBoolean isInitialized = new AtomicBoolean(false);
 
     private Parent loadRoot()
     {
@@ -50,7 +45,7 @@ public class CommanderJ extends Application
         }
     }
 
-    private AtomicBoolean cbEd = new AtomicBoolean(false);
+
 
     @Override
     public void start(Stage primaryStage)
@@ -113,16 +108,18 @@ public class CommanderJ extends Application
         primaryStage.setX(-10000);
         primaryStage.setY(-10000);
 
-
-        controller.setCB((s)->
+        controller.setInitialLoadCallback((s)->
         {
-            if (!cbEd.getAndSet(true))
+            notifyPreloader(new Preloader.ProgressNotification(s));
+
+            if (s >= 1.0d && !isInitialized.get())
             {
                 notifyPreloader(new Preloader.StateChangeNotification(Preloader.StateChangeNotification.Type.BEFORE_LOAD));
                 primaryStage.setX(dimensions.get().getX());
                 primaryStage.setY(dimensions.get().getY());
                 primaryStage.setWidth(dimensions.get().getWidth());
                 primaryStage.setHeight(dimensions.get().getHeight());
+                isInitialized.set(true);
             }
         });
     }
@@ -142,4 +139,9 @@ public class CommanderJ extends Application
         controller.stop(windowDimensions);
     }
 
+    public static void main(String[] args)
+    {
+        System.out.println("Wrong entry point");
+        System.exit(0);
+    }
 }

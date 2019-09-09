@@ -310,7 +310,7 @@
                                           </TableView>
                                        </content>
                                     </Tab>
-                                    <Tab text="Market">
+                                    <Tab text="Current Market">
                                        <content>
                                           <VBox>
                                              <children>
@@ -343,7 +343,7 @@
                               </TabPane>
                            </children>
                         </VBox>
-                        <CheckBox fx:id="showZeroQuantities" layoutX="505.0" layoutY="92.0" mnemonicParsing="false" text="show zero quantity items" />
+                        <CheckBox fx:id="showZeroQuantities" layoutX="549.0" layoutY="92.0" mnemonicParsing="false" text="show zero quantity items" />
                      </children>
                   </AnchorPane>
             </content>
@@ -898,7 +898,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab styleClass="main_tab" text="Datalog">
+            <Tab styleClass="main_tab" text="Log">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -1284,7 +1284,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <AnchorPane layoutX="289.0" layoutY="5.0" prefHeight="29.0" prefWidth="218.0">
+      <AnchorPane layoutX="268.0" layoutY="5.0" prefHeight="29.0" prefWidth="218.0">
          <children>
             <ProgressBar fx:id="messageProgress" layoutX="9.0" layoutY="5.0" prefWidth="200.0" progress="0.0" />
          </children>

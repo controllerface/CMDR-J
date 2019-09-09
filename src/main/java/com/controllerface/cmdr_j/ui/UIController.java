@@ -372,21 +372,20 @@ public class UIController
      */
     private final CommanderData commanderData = new CommanderData(tradeCostCache::get, addTaskPairToProcurementList_direct);
 
+    private Consumer<Double> initialLoadCallback;
+
     public UIController()
     {
         localizeData();
     }
 
-    private Consumer<Boolean> cb;
-    public void setCB( Consumer<Boolean> cb)
+    public void setInitialLoadCallback(Consumer<Double> cb)
     {
-        this.cb = cb;
+        this.initialLoadCallback = cb;
     }
 
     private void consumeNextMessageBlock(List<MessageData> msgs)
     {
-        System.out.println("Consuming messages...");
-
         msgs.stream()
                 .filter(Objects::nonNull)
                 .filter((m) -> messageTypeFilters.get(m.getMessageType()))
@@ -394,15 +393,15 @@ public class UIController
 
         processedMessages.addAndGet(msgs.size());
 
-        double p = (double) processedMessages.get() / (double) queuedMessages.get();
+        double progress = (double) processedMessages.get() / (double) queuedMessages.get();
 
-        messageProgress.setProgress(p);
+        messageProgress.setProgress(progress);
+        initialLoadCallback.accept(progress);
+
         if (messageProgress.getProgress() >= 1.0)
         {
             messageProgress.visibleProperty().setValue(false);
             messageProgress.setProgress(0.0d);
-
-            if (cb != null) cb.accept(true);
         }
 
         while (consoleBackingList.size() > 500) consoleBackingList.remove(0);
@@ -457,14 +456,6 @@ public class UIController
         System.out.println("Init UI Components");
         initializeUIComponents();
         System.out.println("Done Init UI Components");
-
-//        System.out.println("Load JSON");
-//        fromJson();
-//        System.out.println("Done Load JSON");
-
-        // load the auto-save data from disk
-
-        // set initialized flag
 
         Properties properties = new Properties();
         try {properties.load(this.getClass().getResourceAsStream("/config.properties"));}

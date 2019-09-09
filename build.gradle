@@ -1,7 +1,7 @@
 
 apply plugin: 'application'
 
-mainClassName = "com.controllerface.cmdr_j.CommanderJ"
+mainClassName = "com.controllerface.cmdr_j.Main"
 
 repositories {
     mavenCentral()
@@ -19,11 +19,12 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class' : 'com.controllerface.cmdr_j.CommanderJ',
-                'Class-Path': configurations.runtime.files.collect { "$it.name" }.join(' ')
+        attributes 'Main-Class' : 'com.controllerface.cmdr_j.Main',
+                'Class-Path': configurations.compile.files.collect { "$it.name" }.join(' ')
     }
 }
 
 startScripts{
     defaultJvmOpts = ["-Xmx1024m"]
 }
+sourceCompatibility = 1.8
