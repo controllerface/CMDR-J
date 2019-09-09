@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public abstract class AbstractRecipe implements ProcurementRecipe
 {
-    private String parentBlueprintName;
+    private String parentBlueprintName = "";
     private final ItemGrade grade;
     private final CostData[] cost;
     private final ItemEffects effects;
@@ -64,5 +64,11 @@ public abstract class AbstractRecipe implements ProcurementRecipe
     public void setParentBlueprintName(String blueprintName)
     {
         this.parentBlueprintName = blueprintName;
+    }
+
+    @Override
+    public String getParentBlueprintName()
+    {
+        return parentBlueprintName;
     }
 }

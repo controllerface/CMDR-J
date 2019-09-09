@@ -713,7 +713,7 @@
                         </HBox>
                         <AnchorPane prefHeight="204.0" prefWidth="449.0">
                            <children>
-                              <ListView fx:id="waypointList" editable="true" layoutX="14.0" layoutY="53.0" prefHeight="140.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="10.0" />
+                              <ListView fx:id="wayPointList" editable="true" layoutX="14.0" layoutY="53.0" prefHeight="140.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="10.0" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" text="Waypoints" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="18.0" />

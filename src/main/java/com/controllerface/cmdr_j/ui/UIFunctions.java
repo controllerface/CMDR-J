@@ -399,8 +399,11 @@ public class UIFunctions
                         return a.isTrade() ? 1 : -1;
                     }
 
-                    String as = a.asPair().getKey().toString() + a.asPair().getValue().toString();
-                    String bs = b.asPair().getKey().toString() + b.asPair().getValue().toString();
+                    String as = a.asPair().getKey().getName() + a.asPair().getValue().getName();
+                    String bs = b.asPair().getKey().getName() + b.asPair().getValue().getName();
+
+                    System.out.println("Debug: " + as + " :: " + bs);
+
                     return as.compareTo(bs);
                 };
 

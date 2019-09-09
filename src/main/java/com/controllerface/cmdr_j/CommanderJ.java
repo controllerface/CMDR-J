@@ -66,7 +66,6 @@ public class CommanderJ extends Application
         Parent root = loadRoot();
         root.getStyleClass().add("main");
         String cssFile = CommanderJ.class.getResource("/cmdrj.css").toExternalForm();
-        System.out.println(cssFile);
         Scene scene = new Scene(root);
         root.getStylesheets().add(cssFile);
         primaryStage.setScene(scene);
@@ -115,10 +114,18 @@ public class CommanderJ extends Application
             if (s >= 1.0d && !isInitialized.get())
             {
                 notifyPreloader(new Preloader.StateChangeNotification(Preloader.StateChangeNotification.Type.BEFORE_LOAD));
-                primaryStage.setX(dimensions.get().getX());
-                primaryStage.setY(dimensions.get().getY());
-                primaryStage.setWidth(dimensions.get().getWidth());
-                primaryStage.setHeight(dimensions.get().getHeight());
+                if (dimensions.get() == null)
+                {
+                    primaryStage.setX(0);
+                    primaryStage.setY(0);
+                }
+                else
+                {
+                    primaryStage.setX(dimensions.get().getX());
+                    primaryStage.setY(dimensions.get().getY());
+                    primaryStage.setWidth(dimensions.get().getWidth());
+                    primaryStage.setHeight(dimensions.get().getHeight());
+                }
                 isInitialized.set(true);
             }
         });

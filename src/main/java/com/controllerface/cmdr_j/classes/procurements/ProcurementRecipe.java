@@ -23,4 +23,5 @@ public interface ProcurementRecipe
     ItemGrade getGrade();
     Icon getIcon();
     void setParentBlueprintName(String blueprintName);
+    String getParentBlueprintName();
 }

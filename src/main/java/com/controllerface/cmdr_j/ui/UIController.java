@@ -54,6 +54,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -243,7 +244,7 @@ public class UIController
     @FXML private Label status_bearing;
 
     @FXML private Button status_mark;
-    @FXML private ListView<Waypoint> waypointList;
+    @FXML private ListView<Waypoint> wayPointList;
     @FXML private TextField waypointNameInput;
 
     @FXML private Label market_id;
@@ -362,9 +363,17 @@ public class UIController
     private final Consumer<ProcurementTask> addTaskPairToProcurementList_direct =
             (task) -> procurementListUpdate(1, new Pair<>(task.getType(), task.getRecipe()));
 
-    private final Function<ProcurementCost, Integer> calculateTradeYield = (item) -> item.getGrade() == ItemGrade.Any
-            ? tradeYieldCache.values().stream().mapToInt(y -> y).sum()
-            : tradeYieldCache.get(item);
+    private final Function<ProcurementCost, Integer> calculateTradeYield = (item) ->
+    {
+        if (item.getGrade() == ItemGrade.Any)
+        {
+            return tradeYieldCache.values().stream().mapToInt(y -> y).sum();
+        }
+        else
+        {
+            return tradeYieldCache.get(item);
+        }
+    };
 
     /**
      * Holds all of the data related to a commander (i.e. the player's on-disk data). While running, this application
@@ -453,9 +462,7 @@ public class UIController
     public WindowDimensions showVisuals()
     {
         //synchronizeBackingLists();
-        System.out.println("Init UI Components");
         initializeUIComponents();
-        System.out.println("Done Init UI Components");
 
         Properties properties = new Properties();
         try {properties.load(this.getClass().getResourceAsStream("/config.properties"));}
@@ -470,9 +477,6 @@ public class UIController
 
         sortInventory();
         setProcurementsUIVisibility();
-
-        System.out.println("Done UI Component setup");
-
         initializeComponents();
 
         return windowDimensions;
@@ -531,7 +535,7 @@ public class UIController
         double rightY = centerY + 10;
 
         // get the current heading
-        double angle = Double.valueOf(status_heading.getText());
+        double angle = Double.parseDouble(status_heading.getText());
 
         // save the existing transform so we can return after drawing the arrow, and have a base to rotate from
         Affine baseTransform = minimap.getGraphicsContext2D().getTransform();
@@ -553,21 +557,20 @@ public class UIController
 
 
         /* Step 3:
-        The process below is what renders the marked waypoint
-        TODO: should handle multiple waypoints
+        The process below is what renders the marked waypoints
          */
 
-        waypointList.getItems().forEach(i->
+        wayPointList.getItems().forEach(wayPoint ->
         {
-            Waypoint selectedWaypoint = waypointList.getSelectionModel().getSelectedItems().get(0);
+            Waypoint selectedWayPoint = wayPointList.getSelectionModel().getSelectedItems().get(0);
 
             Color color = Color.LIGHTBLUE;
-            if (selectedWaypoint != null)
+            if (selectedWayPoint != null)
             {
-                if (i.equals(selectedWaypoint)) color = Color.DARKORANGE;
+                if (wayPoint.equals(selectedWayPoint)) color = Color.DARKORANGE;
             }
 
-            renderWaypoint(i.longitude, i.latitude, centerX, centerY, color, i.name + "\n" + "$D");
+            renderWaypoint(wayPoint.longitude, wayPoint.latitude, centerX, centerY, color, wayPoint.name + "\n" + "$D");
         });
 
         //renderWaypoint(markedLong, markedLat, centerX, centerY, Color.DARKORANGE, "$D");
@@ -579,7 +582,6 @@ public class UIController
         {
             renderWaypoint(lastShipLong, lastShipLat, centerX, centerY, Color.LIME, shipNameLabel.getText() + "\n" + "$D");
         }
-
     }
 
 
@@ -587,8 +589,8 @@ public class UIController
     {
         //         TODO: should handle multiple waypoints
 
-        double currentLat = Double.valueOf(status_latitude.getText());
-        double currentLong = Double.valueOf(status_longitude.getText());
+        double currentLat = Double.parseDouble(status_latitude.getText());
+        double currentLong = Double.parseDouble(status_longitude.getText());
 
         // todo: these multipliers need to change based on SRV or Ship
         double mX = currentLong - x;
@@ -681,14 +683,12 @@ public class UIController
         makeProcurementTree();
         startTransactionProcessor();
         startupTasks();
-        System.out.println("Load JSON");
         fromJson();
-        System.out.println("Done Load JSON");
         initializeMarketTables();
 
         mapScale.valueProperty().addListener((observable, oldValue, newValue) -> renderMiniMap());
 
-        waypointList.setCellFactory(new Callback<ListView<Waypoint>, ListCell<Waypoint>>()
+        wayPointList.setCellFactory(new Callback<ListView<Waypoint>, ListCell<Waypoint>>()
         {
             @Override
             public ListCell<Waypoint> call(ListView<Waypoint> param)
@@ -767,16 +767,16 @@ public class UIController
 
         status_mark.onMouseClickedProperty().setValue((e)->
         {
-            double markedLat = Double.valueOf(status_latitude.getText());
-            double markedLong = Double.valueOf(status_longitude.getText());
+            double markedLat = Double.parseDouble(status_latitude.getText());
+            double markedLong = Double.parseDouble(status_longitude.getText());
 
-            waypointList.getItems().add(new Waypoint(waypointNameInput.getText(), markedLat, markedLong));
+            wayPointList.getItems().add(new Waypoint(waypointNameInput.getText(), markedLat, markedLong));
         });
     }
 
 
 
-    private class Waypoint
+    private static class Waypoint
     {
         private final String name;
         private final double latitude;
@@ -967,8 +967,8 @@ public class UIController
                 {
                     case VEHICLE:
                         inSRV = nextTransaction.isInSRV();
-                        lastShipLat = Double.valueOf(status_latitude.getText());
-                        lastShipLong = Double.valueOf(status_longitude.getText());
+                        lastShipLat = Double.parseDouble(status_latitude.getText());
+                        lastShipLong = Double.parseDouble(status_longitude.getText());
                         break;
 
                     case INVENTORY:
@@ -999,7 +999,7 @@ public class UIController
 
                             Integer flags  = ((Integer) statusObject.get("Flags"));
 
-                            System.out.println(flags);
+                            //System.out.println(flags);
                             Status.extractFlags(flags).forEach(System.out::println);
 
                             @SuppressWarnings("unchecked")
@@ -1026,12 +1026,12 @@ public class UIController
 
                             if (Altitude == null || Latitude == null || Longitude == null || Heading == null) return;
 
-                            double lat = Double.valueOf(Latitude.toString());
-                            double lon = Double.valueOf(Longitude.toString());
+                            double lat = Double.parseDouble(Latitude.toString());
+                            double lon = Double.parseDouble(Longitude.toString());
 
-                            if (!waypointList.getItems().isEmpty())
+                            if (!wayPointList.getItems().isEmpty())
                             {
-                                Waypoint selectedWaypoint = waypointList.getSelectionModel().getSelectedItems().get(0);
+                                Waypoint selectedWaypoint = wayPointList.getSelectionModel().getSelectedItems().get(0);
 
                                 if (selectedWaypoint != null)
                                 {
@@ -1156,6 +1156,7 @@ public class UIController
                 commanderData::amountOf, procurementList.widthProperty()));
 
         procurementTaskTable.setItems(sortedTasks);
+        sortedTasks.comparatorProperty().bind(procurementTaskTable.comparatorProperty());
         taskCostTable.setItems(sortedCosts);
 
         taskCountColumn.setCellFactory(x -> new TaskCountCell());
@@ -1489,7 +1490,7 @@ public class UIController
     private void disableTreeSelection(TreeView<ProcurementTask> treeView)
     {
         treeView.getSelectionModel().selectedIndexProperty()
-                .addListener((x,y,z) -> Platform.runLater(() -> treeView.getSelectionModel().clearSelection()));
+                .addListener((x,y,z) -> treeView.getSelectionModel().clearSelection());
     }
 
     /**
@@ -1503,7 +1504,7 @@ public class UIController
     private void disableListSelection(ListView listView)
     {
         listView.getSelectionModel().selectedIndexProperty()
-                .addListener((x,y,z) -> Platform.runLater(() -> listView.getSelectionModel().clearSelection()));
+                .addListener((x,y,z) -> listView.getSelectionModel().clearSelection());
     }
 
     /**
@@ -1517,7 +1518,7 @@ public class UIController
     private void disableTableSelection(TableView tableView)
     {
         tableView.getSelectionModel().selectedIndexProperty()
-                .addListener((x,y,z) -> Platform.runLater(() -> tableView.getSelectionModel().clearSelection()));
+                .addListener((x,y,z) -> tableView.getSelectionModel().clearSelection());
     }
 
     /**
@@ -1525,17 +1526,22 @@ public class UIController
      */
     private void synchronizeBackingLists()
     {
-        synchronized (taskBackingList)
-        {
+        System.out.println("synchronizing...");
+
+        //synchronized (taskBackingList)
+        //{
             taskBackingList.clear();
             taskBackingList.addAll(taskList);
-        }
+        //}
 
-        synchronized (taskCostBackingList)
-        {
+        //synchronized (taskCostBackingList)
+        //{
             taskCostBackingList.clear();
             taskCostBackingList.addAll(costList);
-        }
+        //}
+
+        System.out.println("synchronized...");
+
     }
 
     private void messageLogger(UserTransaction.MessageType messageType, String message)
@@ -1561,9 +1567,6 @@ public class UIController
             if (event.equalsIgnoreCase(JournalEvent.ApproachSettlement.name()))
             {
                 settlement = ((String) data.get("Name_Localised"));
-
-                // todo:
-
                 if (data.get("Latitude") != null && data.get("Longitude") != null)
                 {
                     settlementLat = ((Double) data.get("Latitude"));
@@ -1572,8 +1575,26 @@ public class UIController
             }
         };
 
-        if (Platform.isFxApplicationThread()) doWork.accept(nextTransaction);
-        else Platform.runLater(() -> doWork.accept(nextTransaction));
+
+        try
+        {
+            new Task<Void>()
+            {
+                @Override
+                protected Void call() throws Exception
+                {
+                    doWork.accept(nextTransaction);
+                    return null;
+                }
+            }.call();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+//        if (Platform.isFxApplicationThread()) doWork.accept(nextTransaction);
+//        else Platform.runLater(() -> doWork.accept(nextTransaction));
     }
 
     /**
@@ -1593,7 +1614,25 @@ public class UIController
      * @param task the task to adjust the count of in the tracked tasks list
      * @return the total count of the passed in task after the adjustment is applied, zero if the task was removed
      */
-    private Integer procurementListUpdate(Integer adjustment, Pair<ProcurementType, ProcurementRecipe> task)
+
+
+    private void procurementListUpdate(Integer adjustment, Pair<ProcurementType, ProcurementRecipe> task)
+    {
+        Task<Void> task1 = new Task<Void>()
+        {
+            @Override
+            protected Void call()
+            {
+                procurementListUpdate1(adjustment, task);
+                return null;
+            }
+        };
+        executorService.submit(task1);
+    }
+
+
+
+    private void procurementListUpdate1(Integer adjustment, Pair<ProcurementType, ProcurementRecipe> task)
     {
         // find the task we need to adjust
         AtomicReference<ProcurementTaskData> data = new AtomicReference<>(taskList.stream()
@@ -1607,7 +1646,7 @@ public class UIController
         {
 
             // this this was a 0 adjustment or negative, just return -1 indicating the task is not present
-            if (adjustment <= 0) return -1;
+            if (adjustment <= 0) return;
 
                 // otherwise, this is an indication that we should add this new task to the list, so we create
                 // a new one, and initialize the count to zero, as the actual adjustment logic can then work
@@ -1651,7 +1690,7 @@ public class UIController
 
         // here we do a quick sanity count, in case the count is already at the maximum. if that's the case,
         // we will not adjust further, just return the count
-        if (oldCount == 999) return oldCount;
+        if (oldCount == 999) return;
 
         // now, we can continue with the adjustment.
         AtomicInteger newCount = new AtomicInteger(oldCount + adjustment);
@@ -1763,12 +1802,11 @@ public class UIController
                 .peek(removedCost -> taskCostCache.remove(removedCost.getCost()))
                 .forEach(costList::remove);
 
-        rawTable.refresh();
+        synchronizeBackingLists();
 
-        if (Platform.isFxApplicationThread()) synchronizeBackingLists();
-        else Platform.runLater(this::synchronizeBackingLists);
+//        if (Platform.isFxApplicationThread()) synchronizeBackingLists();
+//        else Platform.runLater(this::synchronizeBackingLists);
 
-        return newCount.get();
     }
 
     private TreeItem<ProcurementTask> makeTradeTree()
@@ -2106,7 +2144,7 @@ public class UIController
             data.put("window", dimensionData);
         }
 
-        List<Map<String, Object>> tasks = taskList.stream()
+        List<Map<String, Object>> tasks = taskBackingList.stream()
                 .map(e->
                 {
                     // todo: it may be beneficial to store the JSON output logic inside the procurement type
@@ -2184,7 +2222,7 @@ public class UIController
         }
         else windowDimensions = WindowDimensions.builder().build();
 
-        taskList.clear();
+        taskBackingList.clear();
 
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> tasks = ((List<Map<String, Object>>) data.get("tasks"));

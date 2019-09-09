@@ -128,7 +128,13 @@ public enum SynthesisRecipe implements ProcurementRecipe
     @Override
     public void setParentBlueprintName(String blueprintName)
     {
-        //todo: consider implementing this for this category
+        delegate.setParentBlueprintName(blueprintName);
+    }
+
+    @Override
+    public String getParentBlueprintName()
+    {
+        return delegate.getParentBlueprintName();
     }
 
     @Override

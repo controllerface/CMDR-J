@@ -120,6 +120,12 @@ public class MaterialTradeRecipe implements ProcurementRecipe
     }
 
     @Override
+    public String getParentBlueprintName()
+    {
+        return "";
+    }
+
+    @Override
     public Icon getIcon()
     {
         return icon;

@@ -6,6 +6,6 @@ public class Main
 {
     public static void main(String[] args)
     {
-        LauncherImpl.launchApplication(CommanderJ.class, Preloaderj.class, args);
+        LauncherImpl.launchApplication(CommanderJ.class, LoadingScreen.class, args);
     }
 }

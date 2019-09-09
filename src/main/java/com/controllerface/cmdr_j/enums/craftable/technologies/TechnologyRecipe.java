@@ -154,16 +154,9 @@ public enum TechnologyRecipe implements ProcurementRecipe
     Guardian_Shard_Cannon_Turreted_Medium(new Guardian_Shard_Cannon_Turreted_Medium(),
             HardpointModule.hpt_guardian_shardcannon_turret_medium),
 
-
     ;
 
-
     private final ProcurementRecipe delegate;
-
-    private final ItemGrade grade;
-    private final CostData[] cost;
-    private final ItemEffects effects;
-    private final String name;
     private final ShipModule[] modules;
 
     private static Icon icon = new Icon(UIFunctions.Icons.techBroker, 25, 25);
@@ -173,24 +166,6 @@ public enum TechnologyRecipe implements ProcurementRecipe
         this.delegate = delegate;
         this.modules = modules;
         delegate.costStream().forEach(c->c.getCost().associate(this));
-
-
-        this.grade = null;
-        this.name = null;
-        this.effects = null;
-        this.cost = null;
-    }
-
-    TechnologyRecipe(ShipModule[] modules, ItemGrade grade, String name, ItemEffects effects, CostData... cost)
-    {
-        this.delegate = null;
-        this.modules = modules;
-        Arrays.stream(cost).forEach(c->c.getCost().associate(this));
-
-        this.grade = grade;
-        this.name = name;
-        this.effects = effects;
-        this.cost = cost;
     }
 
     public static Optional<TechnologyRecipe> findRecipeForModule(ShipModule module)
@@ -208,26 +183,29 @@ public enum TechnologyRecipe implements ProcurementRecipe
     @Override
     public ItemGrade getGrade()
     {
-        if (delegate == null) return grade;
         return delegate.getGrade();
     }
 
     public Stream<CostData> costStream()
     {
-        if (delegate == null) return Arrays.stream(cost);
         return delegate.costStream();
     }
 
     public ItemEffects effects()
     {
-        if (delegate == null) return effects;
         return delegate.effects();
     }
 
     @Override
     public void setParentBlueprintName(String blueprintName)
     {
-        //todo: consider implementing this for this category
+        delegate.setParentBlueprintName(blueprintName);
+    }
+
+    @Override
+    public String getParentBlueprintName()
+    {
+        return delegate.getParentBlueprintName();
     }
 
     @Override
@@ -239,7 +217,6 @@ public enum TechnologyRecipe implements ProcurementRecipe
     @Override
     public String getShortLabel()
     {
-        if (delegate == null) return name;
         return delegate.getShortLabel();
     }
 
@@ -258,7 +235,6 @@ public enum TechnologyRecipe implements ProcurementRecipe
     @Override
     public Icon getIcon()
     {
-        if (delegate == null) return icon;
         return delegate.getIcon();
     }
 }

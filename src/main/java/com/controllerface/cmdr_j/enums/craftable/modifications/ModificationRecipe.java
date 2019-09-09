@@ -560,6 +560,12 @@ public enum ModificationRecipe implements ProcurementRecipe
     }
 
     @Override
+    public String getParentBlueprintName()
+    {
+        return delegate.getParentBlueprintName();
+    }
+
+    @Override
     public String toString()
     {
         return delegate.toString();

@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class Preloaderj extends Preloader
+public class LoadingScreen extends Preloader
 {
     ProgressBar bar;
     Stage stage;

@@ -360,12 +360,12 @@ public class InventoryData implements Displayable
                                     HBox btnlbl = new HBox();
 
                                     Label descOpen = new Label();
-                                    Label descHave = new Label();
-                                    Label descClose = new Label();
+                                    //Label descHave = new Label();
+                                    //Label descClose = new Label();
 
                                     descOpen.setFont(UIFunctions.Fonts.size1Font);
-                                    descHave.setFont(UIFunctions.Fonts.size1Font);
-                                    descClose.setFont(UIFunctions.Fonts.size1Font);
+                                    //descHave.setFont(UIFunctions.Fonts.size1Font);
+                                    //descClose.setFont(UIFunctions.Fonts.size1Font);
 
                                     renderHave();
 
@@ -375,18 +375,17 @@ public class InventoryData implements Displayable
                                             + " for "
                                             + Math.abs(tradeYield.getQuantity())
                                             + " "
-                                            + tradeYield.getCost().getLocalizedName()
-                                            + " (";
+                                            + tradeYield.getCost().getLocalizedName();
 
                                     descOpen.setText(x);
 
-                                    descHave.textProperty().bind(haveCount.asString());
-                                    descHave.textFillProperty()
-                                            .bind(Bindings.when(hasTrades)
-                                                    .then(UIFunctions.Fonts.darkOrange)
-                                                    .otherwise(UIFunctions.Fonts.neutralBlack));
+                                    //descHave.textProperty().bind(haveCount.asString());
+//                                    descHave.textFillProperty()
+//                                            .bind(Bindings.when(hasTrades)
+//                                                    .then(UIFunctions.Fonts.darkOrange)
+//                                                    .otherwise(UIFunctions.Fonts.neutralBlack));
 
-                                    descClose.setText(")");
+                                    //descClose.setText(")");
 
                                     Region region1 = new Region();
                                     HBox.setHgrow(region1, Priority.ALWAYS);
@@ -394,8 +393,8 @@ public class InventoryData implements Displayable
                                     HBox.setHgrow(region2, Priority.ALWAYS);
 
                                     btnlbl.getChildren().add(descOpen);
-                                    btnlbl.getChildren().add(descHave);
-                                    btnlbl.getChildren().add(descClose);
+                                    //btnlbl.getChildren().add(descHave);
+                                    //btnlbl.getChildren().add(descClose);
 
                                     btnlbl.getChildren().add(region1);
                                     btnlbl.getChildren().add(convBox);

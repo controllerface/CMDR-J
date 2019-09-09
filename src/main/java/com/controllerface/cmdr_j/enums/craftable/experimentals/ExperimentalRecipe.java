@@ -141,7 +141,13 @@ public enum ExperimentalRecipe implements ProcurementRecipe
     @Override
     public void setParentBlueprintName(String blueprintName)
     {
-        // no-op for experimental effects, text is set in this constructor
+        delegate.setParentBlueprintName(blueprintName);
+    }
+
+    @Override
+    public String getParentBlueprintName()
+    {
+        return delegate.getParentBlueprintName();
     }
 
     @Override
