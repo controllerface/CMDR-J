@@ -54,15 +54,6 @@ public class CommanderJ extends Application
 
         AtomicReference<WindowDimensions> dimensions = new AtomicReference<>();
 
-        primaryStage.addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST,
-                (e) ->
-                {
-                    x = primaryStage.getX();
-                    y = primaryStage.getY();
-                    width = primaryStage.getWidth();
-                    height = primaryStage.getHeight();
-                });
-
         Parent root = loadRoot();
         root.getStyleClass().add("main");
         String cssFile = CommanderJ.class.getResource("/cmdrj.css").toExternalForm();
@@ -70,6 +61,26 @@ public class CommanderJ extends Application
         root.getStylesheets().add(cssFile);
         primaryStage.setScene(scene);
 
+
+        primaryStage.xProperty().addListener((obs, oldVal, newVal) ->
+        {
+            x = newVal.doubleValue();
+        });
+
+        primaryStage.yProperty().addListener((obs, oldVal, newVal) ->
+        {
+            y = newVal.doubleValue();
+        });
+
+        primaryStage.widthProperty().addListener((obs, oldVal, newVal) ->
+        {
+            width = newVal.doubleValue();
+        });
+
+        primaryStage.heightProperty().addListener((obs, oldVal, newVal) ->
+        {
+            height = newVal.doubleValue();
+        });
 
         /*
         TODO: maybe tie refresh to a button/settign menu, etc. Just remember the CSS file has to be CHANGED and

@@ -11,7 +11,7 @@ public class MetaAlloyHRP_5D extends AbstractExperimentalModule
     {
         super("5D Meta-Alloy Hull Reinforcement Package",
                 new ItemEffects(
-                        new ItemEffectData(ItemEffect.experimental, 1d),
+                        new ItemEffectData(ItemEffect.human, 1d),
                         new ItemEffectData(ItemEffect.Mass, 16d),
                         new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 351d),
                         new ItemEffectData(ItemEffect.CausticResistance, 3d)

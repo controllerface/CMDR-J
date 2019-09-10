@@ -24,16 +24,19 @@ public class MissionCompletedHandler implements JournalEventHandler
 
         Map<String, Object> data = context.getRawData();
 
+        int creditReward = ((int)data.get("Reward"));
+        context.getCommanderData().adjustCreditBalance(creditReward);
+
         if (data.get("MaterialsReward") != null)
         {
             ((List<Map<String, Object>>) data.get("MaterialsReward"))
-                    .forEach(reward -> adjustMaterialCount(context, reward));
+                    .forEach(materialReward -> adjustMaterialCount(context, materialReward));
         }
 
         if (data.get("CommodityReward") != null)
         {
             ((List<Map<String, Object>>) data.get("CommodityReward"))
-                    .forEach(reward -> adjustCommodityCount(context, reward));
+                    .forEach(commodityReward -> adjustCommodityCount(context, commodityReward));
         }
 
         if (data.get("Commodity") != null)

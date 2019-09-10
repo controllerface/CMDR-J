@@ -19,5 +19,11 @@ public class ModuleBuyHandler implements JournalEventHandler
     {
         logInventoryMessage(context, "Module Purchased");
         processBuyModule(context);
+
+        int cost = ((int) context.getRawData().get("BuyPrice"));
+        context.getCommanderData().adjustCreditBalance(-1 * cost);
+
+        int sale = ((int) context.getRawData().get("SellPrice"));
+        context.getCommanderData().adjustCreditBalance(sale);
     }
 }

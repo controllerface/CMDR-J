@@ -42,6 +42,8 @@ public class BountyHandler implements JournalEventHandler
             benefactor = ((List<Map<String, Object>>) context.getRawData().get("Rewards")).stream()
                     .map(r-> ((String) r.get("Faction")))
                     .collect(Collectors.joining(", ","Rewarding Faction(s): ",""));
+
+            context.getCommanderData().adjustCreditBalance(reward);
         }
 
         if (reward == 0)

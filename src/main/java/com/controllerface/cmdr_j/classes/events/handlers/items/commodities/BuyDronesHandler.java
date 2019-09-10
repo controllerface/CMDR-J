@@ -20,5 +20,8 @@ public class BuyDronesHandler implements JournalEventHandler
     {
         logInventoryMessage(context, "Limpet Drones Purchased");
         adjust(context, Commodity.DRONES, ((int) context.getRawData().get("Count")));
+
+        int cost = ((int) context.getRawData().get("TotalCost"));
+        context.getCommanderData().adjustCreditBalance(-1 * cost);
     }
 }

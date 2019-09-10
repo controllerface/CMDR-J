@@ -20,5 +20,8 @@ public class SellDronesHandler implements JournalEventHandler
     {
         logInventoryMessage(context, "Limpet Drones Sold");
         adjustDown(context, Commodity.DRONES, ((int) context.getRawData().get("Count")));
+
+        int sale = ((int) context.getRawData().get("TotalSale"));
+        context.getCommanderData().adjustCreditBalance(sale);
     }
 }

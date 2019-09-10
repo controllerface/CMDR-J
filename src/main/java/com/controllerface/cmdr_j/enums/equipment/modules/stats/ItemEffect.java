@@ -288,6 +288,7 @@ public enum ItemEffect
     guardian("", "", true),              //is a guardian module
     human("", "", true),                 //is a experimental human tech broker module
     experimental("", "", true),          //is a experimental human module
+    tech_unlock("", "Unlock Technology", true),           //used for tech broker unlock recipes
 
 
 

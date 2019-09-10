@@ -4,18 +4,19 @@ import com.controllerface.cmdr_j.classes.ShipModuleData;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementTask;
+import com.controllerface.cmdr_j.enums.commander.PlayerStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.commodities.CommodityType;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialType;
 import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
+import javafx.application.Platform;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.text.NumberFormat;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -62,6 +63,17 @@ public class CommanderData
     private final InventoryStorageBin dataMats;
 
     /**
+     * Label for commander name
+     */
+    private Label commanderName;
+
+    /**
+     * Label for player's credit balance
+     */
+    private Label creditBalanceLabel;
+
+    private long creditBalance = 0;
+    /**
      * Various commander statistics
      */
     private final Map<Statistic, String> stats = new ConcurrentHashMap<>(new LinkedHashMap<>());
@@ -77,6 +89,15 @@ public class CommanderData
         dataMats = new EncodedInventoryStorageBin(this.pendingTradeCost, this.addTask);
     }
 
+    public void associateCommanderName(Label commanderName)
+    {
+        this.commanderName = commanderName;
+    }
+
+    public void associateCommanderBalance(Label creditBalanceLabel)
+    {
+        this.creditBalanceLabel = creditBalanceLabel;
+    }
 
     public void associateCargoTable(TableView<InventoryData> cargoTable, CheckBox showZeroQuantities)
     {
@@ -172,8 +193,34 @@ public class CommanderData
      */
     public String setStat(Statistic key, String stat)
     {
+        if (key == PlayerStat.Commander) Platform.runLater(() -> commanderName.setText(stat));
+
+        if (key == PlayerStat.Credits) setCreditBalanceLabel(stat);
+
         return stats.put(key, stat);
     }
+
+    private void setCreditBalanceLabel(String creditString)
+    {
+        Platform.runLater(() -> creditBalanceLabel.setText(creditString));
+        creditBalance = Long.parseLong(creditString.replace(",",""));
+    }
+
+    public void adjustCreditBalance(long adjustment)
+    {
+        creditBalance += adjustment;
+        Platform.runLater(() ->
+                creditBalanceLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(creditBalance)));
+    }
+
+//    public void adjustCreditBalance(String adjustment)
+//    {
+//        long adj = Long.parseLong(adjustment.replace(",",""));
+//        adjustCreditBalance(adjustment);
+//        creditBalance += adj;
+//        Platform.runLater(() ->
+//                creditBalanceLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(creditBalance)));
+//    }
 
     /**
      * Removes the value mapped to the given stat from the commands list of stats

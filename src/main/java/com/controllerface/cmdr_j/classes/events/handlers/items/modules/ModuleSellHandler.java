@@ -19,5 +19,8 @@ public class ModuleSellHandler implements JournalEventHandler
     {
         logInventoryMessage(context, "Module Sold");
         JournalEventTransactions.emptySlotFromData(context);
+
+        int sale = ((int) context.getRawData().get("SellPrice"));
+        context.getCommanderData().adjustCreditBalance(sale);
     }
 }

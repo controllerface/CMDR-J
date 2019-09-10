@@ -31,7 +31,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1061.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllerface.cmdr_j.ui.UIController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1061.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllerface.cmdr_j.ui.UIController">
    <children>
       <TabPane fx:id="mainPane" layoutX="14.0" prefHeight="1061.0" prefWidth="1130.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -189,6 +189,158 @@
                            <children>
                               <HBox>
                                  <children>
+                                    <Label text="CMDR">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" right="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label layoutX="10.0" layoutY="-5.0" text="::">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="commander_name" layoutX="40.0" layoutY="-5.0" text="unknown commander">
+                                       <font>
+                                          <Font name="System Bold Italic" size="36.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label layoutX="230.0" layoutY="10.0" text="Balance">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="-15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label layoutX="10.0" layoutY="10.0" text="::">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets top="-15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="credit_balance" text="0">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets top="-15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label layoutX="96.0" layoutY="-5.0" text="CR">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets top="-15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <TabPane fx:id="inventoryTab" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <tabs>
+                                     <Tab fx:id="rawMatsTab" text="Raw Materials">
+                                        <content>
+                                            <TableView fx:id="rawTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                                <columns>
+                                                    <TableColumn fx:id="rawMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
+                                                    <TableColumn fx:id="rawGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
+                                                    <TableColumn fx:id="rawQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
+                                                <TableColumn fx:id="rawMaterialProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
+                                                </columns>
+                                            </TableView>
+                                        </content>
+                                     </Tab>
+                                     <Tab text="Manufactured Materials">
+                                        <content>
+                                            <TableView fx:id="manufacturedTable" prefHeight="200.0" prefWidth="200.0">
+                                                <columns>
+                                                    <TableColumn fx:id="manufacturedMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
+                                                    <TableColumn fx:id="manufacturedGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
+                                                    <TableColumn fx:id="manufacturedQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
+                                                <TableColumn fx:id="manufacturedProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
+                                                </columns>
+                                            </TableView>
+                                        </content>
+                                     </Tab>
+                                     <Tab text="Encoded Data">
+                                        <content>
+                                            <TableView fx:id="dataTable" prefHeight="371.0" prefWidth="551.0">
+                                                <columns>
+                                                    <TableColumn fx:id="dataMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
+                                                    <TableColumn fx:id="dataGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
+                                                    <TableColumn fx:id="dataQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
+                                                <TableColumn fx:id="dataProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
+                                                </columns>
+                                            </TableView>
+                                        </content>
+                                     </Tab>
+                                    <Tab text="Cargo &amp; Commodities">
+                                       <content>
+                                          <TableView fx:id="cargoTable" prefHeight="371.0" prefWidth="551.0">
+                                             <columns>
+                                                <TableColumn fx:id="cargoItemColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="204.0" resizable="false" text="Commodity" />
+                                                <TableColumn fx:id="cargoGradeColumn" editable="false" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Type" />
+                                                <TableColumn fx:id="cargoQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantity" />
+                                             </columns>
+                                          </TableView>
+                                       </content>
+                                    </Tab>
+                                 </tabs>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </TabPane>
+                           </children>
+                        </VBox>
+                        <CheckBox fx:id="showZeroQuantities" layoutX="455.0" layoutY="92.0" mnemonicParsing="false" text="show zero quantity items" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Market">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox>
+                                 <children>
                                     <Label text="Market">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
@@ -261,93 +413,34 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <TabPane fx:id="inventoryTab" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <tabs>
-                                     <Tab fx:id="rawMatsTab" text="Raw Materials">
-                                        <content>
-                                            <TableView fx:id="rawTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                                                <columns>
-                                                    <TableColumn fx:id="rawMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
-                                                    <TableColumn fx:id="rawGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
-                                                    <TableColumn fx:id="rawQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
-                                                <TableColumn fx:id="rawMaterialProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
-                                                </columns>
-                                            </TableView>
-                                        </content>
-                                     </Tab>
-                                     <Tab text="Manufactured Materials">
-                                        <content>
-                                            <TableView fx:id="manufacturedTable" prefHeight="200.0" prefWidth="200.0">
-                                                <columns>
-                                                    <TableColumn fx:id="manufacturedMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
-                                                    <TableColumn fx:id="manufacturedGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
-                                                    <TableColumn fx:id="manufacturedQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
-                                                <TableColumn fx:id="manufacturedProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
-                                                </columns>
-                                            </TableView>
-                                        </content>
-                                     </Tab>
-                                     <Tab text="Encoded Data">
-                                        <content>
-                                            <TableView fx:id="dataTable" prefHeight="371.0" prefWidth="551.0">
-                                                <columns>
-                                                    <TableColumn fx:id="dataMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
-                                                    <TableColumn fx:id="dataGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
-                                                    <TableColumn fx:id="dataQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
-                                                <TableColumn fx:id="dataProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
-                                                </columns>
-                                            </TableView>
-                                        </content>
-                                     </Tab>
-                                    <Tab text="Cargo &amp; Commodities">
-                                       <content>
-                                          <TableView fx:id="cargoTable" prefHeight="371.0" prefWidth="551.0">
-                                             <columns>
-                                                <TableColumn fx:id="cargoItemColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="204.0" resizable="false" text="Commodity" />
-                                                <TableColumn fx:id="cargoGradeColumn" editable="false" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Type" />
-                                                <TableColumn fx:id="cargoQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantity" />
-                                             </columns>
-                                          </TableView>
-                                       </content>
-                                    </Tab>
-                                    <Tab text="Current Market">
-                                       <content>
-                                          <VBox>
-                                             <children>
-                                                <TableView fx:id="market_table" prefHeight="1000.0" prefWidth="200.0" styleClass="market_table">
-                                                  <columns>
-                                                    <TableColumn fx:id="market_commodity_col" prefWidth="297.0" text="Import Commodity" />
-                                                      <TableColumn fx:id="market_demand_col" editable="false" prefWidth="125.0" resizable="false" text="Demand" />
-                                                      <TableColumn fx:id="market_sell_col" prefWidth="100.0" text="Sell" />
-                                                      <TableColumn fx:id="market_mean_col" prefWidth="70.0" text="Mean" />
-                                                      <TableColumn fx:id="market_profit_col" prefWidth="100.0" text="Profit" />
-                                                  </columns>
-                                                </TableView>
-                                                <TableView fx:id="market_table1" layoutX="10.0" layoutY="10.0" prefHeight="1000.0" prefWidth="200.0" styleClass="market_table">
-                                                   <columns>
-                                                      <TableColumn fx:id="market_commodity_col1" prefWidth="297.0" text="Export Commodity" />
-                                                      <TableColumn fx:id="market_stock_col1" prefWidth="125.0" text="Stock" />
-                                                      <TableColumn fx:id="market_buy_col1" minWidth="0.0" prefWidth="100.0" text="Buy" />
-                                                      <TableColumn fx:id="market_mean_col1" prefWidth="70.0" text="Mean" />
-                                                      <TableColumn fx:id="market_income_col1" prefWidth="100.0" text="Income" />
-                                                   </columns>
-                                                </TableView>
-                                             </children>
-                                          </VBox>
-                                       </content>
-                                    </Tab>
-                                 </tabs>
-                                 <cursor>
-                                    <Cursor fx:constant="DEFAULT" />
-                                 </cursor>
-                              </TabPane>
+                              <VBox>
+                                 <children>
+                                    <TableView fx:id="market_table" prefHeight="1000.0" prefWidth="200.0" styleClass="market_table">
+                                      <columns>
+                                        <TableColumn fx:id="market_commodity_col" prefWidth="297.0" text="Import Commodity" />
+                                          <TableColumn fx:id="market_demand_col" editable="false" prefWidth="125.0" resizable="false" text="Demand" />
+                                          <TableColumn fx:id="market_sell_col" prefWidth="100.0" text="Sell" />
+                                          <TableColumn fx:id="market_mean_col" prefWidth="70.0" text="Mean" />
+                                          <TableColumn fx:id="market_profit_col" prefWidth="100.0" text="Profit" />
+                                      </columns>
+                                    </TableView>
+                                    <TableView fx:id="market_table1" layoutX="10.0" layoutY="10.0" prefHeight="1000.0" prefWidth="200.0" styleClass="market_table">
+                                       <columns>
+                                          <TableColumn fx:id="market_commodity_col1" prefWidth="297.0" text="Export Commodity" />
+                                          <TableColumn fx:id="market_stock_col1" prefWidth="125.0" text="Stock" />
+                                          <TableColumn fx:id="market_buy_col1" minWidth="0.0" prefWidth="100.0" text="Buy" />
+                                          <TableColumn fx:id="market_mean_col1" prefWidth="70.0" text="Mean" />
+                                          <TableColumn fx:id="market_income_col1" prefWidth="100.0" text="Income" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
                            </children>
                         </VBox>
-                        <CheckBox fx:id="showZeroQuantities" layoutX="549.0" layoutY="92.0" mnemonicParsing="false" text="show zero quantity items" />
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
+              </content>
+            </Tab>
             <Tab styleClass="main_tab" text="Navigation">
               <content>
                   <VBox prefHeight="1024.0" prefWidth="1130.0">
@@ -1284,7 +1377,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <AnchorPane layoutX="268.0" layoutY="5.0" prefHeight="29.0" prefWidth="218.0">
+      <AnchorPane layoutX="321.0" layoutY="5.0" prefHeight="29.0" prefWidth="218.0">
          <children>
             <ProgressBar fx:id="messageProgress" layoutX="9.0" layoutY="5.0" prefWidth="200.0" progress="0.0" />
          </children>

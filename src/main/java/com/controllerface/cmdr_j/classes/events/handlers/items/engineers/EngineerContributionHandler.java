@@ -22,7 +22,17 @@ public class EngineerContributionHandler implements JournalEventHandler
 
         Map<String, Object> data = context.getRawData();
 
+        String type = ((String) data.get("Type"));
+
+        if (type.equalsIgnoreCase("Credits"))
+        {
+            int contribution = ((int) context.getRawData().get("Quantity"));
+            context.getCommanderData().adjustCreditBalance(-1 * contribution);
+        }
+
         if (data.get("Material") != null) adjustMaterialQuantityDown(context, data);
 
-        if (data.get("Commodity") != null) adjustCommodityQuantityDown(context, data);    }
+        if (data.get("Commodity") != null) adjustCommodityQuantityDown(context, data);
+
+    }
 }

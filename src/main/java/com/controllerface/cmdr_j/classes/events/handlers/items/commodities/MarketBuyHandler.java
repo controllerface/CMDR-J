@@ -19,5 +19,8 @@ public class MarketBuyHandler implements JournalEventHandler
     {
         logInventoryMessage(context, "Commodity Purchased");
         adjustCommodityType(context, context.getRawData());
+
+        int cost = ((int) context.getRawData().get("TotalCost"));
+        context.getCommanderData().adjustCreditBalance(-1 * cost);
     }
 }

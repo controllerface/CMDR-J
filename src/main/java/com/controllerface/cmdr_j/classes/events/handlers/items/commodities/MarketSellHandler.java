@@ -19,5 +19,8 @@ public class MarketSellHandler implements JournalEventHandler
     {
         logInventoryMessage(context, "Commodity Sold");
         adjustCommodityTypeDown(context, context.getRawData());
+
+        int sale = ((int) context.getRawData().get("TotalSale"));
+        context.getCommanderData().adjustCreditBalance(sale);
     }
 }

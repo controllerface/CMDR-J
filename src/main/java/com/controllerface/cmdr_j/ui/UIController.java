@@ -251,6 +251,8 @@ public class UIController
     @FXML private Label market_name;
 
 
+    @FXML private Label commander_name;
+    @FXML private Label credit_balance;
 
 
     @FXML private Canvas minimap;
@@ -1241,6 +1243,8 @@ public class UIController
     private void initializeInventoryTables()
     {
         // associate the inventory lists with the table view UI elements that display their contents
+        commanderData.associateCommanderName(commander_name);
+        commanderData.associateCommanderBalance(credit_balance);
         commanderData.associateCargoTable(cargoTable, showZeroQuantities);
         commanderData.associateRawTable(rawTable, showZeroQuantities);
         commanderData.associateManufacturedTable(manufacturedTable, showZeroQuantities);
@@ -2016,6 +2020,8 @@ public class UIController
 
         // hide the root, showing just its children in the tree view
         procurementTree.setShowRoot(false);
+
+        procurementTree.setOnMouseClicked((e)->{});
     }
 
     private void sortInventory()

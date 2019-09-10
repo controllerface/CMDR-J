@@ -12,7 +12,7 @@ public class CargoRack_1E_CorrosiveResist extends AbstractCargoRack
         super("1E Corrosion Resistant Cargo Rack",
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.experimental, 1d),
+                                new ItemEffectData(ItemEffect.human, 1d),
                                 new ItemEffectData(ItemEffect.CargoCapacity, 1d)
                         ));
     }
