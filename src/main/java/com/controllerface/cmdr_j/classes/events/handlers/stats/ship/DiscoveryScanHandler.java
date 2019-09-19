@@ -13,7 +13,6 @@ import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.
 public class DiscoveryScanHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         int bodies = ((int) context.getRawData().get("Bodies"));

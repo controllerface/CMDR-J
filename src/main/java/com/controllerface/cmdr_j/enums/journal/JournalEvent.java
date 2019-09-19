@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.enums.journal;
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
 import com.controllerface.cmdr_j.classes.events.handlers.items.bounties.BountyHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.items.bounties.CapShipBondHandler;
 import com.controllerface.cmdr_j.classes.events.handlers.items.bounties.FactionKillBondHandler;
 import com.controllerface.cmdr_j.classes.events.handlers.items.commodities.*;
 import com.controllerface.cmdr_j.classes.events.handlers.items.engineers.EngineerContributionHandler;
@@ -12,12 +13,8 @@ import com.controllerface.cmdr_j.classes.events.handlers.items.materials.Materia
 import com.controllerface.cmdr_j.classes.events.handlers.items.materials.MaterialDiscardedHandler;
 import com.controllerface.cmdr_j.classes.events.handlers.items.materials.MaterialTradeHandler;
 import com.controllerface.cmdr_j.classes.events.handlers.items.materials.SynthesisHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.missions.MissionCompletedHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.missions.ScientificResearchHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.modules.ModuleBuyHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.modules.ModuleRetrieveHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.modules.ModuleSellHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.modules.ModuleStoreHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.items.missions.*;
+import com.controllerface.cmdr_j.classes.events.handlers.items.modules.*;
 import com.controllerface.cmdr_j.classes.events.handlers.items.powerplay.PowerplayCollectHandler;
 import com.controllerface.cmdr_j.classes.events.handlers.items.powerplay.PowerplayDeliverHandler;
 import com.controllerface.cmdr_j.classes.events.handlers.stats.factions.ProgressHandler;
@@ -69,6 +66,9 @@ public enum JournalEvent
     FuelScoop(new FuelScoopHandler()),
     DiscoveryScan(new DiscoveryScanHandler()),
     Scan(new ScanHandler()),
+    ShipyardBuy(new ShipyardBuyHandler()),
+    ShipyardSell(new ShipyardSellHandler()),
+    ShipyardTransfer(new ShipyardTransferHandler()),
 
     /*
     Startup
@@ -110,6 +110,7 @@ public enum JournalEvent
      */
     Bounty(new BountyHandler()),
     FactionKillBond(new FactionKillBondHandler()),
+    CapShipBond(new CapShipBondHandler()),
 
     /*
     Commodities
@@ -145,6 +146,8 @@ public enum JournalEvent
      */
     MissionCompleted(new MissionCompletedHandler()),
     ScientificResearch(new ScientificResearchHandler()),
+    CommunityGoalReward(new CommunityGoalRewardHandler()),
+    SearchAndRescue(new SearchAndRescueHandler()),
 
     /*
     Modules
@@ -152,6 +155,7 @@ public enum JournalEvent
     ModuleBuy(new ModuleBuyHandler()),
     ModuleRetrieve(new ModuleRetrieveHandler()),
     ModuleSell(new ModuleSellHandler()),
+    ModuleSellRemote(new ModuleSellRemoteHandler()),
     ModuleStore(new ModuleStoreHandler()),
 
     /*
@@ -164,8 +168,13 @@ public enum JournalEvent
     /*
     Misc
      */
+    Resurrect(new ResurrectHandler()),
     ReceiveText(new ReceiveTextHandler()),
     NpcCrewPaidWage(new NpcCrewPaidWageHandler()),
+    SellShipOnRebuy(new SellShipOnRebuyHandler()),
+    DatalinkVoucher(new DatalinkVoucherHandler()),
+    SellExplorationData(new SellExplorationDataHandler()),
+    MultiSellExplorationData(new MultiSellExplorationDataHandler()),
 
     ;
 

@@ -10,7 +10,6 @@ import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
 public class MarketHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         JournalEventTransactions.processMarket(context);

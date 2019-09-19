@@ -12,7 +12,6 @@ import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.
 public class SupercruiseExitHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         String system = ((String) context.getRawData().get("StarSystem"));

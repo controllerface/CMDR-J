@@ -14,7 +14,6 @@ import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.
 public class CargoDepotHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         String updateType = ((String) context.getRawData().get("UpdateType"));

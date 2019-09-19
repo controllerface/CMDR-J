@@ -15,7 +15,6 @@ import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.
 public class RankHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         logGeneralMessage(context, "Reloading Current Rank Status");
@@ -25,5 +24,6 @@ public class RankHandler implements JournalEventHandler
         setStatFromData(context, RankStat.Rank_Explore );
         setStatFromData(context, RankStat.Rank_Empire);
         setStatFromData(context, RankStat.Rank_Federation);
-        setStatFromData(context, RankStat.Rank_CQC);    }
+        setStatFromData(context, RankStat.Rank_CQC);
+    }
 }

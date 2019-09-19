@@ -5,18 +5,16 @@ import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
 
 import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.logGeneralMessage;
 
-/**
- * Fuel Scoop event:
- *
- * Created by Stephen on 7/18/2018.
- */
-public class FuelScoopHandler implements JournalEventHandler
+public class ShipyardSellHandler implements JournalEventHandler
 {
     @Override
     public void handle(EventProcessingContext context)
     {
-        double scooped = ((double) context.getRawData().get("Scooped"));
-        double total = ((double) context.getRawData().get("Total"));
-        logGeneralMessage(context, "Scooped " + scooped + " Tons of fuel; Current Fuel Level:  " + total + " Tons");
+        String shipType = ((String) context.getRawData().get("ShipType"));
+
+        int sale = ((int) context.getRawData().get("ShipPrice"));
+        context.getCommanderData().adjustCreditBalance(sale);
+
+        logGeneralMessage(context, "Sold ship " + shipType);
     }
 }

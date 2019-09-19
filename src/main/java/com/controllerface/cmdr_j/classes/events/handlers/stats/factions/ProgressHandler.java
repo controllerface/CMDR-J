@@ -15,7 +15,6 @@ import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.
 public class ProgressHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         logGeneralMessage(context, "Reloading Rank Progress");
@@ -25,5 +24,6 @@ public class ProgressHandler implements JournalEventHandler
         setStatFromData(context, RankStat.Progress_Explore);
         setStatFromData(context, RankStat.Progress_Empire);
         setStatFromData(context, RankStat.Progress_Federation);
-        setStatFromData(context, RankStat.Progress_CQC);    }
+        setStatFromData(context, RankStat.Progress_CQC);
+    }
 }

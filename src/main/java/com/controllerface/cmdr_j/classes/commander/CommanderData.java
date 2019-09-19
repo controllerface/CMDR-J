@@ -189,15 +189,14 @@ public class CommanderData
      *
      * @param key the Statistic key to set
      * @param stat the value to store for the given Statistic
-     * @return if there was a value previously stored for the given stat, it is returned. Otherwise, returns null
      */
-    public String setStat(Statistic key, String stat)
+    public void setStat(Statistic key, String stat)
     {
         if (key == PlayerStat.Commander) Platform.runLater(() -> commanderName.setText(stat));
 
         if (key == PlayerStat.Credits) setCreditBalanceLabel(stat);
 
-        return stats.put(key, stat);
+        stats.put(key, stat);
     }
 
     private void setCreditBalanceLabel(String creditString)
@@ -212,15 +211,6 @@ public class CommanderData
         Platform.runLater(() ->
                 creditBalanceLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(creditBalance)));
     }
-
-//    public void adjustCreditBalance(String adjustment)
-//    {
-//        long adj = Long.parseLong(adjustment.replace(",",""));
-//        adjustCreditBalance(adjustment);
-//        creditBalance += adj;
-//        Platform.runLater(() ->
-//                creditBalanceLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(creditBalance)));
-//    }
 
     /**
      * Removes the value mapped to the given stat from the commands list of stats

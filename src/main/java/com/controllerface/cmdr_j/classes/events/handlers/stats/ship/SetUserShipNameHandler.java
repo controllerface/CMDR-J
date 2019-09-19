@@ -11,7 +11,6 @@ import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.
 public class SetUserShipNameHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         logLoadoutMessage(context, "Reloading Ship Name");

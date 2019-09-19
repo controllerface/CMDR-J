@@ -14,7 +14,6 @@ import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.
 public class TechnologyBrokerHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         logLoadoutMessage(context, "Tech Broker Item Unlocked");

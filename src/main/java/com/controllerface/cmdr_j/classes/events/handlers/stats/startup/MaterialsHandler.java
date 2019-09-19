@@ -26,12 +26,12 @@ public class MaterialsHandler implements JournalEventHandler
 
         Map<String, Object> data = context.getRawData();
 
-        ((List<Map<String, Object>>) data.get("Raw")).stream()
+        ((List<Map<String, Object>>) data.get("Raw"))
                 .forEach(item -> adjustMaterialCount(context, item));
 
-        ((List<Map<String, Object>>) data.get("Manufactured")).stream()
+        ((List<Map<String, Object>>) data.get("Manufactured"))
                 .forEach(item -> adjustMaterialCount(context, item));
 
-        ((List<Map<String, Object>>) data.get("Encoded")).stream()
+        ((List<Map<String, Object>>) data.get("Encoded"))
                 .forEach(item -> adjustMaterialCount(context, item));    }
 }

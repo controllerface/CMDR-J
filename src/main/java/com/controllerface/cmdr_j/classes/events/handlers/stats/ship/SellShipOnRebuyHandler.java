@@ -6,17 +6,20 @@ import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
 import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.logGeneralMessage;
 
 /**
- * Fuel Scoop event:
+ * Written when a currently equipped module is sold, removing it from the current ship
  *
  * Created by Stephen on 7/18/2018.
  */
-public class FuelScoopHandler implements JournalEventHandler
+public class SellShipOnRebuyHandler implements JournalEventHandler
 {
     @Override
     public void handle(EventProcessingContext context)
     {
-        double scooped = ((double) context.getRawData().get("Scooped"));
-        double total = ((double) context.getRawData().get("Total"));
-        logGeneralMessage(context, "Scooped " + scooped + " Tons of fuel; Current Fuel Level:  " + total + " Tons");
+        String shipType = ((String) context.getRawData().get("ShipType"));
+
+        logGeneralMessage(context, "Ship Sold: " + shipType);
+
+        int sale = ((int) context.getRawData().get("ShipPrice"));
+        context.getCommanderData().adjustCreditBalance(sale);
     }
 }

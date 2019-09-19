@@ -48,7 +48,7 @@ public class LoadoutHandler implements JournalEventHandler
             e.printStackTrace();
         }
 
-        ((List<Map<String, Object>>) context.getRawData().get("Modules")).stream()
+        ((List<Map<String, Object>>) context.getRawData().get("Modules"))
                 .forEach(module -> setSlotFromLoadout(context, module));
     }
 }

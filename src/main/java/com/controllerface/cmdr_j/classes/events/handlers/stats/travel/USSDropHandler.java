@@ -10,7 +10,6 @@ import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
 public class USSDropHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         String type = ((String) context.getRawData().get("USSType_Localised"));

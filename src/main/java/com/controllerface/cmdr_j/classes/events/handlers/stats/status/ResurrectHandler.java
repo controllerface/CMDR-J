@@ -5,16 +5,12 @@ import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
 
 import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.logGeneralMessage;
 
-/**
- * Created by Stephen on 7/18/2018.
- */
-public class ShieldStateHandler implements JournalEventHandler
+public class ResurrectHandler implements JournalEventHandler
 {
     @Override
     public void handle(EventProcessingContext context)
     {
-        boolean restored = ((boolean) context.getRawData().get("ShieldsUp"));
-        String message = "Shields " + (restored ? "Restored" : "Disabled");
-        logGeneralMessage(context, message);
+        Integer amount = ((Integer) context.getRawData().get("Cost"));
+        context.getCommanderData().adjustCreditBalance(-1 * amount);
     }
 }

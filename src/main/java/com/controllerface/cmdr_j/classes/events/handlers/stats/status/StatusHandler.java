@@ -12,7 +12,6 @@ import com.controllerface.cmdr_j.threads.UserTransaction;
 public class StatusHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         context.getTransactions().add(UserTransaction.start(UserTransaction.TransactionType.STATUS)

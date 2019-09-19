@@ -31,7 +31,7 @@ public class CargoHandler implements JournalEventHandler
         {
             context.getCommanderData().clearCargo();
 
-            ((List<Map<String, Object>>) context.getRawData().get("Inventory")).stream()
+            ((List<Map<String, Object>>) context.getRawData().get("Inventory"))
                     .forEach(item -> adjustCommodityCount(context, item));
         }
     }

@@ -8,7 +8,7 @@ import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.
 /**
  * Created by Stephen on 7/18/2018.
  */
-public class FactionKillBondHandler implements JournalEventHandler
+public class CapShipBondHandler implements JournalEventHandler
 {
     @Override
     public void handle(EventProcessingContext context)
@@ -18,6 +18,6 @@ public class FactionKillBondHandler implements JournalEventHandler
         context.getCommanderData().adjustCreditBalance(reward);
         String benefactor = ((String) context.getRawData().get("AwardingFaction"));
 
-        logCombatMessage(context, "You destroyed a " + victim + " for " + reward + " credits paid by " + benefactor);
+        logCombatMessage(context, "Capital ship bond against " + victim + " for " + reward + " credits paid by " + benefactor);
     }
 }

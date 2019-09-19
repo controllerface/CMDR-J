@@ -24,7 +24,7 @@ public class BountyHandler implements JournalEventHandler
         boolean isGuardianSentinel = victimFaction.equalsIgnoreCase("None")
                 && targetVehicle.equalsIgnoreCase("Skimmer");
 
-        String destoryedTarget = isGuardianSentinel
+        String destroyedTarget = isGuardianSentinel
                 ? "a Guardian Sentinel"
                 : victimFaction + " " + targetVehicle;
 
@@ -48,11 +48,11 @@ public class BountyHandler implements JournalEventHandler
 
         if (reward == 0)
         {
-            logCombatMessage(context, "You destroyed " + destoryedTarget);
+            logCombatMessage(context, "You destroyed " + destroyedTarget);
         }
         else
         {
-            logCombatMessage(context, "You destroyed " + destoryedTarget + " for " + reward + " credits paid by " + benefactor);
+            logCombatMessage(context, "You destroyed " + destroyedTarget + " for " + reward + " credits paid by " + benefactor);
         }
 
     }

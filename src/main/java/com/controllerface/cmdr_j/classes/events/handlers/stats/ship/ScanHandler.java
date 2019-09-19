@@ -14,7 +14,6 @@ import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.
 public class ScanHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         String body = ((String) context.getRawData().get("BodyName"));
@@ -40,8 +39,6 @@ public class ScanHandler implements JournalEventHandler
                 logExplorationMessage(context, " - Solar Masses: " + stellarMass);
                 logExplorationMessage(context, " - Radius: " + radius);
                 logExplorationMessage(context, " - Surface Temperature: " + surfaceTemperature);
-
-
             }
 
             // planet or moon
@@ -80,7 +77,6 @@ public class ScanHandler implements JournalEventHandler
                 logExplorationMessage(context, " - Periapsis: " + periapsis);
                 logExplorationMessage(context, " - Orbital Period: " + orbitalPeriod);
             }
-
         }
     }
 }

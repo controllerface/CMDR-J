@@ -14,7 +14,6 @@ import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.
 public class ModuleRetrieveHandler implements JournalEventHandler
 {
     @Override
-    @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
         logInventoryMessage(context, "Module Retrieved from Storage");
