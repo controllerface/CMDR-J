@@ -11,7 +11,7 @@ public class ApproachSettlementHandler implements JournalEventHandler
     @Override
     public void handle(EventProcessingContext context)
     {
-        String name = ((String) context.getRawData().get("Name_Localised"));
+        String name = ((String) context.getRawData().get("Name"));
         logTravelMessage(context, "Approaching Settlement: " + name);
         processArrival(context, "debug");
     }

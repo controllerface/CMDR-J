@@ -18,7 +18,7 @@ public class BountyHandler implements JournalEventHandler
     @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
-        String victimFaction = ((String) context.getRawData().get("VictimFaction_Localised"));
+        String victimFaction = ((String) context.getRawData().get("VictimFaction"));
         String targetVehicle = ((String) context.getRawData().get("Target"));
 
         boolean isGuardianSentinel = victimFaction.equalsIgnoreCase("None")

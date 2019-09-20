@@ -19,10 +19,7 @@ public class DockedHandler implements JournalEventHandler
     public void handle(EventProcessingContext context)
     {
         String name = ((String) context.getRawData().get("StationName"));
-        List<Map<String, Object>> economies = ((List<Map<String,Object>>) context.getRawData().get("StationEconomies"));
-        String economy = economies.stream()
-                .map(economyType -> ((String) economyType.get("Name_Localised")))
-                .collect(Collectors.joining(", "));
+        String economy = ((String)  context.getRawData().get("StationEconomy_Localised"));
 
         logTravelMessage(context, "Docked at " + name + " :: " + economy + " Economy");
 

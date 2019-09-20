@@ -564,7 +564,11 @@ public class UIController
 
         wayPointList.getItems().forEach(wayPoint ->
         {
-            Waypoint selectedWayPoint = wayPointList.getSelectionModel().getSelectedItems().get(0);
+            ObservableList<Waypoint> x = wayPointList.getSelectionModel().getSelectedItems();
+
+            Waypoint selectedWayPoint = x.size() > 0 ? x.get(0) : null;
+
+            //Waypoint selectedWayPoint = wayPointList.getSelectionModel().getSelectedItems().get(0);
 
             Color color = Color.LIGHTBLUE;
             if (selectedWayPoint != null)
@@ -1002,7 +1006,7 @@ public class UIController
                             Integer flags  = ((Integer) statusObject.get("Flags"));
 
                             //System.out.println(flags);
-                            Status.extractFlags(flags).forEach(System.out::println);
+                            //Status.extractFlags(flags).forEach(System.out::println);
 
                             @SuppressWarnings("unchecked")
                             Map<String, Object> fuelData = ((Map<String, Object>) statusObject.get("Fuel"));
@@ -1033,7 +1037,9 @@ public class UIController
 
                             if (!wayPointList.getItems().isEmpty())
                             {
-                                Waypoint selectedWaypoint = wayPointList.getSelectionModel().getSelectedItems().get(0);
+                                ObservableList<Waypoint> x = wayPointList.getSelectionModel().getSelectedItems();
+
+                                Waypoint selectedWaypoint = x.size() > 0 ? x.get(0) : null;
 
                                 if (selectedWaypoint != null)
                                 {
@@ -1570,7 +1576,7 @@ public class UIController
 
             if (event.equalsIgnoreCase(JournalEvent.ApproachSettlement.name()))
             {
-                settlement = ((String) data.get("Name_Localised"));
+                settlement = ((String) data.get("Name"));
                 if (data.get("Latitude") != null && data.get("Longitude") != null)
                 {
                     settlementLat = ((Double) data.get("Latitude"));
@@ -1579,26 +1585,8 @@ public class UIController
             }
         };
 
-
-        try
-        {
-            new Task<Void>()
-            {
-                @Override
-                protected Void call() throws Exception
-                {
-                    doWork.accept(nextTransaction);
-                    return null;
-                }
-            }.call();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-//        if (Platform.isFxApplicationThread()) doWork.accept(nextTransaction);
-//        else Platform.runLater(() -> doWork.accept(nextTransaction));
+        if (Platform.isFxApplicationThread()) doWork.accept(nextTransaction);
+        else Platform.runLater(() -> doWork.accept(nextTransaction));
     }
 
     /**

@@ -27,12 +27,12 @@ public class CargoHandler implements JournalEventHandler
 
         String vessel = ((String) context.getRawData().get("Vessel"));
 
-        if (vessel.equalsIgnoreCase("Ship"))
-        {
+        //if (vessel.equalsIgnoreCase("Ship"))
+        //{
             context.getCommanderData().clearCargo();
 
             ((List<Map<String, Object>>) context.getRawData().get("Inventory"))
                     .forEach(item -> adjustCommodityCount(context, item));
-        }
+        //}
     }
 }

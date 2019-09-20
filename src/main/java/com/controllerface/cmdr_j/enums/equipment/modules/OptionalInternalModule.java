@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.modules.AdvancedDiscoveryScanner;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size1.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size2.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size3.AFMU_3A;
@@ -869,17 +870,7 @@ public enum OptionalInternalModule implements ShipModule
 //                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)
 //            )),
 //
-//    int_stellarbodydiscoveryscanner_advanced("Advanced Discovery Scanner",
-//            null,
-//            null,
-//            new ItemEffects(
-//                    new ItemEffectData(ItemEffect.Mass, 2d),
-//                    new ItemEffectData(ItemEffect.Integrity, 40d),
-//                    new ItemEffectData(ItemEffect.DiscoveryScannerRange, Double.MAX_VALUE),
-//                    new ItemEffectData(ItemEffect.DiscoveryScannerPassiveRange, 33.36d),
-//                    new ItemEffectData(ItemEffect.MaxAngle, 10d),
-//                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)
-//            )),
+    int_stellarbodydiscoveryscanner_advanced(new AdvancedDiscoveryScanner()),
 
     /*
     Guardian Power Distributor

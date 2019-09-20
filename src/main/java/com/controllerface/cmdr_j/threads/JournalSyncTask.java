@@ -246,7 +246,7 @@ public class JournalSyncTask implements Runnable
         {
             e1.printStackTrace();
         }
-        System.out.println("File read: " + file.getName());
+        //System.out.println("File read: " + file.getName());
     }
 
     private Stream<String> readLines(File file)
