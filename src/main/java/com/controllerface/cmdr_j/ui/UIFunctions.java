@@ -204,8 +204,8 @@ public class UIFunctions
          * corresponding value in a different range.
          *
          * @param input the numerical value to map from the input range to the output range
-         * @param inputMin low end of the input range, the s parameter should be greater than or equal to this value
-         * @param inputMax high end of the input range, the s parameter should be less than or equal to this value
+         * @param inputMin low end of the input range, the input parameter should be greater than or equal to this value
+         * @param inputMax high end of the input range, the input parameter should be less than or equal to this value
          * @param outputMin low end of the output range, the return value will be greater than or equal to this value
          * @param outputMax high end of the output range, the return value will be less than or equal to this value
          * @return the result of applying the mapping function on the inputValue from the input range to the output range

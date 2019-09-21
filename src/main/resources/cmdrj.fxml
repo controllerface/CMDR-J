@@ -443,418 +443,457 @@
             </Tab>
             <Tab styleClass="main_tab" text="Navigation">
               <content>
-                  <VBox prefHeight="1024.0" prefWidth="1130.0">
+                  <AnchorPane>
                      <children>
-                        <HBox prefHeight="137.0" prefWidth="1130.0" AnchorPane.bottomAnchor="937.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <VBox>
+                              <HBox>
                                  <children>
-                                    <Label text="System">
-                                       <VBox.margin>
-                                          <Insets left="10.0" top="5.0" />
-                                       </VBox.margin>
+                                    <Label text="Star System">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" right="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label layoutX="10.0" layoutY="-5.0" text="::">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="locationLabel" layoutX="40.0" layoutY="-5.0" text="unknown location">
+                                       <font>
+                                          <Font name="System Bold Italic" size="36.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label layoutX="230.0" layoutY="10.0" text="Stellar Body">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                        <padding>
-                                          <Insets left="5.0" />
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="-15.0" />
+                                       </HBox.margin>
                                     </Label>
-                                    <HBox>
+                                    <Label layoutX="10.0" layoutY="10.0" text="::">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets top="-15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="status_body" text="unknown economy">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets top="-15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <Separator prefWidth="200.0" />
+                              <VBox prefHeight="1024.0" prefWidth="1130.0">
+                                 <children>
+                                    <HBox prefHeight="137.0" prefWidth="1130.0" AnchorPane.bottomAnchor="937.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <VBox>
                                              <children>
-                                                <Pane>
+                                                <Label text="Status">
+                                                   <VBox.margin>
+                                                      <Insets left="10.0" top="5.0" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets left="5.0" />
+                                                   </padding>
+                                                </Label>
+                                                <HBox>
                                                    <children>
-                                                      <VBox layoutX="128.0">
+                                                      <VBox>
                                                          <children>
-                                                            <Label fx:id="locationLabel" text="unknown location">
+                                                            <Pane>
+                                                               <children>
+                                                                  <VBox layoutX="128.0">
+                                                                     <children>
+                                                                        <Label fx:id="stationLabel" text="unknown station">
+                                                                           <font>
+                                                                              <Font name="System Bold" size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" right="5.0" />
+                                                                           </padding>
+                                                                           <VBox.margin>
+                                                                              <Insets bottom="-5.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <Label fx:id="market_id" text="unknown ID">
+                                                                           <font>
+                                                                              <Font name="System Bold" size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" right="5.0" />
+                                                                           </padding>
+                                                                           <VBox.margin>
+                                                                              <Insets bottom="-5.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </VBox>
+                                                                  <VBox>
+                                                                     <children>
+                                                                        <Label text="Docked at">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" right="5.0" />
+                                                                           </padding>
+                                                                           <VBox.margin>
+                                                                              <Insets bottom="-5.0" left="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <Label text="Market ID">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" right="5.0" />
+                                                                           </padding>
+                                                                           <VBox.margin>
+                                                                              <Insets bottom="-5.0" left="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children>
+                                                            </Pane>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <Separator layoutX="147.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="20.0" />
+                                          <VBox>
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" text="Local" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="-5.0" left="10.0" top="5.0" />
+                                                   </VBox.margin>
+                                                   <padding>
+                                                      <Insets left="5.0" />
+                                                   </padding>
+                                                </Label>
+                                                <HBox>
+                                                   <children>
+                                                      <VBox layoutX="10.0" layoutY="10.0">
+                                                         <children>
+                                                            <Label layoutX="10.0" layoutY="10.0" text="Altitude">
                                                                <font>
-                                                                  <Font name="System Bold" size="18.0" />
+                                                                  <Font size="18.0" />
                                                                </font>
+                                                               <padding>
+                                                                  <Insets left="5.0" right="5.0" top="5.0" />
+                                                               </padding>
                                                                <VBox.margin>
-                                                                  <Insets bottom="-5.0" />
+                                                                  <Insets bottom="-5.0" left="10.0" />
                                                                </VBox.margin>
-                                                               <padding>
-                                                                  <Insets left="5.0" right="5.0" />
-                                                               </padding>
                                                             </Label>
-                                                            <Label fx:id="status_body" text="unknown body">
+                                                            <Label layoutX="10.0" layoutY="10.0" text="Latitude">
                                                                <font>
-                                                                  <Font name="System Bold" size="18.0" />
+                                                                  <Font size="18.0" />
                                                                </font>
                                                                <padding>
                                                                   <Insets left="5.0" right="5.0" />
                                                                </padding>
                                                                <VBox.margin>
-                                                                  <Insets bottom="-5.0" />
+                                                                  <Insets bottom="-5.0" left="10.0" />
                                                                </VBox.margin>
                                                             </Label>
-                                                            <Label fx:id="stationLabel" text="unknown station">
+                                                            <Label layoutX="10.0" layoutY="10.0" text="Longitude ">
                                                                <font>
-                                                                  <Font name="System Bold" size="18.0" />
+                                                                  <Font size="18.0" />
                                                                </font>
                                                                <padding>
                                                                   <Insets left="5.0" right="5.0" />
                                                                </padding>
                                                                <VBox.margin>
-                                                                  <Insets bottom="-5.0" />
+                                                                  <Insets bottom="-5.0" left="10.0" />
                                                                </VBox.margin>
                                                             </Label>
-                                                            <Label fx:id="market_id" text="unknown ID">
+                                                            <Label layoutX="10.0" layoutY="10.0" text="Heading">
                                                                <font>
-                                                                  <Font name="System Bold" size="18.0" />
+                                                                  <Font size="18.0" />
                                                                </font>
                                                                <padding>
                                                                   <Insets left="5.0" right="5.0" />
                                                                </padding>
                                                                <VBox.margin>
-                                                                  <Insets bottom="-5.0" />
+                                                                  <Insets bottom="-5.0" left="10.0" />
                                                                </VBox.margin>
                                                             </Label>
                                                          </children>
                                                       </VBox>
-                                                      <VBox>
+                                                      <VBox layoutX="214.0" layoutY="10.0">
                                                          <children>
-                                                            <Label text="Star System">
+                                                            <Label fx:id="status_altitude" text="0.0">
                                                                <font>
-                                                                  <Font size="18.0" />
+                                                                  <Font name="System Bold" size="18.0" />
                                                                </font>
                                                                <VBox.margin>
-                                                                  <Insets bottom="-5.0" left="10.0" />
+                                                                  <Insets bottom="-5.0" />
                                                                </VBox.margin>
                                                                <padding>
-                                                                  <Insets left="5.0" right="5.0" />
+                                                                  <Insets right="5.0" top="5.0" />
                                                                </padding>
                                                             </Label>
-                                                            <Label layoutX="10.0" layoutY="10.0" text="Stellar Body">
+                                                            <Label fx:id="status_latitude" layoutX="10.0" layoutY="10.0" text="0.0">
                                                                <font>
-                                                                  <Font size="18.0" />
+                                                                  <Font name="System Bold" size="18.0" />
                                                                </font>
-                                                               <padding>
-                                                                  <Insets left="5.0" right="5.0" />
-                                                               </padding>
                                                                <VBox.margin>
-                                                                  <Insets bottom="-5.0" left="10.0" />
+                                                                  <Insets bottom="-5.0" />
                                                                </VBox.margin>
-                                                            </Label>
-                                                            <Label text="Docked at">
-                                                               <font>
-                                                                  <Font size="18.0" />
-                                                               </font>
                                                                <padding>
-                                                                  <Insets left="5.0" right="5.0" />
+                                                                  <Insets right="5.0" />
                                                                </padding>
+                                                            </Label>
+                                                            <Label fx:id="status_longitude" text="0.0">
+                                                               <font>
+                                                                  <Font name="System Bold" size="18.0" />
+                                                               </font>
                                                                <VBox.margin>
-                                                                  <Insets bottom="-5.0" left="10.0" />
+                                                                  <Insets bottom="-5.0" />
                                                                </VBox.margin>
+                                                               <padding>
+                                                                  <Insets right="5.0" />
+                                                               </padding>
                                                             </Label>
-                                                            <Label text="Market ID">
+                                                            <Label fx:id="status_heading" layoutX="10.0" layoutY="59.0" text="0.0">
                                                                <font>
-                                                                  <Font size="18.0" />
+                                                                  <Font name="System Bold" size="18.0" />
                                                                </font>
                                                                <padding>
-                                                                  <Insets left="5.0" right="5.0" />
+                                                                  <Insets right="5.0" />
                                                                </padding>
                                                                <VBox.margin>
-                                                                  <Insets bottom="-5.0" left="10.0" />
+                                                                  <Insets bottom="-5.0" />
                                                                </VBox.margin>
                                                             </Label>
                                                          </children>
                                                       </VBox>
                                                    </children>
-                                                </Pane>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <Separator layoutX="315.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="20.0" />
+                                          <VBox layoutX="335.0" layoutY="10.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" text="Target Waypoint" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets left="5.0" />
+                                                   </padding>
+                                                   <VBox.margin>
+                                                      <Insets left="10.0" top="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <HBox>
+                                                   <children>
+                                                      <VBox layoutX="10.0" layoutY="10.0">
+                                                         <children>
+                                                            <Label layoutX="20.0" layoutY="10.0" text="Distance">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets left="5.0" right="5.0" />
+                                                               </padding>
+                                                               <VBox.margin>
+                                                                  <Insets bottom="-5.0" left="10.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                                                            <Label text="Latitude">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets left="5.0" right="5.0" />
+                                                               </padding>
+                                                               <VBox.margin>
+                                                                  <Insets bottom="-5.0" left="10.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                                                            <Label text="Longitude">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets left="5.0" right="5.0" />
+                                                               </padding>
+                                                               <VBox.margin>
+                                                                  <Insets bottom="-5.0" left="10.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                                                            <Label text="Bearing">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets left="5.0" right="5.0" />
+                                                               </padding>
+                                                               <VBox.margin>
+                                                                  <Insets bottom="-5.0" left="10.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="214.0" layoutY="10.0">
+                                                         <children>
+                                                            <Label fx:id="status_marked_dist" layoutX="10.0" layoutY="10.0" text="0.0">
+                                                               <font>
+                                                                  <Font name="System Bold" size="18.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets right="5.0" />
+                                                               </padding>
+                                                               <VBox.margin>
+                                                                  <Insets bottom="-5.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                                                            <Label fx:id="status_marked_lat" text="0.0">
+                                                               <font>
+                                                                  <Font name="System Bold" size="18.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets right="5.0" />
+                                                               </padding>
+                                                               <VBox.margin>
+                                                                  <Insets bottom="-5.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                                                            <Label fx:id="status_marked_long" text="0.0">
+                                                               <font>
+                                                                  <Font name="System Bold" size="18.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets right="5.0" />
+                                                               </padding>
+                                                               <VBox.margin>
+                                                                  <Insets bottom="-5.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                                                            <Label fx:id="status_bearing" text="0.0">
+                                                               <font>
+                                                                  <Font name="System Bold" size="18.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets right="5.0" />
+                                                               </padding>
+                                                               <VBox.margin>
+                                                                  <Insets bottom="-5.0" />
+                                                               </VBox.margin>
+                                                            </Label>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </VBox>
                                        </children>
                                     </HBox>
-                                 </children>
-                              </VBox>
-                              <Separator layoutX="147.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="20.0" />
-                              <VBox>
-                                 <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" text="Local" textAlignment="CENTER">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets bottom="-5.0" left="10.0" top="5.0" />
-                                       </VBox.margin>
-                                       <padding>
-                                          <Insets left="5.0" />
-                                       </padding>
-                                    </Label>
-                                    <HBox>
+                                    <AnchorPane>
                                        <children>
-                                          <VBox layoutX="10.0" layoutY="10.0">
-                                             <children>
-                                                <Label layoutX="10.0" layoutY="10.0" text="Altitude">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets left="5.0" right="5.0" top="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" left="10.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label layoutX="10.0" layoutY="10.0" text="Latitude">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets left="5.0" right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" left="10.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label layoutX="10.0" layoutY="10.0" text="Longitude ">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets left="5.0" right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" left="10.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label layoutX="10.0" layoutY="10.0" text="Heading">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets left="5.0" right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" left="10.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                             </children>
-                                          </VBox>
-                                          <VBox layoutX="214.0" layoutY="10.0">
-                                             <children>
-                                                <Label fx:id="status_altitude" text="0.0">
-                                                   <font>
-                                                      <Font name="System Bold" size="18.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" />
-                                                   </VBox.margin>
-                                                   <padding>
-                                                      <Insets right="5.0" top="5.0" />
-                                                   </padding>
-                                                </Label>
-                                                <Label fx:id="status_latitude" layoutX="10.0" layoutY="10.0" text="0.0">
-                                                   <font>
-                                                      <Font name="System Bold" size="18.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" />
-                                                   </VBox.margin>
-                                                   <padding>
-                                                      <Insets right="5.0" />
-                                                   </padding>
-                                                </Label>
-                                                <Label fx:id="status_longitude" text="0.0">
-                                                   <font>
-                                                      <Font name="System Bold" size="18.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" />
-                                                   </VBox.margin>
-                                                   <padding>
-                                                      <Insets right="5.0" />
-                                                   </padding>
-                                                </Label>
-                                                <Label fx:id="status_heading" layoutX="10.0" layoutY="59.0" text="0.0">
-                                                   <font>
-                                                      <Font name="System Bold" size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                             </children>
-                                          </VBox>
+                                          <ListView fx:id="wayPointList" editable="true" layoutX="14.0" layoutY="53.0" prefHeight="140.0" prefWidth="1100.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="16.0" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" text="Waypoints" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="5.0" />
+                                             </padding>
+                                          </Label>
+                                          <Button fx:id="status_mark" layoutX="121.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Mark current location">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Button>
+                                          <TextField fx:id="waypointNameInput" layoutX="272.0" layoutY="15.0" promptText="waypoint name" />
                                        </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Separator layoutX="315.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="20.0" />
-                              <VBox layoutX="335.0" layoutY="10.0">
-                                 <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" text="Target Waypoint" textAlignment="CENTER">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                       <padding>
-                                          <Insets left="5.0" />
-                                       </padding>
-                                       <VBox.margin>
-                                          <Insets left="10.0" top="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <HBox>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="583.0" prefWidth="1130.0">
                                        <children>
-                                          <VBox layoutX="10.0" layoutY="10.0">
-                                             <children>
-                                                <Label layoutX="20.0" layoutY="10.0" text="Distance">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets left="5.0" right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" left="10.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label text="Latitude">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets left="5.0" right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" left="10.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label text="Longitude">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets left="5.0" right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" left="10.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label text="Bearing">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets left="5.0" right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" left="10.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                             </children>
-                                          </VBox>
-                                          <VBox layoutX="214.0" layoutY="10.0">
-                                             <children>
-                                                <Label fx:id="status_marked_dist" layoutX="10.0" layoutY="10.0" text="0.0">
-                                                   <font>
-                                                      <Font name="System Bold" size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label fx:id="status_marked_lat" text="0.0">
-                                                   <font>
-                                                      <Font name="System Bold" size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label fx:id="status_marked_long" text="0.0">
-                                                   <font>
-                                                      <Font name="System Bold" size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                                <Label fx:id="status_bearing" text="0.0">
-                                                   <font>
-                                                      <Font name="System Bold" size="18.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets right="5.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets bottom="-5.0" />
-                                                   </VBox.margin>
-                                                </Label>
-                                             </children>
-                                          </VBox>
+                                          <Canvas fx:id="minimap" height="512.0" layoutX="32.0" layoutY="60.0" width="750.0" />
+                                          <Slider fx:id="mapScale" blockIncrement="1000.0" layoutX="54.0" layoutY="28.0" majorTickUnit="1000.0" max="20000.0" min="1.0" minorTickCount="700" prefHeight="29.0" prefWidth="715.0" showTickMarks="true" snapToTicks="true" value="10000.0" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="1.0" text="Zoom" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="5.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="8.0" prefHeight="17.0" prefWidth="20.0" text="-" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="36.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="5.0" />
+                                             </padding>
+                                          </Label>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="765.0" layoutY="17.0" prefHeight="17.0" prefWidth="20.0" text="+" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="24.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="5.0" />
+                                             </padding>
+                                          </Label>
                                        </children>
-                                    </HBox>
+                                    </AnchorPane>
                                  </children>
                               </VBox>
                            </children>
-                        </HBox>
-                        <AnchorPane prefHeight="204.0" prefWidth="449.0">
-                           <children>
-                              <ListView fx:id="wayPointList" editable="true" layoutX="14.0" layoutY="53.0" prefHeight="140.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="10.0" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" text="Waypoints" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <Button fx:id="status_mark" layoutX="121.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Mark current location">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Button>
-                              <TextField fx:id="waypointNameInput" layoutX="272.0" layoutY="15.0" promptText="waypoint name" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="583.0" prefWidth="1130.0">
-                           <children>
-                              <Canvas fx:id="minimap" height="512.0" layoutX="32.0" layoutY="60.0" width="750.0" />
-                              <Slider fx:id="mapScale" blockIncrement="1000.0" layoutX="54.0" layoutY="28.0" majorTickUnit="1000.0" max="20000.0" min="1.0" minorTickCount="700" prefHeight="29.0" prefWidth="715.0" showTickMarks="true" snapToTicks="true" value="10000.0" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="1.0" text="Zoom" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="8.0" prefHeight="17.0" prefWidth="20.0" text="-" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="36.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="765.0" layoutY="17.0" prefHeight="17.0" prefWidth="20.0" text="+" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="24.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                           </children>
-                        </AnchorPane>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </AnchorPane>
               </content>
             </Tab>
           <Tab styleClass="main_tab" text="Tasks">

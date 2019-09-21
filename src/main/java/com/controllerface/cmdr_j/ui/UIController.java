@@ -871,8 +871,7 @@ public class UIController
         }
     }
 
-    boolean empty = false;
-
+    boolean transactionsComplete = false;
 
     enum Status
     {
@@ -918,11 +917,7 @@ public class UIController
         public static Stream<Status> extractFlags(int flags)
         {
             return Stream.of(Status.values())
-                    .filter(f ->
-                    {
-                        int r = f.bitmask & flags;
-                        return r == f.bitmask;
-                    });
+                    .filter(flag -> (flag.bitmask & flags) == flag.bitmask);
         }
     }
 
@@ -1060,7 +1055,7 @@ public class UIController
                         });
                         break;
                 }
-                empty = transactionQueue.isEmpty();
+                transactionsComplete = transactionQueue.isEmpty();
             }
         };
 
@@ -1079,11 +1074,11 @@ public class UIController
 
         executorService.scheduleAtFixedRate(this::processMessages, 0, 1, TimeUnit.SECONDS);
 
-        while (!empty)
+        while (!transactionsComplete)
         {
             try
             {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             }
             catch (InterruptedException e)
             {
@@ -1099,6 +1094,7 @@ public class UIController
         this.cssReload = cssReload;
         cssReload.get();
     }
+
     /**
      * Calls the various methods that set up each tab in the UI
      */
@@ -1500,7 +1496,10 @@ public class UIController
     private void disableTreeSelection(TreeView<ProcurementTask> treeView)
     {
         treeView.getSelectionModel().selectedIndexProperty()
-                .addListener((x,y,z) -> treeView.getSelectionModel().clearSelection());
+                .addListener((x,y,z) -> {
+                    Platform.runLater(()->treeView.getSelectionModel().clearSelection());
+                    //treeView.getSelectionModel().clearSelection();
+                });
     }
 
     /**
@@ -1514,7 +1513,10 @@ public class UIController
     private void disableListSelection(ListView listView)
     {
         listView.getSelectionModel().selectedIndexProperty()
-                .addListener((x,y,z) -> listView.getSelectionModel().clearSelection());
+                .addListener((x,y,z) -> {
+                    Platform.runLater(()->listView.getSelectionModel().clearSelection());
+                    //listView.getSelectionModel().clearSelection();
+                });
     }
 
     /**
@@ -1528,7 +1530,10 @@ public class UIController
     private void disableTableSelection(TableView tableView)
     {
         tableView.getSelectionModel().selectedIndexProperty()
-                .addListener((x,y,z) -> tableView.getSelectionModel().clearSelection());
+                .addListener((x,y,z) -> {
+                    Platform.runLater(()->tableView.getSelectionModel().clearSelection());
+                    //tableView.getSelectionModel().clearSelection();
+                });
     }
 
     /**
@@ -1536,22 +1541,10 @@ public class UIController
      */
     private void synchronizeBackingLists()
     {
-        System.out.println("synchronizing...");
-
-        //synchronized (taskBackingList)
-        //{
-            taskBackingList.clear();
-            taskBackingList.addAll(taskList);
-        //}
-
-        //synchronized (taskCostBackingList)
-        //{
-            taskCostBackingList.clear();
-            taskCostBackingList.addAll(costList);
-        //}
-
-        System.out.println("synchronized...");
-
+        taskBackingList.clear();
+        taskBackingList.addAll(taskList);
+        taskCostBackingList.clear();
+        taskCostBackingList.addAll(costList);
     }
 
     private void messageLogger(UserTransaction.MessageType messageType, String message)
