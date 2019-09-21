@@ -1,5 +1,6 @@
 package com.controllerface.cmdr_j.enums.equipment.modules.stats;
 
+import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.scene.shape.SVGPath;
 
@@ -19,11 +20,16 @@ public enum ItemGrade
     GRADE_4(4, "Grade 4"),
     GRADE_5(5, "Grade 5"),
 
-    VERY_COMMON(1, 300, "Very Common", UIFunctions.Icons.materialGrade1),
-    COMMON     (2, 250, "Common", UIFunctions.Icons.materialGrade2),
-    STANDARD   (3, 200, "Standard", UIFunctions.Icons.materialGrade3),
-    RARE       (4, 150, "Rare", UIFunctions.Icons.materialGrade4),
-    VERY_RARE  (5, 100, "Very Rare", UIFunctions.Icons.materialGrade5),
+    VERY_COMMON(1, 300, "Very Common",
+            new Icon(UIFunctions.Icons.materialGrade1, 25, 25)),
+    COMMON     (2, 250, "Common",
+            new Icon(UIFunctions.Icons.materialGrade2, 25, 25)),
+    STANDARD   (3, 200, "Standard",
+            new Icon(UIFunctions.Icons.materialGrade3, 25, 25)),
+    RARE       (4, 150, "Rare",
+            new Icon(UIFunctions.Icons.materialGrade4, 25,  25)),
+    VERY_RARE  (5, 100, "Very Rare",
+            new Icon(UIFunctions.Icons.materialGrade5, 25, 25)),
 
     /*
     Used for Engineer experimental effects
@@ -48,25 +54,46 @@ public enum ItemGrade
      */
 
     Drone(0, "Limpet Drone", "Starport Restock Services"),   // standard commodities and salvage
-    Space(1, "Commodity", "Starport Commodity Markets", UIFunctions.Icons.cargo),   // standard commodities and salvage
-    Planet(2, "Planetary Port", "Planetary Port Commodity Markets"),  // only available at planetary ports
-    Mining(3, "Asteroid Mining", "Asteroid and Planetary Ring Mining"),  // attainable by mining only
-    Mission(4, "Mission", "Mission Rewards"), // mission reward exclusive
-    POI(5, "Planetary POI", "Planetary Points of Interest"),     // must be found at planetary POI
-    Salvage(6, "Salvage", "Various locations:\n - Combat Wreckage\n - Unidentified Signal Sources\n - Ancient Ruins"),   // salvage
-    Rare(7, "Rare Commodity", "Exclusive to Star Port"),    // rare commodities, from specific star ports
+
+    Space(1, "Commodity", "Starport Commodity Markets",
+            new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Planet(2, "Planetary Port", "Planetary Port Commodity Markets",
+            new Icon(UIFunctions.Icons.planetaryPort,25,25)),  // only available at planetary ports
+
+    Mining(3, "Asteroid Mining", "Asteroid and Planetary Ring Mining",
+            new Icon(UIFunctions.Icons.mining, 25, 25)),  // attainable by mining only
+
+    Mission(4, "Mission", "Mission Rewards",
+            new Icon(UIFunctions.Icons.mission,25,25)), // mission reward exclusive
+
+    POI(5, "Planetary POI", "Planetary Points of Interest",
+            new Icon(UIFunctions.Icons.horizon, 25, 25)),     // must be found at planetary POI
+
+    Salvage(6, "Salvage", "Combat Wreckage/Unidentified Signal Sources"), // salvage
+
+    Thargoid(6, "Thargoid Salvage", "Thargoid Combat/Planetary Sites",
+            new Icon(UIFunctions.Icons.thargoid, 25, 25)),   // salvage
+
+    Guardian(6, "Guardian Salvage", "Ancient Ruins",
+            new Icon(UIFunctions.Icons.guardian,25,25)),   // salvage
+
+    Rare(7, "Rare Commodity", "Exclusive to Star Port",
+            new Icon(UIFunctions.Icons.cargo, 25, 25)),    // rare commodities, from specific star ports
+
     Faction(8, "Faction", "Power Play Faction Contact"), // power play specific items
 
     MaterialTrade(0, -1, "Trade"),
 
     Any(0,-1,"Any"),
+
     ;
 
     private final int numericalValue;
     private final int maximumQuantity;
     private final String text;
     private final String locationDescription;
-    private final SVGPath icon;
+    private final Icon icon;
 
     ItemGrade(int numericalValue, String text)
     {
@@ -78,7 +105,7 @@ public enum ItemGrade
         this(numericalValue, maximumQuantity, text, "", null);
     }
 
-    ItemGrade(int numericalValue, int maximumQuantity, String text, SVGPath icon)
+    ItemGrade(int numericalValue, int maximumQuantity, String text, Icon icon)
     {
         this(numericalValue, maximumQuantity, text, "", icon);
     }
@@ -88,12 +115,12 @@ public enum ItemGrade
         this(numericalValue, -1, text, locationDescription, null);
     }
 
-    ItemGrade(int numericalValue, String text, String locationDescription, SVGPath icon)
+    ItemGrade(int numericalValue, String text, String locationDescription, Icon icon)
     {
         this(numericalValue, -1, text, locationDescription, icon);
     }
 
-    ItemGrade(int numericalValue, int maximumQuantity, String text, String locationDescription, SVGPath icon)
+    ItemGrade(int numericalValue, int maximumQuantity, String text, String locationDescription, Icon icon)
     {
         this.numericalValue = numericalValue;
         this.maximumQuantity = maximumQuantity;
@@ -123,7 +150,7 @@ public enum ItemGrade
         return maximumQuantity;
     }
 
-    public SVGPath getIcon()
+    public Icon getIcon()
     {
         return icon;
     }

@@ -95,20 +95,30 @@ public class UIFunctions
         public static final SVGPath materialGrade4 = new SVGPath();
         public static final SVGPath materialGrade5 = new SVGPath();
         public static final SVGPath guardian = new SVGPath();
+        public static final SVGPath thargoid = new SVGPath();
         public static final SVGPath materialTrade = new SVGPath();
-        public static final SVGPath synthesisGeneral = new SVGPath();
         public static final SVGPath synthesisBasic = new SVGPath();
         public static final SVGPath synthesisStandard = new SVGPath();
         public static final SVGPath synthesisPremium = new SVGPath();
         public static final SVGPath engineering = new SVGPath();
         public static final SVGPath techBroker = new SVGPath();
         public static final SVGPath aegis = new SVGPath();
+        public static final SVGPath planetaryPort = new SVGPath();
+        public static final SVGPath horizon = new SVGPath();
+        public static final SVGPath marker = new SVGPath();
+        public static final SVGPath mining = new SVGPath();
+        public static final SVGPath mission = new SVGPath();
 
         static
         {
+            mission.setContent(readIcon("/icons/mission"));
+            mining.setContent(readIcon("/icons/mining"));
+            marker.setContent(readIcon("/icons/marker"));
+            horizon.setContent(readIcon("/icons/horizon"));
+            planetaryPort.setContent(readIcon("/icons/planetary_port"));
             guardian.setContent(readIcon("/icons/guardian"));
+            thargoid.setContent(readIcon("/icons/thargoid"));
             materialTrade.setContent(readIcon("/icons/materialTrade"));
-            synthesisGeneral.setContent(readIcon("/icons/synthesis"));
             synthesisBasic.setContent(readIcon("/icons/synthesis_1"));
             synthesisStandard.setContent(readIcon("/icons/synthesis_2"));
             synthesisPremium.setContent(readIcon("/icons/synthesis_3"));
@@ -268,7 +278,7 @@ public class UIFunctions
      */
     public static class Convert
     {
-        public static Region createMaterialIconRegion(SVGPath svg, double width, double height)
+        public static Region createMaterialIconRegion(SVGPath svg, double width, double height, String color)
         {
             final Region svgShape = new Region();
             svgShape.setShape(svg);
@@ -276,7 +286,7 @@ public class UIFunctions
             svgShape.setMinSize(width, height);
             svgShape.setPrefSize(width, height);
             svgShape.setMaxSize(width, height);
-            svgShape.setStyle("-fx-background-color: #b75200;");
+            svgShape.setStyle("-fx-background-color: " + color + ";");
             double originalWidth = svg.prefWidth(-1);
             double originalHeight = svg.prefHeight(originalWidth);
 

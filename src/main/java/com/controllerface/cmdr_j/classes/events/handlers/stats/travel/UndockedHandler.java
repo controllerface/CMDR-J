@@ -17,6 +17,6 @@ public class UndockedHandler implements JournalEventHandler
         logTravelMessage(context, "Leaving " + name);
 
         context.getCommanderData().setStation("Undocked");
-        context.getCommanderData().setEconomy("No Market");
+        context.getCommanderData().setEconomy("(Stale Market Data)");
     }
 }

@@ -138,11 +138,11 @@ public class ItemCostData implements Displayable
     private Region generateIcon(ItemGrade grade)
     {
         final Region svgShape = new Region();
-        SVGPath svg = grade.getIcon();
+        SVGPath svg = grade.getIcon().getIconPath();
         svgShape.setShape(svg);
 
-        double sizeh = 22;
-        double sizew = 25;
+        double sizeh = grade.getIcon().getBaseHeight();
+        double sizew = grade.getIcon().getBaseWidth();
 
         svgShape.setMinSize(sizew, sizeh);
         svgShape.setPrefSize(sizew, sizeh);

@@ -15,7 +15,9 @@ import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyBlueprint;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.ui.Displayable;
+import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -294,7 +296,8 @@ public class InventoryData implements Displayable
         dataPanel.expandedProperty().setValue(false);
         dataPanel.setGraphic(createNameLabel());
         dataPanel.alignmentProperty().set(Pos.CENTER_LEFT);
-        dataPanel.setOnMouseEntered((e)->renderHave());
+        //dataPanel.setOnMouseEntered((e)->renderHave());
+        dataPanel.setOnMouseMoved((e)->renderHave());
         return dataPanel;
     }
 
@@ -343,13 +346,19 @@ public class InventoryData implements Displayable
                                     boolean upgrade = tradeCost.getCost().getGrade()
                                             .compareTo(tradeYield.getCost().getGrade()) < 0;
 
-                                    Region from = UIFunctions.Convert.createMaterialIconRegion(tradeCost.getCost()
+                                    Icon costIcon = tradeCost.getCost()
                                             .getGrade()
-                                            .getIcon(), 25, 22);
+                                            .getIcon();
 
-                                    Region to = UIFunctions.Convert.createMaterialIconRegion(tradeYield.getCost()
+                                    Icon yieldIcon = tradeCost.getCost()
                                             .getGrade()
-                                            .getIcon(), 25, 22);
+                                            .getIcon();
+
+                                    Region from = UIFunctions.Convert.createMaterialIconRegion(costIcon.getIconPath(),
+                                            costIcon.getBaseWidth(), costIcon.getBaseHeight(), "#b75200");
+
+                                    Region to = UIFunctions.Convert.createMaterialIconRegion(yieldIcon.getIconPath(),
+                                            yieldIcon.getBaseWidth(), yieldIcon.getBaseHeight(), "#b75200");
 
                                     Label toLabel = new Label(" to ");
                                     toLabel.setFont(UIFunctions.Fonts.size1Font);
@@ -360,12 +369,12 @@ public class InventoryData implements Displayable
                                     HBox btnlbl = new HBox();
 
                                     Label descOpen = new Label();
-                                    //Label descHave = new Label();
-                                    //Label descClose = new Label();
+                                    Label descHave = new Label();
+                                    Label descClose = new Label();
 
                                     descOpen.setFont(UIFunctions.Fonts.size1Font);
-                                    //descHave.setFont(UIFunctions.Fonts.size1Font);
-                                    //descClose.setFont(UIFunctions.Fonts.size1Font);
+                                    descHave.setFont(UIFunctions.Fonts.size1Font);
+                                    descClose.setFont(UIFunctions.Fonts.size1Font);
 
                                     renderHave();
 
@@ -375,17 +384,18 @@ public class InventoryData implements Displayable
                                             + " for "
                                             + Math.abs(tradeYield.getQuantity())
                                             + " "
-                                            + tradeYield.getCost().getLocalizedName();
+                                            + tradeYield.getCost().getLocalizedName()
+                                            + " (";
 
                                     descOpen.setText(x);
 
-                                    //descHave.textProperty().bind(haveCount.asString());
-//                                    descHave.textFillProperty()
-//                                            .bind(Bindings.when(hasTrades)
-//                                                    .then(UIFunctions.Fonts.darkOrange)
-//                                                    .otherwise(UIFunctions.Fonts.neutralBlack));
+                                    descHave.textProperty().bind(haveCount.asString());
+                                    descHave.textFillProperty()
+                                            .bind(Bindings.when(hasTrades)
+                                                    .then(UIFunctions.Fonts.darkOrange)
+                                                    .otherwise(UIFunctions.Fonts.neutralBlack));
 
-                                    //descClose.setText(")");
+                                    descClose.setText(")");
 
                                     Region region1 = new Region();
                                     HBox.setHgrow(region1, Priority.ALWAYS);
@@ -393,8 +403,8 @@ public class InventoryData implements Displayable
                                     HBox.setHgrow(region2, Priority.ALWAYS);
 
                                     btnlbl.getChildren().add(descOpen);
-                                    //btnlbl.getChildren().add(descHave);
-                                    //btnlbl.getChildren().add(descClose);
+                                    btnlbl.getChildren().add(descHave);
+                                    btnlbl.getChildren().add(descClose);
 
                                     btnlbl.getChildren().add(region1);
                                     btnlbl.getChildren().add(convBox);
@@ -406,11 +416,24 @@ public class InventoryData implements Displayable
 
                                     button.setGraphic(btnhldr);
                                     button.prefWidthProperty().bind(itemDetails.widthProperty());
+
                                     button.setOnMouseClicked((e) ->
+                                    {
+                                        //addTask.accept(tradeTask);
+                                        renderHave();
+                                    });
+
+                                    button.setOnMouseExited((e) ->
+                                    {
+                                        renderHave();
+                                    });
+
+                                    button.setOnMousePressed((e)->
                                     {
                                         addTask.accept(tradeTask);
                                         renderHave();
                                     });
+
                                     if (upgrade)
                                     {
                                         upgrades.add(button);

@@ -100,7 +100,7 @@ public class UIController
      */
 
     // This is the top level UI element
-    @FXML private TabPane mainPane;
+    //@FXML private TabPane mainPane;
 
     @FXML private Label economyLabel;
     @FXML private Label stationLabel;
@@ -341,6 +341,7 @@ public class UIController
     //private final List<MessageData> messageList = new CopyOnWriteArrayList<>();
 
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+    private final ExecutorService tx = Executors.newFixedThreadPool(4);
 
     // this is the transaction queue the transaction processor and inventory threads will use to keep the UI
     // and player inventory in sync
@@ -452,6 +453,7 @@ public class UIController
         {
             toJson(Optional.of(windowDimensions));
             executorService.shutdown();
+            tx.shutdownNow();
         }
         catch (IOException e)
         {
@@ -811,7 +813,7 @@ public class UIController
         }
     }
 
-    String settlement = "";
+    private String settlement = "";
     private double settlementLat = 0.0;
     private double settlementLong = 0.0;
 
@@ -871,7 +873,7 @@ public class UIController
         }
     }
 
-    boolean transactionsComplete = false;
+    private boolean transactionsComplete = false;
 
     enum Status
     {
@@ -920,6 +922,7 @@ public class UIController
                     .filter(flag -> (flag.bitmask & flags) == flag.bitmask);
         }
     }
+
 
     private void startTransactionProcessor()
     {
@@ -1059,9 +1062,12 @@ public class UIController
             }
         };
 
-        Thread transactionThread = new Thread(transactionProcessingTask);
-        transactionThread.setDaemon(true);
-        transactionThread.start();
+        int cores = Runtime.getRuntime().availableProcessors();
+        int threads = cores / 2;
+        if (threads > 6) threads = 6;
+        if (threads < 1) threads = 1;
+        System.out.println("Cores: " + cores + "Threads: " + threads);
+        IntStream.range(0,threads).forEach(i->tx.submit(transactionProcessingTask));
     }
 
     private void startupTasks()
