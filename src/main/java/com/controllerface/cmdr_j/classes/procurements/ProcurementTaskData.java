@@ -157,7 +157,7 @@ public class ProcurementTaskData implements Displayable
         countLabel.setMaxWidth(54);
         countLabel.setMinWidth(54);
         countLabel.setAlignment(Pos.CENTER);
-        countLabel.setFont(UIFunctions.Fonts.size4Font);
+        countLabel.setFont(UIFunctions.Style.size4Font);
 
         subtractButton.setOnAction((e) -> inventoryUpdate.accept(-1, asPair()));
         addButton.setOnAction((e) -> inventoryUpdate.accept(1, asPair()));
@@ -231,7 +231,7 @@ public class ProcurementTaskData implements Displayable
         titledPane.setExpanded(false);
 
         nameLabel.setPrefHeight(20);
-        nameLabel.setFont(UIFunctions.Fonts.size2Font);
+        nameLabel.setFont(UIFunctions.Style.size2Font);
         nameLabel.paddingProperty().set(new Insets(2, 0, 2, 0));
 
         titledPane.setContent(costEffectContainer);
@@ -245,7 +245,7 @@ public class ProcurementTaskData implements Displayable
         descriptionContainer.getChildren().add(titledPane);
 
         nameLabel.setText(recipePair.getKey().toString() + " :: " + recipePair.getValue().getDisplayLabel());
-        nameLabel.setTextFill(UIFunctions.Fonts.neutralBlack);
+        nameLabel.setTextFill(UIFunctions.Style.neutralBlack);
         renderProgress();
     }
 
@@ -362,8 +362,8 @@ public class ProcurementTaskData implements Displayable
                             : "-" + c.getQuantity() * getCount();
 
                     Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
-                    next.setFont(UIFunctions.Fonts.size1Font);
-                    next.setTextFill(hasEnough ? UIFunctions.Fonts.neutralBlack : UIFunctions.Fonts.negativeRed);
+                    next.setFont(UIFunctions.Style.size1Font);
+                    next.setTextFill(hasEnough ? UIFunctions.Style.neutralBlack : UIFunctions.Style.negativeRed);
                     return next;
                 })
                 .forEach(label -> costEffectContainer.getChildren().add(label));
@@ -383,10 +383,10 @@ public class ProcurementTaskData implements Displayable
                         + engineer.getLocation().getSystemName() + " (" + distance + " Ly)");
                 Tooltip locationTip = new Tooltip(engineer.getFullName() + " is " + distance +
                         " light years from your current location ("+(currentSystem==null?"nowhere":currentSystem.getSystemName())+")");
-                locationTip.setFont(UIFunctions.Fonts.size1Font);
+                locationTip.setFont(UIFunctions.Style.size1Font);
                 engineerLabel.setTooltip(locationTip);
-                engineerLabel.setFont(UIFunctions.Fonts.size1Font);
-                engineerLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+                engineerLabel.setFont(UIFunctions.Style.size1Font);
+                engineerLabel.setTextFill(UIFunctions.Style.darkOrange);
                 costEffectContainer.getChildren().add(engineerLabel);
             }
 

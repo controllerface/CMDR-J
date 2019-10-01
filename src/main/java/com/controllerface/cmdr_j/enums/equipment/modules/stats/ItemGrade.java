@@ -2,7 +2,6 @@ package com.controllerface.cmdr_j.enums.equipment.modules.stats;
 
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
-import javafx.scene.shape.SVGPath;
 
 /**
  * An enumeration of items grades in Elite: Dangerous. Some grade values may be used for multiple purposes
@@ -21,19 +20,19 @@ public enum ItemGrade
     GRADE_5(5, "Grade 5"),
 
     VERY_COMMON(1, 300, "Very Common",
-            new Icon(UIFunctions.Icons.materialGrade1, 28, 25, UIFunctions.Fonts.standardOrange)),
+            new Icon(UIFunctions.Icons.materialGrade1, 28, 25, UIFunctions.Style.standardOrange)),
 
     COMMON     (2, 250, "Common",
-            new Icon(UIFunctions.Icons.materialGrade2, 28, 25, UIFunctions.Fonts.standardOrange)),
+            new Icon(UIFunctions.Icons.materialGrade2, 28, 25, UIFunctions.Style.standardOrange)),
 
     STANDARD   (3, 200, "Standard",
-            new Icon(UIFunctions.Icons.materialGrade3, 28, 25, UIFunctions.Fonts.standardOrange)),
+            new Icon(UIFunctions.Icons.materialGrade3, 28, 25, UIFunctions.Style.standardOrange)),
 
     RARE       (4, 150, "Rare",
-            new Icon(UIFunctions.Icons.materialGrade4, 28,  25, UIFunctions.Fonts.standardOrange)),
+            new Icon(UIFunctions.Icons.materialGrade4, 28,  25, UIFunctions.Style.standardOrange)),
 
     VERY_RARE  (5, 100, "Very Rare",
-            new Icon(UIFunctions.Icons.materialGrade5, 28, 25, UIFunctions.Fonts.standardOrange)),
+            new Icon(UIFunctions.Icons.materialGrade5, 28, 25, UIFunctions.Style.standardOrange)),
 
     /*
     Used for Engineer experimental effects
@@ -67,10 +66,10 @@ public enum ItemGrade
             new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
 
     Salvage(3, "Salvage", "Combat Wreckage/Unidentified Signal Sources",
-            new Icon(UIFunctions.Icons.cargo, 25, 25, UIFunctions.Fonts.darkOrange)), // salvage
+            new Icon(UIFunctions.Icons.cargo, 25, 25, UIFunctions.Style.darkOrange)), // salvage
 
     RareCommodity(4, "Rare Commodity", "Exclusive to Specific Star Port Markets",
-            new Icon(UIFunctions.Icons.cargo, 25, 25, UIFunctions.Fonts.specialYellow)),    // rare commodities, from specific star ports
+            new Icon(UIFunctions.Icons.cargo, 25, 25, UIFunctions.Style.specialYellow)),    // rare commodities, from specific star ports
 
     Mission(5, "Mission Reward", "Mission Rewards",
             new Icon(UIFunctions.Icons.mission,25,25)), // mission reward exclusive
@@ -82,10 +81,10 @@ public enum ItemGrade
             new Icon(UIFunctions.Icons.horizon, 25, 25)),     // must be found at planetary POI
 
     Thargoid(8, "Thargoid Salvage", "Thargoid Combat/Planetary Sites",
-            new Icon(UIFunctions.Icons.aegis, 25, 25, UIFunctions.Fonts.thargoidGreen)),   // salvage
+            new Icon(UIFunctions.Icons.aegis, 25, 25, UIFunctions.Style.thargoidGreen)),   // salvage
 
     Guardian(9, "Guardian Salvage", "Ancient Ruins",
-            new Icon(UIFunctions.Icons.guardian,25,25, UIFunctions.Fonts.hotBlue)),   // salvage
+            new Icon(UIFunctions.Icons.guardian,25,25, UIFunctions.Style.hotBlue)),   // salvage
 
     Faction(10, "Faction Item", "Power Play Faction Contact",
             new Icon(UIFunctions.Icons.powerplay, 25, 25)), // power play specific items

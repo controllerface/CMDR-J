@@ -24,7 +24,7 @@ public class SlotNameCell extends TableCell<ShipModuleData, String>
         }
 
         super.setText(item);
-        setFont(UIFunctions.Fonts.size2Font);
+        setFont(UIFunctions.Style.size2Font);
         setAlignment(Pos.TOP_RIGHT);
         paddingProperty().set(new Insets(8,5,0,0));
     }

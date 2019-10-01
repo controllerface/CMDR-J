@@ -130,15 +130,15 @@ public class MarketData implements Displayable
     private Label createLocationHeaderLabel()
     {
         Label locationHeaderLabel = new Label("Relevant Locations");
-        locationHeaderLabel.setTextFill(UIFunctions.Fonts.darkOrange);
-        locationHeaderLabel.setFont(UIFunctions.Fonts.size2Font);
+        locationHeaderLabel.setTextFill(UIFunctions.Style.darkOrange);
+        locationHeaderLabel.setFont(UIFunctions.Style.size2Font);
         return locationHeaderLabel;
     }
 
     private Label createLocationInfoLabel()
     {
         Label locationInfoLabel = new Label("TODO: get this information...");
-        locationInfoLabel.setFont(UIFunctions.Fonts.size1Font);
+        locationInfoLabel.setFont(UIFunctions.Style.size1Font);
         locationInfoLabel.alignmentProperty().set(Pos.CENTER_LEFT);
         return locationInfoLabel;
     }
@@ -158,7 +158,7 @@ public class MarketData implements Displayable
         // build a string descriptor for this item and a Label used to display it in the GUI
         String itemDescriptor = category + " :: " + name;
         Label nameLabel = new Label(itemDescriptor);
-        nameLabel.setFont(UIFunctions.Fonts.size2Font);
+        nameLabel.setFont(UIFunctions.Style.size2Font);
         nameLabel.alignmentProperty().set(Pos.CENTER_LEFT);
         return nameLabel;
     }

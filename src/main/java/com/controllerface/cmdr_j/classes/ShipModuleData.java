@@ -107,10 +107,10 @@ public class ShipModuleData implements Displayable
         button.setStyle("-fx-base: #88ee88;");
 
         button.setText("+");
-        button.setFont(UIFunctions.Fonts.size1Font);
+        button.setFont(UIFunctions.Style.size1Font);
 
         Tooltip tooltip = new Tooltip();
-        tooltip.setFont(UIFunctions.Fonts.size1Font);
+        tooltip.setFont(UIFunctions.Style.size1Font);
         tooltip.setText("Add " + recipePair.getValue().getDisplayLabel() + " to Tracked Tasks");
         button.setTooltip(tooltip);
 
@@ -129,7 +129,7 @@ public class ShipModuleData implements Displayable
         infoPane.setAnimated(false);
 
         Label nameLabel = new Label(recipePair.getValue().getDisplayLabel());
-        nameLabel.setFont(UIFunctions.Fonts.size1Font);
+        nameLabel.setFont(UIFunctions.Style.size1Font);
         infoPane.setGraphic(nameLabel);
 
 
@@ -159,7 +159,7 @@ public class ShipModuleData implements Displayable
                             ? "+" + Math.abs(c.getQuantity())
                             : "-" + c.getQuantity();
                     Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
-                    next.setFont(UIFunctions.Fonts.size1Font);
+                    next.setFont(UIFunctions.Style.size1Font);
                     return next;
                 })
                 .forEach(label -> costEffectContainer.getChildren().add(label));
@@ -176,8 +176,8 @@ public class ShipModuleData implements Displayable
             {
                 Label engineerLabel = new Label(engineer.getFullName() + " :: "
                         + engineer.getLocation().getSystemName());
-                engineerLabel.setFont(UIFunctions.Fonts.size1Font);
-                engineerLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+                engineerLabel.setFont(UIFunctions.Style.size1Font);
+                engineerLabel.setTextFill(UIFunctions.Style.darkOrange);
                 costEffectContainer.getChildren().add(engineerLabel);
             }
         }
@@ -235,8 +235,8 @@ public class ShipModuleData implements Displayable
         }
 
         Label modificationLabel = new Label(text);
-        modificationLabel.setFont(UIFunctions.Fonts.size3Font);
-        modificationLabel.setTextFill(UIFunctions.Fonts.hotBlue);
+        modificationLabel.setFont(UIFunctions.Style.size3Font);
+        modificationLabel.setTextFill(UIFunctions.Style.hotBlue);
         modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
         guardianBox.getChildren().add(svgShape);
@@ -272,10 +272,10 @@ public class ShipModuleData implements Displayable
         }
 
         Label modificationLabel = new Label(text);
-        modificationLabel.setFont(UIFunctions.Fonts.size3Font);
+        modificationLabel.setFont(UIFunctions.Style.size3Font);
 
-        if (fromTechBroker) modificationLabel.setTextFill(UIFunctions.Fonts.darkRed);
-        else modificationLabel.setTextFill(UIFunctions.Fonts.darkYellow);
+        if (fromTechBroker) modificationLabel.setTextFill(UIFunctions.Style.darkRed);
+        else modificationLabel.setTextFill(UIFunctions.Style.darkYellow);
 
         modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
@@ -340,8 +340,8 @@ public class ShipModuleData implements Displayable
             if (needsRefresh) { labelText += " (*needs refresh*) "; }
 
             Label modificationLabel = new Label(labelText);
-            modificationLabel.setFont(UIFunctions.Fonts.size3Font);
-            modificationLabel.setTextFill(UIFunctions.Fonts.darkOrange);
+            modificationLabel.setFont(UIFunctions.Style.size3Font);
+            modificationLabel.setTextFill(UIFunctions.Style.darkOrange);
             modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
             modBox.getChildren().add(svgShape);
@@ -355,7 +355,7 @@ public class ShipModuleData implements Displayable
                 Tooltip refreshNotice = new Tooltip("This module was retrieved from storage in outfitting\n" +
                         "Exit outfitting menu to refresh this module's information");
 
-                refreshNotice.setFont(UIFunctions.Fonts.size2Font);
+                refreshNotice.setFont(UIFunctions.Style.size2Font);
                 modificationLabel.setTooltip(refreshNotice);
             }
 
@@ -365,13 +365,13 @@ public class ShipModuleData implements Displayable
 
             // this is the static progress text
             Label modProgressLabel = new Label("Current Modification Progress: ");
-            modProgressLabel.setFont(UIFunctions.Fonts.size2Font);
+            modProgressLabel.setFont(UIFunctions.Style.size2Font);
             modProgressLabel.setPadding(new Insets(0,0,5,0));
 
             // here we set up the progress percentage value
             Label modProgressValue = new Label();
-            modProgressValue.setTextFill(UIFunctions.Fonts.darkOrange);
-            modProgressValue.setFont(UIFunctions.Fonts.size2Font);
+            modProgressValue.setTextFill(UIFunctions.Style.darkOrange);
+            modProgressValue.setFont(UIFunctions.Style.size2Font);
             modProgressValue.setPadding(new Insets(0,0,5,0));
             modProgressValue.setText((int)(quality * 100d) + "%");
 
@@ -386,8 +386,8 @@ public class ShipModuleData implements Displayable
         if (experimentalEffectRecipe != null)
         {
             Label special = new Label(" " + experimentalEffectRecipe.getDisplayLabel());
-            special.setFont(UIFunctions.Fonts.size3Font);
-            special.setTextFill(UIFunctions.Fonts.darkYellow);
+            special.setFont(UIFunctions.Style.size3Font);
+            special.setTextFill(UIFunctions.Style.darkYellow);
             double sizew = 18;
             double sizeh = 20;
             HBox expBox = new HBox();
@@ -419,8 +419,8 @@ public class ShipModuleData implements Displayable
             {
                 TitledPane modPane = new TitledPane();
                 modPane.setText("Available Modifications");
-                modPane.setTextFill(UIFunctions.Fonts.darkOrange);
-                modPane.setFont(UIFunctions.Fonts.size2Font);
+                modPane.setTextFill(UIFunctions.Style.darkOrange);
+                modPane.setFont(UIFunctions.Style.size2Font);
                 modPane.setExpanded(false);
                 modPane.setAnimated(false);
                 VBox modBox = new VBox();
@@ -431,7 +431,7 @@ public class ShipModuleData implements Displayable
                         {
                             TitledPane gradePane = new TitledPane();
                             gradePane.setText(blueprint.toString());
-                            gradePane.setFont(UIFunctions.Fonts.size1Font);
+                            gradePane.setFont(UIFunctions.Style.size1Font);
                             gradePane.setExpanded(false);
                             gradePane.setAnimated(false);
                             VBox gradeBox = new VBox();
@@ -457,8 +457,8 @@ public class ShipModuleData implements Displayable
             {
                 TitledPane expPane = new TitledPane();
                 expPane.setText("Experimental Effects");
-                expPane.setTextFill(UIFunctions.Fonts.darkYellow);
-                expPane.setFont(UIFunctions.Fonts.size2Font);
+                expPane.setTextFill(UIFunctions.Style.darkYellow);
+                expPane.setFont(UIFunctions.Style.size2Font);
                 expPane.setExpanded(false);
                 expPane.setAnimated(false);
                 VBox expBox = new VBox();
@@ -501,7 +501,7 @@ public class ShipModuleData implements Displayable
         unitColumn.setCellValueFactory(param ->
         {
             Label unit = new Label(param.getValue().getKey().getUnit());
-            unit.setFont(UIFunctions.Fonts.size2Font);
+            unit.setFont(UIFunctions.Style.size2Font);
             return new ReadOnlyObjectWrapper<>(unit);
         });
         unitColumn.setText("Unit");
@@ -511,7 +511,7 @@ public class ShipModuleData implements Displayable
         statPane.setExpanded(false);
         statPane.setAnimated(false);
         statPane.setText("Module Statistics");
-        statPane.setFont(UIFunctions.Fonts.size2Font);
+        statPane.setFont(UIFunctions.Style.size2Font);
 
         VBox statBox = new VBox();
         statBox.fillWidthProperty().set(true);
@@ -544,7 +544,7 @@ public class ShipModuleData implements Displayable
     private void renderDisplayGraphic()
     {
         Label moduleLabel = new Label(module.displayText() + " ");
-        moduleLabel.setFont(UIFunctions.Fonts.size3Font);
+        moduleLabel.setFont(UIFunctions.Style.size3Font);
         moduleLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
         HBox moduleNameContainer = new HBox();
@@ -590,7 +590,7 @@ public class ShipModuleData implements Displayable
                 .map(effectPair ->
                 {
                     Label label =  new Label(effectPair.getValueString());
-                    label.setFont(UIFunctions.Fonts.size2Font);
+                    label.setFont(UIFunctions.Style.size2Font);
                     return new Pair<>(effectPair.getEffect(), label);
                 })
                 .collect(Collectors.toList());
@@ -602,13 +602,13 @@ public class ShipModuleData implements Displayable
                     String vals = String.valueOf(modifier.getValue());
                     Label label = new Label(vals);
                     Tooltip origVal = new Tooltip("Original Value:\n" + modifier.getOriginalValue());
-                    origVal.setFont(UIFunctions.Fonts.size1Font);
-                    label.setFont(UIFunctions.Fonts.size2Font);
+                    origVal.setFont(UIFunctions.Style.size1Font);
+                    label.setFont(UIFunctions.Style.size2Font);
                     label.setTooltip(origVal);
                     boolean isLess = Double.compare(modifier.getValue(), modifier.getOriginalValue()) < 0;
                     boolean isGood = modifier.isLessIsGood() == isLess;
-                    if (isGood) label.setTextFill(UIFunctions.Fonts.positiveBlue);
-                    else label.setTextFill(UIFunctions.Fonts.negativeRed);
+                    if (isGood) label.setTextFill(UIFunctions.Style.positiveBlue);
+                    else label.setTextFill(UIFunctions.Style.negativeRed);
                     return new Pair<>(modifier.getEffect(), label);
                 })
                 .forEach(effects::add);

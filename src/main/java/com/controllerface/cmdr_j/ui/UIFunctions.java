@@ -51,7 +51,7 @@ public class UIFunctions
         public static final String INFINITY = new String(new byte[]{(byte)0x22,(byte)0x1e}, StandardCharsets.UTF_16);
     }
 
-    public static class Fonts
+    public static class Style
     {
         public static final Color positiveBlue = Color.rgb(0x00, 0xb3, 0xf7);
         public static final Color negativeRed = Color.rgb(0xff, 0x00, 0x00);
@@ -73,7 +73,6 @@ public class UIFunctions
         static final double size3 = baseFont.getSize() + (baseFont.getSize() / 3);
         static final double size4 = baseFont.getSize() + (baseFont.getSize() / 2);
 
-        //public static final Font size0Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, baseFont.getSize());
         public static final Font size1Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size1);
         public static final Font size2Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size2);
         public static final Font size3Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size3);
@@ -209,7 +208,7 @@ public class UIFunctions
                     return;
                 }
                 Label name = new Label(item.getKey().toString());
-                name.setFont(Fonts.size2Font);
+                name.setFont(Style.size2Font);
                 name.setPadding(new Insets(0,0,0,5));
                 setGraphic(name);
             }
@@ -315,7 +314,7 @@ public class UIFunctions
             Label nextLabel = new Label();
 
             // todo: in the future this will be done with CSS
-            nextLabel.setFont(Fonts.size1Font);
+            nextLabel.setFont(Style.size1Font);
 
             // get the "more is good" flag for this effect
             boolean moreIsGood = pair.getEffect().isMoreGood();
@@ -336,7 +335,7 @@ public class UIFunctions
 
                 String text = pair.getEffect().toString()
                         + (valueIsPositive ? " +" : " ")
-                        + String.valueOf(pair.getDoubleValue()) ;
+                        + pair.getDoubleValue();
 
                 // some effects have a zero value, such effects are generally "binary" on/off values, so we can just remove
                 // the trailing "point zero" suffix
@@ -348,13 +347,10 @@ public class UIFunctions
                 text = text.replace("+0%","");
 
                 // now create the label object using the text we just created
-                //nextLabel = new Label(text);
-
                 nextLabel.setText(text);
 
-
                 // text fill is a separate value, set it to the "good" or "bad" font as appropriate
-                nextLabel.setTextFill(isGood ? Fonts.positiveBlue : Fonts.negativeRed);
+                nextLabel.setTextFill(isGood ? Style.positiveBlue : Style.negativeRed);
             }
             else
             {

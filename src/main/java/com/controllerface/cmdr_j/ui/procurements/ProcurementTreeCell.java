@@ -71,7 +71,7 @@ public class ProcurementTreeCell extends TreeCell<ProcurementTask>
         Label text = new Label(item.toString());
         if (item.getType() != null && item.getType() instanceof MaterialTradeType)
         {
-            text.setTextFill(UIFunctions.Fonts.darkOrange);
+            text.setTextFill(UIFunctions.Style.darkOrange);
         }
 
         if (this.getTreeItem().isLeaf())
@@ -80,7 +80,7 @@ public class ProcurementTreeCell extends TreeCell<ProcurementTask>
             text.setCursor(Cursor.HAND);
         }
         else text.setCursor(Cursor.OPEN_HAND);
-        text.setFont(UIFunctions.Fonts.size3Font);
+        text.setFont(UIFunctions.Style.size3Font);
         setGraphic(text);
         this.paddingProperty().setValue(new Insets(5,5,5,5));
     }

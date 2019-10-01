@@ -22,6 +22,6 @@ public class StatDisplayCell extends TableCell<ShipStatisticData, ShipStatisticD
         }
 
         super.setText(item.statDisplayValue());
-        setFont(UIFunctions.Fonts.size3Font);
+        setFont(UIFunctions.Style.size3Font);
     }
 }

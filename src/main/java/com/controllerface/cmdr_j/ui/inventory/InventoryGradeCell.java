@@ -1,7 +1,6 @@
 package com.controllerface.cmdr_j.ui.inventory;
 
 import com.controllerface.cmdr_j.classes.commander.InventoryData;
-import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.geometry.Insets;
@@ -48,7 +47,7 @@ public class InventoryGradeCell extends TableCell<InventoryData, InventoryData>
             hBox.setPadding(new Insets(2,0,0,0));
         }
 
-        label.setFont(UIFunctions.Fonts.size2Font);
+        label.setFont(UIFunctions.Style.size2Font);
         label.setTooltip(new Tooltip(item.getItem().getGrade().toString()));
         hBox.getChildren().add(label);
         hBox.setAlignment(Pos.TOP_CENTER);

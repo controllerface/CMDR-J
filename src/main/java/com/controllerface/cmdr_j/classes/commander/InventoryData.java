@@ -17,7 +17,6 @@ import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.ui.Displayable;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -200,7 +199,7 @@ public class InventoryData implements Displayable
         // build a string descriptor for this item and a Label used to display it in the GUI
         String itemDescriptor = categoryString + " :: " + getItem().getLocalizedName();
         Label nameLabel = new Label(itemDescriptor);
-        nameLabel.setFont(UIFunctions.Fonts.size2Font);
+        nameLabel.setFont(UIFunctions.Style.size2Font);
         nameLabel.alignmentProperty().set(Pos.CENTER_LEFT);
         return nameLabel;
     }
@@ -208,15 +207,15 @@ public class InventoryData implements Displayable
     private Label createLocationHeaderLabel()
     {
         Label locationHeaderLabel = new Label("Relevant Locations");
-        locationHeaderLabel.setTextFill(UIFunctions.Fonts.darkOrange);
-        locationHeaderLabel.setFont(UIFunctions.Fonts.size2Font);
+        locationHeaderLabel.setTextFill(UIFunctions.Style.darkOrange);
+        locationHeaderLabel.setFont(UIFunctions.Style.size2Font);
         return locationHeaderLabel;
     }
 
     private Label createLocationInfoLabel()
     {
         Label locationInfoLabel = new Label(getItem().getLocationInformation());
-        locationInfoLabel.setFont(UIFunctions.Fonts.size1Font);
+        locationInfoLabel.setFont(UIFunctions.Style.size1Font);
         locationInfoLabel.alignmentProperty().set(Pos.CENTER_LEFT);
         return locationInfoLabel;
     }
@@ -361,7 +360,7 @@ public class InventoryData implements Displayable
                                             yieldIcon.getBaseWidth(), yieldIcon.getBaseHeight(), "#b75200");
 
                                     Label toLabel = new Label(" to ");
-                                    toLabel.setFont(UIFunctions.Fonts.size1Font);
+                                    toLabel.setFont(UIFunctions.Style.size1Font);
                                     HBox convBox = new HBox(from, toLabel, to);
                                     ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), recipe);
 
@@ -372,9 +371,9 @@ public class InventoryData implements Displayable
                                     Label descHave = new Label();
                                     Label descClose = new Label();
 
-                                    descOpen.setFont(UIFunctions.Fonts.size1Font);
-                                    descHave.setFont(UIFunctions.Fonts.size1Font);
-                                    descClose.setFont(UIFunctions.Fonts.size1Font);
+                                    descOpen.setFont(UIFunctions.Style.size1Font);
+                                    descHave.setFont(UIFunctions.Style.size1Font);
+                                    descClose.setFont(UIFunctions.Style.size1Font);
 
                                     renderHave();
 
@@ -392,8 +391,8 @@ public class InventoryData implements Displayable
                                     descHave.textProperty().bind(haveCount.asString());
                                     descHave.textFillProperty()
                                             .bind(Bindings.when(hasTrades)
-                                                    .then(UIFunctions.Fonts.darkOrange)
-                                                    .otherwise(UIFunctions.Fonts.neutralBlack));
+                                                    .then(UIFunctions.Style.darkOrange)
+                                                    .otherwise(UIFunctions.Style.neutralBlack));
 
                                     descClose.setText(")");
 
@@ -488,8 +487,8 @@ public class InventoryData implements Displayable
         {
             Label upgradeLabel = new Label("Upgrades");
             upgradeLabel.setPadding(new Insets(5,0,2,0));
-            upgradeLabel.setTextFill(UIFunctions.Fonts.darkOrange);
-            upgradeLabel.setFont(UIFunctions.Fonts.size2Font);
+            upgradeLabel.setTextFill(UIFunctions.Style.darkOrange);
+            upgradeLabel.setFont(UIFunctions.Style.size2Font);
             itemDetails.getChildren().add(upgradeLabel);
             itemDetails.getChildren().addAll(upgrades);
         }
@@ -498,8 +497,8 @@ public class InventoryData implements Displayable
         {
             Label downgradeLabel = new Label("Downgrades");
             downgradeLabel.setPadding(new Insets(5,0,2,0));
-            downgradeLabel.setTextFill(UIFunctions.Fonts.darkOrange);
-            downgradeLabel.setFont(UIFunctions.Fonts.size2Font);
+            downgradeLabel.setTextFill(UIFunctions.Style.darkOrange);
+            downgradeLabel.setFont(UIFunctions.Style.size2Font);
             itemDetails.getChildren().add(downgradeLabel);
             itemDetails.getChildren().addAll(downgrades);
         }
@@ -508,7 +507,7 @@ public class InventoryData implements Displayable
         if (associatedString.isEmpty())
         {
             Label noUses = new Label();
-            noUses.setFont(UIFunctions.Fonts.size1Font);
+            noUses.setFont(UIFunctions.Style.size1Font);
             noUses.setText("No Crafting Uses");
             itemDetails.getChildren().add(noUses);
         }
@@ -516,8 +515,8 @@ public class InventoryData implements Displayable
         {
             Label knownUsesLabel = new Label("Known Uses");
             knownUsesLabel.setPadding(new Insets(5,0,2,0));
-            knownUsesLabel.setTextFill(UIFunctions.Fonts.darkOrange);
-            knownUsesLabel.setFont(UIFunctions.Fonts.size2Font);
+            knownUsesLabel.setTextFill(UIFunctions.Style.darkOrange);
+            knownUsesLabel.setFont(UIFunctions.Style.size2Font);
             itemDetails.getChildren().add(knownUsesLabel);
 
 
@@ -537,13 +536,13 @@ public class InventoryData implements Displayable
                     {
                         title=true;
                         Label useLabel = new Label(descLine);
-                        useLabel.setFont(UIFunctions.Fonts.size1Font);
+                        useLabel.setFont(UIFunctions.Style.size1Font);
                         knownUsesDropDown.setGraphic(useLabel);
                     }
                     else
                     {
                         Label associatedTasks = new Label(descLine);
-                        associatedTasks.setFont(UIFunctions.Fonts.size1Font);
+                        associatedTasks.setFont(UIFunctions.Style.size1Font);
                         knownUses.getChildren().add(associatedTasks);
 
                         knownUsesDropDown.setAnimated(false);

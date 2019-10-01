@@ -44,7 +44,7 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label fx:id="shipIDLabel" text="unknown ID">
+                                    <Label fx:id="ship_ID_label" text="unknown ID">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
                                        </font>
@@ -66,7 +66,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="shipNameLabel" text="unknown name">
+                                    <Label fx:id="ship_name_label" text="unknown name">
                                        <font>
                                           <Font name="System Bold Italic" size="36.0" />
                                        </font>
@@ -81,7 +81,7 @@
                               </HBox>
                               <HBox layoutX="10.0" layoutY="10.0">
                                  <children>
-                                    <Label fx:id="shipMakeLabel" layoutX="77.0" layoutY="10.0" text="unknown manufacturer">
+                                    <Label fx:id="ship_make_label" layoutX="77.0" layoutY="10.0" text="unknown manufacturer">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -103,7 +103,7 @@
                                           <Insets top="-15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="shipTypeLabel" text="unknown ship">
+                                    <Label fx:id="ship_type_label" text="unknown ship">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -122,10 +122,10 @@
                                     <content>
                                       <AnchorPane>
                                              <children>
-                                                <TableView fx:id="coreModuleTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="core_module_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
-                                                    <TableColumn fx:id="coreModuleNameColumn" prefWidth="195.0" sortable="false" text="Core Module Slot" />
-                                                    <TableColumn fx:id="coreModuleDataColumn" minWidth="0.0" prefWidth="243.0" sortable="false" />
+                                                    <TableColumn fx:id="core_module_name_column" prefWidth="195.0" sortable="false" text="Core Module Slot" />
+                                                    <TableColumn fx:id="core_module_data_column" minWidth="0.0" prefWidth="243.0" sortable="false" />
                                                   </columns>
                                                 </TableView>
                                              </children>
@@ -136,10 +136,10 @@
                                     <content>
                                       <AnchorPane>
                                              <children>
-                                                <TableView fx:id="optionalModuleTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="optional_module_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="optionalModuleNameColumn" prefWidth="195.0" sortable="false" text="Optional Module Slot" />
-                                                      <TableColumn fx:id="optionalModuleDataColumn" minWidth="0.0" prefWidth="233.0" sortable="false" />
+                                                      <TableColumn fx:id="optional_module_name_column" prefWidth="195.0" sortable="false" text="Optional Module Slot" />
+                                                      <TableColumn fx:id="optional_module_data_column" minWidth="0.0" prefWidth="233.0" sortable="false" />
                                                    </columns>
                                                 </TableView>
                                              </children>
@@ -150,10 +150,10 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <TableView fx:id="hardpointTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="hardpoint_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="hardpointNameColumn" prefWidth="195.0" sortable="false" text="Hardpoint Slot" />
-                                                      <TableColumn fx:id="hardpointDataColumn" prefWidth="206.0" sortable="false" />
+                                                      <TableColumn fx:id="hardpoint_name_column" prefWidth="195.0" sortable="false" text="Hardpoint Slot" />
+                                                      <TableColumn fx:id="hardpoint_data_column" prefWidth="206.0" sortable="false" />
                                                    </columns>
                                                 </TableView>
                                              </children>
@@ -164,10 +164,10 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <TableView fx:id="shipStatisticsTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="ship_statistics_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
-                                                    <TableColumn fx:id="shipStatisticsNameColumn" prefWidth="200.0" sortable="false" text="Statistic" />
-                                                    <TableColumn fx:id="shipStatisticsDataColumn" prefWidth="929.0" sortable="false" />
+                                                    <TableColumn fx:id="ship_statistics_name_column" prefWidth="200.0" sortable="false" text="Statistic" />
+                                                    <TableColumn fx:id="ship_statistics_data_column" prefWidth="929.0" sortable="false" />
                                                   </columns>
                                                 </TableView>
                                              </children>
@@ -273,51 +273,51 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <TabPane fx:id="inventoryTab" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TabPane fx:id="inventory_tab" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <tabs>
-                                     <Tab fx:id="rawMatsTab" text="Raw Materials">
+                                     <Tab fx:id="raw_mats_tab" text="Raw Materials">
                                         <content>
-                                            <TableView fx:id="rawTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                            <TableView fx:id="raw_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                                                 <columns>
-                                                    <TableColumn fx:id="rawMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
-                                                    <TableColumn fx:id="rawGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
-                                                    <TableColumn fx:id="rawQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
-                                                <TableColumn fx:id="rawMaterialProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
+                                                    <TableColumn fx:id="raw_material_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
+                                                    <TableColumn fx:id="raw_grade_column" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
+                                                    <TableColumn fx:id="raw_quantity_column" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
+                                                <TableColumn fx:id="raw_material_progress_column" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
                                                 </columns>
                                             </TableView>
                                         </content>
                                      </Tab>
                                      <Tab text="Manufactured Materials">
                                         <content>
-                                            <TableView fx:id="manufacturedTable" prefHeight="200.0" prefWidth="200.0">
+                                            <TableView fx:id="manufactured_table" prefHeight="200.0" prefWidth="200.0">
                                                 <columns>
-                                                    <TableColumn fx:id="manufacturedMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
-                                                    <TableColumn fx:id="manufacturedGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
-                                                    <TableColumn fx:id="manufacturedQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
-                                                <TableColumn fx:id="manufacturedProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
+                                                    <TableColumn fx:id="manufactured_material_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
+                                                    <TableColumn fx:id="manufactured_grade_column" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
+                                                    <TableColumn fx:id="manufactured_quantity_column" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
+                                                <TableColumn fx:id="manufactured_progress_column" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
                                                 </columns>
                                             </TableView>
                                         </content>
                                      </Tab>
                                      <Tab text="Encoded Data">
                                         <content>
-                                            <TableView fx:id="dataTable" prefHeight="371.0" prefWidth="551.0">
+                                            <TableView fx:id="data_table" prefHeight="371.0" prefWidth="551.0">
                                                 <columns>
-                                                    <TableColumn fx:id="dataMaterialColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
-                                                    <TableColumn fx:id="dataGradeColumn" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
-                                                    <TableColumn fx:id="dataQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
-                                                <TableColumn fx:id="dataProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
+                                                    <TableColumn fx:id="data_material_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
+                                                    <TableColumn fx:id="data_grade_column" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
+                                                    <TableColumn fx:id="data_quantity_column" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="QTY / MAX" />
+                                                <TableColumn fx:id="data_progress_column" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Capacity" />
                                                 </columns>
                                             </TableView>
                                         </content>
                                      </Tab>
                                     <Tab text="Cargo &amp; Commodities">
                                        <content>
-                                          <TableView fx:id="cargoTable" prefHeight="371.0" prefWidth="551.0">
+                                          <TableView fx:id="cargo_table" prefHeight="371.0" prefWidth="551.0">
                                              <columns>
-                                                <TableColumn fx:id="cargoItemColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="204.0" resizable="false" text="Commodity" />
-                                                <TableColumn fx:id="cargoGradeColumn" editable="false" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Type" />
-                                                <TableColumn fx:id="cargoQuantityColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantity" />
+                                                <TableColumn fx:id="cargo_item_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="204.0" resizable="false" text="Commodity" />
+                                                <TableColumn fx:id="cargo_grade_column" editable="false" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Type" />
+                                                <TableColumn fx:id="cargo_quantity_column" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantity" />
                                              </columns>
                                           </TableView>
                                        </content>
@@ -329,7 +329,7 @@
                               </TabPane>
                            </children>
                         </VBox>
-                        <CheckBox fx:id="showZeroQuantities" layoutX="455.0" layoutY="92.0" mnemonicParsing="false" text="show zero quantity items" />
+                        <CheckBox fx:id="show_zero_quantities" layoutX="455.0" layoutY="92.0" mnemonicParsing="false" text="show zero quantity items" />
                      </children>
                   </AnchorPane>
             </content>
@@ -401,7 +401,7 @@
                                           <Insets top="-15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="economyLabel" text="unknown economy">
+                                    <Label fx:id="economy_label" text="unknown economy">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -472,7 +472,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="locationLabel" layoutX="40.0" layoutY="-5.0" text="unknown location">
+                                    <Label fx:id="location_label" layoutX="40.0" layoutY="-5.0" text="unknown location">
                                        <font>
                                           <Font name="System Bold Italic" size="36.0" />
                                        </font>
@@ -531,7 +531,7 @@
                                  </rotationAxis></Separator>
                               <HBox maxHeight="-Infinity" prefHeight="137.0" prefWidth="1130.0">
                                  <children>
-                                    <Canvas fx:id="minimap" height="320.0" width="600.0">
+                                    <Canvas fx:id="mini_map" height="320.0" width="600.0">
                                        <HBox.margin>
                                           <Insets bottom="10.0" left="10.0" top="10.0" />
                                        </HBox.margin>
@@ -778,7 +778,7 @@
                                                    <children>
                                                       <VBox>
                                                          <children>
-                                                            <Label fx:id="stationLabel" text="unknown station">
+                                                            <Label fx:id="station_label" text="unknown station">
                                                                <font>
                                                                   <Font name="System Bold" size="18.0" />
                                                                </font>
@@ -804,7 +804,7 @@
                               </HBox>
                               <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="1130.0">
                                  <children>
-                                    <Slider fx:id="mapScale" blockIncrement="1000.0" layoutX="42.0" layoutY="28.0" majorTickUnit="1000.0" max="20000.0" min="1000.0" prefWidth="845.0" showTickMarks="true" snapToTicks="true" value="2000.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="32.66666666666674" />
+                                    <Slider fx:id="mini_map_scale" blockIncrement="1000.0" layoutX="42.0" layoutY="28.0" majorTickUnit="1000.0" max="20000.0" min="1000.0" prefWidth="845.0" showTickMarks="true" snapToTicks="true" value="2000.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="32.66666666666674" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="1.0" text="Scale" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
@@ -836,7 +836,7 @@
                               </AnchorPane>
                               <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="5000.0" prefWidth="1130.0">
                                  <children>
-                                    <ListView fx:id="wayPointList" editable="true" layoutX="14.0" layoutY="50.0" maxHeight="1.7976931348623157E308" prefHeight="5000.0" prefWidth="1100.0" AnchorPane.bottomAnchor="18.000000000000057" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="49.99999999999994">
+                                    <ListView fx:id="waypoint_list" editable="true" layoutX="14.0" layoutY="50.0" maxHeight="1.7976931348623157E308" prefHeight="5000.0" prefWidth="1100.0" AnchorPane.bottomAnchor="18.000000000000057" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="49.99999999999994">
                                        <rotationAxis>
                                           <Point3D />
                                        </rotationAxis>
@@ -860,7 +860,7 @@
                                           <Point3D />
                                        </rotationAxis>
                                     </Button>
-                                    <TextField fx:id="waypointNameInput" layoutX="272.0" layoutY="15.0" promptText="waypoint name">
+                                    <TextField fx:id="waypoint_name_input" layoutX="272.0" layoutY="15.0" promptText="waypoint name">
                                        <rotationAxis>
                                           <Point3D />
                                        </rotationAxis>
@@ -886,7 +886,7 @@
                                  <children>
                                     <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="showTasks" alignment="CENTER" mnemonicParsing="false" selected="true" text="Tracked Tasks ">
+                                          <CheckBox fx:id="show_tasks" alignment="CENTER" mnemonicParsing="false" selected="true" text="Tracked Tasks ">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -901,7 +901,7 @@
                                     </AnchorPane>
                                     <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="showItemsNeeded" alignment="CENTER" mnemonicParsing="false" selected="true" text="Tracked Items">
+                                          <CheckBox fx:id="show_items_needed" alignment="CENTER" mnemonicParsing="false" selected="true" text="Tracked Items">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -916,7 +916,7 @@
                                     </AnchorPane>
                                     <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="showProcurements" alignment="CENTER" mnemonicParsing="false" text="Task Selector">
+                                          <CheckBox fx:id="show_procurements" alignment="CENTER" mnemonicParsing="false" text="Task Selector">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -931,7 +931,7 @@
                                     </AnchorPane>
                                     <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="25.0">
                                        <children>
-                                          <RadioButton fx:id="sortTasksByName" mnemonicParsing="false" selected="true" text="Sort By Type">
+                                          <RadioButton fx:id="sort_tasks_by_name" mnemonicParsing="false" selected="true" text="Sort By Type">
                                              <HBox.margin>
                                                 <Insets left="5.0" right="5.0" />
                                              </HBox.margin>
@@ -942,7 +942,7 @@
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </RadioButton>
-                                          <RadioButton fx:id="sortTasksByGrade" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Sort By Grade" toggleGroup="$task_sort">
+                                          <RadioButton fx:id="sort_tasks_by_grade" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Sort By Grade" toggleGroup="$task_sort">
                                              <HBox.margin>
                                                 <Insets left="5.0" right="5.0" />
                                              </HBox.margin>
@@ -956,37 +956,37 @@
                               </HBox>
                               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                                  <children>
-                                    <AnchorPane fx:id="taskPane">
+                                    <AnchorPane fx:id="task_pane">
                                        <children>
                                           <VBox fx:id="taskContols" minHeight="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <TableView fx:id="procurementTaskTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="procurement_task_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
-                                                      <TableColumn fx:id="taskRemoveColumn" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" resizable="false" sortable="false" />
-                                                    <TableColumn fx:id="taskNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" resizable="false" sortable="false" text="Tracked Tasks" />
-                                                      <TableColumn fx:id="taskTypeColumn" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" text="Type" />
-                                                    <TableColumn fx:id="taskCountColumn" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Count" />
-                                                      <TableColumn fx:id="taskProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Progress" />
+                                                      <TableColumn fx:id="task_remove_column" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" resizable="false" sortable="false" />
+                                                    <TableColumn fx:id="task_name_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" resizable="false" sortable="false" text="Tracked Tasks" />
+                                                      <TableColumn fx:id="task_type_column" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" text="Type" />
+                                                    <TableColumn fx:id="task_count_column" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Count" />
+                                                      <TableColumn fx:id="task_progress_column" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Progress" />
                                                   </columns>
                                                 </TableView>
                                              </children>
                                           </VBox>
                                        </children>
                                     </AnchorPane>
-                                    <TableView fx:id="taskCostTable" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <TableView fx:id="task_cost_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                       <columns>
-                                          <TableColumn fx:id="taskCostNameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="291.0" resizable="false" sortable="false" text="Tracked Items" />
-                                          <TableColumn fx:id="taskCostGradeColumn" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" sortable="false" text="Grade" />
-                                          <TableColumn fx:id="taskCostNeedColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Need" />
-                                          <TableColumn fx:id="taskCostProgressColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Progress" />
+                                          <TableColumn fx:id="task_cost_name_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="291.0" resizable="false" sortable="false" text="Tracked Items" />
+                                          <TableColumn fx:id="task_cost_grade_column" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" sortable="false" text="Grade" />
+                                          <TableColumn fx:id="task_cost_need_column" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Need" />
+                                          <TableColumn fx:id="task_cost_progress_column" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Progress" />
                                       </columns>
                                     </TableView>
-                                    <HBox fx:id="procurementBox">
+                                    <HBox fx:id="procurement_box">
                                        <children>
-                                          <TreeView fx:id="procurementTree" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="9800.0" />
+                                          <TreeView fx:id="procurement_tree" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="9800.0" />
                                           <VBox>
                                              <children>
-                                                <Label fx:id="procurementLabel" minHeight="35.0" text="Placeholder">
+                                                <Label fx:id="procurement_label" minHeight="35.0" text="Placeholder">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
@@ -997,7 +997,7 @@
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </padding>
                                                 </Label>
-                                                <ListView fx:id="procurementList" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="10000.0" />
+                                                <ListView fx:id="procurement_list" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="10000.0" />
                                              </children>
                                           </VBox>
                                        </children>
@@ -1302,7 +1302,7 @@
                               <Insets bottom="-5.0" />
                            </VBox.margin>
                         </Label>
-                        <ListView fx:id="consoleMessageList" layoutX="15.0" layoutY="140.0" prefHeight="840.0" prefWidth="1101.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="140.0" />
+                        <ListView fx:id="console_message_list" layoutX="15.0" layoutY="140.0" prefHeight="840.0" prefWidth="1101.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="140.0" />
                         <Label layoutX="17.0" layoutY="88.0" text="Log">
                            <font>
                               <Font name="System Bold" size="18.0" />
@@ -1398,7 +1398,7 @@
       </TabPane>
       <AnchorPane layoutX="321.0" layoutY="5.0" prefHeight="29.0" prefWidth="218.0">
          <children>
-            <ProgressBar fx:id="messageProgress" layoutX="9.0" layoutY="5.0" prefWidth="200.0" progress="0.0" />
+            <ProgressBar fx:id="message_progress" layoutX="9.0" layoutY="5.0" prefWidth="200.0" progress="0.0" />
          </children>
       </AnchorPane>
    </children>

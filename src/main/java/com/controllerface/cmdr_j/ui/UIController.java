@@ -70,7 +70,6 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
-import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -86,7 +85,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
- * UI Controller class for Elite Dangerous Engineer Procurement System
+ * UI Controller class for CMDR J
  *
  * Created by Controllerface on 3/20/2018.
  */
@@ -101,37 +100,37 @@ public class UIController
     // This is the top level UI element
     //@FXML private TabPane mainPane;
 
-    @FXML private Label economyLabel;
-    @FXML private Label stationLabel;
+    @FXML private Label economy_label;
+    @FXML private Label station_label;
 
-    @FXML private ProgressBar messageProgress;
+    @FXML private ProgressBar message_progress;
 
     /*
     Ship LoadoutHandler Tab
      */
 
-    @FXML private Label locationLabel;
+    @FXML private Label location_label;
 
-    @FXML private Label shipIDLabel;
-    @FXML private Label shipNameLabel;
-    @FXML private Label shipTypeLabel;
-    @FXML private Label shipMakeLabel;
+    @FXML private Label ship_ID_label;
+    @FXML private Label ship_name_label;
+    @FXML private Label ship_type_label;
+    @FXML private Label ship_make_label;
 
-    @FXML private TableView<ShipStatisticData> shipStatisticsTable;
-    @FXML private TableColumn<ShipStatisticData, String> shipStatisticsNameColumn;
-    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> shipStatisticsDataColumn;
+    @FXML private TableView<ShipStatisticData> ship_statistics_table;
+    @FXML private TableColumn<ShipStatisticData, String> ship_statistics_name_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_statistics_data_column;
 
-    @FXML private TableView<ShipModuleData> coreModuleTable;
-    @FXML private TableColumn<ShipModuleData, String> coreModuleNameColumn;
-    @FXML private TableColumn<ShipModuleData, ShipModuleData> coreModuleDataColumn;
+    @FXML private TableView<ShipModuleData> core_module_table;
+    @FXML private TableColumn<ShipModuleData, String> core_module_name_column;
+    @FXML private TableColumn<ShipModuleData, ShipModuleData> core_module_data_column;
 
-    @FXML private TableView<ShipModuleData> optionalModuleTable;
-    @FXML private TableColumn<ShipModuleData, String> optionalModuleNameColumn;
-    @FXML private TableColumn<ShipModuleData, ShipModuleData> optionalModuleDataColumn;
+    @FXML private TableView<ShipModuleData> optional_module_table;
+    @FXML private TableColumn<ShipModuleData, String> optional_module_name_column;
+    @FXML private TableColumn<ShipModuleData, ShipModuleData> optional_module_data_column;
 
-    @FXML private TableView<ShipModuleData> hardpointTable;
-    @FXML private TableColumn<ShipModuleData, String> hardpointNameColumn;
-    @FXML private TableColumn<ShipModuleData, ShipModuleData> hardpointDataColumn;
+    @FXML private TableView<ShipModuleData> hardpoint_table;
+    @FXML private TableColumn<ShipModuleData, String> hardpoint_name_column;
+    @FXML private TableColumn<ShipModuleData, ShipModuleData> hardpoint_data_column;
 
 
     /*
@@ -139,73 +138,73 @@ public class UIController
      */
 
     // Section visibility controls
-    @FXML private CheckBox showProcurements;
-    @FXML private CheckBox showTasks;
-    @FXML private CheckBox showItemsNeeded;
+    @FXML private CheckBox show_procurements;
+    @FXML private CheckBox show_tasks;
+    @FXML private CheckBox show_items_needed;
 
     // Procurement tree/list selector components
-    @FXML private HBox procurementBox;
-    @FXML private Label procurementLabel;
-    @FXML private TreeView<ProcurementTask> procurementTree;
-    @FXML private ListView<ProcurementTask> procurementList;
+    @FXML private HBox procurement_box;
+    @FXML private Label procurement_label;
+    @FXML private TreeView<ProcurementTask> procurement_tree;
+    @FXML private ListView<ProcurementTask> procurement_list;
 
     // Task list container pane
-    @FXML private AnchorPane taskPane;
+    @FXML private AnchorPane task_pane;
 
     // Task sorting controls
-    @FXML private RadioButton sortTasksByName;
-    @FXML private RadioButton sortTasksByGrade;
+    @FXML private RadioButton sort_tasks_by_name;
+    @FXML private RadioButton sort_tasks_by_grade;
 
     // Task list and columns
-    @FXML private TableView<ProcurementTaskData> procurementTaskTable;
-    @FXML private TableColumn<ProcurementTaskData, ProcurementRecipe> taskTypeColumn;
-    @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> taskCountColumn;
-    @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> taskNameColumn;
-    @FXML private TableColumn<ProcurementTaskData, ProgressBar> taskProgressColumn;
-    @FXML private TableColumn<ProcurementTaskData, Pair<ProcurementType, ProcurementRecipe>> taskRemoveColumn;
+    @FXML private TableView<ProcurementTaskData> procurement_task_table;
+    @FXML private TableColumn<ProcurementTaskData, ProcurementRecipe> task_type_column;
+    @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> task_count_column;
+    @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> task_name_column;
+    @FXML private TableColumn<ProcurementTaskData, ProgressBar> task_progress_column;
+    @FXML private TableColumn<ProcurementTaskData, Pair<ProcurementType, ProcurementRecipe>> task_remove_column;
 
     // Items needed/costs table and columns
-    @FXML private TableView<ItemCostData> taskCostTable;
-    @FXML private TableColumn<ItemCostData, String> taskCostNeedColumn;
-    @FXML private TableColumn<Displayable, Displayable> taskCostNameColumn;
-    @FXML private TableColumn<ItemCostData, ProgressBar> taskCostProgressColumn;
-    @FXML private TableColumn<ItemCostData, ItemGrade> taskCostGradeColumn;
+    @FXML private TableView<ItemCostData> task_cost_table;
+    @FXML private TableColumn<ItemCostData, String> task_cost_need_column;
+    @FXML private TableColumn<Displayable, Displayable> task_cost_name_column;
+    @FXML private TableColumn<ItemCostData, ProgressBar> task_cost_progress_column;
+    @FXML private TableColumn<ItemCostData, ItemGrade> task_cost_grade_column;
 
 
     /*
     Inventory Panel
      */
 
-    @FXML private TabPane inventoryTab;
-    @FXML private CheckBox showZeroQuantities;
+    @FXML private TabPane inventory_tab;
+    @FXML private CheckBox show_zero_quantities;
 
     // Raw materials
-    @FXML private Tab rawMatsTab;
-    @FXML private TableView<InventoryData> rawTable;
-    @FXML private TableColumn<InventoryData, InventoryData> rawMaterialColumn;
-    @FXML private TableColumn<InventoryData, InventoryData> rawGradeColumn;
-    @FXML private TableColumn<InventoryData, Label> rawQuantityColumn;
-    @FXML private TableColumn<InventoryData, ProgressBar> rawMaterialProgressColumn;
+    @FXML private Tab raw_mats_tab;
+    @FXML private TableView<InventoryData> raw_table;
+    @FXML private TableColumn<InventoryData, InventoryData> raw_material_column;
+    @FXML private TableColumn<InventoryData, InventoryData> raw_grade_column;
+    @FXML private TableColumn<InventoryData, Label> raw_quantity_column;
+    @FXML private TableColumn<InventoryData, ProgressBar> raw_material_progress_column;
 
     // Manufactured materials
-    @FXML private TableView<InventoryData> manufacturedTable;
-    @FXML private TableColumn<InventoryData, InventoryData> manufacturedMaterialColumn;
-    @FXML private TableColumn<InventoryData, InventoryData> manufacturedGradeColumn;
-    @FXML private TableColumn<InventoryData, Label> manufacturedQuantityColumn;
-    @FXML private TableColumn<InventoryData, ProgressBar> manufacturedProgressColumn;
+    @FXML private TableView<InventoryData> manufactured_table;
+    @FXML private TableColumn<InventoryData, InventoryData> manufactured_material_column;
+    @FXML private TableColumn<InventoryData, InventoryData> manufactured_grade_column;
+    @FXML private TableColumn<InventoryData, Label> manufactured_quantity_column;
+    @FXML private TableColumn<InventoryData, ProgressBar> manufactured_progress_column;
 
     // Data materials
-    @FXML private TableView<InventoryData> dataTable;
-    @FXML private TableColumn<InventoryData, InventoryData> dataMaterialColumn;
-    @FXML private TableColumn<InventoryData, InventoryData> dataGradeColumn;
-    @FXML private TableColumn<InventoryData, Label> dataQuantityColumn;
-    @FXML private TableColumn<InventoryData, ProgressBar> dataProgressColumn;
+    @FXML private TableView<InventoryData> data_table;
+    @FXML private TableColumn<InventoryData, InventoryData> data_material_column;
+    @FXML private TableColumn<InventoryData, InventoryData> data_grade_column;
+    @FXML private TableColumn<InventoryData, Label> data_quantity_column;
+    @FXML private TableColumn<InventoryData, ProgressBar> data_progress_column;
 
     // Cargo
-    @FXML private TableView<InventoryData> cargoTable;
-    @FXML private TableColumn<InventoryData, InventoryData> cargoItemColumn;
-    @FXML private TableColumn<InventoryData, InventoryData> cargoGradeColumn;
-    @FXML private TableColumn<InventoryData, Label> cargoQuantityColumn;
+    @FXML private TableView<InventoryData> cargo_table;
+    @FXML private TableColumn<InventoryData, InventoryData> cargo_item_column;
+    @FXML private TableColumn<InventoryData, InventoryData> cargo_grade_column;
+    @FXML private TableColumn<InventoryData, Label> cargo_quantity_column;
 
     // Imports
     @FXML private TableView<MarketData> market_table;
@@ -224,9 +223,7 @@ public class UIController
     @FXML private TableColumn<MarketData, Integer> market_income_col1;
 
 
-
-
-    @FXML private ListView<MessageData> consoleMessageList;
+    @FXML private ListView<MessageData> console_message_list;
 
     // Status
     @FXML private Label status_body;
@@ -243,8 +240,8 @@ public class UIController
     @FXML private Label status_bearing;
 
     @FXML private Button status_mark;
-    @FXML private ListView<Waypoint> wayPointList;
-    @FXML private TextField waypointNameInput;
+    @FXML private ListView<Waypoint> waypoint_list;
+    @FXML private TextField waypoint_name_input;
 
     @FXML private Label market_name;
 
@@ -253,8 +250,8 @@ public class UIController
     @FXML private Label credit_balance;
 
 
-    @FXML private Canvas minimap;
-    @FXML private Slider mapScale;
+    @FXML private Canvas mini_map;
+    @FXML private Slider mini_map_scale;
 
     @FXML private ColorPicker msg_general_color;
     @FXML private ColorPicker msg_inventory_color;
@@ -287,11 +284,9 @@ public class UIController
     private final SortedList<ItemCostData> sortedCosts = new SortedList<>(taskCostBackingList, UIFunctions.Sort.costsByNeed);
 
     private final ObservableList<MessageData> consoleBackingList = FXCollections.observableArrayList();
-    //private final Map<MessageData, Integer> hiddenMessages = new HashMap<>();
 
     private final ObservableList<MarketData> market0 = FXCollections.observableArrayList();
     private final ObservableList<MarketData> market1 = FXCollections.observableArrayList();
-
 
 
     /*
@@ -340,13 +335,8 @@ public class UIController
      */
     private final List<ItemCostData> costList = new CopyOnWriteArrayList<>();
 
-    //private final List<MessageData> messageList = new CopyOnWriteArrayList<>();
-
-    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-    private final ExecutorService tx = Executors.newFixedThreadPool(4);
-
-    // this is the transaction queue the transaction processor and inventory threads will use to keep the UI
-    // and player inventory in sync
+    private final ScheduledExecutorService messageExecutor = Executors.newSingleThreadScheduledExecutor();
+    private final ExecutorService transactionPool = Executors.newFixedThreadPool(4);
     private final BlockingQueue<UserTransaction> transactionQueue = new LinkedBlockingQueue<>();
 
     private final AtomicInteger queuedMessages = new AtomicInteger(0);
@@ -409,17 +399,17 @@ public class UIController
 
         double progress = (double) processedMessages.get() / (double) queuedMessages.get();
 
-        messageProgress.setProgress(progress);
+        message_progress.setProgress(progress);
         initialLoadCallback.accept(progress);
 
-        if (messageProgress.getProgress() >= 1.0)
+        if (message_progress.getProgress() >= 1.0)
         {
-            messageProgress.visibleProperty().setValue(false);
-            messageProgress.setProgress(0.0d);
+            message_progress.visibleProperty().setValue(false);
+            message_progress.setProgress(0.0d);
         }
 
         while (consoleBackingList.size() > 500) consoleBackingList.remove(0);
-        consoleMessageList.scrollTo(consoleBackingList.size());
+        console_message_list.scrollTo(consoleBackingList.size());
     }
 
     /**
@@ -435,11 +425,7 @@ public class UIController
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
 
-            if (messageQueue.isEmpty()) hasMessages.set(false);
-            else
-            {
-                hasMessages.set(true);
-            }
+            hasMessages.set(!messageQueue.isEmpty());
             Platform.runLater(()->consumeNextMessageBlock(msgs));
         }
     }
@@ -454,8 +440,8 @@ public class UIController
         try
         {
             toJson(Optional.of(windowDimensions));
-            executorService.shutdown();
-            tx.shutdownNow();
+            messageExecutor.shutdown();
+            transactionPool.shutdownNow();
         }
         catch (IOException e)
         {
@@ -467,7 +453,6 @@ public class UIController
 
     public WindowDimensions showVisuals()
     {
-        //synchronizeBackingLists();
         initializeUIComponents();
 
         Properties properties = new Properties();
@@ -495,27 +480,27 @@ public class UIController
 
     private void renderOffPlanet()
     {
-        double w = minimap.getWidth();
-        double h = minimap.getHeight();
+        double w = mini_map.getWidth();
+        double h = mini_map.getHeight();
 
         // fill the whole canvas with the BG color, starting fresh for this render cycle
-        minimap.getGraphicsContext2D().rect(0, 0, w, h);
-        minimap.getGraphicsContext2D().setFill(Color.rgb(51, 17, 0));
-        minimap.getGraphicsContext2D().fillRect(0,0,w,h);
+        mini_map.getGraphicsContext2D().rect(0, 0, w, h);
+        mini_map.getGraphicsContext2D().setFill(Color.rgb(51, 17, 0));
+        mini_map.getGraphicsContext2D().fillRect(0,0,w,h);
 
         // draw a border
-        minimap.getGraphicsContext2D().rect(0.0, 0.0, w, h);
-        minimap.getGraphicsContext2D().setStroke(Color.DARKORANGE);
-        minimap.getGraphicsContext2D().setLineWidth(5);
-        minimap.getGraphicsContext2D().stroke();
-        minimap.getGraphicsContext2D().closePath();
+        mini_map.getGraphicsContext2D().rect(0.0, 0.0, w, h);
+        mini_map.getGraphicsContext2D().setStroke(Color.DARKORANGE);
+        mini_map.getGraphicsContext2D().setLineWidth(5);
+        mini_map.getGraphicsContext2D().stroke();
+        mini_map.getGraphicsContext2D().closePath();
 
-        minimap.getGraphicsContext2D().setTextAlign(TextAlignment.CENTER);
-        minimap.getGraphicsContext2D().setTextBaseline(VPos.CENTER);
-        minimap.getGraphicsContext2D().setFill(Color.DARKORANGE);
+        mini_map.getGraphicsContext2D().setTextAlign(TextAlignment.CENTER);
+        mini_map.getGraphicsContext2D().setTextBaseline(VPos.CENTER);
+        mini_map.getGraphicsContext2D().setFill(Color.DARKORANGE);
 
         // write the distance text near the marked location
-        minimap.getGraphicsContext2D().fillText("Currently Off-planet", w / 2, h / 2);
+        mini_map.getGraphicsContext2D().fillText("Currently Off-planet", w / 2, h / 2);
     }
 
     private void renderMiniMap()
@@ -526,39 +511,42 @@ public class UIController
             return;
         }
 
-        minimap.getGraphicsContext2D().clearRect(0,0, minimap.getWidth(), minimap.getHeight());
+        mini_map.getGraphicsContext2D().clearRect(0,0, mini_map.getWidth(), mini_map.getHeight());
 
         /* Step 1:
         First order of business is to fill in the background and draw a border around the map itself. The minimap
         canvas may be re-sized, so we calculate everything based on the current size.
          */
 
-        double w = minimap.getWidth();
-        double h = minimap.getHeight();
+        double w = mini_map.getWidth();
+        double h = mini_map.getHeight();
 
         // fill the whole canvas with the BG color, starting fresh for this render cycle
-        minimap.getGraphicsContext2D().rect(0, 0, w, h);
-        minimap.getGraphicsContext2D().setFill(UIFunctions.Fonts.darkestOrange);
-        minimap.getGraphicsContext2D().fillRect(0,0,w,h);
+        mini_map.getGraphicsContext2D().rect(0, 0, w, h);
+        mini_map.getGraphicsContext2D().setFill(UIFunctions.Style.darkestOrange);
+        mini_map.getGraphicsContext2D().fillRect(0,0,w,h);
 
         // draw a border
-        minimap.getGraphicsContext2D().rect(0.0, 0.0, w, h);
-        minimap.getGraphicsContext2D().setStroke(UIFunctions.Fonts.darkOrange);
-        minimap.getGraphicsContext2D().setLineWidth(5);
-        minimap.getGraphicsContext2D().stroke();
-        minimap.getGraphicsContext2D().closePath();
+        mini_map.getGraphicsContext2D().rect(0.0, 0.0, w, h);
+        mini_map.getGraphicsContext2D().setStroke(UIFunctions.Style.darkOrange);
+        mini_map.getGraphicsContext2D().setLineWidth(5);
+        mini_map.getGraphicsContext2D().stroke();
+        mini_map.getGraphicsContext2D().closePath();
 
+        double gridDist = UIFunctions.Data.mapRange(mini_map_scale.getValue(),
+                mini_map_scale.getMin(),
+                mini_map_scale.getMax(),
+                mini_map.getWidth() / 8,
+                mini_map.getWidth() / 4);
 
-        double gridDist = UIFunctions.Data.mapRange(mapScale.getValue(),mapScale.getMin(), mapScale.getMax(),minimap.getWidth()/8, minimap.getWidth()/4);
-
-        minimap.getGraphicsContext2D().setStroke(UIFunctions.Fonts.darkerOrange);
-        minimap.getGraphicsContext2D().setLineWidth(2);
+        mini_map.getGraphicsContext2D().setStroke(UIFunctions.Style.darkerOrange);
+        mini_map.getGraphicsContext2D().setLineWidth(2);
 
         double s = 0;
-        while (s < minimap.getWidth())
+        while (s < mini_map.getWidth())
         {
-            minimap.getGraphicsContext2D().strokeLine(s,0, s, minimap.heightProperty().doubleValue());
-            minimap.getGraphicsContext2D().strokeLine(0, s, minimap.widthProperty().doubleValue(), s);
+            mini_map.getGraphicsContext2D().strokeLine(s,0, s, mini_map.heightProperty().doubleValue());
+            mini_map.getGraphicsContext2D().strokeLine(0, s, mini_map.widthProperty().doubleValue(), s);
             s += gridDist;
         }
 
@@ -591,7 +579,7 @@ public class UIController
         double angle = Double.parseDouble(status_heading.getText());
 
         // save the existing transform so we can return after drawing the arrow, and have a base to rotate from
-        Affine baseTransform = minimap.getGraphicsContext2D().getTransform();
+        Affine baseTransform = mini_map.getGraphicsContext2D().getTransform();
 
         // create our rotation transform from the base one
         Affine rot = baseTransform.clone();
@@ -600,22 +588,22 @@ public class UIController
         rot.append(new Rotate(angle, centerX, centerY));
 
         // set the current transform to our correct rotation, set the color and then actually draw the polygon
-        minimap.getGraphicsContext2D().setTransform(rot);
-        minimap.getGraphicsContext2D().setFill(Color.ORANGE);
-        minimap.getGraphicsContext2D().fillPolygon(new double[]{centerX, leftX, centerX, rightX},
+        mini_map.getGraphicsContext2D().setTransform(rot);
+        mini_map.getGraphicsContext2D().setFill(Color.ORANGE);
+        mini_map.getGraphicsContext2D().fillPolygon(new double[]{centerX, leftX, centerX, rightX},
                 new double[]{topY, leftY, midY, rightY}, 4);
 
         // once we're done, set the transform back to normal so remaining draw operations work as expected
-        minimap.getGraphicsContext2D().setTransform(baseTransform);
+        mini_map.getGraphicsContext2D().setTransform(baseTransform);
 
 
         /* Step 3:
         The process below is what renders the marked waypoints
          */
 
-        wayPointList.getItems().forEach(wayPoint ->
+        waypoint_list.getItems().forEach(wayPoint ->
         {
-            ObservableList<Waypoint> x = wayPointList.getSelectionModel().getSelectedItems();
+            ObservableList<Waypoint> x = waypoint_list.getSelectionModel().getSelectedItems();
 
             Waypoint selectedWayPoint = x.size() > 0 ? x.get(0) : null;
 
@@ -633,15 +621,13 @@ public class UIController
 
         if (inSRV)
         {
-            renderWaypoint(lastShipLong, lastShipLat, centerX, centerY, Color.LIME, shipNameLabel.getText() + "\n\n" + "$D");
+            renderWaypoint(lastShipLong, lastShipLat, centerX, centerY, Color.LIME, ship_name_label.getText() + "\n\n" + "$D");
         }
     }
 
 
     private double calculateDistance(double currentLong, double currentLat, double waypointLongitude, double waypointLatitude)
     {
-        //double currentLat = Double.parseDouble(status_latitude.getText());
-        //double currentLong = Double.parseDouble(status_longitude.getText());
         double latDistance = Math.toRadians(waypointLatitude - currentLat);
         double lonDistance = Math.toRadians(waypointLongitude - currentLong);
 
@@ -670,9 +656,9 @@ public class UIController
 
         // todo: these multipliers need to change based on SRV or Ship
         double mX = currentLong - waypointLongitude;
-        mX *= mapScale.getValue();
+        mX *= mini_map_scale.getValue();
         double mY = currentLat - waypointLatitude;
-        mY *= mapScale.getValue();
+        mY *= mini_map_scale.getValue();
 
         double markX = centerX - mX;
         double markY = centerY + mY;
@@ -688,12 +674,12 @@ public class UIController
         if (!kmScale) text = text.replace(".0","");
 
         // draw the waypoint on the map
-        minimap.getGraphicsContext2D().setFill(color);
-        minimap.getGraphicsContext2D().fillPolygon(new double[]{markX - 3, markX - 3, markX + 3, markX + 3},
+        mini_map.getGraphicsContext2D().setFill(color);
+        mini_map.getGraphicsContext2D().fillPolygon(new double[]{markX - 3, markX - 3, markX + 3, markX + 3},
                 new double[]{markY - 3, markY + 3, markY + 3, markY - 3}, 4);
 
         // write the distance text near the marked location
-        minimap.getGraphicsContext2D().fillText(text, markX + 5, markY);
+        mini_map.getGraphicsContext2D().fillText(text, markX + 5, markY);
     }
 
     private void initializeMarketTables()
@@ -766,9 +752,9 @@ public class UIController
         fromJson();
         initializeMarketTables();
 
-        mapScale.valueProperty().addListener((observable, oldValue, newValue) -> renderMiniMap());
+        mini_map_scale.valueProperty().addListener((observable, oldValue, newValue) -> renderMiniMap());
 
-        wayPointList.setCellFactory(new Callback<ListView<Waypoint>, ListCell<Waypoint>>()
+        waypoint_list.setCellFactory(new Callback<ListView<Waypoint>, ListCell<Waypoint>>()
         {
             @Override
             public ListCell<Waypoint> call(ListView<Waypoint> param)
@@ -852,7 +838,7 @@ public class UIController
             double markedLat = Double.parseDouble(status_latitude.getText());
             double markedLong = Double.parseDouble(status_longitude.getText());
 
-            wayPointList.getItems().add(new Waypoint(waypointNameInput.getText(), markedLat, markedLong));
+            waypoint_list.getItems().add(new Waypoint(waypoint_name_input.getText(), markedLat, markedLong));
         });
     }
 
@@ -869,21 +855,6 @@ public class UIController
             this.name = name;
             this.latitude = latitude;
             this.longitude = longitude;
-        }
-
-        public String getName()
-        {
-            return name;
-        }
-
-        public double getLatitude()
-        {
-            return latitude;
-        }
-
-        public double getLongitude()
-        {
-            return longitude;
         }
     }
 
@@ -1005,7 +976,7 @@ public class UIController
         BiConsumer<ProcurementCost, Integer> adjustItem = (item, amount) ->
         {
             commanderData.adjustItem(item, amount);
-            if (taskCostTable != null) taskCostTable.refresh();
+            if (task_cost_table != null) task_cost_table.refresh();
         };
 
 
@@ -1078,11 +1049,8 @@ public class UIController
 
                             List<Status> currentFlags = Status.extractFlags(flags)
                                     .collect(Collectors.toList());
-//
-                            nearPlanet.set(currentFlags.contains(Status.HAS_LAT_LONG));
 
-                            //System.out.println(flags);
-                            //Status.extractFlags(flags).forEach(System.out::println);
+                            nearPlanet.set(currentFlags.contains(Status.HAS_LAT_LONG));
 
                             @SuppressWarnings("unchecked")
                             Map<String, Object> fuelData = ((Map<String, Object>) statusObject.get("Fuel"));
@@ -1114,9 +1082,9 @@ public class UIController
                             double lat = Double.parseDouble(Latitude.toString());
                             double lon = Double.parseDouble(Longitude.toString());
 
-                            if (!wayPointList.getItems().isEmpty())
+                            if (!waypoint_list.getItems().isEmpty())
                             {
-                                ObservableList<Waypoint> x = wayPointList.getSelectionModel().getSelectedItems();
+                                ObservableList<Waypoint> x = waypoint_list.getSelectionModel().getSelectedItems();
 
                                 Waypoint selectedWaypoint = x.size() > 0 ? x.get(0) : null;
 
@@ -1128,11 +1096,7 @@ public class UIController
                                     status_marked_lat.setText(String.valueOf(selectedWaypoint.latitude));
                                     status_marked_long.setText(String.valueOf(selectedWaypoint.longitude));
 
-                                    double distance =
-                                            calculateDistance(lon, lat, selectedWaypoint.longitude, selectedWaypoint.latitude);
-
-//                                            UIFunctions.Data.round(Point2D
-//                                            .distance(lon, lat, selectedWaypoint.longitude, selectedWaypoint.latitude) * 1000, 2);
+                                    double distance = calculateDistance(lon, lat, selectedWaypoint.longitude, selectedWaypoint.latitude);
 
                                     boolean kmScale = distance > 1000d;
                                     if (kmScale) distance = distance / 1000d;
@@ -1154,8 +1118,7 @@ public class UIController
         int threads = cores / 2;
         if (threads > 6) threads = 6;
         if (threads < 1) threads = 1;
-        System.out.println("Cores: " + cores + "Threads: " + threads);
-        IntStream.range(0,threads).forEach(i->tx.submit(transactionProcessingTask));
+        IntStream.range(0,threads).forEach(i-> transactionPool.submit(transactionProcessingTask));
     }
 
     private void startupTasks()
@@ -1166,7 +1129,7 @@ public class UIController
         inventoryThread.setDaemon(true);
         inventoryThread.start();
 
-        executorService.scheduleAtFixedRate(this::processMessages, 0, 1, TimeUnit.SECONDS);
+        messageExecutor.scheduleAtFixedRate(this::processMessages, 0, 1, TimeUnit.SECONDS);
 
         while (!transactionsComplete)
         {
@@ -1201,11 +1164,11 @@ public class UIController
         initializeSelectionOverrides();
         initializeProcurementTab();
 
-        consoleMessageList.setItems(consoleBackingList);
-        consoleBackingList.addListener((ListChangeListener<MessageData>) c -> consoleMessageList.refresh());
+        console_message_list.setItems(consoleBackingList);
+        consoleBackingList.addListener((ListChangeListener<MessageData>) c -> console_message_list.refresh());
 
         // todo: abstract this factory out to UIFunctions or something
-        consoleMessageList.setCellFactory(new Callback<ListView<MessageData>, ListCell<MessageData>>()
+        console_message_list.setCellFactory(new Callback<ListView<MessageData>, ListCell<MessageData>>()
         {
             @Override
             public ListCell<MessageData> call(ListView<MessageData> param)
@@ -1228,10 +1191,10 @@ public class UIController
 
                         Label typeLabel = new Label(item.getMessageType() + "  ");
                         typeLabel.setTextFill(item.getMessageType().getColor());
-                        typeLabel.setFont(UIFunctions.Fonts.size1Font);
+                        typeLabel.setFont(UIFunctions.Style.size1Font);
 
                         Label message = new Label(item.getMessage());
-                        message.setFont(UIFunctions.Fonts.size4Font);
+                        message.setFont(UIFunctions.Style.size4Font);
                         hBox.getChildren().addAll(typeLabel, message);
 
                         setGraphic(hBox);
@@ -1247,47 +1210,47 @@ public class UIController
     private void initializeProcurementTab()
     {
         SimpleStringProperty labelText = new SimpleStringProperty("");
-        procurementLabel.textProperty().bind(labelText);
-        procurementTree.setCellFactory(param -> new ProcurementTreeCell(procSelectorBackingList, labelText));
-        procurementList.setItems(procSelectorBackingList);
-        procurementList.setCellFactory(param -> new ProcurementListCell(addTaskToProcurementList,
-                commanderData::amountOf, procurementList.widthProperty()));
+        procurement_label.textProperty().bind(labelText);
+        procurement_tree.setCellFactory(param -> new ProcurementTreeCell(procSelectorBackingList, labelText));
+        procurement_list.setItems(procSelectorBackingList);
+        procurement_list.setCellFactory(param -> new ProcurementListCell(addTaskToProcurementList,
+                commanderData::amountOf, procurement_list.widthProperty()));
 
-        procurementTaskTable.setItems(sortedTasks);
-        sortedTasks.comparatorProperty().bind(procurementTaskTable.comparatorProperty());
-        taskCostTable.setItems(sortedCosts);
+        procurement_task_table.setItems(sortedTasks);
+        sortedTasks.comparatorProperty().bind(procurement_task_table.comparatorProperty());
+        task_cost_table.setItems(sortedCosts);
 
-        taskCountColumn.setCellFactory(x -> new TaskCountCell());
-        taskCountColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
+        task_count_column.setCellFactory(x -> new TaskCountCell());
+        task_count_column.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
-        taskProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
+        task_progress_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
 
-        taskTypeColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair().getValue()));
-        taskTypeColumn.setCellFactory(x-> new TaskTypeCell());
+        task_type_column.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair().getValue()));
+        task_type_column.setCellFactory(x-> new TaskTypeCell());
 
-        taskNameColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
-        taskNameColumn.setCellFactory(x -> new TaskDataCell());
+        task_name_column.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
+        task_name_column.setCellFactory(x -> new TaskDataCell());
 
-        taskRemoveColumn.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair()));
-        taskRemoveColumn.setCellFactory(x -> new TaskRemoveCell(addPairToProcurementList));
+        task_remove_column.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair()));
+        task_remove_column.setCellFactory(x -> new TaskRemoveCell(addPairToProcurementList));
 
-        taskCostNeedColumn.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
-        taskCostNeedColumn.setCellFactory(x -> new CostValueCell());
+        task_cost_need_column.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
+        task_cost_need_column.setCellFactory(x -> new CostValueCell());
 
-        taskCostNameColumn.setCellValueFactory(modMaterial -> new ReadOnlyObjectWrapper<>(modMaterial.getValue()));
-        taskCostNameColumn.setCellFactory(x -> new CostDataCell());
+        task_cost_name_column.setCellValueFactory(modMaterial -> new ReadOnlyObjectWrapper<>(modMaterial.getValue()));
+        task_cost_name_column.setCellFactory(x -> new CostDataCell());
 
-        taskCostProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
+        task_cost_progress_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
 
-        taskCostGradeColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getCost().getGrade()));
-        taskCostGradeColumn.setCellFactory(x -> new CostGradeCell());
+        task_cost_grade_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getCost().getGrade()));
+        task_cost_grade_column.setCellFactory(x -> new CostGradeCell());
 
-        sortTasksByName.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.tasksByName));
-        sortTasksByGrade.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.taskByGrade));
+        sort_tasks_by_name.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.tasksByName));
+        sort_tasks_by_grade.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.taskByGrade));
 
-        showProcurements.setOnAction(e -> setProcurementsUIVisibility());
-        showTasks.setOnAction(e -> setProcurementsUIVisibility());
-        showItemsNeeded.setOnAction(e -> setProcurementsUIVisibility());
+        show_procurements.setOnAction(e -> setProcurementsUIVisibility());
+        show_tasks.setOnAction(e -> setProcurementsUIVisibility());
+        show_items_needed.setOnAction(e -> setProcurementsUIVisibility());
     }
 
     /**
@@ -1301,36 +1264,36 @@ public class UIController
         Label recipeTableLabel = new Label("Tracked Tasks Will Appear Here");
         Label costTableLabel = new Label("Tracked Items Will Appear Here");
 
-        procListLabel.setFont(UIFunctions.Fonts.size4Font);
-        recipeTableLabel.setFont(UIFunctions.Fonts.size4Font);
-        costTableLabel.setFont(UIFunctions.Fonts.size4Font);
+        procListLabel.setFont(UIFunctions.Style.size4Font);
+        recipeTableLabel.setFont(UIFunctions.Style.size4Font);
+        costTableLabel.setFont(UIFunctions.Style.size4Font);
 
-        procurementList.setPlaceholder(procListLabel);
-        procurementTaskTable.setPlaceholder(recipeTableLabel);
-        taskCostTable.setPlaceholder(costTableLabel);
+        procurement_list.setPlaceholder(procListLabel);
+        procurement_task_table.setPlaceholder(recipeTableLabel);
+        task_cost_table.setPlaceholder(costTableLabel);
 
         Label cargoTableLabel = new Label("You are not carrying any cargo");
         Label rawTableLabel = new Label("You are not carrying any raw materials");
         Label mfdTableLabel = new Label("You are not carrying any manufactured materials");
         Label dataTableLabel = new Label("You are not carrying any encoded data");
 
-        cargoTableLabel.setFont(UIFunctions.Fonts.size4Font);
-        rawTableLabel.setFont(UIFunctions.Fonts.size4Font);
-        mfdTableLabel.setFont(UIFunctions.Fonts.size4Font);
-        dataTableLabel.setFont(UIFunctions.Fonts.size4Font);
+        cargoTableLabel.setFont(UIFunctions.Style.size4Font);
+        rawTableLabel.setFont(UIFunctions.Style.size4Font);
+        mfdTableLabel.setFont(UIFunctions.Style.size4Font);
+        dataTableLabel.setFont(UIFunctions.Style.size4Font);
 
-        cargoTable.setPlaceholder(cargoTableLabel);
-        rawTable.setPlaceholder(rawTableLabel);
-        manufacturedTable.setPlaceholder(mfdTableLabel);
-        dataTable.setPlaceholder(dataTableLabel);
+        cargo_table.setPlaceholder(cargoTableLabel);
+        raw_table.setPlaceholder(rawTableLabel);
+        manufactured_table.setPlaceholder(mfdTableLabel);
+        data_table.setPlaceholder(dataTableLabel);
 
         Label messageLabel = new Label("Loading Message Log...");
-        messageLabel.setFont(UIFunctions.Fonts.size4Font);
-        consoleMessageList.setPlaceholder(messageLabel);
+        messageLabel.setFont(UIFunctions.Style.size4Font);
+        console_message_list.setPlaceholder(messageLabel);
 
         Label messageLabel2 = new Label("Not currently in a ship...");
-        messageLabel2.setFont(UIFunctions.Fonts.size4Font);
-        coreModuleTable.setPlaceholder(messageLabel2);
+        messageLabel2.setFont(UIFunctions.Style.size4Font);
+        core_module_table.setPlaceholder(messageLabel2);
     }
 
     /**
@@ -1341,24 +1304,24 @@ public class UIController
         // associate the inventory lists with the table view UI elements that display their contents
         commanderData.associateCommanderName(commander_name);
         commanderData.associateCommanderBalance(credit_balance);
-        commanderData.associateCargoTable(cargoTable, showZeroQuantities);
-        commanderData.associateRawTable(rawTable, showZeroQuantities);
-        commanderData.associateManufacturedTable(manufacturedTable, showZeroQuantities);
-        commanderData.associateDataTable(dataTable, showZeroQuantities);
+        commanderData.associateCargoTable(cargo_table, show_zero_quantities);
+        commanderData.associateRawTable(raw_table, show_zero_quantities);
+        commanderData.associateManufacturedTable(manufactured_table, show_zero_quantities);
+        commanderData.associateDataTable(data_table, show_zero_quantities);
 
         // set sorting comparators for each data column
-        rawGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
-        rawMaterialColumn.setComparator(UIFunctions.Sort.itemByCategory);
-        rawQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
-        manufacturedGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
-        manufacturedMaterialColumn.setComparator(UIFunctions.Sort.itemByCategory);
-        manufacturedQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
-        dataGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
-        dataMaterialColumn.setComparator(UIFunctions.Sort.itemByCategory);
-        dataQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
-        cargoGradeColumn.setComparator(UIFunctions.Sort.itemByGrade);
-        cargoItemColumn.setComparator(UIFunctions.Sort.itemByCategory);
-        cargoQuantityColumn.setComparator(UIFunctions.Sort.quantityByNumericValue);
+        raw_grade_column.setComparator(UIFunctions.Sort.itemByGrade);
+        raw_material_column.setComparator(UIFunctions.Sort.itemByCategory);
+        raw_quantity_column.setComparator(UIFunctions.Sort.quantityByNumericValue);
+        manufactured_grade_column.setComparator(UIFunctions.Sort.itemByGrade);
+        manufactured_material_column.setComparator(UIFunctions.Sort.itemByCategory);
+        manufactured_quantity_column.setComparator(UIFunctions.Sort.quantityByNumericValue);
+        data_grade_column.setComparator(UIFunctions.Sort.itemByGrade);
+        data_material_column.setComparator(UIFunctions.Sort.itemByCategory);
+        data_quantity_column.setComparator(UIFunctions.Sort.quantityByNumericValue);
+        cargo_grade_column.setComparator(UIFunctions.Sort.itemByGrade);
+        cargo_item_column.setComparator(UIFunctions.Sort.itemByCategory);
+        cargo_quantity_column.setComparator(UIFunctions.Sort.quantityByNumericValue);
 
         // This callback defines a simple Label object to use as the contents of the quantity columns for each item
         // type. It is re used for all of the quantity columns, giving them a uniform look
@@ -1376,21 +1339,21 @@ public class UIController
             label.setText(q);
 
             label.paddingProperty().setValue(new Insets(5,0,0,0));
-            label.setFont(UIFunctions.Fonts.size2Font);
+            label.setFont(UIFunctions.Style.size2Font);
             return new ReadOnlyObjectWrapper<>(label);
         };
 
         // quantity columns use a basic Label value so don't need cell factories
-        rawQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
-        manufacturedQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
-        dataQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
-        cargoQuantityColumn.setCellValueFactory(inventoryQuantityCellFactory);
+        raw_quantity_column.setCellValueFactory(inventoryQuantityCellFactory);
+        manufactured_quantity_column.setCellValueFactory(inventoryQuantityCellFactory);
+        data_quantity_column.setCellValueFactory(inventoryQuantityCellFactory);
+        cargo_quantity_column.setCellValueFactory(inventoryQuantityCellFactory);
 
         // manually set the styles for the quantity columns todo: in the future move this to CSS or use custom cells
-        rawQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
-        manufacturedQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
-        dataQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
-        cargoQuantityColumn.setStyle( "-fx-alignment: TOP-CENTER;");
+        raw_quantity_column.setStyle( "-fx-alignment: TOP-CENTER;");
+        manufactured_quantity_column.setStyle( "-fx-alignment: TOP-CENTER;");
+        data_quantity_column.setStyle( "-fx-alignment: TOP-CENTER;");
+        cargo_quantity_column.setStyle( "-fx-alignment: TOP-CENTER;");
 
         // this Callback implementation provides a simple read-only wrapper around the InventoryData objects
         // stored in the various inventory lists. This is required to use custom display cells in JavaFX. We will
@@ -1399,14 +1362,14 @@ public class UIController
                 inventoryItemCellValueFactory = (materialData) -> new ReadOnlyObjectWrapper<>(materialData.getValue());
 
         // These columns use a custom display cells but for the cell values can all use the same read-only wrapper
-        rawMaterialColumn.setCellValueFactory(inventoryItemCellValueFactory);
-        manufacturedMaterialColumn.setCellValueFactory(inventoryItemCellValueFactory);
-        dataMaterialColumn.setCellValueFactory(inventoryItemCellValueFactory);
-        cargoItemColumn.setCellValueFactory(inventoryItemCellValueFactory);
-        rawGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
-        manufacturedGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
-        dataGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
-        cargoGradeColumn.setCellValueFactory(inventoryItemCellValueFactory);
+        raw_material_column.setCellValueFactory(inventoryItemCellValueFactory);
+        manufactured_material_column.setCellValueFactory(inventoryItemCellValueFactory);
+        data_material_column.setCellValueFactory(inventoryItemCellValueFactory);
+        cargo_item_column.setCellValueFactory(inventoryItemCellValueFactory);
+        raw_grade_column.setCellValueFactory(inventoryItemCellValueFactory);
+        manufactured_grade_column.setCellValueFactory(inventoryItemCellValueFactory);
+        data_grade_column.setCellValueFactory(inventoryItemCellValueFactory);
+        cargo_grade_column.setCellValueFactory(inventoryItemCellValueFactory);
 
         // This call back simply creates a new custom data cell which is used int he center "data" columns
         // of the various inventory UI tables. The custom cell contains the display logic and supports all of the
@@ -1422,18 +1385,18 @@ public class UIController
         };
 
 
-        rawMaterialColumn.setCellFactory(inventoryItemCellFactory);
-        manufacturedMaterialColumn.setCellFactory(inventoryItemCellFactory);
-        dataMaterialColumn.setCellFactory(inventoryItemCellFactory);
-        cargoItemColumn.setCellFactory(inventoryItemCellFactory);
+        raw_material_column.setCellFactory(inventoryItemCellFactory);
+        manufactured_material_column.setCellFactory(inventoryItemCellFactory);
+        data_material_column.setCellFactory(inventoryItemCellFactory);
+        cargo_item_column.setCellFactory(inventoryItemCellFactory);
 
-        rawMaterialProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
-        manufacturedProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
-        dataProgressColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
+        raw_material_progress_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
+        manufactured_progress_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
+        data_progress_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
 
-        rawMaterialProgressColumn.setComparator(UIFunctions.Sort.progressByValue);
-        manufacturedProgressColumn.setComparator(UIFunctions.Sort.progressByValue);
-        dataProgressColumn.setComparator(UIFunctions.Sort.progressByValue);
+        raw_material_progress_column.setComparator(UIFunctions.Sort.progressByValue);
+        manufactured_progress_column.setComparator(UIFunctions.Sort.progressByValue);
+        data_progress_column.setComparator(UIFunctions.Sort.progressByValue);
 
 
         // the "item grade" columns use a very similar structure to the "data" columns, with the same read-only wrapper
@@ -1441,10 +1404,10 @@ public class UIController
         final Callback<TableColumn<InventoryData, InventoryData>, TableCell<InventoryData, InventoryData>>
                 inventoryGradeCellFactory = (x) -> new InventoryGradeCell();
 
-        rawGradeColumn.setCellFactory(inventoryGradeCellFactory);
-        manufacturedGradeColumn.setCellFactory(inventoryGradeCellFactory);
-        dataGradeColumn.setCellFactory(inventoryGradeCellFactory);
-        cargoGradeColumn.setCellFactory(inventoryGradeCellFactory);
+        raw_grade_column.setCellFactory(inventoryGradeCellFactory);
+        manufactured_grade_column.setCellFactory(inventoryGradeCellFactory);
+        data_grade_column.setCellFactory(inventoryGradeCellFactory);
+        cargo_grade_column.setCellFactory(inventoryGradeCellFactory);
     }
 
     /**
@@ -1452,38 +1415,38 @@ public class UIController
      */
     private void initializeShipLoadoutTab()
     {
-        commanderData.getLocation().associateStarSystem(locationLabel);
-        commanderData.getLocation().associateSpaceStation(stationLabel);
-        commanderData.getLocation().associateEconomy(economyLabel);
+        commanderData.getLocation().associateStarSystem(location_label);
+        commanderData.getLocation().associateSpaceStation(station_label);
+        commanderData.getLocation().associateEconomy(economy_label);
 
-        commanderData.getStarShip().associateShipManufacturer(shipMakeLabel);
-        commanderData.getStarShip().associateShipGivenName(shipNameLabel);
-        commanderData.getStarShip().associateShipDisplayName(shipTypeLabel);
-        commanderData.getStarShip().associateShipID(shipIDLabel);
-        commanderData.getStarShip().associateStatisticsTable(shipStatisticsTable);
-        commanderData.getStarShip().associateCoreTable(coreModuleTable);
-        commanderData.getStarShip().associateOptionalTable(optionalModuleTable);
-        commanderData.getStarShip().associateHardpointTable(hardpointTable);
+        commanderData.getStarShip().associateShipManufacturer(ship_make_label);
+        commanderData.getStarShip().associateShipGivenName(ship_name_label);
+        commanderData.getStarShip().associateShipDisplayName(ship_type_label);
+        commanderData.getStarShip().associateShipID(ship_ID_label);
+        commanderData.getStarShip().associateStatisticsTable(ship_statistics_table);
+        commanderData.getStarShip().associateCoreTable(core_module_table);
+        commanderData.getStarShip().associateOptionalTable(optional_module_table);
+        commanderData.getStarShip().associateHardpointTable(hardpoint_table);
 
-        shipStatisticsNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
-        shipStatisticsNameColumn.setCellFactory(x -> new StatDataCell());
-        shipStatisticsDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        shipStatisticsDataColumn.setCellFactory(x -> new StatDisplayCell());
+        ship_statistics_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
+        ship_statistics_name_column.setCellFactory(x -> new StatDataCell());
+        ship_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        ship_statistics_data_column.setCellFactory(x -> new StatDisplayCell());
 
-        coreModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
-        coreModuleNameColumn.setCellFactory(x -> new SlotNameCell());
-        coreModuleDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        coreModuleDataColumn.setCellFactory(x -> new ModuleDisplayCell());
+        core_module_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        core_module_name_column.setCellFactory(x -> new SlotNameCell());
+        core_module_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        core_module_data_column.setCellFactory(x -> new ModuleDisplayCell());
 
-        optionalModuleNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
-        optionalModuleNameColumn.setCellFactory(x -> new SlotNameCell());
-        optionalModuleDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        optionalModuleDataColumn.setCellFactory(x -> new ModuleDisplayCell());
+        optional_module_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        optional_module_name_column.setCellFactory(x -> new SlotNameCell());
+        optional_module_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        optional_module_data_column.setCellFactory(x -> new ModuleDisplayCell());
 
-        hardpointNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
-        hardpointNameColumn.setCellFactory(x -> new SlotNameCell());
-        hardpointDataColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        hardpointDataColumn.setCellFactory(x -> new ModuleDisplayCell());
+        hardpoint_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        hardpoint_name_column.setCellFactory(x -> new SlotNameCell());
+        hardpoint_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        hardpoint_data_column.setCellFactory(x -> new ModuleDisplayCell());
     }
 
     /**
@@ -1492,27 +1455,27 @@ public class UIController
      */
     private void initializeAutoResizeBindings()
     {
-        bindTableResize(shipStatisticsTable, shipStatisticsDataColumn);
-        bindTableResize(rawTable, rawMaterialColumn);
-        bindTableResize(manufacturedTable, manufacturedMaterialColumn);
-        bindTableResize(dataTable, dataMaterialColumn);
-        bindTableResize(cargoTable, cargoItemColumn);
-        bindTableResize(procurementTaskTable, taskNameColumn);
-        bindTableResize(taskCostTable, taskCostNameColumn);
-        bindTableResize(coreModuleTable, coreModuleDataColumn);
-        bindTableResize(optionalModuleTable, optionalModuleDataColumn);
-        bindTableResize(hardpointTable, hardpointDataColumn);
+        bindTableResize(ship_statistics_table, ship_statistics_data_column);
+        bindTableResize(raw_table, raw_material_column);
+        bindTableResize(manufactured_table, manufactured_material_column);
+        bindTableResize(data_table, data_material_column);
+        bindTableResize(cargo_table, cargo_item_column);
+        bindTableResize(procurement_task_table, task_name_column);
+        bindTableResize(task_cost_table, task_cost_name_column);
+        bindTableResize(core_module_table, core_module_data_column);
+        bindTableResize(optional_module_table, optional_module_data_column);
+        bindTableResize(hardpoint_table, hardpoint_data_column);
 
-        shipStatisticsTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        coreModuleTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        optionalModuleTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        hardpointTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        procurementTaskTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        taskCostTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        rawTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        manufacturedTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        dataTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        cargoTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        ship_statistics_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        core_module_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        optional_module_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        hardpoint_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        procurement_task_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        task_cost_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        raw_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        manufactured_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        data_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        cargo_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
     }
 
     /**
@@ -1521,23 +1484,23 @@ public class UIController
      */
     private void initializeSelectionOverrides()
     {
-        disableListSelection(consoleMessageList);
+        disableListSelection(console_message_list);
 
-        disableTreeSelection(procurementTree);
-        disableListSelection(procurementList);
+        disableTreeSelection(procurement_tree);
+        disableListSelection(procurement_list);
 
-        disableTableSelection(rawTable);
-        disableTableSelection(manufacturedTable);
-        disableTableSelection(dataTable);
-        disableTableSelection(cargoTable);
+        disableTableSelection(raw_table);
+        disableTableSelection(manufactured_table);
+        disableTableSelection(data_table);
+        disableTableSelection(cargo_table);
 
-        disableTableSelection(procurementTaskTable);
-        disableTableSelection(taskCostTable);
+        disableTableSelection(procurement_task_table);
+        disableTableSelection(task_cost_table);
 
-        disableTableSelection(shipStatisticsTable);
-        disableTableSelection(coreModuleTable);
-        disableTableSelection(optionalModuleTable);
-        disableTableSelection(hardpointTable);
+        disableTableSelection(ship_statistics_table);
+        disableTableSelection(core_module_table);
+        disableTableSelection(optional_module_table);
+        disableTableSelection(hardpoint_table);
     }
 
     /**
@@ -1645,7 +1608,7 @@ public class UIController
     {
         messageQueue.add(new MessageData(message, messageType));
         hasMessages.set(true);
-        messageProgress.visibleProperty().setValue(true);
+        message_progress.visibleProperty().setValue(true);
         queuedMessages.incrementAndGet();
     }
 
@@ -1706,10 +1669,8 @@ public class UIController
                 return null;
             }
         };
-        executorService.submit(task1);
+        messageExecutor.submit(task1);
     }
-
-
 
     private void procurementListUpdate1(Integer adjustment, Pair<ProcurementType, ProcurementRecipe> task)
     {
@@ -1882,10 +1843,6 @@ public class UIController
                 .forEach(costList::remove);
 
         synchronizeBackingLists();
-
-//        if (Platform.isFxApplicationThread()) synchronizeBackingLists();
-//        else Platform.runLater(this::synchronizeBackingLists);
-
     }
 
     private TreeItem<ProcurementTask> makeTradeTree()
@@ -2091,86 +2048,86 @@ public class UIController
         root.setExpanded(true);
 
         // now that the root object has been filled with sub-trees, add it to the tree
-        procurementTree.setRoot(root);
+        procurement_tree.setRoot(root);
 
         // hide the root, showing just its children in the tree view
-        procurementTree.setShowRoot(false);
+        procurement_tree.setShowRoot(false);
 
-        procurementTree.setOnMouseClicked((e)->{});
+        procurement_tree.setOnMouseClicked((e)->{});
     }
 
     private void sortInventory()
     {
         // sort pass 1, numerically by grade
-        rawTable.getItems().sort(UIFunctions.Sort.itemByGrade);
-        manufacturedTable.getItems().sort(UIFunctions.Sort.itemByGrade);
-        dataTable.getItems().sort(UIFunctions.Sort.itemByGrade);
+        raw_table.getItems().sort(UIFunctions.Sort.itemByGrade);
+        manufactured_table.getItems().sort(UIFunctions.Sort.itemByGrade);
+        data_table.getItems().sort(UIFunctions.Sort.itemByGrade);
 
         // sort pass 2, alphabetically, by category name
-        rawTable.getItems().sort(UIFunctions.Sort.itemByCategory);
-        manufacturedTable.getItems().sort(UIFunctions.Sort.itemByCategory);
-        dataTable.getItems().sort(UIFunctions.Sort.itemByCategory);
+        raw_table.getItems().sort(UIFunctions.Sort.itemByCategory);
+        manufactured_table.getItems().sort(UIFunctions.Sort.itemByCategory);
+        data_table.getItems().sort(UIFunctions.Sort.itemByCategory);
 
         // Cargo sorts a bit differently,
-        cargoTable.getItems().sort(UIFunctions.Sort.itemByGrade);
-        cargoTable.getItems().sort(UIFunctions.Sort.itemByCount);
+        cargo_table.getItems().sort(UIFunctions.Sort.itemByGrade);
+        cargo_table.getItems().sort(UIFunctions.Sort.itemByCount);
     }
 
     private void setProcurementsUIVisibility()
     {
         int shown = 0;
 
-        if (showProcurements.isSelected())
+        if (show_procurements.isSelected())
         {
             shown++;
-            procurementLabel.setMinHeight(35);
-            procurementBox.setPrefHeight(10000);
-            procurementBox.setVisible(true);
+            procurement_label.setMinHeight(35);
+            procurement_box.setPrefHeight(10000);
+            procurement_box.setVisible(true);
         }
         else
         {
-            procurementLabel.setMinHeight(0);
-            procurementBox.setPrefHeight(0);
-            procurementBox.setVisible(false);
+            procurement_label.setMinHeight(0);
+            procurement_box.setPrefHeight(0);
+            procurement_box.setVisible(false);
         }
 
-        if (showTasks.isSelected())
+        if (show_tasks.isSelected())
         {
             shown++;
-            taskPane.setVisible(true);
-            taskPane.setPrefHeight(10000);
+            task_pane.setVisible(true);
+            task_pane.setPrefHeight(10000);
         }
         else
         {
-            taskPane.setVisible(false);
-            taskPane.setPrefHeight(0);
+            task_pane.setVisible(false);
+            task_pane.setPrefHeight(0);
         }
 
 
-        if (showItemsNeeded.isSelected())
+        if (show_items_needed.isSelected())
         {
             shown++;
-            taskCostTable.setPrefHeight(10000);
-            taskCostTable.setVisible(true);
+            task_cost_table.setPrefHeight(10000);
+            task_cost_table.setVisible(true);
         }
         else
         {
-            taskCostTable.setPrefHeight(0);
-            taskCostTable.setVisible(false);
+            task_cost_table.setPrefHeight(0);
+            task_cost_table.setVisible(false);
 
         }
 
         if (shown == 1)
         {
-            if (showProcurements.isSelected()) showProcurements.setDisable(true);
-            if (showTasks.isSelected()) showTasks.setDisable(true);
-            if (showItemsNeeded.isSelected()) showItemsNeeded.setDisable(true);
+            if (show_procurements.isSelected()) show_procurements.setDisable(true);
+            if (show_tasks.isSelected()) show_tasks.setDisable(true);
+            if (show_items_needed.isSelected()) show_items_needed.setDisable(true);
         }
         else
         {
-            showProcurements.setDisable(false);
-            showTasks.setDisable(false);
-            showItemsNeeded.setDisable(false);
+            show_procurements.setDisable(false);
+            show_tasks.setDisable(false);
+            show_items_needed.setDisable(false);
         }
     }
 
