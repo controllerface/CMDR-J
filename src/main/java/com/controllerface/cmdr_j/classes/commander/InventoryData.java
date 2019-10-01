@@ -350,7 +350,7 @@ public class InventoryData implements Displayable
                                             .getGrade()
                                             .getIcon();
 
-                                    Icon yieldIcon = tradeCost.getCost()
+                                    Icon yieldIcon = tradeYield.getCost()
                                             .getGrade()
                                             .getIcon();
 

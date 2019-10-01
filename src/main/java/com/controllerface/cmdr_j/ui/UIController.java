@@ -58,11 +58,13 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 import javafx.util.Callback;
@@ -78,10 +80,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -247,7 +246,6 @@ public class UIController
     @FXML private ListView<Waypoint> wayPointList;
     @FXML private TextField waypointNameInput;
 
-    @FXML private Label market_id;
     @FXML private Label market_name;
 
 
@@ -301,6 +299,10 @@ public class UIController
     === END UI Components area ===
     =============================
      */
+
+    private final AtomicBoolean nearPlanet = new AtomicBoolean(false);
+
+    private double planetRadius = 0d;
 
     /**
      * This set acts as cache to keep track of what costs are currently being tracked as constituent costs of tasks
@@ -491,13 +493,8 @@ public class UIController
     private double lastShipLat = 0;
     private double lastShipLong = 0;
 
-    private void renderMiniMap()
+    private void renderOffPlanet()
     {
-        /* Step 1:
-        First order of business is to fill in the background and draw a border around the map itself. The minimap
-        canvas may be re-sized, so we calculate everything based on the current size.
-         */
-
         double w = minimap.getWidth();
         double h = minimap.getHeight();
 
@@ -512,6 +509,58 @@ public class UIController
         minimap.getGraphicsContext2D().setLineWidth(5);
         minimap.getGraphicsContext2D().stroke();
         minimap.getGraphicsContext2D().closePath();
+
+        minimap.getGraphicsContext2D().setTextAlign(TextAlignment.CENTER);
+        minimap.getGraphicsContext2D().setTextBaseline(VPos.CENTER);
+        minimap.getGraphicsContext2D().setFill(Color.DARKORANGE);
+
+        // write the distance text near the marked location
+        minimap.getGraphicsContext2D().fillText("Currently Off-planet", w / 2, h / 2);
+    }
+
+    private void renderMiniMap()
+    {
+        if (!nearPlanet.get())
+        {
+            renderOffPlanet();
+            return;
+        }
+
+        minimap.getGraphicsContext2D().clearRect(0,0, minimap.getWidth(), minimap.getHeight());
+
+        /* Step 1:
+        First order of business is to fill in the background and draw a border around the map itself. The minimap
+        canvas may be re-sized, so we calculate everything based on the current size.
+         */
+
+        double w = minimap.getWidth();
+        double h = minimap.getHeight();
+
+        // fill the whole canvas with the BG color, starting fresh for this render cycle
+        minimap.getGraphicsContext2D().rect(0, 0, w, h);
+        minimap.getGraphicsContext2D().setFill(UIFunctions.Fonts.darkestOrange);
+        minimap.getGraphicsContext2D().fillRect(0,0,w,h);
+
+        // draw a border
+        minimap.getGraphicsContext2D().rect(0.0, 0.0, w, h);
+        minimap.getGraphicsContext2D().setStroke(UIFunctions.Fonts.darkOrange);
+        minimap.getGraphicsContext2D().setLineWidth(5);
+        minimap.getGraphicsContext2D().stroke();
+        minimap.getGraphicsContext2D().closePath();
+
+
+        double gridDist = UIFunctions.Data.mapRange(mapScale.getValue(),mapScale.getMin(), mapScale.getMax(),minimap.getWidth()/8, minimap.getWidth()/4);
+
+        minimap.getGraphicsContext2D().setStroke(UIFunctions.Fonts.darkerOrange);
+        minimap.getGraphicsContext2D().setLineWidth(2);
+
+        double s = 0;
+        while (s < minimap.getWidth())
+        {
+            minimap.getGraphicsContext2D().strokeLine(s,0, s, minimap.heightProperty().doubleValue());
+            minimap.getGraphicsContext2D().strokeLine(0, s, minimap.widthProperty().doubleValue(), s);
+            s += gridDist;
+        }
 
 
         /* Step 2:
@@ -570,30 +619,49 @@ public class UIController
 
             Waypoint selectedWayPoint = x.size() > 0 ? x.get(0) : null;
 
-            //Waypoint selectedWayPoint = wayPointList.getSelectionModel().getSelectedItems().get(0);
-
             Color color = Color.LIGHTBLUE;
             if (selectedWayPoint != null)
             {
                 if (wayPoint.equals(selectedWayPoint)) color = Color.DARKORANGE;
             }
 
-            renderWaypoint(wayPoint.longitude, wayPoint.latitude, centerX, centerY, color, wayPoint.name + "\n" + "$D");
+            renderWaypoint(wayPoint.longitude, wayPoint.latitude, centerX, centerY, color, wayPoint.name + "\n\n" + "$D");
         });
 
-        //renderWaypoint(markedLong, markedLat, centerX, centerY, Color.DARKORANGE, "$D");
-
         // render closest settlement
-        renderWaypoint(settlementLong, settlementLat, centerX, centerY, Color.YELLOW, settlement + "\n" + "$D");
+        renderWaypoint(settlementLong, settlementLat, centerX, centerY, Color.YELLOW, settlement + "\n\n" + "$D");
 
         if (inSRV)
         {
-            renderWaypoint(lastShipLong, lastShipLat, centerX, centerY, Color.LIME, shipNameLabel.getText() + "\n" + "$D");
+            renderWaypoint(lastShipLong, lastShipLat, centerX, centerY, Color.LIME, shipNameLabel.getText() + "\n\n" + "$D");
         }
     }
 
 
-    private void renderWaypoint(double x, double y, double centerX, double centerY, Color color, String text)
+    private double calculateDistance(double currentLong, double currentLat, double waypointLongitude, double waypointLatitude)
+    {
+        //double currentLat = Double.parseDouble(status_latitude.getText());
+        //double currentLong = Double.parseDouble(status_longitude.getText());
+        double latDistance = Math.toRadians(waypointLatitude - currentLat);
+        double lonDistance = Math.toRadians(waypointLongitude - currentLong);
+
+        double a = Math.sin(latDistance / 2)
+                * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(currentLat))
+                * Math.cos(Math.toRadians(waypointLatitude))
+                * Math.sin(lonDistance / 2)
+                * Math.sin(lonDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        double haversine = planetRadius * c;
+
+        // todo: should store status_altitude as a double not string
+        return Math.sqrt(Math.pow(haversine, 2) +
+                Math.pow(Double.parseDouble(status_altitude.getText()),2));
+    }
+
+    private void renderWaypoint(double waypointLongitude, double waypointLatitude, double centerX, double centerY, Color color, String text)
     {
         //         TODO: should handle multiple waypoints
 
@@ -601,19 +669,23 @@ public class UIController
         double currentLong = Double.parseDouble(status_longitude.getText());
 
         // todo: these multipliers need to change based on SRV or Ship
-        double mX = currentLong - x;
+        double mX = currentLong - waypointLongitude;
         mX *= mapScale.getValue();
-        double mY = currentLat - y;
+        double mY = currentLat - waypointLatitude;
         mY *= mapScale.getValue();
 
         double markX = centerX - mX;
         double markY = centerY + mY;
 
-        double distance = UIFunctions.Data.round(Point2D
-                .distance(currentLong, currentLat, x, y) * 1000, 2);
+        double distance = calculateDistance(currentLong, currentLat, waypointLongitude, waypointLatitude);
 
-        if (text == null) text = String.valueOf(distance);
-        else text = text.replaceAll("\\$D",String.valueOf(distance));
+        boolean kmScale = distance > 1000;
+        if (kmScale) distance = distance / 1000d;
+        String unit = kmScale ? "km" : "m";
+        distance = UIFunctions.Data.round(distance, kmScale ? 1 : 0);
+        if (text == null) text = distance + unit;
+        else text = text.replaceAll("\\$D",distance + unit);
+        if (!kmScale) text = text.replace(".0","");
 
         // draw the waypoint on the map
         minimap.getGraphicsContext2D().setFill(color);
@@ -719,6 +791,8 @@ public class UIController
             }
         });
 
+        renderMiniMap();
+
         messageTypeFilters.put(UserTransaction.MessageType.GENERAL, msg_general_filter.isSelected());
         messageTypeFilters.put(UserTransaction.MessageType.INVENTORY, msg_inventory_filter.isSelected());
         messageTypeFilters.put(UserTransaction.MessageType.LOADOUT, msg_loadout_filter.isSelected());
@@ -821,7 +895,6 @@ public class UIController
     private void updateMarketTable(UserTransaction nextTransaction)
     {
         market_name.setText(nextTransaction.getMessage());
-        market_id.setText(nextTransaction.getStatusObject().get("MarketID").toString());
 
         if (nextTransaction.getStatusObject().get("Items") != null)
         {
@@ -1003,6 +1076,11 @@ public class UIController
 
                             Integer flags  = ((Integer) statusObject.get("Flags"));
 
+                            List<Status> currentFlags = Status.extractFlags(flags)
+                                    .collect(Collectors.toList());
+//
+                            nearPlanet.set(currentFlags.contains(Status.HAS_LAT_LONG));
+
                             //System.out.println(flags);
                             //Status.extractFlags(flags).forEach(System.out::println);
 
@@ -1018,6 +1096,8 @@ public class UIController
                             Object Longitude  = statusObject.get("Longitude");
                             Object Heading  = statusObject.get("Heading");
 
+                            Object radius  = statusObject.get("PlanetRadius");
+
                             status_altitude.setText("0.0");
                             status_latitude.setText("0.0");
                             status_longitude.setText("0.0");
@@ -1027,6 +1107,7 @@ public class UIController
                             if (Latitude != null) status_latitude.setText(Latitude.toString());
                             if (Longitude != null) status_longitude.setText(Longitude.toString());
                             if (Heading != null) status_heading.setText(Heading.toString());
+                            if (radius != null) planetRadius = ((Double) radius);
 
                             if (Altitude == null || Latitude == null || Longitude == null || Heading == null) return;
 
@@ -1047,10 +1128,17 @@ public class UIController
                                     status_marked_lat.setText(String.valueOf(selectedWaypoint.latitude));
                                     status_marked_long.setText(String.valueOf(selectedWaypoint.longitude));
 
-                                    double distance = UIFunctions.Data.round(Point2D
-                                            .distance(lon, lat, selectedWaypoint.longitude, selectedWaypoint.latitude) * 1000, 2);
+                                    double distance =
+                                            calculateDistance(lon, lat, selectedWaypoint.longitude, selectedWaypoint.latitude);
 
-                                    status_marked_dist.setText(String.valueOf(distance));
+//                                            UIFunctions.Data.round(Point2D
+//                                            .distance(lon, lat, selectedWaypoint.longitude, selectedWaypoint.latitude) * 1000, 2);
+
+                                    boolean kmScale = distance > 1000d;
+                                    if (kmScale) distance = distance / 1000d;
+                                    distance = UIFunctions.Data.round(distance,2);
+                                    String unit = kmScale ? "km" : "m";
+                                    status_marked_dist.setText(distance +unit);
                                 }
                             }
 

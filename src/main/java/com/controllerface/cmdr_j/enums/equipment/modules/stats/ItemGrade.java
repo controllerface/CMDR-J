@@ -21,15 +21,19 @@ public enum ItemGrade
     GRADE_5(5, "Grade 5"),
 
     VERY_COMMON(1, 300, "Very Common",
-            new Icon(UIFunctions.Icons.materialGrade1, 25, 25)),
+            new Icon(UIFunctions.Icons.materialGrade1, 28, 25, UIFunctions.Fonts.standardOrange)),
+
     COMMON     (2, 250, "Common",
-            new Icon(UIFunctions.Icons.materialGrade2, 25, 25)),
+            new Icon(UIFunctions.Icons.materialGrade2, 28, 25, UIFunctions.Fonts.standardOrange)),
+
     STANDARD   (3, 200, "Standard",
-            new Icon(UIFunctions.Icons.materialGrade3, 25, 25)),
+            new Icon(UIFunctions.Icons.materialGrade3, 28, 25, UIFunctions.Fonts.standardOrange)),
+
     RARE       (4, 150, "Rare",
-            new Icon(UIFunctions.Icons.materialGrade4, 25,  25)),
+            new Icon(UIFunctions.Icons.materialGrade4, 28,  25, UIFunctions.Fonts.standardOrange)),
+
     VERY_RARE  (5, 100, "Very Rare",
-            new Icon(UIFunctions.Icons.materialGrade5, 25, 25)),
+            new Icon(UIFunctions.Icons.materialGrade5, 28, 25, UIFunctions.Fonts.standardOrange)),
 
     /*
     Used for Engineer experimental effects
@@ -53,35 +57,38 @@ public enum ItemGrade
     in the inventory tab easier
      */
 
-    Drone(0, "Limpet Drone", "Starport Restock Services"),   // standard commodities and salvage
+    Drone(0, "Limpet Drone", "Star Port Restock Services",
+            new Icon(UIFunctions.Icons.limpet, 25, 25) ),   // standard commodities and salvage
 
-    Space(1, "Commodity", "Starport Commodity Markets",
-            new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
-
-    Planet(2, "Planetary Port", "Planetary Port Commodity Markets",
-            new Icon(UIFunctions.Icons.planetaryPort,25,25)),  // only available at planetary ports
-
-    Mining(3, "Asteroid Mining", "Asteroid and Planetary Ring Mining",
+    Mining(1, "Asteroid Mining", "Asteroid and Planetary Ring Mining",
             new Icon(UIFunctions.Icons.mining, 25, 25)),  // attainable by mining only
 
-    Mission(4, "Mission", "Mission Rewards",
+    Space(2, "Commodity", "Star Port Commodity Markets",
+            new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Salvage(3, "Salvage", "Combat Wreckage/Unidentified Signal Sources",
+            new Icon(UIFunctions.Icons.cargo, 25, 25, UIFunctions.Fonts.darkOrange)), // salvage
+
+    RareCommodity(4, "Rare Commodity", "Exclusive to Specific Star Port Markets",
+            new Icon(UIFunctions.Icons.cargo, 25, 25, UIFunctions.Fonts.specialYellow)),    // rare commodities, from specific star ports
+
+    Mission(5, "Mission Reward", "Mission Rewards",
             new Icon(UIFunctions.Icons.mission,25,25)), // mission reward exclusive
 
-    POI(5, "Planetary POI", "Planetary Points of Interest",
+    Planet(6, "Planetary Port", "Planetary Port Commodity Markets",
+            new Icon(UIFunctions.Icons.planetaryPort,25,25)),  // only available at planetary ports
+
+    POI(7, "Planetary POI", "Planetary Points of Interest",
             new Icon(UIFunctions.Icons.horizon, 25, 25)),     // must be found at planetary POI
 
-    Salvage(6, "Salvage", "Combat Wreckage/Unidentified Signal Sources"), // salvage
+    Thargoid(8, "Thargoid Salvage", "Thargoid Combat/Planetary Sites",
+            new Icon(UIFunctions.Icons.aegis, 25, 25, UIFunctions.Fonts.thargoidGreen)),   // salvage
 
-    Thargoid(6, "Thargoid Salvage", "Thargoid Combat/Planetary Sites",
-            new Icon(UIFunctions.Icons.thargoid, 25, 25)),   // salvage
+    Guardian(9, "Guardian Salvage", "Ancient Ruins",
+            new Icon(UIFunctions.Icons.guardian,25,25, UIFunctions.Fonts.hotBlue)),   // salvage
 
-    Guardian(6, "Guardian Salvage", "Ancient Ruins",
-            new Icon(UIFunctions.Icons.guardian,25,25)),   // salvage
-
-    Rare(7, "Rare Commodity", "Exclusive to Star Port",
-            new Icon(UIFunctions.Icons.cargo, 25, 25)),    // rare commodities, from specific star ports
-
-    Faction(8, "Faction", "Power Play Faction Contact"), // power play specific items
+    Faction(10, "Faction Item", "Power Play Faction Contact",
+            new Icon(UIFunctions.Icons.powerplay, 25, 25)), // power play specific items
 
     MaterialTrade(0, -1, "Trade"),
 

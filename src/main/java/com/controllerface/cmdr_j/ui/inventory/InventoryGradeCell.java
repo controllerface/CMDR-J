@@ -11,7 +11,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.SVGPath;
 
 /**
  * Created by Controllerface on 5/10/2018.
@@ -41,7 +40,8 @@ public class InventoryGradeCell extends TableCell<InventoryData, InventoryData>
         else
         {
             Icon svg = item.getItem().getGrade().getIcon();
-            String color = item.getItem().getGrade() == ItemGrade.Rare ? "#b77d00" : "#000000";
+            String color = svg.getHexColorString();
+
             final Region svgShape = UIFunctions.Convert.createMaterialIconRegion(svg.getIconPath(),
                     svg.getBaseWidth(), svg.getBaseHeight(), color);
             label.setGraphic(svgShape);

@@ -56,12 +56,14 @@ public class UIFunctions
         public static final Color positiveBlue = Color.rgb(0x00, 0xb3, 0xf7);
         public static final Color negativeRed = Color.rgb(0xff, 0x00, 0x00);
         public static final Color neutralBlack = Color.rgb(0x00, 0x00, 0x00);
-        //public static final Color standardOrange = Color.rgb(0xff, 0x71, 0x00);
-        //public static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
+        public static final Color standardOrange = Color.rgb(0xff, 0x71, 0x00);
+        public static final Color thargoidGreen = Color.rgb(0x02,0x5B,0x30);
+        public static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
         public static final Color darkOrange = Color.rgb(0xb7, 0x52, 0x00);
+        public static final Color darkerOrange = darkOrange.darker().darker();
+        public static final Color darkestOrange = darkerOrange.darker().darker().darker().darker();
         public static final Color darkYellow = Color.rgb(0xb7, 0x7d, 0x00);
         public static final Color darkRed = Color.rgb(0xb7, 0x00, 0x00);
-
         public static final Color hotBlue = Color.rgb(0x00, 0x77, 0xcc);
 
 
@@ -89,6 +91,7 @@ public class UIFunctions
         }
 
         public static final SVGPath cargo = new SVGPath();
+        public static final SVGPath salvage = new SVGPath();
         public static final SVGPath materialGrade1 = new SVGPath();
         public static final SVGPath materialGrade2 = new SVGPath();
         public static final SVGPath materialGrade3 = new SVGPath();
@@ -108,9 +111,14 @@ public class UIFunctions
         public static final SVGPath marker = new SVGPath();
         public static final SVGPath mining = new SVGPath();
         public static final SVGPath mission = new SVGPath();
+        public static final SVGPath powerplay = new SVGPath();
+        public static final SVGPath limpet = new SVGPath();
 
         static
         {
+            limpet.setContent(readIcon("/icons/limpet"));
+            powerplay.setContent(readIcon("/icons/powerplay"));
+            salvage.setContent(readIcon("/icons/salvage"));
             mission.setContent(readIcon("/icons/mission"));
             mining.setContent(readIcon("/icons/mining"));
             marker.setContent(readIcon("/icons/marker"));
