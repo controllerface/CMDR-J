@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.classes;
 
 import com.controllerface.cmdr_j.classes.procurements.CostData;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
@@ -22,13 +23,14 @@ public class MaterialTradeRecipe implements ProcurementRecipe
     private final String label;
     private final String shortLabel;
 
-    private static Icon icon = new Icon(UIFunctions.Icons.materialTrade, 25, 25);
+    private final Icon icon;
 
     public MaterialTradeRecipe(CostData price, CostData product)
     {
         this.price = price;
         this.product = product;
 
+        icon = ((Material) product.getCost()).getIcon();
         name = price.getCost().getLocalizedName();
         label = generateDisplayLabel(price, product);
         shortLabel = price.getCost().getLocalizedName();

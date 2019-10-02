@@ -316,7 +316,7 @@
                                           <TableView fx:id="cargo_table" prefHeight="371.0" prefWidth="551.0">
                                              <columns>
                                                 <TableColumn fx:id="cargo_item_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="204.0" resizable="false" text="Commodity" />
-                                                <TableColumn fx:id="cargo_grade_column" editable="false" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Type" />
+                                                <TableColumn fx:id="cargo_grade_column" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Type" />
                                                 <TableColumn fx:id="cargo_quantity_column" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantity" />
                                              </columns>
                                           </TableView>

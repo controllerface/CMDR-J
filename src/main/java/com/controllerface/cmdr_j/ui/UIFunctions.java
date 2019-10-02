@@ -98,7 +98,11 @@ public class UIFunctions
         public static final SVGPath materialGrade5 = new SVGPath();
         public static final SVGPath guardian = new SVGPath();
         public static final SVGPath thargoid = new SVGPath();
-        public static final SVGPath materialTrade = new SVGPath();
+
+        public static final SVGPath manufacturedTrade = new SVGPath();
+        public static final SVGPath rawTrade = new SVGPath();
+        public static final SVGPath dataTrade = new SVGPath();
+
         public static final SVGPath synthesisBasic = new SVGPath();
         public static final SVGPath synthesisStandard = new SVGPath();
         public static final SVGPath synthesisPremium = new SVGPath();
@@ -125,7 +129,9 @@ public class UIFunctions
             planetaryPort.setContent(readIcon("/icons/planetary_port"));
             guardian.setContent(readIcon("/icons/guardian"));
             thargoid.setContent(readIcon("/icons/thargoid"));
-            materialTrade.setContent(readIcon("/icons/materialTrade"));
+            manufacturedTrade.setContent(readIcon("/icons/manufacturedTrade"));
+            rawTrade.setContent(readIcon("/icons/rawTrade"));
+            dataTrade.setContent(readIcon("/icons/dataTrade"));
             synthesisBasic.setContent(readIcon("/icons/synthesis_1"));
             synthesisStandard.setContent(readIcon("/icons/synthesis_2"));
             synthesisPremium.setContent(readIcon("/icons/synthesis_3"));
@@ -139,6 +145,10 @@ public class UIFunctions
             materialGrade4.setContent(readIcon("/icons/materialGrade4"));
             materialGrade5.setContent(readIcon("/icons/materialGrade5"));
         }
+
+        public static Icon mfdTradeIcon = new Icon(manufacturedTrade, 25, 30);
+        public static Icon rawTradeIcon = new Icon(rawTrade, 25, 30);
+        public static Icon dataTradeIcon = new Icon(dataTrade, 25, 30);
     }
 
     /**
