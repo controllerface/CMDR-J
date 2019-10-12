@@ -27,13 +27,13 @@ public class CostGradeCell extends TableCell<ItemCostData, ItemGrade>
         }
 
         HBox hBox = new HBox();
-        SVGPath icon = item.getIcon() == null ?  UIFunctions.Icons.cargo : item.getIcon().getIconPath();
+        SVGPath icon = item.getIcon().getIconPath();
 
         final Region svgShape = new Region();
         svgShape.setShape(icon);
 
-        double sizew = 28;
-        double sizeh = item.getIcon() == null ? sizew : 26;
+        double sizew = item.getIcon().getBaseWidth();
+        double sizeh = item.getIcon().getBaseHeight(); //item.getIcon() == null ? sizew : 26;
 
         double topPad = item.getIcon() == null ? 2 : 4;
 

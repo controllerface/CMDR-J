@@ -118,7 +118,7 @@ abstract class InventoryStorageBin
      * @param item the ProcurementCost item to retrieve the count of
      * @return the count of the named ProcurementCost item within this storage bin, or -1 if the item is not supported
      */
-    int amountOf(ProcurementCost item)
+    long amountOf(ProcurementCost item)
     {
         if (check(item))
         {
@@ -127,10 +127,10 @@ abstract class InventoryStorageBin
                 return inventory.stream()
                         .filter(inventoryItem -> inventoryItem.getItem() == item)
                         .map(InventoryData::getQuantity)
-                        .findFirst().orElse(0);
+                        .findFirst().orElse(0L);
             }
         }
-        return -1;
+        return -1L;
     }
 
     /**
@@ -143,7 +143,7 @@ abstract class InventoryStorageBin
      * @param item the named ProcurementCost item to adjust the count of
      * @param count amount to adjust the current count by. can be negative
      */
-    synchronized void addItem(ProcurementCost item, int count)
+    synchronized void addItem(ProcurementCost item, long count)
     {
         if (check(item))
         {

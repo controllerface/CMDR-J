@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.procurements;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.MaterialTradeRecipe;
+import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.enums.costs.special.AnyCost;
@@ -11,6 +11,7 @@ import com.controllerface.cmdr_j.ui.Displayable;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -41,8 +43,8 @@ import java.util.stream.Collectors;
  */
 public class ProcurementTaskData implements Displayable
 {
-    private final AtomicInteger count;
-    private final SimpleIntegerProperty countDisplay = new SimpleIntegerProperty();
+    private final AtomicLong count;
+    private final SimpleLongProperty countDisplay = new SimpleLongProperty();
 
     // main graphic node that contains the visible contents
     private final VBox descriptionContainer = new VBox();
@@ -53,9 +55,9 @@ public class ProcurementTaskData implements Displayable
     private final Label nameLabel = new Label();
     private final ProgressBar progressBar = new ProgressBar();
 
-    private int lastCount = -1;
-    private int lastTotal = -1;
-    private int lastMissing = -1;
+    private long lastCount = -1;
+    private long lastTotal = -1;
+    private long lastMissing = -1;
     private double lastProgress = -1;
 
     private final ProcurementType type;
@@ -63,7 +65,7 @@ public class ProcurementTaskData implements Displayable
 
     private final AtomicBoolean initialRenderComplete = new AtomicBoolean(false);
 
-    private final Function<ProcurementCost, Integer> checkInventory;
+    private final Function<ProcurementCost, Long> checkInventory;
     private final Function<ProcurementCost, Integer> pendingTradeYield;
     private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> inventoryUpdate;
 
@@ -76,7 +78,7 @@ public class ProcurementTaskData implements Displayable
 
     private ProcurementTaskData(Builder builder)
     {
-        this.count = new AtomicInteger(builder.count);
+        this.count = new AtomicLong(builder.count);
         countDisplay.set(this.count.get());
         this.type = builder.type;
         this.recipe = builder.recipe;
@@ -180,12 +182,12 @@ public class ProcurementTaskData implements Displayable
         return recipe instanceof MaterialTradeRecipe;
     }
 
-    public int getCount()
+    public long getCount()
     {
         return count.get();
     }
 
-    public void setCount(int amount)
+    public void setCount(long amount)
     {
         count.set(amount);
         Platform.runLater(this::renderProgress);
@@ -254,21 +256,21 @@ public class ProcurementTaskData implements Displayable
         AtomicBoolean usesTrade = new AtomicBoolean(false);
 
         // get the number of "rolls" required for this task
-        int count = procurementTaskData.getCount();
+        long count = procurementTaskData.getCount();
 
-        AtomicInteger accumulatedTotal = new AtomicInteger(0);
+        AtomicLong accumulatedTotal = new AtomicLong(0);
 
-        int missing = procurementTaskData.asPair().getValue().costStream()
+        long missing = procurementTaskData.asPair().getValue().costStream()
                 .filter(c->c.getQuantity() > 0)
-                .mapToInt(cost->
+                .mapToLong(cost->
                 {
-                    int banked = checkInventory.apply(cost.getCost());
+                    long banked = checkInventory.apply(cost.getCost());
 
-                    int calculatedCost = (cost.getQuantity() * count);
+                    long calculatedCost = (cost.getQuantity() * count);
 
                     accumulatedTotal.addAndGet(calculatedCost);
 
-                    int surplus = banked - calculatedCost;
+                    long surplus = banked - calculatedCost;
 
                     // only check pending trades if we're in the red without them
                     if (surplus < 0)
@@ -433,7 +435,7 @@ public class ProcurementTaskData implements Displayable
         private final int count;
         private ProcurementType type;
         private ProcurementRecipe recipe;
-        private Function<ProcurementCost, Integer> checkInventory;
+        private Function<ProcurementCost, Long> checkInventory;
         private Function<ProcurementCost, Integer> pendingTradeYield;
         private BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> inventoryUpdate;
         private Supplier<StarSystem> getCurrentSystem;
@@ -461,7 +463,7 @@ public class ProcurementTaskData implements Displayable
 //            return this;
 //        }
 
-        public Builder setCheckInventory(Function<ProcurementCost, Integer> checkInventory)
+        public Builder setCheckInventory(Function<ProcurementCost, Long> checkInventory)
         {
             this.checkInventory = checkInventory;
             return this;

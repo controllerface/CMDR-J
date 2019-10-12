@@ -91,6 +91,8 @@ public enum ItemGrade
 
     MaterialTrade(0, -1, "Trade"),
 
+    Credits(0,-1,"Credits", UIFunctions.Icons.creditsIcon),
+
     Any(0,-1,"Any"),
 
     ;
@@ -132,7 +134,7 @@ public enum ItemGrade
         this.maximumQuantity = maximumQuantity;
         this.text = text;
         this.locationDescription = locationDescription;
-        this.icon = icon;
+        this.icon = icon == null ? UIFunctions.Icons.cargoIcon : icon;
     }
 
     @Override

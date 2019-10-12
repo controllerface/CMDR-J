@@ -89,6 +89,8 @@ public class UIFunctions
             }
         }
 
+        public static final SVGPath credits = new SVGPath();
+
         public static final SVGPath cargo = new SVGPath();
         public static final SVGPath salvage = new SVGPath();
         public static final SVGPath materialGrade1 = new SVGPath();
@@ -119,6 +121,7 @@ public class UIFunctions
 
         static
         {
+            credits.setContent(readIcon("/icons/credits"));
             limpet.setContent(readIcon("/icons/limpet"));
             powerplay.setContent(readIcon("/icons/powerplay"));
             salvage.setContent(readIcon("/icons/salvage"));
@@ -146,6 +149,8 @@ public class UIFunctions
             materialGrade5.setContent(readIcon("/icons/materialGrade5"));
         }
 
+        public static Icon cargoIcon = new Icon(credits, 25, 25);
+        public static Icon creditsIcon = new Icon(credits, 35, 20);
         public static Icon mfdTradeIcon = new Icon(manufacturedTrade, 25, 30);
         public static Icon rawTradeIcon = new Icon(rawTrade, 25, 30);
         public static Icon dataTradeIcon = new Icon(dataTrade, 25, 30);
@@ -159,9 +164,9 @@ public class UIFunctions
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
                 costNeedCellFactory = (modMaterial) ->
         {
-            int left = 0;
-            int need = modMaterial.getValue().getNeed();
-            int have = modMaterial.getValue().getHave();
+            long left = 0;
+            long need = modMaterial.getValue().getNeed();
+            long have = modMaterial.getValue().getHave();
             boolean ok = need <= have;
             if (!ok)
             {
@@ -393,7 +398,7 @@ public class UIFunctions
 
         // sort InventoryData objects numerically by count, highest to lowest
         static final Comparator<InventoryData> itemByCount =
-                Comparator.comparingInt(InventoryData::getQuantity).reversed();
+                Comparator.comparingLong(InventoryData::getQuantity).reversed();
 
         // used for Label objects that are actually just string representations of Integer values. Will sort them
         // numerically lowest to highest
@@ -447,50 +452,54 @@ public class UIFunctions
         static final Comparator<ItemCostData> costsByNeed =
                 (a, b) ->
                 {
-                    int aNeed = a.getNeed();
-                    int bNeed = b.getNeed();
-                    int aHave = a.getHave();
-                    int bHave = b.getHave();
+                    long aNeed = a.getNeed();
+                    long bNeed = b.getNeed();
+                    long aHave = a.getHave();
+                    long bHave = b.getHave();
                     boolean aok = aHave >= aNeed;
                     boolean bok = bHave >= bNeed;
 
-                    int r2;
+                    long r2;
 
                     if (aok && bok) r2 = 0;
                     else if (aok || bok) r2 = aok ? 1 : -1;
                     else
                     {
-                        int aDiff = abs(aNeed - aHave);
-                        int bDiff = abs(bNeed - bHave);
+                        long aDiff = abs(aNeed - aHave);
+                        long bDiff = abs(bNeed - bHave);
                         r2 = bDiff - aDiff;
                     }
 
-                    return r2;
+                    // todo: un-obfuscate this
+                    return r2 == 0 ? 0 : r2 < 0 ? -1 : 1;
                 };
 
         // trade task by best cost/yield ratio
         public static final Comparator<ProcurementRecipe> bestCostYieldRatio =
                 (a, b)->
                 {
-                    int aCost = a.costStream().filter(c -> c.getQuantity() > 0)
-                            .mapToInt(CostData::getQuantity).sum();
+                    long aCost = a.costStream().filter(c -> c.getQuantity() > 0)
+                            .mapToLong(CostData::getQuantity).sum();
 
-                    int bCost = b.costStream().filter(c -> c.getQuantity() > 0)
-                            .mapToInt(CostData::getQuantity).sum();
+                    long bCost = b.costStream().filter(c -> c.getQuantity() > 0)
+                            .mapToLong(CostData::getQuantity).sum();
 
-                    int aYield = a.costStream().filter(c -> c.getQuantity() < 0)
-                            .mapToInt(CostData::getQuantity)
+                    long aYield = a.costStream().filter(c -> c.getQuantity() < 0)
+                            .mapToLong(CostData::getQuantity)
                             .map(Math::abs)
                             .sum();
 
-                    int bYield = b.costStream().filter(c -> c.getQuantity() < 0)
-                            .mapToInt(CostData::getQuantity)
+                    long bYield = b.costStream().filter(c -> c.getQuantity() < 0)
+                            .mapToLong(CostData::getQuantity)
                             .map(Math::abs)
                             .sum();
 
-                    if (aCost == bCost) return bYield - aYield;
-
-                    return aCost - bCost;
+                    // todo: un-obfuscate this
+                    long x = bYield - aYield;
+                    if (aCost == bCost)
+                        return x == 0 ? 0 : x < 0 ? -1 : 1;
+                    long y = aCost - bCost;
+                    return y < 0 ? -1 : 1;
                 };
     }
 }

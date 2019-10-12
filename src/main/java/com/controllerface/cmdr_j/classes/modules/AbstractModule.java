@@ -2,9 +2,16 @@ package com.controllerface.cmdr_j.classes.modules;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
+import com.controllerface.cmdr_j.ui.Icon;
+import com.controllerface.cmdr_j.ui.UIFunctions;
 
-public class AbstractModule implements ShipModule
+import java.util.Collections;
+import java.util.List;
+
+public abstract class AbstractModule implements ShipModule
 {
     private final String displayText;
     private final ProcurementType modificationType;
@@ -30,6 +37,12 @@ public class AbstractModule implements ShipModule
     }
 
     @Override
+    public List<Icon> icons()
+    {
+        return Collections.singletonList(UIFunctions.Icons.dataTradeIcon);
+    }
+
+    @Override
     public String displayText()
     {
         return displayText;
@@ -51,5 +64,47 @@ public class AbstractModule implements ShipModule
     public ItemEffects itemEffects()
     {
         return itemEffects;
+    }
+
+    @Override
+    public List<ProcurementRecipe> getAssociated()
+    {
+        return null;
+    }
+
+    @Override
+    public void associate(ProcurementRecipe recipe)
+    {
+
+    }
+
+    @Override
+    public String getLocationInformation()
+    {
+        return null;
+    }
+
+    @Override
+    public void setLocationInformation(String locationInformation)
+    {
+
+    }
+
+    @Override
+    public String getLocalizedName()
+    {
+        return displayText;
+    }
+
+    @Override
+    public void setLocalizedName(String localizedName)
+    {
+
+    }
+
+    @Override
+    public ItemGrade getGrade()
+    {
+        return null;
     }
 }

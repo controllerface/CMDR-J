@@ -1,7 +1,11 @@
 package com.controllerface.cmdr_j.classes.commander;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.ui.Icon;
+
+import java.util.List;
 
 /**
  * Defines an individual modules, installable in an internal ship compartment. Example include weapons, shields,
@@ -9,10 +13,11 @@ import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
  *
  * Created by Controllerface on 4/25/2018.
  */
-public interface ShipModule
+public interface ShipModule extends ProcurementCost
 {
     String displayText();
     ProcurementType experimentalType();
     ProcurementType modificationType();
     ItemEffects itemEffects();
+    List<Icon> icons();
 }

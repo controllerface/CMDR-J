@@ -52,7 +52,7 @@ public class UserTransaction
     private final TransactionType transactionType;
 
     private final boolean inSRV;
-    private final int transactionAmount;
+    private final long transactionAmount;
     private final String message;
     private final MessageType messageType;
     private final ProcurementCost inventoryItem;
@@ -87,7 +87,7 @@ public class UserTransaction
         return inSRV;
     }
 
-    public int getTransactionAmount()
+    public long getTransactionAmount()
     {
         return transactionAmount;
     }
@@ -124,7 +124,7 @@ public class UserTransaction
     {
         private final TransactionType transactionType;
         private boolean inSRV;
-        private int transactionAmount;
+        private long transactionAmount;
         private String message;
         private MessageType messageType;
         private ProcurementCost inventoryItem;
@@ -143,7 +143,7 @@ public class UserTransaction
             return this;
         }
 
-        public Builder setTransactionAmount(int transactionAmount)
+        public Builder setTransactionAmount(long transactionAmount)
         {
             this.transactionAmount = transactionAmount;
             return this;

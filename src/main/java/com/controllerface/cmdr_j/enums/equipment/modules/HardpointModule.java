@@ -46,9 +46,13 @@ import com.controllerface.cmdr_j.classes.modules.weapons.shardcannon.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.shockcannon.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Medium;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Small;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
+import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Controllerface on 4/24/2018.
@@ -293,5 +297,53 @@ public enum HardpointModule implements ShipModule
         return Arrays.stream(HardpointModule.values())
                 .filter(v->v.name().toLowerCase().equals(moduleName.toLowerCase()))
                 .findFirst().orElseThrow(() -> exception);
+    }
+
+    @Override
+    public List<ProcurementRecipe> getAssociated()
+    {
+        return null;
+    }
+
+    @Override
+    public void associate(ProcurementRecipe recipe)
+    {
+
+    }
+
+    @Override
+    public String getLocationInformation()
+    {
+        return null;
+    }
+
+    @Override
+    public void setLocationInformation(String locationInformation)
+    {
+
+    }
+
+    @Override
+    public String getLocalizedName()
+    {
+        return displayText();
+    }
+
+    @Override
+    public void setLocalizedName(String localizedName)
+    {
+
+    }
+
+    @Override
+    public ItemGrade getGrade()
+    {
+        return null;
+    }
+
+    @Override
+    public List<Icon> icons()
+    {
+        return delegate.icons();
     }
 }

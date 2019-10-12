@@ -20,6 +20,7 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -50,7 +51,7 @@ public class InventoryData implements Displayable
     /**
      * Stores the current count of the inventory item
      */
-    private int quantity;
+    private long quantity;
 
     /**
      * Ordinal used when performing comparisons based on grade; used to sort collections of InventoryData objects.
@@ -94,10 +95,10 @@ public class InventoryData implements Displayable
      */
     private final String associatedString;
 
-    private final SimpleIntegerProperty haveCount = new SimpleIntegerProperty();
+    private final SimpleLongProperty haveCount = new SimpleLongProperty();
     private final SimpleBooleanProperty hasTrades = new SimpleBooleanProperty(false);
 
-    private final Function<ProcurementCost, Integer> checkInventory;
+    private final Function<ProcurementCost, Long> checkInventory;
     private final Function<ProcurementCost, Integer> pendingTradeCost;
     private final Consumer<ProcurementTask> addTask;
 
@@ -128,8 +129,8 @@ public class InventoryData implements Displayable
     };
 
     InventoryData(ProcurementCost inventoryItem,
-                  int quantity,
-                  Function<ProcurementCost, Integer> checkInventory,
+                  long quantity,
+                  Function<ProcurementCost, Long> checkInventory,
                   Function<ProcurementCost, Integer> pendingTradeCost,
                   Consumer<ProcurementTask> addTask)
     {
@@ -304,7 +305,7 @@ public class InventoryData implements Displayable
     {
         Integer committedCost = pendingTradeCost.apply(inventoryItem);
         int committed = (committedCost == null) ? 0 : committedCost;
-        int have = checkInventory.apply(inventoryItem) - committed;
+        long have = checkInventory.apply(inventoryItem) - committed;
         haveCount.set(have);
         hasTrades.set(committed > 0);
     }
@@ -585,12 +586,12 @@ public class InventoryData implements Displayable
         return categoryOrdinal;
     }
 
-    public int getQuantity()
+    public long getQuantity()
     {
         return quantity;
     }
 
-    boolean adjustCount(int adjustment)
+    boolean adjustCount(long adjustment)
     {
         this.quantity += adjustment;
         renderProgress();

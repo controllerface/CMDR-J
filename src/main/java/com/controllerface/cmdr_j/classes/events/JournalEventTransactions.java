@@ -254,7 +254,7 @@ public class JournalEventTransactions
     private static void adjustBlueprintDown(EventProcessingContext context,
                                             ProcurementType procurementType,
                                             ProcurementRecipe procurementRecipe,
-                                            int amount)
+                                            long amount)
     {
         Pair<ProcurementType, ProcurementRecipe> bluePrint = new Pair<>(procurementType, procurementRecipe);
         context.getTransactions().add(UserTransaction.start(TransactionType.BLUEPRINT)
@@ -789,7 +789,7 @@ public class JournalEventTransactions
                                 .findFirst()
                                 .ifPresent(unitCost ->
                                 {
-                                    int count = ((int) paid.get("Quantity")) / unitCost;
+                                    long count = ((long) paid.get("Quantity")) / unitCost;
                                     adjustBlueprintDown(context, tradeType, recipe, count);
                                 })));
     }

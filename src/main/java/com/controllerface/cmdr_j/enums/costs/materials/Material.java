@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.enums.costs.materials;
 
-import com.controllerface.cmdr_j.classes.MaterialTradeRecipe;
+import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.classes.procurements.*;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;

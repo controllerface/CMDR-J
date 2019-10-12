@@ -157,9 +157,13 @@ import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size6.SRVBay_6H
 import com.controllerface.cmdr_j.classes.modules.utility.shutdownneutralizer.AntiShutdownField_0F;
 import com.controllerface.cmdr_j.classes.modules.utility.surfacescanner.size0.DetailedSurfaceScanner_1I;
 import com.controllerface.cmdr_j.classes.modules.utility.xenoscanner.XenoScanner_0E;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
+import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Implementation note:
@@ -929,5 +933,53 @@ public enum OptionalInternalModule implements ShipModule
         return Arrays.stream(OptionalInternalModule.values())
                 .filter(v->v.name().toLowerCase().equals(moduleName.toLowerCase()))
                 .findFirst().orElseThrow(()->exception);
+    }
+
+    @Override
+    public List<ProcurementRecipe> getAssociated()
+    {
+        return null;
+    }
+
+    @Override
+    public void associate(ProcurementRecipe recipe)
+    {
+
+    }
+
+    @Override
+    public String getLocationInformation()
+    {
+        return null;
+    }
+
+    @Override
+    public void setLocationInformation(String locationInformation)
+    {
+
+    }
+
+    @Override
+    public String getLocalizedName()
+    {
+        return displayText();
+    }
+
+    @Override
+    public void setLocalizedName(String localizedName)
+    {
+
+    }
+
+    @Override
+    public ItemGrade getGrade()
+    {
+        return null;
+    }
+
+    @Override
+    public List<Icon> icons()
+    {
+        return delegate.icons();
     }
 }

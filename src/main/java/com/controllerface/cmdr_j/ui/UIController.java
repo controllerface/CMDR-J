@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.ui;
 
 import com.controllerface.cmdr_j.JSONSupport;
-import com.controllerface.cmdr_j.classes.MaterialTradeRecipe;
+import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.classes.MessageData;
 import com.controllerface.cmdr_j.classes.ShipModuleData;
 import com.controllerface.cmdr_j.classes.WindowDimensions;
@@ -25,6 +25,8 @@ import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisType;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyType;
+import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.enums.journal.JournalEvent;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
@@ -78,6 +80,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.*;
 import java.util.stream.Collectors;
@@ -973,7 +976,7 @@ public class UIController
         // convenience function that adjusts items and also refreshes teh cost table. This is useful because the
         // item adjustment isn't directly related to the cost table, so adjustments won't automatically trigger a
         // refresh. This allows the table to be refreshed in one function without leaking references into other scopes
-        BiConsumer<ProcurementCost, Integer> adjustItem = (item, amount) ->
+        BiConsumer<ProcurementCost, Long> adjustItem = (item, amount) ->
         {
             commanderData.adjustItem(item, amount);
             if (task_cost_table != null) task_cost_table.refresh();
@@ -1245,8 +1248,8 @@ public class UIController
         task_cost_grade_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getCost().getGrade()));
         task_cost_grade_column.setCellFactory(x -> new CostGradeCell());
 
-        sort_tasks_by_name.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.tasksByName));
-        sort_tasks_by_grade.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.taskByGrade));
+        //sort_tasks_by_name.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.tasksByName));
+        //sort_tasks_by_grade.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.taskByGrade));
 
         show_procurements.setOnAction(e -> setProcurementsUIVisibility());
         show_tasks.setOnAction(e -> setProcurementsUIVisibility());
@@ -1328,7 +1331,7 @@ public class UIController
         final Callback<TableColumn.CellDataFeatures<InventoryData, Label>, ObservableValue<Label>>
                 inventoryQuantityCellFactory = (materialData) ->
         {
-            int quantity = materialData.getValue().getQuantity();
+            long quantity = materialData.getValue().getQuantity();
             int max = materialData.getValue().getItem().getGrade().getMaximumQuantity();
             Label label = new Label();
             String q = String.format("%1$" + 3 + "s", quantity);
@@ -1658,7 +1661,7 @@ public class UIController
      */
 
 
-    private void procurementListUpdate(Integer adjustment, Pair<ProcurementType, ProcurementRecipe> task)
+    private void procurementListUpdate(long adjustment, Pair<ProcurementType, ProcurementRecipe> task)
     {
         Task<Void> task1 = new Task<Void>()
         {
@@ -1672,7 +1675,7 @@ public class UIController
         messageExecutor.submit(task1);
     }
 
-    private void procurementListUpdate1(Integer adjustment, Pair<ProcurementType, ProcurementRecipe> task)
+    private void procurementListUpdate1(long adjustment, Pair<ProcurementType, ProcurementRecipe> task)
     {
         // find the task we need to adjust
         AtomicReference<ProcurementTaskData> data = new AtomicReference<>(taskList.stream()
@@ -1726,14 +1729,14 @@ public class UIController
         }
 
         // grab the count before adjustment so we can tell how much the final adjustment actually was
-        int oldCount = data.get().getCount();
+        long oldCount = data.get().getCount();
 
         // here we do a quick sanity count, in case the count is already at the maximum. if that's the case,
         // we will not adjust further, just return the count
         if (oldCount == 999) return;
 
         // now, we can continue with the adjustment.
-        AtomicInteger newCount = new AtomicInteger(oldCount + adjustment);
+        AtomicLong newCount = new AtomicLong(oldCount + adjustment);
 
         // We max out at 999, just because the UI will get weird and it's unlikely anyone will want/need
         // anywhere near that many tasks of a given type. If the adjustment would bring the value over that
@@ -1751,7 +1754,7 @@ public class UIController
         if (newCount.get() == 0) taskList.remove(data.get());
 
         // figure out what the difference was, we'll need this to calculate the cost adjustment
-        int costDifference = newCount.get() - oldCount;
+        long costDifference = newCount.get() - oldCount;
 
         // now we need to calculate the cost adjustments that this task adjustment requires. To do this,
         // we find all the costs of this recipe, and multiply the required cost by the cost difference
@@ -1773,10 +1776,10 @@ public class UIController
                         if (costData.getQuantity() < 0)
                         {
                             // since the cost will be negative, use absolute value
-                            int yield = Math.abs(costData.getQuantity());
+                            long yield = Math.abs(costData.getQuantity());
 
                             // the yield adjustment is applied to the current count of this cost
-                            int yieldAdjustment = yield * adjustment;
+                            long yieldAdjustment = yield * adjustment;
 
                             // grab the current pending yield for this trade, init to zero if not present
                             int current = tradeYieldCache.computeIfAbsent(costData.getCost(), (x) -> 0);
@@ -1793,10 +1796,10 @@ public class UIController
                         else
                         {
                             // since the cost will be positive, use value as-is
-                            int tradeCost = costData.getQuantity();
+                            long tradeCost = costData.getQuantity();
 
                             // the yield adjustment is applied to the current count of this cost
-                            int costAdjustment = tradeCost * adjustment;
+                            long costAdjustment = tradeCost * adjustment;
 
                             // grab the current pending yield for this trade, init to zero if not present
                             int current = tradeCostCache.computeIfAbsent(costData.getCost(), (x) -> 0);
@@ -1886,6 +1889,30 @@ public class UIController
                 });
 
         return materialTrades;
+    }
+
+    private TreeItem<ProcurementTask> makeModuleTree()
+    {
+        TreeItem<ProcurementTask> modulePrices = new TreeItem<>(new ProcurementTask("Purchase Modules"));
+
+        // loop through all possible trades
+        Stream.of(ModulePurchaseType.values())
+                .forEach(modulePurchaseType ->
+                {
+                    // for this category, loop through trade sub-categories it contains
+                    modulePurchaseType.getBluePrints()
+                            .forEach(blueprint ->
+                            {
+                                // add a collapsible subcategory label
+                                TreeItem<ProcurementTask> subCatItem =
+                                        new TreeItem<>(new ProcurementTask(modulePurchaseType, blueprint));
+
+                                // add the subcategory item to the category
+                                modulePrices.getChildren().add(subCatItem);
+                            });
+                });
+
+        return modulePrices;
     }
 
     private TreeItem<ProcurementTask> makeSynthesisTree()
@@ -2042,7 +2069,8 @@ public class UIController
                 makeExperimentTree(),
                 makeTechnologyTree(),
                 makeSynthesisTree(),
-                makeTradeTree());
+                makeTradeTree(),
+                makeModuleTree());
 
         // set the root as expanded by default
         root.setExpanded(true);
@@ -2195,7 +2223,7 @@ public class UIController
 
                     boolean isTrade = type instanceof MaterialTradeType;
 
-                    Integer count = e.getCount();
+                    Long count = e.getCount();
 
                     String procType = type.getClass().getSimpleName();
                     String procName = type.getName();

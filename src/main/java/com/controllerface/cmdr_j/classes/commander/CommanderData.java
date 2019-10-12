@@ -9,6 +9,7 @@ import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.commodities.CommodityType;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialType;
+import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
 import javafx.application.Platform;
 import javafx.scene.control.CheckBox;
@@ -249,7 +250,7 @@ public class CommanderData
      * @param cost the named ProcurementCost item to adjust the count of
      * @param adjustment amount to adjust the count by
      */
-    public void adjustItem(ProcurementCost cost, int adjustment)
+    public void adjustItem(ProcurementCost cost, long adjustment)
     {
         Objects.requireNonNull(cost);
 
@@ -292,9 +293,11 @@ public class CommanderData
         }
     }
 
-    public int amountOf(ProcurementCost cost)
+    public long amountOf(ProcurementCost cost)
     {
         Objects.requireNonNull(cost);
+
+        System.out.println("Cost: " + cost);
 
         if (cost instanceof Material)
         {
@@ -334,6 +337,11 @@ public class CommanderData
             }
         }
 
-        return -1;
+        if (cost instanceof CreditCost)
+        {
+            return creditBalance;
+        }
+
+        return 0;
     }
 }

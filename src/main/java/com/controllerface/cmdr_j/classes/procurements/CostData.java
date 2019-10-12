@@ -12,10 +12,10 @@ package com.controllerface.cmdr_j.classes.procurements;
  */
 public class CostData
 {
-    private final int quantity;
+    private final long quantity;
     private final ProcurementCost cost;
 
-    public CostData(ProcurementCost cost, int quantity)
+    public CostData(ProcurementCost cost, long quantity)
     {
         this.cost = cost;
         this.quantity = quantity;
@@ -32,7 +32,7 @@ public class CostData
         return cost;
     }
 
-    public int getQuantity()
+    public long getQuantity()
     {
         return quantity;
     }

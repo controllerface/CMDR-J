@@ -28,10 +28,10 @@ import java.util.stream.Collectors;
 public class ProcurementListCell extends ListCell<ProcurementTask>
 {
     private final Consumer<ProcurementTask> addMod;
-    private final Function<ProcurementCost, Integer> checkMat;
+    private final Function<ProcurementCost, Long> checkMat;
     private final ReadOnlyDoubleProperty parentWidth;
 
-    public ProcurementListCell(Consumer<ProcurementTask> addMod, Function<ProcurementCost, Integer> checkMat, ReadOnlyDoubleProperty parentWidth)
+    public ProcurementListCell(Consumer<ProcurementTask> addMod, Function<ProcurementCost, Long> checkMat, ReadOnlyDoubleProperty parentWidth)
     {
         this.addMod = addMod;
         this.checkMat = checkMat;
@@ -72,29 +72,13 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
                 }
             });
 
-            AtomicInteger loops = new AtomicInteger(0);
+            //AtomicInteger loops = new AtomicInteger(0);
             Set<CostData> missingSet = new HashSet<>();
-            if (good.get() == count)
-            {
-                AtomicInteger innerGood = new AtomicInteger(count);
-                while (innerGood.get() == count)
-                {
-                    loops.getAndIncrement();
-                    innerGood.set(0);
-                    data.forEach(m->
-                    {
-                        if(checkMat.apply(m.getCost()) >= (m.getQuantity()* loops.get() + 1))
-                        {
-                            innerGood.incrementAndGet();
-                        }
-                    });
-                }
-            }
-            else
+            if (good.get() != count)
             {
                 data.forEach(m ->
                 {
-                    int ch = checkMat.apply(m.getCost());
+                    long ch = checkMat.apply(m.getCost());
                     if(ch < m.getQuantity())
                     {
                         missingSet.add(m);
@@ -104,7 +88,7 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
 
             double progress = ((double) good.get())/ ((double) count);
 
-            ProgressBar progressIndicator = createProgressIndicator(progress, loops.get(),  data, missingSet);
+            ProgressBar progressIndicator = createProgressIndicator(progress, data, missingSet);
 
             HBox hBox = new HBox(1);
             hBox.getChildren().addAll(progressIndicator, gradeLabel);
@@ -214,7 +198,7 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
         }
     }
 
-    private ProgressBar createProgressIndicator(double progress, int surplus, List<CostData> data, Set<CostData> missingSet)
+    private ProgressBar createProgressIndicator(double progress, List<CostData> data, Set<CostData> missingSet)
     {
         ProgressBar progressIndicator = new ProgressBar(progress);
         progressIndicator.prefHeight(10);
@@ -230,7 +214,8 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
                     .map(d-> checkMat.apply(d.getCost()) + " x " +
                             d.getCost().getLocalizedName()).collect(Collectors.joining("\n","\n","\n"));
 
-            tooltip = new Tooltip("You can craft " + surplus + " of this item" + msg);
+            //tooltip = new Tooltip("You can craft " + surplus + " of this item" + msg);
+            tooltip = new Tooltip("You can craft this item: " + msg);
         }
         else
         {

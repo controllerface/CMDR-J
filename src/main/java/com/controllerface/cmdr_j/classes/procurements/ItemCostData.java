@@ -4,6 +4,7 @@ import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialType;
+import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Displayable;
 import com.controllerface.cmdr_j.ui.UIFunctions;
@@ -21,6 +22,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -41,9 +43,9 @@ import java.util.stream.IntStream;
 public class ItemCostData implements Displayable
 {
     private final ProcurementCost cost;
-    private final AtomicInteger count = new AtomicInteger(0);
+    private final AtomicLong count = new AtomicLong(0);
 
-    private final Function<ProcurementCost, Integer> checkInventory;
+    private final Function<ProcurementCost, Long> checkInventory;
     private final Predicate<ProcurementCost> isInCache;
     private final Function<ProcurementCost, Integer> pendingTradeYield;
     private final Function<ProcurementCost, Integer> pendingTradeCost;
@@ -82,7 +84,7 @@ public class ItemCostData implements Displayable
 
 
     public ItemCostData(ProcurementCost cost,
-                        Function<ProcurementCost, Integer> checkInventory,
+                        Function<ProcurementCost, Long> checkInventory,
                         Predicate<ProcurementCost> isInCache,
                         Function<ProcurementCost, Integer> pendingTradeYield,
                         Function<ProcurementCost, Integer> pendingTradeCost,
@@ -108,17 +110,17 @@ public class ItemCostData implements Displayable
         return cost.getLocalizedName();
     }
 
-    public int getHave()
+    public long getHave()
     {
         return checkInventory.apply(cost);
     }
 
-    public int getNeed()
+    public long getNeed()
     {
         return count.get();
     }
 
-    public void setNeed(int count)
+    public void setNeed(long count)
     {
         this.count.set(count);
         Platform.runLater(this::renderProgress);
@@ -197,7 +199,7 @@ public class ItemCostData implements Displayable
 
                             Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
                             int committed = (committedCost == null) ? 0 : committedCost;
-                            int have = checkInventory.apply(tradeCost.getCost()) - committed;
+                            long have = checkInventory.apply(tradeCost.getCost()) - committed;
 
 
                             boolean cannotAfford = recipe.costStream()
@@ -214,7 +216,7 @@ public class ItemCostData implements Displayable
                                             (checkInventory.apply(costData.getCost()) - committed) < costData.getQuantity());
 
                             long max = IntStream.range(1, 100)
-                                    .map(i -> i * tradeCost.getQuantity())
+                                    .mapToLong(i -> i * tradeCost.getQuantity())
                                     .filter(i -> have >= i)
                                     .count();
 
@@ -280,7 +282,7 @@ public class ItemCostData implements Displayable
 
                                 Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
                                 int committed = (committedCost == null) ? 0 : committedCost;
-                                int have = checkInventory.apply(tradeCost.getCost()) - committed;
+                                long have = checkInventory.apply(tradeCost.getCost()) - committed;
 
                                 String x = tradeCost.getQuantity()
                                         + " for "
@@ -292,7 +294,7 @@ public class ItemCostData implements Displayable
                                 desc.setText(x);
 
                                 long max = IntStream.range(1, 100)
-                                        .map(i -> i * tradeCost.getQuantity())
+                                        .mapToLong(i -> i * tradeCost.getQuantity())
                                         .filter(i -> have >= i)
                                         .count();
 
@@ -501,6 +503,7 @@ public class ItemCostData implements Displayable
         HBox hbox = new HBox();
 
         String type;
+
         if (cost instanceof Material)
         {
             Optional<MaterialType> matchingType = MaterialType.findMatchingType(((Material) cost));
@@ -508,12 +511,13 @@ public class ItemCostData implements Displayable
             if (matchingType.isPresent())
             {
                 type = matchingType.get().toString();
-                type = type.substring(0,1).concat(type.substring(1, type.length()).toLowerCase());
+                type = type.substring(0,1).concat(type.substring(1).toLowerCase());
             }
             else type = "(Unknown Material) " + cost;
         }
 
         else if (cost instanceof Commodity) type = Commodity.class.getSimpleName();
+        else if (cost instanceof CreditCost) type = "Currency";
         else type = "Unknown";
 
         Label costLabel = new Label(type + " :: "  + cost.getLocalizedName()) ;

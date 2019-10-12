@@ -48,9 +48,13 @@ import com.controllerface.cmdr_j.classes.modules.core.thrusters.size5.*;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.size6.*;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.size7.*;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.size8.*;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
+import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Controllerface on 4/25/2018.
@@ -667,5 +671,53 @@ public enum CoreInternalModule implements ShipModule
         return Arrays.stream(CoreInternalModule.values())
                 .filter(v->v.name().toLowerCase().equals(moduleName.toLowerCase()))
                 .findFirst().orElseThrow(()->exception);
+    }
+
+    @Override
+    public List<ProcurementRecipe> getAssociated()
+    {
+        return null;
+    }
+
+    @Override
+    public void associate(ProcurementRecipe recipe)
+    {
+
+    }
+
+    @Override
+    public String getLocationInformation()
+    {
+        return null;
+    }
+
+    @Override
+    public void setLocationInformation(String locationInformation)
+    {
+
+    }
+
+    @Override
+    public String getLocalizedName()
+    {
+        return displayText();
+    }
+
+    @Override
+    public void setLocalizedName(String localizedName)
+    {
+
+    }
+
+    @Override
+    public ItemGrade getGrade()
+    {
+        return null;
+    }
+
+    @Override
+    public List<Icon> icons()
+    {
+        return delegate.icons();
     }
 }

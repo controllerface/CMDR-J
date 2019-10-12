@@ -2,9 +2,14 @@ package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
+import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Controllerface on 4/25/2018.
@@ -109,5 +114,53 @@ public enum Cosmetic implements ShipModule
         return Arrays.stream(Cosmetic.values())
                 .filter(v->v.name().toLowerCase().equals(cosmeticName.toLowerCase()))
                 .findFirst().orElseThrow(()->exception);
+    }
+
+    @Override
+    public List<ProcurementRecipe> getAssociated()
+    {
+        return null;
+    }
+
+    @Override
+    public void associate(ProcurementRecipe recipe)
+    {
+
+    }
+
+    @Override
+    public String getLocationInformation()
+    {
+        return null;
+    }
+
+    @Override
+    public void setLocationInformation(String locationInformation)
+    {
+
+    }
+
+    @Override
+    public String getLocalizedName()
+    {
+        return displaytext;
+    }
+
+    @Override
+    public void setLocalizedName(String localizedName)
+    {
+
+    }
+
+    @Override
+    public ItemGrade getGrade()
+    {
+        return null;
+    }
+
+    @Override
+    public List<Icon> icons()
+    {
+        return Collections.emptyList();
     }
 }

@@ -11,7 +11,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
@@ -20,7 +19,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -929,29 +927,7 @@
                                           <Insets top="3.5" />
                                        </HBox.margin>
                                     </AnchorPane>
-                                    <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="25.0">
-                                       <children>
-                                          <RadioButton fx:id="sort_tasks_by_name" mnemonicParsing="false" selected="true" text="Sort By Type">
-                                             <HBox.margin>
-                                                <Insets left="5.0" right="5.0" />
-                                             </HBox.margin>
-                                             <toggleGroup>
-                                                <ToggleGroup fx:id="task_sort" />
-                                             </toggleGroup>
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </RadioButton>
-                                          <RadioButton fx:id="sort_tasks_by_grade" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Sort By Grade" toggleGroup="$task_sort">
-                                             <HBox.margin>
-                                                <Insets left="5.0" right="5.0" />
-                                             </HBox.margin>
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </RadioButton>
-                                       </children>
-                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="25.0" />
                                  </children>
                               </HBox>
                               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
