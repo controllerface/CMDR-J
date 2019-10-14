@@ -17,4 +17,10 @@ public class Refinery_4E extends AbstractRefinery
                         new ItemEffectData(ItemEffect.RefineryBins, 4d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 55_570;
+    }
 }

@@ -21,7 +21,7 @@ public class ModulePurchaseBlueprint implements ProcurementBlueprint
     {
         this.ss = ss;
         recipes = x.stream()
-                .map(v->new ModulePurchaseRecipe(1, v))
+                .map(ModulePurchaseRecipe::new)
                 .collect(Collectors.toList());
     }
 

@@ -4,11 +4,12 @@ import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class WaveAnalyzer_Pulse extends AbstractPulseWaveScanner
+public class PulseWaveAnalyzer_0D extends AbstractPulseWaveScanner
 {
-    public WaveAnalyzer_Pulse()
+    public PulseWaveAnalyzer_0D()
     {
-        super("Pulse Wave Analyzer", 
+        // todo: get actual stats, copied from 0B model
+        super("0D Pulse Wave Analyzer",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 1.3),
                   new ItemEffectData(ItemEffect.Integrity, 56.0),

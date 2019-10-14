@@ -17,6 +17,7 @@ import com.controllerface.cmdr_j.classes.modules.core.fsd.size4.*;
 import com.controllerface.cmdr_j.classes.modules.core.fsd.size5.*;
 import com.controllerface.cmdr_j.classes.modules.core.fsd.size6.*;
 import com.controllerface.cmdr_j.classes.modules.core.fsd.size7.*;
+import com.controllerface.cmdr_j.classes.modules.core.fsd.size8.*;
 import com.controllerface.cmdr_j.classes.modules.core.fueltank.*;
 import com.controllerface.cmdr_j.classes.modules.core.lifesupport.size1.*;
 import com.controllerface.cmdr_j.classes.modules.core.lifesupport.size2.*;
@@ -48,6 +49,7 @@ import com.controllerface.cmdr_j.classes.modules.core.thrusters.size5.*;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.size6.*;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.size7.*;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.size8.*;
+import com.controllerface.cmdr_j.classes.modules.core.planetarysuite.size1.PlanetarySuite_1I;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
@@ -299,6 +301,7 @@ public enum CoreInternalModule implements ShipModule
      */
 
     int_powerplant_size2_class1(new PowerPlant_2E()),
+    int_powerplant_size2_class1_free(new PowerPlant_2E()),
     int_powerplant_size2_class2(new PowerPlant_2D()),
     int_powerplant_size2_class3(new PowerPlant_2C()),
     int_powerplant_size2_class4(new PowerPlant_2B()),
@@ -353,6 +356,7 @@ public enum CoreInternalModule implements ShipModule
      */
 
     int_engine_size2_class1(new Thrusters_2E()),
+    int_engine_size2_class1_free(new Thrusters_2E()),
     int_engine_size2_class2(new Thrusters_2D()),
     int_engine_size2_class3(new Thrusters_2C()),
     int_engine_size2_class4(new Thrusters_2B()),
@@ -401,6 +405,7 @@ public enum CoreInternalModule implements ShipModule
      * Frame Shift Drive
      */
     int_hyperdrive_size2_class1(new FrameShiftDrive_2E()),
+    int_hyperdrive_size2_class1_free(new FrameShiftDrive_2E()),
     int_hyperdrive_size2_class2(new FrameShiftDrive_2D()),
     int_hyperdrive_size2_class3(new FrameShiftDrive_2C()),
     int_hyperdrive_size2_class4(new FrameShiftDrive_2B()),
@@ -436,12 +441,19 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size7_class4(new FrameShiftDrive_7B()),
     int_hyperdrive_size7_class5(new FrameShiftDrive_7A()),
 
+    int_hyperdrive_size8_class1(new FrameShiftDrive_8E()),
+    int_hyperdrive_size8_class2(new FrameShiftDrive_8D()),
+    int_hyperdrive_size8_class3(new FrameShiftDrive_8C()),
+    int_hyperdrive_size8_class4(new FrameShiftDrive_8B()),
+    int_hyperdrive_size8_class5(new FrameShiftDrive_8A()),
+
 
     /**
      * Life Support
      */
 
     int_lifesupport_size1_class1(new LifeSupport_1E()),
+    int_lifesupport_size1_class1_free(new LifeSupport_1E()),
     int_lifesupport_size1_class2(new LifeSupport_1D()),
     int_lifesupport_size1_class3(new LifeSupport_1C()),
     int_lifesupport_size1_class4(new LifeSupport_1B()),
@@ -495,6 +507,7 @@ public enum CoreInternalModule implements ShipModule
      */
 
     int_powerdistributor_size1_class1(new PowerDistributor_1E()),
+    int_powerdistributor_size1_class1_free(new PowerDistributor_1E()),
     int_powerdistributor_size1_class2(new PowerDistributor_1D()),
     int_powerdistributor_size1_class3(new PowerDistributor_1C()),
     int_powerdistributor_size1_class4(new PowerDistributor_1B()),
@@ -556,6 +569,7 @@ public enum CoreInternalModule implements ShipModule
      */
 
     int_sensors_size1_class1(new Sensors_1E()),
+    int_sensors_size1_class1_free(new Sensors_1E()),
     int_sensors_size1_class2(new Sensors_1D()),
     int_sensors_size1_class3(new Sensors_1C()),
     int_sensors_size1_class4(new Sensors_1B()),
@@ -609,6 +623,7 @@ public enum CoreInternalModule implements ShipModule
      */
 
     int_fueltank_size1_class3(new FuelTank_1C()),
+    int_fueltank_size1_class3_free(new FuelTank_1C()),
 
     int_fueltank_size2_class3(new FuelTank_2C()),
 
@@ -623,6 +638,12 @@ public enum CoreInternalModule implements ShipModule
     int_fueltank_size7_class3(new FuelTank_7C()),
 
     int_fueltank_size8_class3(new FuelTank_8C()),
+
+    /**
+     * Planetary Approach Suite (Horizons)
+     */
+
+    int_planetapproachsuite(new PlanetarySuite_1I()),
 
     ;
 
@@ -719,5 +740,11 @@ public enum CoreInternalModule implements ShipModule
     public List<Icon> icons()
     {
         return delegate.icons();
+    }
+
+    @Override
+    public long price()
+    {
+        return delegate.price();
     }
 }

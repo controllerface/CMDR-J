@@ -19,4 +19,10 @@ public class SRVBay_4H extends AbstractSRVBay
                         new ItemEffectData(ItemEffect.AmmoClipSize, 1d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 72_000;
+    }
 }

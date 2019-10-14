@@ -18,4 +18,10 @@ public class HRP_1E extends AbstractHullPackage
                         new ItemEffectData(ItemEffect.ExplosiveResistance, 0.5d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 5_000;
+    }
 }

@@ -22,4 +22,10 @@ public class CollectorLimpet_5A extends AbstractCollectorLimpet
                         new ItemEffectData(ItemEffect.DroneMultiTargetSpeed, 60d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 777_600;
+    }
 }

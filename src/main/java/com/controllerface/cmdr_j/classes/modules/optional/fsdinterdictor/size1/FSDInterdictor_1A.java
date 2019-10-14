@@ -19,4 +19,10 @@ public class FSDInterdictor_1A extends AbstractFSDInterdictor
                         new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 50d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 972_000;
+    }
 }

@@ -19,4 +19,10 @@ public class Kill_warrantScanner_0C extends AbstractKillWarrantScanner
                   new ItemEffectData(ItemEffect.ScannerTimeToScan, 10.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 121_900;
+    }
 }

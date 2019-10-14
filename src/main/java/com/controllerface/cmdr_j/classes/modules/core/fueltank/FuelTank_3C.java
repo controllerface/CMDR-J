@@ -13,4 +13,10 @@ public class FuelTank_3C extends AbstractFuelTank
                   new ItemEffectData(ItemEffect.FuelCapacity, 8.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 7_060;
+    }
 }

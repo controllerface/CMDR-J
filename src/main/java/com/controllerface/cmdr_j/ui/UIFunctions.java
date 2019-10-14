@@ -164,6 +164,7 @@ public class UIFunctions
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
                 costNeedCellFactory = (modMaterial) ->
         {
+            String suffix = "";
             long left = 0;
             long need = modMaterial.getValue().getNeed();
             long have = modMaterial.getValue().getHave();
@@ -173,7 +174,16 @@ public class UIFunctions
                 left = need - have;
             }
 
-            return new SimpleStringProperty(String.valueOf(left));
+            if (left > 999_999_999)
+            {
+                String buffer = Long.toString(left);
+                buffer = buffer.substring(buffer.length()-9).substring(0,2);
+                suffix="."+buffer+"B";
+                left = left / 1_000_000_000;
+            }
+
+            String quantity = String.format("%,2d%n", left).trim() + suffix;
+            return new SimpleStringProperty(quantity);
         };
 
         public static final Callback<TableColumn<Pair<ItemEffect, Label>, Label>, TableCell<Pair<ItemEffect, Label>, Label>>
@@ -350,7 +360,7 @@ public class UIFunctions
 
                 String text = pair.getEffect().toString()
                         + (valueIsPositive ? " +" : " ")
-                        + pair.getDoubleValue();
+                        +  String.format("%1$,.2f", pair.getDoubleValue()).trim();;//pair.getDoubleValue();
 
                 // some effects have a zero value, such effects are generally "binary" on/off values, so we can just remove
                 // the trailing "point zero" suffix
@@ -430,9 +440,6 @@ public class UIFunctions
 
                     String as = a.asPair().getKey().getName() + a.asPair().getValue().getName();
                     String bs = b.asPair().getKey().getName() + b.asPair().getValue().getName();
-
-                    System.out.println("Debug: " + as + " :: " + bs);
-
                     return as.compareTo(bs);
                 };
 

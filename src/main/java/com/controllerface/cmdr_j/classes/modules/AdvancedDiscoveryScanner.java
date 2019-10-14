@@ -19,4 +19,10 @@ public class AdvancedDiscoveryScanner extends AbstractModule
                         new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 1_545_000;
+    }
 }

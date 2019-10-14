@@ -107,4 +107,10 @@ public abstract class AbstractModule implements ShipModule
     {
         return null;
     }
+
+    @Override
+    public long price()
+    {
+        return 1;
+    }
 }

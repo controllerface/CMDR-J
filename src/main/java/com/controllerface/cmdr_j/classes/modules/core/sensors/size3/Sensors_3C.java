@@ -20,4 +20,10 @@ public class Sensors_3C extends AbstractSensors
                   new ItemEffectData(ItemEffect.Range, 5400.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 25_330;
+    }
 }

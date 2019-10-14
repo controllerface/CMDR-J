@@ -30,4 +30,10 @@ public class ShieldGenerator_6C_BiWeave extends AbstractShieldGenerator
                   new ItemEffectData(ItemEffect.ExplosiveResistance, 50.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 2_696_600;
+    }
 }

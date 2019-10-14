@@ -19,4 +19,10 @@ public class ShieldBooster_0E extends AbstractShieldBooster
                   new ItemEffectData(ItemEffect.ExplosiveResistance, 0.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 10_000;
+    }
 }

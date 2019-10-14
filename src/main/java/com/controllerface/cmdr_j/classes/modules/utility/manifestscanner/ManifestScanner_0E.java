@@ -19,4 +19,10 @@ public class ManifestScanner_0E extends AbstractManifestScanner
                   new ItemEffectData(ItemEffect.ScannerTimeToScan, 10.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 13_540;
+    }
 }

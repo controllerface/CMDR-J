@@ -115,7 +115,6 @@ import com.controllerface.cmdr_j.classes.modules.optional.passengercabin.size6.C
 import com.controllerface.cmdr_j.classes.modules.optional.passengercabin.size6.Cabin_6C;
 import com.controllerface.cmdr_j.classes.modules.optional.passengercabin.size6.Cabin_6D;
 import com.controllerface.cmdr_j.classes.modules.optional.passengercabin.size6.Cabin_6E;
-import com.controllerface.cmdr_j.classes.modules.optional.planetarysuite.size1.PlanetarySuite_1I;
 import com.controllerface.cmdr_j.classes.modules.optional.refinery.size1.*;
 import com.controllerface.cmdr_j.classes.modules.optional.refinery.size2.*;
 import com.controllerface.cmdr_j.classes.modules.optional.refinery.size3.*;
@@ -130,9 +129,7 @@ import com.controllerface.cmdr_j.classes.modules.optional.shieldreinforcement.si
 import com.controllerface.cmdr_j.classes.modules.optional.shieldreinforcement.size4.GuardianShieldReinforcementPackage_4E;
 import com.controllerface.cmdr_j.classes.modules.optional.shieldreinforcement.size5.GuardianShieldReinforcementPackage_5D;
 import com.controllerface.cmdr_j.classes.modules.optional.shieldreinforcement.size5.GuardianShieldReinforcementPackage_5E;
-import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size1.ShieldGenerator_1A;
-import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size1.ShieldGenerator_1A_Prismatic;
-import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size1.ShieldGenerator_1C_BiWeave;
+import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size1.*;
 import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size2.*;
 import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size3.*;
 import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size4.*;
@@ -154,6 +151,7 @@ import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size4.SRVBay_4G
 import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size4.SRVBay_4H;
 import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size6.SRVBay_6G;
 import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size6.SRVBay_6H;
+import com.controllerface.cmdr_j.classes.modules.optional.supercruiseassist.SuperCruiseAssist_0E;
 import com.controllerface.cmdr_j.classes.modules.utility.shutdownneutralizer.AntiShutdownField_0F;
 import com.controllerface.cmdr_j.classes.modules.utility.surfacescanner.size0.DetailedSurfaceScanner_1I;
 import com.controllerface.cmdr_j.classes.modules.utility.xenoscanner.XenoScanner_0E;
@@ -416,6 +414,7 @@ public enum OptionalInternalModule implements ShipModule
     int_corrosionproofcargorack_size1_class2(new CargoRack_1F_CorrosiveResist()),
 
     int_cargorack_size2_class1(new CargoRack_2E()),
+    int_cargorack_size2_class1_free(new CargoRack_2E()),
 
     int_cargorack_size3_class1(new CargoRack_3E()),
 
@@ -575,6 +574,9 @@ public enum OptionalInternalModule implements ShipModule
      * Hatch Breaker Limpet Controller
      */
 
+    // todo: is this obtainable?
+    int_dronecontrol_resourcesiphon(new HatchBreakerLimpet_1E()),
+
     int_dronecontrol_resourcesiphon_size1_class1(new HatchBreakerLimpet_1E()),
     int_dronecontrol_resourcesiphon_size1_class2(new HatchBreakerLimpet_1D()),
     int_dronecontrol_resourcesiphon_size1_class3(new HatchBreakerLimpet_1C()),
@@ -677,13 +679,10 @@ public enum OptionalInternalModule implements ShipModule
     int_dockingcomputer_standard(new DockingComputer_1E_Standard()),
     int_dockingcomputer_advanced(new DockingComputer_1E_Advanced()),
 
-
     /**
-     * Planetary Approach Suite
+     * Supercurise Assist
      */
-
-    int_planetapproachsuite(new PlanetarySuite_1I()),
-
+    int_supercruiseassist(new SuperCruiseAssist_0E()),
 
     /**
      * Experimental (AEGIS, Anti-Thargoid) Modules
@@ -707,12 +706,15 @@ public enum OptionalInternalModule implements ShipModule
     /**
      * Shield Generator
      */
-
-    int_shieldgenerator_size1_class1(new ShieldGenerator_1A()),
+    int_shieldgenerator_size1_class1(new ShieldGenerator_1E()),
+    int_shieldgenerator_size1_class2(new ShieldGenerator_1D()),
+    int_shieldgenerator_size1_class3(new ShieldGenerator_1C()),
     int_shieldgenerator_size1_class3_fast(new ShieldGenerator_1C_BiWeave()),
+    int_shieldgenerator_size1_class5(new ShieldGenerator_1A()),
     int_shieldgenerator_size1_class5_strong(new ShieldGenerator_1A_Prismatic()),
 
     int_shieldgenerator_size2_class1(new ShieldGenerator_2E()),
+    int_shieldgenerator_size2_class1_free(new ShieldGenerator_2E()),
     int_shieldgenerator_size2_class2(new ShieldGenerator_2D()),
     int_shieldgenerator_size2_class3(new ShieldGenerator_2C()),
     int_shieldgenerator_size2_class4(new ShieldGenerator_2B()),
@@ -874,6 +876,11 @@ public enum OptionalInternalModule implements ShipModule
 //                    new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)
 //            )),
 //
+    // todo: add a flag for "do not list" for these and add them
+    int_stellarbodydiscoveryscanner_standard(new AdvancedDiscoveryScanner()),
+    int_stellarbodydiscoveryscanner_standard_free(new AdvancedDiscoveryScanner()),
+    int_stellarbodydiscoveryscanner_intermediate(new AdvancedDiscoveryScanner()),
+
     int_stellarbodydiscoveryscanner_advanced(new AdvancedDiscoveryScanner()),
 
     /*
@@ -981,5 +988,11 @@ public enum OptionalInternalModule implements ShipModule
     public List<Icon> icons()
     {
         return delegate.icons();
+    }
+
+    @Override
+    public long price()
+    {
+        return delegate.price();
     }
 }

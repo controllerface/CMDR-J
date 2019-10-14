@@ -23,4 +23,10 @@ public class ShieldCellBank_7B extends AbstractShieldCellBank
                   new ItemEffectData(ItemEffect.ShieldBankDuration, 11.4)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 3_892_770;
+    }
 }

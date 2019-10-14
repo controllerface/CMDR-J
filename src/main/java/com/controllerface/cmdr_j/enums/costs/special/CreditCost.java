@@ -10,7 +10,7 @@ public enum CreditCost implements ProcurementCost
 {
     CREDIT_COST;
 
-    private String localizedName = "Credits";
+    private String localizedName = "CR";
 
     @Override
     public String getLocalizedName() { return localizedName; }

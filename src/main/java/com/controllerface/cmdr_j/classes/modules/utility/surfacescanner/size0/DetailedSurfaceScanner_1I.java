@@ -17,4 +17,10 @@ public class DetailedSurfaceScanner_1I extends AbstractRefinery
                         new ItemEffectData(ItemEffect.DSS_PatchRadius, 0d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 250_000;
+    }
 }

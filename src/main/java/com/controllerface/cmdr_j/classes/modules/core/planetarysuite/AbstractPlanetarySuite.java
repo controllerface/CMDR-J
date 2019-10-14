@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes.modules.optional.planetarysuite;
+package com.controllerface.cmdr_j.classes.modules.core.planetarysuite;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.AbstractModule;

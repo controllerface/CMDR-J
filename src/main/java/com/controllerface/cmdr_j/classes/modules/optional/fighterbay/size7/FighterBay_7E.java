@@ -19,4 +19,10 @@ public class FighterBay_7E extends AbstractFighterBay
                         new ItemEffectData(ItemEffect.AmmoClipSize, 15d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 2_369_330;
+    }
 }

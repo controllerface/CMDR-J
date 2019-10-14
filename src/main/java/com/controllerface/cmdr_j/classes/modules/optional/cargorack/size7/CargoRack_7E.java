@@ -11,4 +11,10 @@ public class CargoRack_7E extends AbstractCargoRack
     {
         super("7E Cargo Rack", new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 128d)));
     }
+
+    @Override
+    public long price()
+    {
+        return 1_178_420;
+    }
 }

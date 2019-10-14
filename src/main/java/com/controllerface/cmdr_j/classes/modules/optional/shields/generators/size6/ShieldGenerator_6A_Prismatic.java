@@ -30,4 +30,10 @@ public class ShieldGenerator_6A_Prismatic extends AbstractShieldGenerator
                   new ItemEffectData(ItemEffect.ExplosiveResistance, 50.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 24_269_300;
+    }
 }

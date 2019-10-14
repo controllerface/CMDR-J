@@ -22,4 +22,10 @@ public class FuelTransferLimpet_7A extends AbstractFuelTransferLimpet
                         new ItemEffectData(ItemEffect.DroneFuelCapacity, 1d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 6_998_400;
+    }
 }

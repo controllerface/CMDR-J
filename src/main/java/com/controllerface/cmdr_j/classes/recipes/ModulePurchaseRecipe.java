@@ -28,9 +28,9 @@ public class ModulePurchaseRecipe implements ProcurementRecipe
 
     private final Icon icon;
 
-    public ModulePurchaseRecipe(long price, ShipModule product)
+    public ModulePurchaseRecipe(ShipModule product)
     {
-        CostData x = new CostData(CreditCost.CREDIT_COST, price);
+        CostData x = new CostData(CreditCost.CREDIT_COST, product.price());
         CostData y = new CostData(product, -1);
 
         this.price = x;
@@ -44,7 +44,7 @@ public class ModulePurchaseRecipe implements ProcurementRecipe
 
     private static String generateDisplayLabel(CostData price, CostData product)
     {
-        String priceCost = price.getQuantity() + " " + price.getCost().getLocalizedName();
+        String priceCost = String.format("%,8d%n", price.getQuantity()).trim() + " " + price.getCost().getLocalizedName();
         String yieldCost = Math.abs(product.getQuantity()) + " " + product.getCost().getLocalizedName();
         return priceCost + " for " + yieldCost;
     }

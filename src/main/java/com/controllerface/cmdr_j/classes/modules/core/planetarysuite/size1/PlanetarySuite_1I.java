@@ -1,8 +1,8 @@
-package com.controllerface.cmdr_j.classes.modules.optional.planetarysuite.size1;
+package com.controllerface.cmdr_j.classes.modules.core.planetarysuite.size1;
 
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.modules.optional.planetarysuite.AbstractPlanetarySuite;
+import com.controllerface.cmdr_j.classes.modules.core.planetarysuite.AbstractPlanetarySuite;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class PlanetarySuite_1I extends AbstractPlanetarySuite
@@ -11,5 +11,11 @@ public class PlanetarySuite_1I extends AbstractPlanetarySuite
     {
         super("1I Planetary Approach Suite",
                 new ItemEffects(new ItemEffectData(ItemEffect.planetary_approach, "Installed")));
+    }
+
+    @Override
+    public long price()
+    {
+        return 500;
     }
 }

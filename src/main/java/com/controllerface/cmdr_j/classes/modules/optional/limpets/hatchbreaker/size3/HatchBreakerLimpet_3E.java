@@ -24,4 +24,10 @@ public class HatchBreakerLimpet_3E extends AbstractHatchBreakerLimpet
                         new ItemEffectData(ItemEffect.DroneMaxJettisonedCargo, 6d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 5_400;
+    }
 }

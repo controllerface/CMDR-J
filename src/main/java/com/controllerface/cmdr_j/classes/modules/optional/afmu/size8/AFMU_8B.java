@@ -19,4 +19,10 @@ public class AFMU_8B extends AbstractAFMU
                         new ItemEffectData(ItemEffect.AFMRepairPerAmmo, 0.023d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 16_529_940;
+    }
 }

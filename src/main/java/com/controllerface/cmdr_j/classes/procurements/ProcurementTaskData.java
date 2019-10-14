@@ -359,9 +359,20 @@ public class ProcurementTaskData implements Displayable
                     boolean hasEnough = isYield ||
                             checkInventory.apply(c.getCost()) >= c.getQuantity() * getCount();
 
-                    String quantity = c.getQuantity() < 0
-                            ? "+" + Math.abs(c.getQuantity()) * getCount()
-                            : "-" + c.getQuantity() * getCount();
+                    String text = //(valueIsPositive ? " +" : " ")
+//                            +
+                            String.format("%,8d%n", c.getQuantity()).trim();;//pair.getDoubleValue();
+
+                    boolean isNegative = c.getQuantity() < 0;
+
+                    long d = isNegative
+                            ? Math.abs(c.getQuantity())
+                            : c.getQuantity();
+
+                    long d2 = d * getCount();
+
+                    String quantity = (isNegative ? "+" : "-")
+                            + String.format("%,8d%n", d2).trim();
 
                     Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
                     next.setFont(UIFunctions.Style.size1Font);

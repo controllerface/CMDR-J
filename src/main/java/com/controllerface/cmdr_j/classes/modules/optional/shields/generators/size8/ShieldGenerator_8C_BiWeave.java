@@ -9,7 +9,7 @@ public class ShieldGenerator_8C_BiWeave extends AbstractShieldGenerator
 {
     public ShieldGenerator_8C_BiWeave()
     {
-        super("8c Bi-Weave Shield Generator",
+        super("8C Bi-Weave Shield Generator",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 160.0),
                   new ItemEffectData(ItemEffect.Integrity, 150.0),
@@ -29,5 +29,11 @@ public class ShieldGenerator_8C_BiWeave extends AbstractShieldGenerator
                   new ItemEffectData(ItemEffect.ThermicResistance, -20.0),
                   new ItemEffectData(ItemEffect.ExplosiveResistance, 50.0)
             ));
+    }
+
+    @Override
+    public long price()
+    {
+        return 27_097_750;
     }
 }

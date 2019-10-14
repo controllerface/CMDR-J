@@ -17,4 +17,10 @@ public class FuelScoop_5D extends AbstractFuelScoop
                         new ItemEffectData(ItemEffect.FuelScoopRate, 0.33d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 141_780;
+    }
 }

@@ -16,4 +16,10 @@ public class MRP_4D extends AbstractModulePackage
                         new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 195_000;
+    }
 }

@@ -56,8 +56,11 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -73,6 +76,183 @@ public class CommanderJTest
 
         // this distance is known to be 221.68 Light years.
         Assert.assertEquals(221.68, distance, 0);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void modules()
+    {
+        InputStream is = this.getClass().getResourceAsStream("/modules.json");
+        Map<String, Object> x = JSONSupport.Parse.jsonStream.apply(is);
+
+        Set<String> out = new HashSet<>();
+
+        AtomicInteger remaining = new AtomicInteger(0);
+
+        ((List<Map<String, Object>>) x.get("modules"))
+                .forEach(a->
+                {
+                    AtomicReference<ShipModule> result = new AtomicReference<>(null);
+                    String symbol = ((String) a.get("ed_symbol"));
+                    Integer price = ((Integer) a.get("price"));
+                    Map<String, Object> group = ((Map<String, Object>) a.get("group"));
+                    int id = ((int) group.get("category_id"));
+
+//                    if (name != null)
+//                    {
+//                        System.out.println("name: "+name);
+//                    }
+//                    System.out.println("Getting: " + symbol);
+                    if (symbol == null)
+                    {
+                        //System.out.println("Null symbol: " + a);
+                        return;
+                    }
+                    out.add(symbol.toLowerCase());
+                    switch (id)
+                    {
+                        case 10:
+                        case 20:
+                        case 30:
+                        case 40:
+                        case 50:
+                            try
+                            {
+                                result.set(OptionalInternalModule.valueOf(symbol.toLowerCase()));
+                            }
+                            catch (Exception e)
+                            {
+                                try
+                                {
+                                    result.set(CoreInternalModule.valueOf(symbol.toLowerCase()));
+                                }
+                                catch (Exception e1)
+                                {
+                                    try
+                                    {
+                                        result.set(HardpointModule.valueOf(symbol.toLowerCase()));
+                                    }
+                                    catch (Exception e2)
+                                    {
+                                        e2.printStackTrace();
+                                    }
+                                }
+
+                            }
+                            break;
+
+                        default:
+                            System.out.println(id + " :: " + symbol);
+                    }
+
+                    if (result.get()!=null)
+                    {
+                        if (price != null)
+                        {
+                            if (result.get().price() == 1)
+                            {
+                                remaining.incrementAndGet();
+                                String output = String.format("%,8d%n", price).trim()
+                                        .replaceAll(",","_");
+
+                                String method =
+                                        "    @Override\n" +
+                                        "    public long price()\n" +
+                                        "    {\n" +
+                                        "        return " + output + ";\n" +
+                                        "    }";
+
+                                System.out.println(result.get() + " : \n" + method);
+                            }
+                        }
+//                        else
+//                        {
+//                            System.out.println("No price: " + symbol);
+//                        }
+                    }
+                });
+
+        System.out.println("Remaining: " + remaining.get());
+
+        Set<String> out2 = new HashSet<>();
+
+        Stream<String> v1 = EnumSet.allOf(CoreInternalModule.class).stream()
+                .map(Enum::name)
+                .map(String::toLowerCase);
+
+        Stream<String> v2 = EnumSet.allOf(OptionalInternalModule.class).stream()
+                .map(Enum::name)
+                .map(String::toLowerCase);
+
+        Stream<String> v3 = EnumSet.allOf(HardpointModule.class).stream()
+                .map(Enum::name)
+                .map(String::toLowerCase);
+
+        Stream.concat(v1, Stream.concat(v2, v3))
+                .filter(s->!out.contains(s))
+                .forEach(out2::add);
+
+        //out2.forEach(z-> System.out.println("Missing: " + z));
+    }
+
+    @Test
+    public void vals()
+    {
+        InputStream is = this.getClass().getResourceAsStream("/vals.json");
+        Map<String, Object> x = JSONSupport.Parse.jsonStream.apply(is);
+
+        Set<String> out = new HashSet<>();
+
+        ((List<String>) x.get("modules"))
+                .forEach(a->
+                {
+                    out.add(a.toLowerCase());
+                    try
+                    {
+                        OptionalInternalModule m1 = OptionalInternalModule.valueOf(a.toLowerCase());
+                        System.out.println(m1);
+                    }
+                    catch (Exception e)
+                    {
+                        try
+                        {
+                            CoreInternalModule m1a = CoreInternalModule.valueOf(a.toLowerCase());
+                            System.out.println(m1a);
+                        }
+                        catch (Exception e1)
+                        {
+                            try
+                            {
+                                HardpointModule m1b = HardpointModule.valueOf(a.toLowerCase());
+                                System.out.println(m1b);
+                            }
+                            catch (Exception e2)
+                            {
+                                throw e2;
+                            }
+                        }
+                    }
+                });
+
+        Set<String> out2 = new HashSet<>();
+
+        Stream<String> v1 = EnumSet.allOf(CoreInternalModule.class).stream()
+                .map(Enum::name)
+                .map(String::toLowerCase);
+
+        Stream<String> v2 = EnumSet.allOf(OptionalInternalModule.class).stream()
+                .map(Enum::name)
+                .map(String::toLowerCase);
+
+        Stream<String> v3 = EnumSet.allOf(HardpointModule.class).stream()
+                .map(Enum::name)
+                .map(String::toLowerCase);
+
+        Stream.concat(v1, Stream.concat(v2, v3))
+                .filter(s->!out.contains(s))
+                .forEach(out2::add);
+
+        out2.forEach(z-> System.out.println("Missing: " + z));
     }
 
     @Test

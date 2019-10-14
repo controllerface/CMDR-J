@@ -20,4 +20,10 @@ public class ProspectorLimpet_7D extends AbstractProspectorLimpet
                         new ItemEffectData(ItemEffect.DroneSpeed, 200d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 874_800;
+    }
 }

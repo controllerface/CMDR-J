@@ -23,4 +23,10 @@ public class PowerDistributor_2D extends AbstractPowerDistributor
                   new ItemEffectData(ItemEffect.SystemsRecharge, 0.6)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 3_620;
+    }
 }

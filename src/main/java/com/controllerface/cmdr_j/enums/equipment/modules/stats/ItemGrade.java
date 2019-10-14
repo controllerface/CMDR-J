@@ -91,7 +91,7 @@ public enum ItemGrade
 
     MaterialTrade(0, -1, "Trade"),
 
-    Credits(0,-1,"Credits", UIFunctions.Icons.creditsIcon),
+    Credits(0,-1,"CR", UIFunctions.Icons.creditsIcon),
 
     Any(0,-1,"Any"),
 

@@ -20,4 +20,5 @@ public interface ShipModule extends ProcurementCost
     ProcurementType modificationType();
     ItemEffects itemEffects();
     List<Icon> icons();
+    long price();
 }

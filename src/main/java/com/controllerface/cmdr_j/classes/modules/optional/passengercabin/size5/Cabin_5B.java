@@ -16,4 +16,10 @@ public class Cabin_5B extends AbstractCabin
                         new ItemEffectData(ItemEffect.CabinClass, "Luxury")
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 1_658_100;
+    }
 }

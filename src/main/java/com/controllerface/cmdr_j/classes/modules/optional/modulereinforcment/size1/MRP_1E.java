@@ -16,4 +16,10 @@ public class MRP_1E extends AbstractModulePackage
                         new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 5000;
+    }
 }

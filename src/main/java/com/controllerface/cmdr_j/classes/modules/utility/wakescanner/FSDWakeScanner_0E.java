@@ -19,4 +19,10 @@ public class FSDWakeScanner_0E extends AbstractWakeScanner
                   new ItemEffectData(ItemEffect.ScannerTimeToScan, 10.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 13_540;
+    }
 }

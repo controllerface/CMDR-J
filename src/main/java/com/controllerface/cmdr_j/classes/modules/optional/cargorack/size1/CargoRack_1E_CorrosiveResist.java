@@ -16,4 +16,10 @@ public class CargoRack_1E_CorrosiveResist extends AbstractCargoRack
                                 new ItemEffectData(ItemEffect.CargoCapacity, 1d)
                         ));
     }
+
+    @Override
+    public long price()
+    {
+        return 6_250;
+    }
 }

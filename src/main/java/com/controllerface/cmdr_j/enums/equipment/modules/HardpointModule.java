@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.enums.equipment.modules;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.modules.utility.abrasionblaster.FixedAbrasionBlaster_Small;
+import com.controllerface.cmdr_j.classes.modules.utility.abrasionblaster.TurretedAbrasionBlaster_Small;
 import com.controllerface.cmdr_j.classes.modules.utility.chafflauncher.Launcher_Chaff;
 import com.controllerface.cmdr_j.classes.modules.utility.ecm.CounterMeasures_Electronic;
 import com.controllerface.cmdr_j.classes.modules.utility.heatsinklauncher.Launcher_HeatSink;
@@ -10,10 +11,14 @@ import com.controllerface.cmdr_j.classes.modules.utility.killwarrant.*;
 import com.controllerface.cmdr_j.classes.modules.utility.manifestscanner.*;
 import com.controllerface.cmdr_j.classes.modules.utility.mininglaser.*;
 import com.controllerface.cmdr_j.classes.modules.utility.pointdefense.DefenseTurret_Point;
-import com.controllerface.cmdr_j.classes.modules.utility.pulsewave.WaveAnalyzer_Pulse;
+import com.controllerface.cmdr_j.classes.modules.utility.pulsewave.*;
 import com.controllerface.cmdr_j.classes.modules.utility.seismiccharge.FixedSeismicChargeLauncher_Medium;
+import com.controllerface.cmdr_j.classes.modules.utility.seismiccharge.TurretedSeismicChargeLauncher_Medium;
 import com.controllerface.cmdr_j.classes.modules.utility.shieldbooster.*;
 import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.FixedSubSurfaceDisplacementMissile_Medium;
+import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.FixedSubSurfaceDisplacementMissile_Small;
+import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.TurretedSubSurfaceDisplacementMissile_Medium;
+import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.TurretedSubSurfaceDisplacementMissile_Small;
 import com.controllerface.cmdr_j.classes.modules.utility.wakescanner.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.beam.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.burst.*;
@@ -40,10 +45,12 @@ import com.controllerface.cmdr_j.classes.modules.weapons.railgun.FixedImperialHa
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.FixedRailgun_Medium;
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.FixedRailgun_Small;
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.FixedPackHound_Medium;
+import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.FixedSeekerMissileRack_Large;
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.FixedSeekerMissileRack_Medium;
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.FixedSeekerMissileRack_Small;
 import com.controllerface.cmdr_j.classes.modules.weapons.shardcannon.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.shockcannon.*;
+import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Large;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Medium;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Small;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
@@ -102,11 +109,14 @@ public enum HardpointModule implements ShipModule
     hpt_multicannon_gimbal_small(new GimballedMultiCannon_Small()),
     hpt_multicannon_turret_small(new TurretedMultiCannon_Small()),
     hpt_multicannon_fixed_small_strong(new FixedEnforcerMultiCannon_Small()),
+    hpt_multicannon_fixed_small_advanced(new FixedAdvancedMultiCannon_Small()),
     hpt_multicannon_fixed_medium(new FixedMultiCannon_Medium()),
     hpt_multicannon_gimbal_medium(new GimballedMultiCannon_Medium()),
     hpt_multicannon_turret_medium(new TurretedMultiCannon_Medium()),
+    hpt_multicannon_fixed_medium_advanced(new FixedAdvancedMultiCannon_Medium()),
     hpt_multicannon_fixed_large(new FixedMultiCannon_Large()),
     hpt_multicannon_gimbal_large(new GimballedMultiCannon_Large()),
+    hpt_multicannon_turret_large(new TurretedMultiCannon_Large()),
     hpt_multicannon_fixed_huge(new FixedMultiCannon_Huge()),
     hpt_multicannon_gimbal_huge(new GimballedMultiCannon_Huge()),
 
@@ -143,12 +153,16 @@ public enum HardpointModule implements ShipModule
     hpt_railgun_fixed_medium(new FixedRailgun_Medium()),
 
     hpt_dumbfiremissilerack_fixed_small(new FixedMissileRack_Small()),
+    hpt_dumbfiremissilerack_fixed_small_advanced(new FixedAdvancedMissileRack_Small()),
     hpt_dumbfiremissilerack_fixed_medium_lasso(new FixedContainmentMissileMissileRack_Medium()),
+    hpt_dumbfiremissilerack_fixed_medium_advanced(new FixedAdvancedMissileRack_Medium()),
     hpt_dumbfiremissilerack_fixed_medium(new FixedMissileRack_Medium()),
+    hpt_dumbfiremissilerack_fixed_large(new FixedMissileRack_Large()),
 
     hpt_basicmissilerack_fixed_small(new FixedSeekerMissileRack_Small()),
     hpt_drunkmissilerack_fixed_medium(new FixedPackHound_Medium()),
     hpt_basicmissilerack_fixed_medium(new FixedSeekerMissileRack_Medium()),
+    hpt_basicmissilerack_fixed_large(new FixedSeekerMissileRack_Large()),
 
     hpt_minelauncher_fixed_small(new FixedMineLauncher_Small()),
     hpt_minelauncher_fixed_small_impulse(new FixedShockMineLauncher_Small()),
@@ -156,6 +170,7 @@ public enum HardpointModule implements ShipModule
 
     hpt_advancedtorppylon_fixed_small(new FixedTorpedoPylon_Small()),
     hpt_advancedtorppylon_fixed_medium(new FixedTorpedoPylon_Medium()),
+    hpt_advancedtorppylon_fixed_large(new FixedTorpedoPylon_Large()),
 
     hpt_mininglaser_fixed_small(new FixedMiningLaser_Small()),
     hpt_mininglaser_turret_small(new TurretedMiningLaser_Small()),
@@ -164,12 +179,21 @@ public enum HardpointModule implements ShipModule
     hpt_mininglaser_turret_medium(new TurretedMiningLaser_Medium()),
 
     hpt_mining_seismchrgwarhd_fixed_medium(new FixedSeismicChargeLauncher_Medium()),
+    hpt_mining_seismchrgwarhd_turret_medium(new TurretedSeismicChargeLauncher_Medium()),
 
+    hpt_mining_subsurfdispmisle_fixed_small(new FixedSubSurfaceDisplacementMissile_Small()),
+    hpt_mining_subsurfdispmisle_turret_small(new TurretedSubSurfaceDisplacementMissile_Small()),
     hpt_mining_subsurfdispmisle_fixed_medium(new FixedSubSurfaceDisplacementMissile_Medium()),
+    hpt_mining_subsurfdispmisle_turret_medium(new TurretedSubSurfaceDisplacementMissile_Medium()),
 
     hpt_mining_abrblstr_fixed_small(new FixedAbrasionBlaster_Small()),
+    hpt_mining_abrblstr_turret_small(new TurretedAbrasionBlaster_Small()),
 
-    hpt_mrascanner_size0_class4(new WaveAnalyzer_Pulse()),
+    hpt_mrascanner_size0_class1(new PulseWaveAnalyzer_0E()),
+    hpt_mrascanner_size0_class2(new PulseWaveAnalyzer_0D()),
+    hpt_mrascanner_size0_class3(new PulseWaveAnalyzer_0C()),
+    hpt_mrascanner_size0_class4(new PulseWaveAnalyzer_0B()),
+    hpt_mrascanner_size0_class5(new PulseWaveAnalyzer_0A()),
 
     hpt_shieldbooster_size0_class1(new ShieldBooster_0E()),
     hpt_shieldbooster_size0_class2(new ShieldBooster_0D()),
@@ -345,5 +369,11 @@ public enum HardpointModule implements ShipModule
     public List<Icon> icons()
     {
         return delegate.icons();
+    }
+
+    @Override
+    public long price()
+    {
+        return delegate.price();
     }
 }

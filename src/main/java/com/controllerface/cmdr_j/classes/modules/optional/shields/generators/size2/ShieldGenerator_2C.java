@@ -30,4 +30,10 @@ public class ShieldGenerator_2C extends AbstractShieldGenerator
                         new ItemEffectData(ItemEffect.ExplosiveResistance, 50d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 17_800;
+    }
 }

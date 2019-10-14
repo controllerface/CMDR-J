@@ -155,6 +155,8 @@ public class ShipModuleData implements Displayable
         recipePair.getValue().costStream()
                 .map(c->
                 {
+                    //String quantity = String.format("%,8d%n", c.getQuantity()).trim();
+
                     String quantity = c.getQuantity() < 0
                             ? "+" + Math.abs(c.getQuantity())
                             : "-" + c.getQuantity();

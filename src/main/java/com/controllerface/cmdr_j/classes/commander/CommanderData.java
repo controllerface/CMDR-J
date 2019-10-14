@@ -297,8 +297,6 @@ public class CommanderData
     {
         Objects.requireNonNull(cost);
 
-        System.out.println("Cost: " + cost);
-
         if (cost instanceof Material)
         {
             Optional<MaterialType> matchingType = MaterialType.findMatchingType(((Material) cost));

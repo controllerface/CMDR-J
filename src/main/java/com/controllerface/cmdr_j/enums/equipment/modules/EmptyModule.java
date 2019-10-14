@@ -92,4 +92,10 @@ public enum EmptyModule implements ShipModule
     {
         return Collections.emptyList();
     }
+
+    @Override
+    public long price()
+    {
+        return 0;
+    }
 }
