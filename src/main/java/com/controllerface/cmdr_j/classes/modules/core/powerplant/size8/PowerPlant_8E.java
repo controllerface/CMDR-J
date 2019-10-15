@@ -17,4 +17,10 @@ public class PowerPlant_8E extends AbstractPowerPlant
                   new ItemEffectData(ItemEffect.HeatEfficiency, 1.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 2_007_240;
+    }
 }

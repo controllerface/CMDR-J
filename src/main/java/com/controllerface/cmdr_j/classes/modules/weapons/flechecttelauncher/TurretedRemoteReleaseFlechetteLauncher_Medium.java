@@ -31,4 +31,10 @@ public class TurretedRemoteReleaseFlechetteLauncher_Medium extends AbstractExper
                   new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 1_279_200;
+    }
 }

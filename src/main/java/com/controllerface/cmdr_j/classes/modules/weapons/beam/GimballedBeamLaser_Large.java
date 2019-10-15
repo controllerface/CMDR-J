@@ -26,4 +26,10 @@ public class GimballedBeamLaser_Large extends AbstractBeamLaser
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 600.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 2_396_160;
+    }
 }

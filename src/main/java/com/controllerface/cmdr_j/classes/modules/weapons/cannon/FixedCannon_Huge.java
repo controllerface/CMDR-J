@@ -31,4 +31,10 @@ public class FixedCannon_Huge extends AbstractCannon
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 4500.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 2_700_800;
+    }
 }

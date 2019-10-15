@@ -33,4 +33,10 @@ public class FixedSubSurfaceDisplacementMissile_Medium extends AbstractSubsurfac
                   new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 381_750;
+    }
 }

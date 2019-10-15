@@ -9,10 +9,17 @@ public class FixedShockCannon_Large extends AbstractExperimentalModule
 {
     public FixedShockCannon_Large()
     {
+        //todo: add stats
         super("Large Fixed Shock Cannon", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.human, 1.0),
                   new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             ));
+    }
+
+    @Override
+    public long price()
+    {
+        return 1_015_750;
     }
 }

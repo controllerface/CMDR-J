@@ -18,4 +18,10 @@ public class GuardianHybridPowerPlant_3A extends AbstractGuardianModule
                   new ItemEffectData(ItemEffect.HeatEfficiency, 0.5)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 204_120;
+    }
 }

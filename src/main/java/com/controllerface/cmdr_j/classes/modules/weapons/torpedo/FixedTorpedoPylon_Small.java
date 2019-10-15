@@ -27,4 +27,10 @@ public class FixedTorpedoPylon_Small extends AbstractTorpedoPylon
                   new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 11_200;
+    }
 }

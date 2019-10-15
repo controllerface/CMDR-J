@@ -20,4 +20,10 @@ public class PulseWaveAnalyzer_0D extends AbstractPulseWaveScanner
                   new ItemEffectData(ItemEffect.ScannerTimeToScan, 3.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 40_630;
+    }
 }

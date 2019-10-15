@@ -20,4 +20,10 @@ public class XenoScanner_0E extends AbstractExperimentalModule
                         new ItemEffectData(ItemEffect.ScannerTimeToScan, 10d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 365_698;
+    }
 }

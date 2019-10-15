@@ -2065,12 +2065,13 @@ public class UIController
         TreeItem<ProcurementTask> root = new TreeItem<>(new ProcurementTask("root"));
 
         // create and add the various procurement sub-trees to the root object
-        root.getChildren().addAll(makeModificationTree(),
+        root.getChildren().addAll(
+                makeModuleTree(),
+                makeSynthesisTree(),
+                makeModificationTree(),
                 makeExperimentTree(),
                 makeTechnologyTree(),
-                makeSynthesisTree(),
-                makeTradeTree(),
-                makeModuleTree());
+                makeTradeTree());
 
         // set the root as expanded by default
         root.setExpanded(true);

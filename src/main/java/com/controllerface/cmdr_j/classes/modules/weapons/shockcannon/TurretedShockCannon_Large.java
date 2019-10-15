@@ -9,10 +9,17 @@ public class TurretedShockCannon_Large extends AbstractExperimentalModule
 {
     public TurretedShockCannon_Large()
     {
+        // todo: add stats
         super("Large Turreted Shock Cannon", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.human, 1.0),
                   new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             ));
+    }
+
+    @Override
+    public long price()
+    {
+        return 6_050_201;
     }
 }

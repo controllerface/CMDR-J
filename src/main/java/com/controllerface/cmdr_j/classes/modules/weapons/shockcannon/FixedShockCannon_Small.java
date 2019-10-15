@@ -15,4 +15,10 @@ public class FixedShockCannon_Small extends AbstractExperimentalModule
                   new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 65_941;
+    }
 }

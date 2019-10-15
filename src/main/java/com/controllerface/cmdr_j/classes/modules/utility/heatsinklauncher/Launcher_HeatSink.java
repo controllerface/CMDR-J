@@ -22,4 +22,10 @@ public class Launcher_HeatSink extends AbstractHeatsinkLauncher
                   new ItemEffectData(ItemEffect.ThermalDrain, 100.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 3_500;
+    }
 }

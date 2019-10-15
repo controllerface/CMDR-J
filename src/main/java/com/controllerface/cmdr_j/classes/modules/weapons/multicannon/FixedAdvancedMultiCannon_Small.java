@@ -32,4 +32,10 @@ public class FixedAdvancedMultiCannon_Small extends AbstractMultiCannon
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 9_500;
+    }
 }

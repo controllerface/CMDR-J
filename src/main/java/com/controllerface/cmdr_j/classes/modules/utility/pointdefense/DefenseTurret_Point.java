@@ -29,4 +29,10 @@ public class DefenseTurret_Point extends AbstractPointDefense
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 0.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 18_550;
+    }
 }

@@ -26,4 +26,10 @@ public class FixedBeamLaser_Large extends AbstractBeamLaser
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 600.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 1_177_600;
+    }
 }

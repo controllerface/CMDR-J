@@ -18,4 +18,10 @@ public class LifeSupport_2B extends AbstractLifeSupport
                   new ItemEffectData(ItemEffect.OxygenTimeCapacity, 900.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 22_620;
+    }
 }

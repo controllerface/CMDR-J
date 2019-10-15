@@ -34,4 +34,10 @@ public class TurretedSubSurfaceDisplacementMissile_Small extends AbstractSubsurf
                   new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 38_751;
+    }
 }

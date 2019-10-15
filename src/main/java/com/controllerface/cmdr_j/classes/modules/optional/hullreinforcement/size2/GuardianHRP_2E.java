@@ -19,4 +19,10 @@ public class GuardianHRP_2E extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 188d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 24_000;
+    }
 }

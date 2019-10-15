@@ -39,7 +39,7 @@ public abstract class AbstractModule implements ShipModule
     @Override
     public List<Icon> icons()
     {
-        return Collections.singletonList(UIFunctions.Icons.dataTradeIcon);
+        return Collections.singletonList(UIFunctions.Icons.cargoIcon);
     }
 
     @Override

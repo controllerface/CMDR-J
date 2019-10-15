@@ -16,4 +16,10 @@ public class FixedGuardianGaussCannon_Small extends AbstractGuardianModule
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 1500.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 167_250;
+    }
 }

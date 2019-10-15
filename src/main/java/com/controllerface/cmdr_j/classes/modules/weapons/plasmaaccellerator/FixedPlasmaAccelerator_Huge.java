@@ -31,4 +31,10 @@ public class FixedPlasmaAccelerator_Huge extends AbstractPlasmaAccelerator
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 13_793_600;
+    }
 }

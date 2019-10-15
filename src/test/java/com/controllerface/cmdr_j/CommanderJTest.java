@@ -79,6 +79,22 @@ public class CommanderJTest
     }
 
     @Test
+    public void printCurrent()
+    {
+        Stream.of(CoreInternalModule.values())
+                .filter(m->m.price() == 1)
+                .forEach(System.out::println);
+
+        Stream.of(OptionalInternalModule.values())
+                .filter(m->m.price() == 1)
+                .forEach(System.out::println);
+
+        Stream.of(HardpointModule.values())
+                .filter(m->m.price() == 1)
+                .forEach(System.out::println);
+    }
+
+    @Test
     @SuppressWarnings("unchecked")
     public void modules()
     {
@@ -155,14 +171,14 @@ public class CommanderJTest
                                 String output = String.format("%,8d%n", price).trim()
                                         .replaceAll(",","_");
 
-                                String method =
-                                        "    @Override\n" +
-                                        "    public long price()\n" +
-                                        "    {\n" +
-                                        "        return " + output + ";\n" +
-                                        "    }";
+//                                String method =
+//                                        "    @Override\n" +
+//                                        "    public long price()\n" +
+//                                        "    {\n" +
+//                                        "        return " + output + ";\n" +
+//                                        "    }";
 
-                                System.out.println(result.get() + " : \n" + method);
+                                System.out.println(result.get() + " : " + output);
                             }
                         }
 //                        else

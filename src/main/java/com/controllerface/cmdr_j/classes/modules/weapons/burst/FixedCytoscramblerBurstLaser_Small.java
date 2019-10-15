@@ -30,4 +30,10 @@ public class FixedCytoscramblerBurstLaser_Small extends AbstractBurstLaser
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 600.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 8_800;
+    }
 }

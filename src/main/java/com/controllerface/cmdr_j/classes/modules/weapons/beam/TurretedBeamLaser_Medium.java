@@ -26,4 +26,10 @@ public class TurretedBeamLaser_Medium extends AbstractBeamLaser
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 600.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 2_099_900;
+    }
 }

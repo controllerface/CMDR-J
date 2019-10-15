@@ -33,4 +33,10 @@ public class FixedSeismicChargeLauncher_Medium extends AbstractSeismicChargeLaun
                   new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 170_123;
+    }
 }

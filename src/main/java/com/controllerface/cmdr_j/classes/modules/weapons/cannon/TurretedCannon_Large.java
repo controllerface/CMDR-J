@@ -31,4 +31,10 @@ public class TurretedCannon_Large extends AbstractCannon
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 4000.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 16_204_800;
+    }
 }

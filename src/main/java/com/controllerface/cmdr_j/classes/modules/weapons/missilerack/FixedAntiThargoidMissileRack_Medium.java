@@ -32,4 +32,10 @@ public class FixedAntiThargoidMissileRack_Medium extends AbstractExperimentalMod
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 0.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 540_900;
+    }
 }

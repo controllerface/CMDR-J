@@ -9,10 +9,17 @@ public class GimballedShockCannon_Large extends AbstractExperimentalModule
 {
     public GimballedShockCannon_Large()
     {
+        // todo: add stats
         super("Large Gimballed Shock Cannon", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.human, 1.0),
                   new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             ));
+    }
+
+    @Override
+    public long price()
+    {
+        return 2_249_050;
     }
 }

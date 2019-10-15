@@ -27,4 +27,10 @@ public class TurretedPulseLaser_Large extends AbstractPulseLaser
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 500.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 400_400;
+    }
 }

@@ -15,4 +15,10 @@ public class GimballedShockCannon_Small extends AbstractExperimentalModule
                   new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 137_501;
+    }
 }

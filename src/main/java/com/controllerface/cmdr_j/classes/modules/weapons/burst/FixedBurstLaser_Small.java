@@ -29,4 +29,10 @@ public class FixedBurstLaser_Small extends AbstractBurstLaser
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 500.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 4_400;
+    }
 }

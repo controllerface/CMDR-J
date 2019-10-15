@@ -149,7 +149,7 @@ public class UIFunctions
             materialGrade5.setContent(readIcon("/icons/materialGrade5"));
         }
 
-        public static Icon cargoIcon = new Icon(credits, 25, 25);
+        public static Icon cargoIcon = new Icon(cargo, 25, 25);
         public static Icon creditsIcon = new Icon(credits, 35, 20);
         public static Icon mfdTradeIcon = new Icon(manufacturedTrade, 25, 30);
         public static Icon rawTradeIcon = new Icon(rawTrade, 25, 30);

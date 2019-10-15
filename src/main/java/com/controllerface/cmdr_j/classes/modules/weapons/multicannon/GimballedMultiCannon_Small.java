@@ -31,4 +31,10 @@ public class GimballedMultiCannon_Small extends AbstractMultiCannon
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 14_250;
+    }
 }

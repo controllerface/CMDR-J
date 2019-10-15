@@ -22,4 +22,10 @@ public class RepairLimpet_7C extends AbstractRepairLimpet
                         new ItemEffectData(ItemEffect.DroneSpeed, 200d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 1_749_600;
+    }
 }

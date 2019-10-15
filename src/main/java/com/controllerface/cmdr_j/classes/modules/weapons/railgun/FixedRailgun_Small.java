@@ -30,4 +30,10 @@ public class FixedRailgun_Small extends AbstractRailGun
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 1000.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 51_600;
+    }
 }

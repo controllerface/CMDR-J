@@ -27,4 +27,10 @@ public class GimballedPulseLaser_Small extends AbstractPulseLaser
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 500.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 6_600;
+    }
 }

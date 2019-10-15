@@ -27,4 +27,10 @@ public class FixedMineLauncher_Medium extends AbstractMineLauncher
                   new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 294_080;
+    }
 }

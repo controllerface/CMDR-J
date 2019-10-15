@@ -31,4 +31,10 @@ public class FixedEnzymeMissileRack_Medium extends AbstractExperimentalModule
                   new ItemEffectData(ItemEffect.DamageType, "Caustic")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 480_501;
+    }
 }

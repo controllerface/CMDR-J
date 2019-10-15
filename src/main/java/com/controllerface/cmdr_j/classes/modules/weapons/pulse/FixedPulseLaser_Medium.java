@@ -27,4 +27,10 @@ public class FixedPulseLaser_Medium extends AbstractPulseLaser
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 500.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 17_600;
+    }
 }

@@ -32,4 +32,10 @@ public class FixedRemoteReleaseFlakLauncher_Medium extends AbstractExperimentalM
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 0.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 261_800;
+    }
 }

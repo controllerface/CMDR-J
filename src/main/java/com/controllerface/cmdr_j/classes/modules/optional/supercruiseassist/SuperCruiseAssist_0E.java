@@ -17,4 +17,10 @@ public class SuperCruiseAssist_0E extends AbstractDockingComputer
                         new ItemEffectData(ItemEffect.BootTime, 3d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 9_121;
+    }
 }

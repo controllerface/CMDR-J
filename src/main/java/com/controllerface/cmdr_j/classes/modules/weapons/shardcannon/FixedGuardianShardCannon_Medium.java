@@ -16,4 +16,10 @@ public class FixedGuardianShardCannon_Medium extends AbstractGuardianModule
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 1700.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 507_761;
+    }
 }

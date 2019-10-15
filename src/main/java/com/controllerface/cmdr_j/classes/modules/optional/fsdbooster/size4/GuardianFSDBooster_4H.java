@@ -19,4 +19,10 @@ public class GuardianFSDBooster_4H extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 9.25d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 3_245_013;
+    }
 }

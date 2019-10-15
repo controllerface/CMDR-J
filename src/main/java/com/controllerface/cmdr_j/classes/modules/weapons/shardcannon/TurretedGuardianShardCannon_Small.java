@@ -16,4 +16,10 @@ public class TurretedGuardianShardCannon_Small extends AbstractGuardianModule
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 1700.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 502_000;
+    }
 }

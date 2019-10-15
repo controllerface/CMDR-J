@@ -18,4 +18,10 @@ public class GuardianShieldReinforcementPackage_1D extends AbstractGuardianModul
                   new ItemEffectData(ItemEffect.DefenceModifierShieldAddition, 61.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 30_000;
+    }
 }

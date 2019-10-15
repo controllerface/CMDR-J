@@ -33,4 +33,10 @@ public class FixedAntiThargoidMultiCannon_Large extends AbstractExperimentalModu
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 1_151_963;
+    }
 }

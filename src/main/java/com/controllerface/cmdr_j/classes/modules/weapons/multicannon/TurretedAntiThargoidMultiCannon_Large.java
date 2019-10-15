@@ -33,4 +33,10 @@ public class TurretedAntiThargoidMultiCannon_Large extends AbstractExperimentalM
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 3_726_060;
+    }
 }

@@ -32,4 +32,10 @@ public class TurretedRemoteReleaseFlakLauncher_Medium extends AbstractExperiment
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 0.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 1_259_200;
+    }
 }

@@ -35,4 +35,10 @@ public class TurretedAbrasionBlaster_Small extends AbstractAbrasionBlaster
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 1000.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 27_480;
+    }
 }

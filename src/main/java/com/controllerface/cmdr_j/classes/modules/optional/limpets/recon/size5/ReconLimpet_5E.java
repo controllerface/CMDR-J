@@ -21,4 +21,10 @@ public class ReconLimpet_5E extends AbstractReconLimpet
                         new ItemEffectData(ItemEffect.Mass, 13d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 75_800;
+    }
 }

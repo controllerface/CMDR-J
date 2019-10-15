@@ -31,4 +31,10 @@ public class GimballedCannon_Medium extends AbstractCannon
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 3500.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 337_600;
+    }
 }

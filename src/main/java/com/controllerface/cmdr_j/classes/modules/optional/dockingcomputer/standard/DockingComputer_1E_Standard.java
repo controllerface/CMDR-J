@@ -16,4 +16,10 @@ public class DockingComputer_1E_Standard extends AbstractDockingComputer
                         new ItemEffectData(ItemEffect.BootTime, 3d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 4_500;
+    }
 }

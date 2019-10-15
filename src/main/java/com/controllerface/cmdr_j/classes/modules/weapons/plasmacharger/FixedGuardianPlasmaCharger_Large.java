@@ -34,4 +34,10 @@ public class FixedGuardianPlasmaCharger_Large extends AbstractGuardianModule
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 1000.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 1_248_946;
+    }
 }

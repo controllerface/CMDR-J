@@ -6,9 +6,10 @@ import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class ReinforcedArmour extends AbstractBulkheads
 {
-    public ReinforcedArmour()
+    private final long price;
+    public ReinforcedArmour(String ship, long price)
     {
-        super("Reinforced Armour", 
+        super(ship + " Reinforced Armour",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 3.0),
                   new ItemEffectData(ItemEffect.ExplosiveResistance, -40.0),
@@ -16,5 +17,13 @@ public class ReinforcedArmour extends AbstractBulkheads
                   new ItemEffectData(ItemEffect.ThermicResistance, 0.0),
                   new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, 152.0)
             ));
+
+        this.price = price;
+    }
+
+    @Override
+    public long price()
+    {
+        return price;
     }
 }

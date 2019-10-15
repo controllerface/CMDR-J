@@ -6,9 +6,10 @@ import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class ReactiveArmour extends AbstractBulkheads
 {
-    public ReactiveArmour()
+    private final long price;
+    public ReactiveArmour(String ship, long price)
     {
-        super("Reactive Armour", 
+        super(ship + " Reactive Armour",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 5.0),
                   new ItemEffectData(ItemEffect.ExplosiveResistance, 20.0),
@@ -16,5 +17,12 @@ public class ReactiveArmour extends AbstractBulkheads
                   new ItemEffectData(ItemEffect.ThermicResistance, -40.0),
                   new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, 250.0)
             ));
+        this.price = price;
+    }
+
+    @Override
+    public long price()
+    {
+        return price;
     }
 }

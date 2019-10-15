@@ -22,4 +22,10 @@ public class DecontaminationLimpet_3E extends AbstractDecontaminationLimpet
                         new ItemEffectData(ItemEffect.DroneSpeed, 200d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 16_200;
+    }
 }

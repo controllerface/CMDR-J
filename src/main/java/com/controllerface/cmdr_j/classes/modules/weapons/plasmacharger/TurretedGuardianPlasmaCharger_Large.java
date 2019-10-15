@@ -16,4 +16,10 @@ public class TurretedGuardianPlasmaCharger_Large extends AbstractGuardianModule
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 1000.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 5_495_200;
+    }
 }

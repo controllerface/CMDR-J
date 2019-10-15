@@ -18,4 +18,10 @@ public class GuardianMRP_1E extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 30d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 10_000;
+    }
 }

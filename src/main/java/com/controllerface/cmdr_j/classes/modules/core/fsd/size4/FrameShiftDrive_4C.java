@@ -20,4 +20,10 @@ public class FrameShiftDrive_4C extends AbstractFSD
                   new ItemEffectData(ItemEffect.MaxFuelPerJump, 2.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 178_900;
+    }
 }

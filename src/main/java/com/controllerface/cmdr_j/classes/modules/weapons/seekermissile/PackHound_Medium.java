@@ -4,9 +4,9 @@ import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class FixedPackHound_Medium extends AbstractSeekerMissileRack
+public class PackHound_Medium extends AbstractSeekerMissileRack
 {
-    public FixedPackHound_Medium()
+    public PackHound_Medium()
     {
         super("Medium Pixed Pack-Hound (Seeker Missile Rack)", 
             new ItemEffects(
@@ -29,5 +29,11 @@ public class FixedPackHound_Medium extends AbstractSeekerMissileRack
                   new ItemEffectData(ItemEffect.MaxBreachChance, 0.0),
                   new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
+    }
+
+    @Override
+    public long price()
+    {
+        return 768_600;
     }
 }

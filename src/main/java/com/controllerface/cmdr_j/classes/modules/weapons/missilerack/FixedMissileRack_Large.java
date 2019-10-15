@@ -30,4 +30,10 @@ public class FixedMissileRack_Large extends AbstractMissileRack
                   new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 1_021_501;
+    }
 }

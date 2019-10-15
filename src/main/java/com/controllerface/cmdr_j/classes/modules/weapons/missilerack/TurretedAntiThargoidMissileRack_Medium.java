@@ -33,4 +33,10 @@ public class TurretedAntiThargoidMissileRack_Medium extends AbstractExperimental
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 0.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 2_022_700;
+    }
 }

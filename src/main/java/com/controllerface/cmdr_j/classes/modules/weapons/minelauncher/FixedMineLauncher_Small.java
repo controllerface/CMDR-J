@@ -26,4 +26,10 @@ public class FixedMineLauncher_Small extends AbstractMineLauncher
                   new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 24_260;
+    }
 }

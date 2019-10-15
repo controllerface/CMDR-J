@@ -44,10 +44,10 @@ import com.controllerface.cmdr_j.classes.modules.weapons.pulse.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.FixedImperialHammerRailGun_Medium;
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.FixedRailgun_Medium;
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.FixedRailgun_Small;
-import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.FixedPackHound_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.FixedSeekerMissileRack_Large;
-import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.FixedSeekerMissileRack_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.FixedSeekerMissileRack_Small;
+import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.PackHound_Medium;
+import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.SeekerMissileRack_Large;
+import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.SeekerMissileRack_Medium;
+import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.SeekerMissileRack_Small;
 import com.controllerface.cmdr_j.classes.modules.weapons.shardcannon.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.shockcannon.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Large;
@@ -159,10 +159,10 @@ public enum HardpointModule implements ShipModule
     hpt_dumbfiremissilerack_fixed_medium(new FixedMissileRack_Medium()),
     hpt_dumbfiremissilerack_fixed_large(new FixedMissileRack_Large()),
 
-    hpt_basicmissilerack_fixed_small(new FixedSeekerMissileRack_Small()),
-    hpt_drunkmissilerack_fixed_medium(new FixedPackHound_Medium()),
-    hpt_basicmissilerack_fixed_medium(new FixedSeekerMissileRack_Medium()),
-    hpt_basicmissilerack_fixed_large(new FixedSeekerMissileRack_Large()),
+    hpt_basicmissilerack_fixed_small(new SeekerMissileRack_Small()),
+    hpt_drunkmissilerack_fixed_medium(new PackHound_Medium()),
+    hpt_basicmissilerack_fixed_medium(new SeekerMissileRack_Medium()),
+    hpt_basicmissilerack_fixed_large(new SeekerMissileRack_Large()),
 
     hpt_minelauncher_fixed_small(new FixedMineLauncher_Small()),
     hpt_minelauncher_fixed_small_impulse(new FixedShockMineLauncher_Small()),
@@ -262,12 +262,13 @@ public enum HardpointModule implements ShipModule
     hpt_flechettelauncher_fixed_medium(new FixedRemoteReleaseFlechetteLauncher_Medium()),
     hpt_flechettelauncher_turret_medium(new TurretedRemoteReleaseFlechetteLauncher_Medium()),
 
-    hpt_plasmashockcannon_fixed_medium(new FixedShockCannon_Medium()),
-    hpt_plasmashockcannon_gimbal_medium(new GimballedShockCannon_Medium()),
-    hpt_plasmashockcannon_turret_medium(new TurretedShockCannon_Medium()),
+
     hpt_plasmashockcannon_fixed_small(new FixedShockCannon_Small()),
     hpt_plasmashockcannon_gimbal_small(new GimballedShockCannon_Small()),
     hpt_plasmashockcannon_turret_small(new TurretedShockCannon_Small()),
+    hpt_plasmashockcannon_fixed_medium(new FixedShockCannon_Medium()),
+    hpt_plasmashockcannon_gimbal_medium(new GimballedShockCannon_Medium()),
+    hpt_plasmashockcannon_turret_medium(new TurretedShockCannon_Medium()),
     hpt_plasmashockcannon_fixed_large(new FixedShockCannon_Large()),
     hpt_plasmashockcannon_gimbal_large(new GimballedShockCannon_Large()),
     hpt_plasmashockcannon_turret_large(new TurretedShockCannon_Large()),

@@ -27,4 +27,10 @@ public class TurretedMiningLaser_Medium extends AbstractMiningLaser
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 300.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 32_590;
+    }
 }

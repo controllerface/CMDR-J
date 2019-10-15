@@ -35,4 +35,10 @@ public class FixedFragmentCannon_Small extends AbstractFragCannon
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 1800.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 36_000;
+    }
 }

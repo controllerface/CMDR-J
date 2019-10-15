@@ -22,4 +22,10 @@ public class Launcher_Chaff extends AbstractChaffLauncher
                   new ItemEffectData(ItemEffect.ChaffJamDuration, 20.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 8_500;
+    }
 }

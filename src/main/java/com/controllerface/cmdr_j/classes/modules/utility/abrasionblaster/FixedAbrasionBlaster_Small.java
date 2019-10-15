@@ -34,4 +34,10 @@ public class FixedAbrasionBlaster_Small extends AbstractAbrasionBlaster
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 1000.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 9_700;
+    }
 }

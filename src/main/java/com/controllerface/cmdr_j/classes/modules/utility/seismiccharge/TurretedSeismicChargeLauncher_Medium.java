@@ -34,4 +34,10 @@ public class TurretedSeismicChargeLauncher_Medium extends AbstractSeismicChargeL
                   new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 445_570;
+    }
 }

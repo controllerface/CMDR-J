@@ -31,4 +31,10 @@ public class FixedRemoteReleaseFlechetteLauncher_Medium extends AbstractExperime
                   new ItemEffectData(ItemEffect.DamageType, "Kinetic")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 353_761;
+    }
 }

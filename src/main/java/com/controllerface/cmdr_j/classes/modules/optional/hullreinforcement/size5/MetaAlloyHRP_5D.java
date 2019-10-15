@@ -17,4 +17,10 @@ public class MetaAlloyHRP_5D extends AbstractExperimentalModule
                         new ItemEffectData(ItemEffect.CausticResistance, 3d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 675_001;
+    }
 }

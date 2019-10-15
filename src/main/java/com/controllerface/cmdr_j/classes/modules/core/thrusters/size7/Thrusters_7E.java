@@ -24,4 +24,10 @@ public class Thrusters_7E extends AbstractThrusters
                   new ItemEffectData(ItemEffect.EngineHeatRate, 1.3)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 633_200;
+    }
 }

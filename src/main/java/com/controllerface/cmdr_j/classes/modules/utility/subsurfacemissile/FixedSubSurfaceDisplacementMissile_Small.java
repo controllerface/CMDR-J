@@ -34,4 +34,10 @@ public class FixedSubSurfaceDisplacementMissile_Small extends AbstractSubsurface
                   new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 12_601;
+    }
 }

@@ -20,4 +20,10 @@ public class CounterMeasures_Electronic extends AbstractECM
                   new ItemEffectData(ItemEffect.ECMTimeToCharge, 3.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 12_500;
+    }
 }

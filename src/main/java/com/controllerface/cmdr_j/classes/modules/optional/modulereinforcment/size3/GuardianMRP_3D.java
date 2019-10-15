@@ -18,4 +18,10 @@ public class GuardianMRP_3D extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 172_800;
+    }
 }

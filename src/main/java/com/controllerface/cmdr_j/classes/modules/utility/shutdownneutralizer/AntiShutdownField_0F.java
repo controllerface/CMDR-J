@@ -21,4 +21,10 @@ public class AntiShutdownField_0F extends AbstractExperimentalModule
                         new ItemEffectData(ItemEffect.Mass, 1d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 61_425;
+    }
 }

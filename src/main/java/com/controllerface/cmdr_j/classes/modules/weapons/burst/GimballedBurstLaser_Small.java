@@ -29,4 +29,10 @@ public class GimballedBurstLaser_Small extends AbstractBurstLaser
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 500.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 8_600;
+    }
 }

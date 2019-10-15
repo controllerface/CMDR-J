@@ -33,4 +33,10 @@ public class TurretedShockCannon_Medium extends AbstractExperimentalModule
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 2500.0)
             ));
     }
+
+    @Override
+    public long price()
+    {
+        return 1_359_200;
+    }
 }

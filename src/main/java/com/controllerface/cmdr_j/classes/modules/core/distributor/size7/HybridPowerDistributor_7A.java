@@ -14,4 +14,10 @@ public class HybridPowerDistributor_7A extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.guardian, 1d)
                 ));
     }
+
+    @Override
+    public long price()
+    {
+        return 16_555_121;
+    }
 }

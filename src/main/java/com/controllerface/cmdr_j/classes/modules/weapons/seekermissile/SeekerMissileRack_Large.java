@@ -4,11 +4,12 @@ import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class FixedSeekerMissileRack_Medium extends AbstractSeekerMissileRack
+public class SeekerMissileRack_Large extends AbstractSeekerMissileRack
 {
-    public FixedSeekerMissileRack_Medium()
+    public SeekerMissileRack_Large()
     {
-        super("Medium Fixed Seeker Missile Rack", 
+        // todo: update with correct stats, these are from medium
+        super("Large Fixed Seeker Missile Rack",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),
@@ -28,5 +29,11 @@ public class FixedSeekerMissileRack_Medium extends AbstractSeekerMissileRack
                   new ItemEffectData(ItemEffect.MaxBreachChance, 0.0),
                   new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
+    }
+
+    @Override
+    public long price()
+    {
+        return 1_471_030;
     }
 }
