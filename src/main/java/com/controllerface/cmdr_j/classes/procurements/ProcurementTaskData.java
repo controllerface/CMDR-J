@@ -88,7 +88,7 @@ public class ProcurementTaskData implements Displayable
         this.getCurrentSystem = builder.getCurrentSystem;
         this.engineers = Engineer.findSupportedEngineers(type, recipe.getGrade());
 
-        //progressBar.setPadding(new Insets(8,6,0,6));
+        progressBar.setPadding(new Insets(8,6,0,6));
 
         costEffectContainer
                 .setBackground(new Background(new BackgroundFill(Color

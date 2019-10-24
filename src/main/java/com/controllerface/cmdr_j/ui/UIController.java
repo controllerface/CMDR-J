@@ -445,7 +445,7 @@ public class UIController
     {
         try
         {
-            toJson(Optional.of(windowDimensions));
+            toJson(windowDimensions);
             messageExecutor.shutdown();
             transactionPool.shutdownNow();
         }
@@ -2199,20 +2199,17 @@ public class UIController
                 });
     }
 
-    private void toJson(Optional<WindowDimensions> windowDimensions) throws IOException
+    private void toJson(WindowDimensions windowDimensions) throws IOException
     {
         // this is the raw JSON object that is saved to disk
         Map<String, Object> data = new HashMap<>();
 
-        if (windowDimensions.isPresent())
-        {
-            Map<String, Object> dimensionData = new LinkedHashMap<>();
-            dimensionData.put("x",windowDimensions.get().getX());
-            dimensionData.put("y",windowDimensions.get().getY());
-            dimensionData.put("h",windowDimensions.get().getHeight());
-            dimensionData.put("w",windowDimensions.get().getWidth());
-            data.put("window", dimensionData);
-        }
+        Map<String, Object> dimensionData = new LinkedHashMap<>();
+        dimensionData.put("x",windowDimensions.getX());
+        dimensionData.put("y",windowDimensions.getY());
+        dimensionData.put("h",windowDimensions.getHeight());
+        dimensionData.put("w",windowDimensions.getWidth());
+        data.put("window", dimensionData);
 
         List<Map<String, Object>> tasks = taskBackingList.stream()
                 .map(e->
@@ -2311,6 +2308,10 @@ public class UIController
             {
                 switch (key)
                 {
+                    /*
+                    Types
+                     */
+
                     case "ExperimentalType":
                         procType.set(ExperimentalType.valueOf((String) value));
                         break;
@@ -2331,6 +2332,15 @@ public class UIController
                         procType.set(MaterialTradeType.valueOf((String) value));
                         break;
 
+                    case "ModulePurchaseType":
+                        procType.set(ModulePurchaseType.valueOf(((String) value)));
+                        break;
+
+
+                    /*
+                    Recipes
+                     */
+
                     case "ExperimentalRecipe":
                         recipeType.set(ExperimentalRecipe.valueOf((String) value));
                         break;
@@ -2347,21 +2357,22 @@ public class UIController
                         recipeType.set(TechnologyRecipe.valueOf((String) value));
                         break;
 
-                    case "Count":
-                        count.set((Integer) value);
-                        break;
-
                     case "MaterialTradeRecipe":
                         recipeType.set(MaterialTradeRecipe.deserializeRecipe(((Map<String, Object>) value)));
-                        break;
-
-                    case "ModulePurchaseType":
-                        procType.set(ModulePurchaseType.valueOf(((String) value)));
                         break;
 
                     case "ModulePurchaseRecipe":
                         recipeType.set(ModulePurchaseRecipe
                                 .deserializeRecipe(((ModulePurchaseType) procType.get()), ((String) value)));
+                        break;
+
+
+                    /*
+                    Count
+                     */
+
+                    case "Count":
+                        count.set((Integer) value);
                         break;
 
                     default:

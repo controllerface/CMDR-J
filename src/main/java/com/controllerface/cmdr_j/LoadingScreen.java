@@ -1,6 +1,13 @@
 package com.controllerface.cmdr_j;
 
+import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Preloader;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.css.PseudoClass;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -14,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class LoadingScreen extends Preloader
 {
@@ -39,6 +47,11 @@ public class LoadingScreen extends Preloader
         p.setTop(windowMessage);
         p.setCenter(vBox);
         bar.setPrefWidth(250);
+        bar.setProgress(.25);
+
+        String styleFile = getClass().getResource("/loading_screen.css").toExternalForm();
+        vBox.getStylesheets().add(styleFile);
+
         return new Scene(p, 300, 100);
     }
 
@@ -53,7 +66,7 @@ public class LoadingScreen extends Preloader
     @Override
     public void handleProgressNotification(javafx.application.Preloader.ProgressNotification pn)
     {
-        bar.setProgress(pn.getProgress());
+        bar.setProgress(.5);
     }
 
     @Override
@@ -62,7 +75,9 @@ public class LoadingScreen extends Preloader
         loadingMessage.setText("Reading Journal Data ...");
         if (info instanceof ProgressNotification)
         {
-            bar.setProgress(((ProgressNotification) info).getProgress());
+            double progress = ((ProgressNotification) info).getProgress();
+            progress = UIFunctions.Data.mapRange(progress,0,1,.5,1);
+            bar.setProgress(progress);
         }
         else stage.hide();
     }
