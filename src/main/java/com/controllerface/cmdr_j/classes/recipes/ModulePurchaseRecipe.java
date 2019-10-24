@@ -7,6 +7,10 @@ import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.special.AnyCost;
 import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
+import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
+import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
@@ -25,11 +29,26 @@ public class ModulePurchaseRecipe implements ProcurementRecipe
     private final String name;
     private final String label;
     private final String shortLabel;
-
+    private final String enumName;
     private final Icon icon;
 
     public ModulePurchaseRecipe(ShipModule product)
     {
+
+        if (product instanceof HardpointModule)
+        {
+            enumName = ((HardpointModule) product).name();
+        }
+        else if (product instanceof OptionalInternalModule)
+        {
+            enumName = ((OptionalInternalModule) product).name();
+        }
+        else if (product instanceof CoreInternalModule)
+        {
+            enumName = ((CoreInternalModule) product).name();
+        }
+        else enumName = "";
+
         CostData x = new CostData(CreditCost.CREDIT_COST, product.price());
         CostData y = new CostData(product, -1);
 
@@ -40,6 +59,11 @@ public class ModulePurchaseRecipe implements ProcurementRecipe
         name = product.displayText();
         label = generateDisplayLabel(this.price, this.product);
         shortLabel = product.displayText();
+    }
+
+    public String getEnumName()
+    {
+        return enumName;
     }
 
     private static String generateDisplayLabel(CostData price, CostData product)
@@ -73,41 +97,23 @@ public class ModulePurchaseRecipe implements ProcurementRecipe
         return ItemEffects.EMPTY;
     }
 
-//    public Map<String, Object> serializeRecipe()
-//    {
-//        Map<String, Object> recipeObject = new HashMap<>();
-//        Map<String, Object> costObject = new HashMap<>();
-//        Map<String, Object> yieldObject = new HashMap<>();
-//
-//        Material priceMaterial = ((Material) price.getCost());
-//        Material yieldMaterial = ((Material) product.getCost());
-//
-//        costObject.put("name", priceMaterial.name());
-//        costObject.put("count", price.getQuantity());
-//
-//        yieldObject.put("name", yieldMaterial.name());
-//        yieldObject.put("count", product.getQuantity());
-//
-//        recipeObject.put("price", costObject);
-//        recipeObject.put("yield", yieldObject);
-//
-//        return recipeObject;
-//    }
-
-//    @SuppressWarnings("unchecked")
-//    public static ModulePurchaseRecipe deserializeRecipe(Map<String, Object> recipeObject)
-//    {
-//        Map<String, Object> costObject = ((Map<String, Object>) recipeObject.get("price"));
-//        Map<String, Object> yieldObject = ((Map<String, Object>) recipeObject.get("yield"));
-//
-//        Material priceMaterial = Material.valueOf((String) costObject.get("name"));
-//        Material yieldMaterial = Material.valueOf((String) yieldObject.get("name"));
-//
-//        CostData price = new CostData(priceMaterial, ((int) costObject.get("count")));
-//        CostData yield = new CostData(yieldMaterial, ((int) yieldObject.get("count")));
-//
-//        return new ModulePurchaseRecipe(price, yield);
-//    }
+    public static ModulePurchaseRecipe deserializeRecipe(ModulePurchaseType procType, String enumName)
+    {
+        ModulePurchaseRecipe recipe = null;
+        if (procType == ModulePurchaseType.Hardpoint)
+        {
+            recipe = new ModulePurchaseRecipe(HardpointModule.valueOf(enumName));
+        }
+        else if (procType == ModulePurchaseType.Optional)
+        {
+            recipe = new ModulePurchaseRecipe(OptionalInternalModule.valueOf(enumName));
+        }
+        else if (procType == ModulePurchaseType.Core)
+        {
+            recipe = new ModulePurchaseRecipe(CoreInternalModule.valueOf(enumName));
+        }
+        return recipe;
+    }
 
     @Override
     public String getName()

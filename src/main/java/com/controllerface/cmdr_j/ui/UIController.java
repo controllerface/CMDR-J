@@ -10,6 +10,7 @@ import com.controllerface.cmdr_j.classes.commander.InventoryData;
 import com.controllerface.cmdr_j.classes.commander.MarketData;
 import com.controllerface.cmdr_j.classes.commander.ShipStatisticData;
 import com.controllerface.cmdr_j.classes.procurements.*;
+import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
@@ -25,8 +26,10 @@ import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisType;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyType;
+import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
+import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.enums.journal.JournalEvent;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
@@ -1850,7 +1853,7 @@ public class UIController
 
     private TreeItem<ProcurementTask> makeTradeTree()
     {
-        TreeItem<ProcurementTask> materialTrades = new TreeItem<>(new ProcurementTask("Material Trades"));
+        TreeItem<ProcurementTask> materialTrades = new TreeItem<>(new ProcurementTask("Trades"));
 
         // loop through all possible trades
         Stream.of(MaterialTradeType.values())
@@ -1893,7 +1896,7 @@ public class UIController
 
     private TreeItem<ProcurementTask> makeModuleTree()
     {
-        TreeItem<ProcurementTask> modulePrices = new TreeItem<>(new ProcurementTask("Purchase Modules"));
+        TreeItem<ProcurementTask> modulePrices = new TreeItem<>(new ProcurementTask("Modules"));
 
         // loop through all possible trades
         Stream.of(ModulePurchaseType.values())
@@ -1954,7 +1957,7 @@ public class UIController
 
     private TreeItem<ProcurementTask> makeModificationTree()
     {
-        TreeItem<ProcurementTask> modifications = new TreeItem<>(new ProcurementTask("Engineering Modifications"));
+        TreeItem<ProcurementTask> modifications = new TreeItem<>(new ProcurementTask("Modifications"));
 
         // loop through all mod categories
         Arrays.stream(ModificationCategory.values()).forEach(category ->
@@ -1991,7 +1994,7 @@ public class UIController
 
     private TreeItem<ProcurementTask> makeExperimentTree()
     {
-        TreeItem<ProcurementTask> experiments = new TreeItem<>(new ProcurementTask("Experimental Effects"));
+        TreeItem<ProcurementTask> experiments = new TreeItem<>(new ProcurementTask("Experimentals"));
 
         // loop through all mod categories
         Arrays.stream(ExperimentalCategory.values()).forEach(category ->
@@ -2023,7 +2026,7 @@ public class UIController
 
     private TreeItem<ProcurementTask> makeTechnologyTree()
     {
-        TreeItem<ProcurementTask> modifications = new TreeItem<>(new ProcurementTask("Tech Broker Unlocks"));
+        TreeItem<ProcurementTask> modifications = new TreeItem<>(new ProcurementTask("Technology"));
 
         // loop through all mod categories
         Arrays.stream(TechnologyCategory.values()).forEach(category ->
@@ -2223,6 +2226,7 @@ public class UIController
                     ProcurementRecipe recipe = pair.getValue();
 
                     boolean isTrade = type instanceof MaterialTradeType;
+                    boolean isModulePurchase = type instanceof ModulePurchaseType;
 
                     Long count = e.getCount();
 
@@ -2240,6 +2244,10 @@ public class UIController
                     if (isTrade)
                     {
                         procTypedata.put(recipeType, ((MaterialTradeRecipe) recipe).serializeRecipe());
+                    }
+                    else if (isModulePurchase)
+                    {
+                        procTypedata.put(recipeType, ((ModulePurchaseRecipe) recipe).getEnumName());
                     }
                     else procTypedata.put(recipeType, recipeName);
 
@@ -2295,8 +2303,6 @@ public class UIController
         List<Map<String, Object>> tasks = ((List<Map<String, Object>>) data.get("tasks"));
         tasks.forEach(taskEntry ->
         {
-            //todo: if this is a trade recipe, we need to read the price/product costs in the JSON object
-
             AtomicReference<ProcurementType> procType = new AtomicReference<>();
             AtomicReference<ProcurementRecipe> recipeType = new AtomicReference<>();
             AtomicInteger count = new AtomicInteger(0);
@@ -2347,6 +2353,15 @@ public class UIController
 
                     case "MaterialTradeRecipe":
                         recipeType.set(MaterialTradeRecipe.deserializeRecipe(((Map<String, Object>) value)));
+                        break;
+
+                    case "ModulePurchaseType":
+                        procType.set(ModulePurchaseType.valueOf(((String) value)));
+                        break;
+
+                    case "ModulePurchaseRecipe":
+                        recipeType.set(ModulePurchaseRecipe
+                                .deserializeRecipe(((ModulePurchaseType) procType.get()), ((String) value)));
                         break;
 
                     default:
