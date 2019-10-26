@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Separator;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -60,6 +61,7 @@ public class LoadingScreen extends Preloader
         this.stage = stage;
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(createPreloaderScene());
+        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/cmdrj_icon.png")));
         stage.show();
     }
 

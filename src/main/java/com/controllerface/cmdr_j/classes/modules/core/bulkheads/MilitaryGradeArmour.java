@@ -9,7 +9,7 @@ public class MilitaryGradeArmour extends AbstractBulkheads
     private final long price;
     public MilitaryGradeArmour(String ship, long price)
     {
-        super(ship + "Military Grade Armour",
+        super(ship + " Military Grade Armour",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 5.0),
                   new ItemEffectData(ItemEffect.ExplosiveResistance, -40.0),

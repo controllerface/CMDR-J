@@ -26,10 +26,7 @@ import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisType;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyType;
-import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
-import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
-import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.enums.journal.JournalEvent;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
@@ -157,10 +154,6 @@ public class UIController
     // Task list container pane
     @FXML private AnchorPane task_pane;
 
-    // Task sorting controls
-    @FXML private RadioButton sort_tasks_by_name;
-    @FXML private RadioButton sort_tasks_by_grade;
-
     // Task list and columns
     @FXML private TableView<ProcurementTaskData> procurement_task_table;
     @FXML private TableColumn<ProcurementTaskData, ProcurementRecipe> task_type_column;
@@ -174,7 +167,7 @@ public class UIController
     @FXML private TableColumn<ItemCostData, String> task_cost_need_column;
     @FXML private TableColumn<Displayable, Displayable> task_cost_name_column;
     @FXML private TableColumn<ItemCostData, ProgressBar> task_cost_progress_column;
-    @FXML private TableColumn<ItemCostData, ItemGrade> task_cost_grade_column;
+    @FXML private TableColumn<ItemCostData, ItemGrade> task_cost_type_column;
 
 
     /*
@@ -1248,8 +1241,8 @@ public class UIController
 
         task_cost_progress_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
 
-        task_cost_grade_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getCost().getGrade()));
-        task_cost_grade_column.setCellFactory(x -> new CostGradeCell());
+        task_cost_type_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getCost().getGrade()));
+        task_cost_type_column.setCellFactory(x -> new CostGradeCell());
 
         //sort_tasks_by_name.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.tasksByName));
         //sort_tasks_by_grade.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.taskByGrade));

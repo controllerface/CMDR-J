@@ -119,9 +119,18 @@ public class UIFunctions
         public static final SVGPath powerplay = new SVGPath();
         public static final SVGPath limpet = new SVGPath();
 
+        public static final SVGPath thermal = new SVGPath();
+        public static final SVGPath kinetic = new SVGPath();
+        public static final SVGPath explosive = new SVGPath();
+        public static final SVGPath thermo_kinetic = new SVGPath();
+
         static
         {
-            credits.setContent(readIcon("/icons/credits"));
+            thermo_kinetic.setContent(readIcon("/icons/thermo_kinetic"));
+            explosive.setContent(readIcon("/icons/explosive"));
+            kinetic.setContent(readIcon("/icons/kinetic"));
+            thermal.setContent(readIcon("/icons/thermal"));
+            credits.setContent(readIcon("/icons/credits_2"));
             limpet.setContent(readIcon("/icons/limpet"));
             powerplay.setContent(readIcon("/icons/powerplay"));
             salvage.setContent(readIcon("/icons/salvage"));
@@ -149,8 +158,13 @@ public class UIFunctions
             materialGrade5.setContent(readIcon("/icons/materialGrade5"));
         }
 
+        public static Icon thermalIcon = new Icon(thermal, 25, 25);
+        public static Icon kineticIcon = new Icon(kinetic, 25, 25);
+        public static Icon explosiveIcon = new Icon(explosive, 25, 25);
+        public static Icon thermoKineticIcon = new Icon(thermo_kinetic, 25, 25);
+
         public static Icon cargoIcon = new Icon(cargo, 25, 25);
-        public static Icon creditsIcon = new Icon(credits, 35, 20);
+        public static Icon creditsIcon = new Icon(credits, 30, 30);
         public static Icon mfdTradeIcon = new Icon(manufacturedTrade, 25, 30);
         public static Icon rawTradeIcon = new Icon(rawTrade, 25, 30);
         public static Icon dataTradeIcon = new Icon(dataTrade, 25, 30);
