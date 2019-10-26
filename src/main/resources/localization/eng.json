@@ -223,7 +223,7 @@
       ]
     },
     "CMMCOMPOSITE": {
-      "name": "CMM composite",
+      "name": "CMM Composite",
       "locations": [
         "Produced by Refinery Economies (Surface)",
         "Consumed by High Tech, Industrial and Military Economies"
@@ -1093,7 +1093,7 @@
       ]
     },
     "TRINKETSOFHIDDENFORTUNE": {
-      "name": "Trinkets Of Hidden Fortune",
+      "name": "Trinkets of Hidden Fortune",
       "locations": [
         ""
       ]
@@ -1178,13 +1178,13 @@
       ]
     },
     "AUTOFABRICATORS": {
-      "name": "Auto-fabricators",
+      "name": "Auto-Fabricators",
       "locations": [
         ""
       ]
     },
     "BIOREDUCINGLICHEN": {
-      "name": "Bio-reducing Lichen",
+      "name": "Bio-Reducing Lichen",
       "locations": [
         ""
       ]
@@ -1226,7 +1226,7 @@
       ]
     },
     "MICROCONTROLLERS": {
-      "name": "Micro-controllers",
+      "name": "Micro-Controllers",
       "locations": [
         ""
       ]
@@ -1298,7 +1298,7 @@
       ]
     },
     "BIOWASTE": {
-      "name": "Bio-waste",
+      "name": "Bio-Waste",
       "locations": [
         ""
       ]

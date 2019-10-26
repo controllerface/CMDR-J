@@ -130,7 +130,7 @@ public class UIFunctions
             explosive.setContent(readIcon("/icons/explosive"));
             kinetic.setContent(readIcon("/icons/kinetic"));
             thermal.setContent(readIcon("/icons/thermal"));
-            credits.setContent(readIcon("/icons/credits_2"));
+            credits.setContent(readIcon("/icons/credits"));
             limpet.setContent(readIcon("/icons/limpet"));
             powerplay.setContent(readIcon("/icons/powerplay"));
             salvage.setContent(readIcon("/icons/salvage"));

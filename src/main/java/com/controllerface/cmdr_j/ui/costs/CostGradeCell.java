@@ -33,20 +33,13 @@ public class CostGradeCell extends TableCell<ItemCostData, ItemGrade>
         svgShape.setShape(icon);
 
         double sizew = item.getIcon().getBaseWidth();
-        double sizeh = item.getIcon().getBaseHeight(); //item.getIcon() == null ? sizew : 26;
-
-        double topPad = item.getIcon() == null ? 2 : 4;
-
+        double sizeh = item.getIcon().getBaseHeight();
+        double topPad = 4;
 
         svgShape.setMinSize(sizew, sizeh);
         svgShape.setPrefSize(sizew, sizeh);
         svgShape.setMaxSize(sizew, sizeh);
-
-        if (item.getIcon() == null)
-        {
-            svgShape.setStyle("-fx-background-color: black;");
-        }
-        else svgShape.setStyle("-fx-background-color: #b75200;");
+        svgShape.setStyle("-fx-background-color: #b75200;");
 
         double originalWidth = icon.prefWidth(-1);
         double originalHeight = icon.prefHeight(originalWidth);
