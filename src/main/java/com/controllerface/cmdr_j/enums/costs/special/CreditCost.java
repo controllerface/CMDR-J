@@ -24,6 +24,6 @@ public enum CreditCost implements ProcurementCost
     // Stubs
     @Override public List<ProcurementRecipe> getAssociated() { return null; }
     @Override public void associate(ProcurementRecipe recipe) { }
-    @Override public String getLocationInformation() { return null; }
+    @Override public String getLocationInformation() { return "Bank of Zaonce\nVarious Activities"; }
     @Override public void setLocationInformation(String locationInformation) { }
 }

@@ -20,8 +20,8 @@ import javafx.scene.shape.SVGPath;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -47,6 +47,7 @@ public class ItemCostData implements Displayable
 
     private final Function<ProcurementCost, Long> checkInventory;
     private final Predicate<ProcurementCost> isInCache;
+    private final Function<ProcurementCost, Set<String>> getCachedLabels;
     private final Function<ProcurementCost, Integer> pendingTradeYield;
     private final Function<ProcurementCost, Integer> pendingTradeCost;
     private final Consumer<ProcurementTask> addTask;
@@ -86,6 +87,7 @@ public class ItemCostData implements Displayable
     public ItemCostData(ProcurementCost cost,
                         Function<ProcurementCost, Long> checkInventory,
                         Predicate<ProcurementCost> isInCache,
+                        Function<ProcurementCost, Set<String>> getCachedLabels,
                         Function<ProcurementCost, Integer> pendingTradeYield,
                         Function<ProcurementCost, Integer> pendingTradeCost,
                         Consumer<ProcurementTask> addTask)
@@ -93,11 +95,12 @@ public class ItemCostData implements Displayable
         this.cost = cost;
         this.checkInventory = checkInventory;
         this.isInCache = isInCache;
+        this.getCachedLabels = getCachedLabels;
         this.pendingTradeYield = pendingTradeYield;
         this.pendingTradeCost = pendingTradeCost;
         this.addTask = addTask;
 
-        progressBar.setPadding(new Insets(8,6,0,6));
+        progressBar.setPadding(new Insets(0,6,0,0));
 
         locationContainer
                 .setBackground(new Background(new BackgroundFill(Color
@@ -167,6 +170,23 @@ public class ItemCostData implements Displayable
     {
         locationContainer.getChildren().clear();
 
+        Set<String> cachedLabels = getCachedLabels.apply(cost);
+
+        if (cachedLabels != null)
+        {
+            Label commitLabel = new Label("Committed Tasks");
+            commitLabel.setTextFill(UIFunctions.Style.darkOrange);
+            commitLabel.setFont(UIFunctions.Style.size2Font);
+
+            Label commitInfo = new Label(String.join("\n", cachedLabels));
+            commitInfo.setFont(UIFunctions.Style.size1Font);
+            commitInfo.alignmentProperty().set(Pos.CENTER_LEFT);
+
+            Separator separator1 = new Separator();
+            separator1.setPadding(new Insets(5,0,5,0));
+
+            locationContainer.getChildren().addAll(commitLabel, commitInfo, separator1);
+        }
 
         Label locationLabel = new Label("Relevant Locations");
         locationLabel.setTextFill(UIFunctions.Style.darkOrange);
@@ -185,9 +205,9 @@ public class ItemCostData implements Displayable
 
             if (tradeBlueprint.isPresent())
             {
-                Separator separator = new Separator();
-                separator.setPadding(new Insets(5,0,5,0));
-                locationContainer.getChildren().add(separator);
+                Separator tradeSeparator = new Separator();
+                tradeSeparator.setPadding(new Insets(5,0,5,0));
+                locationContainer.getChildren().add(tradeSeparator);
 
                 List<ClassifiedTrade> classifiedTrades = tradeBlueprint.get().recipeStream()
                         .sorted(UIFunctions.Sort.bestCostYieldRatio)
@@ -232,8 +252,7 @@ public class ItemCostData implements Displayable
 
                 Optional<ClassifiedTrade> bestTrade = classifiedTrades.stream()
                         .filter(trade -> trade.classification == TradeClassification.RECOMMENDED)
-                        .sorted((a, b)->(int)(b.max - a.max))
-                        .findFirst();
+                        .min((a, b) -> (int) (b.max - a.max));
 
                 if (bestTrade.isPresent())
                 {

@@ -1223,6 +1223,7 @@ public class UIController
         task_count_column.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue()));
 
         task_progress_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
+        task_progress_column.setCellFactory(UIFunctions.Data.taskProgressCellFactory);
 
         task_type_column.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair().getValue()));
         task_type_column.setCellFactory(x-> new TaskTypeCell());
@@ -1239,6 +1240,7 @@ public class UIController
         task_cost_name_column.setCellValueFactory(modMaterial -> new ReadOnlyObjectWrapper<>(modMaterial.getValue()));
         task_cost_name_column.setCellFactory(x -> new CostDataCell());
 
+        task_cost_progress_column.setCellFactory(UIFunctions.Data.costProgressCellFactory);
         task_cost_progress_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getProgressBar()));
 
         task_cost_type_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getCost().getGrade()));
@@ -1638,6 +1640,54 @@ public class UIController
         else Platform.runLater(() -> doWork.accept(nextTransaction));
     }
 
+    private Map<ProcurementCost, Set<String>> costLabelCache = new HashMap<>();
+
+    private String calculateCostLabel(ProcurementType type, ProcurementRecipe recipe)
+    {
+        List<String> tokens = new ArrayList<>();
+
+        if (type instanceof ModificationType)
+        {
+            tokens.add("Modification");
+            tokens.add(type.toString());
+            tokens.add(recipe.getParentBlueprintName());
+            tokens.add(recipe.getShortLabel());
+        }
+        else if (type instanceof ExperimentalType)
+        {
+            tokens.add("Experimental Effect");
+            tokens.add(type.toString());
+            tokens.add(recipe.getShortLabel());
+        }
+        else if (type instanceof TechnologyType)
+        {
+            tokens.add("Tech Broker Unlock");
+            tokens.add(type.toString());
+            tokens.add(recipe.getShortLabel());
+        }
+        else if (type instanceof SynthesisType)
+        {
+            tokens.add("Synthesis");
+            tokens.add(type.toString());
+            tokens.add(recipe.getShortLabel());
+        }
+        else if (type instanceof MaterialTradeType)
+        {
+            tokens.add("Material Trade");
+            tokens.add(recipe.getDisplayLabel());
+        }
+        else if (type instanceof ModulePurchaseType)
+        {
+            tokens.add("Outfitting");
+            tokens.add(type.toString());
+            tokens.add(recipe.getShortLabel());
+        }
+
+        return tokens.stream()
+                .map(String::trim)
+                .collect(Collectors.joining(" :: "));
+    }
+
     /**
      * This method is used to add a new "tracked" task to the task list, as well as increase or decrease the count
      * of an existing task in the list. Typically, this method is called by clicking on the various buttons in the
@@ -1655,8 +1705,6 @@ public class UIController
      * @param task the task to adjust the count of in the tracked tasks list
      * @return the total count of the passed in task after the adjustment is applied, zero if the task was removed
      */
-
-
     private void procurementListUpdate(long adjustment, Pair<ProcurementType, ProcurementRecipe> task)
     {
         Task<Void> task1 = new Task<Void>()
@@ -1717,6 +1765,7 @@ public class UIController
                         .map(taskCost ->  new ItemCostData(taskCost,
                                 commanderData::amountOf,
                                 taskCostCache::contains,
+                                costLabelCache::get,
                                 calculateTradeYield,
                                 tradeCostCache::get,
                                 addTaskToProcurementList))
@@ -1747,13 +1796,26 @@ public class UIController
         data.get().setCount(newCount.get());
 
         // to make sure we've cleaned everything up, if the new count became 0, remove the task
-        if (newCount.get() == 0) taskList.remove(data.get());
+        if (newCount.get() == 0)
+        {
+            taskList.remove(data.get());
+            String costLabel = calculateCostLabel(task.getKey(), task.getValue());
+            task.getValue().costStream()
+                    .filter(costData -> costData.getQuantity() > 0)
+                    .forEach(c ->
+                    {
+
+                        costLabelCache.get(c.getCost()).remove(costLabel);
+                    });
+        }
 
         // figure out what the difference was, we'll need this to calculate the cost adjustment
         long costDifference = newCount.get() - oldCount;
 
         // now we need to calculate the cost adjustments that this task adjustment requires. To do this,
-        // we find all the costs of this recipe, and multiply the required cost by the cost difference
+        // we find all the costs of this recipe, and multiply the required cost by the cost difference.
+        // note that costs with a quantity less than 0 are avoided, this is because a negative code is
+        // considered a "yield" of a given task. not all tasks have their output tracked this way
         List<CostData> costAdjustments = task.getValue().costStream()
                 .filter(costData -> costData.getQuantity() > 0)
                 .map(taskCost -> new CostData(taskCost.getCost(), taskCost.getQuantity() * costDifference))
@@ -1818,6 +1880,12 @@ public class UIController
                 .filter(costToAdjust -> costAdjustments.stream().anyMatch(costToAdjust::matches))
                 .peek(costToAdjust ->
                 {
+                    if (newCount.get() != 0)
+                    {
+                        costLabelCache.computeIfAbsent(costToAdjust.getCost(), (k)-> new HashSet<>())
+                                .add(calculateCostLabel(task.getKey(), task.getValue()));
+                    }
+
                     // we don't want to count trade costs as cached, because the cache is used to filter
                     // trades from the recommended trades drop down. If we cache the trade costs for these,
                     // the a recommended trade becomes unrecommended as soon as it is added.
@@ -1838,7 +1906,14 @@ public class UIController
                     costToAdjust.setNeed(costToAdjust.getNeed() + toAdjust.getQuantity());
                 })
                 .filter(adjustedCost -> adjustedCost.getNeed() <= 0)
-                .peek(removedCost -> taskCostCache.remove(removedCost.getCost()))
+                .peek(removedCost ->
+                {
+                    taskCostCache.remove(removedCost.getCost());
+                    if (costLabelCache.get(removedCost.getCost()).isEmpty())
+                    {
+                        costLabelCache.remove(removedCost.getCost());
+                    }
+                })
                 .forEach(costList::remove);
 
         synchronizeBackingLists();

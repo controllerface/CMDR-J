@@ -1,10 +1,9 @@
 /**
  * Created by Controllerface on 3/6/2018.
  */
-package com.controllerface.cmdr_j;
+package com.controllerface.cmdr_j.ui;
 
 import com.controllerface.cmdr_j.classes.WindowDimensions;
-import com.controllerface.cmdr_j.ui.UIController;
 import javafx.application.Application;
 import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -163,7 +161,7 @@ public class CommanderJ extends Application
 
     public static void main(String[] args)
     {
-        System.out.println("Wrong entry point");
+        System.out.println("Start application through Main class");
         System.exit(0);
     }
 }

@@ -1,34 +1,22 @@
-package com.controllerface.cmdr_j;
+package com.controllerface.cmdr_j.ui;
 
-import com.controllerface.cmdr_j.ui.UIFunctions;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Preloader;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.css.PseudoClass;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Separator;
-import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 public class LoadingScreen extends Preloader
 {
-    ProgressBar bar;
-    Stage stage;
-    Label loadingMessage;
+    private ProgressBar bar;
+    private Stage stage;
+    private Label loadingMessage;
     private Scene createPreloaderScene()
     {
         bar = new ProgressBar();
@@ -86,7 +74,7 @@ public class LoadingScreen extends Preloader
 
     public static void main(String[] args)
     {
-        System.out.println("Wrong entry point");
+        System.out.println("Start application through Main class");
         System.exit(0);
     }
 }

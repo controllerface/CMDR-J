@@ -34,7 +34,6 @@ public class CostGradeCell extends TableCell<ItemCostData, ItemGrade>
 
         double sizew = item.getIcon().getBaseWidth();
         double sizeh = item.getIcon().getBaseHeight();
-        double topPad = 4;
 
         svgShape.setMinSize(sizew, sizeh);
         svgShape.setPrefSize(sizew, sizeh);
@@ -50,8 +49,7 @@ public class CostGradeCell extends TableCell<ItemCostData, ItemGrade>
         icon.setScaleX(scaleX);
         icon.setScaleY(scaleY);
         hBox.getChildren().add(svgShape);
-        hBox.setPadding(new Insets(topPad,0,0,0));
-        hBox.setAlignment(Pos.TOP_CENTER);
+        hBox.setAlignment(Pos.CENTER);
 
         setGraphic(hBox);
     }

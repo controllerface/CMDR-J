@@ -24,8 +24,7 @@ public class CostValueCell extends TableCell<ItemCostData, String>
         else
         {
             super.setText(item);
-            setAlignment(Pos.TOP_CENTER);
-            setPadding(new Insets(8,0,0,0));
+            setAlignment(Pos.CENTER);
             setFont(UIFunctions.Style.size2Font);
         }
     }

@@ -164,7 +164,9 @@ public class ProcurementTaskData implements Displayable
         subtractButton.setOnAction((e) -> inventoryUpdate.accept(-1, asPair()));
         addButton.setOnAction((e) -> inventoryUpdate.accept(1, asPair()));
 
-        return new HBox(subtractButton, countLabel, addButton);
+        HBox hBox = new HBox(subtractButton, countLabel, addButton);
+        hBox.setAlignment(Pos.CENTER);
+        return hBox;
     }
 
     public Node getSpinner()

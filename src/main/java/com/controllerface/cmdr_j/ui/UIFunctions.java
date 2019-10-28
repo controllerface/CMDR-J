@@ -175,6 +175,30 @@ public class UIFunctions
      */
     public static class Data
     {
+        static final Callback<TableColumn<ProcurementTaskData, ProgressBar>, TableCell<ProcurementTaskData, ProgressBar>>
+                taskProgressCellFactory = (param -> new TableCell<ProcurementTaskData, ProgressBar>()
+            {
+                @Override
+                public void updateItem(ProgressBar item, boolean empty)
+                {
+                    super.updateItem(item, empty);
+                    setGraphic(item);
+                    setAlignment(Pos.CENTER);
+                }
+            });
+
+        static final Callback<TableColumn<ItemCostData, ProgressBar>, TableCell<ItemCostData, ProgressBar>>
+                costProgressCellFactory = (param -> new TableCell<ItemCostData, ProgressBar>()
+        {
+            @Override
+            public void updateItem(ProgressBar item, boolean empty)
+            {
+                super.updateItem(item, empty);
+                setGraphic(item);
+                setAlignment(Pos.CENTER);
+            }
+        });
+
         static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
                 costNeedCellFactory = (modMaterial) ->
         {
