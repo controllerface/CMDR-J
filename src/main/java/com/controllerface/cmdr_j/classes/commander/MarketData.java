@@ -121,8 +121,7 @@ public class MarketData implements Displayable
         VBox itemDetails = new VBox();
         itemDetails.getChildren().add(createLocationHeaderLabel());
         itemDetails.getChildren().add(createLocationInfoLabel());
-        itemDetails.setBackground(new Background(new BackgroundFill(
-                Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
+        itemDetails.getStyleClass().add("information_panel");
         itemDataPane.setContent(itemDetails);
         mainGraphic.getChildren().add(itemDataPane);
     }
@@ -130,15 +129,14 @@ public class MarketData implements Displayable
     private Label createLocationHeaderLabel()
     {
         Label locationHeaderLabel = new Label("Relevant Locations");
-        locationHeaderLabel.setTextFill(UIFunctions.Style.darkOrange);
-        locationHeaderLabel.setFont(UIFunctions.Style.size2Font);
+        locationHeaderLabel.getStyleClass().add("information_header");
         return locationHeaderLabel;
     }
 
     private Label createLocationInfoLabel()
     {
         Label locationInfoLabel = new Label("TODO: get this information...");
-        locationInfoLabel.setFont(UIFunctions.Style.size1Font);
+        locationInfoLabel.getStyleClass().add("market_data_info");
         locationInfoLabel.alignmentProperty().set(Pos.CENTER_LEFT);
         return locationInfoLabel;
     }
@@ -149,6 +147,7 @@ public class MarketData implements Displayable
         dataPanel.setAnimated(false);
         dataPanel.expandedProperty().setValue(false);
         dataPanel.setGraphic(createNameLabel());
+        dataPanel.getStyleClass().add("general_panel");
         dataPanel.alignmentProperty().set(Pos.CENTER_LEFT);
         return dataPanel;
     }
@@ -158,7 +157,7 @@ public class MarketData implements Displayable
         // build a string descriptor for this item and a Label used to display it in the GUI
         String itemDescriptor = category + " :: " + name;
         Label nameLabel = new Label(itemDescriptor);
-        nameLabel.setFont(UIFunctions.Style.size2Font);
+        nameLabel.getStyleClass().add("general_panel_label");
         nameLabel.alignmentProperty().set(Pos.CENTER_LEFT);
         return nameLabel;
     }

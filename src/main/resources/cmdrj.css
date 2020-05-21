@@ -1,3 +1,67 @@
+.root
+{
+    -fx-accent: #cccccc;
+    -fx-focus-color: #cccccc;
+    -fx-text-base-color: rgb(225, 150, 90);
+    -fx-background: #222222;
+}
+
+.table-view
+{
+   -fx-background-color: transparent;
+}
+
+.table-view .column-header
+{
+    -fx-background-color: #333333;
+    -fx-text-fill: rgb(200, 200, 200);
+}
+
+.add_task_button
+{
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-base: #88cc88;
+}
+
+.tab-pane tab:selected
+{
+    -fx-background-color: #222222;
+}
+
+.tab-pane .tab
+{
+    -fx-background-color: #222222;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.table-view
+{
+    -fx-background-color: transparent;
+}
+
+.table-view .filler
+{
+    -fx-background-color: #333333;
+}
+
+.table-row-cell:odd
+{
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:even
+{
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell
+{
+    -fx-background-color: #222222;
+    -fx-text-fill: rgb(225, 150, 90);
+}
+
+
 /* The column cell text size should be 16 */
 .market_table .table-column
 {
@@ -12,6 +76,57 @@
   -fx-alignment: CENTER;
   -fx-font-size: 12;
   -fx-font-weight: bold;
+  -fx-background-color: #333333;
+}
+
+/*
+Backing style for general panels that contain information, ex: ship stats, market data, inventory, etc.
+This is typically applied to the "background" portion of these panels
+*/
+.general_panel
+{
+   -fx-background-color: #111111;
+}
+
+.general_panel > .title
+{
+   -fx-background-color: #111111;
+}
+
+.general_panel_label
+{
+   -fx-text-fill: rgb(225, 150, 90);
+   -fx-background-color: transparent;
+}
+
+.light_color_label
+{
+   -fx-text-fill: rgb(200, 200, 200);
+   -fx-background-color: transparent;
+}
+
+/*
+Main data panels that contain information, ex: ship stats, market data, inventory, etc.
+This is typically applied to the "foreground" portion of these panels
+*/
+.information_panel
+{
+    -fx-background-color: #333333;
+}
+
+.information_panel > .title
+{
+    -fx-background-color: #333333;
+}
+
+.information_header
+{
+    -fx-text-fill: rgb(225, 150, 90);
+}
+
+.market_data_info
+{
+    -fx-text-fill: rgb(225, 255, 255);
 }
 
 .hidden
@@ -19,8 +134,54 @@
     visibility: hidden;
 }
 
-.root
+.no_border
 {
-    -fx-accent: #cccccc;
-    -fx-focus-color: #cccccc;
+    -fx-border-width: 0 0 0 0;
 }
+
+.no_header .column-header-background
+{
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+}
+
+.no_scrollbars .scroll-bar *
+{
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+
+/*
+Ship module statistics tables
+*/
+.stat_table
+{
+    -fx-fixed-cell-size: 31;
+}
+
+.stat_table .table-row-cell
+{
+    -fx-border-color: #444444;
+    -fx-table-cell-border-color:#222222;
+}
+
+.general_stat_label
+{
+   -fx-text-fill: rgb(200, 200, 200);
+   -fx-background-color: transparent;
+}
+
+.general_stat_table .column-header > .label
+{
+  -fx-background-color: #333333;
+  -fx-font-size: 12;
+  -fx-font-weight: bold;
+  -fx-text-fill: rgb(200, 200, 200);
+}
+

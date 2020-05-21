@@ -50,7 +50,7 @@ public class CommanderJ extends Application
     @Override
     public void start(Stage primaryStage)
     {
-        primaryStage.initStyle(StageStyle.UNIFIED);
+        //primaryStage.initStyle(StageStyle.UNIFIED);
 
         primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/cmdrj_icon.png")));
 

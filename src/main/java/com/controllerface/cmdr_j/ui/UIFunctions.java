@@ -53,6 +53,7 @@ public class UIFunctions
 
     public static class Style
     {
+        public static final Color neutralWhite = Color.rgb(0xee, 0xee, 0xee);
         public static final Color positiveBlue = Color.rgb(0x00, 0xb3, 0xf7);
         public static final Color negativeRed = Color.rgb(0xff, 0x00, 0x00);
         public static final Color neutralBlack = Color.rgb(0x00, 0x00, 0x00);
@@ -252,6 +253,7 @@ public class UIFunctions
                 else
                 {
                     setAlignment(Pos.CENTER_LEFT);
+                    item.getStyleClass().add("general_stat_label");
                     setGraphic(item);
                 }
             }
@@ -273,6 +275,7 @@ public class UIFunctions
                 Label name = new Label(item.getKey().toString());
                 name.setFont(Style.size2Font);
                 name.setPadding(new Insets(0,0,0,5));
+                name.getStyleClass().add("general_stat_label");
                 setGraphic(name);
             }
         };

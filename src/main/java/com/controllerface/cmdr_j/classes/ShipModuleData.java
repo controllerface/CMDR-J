@@ -15,17 +15,26 @@ import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 import com.controllerface.cmdr_j.ui.Displayable;
 import com.controllerface.cmdr_j.ui.UIFunctions;
+import com.sun.javafx.stage.FocusUngrabEvent;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+import javafx.util.Callback;
 import javafx.util.Pair;
 
+import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -62,6 +71,8 @@ public class ShipModuleData implements Displayable
         this.level = builder.level;
         this.quality = builder.quality;
         this.userTransactions = builder.userTransactions;
+
+        displayPane.getStyleClass().add("general_panel");
     }
 
     public Statistic getModuleName() { return moduleName; }
@@ -92,10 +103,15 @@ public class ShipModuleData implements Displayable
     private HBox createRecipeControl(Pair<ProcurementType, ProcurementRecipe> recipePair)
     {
         HBox container = new HBox();
+        container.getStyleClass().addAll("information_panel","no_border");
 
         Button button = createTaskButton(recipePair);
         TitledPane infoPane = createInfoPane(recipePair);
-        infoPane.prefWidthProperty().bind(container.widthProperty());
+        infoPane.getStyleClass().addAll("information_panel", "no_border");
+        infoPane.prefWidthProperty().bind(container.widthProperty()
+                .subtract(button.widthProperty())
+                .subtract(button.graphicTextGapProperty().multiply(4)));
+        infoPane.requestLayout();
         container.getChildren().addAll(button, infoPane);
         return container;
     }
@@ -103,10 +119,9 @@ public class ShipModuleData implements Displayable
     private Button createTaskButton(Pair<ProcurementType, ProcurementRecipe> recipePair)
     {
         Button button = new Button();
+        button.getStyleClass().add("add_task_button");
 
-        button.setStyle("-fx-base: #88ee88;");
-
-        button.setText("+");
+        button.setText("add");
         button.setFont(UIFunctions.Style.size1Font);
 
         Tooltip tooltip = new Tooltip();
@@ -130,13 +145,11 @@ public class ShipModuleData implements Displayable
 
         Label nameLabel = new Label(recipePair.getValue().getDisplayLabel());
         nameLabel.setFont(UIFunctions.Style.size1Font);
+        nameLabel.getStyleClass().add("general_panel_label");
         infoPane.setGraphic(nameLabel);
 
-
         VBox costEffectContainer = new VBox();
-        costEffectContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
-
-
+        costEffectContainer.getStyleClass().addAll("information_panel", "no_border");
 
         // effects
         recipePair.getValue().effects().effectStream()
@@ -155,13 +168,12 @@ public class ShipModuleData implements Displayable
         recipePair.getValue().costStream()
                 .map(c->
                 {
-                    //String quantity = String.format("%,8d%n", c.getQuantity()).trim();
-
                     String quantity = c.getQuantity() < 0
                             ? "+" + Math.abs(c.getQuantity())
                             : "-" + c.getQuantity();
                     Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
                     next.setFont(UIFunctions.Style.size1Font);
+                    next.getStyleClass().add("light_color_label");
                     return next;
                 })
                 .forEach(label -> costEffectContainer.getChildren().add(label));
@@ -369,6 +381,7 @@ public class ShipModuleData implements Displayable
             Label modProgressLabel = new Label("Current Modification Progress: ");
             modProgressLabel.setFont(UIFunctions.Style.size2Font);
             modProgressLabel.setPadding(new Insets(0,0,5,0));
+            modProgressLabel.getStyleClass().add("general_panel_label");
 
             // here we set up the progress percentage value
             Label modProgressValue = new Label();
@@ -380,6 +393,7 @@ public class ShipModuleData implements Displayable
             // now add the labels to the progress box
             modProgressBox.getChildren().add(modProgressLabel);
             modProgressBox.getChildren().add(modProgressValue);
+            modProgressBox.setAlignment(Pos.BASELINE_CENTER);
 
             // finally add the progress indicator itself to the detail container
             detailsContainer.getChildren().add(modProgressBox);
@@ -425,7 +439,9 @@ public class ShipModuleData implements Displayable
                 modPane.setFont(UIFunctions.Style.size2Font);
                 modPane.setExpanded(false);
                 modPane.setAnimated(false);
+                modPane.getStyleClass().addAll("general_panel", "no_border");
                 VBox modBox = new VBox();
+                modBox.getStyleClass().addAll("information_panel", "no_border");
 
                 modificationType.getBluePrints()
                         .stream()
@@ -436,13 +452,14 @@ public class ShipModuleData implements Displayable
                             gradePane.setFont(UIFunctions.Style.size1Font);
                             gradePane.setExpanded(false);
                             gradePane.setAnimated(false);
+                            gradePane.getStyleClass().addAll("information_panel", "no_border");
                             VBox gradeBox = new VBox();
+                            gradeBox.getStyleClass().addAll("information_panel", "no_border");
 
                             mapBlueprint(blueprint)
                                     .map(this::createRecipeControl)
                                     .peek(button ->
                                     {
-                                        //button.setTextAlignment(TextAlignment.LEFT);
                                         button.prefWidthProperty().bind(modPane.widthProperty());
                                     })
                                     .forEach(b -> gradeBox.getChildren().add(b));
@@ -463,7 +480,9 @@ public class ShipModuleData implements Displayable
                 expPane.setFont(UIFunctions.Style.size2Font);
                 expPane.setExpanded(false);
                 expPane.setAnimated(false);
+                expPane.getStyleClass().add("general_panel");
                 VBox expBox = new VBox();
+                expBox.getStyleClass().add("information_panel");
 
                 experimentalType.getBluePrints()
                         .stream()
@@ -471,7 +490,6 @@ public class ShipModuleData implements Displayable
                         .map(this::createRecipeControl)
                         .peek(button ->
                         {
-                            //button.setTextAlignment(TextAlignment.LEFT);
                             button.prefWidthProperty().bind(expPane.widthProperty());
                         })
                         .forEach(b -> expBox.getChildren().add(b));
@@ -489,13 +507,13 @@ public class ShipModuleData implements Displayable
         TableColumn<Pair<ItemEffect, Label>, Pair<ItemEffect, Label>> nameColumn = new TableColumn<>();
         nameColumn.setCellValueFactory((param) -> new ReadOnlyObjectWrapper<>(param.getValue()));
         nameColumn.setCellFactory(UIFunctions.Data.moduleNameCellFactory);
-        nameColumn.setText("Statistic");
+        //nameColumn.setText("Statistic");
 
         TableColumn<Pair<ItemEffect, Label>, Label> valueColumn = new TableColumn<>();
         valueColumn.prefWidthProperty().set(125);
         valueColumn.setCellFactory(UIFunctions.Data.moduleEffectValueFactory);
         valueColumn.setCellValueFactory((param) -> new ReadOnlyObjectWrapper<>(param.getValue().getValue()));
-        valueColumn.setText("Value");
+        //valueColumn.setText("Value");
 
         TableColumn<Pair<ItemEffect, Label>, Label> unitColumn = new TableColumn<>();
         unitColumn.prefWidthProperty().set(75);
@@ -506,20 +524,26 @@ public class ShipModuleData implements Displayable
             unit.setFont(UIFunctions.Style.size2Font);
             return new ReadOnlyObjectWrapper<>(unit);
         });
-        unitColumn.setText("Unit");
-
+        //unitColumn.setText("Unit");
 
         TitledPane statPane = new TitledPane();
         statPane.setExpanded(false);
         statPane.setAnimated(false);
         statPane.setText("Module Statistics");
         statPane.setFont(UIFunctions.Style.size2Font);
+        statPane.setTextFill(UIFunctions.Style.neutralWhite);
+        statPane.getStyleClass().add("general_panel");
 
         VBox statBox = new VBox();
         statBox.fillWidthProperty().set(true);
-
+        statBox.getStyleClass().add("information_panel");
 
         TableView<Pair<ItemEffect, Label>> effectTable = new TableView<>();
+
+        effectTable.getStyleClass().addAll("no_header","no_scrollbars", "stat_table");
+        effectTable.setSelectionModel(null);
+        effectTable.addEventFilter(MouseEvent.MOUSE_CLICKED, Event::consume);
+        //effectTable.addEventFilter(ScrollEvent.ANY, Event::consume);
 
         effectTable.getColumns().add(nameColumn);
         effectTable.getColumns().add(valueColumn);
@@ -528,14 +552,19 @@ public class ShipModuleData implements Displayable
         nameColumn.prefWidthProperty()
                 .bind(effectTable.prefWidthProperty()
                         .subtract(valueColumn.prefWidthProperty())
-                        .subtract(unitColumn.prefWidthProperty())
-                        .subtract(35d));
+                        .subtract(unitColumn.prefWidthProperty()));
+                        //.subtract(1d));
 
-        effectTable.fixedCellSizeProperty().setValue(30);
+        //effectTable.fixedCellSizeProperty().setValue(30);
         effectTable.setItems(FXCollections.observableArrayList(effects));
-        effectTable.setPrefHeight((effects.size() * 30) + 34);
+        effectTable.prefHeightProperty()
+                .bind(effectTable.fixedCellSizeProperty()
+                        .multiply(Bindings.size(effectTable.getItems())).add(2));
+        //effectTable.setPrefHeight((effects.size() * 30));// + 5);
 
         effectTable.prefWidthProperty().bind(displayPane.widthProperty().subtract(30));
+
+        effectTable.getStyleClass().add("general_stat_table");
 
         statBox.getChildren().add(effectTable);
         statPane.setContent(statBox);
@@ -548,28 +577,30 @@ public class ShipModuleData implements Displayable
         Label moduleLabel = new Label(module.displayText() + " ");
         moduleLabel.setFont(UIFunctions.Style.size3Font);
         moduleLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
+        moduleLabel.getStyleClass().add("general_panel_label");
 
         HBox moduleNameContainer = new HBox();
         moduleNameContainer.getChildren().add(moduleLabel);
+        moduleNameContainer.getStyleClass().add("general_panel");
 
         VBox detailsContainer = new VBox();
         detailsContainer.setAlignment(Pos.CENTER_LEFT);
+        detailsContainer.getStyleClass().add("general_panel");
 
         renderModificationInfo(moduleNameContainer, detailsContainer);
 
         VBox effectsContainer = new VBox();
         effectsContainer.fillWidthProperty().setValue(true);
+        effectsContainer.getStyleClass().add("general_panel");
+
         detailsContainer.getChildren().add(effectsContainer);
 
         renderEffectTable(effectsContainer);
 
         HBox statContainer = new HBox();
-        statContainer.setBackground(new Background(new BackgroundFill(Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
         statContainer.getChildren().add(detailsContainer);
+        statContainer.getStyleClass().add("general_panel");
 
-        //VBox moduleDataContainer = new VBox();
-        //moduleDataContainer.getChildren().add(moduleNameContainer);
-        //moduleDataContainer.alignmentProperty().setValue(Pos.CENTER_LEFT);
         displayPane.setContent(statContainer);
         displayPane.setGraphic(moduleNameContainer);
         displayPane.setExpanded(false);
@@ -593,6 +624,7 @@ public class ShipModuleData implements Displayable
                 {
                     Label label =  new Label(effectPair.getValueString());
                     label.setFont(UIFunctions.Style.size2Font);
+                    label.getStyleClass().add("general_stat_label");
                     return new Pair<>(effectPair.getEffect(), label);
                 })
                 .collect(Collectors.toList());

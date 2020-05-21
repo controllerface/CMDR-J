@@ -13,6 +13,7 @@ import java.util.List;
 public enum Commodity implements ProcurementCost
 {
     // Chemicals
+    AGRONOMICTREATMENT(ItemGrade.Space),
     EXPLOSIVES(ItemGrade.Space),
     HYDROGENFUEL(ItemGrade.Space),
     HYDROGENPEROXIDE(ItemGrade.Mining),
@@ -227,8 +228,6 @@ public enum Commodity implements ProcurementCost
     THARGOIDTISSUESAMPLETYPE2(ItemGrade.Thargoid),
     THARGOIDTISSUESAMPLETYPE3(ItemGrade.Thargoid),
     THARGOIDTISSUESAMPLETYPE4(ItemGrade.Thargoid),
-
-
 
     // Slaves
     IMPERIALSLAVES(ItemGrade.Space),

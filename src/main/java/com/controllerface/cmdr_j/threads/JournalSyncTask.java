@@ -171,7 +171,6 @@ public class JournalSyncTask implements Runnable
                     lastFileSize = check.length();
                 }
 
-
                 if (check.exists())
                 {
                     reInitializeJournalData();
