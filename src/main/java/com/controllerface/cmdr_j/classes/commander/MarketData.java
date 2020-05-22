@@ -129,14 +129,14 @@ public class MarketData implements Displayable
     private Label createLocationHeaderLabel()
     {
         Label locationHeaderLabel = new Label("Relevant Locations");
-        locationHeaderLabel.getStyleClass().add("information_header");
+        locationHeaderLabel.getStyleClass().addAll("information_header", "base_font");
         return locationHeaderLabel;
     }
 
     private Label createLocationInfoLabel()
     {
         Label locationInfoLabel = new Label("TODO: get this information...");
-        locationInfoLabel.getStyleClass().add("market_data_info");
+        locationInfoLabel.getStyleClass().addAll("market_data_info", "base_font");
         locationInfoLabel.alignmentProperty().set(Pos.CENTER_LEFT);
         return locationInfoLabel;
     }
@@ -147,7 +147,7 @@ public class MarketData implements Displayable
         dataPanel.setAnimated(false);
         dataPanel.expandedProperty().setValue(false);
         dataPanel.setGraphic(createNameLabel());
-        dataPanel.getStyleClass().add("general_panel");
+        dataPanel.getStyleClass().addAll("general_panel", "base_font");
         dataPanel.alignmentProperty().set(Pos.CENTER_LEFT);
         return dataPanel;
     }
@@ -157,7 +157,7 @@ public class MarketData implements Displayable
         // build a string descriptor for this item and a Label used to display it in the GUI
         String itemDescriptor = category + " :: " + name;
         Label nameLabel = new Label(itemDescriptor);
-        nameLabel.getStyleClass().add("general_panel_label");
+        nameLabel.getStyleClass().addAll("general_panel_label", "base_font");
         nameLabel.alignmentProperty().set(Pos.CENTER_LEFT);
         return nameLabel;
     }

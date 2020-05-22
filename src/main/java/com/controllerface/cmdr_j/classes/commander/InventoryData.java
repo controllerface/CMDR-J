@@ -149,6 +149,7 @@ public class InventoryData implements Displayable
 
         mainGraphic.setAlignment(Pos.CENTER_LEFT);
         itemDetails.setAlignment(Pos.CENTER_LEFT);
+        itemDetails.getStyleClass().add("information_panel");
 
         capacityBar.setPadding(new Insets(6,6,0,6));
 
@@ -200,24 +201,24 @@ public class InventoryData implements Displayable
         // build a string descriptor for this item and a Label used to display it in the GUI
         String itemDescriptor = categoryString + " :: " + getItem().getLocalizedName();
         Label nameLabel = new Label(itemDescriptor);
-        nameLabel.setFont(UIFunctions.Style.size2Font);
+        nameLabel.getStyleClass().add("base_font");
         nameLabel.alignmentProperty().set(Pos.CENTER_LEFT);
+        nameLabel.getStyleClass().add("inventory_label");
         return nameLabel;
     }
 
     private Label createLocationHeaderLabel()
     {
         Label locationHeaderLabel = new Label("Relevant Locations");
-        locationHeaderLabel.setTextFill(UIFunctions.Style.darkOrange);
-        locationHeaderLabel.setFont(UIFunctions.Style.size2Font);
+        locationHeaderLabel.getStyleClass().addAll("inventory_label", "base_font");
         return locationHeaderLabel;
     }
 
     private Label createLocationInfoLabel()
     {
         Label locationInfoLabel = new Label(getItem().getLocationInformation());
-        locationInfoLabel.setFont(UIFunctions.Style.size1Font);
         locationInfoLabel.alignmentProperty().set(Pos.CENTER_LEFT);
+        locationInfoLabel.getStyleClass().addAll("light_color_label", "base_font");
         return locationInfoLabel;
     }
 
@@ -296,8 +297,8 @@ public class InventoryData implements Displayable
         dataPanel.expandedProperty().setValue(false);
         dataPanel.setGraphic(createNameLabel());
         dataPanel.alignmentProperty().set(Pos.CENTER_LEFT);
-        //dataPanel.setOnMouseEntered((e)->renderHave());
         dataPanel.setOnMouseMoved((e)->renderHave());
+        dataPanel.getStyleClass().addAll("general_panel", "base_font");
         return dataPanel;
     }
 
@@ -361,7 +362,8 @@ public class InventoryData implements Displayable
                                             yieldIcon.getBaseWidth(), yieldIcon.getBaseHeight(), "#b75200");
 
                                     Label toLabel = new Label(" to ");
-                                    toLabel.setFont(UIFunctions.Style.size1Font);
+                                    toLabel.getStyleClass().addAll("inventory_label", "base_font");
+
                                     HBox convBox = new HBox(from, toLabel, to);
                                     ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), recipe);
 
@@ -369,21 +371,21 @@ public class InventoryData implements Displayable
                                     HBox btnlbl = new HBox();
 
                                     Label descOpen = new Label();
-                                    Label descHave = new Label();
-                                    Label descClose = new Label();
+                                    descOpen.getStyleClass().addAll("inventory_label",  "base_font");
 
-                                    descOpen.setFont(UIFunctions.Style.size1Font);
-                                    descHave.setFont(UIFunctions.Style.size1Font);
-                                    descClose.setFont(UIFunctions.Style.size1Font);
+                                    Label descHave = new Label();
+                                    descHave.getStyleClass().addAll("base_font");
+                                    Label descClose = new Label();
+                                    descClose.getStyleClass().addAll("inventory_label",  "base_font");
 
                                     renderHave();
 
                                     String x = tradeCost.getQuantity()
-                                            + " "
-                                            + tradeCost.getCost().getLocalizedName()
+                                            //+ " "
+                                            //+ tradeCost.getCost().getLocalizedName()
                                             + " for "
                                             + Math.abs(tradeYield.getQuantity())
-                                            + " "
+                                            + " :: "
                                             + tradeYield.getCost().getLocalizedName()
                                             + " (";
 
@@ -392,8 +394,8 @@ public class InventoryData implements Displayable
                                     descHave.textProperty().bind(haveCount.asString());
                                     descHave.textFillProperty()
                                             .bind(Bindings.when(hasTrades)
-                                                    .then(UIFunctions.Style.darkOrange)
-                                                    .otherwise(UIFunctions.Style.neutralBlack));
+                                                    .then(UIFunctions.Style.standardOrange)
+                                                    .otherwise(UIFunctions.Style.darkOrange));
 
                                     descClose.setText(")");
 
@@ -411,8 +413,7 @@ public class InventoryData implements Displayable
                                     btnhldr.getChildren().add(btnlbl);
 
                                     Button button = new Button();
-
-                                    //button.disableProperty().bind(Bindings.when(canAfford()).then(false).otherwise(true));
+                                    button.getStyleClass().add("material_trade_button");
 
                                     button.setGraphic(btnhldr);
                                     button.prefWidthProperty().bind(itemDetails.widthProperty());
@@ -473,7 +474,6 @@ public class InventoryData implements Displayable
         // add the data pane to the main graphic object
         mainGraphic.getChildren().add(itemDataPane);
 
-
         itemDetails.getChildren().add(createLocationHeaderLabel());
         itemDetails.getChildren().add(createLocationInfoLabel());
         itemDetails.setBackground(new Background(new BackgroundFill(
@@ -489,7 +489,7 @@ public class InventoryData implements Displayable
             Label upgradeLabel = new Label("Upgrades");
             upgradeLabel.setPadding(new Insets(5,0,2,0));
             upgradeLabel.setTextFill(UIFunctions.Style.darkOrange);
-            upgradeLabel.setFont(UIFunctions.Style.size2Font);
+            upgradeLabel.getStyleClass().addAll("base_font");
             itemDetails.getChildren().add(upgradeLabel);
             itemDetails.getChildren().addAll(upgrades);
         }
@@ -499,7 +499,7 @@ public class InventoryData implements Displayable
             Label downgradeLabel = new Label("Downgrades");
             downgradeLabel.setPadding(new Insets(5,0,2,0));
             downgradeLabel.setTextFill(UIFunctions.Style.darkOrange);
-            downgradeLabel.setFont(UIFunctions.Style.size2Font);
+            downgradeLabel.getStyleClass().addAll("base_font");
             itemDetails.getChildren().add(downgradeLabel);
             itemDetails.getChildren().addAll(downgrades);
         }
@@ -508,7 +508,7 @@ public class InventoryData implements Displayable
         if (associatedString.isEmpty())
         {
             Label noUses = new Label();
-            noUses.setFont(UIFunctions.Style.size1Font);
+            noUses.getStyleClass().addAll("base_font");
             noUses.setText("No Crafting Uses");
             itemDetails.getChildren().add(noUses);
         }
@@ -517,7 +517,7 @@ public class InventoryData implements Displayable
             Label knownUsesLabel = new Label("Known Uses");
             knownUsesLabel.setPadding(new Insets(5,0,2,0));
             knownUsesLabel.setTextFill(UIFunctions.Style.darkOrange);
-            knownUsesLabel.setFont(UIFunctions.Style.size2Font);
+            knownUsesLabel.getStyleClass().addAll("base_font");
             itemDetails.getChildren().add(knownUsesLabel);
 
 
@@ -529,6 +529,7 @@ public class InventoryData implements Displayable
                 String items[] = category.trim().split("\n");
 
                 TitledPane knownUsesDropDown = new TitledPane();
+                knownUsesDropDown.getStyleClass().addAll( "base_font");
                 VBox knownUses = new VBox();
 
                 for (String descLine : items)
@@ -537,13 +538,13 @@ public class InventoryData implements Displayable
                     {
                         title=true;
                         Label useLabel = new Label(descLine);
-                        useLabel.setFont(UIFunctions.Style.size1Font);
+                        useLabel.getStyleClass().addAll("base_font");
                         knownUsesDropDown.setGraphic(useLabel);
                     }
                     else
                     {
                         Label associatedTasks = new Label(descLine);
-                        associatedTasks.setFont(UIFunctions.Style.size1Font);
+                        associatedTasks.getStyleClass().addAll("base_font");
                         knownUses.getChildren().add(associatedTasks);
 
                         knownUsesDropDown.setAnimated(false);

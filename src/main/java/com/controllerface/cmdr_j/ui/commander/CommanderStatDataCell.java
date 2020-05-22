@@ -35,7 +35,7 @@ public class CommanderStatDataCell extends TableCell<Pair<Statistic, String>, St
                     baseFontFamily = getFont().getFamily();
                 }
             }
-            setFont(UIFunctions.Style.size2Font);
+            getStyleClass().addAll("base_font");
         }
     }
 }

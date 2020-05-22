@@ -30,6 +30,7 @@ public class InventoryGradeCell extends TableCell<InventoryData, InventoryData>
         HBox hBox = new HBox();
 
         Label label = new Label();
+        label.getStyleClass().add("base_font");
         if (item.getItem().getGrade().getIcon() == null)
         {
             String grade = item.getItem().getGrade().toString();
@@ -47,7 +48,6 @@ public class InventoryGradeCell extends TableCell<InventoryData, InventoryData>
             hBox.setPadding(new Insets(2,0,0,0));
         }
 
-        label.setFont(UIFunctions.Style.size2Font);
         label.setTooltip(new Tooltip(item.getItem().getGrade().toString()));
         hBox.getChildren().add(label);
         hBox.setAlignment(Pos.TOP_CENTER);

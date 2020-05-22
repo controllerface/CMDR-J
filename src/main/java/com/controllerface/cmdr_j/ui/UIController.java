@@ -1215,12 +1215,12 @@ public class UIController
                         hBox.setAlignment(Pos.TOP_LEFT);
 
                         Label typeLabel = new Label(item.getMessageType() + "  ");
+                        typeLabel.getStyleClass().addAll("base_font");
                         typeLabel.setTextFill(item.getMessageType().getColor());
-                        typeLabel.setFont(UIFunctions.Style.size1Font);
 
                         Label message = new Label(item.getMessage());
                         message.setWrapText(true);
-                        message.setFont(UIFunctions.Style.size4Font);
+                        message.getStyleClass().addAll("base_font");
                         hBox.getChildren().addAll(typeLabel, message);
                         message.prefWidthProperty()
                                 .bind(console_message_list.widthProperty()
@@ -1297,11 +1297,11 @@ public class UIController
         Label importLabel = new Label("Visit a market to see import commodities");
         Label exportLabel = new Label("Visit a market to see export commodities");
 
-        procListLabel.setFont(UIFunctions.Style.size4Font);
-        recipeTableLabel.setFont(UIFunctions.Style.size4Font);
-        costTableLabel.setFont(UIFunctions.Style.size4Font);
-        importLabel.setFont(UIFunctions.Style.size4Font);
-        exportLabel.setFont(UIFunctions.Style.size4Font);
+        procListLabel.getStyleClass().addAll("base_font");
+        recipeTableLabel.getStyleClass().addAll("base_font");
+        costTableLabel.getStyleClass().addAll("base_font");
+        importLabel.getStyleClass().addAll("base_font");
+        exportLabel.getStyleClass().addAll("base_font");
 
         procurement_list.setPlaceholder(procListLabel);
         procurement_task_table.setPlaceholder(recipeTableLabel);
@@ -1314,10 +1314,10 @@ public class UIController
         Label mfdTableLabel = new Label("You are not carrying any manufactured materials");
         Label dataTableLabel = new Label("You are not carrying any encoded data");
 
-        cargoTableLabel.setFont(UIFunctions.Style.size4Font);
-        rawTableLabel.setFont(UIFunctions.Style.size4Font);
-        mfdTableLabel.setFont(UIFunctions.Style.size4Font);
-        dataTableLabel.setFont(UIFunctions.Style.size4Font);
+        cargoTableLabel.getStyleClass().addAll("base_font");
+        rawTableLabel.getStyleClass().addAll("base_font");
+        mfdTableLabel.getStyleClass().addAll("base_font");
+        dataTableLabel.getStyleClass().addAll("base_font");
 
         cargo_table.setPlaceholder(cargoTableLabel);
         raw_table.setPlaceholder(rawTableLabel);
@@ -1325,11 +1325,11 @@ public class UIController
         data_table.setPlaceholder(dataTableLabel);
 
         Label messageLabel = new Label("Loading Message Log...");
-        messageLabel.setFont(UIFunctions.Style.size4Font);
+        messageLabel.getStyleClass().addAll("base_font");
         console_message_list.setPlaceholder(messageLabel);
 
         Label messageLabel2 = new Label("Not currently in a ship...");
-        messageLabel2.setFont(UIFunctions.Style.size4Font);
+        messageLabel2.getStyleClass().addAll("base_font");
         core_module_table.setPlaceholder(messageLabel2);
     }
 
@@ -1376,7 +1376,7 @@ public class UIController
             label.setText(q);
 
             label.paddingProperty().setValue(new Insets(5,0,0,0));
-            label.setFont(UIFunctions.Style.size2Font);
+            label.getStyleClass().addAll("inventory_label", "base_font");
             return new ReadOnlyObjectWrapper<>(label);
         };
 

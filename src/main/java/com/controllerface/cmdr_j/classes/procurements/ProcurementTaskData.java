@@ -159,7 +159,7 @@ public class ProcurementTaskData implements Displayable
         countLabel.setMaxWidth(54);
         countLabel.setMinWidth(54);
         countLabel.setAlignment(Pos.CENTER);
-        countLabel.setFont(UIFunctions.Style.size4Font);
+        countLabel.getStyleClass().addAll("base_font");
 
         subtractButton.setOnAction((e) -> inventoryUpdate.accept(-1, asPair()));
         addButton.setOnAction((e) -> inventoryUpdate.accept(1, asPair()));
@@ -231,11 +231,12 @@ public class ProcurementTaskData implements Displayable
         descriptionContainer.getChildren().clear();
 
         TitledPane titledPane = new TitledPane();
+        titledPane.getStyleClass().addAll("base_font");
         titledPane.setAnimated(false);
         titledPane.setExpanded(false);
 
         nameLabel.setPrefHeight(20);
-        nameLabel.setFont(UIFunctions.Style.size2Font);
+        nameLabel.getStyleClass().addAll("base_font");
         nameLabel.paddingProperty().set(new Insets(2, 0, 2, 0));
 
         titledPane.setContent(costEffectContainer);
@@ -377,7 +378,7 @@ public class ProcurementTaskData implements Displayable
                             + String.format("%,8d%n", d2).trim();
 
                     Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
-                    next.setFont(UIFunctions.Style.size1Font);
+                    next.getStyleClass().addAll("base_font");
                     next.setTextFill(hasEnough ? UIFunctions.Style.neutralBlack : UIFunctions.Style.negativeRed);
                     return next;
                 })
@@ -396,11 +397,11 @@ public class ProcurementTaskData implements Displayable
                 double distance = currentSystem==null ? 0.0 : currentSystem.distanceBetween(engineer.getLocation());
                 Label engineerLabel = new Label(engineer.getFullName() + " :: "
                         + engineer.getLocation().getSystemName() + " (" + distance + " Ly)");
+                engineerLabel.getStyleClass().addAll("base_font");
                 Tooltip locationTip = new Tooltip(engineer.getFullName() + " is " + distance +
                         " light years from your current location ("+(currentSystem==null?"nowhere":currentSystem.getSystemName())+")");
-                locationTip.setFont(UIFunctions.Style.size1Font);
+                locationTip.getStyleClass().addAll("base_font");
                 engineerLabel.setTooltip(locationTip);
-                engineerLabel.setFont(UIFunctions.Style.size1Font);
                 engineerLabel.setTextFill(UIFunctions.Style.darkOrange);
                 costEffectContainer.getChildren().add(engineerLabel);
             }

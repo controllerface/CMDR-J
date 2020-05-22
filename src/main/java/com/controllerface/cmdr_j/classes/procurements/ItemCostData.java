@@ -176,10 +176,10 @@ public class ItemCostData implements Displayable
         {
             Label commitLabel = new Label("Committed Tasks");
             commitLabel.setTextFill(UIFunctions.Style.darkOrange);
-            commitLabel.setFont(UIFunctions.Style.size2Font);
+            commitLabel.getStyleClass().addAll("base_font");
 
             Label commitInfo = new Label(String.join("\n", cachedLabels));
-            commitInfo.setFont(UIFunctions.Style.size1Font);
+            commitInfo.getStyleClass().addAll("base_font");
             commitInfo.alignmentProperty().set(Pos.CENTER_LEFT);
 
             Separator separator1 = new Separator();
@@ -190,10 +190,10 @@ public class ItemCostData implements Displayable
 
         Label locationLabel = new Label("Relevant Locations");
         locationLabel.setTextFill(UIFunctions.Style.darkOrange);
-        locationLabel.setFont(UIFunctions.Style.size2Font);
+        locationLabel.getStyleClass().addAll("base_font");
 
         Label locationInfo = new Label(cost.getLocationInformation());
-        locationInfo.setFont(UIFunctions.Style.size1Font);
+        locationInfo.getStyleClass().addAll("base_font");
         locationInfo.alignmentProperty().set(Pos.CENTER_LEFT);
 
         locationContainer.getChildren().addAll(locationLabel, locationInfo);
@@ -287,7 +287,7 @@ public class ItemCostData implements Displayable
                                 Region to = generateIcon(tradeYield.getCost().getGrade());
 
                                 Label toLabel = new Label(" to ");
-                                toLabel.setFont(UIFunctions.Style.size1Font);
+                                toLabel.getStyleClass().addAll("base_font");
                                 HBox convBox = new HBox(from, toLabel, to);
 
                                 ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), trade.tradeRecipe);
@@ -296,7 +296,7 @@ public class ItemCostData implements Displayable
                                 HBox btnlbl = new HBox();
 
                                 Label desc = new Label();
-                                desc.setFont(UIFunctions.Style.size1Font);
+                                desc.getStyleClass().addAll("base_font");
                                 desc.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
                                 Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
@@ -318,7 +318,7 @@ public class ItemCostData implements Displayable
                                         .count();
 
                                 Label desc3 = new Label("  (" + String.format("%02d", max) + ")");
-                                desc3.setFont(UIFunctions.Style.size1Font);
+                                desc3.getStyleClass().addAll("base_font");
                                 desc3.alignmentProperty().setValue(Pos.CENTER);
 
                                 Region region1 = new Region();
@@ -347,7 +347,7 @@ public class ItemCostData implements Displayable
                         .map(trade ->
                         {
                             Label label = new Label(trade.tradeRecipe.getShortLabel());
-                            label.setFont(UIFunctions.Style.size1Font);
+                            label.getStyleClass().addAll("base_font");
                             label.setTextFill(UIFunctions.Style.negativeRed);
                             return label;
                         })
@@ -358,7 +358,7 @@ public class ItemCostData implements Displayable
                         .map(trade ->
                         {
                             Label label = new Label(trade.tradeRecipe.getShortLabel());
-                            label.setFont(UIFunctions.Style.size1Font);
+                            label.getStyleClass().addAll("base_font");
                             label.setTextFill(UIFunctions.Style.darkOrange);
                             return label;
                         })
@@ -369,7 +369,7 @@ public class ItemCostData implements Displayable
                         .map(trade ->
                         {
                             Label label = new Label(trade.tradeRecipe.getShortLabel());
-                            label.setFont(UIFunctions.Style.size1Font);
+                            label.getStyleClass().addAll("base_font");
                             label.setTextFill(UIFunctions.Style.darkYellow);
                             return label;
                         })
@@ -382,7 +382,7 @@ public class ItemCostData implements Displayable
                     recommendedTradesExpanded.set(false);
                     Label noTrades = new Label("No Available Trades");
                     noTrades.setTextFill(UIFunctions.Style.darkOrange);
-                    noTrades.setFont(UIFunctions.Style.size2Font);
+                    noTrades.getStyleClass().addAll("base_font");
                     locationContainer.getChildren().add(noTrades);
                 }
                 else
@@ -392,7 +392,7 @@ public class ItemCostData implements Displayable
                     Button topTrade = recommendTrades.remove(0);
                     Label topLabel = new Label("Top Trade");
                     topLabel.setTextFill(UIFunctions.Style.darkOrange);
-                    topLabel.setFont(UIFunctions.Style.size2Font);
+                    topLabel.getStyleClass().addAll("base_font");
                     Separator sep = new Separator();
                     sep.setPadding(new Insets(5,0,5,0));
                     tradeBox.getChildren().add(sep);
@@ -401,14 +401,14 @@ public class ItemCostData implements Displayable
 
                     Label tradesLabel = new Label("Other Trades");
                     tradesLabel.setTextFill(UIFunctions.Style.darkOrange);
-                    tradesLabel.setFont(UIFunctions.Style.size2Font);
+                    tradesLabel.getStyleClass().addAll("base_font");
                     locationContainer.getChildren().add(tradesLabel);
 
 
                     if (!recommendTrades.isEmpty())
                     {
                         Label tradeLabel = new Label("Available Trades");
-                        tradeLabel.setFont(UIFunctions.Style.size1Font);
+                        tradeLabel.getStyleClass().addAll("base_font");
                         TitledPane tradePane = new TitledPane();
                         tradePane.setAnimated(false);
                         tradePane.setExpanded(recommendedTradesExpanded.get());
@@ -435,10 +435,11 @@ public class ItemCostData implements Displayable
                 {
                     String labelText = "Unavailable Trades";
                     Label tradeLabel = new Label(labelText);
-                    tradeLabel.setFont(UIFunctions.Style.size1Font);
+                    tradeLabel.getStyleClass().addAll("base_font");
                     TitledPane tradePane = new TitledPane();
+                    tradePane.getStyleClass().addAll("base_font");
                     Tooltip tooltip = new Tooltip("Trades which are not optimal or for witch you\n have insufficient materials to complete the trade");
-                    tooltip.setFont(UIFunctions.Style.size1Font);
+                    tooltip.getStyleClass().addAll("base_font");
                     tradeLabel.setTooltip(tooltip);
                     tradePane.setAnimated(false);
                     tradePane.setExpanded(otherTradesExpanded.get());
@@ -449,21 +450,21 @@ public class ItemCostData implements Displayable
                     if (!overCommittedTrades.isEmpty())
                     {
                         Label committedLabel = new Label("Committed to Other Trades");
-                        committedLabel.setFont(UIFunctions.Style.size1Font);
+                        committedLabel.getStyleClass().addAll("base_font");
                         vBox.getChildren().add(committedLabel);
                         overCommittedTrades.forEach(trade -> vBox.getChildren().add(trade));
                     }
                     if (!avoidedTrades.isEmpty())
                     {
                         Label avoidLabel = new Label("Conflicts with Ongoing Tasks");
-                        avoidLabel.setFont(UIFunctions.Style.size1Font);
+                        avoidLabel.getStyleClass().addAll("base_font");
                         vBox.getChildren().add(avoidLabel);
                         avoidedTrades.forEach(trade -> vBox.getChildren().add(trade));
                     }
                     if (!insufficientTrades.isEmpty())
                     {
                         Label insufficientLabel = new Label("Insufficient Materials");
-                        insufficientLabel.setFont(UIFunctions.Style.size1Font);
+                        insufficientLabel.getStyleClass().addAll("base_font");
                         vBox.getChildren().add(insufficientLabel);
                         insufficientTrades.forEach(trade->vBox.getChildren().add(trade));
                     }
@@ -516,6 +517,7 @@ public class ItemCostData implements Displayable
         descriptionContainer.setAlignment(Pos.CENTER);
 
         TitledPane titledPane = new TitledPane();
+        titledPane.getStyleClass().addAll("base_font");
         titledPane.setAnimated(false);
         titledPane.setExpanded(false);
 
@@ -541,7 +543,7 @@ public class ItemCostData implements Displayable
 
         Label costLabel = new Label(type + " :: "  + cost.getLocalizedName()) ;
         costLabel.setPrefHeight(20);
-        costLabel.setFont(UIFunctions.Style.size2Font);
+        costLabel.getStyleClass().addAll("base_font");
         costLabel.paddingProperty().set(new Insets(2,0,2,0));
 
         renderProgress();

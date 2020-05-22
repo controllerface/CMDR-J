@@ -66,18 +66,6 @@ public class UIFunctions
         public static final Color darkYellow = Color.rgb(0xb7, 0x7d, 0x00);
         public static final Color darkRed = Color.rgb(0xb7, 0x00, 0x00);
         public static final Color hotBlue = Color.rgb(0x00, 0x77, 0xcc);
-
-
-        static final Font baseFont = Font.getDefault();
-        static final double size1 = baseFont.getSize() + (baseFont.getSize() / 5);
-        static final double size2 = baseFont.getSize() + (baseFont.getSize() / 4);
-        static final double size3 = baseFont.getSize() + (baseFont.getSize() / 3);
-        static final double size4 = baseFont.getSize() + (baseFont.getSize() / 2);
-
-        public static final Font size1Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size1);
-        public static final Font size2Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size2);
-        public static final Font size3Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size3);
-        public static final Font size4Font = Font.font(baseFont.getFamily(), FontWeight.BOLD, size4);
     }
 
     public static class Icons
@@ -273,9 +261,8 @@ public class UIFunctions
                     return;
                 }
                 Label name = new Label(item.getKey().toString());
-                name.setFont(Style.size2Font);
+                name.getStyleClass().addAll("general_stat_label", "base_font");
                 name.setPadding(new Insets(0,0,0,5));
-                name.getStyleClass().add("general_stat_label");
                 setGraphic(name);
             }
         };
@@ -380,7 +367,7 @@ public class UIFunctions
             Label nextLabel = new Label();
 
             // todo: in the future this will be done with CSS
-            nextLabel.setFont(Style.size1Font);
+            nextLabel.getStyleClass().addAll("base_font");
 
             // get the "more is good" flag for this effect
             boolean moreIsGood = pair.getEffect().isMoreGood();

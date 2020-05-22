@@ -3,6 +3,7 @@
  */
 package com.controllerface.cmdr_j.ui;
 
+import com.controllerface.cmdr_j.Main;
 import com.controllerface.cmdr_j.classes.WindowDimensions;
 import javafx.application.Application;
 import javafx.application.Preloader;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -55,6 +57,9 @@ public class CommanderJ extends Application
         primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/cmdrj_icon.png")));
 
         AtomicReference<WindowDimensions> dimensions = new AtomicReference<>();
+
+        //Font.loadFont(Main.class.getResource("/Sintony-Regular.ttf").toExternalForm(), 18);
+        //Font.loadFont(Main.class.getResource("/Sintony-Bold.ttf").toExternalForm(), 18);
 
         Parent root = loadRoot();
         root.getStyleClass().add("main");

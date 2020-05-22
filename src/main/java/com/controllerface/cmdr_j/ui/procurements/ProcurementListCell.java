@@ -53,7 +53,7 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
         {
             VBox buttonBox = new VBox(1);
             Label gradeLabel = new Label(item.getRecipe().getShortLabel() + "  ");
-            gradeLabel.setFont(UIFunctions.Style.size3Font);
+            gradeLabel.getStyleClass().add("base_font");
             gradeLabel.paddingProperty().setValue(new Insets(0,0,0,5));
 
             List<CostData> data = this.getItem()
@@ -97,6 +97,7 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
 
 
             TitledPane infoPane = new TitledPane();
+            infoPane.getStyleClass().addAll("base_font");
             infoPane.setExpanded(false);
             infoPane.setAnimated(false);
             infoPane.setGraphic(buttonBox);
@@ -128,7 +129,7 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
                                 ? "+" + Math.abs(c.getQuantity())
                                 : "-" + c.getQuantity();
                         Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
-                        next.setFont(UIFunctions.Style.size1Font);
+                        next.getStyleClass().addAll("base_font");
                         return next;
                     })
                     .forEach(label -> costEffectContainer.getChildren().add(label));
@@ -145,7 +146,7 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
                 {
                     Label engineerLabel = new Label(engineer.getFullName() + " :: "
                             + engineer.getLocation().getSystemName());
-                    engineerLabel.setFont(UIFunctions.Style.size1Font);
+                    engineerLabel.getStyleClass().addAll("base_font");
                     engineerLabel.setTextFill(UIFunctions.Style.darkOrange);
                     costEffectContainer.getChildren().add(engineerLabel);
                 }
@@ -179,7 +180,7 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
             add.setAlignment(Pos.CENTER);
             add.setOnMouseClicked((e) -> addMod.accept(this.getItem()));
 
-            add.setFont(UIFunctions.Style.size2Font);
+            add.getStyleClass().addAll("base_font");
             add.prefHeightProperty().set(33);
             add.prefWidthProperty().set(33);
             add.setGraphic(addGraphic);
@@ -231,7 +232,7 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
             tooltip = new Tooltip(missingMessage);
         }
 
-        tooltip.setFont(UIFunctions.Style.size3Font);
+        tooltip.getStyleClass().addAll("base_font");
         progressIndicator.setTooltip(tooltip);
 
         return progressIndicator;

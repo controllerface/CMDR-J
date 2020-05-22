@@ -1,9 +1,39 @@
+@font-face
+{
+    src: url('Sintony-Bold.ttf');
+}
+
+@font-face
+{
+    src: url('Sintony-Regular.ttf');
+}
+
+@font-face
+{
+    src: url('EUROCAPS.TTF');
+}
+
+
 .root
 {
     -fx-accent: #cccccc;
     -fx-focus-color: #cccccc;
     -fx-text-base-color: rgb(225, 150, 90);
     -fx-background: #222222;
+    -fx-font-family: 'Euro Caps';
+}
+
+.base_font
+{
+    -fx-font-family: 'Euro Caps';
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.progress-bar > .track
+{
+  /*-fx-text-box-border: forestgreen;*/
+  -fx-control-inner-background: #111111;
 }
 
 .table-view
@@ -31,7 +61,7 @@
 .tab-pane .tab
 {
     -fx-background-color: #222222;
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
 
@@ -90,13 +120,13 @@ This is typically applied to the "background" portion of these panels
 
 .general_panel > .title
 {
-   -fx-background-color: #111111;
+    -fx-background-color: transparent;
 }
 
 .general_panel_label
 {
-   -fx-text-fill: rgb(225, 150, 90);
-   -fx-background-color: transparent;
+    -fx-text-fill: rgb(225, 150, 90);
+    -fx-background-color: transparent;
 }
 
 .light_color_label
@@ -173,22 +203,54 @@ Ship module statistics tables
 
 .general_stat_label
 {
-   -fx-text-fill: rgb(200, 200, 200);
-   -fx-background-color: transparent;
+    -fx-text-fill: rgb(200, 200, 200);
+    -fx-background-color: transparent;
 }
 
 .general_stat_table .column-header > .label
 {
-  -fx-background-color: #333333;
-  -fx-font-size: 12;
-  -fx-font-weight: bold;
-  -fx-text-fill: rgb(200, 200, 200);
+    -fx-background-color: #333333;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgb(200, 200, 200);
 }
 
+.material_trade_button
+{
+    -fx-background-color:
+        #444444,
+        linear-gradient(#444444, #555555),
+        linear-gradient(#444444 0%, #454545 49%, #454545 50%, #555555 100%);
+    -fx-background-radius: 3,2,1;
+}
+
+.material_trade_button:hover
+{
+    -fx-background-color:
+        #665544,
+        linear-gradient(#666666, #777777),
+        linear-gradient(#665544 0%, #675645 49%, #675645 50%, #776655 100%);
+    -fx-background-radius: 3,2,1;
+}
+
+.titled-pane:hover > .title
+{
+    -fx-background-color:
+        #665544,
+        linear-gradient(#666666, #777777),
+        linear-gradient(#665544 0%, #675645 49%, #675645 50%, #776655 100%);
+    -fx-background-radius: 3,2,1;
+}
+
+.inventory_label
+{
+    -fx-text-fill: rgb(225, 150, 90);
+}
 
 .message_list .scroll-bar:horizontal .increment-arrow,
 .message_list .scroll-bar:horizontal .decrement-arrow,
 .message_list .scroll-bar:horizontal .increment-button,
-.message_list .scroll-bar:horizontal .decrement-button {
+.message_list .scroll-bar:horizontal .decrement-button
+{
     -fx-padding:0;
 }
