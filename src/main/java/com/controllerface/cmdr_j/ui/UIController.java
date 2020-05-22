@@ -55,6 +55,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -252,22 +253,6 @@ public class UIController
     @FXML private Canvas mini_map;
     @FXML private Slider mini_map_scale;
 
-    @FXML private ColorPicker msg_general_color;
-    @FXML private ColorPicker msg_inventory_color;
-    @FXML private ColorPicker msg_loadout_color;
-    @FXML private ColorPicker msg_engineering_color;
-    @FXML private ColorPicker msg_combat_color;
-    @FXML private ColorPicker msg_travel_color;
-    @FXML private ColorPicker msg_exploration_color;
-
-    @FXML private CheckBox msg_general_filter;
-    @FXML private CheckBox msg_inventory_filter;
-    @FXML private CheckBox msg_loadout_filter;
-    @FXML private CheckBox msg_engineering_filter;
-    @FXML private CheckBox msg_combat_filter;
-    @FXML private CheckBox msg_travel_filter;
-    @FXML private CheckBox msg_exploration_filter;
-
     /*
     Backing lists for the procurement task UI elements
      */
@@ -284,8 +269,8 @@ public class UIController
 
     private final ObservableList<MessageData> consoleBackingList = FXCollections.observableArrayList();
 
-    private final ObservableList<MarketData> market0 = FXCollections.observableArrayList();
-    private final ObservableList<MarketData> market1 = FXCollections.observableArrayList();
+    private final ObservableList<MarketData> importMarketData = FXCollections.observableArrayList();
+    private final ObservableList<MarketData> exportMarketData = FXCollections.observableArrayList();
 
 
     /*
@@ -311,7 +296,7 @@ public class UIController
      * will be added to this map. Note that all yields are accumulated this way in the map. I.e, if the player also
      * adds a trade task to trade 1 units of Niobium for 9 units of Carbon, this map will contain 12 units of carbon.
      */
-    private final Map<ProcurementCost, Integer> tradeYieldCache = new HashMap<>();
+    private final Map<ProcurementCost, Integer> tradeYieldCache = new ConcurrentHashMap<>();
 
     /**
      * Keeps track of materials that MAY be procured at some time in the future, provided a trade task is completed.
@@ -340,7 +325,7 @@ public class UIController
 
     private final AtomicInteger queuedMessages = new AtomicInteger(0);
     private final AtomicInteger processedMessages = new AtomicInteger(0);
-    private final Map<UserTransaction.MessageType, Boolean> messageTypeFilters = new HashMap<>();
+    //private final Map<UserTransaction.MessageType, Boolean> messageTypeFilters = new HashMap<>();
 
     private final BlockingQueue<MessageData> messageQueue = new LinkedBlockingDeque<>();
     private final AtomicBoolean hasMessages = new AtomicBoolean(false);
@@ -391,7 +376,6 @@ public class UIController
     {
         msgs.stream()
                 .filter(Objects::nonNull)
-                .filter((m) -> messageTypeFilters.get(m.getMessageType()))
                 .forEach(consoleBackingList::add);
 
         processedMessages.addAndGet(msgs.size());
@@ -625,7 +609,10 @@ public class UIController
     }
 
 
-    private double calculateDistance(double currentLong, double currentLat, double waypointLongitude, double waypointLatitude)
+    private double calculateDistance(double currentLong,
+                                     double currentLat,
+                                     double waypointLongitude,
+                                     double waypointLatitude)
     {
         double latDistance = Math.toRadians(waypointLatitude - currentLat);
         double lonDistance = Math.toRadians(waypointLongitude - currentLong);
@@ -683,8 +670,8 @@ public class UIController
 
     private void initializeMarketTables()
     {
-        market_table.setItems(market0);
-        market_table1.setItems(market1);
+        market_table.setItems(importMarketData);
+        market_table1.setItems(exportMarketData);
 
         bindTableResize(market_table, market_commodity_col);
         bindTableResize(market_table1, market_commodity_col1);
@@ -693,8 +680,7 @@ public class UIController
         final Callback<TableColumn<MarketData, MarketData>, TableCell<MarketData, MarketData>>
                 commodityCellFactory = (x) ->
         {
-            TableCell c = new CostDataCell();
-
+            TableCell<?,?> c = new CostDataCell();
             return ((TableCell<MarketData, MarketData>) c);
         };
 
@@ -778,60 +764,6 @@ public class UIController
 
         renderMiniMap();
 
-        messageTypeFilters.put(UserTransaction.MessageType.GENERAL, msg_general_filter.isSelected());
-        messageTypeFilters.put(UserTransaction.MessageType.INVENTORY, msg_inventory_filter.isSelected());
-        messageTypeFilters.put(UserTransaction.MessageType.LOADOUT, msg_loadout_filter.isSelected());
-        messageTypeFilters.put(UserTransaction.MessageType.ENGINEERING, msg_engineering_filter.isSelected());
-        messageTypeFilters.put(UserTransaction.MessageType.COMBAT, msg_combat_filter.isSelected());
-        messageTypeFilters.put(UserTransaction.MessageType.TRAVEL, msg_travel_filter.isSelected());
-        messageTypeFilters.put(UserTransaction.MessageType.EXPLORATION, msg_exploration_filter.isSelected());
-
-        // TODO: code below should be in separate method(s)
-
-        msg_general_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
-        {
-            messageTypeFilters.put(UserTransaction.MessageType.GENERAL, newValue);
-        });
-
-        msg_inventory_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
-        {
-            messageTypeFilters.put(UserTransaction.MessageType.INVENTORY, newValue);
-        });
-
-        msg_loadout_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
-        {
-            messageTypeFilters.put(UserTransaction.MessageType.LOADOUT, newValue);
-        });
-
-        msg_engineering_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
-        {
-            messageTypeFilters.put(UserTransaction.MessageType.ENGINEERING, newValue);
-        });
-
-        msg_combat_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
-        {
-            messageTypeFilters.put(UserTransaction.MessageType.COMBAT, newValue);
-        });
-
-        msg_travel_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
-        {
-            messageTypeFilters.put(UserTransaction.MessageType.TRAVEL, newValue);
-        });
-
-        msg_exploration_filter.selectedProperty().addListener((observable, oldValue, newValue) ->
-        {
-            messageTypeFilters.put(UserTransaction.MessageType.EXPLORATION, newValue);
-        });
-
-
-        msg_combat_color.setValue(UserTransaction.MessageType.COMBAT.getColor());
-        msg_engineering_color.setValue(UserTransaction.MessageType.ENGINEERING.getColor());
-        msg_exploration_color.setValue(UserTransaction.MessageType.EXPLORATION.getColor());
-        msg_general_color.setValue(UserTransaction.MessageType.GENERAL.getColor());
-        msg_inventory_color.setValue(UserTransaction.MessageType.INVENTORY.getColor());
-        msg_loadout_color.setValue(UserTransaction.MessageType.LOADOUT.getColor());
-        msg_travel_color.setValue(UserTransaction.MessageType.TRAVEL.getColor());
-
         status_mark.onMouseClickedProperty().setValue((e)->
         {
             double markedLat = Double.parseDouble(status_latitude.getText());
@@ -865,6 +797,9 @@ public class UIController
     private void updateMarketTable(UserTransaction nextTransaction)
     {
         market_name.setText(nextTransaction.getMessage());
+
+        importMarketData.clear();
+        exportMarketData.clear();
 
         if (nextTransaction.getStatusObject().get("Items") != null)
         {
@@ -909,10 +844,9 @@ public class UIController
                                 "Commodity: " + data.getName() + " listed with no import or export information");
                     });
 
-            market0.clear();
-            market0.addAll(imports);
-            market1.clear();
-            market1.addAll(exports);
+
+            importMarketData.addAll(imports);
+            exportMarketData.addAll(exports);
         }
     }
 
@@ -1166,6 +1100,98 @@ public class UIController
         console_message_list.setItems(consoleBackingList);
         consoleBackingList.addListener((ListChangeListener<MessageData>) c -> console_message_list.refresh());
 
+        console_message_list.setSelectionModel(new MultipleSelectionModel<MessageData>()
+        {
+            @Override
+            public ObservableList<Integer> getSelectedIndices()
+            {
+                return FXCollections.emptyObservableList();
+            }
+
+            @Override
+            public ObservableList<MessageData> getSelectedItems()
+            {
+                return FXCollections.emptyObservableList();
+            }
+
+            @Override
+            public void selectIndices(int index, int... indices)
+            {
+
+            }
+
+            @Override
+            public void selectAll()
+            {
+
+            }
+
+            @Override
+            public void selectFirst()
+            {
+
+            }
+
+            @Override
+            public void selectLast()
+            {
+
+            }
+
+            @Override
+            public void clearAndSelect(int index)
+            {
+
+            }
+
+            @Override
+            public void select(int index)
+            {
+
+            }
+
+            @Override
+            public void select(MessageData obj)
+            {
+
+            }
+
+            @Override
+            public void clearSelection(int index)
+            {
+
+            }
+
+            @Override
+            public void clearSelection()
+            {
+
+            }
+
+            @Override
+            public boolean isSelected(int index)
+            {
+                return false;
+            }
+
+            @Override
+            public boolean isEmpty()
+            {
+                return false;
+            }
+
+            @Override
+            public void selectPrevious()
+            {
+
+            }
+
+            @Override
+            public void selectNext()
+            {
+
+            }
+        });
         // todo: abstract this factory out to UIFunctions or something
         console_message_list.setCellFactory(new Callback<ListView<MessageData>, ListCell<MessageData>>()
         {
@@ -1186,16 +1212,20 @@ public class UIController
                         }
                         HBox hBox = new HBox();
 
-                        hBox.setAlignment(Pos.CENTER_LEFT);
+                        hBox.setAlignment(Pos.TOP_LEFT);
 
                         Label typeLabel = new Label(item.getMessageType() + "  ");
                         typeLabel.setTextFill(item.getMessageType().getColor());
                         typeLabel.setFont(UIFunctions.Style.size1Font);
 
                         Label message = new Label(item.getMessage());
+                        message.setWrapText(true);
                         message.setFont(UIFunctions.Style.size4Font);
                         hBox.getChildren().addAll(typeLabel, message);
-
+                        message.prefWidthProperty()
+                                .bind(console_message_list.widthProperty()
+                                        .subtract(typeLabel.widthProperty())
+                                        .subtract(30));
                         setGraphic(hBox);
                     }
                 };
@@ -1264,14 +1294,20 @@ public class UIController
         Label procListLabel = new Label("<---- Select a Task Category");
         Label recipeTableLabel = new Label("Tracked Tasks Will Appear Here");
         Label costTableLabel = new Label("Tracked Items Will Appear Here");
+        Label importLabel = new Label("Visit a market to see import commodities");
+        Label exportLabel = new Label("Visit a market to see export commodities");
 
         procListLabel.setFont(UIFunctions.Style.size4Font);
         recipeTableLabel.setFont(UIFunctions.Style.size4Font);
         costTableLabel.setFont(UIFunctions.Style.size4Font);
+        importLabel.setFont(UIFunctions.Style.size4Font);
+        exportLabel.setFont(UIFunctions.Style.size4Font);
 
         procurement_list.setPlaceholder(procListLabel);
         procurement_task_table.setPlaceholder(recipeTableLabel);
         task_cost_table.setPlaceholder(costTableLabel);
+        market_table.setPlaceholder(importLabel);
+        market_table1.setPlaceholder(exportLabel);
 
         Label cargoTableLabel = new Label("You are not carrying any cargo");
         Label rawTableLabel = new Label("You are not carrying any raw materials");

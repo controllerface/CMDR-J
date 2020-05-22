@@ -185,3 +185,10 @@ Ship module statistics tables
   -fx-text-fill: rgb(200, 200, 200);
 }
 
+
+.message_list .scroll-bar:horizontal .increment-arrow,
+.message_list .scroll-bar:horizontal .decrement-arrow,
+.message_list .scroll-bar:horizontal .increment-button,
+.message_list .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}

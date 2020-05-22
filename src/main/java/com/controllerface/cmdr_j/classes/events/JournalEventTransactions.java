@@ -648,36 +648,6 @@ public class JournalEventTransactions
         context.getCommanderData().setShipModule(dataBuilder.build());
     }
 
-//    @SuppressWarnings("unchecked") // uses documented JSON object structure
-//    static void processLoadout(EventProcessingContext context)
-//    {
-//        JournalSyncTask.shipStats.forEach(context.getCommanderData()::removeStat);
-//
-//        setStatFromData(context, CoreInternalSlot.Ship);
-//        setStatFromData(context, CoreInternalSlot.ShipName);
-//        setStatFromData(context, CoreInternalSlot.ShipIdent);
-//
-//        String shipName = context.getCommanderData().getStat(CoreInternalSlot.Ship);
-//        Ship ship;
-//        try
-//        {
-//            ship = Ship.findShip(shipName);
-//            logLoadoutMessage(context, "Ship Type: " + ship.getBaseShipStats().getDisplayName());
-//            context.getCommanderData().setShip(ship);
-//            context.getCommanderData().getStarShip()
-//                    .setGivenName(extractStatString(context, CoreInternalSlot.ShipName));
-//            context.getCommanderData().getStarShip()
-//                    .setShipID(extractStatString(context, CoreInternalSlot.ShipIdent));
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-//        }
-//
-//        ((List<Map<String, Object>>) context.getRawData().get("Modules")).stream()
-//                .forEach(module -> setSlotFromLoadout(context, module));
-//    }
-
     @SuppressWarnings("unchecked")
     public static void processMarket(EventProcessingContext context)
     {
@@ -688,7 +658,7 @@ public class JournalEventTransactions
                 .setStatusObject(context.getRawData())
                 .build());
 
-        if (context.getRawData().get("Items")==null) return;
+        if (context.getRawData().get("Items") == null) return;
 
 
         ((List<Map<String, Object>>) context.getRawData().get("Items")).stream()

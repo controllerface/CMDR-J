@@ -95,7 +95,7 @@ public class JournalSyncTask implements Runnable
                 boolean supported = journalEvents.stream().anyMatch(event -> event.equals(eventName));
                 if (!supported)
                 {
-                    //System.out.println("Unsupported Event: " + eventName);
+                    System.out.println("Unsupported Event: " + eventName);
                 }
                 return supported;
             };

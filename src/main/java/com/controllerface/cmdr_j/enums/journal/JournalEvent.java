@@ -2,31 +2,32 @@ package com.controllerface.cmdr_j.enums.journal;
 
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.bounties.BountyHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.bounties.CapShipBondHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.bounties.FactionKillBondHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.commodities.*;
-import com.controllerface.cmdr_j.classes.events.handlers.items.engineers.EngineerContributionHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.engineers.EngineerCraftHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.engineers.TechnologyBrokerHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.materials.MaterialCollectedHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.materials.MaterialDiscardedHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.materials.MaterialTradeHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.materials.SynthesisHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.missions.*;
-import com.controllerface.cmdr_j.classes.events.handlers.items.modules.*;
-import com.controllerface.cmdr_j.classes.events.handlers.items.powerplay.PowerplayCollectHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.items.powerplay.PowerplayDeliverHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.stats.factions.ProgressHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.stats.factions.RankHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.stats.factions.ReputationHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.stats.market.MarketHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.stats.ship.*;
-import com.controllerface.cmdr_j.classes.events.handlers.stats.startup.CargoHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.stats.startup.LoadGameHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.stats.startup.MaterialsHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.stats.status.*;
-import com.controllerface.cmdr_j.classes.events.handlers.stats.travel.*;
+import com.controllerface.cmdr_j.classes.events.handlers.bounties.BountyHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.bounties.CapShipBondHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.bounties.FactionKillBondHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.commodities.*;
+import com.controllerface.cmdr_j.classes.events.handlers.engineers.EngineerContributionHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.engineers.EngineerCraftHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.engineers.EngineerProgressHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.engineers.TechnologyBrokerHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.materials.MaterialCollectedHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.materials.MaterialDiscardedHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.materials.MaterialTradeHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.materials.SynthesisHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.missions.*;
+import com.controllerface.cmdr_j.classes.events.handlers.modules.*;
+import com.controllerface.cmdr_j.classes.events.handlers.powerplay.PowerplayCollectHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.powerplay.PowerplayDeliverHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.powerplay.PowerplayHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.powerplay.PowerplaySalaryHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.factions.ProgressHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.factions.RankHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.factions.ReputationHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.commodities.MarketHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.ship.*;
+import com.controllerface.cmdr_j.classes.events.handlers.startup.*;
+import com.controllerface.cmdr_j.classes.events.handlers.status.*;
+import com.controllerface.cmdr_j.classes.events.handlers.travel.*;
 
 /**
  * This enum defines all of the Journal API events that are currently supported. By convention, enum value names are
@@ -60,22 +61,32 @@ public enum JournalEvent
     /*
     Ship
      */
+    RefuelAll(new RefuelAllHandler()),
     Outfitting(new OutfittingHandler()),
     Loadout(new LoadoutHandler()),
     SetUserShipName(new SetUserShipNameHandler()),
     FuelScoop(new FuelScoopHandler()),
     DiscoveryScan(new DiscoveryScanHandler()),
     Scan(new ScanHandler()),
+    Shipyard(new ShipyardHandler()),
     ShipyardBuy(new ShipyardBuyHandler()),
     ShipyardSell(new ShipyardSellHandler()),
     ShipyardTransfer(new ShipyardTransferHandler()),
+    StoredShips(new StoredShipsHandler()),
+    CarrierBuy(new CarrierBuyHandler()),
+    CarrierNameChange(new CarrierNameChangeHandler()),
 
     /*
     Startup
      */
+    Missions(new MissionsHandler()),
+    Powerplay(new PowerplayHandler()),
+    EngineerProgress(new EngineerProgressHandler()),
+    Commander(new CommanderHandler()),
     Cargo(new CargoHandler()),
     LoadGame(new LoadGameHandler()),
     Materials(new MaterialsHandler()),
+    SquadronStartup(new SquadronStartupHandler()),
     Fileheader(context -> {}),
 
     /*
@@ -88,17 +99,22 @@ public enum JournalEvent
     UnderAttack(new UnderAttackHandler()),
     LaunchSRV(new LaunchSRVHandler()),
     DockSRV(new DockSRVHandler()),
-
+    ModuleInfo(new ModuleInfoHandler()),
 
     /*
     Travel
      */
-
+    DockingRequested(new DockingRequestedHandler()),
+    DockingGranted(new DockingGrantedHandler()),
+    DockingDenied(new DockingDeniedHandler()),
+    FSSSignalDiscovered(new FSSSignalDiscoveredHandler()),
     ApproachBody(new ApproachBodyHandler()),
     ApproachSettlement(new ApproachSettlementHandler()),
     Docked(new DockedHandler()),
     FSDJump(new FSDJumpHandler()),
+    FSDTarget(new FSDTargetHandler()),
     Location(new LocationHandler()),
+    NavRoute(new NavRouteHandler()),
     StartJump(new StartJumpHandler()),
     SupercruiseEntry(new SupercruiseEntryHandler()),
     SupercruiseExit(new SupercruiseExitHandler()),
@@ -157,17 +173,20 @@ public enum JournalEvent
     ModuleSell(new ModuleSellHandler()),
     ModuleSellRemote(new ModuleSellRemoteHandler()),
     ModuleStore(new ModuleStoreHandler()),
+    StoredModules(new StoredModulesHandler()),
 
     /*
     PowerPlay
      */
     PowerplayCollect(new PowerplayCollectHandler()),
     PowerplayDeliver(new PowerplayDeliverHandler()),
-
+    PowerplaySalary(new PowerplaySalaryHandler()),
 
     /*
     Misc
      */
+    Music(new MusicHandler()),
+    Statistics(new StatisticsHandler()),
     Resurrect(new ResurrectHandler()),
     ReceiveText(new ReceiveTextHandler()),
     NpcCrewPaidWage(new NpcCrewPaidWageHandler()),

@@ -516,7 +516,7 @@ public class ShipModuleData implements Displayable
         //valueColumn.setText("Value");
 
         TableColumn<Pair<ItemEffect, Label>, Label> unitColumn = new TableColumn<>();
-        unitColumn.prefWidthProperty().set(75);
+        unitColumn.prefWidthProperty().set(100);
         unitColumn.setCellFactory(UIFunctions.Data.moduleEffectUnitFactory);
         unitColumn.setCellValueFactory(param ->
         {
@@ -527,7 +527,7 @@ public class ShipModuleData implements Displayable
         //unitColumn.setText("Unit");
 
         TitledPane statPane = new TitledPane();
-        statPane.setExpanded(false);
+        statPane.setExpanded(true);
         statPane.setAnimated(false);
         statPane.setText("Module Statistics");
         statPane.setFont(UIFunctions.Style.size2Font);
@@ -553,13 +553,12 @@ public class ShipModuleData implements Displayable
                 .bind(effectTable.prefWidthProperty()
                         .subtract(valueColumn.prefWidthProperty())
                         .subtract(unitColumn.prefWidthProperty()));
-                        //.subtract(1d));
 
         //effectTable.fixedCellSizeProperty().setValue(30);
         effectTable.setItems(FXCollections.observableArrayList(effects));
         effectTable.prefHeightProperty()
                 .bind(effectTable.fixedCellSizeProperty()
-                        .multiply(Bindings.size(effectTable.getItems())).add(2));
+                        .multiply(Bindings.size(effectTable.getItems())).add(5));
         //effectTable.setPrefHeight((effects.size() * 30));// + 5);
 
         effectTable.prefWidthProperty().bind(displayPane.widthProperty().subtract(30));
