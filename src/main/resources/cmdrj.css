@@ -13,7 +13,9 @@
     src: url('EUROCAPS.TTF');
 }
 
-
+/*
+There's a few top-level items that rely on this "root" style definition
+*/
 .root
 {
     -fx-accent: #cccccc;
@@ -23,18 +25,9 @@
     -fx-font-family: 'Euro Caps';
 }
 
-.base_font
-{
-    -fx-font-family: 'Euro Caps';
-    -fx-font-size: 18;
-    -fx-font-weight: bold;
-}
-
-.progress-bar > .track
-{
-  /*-fx-text-box-border: forestgreen;*/
-  -fx-control-inner-background: #111111;
-}
+/*
+Global settings for table view elements
+*/
 
 .table-view
 {
@@ -45,29 +38,6 @@
 {
     -fx-background-color: #333333;
     -fx-text-fill: rgb(200, 200, 200);
-}
-
-.add_task_button
-{
-    -fx-text-fill: rgb(0, 0, 0);
-    -fx-base: #88cc88;
-}
-
-.tab-pane tab:selected
-{
-    -fx-background-color: #222222;
-}
-
-.tab-pane .tab
-{
-    -fx-background-color: #222222;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-}
-
-.table-view
-{
-    -fx-background-color: transparent;
 }
 
 .table-view .filler
@@ -89,6 +59,173 @@
 {
     -fx-background-color: #222222;
     -fx-text-fill: rgb(225, 150, 90);
+}
+
+.table-view .column-header-background,
+.tree-table-view > .column-header-background
+{
+    -fx-background-color: #333333;
+}
+
+.scroll-bar
+{
+    -fx-block-increment: 1;
+    -fx-unit-increment: 1;
+}
+
+/*
+Color call checkboxes to look uniform
+*/
+.check-box .box
+{
+    -fx-background-color: #11111111;
+    -fx-border-color:grey;
+    -fx-border-radius:3px;
+}
+
+.check-box:selected .mark
+{
+    -fx-background-color: rgb(225, 150, 90);
+}
+
+.check-box:selected .box
+{
+    -fx-background-color: #222222;
+}
+
+
+/*
+The background of all progress bars
+*/
+.progress-bar > .track
+{
+  -fx-control-inner-background: #111111;
+}
+
+
+/*
+Global settings for tab panes
+*/
+.tab-pane tab:selected
+{
+    -fx-background-color: #222222;
+}
+
+.tab-pane .tab
+{
+    -fx-background-color: #222222;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+
+/*
+Global settings for titled panes (drop down menus)
+*/
+.titled-pane:hover > .title
+{
+    -fx-background-color:
+        #665544,
+        linear-gradient(#666666, #777777),
+        linear-gradient(#665544 0%, #675645 49%, #675645 50%, #776655 100%);
+    -fx-background-radius: 3,2,1;
+}
+
+
+.titled-pane > *.content
+{
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 0 0;
+}
+
+
+
+
+
+/*
+The main headers for most tabs use this font, EX: ship name/ID on loadout tab
+*/
+.header_font_large
+{
+    -fx-font-family: 'Euro Caps';
+    -fx-font-size: 40;
+}
+
+
+/*
+Sub-headers use this font, EX: ship make/model on loadout tab
+*/
+.header_font_small
+{
+    -fx-font-family: 'Euro Caps';
+    -fx-font-size: 24;
+}
+
+
+/*
+Pretty much everything else uses this font, there's just a couple things that fall back to the "root" font
+*/
+.base_font
+{
+    -fx-font-family: 'Euro Caps';
+    -fx-font-size: 18;
+}
+
+
+/*
+Used for a few places where only the font family is wanted, usually smaller text
+*/
+.base_font_style_only
+{
+    -fx-font-family: 'Euro Caps';
+}
+
+
+
+
+
+
+
+.add_task_button
+{
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-base: #88cc88;
+}
+
+
+
+
+.modification_pane .title
+{
+    -fx-background-color:
+        #665544,
+        linear-gradient(#332211 0%, #342312 49%, #342312 50%, #443322 100%);
+    -fx-background-radius: 3,2,1;
+}
+
+.experiment_pane .title
+{
+    -fx-background-color:
+        #665544,
+        linear-gradient(#333011 0%, #343112 49%, #343112 50%, #444022 100%);
+    -fx-background-radius: 3,2,1;
+}
+
+.stats_pane .title
+{
+    -fx-background-color:
+        #333333,
+        linear-gradient(#222222 0%, #232323 49%, #232323 50%, #333333 100%);
+    -fx-background-radius: 3,2,1;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-color: #444444;
+}
+
+.stats_pane > *.content
+{
+    -fx-background-color: transparent;
+    -fx-border-width: 0 1 1 1;
+    -fx-border-color: #444444;
 }
 
 
@@ -215,6 +352,16 @@ Ship module statistics tables
     -fx-text-fill: rgb(200, 200, 200);
 }
 
+.module_table
+{
+    -fx-border-color: transparent;
+}
+
+.module_table .table-row-cell
+{
+    -fx-table-cell-border-color: #333333;
+}
+
 .material_trade_button
 {
     -fx-background-color:
@@ -233,12 +380,21 @@ Ship module statistics tables
     -fx-background-radius: 3,2,1;
 }
 
-.titled-pane:hover > .title
+.task_count_button
+{
+    -fx-background-color:
+        #555555,
+        linear-gradient(#555555, #666666),
+        linear-gradient(#555555 0%, #565656 49%, #565656 50%, #666666 100%);
+    -fx-background-radius: 3,2,1;
+}
+
+.task_count_button:hover
 {
     -fx-background-color:
         #665544,
-        linear-gradient(#666666, #777777),
-        linear-gradient(#665544 0%, #675645 49%, #675645 50%, #776655 100%);
+        linear-gradient(#676767, #787878),
+        linear-gradient(#776655 0%, #786756 49%, #786756 50%, #887766 100%);
     -fx-background-radius: 3,2,1;
 }
 

@@ -143,7 +143,7 @@ public enum OptionalInternalSlot implements Statistic
     Military02("Military Compartment"),
     Military03("Military Compartment"),
 
-    PlanetaryApproachSuite("Planetary Approach Suite"),
+    PlanetaryApproachSuite("Planetary Approach"),
 
     ;
 

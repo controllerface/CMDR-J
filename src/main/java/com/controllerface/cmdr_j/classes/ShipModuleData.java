@@ -421,8 +421,6 @@ public class ShipModuleData implements Displayable
             moduleNameContainer.getChildren().add(expBox);
         }
 
-        // WORKING AREA
-        // write code here
 
         ProcurementType modificationType = module.modificationType();
         ProcurementType experimentalType = module.experimentalType();
@@ -435,7 +433,7 @@ public class ShipModuleData implements Displayable
                 modPane.setTextFill(UIFunctions.Style.darkOrange);
                 modPane.setExpanded(false);
                 modPane.setAnimated(false);
-                modPane.getStyleClass().addAll("general_panel", "base_font");
+                modPane.getStyleClass().addAll("modification_pane", "base_font");
                 VBox modBox = new VBox();
                 modBox.getStyleClass().addAll("information_panel", "base_font");
 
@@ -470,11 +468,11 @@ public class ShipModuleData implements Displayable
             if (experimentalType != null)
             {
                 TitledPane expPane = new TitledPane();
-                expPane.setText("Experimental Effects");
+                expPane.setText("Available Experimental Effects");
                 expPane.setTextFill(UIFunctions.Style.darkYellow);
                 expPane.setExpanded(false);
                 expPane.setAnimated(false);
-                expPane.getStyleClass().addAll("general_panel", "base_font");
+                expPane.getStyleClass().addAll("experiment_pane", "base_font");
                 VBox expBox = new VBox();
                 expBox.getStyleClass().addAll("information_panel", "base_font");
 
@@ -525,7 +523,7 @@ public class ShipModuleData implements Displayable
         statPane.setAnimated(false);
         statPane.setText("Module Statistics");
         statPane.setTextFill(UIFunctions.Style.neutralWhite);
-        statPane.getStyleClass().addAll("general_panel", "base_font");
+        statPane.getStyleClass().addAll("stats_pane", "base_font");
 
         VBox statBox = new VBox();
         statBox.fillWidthProperty().set(true);

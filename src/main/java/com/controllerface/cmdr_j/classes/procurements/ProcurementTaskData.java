@@ -110,13 +110,16 @@ public class ProcurementTaskData implements Displayable
     private HBox makeSpinner()
     {
         Label countLabel = new Label();
-
         Button subtractButton = new Button("-");
         Button addButton = new Button("+");
 
+        countLabel.getStyleClass().addAll("inventory_label");
+        subtractButton.getStyleClass().addAll("task_count_button");
+        addButton.getStyleClass().addAll("task_count_button");
+
         // Plus
         Line line1 = new Line();
-        line1.setStroke(Color.BLACK);
+        line1.setStroke(UIFunctions.Style.positiveBlue);
         line1.setStrokeWidth(3);
         line1.setStartX(-3);
         line1.setEndX(7);
@@ -124,7 +127,7 @@ public class ProcurementTaskData implements Displayable
         line1.setEndY(12);
 
         Line line2 = new Line();
-        line2.setStroke(Color.BLACK);
+        line2.setStroke(UIFunctions.Style.positiveBlue);
         line2.setStrokeWidth(3);
         line2.setStartX(2);
         line2.setEndX(2);
@@ -133,7 +136,7 @@ public class ProcurementTaskData implements Displayable
 
         // Minus
         Line line3 = new Line();
-        line3.setStroke(Color.BLACK);
+        line3.setStroke(UIFunctions.Style.negativeRed);
         line3.setStrokeWidth(3);
         line3.setStartX(-3);
         line3.setEndX(7);

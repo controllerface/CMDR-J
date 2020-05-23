@@ -39,7 +39,7 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label fx:id="ship_ID_label" text="unknown ID">
+                                    <Label fx:id="ship_ID_label" styleClass="header_font_large" text="unknown ID">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
                                        </font>
@@ -50,7 +50,7 @@
                                           <Insets left="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label text="::">
+                                    <Label styleClass="header_font_large" text="::">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
                                        </font>
@@ -61,7 +61,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="ship_name_label" text="unknown name">
+                                    <Label fx:id="ship_name_label" styleClass="header_font_large" text="unknown name">
                                        <font>
                                           <Font name="System Bold Italic" size="36.0" />
                                        </font>
@@ -76,7 +76,7 @@
                               </HBox>
                               <HBox layoutX="10.0" layoutY="10.0">
                                  <children>
-                                    <Label fx:id="ship_make_label" layoutX="77.0" layoutY="10.0" text="unknown manufacturer">
+                                    <Label fx:id="ship_make_label" layoutX="77.0" layoutY="10.0" styleClass="header_font_small" text="unknown manufacturer">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -87,7 +87,7 @@
                                           <Insets left="10.0" top="-15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label layoutX="20.0" layoutY="10.0" text="::">
+                                    <Label layoutX="20.0" layoutY="10.0" styleClass="header_font_small" text="::">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -98,7 +98,7 @@
                                           <Insets top="-15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="ship_type_label" text="unknown ship">
+                                    <Label fx:id="ship_type_label" styleClass="header_font_small" text="unknown ship">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -117,9 +117,9 @@
                                     <content>
                                       <AnchorPane>
                                              <children>
-                                                <TableView fx:id="core_module_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="core_module_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="module_table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
-                                                    <TableColumn fx:id="core_module_name_column" prefWidth="195.0" sortable="false" text="Core Module Slot" />
+                                                    <TableColumn fx:id="core_module_name_column" prefWidth="205.0" sortable="false" text="Core Module Slot" />
                                                     <TableColumn fx:id="core_module_data_column" minWidth="0.0" prefWidth="243.0" sortable="false" />
                                                   </columns>
                                                 </TableView>
@@ -131,9 +131,9 @@
                                     <content>
                                       <AnchorPane>
                                              <children>
-                                                <TableView fx:id="optional_module_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="optional_module_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" styleClass="module_table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="optional_module_name_column" prefWidth="195.0" sortable="false" text="Optional Module Slot" />
+                                                      <TableColumn fx:id="optional_module_name_column" prefWidth="205.0" sortable="false" text="Optional Module Slot" />
                                                       <TableColumn fx:id="optional_module_data_column" minWidth="0.0" prefWidth="233.0" sortable="false" />
                                                    </columns>
                                                 </TableView>
@@ -145,9 +145,9 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <TableView fx:id="hardpoint_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="hardpoint_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" styleClass="module_table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="hardpoint_name_column" prefWidth="195.0" sortable="false" text="Hardpoint Slot" />
+                                                      <TableColumn fx:id="hardpoint_name_column" prefWidth="205.0" sortable="false" text="Hardpoint Slot" />
                                                       <TableColumn fx:id="hardpoint_data_column" prefWidth="206.0" sortable="false" />
                                                    </columns>
                                                 </TableView>
@@ -185,7 +185,7 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label text="CMDR">
+                                    <Label styleClass="header_font_large" text="CMDR">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
                                        </font>
@@ -196,7 +196,7 @@
                                           <Insets left="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label layoutX="10.0" layoutY="-5.0" text="::">
+                                    <Label layoutX="10.0" layoutY="-5.0" styleClass="header_font_large" text="::">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
                                        </font>
@@ -207,7 +207,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="commander_name" layoutX="40.0" layoutY="-5.0" text="unknown commander">
+                                    <Label fx:id="commander_name" layoutX="40.0" layoutY="-5.0" styleClass="header_font_large" text="unknown commander">
                                        <font>
                                           <Font name="System Bold Italic" size="36.0" />
                                        </font>
@@ -222,7 +222,7 @@
                               </HBox>
                               <HBox>
                                  <children>
-                                    <Label layoutX="230.0" layoutY="10.0" text="Balance">
+                                    <Label layoutX="230.0" layoutY="10.0" styleClass="header_font_small" text="Balance">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -233,7 +233,7 @@
                                           <Insets left="10.0" top="-15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label layoutX="10.0" layoutY="10.0" text="::">
+                                    <Label layoutX="10.0" layoutY="10.0" styleClass="header_font_small" text="::">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -244,7 +244,7 @@
                                           <Insets top="-15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="credit_balance" text="0">
+                                    <Label fx:id="credit_balance" styleClass="header_font_small" text="0">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -255,7 +255,7 @@
                                           <Insets top="-15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label layoutX="96.0" layoutY="-5.0" text="CR">
+                                    <Label layoutX="96.0" layoutY="-5.0" styleClass="header_font_small" text="CR">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -272,7 +272,7 @@
                                  <tabs>
                                      <Tab fx:id="raw_mats_tab" text="Raw Materials">
                                         <content>
-                                            <TableView fx:id="raw_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                            <TableView fx:id="raw_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="module_table">
                                                 <columns>
                                                     <TableColumn fx:id="raw_material_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
                                                     <TableColumn fx:id="raw_grade_column" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
@@ -284,7 +284,7 @@
                                      </Tab>
                                      <Tab text="Manufactured Materials">
                                         <content>
-                                            <TableView fx:id="manufactured_table" prefHeight="200.0" prefWidth="200.0">
+                                            <TableView fx:id="manufactured_table" prefHeight="200.0" prefWidth="200.0" styleClass="module_table">
                                                 <columns>
                                                     <TableColumn fx:id="manufactured_material_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
                                                     <TableColumn fx:id="manufactured_grade_column" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
@@ -296,7 +296,7 @@
                                      </Tab>
                                      <Tab text="Encoded Data">
                                         <content>
-                                            <TableView fx:id="data_table" prefHeight="371.0" prefWidth="551.0">
+                                            <TableView fx:id="data_table" prefHeight="371.0" prefWidth="551.0" styleClass="module_table">
                                                 <columns>
                                                     <TableColumn fx:id="data_material_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="290.0" resizable="false" text="Material" />
                                                     <TableColumn fx:id="data_grade_column" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Grade" />
@@ -308,7 +308,7 @@
                                      </Tab>
                                     <Tab text="Cargo &amp; Commodities">
                                        <content>
-                                          <TableView fx:id="cargo_table" prefHeight="371.0" prefWidth="551.0">
+                                          <TableView fx:id="cargo_table" prefHeight="371.0" prefWidth="551.0" styleClass="module_table">
                                              <columns>
                                                 <TableColumn fx:id="cargo_item_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="204.0" resizable="false" text="Commodity" />
                                                 <TableColumn fx:id="cargo_grade_column" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="Type" />
@@ -337,7 +337,7 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label text="Market">
+                                    <Label styleClass="header_font_large" text="Market">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
                                        </font>
@@ -348,7 +348,7 @@
                                           <Insets left="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label layoutX="10.0" layoutY="-5.0" text="::">
+                                    <Label layoutX="10.0" layoutY="-5.0" styleClass="header_font_large" text="::">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
                                        </font>
@@ -359,7 +359,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="market_name" layoutX="40.0" layoutY="-5.0" text="unknown market">
+                                    <Label fx:id="market_name" layoutX="40.0" layoutY="-5.0" styleClass="header_font_large" text="unknown market">
                                        <font>
                                           <Font name="System Bold Italic" size="36.0" />
                                        </font>
@@ -374,7 +374,7 @@
                               </HBox>
                               <HBox>
                                  <children>
-                                    <Label layoutX="230.0" layoutY="10.0" text="Economy">
+                                    <Label layoutX="230.0" layoutY="10.0" styleClass="header_font_small" text="Economy">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -385,7 +385,7 @@
                                           <Insets left="10.0" top="-15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label layoutX="10.0" layoutY="10.0" text="::">
+                                    <Label layoutX="10.0" layoutY="10.0" styleClass="header_font_small" text="::">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -396,7 +396,7 @@
                                           <Insets top="-15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="economy_label" text="unknown economy">
+                                    <Label fx:id="economy_label" styleClass="header_font_small" text="unknown economy">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -445,7 +445,7 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label text="Star System">
+                                    <Label styleClass="header_font_large" text="Star System">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
                                        </font>
@@ -456,7 +456,7 @@
                                           <Insets left="10.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label layoutX="10.0" layoutY="-5.0" text="::">
+                                    <Label layoutX="10.0" layoutY="-5.0" styleClass="header_font_large" text="::">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
                                        </font>
@@ -467,7 +467,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="location_label" layoutX="40.0" layoutY="-5.0" text="unknown location">
+                                    <Label fx:id="location_label" layoutX="40.0" layoutY="-5.0" styleClass="header_font_large" text="unknown location">
                                        <font>
                                           <Font name="System Bold Italic" size="36.0" />
                                        </font>
@@ -482,7 +482,7 @@
                               </HBox>
                               <HBox>
                                  <children>
-                                    <Label layoutX="230.0" layoutY="10.0" text="Stellar Body">
+                                    <Label layoutX="230.0" layoutY="10.0" styleClass="header_font_small" text="Stellar Body">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -493,7 +493,7 @@
                                           <Insets left="10.0" top="-15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label layoutX="10.0" layoutY="10.0" text="::">
+                                    <Label layoutX="10.0" layoutY="10.0" styleClass="header_font_small" text="::">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -504,7 +504,7 @@
                                           <Insets top="-15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="status_body" text="unknown economy">
+                                    <Label fx:id="status_body" styleClass="header_font_small" text="unknown economy">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -534,7 +534,7 @@
                                     <Separator layoutX="147.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="20.0" />
                                     <VBox>
                                        <children>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" text="Current Location" textAlignment="CENTER">
+                                          <Label alignment="CENTER" contentDisplay="CENTER" styleClass="header_font_small" text="Current Location" textAlignment="CENTER">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
@@ -549,7 +549,7 @@
                                              <children>
                                                 <VBox layoutX="10.0" layoutY="10.0">
                                                    <children>
-                                                      <Label layoutX="10.0" layoutY="10.0" text="Altitude">
+                                                      <Label layoutX="10.0" layoutY="10.0" styleClass="base_font" text="Altitude">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -560,7 +560,7 @@
                                                             <Insets bottom="-5.0" left="10.0" />
                                                          </VBox.margin>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="10.0" text="Latitude">
+                                                      <Label layoutX="10.0" layoutY="10.0" styleClass="base_font" text="Latitude">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -571,7 +571,7 @@
                                                             <Insets bottom="-5.0" left="10.0" />
                                                          </VBox.margin>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="10.0" text="Longitude ">
+                                                      <Label layoutX="10.0" layoutY="10.0" styleClass="base_font" text="Longitude ">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -582,7 +582,7 @@
                                                             <Insets bottom="-5.0" left="10.0" />
                                                          </VBox.margin>
                                                       </Label>
-                                                      <Label layoutX="10.0" layoutY="10.0" text="Heading">
+                                                      <Label layoutX="10.0" layoutY="10.0" styleClass="base_font" text="Heading">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -597,7 +597,7 @@
                                                 </VBox>
                                                 <VBox layoutX="214.0" layoutY="10.0">
                                                    <children>
-                                                      <Label fx:id="status_altitude" text="0.0">
+                                                      <Label fx:id="status_altitude" styleClass="base_font" text="0.0">
                                                          <font>
                                                             <Font name="System Bold" size="18.0" />
                                                          </font>
@@ -608,7 +608,7 @@
                                                             <Insets right="5.0" top="5.0" />
                                                          </padding>
                                                       </Label>
-                                                      <Label fx:id="status_latitude" layoutX="10.0" layoutY="10.0" text="0.0">
+                                                      <Label fx:id="status_latitude" layoutX="10.0" layoutY="10.0" styleClass="base_font" text="0.0">
                                                          <font>
                                                             <Font name="System Bold" size="18.0" />
                                                          </font>
@@ -619,7 +619,7 @@
                                                             <Insets right="5.0" />
                                                          </padding>
                                                       </Label>
-                                                      <Label fx:id="status_longitude" text="0.0">
+                                                      <Label fx:id="status_longitude" styleClass="base_font" text="0.0">
                                                          <font>
                                                             <Font name="System Bold" size="18.0" />
                                                          </font>
@@ -630,7 +630,7 @@
                                                             <Insets right="5.0" />
                                                          </padding>
                                                       </Label>
-                                                      <Label fx:id="status_heading" layoutX="10.0" layoutY="59.0" text="0.0">
+                                                      <Label fx:id="status_heading" layoutX="10.0" layoutY="59.0" styleClass="base_font" text="0.0">
                                                          <font>
                                                             <Font name="System Bold" size="18.0" />
                                                          </font>
@@ -645,7 +645,7 @@
                                                 </VBox>
                                              </children>
                                           </HBox>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" text="Current Waypoint" textAlignment="CENTER">
+                                          <Label alignment="CENTER" contentDisplay="CENTER" styleClass="header_font_small" text="Current Waypoint" textAlignment="CENTER">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
@@ -660,7 +660,7 @@
                                              <children>
                                                 <VBox layoutX="10.0" layoutY="10.0">
                                                    <children>
-                                                      <Label layoutX="20.0" layoutY="10.0" text="Distance">
+                                                      <Label layoutX="20.0" layoutY="10.0" styleClass="base_font" text="Distance">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -671,7 +671,7 @@
                                                             <Insets bottom="-5.0" left="10.0" />
                                                          </VBox.margin>
                                                       </Label>
-                                                      <Label text="Latitude">
+                                                      <Label styleClass="base_font" text="Latitude">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -682,7 +682,7 @@
                                                             <Insets bottom="-5.0" left="10.0" />
                                                          </VBox.margin>
                                                       </Label>
-                                                      <Label text="Longitude">
+                                                      <Label styleClass="base_font" text="Longitude">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -693,7 +693,7 @@
                                                             <Insets bottom="-5.0" left="10.0" />
                                                          </VBox.margin>
                                                       </Label>
-                                                      <Label text="Bearing">
+                                                      <Label styleClass="base_font" text="Bearing">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -708,7 +708,7 @@
                                                 </VBox>
                                                 <VBox layoutX="214.0" layoutY="10.0">
                                                    <children>
-                                                      <Label fx:id="status_marked_dist" layoutX="10.0" layoutY="10.0" text="0.0">
+                                                      <Label fx:id="status_marked_dist" layoutX="10.0" layoutY="10.0" styleClass="base_font" text="0.0">
                                                          <font>
                                                             <Font name="System Bold" size="18.0" />
                                                          </font>
@@ -719,7 +719,7 @@
                                                             <Insets bottom="-5.0" />
                                                          </VBox.margin>
                                                       </Label>
-                                                      <Label fx:id="status_marked_lat" text="0.0">
+                                                      <Label fx:id="status_marked_lat" styleClass="base_font" text="0.0">
                                                          <font>
                                                             <Font name="System Bold" size="18.0" />
                                                          </font>
@@ -730,7 +730,7 @@
                                                             <Insets bottom="-5.0" />
                                                          </VBox.margin>
                                                       </Label>
-                                                      <Label fx:id="status_marked_long" text="0.0">
+                                                      <Label fx:id="status_marked_long" styleClass="base_font" text="0.0">
                                                          <font>
                                                             <Font name="System Bold" size="18.0" />
                                                          </font>
@@ -741,7 +741,7 @@
                                                             <Insets bottom="-5.0" />
                                                          </VBox.margin>
                                                       </Label>
-                                                      <Label fx:id="status_bearing" text="0.0">
+                                                      <Label fx:id="status_bearing" styleClass="base_font" text="0.0">
                                                          <font>
                                                             <Font name="System Bold" size="18.0" />
                                                          </font>
@@ -756,7 +756,7 @@
                                                 </VBox>
                                              </children>
                                           </HBox>
-                                          <Label text="Docked at">
+                                          <Label styleClass="header_font_small" text="Docked at">
                                              <VBox.margin>
                                                 <Insets left="10.0" top="15.0" />
                                              </VBox.margin>
@@ -773,7 +773,7 @@
                                                    <children>
                                                       <VBox>
                                                          <children>
-                                                            <Label fx:id="station_label" text="unknown station">
+                                                            <Label fx:id="station_label" styleClass="base_font" text="unknown station">
                                                                <font>
                                                                   <Font name="System Bold" size="18.0" />
                                                                </font>
@@ -797,10 +797,10 @@
                                     <Point3D />
                                  </rotationAxis>
                               </HBox>
-                              <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="1130.0">
+                              <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="35.0" prefWidth="1130.0">
                                  <children>
-                                    <Slider fx:id="mini_map_scale" blockIncrement="1000.0" layoutX="42.0" layoutY="28.0" majorTickUnit="1000.0" max="20000.0" min="1000.0" prefWidth="845.0" showTickMarks="true" snapToTicks="true" value="2000.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="32.66666666666674" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="1.0" text="Scale" textAlignment="CENTER">
+                                    <Slider fx:id="mini_map_scale" blockIncrement="1000.0" layoutX="42.0" layoutY="28.0" majorTickUnit="1000.0" max="20000.0" min="1000.0" prefHeight="24.0" prefWidth="1056.0" showTickMarks="true" snapToTicks="true" value="2000.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="32.0" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-1.0" styleClass="header_font_small" text="Map Scale" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -831,12 +831,12 @@
                               </AnchorPane>
                               <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="5000.0" prefWidth="1130.0">
                                  <children>
-                                    <ListView fx:id="waypoint_list" editable="true" layoutX="14.0" layoutY="50.0" maxHeight="1.7976931348623157E308" prefHeight="5000.0" prefWidth="1100.0" AnchorPane.bottomAnchor="18.000000000000057" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="49.99999999999994">
+                                    <ListView fx:id="waypoint_list" editable="true" layoutX="14.0" layoutY="35.0" maxHeight="1.7976931348623157E308" prefHeight="486.0" prefWidth="1100.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="35.0">
                                        <rotationAxis>
                                           <Point3D />
                                        </rotationAxis>
                                     </ListView>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" text="Waypoints" textAlignment="CENTER">
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-3.0" styleClass="header_font_small" text="Waypoints" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -847,7 +847,7 @@
                                           <Point3D />
                                        </rotationAxis>
                                     </Label>
-                                    <Button fx:id="status_mark" layoutX="121.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Mark current location">
+                                    <Button fx:id="status_mark" layoutX="151.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" styleClass="material_trade_button" text="Mark current location">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
@@ -855,7 +855,7 @@
                                           <Point3D />
                                        </rotationAxis>
                                     </Button>
-                                    <TextField fx:id="waypoint_name_input" layoutX="272.0" layoutY="15.0" promptText="waypoint name">
+                                    <TextField fx:id="waypoint_name_input" layoutX="312.0" prefHeight="26.0" prefWidth="310.0" promptText="type waypoint name here" styleClass="material_trade_button">
                                        <rotationAxis>
                                           <Point3D />
                                        </rotationAxis>
@@ -881,7 +881,7 @@
                                  <children>
                                     <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="show_tasks" alignment="CENTER" mnemonicParsing="false" selected="true" text="Show Tasks ">
+                                          <CheckBox fx:id="show_tasks" alignment="CENTER" mnemonicParsing="false" selected="true" styleClass="base_font_style_only" text="Show Tasks ">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -896,7 +896,7 @@
                                     </AnchorPane>
                                     <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="show_items_needed" alignment="CENTER" mnemonicParsing="false" selected="true" text="Show Items">
+                                          <CheckBox fx:id="show_items_needed" alignment="CENTER" mnemonicParsing="false" selected="true" styleClass="base_font_style_only" text="Show Items">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -911,7 +911,7 @@
                                     </AnchorPane>
                                     <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="show_procurements" alignment="CENTER" mnemonicParsing="false" text="Task Selector">
+                                          <CheckBox fx:id="show_procurements" alignment="CENTER" mnemonicParsing="false" styleClass="base_font_style_only" text="Task Selector">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -933,7 +933,7 @@
                                        <children>
                                           <VBox fx:id="taskContols" minHeight="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <TableView fx:id="procurement_task_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="procurement_task_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" styleClass="module_table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
                                                       <TableColumn fx:id="task_remove_column" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" resizable="false" sortable="false" />
                                                     <TableColumn fx:id="task_name_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" resizable="false" sortable="false" text="Task" />
@@ -946,7 +946,7 @@
                                           </VBox>
                                        </children>
                                     </AnchorPane>
-                                    <TableView fx:id="task_cost_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <TableView fx:id="task_cost_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" styleClass="module_table" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                       <columns>
                                           <TableColumn fx:id="task_cost_name_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="291.0" resizable="false" sortable="false" text="Items" />
                                           <TableColumn fx:id="task_cost_type_column" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" sortable="false" text="Type" />
@@ -959,7 +959,7 @@
                                           <TreeView fx:id="procurement_tree" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="9800.0" />
                                           <VBox>
                                              <children>
-                                                <Label fx:id="procurement_label" minHeight="35.0" text="Placeholder">
+                                                <Label fx:id="procurement_label" minHeight="35.0" styleClass="base_font_style_only" text="Placeholder">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
@@ -1234,7 +1234,7 @@
                               </GridPane>
                            </children>
                         </Pane>
-                        <Label layoutX="13.0" layoutY="30.0" text="Main Fuel  ::">
+                        <Label layoutX="13.0" layoutY="30.0" styleClass="header_font_small" text="Main Fuel">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -1245,7 +1245,7 @@
                               <Insets bottom="-5.0" left="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label layoutX="12.0" layoutY="4.0" text="Cargo         ::">
+                        <Label layoutX="14.0" layoutY="4.0" styleClass="header_font_small" text="Cargo">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -1256,7 +1256,7 @@
                               <Insets bottom="-5.0" left="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label fx:id="status_cargo" layoutX="136.0" layoutY="6.0" text="0.0">
+                        <Label fx:id="status_cargo" layoutX="181.0" layoutY="6.0" styleClass="header_font_small" text="0.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -1267,7 +1267,7 @@
                               <Insets right="5.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="status_fuel" layoutX="137.0" layoutY="32.0" text="0.0">
+                        <Label fx:id="status_fuel" layoutX="181.0" layoutY="32.0" styleClass="header_font_small" text="0.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -1275,13 +1275,13 @@
                               <Insets bottom="-5.0" />
                            </VBox.margin>
                         </Label>
-                        <Label fx:id="status_fuel_reservoir" layoutX="137.0" layoutY="59.0" text="0.0">
+                        <Label fx:id="status_fuel_reservoir" layoutX="181.0" layoutY="59.0" styleClass="header_font_small" text="0.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ListView fx:id="console_message_list" layoutX="15.0" layoutY="140.0" styleClass="message_list" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="140.0" />
-                        <Label layoutX="12.0" layoutY="58.0" text="Reservoir   ::">
+                        <ListView fx:id="console_message_list" layoutX="15.0" layoutY="118.0" prefHeight="891.0" prefWidth="1101.0" styleClass="message_list" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="118.0" />
+                        <Label layoutX="14.0" layoutY="58.0" styleClass="header_font_small" text="Reservoir">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>

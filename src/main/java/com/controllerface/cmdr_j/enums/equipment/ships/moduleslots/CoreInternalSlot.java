@@ -18,7 +18,7 @@ public enum CoreInternalSlot implements Statistic
     PowerPlant("Reactor Bay"),
     MainEngines("Main Engines"),
     FrameShiftDrive("Hyper Drive"),
-    LifeSupport("Environmental Control"),
+    LifeSupport("Life Support"),
     PowerDistributor("Power Coupling"),
     Radar("Sensor Suite"),
     FuelTank("Fuel Tank"),
