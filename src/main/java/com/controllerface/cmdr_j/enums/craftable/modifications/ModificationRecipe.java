@@ -535,6 +535,7 @@ public enum ModificationRecipe implements ProcurementRecipe
     ModificationRecipe(@NotNull ProcurementRecipe delegate)
     {
         this.delegate = delegate;
+        delegate.costStream().forEach(c->c.getCost().associate(this));
     }
 
     @Override

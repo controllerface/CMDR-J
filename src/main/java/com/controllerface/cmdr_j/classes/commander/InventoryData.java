@@ -248,7 +248,7 @@ public class InventoryData implements Displayable
                                 .distinct()
                                 .map(r -> blueprint.name() + " :: " + r.getGrade())
                                 .map(s -> s.replace("_", " ")))
-                        .collect(Collectors.joining("\n - ","\nSynthesis:\n - ", "\n"));
+                        .collect(Collectors.joining("\n","\nSynthesis\n", "\n"));
 
         String modifications = modificationRecipes.isEmpty() && weaponModRecipes.isEmpty()
                 ? ""
@@ -257,7 +257,7 @@ public class InventoryData implements Displayable
                                 .filter(recipe -> modificationRecipes.contains(recipe) || weaponModRecipes.contains(recipe))
                                 .distinct()
                                 .map(r->formatModString.apply(blueprint.name()) + " :: " + r.getDisplayLabel()))
-                        .collect(Collectors.joining("\n - ","\nModifications:\n - ", "\n"));
+                        .collect(Collectors.joining("\n","\nModifications\n", "\n"));
 
         String experiments = experimentalRecipes.isEmpty()
                 ? ""
@@ -267,7 +267,7 @@ public class InventoryData implements Displayable
                                 .distinct()
                                 .map(r -> blueprint.name() + " :: " + r.getDisplayLabel())
                                 .map(s -> s.replace("_", " ")))
-                        .collect(Collectors.joining("\n - ","\nExperimental Effects:\n - ", "\n"));
+                        .collect(Collectors.joining("\n","\nExperimental Effects\n", "\n"));
 
         String techUnlocks = techBrokerRecipes.isEmpty()
                 ? ""
@@ -277,7 +277,7 @@ public class InventoryData implements Displayable
                                 .distinct()
                                 .map(r -> blueprint.name() + " :: " + r.getShortLabel())
                                 .map(s -> s.replace("_", " ")))
-                        .collect(Collectors.joining("\n - ","\nTech Broker Unlocks:\n - ", "\n"));
+                        .collect(Collectors.joining("\n","\nTech Broker Unlocks\n", "\n"));
 
         return synthesis + modifications + experiments + techUnlocks;
     }
@@ -529,7 +529,7 @@ public class InventoryData implements Displayable
                 String items[] = category.trim().split("\n");
 
                 TitledPane knownUsesDropDown = new TitledPane();
-                knownUsesDropDown.getStyleClass().addAll( "base_font");
+                knownUsesDropDown.getStyleClass().addAll( "stats_pane", "base_font");
                 VBox knownUses = new VBox();
 
                 for (String descLine : items)
@@ -538,13 +538,13 @@ public class InventoryData implements Displayable
                     {
                         title=true;
                         Label useLabel = new Label(descLine);
-                        useLabel.getStyleClass().addAll("base_font");
+                        useLabel.getStyleClass().addAll("general_panel_label", "base_font");
                         knownUsesDropDown.setGraphic(useLabel);
                     }
                     else
                     {
                         Label associatedTasks = new Label(descLine);
-                        associatedTasks.getStyleClass().addAll("base_font");
+                        associatedTasks.getStyleClass().addAll("light_color_label", "base_font");
                         knownUses.getChildren().add(associatedTasks);
 
                         knownUsesDropDown.setAnimated(false);

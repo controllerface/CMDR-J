@@ -341,12 +341,14 @@ public enum ModificationBlueprint implements ProcurementBlueprint
     ShieldCellBank_Rapid("Rapid Charge",
             ModificationRecipe.ShieldCellBank_Rapid_1,
             ModificationRecipe.ShieldCellBank_Rapid_2,
-            ModificationRecipe.ShieldCellBank_Rapid_3),
+            ModificationRecipe.ShieldCellBank_Rapid_3,
+            ModificationRecipe.ShieldCellBank_Rapid_4),
 
     ShieldCellBank_Specialised("Specialised",
             ModificationRecipe.ShieldCellBank_Specialised_1,
             ModificationRecipe.ShieldCellBank_Specialised_2,
-            ModificationRecipe.ShieldCellBank_Specialised_3),
+            ModificationRecipe.ShieldCellBank_Specialised_3,
+            ModificationRecipe.ShieldCellBank_Specialised_4),
 
     ShieldGenerator_Kinetic("Kinetic Resistant",
             ModificationRecipe.ShieldGenerator_Kinetic_1,
