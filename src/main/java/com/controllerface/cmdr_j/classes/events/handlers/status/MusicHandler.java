@@ -14,7 +14,8 @@ public class MusicHandler implements JournalEventHandler
     @Override
     public void handle(EventProcessingContext context)
     {
-        JournalEventTransactions.logGeneralMessage(context, "Music Changed: "
-                + context.getRawData().get("MusicTrack"));
+        // this is kind of chatty and not really useful, so disabling it for now
+//        JournalEventTransactions.logGeneralMessage(context, "Music Changed: "
+//                + context.getRawData().get("MusicTrack"));
     }
 }

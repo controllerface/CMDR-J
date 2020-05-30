@@ -29,7 +29,7 @@ public class FixedAntiThargoidMultiCannon_Large extends AbstractExperimentalModu
                   new ItemEffectData(ItemEffect.BreachDamage, 5.2),
                   new ItemEffectData(ItemEffect.MinBreachChance, 50.0),
                   new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),
-                  new ItemEffectData(ItemEffect.DamageType, "Anti-Thargoid"),
+                  new ItemEffectData(ItemEffect.DamageType, "Anti-Xeno"),
                   new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
             ));
     }

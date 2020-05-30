@@ -831,17 +831,28 @@ public class UIController
                     })
                     .forEach(data ->
                     {
-                        if (data.getMarket().equals("Imports")) imports.add(data);
-                        if (data.getMarket().equals("Exports")) exports.add(data);
-
-                        if (data.getMarket().equals("Both"))
+                        if (data.getMarket().equals("Imports"))
                         {
                             imports.add(data);
+                        }
+
+                        if (data.getMarket().equals("Exports"))
+                        {
                             exports.add(data);
                         }
 
-                        if (data.getMarket().equals("None")) messageLogger(UserTransaction.MessageType.GENERAL,
-                                "Commodity: " + data.getName() + " listed with no import or export information");
+                        if (data.getMarket().equals("Both") || data.getMarket().equals("None"))
+                        {
+                            imports.add(data);
+                            exports.add(data.duplicate());
+                        }
+
+                        if (data.getMarket().equals("None"))
+                        {
+                            messageLogger(UserTransaction.MessageType.GENERAL, "Warning: " + market_name.getText()
+                                    + " has no market data for: " + data.getName() + "; profit margins may be poor"
+                                    + " when selling this commodity here");
+                        }
                     });
 
 

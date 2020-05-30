@@ -29,6 +29,19 @@ import java.util.stream.Stream;
  */
 public class JournalSyncTask implements Runnable
 {
+    private static enum ExternalDataFile
+    {
+        MARKET("Market.json"),
+        CARGO("Cargo.json");
+
+        private final String fileName;
+
+        ExternalDataFile(String fileName)
+        {
+            this.fileName = fileName;
+        }
+    }
+
     private static final String JOURNAL_FOLDER = System.getProperty("user.home")
             + File.separator + "Saved Games"
             + File.separator + "Frontier Developments"
@@ -81,14 +94,14 @@ public class JournalSyncTask implements Runnable
     /**
      * Events that may contain updates for the player's inventory
      */
-    private static Set<String> journalEvents = Arrays.stream(JournalEvent.values())
+    private static final Set<String> journalEvents = Arrays.stream(JournalEvent.values())
             .map(Enum::name)
             .collect(Collectors.toSet());
 
     /**
      * Function used to filter in JSON event lines that we explicitly support
      */
-    private Predicate<Map<String, Object>> hasSupportedEvent =
+    private final Predicate<Map<String, Object>> hasSupportedEvent =
             (line) ->
             {
                 String eventName = (String) line.get("event");
@@ -248,7 +261,7 @@ public class JournalSyncTask implements Runnable
         //System.out.println("File read: " + file.getName());
     }
 
-    private Stream<String> readLines(File file)
+    private static Stream<String> readLines(File file)
     {
         List<String> fileLines = new ArrayList<>();
 
@@ -289,6 +302,34 @@ public class JournalSyncTask implements Runnable
         return journalLines.stream();
     }
 
+    private static Map<String, Object> readExternalFile(ExternalDataFile dataFile)
+    {
+        File journalFolder = new File(JOURNAL_FOLDER);
+
+        File[] dataFiles = journalFolder.listFiles(((dir, name) -> name.equals(dataFile.fileName)));
+
+        if (dataFiles != null && dataFiles.length > 0)
+        {
+            String jsonString = Arrays.stream(dataFiles)
+                    .limit(1)
+                    .flatMap(JournalSyncTask::readLines)
+                    .collect(Collectors.joining());
+
+            return JSONSupport.Parse.jsonString.apply(jsonString);
+        }
+        return Collections.emptyMap();
+    }
+
+    public static Map<String, Object> readMarketData()
+    {
+        return readExternalFile(ExternalDataFile.MARKET);
+    }
+
+    public static Map<String, Object> readCargoData()
+    {
+        return readExternalFile(ExternalDataFile.CARGO);
+    }
+
     private void initializeJournalData()
     {
         // todo: maybe this should be configurable
@@ -296,18 +337,6 @@ public class JournalSyncTask implements Runnable
         journalPath = journalFolder.toPath();
 
         File[] journalFiles = journalFolder.listFiles((directory, file) -> file.startsWith("Journal") && file.endsWith(".log"));
-
-        File[] marketFiles = journalFolder.listFiles(((dir, name) -> name.contains("Market")));
-
-        if (marketFiles != null && marketFiles.length > 0)
-        {
-            String jsonString = Arrays.stream(marketFiles)
-                    .limit(1)
-                    .flatMap(this::readLines)
-                    .collect(Collectors.joining());
-
-            processJSONEvent(JSONSupport.Parse.jsonString.apply(jsonString));
-        }
 
         // todo: maybe print an error of some kind
         if (journalFiles == null) return;

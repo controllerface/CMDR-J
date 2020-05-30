@@ -33,11 +33,6 @@ public class DockedHandler implements JournalEventHandler
 
         logTravelMessage(context, message);
 
-        context.getTransactions().add(UserTransaction.start(UserTransaction.TransactionType.MARKET)
-                .setMessage(name)
-                .setStatusObject(Collections.emptyMap())
-                .build());
-
         context.getCommanderData().setStation(name);
         context.getCommanderData().setEconomy(economy);
     }

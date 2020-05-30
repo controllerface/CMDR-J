@@ -11,14 +11,14 @@ public class AntiShutdownField_0F extends AbstractExperimentalModule
     {
         super("Shutdown Field Neutraliser",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.experimental, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 1.3d),
                         new ItemEffectData(ItemEffect.Integrity, 35d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2d),
-                        new ItemEffectData(ItemEffect.BootTime, 0d),
-                        new ItemEffectData(ItemEffect.Range, 3000d),
-                        new ItemEffectData(ItemEffect.DistributorDraw, 0.25d),
-                        new ItemEffectData(ItemEffect.ECMCooldown, 10d),
-                        new ItemEffectData(ItemEffect.Mass, 1d)
+                        new ItemEffectData(ItemEffect.Disruption_Barrier_Charge_Duration, 1d),
+                        new ItemEffectData(ItemEffect.Disruption_Barrier_Range, 3000d),
+                        new ItemEffectData(ItemEffect.Disruption_Barrier_Active_Power, 0.25d),
+                        new ItemEffectData(ItemEffect.Disruption_Barrier_Cooldown, 10d)
                 ));
     }
 

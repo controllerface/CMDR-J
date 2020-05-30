@@ -108,8 +108,11 @@ public enum TechnologyRecipe implements ProcurementRecipe
             OptionalInternalModule.int_guardianmodulereinforcement_size5_class1,
             OptionalInternalModule.int_guardianmodulereinforcement_size5_class2),
 
+    Guardian_Gauss_Cannon_Fixed_Small(new Guardian_Gauss_Cannon_Fixed_Small(),
+            HardpointModule.hpt_guardian_gausscannon_fixed_small),
+
     Guardian_Gauss_Cannon_Fixed_Medium(new Guardian_Gauss_Cannon_Fixed_Medium(),
-            HardpointModule.hpt_plasmashockcannon_fixed_medium),
+            HardpointModule.hpt_guardian_gausscannon_fixed_medium),
 
     Guardian_Hybrid_Power_Distributor(new Guardian_Hybrid_Power_Distributor(),
             CoreInternalModule.int_guardianpowerdistributor_size1,

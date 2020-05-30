@@ -220,40 +220,42 @@ public class ShipModuleData implements Displayable
         {
             text = "Guardian Weapon";
         }
-        else if (module instanceof OptionalInternalModule)
+
+        Tooltip tooltip = new Tooltip(text);
+        Tooltip.install(guardianBox, tooltip);
+        guardianBox.getChildren().add(svgShape);
+        moduleNameContainer.getChildren().add(guardianBox);
+    }
+
+    private void renderPowerPlayInfo(HBox moduleNameContainer)
+    {
+        double sizew = 22;
+        double sizeh = 18;
+
+        HBox powerPlayBox = new HBox();
+        powerPlayBox.setAlignment(Pos.CENTER_LEFT);
+        SVGPath icon = UIFunctions.Icons.powerplay;
+
+        final Region svgShape = new Region();
+        svgShape.setShape(icon);
+        svgShape.setMinSize(sizew, sizeh);
+        svgShape.setPrefSize(sizew, sizeh);
+        svgShape.setMaxSize(sizew, sizeh);
+        svgShape.setLayoutX(5);
+        svgShape.setStyle("-fx-background-color: #ffffff;");
+
+        String text = "Powerplay Module";
+
+        if (module instanceof HardpointModule)
         {
-            if (module == OptionalInternalModule.int_guardianfsdbooster_size1
-                    || module == OptionalInternalModule.int_guardianfsdbooster_size2
-                    || module == OptionalInternalModule.int_guardianfsdbooster_size3
-                    || module == OptionalInternalModule.int_guardianfsdbooster_size4
-                    || module == OptionalInternalModule.int_guardianfsdbooster_size5)
-            {
-                text = "FSD Range";
-            }
-            else if (module == OptionalInternalModule.int_guardianshieldreinforcement_size1_class1
-                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size1_class2
-                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size2_class1
-                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size2_class2
-                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size3_class1
-                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size3_class2
-                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size4_class1
-                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size4_class2
-                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size5_class1
-                    || module == OptionalInternalModule.int_guardianshieldreinforcement_size5_class2)
-            {
-                text = "Shield Strength";
-            }
+            text = "Powerplay Weapon";
         }
 
-        Label modificationLabel = new Label(text);
-        modificationLabel.getStyleClass().add("base_font");
-        modificationLabel.setTextFill(UIFunctions.Style.hotBlue);
-        modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
-
-        guardianBox.getChildren().add(svgShape);
-        guardianBox.getChildren().add(modificationLabel);
-
-        moduleNameContainer.getChildren().add(guardianBox);
+        Tooltip tooltip = new Tooltip(text);
+        Tooltip.install(powerPlayBox, tooltip);
+        powerPlayBox.getChildren().add(svgShape);
+        powerPlayBox.setPadding(new Insets(0,8,0,0));
+        moduleNameContainer.getChildren().add(powerPlayBox);
     }
 
     private void renderExperimentalInfo(HBox moduleNameContainer, boolean fromTechBroker)
@@ -261,8 +263,8 @@ public class ShipModuleData implements Displayable
         double sizew = 22;
         double sizeh = 18;
 
-        HBox guardianBox = new HBox();
-        guardianBox.setAlignment(Pos.CENTER_LEFT);
+        HBox experimentBox = new HBox();
+        experimentBox.setAlignment(Pos.CENTER_LEFT);
         SVGPath icon = UIFunctions.Icons.aegis;
 
         final Region svgShape = new Region();
@@ -273,27 +275,17 @@ public class ShipModuleData implements Displayable
         svgShape.setLayoutX(5);
 
         if (fromTechBroker) svgShape.setStyle("-fx-background-color: #b70000;");
-        else svgShape.setStyle("-fx-background-color: #b77d00;");
+        else svgShape.setStyle("-fx-background-color: #025B30;");
 
-        String text = " Experimental Module";
+        String prefix = fromTechBroker ? " Experimental " : " Anti-Xeno ";
+        String suffix = module instanceof HardpointModule ? "Weapon" : "Module";
+        String text = prefix + suffix;
 
-        if (module instanceof HardpointModule)
-        {
-            text = " Experimental Weapon";
-        }
+        Tooltip tooltip = new Tooltip(text);
+        Tooltip.install(experimentBox, tooltip);
+        experimentBox.getChildren().add(svgShape);
 
-        Label modificationLabel = new Label(text);
-        modificationLabel.getStyleClass().add("base_font");
-
-        if (fromTechBroker) modificationLabel.setTextFill(UIFunctions.Style.darkRed);
-        else modificationLabel.setTextFill(UIFunctions.Style.darkYellow);
-
-        modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
-
-        guardianBox.getChildren().add(svgShape);
-        guardianBox.getChildren().add(modificationLabel);
-
-        moduleNameContainer.getChildren().add(guardianBox);
+        moduleNameContainer.getChildren().add(experimentBox);
     }
 
     private void renderModificationInfo(HBox moduleNameContainer, VBox detailsContainer)
@@ -306,6 +298,9 @@ public class ShipModuleData implements Displayable
 
         boolean guardian = module.itemEffects().effectStream()
                 .anyMatch(e->e.getEffect()== ItemEffect.guardian);
+
+        boolean powerPlay = module.itemEffects().effectStream()
+                .anyMatch(e->e.getEffect()== ItemEffect.power_play);
 
 
         if (human)
@@ -321,6 +316,11 @@ public class ShipModuleData implements Displayable
         if (guardian)
         {
             renderGuardianInfo(moduleNameContainer);
+        }
+
+        if (powerPlay)
+        {
+            renderPowerPlayInfo(moduleNameContainer);
         }
 
         if (modificationBlueprint != null)
@@ -512,7 +512,7 @@ public class ShipModuleData implements Displayable
         unitColumn.setCellFactory(UIFunctions.Data.moduleEffectUnitFactory);
         unitColumn.setCellValueFactory(param ->
         {
-            Label unit = new Label(param.getValue().getKey().getUnit());
+            Label unit = new Label(param.getValue().getKey().unit);
             unit.getStyleClass().add("base_font");
             return new ReadOnlyObjectWrapper<>(unit);
         });
@@ -599,6 +599,7 @@ public class ShipModuleData implements Displayable
                 // these are marker effects, handled elsewhere so filter out
                 .filter(effectData -> effectData.getEffect() != ItemEffect.guardian)
                 .filter(effectData -> effectData.getEffect() != ItemEffect.experimental)
+                .filter(effectData -> effectData.getEffect() != ItemEffect.power_play)
 
                 // filter out any stats that are affected by modifiers
                 .filter(effectData -> modifiers.stream()
@@ -631,6 +632,24 @@ public class ShipModuleData implements Displayable
                 .forEach(effects::add);
 
         effects.sort(Comparator.comparing(Pair::getKey));
+
+        // special experimental effects that are not "normal" modified effects. always add to top of list
+        if (experimentalEffectRecipe != null)
+        {
+            experimentalEffectRecipe.effects().effectStream()
+                    // filter out stats already accounted for via modifiers or on the module itself
+                    .filter(e->modifiers.stream().noneMatch(m->m.getEffect().equals(e.getEffect())))
+                    .filter(e->module.itemEffects().effectStream().noneMatch(m->m.getEffect().equals(e.getEffect())))
+
+                    // use an empty label for the value, only the effect itself is important
+                    .forEach(exe->
+                    {
+                        Label label = new Label("");
+                        Pair<ItemEffect, Label> p = new Pair<>(exe.getEffect(), label);
+                        effects.add(0, p);
+                    });
+        }
+
         return effects;
     }
 

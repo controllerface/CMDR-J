@@ -86,9 +86,11 @@ public enum ItemEffect
 
     DefenceModifierHealthAddition("", "Hull Reinforcement", true),
     DefenceModifierHealthMultiplier("%", "Hull Boost", true),
-    DefenceModifierShieldAddition("MJ", "Shield Reinforcement", true),
     DefenceModifierShieldMultiplier("%", "Shield Boost", true),
-    ModuleDefenceAbsorption("%", "Damage Protection", true),
+
+    // guardian
+    DefenceModifierShieldAddition("MJ", "Shield Reinforcement", true, EffectType.GUARDIAN),
+    ModuleDefenceAbsorption("%", "Damage Protection", true, EffectType.GUARDIAN),
 
     /*
     Shield Generator
@@ -113,10 +115,12 @@ public enum ItemEffect
     Resistances
      */
 
-    CausticResistance("%", "Caustic Resistance", true),
     ExplosiveResistance("%", "Explosive Resistance", true),
     KineticResistance("%", "Kinetic Resistance", true),
     ThermicResistance("%", "Thermal Resistance", true),
+
+    // ax
+    CausticResistance("%", "Caustic Resistance", true, EffectType.ANTI_XENO),
 
 
     /*
@@ -141,8 +145,10 @@ public enum ItemEffect
      */
 
     FSDFuelUseIncrease("", "", true),
-    FSDJumpRangeBoost("LY", "Jump Range Increase", true),
     MaxFuelPerJump("T", "Maximum Fuel per Jump" ,true),
+
+    // guardian
+    FSDJumpRangeBoost("LY", "Jump Range Increase", true, EffectType.GUARDIAN),
 
 
     /*
@@ -254,6 +260,13 @@ public enum ItemEffect
     RefineryBins("Bins", "Refinery Bins", true),
     ThermalDrain("H/S", "Thermal Drain", true),
 
+    /*
+    Thargoid Shutdown Field Neutralizer
+     */
+    Disruption_Barrier_Active_Power("", "", true, EffectType.ANTI_XENO),
+    Disruption_Barrier_Charge_Duration("", "", true, EffectType.ANTI_XENO),
+    Disruption_Barrier_Cooldown("", "", false, EffectType.ANTI_XENO),
+    Disruption_Barrier_Range("", "", true, EffectType.ANTI_XENO),
 
     /*
     As-yet-unknown stats
@@ -262,10 +275,7 @@ public enum ItemEffect
 
     BoostAugmenterPowerUse("", "", false),          // todo: determine use, probably thrusters, moddable?
     BoostSpeedMultiplier("", "", true),             // todo: determine use, probably thrusters, moddable?
-    DisruptionBarrierActivePower("", "", true),     // todo: determine use, probably ECM, moddable?
-    DisruptionBarrierChargeDuration("", "", true),  // todo: determine use, probably ECM, moddable?
-    DisruptionBarrierCooldown("", "", false),       // todo: determine use, probably ECM, moddable?
-    DisruptionBarrierRange("", "", true),           // todo: determine use, probably ECM, moddable?
+
     EnergyPerRegen("", "", true),                   // todo: determine use, probably SCB, moddable?
     ShieldSacrificeAmountGiven("", "", true),       // todo: determine use, probably shields, moddable?
     ShieldSacrificeAmountRemoved("", "", true),     // todo: determine use, probably shields, moddable?
@@ -285,12 +295,11 @@ public enum ItemEffect
     // placeholder effects for certain modules that don't have intrinsic effects, but need something to display
     empty("-","Empty Compartment", true), // used for the "empty" module so it doesn't look odd
     planetary_approach("","Planetary Approach and Landing Capabilities", true), // planetary approach suite
-    guardian("", "", true),              //is a guardian module
-    human("", "", true),                 //is a experimental human tech broker module
-    experimental("", "", true),          //is a experimental human module
-    tech_unlock("", "Unlock Technology", true),           //used for tech broker unlock recipes
-
-
+    guardian("", "", true),              // is a guardian module
+    human("", "", true),                 // is a experimental human tech broker module
+    experimental("", "", true),          // is a experimental human (Aegis) module
+    power_play("", "", true),            // is a power play unlocked module
+    tech_unlock("", "Unlock Technology", true),           // used for tech broker unlock recipes
 
     // synthetic effects, used for synthesis recipes
     Rearm("", "", true),                // ammunition replenishment
@@ -304,70 +313,77 @@ public enum ItemEffect
     Heat_Dissipation("", "", false),    // heat sink refill
 
     // synthetic effects, used for tech broker weapons effects
-    Enzyme_Munitions("", "", true),
-    Meta_Alloy_Reinforcement("", "", true),
-    Remote_Release_Shell("", "", true),
-    Shock_Shell("", "", true),
-    FSD_Boost("", "", true),
-    Gauss_Shell("", "", true),
-    Hybrid_Power("", "", true),
-    Plasma_Weapon("", "", true),
-    Shard_Shell("", "", true),
+    Anti_Xeno_Ammo_Compatible("", "", true, EffectType.ANTI_XENO),
+    Hybrid_Power("", "", true, EffectType.GUARDIAN),
     Damage_Multiplier_at_Full_Charge("", "", true),
 
     // synthetic effects, used for experimental engineer effects
-    Area_FSD_Reboot("", "", true),
-    Area_Heat_Increased_Sensors_Disrupted("", "", true),
-    Auto_Reload_While_Firing("", "", true),
-    Damage_Increases_with_Heat_Level("", "", true),
-    Damage_Partially_Explosive("", "", true),
-    Damage_Partially_Kinetic("", "", true),
-    Damage_Partially_Thermal("", "", true),
-    Effectiveness_Increase_Against_Munitions("", "", true),
-    Heat_Reduced_when_Striking_Target("", "", true),
-    No_Damage_to_Untargeted_Ships("", "", true),
-    Part_of_Damage_Through_Shields("", "", true),
-    Reload_from_Ship_Fuel("", "", true),
-    Shielded_Target_Heat_Increased("", "", true),
-    Target_Armor_Hardness_Reduced("", "", true),
-    Target_FSD_Inhibited("", "", true),
-    Target_FSD_Reboot("", "", true),
-    Target_Heat_Increased("", "", true),
-    Target_Loses_Target_Lock("", "", true),
-    Target_Module_Damage("", "", true),
-    Target_Module_Malfunction("", "", true),
-    Target_Pushed_Off_Course("", "", true),
-    Target_Sensor_Acuity_Reduced("", "", true),
-    Target_Shield_Cell_Disrupted("", "", true),
-    Target_Shield_Generator_Damaged("", "", true),
-    Target_Signature_Increased("", "", true),
-    Target_Speed_Reduced("", "", true),
-    Target_Thrusters_Reboot("", "", true),
-    Target_Tracking_Reduced("", "", true),
-    Target_Wing_Shield_Regeneration("", "", true),
-    Wing_Shield_Regeneration_Increased("", "", true),
+    Area_FSD_Reboot("", "", true, EffectType.EXPERIMENTAL),
+    Area_Heat_Increased_Sensors_Disrupted("", "", true, EffectType.EXPERIMENTAL),
+    Auto_Reload_While_Firing("", "", true, EffectType.EXPERIMENTAL),
+    Damage_Increases_with_Heat_Level("", "", true, EffectType.EXPERIMENTAL),
+    Damage_Partially_Explosive("", "", true, EffectType.EXPERIMENTAL),
+    Damage_Partially_Kinetic("", "", true, EffectType.EXPERIMENTAL),
+    Damage_Partially_Thermal("", "", true, EffectType.EXPERIMENTAL),
+    Effectiveness_Increase_Against_Munitions("", "", true, EffectType.EXPERIMENTAL),
+    Heat_Reduced_when_Striking_Target("", "", true, EffectType.EXPERIMENTAL),
+    No_Damage_to_Untargeted_Ships("", "", true, EffectType.EXPERIMENTAL),
+    Part_of_Damage_Through_Shields("%", "Bleed Damage", true, EffectType.EXPERIMENTAL),
+    Reload_from_Ship_Fuel("", "", true, EffectType.EXPERIMENTAL),
+    Shielded_Target_Heat_Increased("", "", true, EffectType.EXPERIMENTAL),
+    Target_Armor_Hardness_Reduced("", "", true, EffectType.EXPERIMENTAL),
+    Target_FSD_Inhibited("", "", true, EffectType.EXPERIMENTAL),
+    Target_FSD_Reboot("", "", true, EffectType.EXPERIMENTAL),
+    Target_Heat_Increased("", "", true, EffectType.EXPERIMENTAL),
+    Target_Loses_Target_Lock("", "", true, EffectType.EXPERIMENTAL),
+    Target_Module_Damage("", "", true, EffectType.EXPERIMENTAL),
+    Target_Module_Malfunction("", "", true, EffectType.EXPERIMENTAL),
+    Target_Pushed_Off_Course("", "", true, EffectType.EXPERIMENTAL),
+    Target_Sensor_Acuity_Reduced("", "", true, EffectType.EXPERIMENTAL),
+    Target_Shield_Cell_Disrupted("", "", true, EffectType.EXPERIMENTAL),
+    Target_Shield_Generator_Damaged("", "", true, EffectType.EXPERIMENTAL),
+    Target_Signature_Increased("", "", true, EffectType.EXPERIMENTAL),
+    Target_Speed_Reduced("", "", true, EffectType.EXPERIMENTAL),
+    Target_Thrusters_Reboot("", "", true, EffectType.EXPERIMENTAL),
+    Target_Tracking_Reduced("", "", true, EffectType.EXPERIMENTAL),
+    Target_Wing_Shield_Regeneration("", "", true, EffectType.EXPERIMENTAL),
+    Wing_Shield_Regeneration_Increased("", "", true, EffectType.EXPERIMENTAL),
 
     ;
 
-    private final boolean moreIsGood;
+    /**
+     * When an effect is defined, it can be of one of these types. The default constructor will use "standard"
+     * and other types will be specified as needed. When the UI displays information about a given effect, it
+     * will often use this type info to modify the color of text or graphics associated with the effect.
+     */
+    public enum EffectType
+    {
+        STANDARD,
+        EXPERIMENTAL,
+        ANTI_XENO,
+        GUARDIAN
+    }
+
     private final String text;
-    private final String unit;
+
+    public final boolean moreIsGood;
+    public final String unit;
+    public final EffectType effectType;
+
+    ItemEffect(String unit, String text, boolean moreIsGood, EffectType effectType)
+    {
+        this.text = text.isEmpty()
+                ? name().replace("_"," ")
+                : text;
+
+        this.unit = unit;
+        this.moreIsGood = moreIsGood;
+        this.effectType = effectType;
+    }
 
     ItemEffect(String unit, String text, boolean moreIsGood)
     {
-        this.unit = unit;
-        this.text = text.isEmpty() ? name().replace("_"," ") : text;
-        this.moreIsGood = moreIsGood;
-    }
-
-    public String getUnit()
-    {
-        return unit;
-    }
-
-    public boolean isMoreGood()
-    {
-        return moreIsGood;
+        this(unit, text, moreIsGood, EffectType.STANDARD);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.classes.events.handlers.startup;
 
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
+import com.controllerface.cmdr_j.threads.JournalSyncTask;
 
 import java.util.List;
 import java.util.Map;
@@ -21,18 +22,14 @@ public class CargoHandler implements JournalEventHandler
     @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
-        if (context.getRawData().get("Inventory") == null) return;
+        Map<String, Object> cargoData = context.getRawData().get("Inventory") == null
+                ? JournalSyncTask.readCargoData()
+                : context.getRawData();
 
         logInventoryMessage(context, "Reloading Cargo");
 
-        String vessel = ((String) context.getRawData().get("Vessel"));
-
-        //if (vessel.equalsIgnoreCase("Ship"))
-        //{
-            context.getCommanderData().clearCargo();
-
-            ((List<Map<String, Object>>) context.getRawData().get("Inventory"))
-                    .forEach(item -> adjustCommodityCount(context, item));
-        //}
+        context.getCommanderData().clearCargo();
+        ((List<Map<String, Object>>) cargoData.get("Inventory"))
+                .forEach(item -> adjustCommodityCount(context, item));
     }
 }

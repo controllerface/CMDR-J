@@ -8,12 +8,11 @@ public class SeekerMissileRack_Large extends AbstractSeekerMissileRack
 {
     public SeekerMissileRack_Large()
     {
-        // todo: update with correct stats, these are from medium
         super("Large Fixed Seeker Missile Rack",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 4.0),
-                  new ItemEffectData(ItemEffect.Integrity, 51.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 1.2),
+                  new ItemEffectData(ItemEffect.Mass, 8.0),
+                  new ItemEffectData(ItemEffect.Integrity, 64.0),
+                  new ItemEffectData(ItemEffect.PowerDraw, 1.62),
                   new ItemEffectData(ItemEffect.DamagePerSecond, 13.333),
                   new ItemEffectData(ItemEffect.Damage, 40.0),
                   new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
@@ -22,7 +21,7 @@ public class SeekerMissileRack_Large extends AbstractSeekerMissileRack
                   new ItemEffectData(ItemEffect.ShotSpeed, 625.0),
                   new ItemEffectData(ItemEffect.RateOfFire, 0.3333),
                   new ItemEffectData(ItemEffect.AmmoClipSize, 6.0),
-                  new ItemEffectData(ItemEffect.AmmoMaximum, 18.0),
+                  new ItemEffectData(ItemEffect.AmmoMaximum, 36.0),
                   new ItemEffectData(ItemEffect.ReloadTime, 12.0),
                   new ItemEffectData(ItemEffect.BreachDamage, 16.0),
                   new ItemEffectData(ItemEffect.MinBreachChance, 0.0),

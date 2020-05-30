@@ -16,8 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
@@ -261,7 +259,31 @@ public class UIFunctions
                     return;
                 }
                 Label name = new Label(item.getKey().toString());
-                name.getStyleClass().addAll("general_stat_label", "base_font");
+
+                ItemEffect.EffectType effectType = item.getKey().effectType;
+                String colorClass;
+                switch (effectType)
+                {
+                    case EXPERIMENTAL:
+                        colorClass = "experimental_stat_label";
+                        break;
+
+                    case ANTI_XENO:
+                        colorClass = "anti_xeno_stat_label";
+                        break;
+
+                    case GUARDIAN:
+                        colorClass = "guardian_stat_label";
+                        break;
+
+                    case STANDARD:
+                    default:
+                        colorClass = "general_stat_label";
+                        break;
+                }
+
+
+                name.getStyleClass().addAll(colorClass, "base_font");
                 name.setPadding(new Insets(0,0,0,5));
                 setGraphic(name);
             }
@@ -370,7 +392,7 @@ public class UIFunctions
             nextLabel.getStyleClass().addAll("base_font");
 
             // get the "more is good" flag for this effect
-            boolean moreIsGood = pair.getEffect().isMoreGood();
+            boolean moreIsGood = pair.getEffect().moreIsGood;
 
             boolean isNumerical = pair.isNumerical();
 

@@ -340,7 +340,7 @@ public class CommanderJTest
             {
                 return new Pair<>(AbstractMiningLaser.class.getSimpleName(), AbstractMiningLaser.class.getCanonicalName());
             }
-            if (displayText.contains("Anti-Thargoid")
+            if (displayText.contains("Anti-Xeno")
                     || displayText.contains("Shock Cannon")
                     || displayText.contains("Flak Launcher")
                     || displayText.contains("Flechette Launcher")

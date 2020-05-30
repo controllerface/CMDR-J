@@ -52,7 +52,20 @@ public class MarketData implements Displayable
         this.mean = builder.mean;
         this.stock = builder.stock;
         this.demand = builder.demand;
+    }
 
+    public MarketData duplicate()
+    {
+        return new Builder()
+                .setName(name)
+                .setCategory(category)
+                .setMarket(market)
+                .setBuy(buy)
+                .setSell(sell)
+                .setMean(mean)
+                .setStock(stock)
+                .setDemand(demand)
+                .build();
     }
 
     public String getName()

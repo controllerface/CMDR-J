@@ -9,12 +9,11 @@ public class SuperCruiseAssist_0E extends AbstractDockingComputer
 {
     public SuperCruiseAssist_0E()
     {
-        // todo: update with actual stats, copied from docking computer
         super("Supercruise Assist",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Integrity, 10d),
-                        new ItemEffectData(ItemEffect.PowerDraw, 0.39d),
-                        new ItemEffectData(ItemEffect.BootTime, 3d)
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.30d),
+                        new ItemEffectData(ItemEffect.Mass, 0d)
                 ));
     }
 

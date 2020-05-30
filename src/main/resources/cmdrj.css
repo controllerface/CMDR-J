@@ -344,6 +344,24 @@ Ship module statistics tables
     -fx-background-color: transparent;
 }
 
+.guardian_stat_label
+{
+    -fx-text-fill: #0077cc;
+    -fx-background-color: transparent;
+}
+
+.anti_xeno_stat_label
+{
+    -fx-text-fill: #025B30;
+    -fx-background-color: transparent;
+}
+
+.experimental_stat_label
+{
+    -fx-text-fill: #ffb000;
+    -fx-background-color: transparent;
+}
+
 .general_stat_table .column-header > .label
 {
     -fx-background-color: #333333;
