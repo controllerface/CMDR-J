@@ -921,6 +921,8 @@ public class UIController
         {
             commanderData.adjustItem(item, amount);
             if (task_cost_table != null) task_cost_table.refresh();
+            if (procurement_task_table != null) procurement_task_table.refresh();
+
         };
 
 
@@ -990,6 +992,13 @@ public class UIController
                             Map<String, Object> statusObject = nextTransaction.getStatusObject();
 
                             Integer flags  = ((Integer) statusObject.get("Flags"));
+
+                            // this is set to 0 when the game shuts down, there's no other data in the event to
+                            // process, so just bail to avoid errors.
+                            if (flags == 0)
+                            {
+                                return;
+                            }
 
                             List<Status> currentFlags = Status.extractFlags(flags)
                                     .collect(Collectors.toList());

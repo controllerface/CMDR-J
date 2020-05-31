@@ -11,7 +11,17 @@ public class HybridPowerDistributor_1A extends AbstractGuardianModule
     {
         super("1A Guardian Hybrid Power Distributor",
                 new ItemEffects(
-                        new ItemEffectData(ItemEffect.guardian, 1d)
+                        new ItemEffectData(ItemEffect.guardian, 1d),
+                        new ItemEffectData(ItemEffect.Mass, 1.4),
+                        new ItemEffectData(ItemEffect.Integrity, 35.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.62),
+                        //new ItemEffectData(ItemEffect.BootTime, 5.0),
+                        new ItemEffectData(ItemEffect.WeaponsCapacity, 10.0),
+                        new ItemEffectData(ItemEffect.WeaponsRecharge, 2.5),
+                        new ItemEffectData(ItemEffect.EnginesCapacity, 9.0),
+                        new ItemEffectData(ItemEffect.EnginesRecharge, 0.8),
+                        new ItemEffectData(ItemEffect.SystemsCapacity, 10.0),
+                        new ItemEffectData(ItemEffect.SystemsRecharge, 0.80)
                 ));
     }
 
