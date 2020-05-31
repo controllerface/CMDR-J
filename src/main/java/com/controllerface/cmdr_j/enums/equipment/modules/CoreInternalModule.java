@@ -17,7 +17,6 @@ import com.controllerface.cmdr_j.classes.modules.core.fsd.size4.*;
 import com.controllerface.cmdr_j.classes.modules.core.fsd.size5.*;
 import com.controllerface.cmdr_j.classes.modules.core.fsd.size6.*;
 import com.controllerface.cmdr_j.classes.modules.core.fsd.size7.*;
-import com.controllerface.cmdr_j.classes.modules.core.fsd.size8.*;
 import com.controllerface.cmdr_j.classes.modules.core.fueltank.*;
 import com.controllerface.cmdr_j.classes.modules.core.lifesupport.size1.*;
 import com.controllerface.cmdr_j.classes.modules.core.lifesupport.size2.*;
@@ -441,14 +440,6 @@ public enum CoreInternalModule implements ShipModule
     int_hyperdrive_size7_class3(new FrameShiftDrive_7C()),
     int_hyperdrive_size7_class4(new FrameShiftDrive_7B()),
     int_hyperdrive_size7_class5(new FrameShiftDrive_7A()),
-
-
-    // todo: update if these are ever obtainable
-    int_hyperdrive_size8_class1(new FrameShiftDrive_8E()),
-    int_hyperdrive_size8_class2(new FrameShiftDrive_8D()),
-    int_hyperdrive_size8_class3(new FrameShiftDrive_8C()),
-    int_hyperdrive_size8_class4(new FrameShiftDrive_8B()),
-    int_hyperdrive_size8_class5(new FrameShiftDrive_8A()),
 
 
     /**

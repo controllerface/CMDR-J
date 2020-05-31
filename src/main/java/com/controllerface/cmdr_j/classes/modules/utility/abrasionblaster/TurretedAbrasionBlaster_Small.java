@@ -8,16 +8,15 @@ public class TurretedAbrasionBlaster_Small extends AbstractAbrasionBlaster
 {
     public TurretedAbrasionBlaster_Small()
     {
-        // todo: update with correct stats, these are from fixed
         super("Small Turreted Abrasion Blaster",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.34),
+                  new ItemEffectData(ItemEffect.PowerDraw, 0.47),
                   new ItemEffectData(ItemEffect.DamagePerSecond, 20.0),
                   new ItemEffectData(ItemEffect.Damage, 4.0),
                   new ItemEffectData(ItemEffect.DistributorDraw, 2.0),
-                  new ItemEffectData(ItemEffect.ThermalLoad, 2.0),
+                  new ItemEffectData(ItemEffect.ThermalLoad, 1.8),
                   new ItemEffectData(ItemEffect.ArmourPenetration, 18.0),
                   new ItemEffectData(ItemEffect.MaximumRange, 1000.0),
                   new ItemEffectData(ItemEffect.ShotSpeed, 667.0),

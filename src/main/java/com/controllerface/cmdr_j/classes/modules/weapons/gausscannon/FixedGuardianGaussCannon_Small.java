@@ -25,10 +25,10 @@ public class FixedGuardianGaussCannon_Small extends AbstractGuardianModule
                     new ItemEffectData(ItemEffect.AmmoClipSize, 1.0),
                     new ItemEffectData(ItemEffect.AmmoMaximum, 80.0),
                     new ItemEffectData(ItemEffect.ReloadTime, 1.0),
-//                  new ItemEffectData(ItemEffect.BreachDamage, 0.0),
-//                  new ItemEffectData(ItemEffect.MinBreachChance, 0.0),
-//                  new ItemEffectData(ItemEffect.MaxBreachChance, 0.0),
-                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.BreachDamage, 11.0),
+                    new ItemEffectData(ItemEffect.MinBreachChance, 20.0),
+                    new ItemEffectData(ItemEffect.MaxBreachChance, 40.0),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal/AX"),
                     new ItemEffectData(ItemEffect.DamageFalloffRange, 1500.0)
             ));
     }

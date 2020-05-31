@@ -707,12 +707,6 @@ public enum OptionalInternalModule implements ShipModule
      * Shield Generator
      */
 
-    // todo: are these obtainable?
-    int_shieldgenerator_size1_class1(new ShieldGenerator_1E()),
-    int_shieldgenerator_size1_class2(new ShieldGenerator_1D()),
-    int_shieldgenerator_size1_class3(new ShieldGenerator_1C()),
-    int_shieldgenerator_size1_class4(new ShieldGenerator_1B()),
-
     int_shieldgenerator_size1_class3_fast(new ShieldGenerator_1C_BiWeave()),
     int_shieldgenerator_size1_class5(new ShieldGenerator_1A()),
     int_shieldgenerator_size1_class5_strong(new ShieldGenerator_1A_Prismatic()),
@@ -886,13 +880,6 @@ public enum OptionalInternalModule implements ShipModule
     int_stellarbodydiscoveryscanner_intermediate(new AdvancedDiscoveryScanner()),
 
     int_stellarbodydiscoveryscanner_advanced(new AdvancedDiscoveryScanner()),
-
-    /*
-    Guardian Power Distributor
-     */
-
-    // todo: need stats for these, and move to core enum after it is converted
-
 
     ;
 

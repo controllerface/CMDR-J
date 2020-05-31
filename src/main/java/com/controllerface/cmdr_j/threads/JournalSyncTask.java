@@ -373,6 +373,7 @@ public class JournalSyncTask implements Runnable
                     .forEach(this::processJSONEvent);
         }
     }
+
     /**
      * Processes a generic JSON event, delegating final processing to a specific method based on the event type
      *

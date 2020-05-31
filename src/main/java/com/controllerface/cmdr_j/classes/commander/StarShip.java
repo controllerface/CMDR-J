@@ -22,6 +22,7 @@ import javafx.scene.control.TableView;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -84,7 +85,7 @@ public class StarShip
         statTable.setItems(sorted);
 
         observableStatistics.addListener((ListChangeListener<ShipStatisticData>) c -> statTable.refresh());
-        sorted.setComparator((a, b)-> a.stat().compareTo(b.stat()));
+        sorted.setComparator(Comparator.comparing(ShipStatisticData::stat));
     }
 
     public void associateCoreTable(TableView<ShipModuleData> coreTable)
@@ -447,8 +448,7 @@ public class StarShip
         optionalInternals.stream()
                 .filter(module -> module.getModule().modificationType() == ModificationType.Shield_Generator)
                 .map(module -> module.getEffectValue(resistanceEffect))
-                .filter(Objects::nonNull)
-                .filter(x->x!=0)
+                .filter(x -> x != 0)
                 .mapToDouble(Double::doubleValue)
                 .map(next -> 100d - next)
                 .map(next -> next / 100d)
@@ -460,8 +460,7 @@ public class StarShip
                 .filter(hardpoint -> hardpoint.getModule().modificationType() == ModificationType.Shield_Booster)
                 .filter(hardpoint -> hardpoint.getModule().modificationType() == ModificationType.Shield_Booster)
                 .map(hardpoint -> hardpoint.getEffectValue(resistanceEffect))
-                .filter(Objects::nonNull)
-                .filter(x->x!=0)
+                .filter(x -> x != 0)
                 .mapToDouble(Double::doubleValue)
                 .map(next -> 100d - next)
                 .map(next -> next / 100d)
@@ -552,16 +551,14 @@ public class StarShip
         // all relevant modules
         double hullReinforcement = optionalInternals.stream()
                 .map(module -> module.getEffectValue(ItemEffect.DefenceModifierHealthAddition))
-                .filter(Objects::nonNull)
                 .mapToDouble(Double::doubleValue)
                 .sum();
 
         // right now, only armour modules can add hull boost, so we can loop through just the core
         // internals and filter in armour modules. In practice, this will only ever find one module
         double hullBoost = coreInternals.stream()
-                .filter(m->m.getModuleName() == CoreInternalSlot.Armour)
-                .map(a->a.getEffectValue(ItemEffect.DefenceModifierHealthMultiplier))
-                .filter(Objects::nonNull)
+                .filter(m -> m.getModuleName() == CoreInternalSlot.Armour)
+                .map(a -> a.getEffectValue(ItemEffect.DefenceModifierHealthMultiplier))
                 .map(v -> v / 100d)
                 .map(m -> hullStrength * m)
                 .findFirst().orElse(0d);
@@ -724,14 +721,12 @@ public class StarShip
                 .filter(hardpoint -> hardpoint.getModule().modificationType() != null)
                 .filter(hardpoint -> hardpoint.getModule().modificationType() == ModificationType.Shield_Booster)
                 .map(hardpoint -> hardpoint.getEffectValue(ItemEffect.DefenceModifierShieldMultiplier))
-                .filter(Objects::nonNull)
                 .mapToDouble(Double::doubleValue)
                 .sum() / 100d;
 
         // calculate all shield reinforcement
         double accumulatedShieldReinforcment = optionalInternals.stream()
                 .map(m->m.getEffectValue(ItemEffect.DefenceModifierShieldAddition))
-                .filter(Objects::nonNull)
                 .filter(i -> i != 0.0)
                 .mapToDouble(i -> i).sum();
 
@@ -746,13 +741,11 @@ public class StarShip
     {
         if (ship == null) return 0.0d;
 
-        List<ShipModuleData> buffer = new ArrayList<>();
-
-        double hullMass = ship.getBaseShipStats().getHullMass();
+        List<ShipModuleData> buffer;
 
         synchronized (coreInternals)
         {
-            buffer.addAll(coreInternals);
+            buffer = new ArrayList<>(coreInternals);
         }
 
         synchronized (optionalInternals)
@@ -767,9 +760,10 @@ public class StarShip
 
         double moduleMass = buffer.stream()
                 .map(module -> module.getEffectValue(ItemEffect.Mass))
-                .filter(Objects::nonNull)
                 .mapToDouble(Double::doubleValue)
                 .sum();
+
+        double hullMass = ship.getBaseShipStats().getHullMass();
 
         double totalHullMass = //currentFuel +
                 hullMass + moduleMass;

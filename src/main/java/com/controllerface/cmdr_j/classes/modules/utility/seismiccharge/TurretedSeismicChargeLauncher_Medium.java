@@ -8,7 +8,6 @@ public class TurretedSeismicChargeLauncher_Medium extends AbstractSeismicChargeL
 {
     public TurretedSeismicChargeLauncher_Medium()
     {
-        // todo: update stats, these are from fixed
         super("Medium Turreted Seismic Charge Launcher",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),

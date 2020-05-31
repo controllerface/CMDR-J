@@ -635,8 +635,6 @@ public class UIController
 
     private void renderWaypoint(double waypointLongitude, double waypointLatitude, double centerX, double centerY, Color color, String text)
     {
-        //         TODO: should handle multiple waypoints
-
         double currentLat = Double.parseDouble(status_latitude.getText());
         double currentLong = Double.parseDouble(status_longitude.getText());
 
@@ -1437,7 +1435,7 @@ public class UIController
         final Callback<TableColumn<InventoryData, InventoryData>, TableCell<InventoryData, InventoryData>>
                 inventoryItemCellFactory = (x) ->
         {
-            TableCell c = new CostDataCell();
+            TableCell<?,?> c = new CostDataCell();
             return ((TableCell<InventoryData, InventoryData>) c);
         };
 
@@ -2356,8 +2354,6 @@ public class UIController
 
                     String recipeType = recipe.getClass().getSimpleName();
                     String recipeName = recipe.getName();
-
-                    //todo: if this is a trade recipe, we need to write the price/product costs in the JSON object
 
                     Map<String, Object> procTypedata = new LinkedHashMap<>();
                     procTypedata.put(procType, procName);

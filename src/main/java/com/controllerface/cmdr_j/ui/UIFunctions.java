@@ -388,7 +388,6 @@ public class UIFunctions
         {
             Label nextLabel = new Label();
 
-            // todo: in the future this will be done with CSS
             nextLabel.getStyleClass().addAll("base_font");
 
             // get the "more is good" flag for this effect

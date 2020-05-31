@@ -14,7 +14,7 @@ public class PulseWaveAnalyzer_0B extends AbstractPulseWaveScanner
                   new ItemEffectData(ItemEffect.Integrity, 56.0),
                   new ItemEffectData(ItemEffect.PowerDraw, 1.6),
                   new ItemEffectData(ItemEffect.BootTime, 3.0),
-                  new ItemEffectData(ItemEffect.ScannerRange, 21000.0),
+                  new ItemEffectData(ItemEffect.ScannerRange, 21_000.0),
                   new ItemEffectData(ItemEffect.MaxAngle, 15.0),
                   new ItemEffectData(ItemEffect.ScannerTimeToScan, 3.0)
             ));

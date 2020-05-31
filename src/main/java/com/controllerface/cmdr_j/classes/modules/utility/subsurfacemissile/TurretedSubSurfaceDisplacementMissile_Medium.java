@@ -8,12 +8,11 @@ public class TurretedSubSurfaceDisplacementMissile_Medium extends AbstractSubsur
 {
     public TurretedSubSurfaceDisplacementMissile_Medium()
     {
-        // todo: update with correct stats, these are from fixed
         super("Medium Turreted Sub-Surface Displacement Missile",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 1.01),
+                  new ItemEffectData(ItemEffect.PowerDraw, 0.93),
                   new ItemEffectData(ItemEffect.DamagePerSecond, 2.5),
                   new ItemEffectData(ItemEffect.Damage, 5.0),
                   new ItemEffectData(ItemEffect.ShotSpeed, 550.0),
@@ -24,7 +23,7 @@ public class TurretedSubSurfaceDisplacementMissile_Medium extends AbstractSubsur
                   new ItemEffectData(ItemEffect.AmmoMaximum, 96.0),
                   new ItemEffectData(ItemEffect.ReloadTime, 2.0),
                   new ItemEffectData(ItemEffect.RoundsPerShot, 1.0),
-                  new ItemEffectData(ItemEffect.DistributorDraw, 0.21),
+                  new ItemEffectData(ItemEffect.DistributorDraw, 0.18),
                   new ItemEffectData(ItemEffect.ThermalLoad, 2.9),
                   new ItemEffectData(ItemEffect.ArmourPenetration, 25.0),
                   new ItemEffectData(ItemEffect.BreachDamage, 0.5),
