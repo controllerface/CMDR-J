@@ -100,11 +100,9 @@ public class ItemCostData implements Displayable
         this.pendingTradeCost = pendingTradeCost;
         this.addTask = addTask;
 
-        progressBar.setPadding(new Insets(0,6,0,0));
+        progressBar.setPadding(new Insets(5,6,0,0));
 
-        locationContainer
-                .setBackground(new Background(new BackgroundFill(Color
-                        .rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
+        locationContainer.getStyleClass().addAll("information_panel");
     }
 
     @Override
@@ -175,11 +173,11 @@ public class ItemCostData implements Displayable
         if (cachedLabels != null)
         {
             Label commitLabel = new Label("Committed Tasks");
-            commitLabel.setTextFill(UIFunctions.Style.darkOrange);
-            commitLabel.getStyleClass().addAll("base_font");
+            //commitLabel.setTextFill(UIFunctions.Style.darkOrange);
+            commitLabel.getStyleClass().addAll("inventory_label", "base_font");
 
             Label commitInfo = new Label(String.join("\n", cachedLabels));
-            commitInfo.getStyleClass().addAll("base_font");
+            commitInfo.getStyleClass().addAll("light_color_label", "base_font");
             commitInfo.alignmentProperty().set(Pos.CENTER_LEFT);
 
             Separator separator1 = new Separator();
@@ -189,11 +187,11 @@ public class ItemCostData implements Displayable
         }
 
         Label locationLabel = new Label("Relevant Locations");
-        locationLabel.setTextFill(UIFunctions.Style.darkOrange);
-        locationLabel.getStyleClass().addAll("base_font");
+        //locationLabel.setTextFill(UIFunctions.Style.darkOrange);
+        locationLabel.getStyleClass().addAll("inventory_label", "base_font");
 
         Label locationInfo = new Label(cost.getLocationInformation());
-        locationInfo.getStyleClass().addAll("base_font");
+        locationInfo.getStyleClass().addAll("light_color_label", "base_font");
         locationInfo.alignmentProperty().set(Pos.CENTER_LEFT);
 
         locationContainer.getChildren().addAll(locationLabel, locationInfo);
@@ -287,7 +285,7 @@ public class ItemCostData implements Displayable
                                 Region to = generateIcon(tradeYield.getCost().getGrade());
 
                                 Label toLabel = new Label(" to ");
-                                toLabel.getStyleClass().addAll("base_font");
+                                toLabel.getStyleClass().addAll("inventory_label", "base_font");
                                 HBox convBox = new HBox(from, toLabel, to);
 
                                 ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), trade.tradeRecipe);
@@ -296,7 +294,7 @@ public class ItemCostData implements Displayable
                                 HBox btnlbl = new HBox();
 
                                 Label desc = new Label();
-                                desc.getStyleClass().addAll("base_font");
+                                desc.getStyleClass().addAll("inventory_label", "base_font");
                                 desc.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
                                 Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
@@ -318,7 +316,7 @@ public class ItemCostData implements Displayable
                                         .count();
 
                                 Label desc3 = new Label("  (" + String.format("%02d", max) + ")");
-                                desc3.getStyleClass().addAll("base_font");
+                                desc3.getStyleClass().addAll("inventory_label", "base_font");
                                 desc3.alignmentProperty().setValue(Pos.CENTER);
 
                                 Region region1 = new Region();
@@ -335,6 +333,7 @@ public class ItemCostData implements Displayable
                                 Button button = new Button();
                                 button.setGraphic(btnhldr);
                                 button.setOnMouseClicked((e)-> addTask.accept(tradeTask));
+                                button.getStyleClass().addAll("material_trade_button");
                                 return button;
                             }
                             return null;
@@ -393,23 +392,26 @@ public class ItemCostData implements Displayable
                     Label topLabel = new Label("Top Trade");
                     topLabel.setTextFill(UIFunctions.Style.darkOrange);
                     topLabel.getStyleClass().addAll("base_font");
-                    Separator sep = new Separator();
-                    sep.setPadding(new Insets(5,0,5,0));
-                    tradeBox.getChildren().add(sep);
+                    //Separator sep = new Separator();
+                    //sep.setPadding(new Insets(5,0,-5,0));
+                    //tradeBox.getChildren().add(sep);
                     topTrade.prefWidthProperty().bind(locationContainer.widthProperty());
-                    locationContainer.getChildren().addAll(topLabel, topTrade, sep);
+                    topTrade.getStyleClass().addAll("material_trade_button");
+
+                    locationContainer.getChildren().addAll(topLabel, topTrade);//, sep);
 
                     Label tradesLabel = new Label("Other Trades");
-                    tradesLabel.setTextFill(UIFunctions.Style.darkOrange);
-                    tradesLabel.getStyleClass().addAll("base_font");
+                    //tradesLabel.setTextFill(UIFunctions.Style.darkOrange);
+                    tradesLabel.getStyleClass().addAll("information_label", "base_font");
                     locationContainer.getChildren().add(tradesLabel);
 
 
                     if (!recommendTrades.isEmpty())
                     {
                         Label tradeLabel = new Label("Available Trades");
-                        tradeLabel.getStyleClass().addAll("base_font");
+                        tradeLabel.getStyleClass().addAll("inventory_label", "base_font");
                         TitledPane tradePane = new TitledPane();
+                        tradePane.getStyleClass().addAll("information_panel", "base_font");
                         tradePane.setAnimated(false);
                         tradePane.setExpanded(recommendedTradesExpanded.get());
                         tradePane.setGraphic(tradeLabel);
@@ -435,10 +437,10 @@ public class ItemCostData implements Displayable
                 {
                     String labelText = "Unavailable Trades";
                     Label tradeLabel = new Label(labelText);
-                    tradeLabel.getStyleClass().addAll("base_font");
+                    tradeLabel.getStyleClass().addAll("inventory_label", "base_font");
                     TitledPane tradePane = new TitledPane();
-                    tradePane.getStyleClass().addAll("base_font");
-                    Tooltip tooltip = new Tooltip("Trades which are not optimal or for witch you\n have insufficient materials to complete the trade");
+                    tradePane.getStyleClass().addAll("information_panel","base_font");
+                    Tooltip tooltip = new Tooltip("Trades which are not optimal or for which you\n have insufficient materials to complete the trade");
                     tooltip.getStyleClass().addAll("base_font");
                     tradeLabel.setTooltip(tooltip);
                     tradePane.setAnimated(false);
@@ -450,21 +452,21 @@ public class ItemCostData implements Displayable
                     if (!overCommittedTrades.isEmpty())
                     {
                         Label committedLabel = new Label("Committed to Other Trades");
-                        committedLabel.getStyleClass().addAll("base_font");
+                        committedLabel.getStyleClass().addAll("light_color_label", "base_font");
                         vBox.getChildren().add(committedLabel);
                         overCommittedTrades.forEach(trade -> vBox.getChildren().add(trade));
                     }
                     if (!avoidedTrades.isEmpty())
                     {
                         Label avoidLabel = new Label("Conflicts with Ongoing Tasks");
-                        avoidLabel.getStyleClass().addAll("base_font");
+                        avoidLabel.getStyleClass().addAll("light_color_label", "base_font");
                         vBox.getChildren().add(avoidLabel);
                         avoidedTrades.forEach(trade -> vBox.getChildren().add(trade));
                     }
                     if (!insufficientTrades.isEmpty())
                     {
                         Label insufficientLabel = new Label("Insufficient Materials");
-                        insufficientLabel.getStyleClass().addAll("base_font");
+                        insufficientLabel.getStyleClass().addAll("light_color_label", "base_font");
                         vBox.getChildren().add(insufficientLabel);
                         insufficientTrades.forEach(trade->vBox.getChildren().add(trade));
                     }
@@ -514,10 +516,10 @@ public class ItemCostData implements Displayable
 
     private void render()
     {
-        descriptionContainer.setAlignment(Pos.CENTER);
+        descriptionContainer.setAlignment(Pos.TOP_CENTER);
 
         TitledPane titledPane = new TitledPane();
-        titledPane.getStyleClass().addAll("base_font");
+        titledPane.getStyleClass().addAll("general_panel", "base_font");
         titledPane.setAnimated(false);
         titledPane.setExpanded(false);
 
@@ -543,7 +545,7 @@ public class ItemCostData implements Displayable
 
         Label costLabel = new Label(type + " :: "  + cost.getLocalizedName()) ;
         costLabel.setPrefHeight(20);
-        costLabel.getStyleClass().addAll("base_font");
+        costLabel.getStyleClass().addAll("inventory_label", "base_font");
         costLabel.paddingProperty().set(new Insets(2,0,2,0));
 
         renderProgress();
@@ -551,14 +553,14 @@ public class ItemCostData implements Displayable
         hbox.getChildren().add(costLabel);
 
         HBox labelBox = new HBox();
-        labelBox.alignmentProperty().set(Pos.CENTER);
+        labelBox.alignmentProperty().set(Pos.TOP_CENTER);
 
 
         titledPane.setContent(locationContainer);
         titledPane.alignmentProperty().set(Pos.CENTER_LEFT);
 
         titledPane.setGraphic(hbox);
-        hbox.setAlignment(Pos.CENTER);
+        hbox.setAlignment(Pos.TOP_CENTER);
 
         descriptionContainer.getChildren().add(titledPane);
     }

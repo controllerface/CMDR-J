@@ -170,7 +170,7 @@ public class UIFunctions
                 {
                     super.updateItem(item, empty);
                     setGraphic(item);
-                    setAlignment(Pos.CENTER);
+                    setAlignment(Pos.TOP_CENTER);
                 }
             });
 
@@ -182,7 +182,7 @@ public class UIFunctions
             {
                 super.updateItem(item, empty);
                 setGraphic(item);
-                setAlignment(Pos.CENTER);
+                setAlignment(Pos.TOP_CENTER);
             }
         });
 

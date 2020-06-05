@@ -87,10 +87,10 @@ public enum ItemEffect
     DefenceModifierHealthAddition("", "Hull Reinforcement", true),
     DefenceModifierHealthMultiplier("%", "Hull Boost", true),
     DefenceModifierShieldMultiplier("%", "Shield Boost", true),
+    ModuleDefenceAbsorption("%", "Damage Protection", true),
 
     // guardian
     DefenceModifierShieldAddition("MJ", "Shield Reinforcement", true, EffectType.GUARDIAN),
-    ModuleDefenceAbsorption("%", "Damage Protection", true, EffectType.GUARDIAN),
 
     /*
     Shield Generator
@@ -312,9 +312,10 @@ public enum ItemEffect
     Hull_Strength("", "", true),        // srv hull
     Heat_Dissipation("", "", false),    // heat sink refill
 
-    // synthetic effects, used for tech broker weapons effects
+    // synthetic effects, used for tech broker items
     Anti_Xeno_Ammo_Compatible("", "", true, EffectType.ANTI_XENO),
     Hybrid_Power("", "", true, EffectType.GUARDIAN),
+    Thargoid_Disruption_Protection("", "", true, EffectType.GUARDIAN),
     Damage_Multiplier_at_Full_Charge("", "", true),
 
     // synthetic effects, used for experimental engineer effects

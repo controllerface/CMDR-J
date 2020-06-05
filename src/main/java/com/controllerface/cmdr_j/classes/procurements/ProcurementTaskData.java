@@ -90,9 +90,7 @@ public class ProcurementTaskData implements Displayable
 
         progressBar.setPadding(new Insets(8,6,0,6));
 
-        costEffectContainer
-                .setBackground(new Background(new BackgroundFill(Color
-                        .rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
+        costEffectContainer.getStyleClass().addAll("information_panel");
 
         this.spinner = makeSpinner();
     }
@@ -150,9 +148,9 @@ public class ProcurementTaskData implements Displayable
         subGraphic.setPrefHeight(23);
 
         addButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        addButton.setAlignment(Pos.CENTER);
+        addButton.setAlignment(Pos.TOP_CENTER);
         subtractButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        subtractButton.setAlignment(Pos.CENTER);
+        subtractButton.setAlignment(Pos.TOP_CENTER);
 
         addButton.setGraphic(addGraphic);
         subtractButton.setGraphic(subGraphic);
@@ -161,14 +159,16 @@ public class ProcurementTaskData implements Displayable
         countLabel.setPrefWidth(54);
         countLabel.setMaxWidth(54);
         countLabel.setMinWidth(54);
-        countLabel.setAlignment(Pos.CENTER);
+        countLabel.setAlignment(Pos.TOP_CENTER);
+        countLabel.setPadding(new Insets(5,0,0,0));
+
         countLabel.getStyleClass().addAll("base_font");
 
         subtractButton.setOnAction((e) -> inventoryUpdate.accept(-1, asPair()));
         addButton.setOnAction((e) -> inventoryUpdate.accept(1, asPair()));
 
         HBox hBox = new HBox(subtractButton, countLabel, addButton);
-        hBox.setAlignment(Pos.CENTER);
+        hBox.setAlignment(Pos.TOP_CENTER);
         return hBox;
     }
 
@@ -234,12 +234,12 @@ public class ProcurementTaskData implements Displayable
         descriptionContainer.getChildren().clear();
 
         TitledPane titledPane = new TitledPane();
-        titledPane.getStyleClass().addAll("base_font");
+        titledPane.getStyleClass().addAll("general_panel", "base_font");
         titledPane.setAnimated(false);
         titledPane.setExpanded(false);
 
         nameLabel.setPrefHeight(20);
-        nameLabel.getStyleClass().addAll("base_font");
+        nameLabel.getStyleClass().addAll("inventory_label", "base_font");
         nameLabel.paddingProperty().set(new Insets(2, 0, 2, 0));
 
         titledPane.setContent(costEffectContainer);
@@ -248,7 +248,7 @@ public class ProcurementTaskData implements Displayable
         HBox nameContainer = new HBox();
         nameContainer.getChildren().add(nameLabel);
         titledPane.setGraphic(nameContainer);
-        ((HBox) titledPane.getGraphic()).setAlignment(Pos.CENTER);
+        ((HBox) titledPane.getGraphic()).setAlignment(Pos.TOP_CENTER);
 
         descriptionContainer.getChildren().add(titledPane);
 
@@ -382,7 +382,7 @@ public class ProcurementTaskData implements Displayable
 
                     Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
                     next.getStyleClass().addAll("base_font");
-                    next.setTextFill(hasEnough ? UIFunctions.Style.neutralBlack : UIFunctions.Style.negativeRed);
+                    next.setTextFill(hasEnough ? UIFunctions.Style.neutralWhite : UIFunctions.Style.negativeRed);
                     return next;
                 })
                 .forEach(label -> costEffectContainer.getChildren().add(label));

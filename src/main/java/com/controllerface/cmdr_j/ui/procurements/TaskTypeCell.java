@@ -58,11 +58,9 @@ public class TaskTypeCell extends TableCell<ProcurementTaskData, ProcurementReci
         icon.setScaleX(scaleX);
         icon.setScaleY(scaleY);
         hBox.getChildren().add(svgShape);
-        //hBox.setPadding(new Insets(topPad,0,0,0));
+        hBox.setPadding(new Insets(topPad,0,0,0));
 
-        hBox.setAlignment(Pos.CENTER);
-
-        //hBox.setAlignment(Pos.TOP_CENTER);
+        hBox.setAlignment(Pos.TOP_CENTER);
 
         setGraphic(hBox);
     }

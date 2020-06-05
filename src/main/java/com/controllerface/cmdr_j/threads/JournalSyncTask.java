@@ -15,6 +15,7 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
@@ -29,7 +30,7 @@ import java.util.stream.Stream;
  */
 public class JournalSyncTask implements Runnable
 {
-    private static enum ExternalDataFile
+    private enum ExternalDataFile
     {
         MARKET("Market.json"),
         CARGO("Cargo.json");
@@ -136,6 +137,7 @@ public class JournalSyncTask implements Runnable
 
         initializeJournalData();
 
+        AtomicBoolean sawChange =  new AtomicBoolean(false);
         WatchKey watchKey;
         WatchService watchService;
         try
@@ -168,6 +170,11 @@ public class JournalSyncTask implements Runnable
 
             if (watchKey == null)
             {
+                if (sawChange.get())
+                {
+                    System.out.println("Saw file change but watch key did not trigger");
+                }
+
                 File[] files = journalPath.toFile().listFiles();
 
                 if (files == null) continue;
@@ -182,6 +189,7 @@ public class JournalSyncTask implements Runnable
                 {
                     System.out.println("File size changed: " + lastFileSize + " to: " + check.length());
                     lastFileSize = check.length();
+                    sawChange.set(true);
                 }
 
                 if (check.exists())
@@ -204,6 +212,8 @@ public class JournalSyncTask implements Runnable
 
                         if (next == null) return;
 
+                        sawChange.set(false);
+
                         if (next.getName().equals(currentJournalFile.get()))
                         {
                             processEventFile(next, false);
@@ -220,7 +230,7 @@ public class JournalSyncTask implements Runnable
 
     private void processEventFile(File file, boolean readAll)
     {
-        FileReader reader = null;
+        FileReader reader;
         try
         {
             if (readAll)
@@ -258,7 +268,6 @@ public class JournalSyncTask implements Runnable
         {
             e1.printStackTrace();
         }
-        //System.out.println("File read: " + file.getName());
     }
 
     private static Stream<String> readLines(File file)
@@ -336,7 +345,8 @@ public class JournalSyncTask implements Runnable
         File journalFolder = new File(JOURNAL_FOLDER);
         journalPath = journalFolder.toPath();
 
-        File[] journalFiles = journalFolder.listFiles((directory, file) -> file.startsWith("Journal") && file.endsWith(".log"));
+        File[] journalFiles = journalFolder
+                .listFiles((directory, file) -> file.startsWith("Journal") && file.endsWith(".log"));
 
         // todo: maybe print an error of some kind
         if (journalFiles == null) return;

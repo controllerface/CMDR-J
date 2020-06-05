@@ -26,12 +26,12 @@ public class UserTransaction
 
     public enum MessageType
     {
-        GENERAL(Color.BLACK),
-        INVENTORY(Color.web("#4d804d")),
-        LOADOUT(Color.web("#0034ff")),
-        ENGINEERING(Color.web("#ffb366")),
-        COMBAT(Color.web("#b31a1a")),
-        TRAVEL(Color.web("#999999")),
+        GENERAL(Color.web("#eeeeee")),
+        INVENTORY(Color.web("#24AB60")),
+        LOADOUT(Color.web("#ffb000")),
+        ENGINEERING(Color.web("#ff7100")),
+        COMBAT(Color.web("#e91a1a")),
+        TRAVEL(Color.web("#1155ff")),
         EXPLORATION(Color.web("#7345ff")),
 
         ;

@@ -1238,7 +1238,7 @@ public class UIController
 
                         Label message = new Label(item.getMessage());
                         message.setWrapText(true);
-                        message.getStyleClass().addAll("base_font");
+                        message.getStyleClass().addAll("light_color_label","base_font");
                         hBox.getChildren().addAll(typeLabel, message);
                         message.prefWidthProperty()
                                 .bind(console_message_list.widthProperty()
@@ -1314,18 +1314,21 @@ public class UIController
         Label costTableLabel = new Label("Tracked Items Will Appear Here");
         Label importLabel = new Label("Visit a market to see import commodities");
         Label exportLabel = new Label("Visit a market to see export commodities");
+        Label waypointLabel = new Label("No waypoints set");
 
         procListLabel.getStyleClass().addAll("base_font");
         recipeTableLabel.getStyleClass().addAll("base_font");
         costTableLabel.getStyleClass().addAll("base_font");
         importLabel.getStyleClass().addAll("base_font");
         exportLabel.getStyleClass().addAll("base_font");
+        waypointLabel.getStyleClass().addAll("base_font");
 
         procurement_list.setPlaceholder(procListLabel);
         procurement_task_table.setPlaceholder(recipeTableLabel);
         task_cost_table.setPlaceholder(costTableLabel);
         market_table.setPlaceholder(importLabel);
         market_table1.setPlaceholder(exportLabel);
+        waypoint_list.setPlaceholder(waypointLabel);
 
         Label cargoTableLabel = new Label("You are not carrying any cargo");
         Label rawTableLabel = new Label("You are not carrying any raw materials");

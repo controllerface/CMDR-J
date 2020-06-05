@@ -72,6 +72,7 @@ public enum JournalEvent
     ShipyardBuy(new ShipyardBuyHandler()),
     ShipyardSell(new ShipyardSellHandler()),
     ShipyardTransfer(new ShipyardTransferHandler()),
+    ShipTargeted(new ShipTargetedHandler()),
     StoredShips(new StoredShipsHandler()),
     CarrierBuy(new CarrierBuyHandler()),
     CarrierNameChange(new CarrierNameChangeHandler()),

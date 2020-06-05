@@ -49,7 +49,7 @@ public class CostGradeCell extends TableCell<ItemCostData, ItemGrade>
         icon.setScaleX(scaleX);
         icon.setScaleY(scaleY);
         hBox.getChildren().add(svgShape);
-        hBox.setAlignment(Pos.CENTER);
+        hBox.setAlignment(Pos.TOP_CENTER);
 
         setGraphic(hBox);
     }

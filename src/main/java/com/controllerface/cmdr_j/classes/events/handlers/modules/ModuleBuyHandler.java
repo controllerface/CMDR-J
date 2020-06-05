@@ -18,7 +18,7 @@ public class ModuleBuyHandler implements JournalEventHandler
     @Override
     public void handle(EventProcessingContext context)
     {
-        logInventoryMessage(context, "Module Purchased");
+        logInventoryMessage(context, "Module Purchased: " + context.getRawData().get("BuyItem_Localised"));
         processBuyModule(context);
 
         int cost = ((int) context.getRawData().get("BuyPrice"));

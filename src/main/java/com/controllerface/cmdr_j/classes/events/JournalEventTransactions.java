@@ -604,7 +604,7 @@ public class JournalEventTransactions
         Statistic slot = determineStatType(slotKey);
         ShipModule module = determineModuleType(moduleKey);
 
-        if (module != null) logLoadoutMessage(context, "Purchased Module: " + module.displayText());
+        if (module != null) logLoadoutMessage(context, "Installed Module: " + module.displayText());
 
         ShipModuleData shipModuleData = new ShipModuleData.Builder()
                 .setModuleName(slot)
@@ -629,7 +629,7 @@ public class JournalEventTransactions
         Statistic slot = determineStatType(slotKey);
         ShipModule module = determineModuleType(moduleKey);
 
-        if (module != null) logLoadoutMessage(context, "Retrieved Module: " + module.displayText());
+        if (module != null) logLoadoutMessage(context, "Installed Module: " + module.displayText());
 
         dataBuilder
                 .setModule(module)

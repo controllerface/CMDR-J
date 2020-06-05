@@ -16,7 +16,7 @@ public class ModuleRetrieveHandler implements JournalEventHandler
     @Override
     public void handle(EventProcessingContext context)
     {
-        logInventoryMessage(context, "Module Retrieved from Storage");
+        logInventoryMessage(context, "Module Retrieved: " + context.getRawData().get("RetrievedItem_Localised"));
         processRetrieveModule(context);
     }
 }

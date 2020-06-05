@@ -24,7 +24,7 @@ public class CostValueCell extends TableCell<ItemCostData, String>
         else
         {
             super.setText(item);
-            setAlignment(Pos.CENTER);
+            setAlignment(Pos.TOP_CENTER);
             getStyleClass().addAll("base_font");
         }
     }
