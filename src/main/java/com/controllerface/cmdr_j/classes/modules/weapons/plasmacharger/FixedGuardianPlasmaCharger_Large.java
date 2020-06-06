@@ -9,7 +9,7 @@ public class FixedGuardianPlasmaCharger_Large extends AbstractGuardianModule
 {
     public FixedGuardianPlasmaCharger_Large()
     {
-        super("Large Fixed Guardian Plasma Charger",
+        super("3C Fixed Guardian Plasma Charger",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 8.0),

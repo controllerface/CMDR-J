@@ -30,14 +30,14 @@ import java.util.stream.Stream;
  */
 public class JournalSyncTask implements Runnable
 {
-    private enum ExternalDataFile
+    private enum SupplementalDataFile
     {
         MARKET("Market.json"),
         CARGO("Cargo.json");
 
         private final String fileName;
 
-        ExternalDataFile(String fileName)
+        SupplementalDataFile(String fileName)
         {
             this.fileName = fileName;
         }
@@ -311,7 +311,7 @@ public class JournalSyncTask implements Runnable
         return journalLines.stream();
     }
 
-    private static Map<String, Object> readExternalFile(ExternalDataFile dataFile)
+    private static Map<String, Object> readSupplementalFile(SupplementalDataFile dataFile)
     {
         File journalFolder = new File(JOURNAL_FOLDER);
 
@@ -331,12 +331,12 @@ public class JournalSyncTask implements Runnable
 
     public static Map<String, Object> readMarketData()
     {
-        return readExternalFile(ExternalDataFile.MARKET);
+        return readSupplementalFile(SupplementalDataFile.MARKET);
     }
 
     public static Map<String, Object> readCargoData()
     {
-        return readExternalFile(ExternalDataFile.CARGO);
+        return readSupplementalFile(SupplementalDataFile.CARGO);
     }
 
     private void initializeJournalData()

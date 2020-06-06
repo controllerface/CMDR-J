@@ -8,7 +8,7 @@ public class GimballedCannon_Small extends AbstractCannon
 {
     public GimballedCannon_Small()
     {
-        super("Small Gimballed Cannon", 
+        super("1E Gimballed Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

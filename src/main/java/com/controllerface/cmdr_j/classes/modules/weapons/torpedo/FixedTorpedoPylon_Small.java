@@ -8,7 +8,7 @@ public class FixedTorpedoPylon_Small extends AbstractTorpedoPylon
 {
     public FixedTorpedoPylon_Small()
     {
-        super("Small Fixed Torpedo Pylon",
+        super("1I Fixed Torpedo Pylon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 40.0),

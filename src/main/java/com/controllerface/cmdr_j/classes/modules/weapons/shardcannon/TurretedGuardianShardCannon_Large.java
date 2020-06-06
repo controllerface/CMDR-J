@@ -9,7 +9,7 @@ public class TurretedGuardianShardCannon_Large extends AbstractGuardianModule
 {
     public TurretedGuardianShardCannon_Large()
     {
-        super("Large Turreted Guardian Shard Cannon",
+        super("3D Turreted Guardian Shard Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 8.0),

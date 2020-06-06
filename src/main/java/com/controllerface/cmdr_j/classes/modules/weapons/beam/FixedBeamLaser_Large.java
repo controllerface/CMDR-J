@@ -8,7 +8,7 @@ public class FixedBeamLaser_Large extends AbstractBeamLaser
 {
     public FixedBeamLaser_Large()
     {
-        super("Large Fixed Beam Laser", 
+        super("3C Fixed Beam Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 8.0),
                   new ItemEffectData(ItemEffect.Integrity, 64.0),

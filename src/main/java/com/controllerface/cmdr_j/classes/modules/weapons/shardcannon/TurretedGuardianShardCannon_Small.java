@@ -9,7 +9,7 @@ public class TurretedGuardianShardCannon_Small extends AbstractGuardianModule
 {
     public TurretedGuardianShardCannon_Small()
     {
-        super("Small Turreted Guardian Shard Cannon",
+        super("1F Turreted Guardian Shard Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 2.0),

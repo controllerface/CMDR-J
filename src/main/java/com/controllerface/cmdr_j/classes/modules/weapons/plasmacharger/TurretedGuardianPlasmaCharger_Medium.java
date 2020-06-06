@@ -9,7 +9,7 @@ public class TurretedGuardianPlasmaCharger_Medium extends AbstractGuardianModule
 {
     public TurretedGuardianPlasmaCharger_Medium()
     {
-        super("Medium Turreted Guardian Plasma Charger",
+        super("2E Turreted Guardian Plasma Charger",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 4.0),

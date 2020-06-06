@@ -9,7 +9,7 @@ public class GimballedShockCannon_Large extends AbstractExperimentalModule
 {
     public GimballedShockCannon_Large()
     {
-        super("Large Gimballed Shock Cannon",
+        super("3C Gimballed Shock Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 8.0),

@@ -9,7 +9,7 @@ public class FixedShockCannon_Medium extends AbstractExperimentalModule
 {
     public FixedShockCannon_Medium()
     {
-        super("Medium Fixed Shock Cannon",
+        super("2D Fixed Shock Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 4.0),

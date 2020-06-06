@@ -9,7 +9,7 @@ public class FixedAntiThargoidMultiCannon_Medium extends AbstractExperimentalMod
 {
     public FixedAntiThargoidMultiCannon_Medium()
     {
-        super("Medium Fixed Anti-Thargoid Multi-Cannon", 
+        super("2E Fixed Anti-Thargoid Multi-Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.experimental, 1.0),
                   new ItemEffectData(ItemEffect.Mass, 4.0),

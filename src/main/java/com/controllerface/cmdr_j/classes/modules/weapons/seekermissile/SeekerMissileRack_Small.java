@@ -8,7 +8,7 @@ public class SeekerMissileRack_Small extends AbstractSeekerMissileRack
 {
     public SeekerMissileRack_Small()
     {
-        super("Small Fixed Seeker Missile Rack", 
+        super("1B Fixed Seeker Missile Rack",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

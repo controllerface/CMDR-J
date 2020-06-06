@@ -8,7 +8,7 @@ public class FixedImperialHammerRailGun_Medium extends AbstractRailGun
 {
     public FixedImperialHammerRailGun_Medium()
     {
-        super("Medium Fixed Imperial Hammer (Rail Gun)",
+        super("2B Fixed Imperial Hammer (Rail Gun)",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
                         new ItemEffectData(ItemEffect.Mass, 4.0),

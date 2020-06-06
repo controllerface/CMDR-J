@@ -8,7 +8,7 @@ public class FixedRailgun_Small extends AbstractRailGun
 {
     public FixedRailgun_Small()
     {
-        super("Small Fixed Railgun", 
+        super("1D Fixed Railgun",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

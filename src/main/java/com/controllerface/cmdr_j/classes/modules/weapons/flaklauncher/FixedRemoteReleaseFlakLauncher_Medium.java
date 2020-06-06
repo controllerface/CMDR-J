@@ -9,7 +9,7 @@ public class FixedRemoteReleaseFlakLauncher_Medium extends AbstractExperimentalM
 {
     public FixedRemoteReleaseFlakLauncher_Medium()
     {
-        super("Medium Fixed Remote Release Flak Launcher", 
+        super("2B Fixed Remote Release Flak Launcher",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.experimental, 1.0),
                   new ItemEffectData(ItemEffect.Mass, 4.0),

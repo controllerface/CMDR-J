@@ -8,7 +8,7 @@ public class FixedFragmentCannon_Medium extends AbstractFragCannon
 {
     public FixedFragmentCannon_Medium()
     {
-        super("Medium Fixed Fragment Cannon", 
+        super("2A Fixed Fragment Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

@@ -8,7 +8,7 @@ public class FixedMissileRack_Large extends AbstractMissileRack
 {
     public FixedMissileRack_Large()
     {
-        super("Large Fixed Missile Rack",
+        super("3A Fixed Missile Rack",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 8.0),
                     new ItemEffectData(ItemEffect.Integrity, 64.0),

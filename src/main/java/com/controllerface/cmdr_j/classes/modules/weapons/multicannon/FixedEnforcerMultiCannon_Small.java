@@ -8,7 +8,7 @@ public class FixedEnforcerMultiCannon_Small extends AbstractMultiCannon
 {
     public FixedEnforcerMultiCannon_Small()
     {
-        super("Small Fixed Enforcer (Multi-Cannon)",
+        super("1F Fixed Enforcer (Multi-Cannon)",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
                         new ItemEffectData(ItemEffect.Mass, 2.0),

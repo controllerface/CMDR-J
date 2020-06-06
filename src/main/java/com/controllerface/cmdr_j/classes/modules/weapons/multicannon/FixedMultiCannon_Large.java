@@ -8,7 +8,7 @@ public class FixedMultiCannon_Large extends AbstractMultiCannon
 {
     public FixedMultiCannon_Large()
     {
-        super("Large Fixed Multi-Cannon", 
+        super("3C Fixed Multi-Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 8.0),
                   new ItemEffectData(ItemEffect.Integrity, 64.0),

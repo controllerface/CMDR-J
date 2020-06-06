@@ -8,7 +8,7 @@ public class GimballedCannon_Medium extends AbstractCannon
 {
     public GimballedCannon_Medium()
     {
-        super("Medium Gimballed Cannon", 
+        super("2D Gimballed Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

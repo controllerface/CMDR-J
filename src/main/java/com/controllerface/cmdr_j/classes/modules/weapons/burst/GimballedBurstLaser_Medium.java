@@ -8,7 +8,7 @@ public class GimballedBurstLaser_Medium extends AbstractBurstLaser
 {
     public GimballedBurstLaser_Medium()
     {
-        super("Medium Gimballed Burst Laser", 
+        super("2F Gimballed Burst Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

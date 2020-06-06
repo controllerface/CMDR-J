@@ -9,7 +9,7 @@ public class TurretedRemoteReleaseFlechetteLauncher_Medium extends AbstractExper
 {
     public TurretedRemoteReleaseFlechetteLauncher_Medium()
     {
-        super("Medium Turreted Remote Release Flechette Launcher", 
+        super("2B Turreted Remote Release Flechette Launcher",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.human, 1.0),
                   new ItemEffectData(ItemEffect.Mass, 4.0),

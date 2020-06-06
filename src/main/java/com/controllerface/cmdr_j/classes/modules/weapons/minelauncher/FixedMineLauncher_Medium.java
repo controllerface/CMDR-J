@@ -8,7 +8,7 @@ public class FixedMineLauncher_Medium extends AbstractMineLauncher
 {
     public FixedMineLauncher_Medium()
     {
-        super("Medium Fixed Mine Launcher", 
+        super("2I Fixed Mine Launcher",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

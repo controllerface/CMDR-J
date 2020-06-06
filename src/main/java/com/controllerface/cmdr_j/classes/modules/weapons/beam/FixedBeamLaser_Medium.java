@@ -8,7 +8,7 @@ public class FixedBeamLaser_Medium extends AbstractBeamLaser
 {
     public FixedBeamLaser_Medium()
     {
-        super("Medium Fixed Beam Laser", 
+        super("2D Fixed Beam Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

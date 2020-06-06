@@ -9,7 +9,7 @@ public class TurretedShockCannon_Medium extends AbstractExperimentalModule
 {
     public TurretedShockCannon_Medium()
     {
-        super("Medium Turreted Shock Cannon",
+        super("2E Turreted Shock Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 4.0),

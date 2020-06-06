@@ -4,11 +4,11 @@ import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class FixedBurstLaser_large extends AbstractBurstLaser
+public class FixedBurstLaser_Large extends AbstractBurstLaser
 {
-    public FixedBurstLaser_large()
+    public FixedBurstLaser_Large()
     {
-        super("large Fixed Burst Laser", 
+        super("3D Fixed Burst Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 8.0),
                   new ItemEffectData(ItemEffect.Integrity, 64.0),

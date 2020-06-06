@@ -8,7 +8,7 @@ public class TurretedCannon_Large extends AbstractCannon
 {
     public TurretedCannon_Large()
     {
-        super("Large Turreted Cannon", 
+        super("3D Turreted Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 8.0),
                   new ItemEffectData(ItemEffect.Integrity, 64.0),

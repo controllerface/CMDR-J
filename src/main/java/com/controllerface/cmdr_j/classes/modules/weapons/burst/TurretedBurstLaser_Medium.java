@@ -8,7 +8,7 @@ public class TurretedBurstLaser_Medium extends AbstractBurstLaser
 {
     public TurretedBurstLaser_Medium()
     {
-        super("Medium Turreted Burst Laser", 
+        super("2F Turreted Burst Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

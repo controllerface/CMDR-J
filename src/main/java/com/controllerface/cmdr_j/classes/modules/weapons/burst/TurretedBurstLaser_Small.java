@@ -8,7 +8,7 @@ public class TurretedBurstLaser_Small extends AbstractBurstLaser
 {
     public TurretedBurstLaser_Small()
     {
-        super("Small Turreted Burst Laser", 
+        super("1G Turreted Burst Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

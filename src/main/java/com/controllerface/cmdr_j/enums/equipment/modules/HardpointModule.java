@@ -86,7 +86,7 @@ public enum HardpointModule implements ShipModule
     hpt_pulselaserburst_fixed_medium(new FixedBurstLaser_Medium()),
     hpt_pulselaserburst_gimbal_medium(new GimballedBurstLaser_Medium()),
     hpt_pulselaserburst_turret_medium(new TurretedBurstLaser_Medium()),
-    hpt_pulselaserburst_fixed_large(new FixedBurstLaser_large()),
+    hpt_pulselaserburst_fixed_large(new FixedBurstLaser_Large()),
     hpt_pulselaserburst_gimbal_large(new GimballedBurstLaser_Large()),
     hpt_pulselaserburst_turret_large(new TurretedBurstLaser_Large()),
     hpt_pulselaserburst_fixed_huge(new FixedBurstLaser_Huge()),

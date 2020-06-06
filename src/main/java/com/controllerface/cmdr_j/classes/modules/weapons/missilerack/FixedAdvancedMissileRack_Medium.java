@@ -8,7 +8,7 @@ public class FixedAdvancedMissileRack_Medium extends AbstractMissileRack
 {
     public FixedAdvancedMissileRack_Medium()
     {
-        super("Medium Fixed Advanced Missile Rack",
+        super("2B Fixed Advanced Missile Rack",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Mass, 4.0),
                     new ItemEffectData(ItemEffect.Integrity, 51.0),

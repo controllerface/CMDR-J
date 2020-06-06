@@ -9,7 +9,7 @@ public class FixedRemoteReleaseFlechetteLauncher_Medium extends AbstractExperime
 {
     public FixedRemoteReleaseFlechetteLauncher_Medium()
     {
-        super("Medium Fixed Remote Release Flechette Launcher", 
+        super("2B Fixed Remote Release Flechette Launcher",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.human, 1.0),
                   new ItemEffectData(ItemEffect.Mass, 4.0),

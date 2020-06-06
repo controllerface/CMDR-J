@@ -8,7 +8,7 @@ public class GimballedPulseLaser_Large extends AbstractPulseLaser
 {
     public GimballedPulseLaser_Large()
     {
-        super("Large Gimballed Pulse Laser", 
+        super("3E Gimballed Pulse Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 8.0),
                   new ItemEffectData(ItemEffect.Integrity, 64.0),

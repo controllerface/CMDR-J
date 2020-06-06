@@ -8,7 +8,7 @@ public class FixedRetributorBeamLaser_Small extends AbstractBeamLaser
 {
     public FixedRetributorBeamLaser_Small()
     {
-        super("Small Fixed Retributor (Beam Laser)",
+        super("1E Fixed Retributor (Beam Laser)",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
                         new ItemEffectData(ItemEffect.Mass, 2.0),

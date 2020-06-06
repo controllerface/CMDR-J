@@ -8,7 +8,7 @@ public class FixedBeamLaser_Small extends AbstractBeamLaser
 {
     public FixedBeamLaser_Small()
     {
-        super("Small Fixed Beam Laser", 
+        super("1E Fixed Beam Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

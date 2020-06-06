@@ -8,7 +8,7 @@ public class FixedMultiCannon_Huge extends AbstractMultiCannon
 {
     public FixedMultiCannon_Huge()
     {
-        super("Huge Fixed Multi-Cannon", 
+        super("4A Fixed Multi-Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 16.0),
                   new ItemEffectData(ItemEffect.Integrity, 80.0),

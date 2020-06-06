@@ -8,7 +8,7 @@ public class GimballedMultiCannon_Small extends AbstractMultiCannon
 {
     public GimballedMultiCannon_Small()
     {
-        super("Small Gimballed Multi-Cannon", 
+        super("1G Gimballed Multi-Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

@@ -9,7 +9,7 @@ public class FixedShockCannon_Small extends AbstractExperimentalModule
 {
     public FixedShockCannon_Small()
     {
-        super("Small Fixed Shock Cannon",
+        super("1D Fixed Shock Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 2.0),

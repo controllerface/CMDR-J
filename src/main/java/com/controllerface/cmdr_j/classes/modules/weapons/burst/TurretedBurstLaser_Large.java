@@ -8,7 +8,7 @@ public class TurretedBurstLaser_Large extends AbstractBurstLaser
 {
     public TurretedBurstLaser_Large()
     {
-        super("Large Turreted Burst Laser", 
+        super("3E Turreted Burst Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 8.0),
                   new ItemEffectData(ItemEffect.Integrity, 64.0),

@@ -9,7 +9,7 @@ public class TurretedAntiThargoidMultiCannon_Large extends AbstractExperimentalM
 {
     public TurretedAntiThargoidMultiCannon_Large()
     {
-        super("Large Turreted Anti-Thargoid Multi-Cannon", 
+        super("3E Turreted Anti-Thargoid Multi-Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.experimental, 1.0),
                   new ItemEffectData(ItemEffect.Mass, 8.0),

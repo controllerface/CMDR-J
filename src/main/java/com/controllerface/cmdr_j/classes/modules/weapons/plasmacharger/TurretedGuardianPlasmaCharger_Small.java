@@ -9,7 +9,7 @@ public class TurretedGuardianPlasmaCharger_Small extends AbstractGuardianModule
 {
     public TurretedGuardianPlasmaCharger_Small()
     {
-        super("Small Turreted Guardian Plasma Charger",
+        super("1F Turreted Guardian Plasma Charger",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 2.0),

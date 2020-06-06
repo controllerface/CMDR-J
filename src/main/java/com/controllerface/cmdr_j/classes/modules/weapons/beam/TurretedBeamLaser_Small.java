@@ -8,7 +8,7 @@ public class TurretedBeamLaser_Small extends AbstractBeamLaser
 {
     public TurretedBeamLaser_Small()
     {
-        super("Small Turreted Beam Laser", 
+        super("1F Turreted Beam Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

@@ -8,8 +8,8 @@ public class FixedAdvancedMultiCannon_Small extends AbstractMultiCannon
 {
     public FixedAdvancedMultiCannon_Small()
     {
-        super("Small Fixed Advanced Multi-Cannon",
-            new ItemEffects(//Anti_Xeno_Ammo_Compatible
+        super("1F Fixed Advanced Multi-Cannon",
+            new ItemEffects(
                     new ItemEffectData(ItemEffect.Anti_Xeno_Ammo_Compatible, "Synthesize"),
                     new ItemEffectData(ItemEffect.Mass, 2.0),
                     new ItemEffectData(ItemEffect.Integrity, 40.0),

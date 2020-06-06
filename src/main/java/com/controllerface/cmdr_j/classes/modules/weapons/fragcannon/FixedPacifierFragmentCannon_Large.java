@@ -8,7 +8,7 @@ public class FixedPacifierFragmentCannon_Large extends AbstractFragCannon
 {
     public FixedPacifierFragmentCannon_Large()
     {
-        super("Large Fixed Pacifier (Fragment Cannon)",
+        super("3C Fixed Pacifier (Fragment Cannon)",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
                         new ItemEffectData(ItemEffect.Mass, 8.0),

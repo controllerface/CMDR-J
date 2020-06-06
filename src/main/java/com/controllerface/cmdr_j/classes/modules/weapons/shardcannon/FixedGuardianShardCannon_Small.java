@@ -9,7 +9,7 @@ public class FixedGuardianShardCannon_Small extends AbstractGuardianModule
 {
     public FixedGuardianShardCannon_Small()
     {
-        super("Small Fixed Guardian Shard Cannon",
+        super("1D Fixed Guardian Shard Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 2.0),

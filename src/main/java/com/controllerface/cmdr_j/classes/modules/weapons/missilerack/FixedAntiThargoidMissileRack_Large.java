@@ -9,7 +9,7 @@ public class FixedAntiThargoidMissileRack_Large extends AbstractExperimentalModu
 {
     public FixedAntiThargoidMissileRack_Large()
     {
-        super("Large Fixed Anti-Thargoid Missile Rack", 
+        super("3A Fixed Anti-Thargoid Missile Rack",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.experimental, 1.0),
                   new ItemEffectData(ItemEffect.Mass, 8.0),

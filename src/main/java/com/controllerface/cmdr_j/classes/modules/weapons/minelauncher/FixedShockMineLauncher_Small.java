@@ -8,7 +8,7 @@ public class FixedShockMineLauncher_Small extends AbstractMineLauncher
 {
     public FixedShockMineLauncher_Small()
     {
-        super("Small Fixed Shock Mine Launcher", 
+        super("1I Fixed Shock Mine Launcher",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

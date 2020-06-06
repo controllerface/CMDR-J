@@ -8,7 +8,7 @@ public class GimballedPulseLaser_Medium extends AbstractPulseLaser
 {
     public GimballedPulseLaser_Medium()
     {
-        super("Medium Gimballed Pulse Laser", 
+        super("2F Gimballed Pulse Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

@@ -8,7 +8,7 @@ public class FixedAdvancedMultiCannon_Medium extends AbstractMultiCannon
 {
     public FixedAdvancedMultiCannon_Medium()
     {
-        super("Medium Fixed Advanced Multi-Cannon",
+        super("2E Fixed Advanced Multi-Cannon",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.Anti_Xeno_Ammo_Compatible, "Synthesize"),
                     new ItemEffectData(ItemEffect.Mass, 4.0),

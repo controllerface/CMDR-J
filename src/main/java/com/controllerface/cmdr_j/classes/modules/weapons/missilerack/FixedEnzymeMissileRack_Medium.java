@@ -9,7 +9,7 @@ public class FixedEnzymeMissileRack_Medium extends AbstractExperimentalModule
 {
     public FixedEnzymeMissileRack_Medium()
     {
-        super("Medium Fixed Enzyme Missile Rack", 
+        super("2B Fixed Enzyme Missile Rack",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.human, 1.0),
                   new ItemEffectData(ItemEffect.Mass, 4.0),

@@ -9,7 +9,7 @@ public class GimballedShockCannon_Medium extends AbstractExperimentalModule
 {
     public GimballedShockCannon_Medium()
     {
-        super("Medium Gimballed Shock Cannon",
+        super("2D Gimballed Shock Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 4.0),

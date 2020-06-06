@@ -8,7 +8,7 @@ public class FixedRailgun_Medium extends AbstractRailGun
 {
     public FixedRailgun_Medium()
     {
-        super("Medium Fixed Railgun", 
+        super("2B Fixed Railgun",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

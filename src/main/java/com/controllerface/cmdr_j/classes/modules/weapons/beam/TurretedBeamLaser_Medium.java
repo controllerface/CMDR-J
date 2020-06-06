@@ -8,7 +8,7 @@ public class TurretedBeamLaser_Medium extends AbstractBeamLaser
 {
     public TurretedBeamLaser_Medium()
     {
-        super("Medium Turreted Beam Laser", 
+        super("2E Turreted Beam Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

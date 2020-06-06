@@ -8,7 +8,7 @@ public class FixedPulseLaser_Huge extends AbstractPulseLaser
 {
     public FixedPulseLaser_Huge()
     {
-        super("Huge Fixed Pulse Laser", 
+        super("4A Fixed Pulse Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 16.0),
                   new ItemEffectData(ItemEffect.Integrity, 80.0),

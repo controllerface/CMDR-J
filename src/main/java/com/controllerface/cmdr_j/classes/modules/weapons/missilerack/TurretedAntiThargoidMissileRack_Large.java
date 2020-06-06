@@ -9,7 +9,7 @@ public class TurretedAntiThargoidMissileRack_Large extends AbstractExperimentalM
 {
     public TurretedAntiThargoidMissileRack_Large()
     {
-        super("Large Turreted Anti-Thargoid Missile Rack", 
+        super("3A Turreted Anti-Thargoid Missile Rack",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.experimental, 1.0),
                   new ItemEffectData(ItemEffect.Mass, 8.0),

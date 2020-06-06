@@ -9,7 +9,7 @@ public class FixedGuardianPlasmaCharger_Medium extends AbstractGuardianModule
 {
     public FixedGuardianPlasmaCharger_Medium()
     {
-        super("Medium Fixed Guardian Plasma Charger",
+        super("2B Fixed Guardian Plasma Charger",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 4.0),

@@ -9,7 +9,7 @@ public class TurretedShockCannon_Large extends AbstractExperimentalModule
 {
     public TurretedShockCannon_Large()
     {
-        super("Large Turreted Shock Cannon",
+        super("3D Turreted Shock Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 8.0),

@@ -8,7 +8,7 @@ public class GimballedBeamLaser_Small extends AbstractBeamLaser
 {
     public GimballedBeamLaser_Small()
     {
-        super("Small Gimballed Beam Laser", 
+        super("1E Gimballed Beam Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

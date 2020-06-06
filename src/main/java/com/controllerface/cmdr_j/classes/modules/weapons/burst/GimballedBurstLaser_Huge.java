@@ -8,7 +8,7 @@ public class GimballedBurstLaser_Huge extends AbstractBurstLaser
 {
     public GimballedBurstLaser_Huge()
     {
-        super("Huge Gimballed Burst Laser", 
+        super("4E Gimballed Burst Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 16.0),
                   new ItemEffectData(ItemEffect.Integrity, 64.0),

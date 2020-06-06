@@ -8,7 +8,7 @@ public class TurretedCannon_Medium extends AbstractCannon
 {
     public TurretedCannon_Medium()
     {
-        super("Medium Turreted Cannon", 
+        super("2E Turreted Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

@@ -8,7 +8,7 @@ public class GimballedCannon_Large extends AbstractCannon
 {
     public GimballedCannon_Large()
     {
-        super("Large Gimballed Cannon", 
+        super("3C Gimballed Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 8.0),
                   new ItemEffectData(ItemEffect.Integrity, 64.0),

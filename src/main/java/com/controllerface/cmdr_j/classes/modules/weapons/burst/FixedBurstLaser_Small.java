@@ -8,7 +8,7 @@ public class FixedBurstLaser_Small extends AbstractBurstLaser
 {
     public FixedBurstLaser_Small()
     {
-        super("Small Fixed Burst Laser", 
+        super("1F Fixed Burst Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 40.0),

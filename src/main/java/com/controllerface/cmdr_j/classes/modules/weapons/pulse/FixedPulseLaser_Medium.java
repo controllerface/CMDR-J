@@ -8,7 +8,7 @@ public class FixedPulseLaser_Medium extends AbstractPulseLaser
 {
     public FixedPulseLaser_Medium()
     {
-        super("Medium Fixed Pulse Laser", 
+        super("2E Fixed Pulse Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

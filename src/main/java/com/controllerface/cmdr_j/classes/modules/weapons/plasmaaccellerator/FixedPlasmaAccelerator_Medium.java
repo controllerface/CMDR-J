@@ -8,7 +8,7 @@ public class FixedPlasmaAccelerator_Medium extends AbstractPlasmaAccelerator
 {
     public FixedPlasmaAccelerator_Medium()
     {
-        super("Medium Fixed Plasma Accelerator", 
+        super("2C Fixed Plasma Accelerator",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

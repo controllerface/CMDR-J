@@ -8,7 +8,7 @@ public class TurretedFragmentCannon_Large extends AbstractFragCannon
 {
     public TurretedFragmentCannon_Large()
     {
-        super("Large Turreted Fragment Cannon", 
+        super("3C Turreted Fragment Cannon",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 8.0),
                   new ItemEffectData(ItemEffect.Integrity, 64.0),

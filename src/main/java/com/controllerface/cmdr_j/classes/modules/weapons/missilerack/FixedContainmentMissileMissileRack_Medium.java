@@ -8,7 +8,7 @@ public class FixedContainmentMissileMissileRack_Medium extends AbstractMissileRa
 {
     public FixedContainmentMissileMissileRack_Medium()
     {
-        super("Medium Fixed Rocket Propelled FSD Disruptor",
+        super("2B Fixed Rocket Propelled FSD Disruptor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
                         new ItemEffectData(ItemEffect.Mass, 4.0),

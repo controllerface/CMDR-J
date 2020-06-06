@@ -8,7 +8,7 @@ public class FixedPlasmaAccelerator_Huge extends AbstractPlasmaAccelerator
 {
     public FixedPlasmaAccelerator_Huge()
     {
-        super("Huge Fixed Plasma Accelerator", 
+        super("4A Fixed Plasma Accelerator",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 16.0),
                   new ItemEffectData(ItemEffect.Integrity, 80.0),

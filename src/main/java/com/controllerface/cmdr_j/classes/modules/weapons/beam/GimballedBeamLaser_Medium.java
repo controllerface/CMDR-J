@@ -8,7 +8,7 @@ public class GimballedBeamLaser_Medium extends AbstractBeamLaser
 {
     public GimballedBeamLaser_Medium()
     {
-        super("Medium Gimballed Beam Laser", 
+        super("2D Gimballed Beam Laser",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),
