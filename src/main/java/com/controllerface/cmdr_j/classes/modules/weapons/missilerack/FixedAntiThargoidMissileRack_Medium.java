@@ -30,7 +30,7 @@ public class FixedAntiThargoidMissileRack_Medium extends AbstractExperimentalMod
                         new ItemEffectData(ItemEffect.MinBreachChance, 80.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
                         new ItemEffectData(ItemEffect.DamageType, "Anti-Xeno"),
-                        new ItemEffectData(ItemEffect.DamageFalloffRange, 0.0)
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed")
             ));
     }
 

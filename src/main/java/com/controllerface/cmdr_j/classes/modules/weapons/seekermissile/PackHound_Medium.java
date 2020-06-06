@@ -8,7 +8,7 @@ public class PackHound_Medium extends AbstractSeekerMissileRack
 {
     public PackHound_Medium()
     {
-        super("2B Pixed Pack-Hound (Seeker Missile Rack)",
+        super("2B Fixed Pack-Hound (Seeker Missile Rack)",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
                         new ItemEffectData(ItemEffect.Size, 2.0),
@@ -29,7 +29,9 @@ public class PackHound_Medium extends AbstractSeekerMissileRack
                         new ItemEffectData(ItemEffect.BreachDamage, 3.0),
                         new ItemEffectData(ItemEffect.MinBreachChance, 0.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 0.0),
-                        new ItemEffectData(ItemEffect.DamageType, "Explosive")
+                        new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed")
+
             ));
     }
 

@@ -24,6 +24,7 @@ public class GimballedBeamLaser_Medium extends AbstractBeamLaser
                         new ItemEffectData(ItemEffect.MinBreachChance, 40.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),
                         new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 600.0)
             ));
     }

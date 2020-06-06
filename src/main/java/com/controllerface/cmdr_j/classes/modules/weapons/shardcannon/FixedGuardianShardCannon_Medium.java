@@ -33,6 +33,7 @@ public class FixedGuardianShardCannon_Medium extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),
                         new ItemEffectData(ItemEffect.Jitter, 5.0),
                         new ItemEffectData(ItemEffect.DamageType, "Thermal/AX"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1700.0)
             ));
     }

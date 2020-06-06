@@ -29,7 +29,8 @@ public class TurretedRemoteReleaseFlechetteLauncher_Medium extends AbstractExper
                         new ItemEffectData(ItemEffect.BreachDamage, 6.5),
                         new ItemEffectData(ItemEffect.MinBreachChance, 100.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
-                        new ItemEffectData(ItemEffect.DamageType, "Kinetic")
+                        new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Turret")
             ));
     }
 

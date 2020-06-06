@@ -33,6 +33,7 @@ public class FixedFragmentCannon_Medium extends AbstractFragCannon
                         new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),
                         new ItemEffectData(ItemEffect.Jitter, 5.0),
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1800.0)
             ));
     }

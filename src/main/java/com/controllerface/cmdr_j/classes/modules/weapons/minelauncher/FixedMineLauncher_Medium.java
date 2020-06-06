@@ -25,7 +25,8 @@ public class FixedMineLauncher_Medium extends AbstractMineLauncher
                         new ItemEffectData(ItemEffect.BreachDamage, 13.2),
                         new ItemEffectData(ItemEffect.MinBreachChance, 0.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 0.0),
-                        new ItemEffectData(ItemEffect.DamageType, "Explosive")
+                        new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed")
             ));
     }
 

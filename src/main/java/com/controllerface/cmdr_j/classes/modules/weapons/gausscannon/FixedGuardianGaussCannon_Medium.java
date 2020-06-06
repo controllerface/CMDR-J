@@ -30,6 +30,7 @@ public class FixedGuardianGaussCannon_Medium extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.MinBreachChance, 20.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 40.0),
                         new ItemEffectData(ItemEffect.DamageType, "Thermal/AX"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1500.0)
             ));
     }

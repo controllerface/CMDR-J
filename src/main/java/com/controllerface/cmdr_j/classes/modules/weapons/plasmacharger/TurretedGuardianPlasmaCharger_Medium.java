@@ -33,6 +33,7 @@ public class TurretedGuardianPlasmaCharger_Medium extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.MinBreachChance, 50.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),
                         new ItemEffectData(ItemEffect.DamageType, "Absolute/AX"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1000.0)
             ));
     }

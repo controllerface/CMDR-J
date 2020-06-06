@@ -31,6 +31,7 @@ public class TurretedShockCannon_Large extends AbstractExperimentalModule
                         new ItemEffectData(ItemEffect.MinBreachChance, 40.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 60.0),
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 2500.0)
             ));
     }

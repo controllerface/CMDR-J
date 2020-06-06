@@ -29,7 +29,8 @@ public class FixedEnzymeMissileRack_Medium extends AbstractExperimentalModule
                         new ItemEffectData(ItemEffect.BreachDamage, 0.0),
                         new ItemEffectData(ItemEffect.MinBreachChance, 80.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
-                        new ItemEffectData(ItemEffect.DamageType, "Caustic")
+                        new ItemEffectData(ItemEffect.DamageType, "Caustic"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed")
             ));
     }
 

@@ -29,6 +29,7 @@ public class FixedPlasmaAccelerator_Huge extends AbstractPlasmaAccelerator
                         new ItemEffectData(ItemEffect.MinBreachChance, 40.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),
                         new ItemEffectData(ItemEffect.DamageType, "Absolute"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
             ));
     }

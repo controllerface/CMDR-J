@@ -29,6 +29,7 @@ public class FixedCannon_Medium extends AbstractCannon
                         new ItemEffectData(ItemEffect.MinBreachChance, 60.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 90.0),
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 3500.0)
             ));
     }

@@ -30,7 +30,7 @@ public class FixedRemoteReleaseFlakLauncher_Medium extends AbstractExperimentalM
                         new ItemEffectData(ItemEffect.MinBreachChance, 100.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
                         new ItemEffectData(ItemEffect.DamageType, "Explosive"),
-                        new ItemEffectData(ItemEffect.DamageFalloffRange, 0.0)
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed")
             ));
     }
 

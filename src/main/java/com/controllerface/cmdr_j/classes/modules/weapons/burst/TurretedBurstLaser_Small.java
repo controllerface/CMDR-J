@@ -27,6 +27,7 @@ public class TurretedBurstLaser_Small extends AbstractBurstLaser
                         new ItemEffectData(ItemEffect.MinBreachChance, 60.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),
                         new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 500.0)
             ));
     }

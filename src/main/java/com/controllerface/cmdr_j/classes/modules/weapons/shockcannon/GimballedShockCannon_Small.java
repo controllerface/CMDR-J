@@ -31,6 +31,7 @@ public class GimballedShockCannon_Small extends AbstractExperimentalModule
                         new ItemEffectData(ItemEffect.MinBreachChance, 40),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 60),
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                         new ItemEffectData(ItemEffect.FalloffRange, 2_500)
             ));
     }

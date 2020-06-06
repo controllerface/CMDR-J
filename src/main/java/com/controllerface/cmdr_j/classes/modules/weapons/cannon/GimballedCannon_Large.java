@@ -29,6 +29,7 @@ public class GimballedCannon_Large extends AbstractCannon
                         new ItemEffectData(ItemEffect.MinBreachChance, 60.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 90.0),
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 4000.0)
             ));
     }

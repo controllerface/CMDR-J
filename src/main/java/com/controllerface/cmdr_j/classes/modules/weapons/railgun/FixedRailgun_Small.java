@@ -28,6 +28,7 @@ public class FixedRailgun_Small extends AbstractRailGun
                         new ItemEffectData(ItemEffect.MinBreachChance, 40.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),
                         new ItemEffectData(ItemEffect.DamageType, "ThermoKinetic"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1000.0)
             ));
     }
