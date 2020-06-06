@@ -551,6 +551,7 @@ public class JournalEventTransactions
         }
 
         ShipModuleData shipModuleData = new ShipModuleData.Builder()
+                .setCurrentShip(context.getCommanderData().getStarShip())
                 .setModuleName(slot)
                 .setModule(module)
                 .setModifiers(modifiers)
@@ -607,6 +608,7 @@ public class JournalEventTransactions
         if (module != null) logLoadoutMessage(context, "Installed Module: " + module.displayText());
 
         ShipModuleData shipModuleData = new ShipModuleData.Builder()
+                .setCurrentShip(context.getCommanderData().getStarShip())
                 .setModuleName(slot)
                 .setModule(module)
                 .setUserTransactions(context.getTransactions())
@@ -632,6 +634,7 @@ public class JournalEventTransactions
         if (module != null) logLoadoutMessage(context, "Installed Module: " + module.displayText());
 
         dataBuilder
+                .setCurrentShip(context.getCommanderData().getStarShip())
                 .setModule(module)
                 .setModuleName(slot);
 

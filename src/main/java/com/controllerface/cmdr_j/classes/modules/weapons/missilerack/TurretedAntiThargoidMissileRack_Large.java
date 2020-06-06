@@ -10,27 +10,28 @@ public class TurretedAntiThargoidMissileRack_Large extends AbstractExperimentalM
     public TurretedAntiThargoidMissileRack_Large()
     {
         super("3A Turreted Anti-Thargoid Missile Rack",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.experimental, 1.0),
-                  new ItemEffectData(ItemEffect.Mass, 8.0),
-                  new ItemEffectData(ItemEffect.Integrity, 64.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 1.75),
-                  new ItemEffectData(ItemEffect.DamagePerSecond, 25.0),
-                  new ItemEffectData(ItemEffect.Damage, 50.0),
-                  new ItemEffectData(ItemEffect.DistributorDraw, 0.14),
-                  new ItemEffectData(ItemEffect.ThermalLoad, 1.9),
-                  new ItemEffectData(ItemEffect.ArmourPenetration, 60.0),
-                  new ItemEffectData(ItemEffect.MaximumRange, 5000.0),
-                  new ItemEffectData(ItemEffect.ShotSpeed, 750.0),
-                  new ItemEffectData(ItemEffect.RateOfFire, 0.5),
-                  new ItemEffectData(ItemEffect.AmmoClipSize, 12.0),
-                  new ItemEffectData(ItemEffect.AmmoMaximum, 128.0),
-                  new ItemEffectData(ItemEffect.ReloadTime, 5.0),
-                  new ItemEffectData(ItemEffect.BreachDamage, 0.1),
-                  new ItemEffectData(ItemEffect.MinBreachChance, 80.0),
-                  new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
-                  new ItemEffectData(ItemEffect.DamageType, "Anti-Xeno"),
-                  new ItemEffectData(ItemEffect.DamageFalloffRange, 0.0)
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.experimental, 1.0),
+                        new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Mass, 8.0),
+                        new ItemEffectData(ItemEffect.Integrity, 64.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 1.75),
+                        new ItemEffectData(ItemEffect.DamagePerSecond, 25.0),
+                        new ItemEffectData(ItemEffect.Damage, 50.0),
+                        new ItemEffectData(ItemEffect.DistributorDraw, 0.14),
+                        new ItemEffectData(ItemEffect.ThermalLoad, 1.9),
+                        new ItemEffectData(ItemEffect.ArmourPenetration, 60.0),
+                        new ItemEffectData(ItemEffect.MaximumRange, 5000.0),
+                        new ItemEffectData(ItemEffect.ShotSpeed, 750.0),
+                        new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                        new ItemEffectData(ItemEffect.AmmoClipSize, 12.0),
+                        new ItemEffectData(ItemEffect.AmmoMaximum, 128.0),
+                        new ItemEffectData(ItemEffect.ReloadTime, 5.0),
+                        new ItemEffectData(ItemEffect.BreachDamage, 0.1),
+                        new ItemEffectData(ItemEffect.MinBreachChance, 80.0),
+                        new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
+                        new ItemEffectData(ItemEffect.DamageType, "Anti-Xeno"),
+                        new ItemEffectData(ItemEffect.DamageFalloffRange, 0.0)
             ));
     }
 

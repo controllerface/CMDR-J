@@ -12,6 +12,7 @@ public class FixedGuardianShardCannon_Medium extends AbstractGuardianModule
         super("2A Fixed Guardian Shard Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
+                        new ItemEffectData(ItemEffect.Size, 2.0),
                         new ItemEffectData(ItemEffect.Mass, 4.0),
                         new ItemEffectData(ItemEffect.Integrity, 42.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.21),

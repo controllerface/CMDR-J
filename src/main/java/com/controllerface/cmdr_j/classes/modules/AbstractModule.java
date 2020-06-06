@@ -18,12 +18,9 @@ public abstract class AbstractModule implements ShipModule
     private final ProcurementType experimentalType;
     private final ItemEffects itemEffects;
 
-    public AbstractModule(String displayText, ProcurementType modificationType, ProcurementType experimentalType, ItemEffects itemEffects)
+    public AbstractModule(String displayText, ItemEffects itemEffects)
     {
-        this.displayText = displayText;
-        this.modificationType = modificationType;
-        this.experimentalType = experimentalType;
-        this.itemEffects = itemEffects;
+        this(displayText, null, null, itemEffects);
     }
 
     public AbstractModule(String displayText, ProcurementType modificationType, ItemEffects itemEffects)
@@ -31,15 +28,21 @@ public abstract class AbstractModule implements ShipModule
         this(displayText, modificationType, null, itemEffects);
     }
 
-    public AbstractModule(String displayText, ItemEffects itemEffects)
+    public AbstractModule(String displayText,
+                          ProcurementType modificationType,
+                          ProcurementType experimentalType,
+                          ItemEffects itemEffects)
     {
-        this(displayText, null, null, itemEffects);
+        this.displayText = displayText;
+        this.modificationType = modificationType;
+        this.experimentalType = experimentalType;
+        this.itemEffects = itemEffects;
     }
 
     @Override
     public List<Icon> icons()
     {
-        return Collections.singletonList(UIFunctions.Icons.cargoIcon);
+        return Collections.emptyList();
     }
 
     @Override
@@ -102,6 +105,11 @@ public abstract class AbstractModule implements ShipModule
 
     }
 
+    /*
+    this "grade" value is not intended to be used for modules grades, it is for materials which also are classes
+    as ProcurementCost objects, as are modules. While it is somewhat confusing, these items must all use a common
+    interface so they can all be used with the "task" system. As such, this should always be null for modules.
+    */
     @Override
     public ItemGrade getGrade()
     {

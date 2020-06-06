@@ -1,5 +1,6 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
+import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.modules.utility.abrasionblaster.FixedAbrasionBlaster_Small;
@@ -55,11 +56,15 @@ import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPyl
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Small;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by Controllerface on 4/24/2018.
@@ -304,6 +309,26 @@ public enum HardpointModule implements ShipModule
     public ItemEffects itemEffects()
     {
         return delegate.itemEffects();
+    }
+
+    public static List<ShipModule> findModulesBySize(int size)
+    {
+        return Stream.of(values())
+                .filter(module ->
+                {
+                    int moduleSize = module.itemEffects().effectByName(ItemEffect.Size)
+                            .map(ItemEffectData::getDoubleValue)
+                            .map(Double::intValue)
+                            .orElse(-1);
+
+                    if (moduleSize == -1) return false;
+
+                    return size == moduleSize || (moduleSize < size && moduleSize > 0);
+                })
+                .sorted(Comparator.comparingDouble(a -> a.itemEffects().effectByName(ItemEffect.Size)
+                        .map(ItemEffectData::getDoubleValue)
+                        .orElse(-1.0)))
+                .collect(Collectors.toList());
     }
 
     public static ShipModule findModule(String moduleName) throws Exception

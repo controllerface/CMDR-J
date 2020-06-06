@@ -96,8 +96,8 @@ public class StarShip
         observableCoreInternals.addListener((ListChangeListener<ShipModuleData>) c -> coreTable.refresh());
         sorted.setComparator((a, b)->
         {
-            CoreInternalSlot slotA = ((CoreInternalSlot) a.getModuleName());
-            CoreInternalSlot slotB = ((CoreInternalSlot) b.getModuleName());
+            CoreInternalSlot slotA = ((CoreInternalSlot) a.getModuleSlot());
+            CoreInternalSlot slotB = ((CoreInternalSlot) b.getModuleSlot());
             return slotA.compareTo(slotB);
         });
     }
@@ -110,8 +110,8 @@ public class StarShip
         observableOptionalInternals.addListener((ListChangeListener<ShipModuleData>) c -> optionalTable.refresh());
         sorted.setComparator((a, b)->
         {
-            OptionalInternalSlot slotA = ((OptionalInternalSlot) a.getModuleName());
-            OptionalInternalSlot slotB = ((OptionalInternalSlot) b.getModuleName());
+            OptionalInternalSlot slotA = ((OptionalInternalSlot) a.getModuleSlot());
+            OptionalInternalSlot slotB = ((OptionalInternalSlot) b.getModuleSlot());
             return slotA.compareTo(slotB);
         });
     }
@@ -124,8 +124,8 @@ public class StarShip
         observableHardpoints.addListener((ListChangeListener<ShipModuleData>) c -> hardpointTable.refresh());
         sorted.setComparator((a, b)->
         {
-            HardpointSlot slotA = ((HardpointSlot) a.getModuleName());
-            HardpointSlot slotB = ((HardpointSlot) b.getModuleName());
+            HardpointSlot slotA = ((HardpointSlot) a.getModuleSlot());
+            HardpointSlot slotB = ((HardpointSlot) b.getModuleSlot());
             return slotA.compareTo(slotB);
         });
     }
@@ -176,6 +176,11 @@ public class StarShip
                 observableHardpoints.addAll(hardpoints);
             }
         });
+    }
+
+    public Ship getShip()
+    {
+        return ship;
     }
 
     public void setShip(Ship ship)
@@ -318,7 +323,7 @@ public class StarShip
         // internal slot. This makes it ok to call installShipModule() multiple times with new ShipModuleData objects that
         // contain updated stats (for example, if the player upgrades or changes a mod on an existing item).
 
-        if (CoreInternalSlot.typeMatches(shipModuleData.getModuleName()))
+        if (CoreInternalSlot.typeMatches(shipModuleData.getModuleSlot()))
         {
             synchronized (coreInternals)
             {
@@ -328,7 +333,7 @@ public class StarShip
             }
         }
 
-        if (OptionalInternalSlot.typeMatches(shipModuleData.getModuleName()))
+        if (OptionalInternalSlot.typeMatches(shipModuleData.getModuleSlot()))
         {
             synchronized (optionalInternals)
             {
@@ -338,7 +343,7 @@ public class StarShip
             }
         }
 
-        if (HardpointSlot.typeMatches(shipModuleData.getModuleName()))
+        if (HardpointSlot.typeMatches(shipModuleData.getModuleSlot()))
         {
             synchronized (hardpoints)
             {
@@ -349,7 +354,7 @@ public class StarShip
         }
 
         // todo: determine if this can be delayed until all modules have been added in some cases, to avoid
-        // unnecessary calculations
+        //  unnecessary calculations. Also, display this again. is currently disabled in the UI
         calculateCurrentStats();
     }
 
@@ -557,7 +562,7 @@ public class StarShip
         // right now, only armour modules can add hull boost, so we can loop through just the core
         // internals and filter in armour modules. In practice, this will only ever find one module
         double hullBoost = coreInternals.stream()
-                .filter(m -> m.getModuleName() == CoreInternalSlot.Armour)
+                .filter(m -> m.getModuleSlot() == CoreInternalSlot.Armour)
                 .map(a -> a.getEffectValue(ItemEffect.DefenceModifierHealthMultiplier))
                 .map(v -> v / 100d)
                 .map(m -> hullStrength * m)

@@ -1,5 +1,6 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
+import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.modules.AdvancedDiscoveryScanner;
@@ -157,11 +158,14 @@ import com.controllerface.cmdr_j.classes.modules.utility.surfacescanner.size0.De
 import com.controllerface.cmdr_j.classes.modules.utility.xenoscanner.XenoScanner_0E;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Implementation note:
@@ -913,6 +917,17 @@ public enum OptionalInternalModule implements ShipModule
     public ItemEffects itemEffects()
     {
         return delegate.itemEffects();
+    }
+
+    public static List<ShipModule> findModulesBySize(int size)
+    {
+        return Stream.of(values())
+                .filter(module -> module.itemEffects().effectStream()
+                        .filter(effectData -> effectData.getEffect() == ItemEffect.Size)
+                        .map(ItemEffectData::getDoubleValue)
+                        .map(Double::intValue)
+                        .anyMatch(moduleSize -> moduleSize <= size))
+                .collect(Collectors.toList());
     }
 
     public static ShipModule findModule(String moduleName) throws Exception

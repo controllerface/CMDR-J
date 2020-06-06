@@ -211,14 +211,31 @@ Used for a few places where only the font family is wanted, usually smaller text
     -fx-background-radius: 3,2,1;
 }
 
-.stats_pane .title
+.modules_pane .title
 {
+    /*
     -fx-background-color:
         #333333,
         linear-gradient(#222222 0%, #232323 49%, #232323 50%, #333333 100%);
+        */
+    -fx-background-color: #222222;
+    /*
     -fx-background-radius: 3,2,1;
+    */
     -fx-border-width: 1 1 0 1;
     -fx-border-color: #444444;
+}
+
+.stats_pane .title
+{
+    -fx-background-color:
+        #222222,
+        linear-gradient(#222222 0%, #232323 49%, #232323 50%, #333333 100%);
+    /*
+    -fx-background-radius: 3,2,1;
+    */
+    -fx-border-width: 0 1 1 1;
+    -fx-border-color: #444444 #444444 #333333 #444444;
 }
 
 .stats_pane > *.content

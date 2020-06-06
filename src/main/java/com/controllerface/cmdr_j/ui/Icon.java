@@ -17,7 +17,7 @@ public class Icon
 
     public Icon(SVGPath iconPath, double baseWidth, double baseHeight)
     {
-        this(iconPath, baseWidth, baseHeight, Color.BLACK);
+        this(iconPath, baseWidth, baseHeight, Color.WHITE);
     }
 
     public Icon(SVGPath iconPath, double baseWidth, double baseHeight, Color color)
@@ -26,7 +26,7 @@ public class Icon
         this.baseWidth = baseWidth;
         this.baseHeight = baseHeight;
         this.color = color;
-        this.hexColor = "#" + this.color.toString().substring(2, 8);
+        this.hexColor = UIFunctions.Icons.toHexString(color);
     }
 
     public SVGPath getIconPath()

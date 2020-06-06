@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.classes;
 
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.commander.StarShip;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
@@ -12,32 +13,25 @@ import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 import com.controllerface.cmdr_j.ui.Displayable;
+import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
-import com.sun.javafx.stage.FocusUngrabEvent;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
-import javafx.util.Callback;
 import javafx.util.Pair;
 
-import java.awt.event.FocusEvent;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
@@ -48,7 +42,8 @@ import java.util.stream.Stream;
  */
 public class ShipModuleData implements Displayable
 {
-    private final Statistic moduleName;
+    private final StarShip currentShip;
+    private final Statistic moduleSlot;
     private final ShipModule module;
 
     private final ModificationBlueprint modificationBlueprint;
@@ -64,7 +59,8 @@ public class ShipModuleData implements Displayable
 
     private ShipModuleData(Builder builder)
     {
-        this.moduleName = builder.moduleName;
+        this.currentShip = builder.currentShip;
+        this.moduleSlot = builder.moduleName;
         this.module = builder.module;
         this.modifiers = builder.modifiers;
         this.modificationBlueprint = builder.modificationBlueprint;
@@ -76,8 +72,15 @@ public class ShipModuleData implements Displayable
         displayPane.getStyleClass().addAll("general_panel", "base_font");
     }
 
-    public Statistic getModuleName() { return moduleName; }
-    public ShipModule getModule() { return module; }
+    public Statistic getModuleSlot()
+    {
+        return moduleSlot;
+    }
+
+    public ShipModule getModule()
+    {
+        return module;
+    }
 
     /**
      * Maps a {@code ProcurementBlueprint} object to a {@code Pair<ProcurementType, ProcurementRecipe>} object,
@@ -99,7 +102,6 @@ public class ShipModuleData implements Displayable
             return new Pair<>(type, recipe);
         });
     }
-
 
     private HBox createRecipeControl(Pair<ProcurementType, ProcurementRecipe> recipePair)
     {
@@ -229,7 +231,7 @@ public class ShipModuleData implements Displayable
 
     private void renderPowerPlayInfo(HBox moduleNameContainer)
     {
-        double sizew = 22;
+        double sizew = 20;
         double sizeh = 18;
 
         HBox powerPlayBox = new HBox();
@@ -241,7 +243,6 @@ public class ShipModuleData implements Displayable
         svgShape.setMinSize(sizew, sizeh);
         svgShape.setPrefSize(sizew, sizeh);
         svgShape.setMaxSize(sizew, sizeh);
-        svgShape.setLayoutX(5);
         svgShape.setStyle("-fx-background-color: #ffffff;");
 
         String text = "Powerplay Module";
@@ -254,8 +255,8 @@ public class ShipModuleData implements Displayable
         Tooltip tooltip = new Tooltip(text);
         Tooltip.install(powerPlayBox, tooltip);
         powerPlayBox.getChildren().add(svgShape);
-        powerPlayBox.setPadding(new Insets(0,8,0,0));
-        moduleNameContainer.getChildren().add(powerPlayBox);
+        Label spacer = new Label(" ");
+        moduleNameContainer.getChildren().addAll(powerPlayBox, spacer);
     }
 
     private void renderExperimentalInfo(HBox moduleNameContainer, boolean fromTechBroker)
@@ -290,63 +291,15 @@ public class ShipModuleData implements Displayable
 
     private void renderModificationInfo(HBox moduleNameContainer, VBox detailsContainer)
     {
-        boolean experimental = module.itemEffects().effectStream()
-                .anyMatch(e->e.getEffect()== ItemEffect.experimental);
-
-        boolean human = module.itemEffects().effectStream()
-                .anyMatch(e->e.getEffect()== ItemEffect.human);
-
-        boolean guardian = module.itemEffects().effectStream()
-                .anyMatch(e->e.getEffect()== ItemEffect.guardian);
-
-        boolean powerPlay = module.itemEffects().effectStream()
-                .anyMatch(e->e.getEffect()== ItemEffect.power_play);
-
-
-        if (human)
-        {
-            renderExperimentalInfo(moduleNameContainer, true);
-        }
-
-        if (experimental)
-        {
-            renderExperimentalInfo(moduleNameContainer, false);
-        }
-
-        if (guardian)
-        {
-            renderGuardianInfo(moduleNameContainer);
-        }
-
-        if (powerPlay)
-        {
-            renderPowerPlayInfo(moduleNameContainer);
-        }
-
         if (modificationBlueprint != null)
         {
             // in some cases, a blueprint can temporarily be set with no modifiers. This state requires some extra
             // text to let the player know the data will be refreshed when they exit the outfitting menu
             boolean needsRefresh = modifiers.isEmpty();
-
-            // generate the text and Label object, setting up the font/color, add the label to the name container
-            String labelText = " G" + level + " " + modificationBlueprint.toString() +" ";
-            double sizew = 18;
-            double sizeh = 20;
             HBox modBox = new HBox();
             modBox.setAlignment(Pos.CENTER_LEFT);
-
-            SVGPath icon = modificationBlueprint.byLevel(level)
-                    .map(r->r.getIcon().getIconPath())
-                    .orElse(UIFunctions.Icons.engineering);
-
-            final Region svgShape = new Region();
-            svgShape.setShape(icon);
-            svgShape.setMinSize(sizew, sizeh);
-            svgShape.setPrefSize(sizew, sizeh);
-            svgShape.setMaxSize(sizew, sizeh);
-            svgShape.setLayoutX(5);
-            svgShape.setStyle("-fx-background-color: #b75200;");
+            // generate the text and Label object, setting up the font/color, add the label to the name container
+            String labelText = " G" + level + " " + modificationBlueprint.toString() +" ";
 
             if (needsRefresh) { labelText += " (*needs refresh*) "; }
 
@@ -355,7 +308,8 @@ public class ShipModuleData implements Displayable
             modificationLabel.setTextFill(UIFunctions.Style.darkOrange);
             modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
-            modBox.getChildren().add(svgShape);
+            //modBox.getChildren().add(svgShape);
+
             modBox.getChildren().add(modificationLabel);
 
             moduleNameContainer.getChildren().add(modBox);
@@ -401,21 +355,8 @@ public class ShipModuleData implements Displayable
             Label special = new Label(" " + experimentalEffectRecipe.getDisplayLabel());
             special.getStyleClass().add("base_font");
             special.setTextFill(UIFunctions.Style.darkYellow);
-            double sizew = 18;
-            double sizeh = 20;
             HBox expBox = new HBox();
             expBox.setAlignment(Pos.CENTER_LEFT);
-            SVGPath icon = experimentalEffectRecipe.getIcon().getIconPath();
-
-            final Region svgShape = new Region();
-            svgShape.setShape(icon);
-            svgShape.setMinSize(sizew, sizeh);
-            svgShape.setPrefSize(sizew, sizeh);
-            svgShape.setMaxSize(sizew, sizeh);
-            svgShape.setLayoutX(5);
-            svgShape.setStyle("-fx-background-color: #b77d00;");
-
-            expBox.getChildren().add(svgShape);
             expBox.getChildren().add(special);
 
             moduleNameContainer.getChildren().add(expBox);
@@ -492,6 +433,102 @@ public class ShipModuleData implements Displayable
         }
     }
 
+    private void renderAvailableModules(VBox effectsContainer)
+    {
+        Map<Integer, List<ShipModule>> moduleMap = new LinkedHashMap<>();
+        if (moduleSlot instanceof HardpointSlot)
+        {
+            HardpointSlot hardpointSlot = ((HardpointSlot) moduleSlot);
+            List<ShipModule> compatibleModules = HardpointModule.findModulesBySize(hardpointSlot.getSize());
+            compatibleModules.forEach(m->
+            {
+                int s = m.itemEffects().effectByName(ItemEffect.Size).map(ItemEffectData::getDoubleValue)
+                        .map(Double::intValue)
+                        .orElse(-1);
+
+                moduleMap.computeIfAbsent(s, (_s) -> new ArrayList<>()).add(m);
+            });
+        }
+        else if (moduleSlot instanceof OptionalInternalSlot)
+        {
+            OptionalInternalSlot internalSlot = ((OptionalInternalSlot) moduleSlot);
+            if (internalSlot.getSize() == 0)
+            {
+                // bail on size 0 for this slot, it means it is the "planetary landing" module placeholder
+                return;
+            }
+
+            // find optional modules of matching size
+            //OptionalInternalModule.values();
+        }
+        else if (moduleSlot instanceof CoreInternalSlot)
+        {
+            CoreInternalSlot internalSlot = ((CoreInternalSlot) moduleSlot);
+            // consult ship for modules that can be fitted
+            switch (internalSlot)
+            {
+                case Armour:
+                    break;
+                case PowerPlant:
+                    break;
+                case MainEngines:
+                    break;
+                case FrameShiftDrive:
+                    break;
+                case LifeSupport:
+                    break;
+                case PowerDistributor:
+                    break;
+                case Radar:
+                    break;
+                case FuelTank:
+                    break;
+
+                // if we are looking at one of the non changeable slots, just bail
+                default:
+                    return;
+            }
+        }
+        else
+        {
+            // other wise we can't list anything
+            return;
+        }
+
+        if (moduleMap.isEmpty())
+        {
+            return;
+        }
+
+
+        TitledPane statPane = new TitledPane();
+        statPane.setExpanded(false);
+        statPane.setAnimated(false);
+        statPane.setText("Available Modules");
+        statPane.setTextFill(UIFunctions.Style.neutralWhite);
+        statPane.getStyleClass().addAll("modules_pane", "base_font");
+
+        VBox moduleBox = new VBox();
+        moduleBox.getStyleClass().addAll("information_panel", "base_font");
+
+        moduleMap.forEach((s,ml)->
+        {
+            Label sizeLabel = new Label("Size " + s);
+            sizeLabel.getStyleClass().addAll("light_color_label");
+            moduleBox.getChildren().add(sizeLabel);
+
+            ml.forEach(m->
+            {
+                Label moduleLabel = new Label(m.displayText());
+                moduleLabel.getStyleClass().addAll("light_color_label");
+                moduleBox.getChildren().add(moduleLabel);
+            });
+        });
+
+        statPane.setContent(moduleBox);
+        effectsContainer.getChildren().add(statPane);
+    }
+
     private void renderEffectTable(VBox effectsContainer)
     {
         List<Pair<ItemEffect, Label>> effects = prepareEffectData();
@@ -519,9 +556,9 @@ public class ShipModuleData implements Displayable
         //unitColumn.setText("Unit");
 
         TitledPane statPane = new TitledPane();
-        statPane.setExpanded(true);
+        statPane.setExpanded(false);
         statPane.setAnimated(false);
-        statPane.setText("Module Statistics");
+        statPane.setText("Current Module Statistics");
         statPane.setTextFill(UIFunctions.Style.neutralWhite);
         statPane.getStyleClass().addAll("stats_pane", "base_font");
 
@@ -557,6 +594,153 @@ public class ShipModuleData implements Displayable
         effectsContainer.getChildren().add(statPane);
     }
 
+    private void renderSupplementalIcons(HBox moduleNameContainer)
+    {
+
+        ItemEffectData wm = module.itemEffects().effectByName(ItemEffect.WeaponMode)
+                .orElse(null);
+
+        if (wm != null)
+        {
+            Icon icon = null;
+
+            switch (wm.getStringValue())
+            {
+                case "Fixed":
+                    icon = UIFunctions.Icons.fixedIcon;
+                    break;
+
+                case "Gimbal":
+                    icon = UIFunctions.Icons.gimbalIcon;
+                    break;
+
+                case "Turret":
+                    icon = UIFunctions.Icons.turretIcon;
+                    break;
+
+                default:
+            }
+
+            if (icon != null)
+            {
+                double sizew = icon.getBaseWidth();
+                double sizeh = icon.getBaseHeight();
+                HBox modBox = new HBox();
+                modBox.setAlignment(Pos.CENTER_LEFT);
+
+                SVGPath iconPath = icon.getIconPath();
+
+                final Region svgShape = new Region();
+                svgShape.setShape(iconPath);
+                svgShape.setMinSize(sizew, sizeh);
+                svgShape.setPrefSize(sizew, sizeh);
+                svgShape.setMaxSize(sizew, sizeh);
+                svgShape.translateYProperty().set(2);
+                svgShape.setStyle("-fx-background-color: " + icon.getHexColorString());
+                Label spacer = new Label(" ");
+                moduleNameContainer.getChildren().addAll(svgShape, spacer);
+            }
+        }
+
+        if (!module.icons().isEmpty())
+        {
+            Icon icon = module.icons().get(0);
+
+            double sizew = icon.getBaseWidth();
+            double sizeh = icon.getBaseHeight();
+            HBox modBox = new HBox();
+            modBox.setAlignment(Pos.CENTER_LEFT);
+
+            SVGPath iconPath = icon.getIconPath();
+
+            final Region svgShape = new Region();
+            svgShape.setShape(iconPath);
+            svgShape.setMinSize(sizew, sizeh);
+            svgShape.setPrefSize(sizew, sizeh);
+            svgShape.setMaxSize(sizew, sizeh);
+            svgShape.translateYProperty().set(2);
+            svgShape.setStyle("-fx-background-color: " + icon.getHexColorString());
+            Label spacer = new Label(" ");
+            moduleNameContainer.getChildren().addAll(svgShape, spacer);
+        }
+
+        if (modificationBlueprint != null)
+        {
+            double sizew = 20;
+            double sizeh = 22;
+
+            SVGPath icon = modificationBlueprint.byLevel(level)
+                    .map(r->r.getIcon().getIconPath())
+                    .orElse(UIFunctions.Icons.engineering);
+
+            final Region svgShape = new Region();
+            svgShape.setShape(icon);
+            svgShape.setMinSize(sizew, sizeh);
+            svgShape.setPrefSize(sizew, sizeh);
+            svgShape.setMaxSize(sizew, sizeh);
+            //svgShape.setLayoutX(5);
+            svgShape.translateYProperty().set(1.5);
+            svgShape.setStyle("-fx-background-color: " +
+                    UIFunctions.Icons.toHexString(UIFunctions.Style.standardOrange));
+            Label spacer = new Label(" ");
+            moduleNameContainer.getChildren().addAll(svgShape, spacer);
+        }
+
+        if (experimentalEffectRecipe != null)
+        {
+            double sizew = 20;
+            double sizeh = 22;
+
+            SVGPath icon = modificationBlueprint.byLevel(level)
+                    .map(r->r.getIcon().getIconPath())
+                    .orElse(UIFunctions.Icons.engineering);
+
+            final Region svgShape = new Region();
+            svgShape.setShape(icon);
+            svgShape.setMinSize(sizew, sizeh);
+            svgShape.setPrefSize(sizew, sizeh);
+            svgShape.setMaxSize(sizew, sizeh);
+            svgShape.translateYProperty().set(1.5);
+            svgShape.setStyle("-fx-background-color: " +
+                    UIFunctions.Icons.toHexString(UIFunctions.Style.specialYellow));
+            Label spacer = new Label(" ");
+            moduleNameContainer.getChildren().addAll(svgShape, spacer);
+        }
+
+        boolean experimental = module.itemEffects().effectStream()
+                .anyMatch(e->e.getEffect()== ItemEffect.experimental);
+
+        boolean human = module.itemEffects().effectStream()
+                .anyMatch(e->e.getEffect()== ItemEffect.human);
+
+        boolean guardian = module.itemEffects().effectStream()
+                .anyMatch(e->e.getEffect()== ItemEffect.guardian);
+
+        boolean powerPlay = module.itemEffects().effectStream()
+                .anyMatch(e->e.getEffect()== ItemEffect.power_play);
+
+
+        if (powerPlay)
+        {
+            renderPowerPlayInfo(moduleNameContainer);
+        }
+
+        if (human)
+        {
+            renderExperimentalInfo(moduleNameContainer, true);
+        }
+
+        if (experimental)
+        {
+            renderExperimentalInfo(moduleNameContainer, false);
+        }
+
+        if (guardian)
+        {
+            renderGuardianInfo(moduleNameContainer);
+        }
+    }
+
     private void renderDisplayGraphic()
     {
         Label moduleLabel = new Label(module.displayText() + " ");
@@ -564,8 +748,11 @@ public class ShipModuleData implements Displayable
         moduleLabel.getStyleClass().addAll("general_panel_label", "base_font");
 
         HBox moduleNameContainer = new HBox();
+        renderSupplementalIcons(moduleNameContainer);
+
         moduleNameContainer.getChildren().add(moduleLabel);
         moduleNameContainer.getStyleClass().add("general_panel_label");
+
 
         VBox detailsContainer = new VBox();
         detailsContainer.setAlignment(Pos.CENTER_LEFT);
@@ -573,17 +760,26 @@ public class ShipModuleData implements Displayable
 
         renderModificationInfo(moduleNameContainer, detailsContainer);
 
+        VBox modulesContainer = new VBox();
+        modulesContainer.fillWidthProperty().setValue(true);
+        modulesContainer.getStyleClass().add("general_panel");
+        detailsContainer.getChildren().add(modulesContainer);
+        renderAvailableModules(modulesContainer);
+
         VBox effectsContainer = new VBox();
         effectsContainer.fillWidthProperty().setValue(true);
         effectsContainer.getStyleClass().add("general_panel");
-
         detailsContainer.getChildren().add(effectsContainer);
-
         renderEffectTable(effectsContainer);
 
         HBox statContainer = new HBox();
         statContainer.getChildren().add(detailsContainer);
         statContainer.getStyleClass().add("general_panel");
+
+        if (moduleNameContainer.getChildren().get(0) != moduleLabel)
+        {
+            moduleLabel.textProperty().set(" " + moduleLabel.getText());
+        }
 
         displayPane.setContent(statContainer);
         displayPane.setGraphic(moduleNameContainer);
@@ -600,6 +796,9 @@ public class ShipModuleData implements Displayable
                 .filter(effectData -> effectData.getEffect() != ItemEffect.guardian)
                 .filter(effectData -> effectData.getEffect() != ItemEffect.experimental)
                 .filter(effectData -> effectData.getEffect() != ItemEffect.power_play)
+
+                // size does not need to be displayed in the stat table as it is in the item description
+                .filter(effectData -> effectData.getEffect() != ItemEffect.Size)
 
                 // filter out any stats that are affected by modifiers
                 .filter(effectData -> modifiers.stream()
@@ -695,7 +894,7 @@ public class ShipModuleData implements Displayable
     @Override
     public int hashCode()
     {
-        return moduleName.hashCode();
+        return moduleSlot.hashCode();
     }
 
     @Override
@@ -710,11 +909,12 @@ public class ShipModuleData implements Displayable
             return false;
         }
         ShipModuleData other = ((ShipModuleData) obj);
-        return other == this || other.getModuleName() == this.moduleName;
+        return other == this || other.getModuleSlot() == this.moduleSlot;
     }
 
     public static class Builder
     {
+        private StarShip currentShip;
         private Statistic moduleName;
         private ShipModule module;
         private List<ModifierData> modifiers;
@@ -724,6 +924,11 @@ public class ShipModuleData implements Displayable
         private double quality;
         private BlockingQueue<UserTransaction> userTransactions;
 
+        public Builder setCurrentShip(StarShip currentShip)
+        {
+            this.currentShip = currentShip;
+            return this;
+        }
 
         public Builder setModuleName(Statistic moduleName)
         {

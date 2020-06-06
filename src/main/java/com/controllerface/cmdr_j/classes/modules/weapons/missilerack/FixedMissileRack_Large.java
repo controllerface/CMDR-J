@@ -9,24 +9,25 @@ public class FixedMissileRack_Large extends AbstractMissileRack
     public FixedMissileRack_Large()
     {
         super("3A Fixed Missile Rack",
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8.0),
-                    new ItemEffectData(ItemEffect.Integrity, 64.0),
-                    new ItemEffectData(ItemEffect.PowerDraw, 1.62),
-                    new ItemEffectData(ItemEffect.DamagePerSecond, 25.0),
-                    new ItemEffectData(ItemEffect.Damage, 50.0),
-                    new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
-                    new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
-                    new ItemEffectData(ItemEffect.ArmourPenetration, 60.0),
-                    new ItemEffectData(ItemEffect.ShotSpeed, 750.0),
-                    new ItemEffectData(ItemEffect.RateOfFire, 0.5),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 12.0),
-                    new ItemEffectData(ItemEffect.AmmoMaximum, 96.0),
-                    new ItemEffectData(ItemEffect.ReloadTime, 5.0),
-                    new ItemEffectData(ItemEffect.BreachDamage, 20.0),
-                    new ItemEffectData(ItemEffect.MinBreachChance, 100.0),
-                    new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Mass, 8.0),
+                        new ItemEffectData(ItemEffect.Integrity, 64.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 1.62),
+                        new ItemEffectData(ItemEffect.DamagePerSecond, 25.0),
+                        new ItemEffectData(ItemEffect.Damage, 50.0),
+                        new ItemEffectData(ItemEffect.DistributorDraw, 0.24),
+                        new ItemEffectData(ItemEffect.ThermalLoad, 3.6),
+                        new ItemEffectData(ItemEffect.ArmourPenetration, 60.0),
+                        new ItemEffectData(ItemEffect.ShotSpeed, 750.0),
+                        new ItemEffectData(ItemEffect.RateOfFire, 0.5),
+                        new ItemEffectData(ItemEffect.AmmoClipSize, 12.0),
+                        new ItemEffectData(ItemEffect.AmmoMaximum, 96.0),
+                        new ItemEffectData(ItemEffect.ReloadTime, 5.0),
+                        new ItemEffectData(ItemEffect.BreachDamage, 20.0),
+                        new ItemEffectData(ItemEffect.MinBreachChance, 100.0),
+                        new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
+                        new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
     }
 

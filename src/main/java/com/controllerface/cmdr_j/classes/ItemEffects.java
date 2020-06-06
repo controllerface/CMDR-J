@@ -1,6 +1,9 @@
 package com.controllerface.cmdr_j.classes;
 
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
+
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -21,6 +24,12 @@ public class ItemEffects
     public Stream<ItemEffectData> effectStream()
     {
         return Arrays.stream(effects);
+    }
+
+    public Optional<ItemEffectData> effectByName(ItemEffect effect)
+    {
+        return effectStream().filter(e->e.getEffect()==effect)
+                .findFirst();
     }
 
     public static ItemEffects EMPTY = new ItemEffects()

@@ -10,6 +10,7 @@ public class FixedTorpedoPylon_Small extends AbstractTorpedoPylon
     {
         super("1I Fixed Torpedo Pylon",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 40.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.4),

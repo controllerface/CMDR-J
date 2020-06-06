@@ -58,7 +58,7 @@ public enum ItemEffect
     Offense
      */
 
-    WeaponMode("", "Weapon Mode", true),
+    WeaponMode("", "Weapon Mount", true),
     DamageType("", "Damage Type", true),
     Damage("", "Damage", true),
     DamageFalloffRange("M", "Damage Falloff Range", true),

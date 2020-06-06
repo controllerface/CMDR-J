@@ -68,6 +68,18 @@ public class UIFunctions
 
     public static class Icons
     {
+        private static String format(double val)
+        {
+            String in = Integer.toHexString((int) Math.round(val * 255));
+            return in.length() == 1 ? "0" + in : in;
+        }
+
+        public static String toHexString(Color value)
+        {
+            return "#" + (format(value.getRed()) + format(value.getGreen()) + format(value.getBlue()) + format(value.getOpacity()))
+                    .toUpperCase();
+        }
+
         private static String readIcon(String icon)
         {
             try(Scanner scanner = new Scanner(Icons.class.getResourceAsStream(icon)))
@@ -111,8 +123,16 @@ public class UIFunctions
         public static final SVGPath explosive = new SVGPath();
         public static final SVGPath thermo_kinetic = new SVGPath();
 
+        public static final SVGPath fixed = new SVGPath();
+        public static final SVGPath gimbal = new SVGPath();
+        public static final SVGPath turret = new SVGPath();
+
         static
         {
+            fixed.setContent(readIcon("/icons/fixed_mount"));
+            gimbal.setContent(readIcon("/icons/gimbal_mount"));
+            turret.setContent(readIcon("/icons/turret_mount"));
+
             thermo_kinetic.setContent(readIcon("/icons/thermo_kinetic"));
             explosive.setContent(readIcon("/icons/explosive"));
             kinetic.setContent(readIcon("/icons/kinetic"));
@@ -145,10 +165,14 @@ public class UIFunctions
             materialGrade5.setContent(readIcon("/icons/materialGrade5"));
         }
 
-        public static Icon thermalIcon = new Icon(thermal, 25, 25);
-        public static Icon kineticIcon = new Icon(kinetic, 25, 25);
-        public static Icon explosiveIcon = new Icon(explosive, 25, 25);
-        public static Icon thermoKineticIcon = new Icon(thermo_kinetic, 25, 25);
+        public static Icon thermalIcon = new Icon(thermal, 20, 20);
+        public static Icon kineticIcon = new Icon(kinetic, 20, 20);
+        public static Icon explosiveIcon = new Icon(explosive, 20, 20);
+        public static Icon thermoKineticIcon = new Icon(thermo_kinetic, 20, 20);
+
+        public static Icon fixedIcon = new Icon(fixed, 20, 20);
+        public static Icon gimbalIcon = new Icon(gimbal, 20, 20);
+        public static Icon turretIcon = new Icon(turret, 20, 20);
 
         public static Icon cargoIcon = new Icon(cargo, 25, 25);
         public static Icon creditsIcon = new Icon(credits, 30, 30);

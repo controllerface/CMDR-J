@@ -8,15 +8,16 @@ public class ShieldBooster_0B extends AbstractShieldBooster
 {
     public ShieldBooster_0B()
     {
-        super("0B Shield Booster", 
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 3.0),
-                  new ItemEffectData(ItemEffect.Integrity, 45.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 1.0),
-                  new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 16.0),
-                  new ItemEffectData(ItemEffect.KineticResistance, 0.0),
-                  new ItemEffectData(ItemEffect.ThermicResistance, 0.0),
-                  new ItemEffectData(ItemEffect.ExplosiveResistance, 0.0)
+        super("0B Shield Booster",
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Mass, 3.0),
+                        new ItemEffectData(ItemEffect.Integrity, 45.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 1.0),
+                        new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 16.0),
+                        new ItemEffectData(ItemEffect.KineticResistance, 0.0),
+                        new ItemEffectData(ItemEffect.ThermicResistance, 0.0),
+                        new ItemEffectData(ItemEffect.ExplosiveResistance, 0.0)
             ));
     }
 

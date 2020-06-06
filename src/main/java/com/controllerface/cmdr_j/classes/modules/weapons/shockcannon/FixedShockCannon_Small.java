@@ -12,6 +12,7 @@ public class FixedShockCannon_Small extends AbstractExperimentalModule
         super("1D Fixed Shock Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1.0),
+                        new ItemEffectData(ItemEffect.Size, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 40),
                         new ItemEffectData(ItemEffect.PowerDraw, .41),

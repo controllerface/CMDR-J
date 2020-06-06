@@ -55,7 +55,10 @@ public class ModulePurchaseRecipe implements ProcurementRecipe
         this.price = x;
         this.product = y;
 
-        icon = product.icons().get(0);
+        icon = product.icons().isEmpty()
+                ? UIFunctions.Icons.cargoIcon
+                : product.icons().get(0);
+
         name = product.displayText();
         label = generateDisplayLabel(this.price, this.product);
         shortLabel = product.displayText();

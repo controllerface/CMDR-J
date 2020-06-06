@@ -11,6 +11,7 @@ public class FixedPlasmaAcceleratorAdvanced_Large extends AbstractPlasmaAccelera
         super("3B Fixed Advanced Plasma Accelerator",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
+                        new ItemEffectData(ItemEffect.Size, 3.0),
                         new ItemEffectData(ItemEffect.Mass, 8.0),
                         new ItemEffectData(ItemEffect.Integrity, 64.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.97),
@@ -29,6 +30,7 @@ public class FixedPlasmaAcceleratorAdvanced_Large extends AbstractPlasmaAccelera
                         new ItemEffectData(ItemEffect.MinBreachChance, 40.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),
                         new ItemEffectData(ItemEffect.DamageType, "Absolute"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
             ));
     }

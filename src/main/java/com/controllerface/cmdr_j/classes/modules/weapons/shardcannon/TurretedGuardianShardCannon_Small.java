@@ -12,6 +12,7 @@ public class TurretedGuardianShardCannon_Small extends AbstractGuardianModule
         super("1F Turreted Guardian Shard Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
+                        new ItemEffectData(ItemEffect.Size, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 34.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.72),

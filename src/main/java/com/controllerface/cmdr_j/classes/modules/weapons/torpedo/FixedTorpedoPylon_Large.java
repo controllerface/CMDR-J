@@ -9,22 +9,23 @@ public class FixedTorpedoPylon_Large extends AbstractTorpedoPylon
     public FixedTorpedoPylon_Large()
     {
         super("3I Fixed Torpedo Pylon",
-            new ItemEffects(
-                    new ItemEffectData(ItemEffect.Mass, 8.0),
-                    new ItemEffectData(ItemEffect.Integrity, 64.0),
-                    new ItemEffectData(ItemEffect.PowerDraw, 0.6),
-                    new ItemEffectData(ItemEffect.DamagePerSecond, 120.0),
-                    new ItemEffectData(ItemEffect.Damage, 120.0),
-                    new ItemEffectData(ItemEffect.ThermalLoad, 55.0),
-                    new ItemEffectData(ItemEffect.ArmourPenetration, 10_000.0),
-                    new ItemEffectData(ItemEffect.ShotSpeed, 250.0),
-                    new ItemEffectData(ItemEffect.RateOfFire, 1.0),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 4.0),
-                    new ItemEffectData(ItemEffect.ReloadTime, 5.0),
-                    new ItemEffectData(ItemEffect.BreachDamage, 60.0),
-                    new ItemEffectData(ItemEffect.MinBreachChance, 100.0),
-                    new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
-                    new ItemEffectData(ItemEffect.DamageType, "Explosive")
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Mass, 8.0),
+                        new ItemEffectData(ItemEffect.Integrity, 64.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.6),
+                        new ItemEffectData(ItemEffect.DamagePerSecond, 120.0),
+                        new ItemEffectData(ItemEffect.Damage, 120.0),
+                        new ItemEffectData(ItemEffect.ThermalLoad, 55.0),
+                        new ItemEffectData(ItemEffect.ArmourPenetration, 10_000.0),
+                        new ItemEffectData(ItemEffect.ShotSpeed, 250.0),
+                        new ItemEffectData(ItemEffect.RateOfFire, 1.0),
+                        new ItemEffectData(ItemEffect.AmmoClipSize, 4.0),
+                        new ItemEffectData(ItemEffect.ReloadTime, 5.0),
+                        new ItemEffectData(ItemEffect.BreachDamage, 60.0),
+                        new ItemEffectData(ItemEffect.MinBreachChance, 100.0),
+                        new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
+                        new ItemEffectData(ItemEffect.DamageType, "Explosive")
             ));
     }
 

@@ -55,7 +55,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -1491,17 +1490,17 @@ public class UIController
         ship_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         ship_statistics_data_column.setCellFactory(x -> new StatDisplayCell());
 
-        core_module_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        core_module_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleSlot().getText()));
         core_module_name_column.setCellFactory(x -> new SlotNameCell());
         core_module_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         core_module_data_column.setCellFactory(x -> new ModuleDisplayCell());
 
-        optional_module_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        optional_module_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleSlot().getText()));
         optional_module_name_column.setCellFactory(x -> new SlotNameCell());
         optional_module_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         optional_module_data_column.setCellFactory(x -> new ModuleDisplayCell());
 
-        hardpoint_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleName().getText()));
+        hardpoint_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleSlot().getText()));
         hardpoint_name_column.setCellFactory(x -> new SlotNameCell());
         hardpoint_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         hardpoint_data_column.setCellFactory(x -> new ModuleDisplayCell());
