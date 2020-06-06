@@ -9,7 +9,7 @@ public class PowerDistributor_6D extends AbstractPowerDistributor
 {
     public PowerDistributor_6D()
     {
-        super("6D Standard Power Distributor", 
+        super("6D Power Distributor",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 16.0),
                   new ItemEffectData(ItemEffect.Integrity, 90.0),

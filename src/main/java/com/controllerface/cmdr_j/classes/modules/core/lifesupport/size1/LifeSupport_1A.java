@@ -9,7 +9,7 @@ public class LifeSupport_1A extends AbstractLifeSupport
 {
     public LifeSupport_1A()
     {
-        super("1A Standard Life Support", 
+        super("1A Life Support",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 1.3),
                   new ItemEffectData(ItemEffect.Integrity, 48.0),

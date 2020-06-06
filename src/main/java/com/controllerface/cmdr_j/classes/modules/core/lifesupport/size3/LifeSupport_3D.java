@@ -9,7 +9,7 @@ public class LifeSupport_3D extends AbstractLifeSupport
 {
     public LifeSupport_3D()
     {
-        super("3D Standard Life Support", 
+        super("3D Life Support",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 58.0),

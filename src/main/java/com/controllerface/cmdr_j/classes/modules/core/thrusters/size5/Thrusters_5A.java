@@ -9,7 +9,7 @@ public class Thrusters_5A extends AbstractThrusters
 {
     public Thrusters_5A()
     {
-        super("5A Standard Thrusters", 
+        super("5A Thrusters",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 20.0),
                   new ItemEffectData(ItemEffect.Integrity, 106.0),

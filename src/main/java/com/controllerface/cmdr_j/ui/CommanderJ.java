@@ -7,10 +7,12 @@ import com.controllerface.cmdr_j.Main;
 import com.controllerface.cmdr_j.classes.WindowDimensions;
 import javafx.application.Application;
 import javafx.application.Preloader;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -67,7 +69,6 @@ public class CommanderJ extends Application
         Scene scene = new Scene(root);
         root.getStylesheets().add(cssFile);
         primaryStage.setScene(scene);
-
 
         primaryStage.xProperty().addListener((obs, oldVal, newVal) ->
         {

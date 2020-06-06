@@ -25,6 +25,7 @@ There's a few top-level items that rely on this "root" style definition
     -fx-font-family: 'Euro Caps';
 }
 
+
 /*
 Global settings for table view elements
 */
@@ -313,33 +314,6 @@ This is typically applied to the "foreground" portion of these panels
     -fx-text-fill: rgb(225, 255, 255);
 }
 
-.hidden
-{
-    visibility: hidden;
-}
-
-.no_border
-{
-    -fx-border-width: 0 0 0 0;
-}
-
-.no_header .column-header-background
-{
-    -fx-max-height: 0;
-    -fx-pref-height: 0;
-    -fx-min-height: 0;
-}
-
-.no_scrollbars .scroll-bar *
-{
-    -fx-min-width: 0;
-    -fx-pref-width: 0;
-    -fx-max-width: 0;
-
-    -fx-min-height: 0;
-    -fx-pref-height: 0;
-    -fx-max-height: 0;
-}
 
 /*
 Ship module statistics tables
@@ -352,6 +326,7 @@ Ship module statistics tables
 .stat_table .table-row-cell
 {
     -fx-border-color: #444444;
+    -fx-border-width: 1 0 1 0;
     -fx-table-cell-border-color:#222222;
 }
 
@@ -513,3 +488,32 @@ Ship module statistics tables
     -fx-text-fill: #ff8822;
 }
 
+.hidden
+{
+    visibility: hidden;
+}
+
+.no_border
+{
+    -fx-border-width: 0 0 0 0;
+}
+
+.no_header .column-header-background
+{
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+}
+
+.no_scrollbars .scroll-bar *
+{
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+
+    -fx-padding: 0;
+}

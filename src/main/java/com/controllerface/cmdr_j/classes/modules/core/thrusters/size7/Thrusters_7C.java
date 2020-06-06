@@ -9,7 +9,7 @@ public class Thrusters_7C extends AbstractThrusters
 {
     public Thrusters_7C()
     {
-        super("7C Standard Thrusters", 
+        super("7C Thrusters",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 80.0),
                   new ItemEffectData(ItemEffect.Integrity, 131.0),

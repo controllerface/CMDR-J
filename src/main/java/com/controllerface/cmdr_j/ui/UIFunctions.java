@@ -172,7 +172,7 @@ public class UIFunctions
 
         public static Icon fixedIcon = new Icon(fixed, 20, 20);
         public static Icon gimbalIcon = new Icon(gimbal, 20, 20);
-        public static Icon turretIcon = new Icon(turret, 20, 20);
+        public static Icon turretIcon = new Icon(turret, 20, 15);
 
         public static Icon cargoIcon = new Icon(cargo, 25, 25);
         public static Icon creditsIcon = new Icon(credits, 30, 30);

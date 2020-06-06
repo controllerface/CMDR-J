@@ -9,7 +9,7 @@ public class FrameShiftDrive_3D extends AbstractFSD
 {
     public FrameShiftDrive_3D()
     {
-        super("3D Standard Frame Shift Drive", 
+        super("3D Frame Shift Drive",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.0),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

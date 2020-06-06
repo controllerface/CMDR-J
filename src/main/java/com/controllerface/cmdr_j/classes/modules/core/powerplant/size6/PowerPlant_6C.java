@@ -9,7 +9,7 @@ public class PowerPlant_6C extends AbstractPowerPlant
 {
     public PowerPlant_6C()
     {
-        super("6C Standard Power Plant", 
+        super("6C Power Plant",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 20.0),
                   new ItemEffectData(ItemEffect.Integrity, 113.0),

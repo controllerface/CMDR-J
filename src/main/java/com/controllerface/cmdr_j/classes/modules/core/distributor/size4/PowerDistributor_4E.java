@@ -9,7 +9,7 @@ public class PowerDistributor_4E extends AbstractPowerDistributor
 {
     public PowerDistributor_4E()
     {
-        super("4E Standard Power Distributor", 
+        super("4E Power Distributor",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 10.0),
                   new ItemEffectData(ItemEffect.Integrity, 72.0),

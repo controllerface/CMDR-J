@@ -9,7 +9,7 @@ public class PowerDistributor_8C extends AbstractPowerDistributor
 {
     public PowerDistributor_8C()
     {
-        super("8C Standard Power Distributor", 
+        super("8C Power Distributor",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 160.0),
                   new ItemEffectData(ItemEffect.Integrity, 150.0),

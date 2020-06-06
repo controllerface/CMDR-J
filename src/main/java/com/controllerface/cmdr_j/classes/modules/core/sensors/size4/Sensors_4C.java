@@ -9,7 +9,7 @@ public class Sensors_4C extends AbstractSensors
 {
     public Sensors_4C()
     {
-        super("4C Standard Sensors", 
+        super("4C Sensors",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 10.0),
                   new ItemEffectData(ItemEffect.Integrity, 80.0),

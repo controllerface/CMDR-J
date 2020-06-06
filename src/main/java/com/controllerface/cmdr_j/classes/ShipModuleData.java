@@ -568,7 +568,7 @@ public class ShipModuleData implements Displayable
 
         TableView<Pair<ItemEffect, Label>> effectTable = new TableView<>();
 
-        effectTable.getStyleClass().addAll("no_header","no_scrollbars", "stat_table");
+        effectTable.getStyleClass().addAll("no_header"/*, "no_scrollbars"*/, "stat_table");
 
         effectTable.getColumns().add(nameColumn);
         effectTable.getColumns().add(valueColumn);
@@ -577,7 +577,7 @@ public class ShipModuleData implements Displayable
         nameColumn.prefWidthProperty()
                 .bind(effectTable.prefWidthProperty()
                         .subtract(valueColumn.prefWidthProperty())
-                        .subtract(unitColumn.prefWidthProperty()));
+                        .subtract(unitColumn.prefWidthProperty()).subtract(30));
 
         effectTable.setItems(FXCollections.observableArrayList(effects));
         effectTable.prefHeightProperty()
@@ -597,14 +597,14 @@ public class ShipModuleData implements Displayable
     private void renderSupplementalIcons(HBox moduleNameContainer)
     {
 
-        ItemEffectData wm = module.itemEffects().effectByName(ItemEffect.WeaponMode)
+        ItemEffectData weaponMount = module.itemEffects().effectByName(ItemEffect.WeaponMode)
                 .orElse(null);
 
-        if (wm != null)
+        if (weaponMount != null)
         {
             Icon icon = null;
 
-            switch (wm.getStringValue())
+            switch (weaponMount.getStringValue())
             {
                 case "Fixed":
                     icon = UIFunctions.Icons.fixedIcon;
@@ -635,7 +635,14 @@ public class ShipModuleData implements Displayable
                 svgShape.setMinSize(sizew, sizeh);
                 svgShape.setPrefSize(sizew, sizeh);
                 svgShape.setMaxSize(sizew, sizeh);
-                svgShape.translateYProperty().set(2);
+                if (icon == UIFunctions.Icons.turretIcon)
+                {
+                    svgShape.translateYProperty().set(6.5);
+                }
+                else
+                {
+                    svgShape.translateYProperty().set(2);
+                }
                 svgShape.setStyle("-fx-background-color: " + icon.getHexColorString());
                 Label spacer = new Label(" ");
                 moduleNameContainer.getChildren().addAll(svgShape, spacer);

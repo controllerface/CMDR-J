@@ -9,7 +9,7 @@ public class Sensors_5B extends AbstractSensors
 {
     public Sensors_5B()
     {
-        super("5B Standard Sensors", 
+        super("5B Sensors",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 32.0),
                   new ItemEffectData(ItemEffect.Integrity, 115.0),

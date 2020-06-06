@@ -9,7 +9,7 @@ public class LifeSupport_2C extends AbstractLifeSupport
 {
     public LifeSupport_2C()
     {
-        super("2C Standard Life Support", 
+        super("2C Life Support",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 2.5),
                   new ItemEffectData(ItemEffect.Integrity, 51.0),

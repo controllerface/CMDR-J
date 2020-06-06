@@ -9,7 +9,7 @@ public class Sensors_4D extends AbstractSensors
 {
     public Sensors_4D()
     {
-        super("4D Standard Sensors", 
+        super("4D Sensors", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 4.0),
                   new ItemEffectData(ItemEffect.Integrity, 64.0),

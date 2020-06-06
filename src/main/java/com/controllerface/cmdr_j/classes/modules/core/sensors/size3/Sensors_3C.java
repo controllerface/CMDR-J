@@ -9,7 +9,7 @@ public class Sensors_3C extends AbstractSensors
 {
     public Sensors_3C()
     {
-        super("3C Standard Sensors", 
+        super("3C Sensors",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 5.0),
                   new ItemEffectData(ItemEffect.Integrity, 64.0),

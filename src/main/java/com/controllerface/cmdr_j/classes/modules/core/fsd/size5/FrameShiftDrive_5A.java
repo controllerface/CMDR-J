@@ -9,7 +9,7 @@ public class FrameShiftDrive_5A extends AbstractFSD
 {
     public FrameShiftDrive_5A()
     {
-        super("5A Standard Frame Shift Drive", 
+        super("5A Frame Shift Drive",
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Mass, 20.0),
                   new ItemEffectData(ItemEffect.Integrity, 120.0),
