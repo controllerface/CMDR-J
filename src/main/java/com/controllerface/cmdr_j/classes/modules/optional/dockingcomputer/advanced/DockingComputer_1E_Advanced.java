@@ -11,6 +11,7 @@ public class DockingComputer_1E_Advanced extends AbstractDockingComputer
     {
         super("Advanced Docking Computer",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 1.0),
                         new ItemEffectData(ItemEffect.Integrity, 10d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.39d),
                         new ItemEffectData(ItemEffect.BootTime, 3d)

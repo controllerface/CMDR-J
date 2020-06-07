@@ -11,6 +11,7 @@ public class ResearchLimpet_1E extends AbstractRepairLimpet
     {
         super("1E Research Limpet Controller",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 1.3d),
                         new ItemEffectData(ItemEffect.Integrity, 20d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.4d),

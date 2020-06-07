@@ -9,7 +9,11 @@ public class CargoRack_5E extends AbstractCargoRack
 {
     public CargoRack_5E()
     {
-        super("5E Cargo Rack", new ItemEffects(new ItemEffectData(ItemEffect.CargoCapacity, 32d)));
+        super("5E Cargo Rack",
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.CargoCapacity, 32d)
+                ));
     }
 
     @Override

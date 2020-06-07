@@ -12,6 +12,7 @@ public class GuardianFSDBooster_4H extends AbstractGuardianModule
         super("4H Guardian FSD Booster",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1d),
+                        new ItemEffectData(ItemEffect.Size, 4.0),
                         new ItemEffectData(ItemEffect.Mass, 1.3d),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.65d),
                         new ItemEffectData(ItemEffect.Integrity, 32d),

@@ -11,6 +11,7 @@ public class ShieldGenerator_2B extends AbstractShieldGenerator
     {
         super("2B Shield Generator",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 2.0),
                         new ItemEffectData(ItemEffect.Mass, 4d),
                         new ItemEffectData(ItemEffect.Integrity, 71d),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.8d),

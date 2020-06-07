@@ -3,14 +3,13 @@ package com.controllerface.cmdr_j.classes;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.StarShip;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.procurements.*;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
@@ -22,11 +21,15 @@ import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Pair;
@@ -114,7 +117,7 @@ public class ShipModuleData implements Displayable
         infoPane.prefWidthProperty().bind(container.widthProperty()
                 .subtract(button.widthProperty())
                 .subtract(button.graphicTextGapProperty().multiply(4)));
-        infoPane.requestLayout();
+        //infoPane.requestLayout();
         container.getChildren().addAll(button, infoPane);
         return container;
     }
@@ -392,11 +395,9 @@ public class ShipModuleData implements Displayable
 
                             mapBlueprint(blueprint)
                                     .map(this::createRecipeControl)
-                                    .peek(button ->
-                                    {
-                                        button.prefWidthProperty().bind(modPane.widthProperty());
-                                    })
+                                    .peek(button -> button.prefWidthProperty().bind(modPane.widthProperty()))
                                     .forEach(b -> gradeBox.getChildren().add(b));
+
                             gradePane.setContent(gradeBox);
                             return gradePane;
                         })
@@ -436,8 +437,10 @@ public class ShipModuleData implements Displayable
     private void renderAvailableModules(VBox effectsContainer)
     {
         Map<Integer, List<ShipModule>> moduleMap = new LinkedHashMap<>();
+        ProcurementType procurementType;
         if (moduleSlot instanceof HardpointSlot)
         {
+            procurementType = ModulePurchaseType.Hardpoint;
             HardpointSlot hardpointSlot = ((HardpointSlot) moduleSlot);
             List<ShipModule> compatibleModules = HardpointModule.findModulesBySize(hardpointSlot.getSize());
             compatibleModules.forEach(m->
@@ -451,6 +454,7 @@ public class ShipModuleData implements Displayable
         }
         else if (moduleSlot instanceof OptionalInternalSlot)
         {
+            procurementType = ModulePurchaseType.Optional;
             OptionalInternalSlot internalSlot = ((OptionalInternalSlot) moduleSlot);
             if (internalSlot.getSize() == 0)
             {
@@ -458,11 +462,20 @@ public class ShipModuleData implements Displayable
                 return;
             }
 
-            // find optional modules of matching size
-            //OptionalInternalModule.values();
+            OptionalInternalSlot hardpointSlot = ((OptionalInternalSlot) moduleSlot);
+            List<ShipModule> compatibleModules = OptionalInternalModule.findModulesBySize(hardpointSlot.getSize());
+            compatibleModules.forEach(m->
+            {
+                int s = m.itemEffects().effectByName(ItemEffect.Size).map(ItemEffectData::getDoubleValue)
+                        .map(Double::intValue)
+                        .orElse(-1);
+
+                moduleMap.computeIfAbsent(s, (_s) -> new ArrayList<>()).add(m);
+            });
         }
         else if (moduleSlot instanceof CoreInternalSlot)
         {
+            procurementType = ModulePurchaseType.Core;
             CoreInternalSlot internalSlot = ((CoreInternalSlot) moduleSlot);
             // consult ship for modules that can be fitted
             switch (internalSlot)
@@ -507,22 +520,60 @@ public class ShipModuleData implements Displayable
         statPane.setText("Available Modules");
         statPane.setTextFill(UIFunctions.Style.neutralWhite);
         statPane.getStyleClass().addAll("modules_pane", "base_font");
-
         VBox moduleBox = new VBox();
         moduleBox.getStyleClass().addAll("information_panel", "base_font");
 
-        moduleMap.forEach((s,ml)->
+        statPane.expandedProperty().addListener((_x, statCollapsed, statExpanded) ->
         {
-            Label sizeLabel = new Label("Size " + s);
-            sizeLabel.getStyleClass().addAll("light_color_label");
-            moduleBox.getChildren().add(sizeLabel);
-
-            ml.forEach(m->
+            if (statExpanded && moduleBox.getChildren().isEmpty())
             {
-                Label moduleLabel = new Label(m.displayText());
-                moduleLabel.getStyleClass().addAll("light_color_label");
-                moduleBox.getChildren().add(moduleLabel);
-            });
+                moduleMap.forEach((s,ml)->
+                {
+                    TitledPane sizePane = new TitledPane();
+                    sizePane.setExpanded(false);
+                    sizePane.setAnimated(false);
+                    sizePane.setText("Size " + s);
+                    moduleBox.getChildren().add(sizePane);
+                    VBox contentBox = new VBox();
+                    sizePane.setContent(contentBox);
+
+                    sizePane.expandedProperty().addListener((_y, sizeCollapsed, sizeExpanded) ->
+                    {
+                        if (sizeExpanded && contentBox.getChildren().isEmpty())
+                        {
+                            ml.forEach(module->
+                            {
+                                ProcurementRecipe moduleRecipe = procurementType.getBluePrints().stream()
+                                        .flatMap(ProcurementBlueprint::recipeStream)
+                                        .filter(recipe -> recipe.costStream()
+                                                .map(CostData::getCost)
+                                                .anyMatch(co -> co == module))
+                                        .findAny().orElse(null);
+
+                                if (moduleRecipe == null) return;
+
+                                Pair<ProcurementType, ProcurementRecipe> recipePair = new Pair<>(procurementType, moduleRecipe);
+
+                                TitledPane titledPane = new TitledPane();
+                                titledPane.setText(moduleRecipe.toString());
+                                titledPane.setExpanded(false);
+                                titledPane.setAnimated(false);
+                                titledPane.getStyleClass().addAll("information_panel", "base_font");
+                                VBox gradeBox = new VBox();
+                                gradeBox.getStyleClass().addAll("information_panel", "base_font");
+
+                                HBox h = createRecipeControl(recipePair);
+                                h.prefWidthProperty().bind(sizePane.widthProperty());
+                                gradeBox.getChildren().add(h);
+
+                                titledPane.setContent(gradeBox);
+
+                                contentBox.getChildren().add(titledPane);
+                            });
+                        }
+                    });
+                });
+            }
         });
 
         statPane.setContent(moduleBox);
@@ -755,6 +806,7 @@ public class ShipModuleData implements Displayable
         moduleLabel.getStyleClass().addAll("general_panel_label", "base_font");
 
         HBox moduleNameContainer = new HBox();
+
         renderSupplementalIcons(moduleNameContainer);
 
         moduleNameContainer.getChildren().add(moduleLabel);
@@ -771,12 +823,14 @@ public class ShipModuleData implements Displayable
         modulesContainer.fillWidthProperty().setValue(true);
         modulesContainer.getStyleClass().add("general_panel");
         detailsContainer.getChildren().add(modulesContainer);
+
         renderAvailableModules(modulesContainer);
 
         VBox effectsContainer = new VBox();
         effectsContainer.fillWidthProperty().setValue(true);
         effectsContainer.getStyleClass().add("general_panel");
         detailsContainer.getChildren().add(effectsContainer);
+
         renderEffectTable(effectsContainer);
 
         HBox statContainer = new HBox();

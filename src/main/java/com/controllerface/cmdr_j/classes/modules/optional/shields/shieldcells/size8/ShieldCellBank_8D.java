@@ -10,18 +10,19 @@ public class ShieldCellBank_8D extends AbstractShieldCellBank
     public ShieldCellBank_8D()
     {
         super("8D Shield Cell Bank",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 64.0),
-                  new ItemEffectData(ItemEffect.Integrity, 90.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 1.92),
-                  new ItemEffectData(ItemEffect.BootTime, 25.0),
-                  new ItemEffectData(ItemEffect.ShieldBankSpinUp, 5.0),
-                  new ItemEffectData(ItemEffect.ShieldBankReinforcement, 37.0),
-                  new ItemEffectData(ItemEffect.ShieldBankHeat, 800.0),
-                  new ItemEffectData(ItemEffect.AmmoClipSize, 1.0),
-                  new ItemEffectData(ItemEffect.AmmoMaximum, 3.0),
-                  new ItemEffectData(ItemEffect.ShieldBankDuration, 17.1)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 8.0),
+                        new ItemEffectData(ItemEffect.Mass, 64.0),
+                        new ItemEffectData(ItemEffect.Integrity, 90.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 1.92),
+                        new ItemEffectData(ItemEffect.BootTime, 25.0),
+                        new ItemEffectData(ItemEffect.ShieldBankSpinUp, 5.0),
+                        new ItemEffectData(ItemEffect.ShieldBankReinforcement, 37.0),
+                        new ItemEffectData(ItemEffect.ShieldBankHeat, 800.0),
+                        new ItemEffectData(ItemEffect.AmmoClipSize, 1.0),
+                        new ItemEffectData(ItemEffect.AmmoMaximum, 3.0),
+                        new ItemEffectData(ItemEffect.ShieldBankDuration, 17.1)
+                ));
     }
 
     @Override

@@ -11,6 +11,7 @@ public class FSDInterdictor_2B extends AbstractFSDInterdictor
     {
         super("2B Frame Shift Drive Interdictor",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 2.0),
                         new ItemEffectData(ItemEffect.Mass, 4d),
                         new ItemEffectData(ItemEffect.Integrity, 71d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.34d),

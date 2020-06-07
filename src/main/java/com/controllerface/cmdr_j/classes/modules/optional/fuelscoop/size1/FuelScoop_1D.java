@@ -11,6 +11,7 @@ public class FuelScoop_1D extends AbstractFuelScoop
     {
         super("1D Fuel Scoop",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 1.0),
                         new ItemEffectData(ItemEffect.Integrity, 24d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.18d),
                         new ItemEffectData(ItemEffect.BootTime, 4d),

@@ -6,10 +6,7 @@ import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.modules.AdvancedDiscoveryScanner;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size1.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size2.*;
-import com.controllerface.cmdr_j.classes.modules.optional.afmu.size3.AFMU_3A;
-import com.controllerface.cmdr_j.classes.modules.optional.afmu.size3.AFMU_3C;
-import com.controllerface.cmdr_j.classes.modules.optional.afmu.size3.AFMU_3D;
-import com.controllerface.cmdr_j.classes.modules.optional.afmu.size3.AFMU_3E;
+import com.controllerface.cmdr_j.classes.modules.optional.afmu.size3.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size4.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size5.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size6.*;
@@ -152,7 +149,7 @@ import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size4.SRVBay_4G
 import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size4.SRVBay_4H;
 import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size6.SRVBay_6G;
 import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size6.SRVBay_6H;
-import com.controllerface.cmdr_j.classes.modules.optional.supercruiseassist.SuperCruiseAssist_0E;
+import com.controllerface.cmdr_j.classes.modules.optional.supercruiseassist.SuperCruiseAssist_1E;
 import com.controllerface.cmdr_j.classes.modules.utility.shutdownneutralizer.AntiShutdownField_0F;
 import com.controllerface.cmdr_j.classes.modules.utility.surfacescanner.DetailedSurfaceScanner_1I;
 import com.controllerface.cmdr_j.classes.modules.utility.xenoscanner.XenoScanner_0E;
@@ -163,6 +160,7 @@ import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -195,7 +193,7 @@ public enum OptionalInternalModule implements ShipModule
     int_repairer_size3_class1(new AFMU_3E()),
     int_repairer_size3_class2(new AFMU_3D()),
     int_repairer_size3_class3(new AFMU_3C()),
-    int_repairer_size3_class4(new AFMU_3D()),
+    int_repairer_size3_class4(new AFMU_3B()),
     int_repairer_size3_class5(new AFMU_3A()),
 
     int_repairer_size4_class1(new AFMU_4E()),
@@ -686,16 +684,7 @@ public enum OptionalInternalModule implements ShipModule
     /**
      * Supercurise Assist
      */
-    int_supercruiseassist(new SuperCruiseAssist_0E()),
-
-    /**
-     * Experimental (AEGIS, Anti-Thargoid) Modules
-     */
-
-    hpt_antiunknownshutdown_tiny(new AntiShutdownField_0F()),
-
-    hpt_xenoscanner_basic_tiny(new XenoScanner_0E()),
-
+    int_supercruiseassist(new SuperCruiseAssist_1E()),
 
     /**
      * Guardian FSD Booster
@@ -922,11 +911,14 @@ public enum OptionalInternalModule implements ShipModule
     public static List<ShipModule> findModulesBySize(int size)
     {
         return Stream.of(values())
-                .filter(module -> module.itemEffects().effectStream()
-                        .filter(effectData -> effectData.getEffect() == ItemEffect.Size)
+                .filter(module -> module.itemEffects().effectByName(ItemEffect.Size)
                         .map(ItemEffectData::getDoubleValue)
                         .map(Double::intValue)
-                        .anyMatch(moduleSize -> moduleSize <= size))
+                        .filter(x -> x <= size)
+                        .isPresent())
+                .sorted(Comparator.comparingDouble(a -> a.itemEffects().effectByName(ItemEffect.Size)
+                        .map(ItemEffectData::getDoubleValue)
+                        .orElse(-1.0)))
                 .collect(Collectors.toList());
     }
 

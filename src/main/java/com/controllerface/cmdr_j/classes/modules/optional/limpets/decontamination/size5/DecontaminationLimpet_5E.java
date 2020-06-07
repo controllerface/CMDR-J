@@ -11,6 +11,7 @@ public class DecontaminationLimpet_5E extends AbstractDecontaminationLimpet
     {
         super("5E Decontamination Limpet Controller",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 5.0),
                         new ItemEffectData(ItemEffect.Mass, 20d),
                         new ItemEffectData(ItemEffect.Integrity, 96d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.5d),

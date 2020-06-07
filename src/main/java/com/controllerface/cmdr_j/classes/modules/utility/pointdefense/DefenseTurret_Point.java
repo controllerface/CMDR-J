@@ -8,7 +8,7 @@ public class DefenseTurret_Point extends AbstractPointDefense
 {
     public DefenseTurret_Point()
     {
-        super("Point Defense Turret",
+        super("0I Point Defense Turret",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 0.0),
                         new ItemEffectData(ItemEffect.Mass, 0.5),

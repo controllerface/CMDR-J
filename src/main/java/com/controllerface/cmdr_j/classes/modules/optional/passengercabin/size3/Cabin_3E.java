@@ -11,6 +11,7 @@ public class Cabin_3E extends AbstractCabin
     {
         super("3E Economy Class Passenger Cabin",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 3.0),
                         new ItemEffectData(ItemEffect.Mass, 5d),
                         new ItemEffectData(ItemEffect.CabinCapacity, 4d),
                         new ItemEffectData(ItemEffect.CabinClass, "Economy")

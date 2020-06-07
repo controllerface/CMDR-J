@@ -11,6 +11,7 @@ public class ProspectorLimpet_7B extends AbstractProspectorLimpet
     {
         super("7B Prospector Limpet Controller",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 7.0),
                         new ItemEffectData(ItemEffect.Mass, 128d),
                         new ItemEffectData(ItemEffect.Integrity, 157d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.97d),

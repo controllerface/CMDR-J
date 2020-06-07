@@ -11,6 +11,7 @@ public class MRP_3D extends AbstractModulePackage
     {
         super("3D Module Reinforcement Package",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 3.0),
                         new ItemEffectData(ItemEffect.Mass, 4d),
                         new ItemEffectData(ItemEffect.Integrity, 155d),
                         new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)

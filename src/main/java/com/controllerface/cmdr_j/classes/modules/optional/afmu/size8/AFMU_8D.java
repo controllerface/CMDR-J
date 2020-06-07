@@ -11,6 +11,7 @@ public class AFMU_8D extends AbstractAFMU
     {
         super("8D Automated Field Maintenance Unit",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 8.0),
                         new ItemEffectData(ItemEffect.Integrity, 90d),
                         new ItemEffectData(ItemEffect.PowerDraw, 2.4d),
                         new ItemEffectData(ItemEffect.BootTime, 9d),

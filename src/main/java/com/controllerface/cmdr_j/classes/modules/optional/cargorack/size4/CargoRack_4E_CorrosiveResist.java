@@ -10,11 +10,11 @@ public class CargoRack_4E_CorrosiveResist extends AbstractCargoRack
     public CargoRack_4E_CorrosiveResist()
     {
         super("4E Corrosion Resistant Cargo Rack",
-                new ItemEffects
-                        (
-                                new ItemEffectData(ItemEffect.human, 1d),
-                                new ItemEffectData(ItemEffect.CargoCapacity, 16d)
-                        ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.human, 1d),
+                        new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.CargoCapacity, 16d)
+                ));
     }
 
     @Override

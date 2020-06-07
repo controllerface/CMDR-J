@@ -12,6 +12,7 @@ public class GuardianFSDBooster_2H extends AbstractGuardianModule
         super("2H Guardian FSD Booster",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1d),
+                        new ItemEffectData(ItemEffect.Size, 2.0),
                         new ItemEffectData(ItemEffect.Mass, 1.3d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.98d),
                         new ItemEffectData(ItemEffect.Integrity, 32d),

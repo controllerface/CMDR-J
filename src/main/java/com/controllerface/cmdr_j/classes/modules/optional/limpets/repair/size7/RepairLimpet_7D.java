@@ -11,6 +11,7 @@ public class RepairLimpet_7D extends AbstractRepairLimpet
     {
         super("7D Repair Limpet Controller",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 7.0),
                         new ItemEffectData(ItemEffect.Mass, 32d),
                         new ItemEffectData(ItemEffect.Integrity, 105d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.41d),

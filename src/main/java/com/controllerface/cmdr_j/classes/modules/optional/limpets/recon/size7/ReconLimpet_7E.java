@@ -12,13 +12,11 @@ public class ReconLimpet_7E extends AbstractReconLimpet
         super("7E Recon Limpet Controller",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Mass, 128d),
-                        new ItemEffectData(ItemEffect.Mass, 157d),
-                        new ItemEffectData(ItemEffect.Mass, 0.97d),
-                        new ItemEffectData(ItemEffect.Mass, 10d),
-                        new ItemEffectData(ItemEffect.Mass, 1d),
-                        new ItemEffectData(ItemEffect.Mass, 2000d),
-                        new ItemEffectData(ItemEffect.Mass, 100d),
-                        new ItemEffectData(ItemEffect.Mass, 10d)
+                        new ItemEffectData(ItemEffect.Integrity, 157d),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.97d),
+                        new ItemEffectData(ItemEffect.MaxActiveDrones, 1d),
+                        new ItemEffectData(ItemEffect.DroneTargetRange, 2000d),
+                        new ItemEffectData(ItemEffect.DroneHackingTime, 10d)
                 ));
     }
 

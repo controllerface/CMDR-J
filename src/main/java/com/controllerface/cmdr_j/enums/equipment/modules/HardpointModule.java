@@ -16,11 +16,13 @@ import com.controllerface.cmdr_j.classes.modules.utility.pulsewave.*;
 import com.controllerface.cmdr_j.classes.modules.utility.seismiccharge.FixedSeismicChargeLauncher_Medium;
 import com.controllerface.cmdr_j.classes.modules.utility.seismiccharge.TurretedSeismicChargeLauncher_Medium;
 import com.controllerface.cmdr_j.classes.modules.utility.shieldbooster.*;
+import com.controllerface.cmdr_j.classes.modules.utility.shutdownneutralizer.AntiShutdownField_0F;
 import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.FixedSubSurfaceDisplacementMissile_Medium;
 import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.FixedSubSurfaceDisplacementMissile_Small;
 import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.TurretedSubSurfaceDisplacementMissile_Medium;
 import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.TurretedSubSurfaceDisplacementMissile_Small;
 import com.controllerface.cmdr_j.classes.modules.utility.wakescanner.*;
+import com.controllerface.cmdr_j.classes.modules.utility.xenoscanner.XenoScanner_0E;
 import com.controllerface.cmdr_j.classes.modules.weapons.beam.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.burst.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.cannon.*;
@@ -277,6 +279,14 @@ public enum HardpointModule implements ShipModule
     hpt_plasmashockcannon_fixed_large(new FixedShockCannon_Large()),
     hpt_plasmashockcannon_gimbal_large(new GimballedShockCannon_Large()),
     hpt_plasmashockcannon_turret_large(new TurretedShockCannon_Large()),
+
+    /**
+     * Experimental (AEGIS, Anti-Thargoid) Modules
+     */
+
+    hpt_antiunknownshutdown_tiny(new AntiShutdownField_0F()),
+
+    hpt_xenoscanner_basic_tiny(new XenoScanner_0E()),
 
     ;
 

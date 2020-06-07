@@ -12,6 +12,7 @@ public class GuardianMRP_2E extends AbstractGuardianModule
         super("2E Guardian Module Reinforcement Package",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1d),
+                        new ItemEffectData(ItemEffect.Size, 2.0),
                         new ItemEffectData(ItemEffect.Mass, 4d),
                         new ItemEffectData(ItemEffect.Integrity, 127d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.41d),

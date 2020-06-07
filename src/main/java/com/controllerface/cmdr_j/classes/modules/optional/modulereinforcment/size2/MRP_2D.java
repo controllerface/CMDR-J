@@ -11,6 +11,7 @@ public class MRP_2D extends AbstractModulePackage
     {
         super("2D Module Reinforcement Package",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 2.0),
                         new ItemEffectData(ItemEffect.Mass, 2d),
                         new ItemEffectData(ItemEffect.Integrity, 105d),
                         new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)

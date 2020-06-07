@@ -10,25 +10,26 @@ public class ShieldGenerator_7C extends AbstractShieldGenerator
     public ShieldGenerator_7C()
     {
         super("7C Shield Generator",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 80.0),
-                  new ItemEffectData(ItemEffect.Integrity, 131.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 3.5),
-                  new ItemEffectData(ItemEffect.BootTime, 1.0),
-                  new ItemEffectData(ItemEffect.ShieldGenMinimumMass, 530.0),
-                  new ItemEffectData(ItemEffect.ShieldGenOptimalMass, 1060.0),
-                  new ItemEffectData(ItemEffect.ShieldGenMaximumMass, 2650.0),
-                  new ItemEffectData(ItemEffect.ShieldGenMinStrength, 50.0),
-                  new ItemEffectData(ItemEffect.ShieldGenStrength, 100.0),
-                  new ItemEffectData(ItemEffect.ShieldGenMaxStrength, 150.0),
-                  new ItemEffectData(ItemEffect.RegenRate, 1.8),
-                  new ItemEffectData(ItemEffect.BrokenRegenRate, 7.33),
-                  new ItemEffectData(ItemEffect.DistributorDraw, 0.6),
-                  new ItemEffectData(ItemEffect.ThermalLoad, 1.2),
-                  new ItemEffectData(ItemEffect.KineticResistance, 40.0),
-                  new ItemEffectData(ItemEffect.ThermicResistance, -20.0),
-                  new ItemEffectData(ItemEffect.ExplosiveResistance, 50.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 7.0),
+                        new ItemEffectData(ItemEffect.Mass, 80.0),
+                        new ItemEffectData(ItemEffect.Integrity, 131.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 3.5),
+                        new ItemEffectData(ItemEffect.BootTime, 1.0),
+                        new ItemEffectData(ItemEffect.ShieldGenMinimumMass, 530.0),
+                        new ItemEffectData(ItemEffect.ShieldGenOptimalMass, 1060.0),
+                        new ItemEffectData(ItemEffect.ShieldGenMaximumMass, 2650.0),
+                        new ItemEffectData(ItemEffect.ShieldGenMinStrength, 50.0),
+                        new ItemEffectData(ItemEffect.ShieldGenStrength, 100.0),
+                        new ItemEffectData(ItemEffect.ShieldGenMaxStrength, 150.0),
+                        new ItemEffectData(ItemEffect.RegenRate, 1.8),
+                        new ItemEffectData(ItemEffect.BrokenRegenRate, 7.33),
+                        new ItemEffectData(ItemEffect.DistributorDraw, 0.6),
+                        new ItemEffectData(ItemEffect.ThermalLoad, 1.2),
+                        new ItemEffectData(ItemEffect.KineticResistance, 40.0),
+                        new ItemEffectData(ItemEffect.ThermicResistance, -20.0),
+                        new ItemEffectData(ItemEffect.ExplosiveResistance, 50.0)
+                ));
     }
 
     @Override

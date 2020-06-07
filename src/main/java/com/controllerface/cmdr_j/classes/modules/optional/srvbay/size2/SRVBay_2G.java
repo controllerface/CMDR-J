@@ -11,6 +11,7 @@ public class SRVBay_2G extends AbstractSRVBay
     {
         super("2G Planetary Vehicle Hangar",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 2.0),
                         new ItemEffectData(ItemEffect.Mass, 6d),
                         new ItemEffectData(ItemEffect.Integrity, 30d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.75d),

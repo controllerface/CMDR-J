@@ -11,6 +11,7 @@ public class ProspectorLimpet_3D extends AbstractProspectorLimpet
     {
         super("3D Prospector Limpet Controller",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 3.0),
                         new ItemEffectData(ItemEffect.Mass, 2d),
                         new ItemEffectData(ItemEffect.Integrity, 51d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2d),

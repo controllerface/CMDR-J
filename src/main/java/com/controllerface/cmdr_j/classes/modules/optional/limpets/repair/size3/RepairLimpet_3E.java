@@ -11,6 +11,7 @@ public class RepairLimpet_3E extends AbstractRepairLimpet
     {
         super("3E Repair Limpet Controller",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 3.0),
                         new ItemEffectData(ItemEffect.Mass, 5d),
                         new ItemEffectData(ItemEffect.Integrity, 38d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.27d),

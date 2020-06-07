@@ -11,6 +11,7 @@ public class CollectorLimpet_3E extends AbstractCollectorLimpet
     {
         super("3E Collector Limpet Controller",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 3.0),
                         new ItemEffectData(ItemEffect.Mass, 2d),
                         new ItemEffectData(ItemEffect.Integrity, 38d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2d),

@@ -12,6 +12,7 @@ public class GuardianMRP_3D extends AbstractGuardianModule
         super("3D Guardian Module Reinforcement Package",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1d),
+                        new ItemEffectData(ItemEffect.Size, 3.0),
                         new ItemEffectData(ItemEffect.Mass, 4d),
                         new ItemEffectData(ItemEffect.Integrity, 171d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.61d),

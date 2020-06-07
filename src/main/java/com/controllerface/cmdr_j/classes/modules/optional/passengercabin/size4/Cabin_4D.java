@@ -11,6 +11,7 @@ public class Cabin_4D extends AbstractCabin
     {
         super("4D Business Class Passenger Cabin",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 4.0),
                         new ItemEffectData(ItemEffect.Mass, 10d),
                         new ItemEffectData(ItemEffect.CabinCapacity, 6d),
                         new ItemEffectData(ItemEffect.CabinClass, "Business")

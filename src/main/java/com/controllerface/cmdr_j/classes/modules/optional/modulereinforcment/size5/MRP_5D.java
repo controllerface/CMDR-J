@@ -11,6 +11,7 @@ public class MRP_5D extends AbstractModulePackage
     {
         super("5D Module Reinforcement Package",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 5.0),
                         new ItemEffectData(ItemEffect.Mass, 16d),
                         new ItemEffectData(ItemEffect.Integrity, 350d),
                         new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)

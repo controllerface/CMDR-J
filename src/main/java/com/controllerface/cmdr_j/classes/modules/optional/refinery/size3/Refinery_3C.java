@@ -11,6 +11,7 @@ public class Refinery_3C extends AbstractRefinery
     {
         super("3C Refinery",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 3.0),
                         new ItemEffectData(ItemEffect.Integrity, 64d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.34d),
                         new ItemEffectData(ItemEffect.BootTime, 10d),

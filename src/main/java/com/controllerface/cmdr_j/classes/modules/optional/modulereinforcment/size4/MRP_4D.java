@@ -11,6 +11,7 @@ public class MRP_4D extends AbstractModulePackage
     {
         super("4D Module Reinforcement Package",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 4.0),
                         new ItemEffectData(ItemEffect.Mass, 8d),
                         new ItemEffectData(ItemEffect.Integrity, 235d),
                         new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)

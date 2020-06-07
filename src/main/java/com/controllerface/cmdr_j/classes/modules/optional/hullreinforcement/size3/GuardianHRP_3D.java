@@ -12,6 +12,7 @@ public class GuardianHRP_3D extends AbstractGuardianModule
         super("3D Guardian Hull Reinforcement Package",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1d),
+                        new ItemEffectData(ItemEffect.Size, 3.0),
                         new ItemEffectData(ItemEffect.Mass, 4d),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.01d),
                         new ItemEffectData(ItemEffect.ThermicResistance, 2d),

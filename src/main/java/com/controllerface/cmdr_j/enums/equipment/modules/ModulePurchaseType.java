@@ -17,14 +17,14 @@ public enum ModulePurchaseType implements ProcurementType
 
     ;
 
-    private final EnumSet<? extends ShipModule> x;
+    private final EnumSet<? extends ShipModule> shipModules;
 
     List<ProcurementBlueprint> blueprints;
 
-    ModulePurchaseType(EnumSet<? extends ShipModule> x)
+    ModulePurchaseType(EnumSet<? extends ShipModule> shipModules)
     {
-        this.x = x;
-        blueprints = Collections.singletonList(new ModulePurchaseBlueprint(name(), x));
+        this.shipModules = shipModules;
+        blueprints = Collections.singletonList(new ModulePurchaseBlueprint(name(), shipModules));
     }
 
 

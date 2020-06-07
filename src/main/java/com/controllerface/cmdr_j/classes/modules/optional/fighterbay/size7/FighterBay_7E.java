@@ -11,6 +11,7 @@ public class FighterBay_7E extends AbstractFighterBay
     {
         super("7E Fighter Hangar",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 7.0),
                         new ItemEffectData(ItemEffect.Mass, 60d),
                         new ItemEffectData(ItemEffect.Integrity, 120d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.35d),

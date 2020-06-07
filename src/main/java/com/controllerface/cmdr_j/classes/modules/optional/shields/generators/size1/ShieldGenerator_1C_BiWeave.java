@@ -11,6 +11,7 @@ public class ShieldGenerator_1C_BiWeave extends AbstractShieldGenerator
     {
         super("1C Bi-Weave Shield Generator",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 1.3d),
                         new ItemEffectData(ItemEffect.Integrity, 40d),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.2d),

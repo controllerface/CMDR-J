@@ -11,6 +11,7 @@ public class Cabin_6C extends AbstractCabin
     {
         super("6C First Class Passenger Cabin",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 6.0),
                         new ItemEffectData(ItemEffect.Mass, 40d),
                         new ItemEffectData(ItemEffect.CabinCapacity, 12d),
                         new ItemEffectData(ItemEffect.CabinClass, "First")

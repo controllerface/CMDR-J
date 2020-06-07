@@ -12,6 +12,7 @@ public class HRP_2D extends AbstractHullPackage
         super("2D Hull Reinforcement Package",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Mass, 2d),
+                        new ItemEffectData(ItemEffect.Size, 2.0),
                         new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 190d),
                         new ItemEffectData(ItemEffect.KineticResistance, 1d),
                         new ItemEffectData(ItemEffect.ThermicResistance, 1d),

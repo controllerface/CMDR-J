@@ -11,6 +11,7 @@ public class MetaAlloyHRP_1E extends AbstractExperimentalModule
     {
         super("1E Meta-Alloy Hull Reinforcement Package",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 1.0),
                         new ItemEffectData(ItemEffect.human, 1d),
                         new ItemEffectData(ItemEffect.Mass, 2d),
                         new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 72d),

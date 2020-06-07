@@ -12,6 +12,7 @@ public class ShieldGenerator_8A_Prismatic extends AbstractShieldGenerator
         super("8A Prismatic Shield Generator",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
+                        new ItemEffectData(ItemEffect.Size, 8.0),
                         new ItemEffectData(ItemEffect.Mass, 320.0),
                         new ItemEffectData(ItemEffect.Integrity, 180.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 8.4),
