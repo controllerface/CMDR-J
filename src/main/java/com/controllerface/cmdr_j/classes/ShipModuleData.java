@@ -153,52 +153,60 @@ public class ShipModuleData implements Displayable
 
         VBox costEffectContainer = new VBox();
         costEffectContainer.getStyleClass().addAll("information_panel", "no_border");
-
-        // effects
-        recipePair.getValue().effects().effectStream()
-                .map(UIFunctions.Convert.effectToLabel)
-                .sorted(UIFunctions.Sort.byGoodness)
-                .forEach(label -> costEffectContainer.getChildren().add(label));
-
-        if (recipePair.getValue().effects() != ItemEffects.EMPTY)
-        {
-            Separator separator = new Separator();
-            separator.setPrefHeight(10);
-            costEffectContainer.getChildren().add(separator);
-        }
-
-        // costs
-        recipePair.getValue().costStream()
-                .map(c->
-                {
-                    String quantity = c.getQuantity() < 0
-                            ? "+" + Math.abs(c.getQuantity())
-                            : "-" + c.getQuantity();
-                    Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
-                    next.getStyleClass().addAll("light_color_label", "base_font");
-                    return next;
-                })
-                .forEach(label -> costEffectContainer.getChildren().add(label));
-
-
-        List<Engineer> engineers = Engineer.findSupportedEngineers(recipePair.getKey(), recipePair.getValue().getGrade());
-        if (!engineers.isEmpty())
-        {
-            Separator separator2 = new Separator();
-            separator2.setPrefHeight(10);
-            costEffectContainer.getChildren().add(separator2);
-
-            for (Engineer engineer : engineers)
-            {
-                Label engineerLabel = new Label(engineer.getFullName() + " :: "
-                        + engineer.getLocation().getSystemName());
-                engineerLabel.setTextFill(UIFunctions.Style.darkOrange);
-                engineerLabel.getStyleClass().add("base_font");
-                costEffectContainer.getChildren().add(engineerLabel);
-            }
-        }
-
         infoPane.setContent(costEffectContainer);
+
+        infoPane.expandedProperty().addListener((_x, wasCollapsed, wasExpanded) ->
+        {
+            if (wasExpanded && costEffectContainer.getChildren().isEmpty())
+            {
+                // effects
+                recipePair.getValue().effects().effectStream()
+                        .map(UIFunctions.Convert.effectToLabel)
+                        .sorted(UIFunctions.Sort.byGoodness)
+                        .forEach(label -> costEffectContainer.getChildren().add(label));
+
+                if (recipePair.getValue().effects() != ItemEffects.EMPTY)
+                {
+                    Separator separator = new Separator();
+                    separator.setPrefHeight(10);
+                    costEffectContainer.getChildren().add(separator);
+                }
+
+                // costs
+                recipePair.getValue().costStream()
+                        .map(c->
+                        {
+                            String quantity = c.getQuantity() < 0
+                                    ? "+" + Math.abs(c.getQuantity())
+                                    : "-" + c.getQuantity();
+                            Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
+                            next.getStyleClass().addAll("light_color_label", "base_font");
+                            return next;
+                        })
+                        .forEach(label -> costEffectContainer.getChildren().add(label));
+
+
+                List<Engineer> engineers = Engineer.findSupportedEngineers(recipePair.getKey(), recipePair.getValue().getGrade());
+                if (!engineers.isEmpty())
+                {
+                    Separator separator2 = new Separator();
+                    separator2.setPrefHeight(10);
+                    costEffectContainer.getChildren().add(separator2);
+
+                    for (Engineer engineer : engineers)
+                    {
+                        Label engineerLabel = new Label(engineer.getFullName() + " :: "
+                                + engineer.getLocation().getSystemName());
+                        engineerLabel.setTextFill(UIFunctions.Style.darkOrange);
+                        engineerLabel.getStyleClass().add("base_font");
+                        costEffectContainer.getChildren().add(engineerLabel);
+                    }
+                }
+            }
+        });
+
+
+
         return infoPane;
     }
 
@@ -380,31 +388,44 @@ public class ShipModuleData implements Displayable
                 modPane.getStyleClass().addAll("modification_pane", "base_font");
                 VBox modBox = new VBox();
                 modBox.getStyleClass().addAll("information_panel", "base_font");
-
-                modificationType.getBluePrints()
-                        .stream()
-                        .map(blueprint ->
-                        {
-                            TitledPane gradePane = new TitledPane();
-                            gradePane.setText(blueprint.toString());
-                            gradePane.setExpanded(false);
-                            gradePane.setAnimated(false);
-                            gradePane.getStyleClass().addAll("information_panel", "base_font");
-                            VBox gradeBox = new VBox();
-                            gradeBox.getStyleClass().addAll("information_panel", "base_font");
-
-                            mapBlueprint(blueprint)
-                                    .map(this::createRecipeControl)
-                                    .peek(button -> button.prefWidthProperty().bind(modPane.widthProperty()))
-                                    .forEach(b -> gradeBox.getChildren().add(b));
-
-                            gradePane.setContent(gradeBox);
-                            return gradePane;
-                        })
-                        .forEach(b -> modBox.getChildren().add(b));
-
                 modPane.setContent(modBox);
                 detailsContainer.getChildren().add(modPane);
+
+                modPane.expandedProperty().addListener((_x, oldValue, newValue) ->
+                {
+                    if (newValue && modBox.getChildren().isEmpty())
+                    {
+                        modificationType.getBluePrints()
+                                .stream()
+                                .map(blueprint ->
+                                {
+                                    TitledPane gradePane = new TitledPane();
+                                    gradePane.setText(blueprint.toString());
+                                    gradePane.setExpanded(false);
+                                    gradePane.setAnimated(false);
+                                    gradePane.getStyleClass().addAll("information_panel", "base_font");
+                                    VBox gradeBox = new VBox();
+                                    gradeBox.getStyleClass().addAll("information_panel", "base_font");
+                                    gradePane.setContent(gradeBox);
+
+                                    gradePane.expandedProperty().addListener((_y, oldValue1, newValue1) ->
+                                    {
+                                        if (newValue1 && gradeBox.getChildren().isEmpty())
+                                        {
+                                            mapBlueprint(blueprint)
+                                                    .map(this::createRecipeControl)
+                                                    .peek(button -> button.prefWidthProperty().bind(modPane.widthProperty()))
+                                                    .forEach(b -> gradeBox.getChildren().add(b));
+                                        }
+                                    });
+
+                                    return gradePane;
+                                })
+                                .forEach(b -> modBox.getChildren().add(b));
+                    }
+                });
+
+
             }
 
             if (experimentalType != null)
@@ -417,19 +438,24 @@ public class ShipModuleData implements Displayable
                 expPane.getStyleClass().addAll("experiment_pane", "base_font");
                 VBox expBox = new VBox();
                 expBox.getStyleClass().addAll("information_panel", "base_font");
-
-                experimentalType.getBluePrints()
-                        .stream()
-                        .flatMap(this::mapBlueprint)
-                        .map(this::createRecipeControl)
-                        .peek(button ->
-                        {
-                            button.prefWidthProperty().bind(expPane.widthProperty());
-                        })
-                        .forEach(b -> expBox.getChildren().add(b));
-
                 expPane.setContent(expBox);
                 detailsContainer.getChildren().add(expPane);
+
+                expPane.expandedProperty().addListener((_x, wasCollapsed, wasExpanded) ->
+                {
+                    if (wasExpanded && expBox.getChildren().isEmpty())
+                    {
+                        experimentalType.getBluePrints()
+                                .stream()
+                                .flatMap(this::mapBlueprint)
+                                .map(this::createRecipeControl)
+                                .peek(button ->
+                                {
+                                    button.prefWidthProperty().bind(expPane.widthProperty());
+                                })
+                                .forEach(b -> expBox.getChildren().add(b));
+                    }
+                });
             }
         }
     }
@@ -527,12 +553,12 @@ public class ShipModuleData implements Displayable
         {
             if (statExpanded && moduleBox.getChildren().isEmpty())
             {
-                moduleMap.forEach((s,ml)->
+                moduleMap.forEach((size, modules)->
                 {
                     TitledPane sizePane = new TitledPane();
                     sizePane.setExpanded(false);
                     sizePane.setAnimated(false);
-                    sizePane.setText("Size " + s);
+                    sizePane.setText("Size " + size);
                     moduleBox.getChildren().add(sizePane);
                     VBox contentBox = new VBox();
                     sizePane.setContent(contentBox);
@@ -541,13 +567,13 @@ public class ShipModuleData implements Displayable
                     {
                         if (sizeExpanded && contentBox.getChildren().isEmpty())
                         {
-                            ml.forEach(module->
+                            modules.forEach(module->
                             {
                                 ProcurementRecipe moduleRecipe = procurementType.getBluePrints().stream()
                                         .flatMap(ProcurementBlueprint::recipeStream)
                                         .filter(recipe -> recipe.costStream()
                                                 .map(CostData::getCost)
-                                                .anyMatch(co -> co == module))
+                                                .anyMatch(cost -> cost == module))
                                         .findAny().orElse(null);
 
                                 if (moduleRecipe == null) return;
@@ -561,14 +587,19 @@ public class ShipModuleData implements Displayable
                                 titledPane.getStyleClass().addAll("information_panel", "base_font");
                                 VBox gradeBox = new VBox();
                                 gradeBox.getStyleClass().addAll("information_panel", "base_font");
-
-                                HBox h = createRecipeControl(recipePair);
-                                h.prefWidthProperty().bind(sizePane.widthProperty());
-                                gradeBox.getChildren().add(h);
-
                                 titledPane.setContent(gradeBox);
-
                                 contentBox.getChildren().add(titledPane);
+
+                                titledPane.expandedProperty().addListener((_z, wasCollapsed, wasExpanded) ->
+                                {
+                                    if (wasExpanded && gradeBox.getChildren().isEmpty())
+                                    {
+                                        HBox h = createRecipeControl(recipePair);
+                                        h.prefWidthProperty().bind(sizePane.widthProperty());
+                                        gradeBox.getChildren().add(h);
+                                    }
+                                });
+
                             });
                         }
                     });

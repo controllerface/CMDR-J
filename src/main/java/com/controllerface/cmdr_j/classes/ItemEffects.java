@@ -28,7 +28,7 @@ public class ItemEffects
 
     public Optional<ItemEffectData> effectByName(ItemEffect effect)
     {
-        return effectStream().filter(e->e.getEffect()==effect)
+        return effectStream().filter(e->e.getEffect() == effect)
                 .findFirst();
     }
 

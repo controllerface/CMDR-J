@@ -21,6 +21,8 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -474,96 +476,99 @@ public class InventoryData implements Displayable
         // add the data pane to the main graphic object
         mainGraphic.getChildren().add(itemDataPane);
 
-        itemDetails.getChildren().add(createLocationHeaderLabel());
-        itemDetails.getChildren().add(createLocationInfoLabel());
-        itemDetails.setBackground(new Background(new BackgroundFill(
-                Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
+        itemDataPane.setContent(itemDetails);
 
-        Separator separator = new Separator();
-        separator.paddingProperty().set(new Insets(5,0,0,0));
-        itemDetails.getChildren().add(separator);
-
-
-        if (!upgrades.isEmpty())
+        itemDataPane.expandedProperty().addListener((_x, wasCollapsed, wasExpanded) ->
         {
-            Label upgradeLabel = new Label("Upgrades");
-            upgradeLabel.setPadding(new Insets(5,0,2,0));
-            upgradeLabel.setTextFill(UIFunctions.Style.darkOrange);
-            upgradeLabel.getStyleClass().addAll("base_font");
-            itemDetails.getChildren().add(upgradeLabel);
-            itemDetails.getChildren().addAll(upgrades);
-        }
-
-        if (!downgrades.isEmpty())
-        {
-            Label downgradeLabel = new Label("Downgrades");
-            downgradeLabel.setPadding(new Insets(5,0,2,0));
-            downgradeLabel.setTextFill(UIFunctions.Style.darkOrange);
-            downgradeLabel.getStyleClass().addAll("base_font");
-            itemDetails.getChildren().add(downgradeLabel);
-            itemDetails.getChildren().addAll(downgrades);
-        }
-
-
-        if (associatedString.isEmpty())
-        {
-            Label noUses = new Label();
-            noUses.getStyleClass().addAll("base_font");
-            noUses.setText("No Crafting Uses");
-            itemDetails.getChildren().add(noUses);
-        }
-        else
-        {
-            Label knownUsesLabel = new Label("Known Uses");
-            knownUsesLabel.setPadding(new Insets(5,0,2,0));
-            knownUsesLabel.setTextFill(UIFunctions.Style.darkOrange);
-            knownUsesLabel.getStyleClass().addAll("base_font");
-            itemDetails.getChildren().add(knownUsesLabel);
-
-
-            VBox vBox = new VBox();
-            String parts[] = associatedString.split("\n\n");
-            for (String category : parts)
+            if (wasExpanded && itemDetails.getChildren().isEmpty())
             {
-                boolean title = false;
-                String items[] = category.trim().split("\n");
+                itemDetails.getChildren().add(createLocationHeaderLabel());
+                itemDetails.getChildren().add(createLocationInfoLabel());
+                itemDetails.setBackground(new Background(new BackgroundFill(
+                        Color.rgb(0xEE, 0xEE, 0xEE), CornerRadii.EMPTY, Insets.EMPTY)));
 
-                TitledPane knownUsesDropDown = new TitledPane();
-                knownUsesDropDown.getStyleClass().addAll( "stats_pane", "base_font");
-                VBox knownUses = new VBox();
+                Separator separator = new Separator();
+                separator.paddingProperty().set(new Insets(5, 0, 0, 0));
+                itemDetails.getChildren().add(separator);
 
-                for (String descLine : items)
+
+                if (!upgrades.isEmpty())
                 {
-                    if (!title)
-                    {
-                        title=true;
-                        Label useLabel = new Label(descLine);
-                        useLabel.getStyleClass().addAll("general_panel_label", "base_font");
-                        knownUsesDropDown.setGraphic(useLabel);
-                    }
-                    else
-                    {
-                        Label associatedTasks = new Label(descLine);
-                        associatedTasks.getStyleClass().addAll("light_color_label", "base_font");
-                        knownUses.getChildren().add(associatedTasks);
-
-                        knownUsesDropDown.setAnimated(false);
-                        knownUsesDropDown.setExpanded(false);
-                        //vBox.getChildren().add(knownUsesDropDown);
-                    }
+                    Label upgradeLabel = new Label("Upgrades");
+                    upgradeLabel.setPadding(new Insets(5, 0, 2, 0));
+                    upgradeLabel.setTextFill(UIFunctions.Style.darkOrange);
+                    upgradeLabel.getStyleClass().addAll("base_font");
+                    itemDetails.getChildren().add(upgradeLabel);
+                    itemDetails.getChildren().addAll(upgrades);
                 }
 
-                knownUsesDropDown.setContent(knownUses);
-                vBox.getChildren().add(knownUsesDropDown);
+                if (!downgrades.isEmpty())
+                {
+                    Label downgradeLabel = new Label("Downgrades");
+                    downgradeLabel.setPadding(new Insets(5, 0, 2, 0));
+                    downgradeLabel.setTextFill(UIFunctions.Style.darkOrange);
+                    downgradeLabel.getStyleClass().addAll("base_font");
+                    itemDetails.getChildren().add(downgradeLabel);
+                    itemDetails.getChildren().addAll(downgrades);
+                }
 
 
+                if (associatedString.isEmpty())
+                {
+                    Label noUses = new Label();
+                    noUses.getStyleClass().addAll("base_font");
+                    noUses.setText("No Crafting Uses");
+                    itemDetails.getChildren().add(noUses);
+                }
+                else
+                {
+                    Label knownUsesLabel = new Label("Known Uses");
+                    knownUsesLabel.setPadding(new Insets(5, 0, 2, 0));
+                    knownUsesLabel.setTextFill(UIFunctions.Style.darkOrange);
+                    knownUsesLabel.getStyleClass().addAll("base_font");
+                    itemDetails.getChildren().add(knownUsesLabel);
+
+
+                    VBox vBox = new VBox();
+                    String parts[] = associatedString.split("\n\n");
+                    for (String category : parts)
+                    {
+                        boolean title = false;
+                        String items[] = category.trim().split("\n");
+
+                        TitledPane knownUsesDropDown = new TitledPane();
+                        knownUsesDropDown.getStyleClass().addAll("stats_pane", "base_font");
+                        VBox knownUses = new VBox();
+
+                        for (String descLine : items)
+                        {
+                            if (!title)
+                            {
+                                title = true;
+                                Label useLabel = new Label(descLine);
+                                useLabel.getStyleClass().addAll("general_panel_label", "base_font");
+                                knownUsesDropDown.setGraphic(useLabel);
+                            }
+                            else
+                            {
+                                Label associatedTasks = new Label(descLine);
+                                associatedTasks.getStyleClass().addAll("light_color_label", "base_font");
+                                knownUses.getChildren().add(associatedTasks);
+
+                                knownUsesDropDown.setAnimated(false);
+                                knownUsesDropDown.setExpanded(false);
+                                //vBox.getChildren().add(knownUsesDropDown);
+                            }
+                        }
+
+                        knownUsesDropDown.setContent(knownUses);
+                        vBox.getChildren().add(knownUsesDropDown);
+                    }
+                    itemDetails.getChildren().add(vBox);
+                }
             }
+        });
 
-            itemDetails.getChildren().add(vBox);
-
-        }
-
-        itemDataPane.setContent(itemDetails);
     }
 
     @Override
