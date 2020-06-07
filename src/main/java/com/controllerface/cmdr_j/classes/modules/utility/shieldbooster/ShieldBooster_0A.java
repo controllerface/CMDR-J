@@ -18,7 +18,7 @@ public class ShieldBooster_0A extends AbstractShieldBooster
                         new ItemEffectData(ItemEffect.KineticResistance, 0.0),
                         new ItemEffectData(ItemEffect.ThermicResistance, 0.0),
                         new ItemEffectData(ItemEffect.ExplosiveResistance, 0.0)
-            ));
+                ));
     }
 
     @Override

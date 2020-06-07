@@ -8,8 +8,9 @@ public class FixedSubSurfaceDisplacementMissile_Small extends AbstractSubsurface
 {
     public FixedSubSurfaceDisplacementMissile_Small()
     {
-        super("Small Fixed Sub-Surface Displacement Missile",
+        super("1B Fixed Sub-Surface Displacement Missile",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 40.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.42),
@@ -30,8 +31,9 @@ public class FixedSubSurfaceDisplacementMissile_Small extends AbstractSubsurface
                         new ItemEffectData(ItemEffect.Jitter, 0.0),
                         new ItemEffectData(ItemEffect.MinBreachChance, 10.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 20.0),
-                        new ItemEffectData(ItemEffect.DamageType, "Explosive")
-            ));
+                        new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Fixed")
+                ));
     }
 
     @Override

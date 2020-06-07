@@ -154,7 +154,7 @@ import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size6.SRVBay_6G
 import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size6.SRVBay_6H;
 import com.controllerface.cmdr_j.classes.modules.optional.supercruiseassist.SuperCruiseAssist_0E;
 import com.controllerface.cmdr_j.classes.modules.utility.shutdownneutralizer.AntiShutdownField_0F;
-import com.controllerface.cmdr_j.classes.modules.utility.surfacescanner.size0.DetailedSurfaceScanner_1I;
+import com.controllerface.cmdr_j.classes.modules.utility.surfacescanner.DetailedSurfaceScanner_1I;
 import com.controllerface.cmdr_j.classes.modules.utility.xenoscanner.XenoScanner_0E;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementType;

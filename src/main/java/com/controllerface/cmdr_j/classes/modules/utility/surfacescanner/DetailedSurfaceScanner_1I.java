@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes.modules.utility.surfacescanner.size0;
+package com.controllerface.cmdr_j.classes.modules.utility.surfacescanner;
 
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;

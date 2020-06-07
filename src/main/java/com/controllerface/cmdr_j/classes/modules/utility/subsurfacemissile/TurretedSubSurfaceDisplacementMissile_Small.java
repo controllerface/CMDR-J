@@ -8,8 +8,9 @@ public class TurretedSubSurfaceDisplacementMissile_Small extends AbstractSubsurf
 {
     public TurretedSubSurfaceDisplacementMissile_Small()
     {
-        super("Small Turreted Sub-Surface Displacement Missile",
+        super("1B Turreted Sub-Surface Displacement Missile",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 1.0),
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 40.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.53),
@@ -30,8 +31,9 @@ public class TurretedSubSurfaceDisplacementMissile_Small extends AbstractSubsurf
                         new ItemEffectData(ItemEffect.Jitter, 0.0),
                         new ItemEffectData(ItemEffect.MinBreachChance, 10.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 20.0),
-                        new ItemEffectData(ItemEffect.DamageType, "Explosive")
-            ));
+                        new ItemEffectData(ItemEffect.DamageType, "Explosive"),
+                        new ItemEffectData(ItemEffect.WeaponMode, "Turret")
+                ));
     }
 
     @Override
