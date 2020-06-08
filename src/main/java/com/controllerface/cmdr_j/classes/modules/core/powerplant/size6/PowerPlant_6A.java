@@ -10,12 +10,13 @@ public class PowerPlant_6A extends AbstractPowerPlant
     public PowerPlant_6A()
     {
         super("6A Power Plant",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 20.0),
-                  new ItemEffectData(ItemEffect.Integrity, 124.0),
-                  new ItemEffectData(ItemEffect.PowerCapacity, 25.2),
-                  new ItemEffectData(ItemEffect.HeatEfficiency, 0.4)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Mass, 20.0),
+                        new ItemEffectData(ItemEffect.Integrity, 124.0),
+                        new ItemEffectData(ItemEffect.PowerCapacity, 25.2),
+                        new ItemEffectData(ItemEffect.HeatEfficiency, 0.4)
+                ));
     }
 
     @Override

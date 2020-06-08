@@ -2,10 +2,11 @@ package com.controllerface.cmdr_j.classes.modules.optional.cargorack.size1;
 
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.modules.AbstractHumanModule;
 import com.controllerface.cmdr_j.classes.modules.optional.cargorack.AbstractCargoRack;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class CargoRack_1E_CorrosiveResist extends AbstractCargoRack
+public class CargoRack_1E_CorrosiveResist extends AbstractHumanModule
 {
     public CargoRack_1E_CorrosiveResist()
     {

@@ -35,7 +35,7 @@ public class TurretedGuardianShardCannon_Small extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.DamageType, "Thermal/AX"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1700.0)
-            ));
+                ));
     }
 
     @Override

@@ -33,7 +33,7 @@ public class FixedImperialHammerRailGun_Medium extends AbstractRailGun
                         new ItemEffectData(ItemEffect.DamageType, "ThermoKinetic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1000.0)
-            ));
+                ));
     }
 
     @Override

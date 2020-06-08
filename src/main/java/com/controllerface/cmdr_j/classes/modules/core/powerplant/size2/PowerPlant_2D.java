@@ -10,12 +10,13 @@ public class PowerPlant_2D extends AbstractPowerPlant
     public PowerPlant_2D()
     {
         super("2D Power Plant",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 1.0),
-                  new ItemEffectData(ItemEffect.Integrity, 41.0),
-                  new ItemEffectData(ItemEffect.PowerCapacity, 7.2),
-                  new ItemEffectData(ItemEffect.HeatEfficiency, 0.75)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Mass, 1.0),
+                        new ItemEffectData(ItemEffect.Integrity, 41.0),
+                        new ItemEffectData(ItemEffect.PowerCapacity, 7.2),
+                        new ItemEffectData(ItemEffect.HeatEfficiency, 0.75)
+                ));
     }
 
     @Override

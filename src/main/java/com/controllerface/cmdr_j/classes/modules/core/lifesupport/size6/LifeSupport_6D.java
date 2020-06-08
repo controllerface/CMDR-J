@@ -10,13 +10,14 @@ public class LifeSupport_6D extends AbstractLifeSupport
     public LifeSupport_6D()
     {
         super("6D Life Support",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 16.0),
-                  new ItemEffectData(ItemEffect.Integrity, 102.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.72),
-                  new ItemEffectData(ItemEffect.BootTime, 1.0),
-                  new ItemEffectData(ItemEffect.OxygenTimeCapacity, 450.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Mass, 16.0),
+                        new ItemEffectData(ItemEffect.Integrity, 102.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.72),
+                        new ItemEffectData(ItemEffect.BootTime, 1.0),
+                        new ItemEffectData(ItemEffect.OxygenTimeCapacity, 450.0)
+                ));
     }
 
     @Override

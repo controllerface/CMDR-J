@@ -10,18 +10,19 @@ public class PowerDistributor_1E extends AbstractPowerDistributor
     public PowerDistributor_1E()
     {
         super("1E Power Distributor",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 1.3),
-                  new ItemEffectData(ItemEffect.Integrity, 36.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.32),
-                  new ItemEffectData(ItemEffect.BootTime, 5.0),
-                  new ItemEffectData(ItemEffect.WeaponsCapacity, 10.0),
-                  new ItemEffectData(ItemEffect.WeaponsRecharge, 1.2),
-                  new ItemEffectData(ItemEffect.EnginesCapacity, 8.0),
-                  new ItemEffectData(ItemEffect.EnginesRecharge, 0.4),
-                  new ItemEffectData(ItemEffect.SystemsCapacity, 8.0),
-                  new ItemEffectData(ItemEffect.SystemsRecharge, 0.4)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Mass, 1.3),
+                        new ItemEffectData(ItemEffect.Integrity, 36.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.32),
+                        new ItemEffectData(ItemEffect.BootTime, 5.0),
+                        new ItemEffectData(ItemEffect.WeaponsCapacity, 10.0),
+                        new ItemEffectData(ItemEffect.WeaponsRecharge, 1.2),
+                        new ItemEffectData(ItemEffect.EnginesCapacity, 8.0),
+                        new ItemEffectData(ItemEffect.EnginesRecharge, 0.4),
+                        new ItemEffectData(ItemEffect.SystemsCapacity, 8.0),
+                        new ItemEffectData(ItemEffect.SystemsRecharge, 0.4)
+                ));
     }
 
     @Override

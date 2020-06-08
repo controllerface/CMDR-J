@@ -31,7 +31,7 @@ public class FixedCytoscramblerBurstLaser_Small extends AbstractBurstLaser
                         new ItemEffectData(ItemEffect.DamageType, "Thermal"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 600.0)
-            ));
+                ));
     }
 
     @Override

@@ -10,15 +10,16 @@ public class Sensors_7D extends AbstractSensors
     public Sensors_7D()
     {
         super("7D Sensors",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 32.0),
-                  new ItemEffectData(ItemEffect.Integrity, 105.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.53),
-                  new ItemEffectData(ItemEffect.BootTime, 5.0),
-                  new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
-                  new ItemEffectData(ItemEffect.MaxRange, 8000.0),
-                  new ItemEffectData(ItemEffect.Range, 5580.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 7.0),
+                        new ItemEffectData(ItemEffect.Mass, 32.0),
+                        new ItemEffectData(ItemEffect.Integrity, 105.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.53),
+                        new ItemEffectData(ItemEffect.BootTime, 5.0),
+                        new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
+                        new ItemEffectData(ItemEffect.MaxRange, 8000.0),
+                        new ItemEffectData(ItemEffect.Range, 5580.0)
+                ));
     }
 
     @Override

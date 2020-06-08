@@ -10,15 +10,16 @@ public class Sensors_4E extends AbstractSensors
     public Sensors_4E()
     {
         super("4E Sensors",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 10.0),
-                  new ItemEffectData(ItemEffect.Integrity, 72.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.27),
-                  new ItemEffectData(ItemEffect.BootTime, 5.0),
-                  new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
-                  new ItemEffectData(ItemEffect.MaxRange, 8000.0),
-                  new ItemEffectData(ItemEffect.Range, 4480.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Mass, 10.0),
+                        new ItemEffectData(ItemEffect.Integrity, 72.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.27),
+                        new ItemEffectData(ItemEffect.BootTime, 5.0),
+                        new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
+                        new ItemEffectData(ItemEffect.MaxRange, 8000.0),
+                        new ItemEffectData(ItemEffect.Range, 4480.0)
+                ));
     }
 
     @Override

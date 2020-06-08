@@ -10,15 +10,16 @@ public class Sensors_1D extends AbstractSensors
     public Sensors_1D()
     {
         super("1D Sensors",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 0.5),
-                  new ItemEffectData(ItemEffect.Integrity, 32.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.18),
-                  new ItemEffectData(ItemEffect.BootTime, 5.0),
-                  new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
-                  new ItemEffectData(ItemEffect.MaxRange, 8000.0),
-                  new ItemEffectData(ItemEffect.Range, 4500.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Mass, 0.5),
+                        new ItemEffectData(ItemEffect.Integrity, 32.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.18),
+                        new ItemEffectData(ItemEffect.BootTime, 5.0),
+                        new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
+                        new ItemEffectData(ItemEffect.MaxRange, 8000.0),
+                        new ItemEffectData(ItemEffect.Range, 4500.0)
+                ));
     }
 
     @Override

@@ -9,16 +9,17 @@ public class Sensors_8A extends AbstractSensors
 {
     public Sensors_8A()
     {
-        super("8A Standard Sensors", 
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 160.0),
-                  new ItemEffectData(ItemEffect.Integrity, 165.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 2.07),
-                  new ItemEffectData(ItemEffect.BootTime, 5.0),
-                  new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
-                  new ItemEffectData(ItemEffect.MaxRange, 8000.0),
-                  new ItemEffectData(ItemEffect.Range, 7680.0)
-            ));
+        super("8A Standard Sensors",
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 8.0),
+                        new ItemEffectData(ItemEffect.Mass, 160.0),
+                        new ItemEffectData(ItemEffect.Integrity, 165.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 2.07),
+                        new ItemEffectData(ItemEffect.BootTime, 5.0),
+                        new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
+                        new ItemEffectData(ItemEffect.MaxRange, 8000.0),
+                        new ItemEffectData(ItemEffect.Range, 7680.0)
+                ));
     }
 
     @Override

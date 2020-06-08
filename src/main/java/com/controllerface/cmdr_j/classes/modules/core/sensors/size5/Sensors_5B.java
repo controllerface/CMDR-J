@@ -10,15 +10,16 @@ public class Sensors_5B extends AbstractSensors
     public Sensors_5B()
     {
         super("5B Sensors",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 32.0),
-                  new ItemEffectData(ItemEffect.Integrity, 115.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.68),
-                  new ItemEffectData(ItemEffect.BootTime, 5.0),
-                  new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
-                  new ItemEffectData(ItemEffect.MaxRange, 8000.0),
-                  new ItemEffectData(ItemEffect.Range, 6380.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Mass, 32.0),
+                        new ItemEffectData(ItemEffect.Integrity, 115.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.68),
+                        new ItemEffectData(ItemEffect.BootTime, 5.0),
+                        new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
+                        new ItemEffectData(ItemEffect.MaxRange, 8000.0),
+                        new ItemEffectData(ItemEffect.Range, 6380.0)
+                ));
     }
 
     @Override

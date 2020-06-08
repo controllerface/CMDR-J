@@ -3,9 +3,10 @@ package com.controllerface.cmdr_j.classes.modules.weapons.shockcannon;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.AbstractExperimentalModule;
+import com.controllerface.cmdr_j.classes.modules.AbstractHumanModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class TurretedShockCannon_Small extends AbstractExperimentalModule
+public class TurretedShockCannon_Small extends AbstractHumanModule
 {
     public TurretedShockCannon_Small()
     {
@@ -33,7 +34,7 @@ public class TurretedShockCannon_Small extends AbstractExperimentalModule
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.FalloffRange, 2_500)
-            ));
+                ));
     }
 
     @Override

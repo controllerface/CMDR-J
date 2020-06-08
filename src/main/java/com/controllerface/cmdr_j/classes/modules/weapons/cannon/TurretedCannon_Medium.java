@@ -31,7 +31,7 @@ public class TurretedCannon_Medium extends AbstractCannon
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 3500.0)
-            ));
+                ));
     }
 
     @Override

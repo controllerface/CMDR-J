@@ -10,15 +10,16 @@ public class FrameShiftDrive_6E extends AbstractFSD
     public FrameShiftDrive_6E()
     {
         super("6E Frame Shift Drive",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 40.0),
-                  new ItemEffectData(ItemEffect.Integrity, 102.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.4),
-                  new ItemEffectData(ItemEffect.BootTime, 10.0),
-                  new ItemEffectData(ItemEffect.FSDOptimalMass, 960.0),
-                  new ItemEffectData(ItemEffect.ThermalLoad, 37.0),
-                  new ItemEffectData(ItemEffect.MaxFuelPerJump, 5.3)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Mass, 40.0),
+                        new ItemEffectData(ItemEffect.Integrity, 102.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.4),
+                        new ItemEffectData(ItemEffect.BootTime, 10.0),
+                        new ItemEffectData(ItemEffect.FSDOptimalMass, 960.0),
+                        new ItemEffectData(ItemEffect.ThermalLoad, 37.0),
+                        new ItemEffectData(ItemEffect.MaxFuelPerJump, 5.3)
+                ));
     }
 
     @Override

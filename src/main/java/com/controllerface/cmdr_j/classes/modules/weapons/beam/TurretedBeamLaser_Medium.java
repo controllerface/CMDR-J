@@ -26,7 +26,7 @@ public class TurretedBeamLaser_Medium extends AbstractBeamLaser
                         new ItemEffectData(ItemEffect.DamageType, "Thermal"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 600.0)
-            ));
+                ));
     }
 
     @Override

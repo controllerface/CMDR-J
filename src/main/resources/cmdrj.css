@@ -354,6 +354,12 @@ Ship module statistics tables
     -fx-background-color: transparent;
 }
 
+.modification_stat_label
+{
+    -fx-text-fill: #ff7100;
+    -fx-background-color: transparent;
+}
+
 .general_stat_table .column-header > .label
 {
     -fx-background-color: #333333;

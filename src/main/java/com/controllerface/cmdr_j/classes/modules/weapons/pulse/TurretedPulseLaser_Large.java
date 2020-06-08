@@ -27,7 +27,7 @@ public class TurretedPulseLaser_Large extends AbstractPulseLaser
                         new ItemEffectData(ItemEffect.DamageType, "Thermal"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 500.0)
-            ));
+                ));
     }
 
     @Override

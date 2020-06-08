@@ -3,9 +3,10 @@ package com.controllerface.cmdr_j.classes.modules.weapons.missilerack;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.AbstractExperimentalModule;
+import com.controllerface.cmdr_j.classes.modules.AbstractHumanModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class FixedEnzymeMissileRack_Medium extends AbstractExperimentalModule
+public class FixedEnzymeMissileRack_Medium extends AbstractHumanModule
 {
     public FixedEnzymeMissileRack_Medium()
     {
@@ -31,7 +32,7 @@ public class FixedEnzymeMissileRack_Medium extends AbstractExperimentalModule
                         new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
                         new ItemEffectData(ItemEffect.DamageType, "Caustic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed")
-            ));
+                ));
     }
 
     @Override

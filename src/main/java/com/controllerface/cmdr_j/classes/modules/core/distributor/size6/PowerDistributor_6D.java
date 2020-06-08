@@ -10,18 +10,19 @@ public class PowerDistributor_6D extends AbstractPowerDistributor
     public PowerDistributor_6D()
     {
         super("6D Power Distributor",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 16.0),
-                  new ItemEffectData(ItemEffect.Integrity, 90.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.61),
-                  new ItemEffectData(ItemEffect.BootTime, 5.0),
-                  new ItemEffectData(ItemEffect.WeaponsCapacity, 38.0),
-                  new ItemEffectData(ItemEffect.WeaponsRecharge, 3.9),
-                  new ItemEffectData(ItemEffect.EnginesCapacity, 26.0),
-                  new ItemEffectData(ItemEffect.EnginesRecharge, 2.4),
-                  new ItemEffectData(ItemEffect.SystemsCapacity, 26.0),
-                  new ItemEffectData(ItemEffect.SystemsRecharge, 2.4)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Mass, 16.0),
+                        new ItemEffectData(ItemEffect.Integrity, 90.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.61),
+                        new ItemEffectData(ItemEffect.BootTime, 5.0),
+                        new ItemEffectData(ItemEffect.WeaponsCapacity, 38.0),
+                        new ItemEffectData(ItemEffect.WeaponsRecharge, 3.9),
+                        new ItemEffectData(ItemEffect.EnginesCapacity, 26.0),
+                        new ItemEffectData(ItemEffect.EnginesRecharge, 2.4),
+                        new ItemEffectData(ItemEffect.SystemsCapacity, 26.0),
+                        new ItemEffectData(ItemEffect.SystemsRecharge, 2.4)
+                ));
     }
 
     @Override

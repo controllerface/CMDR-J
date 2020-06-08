@@ -26,7 +26,7 @@ public class GimballedBeamLaser_Large extends AbstractBeamLaser
                         new ItemEffectData(ItemEffect.DamageType, "Thermal"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 600.0)
-            ));
+                ));
     }
 
     @Override

@@ -27,7 +27,7 @@ public class FixedShockMineLauncher_Small extends AbstractMineLauncher
                         new ItemEffectData(ItemEffect.MaxBreachChance, 0.0),
                         new ItemEffectData(ItemEffect.DamageType, "Explosive"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed")
-            ));
+                ));
     }
 
     @Override

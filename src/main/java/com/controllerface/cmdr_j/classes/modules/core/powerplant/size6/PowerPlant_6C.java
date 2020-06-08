@@ -10,12 +10,13 @@ public class PowerPlant_6C extends AbstractPowerPlant
     public PowerPlant_6C()
     {
         super("6C Power Plant",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 20.0),
-                  new ItemEffectData(ItemEffect.Integrity, 113.0),
-                  new ItemEffectData(ItemEffect.PowerCapacity, 2.1),
-                  new ItemEffectData(ItemEffect.HeatEfficiency, 0.5)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Mass, 20.0),
+                        new ItemEffectData(ItemEffect.Integrity, 113.0),
+                        new ItemEffectData(ItemEffect.PowerCapacity, 2.1),
+                        new ItemEffectData(ItemEffect.HeatEfficiency, 0.5)
+                ));
     }
 
     @Override

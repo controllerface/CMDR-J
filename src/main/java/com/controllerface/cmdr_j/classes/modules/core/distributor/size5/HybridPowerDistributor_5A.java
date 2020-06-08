@@ -12,6 +12,7 @@ public class HybridPowerDistributor_5A extends AbstractGuardianModule
         super("5A Guardian Hybrid Power Distributor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1d),
+                        new ItemEffectData(ItemEffect.Size, 5.0),
                         new ItemEffectData(ItemEffect.Mass, 21.00),
                         new ItemEffectData(ItemEffect.Integrity, 99.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.96),

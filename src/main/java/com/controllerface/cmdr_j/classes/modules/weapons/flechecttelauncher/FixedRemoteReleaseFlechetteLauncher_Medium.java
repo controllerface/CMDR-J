@@ -3,9 +3,10 @@ package com.controllerface.cmdr_j.classes.modules.weapons.flechecttelauncher;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.AbstractExperimentalModule;
+import com.controllerface.cmdr_j.classes.modules.AbstractHumanModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class FixedRemoteReleaseFlechetteLauncher_Medium extends AbstractExperimentalModule
+public class FixedRemoteReleaseFlechetteLauncher_Medium extends AbstractHumanModule
 {
     public FixedRemoteReleaseFlechetteLauncher_Medium()
     {
@@ -32,7 +33,7 @@ public class FixedRemoteReleaseFlechetteLauncher_Medium extends AbstractExperime
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 0.0)
-            ));
+                ));
     }
 
     @Override

@@ -36,7 +36,7 @@ public class FixedPacifierFragmentCannon_Large extends AbstractFragCannon
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1800.0)
-            ));
+                ));
     }
 
     @Override

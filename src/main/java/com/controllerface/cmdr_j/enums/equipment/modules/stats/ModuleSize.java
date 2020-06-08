@@ -5,22 +5,29 @@ package com.controllerface.cmdr_j.enums.equipment.modules.stats;
  */
 public enum ModuleSize
 {
-    SIZE_1,
-    SIZE_2,
-    SIZE_3,
-    SIZE_4,
-    SIZE_5,
-    SIZE_6,
-    SIZE_7,
-    SIZE_8,
+    SIZE_1(1),
+    SIZE_2(2),
+    SIZE_3(3),
+    SIZE_4(4),
+    SIZE_5(5),
+    SIZE_6(6),
+    SIZE_7(7),
+    SIZE_8(8),
 
-    SIZE_2_MILITARY,
-    SIZE_3_MILITARY,
-    SIZE_4_MILITARY,
-    SIZE_5_MILITARY,
+    SIZE_2_MILITARY(2),
+    SIZE_3_MILITARY(3),
+    SIZE_4_MILITARY(4),
+    SIZE_5_MILITARY(5),
 
-    SIZE_5_RESERVED,
-    SIZE_6_RESERVED,
+    SIZE_5_RESERVED(5),
+    SIZE_6_RESERVED(6),
 
     ;
+
+    public final int intValue;
+
+    ModuleSize(int intValue)
+    {
+        this.intValue = intValue;
+    }
 }

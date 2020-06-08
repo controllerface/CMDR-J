@@ -31,8 +31,9 @@ public class FixedMultiCannon_Medium extends AbstractMultiCannon
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
-            ));
+                ));
     }
+
     @Override
     public long price()
     {

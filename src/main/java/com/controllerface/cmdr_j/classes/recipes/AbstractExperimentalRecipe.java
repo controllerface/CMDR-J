@@ -8,8 +8,6 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
 
 public abstract class AbstractExperimentalRecipe extends AbstractRecipe
 {
-    private static Icon experimentalIcon = new Icon(UIFunctions.Icons.engineering, 25, 30);
-
     public AbstractExperimentalRecipe(String name, ItemEffects effects, CostData ... cost)
     {
         super(name, ItemGrade.Experimental, effects, cost);
@@ -18,7 +16,7 @@ public abstract class AbstractExperimentalRecipe extends AbstractRecipe
     @Override
     public Icon getIcon()
     {
-        return experimentalIcon;
+        return UIFunctions.Icons.experimentalIcon;
     }
 
     @Override

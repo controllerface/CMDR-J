@@ -10,15 +10,16 @@ public class Sensors_3B extends AbstractSensors
     public Sensors_3B()
     {
         super("3B Sensors",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 8.0),
-                  new ItemEffectData(ItemEffect.Integrity, 77.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.46),
-                  new ItemEffectData(ItemEffect.BootTime, 5.0),
-                  new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
-                  new ItemEffectData(ItemEffect.MaxRange, 8000.0),
-                  new ItemEffectData(ItemEffect.Range, 5940.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Mass, 8.0),
+                        new ItemEffectData(ItemEffect.Integrity, 77.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.46),
+                        new ItemEffectData(ItemEffect.BootTime, 5.0),
+                        new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
+                        new ItemEffectData(ItemEffect.MaxRange, 8000.0),
+                        new ItemEffectData(ItemEffect.Range, 5940.0)
+                ));
     }
 
     @Override

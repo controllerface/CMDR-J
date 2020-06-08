@@ -31,7 +31,7 @@ public class FixedCannon_Huge extends AbstractCannon
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 4500.0)
-            ));
+                ));
     }
 
     @Override

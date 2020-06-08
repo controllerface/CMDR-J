@@ -10,15 +10,16 @@ public class Sensors_6C extends AbstractSensors
     public Sensors_6C()
     {
         super("6C Sensors",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 40.0),
-                  new ItemEffectData(ItemEffect.Integrity, 113.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.5),
-                  new ItemEffectData(ItemEffect.BootTime, 5.0),
-                  new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
-                  new ItemEffectData(ItemEffect.MaxRange, 8000.0),
-                  new ItemEffectData(ItemEffect.Range, 6000.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Mass, 40.0),
+                        new ItemEffectData(ItemEffect.Integrity, 113.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.5),
+                        new ItemEffectData(ItemEffect.BootTime, 5.0),
+                        new ItemEffectData(ItemEffect.SensorTargetScanAngle, 30.0),
+                        new ItemEffectData(ItemEffect.MaxRange, 8000.0),
+                        new ItemEffectData(ItemEffect.Range, 6000.0)
+                ));
     }
 
     @Override

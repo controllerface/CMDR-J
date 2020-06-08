@@ -318,6 +318,9 @@ public enum ItemEffect
     Thargoid_Disruption_Protection("", "", true, EffectType.GUARDIAN),
     Damage_Multiplier_at_Full_Charge("", "", true),
 
+    // synthetic effect used for displaying mod progress as a stat in the stat table
+    Modification_Progress("%","",true, EffectType.MODIFICATION),
+
     // synthetic effects, used for experimental engineer effects
     Area_FSD_Reboot("", "", true, EffectType.EXPERIMENTAL),
     Area_Heat_Increased_Sensors_Disrupted("", "", true, EffectType.EXPERIMENTAL),
@@ -360,6 +363,7 @@ public enum ItemEffect
     public enum EffectType
     {
         STANDARD,
+        MODIFICATION,
         EXPERIMENTAL,
         ANTI_XENO,
         GUARDIAN

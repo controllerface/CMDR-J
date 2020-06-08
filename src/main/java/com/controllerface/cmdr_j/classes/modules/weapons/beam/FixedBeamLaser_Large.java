@@ -26,7 +26,7 @@ public class FixedBeamLaser_Large extends AbstractBeamLaser
                         new ItemEffectData(ItemEffect.DamageType, "Thermal"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 600.0)
-            ));
+                ));
     }
 
     @Override

@@ -10,15 +10,16 @@ public class FrameShiftDrive_2A extends AbstractFSD
     public FrameShiftDrive_2A()
     {
         super("2A Frame Shift Drive",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 2.5),
-                  new ItemEffectData(ItemEffect.Integrity, 64.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.3),
-                  new ItemEffectData(ItemEffect.BootTime, 10.0),
-                  new ItemEffectData(ItemEffect.FSDOptimalMass, 90.0),
-                  new ItemEffectData(ItemEffect.ThermalLoad, 10.0),
-                  new ItemEffectData(ItemEffect.MaxFuelPerJump, 0.9)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Mass, 2.5),
+                        new ItemEffectData(ItemEffect.Integrity, 64.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.3),
+                        new ItemEffectData(ItemEffect.BootTime, 10.0),
+                        new ItemEffectData(ItemEffect.FSDOptimalMass, 90.0),
+                        new ItemEffectData(ItemEffect.ThermalLoad, 10.0),
+                        new ItemEffectData(ItemEffect.MaxFuelPerJump, 0.9)
+                ));
     }
 
     @Override

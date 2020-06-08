@@ -35,7 +35,7 @@ public class GimballedFragmentCannon_Large extends AbstractFragCannon
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1800.0)
-            ));
+                ));
     }
 
     @Override

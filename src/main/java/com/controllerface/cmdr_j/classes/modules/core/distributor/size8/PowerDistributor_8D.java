@@ -10,18 +10,19 @@ public class PowerDistributor_8D extends AbstractPowerDistributor
     public PowerDistributor_8D()
     {
         super("8D Power Distributor",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 64.0),
-                  new ItemEffectData(ItemEffect.Integrity, 120.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.72),
-                  new ItemEffectData(ItemEffect.BootTime, 5.0),
-                  new ItemEffectData(ItemEffect.WeaponsCapacity, 54.0),
-                  new ItemEffectData(ItemEffect.WeaponsRecharge, 5.4),
-                  new ItemEffectData(ItemEffect.EnginesCapacity, 36.0),
-                  new ItemEffectData(ItemEffect.EnginesRecharge, 3.6),
-                  new ItemEffectData(ItemEffect.SystemsCapacity, 36.0),
-                  new ItemEffectData(ItemEffect.SystemsRecharge, 3.6)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 8.0),
+                        new ItemEffectData(ItemEffect.Mass, 64.0),
+                        new ItemEffectData(ItemEffect.Integrity, 120.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.72),
+                        new ItemEffectData(ItemEffect.BootTime, 5.0),
+                        new ItemEffectData(ItemEffect.WeaponsCapacity, 54.0),
+                        new ItemEffectData(ItemEffect.WeaponsRecharge, 5.4),
+                        new ItemEffectData(ItemEffect.EnginesCapacity, 36.0),
+                        new ItemEffectData(ItemEffect.EnginesRecharge, 3.6),
+                        new ItemEffectData(ItemEffect.SystemsCapacity, 36.0),
+                        new ItemEffectData(ItemEffect.SystemsRecharge, 3.6)
+                ));
     }
 
     @Override

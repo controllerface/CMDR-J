@@ -10,12 +10,13 @@ public class PowerPlant_7C extends AbstractPowerPlant
     public PowerPlant_7C()
     {
         super("7C Power Plant",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 40.0),
-                  new ItemEffectData(ItemEffect.Integrity, 131.0),
-                  new ItemEffectData(ItemEffect.PowerCapacity, 25.0),
-                  new ItemEffectData(ItemEffect.HeatEfficiency, 0.5)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 7.0),
+                        new ItemEffectData(ItemEffect.Mass, 40.0),
+                        new ItemEffectData(ItemEffect.Integrity, 131.0),
+                        new ItemEffectData(ItemEffect.PowerCapacity, 25.0),
+                        new ItemEffectData(ItemEffect.HeatEfficiency, 0.5)
+                ));
     }
 
     public long price()

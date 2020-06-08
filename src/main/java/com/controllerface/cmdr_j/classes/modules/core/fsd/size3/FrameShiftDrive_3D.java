@@ -10,15 +10,16 @@ public class FrameShiftDrive_3D extends AbstractFSD
     public FrameShiftDrive_3D()
     {
         super("3D Frame Shift Drive",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 2.0),
-                  new ItemEffectData(ItemEffect.Integrity, 51.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.27),
-                  new ItemEffectData(ItemEffect.BootTime, 10.0),
-                  new ItemEffectData(ItemEffect.FSDOptimalMass, 90.0),
-                  new ItemEffectData(ItemEffect.ThermalLoad, 14.0),
-                  new ItemEffectData(ItemEffect.MaxFuelPerJump, 1.2)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Mass, 2.0),
+                        new ItemEffectData(ItemEffect.Integrity, 51.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.27),
+                        new ItemEffectData(ItemEffect.BootTime, 10.0),
+                        new ItemEffectData(ItemEffect.FSDOptimalMass, 90.0),
+                        new ItemEffectData(ItemEffect.ThermalLoad, 14.0),
+                        new ItemEffectData(ItemEffect.MaxFuelPerJump, 1.2)
+                ));
     }
 
     @Override

@@ -30,7 +30,7 @@ public class ShieldGenerator_8A_Prismatic extends AbstractShieldGenerator
                         new ItemEffectData(ItemEffect.KineticResistance, 40.0),
                         new ItemEffectData(ItemEffect.ThermicResistance, -20.0),
                         new ItemEffectData(ItemEffect.ExplosiveResistance, 50.0)
-            ));
+                ));
     }
 
     @Override

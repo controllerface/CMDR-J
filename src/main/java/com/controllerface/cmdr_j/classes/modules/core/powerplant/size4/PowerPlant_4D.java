@@ -10,12 +10,13 @@ public class PowerPlant_4D extends AbstractPowerPlant
     public PowerPlant_4D()
     {
         super("4D Power Plant",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 4.0),
-                  new ItemEffectData(ItemEffect.Integrity, 64.0),
-                  new ItemEffectData(ItemEffect.PowerCapacity, 11.7),
-                  new ItemEffectData(ItemEffect.HeatEfficiency, 0.75)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Mass, 4.0),
+                        new ItemEffectData(ItemEffect.Integrity, 64.0),
+                        new ItemEffectData(ItemEffect.PowerCapacity, 11.7),
+                        new ItemEffectData(ItemEffect.HeatEfficiency, 0.75)
+                ));
     }
 
     @Override

@@ -31,7 +31,7 @@ public class GimballedMultiCannon_Medium extends AbstractMultiCannon
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
-            ));
+                ));
     }
 
     @Override

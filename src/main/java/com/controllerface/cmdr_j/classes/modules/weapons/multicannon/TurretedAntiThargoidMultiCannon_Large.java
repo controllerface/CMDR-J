@@ -33,7 +33,7 @@ public class TurretedAntiThargoidMultiCannon_Large extends AbstractExperimentalM
                         new ItemEffectData(ItemEffect.DamageType, "Anti-Xeno"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
-            ));
+                ));
     }
 
     @Override

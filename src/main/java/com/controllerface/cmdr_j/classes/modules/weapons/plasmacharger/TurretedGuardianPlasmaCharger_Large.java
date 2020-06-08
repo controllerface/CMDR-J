@@ -35,7 +35,7 @@ public class TurretedGuardianPlasmaCharger_Large extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.DamageType, "Absolute/AX"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1000.0)
-            ));
+                ));
     }
 
     @Override

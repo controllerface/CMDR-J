@@ -31,7 +31,7 @@ public class TurretedMultiCannon_Large extends AbstractMultiCannon
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
-            ));
+                ));
     }
 
     @Override

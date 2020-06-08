@@ -35,7 +35,7 @@ public class FixedGuardianPlasmaCharger_Medium extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.DamageType, "Absolute/AX"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1000.0)
-            ));
+                ));
     }
 
     @Override

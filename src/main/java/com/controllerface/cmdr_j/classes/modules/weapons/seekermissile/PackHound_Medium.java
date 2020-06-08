@@ -32,7 +32,7 @@ public class PackHound_Medium extends AbstractSeekerMissileRack
                         new ItemEffectData(ItemEffect.DamageType, "Explosive"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed")
 
-            ));
+                ));
     }
 
     @Override

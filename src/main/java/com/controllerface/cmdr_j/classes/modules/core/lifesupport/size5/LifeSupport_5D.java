@@ -10,13 +10,14 @@ public class LifeSupport_5D extends AbstractLifeSupport
     public LifeSupport_5D()
     {
         super("5D Life Support",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 8.0),
-                  new ItemEffectData(ItemEffect.Integrity, 86.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.64),
-                  new ItemEffectData(ItemEffect.BootTime, 1.0),
-                  new ItemEffectData(ItemEffect.OxygenTimeCapacity, 450.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Mass, 8.0),
+                        new ItemEffectData(ItemEffect.Integrity, 86.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.64),
+                        new ItemEffectData(ItemEffect.BootTime, 1.0),
+                        new ItemEffectData(ItemEffect.OxygenTimeCapacity, 450.0)
+                ));
     }
 
     @Override

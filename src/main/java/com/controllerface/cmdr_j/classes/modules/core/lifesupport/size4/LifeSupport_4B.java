@@ -10,13 +10,14 @@ public class LifeSupport_4B extends AbstractLifeSupport
     public LifeSupport_4B()
     {
         super("4B Life Support",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 16.0),
-                  new ItemEffectData(ItemEffect.Integrity, 88.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.68),
-                  new ItemEffectData(ItemEffect.BootTime, 1.0),
-                  new ItemEffectData(ItemEffect.OxygenTimeCapacity, 900.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Mass, 16.0),
+                        new ItemEffectData(ItemEffect.Integrity, 88.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.68),
+                        new ItemEffectData(ItemEffect.BootTime, 1.0),
+                        new ItemEffectData(ItemEffect.OxygenTimeCapacity, 900.0)
+                ));
     }
 
     @Override

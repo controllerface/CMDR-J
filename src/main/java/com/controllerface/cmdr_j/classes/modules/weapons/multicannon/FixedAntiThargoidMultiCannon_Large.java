@@ -33,7 +33,7 @@ public class FixedAntiThargoidMultiCannon_Large extends AbstractExperimentalModu
                         new ItemEffectData(ItemEffect.DamageType, "Anti-Xeno"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
-            ));
+                ));
     }
 
     @Override

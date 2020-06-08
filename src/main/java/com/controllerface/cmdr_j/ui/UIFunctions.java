@@ -165,10 +165,15 @@ public class UIFunctions
             materialGrade5.setContent(readIcon("/icons/materialGrade5"));
         }
 
-        public static Icon thermalIcon = new Icon(thermal, 20, 20);
-        public static Icon kineticIcon = new Icon(kinetic, 20, 20);
-        public static Icon explosiveIcon = new Icon(explosive, 20, 20);
-        public static Icon thermoKineticIcon = new Icon(thermo_kinetic, 20, 20);
+        public static Icon thermalIcon = new Icon(thermal, 25, 25);
+        public static Icon kineticIcon = new Icon(kinetic, 25, 25);
+        public static Icon explosiveIcon = new Icon(explosive, 25, 25);
+        public static Icon thermoKineticIcon = new Icon(thermo_kinetic, 25, 25);
+
+        public static Icon guardianIcon = new Icon(guardian, 31, 25, Style.hotBlue);
+        public static Icon aegisIcon = new Icon(aegis, 31, 25, Style.darkRed);
+        public static Icon axIcon = new Icon(aegis, 31, 25, Style.thargoidGreen);
+
 
         public static Icon fixedIcon = new Icon(fixed, 20, 20);
         public static Icon gimbalIcon = new Icon(gimbal, 20, 20);
@@ -179,6 +184,14 @@ public class UIFunctions
         public static Icon mfdTradeIcon = new Icon(manufacturedTrade, 25, 30);
         public static Icon rawTradeIcon = new Icon(rawTrade, 25, 30);
         public static Icon dataTradeIcon = new Icon(dataTrade, 25, 30);
+
+        public static Icon modificationIcon =
+                new Icon(UIFunctions.Icons.engineering, 25, 30, Style.standardOrange);
+
+        public static Icon experimentalIcon =
+                new Icon(UIFunctions.Icons.engineering, 25, 30, Style.specialYellow);
+
+
     }
 
     /**
@@ -288,9 +301,13 @@ public class UIFunctions
                 String colorClass;
                 switch (effectType)
                 {
+                    case MODIFICATION:
+                        colorClass = "modification_stat_label";
+                        break;
+
                     case EXPERIMENTAL:
                         colorClass = "experimental_stat_label";
-                        break;
+                        break; //modification_stat_label
 
                     case ANTI_XENO:
                         colorClass = "anti_xeno_stat_label";

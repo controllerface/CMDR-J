@@ -27,7 +27,7 @@ public class FixedTorpedoPylon_Small extends AbstractTorpedoPylon
                         new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
                         new ItemEffectData(ItemEffect.DamageType, "Explosive"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed")
-            ));
+                ));
     }
 
     @Override

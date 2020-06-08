@@ -10,13 +10,14 @@ public class LifeSupport_3B extends AbstractLifeSupport
     public LifeSupport_3B()
     {
         super("3B Life Support",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 8.0),
-                  new ItemEffectData(ItemEffect.Integrity, 70.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.58),
-                  new ItemEffectData(ItemEffect.BootTime, 1.0),
-                  new ItemEffectData(ItemEffect.OxygenTimeCapacity, 900.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Mass, 8.0),
+                        new ItemEffectData(ItemEffect.Integrity, 70.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.58),
+                        new ItemEffectData(ItemEffect.BootTime, 1.0),
+                        new ItemEffectData(ItemEffect.OxygenTimeCapacity, 900.0)
+                ));
     }
 
     @Override

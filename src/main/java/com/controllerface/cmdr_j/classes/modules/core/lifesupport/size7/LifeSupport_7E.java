@@ -10,13 +10,14 @@ public class LifeSupport_7E extends AbstractLifeSupport
     public LifeSupport_7E()
     {
         super("7E Life Support",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 80.0),
-                  new ItemEffectData(ItemEffect.Integrity, 105.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.72),
-                  new ItemEffectData(ItemEffect.BootTime, 1.0),
-                  new ItemEffectData(ItemEffect.OxygenTimeCapacity, 300.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 7.0),
+                        new ItemEffectData(ItemEffect.Mass, 80.0),
+                        new ItemEffectData(ItemEffect.Integrity, 105.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.72),
+                        new ItemEffectData(ItemEffect.BootTime, 1.0),
+                        new ItemEffectData(ItemEffect.OxygenTimeCapacity, 300.0)
+                ));
     }
 
     @Override

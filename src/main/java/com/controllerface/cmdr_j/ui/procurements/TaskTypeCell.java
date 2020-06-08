@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.ui.procurements;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
 import com.controllerface.cmdr_j.classes.procurements.ProcurementTaskData;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
+import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,38 +29,47 @@ public class TaskTypeCell extends TableCell<ProcurementTaskData, ProcurementReci
         }
 
         HBox hBox = new HBox();
-        SVGPath icon = item.getIcon() == null
-                ? UIFunctions.Icons.cargo
-                : item.getIcon().getIconPath();
+
+        Icon ic = item.getIcon() == null
+                ? UIFunctions.Icons.cargoIcon
+                : item.getIcon();
+
+        SVGPath iconPath = ic.getIconPath();
 
         final Region svgShape = new Region();
-        svgShape.setShape(icon);
+        svgShape.setShape(iconPath);
 
         double sizew = item.getIcon().getBaseWidth();
         double sizeh = item.getIcon().getBaseHeight();
-        double topPad = 2;
+        double topPad = 6;
+
+        if (iconPath == UIFunctions.Icons.engineering)
+        {
+            topPad = 2;
+        }
 
         svgShape.setMinSize(sizew, sizeh);
         svgShape.setPrefSize(sizew, sizeh);
         svgShape.setMaxSize(sizew, sizeh);
 
-        if (item.getGrade() == ItemGrade.Experimental)
-        {
-            svgShape.setStyle("-fx-background-color: #ffb000;");
-        }
-        else svgShape.setStyle("-fx-background-color: #b75200;");
+        svgShape.setStyle("-fx-background-color: " + UIFunctions.Icons.toHexString(ic.getColor()));
 
-        double originalWidth = icon.prefWidth(-1);
-        double originalHeight = icon.prefHeight(originalWidth);
+//        if (item.getGrade() == ItemGrade.Experimental)
+//        {
+//            svgShape.setStyle("-fx-background-color: #ffb000;");
+//        }
+//        else svgShape.setStyle("-fx-background-color: #b75200;");
+
+        double originalWidth = iconPath.prefWidth(-1);
+        double originalHeight = iconPath.prefHeight(originalWidth);
 
         double scaleX = sizew / originalWidth;
         double scaleY = sizeh / originalHeight;
 
-        icon.setScaleX(scaleX);
-        icon.setScaleY(scaleY);
+        iconPath.setScaleX(scaleX);
+        iconPath.setScaleY(scaleY);
         hBox.getChildren().add(svgShape);
-        hBox.setPadding(new Insets(topPad,0,0,0));
-
+        svgShape.translateYProperty().set(topPad);
         hBox.setAlignment(Pos.TOP_CENTER);
 
         setGraphic(hBox);

@@ -35,7 +35,7 @@ public class TurretedFragmentCannon_Small extends AbstractFragCannon
                         new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 1800.0)
-            ));
+                ));
     }
 
     @Override

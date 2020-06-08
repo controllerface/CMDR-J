@@ -29,7 +29,7 @@ public class GimballedBurstLaser_Large extends AbstractBurstLaser
                         new ItemEffectData(ItemEffect.DamageType, "Thermal"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Gimbal"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 500.0)
-            ));
+                ));
     }
 
     @Override

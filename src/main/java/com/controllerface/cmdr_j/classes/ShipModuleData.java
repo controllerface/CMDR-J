@@ -21,15 +21,11 @@ import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Pair;
@@ -336,8 +332,8 @@ public class ShipModuleData implements Displayable
             }
 
             // this container shows the player a progress percentage for the modification
-            HBox modProgressBox = new HBox();
-            modProgressBox.setAlignment(Pos.CENTER_LEFT);
+            //HBox modProgressBox = new HBox();
+            //modProgressBox.setAlignment(Pos.CENTER_LEFT);
 
             // this is the static progress text
             Label modProgressLabel = new Label("Current Modification Progress: ");
@@ -353,12 +349,12 @@ public class ShipModuleData implements Displayable
             modProgressValue.setText((int)(quality * 100d) + "%");
 
             // now add the labels to the progress box
-            modProgressBox.getChildren().add(modProgressLabel);
-            modProgressBox.getChildren().add(modProgressValue);
-            modProgressBox.setAlignment(Pos.BASELINE_CENTER);
+            //modProgressBox.getChildren().add(modProgressLabel);
+            //modProgressBox.getChildren().add(modProgressValue);
+            //modProgressBox.setAlignment(Pos.BASELINE_CENTER);
 
             // finally add the progress indicator itself to the detail container
-            detailsContainer.getChildren().add(modProgressBox);
+            //detailsContainer.getChildren().add(modProgressBox);
         }
 
         if (experimentalEffectRecipe != null)
@@ -464,6 +460,8 @@ public class ShipModuleData implements Displayable
     {
         Map<Integer, List<ShipModule>> moduleMap = new LinkedHashMap<>();
         ProcurementType procurementType;
+        AtomicBoolean armorSlot = new AtomicBoolean(false);
+
         if (moduleSlot instanceof HardpointSlot)
         {
             procurementType = ModulePurchaseType.Hardpoint;
@@ -504,28 +502,62 @@ public class ShipModuleData implements Displayable
             procurementType = ModulePurchaseType.Core;
             CoreInternalSlot internalSlot = ((CoreInternalSlot) moduleSlot);
             // consult ship for modules that can be fitted
+
+            System.out.println("DEBUG: " + internalSlot);
+
+            CoreModuleLayoutData moduleLayoutData = currentShip.getShip().getCoreModules();
+
+            int sizeValue = 0;
             switch (internalSlot)
             {
                 case Armour:
+                    moduleMap.put(0, Stream.of(currentShip.getShip().getArmorModules()).collect(Collectors.toList()));
+                    armorSlot.set(true);
                     break;
+
                 case PowerPlant:
+                    sizeValue = moduleLayoutData.getPowerPlant().intValue;
                     break;
+
                 case MainEngines:
+                    sizeValue = moduleLayoutData.getThrusters().intValue;
                     break;
+
                 case FrameShiftDrive:
+                    sizeValue = moduleLayoutData.getFrameShiftDrive().intValue;
                     break;
+
                 case LifeSupport:
+                    sizeValue = moduleLayoutData.getLifeSupport().intValue;
                     break;
+
                 case PowerDistributor:
+                    sizeValue = moduleLayoutData.getPowerDistributor().intValue;
                     break;
+
                 case Radar:
+                    sizeValue = moduleLayoutData.getSensors().intValue;
                     break;
+
                 case FuelTank:
+                    sizeValue = moduleLayoutData.getFuelTank().intValue;
                     break;
 
                 // if we are looking at one of the non changeable slots, just bail
                 default:
                     return;
+            }
+
+            if (!armorSlot.get())
+            {
+                internalSlot.findModulesBySize(sizeValue).forEach(m->
+                {
+                    int s = m.itemEffects().effectByName(ItemEffect.Size).map(ItemEffectData::getDoubleValue)
+                            .map(Double::intValue)
+                            .orElse(-1);
+
+                    moduleMap.computeIfAbsent(s, (_s) -> new ArrayList<>()).add(m);
+                });
             }
         }
         else
@@ -558,7 +590,16 @@ public class ShipModuleData implements Displayable
                     TitledPane sizePane = new TitledPane();
                     sizePane.setExpanded(false);
                     sizePane.setAnimated(false);
-                    sizePane.setText("Size " + size);
+
+                    if (armorSlot.get())
+                    {
+                        sizePane.setText("Bulkheads");
+                    }
+                    else
+                    {
+                        sizePane.setText("Size " + size);
+                    }
+
                     moduleBox.getChildren().add(sizePane);
                     VBox contentBox = new VBox();
                     sizePane.setContent(contentBox);
@@ -638,7 +679,7 @@ public class ShipModuleData implements Displayable
         //unitColumn.setText("Unit");
 
         TitledPane statPane = new TitledPane();
-        statPane.setExpanded(false);
+        statPane.setExpanded(true);
         statPane.setAnimated(false);
         statPane.setText("Current Module Statistics");
         statPane.setTextFill(UIFunctions.Style.neutralWhite);
@@ -705,8 +746,8 @@ public class ShipModuleData implements Displayable
 
             if (icon != null)
             {
-                double sizew = icon.getBaseWidth();
-                double sizeh = icon.getBaseHeight();
+                double sizew = 20; //icon.getBaseWidth();
+                double sizeh = 20; //icon.getBaseHeight();
                 HBox modBox = new HBox();
                 modBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -717,14 +758,16 @@ public class ShipModuleData implements Displayable
                 svgShape.setMinSize(sizew, sizeh);
                 svgShape.setPrefSize(sizew, sizeh);
                 svgShape.setMaxSize(sizew, sizeh);
+                svgShape.translateYProperty().set(2);
+
                 if (icon == UIFunctions.Icons.turretIcon)
                 {
                     svgShape.translateYProperty().set(6.5);
+                    svgShape.setMinSize(sizew, 15);
+                    svgShape.setPrefSize(sizew, 15);
+                    svgShape.setMaxSize(sizew, 15);
                 }
-                else
-                {
-                    svgShape.translateYProperty().set(2);
-                }
+
                 svgShape.setStyle("-fx-background-color: " + icon.getHexColorString());
                 Label spacer = new Label(" ");
                 moduleNameContainer.getChildren().addAll(svgShape, spacer);
@@ -735,8 +778,8 @@ public class ShipModuleData implements Displayable
         {
             Icon icon = module.icons().get(0);
 
-            double sizew = icon.getBaseWidth();
-            double sizeh = icon.getBaseHeight();
+            double sizew = 20; //icon.getBaseWidth();
+            double sizeh = 20; //icon.getBaseHeight();
             HBox modBox = new HBox();
             modBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -748,6 +791,17 @@ public class ShipModuleData implements Displayable
             svgShape.setPrefSize(sizew, sizeh);
             svgShape.setMaxSize(sizew, sizeh);
             svgShape.translateYProperty().set(2);
+
+            if (icon == UIFunctions.Icons.guardianIcon
+                    || icon == UIFunctions.Icons.aegisIcon
+                    || icon == UIFunctions.Icons.axIcon)
+            {
+                svgShape.translateYProperty().set(5);
+                svgShape.setMinSize(sizew, 18);
+                svgShape.setPrefSize(sizew, 18);
+                svgShape.setMaxSize(sizew, 18);
+            }
+
             svgShape.setStyle("-fx-background-color: " + icon.getHexColorString());
             Label spacer = new Label(" ");
             moduleNameContainer.getChildren().addAll(svgShape, spacer);
@@ -796,37 +850,13 @@ public class ShipModuleData implements Displayable
             moduleNameContainer.getChildren().addAll(svgShape, spacer);
         }
 
-        boolean experimental = module.itemEffects().effectStream()
-                .anyMatch(e->e.getEffect()== ItemEffect.experimental);
-
-        boolean human = module.itemEffects().effectStream()
-                .anyMatch(e->e.getEffect()== ItemEffect.human);
-
-        boolean guardian = module.itemEffects().effectStream()
-                .anyMatch(e->e.getEffect()== ItemEffect.guardian);
 
         boolean powerPlay = module.itemEffects().effectStream()
-                .anyMatch(e->e.getEffect()== ItemEffect.power_play);
-
+                .anyMatch(e->e.getEffect() == ItemEffect.power_play);
 
         if (powerPlay)
         {
             renderPowerPlayInfo(moduleNameContainer);
-        }
-
-        if (human)
-        {
-            renderExperimentalInfo(moduleNameContainer, true);
-        }
-
-        if (experimental)
-        {
-            renderExperimentalInfo(moduleNameContainer, false);
-        }
-
-        if (guardian)
-        {
-            renderGuardianInfo(moduleNameContainer);
         }
     }
 
@@ -923,6 +953,21 @@ public class ShipModuleData implements Displayable
                 .forEach(effects::add);
 
         effects.sort(Comparator.comparing(Pair::getKey));
+
+        if (modificationBlueprint != null)
+        {
+            double progress = UIFunctions.Data.round(quality * 100d, 3);
+            String progressText = progress < 1
+                    ? "." + quality
+                    : String.valueOf(progress);
+
+            Label modProgressValue = new Label();
+            modProgressValue.setTextFill(UIFunctions.Style.standardOrange);
+            modProgressValue.getStyleClass().add("base_font");
+            modProgressValue.setText(progressText);
+            Pair<ItemEffect, Label> p = new Pair<>(ItemEffect.Modification_Progress, modProgressValue);
+            effects.add(0, p);
+        }
 
         // special experimental effects that are not "normal" modified effects. always add to top of list
         if (experimentalEffectRecipe != null)

@@ -29,7 +29,7 @@ public class FixedBurstLaser_Large extends AbstractBurstLaser
                         new ItemEffectData(ItemEffect.DamageType, "Thermal"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 500.0)
-            ));
+                ));
     }
 
     @Override

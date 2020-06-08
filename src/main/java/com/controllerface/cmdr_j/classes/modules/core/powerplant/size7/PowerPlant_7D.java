@@ -10,12 +10,13 @@ public class PowerPlant_7D extends AbstractPowerPlant
     public PowerPlant_7D()
     {
         super("7D Power Plant",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 32.0),
-                  new ItemEffectData(ItemEffect.Integrity, 105.0),
-                  new ItemEffectData(ItemEffect.PowerCapacity, 22.5),
-                  new ItemEffectData(ItemEffect.HeatEfficiency, 0.75)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 7.0),
+                        new ItemEffectData(ItemEffect.Mass, 32.0),
+                        new ItemEffectData(ItemEffect.Integrity, 105.0),
+                        new ItemEffectData(ItemEffect.PowerCapacity, 22.5),
+                        new ItemEffectData(ItemEffect.HeatEfficiency, 0.75)
+                ));
     }
 
     @Override

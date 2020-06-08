@@ -10,13 +10,14 @@ public class LifeSupport_1C extends AbstractLifeSupport
     public LifeSupport_1C()
     {
         super("1C Life Support",
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 1.3),
-                  new ItemEffectData(ItemEffect.Integrity, 40.0),
-                  new ItemEffectData(ItemEffect.PowerDraw, 0.4),
-                  new ItemEffectData(ItemEffect.BootTime, 1.0),
-                  new ItemEffectData(ItemEffect.OxygenTimeCapacity, 600.0)
-            ));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Mass, 1.3),
+                        new ItemEffectData(ItemEffect.Integrity, 40.0),
+                        new ItemEffectData(ItemEffect.PowerDraw, 0.4),
+                        new ItemEffectData(ItemEffect.BootTime, 1.0),
+                        new ItemEffectData(ItemEffect.OxygenTimeCapacity, 600.0)
+                ));
     }
 
     @Override

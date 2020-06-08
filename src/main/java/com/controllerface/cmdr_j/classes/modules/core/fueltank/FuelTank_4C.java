@@ -8,10 +8,11 @@ public class FuelTank_4C extends AbstractFuelTank
 {
     public FuelTank_4C()
     {
-        super("4C Standard Fuel Tank", 
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.FuelCapacity, 16.0)
-            ));
+        super("4C Standard Fuel Tank",
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.FuelCapacity, 16.0)
+                ));
     }
 
     @Override

@@ -31,7 +31,7 @@ public class FixedPlasmaAccelerator_Medium extends AbstractPlasmaAccelerator
                         new ItemEffectData(ItemEffect.DamageType, "Absolute"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
-            ));
+                ));
     }
 
     @Override
