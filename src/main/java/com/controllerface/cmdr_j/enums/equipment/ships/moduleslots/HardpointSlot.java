@@ -9,33 +9,33 @@ import java.util.Arrays;
  */
 public enum HardpointSlot implements Statistic
 {
-    HugeHardpoint1("Huge Hardpoint", 4),
-    HugeHardpoint2("Huge Hardpoint", 4),
+    HugeHardpoint1("Huge", 4),
+    HugeHardpoint2("Huge", 4),
 
-    LargeHardpoint1("Large Hardpoint", 3),
-    LargeHardpoint2("Large Hardpoint", 3),
-    LargeHardpoint3("Large Hardpoint", 3),
-    LargeHardpoint4("Large Hardpoint", 3),
+    LargeHardpoint1("Large", 3),
+    LargeHardpoint2("Large", 3),
+    LargeHardpoint3("Large", 3),
+    LargeHardpoint4("Large", 3),
 
-    MediumHardpoint1("Medium Hardpoint", 2),
-    MediumHardpoint2("Medium Hardpoint", 2),
-    MediumHardpoint3("Medium Hardpoint", 2),
-    MediumHardpoint4("Medium Hardpoint", 2),
-    MediumHardpoint5("Medium Hardpoint", 2),
+    MediumHardpoint1("Medium", 2),
+    MediumHardpoint2("Medium", 2),
+    MediumHardpoint3("Medium", 2),
+    MediumHardpoint4("Medium", 2),
+    MediumHardpoint5("Medium", 2),
 
-    SmallHardpoint1("Small Hardpoint", 1),
-    SmallHardpoint2("Small Hardpoint", 1),
-    SmallHardpoint3("Small Hardpoint", 1),
-    SmallHardpoint4("Small Hardpoint", 1),
+    SmallHardpoint1("Small", 1),
+    SmallHardpoint2("Small", 1),
+    SmallHardpoint3("Small", 1),
+    SmallHardpoint4("Small", 1),
 
-    TinyHardpoint1("Utility Mount", 0),
-    TinyHardpoint2("Utility Mount", 0),
-    TinyHardpoint3("Utility Mount", 0),
-    TinyHardpoint4("Utility Mount", 0),
-    TinyHardpoint5("Utility Mount", 0),
-    TinyHardpoint6("Utility Mount", 0),
-    TinyHardpoint7("Utility Mount", 0),
-    TinyHardpoint8("Utility Mount", 0),
+    TinyHardpoint1("Utility", 0),
+    TinyHardpoint2("Utility", 0),
+    TinyHardpoint3("Utility", 0),
+    TinyHardpoint4("Utility", 0),
+    TinyHardpoint5("Utility", 0),
+    TinyHardpoint6("Utility", 0),
+    TinyHardpoint7("Utility", 0),
+    TinyHardpoint8("Utility", 0),
 
     ;
 

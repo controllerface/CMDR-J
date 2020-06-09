@@ -118,11 +118,15 @@
                                     <content>
                                       <AnchorPane>
                                              <children>
-                                                <TableView fx:id="core_module_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="905.0" prefWidth="1130.0" styleClass="module_table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="core_module_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="905.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
-                                                    <TableColumn fx:id="core_module_name_column" prefWidth="205.0" sortable="false" text="Core Module Slot" />
+                                                    <TableColumn fx:id="core_module_name_column" prefWidth="150.0" sortable="false" />
                                                     <TableColumn fx:id="core_module_data_column" minWidth="0.0" prefWidth="243.0" sortable="false" />
                                                   </columns>
+                                                   <styleClass>
+                                                      <String fx:value="module_table" />
+                                                      <String fx:value="no_header" />
+                                                   </styleClass>
                                                 </TableView>
                                              </children>
                                           </AnchorPane>
@@ -132,11 +136,15 @@
                                     <content>
                                       <AnchorPane>
                                              <children>
-                                                <TableView fx:id="optional_module_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="905.0" prefWidth="1130.0" styleClass="module_table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="optional_module_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="905.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="optional_module_name_column" prefWidth="205.0" sortable="false" text="Optional Module Slot" />
+                                                      <TableColumn fx:id="optional_module_name_column" prefWidth="100.0" sortable="false" />
                                                       <TableColumn fx:id="optional_module_data_column" minWidth="0.0" prefWidth="233.0" sortable="false" />
                                                    </columns>
+                                                   <styleClass>
+                                                      <String fx:value="module_table" />
+                                                      <String fx:value="no_header" />
+                                                   </styleClass>
                                                 </TableView>
                                              </children>
                                           </AnchorPane>
@@ -146,11 +154,15 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <TableView fx:id="hardpoint_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="905.0" prefWidth="1130.0" styleClass="module_table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="hardpoint_table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="905.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="hardpoint_name_column" prefWidth="205.0" sortable="false" text="Hardpoint Slot" />
+                                                      <TableColumn fx:id="hardpoint_name_column" prefWidth="100.0" sortable="false" />
                                                       <TableColumn fx:id="hardpoint_data_column" prefWidth="206.0" sortable="false" />
                                                    </columns>
+                                                   <styleClass>
+                                                      <String fx:value="module_table" />
+                                                      <String fx:value="no_header" />
+                                                   </styleClass>
                                                 </TableView>
                                              </children>
                                           </AnchorPane>

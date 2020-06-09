@@ -409,7 +409,7 @@ public class StarShip
 
     private double getArmorResistanceTotal(ItemEffect resistanceEffect)
     {
-        Stream.Builder<Double> resistances = Stream.builder();
+        List<Double> resistances = new ArrayList<>();
 
         coreInternals.stream()
                 .filter(module -> module.getModule().modificationType() == ModificationType.Bulkheads)
@@ -417,73 +417,68 @@ public class StarShip
                 .filter(nonZero)
                 .mapToDouble(Double::doubleValue)
                 .map(next -> 100d - next)
-                .map(Math::abs)
                 .map(next -> next / 100d)
-                .forEach(resistances::accept);
+                .map(n->round(n, 5))
+                .forEach(resistances::add);
 
         optionalInternals.stream()
                 .filter(module -> module.getModule().modificationType() == ModificationType.Hull_Reinforcement_Package)
                 .map(module -> module.getEffectValue(resistanceEffect))
                 .filter(nonZero)
-                .mapToDouble(Double::doubleValue)
                 .map(next -> 100d - next)
-                .map(Math::abs)
                 .map(next -> next / 100d)
-                .forEach(resistances::accept);
+                .map(n->round(n, 5))
+                .forEach(resistances::add);
 
-        double rawResistance = resistances.build()
+        double boosterResistance = resistances.stream()
                 .mapToDouble(Double::doubleValue)
                 .reduce(1, (a, b) -> a * b);
 
-        double calculatedResistance = 100 - rawResistance * 100d;
+        boolean shouldDiminish = boosterResistance < .7;
 
+        double scaledBoosterResistance = shouldDiminish
+                ? 0.7 - (0.7 - boosterResistance) / 2
+                : boosterResistance;
 
-        if (calculatedResistance > 25)
-        {
-            calculatedResistance = UIFunctions.Data.mapRange(calculatedResistance, 25, 100, 25, 75);
-        }
-
-        return calculatedResistance;
+        return (1.0 - (scaledBoosterResistance)) * 100d;
     }
 
     private double getShieldResistanceTotal(ItemEffect resistanceEffect)
     {
         List<Double> resistances = new ArrayList<>();
-
-        optionalInternals.stream()
+        double shieldResistence =
+                optionalInternals.stream()
                 .filter(module -> module.getModule().modificationType() == ModificationType.Shield_Generator)
                 .map(module -> module.getEffectValue(resistanceEffect))
-                .filter(x -> x != 0)
-                .mapToDouble(Double::doubleValue)
+                .filter(nonZero)
                 .map(next -> 100d - next)
                 .map(next -> next / 100d)
-                .forEach(resistances::add);
+                .map(n->round(n, 5))
+                .findFirst()
+                .orElse(1d);
 
         hardpoints.stream()
                 .filter(hardpoint -> hardpoint.getModule() != null)
                 .filter(hardpoint -> hardpoint.getModule().modificationType() != null)
                 .filter(hardpoint -> hardpoint.getModule().modificationType() == ModificationType.Shield_Booster)
-                .filter(hardpoint -> hardpoint.getModule().modificationType() == ModificationType.Shield_Booster)
                 .map(hardpoint -> hardpoint.getEffectValue(resistanceEffect))
-                .filter(x -> x != 0)
-                .mapToDouble(Double::doubleValue)
+                .filter(nonZero)
                 .map(next -> 100d - next)
                 .map(next -> next / 100d)
+                .map(n->round(n, 5))
                 .forEach(resistances::add);
 
-        double rawResistance = resistances.stream()
+        double boosterResistance = resistances.stream()
                 .mapToDouble(Double::doubleValue)
                 .reduce(1, (a, b) -> a * b);
 
-        double calculatedResistance = 100 - rawResistance * 100d;
+        boolean shouldDiminish = boosterResistance < .7;
 
+        double scaledBoosterResistance = shouldDiminish
+                ? 0.7 - (0.7 - boosterResistance) / 2
+                : boosterResistance;
 
-        if (calculatedResistance > 50 && resistanceEffect != ItemEffect.ExplosiveResistance)
-        {
-            calculatedResistance = UIFunctions.Data.mapRange(calculatedResistance, 50, 100, 50, 75);
-        }
-
-        return calculatedResistance;
+        return (1.0 - (scaledBoosterResistance * shieldResistence)) * 100d;
     }
 
     private double calculateResistance(ShipCharacteristic resistanceType)
