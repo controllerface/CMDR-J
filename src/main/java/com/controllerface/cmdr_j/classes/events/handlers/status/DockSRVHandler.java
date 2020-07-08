@@ -9,7 +9,7 @@ public class DockSRVHandler implements JournalEventHandler
     @Override
     public void handle(EventProcessingContext context)
     {
-        context.getTransactions().add(UserTransaction.start(UserTransaction.TransactionType.VEHICLE)
+        context.getTransactions().add(UserTransaction.type(UserTransaction.TransactionType.VEHICLE)
                 .setInSRV(false)
                 .build());
     }

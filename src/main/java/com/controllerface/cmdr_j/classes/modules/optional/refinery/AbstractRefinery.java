@@ -8,6 +8,6 @@ public abstract class AbstractRefinery extends AbstractModule
 {
     public AbstractRefinery(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Refinery, itemEffects);
+        super("Refinery", ModificationType.Refinery, itemEffects);
     }
 }

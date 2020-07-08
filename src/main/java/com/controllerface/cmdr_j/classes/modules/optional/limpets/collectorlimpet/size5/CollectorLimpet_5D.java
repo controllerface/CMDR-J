@@ -12,6 +12,7 @@ public class CollectorLimpet_5D extends AbstractCollectorLimpet
         super("5D Collector Limpet Controller",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 8d),
                         new ItemEffectData(ItemEffect.Integrity, 77d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.4d),

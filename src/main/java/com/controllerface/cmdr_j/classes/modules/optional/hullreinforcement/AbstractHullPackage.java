@@ -9,6 +9,6 @@ public abstract class AbstractHullPackage extends AbstractModule
 {
     public AbstractHullPackage(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Hull_Reinforcement_Package, ExperimentalType.Hull_Reinforcement_Package, itemEffects);
+        super("Hull Reinforcement Package", ModificationType.Hull_Reinforcement_Package, ExperimentalType.Hull_Reinforcement_Package, itemEffects);
     }
 }

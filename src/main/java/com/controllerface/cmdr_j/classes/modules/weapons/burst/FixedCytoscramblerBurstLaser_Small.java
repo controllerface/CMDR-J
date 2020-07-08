@@ -8,10 +8,11 @@ public class FixedCytoscramblerBurstLaser_Small extends AbstractBurstLaser
 {
     public FixedCytoscramblerBurstLaser_Small()
     {
-        super("1F Fixed Cytoscrambler (Burst Laser)",
+        super("Cytoscrambler",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "F"),
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 40.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.8),

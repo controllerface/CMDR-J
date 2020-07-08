@@ -12,6 +12,7 @@ public class AFMU_4C extends AbstractAFMU
         super("4C Automated Field Maintenance Unit",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Class, "C"),
                         new ItemEffectData(ItemEffect.Integrity, 80d),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.65d),
                         new ItemEffectData(ItemEffect.BootTime, 9d),

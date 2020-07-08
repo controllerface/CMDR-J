@@ -9,6 +9,6 @@ public abstract class AbstractShieldBooster extends AbstractModule
 {
     public AbstractShieldBooster(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Shield_Booster, ExperimentalType.Shield_Booster, itemEffects);
+        super("Shield Booster", ModificationType.Shield_Booster, ExperimentalType.Shield_Booster, itemEffects);
     }
 }

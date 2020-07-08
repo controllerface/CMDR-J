@@ -25,7 +25,7 @@ public class KraitMK2 extends AbstractShip
                         .setMaxSpeed(174)
                         .setBoostSpeed(330)
                         .setMaxBoostSpeed(383)
-                        .setArmorRating(396)
+                        .setArmorRating(220)
                         .setShield(220)
                         .setBaseCost(58_576_160)
                         .setMassLockFactor(17)

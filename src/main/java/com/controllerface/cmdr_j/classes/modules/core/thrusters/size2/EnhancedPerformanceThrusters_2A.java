@@ -9,9 +9,10 @@ public class EnhancedPerformanceThrusters_2A extends AbstractThrusters
 {
     public EnhancedPerformanceThrusters_2A()
     {
-        super("2A Enhanced Performance Thrusters",
+        super("Enhanced Performance Thrusters",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Class, "A"),
                         new ItemEffectData(ItemEffect.Mass, 2.5),
                         new ItemEffectData(ItemEffect.Integrity, 40.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 4.0),

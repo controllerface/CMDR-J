@@ -9,9 +9,10 @@ public class TurretedRemoteReleaseFlakLauncher_Medium extends AbstractExperiment
 {
     public TurretedRemoteReleaseFlakLauncher_Medium()
     {
-        super("2B Turreted Remote Release Flak Launcher",
+        super("Remote Release Flak Launcher",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.experimental, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Size, 2.0),
                         new ItemEffectData(ItemEffect.Mass, 4.0),
                         new ItemEffectData(ItemEffect.Integrity, 51.0),

@@ -9,10 +9,11 @@ public class GuardianFSDBooster_1H extends AbstractGuardianModule
 {
     public GuardianFSDBooster_1H()
     {
-        super("1H Guardian FSD Booster",
+        super("FSD Booster",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1d),
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "H"),
                         new ItemEffectData(ItemEffect.Mass, 1.3d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.75d),
                         new ItemEffectData(ItemEffect.Integrity, 32d),

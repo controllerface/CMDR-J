@@ -25,7 +25,7 @@ public class KraitPhantom extends AbstractShip
                         .setMaxSpeed(290)
                         .setBoostSpeed(350)
                         .setMaxBoostSpeed(406)
-                        .setArmorRating(324)
+                        .setArmorRating(180)
                         .setShield(200)
                         .setBaseCost(44_139_676)
                         .setMassLockFactor(17)

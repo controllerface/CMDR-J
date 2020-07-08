@@ -12,6 +12,7 @@ public class MRP_1D extends AbstractModulePackage
         super("1D Module Reinforcement Package",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 1d),
                         new ItemEffectData(ItemEffect.Integrity, 70d),
                         new ItemEffectData(ItemEffect.ModuleDefenceAbsorption, 60d)

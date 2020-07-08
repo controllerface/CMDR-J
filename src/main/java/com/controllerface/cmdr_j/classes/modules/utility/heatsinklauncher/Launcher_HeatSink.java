@@ -11,6 +11,7 @@ public class Launcher_HeatSink extends AbstractHeatsinkLauncher
         super("0I Heat-Sink Launcher",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Class, "I"),
                         new ItemEffectData(ItemEffect.Mass, 1.3),
                         new ItemEffectData(ItemEffect.Integrity, 20.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2),

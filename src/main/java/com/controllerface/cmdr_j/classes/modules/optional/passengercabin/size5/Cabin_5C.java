@@ -9,9 +9,10 @@ public class Cabin_5C extends AbstractCabin
 {
     public Cabin_5C()
     {
-        super("5C First Class Passenger Cabin",
+        super("First Class Passenger Cabin",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Class, "C"),
                         new ItemEffectData(ItemEffect.Mass, 20d),
                         new ItemEffectData(ItemEffect.CabinCapacity, 6d),
                         new ItemEffectData(ItemEffect.CabinClass, "First")

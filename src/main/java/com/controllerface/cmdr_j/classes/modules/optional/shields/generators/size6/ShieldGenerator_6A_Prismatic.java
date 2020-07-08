@@ -9,10 +9,11 @@ public class ShieldGenerator_6A_Prismatic extends AbstractShieldGenerator
 {
     public ShieldGenerator_6A_Prismatic()
     {
-        super("6A Prismatic Shield Generator",
+        super("Prismatic Shield Generator",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
                         new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Class, "A"),
                         new ItemEffectData(ItemEffect.Mass, 80.0),
                         new ItemEffectData(ItemEffect.Integrity, 136.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 6.51),

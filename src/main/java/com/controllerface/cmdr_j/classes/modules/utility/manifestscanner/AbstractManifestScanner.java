@@ -8,6 +8,6 @@ public abstract class AbstractManifestScanner extends AbstractModule
 {
     public AbstractManifestScanner(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Manifest_Scanner, itemEffects);
+        super("Manifest Scanner", ModificationType.Manifest_Scanner, itemEffects);
     }
 }

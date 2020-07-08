@@ -9,10 +9,11 @@ public class TurretedAntiThargoidMissileRack_Medium extends AbstractExperimental
 {
     public TurretedAntiThargoidMissileRack_Medium()
     {
-        super("2B Turreted Anti-Thargoid Missile Rack",
+        super("Anti-Thargoid Missile Rack",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.experimental, 1.0),
                         new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Mass, 4.0),
                         new ItemEffectData(ItemEffect.Integrity, 51.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.2),

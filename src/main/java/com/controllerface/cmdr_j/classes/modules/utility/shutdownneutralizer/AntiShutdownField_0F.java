@@ -9,10 +9,11 @@ public class AntiShutdownField_0F extends AbstractExperimentalModule
 {
     public AntiShutdownField_0F()
     {
-        super("0F Shutdown Field Neutraliser",
+        super("Shutdown Field Neutraliser",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.experimental, 1.0),
                         new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Class, "F"),
                         new ItemEffectData(ItemEffect.Mass, 1.3d),
                         new ItemEffectData(ItemEffect.Integrity, 35d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2d),

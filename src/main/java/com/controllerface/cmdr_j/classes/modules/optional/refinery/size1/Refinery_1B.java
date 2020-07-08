@@ -12,6 +12,7 @@ public class Refinery_1B extends AbstractRefinery
         super("1B Refinery",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Integrity, 56d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.28d),
                         new ItemEffectData(ItemEffect.BootTime, 10d),

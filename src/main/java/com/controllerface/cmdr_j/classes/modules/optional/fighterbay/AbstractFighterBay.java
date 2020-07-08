@@ -7,6 +7,6 @@ public abstract class AbstractFighterBay extends AbstractModule
 {
     public AbstractFighterBay(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Fighter Hangar", itemEffects);
     }
 }

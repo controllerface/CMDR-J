@@ -17,6 +17,11 @@ public abstract class AbstractMultiCannon extends AbstractModule
         super(displayText, ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon, itemEffects);
     }
 
+    public AbstractMultiCannon(ItemEffects itemEffects)
+    {
+        super("Multi-Cannon", ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon, itemEffects);
+    }
+
     @Override
     public List<Icon> icons()
     {

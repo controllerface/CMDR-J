@@ -5,12 +5,30 @@ package com.controllerface.cmdr_j.enums.equipment.ships.shipdata;
  */
 public enum ShipCharacteristic
 {
-    Size,
+    Landing_Pad_Size,
+
+    Armor_Rating,
+    Base_Shield,
+
+    Shield_Recharge,
+    Shield_Strength,
+    Hull_Strength,
+    Shield_Explosive,
+    Shield_Kinetic,
+    Shield_Thermal,
+    Armour_Explosive,
+    Armour_Kinetic,
+    Armour_Thermal,
+    Armour_Caustic,
+
+
     Mass_Lock_Factor,
     Crew_Seats,
     SLF_Capable,
     Manufacturer,
     Base_Cost,
+
+    Maximum_DPS,
 
     Agility,
     Speed,
@@ -20,22 +38,11 @@ public enum ShipCharacteristic
 
     Base_Hull_Mass,
     Hull_Hardness,
-
-    Armor_Rating,
-    Base_Shield,
-
+    Current_Mass,
     Unladen_Mass,
+    Current_Jump_Range,
 
-    Shield_Strength,
-    Shield_Explosive_Resistance,
-    Shield_Kinetic_Resistance,
-    Shield_Thermal_Resistance,
-
-    Hull_Strength,
-    Armour_Caustic_Resistance,
-    Armour_Explosive_Resistance,
-    Armour_Kinetic_Resistance,
-    Armour_Thermal_Resistance,
+    Total_Power_Draw,
 
     ;
 

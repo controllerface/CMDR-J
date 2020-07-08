@@ -11,13 +11,14 @@ public class Guardian_Plasma_Charger_Munitions_Basic extends AbstractSynthesisRe
 {
     public Guardian_Plasma_Charger_Munitions_Basic()
     {
-        super("Guardian Plasma Charger Munitions Basic", 
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0)
-            ),
-            new CostData(Material.CHROMIUM, 3),
-            new CostData(Material.HEATDISPERSIONPLATE, 2),
-            new CostData(Material.GUARDIAN_POWERCONDUIT, 3),
-            new CostData(Material.GUARDIAN_SENTINEL_WRECKAGECOMPONENTS, 4));
+        super("Guardian Plasma Charger Munitions Basic",
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.guardian, 1.0),
+                        new ItemEffectData(ItemEffect.Rearm, 0.0)
+                ),
+                new CostData(Material.CHROMIUM, 3),
+                new CostData(Material.HEATDISPERSIONPLATE, 2),
+                new CostData(Material.GUARDIAN_POWERCONDUIT, 3),
+                new CostData(Material.GUARDIAN_SENTINEL_WRECKAGECOMPONENTS, 4));
     }
 }

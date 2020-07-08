@@ -8,6 +8,6 @@ public abstract class AbstractWakeScanner extends AbstractModule
 {
     public AbstractWakeScanner(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Frame_Shift_Wake_Scanner, itemEffects);
+        super("FSD Wake Scanner", ModificationType.Frame_Shift_Wake_Scanner, itemEffects);
     }
 }

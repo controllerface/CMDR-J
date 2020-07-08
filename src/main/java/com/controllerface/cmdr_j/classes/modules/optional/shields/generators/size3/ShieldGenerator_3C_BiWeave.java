@@ -9,9 +9,10 @@ public class ShieldGenerator_3C_BiWeave extends AbstractShieldGenerator
 {
     public ShieldGenerator_3C_BiWeave()
     {
-        super("3C Bi-Weave Shield Generator",
+        super("Bi-Weave Shield Generator",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Class, "C"),
                         new ItemEffectData(ItemEffect.Mass, 5.0),
                         new ItemEffectData(ItemEffect.Integrity, 64.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.8),

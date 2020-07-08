@@ -7,6 +7,6 @@ public abstract class AbstractFuelTank extends AbstractModule
 {
     public AbstractFuelTank(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Fuel Tank", itemEffects);
     }
 }

@@ -14,7 +14,7 @@ public abstract class AbstractCannon extends AbstractModule
 {
     public AbstractCannon(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Cannon, ExperimentalType.Cannon, itemEffects);
+        super("Cannon", ModificationType.Cannon, ExperimentalType.Cannon, itemEffects);
     }
 
     @Override

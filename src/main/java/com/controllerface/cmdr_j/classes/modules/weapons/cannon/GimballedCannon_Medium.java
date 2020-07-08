@@ -11,6 +11,7 @@ public class GimballedCannon_Medium extends AbstractCannon
         super("2D Gimballed Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 4.0),
                         new ItemEffectData(ItemEffect.Integrity, 51.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.54),

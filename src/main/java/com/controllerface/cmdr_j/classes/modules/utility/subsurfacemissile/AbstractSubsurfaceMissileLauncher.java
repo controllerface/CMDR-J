@@ -7,6 +7,6 @@ public abstract class AbstractSubsurfaceMissileLauncher extends AbstractModule
 {
     public AbstractSubsurfaceMissileLauncher(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Sub-Surface Displacement Missile", itemEffects);
     }
 }

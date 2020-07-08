@@ -16,8 +16,8 @@ public class ShieldGenerator_Thermic_3 extends AbstractModificationRecipe
                 new ItemEffects
                         (
                                 new ItemEffectData(ItemEffect.Integrity, 30d),
-                                new ItemEffectData(ItemEffect.KineticResistance, -7d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, 36d)
+                                new ItemEffectData(ItemEffect.KineticResistance, 12d),
+                                new ItemEffectData(ItemEffect.ThermicResistance, 30d)
                         ),
                 new CostData(Material.SHIELDCYCLERECORDINGS, 1),
                 new CostData(Material.GERMANIUM, 1),

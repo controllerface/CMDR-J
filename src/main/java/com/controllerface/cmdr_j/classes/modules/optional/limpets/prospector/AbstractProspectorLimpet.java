@@ -8,6 +8,6 @@ public abstract class AbstractProspectorLimpet extends AbstractModule
 {
     public AbstractProspectorLimpet(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Prospector_Limpet_Controller, itemEffects);
+        super("Prospector Limpet Controller", ModificationType.Prospector_Limpet_Controller, itemEffects);
     }
 }

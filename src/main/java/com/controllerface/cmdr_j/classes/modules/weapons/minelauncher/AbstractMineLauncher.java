@@ -17,6 +17,11 @@ public abstract class AbstractMineLauncher extends AbstractModule
         super(displayText, ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher, itemEffects);
     }
 
+    public AbstractMineLauncher(ItemEffects itemEffects)
+    {
+        super("Mine Launcher", ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher, itemEffects);
+    }
+
     @Override
     public List<Icon> icons()
     {

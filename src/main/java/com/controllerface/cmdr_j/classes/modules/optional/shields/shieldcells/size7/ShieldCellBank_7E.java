@@ -12,6 +12,7 @@ public class ShieldCellBank_7E extends AbstractShieldCellBank
         super("7E Shield Cell Bank",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 7.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Mass, 80.0),
                         new ItemEffectData(ItemEffect.Integrity, 105.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.24),

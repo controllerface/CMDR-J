@@ -9,10 +9,11 @@ public class XenoScanner_0E extends AbstractExperimentalModule
 {
     public XenoScanner_0E()
     {
-        super("0E Xeno Scanner",
+        super("Xeno Scanner",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.experimental, 1.0),
                         new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Mass, 1.3d),
                         new ItemEffectData(ItemEffect.Integrity, 56d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2d),

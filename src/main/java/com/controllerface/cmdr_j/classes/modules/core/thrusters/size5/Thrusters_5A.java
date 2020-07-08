@@ -9,21 +9,21 @@ public class Thrusters_5A extends AbstractThrusters
 {
     public Thrusters_5A()
     {
-        super("5A Thrusters",
-                new ItemEffects(
-                        new ItemEffectData(ItemEffect.Size, 5.0),
-                        new ItemEffectData(ItemEffect.Mass, 20.0),
-                        new ItemEffectData(ItemEffect.Integrity, 106.0),
-                        new ItemEffectData(ItemEffect.PowerDraw, 6.12),
-                        new ItemEffectData(ItemEffect.BootTime, 0.0),
-                        new ItemEffectData(ItemEffect.EngineMinimumMass, 420.0),
-                        new ItemEffectData(ItemEffect.EngineOptimalMass, 840.0),
-                        new ItemEffectData(ItemEffect.MaximumMass, 1260.0),
-                        new ItemEffectData(ItemEffect.EngineMinPerformance, 96.0),
-                        new ItemEffectData(ItemEffect.EngineOptPerformance, 100.0),
-                        new ItemEffectData(ItemEffect.EngineMaxPerformance, 116.0),
-                        new ItemEffectData(ItemEffect.EngineHeatRate, 1.3)
-                ));
+        super(new ItemEffects(
+                new ItemEffectData(ItemEffect.Size, 5.0),
+                new ItemEffectData(ItemEffect.Class, "A"),
+                new ItemEffectData(ItemEffect.Mass, 20.0),
+                new ItemEffectData(ItemEffect.Integrity, 106.0),
+                new ItemEffectData(ItemEffect.PowerDraw, 6.12),
+                new ItemEffectData(ItemEffect.BootTime, 0.0),
+                new ItemEffectData(ItemEffect.EngineMinimumMass, 420.0),
+                new ItemEffectData(ItemEffect.EngineOptimalMass, 840.0),
+                new ItemEffectData(ItemEffect.MaximumMass, 1260.0),
+                new ItemEffectData(ItemEffect.EngineMinPerformance, 96.0),
+                new ItemEffectData(ItemEffect.EngineOptPerformance, 100.0),
+                new ItemEffectData(ItemEffect.EngineMaxPerformance, 116.0),
+                new ItemEffectData(ItemEffect.EngineHeatRate, 1.3)
+        ));
     }
 
     @Override

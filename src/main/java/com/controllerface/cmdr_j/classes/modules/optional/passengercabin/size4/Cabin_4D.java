@@ -9,9 +9,10 @@ public class Cabin_4D extends AbstractCabin
 {
     public Cabin_4D()
     {
-        super("4D Business Class Passenger Cabin",
+        super("Business Class Passenger Cabin",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 10d),
                         new ItemEffectData(ItemEffect.CabinCapacity, 6d),
                         new ItemEffectData(ItemEffect.CabinClass, "Business")

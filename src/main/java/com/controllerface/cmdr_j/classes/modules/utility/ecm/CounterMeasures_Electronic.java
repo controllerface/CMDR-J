@@ -11,6 +11,7 @@ public class CounterMeasures_Electronic extends AbstractECM
         super("0F Electronic Counter-Measures",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Class, "F"),
                         new ItemEffectData(ItemEffect.Mass, 1.3),
                         new ItemEffectData(ItemEffect.Integrity, 20.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2),

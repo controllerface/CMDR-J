@@ -12,7 +12,7 @@ public class MilitaryGradeArmour extends AbstractBulkheads
     {
         super(ship + " Military Grade Armour",
                 new ItemEffects(
-                        new ItemEffectData(ItemEffect.Mass, 5.0),
+                        new ItemEffectData(ItemEffect.Mass, 35.0),
                         new ItemEffectData(ItemEffect.ExplosiveResistance, -40.0),
                         new ItemEffectData(ItemEffect.KineticResistance, -20.0),
                         new ItemEffectData(ItemEffect.ThermicResistance, 0.0),

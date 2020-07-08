@@ -17,6 +17,11 @@ public abstract class AbstractBeamLaser extends AbstractModule
         super(displayText, ModificationType.Beam_Laser, ExperimentalType.Beam_Laser, itemEffects);
     }
 
+    public AbstractBeamLaser(ItemEffects itemEffects)
+    {
+        super("Beam Laser", ModificationType.Beam_Laser, ExperimentalType.Beam_Laser, itemEffects);
+    }
+
     @Override
     public List<Icon> icons()
     {

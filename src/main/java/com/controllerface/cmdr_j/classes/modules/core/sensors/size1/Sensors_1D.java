@@ -12,6 +12,7 @@ public class Sensors_1D extends AbstractSensors
         super("1D Sensors",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 0.5),
                         new ItemEffectData(ItemEffect.Integrity, 32.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.18),

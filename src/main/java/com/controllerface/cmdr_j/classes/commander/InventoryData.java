@@ -229,15 +229,14 @@ public class InventoryData implements Displayable
         List<ProcurementRecipe> synthesisRecipes = new ArrayList<>();
         List<ProcurementRecipe> modificationRecipes = new ArrayList<>();
         List<ProcurementRecipe> experimentalRecipes = new ArrayList<>();
-        List<ProcurementRecipe> weaponModRecipes = new ArrayList<>();
         List<ProcurementRecipe> techBrokerRecipes = new ArrayList<>();
 
-        inventoryItem.getAssociated().forEach(i->
+        inventoryItem.getAssociated().forEach(recipe ->
         {
-            if (i instanceof SynthesisRecipe) synthesisRecipes.add(i);
-            if (i instanceof ModificationRecipe) modificationRecipes.add(i);
-            if (i instanceof ExperimentalRecipe) experimentalRecipes.add(i);
-            if (i instanceof TechnologyRecipe) techBrokerRecipes.add(i);
+            if (recipe instanceof SynthesisRecipe) synthesisRecipes.add(recipe);
+            if (recipe instanceof ModificationRecipe) modificationRecipes.add(recipe);
+            if (recipe instanceof ExperimentalRecipe) experimentalRecipes.add(recipe);
+            if (recipe instanceof TechnologyRecipe) techBrokerRecipes.add(recipe);
         });
 
 
@@ -248,17 +247,17 @@ public class InventoryData implements Displayable
                         .flatMap(blueprint-> blueprint.recipeStream()
                                 .filter(synthesisRecipes::contains)
                                 .distinct()
-                                .map(r -> blueprint.name() + " :: " + r.getGrade())
-                                .map(s -> s.replace("_", " ")))
+                                .map(recipe -> blueprint.name() + " :: " + recipe.getGrade())
+                                .map(text -> text.replace("_", " ")))
                         .collect(Collectors.joining("\n","\nSynthesis\n", "\n"));
 
-        String modifications = modificationRecipes.isEmpty() && weaponModRecipes.isEmpty()
+        String modifications = modificationRecipes.isEmpty()
                 ? ""
                 : Arrays.stream(ModificationBlueprint.values())
                         .flatMap(blueprint-> blueprint.recipeStream()
-                                .filter(recipe -> modificationRecipes.contains(recipe) || weaponModRecipes.contains(recipe))
+                                .filter(modificationRecipes::contains)
                                 .distinct()
-                                .map(r->formatModString.apply(blueprint.name()) + " :: " + r.getDisplayLabel()))
+                                .map(text -> formatModString.apply(blueprint.name()) + " :: " + text.getDisplayLabel()))
                         .collect(Collectors.joining("\n","\nModifications\n", "\n"));
 
         String experiments = experimentalRecipes.isEmpty()
@@ -267,8 +266,8 @@ public class InventoryData implements Displayable
                         .flatMap(blueprint-> blueprint.recipeStream()
                                 .filter(experimentalRecipes::contains)
                                 .distinct()
-                                .map(r -> blueprint.name() + " :: " + r.getDisplayLabel())
-                                .map(s -> s.replace("_", " ")))
+                                .map(recipe -> blueprint.name() + " :: " + recipe.getDisplayLabel())
+                                .map(text -> text.replace("_", " ")))
                         .collect(Collectors.joining("\n","\nExperimental Effects\n", "\n"));
 
         String techUnlocks = techBrokerRecipes.isEmpty()
@@ -277,8 +276,8 @@ public class InventoryData implements Displayable
                         .flatMap(blueprint-> blueprint.recipeStream()
                                 .filter(techBrokerRecipes::contains)
                                 .distinct()
-                                .map(r -> blueprint.name() + " :: " + r.getShortLabel())
-                                .map(s -> s.replace("_", " ")))
+                                .map(recipe -> blueprint.name() + " :: " + recipe.getShortLabel())
+                                .map(text -> text.replace("_", " ")))
                         .collect(Collectors.joining("\n","\nTech Broker Unlocks\n", "\n"));
 
         return synthesis + modifications + experiments + techUnlocks;
@@ -403,8 +402,6 @@ public class InventoryData implements Displayable
 
                                     Region region1 = new Region();
                                     HBox.setHgrow(region1, Priority.ALWAYS);
-                                    Region region2 = new Region();
-                                    HBox.setHgrow(region2, Priority.ALWAYS);
 
                                     btnlbl.getChildren().add(descOpen);
                                     btnlbl.getChildren().add(descHave);

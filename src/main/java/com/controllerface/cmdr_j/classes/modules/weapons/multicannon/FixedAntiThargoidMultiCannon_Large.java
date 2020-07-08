@@ -9,10 +9,11 @@ public class FixedAntiThargoidMultiCannon_Large extends AbstractExperimentalModu
 {
     public FixedAntiThargoidMultiCannon_Large()
     {
-        super("3C Fixed Anti-Thargoid Multi-Cannon",
+        super("Anti-Thargoid Multi-Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.experimental, 1.0),
                         new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Class, "C"),
                         new ItemEffectData(ItemEffect.Mass, 8.0),
                         new ItemEffectData(ItemEffect.Integrity, 64.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.64),

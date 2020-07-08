@@ -12,6 +12,7 @@ public class FuelTransferLimpet_1B extends AbstractFuelTransferLimpet
         super("1B Fuel Transfer Limpet Controller",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Mass, 2d),
                         new ItemEffectData(ItemEffect.Integrity, 48d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.32d),

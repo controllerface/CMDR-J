@@ -12,6 +12,7 @@ public class PowerDistributor_6C extends AbstractPowerDistributor
         super("6C Power Distributor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Class, "C"),
                         new ItemEffectData(ItemEffect.Mass, 40.0),
                         new ItemEffectData(ItemEffect.Integrity, 113.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.68),

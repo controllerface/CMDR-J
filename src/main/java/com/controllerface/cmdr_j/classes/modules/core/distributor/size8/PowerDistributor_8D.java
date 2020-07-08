@@ -12,6 +12,7 @@ public class PowerDistributor_8D extends AbstractPowerDistributor
         super("8D Power Distributor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 8.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 64.0),
                         new ItemEffectData(ItemEffect.Integrity, 120.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.72),

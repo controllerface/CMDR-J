@@ -17,6 +17,11 @@ public abstract class AbstractFragCannon extends AbstractModule
         super(displayText, ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon, itemEffects);
     }
 
+    public AbstractFragCannon(ItemEffects itemEffects)
+    {
+        super("Fragment Cannon", ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon, itemEffects);
+    }
+
     @Override
     public List<Icon> icons()
     {

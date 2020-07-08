@@ -10,10 +10,11 @@ public class TurretedShockCannon_Small extends AbstractHumanModule
 {
     public TurretedShockCannon_Small()
     {
-        super("1F Turreted Shock Cannon",
+        super("Shock Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1.0),
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "F"),
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 40),
                         new ItemEffectData(ItemEffect.PowerDraw, .54),

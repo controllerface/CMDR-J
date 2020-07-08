@@ -12,6 +12,7 @@ public class PowerDistributor_2D extends AbstractPowerDistributor
         super("2D Power Distributor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 1.0),
                         new ItemEffectData(ItemEffect.Integrity, 41.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.41),

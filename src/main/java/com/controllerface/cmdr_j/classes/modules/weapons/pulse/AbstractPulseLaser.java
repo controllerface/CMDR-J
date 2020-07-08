@@ -17,6 +17,11 @@ public abstract class AbstractPulseLaser extends AbstractModule
         super(displayText, ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser, itemEffects);
     }
 
+    public AbstractPulseLaser(ItemEffects itemEffects)
+    {
+        super("Pulse Laser", ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser, itemEffects);
+    }
+
     @Override
     public List<Icon> icons()
     {

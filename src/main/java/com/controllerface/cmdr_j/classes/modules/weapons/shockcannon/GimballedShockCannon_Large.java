@@ -10,10 +10,11 @@ public class GimballedShockCannon_Large extends AbstractHumanModule
 {
     public GimballedShockCannon_Large()
     {
-        super("3C Gimballed Shock Cannon",
+        super("Shock Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1.0),
                         new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Class, "C"),
                         new ItemEffectData(ItemEffect.Mass, 8.0),
                         new ItemEffectData(ItemEffect.Integrity, 64.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.89),

@@ -12,9 +12,9 @@ import java.util.List;
 
 public abstract class AbstractTorpedoPylon extends AbstractModule
 {
-    public AbstractTorpedoPylon(String displayText, ItemEffects itemEffects)
+    public AbstractTorpedoPylon(ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Torpedo_Pylon, ExperimentalType.Torpedo_Pylon, itemEffects);
+        super("Torpedo Pylon", ModificationType.Torpedo_Pylon, ExperimentalType.Torpedo_Pylon, itemEffects);
     }
 
     @Override

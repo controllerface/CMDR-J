@@ -12,6 +12,7 @@ public class PowerDistributor_1E extends AbstractPowerDistributor
         super("1E Power Distributor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Mass, 1.3),
                         new ItemEffectData(ItemEffect.Integrity, 36.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.32),

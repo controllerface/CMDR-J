@@ -8,6 +8,6 @@ public abstract class AbstractHeatsinkLauncher extends AbstractModule
 {
     public AbstractHeatsinkLauncher(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Heat_Sink_Launcher, itemEffects);
+        super("Heat-Sink Launcher", ModificationType.Heat_Sink_Launcher, itemEffects);
     }
 }

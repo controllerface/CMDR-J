@@ -22,9 +22,9 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
@@ -33,6 +33,7 @@ import javafx.util.Pair;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -102,34 +103,139 @@ public class ShipModuleData implements Displayable
         });
     }
 
-    private HBox createRecipeControl(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    private TitledPane createRecipeControl(Pair<ProcurementType, ProcurementRecipe> recipePair)
     {
-        HBox container = new HBox();
+        //VBox container = new VBox();
+        //container.getStyleClass().addAll("information_panel","no_border");
+
+//        Button button = createTaskButton(recipePair);
+        TitledPane infoPane = createInfoPane(recipePair);
+        infoPane.getStyleClass().addAll("modification_pane", "no_border");
+//        infoPane.prefWidthProperty().bind(container.widthProperty()
+//                .subtract(button.widthProperty())
+//                .subtract(button.graphicTextGapProperty().multiply(4)));
+        //container.getChildren().addAll(infoPane);
+        return infoPane;
+    }
+
+    private VBox createModuleControl(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    {
+        VBox container = new VBox();
         container.getStyleClass().addAll("information_panel","no_border");
 
-        Button button = createTaskButton(recipePair);
-        TitledPane infoPane = createInfoPane(recipePair);
+        //Button button = createTaskButton2(recipePair);
+        //button.prefWidthProperty().bind(container.widthProperty());
+        VBox infoPane = createModulePane(recipePair);
+
         infoPane.getStyleClass().addAll("information_panel", "no_border");
-        infoPane.prefWidthProperty().bind(container.widthProperty()
-                .subtract(button.widthProperty())
-                .subtract(button.graphicTextGapProperty().multiply(4)));
-        //infoPane.requestLayout();
-        container.getChildren().addAll(button, infoPane);
+        container.getChildren().addAll(infoPane);
         return container;
     }
 
     private Button createTaskButton(Pair<ProcurementType, ProcurementRecipe> recipePair)
     {
         Button button = new Button();
+        HBox buttonGraphic = new HBox();
+        Label addLabel = new Label("Add ");
+        addLabel.getStyleClass().addAll("module_purchase_label");
+        Label gradeLabel = new Label(recipePair.getValue().getGrade().toString());
+        gradeLabel.getStyleClass().addAll("inventory_label");
         button.getStyleClass().addAll("add_task_button", "base_font");
-        button.setText("add");
+        buttonGraphic.getChildren().addAll(addLabel, gradeLabel);
+        button.setGraphic(buttonGraphic);
+
+        //button.setText("Add " + recipePair.getValue().getGrade());
 
         Tooltip tooltip = new Tooltip();
         tooltip.getStyleClass().addAll("base_font");
         tooltip.setText("Add " + recipePair.getValue().getDisplayLabel() + " to Tracked Tasks");
         button.setTooltip(tooltip);
 
-        button.setOnAction(event -> userTransactions.add(UserTransaction.start(UserTransaction.TransactionType.BLUEPRINT)
+        button.setOnAction(event -> userTransactions.add(UserTransaction.type(UserTransaction.TransactionType.BLUEPRINT)
+                .setTransactionAmount(1)
+                .setBlueprint(recipePair)
+                .build()));
+
+        return button;
+    }
+
+
+    private Button createTaskButton2(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    {
+        Button button = new Button();
+        button.getStyleClass().addAll("add_task_button", "base_font");
+
+        HBox hBox = new HBox();
+
+        CostData costData = recipePair.getValue().costStream().filter(c->c.getQuantity() < 0).findAny()
+                .orElse(null);
+
+        String xTxt = "Buy ";
+//        if (costData != null)
+//        {
+//            ProcurementCost cost = costData.getCost();
+//
+//            ItemEffectData data = ((ShipModule) cost).itemEffects().effectByName(ItemEffect.Size)
+//                    .orElse(null);
+//
+//            ItemEffectData data2 = ((ShipModule) cost).itemEffects().effectByName(ItemEffect.Class)
+//                    .orElse(null);
+//
+//            if (data != null)
+//            {
+//                xTxt += Double.valueOf(data.getDoubleValue()).intValue();
+//            }
+//
+//            if (data2 != null)
+//            {
+//                xTxt += data2.getStringValue() + " ";
+//            }
+//
+//            xTxt += cost.getLocalizedName();
+//
+//        }
+//        else
+//        {
+//            xTxt = recipePair.getValue().getDisplayLabel();
+//        }
+
+        Label x = new Label(xTxt);
+        x.getStyleClass().add("module_purchase_label");
+
+
+        CostData costData2 = recipePair.getValue().costStream().filter(c->c.getQuantity() >= 0).findAny()
+                .orElse(null);
+
+        String yTxt = "";
+
+        if (costData2 != null)
+        {
+            yTxt += String.format("%,8d%n", costData2.getQuantity()).trim()
+                    + " " + costData2.getCost().getLocalizedName();
+        }
+
+        Label y = new Label(yTxt);
+        y.getStyleClass().add("inventory_label");
+
+
+
+
+        //Region spacer = new Region();
+        //HBox.setHgrow(spacer, Priority.ALWAYS);
+        hBox.getChildren().addAll(x, y);
+
+        button.setGraphic(hBox);
+        //button.setText(recipePair.getValue().getDisplayLabel());
+
+
+
+
+        Tooltip tooltip = new Tooltip();
+        tooltip.getStyleClass().addAll("base_font");
+        tooltip.setText("Add " + recipePair.getValue().getDisplayLabel() + " to Tracked Tasks");
+        button.setTooltip(tooltip);
+
+        button.setOnAction(event -> userTransactions.add(UserTransaction.type(UserTransaction.TransactionType.BLUEPRINT)
                 .setTransactionAmount(1)
                 .setBlueprint(recipePair)
                 .build()));
@@ -142,14 +248,22 @@ public class ShipModuleData implements Displayable
         TitledPane infoPane = new TitledPane();
         infoPane.setExpanded(false);
         infoPane.setAnimated(false);
+        infoPane.getStyleClass().addAll("module_item_pane");
 
+        HBox x = new HBox();
         Label nameLabel = new Label(recipePair.getValue().getDisplayLabel());
+        Region s = new Region();
+        HBox.setHgrow(s, Priority.ALWAYS);
+        Button button = createTaskButton(recipePair);
+        x.getChildren().addAll(nameLabel, s, button);
         nameLabel.getStyleClass().addAll("general_panel_label", "base_font");
-        infoPane.setGraphic(nameLabel);
+        infoPane.setGraphic(x);
 
         VBox costEffectContainer = new VBox();
-        costEffectContainer.getStyleClass().addAll("information_panel", "no_border");
+        costEffectContainer.getStyleClass().addAll("information_panel");
         infoPane.setContent(costEffectContainer);
+        costEffectContainer.fillWidthProperty().setValue(true);
+        x.minWidthProperty().bind(costEffectContainer.widthProperty().subtract(46));
 
         infoPane.expandedProperty().addListener((_x, wasCollapsed, wasExpanded) ->
         {
@@ -201,39 +315,223 @@ public class ShipModuleData implements Displayable
             }
         });
 
-
-
         return infoPane;
     }
 
-    private void renderGuardianInfo(HBox moduleNameContainer)
+    private static class ModuleComparison
     {
-        double sizew = 22;
-        double sizeh = 18;
+        private final boolean moreIsGood;
+        private final boolean modified;
+        private final String name;
+        private final Object base;
+        private final Object comparison;
 
-        HBox guardianBox = new HBox();
-        guardianBox.setAlignment(Pos.CENTER_LEFT);
-        SVGPath icon = UIFunctions.Icons.guardian;
-
-        final Region svgShape = new Region();
-        svgShape.setShape(icon);
-        svgShape.setMinSize(sizew, sizeh);
-        svgShape.setPrefSize(sizew, sizeh);
-        svgShape.setMaxSize(sizew, sizeh);
-        svgShape.setLayoutX(5);
-        svgShape.setStyle("-fx-background-color: #0077cc;");
-
-        String text = "Guardian Module";
-
-        if (module instanceof HardpointModule)
+        private ModuleComparison(boolean moreIsGood, boolean modified, String name, Object base, Object comparison)
         {
-            text = "Guardian Weapon";
+            this.moreIsGood = moreIsGood;
+            this.modified = modified;
+            this.name = name;
+            this.base = base;
+            this.comparison = comparison;
         }
+    }
 
-        Tooltip tooltip = new Tooltip(text);
-        Tooltip.install(guardianBox, tooltip);
-        guardianBox.getChildren().add(svgShape);
-        moduleNameContainer.getChildren().add(guardianBox);
+    private VBox createModulePane(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    {
+        VBox box = new VBox();
+
+        box.fillWidthProperty().setValue(true);
+
+        box.prefWidthProperty().set(1000);
+
+        TableView<ModuleComparison> costEffectContainer = new TableView<>();
+        costEffectContainer.setFixedCellSize(30);
+        costEffectContainer.getStyleClass().add("comp_table");
+
+        TableColumn<ModuleComparison, Label> nameColumn = new TableColumn<>();
+        nameColumn.setCellValueFactory(param ->
+        {
+            Label label = new Label(param.getValue().name);
+            label.getStyleClass().addAll("inventory_label", "module_purchase_stat_label");
+            return new ReadOnlyObjectWrapper<>(label);
+        });
+
+        // the "base" value column shows the values
+        TableColumn<ModuleComparison, Label> baseColumn = new TableColumn<>();
+        baseColumn.setCellValueFactory(param ->
+        {
+
+            Label label = new Label();
+
+            ModuleComparison com = param.getValue();
+            if (com.base instanceof String || com.comparison instanceof String)
+            {
+                label.setText(param.getValue().base.toString());
+                label.getStyleClass().addAll("light_color_label");
+            }
+            else
+            {
+                label.setText(String.valueOf(UIFunctions.Data.round(((Double) com.base), 2)));
+                Double c = ((Double) com.base);
+                Double b = ((Double) com.comparison);
+                if (param.getValue().moreIsGood)
+                {
+                    if (c > b) label.getStyleClass().addAll("positive_stat");
+                    else if (c < b) label.getStyleClass().addAll("negative_stat");
+                    else label.getStyleClass().addAll("light_color_label");
+                }
+                else
+                {
+                    if (c > b) label.getStyleClass().addAll("negative_stat");
+                    else if (c < b) label.getStyleClass().addAll("positive_stat");
+                    else label.getStyleClass().addAll("light_color_label");
+                }
+            }
+
+            return new ReadOnlyObjectWrapper<>(label);
+        });
+
+        // the "current" column shows the value of the
+        TableColumn<ModuleComparison, Label> currentColumn = new TableColumn<>();
+        currentColumn.setCellValueFactory(param ->
+        {
+            Label label = new Label(param.getValue().comparison.toString());
+            if (param.getValue().modified)
+            {
+                label.getStyleClass().addAll("modification_stat_label");
+            }
+            else
+            {
+                label.getStyleClass().addAll("light_color_label");
+            }
+            return new ReadOnlyObjectWrapper<>(label);
+        });
+
+        nameColumn.setText("Module Statistics");
+        baseColumn.setText("Comparison");
+        currentColumn.setText("Current");
+
+        // todo: see if this can be removed/lowered by adding icons for damage types
+        baseColumn.setPrefWidth(140);
+        currentColumn.setPrefWidth(140);
+
+        nameColumn.setSortable(false);
+        baseColumn.setSortable(false);
+        currentColumn.setSortable(false);
+
+        nameColumn.setResizable(false);
+        baseColumn.setResizable(false);
+        currentColumn.setResizable(false);
+
+        nameColumn.setReorderable(false);
+        baseColumn.setReorderable(false);
+        currentColumn.setReorderable(false);
+
+        costEffectContainer.getColumns().add(nameColumn);
+        costEffectContainer.getColumns().add(baseColumn);
+        costEffectContainer.getColumns().add(currentColumn);
+
+        ObservableList<ModuleComparison> observableBaseStatistics = FXCollections.observableArrayList();
+        costEffectContainer.setItems(observableBaseStatistics);
+
+        nameColumn.prefWidthProperty()
+                .bind(costEffectContainer.widthProperty()
+                        .subtract(baseColumn.widthProperty())
+                        .subtract(currentColumn.widthProperty()).subtract(5));
+
+        costEffectContainer.prefHeightProperty()
+                .bind(Bindings.size(costEffectContainer.getItems())
+                        .multiply(costEffectContainer.fixedCellSizeProperty())
+                        .add(costEffectContainer.fixedCellSizeProperty())
+                        .add(10));
+
+        costEffectContainer.prefWidthProperty().bind(box.widthProperty());
+
+        //costEffectContainer.getStyleClass().addAll("ship_stats_table", "no_border");
+        box.getChildren().add(costEffectContainer);
+
+        ShipModule shipModule = recipePair.getValue().costStream().filter(costData -> costData.getQuantity() < 0).findFirst()
+                .map(o-> ((ShipModule) o.getCost()))
+                .orElse(null);
+
+        if (shipModule == null) return box;
+
+        // effects
+        shipModule.itemEffects()
+                .effectStream()
+                .map(x ->
+                {
+                    Pair<String, Object> l = UIFunctions.Convert.moduleEffectToLabel.apply(x);
+                    ItemEffectData c = module.itemEffects().effectByName(x.getEffect()).orElse(null);
+                    ModifierData s = modifiers.stream()
+                            .filter(m->m.getEffect() == x.getEffect())
+                            .findAny()
+                            .orElse(null);
+
+                    Object cn;
+                    boolean moreIsGood = false;
+                    boolean modified = false;
+                    if (c == null && s == null)
+                    {
+                        cn = "-";
+                    }
+                    else if (s != null)
+                    {
+                        moreIsGood = s.getEffect().moreIsGood;
+                        modified = true;
+
+                        if (s.getValue() == Double.MAX_VALUE)
+                        {
+                            cn = UIFunctions.Symbols.INFINITY;
+                        }
+                        else
+                        {
+                            cn = UIFunctions.Data.round(s.getValue(), 2);
+                        }
+                    }
+                    else
+                    {
+                        moreIsGood = c.getEffect().moreIsGood;
+                        if (c.isNumerical())
+                        {
+                            if (c.getDoubleValue() == Double.MAX_VALUE)
+                            {
+                                cn = UIFunctions.Symbols.INFINITY;
+                            }
+                            else
+                            {
+                                cn = UIFunctions.Data.round(c.getDoubleValue(), 2);
+                            }
+                        }
+                        else
+                        {
+                            cn = c.getStringValue();
+                        }
+                    }
+                    return new ModuleComparison(moreIsGood, modified, l.getKey(), l.getValue(), cn);
+                })
+                .forEach(observableBaseStatistics::add);
+
+        module.itemEffects().effectStream()
+                .filter(m -> shipModule.itemEffects().effectByName(m.getEffect())
+                        .isEmpty())
+                .filter(m -> modifiers.stream().noneMatch(x->x.getEffect() == m.getEffect()))
+                .map(m -> new ModuleComparison(m.getEffect().moreIsGood,
+                        false,
+                        m.getEffect().toString(),
+                        "-",
+                        m.getValueString()))
+                .forEach(observableBaseStatistics::add);
+
+        modifiers.stream().filter(m -> shipModule.itemEffects().effectByName(m.getEffect()).isEmpty())
+                .map(m -> new ModuleComparison(m.getEffect().moreIsGood,
+                        true,
+                        m.getEffect().toString(),
+                        "-",
+                        m.getValue()))
+                .forEach(observableBaseStatistics::add);
+
+        return box;
     }
 
     private void renderPowerPlayInfo(HBox moduleNameContainer)
@@ -266,36 +564,6 @@ public class ShipModuleData implements Displayable
         moduleNameContainer.getChildren().addAll(powerPlayBox, spacer);
     }
 
-    private void renderExperimentalInfo(HBox moduleNameContainer, boolean fromTechBroker)
-    {
-        double sizew = 22;
-        double sizeh = 18;
-
-        HBox experimentBox = new HBox();
-        experimentBox.setAlignment(Pos.CENTER_LEFT);
-        SVGPath icon = UIFunctions.Icons.aegis;
-
-        final Region svgShape = new Region();
-        svgShape.setShape(icon);
-        svgShape.setMinSize(sizew, sizeh);
-        svgShape.setPrefSize(sizew, sizeh);
-        svgShape.setMaxSize(sizew, sizeh);
-        svgShape.setLayoutX(5);
-
-        if (fromTechBroker) svgShape.setStyle("-fx-background-color: #b70000;");
-        else svgShape.setStyle("-fx-background-color: #025B30;");
-
-        String prefix = fromTechBroker ? " Experimental " : " Anti-Xeno ";
-        String suffix = module instanceof HardpointModule ? "Weapon" : "Module";
-        String text = prefix + suffix;
-
-        Tooltip tooltip = new Tooltip(text);
-        Tooltip.install(experimentBox, tooltip);
-        experimentBox.getChildren().add(svgShape);
-
-        moduleNameContainer.getChildren().add(experimentBox);
-    }
-
     private void renderModificationInfo(HBox moduleNameContainer, VBox detailsContainer)
     {
         if (modificationBlueprint != null)
@@ -315,8 +583,6 @@ public class ShipModuleData implements Displayable
             modificationLabel.setTextFill(UIFunctions.Style.darkOrange);
             modificationLabel.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
-            //modBox.getChildren().add(svgShape);
-
             modBox.getChildren().add(modificationLabel);
 
             moduleNameContainer.getChildren().add(modBox);
@@ -331,10 +597,6 @@ public class ShipModuleData implements Displayable
                 modificationLabel.setTooltip(refreshNotice);
             }
 
-            // this container shows the player a progress percentage for the modification
-            //HBox modProgressBox = new HBox();
-            //modProgressBox.setAlignment(Pos.CENTER_LEFT);
-
             // this is the static progress text
             Label modProgressLabel = new Label("Current Modification Progress: ");
             modProgressLabel.getStyleClass().add("base_font");
@@ -347,21 +609,13 @@ public class ShipModuleData implements Displayable
             modProgressValue.getStyleClass().add("base_font");
             modProgressValue.setPadding(new Insets(0,0,5,0));
             modProgressValue.setText((int)(quality * 100d) + "%");
-
-            // now add the labels to the progress box
-            //modProgressBox.getChildren().add(modProgressLabel);
-            //modProgressBox.getChildren().add(modProgressValue);
-            //modProgressBox.setAlignment(Pos.BASELINE_CENTER);
-
-            // finally add the progress indicator itself to the detail container
-            //detailsContainer.getChildren().add(modProgressBox);
         }
 
         if (experimentalEffectRecipe != null)
         {
             Label special = new Label(" " + experimentalEffectRecipe.getDisplayLabel());
             special.getStyleClass().add("base_font");
-            special.setTextFill(UIFunctions.Style.darkYellow);
+            special.setTextFill(UIFunctions.Style.specialYellow);
             HBox expBox = new HBox();
             expBox.setAlignment(Pos.CENTER_LEFT);
             expBox.getChildren().add(special);
@@ -387,31 +641,75 @@ public class ShipModuleData implements Displayable
                 modPane.setContent(modBox);
                 detailsContainer.getChildren().add(modPane);
 
-                modPane.expandedProperty().addListener((_x, oldValue, newValue) ->
+                // deferred rendering
+                modPane.expandedProperty().addListener((_a, _b, modePaneOpened) ->
                 {
-                    if (newValue && modBox.getChildren().isEmpty())
+                    if (modePaneOpened && modBox.getChildren().isEmpty())
                     {
                         modificationType.getBluePrints()
                                 .stream()
                                 .map(blueprint ->
                                 {
+                                    HBox categoryGraphic = new HBox();
+                                    Label categoryLabel = new Label(blueprint.toString());
+                                    categoryLabel.getStyleClass()
+                                            .addAll("modification_stat_label", "base_font");
+
+                                    Button fullRollButton = new Button();
+                                    HBox buttonGraphic = new HBox();
+                                    Label addLabel = new Label("Add All ");
+                                    Label gradeLabel = new Label();
+                                    gradeLabel.getStyleClass().addAll("inventory_label");
+                                    addLabel.getStyleClass().addAll("module_purchase_label");
+                                    buttonGraphic.getChildren().addAll(addLabel, gradeLabel);
+                                    long count = blueprint.recipeStream().count();
+                                    if (count > 1)
+                                    {
+                                        gradeLabel.setText("Grades 1 - " + count);
+                                    }
+                                    else
+                                    {
+                                        gradeLabel.setText("Grade 1");
+                                    }
+
+                                    fullRollButton.setGraphic(buttonGraphic);
+                                    fullRollButton.getStyleClass().addAll("full_roll_button", "base_font");
+
+                                    fullRollButton.setOnAction(_e ->
+                                            mapBlueprint(blueprint).forEach(recipePair ->
+                                            {
+                                                UserTransaction transaction = UserTransaction
+                                                        .type(UserTransaction.TransactionType.BLUEPRINT)
+                                                        .setTransactionAmount(1)
+                                                        .setBlueprint(recipePair)
+                                                        .build();
+
+                                                userTransactions.add(transaction);
+                                            }));
+
+                                    Region spacer = new Region();
+                                    HBox.setHgrow(spacer, Priority.ALWAYS);
+                                    categoryGraphic.getChildren().addAll(categoryLabel, spacer, fullRollButton);
+
                                     TitledPane gradePane = new TitledPane();
-                                    gradePane.setText(blueprint.toString());
+                                    categoryGraphic.minWidthProperty().bind(modBox.widthProperty().subtract(75));
+                                    gradePane.setGraphic(categoryGraphic);
                                     gradePane.setExpanded(false);
                                     gradePane.setAnimated(false);
-                                    gradePane.getStyleClass().addAll("information_panel", "base_font");
-                                    VBox gradeBox = new VBox();
-                                    gradeBox.getStyleClass().addAll("information_panel", "base_font");
+                                    gradePane.getStyleClass().addAll("module_category_pane", "base_font");
+                                    Accordion gradeBox = new Accordion();
+                                    gradeBox.getStyleClass().addAll("modification_pane");
                                     gradePane.setContent(gradeBox);
 
-                                    gradePane.expandedProperty().addListener((_y, oldValue1, newValue1) ->
+                                    // deferred rendering
+                                    gradePane.expandedProperty().addListener((_c, _d, gradePaneOpened) ->
                                     {
-                                        if (newValue1 && gradeBox.getChildren().isEmpty())
+                                        if (gradePaneOpened && gradeBox.getPanes().isEmpty())
                                         {
                                             mapBlueprint(blueprint)
                                                     .map(this::createRecipeControl)
                                                     .peek(button -> button.prefWidthProperty().bind(modPane.widthProperty()))
-                                                    .forEach(b -> gradeBox.getChildren().add(b));
+                                                    .forEach(b -> gradeBox.getPanes().add(b));
                                         }
                                     });
 
@@ -428,7 +726,7 @@ public class ShipModuleData implements Displayable
             {
                 TitledPane expPane = new TitledPane();
                 expPane.setText("Available Experimental Effects");
-                expPane.setTextFill(UIFunctions.Style.darkYellow);
+                expPane.setTextFill(UIFunctions.Style.specialYellow);
                 expPane.setExpanded(false);
                 expPane.setAnimated(false);
                 expPane.getStyleClass().addAll("experiment_pane", "base_font");
@@ -445,11 +743,8 @@ public class ShipModuleData implements Displayable
                                 .stream()
                                 .flatMap(this::mapBlueprint)
                                 .map(this::createRecipeControl)
-                                .peek(button ->
-                                {
-                                    button.prefWidthProperty().bind(expPane.widthProperty());
-                                })
-                                .forEach(b -> expBox.getChildren().add(b));
+                                .peek(button -> button.prefWidthProperty().bind(expPane.widthProperty()))
+                                .forEach(button -> expBox.getChildren().add(button));
                     }
                 });
             }
@@ -461,6 +756,8 @@ public class ShipModuleData implements Displayable
         Map<Integer, List<ShipModule>> moduleMap = new LinkedHashMap<>();
         ProcurementType procurementType;
         AtomicBoolean armorSlot = new AtomicBoolean(false);
+        AtomicBoolean exactSizeOnly = new AtomicBoolean(false);
+
 
         if (moduleSlot instanceof HardpointSlot)
         {
@@ -503,8 +800,6 @@ public class ShipModuleData implements Displayable
             CoreInternalSlot internalSlot = ((CoreInternalSlot) moduleSlot);
             // consult ship for modules that can be fitted
 
-            System.out.println("DEBUG: " + internalSlot);
-
             CoreModuleLayoutData moduleLayoutData = currentShip.getShip().getCoreModules();
 
             int sizeValue = 0;
@@ -529,6 +824,7 @@ public class ShipModuleData implements Displayable
 
                 case LifeSupport:
                     sizeValue = moduleLayoutData.getLifeSupport().intValue;
+                    exactSizeOnly.set(true);
                     break;
 
                 case PowerDistributor:
@@ -537,6 +833,7 @@ public class ShipModuleData implements Displayable
 
                 case Radar:
                     sizeValue = moduleLayoutData.getSensors().intValue;
+                    exactSizeOnly.set(true);
                     break;
 
                 case FuelTank:
@@ -548,9 +845,20 @@ public class ShipModuleData implements Displayable
                     return;
             }
 
-            if (!armorSlot.get())
+            if (!armorSlot.get() && !exactSizeOnly.get())
             {
                 internalSlot.findModulesBySize(sizeValue).forEach(m->
+                {
+                    int s = m.itemEffects().effectByName(ItemEffect.Size).map(ItemEffectData::getDoubleValue)
+                            .map(Double::intValue)
+                            .orElse(-1);
+
+                    moduleMap.computeIfAbsent(s, (_s) -> new ArrayList<>()).add(m);
+                });
+            }
+            else if (exactSizeOnly.get())
+            {
+                internalSlot.findModulesByExactSize(sizeValue).forEach(m->
                 {
                     int s = m.itemEffects().effectByName(ItemEffect.Size).map(ItemEffectData::getDoubleValue)
                             .map(Double::intValue)
@@ -581,6 +889,7 @@ public class ShipModuleData implements Displayable
         VBox moduleBox = new VBox();
         moduleBox.getStyleClass().addAll("information_panel", "base_font");
 
+        // defer rendering until pane is expanded
         statPane.expandedProperty().addListener((_x, statCollapsed, statExpanded) ->
         {
             if (statExpanded && moduleBox.getChildren().isEmpty())
@@ -593,7 +902,7 @@ public class ShipModuleData implements Displayable
 
                     if (armorSlot.get())
                     {
-                        sizePane.setText("Bulkheads");
+                        sizePane.setText("Armor");
                     }
                     else
                     {
@@ -601,46 +910,175 @@ public class ShipModuleData implements Displayable
                     }
 
                     moduleBox.getChildren().add(sizePane);
-                    VBox contentBox = new VBox();
+                    Accordion contentBox = new Accordion();
                     sizePane.setContent(contentBox);
+                    sizePane.expandedProperty().addListener((observable, oldValue, newValue) ->
+                    {
+                        if (newValue)
+                        {
+                            sizePane.getParent().getChildrenUnmodifiable().stream()
+                                    .map(n -> ((TitledPane) n))
+                                    .filter(c->c != sizePane)
+                                    .forEach(p->p.expandedProperty().setValue(false));
+                        }
+                    });
 
+                    // defer rendering until pane is expanded
                     sizePane.expandedProperty().addListener((_y, sizeCollapsed, sizeExpanded) ->
                     {
-                        if (sizeExpanded && contentBox.getChildren().isEmpty())
+                        if (sizeExpanded && contentBox.getPanes().isEmpty())
                         {
-                            modules.forEach(module->
+                            // all the types of modules we come across
+                            Map<ProcurementType, Accordion> types = new HashMap<>();
+                            Map<String, Accordion> altTypes = new HashMap<>();
+
+                            modules.forEach(knownModule->
                             {
                                 ProcurementRecipe moduleRecipe = procurementType.getBluePrints().stream()
                                         .flatMap(ProcurementBlueprint::recipeStream)
                                         .filter(recipe -> recipe.costStream()
                                                 .map(CostData::getCost)
-                                                .anyMatch(cost -> cost == module))
+                                                .anyMatch(cost -> cost == knownModule))
                                         .findAny().orElse(null);
 
                                 if (moduleRecipe == null) return;
 
                                 Pair<ProcurementType, ProcurementRecipe> recipePair = new Pair<>(procurementType, moduleRecipe);
 
-                                TitledPane titledPane = new TitledPane();
-                                titledPane.setText(moduleRecipe.toString());
-                                titledPane.setExpanded(false);
-                                titledPane.setAnimated(false);
-                                titledPane.getStyleClass().addAll("information_panel", "base_font");
+                                // this is the individual module pane
+
+                                ItemEffectData sizeData = knownModule.itemEffects().effectByName(ItemEffect.Size)
+                                        .orElse(null);
+
+                                ItemEffectData classData = knownModule.itemEffects().effectByName(ItemEffect.Class)
+                                        .orElse(null);
+
+                                String prefix = "";
+
+                                if (sizeData != null && classData != null)
+                                {
+                                    prefix += ((int) sizeData.getDoubleValue()) + classData.getStringValue() + " ";
+                                }
+
+                                ItemEffectData modeData = knownModule.itemEffects().effectByName(ItemEffect.WeaponMode)
+                                        .orElse(null);
+
+                                if (modeData != null)
+                                {
+                                    prefix += modeData.getStringValue() + " ";
+                                }
+
+                                AtomicReference<String> suffix  = new AtomicReference<>("");
+
+                                if (moduleRecipe.costStream().anyMatch(c -> c.getCost() == module))
+                                {
+                                    suffix.set(" (equipped)");
+                                }
+
+                                TitledPane modulePane = new TitledPane();
+                                AtomicReference<String> style = new AtomicReference<>("inventory_label");
+
+
+                                // power plant
+                                knownModule.itemEffects()
+                                        .effectByName(ItemEffect.PowerCapacity)
+                                        .filter(capacity -> capacity.getDoubleValue() < currentShip.getCurrentPowerDraw())
+                                        .ifPresent(x ->
+                                        {
+                                            style.set("module_no_power");
+                                            suffix.set(suffix.get() + " (power exceeded)");
+                                        });
+
+                                // thrusters
+                                knownModule.itemEffects()
+                                        .effectByName(ItemEffect.MaximumMass)
+                                        .filter(maxMass -> maxMass.getDoubleValue() < currentShip.getCurrentHullMass())
+                                        .ifPresent(x ->
+                                        {
+                                            style.set("module_no_power");
+                                            suffix.set(suffix.get() + " (mass exceeded)");
+                                        });
+
+                                // shield generators
+                                knownModule.itemEffects()
+                                        .effectByName(ItemEffect.ShieldGenMaximumMass)
+                                        .filter(maxMass -> maxMass.getDoubleValue() < currentShip.getCurrentHullMass())
+                                        .ifPresent(x ->
+                                        {
+                                            style.set("module_no_power");
+                                            suffix.set(suffix.get() + " (mass exceeded)");
+                                        });
+
+
+
+                                HBox x = new HBox();
+                                Label l =  new Label(prefix + moduleRecipe.toString() + suffix);
+                                l.getStyleClass().addAll(style.get(), "base_font");
+
+                                Region s = new Region();
+                                Button b = createTaskButton2(recipePair);
+                                HBox.setHgrow(s, Priority.ALWAYS);
+                                x.getChildren().addAll(l, s, b);
+
+                                modulePane.setGraphic(x);
+                                //modulePane.setText(prefix + moduleRecipe.toString() + suffix);
+
+                                modulePane.setExpanded(false);
+                                modulePane.setAnimated(false);
+                                modulePane.getStyleClass().addAll("module_item_pane", "base_font");
+
                                 VBox gradeBox = new VBox();
                                 gradeBox.getStyleClass().addAll("information_panel", "base_font");
-                                titledPane.setContent(gradeBox);
-                                contentBox.getChildren().add(titledPane);
+                                modulePane.setContent(gradeBox);
+                                x.minWidthProperty().bind(gradeBox.widthProperty().subtract(50));
 
-                                titledPane.expandedProperty().addListener((_z, wasCollapsed, wasExpanded) ->
+                                modulePane.expandedProperty().addListener((_z, wasCollapsed, wasExpanded) ->
                                 {
                                     if (wasExpanded && gradeBox.getChildren().isEmpty())
                                     {
-                                        HBox h = createRecipeControl(recipePair);
+                                        VBox h = createModuleControl(recipePair);
                                         h.prefWidthProperty().bind(sizePane.widthProperty());
                                         gradeBox.getChildren().add(h);
                                     }
                                 });
 
+                                boolean hasModType = Optional.ofNullable(knownModule.modificationType()).isPresent();
+
+                                if (hasModType)
+                                {
+                                    types.computeIfAbsent(knownModule.modificationType(), (_k) -> new Accordion())
+                                            .getPanes().add(modulePane);
+                                }
+                                else
+                                {
+                                    altTypes.computeIfAbsent(moduleRecipe.toString(), (_k) -> new Accordion())
+                                            .getPanes().add(modulePane);
+                                }
+                            });
+
+
+                            // todo: do adding to container here
+
+                            types.forEach((key, value) ->
+                            {
+                                TitledPane catname = new TitledPane();
+                                catname.setExpanded(false);
+                                catname.setAnimated(false);
+                                catname.setText(key.toString());
+                                catname.setContent(value);
+                                catname.getStyleClass().addAll("module_category_pane");
+                                contentBox.getPanes().add(catname);
+                            });
+
+                            altTypes.forEach((key, value) ->
+                            {
+                                TitledPane catname = new TitledPane();
+                                catname.setExpanded(false);
+                                catname.setAnimated(false);
+                                catname.setText(key);
+                                catname.setContent(value);
+                                catname.getStyleClass().addAll("module_category_pane");
+                                contentBox.getPanes().add(catname);
                             });
                         }
                     });
@@ -679,7 +1117,7 @@ public class ShipModuleData implements Displayable
         //unitColumn.setText("Unit");
 
         TitledPane statPane = new TitledPane();
-        statPane.setExpanded(true);
+        statPane.setExpanded(false);
         statPane.setAnimated(false);
         statPane.setText("Current Module Statistics");
         statPane.setTextFill(UIFunctions.Style.neutralWhite);
@@ -709,8 +1147,6 @@ public class ShipModuleData implements Displayable
 
         effectTable.prefWidthProperty().bind(displayPane.widthProperty().subtract(30));
 
-        effectTable.getStyleClass().add("general_stat_table");
-
         statBox.getChildren().add(effectTable);
         statPane.setContent(statBox);
 
@@ -722,6 +1158,26 @@ public class ShipModuleData implements Displayable
 
         ItemEffectData weaponMount = module.itemEffects().effectByName(ItemEffect.WeaponMode)
                 .orElse(null);
+
+        Integer size = module.itemEffects().effectByName(ItemEffect.Size)
+                .map(ItemEffectData::getDoubleValue)
+                .map(Double::intValue)
+                .orElse(-1);
+
+        String grade = module.itemEffects().effectByName(ItemEffect.Class)
+                .map(ItemEffectData::getStringValue)
+                .orElse("");
+
+        if (size != -1)
+        {
+            Label gradeLabel = new Label(size + grade);
+            gradeLabel.translateYProperty().set(.5);
+            Label spacer = new Label(" ");
+            gradeLabel.getStyleClass().addAll("module_grade_label", "base_font");
+            moduleNameContainer.getChildren().add(gradeLabel);
+            moduleNameContainer.getChildren().add(spacer);
+        }
+
 
         if (weaponMount != null)
         {
@@ -880,33 +1336,45 @@ public class ShipModuleData implements Displayable
 
         renderModificationInfo(moduleNameContainer, detailsContainer);
 
+
         VBox modulesContainer = new VBox();
         modulesContainer.fillWidthProperty().setValue(true);
         modulesContainer.getStyleClass().add("general_panel");
         detailsContainer.getChildren().add(modulesContainer);
-
         renderAvailableModules(modulesContainer);
 
         VBox effectsContainer = new VBox();
         effectsContainer.fillWidthProperty().setValue(true);
         effectsContainer.getStyleClass().add("general_panel");
         detailsContainer.getChildren().add(effectsContainer);
-
         renderEffectTable(effectsContainer);
+
+        //renderModificationInfo(moduleNameContainer, detailsContainer);
+
 
         HBox statContainer = new HBox();
         statContainer.getChildren().add(detailsContainer);
         statContainer.getStyleClass().add("general_panel");
-
-        if (moduleNameContainer.getChildren().get(0) != moduleLabel)
-        {
-            moduleLabel.textProperty().set(" " + moduleLabel.getText());
-        }
-
+        
         displayPane.setContent(statContainer);
         displayPane.setGraphic(moduleNameContainer);
         displayPane.setExpanded(false);
         displayPane.setAnimated(false);
+
+        displayPane.expandedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue)
+            {
+                displayPane.getParent().getParent().getParent().getChildrenUnmodifiable().stream()
+                        .map(n -> ((TableRow) n))
+                        .flatMap(p->p.getChildrenUnmodifiable().stream().filter(i->i instanceof TableCell))
+                        .map(c-> ((TableCell) c))
+                        .flatMap(p->p.getChildrenUnmodifiable().stream().filter(i->i instanceof TitledPane))
+                        .map(c-> ((TitledPane) c))
+                        .filter(c->c != displayPane)
+                        .forEach(p->p.expandedProperty().setValue(false));
+            }
+        });
+
     }
 
     private List<Pair<ItemEffect, Label>> prepareEffectData()
@@ -990,7 +1458,6 @@ public class ShipModuleData implements Displayable
     }
 
 
-
     /**
      * For the provided ItemEffect, returns the actual value this item has for that effect, if any.
      * If the module has modifications that override the stock value, this method will return the
@@ -1022,7 +1489,7 @@ public class ShipModuleData implements Displayable
     @Override
     public void prepareGraphic() {}
 
-    public synchronized Node getGraphic()
+    public synchronized TitledPane getGraphic()
     {
         if (!initialRenderComplete.getAndSet(true)) renderDisplayGraphic();
         return displayPane;

@@ -9,9 +9,10 @@ public class HRP_3E extends AbstractHullPackage
 {
     public HRP_3E()
     {
-        super("3E Hull Reinforcement Package",
+        super("Hull Reinforcement Package",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Mass, 8d),
                         new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 230d),
                         new ItemEffectData(ItemEffect.KineticResistance, 1.5d),

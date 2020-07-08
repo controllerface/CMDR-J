@@ -12,6 +12,7 @@ public class FrameShiftDrive_6A extends AbstractFSD
         super("6A Frame Shift Drive",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Class, "A"),
                         new ItemEffectData(ItemEffect.Mass, 40.0),
                         new ItemEffectData(ItemEffect.Integrity, 141.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.75),

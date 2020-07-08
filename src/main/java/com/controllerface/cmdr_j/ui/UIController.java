@@ -38,10 +38,7 @@ import com.controllerface.cmdr_j.ui.inventory.InventoryGradeCell;
 import com.controllerface.cmdr_j.ui.procurements.ProcurementListCell;
 import com.controllerface.cmdr_j.ui.procurements.ProcurementTreeCell;
 import com.controllerface.cmdr_j.ui.procurements.TaskTypeCell;
-import com.controllerface.cmdr_j.ui.ship.ModuleDisplayCell;
-import com.controllerface.cmdr_j.ui.ship.SlotNameCell;
-import com.controllerface.cmdr_j.ui.ship.StatDataCell;
-import com.controllerface.cmdr_j.ui.ship.StatDisplayCell;
+import com.controllerface.cmdr_j.ui.ship.*;
 import com.controllerface.cmdr_j.ui.tasks.TaskCountCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskDataCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskRemoveCell;
@@ -57,14 +54,13 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -121,9 +117,43 @@ public class UIController
     @FXML private Label ship_type_label;
     @FXML private Label ship_make_label;
 
-    @FXML private TableView<ShipStatisticData> ship_statistics_table;
-    @FXML private TableColumn<ShipStatisticData, String> ship_statistics_name_column;
-    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_statistics_data_column;
+    @FXML private TableView<ShipStatisticData> ship_base_statistics_table;
+    @FXML private TableColumn<ShipStatisticData, String> ship_base_statistics_name_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_base_statistics_data_column;
+
+    @FXML private TableView<ShipStatisticData> ship_hull_statistics_table;
+    @FXML private TableColumn<ShipStatisticData, String> ship_hull_statistics_name_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_hull_statistics_data_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_hull_raw_statistics_data_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_hull_base_statistics_data_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_hull_boost_statistics_data_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_hull_ratio_statistics_data_column;
+
+    @FXML private TableView<ShipStatisticData> ship_mass_statistics_table;
+    @FXML private TableColumn<ShipStatisticData, String> ship_mass_statistics_name_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_mass_statistics_data_column;
+
+    @FXML private TableView<ShipStatisticData> ship_shield_statistics_table;
+    @FXML private TableColumn<ShipStatisticData, String> ship_shield_statistics_name_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_shield_statistics_data_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_shield_raw_statistics_data_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_shield_base_statistics_data_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_shield_boost_statistics_data_column;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_shield_ratio_statistics_data_column;
+
+    @FXML private TableView<ShipStatisticData> ship_offense_stats_table;
+    @FXML private TableColumn<ShipStatisticData, String> ship_offense_stats_table_column1;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_offense_stats_table_column2;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_offense_stats_table_column3;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_offense_stats_table_column4;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_offense_stats_table_column5;
+    @FXML private TableColumn<ShipStatisticData, ShipStatisticData> ship_offense_stats_table_column6;
+
+    @FXML private Spinner<Double> dps_spinner;
+    @FXML private Spinner<Double> sys_spinner;
+
+    @FXML private Label s_regen_label;
+    @FXML private Label s_broken_regen_label;
 
     @FXML private TableView<ShipModuleData> core_module_table;
     @FXML private TableColumn<ShipModuleData, String> core_module_name_column;
@@ -137,6 +167,8 @@ public class UIController
     @FXML private TableColumn<ShipModuleData, String> hardpoint_name_column;
     @FXML private TableColumn<ShipModuleData, ShipModuleData> hardpoint_data_column;
 
+    @FXML private LineChart<Number, Number> ttd_shield_chart;
+    @FXML private LineChart<Number, Number> ttd_hull_chart;
 
     /*
     Procurement Tasks Tab
@@ -332,7 +364,7 @@ public class UIController
     private final AtomicBoolean hasMessages = new AtomicBoolean(false);
 
     private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> addPairToProcurementList =
-            (count, task) -> transactionQueue.add(UserTransaction.start(UserTransaction.TransactionType.BLUEPRINT)
+            (count, task) -> transactionQueue.add(UserTransaction.type(UserTransaction.TransactionType.BLUEPRINT)
                     .setTransactionAmount(count)
                     .setBlueprint(task)
                     .build());
@@ -1007,9 +1039,14 @@ public class UIController
                             @SuppressWarnings("unchecked")
                             Map<String, Object> fuelData = ((Map<String, Object>) statusObject.get("Fuel"));
 
+                            double main = ((double) fuelData.get("FuelMain"));
+                            double tank = ((double) fuelData.get("FuelReservoir"));
+
+                            commanderData.getStarShip().setCurrentFuel(main + tank);
+
                             status_cargo.setText(statusObject.get("Cargo") + " Tons");
-                            status_fuel.setText(fuelData.get("FuelMain") + " Tons");
-                            status_fuel_reservoir.setText(fuelData.get("FuelReservoir") + " Tons");
+                            status_fuel.setText(main + " Tons");
+                            status_fuel_reservoir.setText(tank + " Tons");
 
                             Object Altitude  = statusObject.get("Altitude");
                             Object Latitude  = statusObject.get("Latitude");
@@ -1482,15 +1519,131 @@ public class UIController
         commanderData.getStarShip().associateShipGivenName(ship_name_label);
         commanderData.getStarShip().associateShipDisplayName(ship_type_label);
         commanderData.getStarShip().associateShipID(ship_ID_label);
-        commanderData.getStarShip().associateStatisticsTable(ship_statistics_table);
+
+        commanderData.getStarShip().associateBaseStatisticsTable(ship_base_statistics_table);
+        commanderData.getStarShip().associateHullStatisticsTable(ship_hull_statistics_table);
+        commanderData.getStarShip().associateMassStatisticsTable(ship_mass_statistics_table);
+        commanderData.getStarShip().associateShieldStatisticsTable(ship_shield_statistics_table);
+
+        commanderData.getStarShip().associateOffensiveStatisticsTable(ship_offense_stats_table);
+
+        dps_spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1.0, 250.0, 10.0, 1));
+        sys_spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 4, 0.0, 0.5));
+
+        commanderData.getStarShip().associateShieldRegenLabels(s_regen_label, s_broken_regen_label);
+
+        commanderData.getStarShip().setDpsSpinner(dps_spinner, sys_spinner);
+
         commanderData.getStarShip().associateCoreTable(core_module_table);
         commanderData.getStarShip().associateOptionalTable(optional_module_table);
         commanderData.getStarShip().associateHardpointTable(hardpoint_table);
 
-        ship_statistics_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
-        ship_statistics_name_column.setCellFactory(x -> new StatDataCell());
-        ship_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        ship_statistics_data_column.setCellFactory(x -> new StatDisplayCell());
+        commanderData.getStarShip().associateTtdGraphs(ttd_shield_chart, ttd_hull_chart);
+
+        ship_base_statistics_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
+        ship_base_statistics_name_column.setCellFactory(x -> new StatDataCell());
+        ship_base_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        ship_base_statistics_data_column.setCellFactory(x -> new StatDisplayCell());
+
+        ship_hull_statistics_name_column.setCellFactory(x -> new StatDataCell());
+        ship_hull_statistics_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
+
+//                .setCellValueFactory(param ->
+//        {
+//            String text = param.getValue().statName();
+//            if (text.contains("Resistance"))
+//            {
+//                text = text.replace("Armour ", "");
+//            }
+//            return new SimpleStringProperty(text);
+//        });
+
+
+        ship_hull_statistics_data_column.setCellFactory(x -> new ResistanceDisplayCell());
+        ship_hull_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        ship_hull_raw_statistics_data_column.setCellFactory(x -> new StatRawDisplayCell());
+        ship_hull_raw_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        ship_hull_base_statistics_data_column.setCellFactory(x -> new StatBaseDisplayCell());
+        ship_hull_base_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        ship_hull_boost_statistics_data_column.setCellFactory(x -> new StatBoostDisplayCell());
+        ship_hull_boost_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        ship_hull_ratio_statistics_data_column.setCellFactory(x -> new StatRatioDisplayCell());
+        ship_hull_ratio_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        ship_mass_statistics_name_column.setCellFactory(x -> new StatDataCell());
+        ship_mass_statistics_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
+
+        ship_mass_statistics_data_column.setCellFactory(x -> new StatDisplayCell());
+        ship_mass_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        ship_shield_statistics_name_column.setCellFactory(x -> new StatDataCell());
+        ship_shield_statistics_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
+
+//                .setCellValueFactory(param ->
+//        {
+//            String text = param.getValue().statName();
+//            if (text.contains("Resistance"))
+//            {
+//                text = text.replace("Shield ", "");
+//            }
+//            return new SimpleStringProperty(text);
+//        });
+
+
+        ship_shield_statistics_data_column.setCellFactory(x -> new ResistanceDisplayCell());
+        ship_shield_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        ship_shield_raw_statistics_data_column.setCellFactory(x -> new StatRawDisplayCell());
+        ship_shield_raw_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        ship_shield_base_statistics_data_column.setCellFactory(x -> new StatBaseDisplayCell());
+        ship_shield_base_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        ship_shield_boost_statistics_data_column.setCellFactory(x -> new StatBoostDisplayCell());
+        ship_shield_boost_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        ship_shield_ratio_statistics_data_column.setCellFactory(x -> new StatRatioDisplayCell());
+        ship_shield_ratio_statistics_data_column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+
+
+        ship_offense_stats_table_column1.setCellFactory(x -> new StatDataCell());
+        ship_offense_stats_table_column1.setCellValueFactory(param ->
+        {
+            String text = param.getValue().statName();
+            if (text.contains("Resistance"))
+            {
+                text = text.replace("Shield ", "");
+            }
+            return new SimpleStringProperty(text);
+        });
+
+
+        ship_offense_stats_table_column2.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        ship_offense_stats_table_column2.setCellFactory(x -> new OffenseDisplayCell());
+
+        ship_offense_stats_table_column3.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        ship_offense_stats_table_column3.setCellFactory(x -> new StatRawDisplayCell());
+
+        ship_offense_stats_table_column4.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        ship_offense_stats_table_column4.setCellFactory(x -> new StatBaseDisplayCell());
+
+        ship_offense_stats_table_column5.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        ship_offense_stats_table_column5.setCellFactory(x -> new StatBoostDisplayCell());
+
+        ship_offense_stats_table_column6.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        ship_offense_stats_table_column6.setCellFactory(x -> new StatRatioDisplayCell());
+
+
+
+
+
+
+
 
         core_module_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getModuleSlot().getText()));
         core_module_name_column.setCellFactory(x -> new SlotNameCell());
@@ -1514,7 +1667,12 @@ public class UIController
      */
     private void initializeAutoResizeBindings()
     {
-        bindTableResize(ship_statistics_table, ship_statistics_data_column);
+        bindTableResize(ship_base_statistics_table, ship_base_statistics_name_column);
+        bindTableResize(ship_hull_statistics_table, ship_hull_statistics_name_column);
+        bindTableResize(ship_mass_statistics_table, ship_mass_statistics_name_column);
+        bindTableResize(ship_shield_statistics_table, ship_shield_statistics_name_column);
+        bindTableResize(ship_offense_stats_table, ship_offense_stats_table_column1);
+
         bindTableResize(raw_table, raw_material_column);
         bindTableResize(manufactured_table, manufactured_material_column);
         bindTableResize(data_table, data_material_column);
@@ -1525,7 +1683,12 @@ public class UIController
         bindTableResize(optional_module_table, optional_module_data_column);
         bindTableResize(hardpoint_table, hardpoint_data_column);
 
-        ship_statistics_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        ship_base_statistics_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        ship_hull_statistics_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        ship_mass_statistics_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        ship_shield_statistics_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        ship_offense_stats_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
         core_module_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         optional_module_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         hardpoint_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
@@ -1556,7 +1719,12 @@ public class UIController
         disableTableSelection(procurement_task_table);
         disableTableSelection(task_cost_table);
 
-        disableTableSelection(ship_statistics_table);
+        disableTableSelection(ship_base_statistics_table);
+        disableTableSelection(ship_hull_statistics_table);
+        disableTableSelection(ship_mass_statistics_table);
+        disableTableSelection(ship_shield_statistics_table);
+        disableTableSelection(ship_offense_stats_table);
+
         disableTableSelection(core_module_table);
         disableTableSelection(optional_module_table);
         disableTableSelection(hardpoint_table);
@@ -2504,7 +2672,7 @@ public class UIController
                 }
             });
 
-            transactionQueue.add(UserTransaction.start(UserTransaction.TransactionType.BLUEPRINT)
+            transactionQueue.add(UserTransaction.type(UserTransaction.TransactionType.BLUEPRINT)
                     .setTransactionAmount(count.get())
                     .setBlueprint(new Pair<>(procType.get(), recipeType.get()))
                     .build());

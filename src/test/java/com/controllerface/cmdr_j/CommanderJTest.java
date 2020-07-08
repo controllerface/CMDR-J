@@ -50,6 +50,7 @@ import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import javafx.util.Pair;
 import org.junit.Assert;
 import org.junit.Test;
@@ -79,6 +80,16 @@ public class CommanderJTest
     }
 
     @Test
+    public void testDamageTypes()
+    {
+        Stream.of(HardpointModule.values())
+                .forEach(v->
+                {
+                    Assert.assertTrue(v.displayText() + "failed", v.itemEffects().effectByName(ItemEffect.DamageType).isPresent());
+                });
+    }
+
+    @Test
     public void printCurrent()
     {
         Stream.of(CoreInternalModule.values())
@@ -91,6 +102,22 @@ public class CommanderJTest
 
         Stream.of(HardpointModule.values())
                 .filter(m->m.price() == 1)
+                .forEach(System.out::println);
+    }
+
+    @Test
+    public void getGrades()
+    {
+        Stream.of(HardpointModule.values())
+                .filter(m -> !m.itemEffects().effectByName(ItemEffect.Class).isPresent())
+                .forEach(System.out::println);
+
+        Stream.of(OptionalInternalModule.values())
+                .filter(m -> !m.itemEffects().effectByName(ItemEffect.Class).isPresent())
+                .forEach(System.out::println);
+
+        Stream.of(CoreInternalModule.values())
+                .filter(m -> !m.itemEffects().effectByName(ItemEffect.Class).isPresent())
                 .forEach(System.out::println);
     }
 

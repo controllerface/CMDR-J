@@ -12,6 +12,7 @@ public class LifeSupport_8C extends AbstractLifeSupport
         super("8C Life Support",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 8.0),
+                        new ItemEffectData(ItemEffect.Class, "C"),
                         new ItemEffectData(ItemEffect.Mass, 160.0),
                         new ItemEffectData(ItemEffect.Integrity, 150.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.0),

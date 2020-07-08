@@ -8,9 +8,10 @@ public class FixedAdvancedMissileRack_Small extends AbstractMissileRack
 {
     public FixedAdvancedMissileRack_Small()
     {
-        super("1B Fixed Advanced Missile Rack",
+        super("Advanced Missile Rack",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 40.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.4),

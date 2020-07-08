@@ -12,6 +12,7 @@ public class AFMU_6D extends AbstractAFMU
         super("6D Automated Field Maintenance Unit",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Integrity, 68d),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.86d),
                         new ItemEffectData(ItemEffect.BootTime, 9d),

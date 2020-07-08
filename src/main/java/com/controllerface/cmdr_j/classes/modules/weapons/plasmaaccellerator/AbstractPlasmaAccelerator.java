@@ -17,9 +17,14 @@ public abstract class AbstractPlasmaAccelerator extends AbstractModule
         super(displayText, ModificationType.Plasma_Accelerator, ExperimentalType.Plasma_Accelerator, itemEffects);
     }
 
+    public AbstractPlasmaAccelerator(ItemEffects itemEffects)
+    {
+        super("Plasma Accelerator", ModificationType.Plasma_Accelerator, ExperimentalType.Plasma_Accelerator, itemEffects);
+    }
+
     @Override
     public List<Icon> icons()
     {
-        return Collections.singletonList(UIFunctions.Icons.thermoKineticIcon);
+        return Collections.singletonList(UIFunctions.Icons.absoluteicon);
     }
 }

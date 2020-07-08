@@ -6,6 +6,7 @@ import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
@@ -50,5 +51,34 @@ public class LoadoutHandler implements JournalEventHandler
 
         ((List<Map<String, Object>>) context.getRawData().get("Modules"))
                 .forEach(module -> setSlotFromLoadout(context, module));
+
+        context.getCommanderData().getStarShip().updateResistanceGraphs();
+
+
+
+
+
+//        SystemTray tray = SystemTray.getSystemTray();
+//
+//        //If the icon is a file
+//        //Image image = Toolkit.getDefaultToolkit().createImage("icon.png");
+//        //Alternative (if the icon is on the classpath):
+//        Image image = Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon.png"));
+//
+//        TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
+//        //Let the system resize the image if needed
+//        trayIcon.setImageAutoSize(true);
+//        //Set tooltip text for the tray icon
+//        trayIcon.setToolTip("System tray icon demo");
+//        try
+//        {
+//            tray.add(trayIcon);
+//        }
+//        catch (AWTException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//        trayIcon.displayMessage("Hello, World", "notification demo", TrayIcon.MessageType.INFO);
     }
 }

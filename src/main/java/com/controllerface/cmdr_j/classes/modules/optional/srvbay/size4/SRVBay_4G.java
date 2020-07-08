@@ -12,6 +12,7 @@ public class SRVBay_4G extends AbstractSRVBay
         super("4G Planetary Vehicle Hangar",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Class, "G"),
                         new ItemEffectData(ItemEffect.Mass, 10d),
                         new ItemEffectData(ItemEffect.Integrity, 30d),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.2d),

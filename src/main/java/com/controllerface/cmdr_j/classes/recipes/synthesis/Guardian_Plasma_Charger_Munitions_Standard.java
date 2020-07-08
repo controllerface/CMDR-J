@@ -11,15 +11,16 @@ public class Guardian_Plasma_Charger_Munitions_Standard extends AbstractSynthesi
 {
     public Guardian_Plasma_Charger_Munitions_Standard()
     {
-        super("Guardian Plasma Charger Munitions Standard", 
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
-                  new ItemEffectData(ItemEffect.Damage_Boost, 15.0)
-            ),
-            new CostData(Material.CHROMIUM, 4),
-            new CostData(Material.HEATEXCHANGERS, 2),
-            new CostData(Material.PHASEALLOYS, 2),
-            new CostData(Material.GUARDIAN_POWERCELL, 2),
-            new CostData(Material.GUARDIAN_TECHCOMPONENT, 2));
+        super("Guardian Plasma Charger Munitions Standard",
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.guardian, 1.0),
+                        new ItemEffectData(ItemEffect.Rearm, 0.0),
+                        new ItemEffectData(ItemEffect.Damage_Boost, 15.0)
+                ),
+                new CostData(Material.CHROMIUM, 4),
+                new CostData(Material.HEATEXCHANGERS, 2),
+                new CostData(Material.PHASEALLOYS, 2),
+                new CostData(Material.GUARDIAN_POWERCELL, 2),
+                new CostData(Material.GUARDIAN_TECHCOMPONENT, 2));
     }
 }

@@ -11,6 +11,7 @@ public class ManifestScanner_0D extends AbstractManifestScanner
         super("0D Manifest Scanner",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 1.3),
                         new ItemEffectData(ItemEffect.Integrity, 24.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.4),

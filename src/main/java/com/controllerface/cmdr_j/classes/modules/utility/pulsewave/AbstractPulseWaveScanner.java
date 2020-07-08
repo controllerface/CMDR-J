@@ -7,6 +7,6 @@ public abstract class AbstractPulseWaveScanner extends AbstractModule
 {
     public AbstractPulseWaveScanner(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Pulse Wave Analyzer", itemEffects);
     }
 }

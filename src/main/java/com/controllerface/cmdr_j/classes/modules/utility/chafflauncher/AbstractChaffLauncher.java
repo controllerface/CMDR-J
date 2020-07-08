@@ -8,6 +8,6 @@ public abstract class AbstractChaffLauncher extends AbstractModule
 {
     public AbstractChaffLauncher(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Chaff_Launcher, itemEffects);
+        super("Chaff Launcher", ModificationType.Chaff_Launcher, itemEffects);
     }
 }

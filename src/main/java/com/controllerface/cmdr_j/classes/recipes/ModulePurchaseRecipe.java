@@ -72,7 +72,13 @@ public class ModulePurchaseRecipe implements ProcurementRecipe
     private static String generateDisplayLabel(CostData price, CostData product)
     {
         String priceCost = String.format("%,8d%n", price.getQuantity()).trim() + " " + price.getCost().getLocalizedName();
-        String yieldCost = Math.abs(product.getQuantity()) + " " + product.getCost().getLocalizedName();
+
+        double yieldCost_ = Math.abs(product.getQuantity());
+
+        String yieldCost = yieldCost_ == 1
+                ? product.getCost().getLocalizedName()
+                : yieldCost_ + " " + product.getCost().getLocalizedName();
+
         return priceCost + " for " + yieldCost;
     }
 

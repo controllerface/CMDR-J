@@ -8,6 +8,6 @@ public abstract class AbstractECM extends AbstractModule
 {
     public AbstractECM(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Electronic_Countermeasures, itemEffects);
+        super("Electronic Counter-Measures", ModificationType.Electronic_Countermeasures, itemEffects);
     }
 }

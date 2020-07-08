@@ -9,10 +9,11 @@ public class GuardianShieldReinforcementPackage_5D extends AbstractGuardianModul
 {
     public GuardianShieldReinforcementPackage_5D()
     {
-        super("5D Guardian Shield Reinforcement Package",
+        super("Shield Reinforcement Package",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
                         new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 16.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.26),
                         new ItemEffectData(ItemEffect.Integrity, 36.0),

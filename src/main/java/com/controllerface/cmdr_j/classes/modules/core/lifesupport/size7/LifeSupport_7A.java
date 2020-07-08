@@ -12,6 +12,7 @@ public class LifeSupport_7A extends AbstractLifeSupport
         super("7A Life Support",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 7.0),
+                        new ItemEffectData(ItemEffect.Class, "A"),
                         new ItemEffectData(ItemEffect.Mass, 80.0),
                         new ItemEffectData(ItemEffect.Integrity, 157.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.08),

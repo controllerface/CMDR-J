@@ -9,10 +9,11 @@ public class FixedGuardianGaussCannon_Medium extends AbstractGuardianModule
 {
     public FixedGuardianGaussCannon_Medium()
     {
-        super("2B Fixed Guardian Gauss Cannon",
+        super("Gauss Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
                         new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Mass, 4.0),
                         new ItemEffectData(ItemEffect.Integrity, 42.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 2.61),

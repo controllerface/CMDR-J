@@ -11,6 +11,7 @@ public class ShieldBooster_0D extends AbstractShieldBooster
         super("0D Shield Booster",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 1.0),
                         new ItemEffectData(ItemEffect.Integrity, 35.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.5),

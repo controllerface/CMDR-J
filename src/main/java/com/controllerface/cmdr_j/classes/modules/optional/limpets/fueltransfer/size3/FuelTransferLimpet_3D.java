@@ -12,6 +12,7 @@ public class FuelTransferLimpet_3D extends AbstractFuelTransferLimpet
         super("3D Fuel Transfer Limpet Controller",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 2d),
                         new ItemEffectData(ItemEffect.Integrity, 51d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2d),

@@ -58,7 +58,7 @@ public class UIFunctions
         public static final Color standardOrange = Color.rgb(0xff, 0x71, 0x00);
         public static final Color thargoidGreen = Color.rgb(0x02,0x5B,0x30);
         public static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
-        public static final Color darkOrange = Color.rgb(0xb7, 0x52, 0x00);
+        public static final Color darkOrange = Color.rgb(0xff, 0x71, 0x00);//Color.rgb(0xb7, 0x52, 0x00);
         public static final Color darkerOrange = darkOrange.darker().darker();
         public static final Color darkestOrange = darkerOrange.darker().darker().darker().darker();
         public static final Color darkYellow = Color.rgb(0xb7, 0x7d, 0x00);
@@ -122,6 +122,8 @@ public class UIFunctions
         public static final SVGPath kinetic = new SVGPath();
         public static final SVGPath explosive = new SVGPath();
         public static final SVGPath thermo_kinetic = new SVGPath();
+        public static final SVGPath absolute = new SVGPath();
+        public static final SVGPath caustic = new SVGPath();
 
         public static final SVGPath fixed = new SVGPath();
         public static final SVGPath gimbal = new SVGPath();
@@ -132,8 +134,9 @@ public class UIFunctions
             fixed.setContent(readIcon("/icons/fixed_mount"));
             gimbal.setContent(readIcon("/icons/gimbal_mount"));
             turret.setContent(readIcon("/icons/turret_mount"));
-
             thermo_kinetic.setContent(readIcon("/icons/thermo_kinetic"));
+            absolute.setContent(readIcon("/icons/absolute"));
+            caustic.setContent(readIcon("/icons/caustic"));
             explosive.setContent(readIcon("/icons/explosive"));
             kinetic.setContent(readIcon("/icons/kinetic"));
             thermal.setContent(readIcon("/icons/thermal"));
@@ -169,6 +172,8 @@ public class UIFunctions
         public static Icon kineticIcon = new Icon(kinetic, 25, 25);
         public static Icon explosiveIcon = new Icon(explosive, 25, 25);
         public static Icon thermoKineticIcon = new Icon(thermo_kinetic, 25, 25);
+        public static Icon absoluteicon = new Icon(absolute, 25, 25);
+        public static Icon causticIcon = new Icon(caustic, 25, 25);
 
         public static Icon guardianIcon = new Icon(guardian, 31, 25, Style.hotBlue);
         public static Icon aegisIcon = new Icon(aegis, 31, 25, Style.darkRed);
@@ -450,7 +455,7 @@ public class UIFunctions
 
                 String text = pair.getEffect().toString()
                         + (valueIsPositive ? " +" : " ")
-                        +  String.format("%1$,.2f", pair.getDoubleValue()).trim();;//pair.getDoubleValue();
+                        +  pair.getDoubleValue();;//pair.getDoubleValue();
 
                 // some effects have a zero value, such effects are generally "binary" on/off values, so we can just remove
                 // the trailing "point zero" suffix
@@ -473,6 +478,30 @@ public class UIFunctions
             }
 
             return nextLabel;
+        };
+
+
+
+
+        public static Function<ItemEffectData, Pair<String, Object>> moduleEffectToLabel = (effectData) ->
+        {
+            if (effectData.isNumerical())
+            {
+                if (effectData.getDoubleValue() == Double.MAX_VALUE)
+                {
+                    return new Pair<>(effectData.getEffect().toString(), UIFunctions.Symbols.INFINITY);
+                }
+                else
+                {
+                    return new Pair<>(effectData.getEffect().toString(),
+                            UIFunctions.Data.round(effectData.getDoubleValue(), 2));
+                }
+
+            }
+            else
+            {
+                return new Pair<>(effectData.getEffect().toString(), effectData.getStringValue());
+            }
         };
     }
 

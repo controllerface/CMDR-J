@@ -522,4 +522,15 @@ public enum CoreInternalSlot implements Statistic
                         .isPresent())
                 .collect(Collectors.toList());
     }
+
+    public List<ShipModule> findModulesByExactSize(int size)
+    {
+        return Stream.of(compatibleModules)
+                .filter(module -> module.itemEffects().effectByName(ItemEffect.Size)
+                        .map(ItemEffectData::getDoubleValue)
+                        .map(Double::intValue)
+                        .filter(moduleSize -> moduleSize == size)
+                        .isPresent())
+                .collect(Collectors.toList());
+    }
 }

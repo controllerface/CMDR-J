@@ -8,6 +8,6 @@ public abstract class AbstractLifeSupport extends AbstractModule
 {
     public AbstractLifeSupport(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Life_Support, itemEffects);
+        super("Life Support", ModificationType.Life_Support, itemEffects);
     }
 }

@@ -9,6 +9,6 @@ public abstract class AbstractShieldCellBank extends AbstractModule
 {
     public AbstractShieldCellBank(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Shield_Cell_Bank, ExperimentalType.Shield_Cell_Bank, itemEffects);
+        super("Shield Cell Bank", ModificationType.Shield_Cell_Bank, ExperimentalType.Shield_Cell_Bank, itemEffects);
     }
 }

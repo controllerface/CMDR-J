@@ -11,6 +11,7 @@ public class PulseWaveAnalyzer_0D extends AbstractPulseWaveScanner
         super("0D Pulse Wave Analyzer",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 1.3),
                         new ItemEffectData(ItemEffect.Integrity, 24.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.4),

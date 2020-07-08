@@ -11,6 +11,7 @@ public class FixedSeismicChargeLauncher_Medium extends AbstractSeismicChargeLaun
         super("2B Fixed Seismic Charge Launcher",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Mass, 4.0),
                         new ItemEffectData(ItemEffect.Integrity, 51.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.2),

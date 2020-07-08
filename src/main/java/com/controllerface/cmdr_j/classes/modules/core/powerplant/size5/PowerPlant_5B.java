@@ -12,6 +12,7 @@ public class PowerPlant_5B extends AbstractPowerPlant
         super("5B Power Plant",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Mass, 16.0),
                         new ItemEffectData(ItemEffect.Integrity, 115.0),
                         new ItemEffectData(ItemEffect.PowerCapacity, 18.7),

@@ -12,6 +12,7 @@ public class FrameShiftDrive_3C extends AbstractFSD
         super("3C Standard Frame Shift Drive",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Class, "C"),
                         new ItemEffectData(ItemEffect.Mass, 5.0),
                         new ItemEffectData(ItemEffect.Integrity, 64.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.3),

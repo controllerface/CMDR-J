@@ -14,7 +14,7 @@ public class StatusHandler implements JournalEventHandler
     @Override
     public void handle(EventProcessingContext context)
     {
-        context.getTransactions().add(UserTransaction.start(UserTransaction.TransactionType.STATUS)
+        context.getTransactions().add(UserTransaction.type(UserTransaction.TransactionType.STATUS)
                 .setStatusObject(context.getRawData())
                 .build());
     }

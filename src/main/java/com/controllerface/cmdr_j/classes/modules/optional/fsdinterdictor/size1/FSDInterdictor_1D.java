@@ -12,6 +12,7 @@ public class FSDInterdictor_1D extends AbstractFSDInterdictor
         super("1D Frame Shift Drive Interdictor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 0.5d),
                         new ItemEffectData(ItemEffect.Integrity, 24d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.18d),

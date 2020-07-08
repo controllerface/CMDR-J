@@ -8,6 +8,6 @@ public abstract class AbstractAFMU extends AbstractModule
 {
     public AbstractAFMU(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Auto_Field_Maintenence_Unit, itemEffects);
+        super("Automated Field Maintenance Unit", ModificationType.Auto_Field_Maintenence_Unit, itemEffects);
     }
 }

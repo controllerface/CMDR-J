@@ -17,6 +17,11 @@ public abstract class AbstractSeekerMissileRack extends AbstractModule
         super(displayText, ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack, itemEffects);
     }
 
+    public AbstractSeekerMissileRack(ItemEffects itemEffects)
+    {
+        super("Seeker Missile Rack", ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack, itemEffects);
+    }
+
     @Override
     public List<Icon> icons()
     {

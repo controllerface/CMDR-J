@@ -9,4 +9,9 @@ public abstract class AbstractMiningLaser extends AbstractModule
     {
         super(displayText, itemEffects);
     }
+
+    public AbstractMiningLaser(ItemEffects itemEffects)
+    {
+        super("Mining Laser", itemEffects);
+    }
 }

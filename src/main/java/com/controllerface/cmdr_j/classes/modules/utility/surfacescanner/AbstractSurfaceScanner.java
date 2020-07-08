@@ -8,6 +8,6 @@ public abstract class AbstractSurfaceScanner extends AbstractModule
 {
     public AbstractSurfaceScanner(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Detailed_Surface_Scanner, itemEffects);
+        super("Detailed Surface Scanner", ModificationType.Detailed_Surface_Scanner, itemEffects);
     }
 }

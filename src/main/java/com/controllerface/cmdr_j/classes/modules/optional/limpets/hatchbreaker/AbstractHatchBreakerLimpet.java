@@ -8,6 +8,6 @@ public abstract class AbstractHatchBreakerLimpet extends AbstractModule
 {
     public AbstractHatchBreakerLimpet(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Hatch_Breaker_Limpet, itemEffects);
+        super("Hatch Breaker Limpet Controller", ModificationType.Hatch_Breaker_Limpet, itemEffects);
     }
 }

@@ -10,10 +10,11 @@ public class CargoRack_4E_CorrosiveResist extends AbstractHumanModule
 {
     public CargoRack_4E_CorrosiveResist()
     {
-        super("4E Corrosion Resistant Cargo Rack",
+        super("Corrosion Resistant Cargo Rack",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1d),
                         new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.CargoCapacity, 16d)
                 ));
     }

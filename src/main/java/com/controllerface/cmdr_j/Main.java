@@ -9,7 +9,6 @@ public class Main
 {
     public static void main(String[] args)
     {
-        javafx.scene.text.Font.getFamilies().forEach(System.out::println);
         LauncherImpl.launchApplication(CommanderJ.class, LoadingScreen.class, args);
     }
 }

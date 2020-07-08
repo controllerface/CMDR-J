@@ -11,6 +11,7 @@ public class FSDWakeScanner_0E extends AbstractWakeScanner
         super("0E FSD Wake Scanner",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Mass, 1.3),
                         new ItemEffectData(ItemEffect.Integrity, 32.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2),

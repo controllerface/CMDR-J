@@ -20,7 +20,8 @@ There's a few top-level items that rely on this "root" style definition
 {
     -fx-accent: #cccccc;
     -fx-focus-color: #cccccc;
-    -fx-text-base-color: rgb(225, 150, 90);
+    /*-fx-text-base-color: #ffaa55;*/
+    -fx-text-base-color: #ffaa55; /*#774411;*/
     -fx-background: #222222;
     -fx-font-family: 'Euro Caps';
 }
@@ -59,7 +60,7 @@ Global settings for table view elements
 .table-view .table-cell
 {
     -fx-background-color: #222222;
-    -fx-text-fill: rgb(225, 150, 90);
+    -fx-text-fill: #ffaa55;
 }
 
 .table-view .column-header-background,
@@ -86,7 +87,7 @@ Color call checkboxes to look uniform
 
 .check-box:selected .mark
 {
-    -fx-background-color: rgb(225, 150, 90);
+    -fx-background-color: #ffaa55;
 }
 
 .check-box:selected .box
@@ -182,17 +183,56 @@ Used for a few places where only the font family is wanted, usually smaller text
 }
 
 
-
-
-
-
-
 .add_task_button
 {
-    -fx-text-fill: rgb(0, 0, 0);
-    -fx-base: #88cc88;
+    -fx-background-color:
+        #444444,
+        linear-gradient(#444444, #555555),
+        linear-gradient(#444444 0%, #454545 49%, #454545 50%, #555555 100%);
+    -fx-padding:0 5 0 5;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #aaaaaa;
+    -fx-border-radius: 3,2,1;
 }
 
+.add_task_button:hover
+{
+
+    -fx-background-color:
+        #554433,
+        linear-gradient(#555555, #666666),
+        linear-gradient(#554433 0%, #564534 49%, #564534 50%, #665544 100%);
+
+    -fx-border-color: #ff7100;
+
+}
+
+
+
+.full_roll_button
+{
+    -fx-background-color:
+        #444444,
+        linear-gradient(#444444, #555555),
+        linear-gradient(#444444 0%, #454545 49%, #454545 50%, #555555 100%);
+    -fx-padding:0 5 0 5;
+    -fx-border-width: 1 1 1 1;
+    -fx-border-color: #aaaaaa;
+    -fx-border-radius: 3,2,1;
+    -fx-text-fill: #ffaa55;
+}
+
+.full_roll_button:hover
+{
+
+    -fx-background-color:
+        #554433,
+        linear-gradient(#555555, #666666),
+        linear-gradient(#554433 0%, #564534 49%, #564534 50%, #665544 100%);
+
+    -fx-border-color: #ff7100;
+    -fx-text-fill: #ffaa55;
+}
 
 
 
@@ -201,7 +241,7 @@ Used for a few places where only the font family is wanted, usually smaller text
     -fx-background-color:
         #665544,
         linear-gradient(#332211 0%, #342312 49%, #342312 50%, #443322 100%);
-    -fx-background-radius: 3,2,1;
+    /*-fx-background-radius: 3,2,1;*/
 }
 
 .experiment_pane .title
@@ -209,7 +249,7 @@ Used for a few places where only the font family is wanted, usually smaller text
     -fx-background-color:
         #665544,
         linear-gradient(#333011 0%, #343112 49%, #343112 50%, #444022 100%);
-    -fx-background-radius: 3,2,1;
+    /*-fx-background-radius: 3,2,1;*/
 }
 
 .modules_pane .title
@@ -246,6 +286,38 @@ Used for a few places where only the font family is wanted, usually smaller text
     -fx-border-color: #444444;
 }
 
+.ship_stats_table .table-row-cell
+{
+    -fx-border-color: #222222;
+    -fx-border-width: 0 0 0 0;
+    -fx-table-cell-border-color: #343434;
+}
+
+
+.negative_stat
+{
+    -fx-text-fill: #ff0000;
+}
+
+.positive_stat
+{
+    -fx-text-fill: #00b3f7;
+}
+
+.diminished_stat
+{
+    -fx-text-fill: #ffee55;
+}
+
+.non_diminished_stat
+{
+    -fx-text-fill: #55aa55;
+}
+
+.calculated_stat
+{
+    -fx-text-fill: #ff8106;
+}
 
 /* The column cell text size should be 16 */
 .market_table .table-column
@@ -280,7 +352,16 @@ This is typically applied to the "background" portion of these panels
 
 .general_panel_label
 {
-    -fx-text-fill: rgb(225, 150, 90);
+    -fx-text-fill: #ffaa55;
+    -fx-background-color: transparent;
+}
+
+.module_grade_label
+{
+    -fx-text-fill: rgb(200, 200, 200);
+    -fx-font-size: 19;
+    -fx-font-family: 'Consolas';
+    -fx-font-weight: bold;
     -fx-background-color: transparent;
 }
 
@@ -306,7 +387,7 @@ This is typically applied to the "foreground" portion of these panels
 
 .information_header
 {
-    -fx-text-fill: rgb(225, 150, 90);
+    -fx-text-fill: #ffaa55;
 }
 
 .market_data_info
@@ -416,7 +497,7 @@ Ship module statistics tables
 
 .inventory_label
 {
-    -fx-text-fill: rgb(225, 150, 90);
+    -fx-text-fill: #ffaa55;
 }
 
 .message_list .scroll-bar:horizontal .increment-arrow,
@@ -522,4 +603,126 @@ Ship module statistics tables
     -fx-max-height: 0;
 
     -fx-padding: 0;
+}
+
+
+
+.ttd_chart .chart-line-symbol
+{
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+
+    -fx-pref-width: 5;
+    -fx-pref-height: 5;
+
+    -fx-shape: "M 6.86,9.34
+                C 3.30,10.56 -1.03,6.73 3.31,2.04
+                 10.76,-0.18 11.06,7.91 6.86,9.34 Z";
+}
+
+
+.axis-label
+{
+    -fx-text-fill: #cccccc;
+    -fx-font-family: 'Euro Caps';
+    -fx-font-size: 16px;
+
+}
+
+.axis
+{
+    -fx-text-fill: #cccccc;
+    -fx-font-family: 'Euro Caps';
+    -fx-font-size: 14px;
+}
+
+.chart-legend
+{
+    -fx-background-color:  transparent;
+    -fx-font-family: 'Euro Caps';
+    -fx-font-size: 14px;
+}
+
+
+.test_series
+{
+    -fx-stroke: #ffffff;
+}
+
+.axis-tick-mark {
+    -fx-stroke: #aaaaaa;
+    -fx-stroke-width: 2;
+}
+
+.axis-minor-tick-mark {
+    -fx-stroke: #aaaaaa;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #555555;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #555555;
+}
+
+.spinner .text-field
+{
+    -fx-background-color: #333333;
+    -fx-font-size:16.0;
+    -fx-text-fill: #ffaa55;
+    -fx-pref-height: 23;
+    -fx-pref-width: 75;
+}
+
+.min_max_cell
+{
+    -fx-background-color: #333333;
+}
+
+.module_category_pane > .title
+{
+    -fx-background-color: #444444;
+}
+
+.module_item_pane > .title
+{
+    -fx-background-color: #555555;
+}
+
+.comp_table .column-header-background
+{
+    -fx-alignment: CENTER;
+    -fx-background-color: #333333;
+}
+
+.comp_table .column-header .label
+{
+    -fx-text-fill: #ffaa55;
+    -fx-font-weight: bold;
+    -fx-font-size: 12;
+}
+
+.module_purchase_label
+{
+   -fx-text-fill: #ffffff;
+   -fx-background-color: transparent;
+}
+
+.module_purchase_stat_label
+{
+    -fx-padding:0 5 0 5;
+}
+
+.module_no_power
+{
+    -fx-text-fill: #ff0000;
+
+    -fx-padding:0 5 0 5;
+
+    /*-fx-background-color: #000000;*/
+
+        -fx-background-color:
+            #444444,
+            linear-gradient(#444444, #333333),
+            linear-gradient(to left, #444444 0%, #333333 4%, #333333 96%, #444444 100%);
 }

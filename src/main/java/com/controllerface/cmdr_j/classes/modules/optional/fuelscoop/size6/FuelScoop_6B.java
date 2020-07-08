@@ -12,6 +12,7 @@ public class FuelScoop_6B extends AbstractFuelScoop
         super("6B Fuel Scoop",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Integrity, 158d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.71d),
                         new ItemEffectData(ItemEffect.BootTime, 4d),

@@ -31,7 +31,6 @@ public enum ItemEffect
     PowerDraw("MW", "Power Draw", false),
     ThermalLoad("", "Thermal Load", false),
     MaxAngle(UIFunctions.Symbols.DEGREES, "Max Angle", true),
-    MaximumRange("M", "Maximum Range", true),
     MaxRange("M", "Max Range", true), // todo: determine use, probably sensors, moddable? alias of above?
 
     /*
@@ -61,6 +60,7 @@ public enum ItemEffect
     WeaponMode("", "Weapon Mount", true),
     DamageType("", "Damage Type", true),
     Damage("", "Damage", true),
+    MaximumRange("M", "Maximum Range", true),
     DamageFalloffRange("M", "Damage Falloff Range", true),
 
     AmmoClipSize("", "Clip Size", true),

@@ -17,6 +17,11 @@ public abstract class AbstractRailGun extends AbstractModule
         super(displayText, ModificationType.Rail_Gun, ExperimentalType.Rail_Gun, itemEffects);
     }
 
+    public AbstractRailGun(ItemEffects itemEffects)
+    {
+        super("Railgun", ModificationType.Rail_Gun, ExperimentalType.Rail_Gun, itemEffects);
+    }
+
     @Override
     public List<Icon> icons()
     {

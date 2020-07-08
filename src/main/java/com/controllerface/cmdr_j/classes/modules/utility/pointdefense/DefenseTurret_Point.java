@@ -11,6 +11,7 @@ public class DefenseTurret_Point extends AbstractPointDefense
         super("0I Point Defense Turret",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Class, "I"),
                         new ItemEffectData(ItemEffect.Mass, 0.5),
                         new ItemEffectData(ItemEffect.Integrity, 30.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2),

@@ -12,6 +12,7 @@ public class ShieldCellBank_3B extends AbstractShieldCellBank
         super("3B Shield Cell Bank",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Mass, 8.0),
                         new ItemEffectData(ItemEffect.Integrity, 90.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.22),

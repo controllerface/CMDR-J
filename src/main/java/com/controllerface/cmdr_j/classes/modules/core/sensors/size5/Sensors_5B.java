@@ -12,6 +12,7 @@ public class Sensors_5B extends AbstractSensors
         super("5B Sensors",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Mass, 32.0),
                         new ItemEffectData(ItemEffect.Integrity, 115.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.68),

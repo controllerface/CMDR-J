@@ -9,6 +9,6 @@ public abstract class AbstractPowerDistributor extends AbstractModule
 {
     public AbstractPowerDistributor(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Power_Distributor, ExperimentalType.Power_Distributor, itemEffects);
+        super("Power Distributor", ModificationType.Power_Distributor, ExperimentalType.Power_Distributor, itemEffects);
     }
 }

@@ -11,6 +11,7 @@ public class Launcher_Chaff extends AbstractChaffLauncher
         super("0I Chaff Launcher",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Class, "I"),
                         new ItemEffectData(ItemEffect.Mass, 1.3),
                         new ItemEffectData(ItemEffect.Integrity, 20.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2),

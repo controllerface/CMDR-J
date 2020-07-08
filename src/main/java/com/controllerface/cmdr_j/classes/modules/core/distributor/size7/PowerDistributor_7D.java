@@ -12,6 +12,7 @@ public class PowerDistributor_7D extends AbstractPowerDistributor
         super("7D Power Distributor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 7.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 32.0),
                         new ItemEffectData(ItemEffect.Integrity, 105.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.67),

@@ -7,6 +7,6 @@ public abstract class AbstractSuperCruiseAssist extends AbstractModule
 {
     public AbstractSuperCruiseAssist(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Supercruise Assist", itemEffects);
     }
 }

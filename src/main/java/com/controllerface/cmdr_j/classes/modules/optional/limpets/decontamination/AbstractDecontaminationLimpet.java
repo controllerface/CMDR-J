@@ -7,6 +7,6 @@ public abstract class AbstractDecontaminationLimpet extends AbstractModule
 {
     public AbstractDecontaminationLimpet(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Decontamination Limpet Controller", itemEffects);
     }
 }

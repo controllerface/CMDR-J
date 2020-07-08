@@ -15,7 +15,6 @@ public class Dolphin extends AbstractShip
     public Dolphin()
     {
         super(
-
                 BaseShipStats.builder()
                         .setDisplayName("Dolphin")
                         .setShipSize(ShipSize.Small)

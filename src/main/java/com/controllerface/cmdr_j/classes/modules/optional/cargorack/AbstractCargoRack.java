@@ -9,4 +9,9 @@ public abstract class AbstractCargoRack extends AbstractModule
     {
         super(displayText, itemEffects);
     }
+
+    public AbstractCargoRack(ItemEffects itemEffects)
+    {
+        super("Cargo Rack", itemEffects);
+    }
 }

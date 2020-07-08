@@ -10,10 +10,11 @@ public class MetaAlloyHRP_4D extends AbstractHumanModule
 {
     public MetaAlloyHRP_4D()
     {
-        super("4D Meta-Alloy Hull Reinforcement Package",
+        super("Meta-Alloy Hull Reinforcement Package",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1d),
                         new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 8d),
                         new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 297d),
                         new ItemEffectData(ItemEffect.CausticResistance, 3d)

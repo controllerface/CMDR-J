@@ -11,6 +11,7 @@ public class FixedAdvancedMissileRack_Medium extends AbstractMissileRack
         super("2B Fixed Advanced Missile Rack",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Mass, 4.0),
                         new ItemEffectData(ItemEffect.Integrity, 51.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.2),

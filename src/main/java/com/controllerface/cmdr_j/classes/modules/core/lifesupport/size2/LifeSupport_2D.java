@@ -12,6 +12,7 @@ public class LifeSupport_2D extends AbstractLifeSupport
         super("2D Life Support",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 1.0),
                         new ItemEffectData(ItemEffect.Integrity, 46.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.41),

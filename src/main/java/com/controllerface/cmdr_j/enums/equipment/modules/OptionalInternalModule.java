@@ -868,12 +868,11 @@ public enum OptionalInternalModule implements ShipModule
 //            )),
 //
     // todo: add a flag for "do not list" for these and add them
-    int_stellarbodydiscoveryscanner_standard(new AdvancedDiscoveryScanner()),
-    int_stellarbodydiscoveryscanner_standard_free(new AdvancedDiscoveryScanner()),
-    int_stellarbodydiscoveryscanner_intermediate(new AdvancedDiscoveryScanner()),
-
-    int_stellarbodydiscoveryscanner_advanced(new AdvancedDiscoveryScanner()),
-
+//    int_stellarbodydiscoveryscanner_standard(new AdvancedDiscoveryScanner()),
+//    int_stellarbodydiscoveryscanner_intermediate(new AdvancedDiscoveryScanner()),
+//    int_stellarbodydiscoveryscanner_advanced(new AdvancedDiscoveryScanner()),
+//
+//    int_stellarbodydiscoveryscanner_standard_free(new AdvancedDiscoveryScanner()),
     ;
 
     private final ShipModule delegate;

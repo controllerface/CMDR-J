@@ -8,10 +8,11 @@ public class FixedMiningLance_Small extends AbstractMiningLaser
 {
     public FixedMiningLance_Small()
     {
-        super("1D Fixed Mining Lance",
+        super("Mining Lance",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 40.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.7),

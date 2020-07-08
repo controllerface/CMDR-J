@@ -10,7 +10,11 @@ public class PlanetarySuite_1I extends AbstractPlanetarySuite
     public PlanetarySuite_1I()
     {
         super("1I Planetary Approach Suite",
-                new ItemEffects(new ItemEffectData(ItemEffect.planetary_approach, "Installed")));
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.planetary_approach, "Installed"),
+                        new ItemEffectData(ItemEffect.Size, 1),
+                        new ItemEffectData(ItemEffect.Class, "I")
+                ));
     }
 
     @Override

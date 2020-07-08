@@ -25,7 +25,7 @@ public class Mamba extends AbstractShip
                         .setMaxSpeed(360)
                         .setBoostSpeed(380)
                         .setMaxBoostSpeed(441)
-                        .setArmorRating(225)
+                        .setArmorRating(230)
                         .setShield(270)
                         .setBaseCost(56_289_969)
                         .setMassLockFactor(12)

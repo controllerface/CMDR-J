@@ -8,6 +8,6 @@ public abstract class AbstractFuelScoop extends AbstractModule
 {
     public AbstractFuelScoop(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Fuel_Scoop, itemEffects);
+        super("Fuel Scoop", ModificationType.Fuel_Scoop, itemEffects);
     }
 }

@@ -11,6 +11,7 @@ public class GimballedCannon_Huge extends AbstractCannon
         super("4B Gimballed Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Mass, 16.0),
                         new ItemEffectData(ItemEffect.Integrity, 80.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.03),

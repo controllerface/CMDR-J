@@ -7,6 +7,6 @@ public abstract class AbstractAbrasionBlaster extends AbstractModule
 {
     public AbstractAbrasionBlaster(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Abrasion Blaster", itemEffects);
     }
 }

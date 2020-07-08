@@ -12,6 +12,7 @@ public class Refinery_2D extends AbstractRefinery
         super("2D Refinery",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Integrity, 31d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.22d),
                         new ItemEffectData(ItemEffect.BootTime, 10d),

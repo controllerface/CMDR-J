@@ -7,6 +7,6 @@ public abstract class AbstractSeismicChargeLauncher extends AbstractModule
 {
     public AbstractSeismicChargeLauncher(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Seismic Charge Launcher", itemEffects);
     }
 }

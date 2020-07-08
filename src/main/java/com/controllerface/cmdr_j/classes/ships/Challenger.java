@@ -25,7 +25,7 @@ public class Challenger extends AbstractShip
                         .setMaxSpeed(237)
                         .setBoostSpeed(310)
                         .setMaxBoostSpeed(360)
-                        .setArmorRating(540)
+                        .setArmorRating(300)
                         .setShield(220)
                         .setBaseCost(28_982_605)
                         .setMassLockFactor(13)

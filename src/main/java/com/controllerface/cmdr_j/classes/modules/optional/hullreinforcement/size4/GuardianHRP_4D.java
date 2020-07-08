@@ -9,10 +9,11 @@ public class GuardianHRP_4D extends AbstractGuardianModule
 {
     public GuardianHRP_4D()
     {
-        super("4D Guardian Hull Reinforcement Package",
+        super("Guardian Hull Reinforcement Package",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1d),
                         new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 8d),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.24d),
                         new ItemEffectData(ItemEffect.ThermicResistance, 2d),

@@ -8,6 +8,6 @@ public abstract class AbstractFuelTransferLimpet extends AbstractModule
 {
     public AbstractFuelTransferLimpet(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Fuel_Transfer_Limpet, itemEffects);
+        super("Fuel Transfer Limpet Controller", ModificationType.Fuel_Transfer_Limpet, itemEffects);
     }
 }

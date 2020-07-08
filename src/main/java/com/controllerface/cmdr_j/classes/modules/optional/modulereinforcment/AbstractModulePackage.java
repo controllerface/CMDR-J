@@ -7,6 +7,6 @@ public abstract class AbstractModulePackage extends AbstractModule
 {
     public AbstractModulePackage(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Module Reinforcement Package", itemEffects);
     }
 }

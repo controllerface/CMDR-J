@@ -11,6 +11,7 @@ public class TurretedSubSurfaceDisplacementMissile_Small extends AbstractSubsurf
         super("1B Turreted Sub-Surface Displacement Missile",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "B"),
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 40.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.53),

@@ -18,6 +18,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -33,6 +36,10 @@ public class CommanderJ extends Application
     private double height = 0;
 
     private AtomicBoolean isInitialized = new AtomicBoolean(false);
+
+    public static TrayIcon trayIcon = new TrayIcon(Toolkit.getDefaultToolkit()
+            .createImage(CommanderJ.class.getResource("/cmdrj_icon.png")), "Commander J");
+
 
     private Parent loadRoot()
     {
@@ -55,14 +62,24 @@ public class CommanderJ extends Application
     @Override
     public void start(Stage primaryStage)
     {
+        try
+        {
+
+            trayIcon.setImageAutoSize(true);
+            //trayIcon.addActionListener(e -> System.out.println("Did a thing? " + e));
+            SystemTray.getSystemTray().add(trayIcon);
+            //trayIcon.displayMessage("Commander J", "Starting up..", TrayIcon.MessageType.INFO);
+        }
+        catch (AWTException e)
+        {
+            e.printStackTrace();
+        }
+
         //primaryStage.initStyle(StageStyle.UNIFIED);
+        //primaryStage.setOpacity(0.5);
 
         primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/cmdrj_icon.png")));
-
         AtomicReference<WindowDimensions> dimensions = new AtomicReference<>();
-
-        //Font.loadFont(Main.class.getResource("/Sintony-Regular.ttf").toExternalForm(), 18);
-        //Font.loadFont(Main.class.getResource("/Sintony-Bold.ttf").toExternalForm(), 18);
 
         Parent root = loadRoot();
         root.getStyleClass().add("main");
@@ -147,6 +164,7 @@ public class CommanderJ extends Application
                     primaryStage.setHeight(dimensions.get().getHeight());
                 }
                 isInitialized.set(true);
+                trayIcon.displayMessage("Commander J", "Started", TrayIcon.MessageType.INFO);
             }
         });
     }
@@ -155,6 +173,8 @@ public class CommanderJ extends Application
     public void stop() throws Exception
     {
         super.stop();
+
+        SystemTray.getSystemTray().remove(trayIcon);
 
         WindowDimensions windowDimensions = WindowDimensions.builder()
                 .setX(x)

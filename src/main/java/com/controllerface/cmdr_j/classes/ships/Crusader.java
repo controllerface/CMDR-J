@@ -25,7 +25,7 @@ public class Crusader extends AbstractShip
                         .setMaxSpeed(209)
                         .setBoostSpeed(300)
                         .setMaxBoostSpeed(348)
-                        .setArmorRating(540)
+                        .setArmorRating(300)
                         .setShield(200)
                         .setBaseCost(23_675_231)
                         .setMassLockFactor(13)

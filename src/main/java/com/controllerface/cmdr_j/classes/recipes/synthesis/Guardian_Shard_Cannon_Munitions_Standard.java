@@ -11,13 +11,14 @@ public class Guardian_Shard_Cannon_Munitions_Standard extends AbstractSynthesisR
 {
     public Guardian_Shard_Cannon_Munitions_Standard()
     {
-        super("Guardian Shard Cannon Munitions Standard", 
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
-                  new ItemEffectData(ItemEffect.Damage_Boost, 15.0)
-            ),
-            new CostData(Material.CRYSTALSHARDS, 4),
-            new CostData(Material.GUARDIAN_POWERCELL, 2),
-            new CostData(Material.GUARDIAN_SENTINEL_WEAPONPARTS, 2));
+        super("Guardian Shard Cannon Munitions Standard",
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.guardian, 1.0),
+                        new ItemEffectData(ItemEffect.Rearm, 0.0),
+                        new ItemEffectData(ItemEffect.Damage_Boost, 15.0)
+                ),
+                new CostData(Material.CRYSTALSHARDS, 4),
+                new CostData(Material.GUARDIAN_POWERCELL, 2),
+                new CostData(Material.GUARDIAN_SENTINEL_WEAPONPARTS, 2));
     }
 }

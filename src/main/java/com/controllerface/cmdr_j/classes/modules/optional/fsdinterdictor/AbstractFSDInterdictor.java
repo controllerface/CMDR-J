@@ -8,6 +8,6 @@ public abstract class AbstractFSDInterdictor extends AbstractModule
 {
     public AbstractFSDInterdictor(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Frame_Shift_Drive_Interdictor, itemEffects);
+        super("Frame Shift Drive Interdictor", ModificationType.Frame_Shift_Drive_Interdictor, itemEffects);
     }
 }

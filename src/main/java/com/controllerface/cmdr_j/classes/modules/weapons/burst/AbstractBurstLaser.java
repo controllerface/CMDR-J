@@ -17,6 +17,11 @@ public abstract class AbstractBurstLaser extends AbstractModule
         super(displayText, ModificationType.Burst_Laser, ExperimentalType.Burst_Laser, itemEffects);
     }
 
+    public AbstractBurstLaser(ItemEffects itemEffects)
+    {
+        super("Burst Laser", ModificationType.Burst_Laser, ExperimentalType.Burst_Laser, itemEffects);
+    }
+
     @Override
     public List<Icon> icons()
     {

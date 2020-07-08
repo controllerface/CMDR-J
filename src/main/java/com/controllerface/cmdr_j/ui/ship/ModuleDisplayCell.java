@@ -1,7 +1,11 @@
 package com.controllerface.cmdr_j.ui.ship;
 
 import com.controllerface.cmdr_j.classes.ShipModuleData;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableCell;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TitledPane;
 
 /**
  * Created by Controllerface on 5/7/2018.
@@ -19,6 +23,7 @@ public class ModuleDisplayCell extends TableCell<ShipModuleData, ShipModuleData>
             return;
         }
         shipModule.prepareGraphic();
-        setGraphic(shipModule.getGraphic());
+        TitledPane titledPane = shipModule.getGraphic();
+        setGraphic(titledPane);
     }
 }

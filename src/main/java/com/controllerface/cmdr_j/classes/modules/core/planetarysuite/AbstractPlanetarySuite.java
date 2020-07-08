@@ -7,6 +7,6 @@ public abstract class AbstractPlanetarySuite extends AbstractModule
 {
     public AbstractPlanetarySuite(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Planetary Approach Suite", itemEffects);
     }
 }

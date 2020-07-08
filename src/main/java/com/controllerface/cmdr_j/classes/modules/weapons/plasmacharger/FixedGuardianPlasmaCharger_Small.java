@@ -9,10 +9,11 @@ public class FixedGuardianPlasmaCharger_Small extends AbstractGuardianModule
 {
     public FixedGuardianPlasmaCharger_Small()
     {
-        super("1D Fixed Guardian Plasma Charger",
+        super("Plasma Charger",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 2.0),
                         new ItemEffectData(ItemEffect.Integrity, 34.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.4),

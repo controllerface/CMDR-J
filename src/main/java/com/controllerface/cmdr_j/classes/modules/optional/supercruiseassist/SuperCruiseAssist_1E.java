@@ -9,9 +9,10 @@ public class SuperCruiseAssist_1E extends AbstractDockingComputer
 {
     public SuperCruiseAssist_1E()
     {
-        super("1E Supercruise Assist",
+        super("Supercruise Assist",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 1.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Integrity, 10d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.30d),
                         new ItemEffectData(ItemEffect.Mass, 0d)

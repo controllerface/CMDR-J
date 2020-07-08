@@ -12,6 +12,7 @@ public class ShieldCellBank_5A extends AbstractShieldCellBank
         super("5A Shield Cell Bank",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Class, "A"),
                         new ItemEffectData(ItemEffect.Mass, 20.0),
                         new ItemEffectData(ItemEffect.Integrity, 115.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 2.1),

@@ -12,6 +12,7 @@ public class HatchBreakerLimpet_5C extends AbstractHatchBreakerLimpet
         super("5C Hatch Breaker Limpet Controller",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Class, "C"),
                         new ItemEffectData(ItemEffect.Mass, 20d),
                         new ItemEffectData(ItemEffect.Integrity, 96d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.5d),

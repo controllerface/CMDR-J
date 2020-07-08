@@ -11,6 +11,7 @@ public class FuelTank_7C extends AbstractFuelTank
         super("7C Standard Fuel Tank",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 7.0),
+                        new ItemEffectData(ItemEffect.Class, "C"),
                         new ItemEffectData(ItemEffect.FuelCapacity, 128.0)
                 ));
     }

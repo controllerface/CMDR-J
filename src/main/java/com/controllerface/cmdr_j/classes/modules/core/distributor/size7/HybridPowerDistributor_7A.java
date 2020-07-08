@@ -9,10 +9,11 @@ public class HybridPowerDistributor_7A extends AbstractGuardianModule
 {
     public HybridPowerDistributor_7A()
     {
-        super("7A Guardian Hybrid Power Distributor",
+        super("Hybrid Power Distributor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1d),
                         new ItemEffectData(ItemEffect.Size, 7.0),
+                        new ItemEffectData(ItemEffect.Class, "A"),
                         new ItemEffectData(ItemEffect.Mass, 84.00),
                         new ItemEffectData(ItemEffect.Integrity, 115.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.16),

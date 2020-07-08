@@ -9,6 +9,6 @@ public abstract class AbstractPowerPlant extends AbstractModule
 {
     public AbstractPowerPlant(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Power_Plant, ExperimentalType.Power_Plant, itemEffects);
+        super("Power Plant", ModificationType.Power_Plant, ExperimentalType.Power_Plant, itemEffects);
     }
 }

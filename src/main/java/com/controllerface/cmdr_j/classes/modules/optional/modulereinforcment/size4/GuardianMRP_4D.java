@@ -9,10 +9,11 @@ public class GuardianMRP_4D extends AbstractGuardianModule
 {
     public GuardianMRP_4D()
     {
-        super("4D Guardian Module Reinforcement Package",
+        super("Module Reinforcement Package",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1d),
                         new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 8d),
                         new ItemEffectData(ItemEffect.Integrity, 259d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.74d),

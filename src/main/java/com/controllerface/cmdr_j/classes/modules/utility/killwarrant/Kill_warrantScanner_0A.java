@@ -11,6 +11,7 @@ public class Kill_warrantScanner_0A extends AbstractKillWarrantScanner
         super("0A Kill_warrant Scanner",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 0.0),
+                        new ItemEffectData(ItemEffect.Class, "A"),
                         new ItemEffectData(ItemEffect.Mass, 1.3),
                         new ItemEffectData(ItemEffect.Integrity, 48.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 3.2),

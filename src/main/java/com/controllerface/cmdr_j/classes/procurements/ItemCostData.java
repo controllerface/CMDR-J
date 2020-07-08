@@ -369,7 +369,7 @@ public class ItemCostData implements Displayable
                         {
                             Label label = new Label(trade.tradeRecipe.getShortLabel());
                             label.getStyleClass().addAll("base_font");
-                            label.setTextFill(UIFunctions.Style.darkYellow);
+                            label.setTextFill(UIFunctions.Style.specialYellow);
                             return label;
                         })
                         .collect(Collectors.toList());

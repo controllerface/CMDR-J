@@ -7,6 +7,6 @@ public abstract class AbstractSRVBay extends AbstractModule
 {
     public AbstractSRVBay(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Planetary Vehicle Hangar", itemEffects);
     }
 }

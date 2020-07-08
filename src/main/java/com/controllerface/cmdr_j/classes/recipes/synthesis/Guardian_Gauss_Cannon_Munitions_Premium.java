@@ -11,14 +11,15 @@ public class Guardian_Gauss_Cannon_Munitions_Premium extends AbstractSynthesisRe
 {
     public Guardian_Gauss_Cannon_Munitions_Premium()
     {
-        super("Guardian Gauss Cannon Munitions Premium", 
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
-                  new ItemEffectData(ItemEffect.Damage_Boost, 30.0)
-            ),
-            new CostData(Material.MANGANESE, 8),
-            new CostData(Material.HEATRESISTANTCERAMICS, 4),
-            new CostData(Material.FILAMENTCOMPOSITES, 6),
-            new CostData(Material.FOCUSCRYSTALS, 10));
+        super("Guardian Gauss Cannon Munitions Premium",
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.guardian, 1.0),
+                        new ItemEffectData(ItemEffect.Rearm, 0.0),
+                        new ItemEffectData(ItemEffect.Damage_Boost, 30.0)
+                ),
+                new CostData(Material.MANGANESE, 8),
+                new CostData(Material.HEATRESISTANTCERAMICS, 4),
+                new CostData(Material.FILAMENTCOMPOSITES, 6),
+                new CostData(Material.FOCUSCRYSTALS, 10));
     }
 }

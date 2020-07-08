@@ -12,6 +12,7 @@ public class PowerPlant_8C extends AbstractPowerPlant
         super("8C Power Plant",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 8.0),
+                        new ItemEffectData(ItemEffect.Class, "C"),
                         new ItemEffectData(ItemEffect.Mass, 80.0),
                         new ItemEffectData(ItemEffect.Integrity, 150.0),
                         new ItemEffectData(ItemEffect.PowerCapacity, 30.0),

@@ -12,6 +12,7 @@ public class PowerDistributor_5A extends AbstractPowerDistributor
         super("5A Power Distributor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Class, "A"),
                         new ItemEffectData(ItemEffect.Mass, 20.0),
                         new ItemEffectData(ItemEffect.Integrity, 106.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.74),

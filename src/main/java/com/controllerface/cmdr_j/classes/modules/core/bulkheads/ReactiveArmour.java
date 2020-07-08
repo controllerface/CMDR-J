@@ -12,7 +12,7 @@ public class ReactiveArmour extends AbstractBulkheads
     {
         super(ship + " Reactive Armour",
                 new ItemEffects(
-                        new ItemEffectData(ItemEffect.Mass, 5.0),
+                        new ItemEffectData(ItemEffect.Mass, 35.0),
                         new ItemEffectData(ItemEffect.ExplosiveResistance, 20.0),
                         new ItemEffectData(ItemEffect.KineticResistance, 25.0),
                         new ItemEffectData(ItemEffect.ThermicResistance, -40.0),

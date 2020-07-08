@@ -57,7 +57,7 @@ public class JournalEventTransactions
 
     private static void logMessage(EventProcessingContext context, MessageType messageType, String message)
     {
-        context.getTransactions().add(UserTransaction.start(TransactionType.MESSAGE)
+        context.getTransactions().add(UserTransaction.type(TransactionType.MESSAGE)
                 .setMessage(message)
                 .setMessageType(messageType)
                 .build());
@@ -257,7 +257,7 @@ public class JournalEventTransactions
                                             long amount)
     {
         Pair<ProcurementType, ProcurementRecipe> bluePrint = new Pair<>(procurementType, procurementRecipe);
-        context.getTransactions().add(UserTransaction.start(TransactionType.BLUEPRINT)
+        context.getTransactions().add(UserTransaction.type(TransactionType.BLUEPRINT)
                 .setTransactionAmount(-1 * amount)
                 .setBlueprint(bluePrint)
                 .build());
@@ -299,7 +299,7 @@ public class JournalEventTransactions
      */
     public static void adjust(EventProcessingContext context, ProcurementCost cost, int count)
     {
-        context.getTransactions().add(UserTransaction.start(TransactionType.INVENTORY)
+        context.getTransactions().add(UserTransaction.type(TransactionType.INVENTORY)
                 .setTransactionAmount(count)
                 .setInventoryItem(cost)
                 .build());
@@ -656,7 +656,7 @@ public class JournalEventTransactions
     {
         String market = context.getRawData().get("StationName") + ", " + context.getRawData().get("StarSystem");
 
-        context.getTransactions().add(UserTransaction.start(TransactionType.MARKET)
+        context.getTransactions().add(UserTransaction.type(TransactionType.MARKET)
                 .setMessage(market)
                 .setStatusObject(context.getRawData())
                 .build());
@@ -693,7 +693,7 @@ public class JournalEventTransactions
 
     public static void processArrival(EventProcessingContext context, String arrivalBody)
     {
-        context.getTransactions().add(UserTransaction.start(TransactionType.ARRIVAL)
+        context.getTransactions().add(UserTransaction.type(TransactionType.ARRIVAL)
                 .setMessage(arrivalBody)
                 .setStatusObject(context.getRawData())
                 .build());

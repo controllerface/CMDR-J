@@ -11,4 +11,9 @@ public abstract class AbstractShieldGenerator extends AbstractModule
     {
         super(displayText, ModificationType.Shield_Generator, ExperimentalType.Shield_Generator, itemEffects);
     }
+
+    public AbstractShieldGenerator(ItemEffects itemEffects)
+    {
+        super("Shield Generator", ModificationType.Shield_Generator, ExperimentalType.Shield_Generator, itemEffects);
+    }
 }

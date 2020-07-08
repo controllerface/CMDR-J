@@ -8,6 +8,6 @@ public abstract class AbstractKillWarrantScanner extends AbstractModule
 {
     public AbstractKillWarrantScanner(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Kill_Warrant_Scanner, itemEffects);
+        super("Kill Warrant Scanner", ModificationType.Kill_Warrant_Scanner, itemEffects);
     }
 }

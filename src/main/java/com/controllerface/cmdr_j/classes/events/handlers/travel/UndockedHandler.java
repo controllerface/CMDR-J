@@ -19,7 +19,7 @@ public class UndockedHandler implements JournalEventHandler
         String name = ((String) context.getRawData().get("StationName"));
         logTravelMessage(context, "Leaving " + name);
 
-        context.getTransactions().add(UserTransaction.start(UserTransaction.TransactionType.MARKET)
+        context.getTransactions().add(UserTransaction.type(UserTransaction.TransactionType.MARKET)
                 .setMessage(name)
                 .setStatusObject(Collections.emptyMap())
                 .build());

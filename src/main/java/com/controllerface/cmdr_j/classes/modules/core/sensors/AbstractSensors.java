@@ -8,6 +8,6 @@ public abstract class AbstractSensors extends AbstractModule
 {
     public AbstractSensors(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Sensors, itemEffects);
+        super("Sensors", ModificationType.Sensors, itemEffects);
     }
 }

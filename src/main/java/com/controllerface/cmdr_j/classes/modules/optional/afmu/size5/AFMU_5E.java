@@ -12,6 +12,7 @@ public class AFMU_5E extends AbstractAFMU
         super("5E Automated Field Maintenance Unit",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Integrity, 77d),
                         new ItemEffectData(ItemEffect.PowerDraw, 1.17d),
                         new ItemEffectData(ItemEffect.BootTime, 9d),

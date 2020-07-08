@@ -8,10 +8,11 @@ public class FixedDisruptorPulseLaser_Medium extends AbstractPulseLaser
 {
     public FixedDisruptorPulseLaser_Medium()
     {
-        super("2E Fixed Disruptor (Pulse Laser)",
+        super("Disruptor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.power_play, 0d),
                         new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Mass, 4.0),
                         new ItemEffectData(ItemEffect.Integrity, 51.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.7),

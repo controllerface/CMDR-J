@@ -7,6 +7,6 @@ public abstract class AbstractResearchLimpet extends AbstractModule
 {
     public AbstractResearchLimpet(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, itemEffects);
+        super("Research Limpet Controller", itemEffects);
     }
 }

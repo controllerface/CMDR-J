@@ -9,6 +9,6 @@ public abstract class AbstractFSD extends AbstractModule
 {
     public AbstractFSD(String displayText, ItemEffects itemEffects)
     {
-        super(displayText, ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive, itemEffects);
+        super("Frame Shift Drive", ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive, itemEffects);
     }
 }

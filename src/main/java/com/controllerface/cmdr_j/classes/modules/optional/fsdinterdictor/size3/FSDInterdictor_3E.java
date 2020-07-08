@@ -12,6 +12,7 @@ public class FSDInterdictor_3E extends AbstractFSDInterdictor
         super("3E Frame Shift Drive Interdictor",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Mass, 5d),
                         new ItemEffectData(ItemEffect.Integrity, 51d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.2d),

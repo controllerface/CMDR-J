@@ -72,7 +72,7 @@ public class UserTransaction
         this.blueprint = builder.blueprint;
     }
 
-    public static Builder start(TransactionType transactionType)
+    public static Builder type(TransactionType transactionType)
     {
         return new Builder(transactionType);
     }

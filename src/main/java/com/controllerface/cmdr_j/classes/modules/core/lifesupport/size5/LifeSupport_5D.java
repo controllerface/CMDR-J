@@ -12,6 +12,7 @@ public class LifeSupport_5D extends AbstractLifeSupport
         super("5D Life Support",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 5.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 8.0),
                         new ItemEffectData(ItemEffect.Integrity, 86.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.64),

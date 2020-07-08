@@ -11,15 +11,16 @@ public class Guardian_Gauss_Cannon_Munitions_Standard extends AbstractSynthesisR
 {
     public Guardian_Gauss_Cannon_Munitions_Standard()
     {
-        super("Guardian Gauss Cannon Munitions Standard", 
-            new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
-                  new ItemEffectData(ItemEffect.Damage_Boost, 15.0)
-            ),
-            new CostData(Material.MANGANESE, 5),
-            new CostData(Material.HEATRESISTANTCERAMICS, 3),
-            new CostData(Material.FOCUSCRYSTALS, 5),
-            new CostData(Material.GUARDIAN_POWERCONDUIT, 4),
-            new CostData(Material.GUARDIAN_SENTINEL_WEAPONPARTS, 3));
+        super("Guardian Gauss Cannon Munitions Standard",
+                new ItemEffects(
+                        new ItemEffectData(ItemEffect.guardian, 1.0),
+                        new ItemEffectData(ItemEffect.Rearm, 0.0),
+                        new ItemEffectData(ItemEffect.Damage_Boost, 15.0)
+                ),
+                new CostData(Material.MANGANESE, 5),
+                new CostData(Material.HEATRESISTANTCERAMICS, 3),
+                new CostData(Material.FOCUSCRYSTALS, 5),
+                new CostData(Material.GUARDIAN_POWERCONDUIT, 4),
+                new CostData(Material.GUARDIAN_SENTINEL_WEAPONPARTS, 3));
     }
 }

@@ -10,10 +10,11 @@ public class MetaAlloyHRP_3E extends AbstractHumanModule
 {
     public MetaAlloyHRP_3E()
     {
-        super("3E Meta-Alloy Hull Reinforcement Package",
+        super("Meta-Alloy Hull Reinforcement Package",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.human, 1d),
                         new ItemEffectData(ItemEffect.Size, 3.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Mass, 8d),
                         new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 207d),
                         new ItemEffectData(ItemEffect.CausticResistance, 3d)

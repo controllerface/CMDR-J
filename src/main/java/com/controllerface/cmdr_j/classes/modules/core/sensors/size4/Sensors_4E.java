@@ -12,6 +12,7 @@ public class Sensors_4E extends AbstractSensors
         super("4E Sensors",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 4.0),
+                        new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Mass, 10.0),
                         new ItemEffectData(ItemEffect.Integrity, 72.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.27),

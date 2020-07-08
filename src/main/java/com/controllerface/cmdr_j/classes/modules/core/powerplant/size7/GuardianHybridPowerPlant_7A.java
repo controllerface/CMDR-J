@@ -9,10 +9,11 @@ public class GuardianHybridPowerPlant_7A extends AbstractGuardianModule
 {
     public GuardianHybridPowerPlant_7A()
     {
-        super("7A Guardian Hybrid Power Plant",
+        super("Hybrid Power Plant",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
                         new ItemEffectData(ItemEffect.Size, 7.0),
+                        new ItemEffectData(ItemEffect.Class, "A"),
                         new ItemEffectData(ItemEffect.Mass, 46.8),
                         new ItemEffectData(ItemEffect.Integrity, 144.0),
                         new ItemEffectData(ItemEffect.PowerCapacity, 39.6),

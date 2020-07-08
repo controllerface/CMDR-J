@@ -9,27 +9,27 @@ public class ShieldGenerator_8D extends AbstractShieldGenerator
 {
     public ShieldGenerator_8D()
     {
-        super("8D Shield Generator",
-                new ItemEffects(
-                        new ItemEffectData(ItemEffect.Size, 8.0),
-                        new ItemEffectData(ItemEffect.Mass, 64.0),
-                        new ItemEffectData(ItemEffect.Integrity, 90.0),
-                        new ItemEffectData(ItemEffect.PowerDraw, 3.2),
-                        new ItemEffectData(ItemEffect.BootTime, 1.0),
-                        new ItemEffectData(ItemEffect.ShieldGenMinimumMass, 900.0),
-                        new ItemEffectData(ItemEffect.ShieldGenOptimalMass, 1800.0),
-                        new ItemEffectData(ItemEffect.ShieldGenMaximumMass, 4500.0),
-                        new ItemEffectData(ItemEffect.ShieldGenMinStrength, 40.0),
-                        new ItemEffectData(ItemEffect.ShieldGenStrength, 90.0),
-                        new ItemEffectData(ItemEffect.ShieldGenMaxStrength, 140.0),
-                        new ItemEffectData(ItemEffect.RegenRate, 2.4),
-                        new ItemEffectData(ItemEffect.BrokenRegenRate, 9.6),
-                        new ItemEffectData(ItemEffect.DistributorDraw, 0.6),
-                        new ItemEffectData(ItemEffect.ThermalLoad, 1.2),
-                        new ItemEffectData(ItemEffect.KineticResistance, 40.0),
-                        new ItemEffectData(ItemEffect.ThermicResistance, -20.0),
-                        new ItemEffectData(ItemEffect.ExplosiveResistance, 50.0)
-                ));
+        super(new ItemEffects(
+                new ItemEffectData(ItemEffect.Size, 8.0),
+                new ItemEffectData(ItemEffect.Class, "D"),
+                new ItemEffectData(ItemEffect.Mass, 64.0),
+                new ItemEffectData(ItemEffect.Integrity, 90.0),
+                new ItemEffectData(ItemEffect.PowerDraw, 3.2),
+                new ItemEffectData(ItemEffect.BootTime, 1.0),
+                new ItemEffectData(ItemEffect.ShieldGenMinimumMass, 900.0),
+                new ItemEffectData(ItemEffect.ShieldGenOptimalMass, 1800.0),
+                new ItemEffectData(ItemEffect.ShieldGenMaximumMass, 4500.0),
+                new ItemEffectData(ItemEffect.ShieldGenMinStrength, 40.0),
+                new ItemEffectData(ItemEffect.ShieldGenStrength, 90.0),
+                new ItemEffectData(ItemEffect.ShieldGenMaxStrength, 140.0),
+                new ItemEffectData(ItemEffect.RegenRate, 2.4),
+                new ItemEffectData(ItemEffect.BrokenRegenRate, 9.6),
+                new ItemEffectData(ItemEffect.DistributorDraw, 0.6),
+                new ItemEffectData(ItemEffect.ThermalLoad, 1.2),
+                new ItemEffectData(ItemEffect.KineticResistance, 40.0),
+                new ItemEffectData(ItemEffect.ThermicResistance, -20.0),
+                new ItemEffectData(ItemEffect.ExplosiveResistance, 50.0)
+        ));
     }
 
     @Override

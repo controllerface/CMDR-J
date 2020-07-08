@@ -9,10 +9,11 @@ public class TurretedAntiThargoidMultiCannon_Medium extends AbstractExperimental
 {
     public TurretedAntiThargoidMultiCannon_Medium()
     {
-        super("2F Turreted Anti-Thargoid Multi-Cannon",
+        super("Anti-Thargoid Multi-Cannon",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.experimental, 1.0),
                         new ItemEffectData(ItemEffect.Size, 2.0),
+                        new ItemEffectData(ItemEffect.Class, "F"),
                         new ItemEffectData(ItemEffect.Mass, 4.0),
                         new ItemEffectData(ItemEffect.Integrity, 51.0),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.5),
