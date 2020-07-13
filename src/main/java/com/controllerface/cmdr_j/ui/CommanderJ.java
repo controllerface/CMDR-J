@@ -3,24 +3,15 @@
  */
 package com.controllerface.cmdr_j.ui;
 
-import com.controllerface.cmdr_j.Main;
 import com.controllerface.cmdr_j.classes.WindowDimensions;
 import javafx.application.Application;
 import javafx.application.Preloader;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -37,8 +28,8 @@ public class CommanderJ extends Application
 
     private AtomicBoolean isInitialized = new AtomicBoolean(false);
 
-    public static TrayIcon trayIcon = new TrayIcon(Toolkit.getDefaultToolkit()
-            .createImage(CommanderJ.class.getResource("/cmdrj_icon.png")), "Commander J");
+//    public static TrayIcon trayIcon = new TrayIcon(Toolkit.getDefaultToolkit()
+//            .createImage(CommanderJ.class.getResource("/com/controllerface/cmdr_j/cmdrj_icon.png")), "Commander J");
 
 
     private Parent loadRoot()
@@ -60,20 +51,20 @@ public class CommanderJ extends Application
 
 
     @Override
-    public void start(Stage primaryStage)
+    public void start(Stage primaryStage) throws IOException
     {
-        try
-        {
-
-            trayIcon.setImageAutoSize(true);
-            //trayIcon.addActionListener(e -> System.out.println("Did a thing? " + e));
-            SystemTray.getSystemTray().add(trayIcon);
-            //trayIcon.displayMessage("Commander J", "Starting up..", TrayIcon.MessageType.INFO);
-        }
-        catch (AWTException e)
-        {
-            e.printStackTrace();
-        }
+//        try
+//        {
+//
+//            trayIcon.setImageAutoSize(true);
+//            //trayIcon.addActionListener(e -> System.out.println("Did a thing? " + e));
+//            SystemTray.getSystemTray().add(trayIcon);
+//            //trayIcon.displayMessage("Commander J", "Starting up..", TrayIcon.MessageType.INFO);
+//        }
+//        catch (AWTException e)
+//        {
+//            e.printStackTrace();
+//        }
 
         //primaryStage.initStyle(StageStyle.UNIFIED);
         //primaryStage.setOpacity(0.5);
@@ -164,7 +155,7 @@ public class CommanderJ extends Application
                     primaryStage.setHeight(dimensions.get().getHeight());
                 }
                 isInitialized.set(true);
-                trayIcon.displayMessage("Commander J", "Started", TrayIcon.MessageType.INFO);
+                //trayIcon.displayMessage("Commander J", "Started", TrayIcon.MessageType.INFO);
             }
         });
     }
@@ -174,7 +165,7 @@ public class CommanderJ extends Application
     {
         super.stop();
 
-        SystemTray.getSystemTray().remove(trayIcon);
+//        SystemTray.getSystemTray().remove(trayIcon);
 
         WindowDimensions windowDimensions = WindowDimensions.builder()
                 .setX(x)
@@ -188,7 +179,6 @@ public class CommanderJ extends Application
 
     public static void main(String[] args)
     {
-        System.out.println("Start application through Main class");
-        System.exit(0);
+        launch(args);
     }
 }

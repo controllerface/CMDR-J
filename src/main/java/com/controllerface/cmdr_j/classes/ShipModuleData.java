@@ -976,49 +976,62 @@ public class ShipModuleData implements Displayable
                                 }
 
                                 TitledPane modulePane = new TitledPane();
-                                AtomicReference<String> style = new AtomicReference<>("inventory_label");
-
+                                AtomicReference<String> errorMessage = new AtomicReference<>("");
 
                                 // power plant
                                 knownModule.itemEffects()
                                         .effectByName(ItemEffect.PowerCapacity)
                                         .filter(capacity -> capacity.getDoubleValue() < currentShip.getCurrentPowerDraw())
-                                        .ifPresent(x ->
-                                        {
-                                            style.set("module_no_power");
-                                            suffix.set(suffix.get() + " (power exceeded)");
-                                        });
+                                        .ifPresent(x -> errorMessage.set("power draw exceeds maximum power output"));
 
                                 // thrusters
                                 knownModule.itemEffects()
                                         .effectByName(ItemEffect.MaximumMass)
                                         .filter(maxMass -> maxMass.getDoubleValue() < currentShip.getCurrentHullMass())
-                                        .ifPresent(x ->
-                                        {
-                                            style.set("module_no_power");
-                                            suffix.set(suffix.get() + " (mass exceeded)");
-                                        });
+                                        .ifPresent(x -> errorMessage.set("ship exceeds maximum thrust mass"));
 
                                 // shield generators
                                 knownModule.itemEffects()
                                         .effectByName(ItemEffect.ShieldGenMaximumMass)
                                         .filter(maxMass -> maxMass.getDoubleValue() < currentShip.getCurrentHullMass())
-                                        .ifPresent(x ->
-                                        {
-                                            style.set("module_no_power");
-                                            suffix.set(suffix.get() + " (mass exceeded)");
-                                        });
-
+                                        .ifPresent(x -> errorMessage.set("hull exceeds maximum shield mass"));
 
 
                                 HBox x = new HBox();
                                 Label l =  new Label(prefix + moduleRecipe.toString() + suffix);
-                                l.getStyleClass().addAll(style.get(), "base_font");
+                                l.getStyleClass().addAll("inventory_label", "base_font");
 
                                 Region s = new Region();
                                 Button b = createTaskButton2(recipePair);
                                 HBox.setHgrow(s, Priority.ALWAYS);
-                                x.getChildren().addAll(l, s, b);
+                                x.getChildren().add(l);
+
+                                if (!errorMessage.get().isEmpty())
+                                {
+//                                    Label h = new Label("HEY");
+//                                    x.getChildren().add(h);
+                                    Region warnIcon = new Region();
+                                    double sizeh = UIFunctions.Icons.alertIcon.getBaseWidth();
+                                    double sizew = UIFunctions.Icons.alertIcon.getBaseHeight();
+
+                                    warnIcon.setMinSize(sizew, sizeh);
+                                    warnIcon.setPrefSize(sizew, sizeh);
+                                    warnIcon.setMaxSize(sizew, sizeh);
+                                    warnIcon.translateYProperty().set(2.5);
+                                    warnIcon.translateXProperty().set(5);
+                                    warnIcon.setShape(UIFunctions.Icons.alertIcon.getIconPath());
+                                    warnIcon.setStyle("-fx-background-color: #ff2222;");
+
+                                    //warnIcon.setPrefWidth(UIFunctions.Icons.alertIcon.getBaseWidth());
+                                    //warnIcon.setPrefHeight(UIFunctions.Icons.alertIcon.getBaseHeight());
+                                    x.getChildren().add(warnIcon);
+                                    Tooltip tooltip = new Tooltip();
+                                    tooltip.setText(errorMessage.get());
+                                    Tooltip.install(warnIcon, tooltip);
+                                }
+
+                                x.getChildren().addAll(s, b);
+
 
                                 modulePane.setGraphic(x);
                                 //modulePane.setText(prefix + moduleRecipe.toString() + suffix);

@@ -471,16 +471,16 @@ public class UIController
     {
         initializeUIComponents();
 
-        Properties properties = new Properties();
-        try {properties.load(this.getClass().getResourceAsStream("/config.properties"));}
-        catch (IOException e) {e.printStackTrace();}
-
-        // todo: implement, maybe dump certain data to the info log? or possibly have a debug tab
-        String debug = properties.getProperty("debug");
-        if (debug != null && debug.equals("true"))
-        {
-            System.out.println("Debug mode currently not implemented");
-        }
+//        Properties properties = new Properties();
+//        try {properties.load(this.getClass().getResourceAsStream("/config.properties"));}
+//        catch (IOException e) {e.printStackTrace();}
+//
+//        // todo: implement, maybe dump certain data to the info log? or possibly have a debug tab
+//        String debug = properties.getProperty("debug");
+//        if (debug != null && debug.equals("true"))
+//        {
+//            System.out.println("Debug mode currently not implemented");
+//        }
 
         sortInventory();
         setProcurementsUIVisibility();

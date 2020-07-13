@@ -1,14 +1,13 @@
 package com.controllerface.cmdr_j;
 
 import com.controllerface.cmdr_j.ui.CommanderJ;
-import com.controllerface.cmdr_j.ui.LoadingScreen;
-import com.sun.javafx.application.LauncherImpl;
-import javafx.scene.text.Font;
+import javafx.application.Application;
 
 public class Main
 {
     public static void main(String[] args)
     {
-        LauncherImpl.launchApplication(CommanderJ.class, LoadingScreen.class, args);
+        //System.setProperty("javafx.preloader", LoadingScreen.class.getCanonicalName());
+        Application.launch(CommanderJ.class);//, LoadingScreen.class.getCanonicalName());
     }
 }

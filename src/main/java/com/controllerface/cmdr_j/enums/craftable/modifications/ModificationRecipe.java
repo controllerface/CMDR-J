@@ -78,7 +78,6 @@ import com.controllerface.cmdr_j.classes.recipes.weapons.shortrange.*;
 import com.controllerface.cmdr_j.classes.recipes.weapons.sturdy.*;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Stream;
 
@@ -532,7 +531,7 @@ public enum ModificationRecipe implements ProcurementRecipe
 
     private final ProcurementRecipe delegate;
 
-    ModificationRecipe(@NotNull ProcurementRecipe delegate)
+    ModificationRecipe(ProcurementRecipe delegate)
     {
         this.delegate = delegate;
         delegate.costStream().forEach(c->c.getCost().associate(this));

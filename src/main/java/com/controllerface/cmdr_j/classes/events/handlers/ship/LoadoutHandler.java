@@ -6,7 +6,6 @@ import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Map;
 

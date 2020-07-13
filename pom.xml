@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.controllerface.cmdr_j</groupId>
+  <artifactId>cmdr_j</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <inceptionYear>2020</inceptionYear>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.gluonhq</groupId>
+          <artifactId>client-maven-plugin</artifactId>
+          <version>0.1.28</version>
+          <configuration>
+            <mainClass>com.controllerface.cmdr_j.Main</mainClass>
+            <reflectionList>
+              <item>com.controllerface.cmdr_j.ui.CommanderJ</item>
+              <item>com.controllerface.cmdr_j.ui.UIController</item>
+              <item>javafx.geometry.Side</item>
+              <item>javafx.scene.chart.LineChart</item>
+              <item>javafx.scene.chart.NumberAxis</item>
+              <item>javafx.scene.layout.HBox</item>
+              <item>javafx.scene.layout.VBox</item>
+              <item>javafx.scene.control.Separator</item>
+              <item>javafx.scene.control.Label</item>
+              <item>javafx.scene.control.Spinner</item>
+              <item>javafx.scene.control.Button</item>
+              <item>javafx.scene.control.Tooltip</item>
+              <item>javafx.scene.control.TableView</item>
+              <item>javafx.scene.control.TableColumn</item>
+              <item>javafx.scene.control.Slider</item>
+              <item>javafx.scene.control.ListView</item>
+              <item>javafx.scene.control.ProgressBar</item>
+              <item>javafx.scene.control.Tab</item>
+              <item>javafx.scene.control.TabPane</item>
+              <item>javafx.scene.control.TableColumn</item>
+              <item>javafx.scene.control.TableView</item>
+              <item>javafx.scene.control.TextField</item>
+              <item>javafx.scene.control.Tooltip</item>
+              <item>javafx.scene.canvas.Canvas</item>
+              <item>javafx.scene.control.TreeView</item>
+              <item>javafx.scene.control.TableColumnBase</item>
+              <item>javafx.scene.layout.AnchorPane</item>
+              <item>javafx.scene.layout.ColumnConstraints</item>
+              <item>javafx.scene.layout.GridPane</item>
+              <item>javafx.scene.layout.HBox</item>
+              <item>javafx.scene.layout.Pane</item>
+              <item>javafx.scene.layout.RowConstraints</item>
+              <item>javafx.scene.layout.VBox</item>
+              <item>javafx.scene.text.Font</item>
+              <item>javafx.scene.effect.Blend</item>
+              <item>javafx.scene.effect.BlendMode</item>
+            </reflectionList>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+
+            <source>11</source>
+            <target>11</target>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <configuration>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifestEntries>
+                <Main-Class>com.controllerface.cmdr_j.Main</Main-Class>
+                <Class-Path>javafx.web.jar javafx-swt.jar javafx.base.jar javafx.controls.jar javafx.fxml.jar javafx.graphics.jar javafx.media.jar javafx.swing.jar</Class-Path>
+              </manifestEntries>
+            </archive>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.openjfx</groupId>
+          <artifactId>javafx-maven-plugin</artifactId>
+          <version>0.0.4</version>
+          <configuration>
+            <mainClass>com.controllerface.cmdr_j.ui.CommanderJ</mainClass>
+          </configuration>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+  </build>
+
+
+
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.11.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.11.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>12</version>
+      <classifier>win</classifier>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-graphics</artifactId>
+      <version>12</version>
+      <classifier>win</classifier>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-base</artifactId>
+      <version>12</version>
+      <classifier>win</classifier>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>12</version>
+      <classifier>win</classifier>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

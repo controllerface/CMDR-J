@@ -53,6 +53,7 @@ import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import javafx.util.Pair;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -80,6 +81,7 @@ public class CommanderJTest
     }
 
     @Test
+    @Ignore
     public void testDamageTypes()
     {
         Stream.of(HardpointModule.values())
@@ -239,6 +241,7 @@ public class CommanderJTest
     }
 
     @Test
+    @Ignore
     public void vals()
     {
         InputStream is = this.getClass().getResourceAsStream("/vals.json");

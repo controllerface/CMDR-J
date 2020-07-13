@@ -88,6 +88,8 @@ public class UIFunctions
             }
         }
 
+        public static final SVGPath alert = new SVGPath();
+
         public static final SVGPath credits = new SVGPath();
 
         public static final SVGPath cargo = new SVGPath();
@@ -131,42 +133,45 @@ public class UIFunctions
 
         static
         {
-            fixed.setContent(readIcon("/icons/fixed_mount"));
-            gimbal.setContent(readIcon("/icons/gimbal_mount"));
-            turret.setContent(readIcon("/icons/turret_mount"));
-            thermo_kinetic.setContent(readIcon("/icons/thermo_kinetic"));
-            absolute.setContent(readIcon("/icons/absolute"));
-            caustic.setContent(readIcon("/icons/caustic"));
-            explosive.setContent(readIcon("/icons/explosive"));
-            kinetic.setContent(readIcon("/icons/kinetic"));
-            thermal.setContent(readIcon("/icons/thermal"));
-            credits.setContent(readIcon("/icons/credits"));
-            limpet.setContent(readIcon("/icons/limpet"));
-            powerplay.setContent(readIcon("/icons/powerplay"));
-            salvage.setContent(readIcon("/icons/salvage"));
-            mission.setContent(readIcon("/icons/mission"));
-            mining.setContent(readIcon("/icons/mining"));
-            marker.setContent(readIcon("/icons/marker"));
-            horizon.setContent(readIcon("/icons/horizon"));
-            planetaryPort.setContent(readIcon("/icons/planetary_port"));
-            guardian.setContent(readIcon("/icons/guardian"));
-            thargoid.setContent(readIcon("/icons/thargoid"));
-            manufacturedTrade.setContent(readIcon("/icons/manufacturedTrade"));
-            rawTrade.setContent(readIcon("/icons/rawTrade"));
-            dataTrade.setContent(readIcon("/icons/dataTrade"));
-            synthesisBasic.setContent(readIcon("/icons/synthesis_1"));
-            synthesisStandard.setContent(readIcon("/icons/synthesis_2"));
-            synthesisPremium.setContent(readIcon("/icons/synthesis_3"));
-            engineering.setContent(readIcon("/icons/engineering"));
-            aegis.setContent(readIcon("/icons/aegis"));
-            techBroker.setContent(readIcon("/icons/techBroker"));
-            cargo.setContent(readIcon("/icons/cargo"));
-            materialGrade1.setContent(readIcon("/icons/materialGrade1"));
-            materialGrade2.setContent(readIcon("/icons/materialGrade2"));
-            materialGrade3.setContent(readIcon("/icons/materialGrade3"));
-            materialGrade4.setContent(readIcon("/icons/materialGrade4"));
-            materialGrade5.setContent(readIcon("/icons/materialGrade5"));
+            alert.setContent(readIcon("/alert.obj"));
+            fixed.setContent(readIcon("/fixed_mount.obj"));
+            gimbal.setContent(readIcon("/gimbal_mount.obj"));
+            turret.setContent(readIcon("/turret_mount.obj"));
+            thermo_kinetic.setContent(readIcon("/thermo_kinetic.obj"));
+            absolute.setContent(readIcon("/absolute.obj"));
+            caustic.setContent(readIcon("/caustic.obj"));
+            explosive.setContent(readIcon("/explosive.obj"));
+            kinetic.setContent(readIcon("/kinetic.obj"));
+            thermal.setContent(readIcon("/thermal.obj"));
+            credits.setContent(readIcon("/credits.obj"));
+            limpet.setContent(readIcon("/limpet.obj"));
+            powerplay.setContent(readIcon("/powerplay.obj"));
+            salvage.setContent(readIcon("/salvage.obj"));
+            mission.setContent(readIcon("/mission.obj"));
+            mining.setContent(readIcon("/mining.obj"));
+            marker.setContent(readIcon("/marker.obj"));
+            horizon.setContent(readIcon("/horizon.obj"));
+            planetaryPort.setContent(readIcon("/planetary_port.obj"));
+            guardian.setContent(readIcon("/guardian.obj"));
+            thargoid.setContent(readIcon("/thargoid.obj"));
+            manufacturedTrade.setContent(readIcon("/manufacturedTrade.obj"));
+            rawTrade.setContent(readIcon("/rawTrade.obj"));
+            dataTrade.setContent(readIcon("/dataTrade.obj"));
+            synthesisBasic.setContent(readIcon("/synthesis_1.obj"));
+            synthesisStandard.setContent(readIcon("/synthesis_2.obj"));
+            synthesisPremium.setContent(readIcon("/synthesis_3.obj"));
+            engineering.setContent(readIcon("/engineering.obj"));
+            aegis.setContent(readIcon("/aegis.obj"));
+            techBroker.setContent(readIcon("/techBroker.obj"));
+            cargo.setContent(readIcon("/cargo.obj"));
+            materialGrade1.setContent(readIcon("/materialGrade1.obj"));
+            materialGrade2.setContent(readIcon("/materialGrade2.obj"));
+            materialGrade3.setContent(readIcon("/materialGrade3.obj"));
+            materialGrade4.setContent(readIcon("/materialGrade4.obj"));
+            materialGrade5.setContent(readIcon("/materialGrade5.obj"));
         }
+
+        public static Icon alertIcon = new Icon(alert, 18, 20);
 
         public static Icon thermalIcon = new Icon(thermal, 25, 25);
         public static Icon kineticIcon = new Icon(kinetic, 25, 25);

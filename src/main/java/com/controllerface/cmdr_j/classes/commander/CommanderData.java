@@ -132,7 +132,7 @@ public class CommanderData
     }
 
     /**
-     * Clears out the cargo storage bin. Typically used when fully refreshing commander data from disk. Usually,
+     * Clears out the cargo.path storage bin. Typically used when fully refreshing commander data from disk. Usually,
      * this will be followed by a series of calls to adjustItem() with the actual counts of the items.
      */
     public void clearCargo()
