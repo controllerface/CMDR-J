@@ -37,10 +37,10 @@ Useful primarily when prospecting or otherwise navigating around on planets. Thi
 
 * **Tasks**
 Consisting of two sections, this tab shows you the tasks you have planned, as well as the items required for carry them out. The upper list is the "Task list", the lower is the "Items list". When you add a task, (like a trade or a module purchase) from a different tab in the app, it will show up in the upper list. All tasks that are added to this list contain one or more "costs" required to actually perform the task. For a module purchase, the cost will be some number of credits, for a modification it will be materials. The sum total of all costs from the upper list is displayed in the lower list. 
+    
+    When you are short a material in the Items list, the gauge in the right most column will be red and a number will be shown in the "need" column indicating how many more of this item you need to be able to complete the associated tasks. Once you have ensured that all of the items in the item list have been procured, you can perform all the tasks in the upper task list. 
 
-When you are short a material in the Items list, the gauge in the right most column will be red and a number will be shown in the "need" column indicating how many more of this item you need to be able to complete the associated tasks. Once you have ensured that all of the items in the item list have been procured, you can perform all the tasks in the upper task list. 
-
-As you perform the tasks, the app will keep track of your commander journal events and remove the tasks from list automatically. `todo: this may have some bugs still`  
+    As you perform the tasks, the app will keep track of your commander journal events and remove the tasks from list automatically. `todo: this may have some bugs still`  
 
 * **Log**
 Finally, more or less just for debugging/informational purposes, we have the "Log" tab, which shows the last 500 journal messages that have been processed. Note that some events will result in more than one message line in the log, the 500 cap is per line, so there may be fewer than 500 events worth of history. `todo: some journal events do not result in log messages at the moment, mostly due to them being very "noisy". Should add a verbostiy level as well as perhaps expose the maximum message history cap`   
