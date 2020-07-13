@@ -1,16 +1,16 @@
-
-Installation: https://github.com/controllerface/CMDR-J/wiki/Installation-Guide
 Usage Guide: https://github.com/controllerface/CMDR-J/wiki/Usage-Guide
 
 # CMDR J
 
-Commander J (CMDR_J) is a companion app for the video game `Elite : Dangerous`. Initially I started working on this app as an exercise to expand my development chops from just back-end code to something with a person can use (with a GUI). Being aware of the Journal API from several other similar apps, and the Frontier forums I chose this project as it seemed like a good fit for a weekend hobby.
+Commander J (CMDR_J) is a companion app for the video game `Elite : Dangerous`. Initially I started working on this app as an exercise to expand my development chops from just back-end code to something more front-end (with a GUI). Being aware of the Journal API from several other similar apps, and the Frontier forums I chose this project as it seemed like a good fit for a weekend hobby.
 
-My main goal with this app is to make an attempt and addressing some shortcomings of the game when it comes to task planning, and specifically engineering and upgrading your ship. To this end I created a "Tasks" panel that contains various activities you have "planned" to do bu adding tasks in other parts fo the app, primarily the "Loadout" and "Inventory" tabs. When building out this capacity, I was mostly focused on engineering and as such the individual material controls contain "Trade" tasks that can be planned to change materials you are full on to those you may need for certain engineering mods.  
+My main goal with this app is to make an attempt and addressing some shortcomings of the game when it comes to task planning, and specifically engineering and upgrading your ship. To this end I created a **Tasks** panel that contains various activities you have "planned" to do by adding tasks in other parts fo the app, primarily the **Loadout** and **Inventory** tabs. When building out this capacity, I was mostly focused on engineering and as such the individual material controls contain "Trade" tasks that can be used to plan trades of materials you are full of, for those you don't have enough of.  
 
-Secondarily, I wanted to make working with guardian sites and just ground-based activities in general a little easier. For this I added a mini-map in the "Navigation" panel. This map is active only when on the surface of a planet. The map is centered on the player, with a rotating arrow indicating the player's current heading. The map has a "Waypoint" feature, which can be used to set a marker at you current location. The marker can be named, for ease of use when travelling between points. Most notably, this is useful at guardian sites as you can mark the towers. As long as the app is still running, the waypoints will remain through a re-log if needed.
+Secondarily, I wanted to make working with guardian sites and other ground-based activities a little easier. For this I added a mini-map in the **Navigation** panel. This map is active only when on the surface of a planet. The map is centered on the player, with a rotating arrow indicating the player's current heading. The map has a "Waypoint" feature, which can be used to set a marker at your current location. The marker can be named, for ease of use when travelling between points. Most notably, this is useful at guardian sites as you can mark the towers. As long as the app is still running, the waypoints will remain through a re-log if needed.
 
-Over time I also added a few bits to the UI like some Market data, and a "Log" panel which shows the last 500 or so journal messages that have been processed by the app. I will probably continue to add and flesh out things as I find time and energy.
+Over time I also added a few bits to the UI like some **Market** data, and a **Log** panel which shows the last 500 or so journal messages that have been processed by the app. 
+
+I will probably continue to add and flesh out things as I find time and energy.
 
 ##### Current Status
 
