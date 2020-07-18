@@ -18,8 +18,11 @@
             <mainClass>com.controllerface.cmdr_j.Main</mainClass>
             <reflectionList>
               <item>com.controllerface.cmdr_j.ui.CommanderJ</item>
+              <item>com.controllerface.cmdr_j.ui.LoadingScreen</item>
               <item>com.controllerface.cmdr_j.ui.UIController</item>
               <item>javafx.geometry.Side</item>
+              <item>javafx.scene.LightBase</item>
+              <item>javafx.scene.PointLight</item>
               <item>javafx.scene.chart.LineChart</item>
               <item>javafx.scene.chart.NumberAxis</item>
               <item>javafx.scene.layout.HBox</item>

@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.SubScene?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -25,6 +26,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
@@ -456,6 +458,14 @@
                                                    <children>
                                                       <HBox minHeight="300.0" prefHeight="300.0">
                                                          <children>
+                                                            <SubScene fx:id="ship_graphic" height="250.0" width="500.0">
+                                                              <root>
+                                                                <Region />
+                                                              </root>
+                                                               <HBox.margin>
+                                                                  <Insets left="10.0" top="10.0" />
+                                                               </HBox.margin>
+                                                            </SubScene>
                                                             <LineChart fx:id="ship_offense_stats_chart" prefHeight="300.0" prefWidth="5000.0" title="Chart 1">
                                                                <xAxis>
                                                                   <NumberAxis label="Seconds" side="BOTTOM" />
@@ -463,17 +473,6 @@
                                                                <yAxis>
                                                                   <NumberAxis label="MJ" side="LEFT" />
                                                                </yAxis>
-                                                            </LineChart>
-                                                            <LineChart fx:id="off_chart_2" prefHeight="300.0" prefWidth="5000.0" title="Chart 2">
-                                                               <xAxis>
-                                                                  <NumberAxis label="Seconds" side="BOTTOM" />
-                                                               </xAxis>
-                                                               <yAxis>
-                                                                  <NumberAxis label="Hull" side="LEFT" />
-                                                               </yAxis>
-                                                               <HBox.margin>
-                                                                  <Insets right="5.0" />
-                                                               </HBox.margin>
                                                             </LineChart>
                                                          </children>
                                                          <opaqueInsets>

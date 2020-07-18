@@ -406,5 +406,6 @@ public class JournalSyncTask implements Runnable
         // todo: abstract transactions further and eliminate need to pass commanderData into the context object
         EventProcessingContext context = new EventProcessingContext(data, transactions, commanderData);
         event.process(context);
+        System.out.println("processed: " + data);
     }
 }

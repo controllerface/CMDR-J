@@ -8,6 +8,7 @@ import com.controllerface.cmdr_j.enums.costs.special.AnyCost;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyType;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.ui.Displayable;
+import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.SVGPath;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -47,7 +49,7 @@ public class ProcurementTaskData implements Displayable
     private final SimpleLongProperty countDisplay = new SimpleLongProperty();
 
     // main graphic node that contains the visible contents
-    private final VBox descriptionContainer = new VBox();
+    private TitledPane descriptionContainer;// = new VBox();
 
     private final VBox costEffectContainer = new VBox();
 
@@ -231,16 +233,14 @@ public class ProcurementTaskData implements Displayable
     {
         Pair<ProcurementType, ProcurementRecipe> recipePair = asPair();
 
-        descriptionContainer.getChildren().clear();
-
         TitledPane titledPane = new TitledPane();
         titledPane.getStyleClass().addAll("general_panel", "base_font");
         titledPane.setAnimated(false);
         titledPane.setExpanded(false);
 
-        nameLabel.setPrefHeight(20);
         nameLabel.getStyleClass().addAll("inventory_label", "base_font");
         nameLabel.paddingProperty().set(new Insets(2, 0, 2, 0));
+        nameLabel.setWrapText(true);
 
         titledPane.setContent(costEffectContainer);
 
@@ -250,7 +250,7 @@ public class ProcurementTaskData implements Displayable
         titledPane.setGraphic(nameContainer);
         ((HBox) titledPane.getGraphic()).setAlignment(Pos.TOP_CENTER);
 
-        descriptionContainer.getChildren().add(titledPane);
+        descriptionContainer = titledPane;
 
         nameLabel.setText(recipePair.getKey().toString() + " :: " + recipePair.getValue().getDisplayLabel());
         nameLabel.setTextFill(UIFunctions.Style.neutralBlack);

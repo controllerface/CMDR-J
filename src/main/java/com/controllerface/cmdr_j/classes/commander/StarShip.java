@@ -11,7 +11,9 @@ import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacteristic;
 import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,12 +22,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.PointLight;
+import javafx.scene.SubScene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ValueAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Box;
+import javafx.scene.shape.CullFace;
+import javafx.scene.shape.MeshView;
+import javafx.scene.shape.TriangleMesh;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 import java.util.*;
@@ -94,6 +106,8 @@ public class StarShip
     private SimpleStringProperty r1s = new SimpleStringProperty("0.0");
     private SimpleStringProperty r2s = new SimpleStringProperty("0.0");
 
+    private SubScene shipGraphic;
+
     //endregion
 
     StarShip()
@@ -101,16 +115,21 @@ public class StarShip
         // this animation timeline cycles all data series in the resistance graphs moving each one to the back
         // in z-order. This allows for cases where two resistances have the same values, making it so there is a
         // visual indicator when one or more other graph lines for different values are identical.
-        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(1), event ->
+        Timeline chartCycle = new Timeline(new KeyFrame(Duration.seconds(1), event ->
         {
             rotateGraphVisuals(hullChart, hullHighlightRotation);
             rotateGraphVisuals(shieldChart, shieldHighlightRotation);
         }));
-        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-        fiveSecondsWonder.play();
+        chartCycle.setCycleCount(Timeline.INDEFINITE);
+        chartCycle.play();
     }
 
     //region UI Control Binding Methods
+
+    public void setShipGraphic(SubScene shipGraphic)
+    {
+        this.shipGraphic = shipGraphic;
+    }
 
     public void setDpsSpinner(Spinner<Double> ds, Spinner<Double> ss)
     {
@@ -478,10 +497,13 @@ public class StarShip
                                 return t;
                             });
 
-                    double regen = c;
+                    AtomicReference<Double> regen = new AtomicReference<>(c);
+                    //double regen = c;
+                    if (regen.get() == 0.0) regen.set(1.0);
                     AtomicInteger nextOne = new AtomicInteger(0);
                     AtomicReference<Double> lastOne = new AtomicReference<>();
-                    Stream.iterate(0.0d, cs -> cs < shieldStrength, ls -> ls + regen)
+                    Stream.iterate(0.0d, cs -> cs < shieldStrength, ls -> ls + regen.get())
+                            //.limit(100)
                             .forEach(n ->
                             {
                                 lastOne.set(n);
@@ -507,11 +529,14 @@ public class StarShip
                                 return t;
                             });
 
-                    double regen2 = c;
+                    AtomicReference<Double> regen2 = new AtomicReference<>(c);
+                    //double regen2 = c;
+                    if (regen2.get() == 0.0) regen2.set(1.0);
                     AtomicInteger nextOne2 = new AtomicInteger(0);
                     AtomicReference<Double> lastOne2 = new AtomicReference<>();
                     AtomicReference<XYChart.Data<Number, Number>> buf = new AtomicReference<>();
-                    Stream.iterate(0.0d, cs -> cs < (shieldStrength / 2), ls -> ls + regen2)
+                    Stream.iterate(0.0d, cs -> cs < (shieldStrength / 2), ls -> ls + regen2.get())
+                            //.limit(100)
                             .forEach(n ->
                             {
                                 lastOne2.set(n);
@@ -658,6 +683,7 @@ public class StarShip
         }
 
         resetBaseStats();
+        Platform.runLater(this::renderShipGraphic);
     }
 
     public void setGivenName(String givenName)
@@ -845,14 +871,16 @@ public class StarShip
             //ShipStatisticData.StatGroup recharge = new ShipStatisticData.StatGroup();
 
             double r1 = optionalInternals.stream()
-                    .map(m->m.getEffectValue(ItemEffect.RegenRate))
-                    .findFirst()
-                    .orElse(0.0);
+                    .map(module -> module.getEffectValue(ItemEffect.RegenRate))
+                    .filter(value -> value != 0.0)
+                    .findFirst().orElse(0.0);
 
+            int x = optionalInternals.size();
+            System.out.println(x);
             double r2 = optionalInternals.stream()
-                    .map(m->m.getEffectValue(ItemEffect.BrokenRegenRate))
-                    .findFirst()
-                    .orElse(0.0);
+                    .map(module -> module.getEffectValue(ItemEffect.BrokenRegenRate))
+                    .filter(value -> value != 0.0)
+                    .findFirst().orElse(0.0);
 
             r1si = r1;
             r2si = r2;
@@ -1579,5 +1607,96 @@ public class StarShip
         }
 
         return UIFunctions.Data.round(res + boost, 2);
+    }
+
+    private void renderShipGraphic()
+    {
+        float hw = 100 / 2f;
+        float hh = 100 / 2f;
+        float hd = 100 / 2f;
+
+        float points[] = {
+                -hw, -hh, -hd,
+                hw, -hh, -hd,
+                hw,  hh, -hd,
+                -hw,  hh, -hd,
+                -hw, -hh,  hd,
+                hw, -hh,  hd,
+                hw,  hh,  hd,
+                -hw,  hh,  hd};
+
+        float texCoords[] = {0, 0, 1, 0, 1, 1, 0, 1};
+
+//        // Specifies hard edges.
+//        int faceSmoothingGroups[] = {
+//                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+//        };
+
+        int faces[] = {
+                0, 0, 2, 2, 1, 1,
+                2, 2, 0, 0, 3, 3,
+                1, 0, 6, 2, 5, 1,
+                6, 2, 1, 0, 2, 3,
+                5, 0, 7, 2, 4, 1,
+                7, 2, 5, 0, 6, 3,
+                4, 0, 3, 2, 0, 1,
+                3, 2, 4, 0, 7, 3,
+                3, 0, 6, 2, 2, 1,
+                6, 2, 3, 0, 7, 3,
+                4, 0, 1, 2, 5, 1,
+                1, 2, 4, 0, 0, 3,
+        };
+
+
+
+        TriangleMesh mesh = new TriangleMesh();
+        mesh.getPoints().addAll(points);
+        mesh.getTexCoords().addAll(texCoords);
+        mesh.getFaces().addAll(faces);
+
+        //Box box = new Box(100, 100, 100);
+
+
+        // Create a Camera to view the 3D Shapes
+        PerspectiveCamera camera = new PerspectiveCamera(false);
+        camera.setTranslateX(100);
+        camera.setTranslateY(-50);
+        camera.setTranslateZ(300);
+
+        // Add a Rotation Animation to the Camera
+        //RotateTransition rotation = new RotateTransition(Duration.seconds(2), camera);
+//        rotation.setCycleCount(Animation.INDEFINITE);
+//        rotation.setFromAngle(-10);
+//        rotation.setToAngle(10);
+//        rotation.setAutoReverse(true);
+//        rotation.setAxis(Rotate.X_AXIS);
+//        rotation.play();
+
+        PointLight light = new PointLight(Color.BLUE);
+        light.setTranslateX(250);
+        light.setTranslateY(-100);
+        light.setTranslateZ(290);
+
+        MeshView meshView = new MeshView();
+        meshView.setMesh(mesh);
+        meshView.setCullFace(CullFace.BACK);
+        meshView.setTranslateX(250);
+        meshView.setTranslateY(100);
+        meshView.setTranslateZ(400);
+
+        Group root = new Group(meshView, light);
+        //root.setRotationAxis(Rotate.X_AXIS);
+        //root.setRotate(30);
+
+        shipGraphic.setRoot(root);
+        shipGraphic.setWidth(300);
+        shipGraphic.setHeight(250);
+        shipGraphic.setCamera(camera);
+
+        // Create the Sub-Scene
+        //SubScene subscene = new SubScene(root, 200, 200, true, SceneAntialiasing.BALANCED);
+        // Add the Camera to the Sub-Scene
+        //subscene.setCamera(camera);
+
     }
 }

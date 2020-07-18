@@ -42,6 +42,8 @@ import com.controllerface.cmdr_j.ui.ship.*;
 import com.controllerface.cmdr_j.ui.tasks.TaskCountCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskDataCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskRemoveCell;
+import javafx.animation.Animation;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -58,16 +60,21 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.*;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Box;
+import javafx.scene.shape.CullFace;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 import java.io.File;
@@ -286,6 +293,8 @@ public class UIController
     @FXML private Canvas mini_map;
     @FXML private Slider mini_map_scale;
 
+    @FXML private SubScene ship_graphic;
+
     /*
     Backing lists for the procurement task UI elements
      */
@@ -455,6 +464,7 @@ public class UIController
     {
         try
         {
+            exec.shutdownNow();
             toJson(windowDimensions);
             messageExecutor.shutdown();
             transactionPool.shutdownNow();
@@ -527,7 +537,8 @@ public class UIController
             return;
         }
 
-        mini_map.getGraphicsContext2D().clearRect(0,0, mini_map.getWidth(), mini_map.getHeight());
+        GraphicsContext graphicsContext = mini_map.getGraphicsContext2D();
+        graphicsContext.clearRect(0,0, mini_map.getWidth(), mini_map.getHeight());
 
         /* Step 1:
         First order of business is to fill in the background and draw a border around the map itself. The minimap
@@ -538,32 +549,35 @@ public class UIController
         double h = mini_map.getHeight();
 
         // fill the whole canvas with the BG color, starting fresh for this render cycle
-        mini_map.getGraphicsContext2D().rect(0, 0, w, h);
-        mini_map.getGraphicsContext2D().setFill(UIFunctions.Style.darkestOrange);
-        mini_map.getGraphicsContext2D().fillRect(0,0,w,h);
+        graphicsContext.rect(0, 0, w, h);
+        graphicsContext.setFill(UIFunctions.Style.darkestOrange);
+        graphicsContext.fillRect(0,0,w,h);
 
         // draw a border
-        mini_map.getGraphicsContext2D().rect(0.0, 0.0, w, h);
-        mini_map.getGraphicsContext2D().setStroke(UIFunctions.Style.darkOrange);
-        mini_map.getGraphicsContext2D().setLineWidth(5);
-        mini_map.getGraphicsContext2D().stroke();
-        mini_map.getGraphicsContext2D().closePath();
+        graphicsContext.rect(0.0, 0.0, w, h);
+        graphicsContext.setStroke(UIFunctions.Style.darkOrange);
+        graphicsContext.setLineWidth(5);
+        graphicsContext.stroke();
+        graphicsContext.closePath();
 
+        // calculate the size fo the "grid" graphic based on current map scale
         double gridDist = UIFunctions.Data.mapRange(mini_map_scale.getValue(),
                 mini_map_scale.getMin(),
                 mini_map_scale.getMax(),
                 mini_map.getWidth() / 8,
                 mini_map.getWidth() / 4);
 
-        mini_map.getGraphicsContext2D().setStroke(UIFunctions.Style.darkerOrange);
-        mini_map.getGraphicsContext2D().setLineWidth(2);
+        // set up the color and line with for the grid lines
+        graphicsContext.setStroke(UIFunctions.Style.darkerOrange);
+        graphicsContext.setLineWidth(2);
 
-        double s = 0;
-        while (s < mini_map.getWidth())
+        // draw the grid lines on the canvas. X and Y are drawn at the same time
+        double nextOffset = 0;
+        while (nextOffset < mini_map.getWidth())
         {
-            mini_map.getGraphicsContext2D().strokeLine(s,0, s, mini_map.heightProperty().doubleValue());
-            mini_map.getGraphicsContext2D().strokeLine(0, s, mini_map.widthProperty().doubleValue(), s);
-            s += gridDist;
+            graphicsContext.strokeLine(nextOffset,0, nextOffset, mini_map.heightProperty().doubleValue());
+            graphicsContext.strokeLine(0, nextOffset, mini_map.widthProperty().doubleValue(), nextOffset);
+            nextOffset += gridDist;
         }
 
 
@@ -595,7 +609,7 @@ public class UIController
         double angle = Double.parseDouble(status_heading.getText());
 
         // save the existing transform so we can return after drawing the arrow, and have a base to rotate from
-        Affine baseTransform = mini_map.getGraphicsContext2D().getTransform();
+        Affine baseTransform = graphicsContext.getTransform();
 
         // create our rotation transform from the base one
         Affine rot = baseTransform.clone();
@@ -604,13 +618,13 @@ public class UIController
         rot.append(new Rotate(angle, centerX, centerY));
 
         // set the current transform to our correct rotation, set the color and then actually draw the polygon
-        mini_map.getGraphicsContext2D().setTransform(rot);
-        mini_map.getGraphicsContext2D().setFill(Color.ORANGE);
-        mini_map.getGraphicsContext2D().fillPolygon(new double[]{centerX, leftX, centerX, rightX},
+        graphicsContext.setTransform(rot);
+        graphicsContext.setFill(Color.ORANGE);
+        graphicsContext.fillPolygon(new double[]{centerX, leftX, centerX, rightX},
                 new double[]{topY, leftY, midY, rightY}, 4);
 
         // once we're done, set the transform back to normal so remaining draw operations work as expected
-        mini_map.getGraphicsContext2D().setTransform(baseTransform);
+        graphicsContext.setTransform(baseTransform);
 
 
         /* Step 3:
@@ -619,51 +633,75 @@ public class UIController
 
         waypoint_list.getItems().forEach(wayPoint ->
         {
-            ObservableList<Waypoint> x = waypoint_list.getSelectionModel().getSelectedItems();
+            // if the waypoint is selected render in a different color
+            Color color = waypoint_list.getSelectionModel().getSelectedItems().stream()
+                    .filter(selectedWaypoint -> selectedWaypoint.equals(wayPoint))
+                    .map(selected -> Color.DARKORANGE)
+                    .findFirst().orElse(Color.LIGHTBLUE);
 
-            Waypoint selectedWayPoint = x.size() > 0 ? x.get(0) : null;
-
-            Color color = Color.LIGHTBLUE;
-            if (selectedWayPoint != null)
-            {
-                if (wayPoint.equals(selectedWayPoint)) color = Color.DARKORANGE;
-            }
-
-            renderWaypoint(wayPoint.longitude, wayPoint.latitude, centerX, centerY, color, wayPoint.name + "\n\n" + "$D");
+            String waypointText = wayPoint.name + "\n\n" + "$D";
+            renderWaypoint(wayPoint.longitude, wayPoint.latitude, centerX, centerY, color, waypointText);
         });
 
         // render closest settlement
         renderWaypoint(settlementLong, settlementLat, centerX, centerY, Color.YELLOW, settlement + "\n\n" + "$D");
 
+        // when in the SRV, render the last known location of your ship
         if (inSRV)
         {
-            renderWaypoint(lastShipLong, lastShipLat, centerX, centerY, Color.LIME, ship_name_label.getText() + "\n\n" + "$D");
+            String shipText = ship_name_label.getText() + "\n\n" + "$D";
+            renderWaypoint(lastShipLong, lastShipLat, centerX, centerY, Color.LIME, shipText);
         }
     }
 
+    /**
+     * Haversine function: hav(θ) = sin ^ 2 (θ/2)
+     *
+     * @param radAngle input angle in radians
+     * @return haversine distance of the input angle
+     */
+    private double haversine(double radAngle)
+    {
+        return Math.sin(radAngle / 2) * Math.sin(radAngle / 2);
+    }
 
+    /**
+     * Calculates a distance between two latitude/longitude pairs, taking into account the radius of the planet and
+     * the player's altitude. Waypoints are currently assumed to be on the planet's surface for the purpose of
+     * distance calculations. Due to irregularities in planet topology, the distances may be slightly off depending on
+     * the planet. For use as a general guide though, the values and relative positions in the map should be correct.
+     * The unit of measurement for this function is meters.
+     *
+     * This method uses the old trigonometric Haversine function to determine the "Great circle distance" between two
+     * latitude and longitude points on the planet. This implementation also accounts for altitude when determining the
+     * distance to a position.
+     *
+     * @param currentLong the player's current longitude
+     * @param currentLat the player's current latitude
+     * @param waypointLong the waypoint's longitude
+     * @param waypointLat the waypoint's latitude
+     * @return the approximate distance between the two points in meters
+     */
     private double calculateDistance(double currentLong,
                                      double currentLat,
-                                     double waypointLongitude,
-                                     double waypointLatitude)
+                                     double waypointLong,
+                                     double waypointLat)
     {
-        double latDistance = Math.toRadians(waypointLatitude - currentLat);
-        double lonDistance = Math.toRadians(waypointLongitude - currentLong);
+        double latDistance = Math.toRadians(waypointLat - currentLat);
+        double lonDistance = Math.toRadians(waypointLong - currentLong);
 
-        double a = Math.sin(latDistance / 2)
-                * Math.sin(latDistance / 2)
+        double a = haversine(latDistance)
                 + Math.cos(Math.toRadians(currentLat))
-                * Math.cos(Math.toRadians(waypointLatitude))
-                * Math.sin(lonDistance / 2)
-                * Math.sin(lonDistance / 2);
+                * Math.cos(Math.toRadians(waypointLat))
+                * haversine(lonDistance);
 
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        double haversine = planetRadius * c;
+        double adjustedDistance = planetRadius * c;
 
         // todo: should store status_altitude as a double not string
-        return Math.sqrt(Math.pow(haversine, 2) +
-                Math.pow(Double.parseDouble(status_altitude.getText()),2));
+        return Math.sqrt(Math.pow(adjustedDistance, 2) +
+                Math.pow(Double.parseDouble(status_altitude.getText()), 2));
     }
 
     private void renderWaypoint(double waypointLongitude, double waypointLatitude, double centerX, double centerY, Color color, String text)
@@ -770,12 +808,12 @@ public class UIController
 
         mini_map_scale.valueProperty().addListener((observable, oldValue, newValue) -> renderMiniMap());
 
-        waypoint_list.setCellFactory(new Callback<ListView<Waypoint>, ListCell<Waypoint>>()
+        waypoint_list.setCellFactory(new Callback<>()
         {
             @Override
             public ListCell<Waypoint> call(ListView<Waypoint> param)
             {
-                return new ListCell<Waypoint>()
+                return new ListCell<>()
                 {
                     @Override
                     protected void updateItem(Waypoint item, boolean empty)
@@ -787,7 +825,9 @@ public class UIController
                             setGraphic(null);
                             return;
                         }
-                        setText((item.name == null ? "" : item.name + " ")  + "Lat: " + item.latitude + " Long: " + item.longitude);
+                        setText((item.name == null
+                                ? ""
+                                : item.name + " ") + "Lat: " + item.latitude + " Long: " + item.longitude);
                     }
                 };
             }
@@ -1110,13 +1150,16 @@ public class UIController
         IntStream.range(0,threads).forEach(i-> transactionPool.submit(transactionProcessingTask));
     }
 
+    ExecutorService exec = Executors.newSingleThreadExecutor();
+
     private void startupTasks()
     {
         // disk monitor
-        Runnable inventorySyncTask = new JournalSyncTask(commanderData, transactionQueue);
-        Thread inventoryThread = new Thread(inventorySyncTask);
-        inventoryThread.setDaemon(true);
-        inventoryThread.start();
+        exec.submit(new JournalSyncTask(commanderData, transactionQueue));
+        //Runnable inventorySyncTask = new JournalSyncTask(commanderData, transactionQueue);
+        //Thread inventoryThread = new Thread(inventorySyncTask);
+        //inventoryThread.setDaemon(true);
+        //inventoryThread.start();
 
         messageExecutor.scheduleAtFixedRate(this::processMessages, 0, 1, TimeUnit.SECONDS);
 
@@ -1532,6 +1575,7 @@ public class UIController
 
         commanderData.getStarShip().associateShieldRegenLabels(s_regen_label, s_broken_regen_label);
 
+        commanderData.getStarShip().setShipGraphic(ship_graphic);
         commanderData.getStarShip().setDpsSpinner(dps_spinner, sys_spinner);
 
         commanderData.getStarShip().associateCoreTable(core_module_table);

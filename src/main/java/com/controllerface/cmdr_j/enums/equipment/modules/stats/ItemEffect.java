@@ -97,7 +97,7 @@ public enum ItemEffect
      */
 
     RegenRate("MJ/S", "Regen Rate", true),
-    BrokenRegenRate("MJ/S", "Broken Regen rate", true),
+    BrokenRegenRate("MJ/S", "Broken Regen Rate", true),
     ShieldGenMinStrength("MJ", "Minimum Strength", true),
     ShieldGenStrength("MJ", "Optimal Strength", true),
     ShieldGenMaxStrength("MJ", "Maximum Strength", true),

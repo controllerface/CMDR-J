@@ -651,46 +651,6 @@ public class JournalEventTransactions
         context.getCommanderData().setShipModule(dataBuilder.build());
     }
 
-    @SuppressWarnings("unchecked")
-    public static void processMarket(EventProcessingContext context)
-    {
-        String market = context.getRawData().get("StationName") + ", " + context.getRawData().get("StarSystem");
-
-        context.getTransactions().add(UserTransaction.type(TransactionType.MARKET)
-                .setMessage(market)
-                .setStatusObject(context.getRawData())
-                .build());
-
-        if (context.getRawData().get("Items") == null) return;
-
-
-        ((List<Map<String, Object>>) context.getRawData().get("Items")).stream()
-                .map(item ->
-                {
-                    String name = ((String) item.get("Name"));
-                    if (name == null) return null;
-
-                    String c = name.replace("$", "").replace("_name;", "").toUpperCase();
-                    Commodity commodity = Commodity.valueOf(c);
-                    String x = commodity.getLocalizedName();
-                    int buy = ((int) item.get("BuyPrice"));
-                    int sell = ((int) item.get("SellPrice"));
-                    boolean imports = ((boolean) item.get("Consumer"));
-                    boolean exports = ((boolean) item.get("Producer"));
-
-                    Set<String> modifiers = new HashSet<>();
-                    if (imports) modifiers.add("Imports");
-                    if (exports) modifiers.add("Exports");
-
-                    String m = modifiers.stream().collect(Collectors.joining(" and "));
-
-
-                    return x + " :: Buy: "+ buy + " :: Sell: "+ sell + " :: Market: " + m;
-                })
-                .filter(Objects::nonNull)
-                .forEach(System.out::println);
-    }
-
     public static void processArrival(EventProcessingContext context, String arrivalBody)
     {
         context.getTransactions().add(UserTransaction.type(TransactionType.ARRIVAL)
@@ -698,8 +658,6 @@ public class JournalEventTransactions
                 .setStatusObject(context.getRawData())
                 .build());
     }
-
-
 
     @SuppressWarnings("unchecked")
     public static void processTechUnlock(EventProcessingContext context)
