@@ -9,8 +9,10 @@ import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +30,11 @@ public class CommanderJ extends Application
 
     private AtomicBoolean isInitialized = new AtomicBoolean(false);
 
+    // OS tray icon support is not strictly needed, but could be helpful from a UX perspective for
+    //  some tasks. Originally, I was planning to use the "toast" notifications when a task was marked
+    //  "completed", but never wired it up. It is disabled here though, because it is not currently
+    //  supported when compiling a native binary. Any use of AWT classes prevents an app from compiling
+    //  to a native binary.
 //    public static TrayIcon trayIcon = new TrayIcon(Toolkit.getDefaultToolkit()
 //            .createImage(CommanderJ.class.getResource("/com/controllerface/cmdr_j/cmdrj_icon.png")), "Commander J");
 
@@ -53,6 +60,8 @@ public class CommanderJ extends Application
     @Override
     public void start(Stage primaryStage) throws IOException
     {
+
+// disabled for now because of AWT
 //        try
 //        {
 //
@@ -66,7 +75,7 @@ public class CommanderJ extends Application
 //            e.printStackTrace();
 //        }
 
-        //primaryStage.initStyle(StageStyle.UNIFIED);
+        // todo: add UI menu to control this? probably set a minimum to avoid losing the window completely
         //primaryStage.setOpacity(0.5);
 
         primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/cmdrj_icon.png")));
@@ -75,7 +84,8 @@ public class CommanderJ extends Application
         Parent root = loadRoot();
         root.getStyleClass().add("main");
         String cssFile = CommanderJ.class.getResource("/cmdrj.css").toExternalForm();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,100,100, true, SceneAntialiasing.BALANCED);
+        //Scene scene = new Scene(root);
         root.getStylesheets().add(cssFile);
         primaryStage.setScene(scene);
 
@@ -100,8 +110,8 @@ public class CommanderJ extends Application
         });
 
         /*
-        TODO: maybe tie refresh to a button/settign menu, etc. Just remember the CSS file has to be CHANGED and
-          then changed back fro JavaFX to notice it. May need a "dummy" file or something just for this.
+        TODO: maybe tie refresh to a button/setting menu, etc. Just remember the CSS file has to be CHANGED and
+          then changed back for JavaFX to notice it. May need to write a temp "dummy" file just for this.
         AtomicBoolean x = new AtomicBoolean(false);
         scene.addEventHandler(KeyEvent.KEY_PRESSED, t ->
         {
@@ -155,6 +165,8 @@ public class CommanderJ extends Application
                     primaryStage.setHeight(dimensions.get().getHeight());
                 }
                 isInitialized.set(true);
+
+                // disabled for now because of AWT
                 //trayIcon.displayMessage("Commander J", "Started", TrayIcon.MessageType.INFO);
             }
         });
@@ -165,7 +177,8 @@ public class CommanderJ extends Application
     {
         super.stop();
 
-//        SystemTray.getSystemTray().remove(trayIcon);
+        // disabled for now because of AWT
+        //SystemTray.getSystemTray().remove(trayIcon);
 
         WindowDimensions windowDimensions = WindowDimensions.builder()
                 .setX(x)

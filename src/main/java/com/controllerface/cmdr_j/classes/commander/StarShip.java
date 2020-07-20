@@ -11,41 +11,34 @@ import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacteristic;
 import com.controllerface.cmdr_j.ui.UIFunctions;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableStringValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.PointLight;
-import javafx.scene.SubScene;
+import javafx.scene.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.ValueAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.CullFace;
-import javafx.scene.shape.MeshView;
-import javafx.scene.shape.TriangleMesh;
+import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.DoubleBinaryOperator;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -100,8 +93,8 @@ public class StarShip
     private Spinner<Double> dpsSpinner;
     private Spinner<Double> sysSpinner;
 
-    private Double r1si = 0.0d;
-    private Double r2si = 0.0d;
+    private Double shieldRegenRate = 0.0d;
+    private Double brokenRegenRate = 0.0d;
 
     private SimpleStringProperty r1s = new SimpleStringProperty("0.0");
     private SimpleStringProperty r2s = new SimpleStringProperty("0.0");
@@ -480,7 +473,7 @@ public class StarShip
                 ShipCharacteristic.Armour_Caustic);
 
 
-        Optional.ofNullable(r1si)
+        Optional.ofNullable(shieldRegenRate)
                 .ifPresent((c)->
                 {
                     String name = "Charge";
@@ -512,7 +505,7 @@ public class StarShip
                 });
 
 
-        Optional.ofNullable(r2si)
+        Optional.ofNullable(brokenRegenRate)
                 .ifPresent((c)->
                 {
                     String name2= "Regen";
@@ -614,8 +607,8 @@ public class StarShip
                 observableOffenseStatistics.addAll(offenseStatistics);
             }
 
-            r1s.set(String.valueOf(UIFunctions.Data.round(r1si, 1)));
-            r2s.set(String.valueOf(UIFunctions.Data.round(r2si, 1)));
+            r1s.set(String.valueOf(UIFunctions.Data.round(shieldRegenRate, 1)));
+            r2s.set(String.valueOf(UIFunctions.Data.round(brokenRegenRate, 1)));
         });
     }
 
@@ -844,13 +837,12 @@ public class StarShip
 
         synchronized (massStatistics)
         {
+            massStatistics.clear();
+
             double currentMass = calculateCurrentHullMass();
             double maxRange = calculateCurrentJumpRange(currentMass);
             double totalPower = calculateCurrentPowerDraw();
 
-
-
-            massStatistics.clear();
             massStatistics.add(new ShipStatisticData(ship.getBaseShipStats().getShipSize()));
             massStatistics.add(new ShipStatisticData(ShipCharacteristic.Total_Power_Draw, totalPower));
             massStatistics.add(new ShipStatisticData(ShipCharacteristic.Current_Mass, currentMass));
@@ -865,68 +857,50 @@ public class StarShip
         synchronized (strengthStatistics)
         {
             strengthStatistics.clear();
-            ShipStatisticData.StatGroup shieldStrength = calculateCurrentShieldStrength();
-            ShipStatisticData.StatGroup hullStrength = calculateCurrentHullStrength();
 
-            //ShipStatisticData.StatGroup recharge = new ShipStatisticData.StatGroup();
-
-            double r1 = optionalInternals.stream()
+            shieldRegenRate = optionalInternals.stream()
                     .map(module -> module.getEffectValue(ItemEffect.RegenRate))
                     .filter(value -> value != 0.0)
                     .findFirst().orElse(0.0);
 
-            int x = optionalInternals.size();
-            System.out.println(x);
-            double r2 = optionalInternals.stream()
+            brokenRegenRate = optionalInternals.stream()
                     .map(module -> module.getEffectValue(ItemEffect.BrokenRegenRate))
                     .filter(value -> value != 0.0)
                     .findFirst().orElse(0.0);
 
-            r1si = r1;
-            r2si = r2;
+            ShipStatisticData.StatGroup shieldStrength = calculateCurrentShieldStrength();
+            ShipStatisticData.StatGroup hullStrength = calculateCurrentHullStrength();
 
-//            recharge.floatStat = 0.0;
-//            recharge.rawFloat = 0.0;
-//            recharge.baseValue = r1;
-//            recharge.boostValue = r2;
-//            recharge.baseMultiplier = 0.0;
-//            recharge.boostMultiplier = 0.0;
-//            recharge.diminishCap = 0.0;
-
-            //strengthStatistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Recharge, recharge));
             strengthStatistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Strength, shieldStrength));
             strengthStatistics.add(new ShipStatisticData(ShipCharacteristic.Hull_Strength, hullStrength));
         }
 
         synchronized (resistanceStatistics)
         {
-            ShipStatisticData.StatGroup explosive = calculateResistance(ShipCharacteristic.Shield_Explosive);
-            ShipStatisticData.StatGroup kinetic = calculateResistance(ShipCharacteristic.Shield_Kinetic);
-            ShipStatisticData.StatGroup thermal = calculateResistance(ShipCharacteristic.Shield_Thermal);
-
-
             resistanceStatistics.clear();
-            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Kinetic, kinetic));
-            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Thermal, thermal));
-            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Explosive, explosive));
 
+            ShipStatisticData.StatGroup shieldExplosive = calculateResistance(ShipCharacteristic.Shield_Explosive);
+            ShipStatisticData.StatGroup shieldKinetic = calculateResistance(ShipCharacteristic.Shield_Kinetic);
+            ShipStatisticData.StatGroup shieldThermal = calculateResistance(ShipCharacteristic.Shield_Thermal);
+            ShipStatisticData.StatGroup hullCaustic = calculateResistance(ShipCharacteristic.Armour_Caustic);
+            ShipStatisticData.StatGroup hullExplosive = calculateResistance(ShipCharacteristic.Armour_Explosive);
+            ShipStatisticData.StatGroup hullKinetic = calculateResistance(ShipCharacteristic.Armour_Kinetic);
+            ShipStatisticData.StatGroup hullThermal = calculateResistance(ShipCharacteristic.Armour_Thermal);
 
-            ShipStatisticData.StatGroup caustic = calculateResistance(ShipCharacteristic.Armour_Caustic);
-            ShipStatisticData.StatGroup hexplosive = calculateResistance(ShipCharacteristic.Armour_Explosive);
-            ShipStatisticData.StatGroup hkinetic = calculateResistance(ShipCharacteristic.Armour_Kinetic);
-            ShipStatisticData.StatGroup hthermal = calculateResistance(ShipCharacteristic.Armour_Thermal);
-
-            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Kinetic, hkinetic));
-            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Thermal, hthermal));
-            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Explosive, hexplosive));
-            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Caustic, caustic));
+            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Explosive, shieldExplosive));
+            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Kinetic, shieldKinetic));
+            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Shield_Thermal, shieldThermal));
+            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Caustic, hullCaustic));
+            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Explosive, hullExplosive));
+            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Kinetic, hullKinetic));
+            resistanceStatistics.add(new ShipStatisticData(ShipCharacteristic.Armour_Thermal, hullThermal));
         }
 
         synchronized (offenseStatistics)
         {
-            ShipStatisticData.StatGroup statGroup = calculateCurrentDPS();
-
             offenseStatistics.clear();
+
+            ShipStatisticData.StatGroup statGroup = calculateCurrentDPS();
 
             offenseStatistics.add(new ShipStatisticData(ShipCharacteristic.Maximum_DPS, statGroup));
         }
@@ -1609,59 +1583,165 @@ public class StarShip
         return UIFunctions.Data.round(res + boost, 2);
     }
 
-    private void renderShipGraphic()
+    private TriangleMesh getTestCubeModel()
     {
         float hw = 100 / 2f;
         float hh = 100 / 2f;
         float hd = 100 / 2f;
 
-        float points[] = {
-                -hw, -hh, -hd,
-                hw, -hh, -hd,
-                hw,  hh, -hd,
-                -hw,  hh, -hd,
-                -hw, -hh,  hd,
-                hw, -hh,  hd,
-                hw,  hh,  hd,
-                -hw,  hh,  hd};
+        float[] points = {
+                -hw, -hh, -hd, // point 0
 
-        float texCoords[] = {0, 0, 1, 0, 1, 1, 0, 1};
+                hw, -hh, -hd, // point 1
 
-//        // Specifies hard edges.
-//        int faceSmoothingGroups[] = {
-//                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-//        };
+                hw,  hh, -hd, // point 2
 
-        int faces[] = {
-                0, 0, 2, 2, 1, 1,
-                2, 2, 0, 0, 3, 3,
-                1, 0, 6, 2, 5, 1,
-                6, 2, 1, 0, 2, 3,
-                5, 0, 7, 2, 4, 1,
-                7, 2, 5, 0, 6, 3,
-                4, 0, 3, 2, 0, 1,
-                3, 2, 4, 0, 7, 3,
-                3, 0, 6, 2, 2, 1,
-                6, 2, 3, 0, 7, 3,
-                4, 0, 1, 2, 5, 1,
-                1, 2, 4, 0, 0, 3,
+                -hw,  hh, -hd, // point 3
+
+                -hw, -hh,  hd, // point 4
+
+                hw, -hh,  hd, // point 5
+
+                hw,  hh,  hd, // point 6
+
+                -hw,  hh,  hd}; // point 7
+
+        float[] texCoords = {0, 1}; // dummy (0), not using textures
+
+        int[] faces = {
+                0, 0, 2, 0, 1, 0, // face 0: p0, p2, p1, 0 for texture co-ords
+
+                2, 0, 0, 0, 3, 0,
+
+                1, 0, 6, 0, 5, 0,
+
+                6, 0, 1, 0, 2, 0,
+
+                5, 0, 7, 0, 4, 0,
+
+                7, 0, 5, 0, 6, 0,
+
+                4, 0, 3, 0, 0, 0,
+
+                3, 0, 4, 0, 7, 0,
+
+                3, 0, 6, 0, 2, 0,
+
+                6, 0, 3, 0, 7, 0,
+
+                4, 0, 1, 0, 5, 0,
+
+                1, 0, 4, 0, 0, 0,
         };
-
-
 
         TriangleMesh mesh = new TriangleMesh();
         mesh.getPoints().addAll(points);
         mesh.getTexCoords().addAll(texCoords);
         mesh.getFaces().addAll(faces);
 
-        //Box box = new Box(100, 100, 100);
+        return mesh;
+    }
 
+    private final float scaleMultiplier = 1.0f;
+
+    private TriangleMesh getModel()
+    {
+        TriangleMesh mesh = new TriangleMesh(VertexFormat.POINT_NORMAL_TEXCOORD);
+        mesh.getTexCoords().addAll(1, 0);
+
+        //AtomicInteger nextPoint = new AtomicInteger();
+        //AtomicInteger nextNormal = new AtomicInteger();
+
+        try
+        {
+            try(InputStream testModel = StarShip.class.getResourceAsStream("/models/test_model2.stl"))
+            {
+                Scanner scanner = new Scanner(testModel);
+                String stlStart = scanner.next();
+                if (!stlStart.equals("solid"))
+                {
+                    System.out.println("Bad STL format");
+                    return mesh;
+                }
+
+                while (scanner.hasNext())
+                {
+                    String nextToken = scanner.next();
+                    if (nextToken.equals("facet"))
+                    {
+                        scanner.next("normal");
+                        float n0 = scanner.nextFloat();
+                        float n1 = scanner.nextFloat();
+                        float n2 = scanner.nextFloat();
+
+                        mesh.getNormals().addAll(n0, n1, n2);
+
+                        scanner.next("outer");
+                        scanner.next("loop");
+
+                        scanner.next("vertex");
+                        float p0x = scanner.nextFloat() * scaleMultiplier;
+                        float p0y = scanner.nextFloat() * scaleMultiplier;
+                        float p0z = scanner.nextFloat() * scaleMultiplier;
+
+                        scanner.next("vertex");
+                        float p1x = scanner.nextFloat() * scaleMultiplier;
+                        float p1y = scanner.nextFloat() * scaleMultiplier;
+                        float p1z = scanner.nextFloat() * scaleMultiplier;
+
+                        scanner.next("vertex");
+                        float p2x = scanner.nextFloat() * scaleMultiplier;
+                        float p2y = scanner.nextFloat() * scaleMultiplier;
+                        float p2z = scanner.nextFloat() * scaleMultiplier;
+
+                        mesh.getPoints().addAll(p0x, p0y, p0z, p1x, p1y, p1z, p2x, p2y, p2z);
+
+//                        System.out.println("normal: " + n0 + "," + n1 + "," + n2);
+//                        System.out.println("vertex 0: " + p0x + "," + p0y + "," + p0z);
+//                        System.out.println("vertex 1: " + p1x + "," + p1y + "," + p1z);
+//                        System.out.println("vertex 2: " + p2x + "," + p2y + "," + p2z);
+
+                        scanner.next("endloop");
+                        scanner.next("endfacet");
+
+                        int p0Index = mesh.getPoints().size() / 3 - 3;
+                        int p1Index = mesh.getPoints().size() / 3 - 2;
+                        int p2Index = mesh.getPoints().size() / 3 - 1;
+                        int normalIndex = mesh.getNormals().size() / 3 - 1;
+
+                        mesh.getFaces().addAll(
+                                p0Index, normalIndex, 0,
+                                p1Index, normalIndex, 0,
+                                p2Index, normalIndex, 0);
+                    }
+                    else
+                    {
+                        System.out.println("token was: " + nextToken);
+                    }
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return mesh;
+        }
+
+        return mesh;
+    }
+
+
+    private void renderShipGraphic()
+    {
+        TriangleMesh mesh = getModel();
+
+        //getModel();
 
         // Create a Camera to view the 3D Shapes
         PerspectiveCamera camera = new PerspectiveCamera(false);
-        camera.setTranslateX(100);
-        camera.setTranslateY(-50);
-        camera.setTranslateZ(300);
+        camera.setTranslateX(-150);
+        camera.setTranslateY(-125);
+        camera.setTranslateZ(-300);
 
         // Add a Rotation Animation to the Camera
         //RotateTransition rotation = new RotateTransition(Duration.seconds(2), camera);
@@ -1672,31 +1752,57 @@ public class StarShip
 //        rotation.setAxis(Rotate.X_AXIS);
 //        rotation.play();
 
+//        AmbientLight alight = new AmbientLight(Color.RED);
+//        alight.setTranslateZ(-15000);
+
         PointLight light = new PointLight(Color.BLUE);
-        light.setTranslateX(250);
-        light.setTranslateY(-100);
-        light.setTranslateZ(290);
+        //light.setTranslateX(-150);
+        //light.setTranslateY(-125);
+        light.setTranslateZ(-100);
 
         MeshView meshView = new MeshView();
         meshView.setMesh(mesh);
-        meshView.setCullFace(CullFace.BACK);
-        meshView.setTranslateX(250);
-        meshView.setTranslateY(100);
-        meshView.setTranslateZ(400);
+        //meshView.setDrawMode(DrawMode.LINE);
 
         Group root = new Group(meshView, light);
-        //root.setRotationAxis(Rotate.X_AXIS);
-        //root.setRotate(30);
+
+        Rotate xRotate = new Rotate(0, Rotate.X_AXIS);
+        Rotate yRotate = new Rotate(0, Rotate.Y_AXIS);
+
+        DoubleProperty angleX = new SimpleDoubleProperty(0);
+        DoubleProperty angleY = new SimpleDoubleProperty(0);
+        meshView.getTransforms().addAll(xRotate, yRotate);
+
+        /*Bind Double property angleX/angleY with corresponding transformation.
+        When we update angleX / angleY, the transform will also be auto updated.*/
+        xRotate.angleProperty().bind(angleX);
+        yRotate.angleProperty().bind(angleY);
+
+        //Tracks drag starting point for x and y
+        AtomicReference<Double> anchorX = new AtomicReference<>(0d);
+        AtomicReference<Double> anchorY = new AtomicReference<>(0d);
+
+        //Keep track of current angle for x and y
+        AtomicReference<Double> anchorAngleX = new AtomicReference<>(0d);
+        AtomicReference<Double> anchorAngleY = new AtomicReference<>(0d);
 
         shipGraphic.setRoot(root);
         shipGraphic.setWidth(300);
         shipGraphic.setHeight(250);
         shipGraphic.setCamera(camera);
 
-        // Create the Sub-Scene
-        //SubScene subscene = new SubScene(root, 200, 200, true, SceneAntialiasing.BALANCED);
-        // Add the Camera to the Sub-Scene
-        //subscene.setCamera(camera);
+        shipGraphic.setOnMousePressed(event ->
+        {
+            anchorX.set(event.getSceneX());
+            anchorY.set(event.getSceneY());
+            anchorAngleX.set(angleX.get());
+            anchorAngleY.set(angleY.get());
+        });
 
+        shipGraphic.setOnMouseDragged(event ->
+        {
+            angleX.set(anchorAngleX.get() - (anchorY.get() - event.getSceneY()));
+            angleY.set(anchorAngleY.get() + anchorX.get() - event.getSceneX());
+        });
     }
 }
