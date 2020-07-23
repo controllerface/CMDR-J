@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.modifications;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 3/31/2018.
  */
-public enum ModificationType implements ProcurementType
+public enum ModificationType implements TaskType
 {
     // weapons
     Beam_Laser(EnumSet.of(ModificationBlueprint.Weapon_Efficient,
@@ -248,7 +248,7 @@ public enum ModificationType implements ProcurementType
     }
 
     @Override
-    public List<ProcurementBlueprint> getBluePrints()
+    public List<TaskBlueprint> getBluePrints()
     {
         return new ArrayList<>(blueprints) ;
     }

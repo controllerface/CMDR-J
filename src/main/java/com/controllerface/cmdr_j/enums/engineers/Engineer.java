@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.engineers;
 
 import com.controllerface.cmdr_j.classes.StarSystem;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
@@ -295,23 +295,23 @@ public enum Engineer
         }
     }
 
-    public static List<Engineer> findSupportedEngineers(ProcurementType procurementType, ItemGrade grade)
+    public static List<Engineer> findSupportedEngineers(TaskType taskType, ItemGrade grade)
     {
         List<Engineer> engineers = new ArrayList<>();
-        if (procurementType instanceof ModificationType)
+        if (taskType instanceof ModificationType)
         {
             for (Engineer engineer : values())
             {
-                ItemGrade maxGrade = engineer.modifications.get(procurementType);
+                ItemGrade maxGrade = engineer.modifications.get(taskType);
                 if (maxGrade == null) continue;
                 if (maxGrade.getNumericalValue() >= grade.getNumericalValue()) engineers.add(engineer);
             }
         }
-        else if (procurementType instanceof ExperimentalType)
+        else if (taskType instanceof ExperimentalType)
         {
             for (Engineer engineer : values())
             {
-                if (engineer.experimentals.contains(procurementType)) engineers.add(engineer);
+                if (engineer.experimentals.contains(taskType)) engineers.add(engineer);
             }
         }
         return engineers;

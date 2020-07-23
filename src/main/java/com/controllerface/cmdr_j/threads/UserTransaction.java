@@ -1,8 +1,8 @@
 package com.controllerface.cmdr_j.threads;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
@@ -55,9 +55,9 @@ public class UserTransaction
     private final long transactionAmount;
     private final String message;
     private final MessageType messageType;
-    private final ProcurementCost inventoryItem;
+    private final TaskCost inventoryItem;
     private final Map<String, Object> statusObject;
-    private final Pair<ProcurementType, ProcurementRecipe> blueprint;
+    private final Pair<TaskType, TaskRecipe> blueprint;
 
 
     private UserTransaction(Builder builder)
@@ -107,12 +107,12 @@ public class UserTransaction
         return statusObject;
     }
 
-    public ProcurementCost getInventoryItem()
+    public TaskCost getInventoryItem()
     {
         return inventoryItem;
     }
 
-    public Pair<ProcurementType, ProcurementRecipe> getBlueprint()
+    public Pair<TaskType, TaskRecipe> getBlueprint()
     {
         return blueprint;
     }
@@ -127,9 +127,9 @@ public class UserTransaction
         private long transactionAmount;
         private String message;
         private MessageType messageType;
-        private ProcurementCost inventoryItem;
+        private TaskCost inventoryItem;
         private Map<String, Object> statusObject;
-        private Pair<ProcurementType, ProcurementRecipe> blueprint;
+        private Pair<TaskType, TaskRecipe> blueprint;
 
 
         public Builder(TransactionType transactionType)
@@ -161,7 +161,7 @@ public class UserTransaction
             return this;
         }
 
-        public Builder setInventoryItem(ProcurementCost inventoryItem)
+        public Builder setInventoryItem(TaskCost inventoryItem)
         {
             this.inventoryItem = inventoryItem;
             return this;
@@ -173,7 +173,7 @@ public class UserTransaction
             return this;
         }
 
-        public Builder setBlueprint(Pair<ProcurementType, ProcurementRecipe> blueprint)
+        public Builder setBlueprint(Pair<TaskType, TaskRecipe> blueprint)
         {
             this.blueprint = blueprint;
             return this;

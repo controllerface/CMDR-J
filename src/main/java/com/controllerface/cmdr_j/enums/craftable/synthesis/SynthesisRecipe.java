@@ -1,8 +1,8 @@
 package com.controllerface.cmdr_j.enums.craftable.synthesis;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.synthesis.*;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  * Created by Controllerface on 4/12/2018.
  */
 
-public enum SynthesisRecipe implements ProcurementRecipe
+public enum SynthesisRecipe implements TaskRecipe
 {
     AFM_Refill_Basic(new AFM_Refill_Basic()),
     AFM_Refill_Standard(new AFM_Refill_Standard()),
@@ -101,9 +101,9 @@ public enum SynthesisRecipe implements ProcurementRecipe
 
     ;
 
-    private final ProcurementRecipe delegate;
+    private final TaskRecipe delegate;
 
-    SynthesisRecipe(ProcurementRecipe delgate)
+    SynthesisRecipe(TaskRecipe delgate)
     {
         this.delegate = delgate;
         delgate.costStream().forEach(c->c.getCost().associate(this));

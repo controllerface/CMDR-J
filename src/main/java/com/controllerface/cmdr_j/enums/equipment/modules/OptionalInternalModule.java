@@ -3,7 +3,6 @@ package com.controllerface.cmdr_j.enums.equipment.modules;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
-import com.controllerface.cmdr_j.classes.modules.AdvancedDiscoveryScanner;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size1.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size2.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size3.*;
@@ -150,11 +149,9 @@ import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size4.SRVBay_4H
 import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size6.SRVBay_6G;
 import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size6.SRVBay_6H;
 import com.controllerface.cmdr_j.classes.modules.optional.supercruiseassist.SuperCruiseAssist_1E;
-import com.controllerface.cmdr_j.classes.modules.utility.shutdownneutralizer.AntiShutdownField_0F;
 import com.controllerface.cmdr_j.classes.modules.utility.surfacescanner.DetailedSurfaceScanner_1I;
-import com.controllerface.cmdr_j.classes.modules.utility.xenoscanner.XenoScanner_0E;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
@@ -883,13 +880,13 @@ public enum OptionalInternalModule implements ShipModule
     }
 
     @Override
-    public ProcurementType modificationType()
+    public TaskType modificationType()
     {
         return delegate.modificationType();
     }
 
     @Override
-    public ProcurementType experimentalType()
+    public TaskType experimentalType()
     {
         return delegate.experimentalType();
     }
@@ -940,13 +937,13 @@ public enum OptionalInternalModule implements ShipModule
     }
 
     @Override
-    public List<ProcurementRecipe> getAssociated()
+    public List<TaskRecipe> getAssociated()
     {
         return null;
     }
 
     @Override
-    public void associate(ProcurementRecipe recipe)
+    public void associate(TaskRecipe recipe)
     {
 
     }

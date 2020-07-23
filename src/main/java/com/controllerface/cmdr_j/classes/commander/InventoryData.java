@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.commander;
 
-import com.controllerface.cmdr_j.classes.procurements.*;
+import com.controllerface.cmdr_j.classes.tasks.*;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.commodities.CommodityCostCategory;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
@@ -19,10 +19,7 @@ import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -48,7 +45,7 @@ public class InventoryData implements Displayable
     /**
      * The actual inventory item being tracked
      */
-    private final ProcurementCost inventoryItem;
+    private final TaskCost inventoryItem;
 
     /**
      * Stores the current count of the inventory item
@@ -100,9 +97,9 @@ public class InventoryData implements Displayable
     private final SimpleLongProperty haveCount = new SimpleLongProperty();
     private final SimpleBooleanProperty hasTrades = new SimpleBooleanProperty(false);
 
-    private final Function<ProcurementCost, Long> checkInventory;
-    private final Function<ProcurementCost, Integer> pendingTradeCost;
-    private final Consumer<ProcurementTask> addTask;
+    private final Function<TaskCost, Long> checkInventory;
+    private final Function<TaskCost, Integer> pendingTradeCost;
+    private final Consumer<Task> addTask;
 
 
     private final VBox itemDetails = new VBox();
@@ -130,11 +127,11 @@ public class InventoryData implements Displayable
         return r.replace("F S D","FSD ");
     };
 
-    InventoryData(ProcurementCost inventoryItem,
+    InventoryData(TaskCost inventoryItem,
                   long quantity,
-                  Function<ProcurementCost, Long> checkInventory,
-                  Function<ProcurementCost, Integer> pendingTradeCost,
-                  Consumer<ProcurementTask> addTask)
+                  Function<TaskCost, Long> checkInventory,
+                  Function<TaskCost, Integer> pendingTradeCost,
+                  Consumer<Task> addTask)
     {
         this.inventoryItem = inventoryItem;
         this.quantity = quantity;
@@ -226,10 +223,10 @@ public class InventoryData implements Displayable
 
     private String generateAssociatedString()
     {
-        List<ProcurementRecipe> synthesisRecipes = new ArrayList<>();
-        List<ProcurementRecipe> modificationRecipes = new ArrayList<>();
-        List<ProcurementRecipe> experimentalRecipes = new ArrayList<>();
-        List<ProcurementRecipe> techBrokerRecipes = new ArrayList<>();
+        List<TaskRecipe> synthesisRecipes = new ArrayList<>();
+        List<TaskRecipe> modificationRecipes = new ArrayList<>();
+        List<TaskRecipe> experimentalRecipes = new ArrayList<>();
+        List<TaskRecipe> techBrokerRecipes = new ArrayList<>();
 
         inventoryItem.getAssociated().forEach(recipe ->
         {
@@ -326,7 +323,7 @@ public class InventoryData implements Displayable
                     .filter(material -> material != inventoryItem)
                     .map(material -> material.getTradeBlueprint().orElse(null))
                     .filter(Objects::nonNull)
-                    .flatMap(ProcurementBlueprint::recipeStream)
+                    .flatMap(TaskBlueprint::recipeStream)
                     .filter(r -> r.costStream().findFirst().get().getCost() == inventoryItem)
                     .forEach(recipe ->
                     {
@@ -366,7 +363,7 @@ public class InventoryData implements Displayable
                                     toLabel.getStyleClass().addAll("inventory_label", "base_font");
 
                                     HBox convBox = new HBox(from, toLabel, to);
-                                    ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), recipe);
+                                    Task tradeTask = new Task(tradeType.get(), recipe);
 
                                     VBox btnhldr = new VBox();
                                     HBox btnlbl = new HBox();
@@ -574,7 +571,7 @@ public class InventoryData implements Displayable
         return inventoryItem + " : " + quantity;
     }
 
-    public ProcurementCost getItem()
+    public TaskCost getItem()
     {
         return inventoryItem;
     }

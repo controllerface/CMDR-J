@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.enums.craftable.technologies;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
 
 import java.util.EnumSet;
 import java.util.Optional;
@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 4/12/2018.
  */
-public enum TechnologyBlueprint implements ProcurementBlueprint
+public enum TechnologyBlueprint implements TaskBlueprint
 {
     // Human
 

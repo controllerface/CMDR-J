@@ -1,14 +1,14 @@
 package com.controllerface.cmdr_j.classes.recipes;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public abstract class AbstractRecipe implements ProcurementRecipe
+public abstract class AbstractRecipe implements TaskRecipe
 {
     private String parentBlueprintName = "";
     private final ItemGrade grade;

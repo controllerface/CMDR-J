@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes.procurements;
+package com.controllerface.cmdr_j.classes.tasks;
 
 /**
  * In the context of this application, a "cost" is some material item, either a commodity, raw or manufactured item,
@@ -8,7 +8,7 @@ package com.controllerface.cmdr_j.classes.procurements;
  *
  * Created by Controllerface on 4/11/2018.
  */
-public interface ProcurementCostCategory
+public interface TaskCostCategory
 {
     int getNumericalValue();
 }

@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.classes;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.StarShip;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
-import com.controllerface.cmdr_j.classes.procurements.*;
+import com.controllerface.cmdr_j.classes.tasks.*;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
@@ -83,17 +83,17 @@ public class ShipModuleData implements Displayable
     }
 
     /**
-     * Maps a {@code ProcurementBlueprint} object to a {@code Pair<ProcurementType, ProcurementRecipe>} object,
+     * Maps a {@code TaskBlueprint} object to a {@code Pair<TaskType, TaskRecipe>} object,
      * suitable for adding as a new task the the tracked task list.
      *
-     * @param blueprint ProcurementBlueprint to map
-     * @return a new Pair<ProcurementType, ProcurementRecipe>
+     * @param blueprint TaskBlueprint to map
+     * @return a new Pair<TaskType, TaskRecipe>
      */
-    private Stream<Pair<ProcurementType, ProcurementRecipe>> mapBlueprint(ProcurementBlueprint blueprint)
+    private Stream<Pair<TaskType, TaskRecipe>> mapBlueprint(TaskBlueprint blueprint)
     {
         return blueprint.recipeStream().map(recipe ->
         {
-            ProcurementType type = recipe instanceof ModificationRecipe
+            TaskType type = recipe instanceof ModificationRecipe
                     ? module.modificationType()
                     : recipe instanceof ExperimentalRecipe
                             ? module.experimentalType()
@@ -103,7 +103,7 @@ public class ShipModuleData implements Displayable
         });
     }
 
-    private TitledPane createRecipeControl(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    private TitledPane createRecipeControl(Pair<TaskType, TaskRecipe> recipePair)
     {
         //VBox container = new VBox();
         //container.getStyleClass().addAll("information_panel","no_border");
@@ -118,7 +118,7 @@ public class ShipModuleData implements Displayable
         return infoPane;
     }
 
-    private VBox createModuleControl(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    private VBox createModuleControl(Pair<TaskType, TaskRecipe> recipePair)
     {
         VBox container = new VBox();
         container.getStyleClass().addAll("information_panel","no_border");
@@ -132,7 +132,7 @@ public class ShipModuleData implements Displayable
         return container;
     }
 
-    private Button createTaskButton(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    private Button createTaskButton(Pair<TaskType, TaskRecipe> recipePair)
     {
         Button button = new Button();
         HBox buttonGraphic = new HBox();
@@ -160,7 +160,7 @@ public class ShipModuleData implements Displayable
     }
 
 
-    private Button createTaskButton2(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    private Button createTaskButton2(Pair<TaskType, TaskRecipe> recipePair)
     {
         Button button = new Button();
         button.getStyleClass().addAll("add_task_button", "base_font");
@@ -171,33 +171,6 @@ public class ShipModuleData implements Displayable
                 .orElse(null);
 
         String xTxt = "Buy ";
-//        if (costData != null)
-//        {
-//            ProcurementCost cost = costData.getCost();
-//
-//            ItemEffectData data = ((ShipModule) cost).itemEffects().effectByName(ItemEffect.Size)
-//                    .orElse(null);
-//
-//            ItemEffectData data2 = ((ShipModule) cost).itemEffects().effectByName(ItemEffect.Class)
-//                    .orElse(null);
-//
-//            if (data != null)
-//            {
-//                xTxt += Double.valueOf(data.getDoubleValue()).intValue();
-//            }
-//
-//            if (data2 != null)
-//            {
-//                xTxt += data2.getStringValue() + " ";
-//            }
-//
-//            xTxt += cost.getLocalizedName();
-//
-//        }
-//        else
-//        {
-//            xTxt = recipePair.getValue().getDisplayLabel();
-//        }
 
         Label x = new Label(xTxt);
         x.getStyleClass().add("module_purchase_label");
@@ -243,7 +216,7 @@ public class ShipModuleData implements Displayable
         return button;
     }
 
-    private TitledPane createInfoPane(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    private TitledPane createInfoPane(Pair<TaskType, TaskRecipe> recipePair)
     {
         TitledPane infoPane = new TitledPane();
         infoPane.setExpanded(false);
@@ -336,7 +309,7 @@ public class ShipModuleData implements Displayable
         }
     }
 
-    private VBox createModulePane(Pair<ProcurementType, ProcurementRecipe> recipePair)
+    private VBox createModulePane(Pair<TaskType, TaskRecipe> recipePair)
     {
         VBox box = new VBox();
 
@@ -624,8 +597,8 @@ public class ShipModuleData implements Displayable
         }
 
 
-        ProcurementType modificationType = module.modificationType();
-        ProcurementType experimentalType = module.experimentalType();
+        TaskType modificationType = module.modificationType();
+        TaskType experimentalType = module.experimentalType();
         if (modificationType != null || experimentalType != null)
         {
             if (modificationType != null)
@@ -754,14 +727,14 @@ public class ShipModuleData implements Displayable
     private void renderAvailableModules(VBox effectsContainer)
     {
         Map<Integer, List<ShipModule>> moduleMap = new LinkedHashMap<>();
-        ProcurementType procurementType;
+        TaskType taskType;
         AtomicBoolean armorSlot = new AtomicBoolean(false);
         AtomicBoolean exactSizeOnly = new AtomicBoolean(false);
 
 
         if (moduleSlot instanceof HardpointSlot)
         {
-            procurementType = ModulePurchaseType.Hardpoint;
+            taskType = ModulePurchaseType.Hardpoint;
             HardpointSlot hardpointSlot = ((HardpointSlot) moduleSlot);
             List<ShipModule> compatibleModules = HardpointModule.findModulesBySize(hardpointSlot.getSize());
             compatibleModules.forEach(m->
@@ -775,7 +748,7 @@ public class ShipModuleData implements Displayable
         }
         else if (moduleSlot instanceof OptionalInternalSlot)
         {
-            procurementType = ModulePurchaseType.Optional;
+            taskType = ModulePurchaseType.Optional;
             OptionalInternalSlot internalSlot = ((OptionalInternalSlot) moduleSlot);
             if (internalSlot.getSize() == 0)
             {
@@ -796,7 +769,7 @@ public class ShipModuleData implements Displayable
         }
         else if (moduleSlot instanceof CoreInternalSlot)
         {
-            procurementType = ModulePurchaseType.Core;
+            taskType = ModulePurchaseType.Core;
             CoreInternalSlot internalSlot = ((CoreInternalSlot) moduleSlot);
             // consult ship for modules that can be fitted
 
@@ -929,13 +902,13 @@ public class ShipModuleData implements Displayable
                         if (sizeExpanded && contentBox.getPanes().isEmpty())
                         {
                             // all the types of modules we come across
-                            Map<ProcurementType, Accordion> types = new HashMap<>();
+                            Map<TaskType, Accordion> types = new HashMap<>();
                             Map<String, Accordion> altTypes = new HashMap<>();
 
                             modules.forEach(knownModule->
                             {
-                                ProcurementRecipe moduleRecipe = procurementType.getBluePrints().stream()
-                                        .flatMap(ProcurementBlueprint::recipeStream)
+                                TaskRecipe moduleRecipe = taskType.getBluePrints().stream()
+                                        .flatMap(TaskBlueprint::recipeStream)
                                         .filter(recipe -> recipe.costStream()
                                                 .map(CostData::getCost)
                                                 .anyMatch(cost -> cost == knownModule))
@@ -943,7 +916,7 @@ public class ShipModuleData implements Displayable
 
                                 if (moduleRecipe == null) return;
 
-                                Pair<ProcurementType, ProcurementRecipe> recipePair = new Pair<>(procurementType, moduleRecipe);
+                                Pair<TaskType, TaskRecipe> recipePair = new Pair<>(taskType, moduleRecipe);
 
                                 // this is the individual module pane
 

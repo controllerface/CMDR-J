@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes.procurements;
+package com.controllerface.cmdr_j.classes.tasks;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
@@ -8,25 +8,20 @@ import com.controllerface.cmdr_j.enums.costs.special.AnyCost;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyType;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.ui.Displayable;
-import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.SVGPath;
 import javafx.util.Pair;
 
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -34,8 +29,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * Represents a single "recipe" also referred to as a "procurement task" or just "task", that the user has selected for
- * completion. A user selects these tasks from the "procurement tree" adding them to a type of "to-do" list. Entries in
+ * Represents a single "recipe" also referred to as a "task", that the user has selected for
+ * completion. A user selects these tasks from the "task tree" adding them to a type of "to-do" list. Entries in
  * this list themselves have a count, representing completion of the same task multiple times. As such, the count value
  * of this object is mutable, to allow for a given instance of this recipe to be requested multiple times, and allows
  * any constituent costs of the recipe itself to be calculated bu multiplying their individual costs by the total count
@@ -43,7 +38,7 @@ import java.util.stream.Collectors;
  *
  * Created by Controllerface on 4/2/2018.
  */
-public class ProcurementTaskData implements Displayable
+public class TaskData implements Displayable
 {
     private final AtomicLong count;
     private final SimpleLongProperty countDisplay = new SimpleLongProperty();
@@ -62,14 +57,14 @@ public class ProcurementTaskData implements Displayable
     private long lastMissing = -1;
     private double lastProgress = -1;
 
-    private final ProcurementType type;
-    private final ProcurementRecipe recipe;
+    private final TaskType type;
+    private final TaskRecipe recipe;
 
     private final AtomicBoolean initialRenderComplete = new AtomicBoolean(false);
 
-    private final Function<ProcurementCost, Long> checkInventory;
-    private final Function<ProcurementCost, Integer> pendingTradeYield;
-    private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> inventoryUpdate;
+    private final Function<TaskCost, Long> checkInventory;
+    private final Function<TaskCost, Integer> pendingTradeYield;
+    private final BiConsumer<Integer, Pair<TaskType, TaskRecipe>> inventoryUpdate;
 
     private final Supplier<StarSystem> getCurrentSystem;
 
@@ -78,7 +73,7 @@ public class ProcurementTaskData implements Displayable
     private final HBox spinner;
 
 
-    private ProcurementTaskData(Builder builder)
+    private TaskData(Builder builder)
     {
         this.count = new AtomicLong(builder.count);
         countDisplay.set(this.count.get());
@@ -179,7 +174,7 @@ public class ProcurementTaskData implements Displayable
         return spinner;
     }
 
-    public Pair<ProcurementType, ProcurementRecipe> asPair()
+    public Pair<TaskType, TaskRecipe> asPair()
     {
         return new Pair<>(type, recipe);
     }
@@ -200,7 +195,7 @@ public class ProcurementTaskData implements Displayable
         Platform.runLater(this::renderProgress);
     }
 
-    public boolean matches(Pair<ProcurementType, ProcurementRecipe> pair)
+    public boolean matches(Pair<TaskType, TaskRecipe> pair)
     {
         if (pair.getKey() instanceof MaterialTradeType)
         {
@@ -210,11 +205,11 @@ public class ProcurementTaskData implements Displayable
             boolean typeMatch = type == pair.getKey();
             if (!typeMatch) return false;
 
-            Set<ProcurementCost> theseCosts = recipe.costStream()
+            Set<TaskCost> theseCosts = recipe.costStream()
                     .map(CostData::getCost)
                     .collect(Collectors.toSet());
 
-            Set<ProcurementCost> thoseCosts = pair.getValue().costStream()
+            Set<TaskCost> thoseCosts = pair.getValue().costStream()
                     .map(CostData::getCost)
                     .collect(Collectors.toSet());
 
@@ -231,7 +226,7 @@ public class ProcurementTaskData implements Displayable
 
     private void render()
     {
-        Pair<ProcurementType, ProcurementRecipe> recipePair = asPair();
+        Pair<TaskType, TaskRecipe> recipePair = asPair();
 
         TitledPane titledPane = new TitledPane();
         titledPane.getStyleClass().addAll("general_panel", "base_font");
@@ -257,16 +252,16 @@ public class ProcurementTaskData implements Displayable
         renderProgress();
     }
 
-    private Pair<Double, Boolean> calculateProgress(ProcurementTaskData procurementTaskData)
+    private Pair<Double, Boolean> calculateProgress(TaskData taskData)
     {
         AtomicBoolean usesTrade = new AtomicBoolean(false);
 
         // get the number of "rolls" required for this task
-        long count = procurementTaskData.getCount();
+        long count = taskData.getCount();
 
         AtomicLong accumulatedTotal = new AtomicLong(0);
 
-        long missing = procurementTaskData.asPair().getValue().costStream()
+        long missing = taskData.asPair().getValue().costStream()
                 .filter(c->c.getQuantity() > 0)
                 .mapToLong(cost->
                 {
@@ -436,9 +431,9 @@ public class ProcurementTaskData implements Displayable
     public boolean equals(Object obj)
     {
         if (obj == this) return true;
-        if (obj instanceof ProcurementTaskData)
+        if (obj instanceof TaskData)
         {
-            ProcurementTaskData other = ((ProcurementTaskData) obj);
+            TaskData other = ((TaskData) obj);
             boolean item = recipe.equals(other.recipe);
             boolean count = this.count.get() == other.count.get();
             return item && count;
@@ -450,11 +445,11 @@ public class ProcurementTaskData implements Displayable
     {
 
         private final int count;
-        private ProcurementType type;
-        private ProcurementRecipe recipe;
-        private Function<ProcurementCost, Long> checkInventory;
-        private Function<ProcurementCost, Integer> pendingTradeYield;
-        private BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> inventoryUpdate;
+        private TaskType type;
+        private TaskRecipe recipe;
+        private Function<TaskCost, Long> checkInventory;
+        private Function<TaskCost, Integer> pendingTradeYield;
+        private BiConsumer<Integer, Pair<TaskType, TaskRecipe>> inventoryUpdate;
         private Supplier<StarSystem> getCurrentSystem;
 
         public Builder(int count)
@@ -462,13 +457,13 @@ public class ProcurementTaskData implements Displayable
             this.count = count;
         }
 
-        public Builder setType(ProcurementType type)
+        public Builder setType(TaskType type)
         {
             this.type = type;
             return this;
         }
 
-        public Builder setRecipe(ProcurementRecipe recipe)
+        public Builder setRecipe(TaskRecipe recipe)
         {
             this.recipe = recipe;
             return this;
@@ -480,19 +475,19 @@ public class ProcurementTaskData implements Displayable
 //            return this;
 //        }
 
-        public Builder setCheckInventory(Function<ProcurementCost, Long> checkInventory)
+        public Builder setCheckInventory(Function<TaskCost, Long> checkInventory)
         {
             this.checkInventory = checkInventory;
             return this;
         }
 
-        public Builder setPendingTradeYield(Function<ProcurementCost, Integer> pendingTradeYield)
+        public Builder setPendingTradeYield(Function<TaskCost, Integer> pendingTradeYield)
         {
             this.pendingTradeYield = pendingTradeYield;
             return this;
         }
 
-        public Builder setInventoryUpdate(BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> inventoryUpdate)
+        public Builder setInventoryUpdate(BiConsumer<Integer, Pair<TaskType, TaskRecipe>> inventoryUpdate)
         {
             this.inventoryUpdate = inventoryUpdate;
             return this;
@@ -504,9 +499,9 @@ public class ProcurementTaskData implements Displayable
             return this;
         }
 
-        public ProcurementTaskData createProcurementTaskData()
+        public TaskData createTaskData()
         {
-            return new ProcurementTaskData(this);
+            return new TaskData(this);
         }
     }
 }

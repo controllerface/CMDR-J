@@ -56,8 +56,8 @@ import com.controllerface.cmdr_j.classes.modules.weapons.shockcannon.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Large;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Medium;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Small;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
@@ -298,13 +298,13 @@ public enum HardpointModule implements ShipModule
     }
 
     @Override
-    public ProcurementType modificationType()
+    public TaskType modificationType()
     {
         return delegate.modificationType();
     }
 
     @Override
-    public ProcurementType experimentalType()
+    public TaskType experimentalType()
     {
         return delegate.experimentalType();
     }
@@ -360,13 +360,13 @@ public enum HardpointModule implements ShipModule
     }
 
     @Override
-    public List<ProcurementRecipe> getAssociated()
+    public List<TaskRecipe> getAssociated()
     {
         return null;
     }
 
     @Override
-    public void associate(ProcurementRecipe recipe)
+    public void associate(TaskRecipe recipe)
     {
 
     }

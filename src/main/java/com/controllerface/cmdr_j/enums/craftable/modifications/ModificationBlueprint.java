@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.modifications;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  *
  * Created by Controllerface on 3/31/2018.
  */
-public enum ModificationBlueprint implements ProcurementBlueprint
+public enum ModificationBlueprint implements TaskBlueprint
 {
     Armour_Advanced("Lightweight",
             ModificationRecipe.Armour_Advanced_1,
@@ -473,22 +473,22 @@ public enum ModificationBlueprint implements ProcurementBlueprint
 
     ;
 
-    private final ProcurementRecipe[] recipes;
+    private final TaskRecipe[] recipes;
     private final String text;
 
-    ModificationBlueprint(String text, ProcurementRecipe... recipes)
+    ModificationBlueprint(String text, TaskRecipe... recipes)
     {
         this.text = text;
         this.recipes = recipes;
         recipeStream().forEach(recipe -> recipe.setParentBlueprintName(text));
     }
 
-    public Stream<ProcurementRecipe> recipeStream()
+    public Stream<TaskRecipe> recipeStream()
     {
         return Arrays.stream(recipes);
     }
 
-    public Optional<ProcurementRecipe> byLevel(int level)
+    public Optional<TaskRecipe> byLevel(int level)
     {
         if (level > recipes.length) return Optional.empty();
         return Optional.of(recipes[level-1]);

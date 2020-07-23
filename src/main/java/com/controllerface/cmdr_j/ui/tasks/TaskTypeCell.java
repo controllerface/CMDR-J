@@ -1,11 +1,9 @@
-package com.controllerface.cmdr_j.ui.procurements;
+package com.controllerface.cmdr_j.ui.tasks;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementTaskData;
-import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskData;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
@@ -15,10 +13,10 @@ import javafx.scene.shape.SVGPath;
 /**
  * Created by Stephen on 7/6/2018.
  */
-public class TaskTypeCell extends TableCell<ProcurementTaskData, ProcurementRecipe>
+public class TaskTypeCell extends TableCell<TaskData, TaskRecipe>
 {
     @Override
-    protected void updateItem(ProcurementRecipe item, boolean empty)
+    protected void updateItem(TaskRecipe item, boolean empty)
     {
         super.updateItem(item, empty);
         if (item == null || empty)

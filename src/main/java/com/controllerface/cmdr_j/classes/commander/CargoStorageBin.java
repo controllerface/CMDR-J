@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.commander;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementTask;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.Task;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.commodities.CommodityCostCategory;
 import com.controllerface.cmdr_j.enums.costs.commodities.CommodityType;
@@ -19,14 +19,13 @@ import java.util.function.Function;
  */
 class CargoStorageBin extends InventoryStorageBin
 {
-    CargoStorageBin(Function<ProcurementCost, Integer> pendingTradeCost,
-                    Consumer<ProcurementTask> addTask)
+    CargoStorageBin(Function<TaskCost, Integer> pendingTradeCost, Consumer<Task> addTask)
     {
         super(pendingTradeCost, addTask);
     }
 
     @Override
-    public boolean check(ProcurementCost item)
+    public boolean check(TaskCost item)
     {
         return item instanceof Commodity;
     }

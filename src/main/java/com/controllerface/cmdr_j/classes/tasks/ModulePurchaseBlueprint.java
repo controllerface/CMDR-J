@@ -1,8 +1,7 @@
-package com.controllerface.cmdr_j.classes.procurements;
+package com.controllerface.cmdr_j.classes.tasks;
 
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
-import com.controllerface.cmdr_j.enums.costs.materials.Material;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -12,9 +11,9 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 5/19/2018.
  */
-public class ModulePurchaseBlueprint implements ProcurementBlueprint
+public class ModulePurchaseBlueprint implements TaskBlueprint
 {
-    private final List<ProcurementRecipe> recipes;
+    private final List<TaskRecipe> recipes;
     private final String ss;
 
     public ModulePurchaseBlueprint(String ss, EnumSet<? extends ShipModule> x)
@@ -26,7 +25,7 @@ public class ModulePurchaseBlueprint implements ProcurementBlueprint
     }
 
     @Override
-    public Stream<ProcurementRecipe> recipeStream()
+    public Stream<TaskRecipe> recipeStream()
     {
         return recipes.stream();
     }

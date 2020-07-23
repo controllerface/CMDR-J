@@ -1,8 +1,8 @@
 package com.controllerface.cmdr_j.threads;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import javafx.util.Pair;
 
 import java.util.concurrent.BlockingQueue;
@@ -13,17 +13,17 @@ public class TransactionProcessorTask implements Runnable
 {
     private final BlockingQueue<UserTransaction> transactionQueue;
     private final BiConsumer<UserTransaction.MessageType, String> messageLogger;
-    private final BiConsumer<ProcurementCost, Integer> adjustItem;
-    private final BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> procurementListUpdate;
+    private final BiConsumer<TaskCost, Integer> adjustItem;
+    private final BiFunction<Integer, Pair<TaskType, TaskRecipe>, Integer> taskListUpdate;
 
     public TransactionProcessorTask(BlockingQueue<UserTransaction> transactionQueue,
-                                    BiConsumer<UserTransaction.MessageType, String> messageLogger, BiConsumer<ProcurementCost, Integer> adjustItem,
-                                    BiFunction<Integer, Pair<ProcurementType, ProcurementRecipe>, Integer> procurementListUpdate)
+                                    BiConsumer<UserTransaction.MessageType, String> messageLogger, BiConsumer<TaskCost, Integer> adjustItem,
+                                    BiFunction<Integer, Pair<TaskType, TaskRecipe>, Integer> taskListUpdate)
     {
         this.transactionQueue = transactionQueue;
         this.messageLogger = messageLogger;
         this.adjustItem = adjustItem;
-        this.procurementListUpdate = procurementListUpdate;
+        this.taskListUpdate = taskListUpdate;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class TransactionProcessorTask implements Runnable
 //                    break;
 //
 //                case BLUEPRINT:
-//                    procurementListUpdate.apply(nextTransaction.getTransactionAmount(), nextTransaction.getBlueprint());
+//                   taskListUpdate.apply(nextTransaction.getTransactionAmount(), nextTransaction.getBlueprint());
 //                    break;
 //
 //                case MESSAGE:

@@ -1,8 +1,8 @@
 package com.controllerface.cmdr_j.enums.costs.materials;
 
-import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 5/19/2018.
  */
-public enum MaterialTradeType implements ProcurementType
+public enum MaterialTradeType implements TaskType
 {
 
     Raw_Elements(EnumSet.of(MaterialSubCostCategory.Raw_Elements_1,
@@ -146,7 +146,7 @@ public enum MaterialTradeType implements ProcurementType
     }
 
     @Override
-    public List<ProcurementBlueprint> getBluePrints()
+    public List<TaskBlueprint> getBluePrints()
     {
         return Collections.emptyList();
     }

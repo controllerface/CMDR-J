@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.enums.craftable.synthesis;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
 
 import java.util.EnumSet;
 import java.util.stream.Stream;
@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 4/12/2018.
  */
-public enum SynthesisBlueprint implements ProcurementBlueprint
+public enum SynthesisBlueprint implements TaskBlueprint
 {
     // Standard
     Small_Calibre_Munitions(EnumSet.of(SynthesisRecipe.Small_Calibre_Munitions_Basic,

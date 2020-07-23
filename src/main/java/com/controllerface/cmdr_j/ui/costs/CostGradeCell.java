@@ -1,9 +1,7 @@
 package com.controllerface.cmdr_j.ui.costs;
 
-import com.controllerface.cmdr_j.classes.procurements.ItemCostData;
+import com.controllerface.cmdr_j.classes.tasks.ItemCostData;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.ui.UIFunctions;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;

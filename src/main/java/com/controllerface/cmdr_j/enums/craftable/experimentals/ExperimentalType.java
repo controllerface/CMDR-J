@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.experimentals;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 3/31/2018.
  */
-public enum ExperimentalType implements ProcurementType
+public enum ExperimentalType implements TaskType
 {
     // weapons
     Beam_Laser(ExperimentalBlueprint.Beam_Laser),
@@ -66,7 +66,7 @@ public enum ExperimentalType implements ProcurementType
     }
 
     @Override
-    public List<ProcurementBlueprint> getBluePrints()
+    public List<TaskBlueprint> getBluePrints()
     {
         return Collections.singletonList(blueprint);
     }

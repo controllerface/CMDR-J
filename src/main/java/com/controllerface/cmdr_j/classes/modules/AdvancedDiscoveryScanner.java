@@ -2,7 +2,6 @@ package com.controllerface.cmdr_j.classes.modules;
 
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class AdvancedDiscoveryScanner extends AbstractModule

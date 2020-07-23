@@ -1,8 +1,8 @@
 package com.controllerface.cmdr_j.classes.recipes;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 5/19/2018.
  */
-public class MaterialTradeRecipe implements ProcurementRecipe
+public class MaterialTradeRecipe implements TaskRecipe
 {
     private final CostData price;
     private final CostData product;

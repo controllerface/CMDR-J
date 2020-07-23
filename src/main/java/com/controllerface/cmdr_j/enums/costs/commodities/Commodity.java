@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.costs.commodities;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Controllerface on 4/11/2018.
  */
-public enum Commodity implements ProcurementCost
+public enum Commodity implements TaskCost
 {
     // Chemicals
     AGRONOMICTREATMENT(ItemGrade.Space),
@@ -457,7 +457,7 @@ public enum Commodity implements ProcurementCost
     private final ItemGrade grade;
     private String localizedName = name();
     private String locationInformation = "";
-    private final List<ProcurementRecipe> associated = new ArrayList<>();
+    private final List<TaskRecipe> associated = new ArrayList<>();
 
     Commodity(ItemGrade grade)
     {
@@ -471,13 +471,13 @@ public enum Commodity implements ProcurementCost
     }
 
     @Override
-    public List<ProcurementRecipe> getAssociated()
+    public List<TaskRecipe> getAssociated()
     {
         return associated;
     }
 
     @Override
-    public void associate(ProcurementRecipe recipe)
+    public void associate(TaskRecipe recipe)
     {
         associated.add(recipe);
     }

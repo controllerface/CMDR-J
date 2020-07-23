@@ -2,8 +2,8 @@ package com.controllerface.cmdr_j.classes.commander;
 
 import com.controllerface.cmdr_j.classes.ShipModuleData;
 import com.controllerface.cmdr_j.classes.StarSystem;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementTask;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.Task;
 import com.controllerface.cmdr_j.enums.commander.PlayerStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.commodities.CommodityType;
@@ -33,8 +33,8 @@ import java.util.function.Function;
 public class CommanderData
 {
 
-    private final Function<ProcurementCost, Integer> pendingTradeCost;
-    private final Consumer<ProcurementTask> addTask;
+    private final Function<TaskCost, Integer> pendingTradeCost;
+    private final Consumer<Task> addTask;
 
     /**
      * The Commander's star ship. Changes as the commander switches ships or modules
@@ -79,7 +79,7 @@ public class CommanderData
      */
     private final Map<Statistic, String> stats = new ConcurrentHashMap<>(new LinkedHashMap<>());
 
-    public CommanderData(Function<ProcurementCost, Integer> pendingTradeCost, Consumer<ProcurementTask> addTask)
+    public CommanderData(Function<TaskCost, Integer> pendingTradeCost, Consumer<Task> addTask)
     {
         this.pendingTradeCost = pendingTradeCost;
         this.addTask = addTask;
@@ -245,12 +245,12 @@ public class CommanderData
     }
 
     /**
-     * Adjusts the count of the given ProcurementCost item in the  commander's inventory
+     * Adjusts the count of the given TaskCost item in the  commander's inventory
      *
-     * @param cost the named ProcurementCost item to adjust the count of
+     * @param cost the named TaskCost item to adjust the count of
      * @param adjustment amount to adjust the count by
      */
-    public void adjustItem(ProcurementCost cost, long adjustment)
+    public void adjustItem(TaskCost cost, long adjustment)
     {
         Objects.requireNonNull(cost);
 
@@ -293,7 +293,7 @@ public class CommanderData
         }
     }
 
-    public long amountOf(ProcurementCost cost)
+    public long amountOf(TaskCost cost)
     {
         Objects.requireNonNull(cost);
 

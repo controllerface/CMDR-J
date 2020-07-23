@@ -84,8 +84,7 @@ public class CommanderJ extends Application
         Parent root = loadRoot();
         root.getStyleClass().add("main");
         String cssFile = CommanderJ.class.getResource("/cmdrj.css").toExternalForm();
-        Scene scene = new Scene(root,100,100, true, SceneAntialiasing.BALANCED);
-        //Scene scene = new Scene(root);
+        Scene scene = new Scene(root);
         root.getStylesheets().add(cssFile);
         primaryStage.setScene(scene);
 

@@ -9,7 +9,7 @@ import com.controllerface.cmdr_j.classes.commander.CommanderData;
 import com.controllerface.cmdr_j.classes.commander.InventoryData;
 import com.controllerface.cmdr_j.classes.commander.MarketData;
 import com.controllerface.cmdr_j.classes.commander.ShipStatisticData;
-import com.controllerface.cmdr_j.classes.procurements.*;
+import com.controllerface.cmdr_j.classes.tasks.*;
 import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
@@ -35,15 +35,13 @@ import com.controllerface.cmdr_j.ui.costs.CostDataCell;
 import com.controllerface.cmdr_j.ui.costs.CostGradeCell;
 import com.controllerface.cmdr_j.ui.costs.CostValueCell;
 import com.controllerface.cmdr_j.ui.inventory.InventoryGradeCell;
-import com.controllerface.cmdr_j.ui.procurements.ProcurementListCell;
-import com.controllerface.cmdr_j.ui.procurements.ProcurementTreeCell;
-import com.controllerface.cmdr_j.ui.procurements.TaskTypeCell;
+import com.controllerface.cmdr_j.ui.tasks.TaskListCell;
+import com.controllerface.cmdr_j.ui.tasks.TaskTreeCell;
+import com.controllerface.cmdr_j.ui.tasks.TaskTypeCell;
 import com.controllerface.cmdr_j.ui.ship.*;
 import com.controllerface.cmdr_j.ui.tasks.TaskCountCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskDataCell;
 import com.controllerface.cmdr_j.ui.tasks.TaskRemoveCell;
-import javafx.animation.Animation;
-import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -55,7 +53,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -68,13 +65,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.CullFace;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 import javafx.util.Callback;
-import javafx.util.Duration;
 import javafx.util.Pair;
 
 import java.io.File;
@@ -178,30 +172,31 @@ public class UIController
     @FXML private LineChart<Number, Number> ttd_hull_chart;
 
     /*
-    Procurement Tasks Tab
+    Tasks Tab
      */
 
     // Section visibility controls
-    @FXML private CheckBox show_procurements;
+    @FXML private CheckBox show_debug_tasks;
     @FXML private CheckBox show_tasks;
     @FXML private CheckBox show_items_needed;
 
-    // Procurement tree/list selector components
-    @FXML private HBox procurement_box;
-    @FXML private Label procurement_label;
-    @FXML private TreeView<ProcurementTask> procurement_tree;
-    @FXML private ListView<ProcurementTask> procurement_list;
+    // Task tree/list selector components
+    // todo: this should be removed and redesigned in a more useful way. it is mainly a debugging aid now
+    @FXML private HBox task_debug_box;
+    @FXML private Label task_label;
+    @FXML private TreeView<Task> task_tree;
+    @FXML private ListView<Task> task_list;
 
     // Task list container pane
     @FXML private AnchorPane task_pane;
 
     // Task list and columns
-    @FXML private TableView<ProcurementTaskData> procurement_task_table;
-    @FXML private TableColumn<ProcurementTaskData, ProcurementRecipe> task_type_column;
-    @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> task_count_column;
-    @FXML private TableColumn<ProcurementTaskData, ProcurementTaskData> task_name_column;
-    @FXML private TableColumn<ProcurementTaskData, ProgressBar> task_progress_column;
-    @FXML private TableColumn<ProcurementTaskData, Pair<ProcurementType, ProcurementRecipe>> task_remove_column;
+    @FXML private TableView<TaskData> task_table;
+    @FXML private TableColumn<TaskData, TaskRecipe> task_type_column;
+    @FXML private TableColumn<TaskData, TaskData> task_count_column;
+    @FXML private TableColumn<TaskData, TaskData> task_name_column;
+    @FXML private TableColumn<TaskData, ProgressBar> task_progress_column;
+    @FXML private TableColumn<TaskData, Pair<TaskType, TaskRecipe>> task_remove_column;
 
     // Items needed/costs table and columns
     @FXML private TableView<ItemCostData> task_cost_table;
@@ -296,14 +291,14 @@ public class UIController
     @FXML private SubScene ship_graphic;
 
     /*
-    Backing lists for the procurement task UI elements
+    Backing lists for the task UI elements
      */
 
-    private final ObservableList<ProcurementTask> procSelectorBackingList = FXCollections.observableArrayList();
+    private final ObservableList<Task> procSelectorBackingList = FXCollections.observableArrayList();
 
     // the backing list for tracked tasks, and a sorted wrapper used to keep the UI view sorted
-    private final ObservableList<ProcurementTaskData> taskBackingList = FXCollections.observableArrayList();
-    private final SortedList<ProcurementTaskData> sortedTasks = new SortedList<>(taskBackingList, UIFunctions.Sort.tasksByName);
+    private final ObservableList<TaskData> taskBackingList = FXCollections.observableArrayList();
+    private final SortedList<TaskData> sortedTasks = new SortedList<>(taskBackingList, UIFunctions.Sort.tasksByName);
 
     // the backing list for needed items/costs, and a sorted wrapper used to keep the UI view sorted
     private final ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableArrayList();
@@ -330,7 +325,7 @@ public class UIController
      * that the user has added to their task list. This is used by some UI elements to determine if a given item is
      * being tracked as a cost or not.
      */
-    private final Set<ProcurementCost> taskCostCache = new HashSet<>();
+    private final Set<TaskCost> taskCostCache = new HashSet<>();
 
     /**
      * Keeps track of materials that MAY be procured at some time in the future, provided a trade task is completed.
@@ -338,7 +333,7 @@ public class UIController
      * will be added to this map. Note that all yields are accumulated this way in the map. I.e, if the player also
      * adds a trade task to trade 1 units of Niobium for 9 units of Carbon, this map will contain 12 units of carbon.
      */
-    private final Map<ProcurementCost, Integer> tradeYieldCache = new ConcurrentHashMap<>();
+    private final Map<TaskCost, Integer> tradeYieldCache = new ConcurrentHashMap<>();
 
     /**
      * Keeps track of materials that MAY be procured at some time in the future, provided a trade task is completed.
@@ -346,7 +341,7 @@ public class UIController
      * will be added to this map. Note that all yields are accumulated this way in the map. I.e, if the player also
      * adds a trade task to trade 1 units of Niobium for 9 units of Carbon, this map will contain 12 units of carbon.
      */
-    private final Map<ProcurementCost, Integer> tradeCostCache = new HashMap<>();
+    private final Map<TaskCost, Integer> tradeCostCache = new HashMap<>();
 
     /**
      * This list is the "raw" task list. When the user adds or removes tasks, or when a task is completed (thereby
@@ -354,7 +349,7 @@ public class UIController
      * done and resulting mutations to this list are complete, THEN the UI backing lists are synced with the contents
      * of this list. This is a best practice to ensure that heavy computations are not done on the UI thread.
      */
-    private final List<ProcurementTaskData> taskList = new CopyOnWriteArrayList<>();
+    private final List<TaskData> taskList = new CopyOnWriteArrayList<>();
 
     /**
      * This list functions the same way as the "raw" task list, only for the constituent costs of the tracked tasks.
@@ -372,19 +367,19 @@ public class UIController
     private final BlockingQueue<MessageData> messageQueue = new LinkedBlockingDeque<>();
     private final AtomicBoolean hasMessages = new AtomicBoolean(false);
 
-    private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> addPairToProcurementList =
+    private final BiConsumer<Integer, Pair<TaskType, TaskRecipe>> addPairToTaskList =
             (count, task) -> transactionQueue.add(UserTransaction.type(UserTransaction.TransactionType.BLUEPRINT)
                     .setTransactionAmount(count)
                     .setBlueprint(task)
                     .build());
 
-    private final Consumer<ProcurementTask> addTaskToProcurementList =
-            (task) -> addPairToProcurementList.accept(1, new Pair<>(task.getType(), task.getRecipe()));
+    private final Consumer<Task> addToTaskList =
+            (task) -> addPairToTaskList.accept(1, new Pair<>(task.getType(), task.getRecipe()));
 
-    private final Consumer<ProcurementTask> addTaskPairToProcurementList_direct =
-            (task) -> procurementListUpdate(1, new Pair<>(task.getType(), task.getRecipe()));
+    private final Consumer<Task> addPairToTaskList_direct =
+            (task) -> submitTaskListUpdate(1, new Pair<>(task.getType(), task.getRecipe()));
 
-    private final Function<ProcurementCost, Integer> calculateTradeYield = (item) ->
+    private final Function<TaskCost, Integer> calculateTradeYield = (item) ->
     {
         if (item.getGrade() == ItemGrade.Any)
         {
@@ -400,7 +395,7 @@ public class UIController
      * Holds all of the data related to a commander (i.e. the player's on-disk data). While running, this application
      * will continuously update the data in this object based on events that are written to the player's Journal file
      */
-    private final CommanderData commanderData = new CommanderData(tradeCostCache::get, addTaskPairToProcurementList_direct);
+    private final CommanderData commanderData = new CommanderData(tradeCostCache::get, addPairToTaskList_direct);
 
     private Consumer<Double> initialLoadCallback;
 
@@ -493,7 +488,7 @@ public class UIController
 //        }
 
         sortInventory();
-        setProcurementsUIVisibility();
+        setTaskUIVisibility();
         initializeComponents();
 
         return windowDimensions;
@@ -800,7 +795,7 @@ public class UIController
 
     private void initializeComponents()
     {
-        makeProcurementTree();
+        makeTaskTree();
         startTransactionProcessor();
         startupTasks();
         fromJson();
@@ -988,11 +983,11 @@ public class UIController
         // convenience function that adjusts items and also refreshes teh cost table. This is useful because the
         // item adjustment isn't directly related to the cost table, so adjustments won't automatically trigger a
         // refresh. This allows the table to be refreshed in one function without leaking references into other scopes
-        BiConsumer<ProcurementCost, Long> adjustItem = (item, amount) ->
+        BiConsumer<TaskCost, Long> adjustItem = (item, amount) ->
         {
             commanderData.adjustItem(item, amount);
             if (task_cost_table != null) task_cost_table.refresh();
-            if (procurement_task_table != null) procurement_task_table.refresh();
+            if (task_table != null) task_table.refresh();
 
         };
 
@@ -1041,7 +1036,7 @@ public class UIController
                         break;
 
                     case BLUEPRINT:
-                        procurementListUpdate(nextTransaction.getTransactionAmount(), nextTransaction.getBlueprint());
+                        submitTaskListUpdate(nextTransaction.getTransactionAmount(), nextTransaction.getBlueprint());
                         break;
 
                     case MESSAGE:
@@ -1194,7 +1189,7 @@ public class UIController
         initializeShipLoadoutTab();
         initializeAutoResizeBindings();
         initializeSelectionOverrides();
-        initializeProcurementTab();
+        initializeTaskTab();
 
         console_message_list.setItems(consoleBackingList);
         consoleBackingList.addListener((ListChangeListener<MessageData>) c -> console_message_list.refresh());
@@ -1333,19 +1328,19 @@ public class UIController
     }
 
     /**
-     * Sets up the the procurement tasks tab
+     * Sets up the the tasks tab
      */
-    private void initializeProcurementTab()
+    private void initializeTaskTab()
     {
         SimpleStringProperty labelText = new SimpleStringProperty("");
-        procurement_label.textProperty().bind(labelText);
-        procurement_tree.setCellFactory(param -> new ProcurementTreeCell(procSelectorBackingList, labelText));
-        procurement_list.setItems(procSelectorBackingList);
-        procurement_list.setCellFactory(param -> new ProcurementListCell(addTaskToProcurementList,
-                commanderData::amountOf, procurement_list.widthProperty()));
+        task_label.textProperty().bind(labelText);
+        task_tree.setCellFactory(param -> new TaskTreeCell(procSelectorBackingList, labelText));
+        task_list.setItems(procSelectorBackingList);
+        task_list.setCellFactory(param -> new TaskListCell(addToTaskList,
+                commanderData::amountOf, task_list.widthProperty()));
 
-        procurement_task_table.setItems(sortedTasks);
-        sortedTasks.comparatorProperty().bind(procurement_task_table.comparatorProperty());
+        task_table.setItems(sortedTasks);
+        sortedTasks.comparatorProperty().bind(task_table.comparatorProperty());
         task_cost_table.setItems(sortedCosts);
 
         task_count_column.setCellFactory(x -> new TaskCountCell());
@@ -1361,7 +1356,7 @@ public class UIController
         task_name_column.setCellFactory(x -> new TaskDataCell());
 
         task_remove_column.setCellValueFactory(modRecipe -> new ReadOnlyObjectWrapper<>(modRecipe.getValue().asPair()));
-        task_remove_column.setCellFactory(x -> new TaskRemoveCell(addPairToProcurementList));
+        task_remove_column.setCellFactory(x -> new TaskRemoveCell(addPairToTaskList));
 
         task_cost_need_column.setCellValueFactory(UIFunctions.Data.costNeedCellFactory);
         task_cost_need_column.setCellFactory(x -> new CostValueCell());
@@ -1378,9 +1373,10 @@ public class UIController
         //sort_tasks_by_name.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.tasksByName));
         //sort_tasks_by_grade.setOnAction(e -> sortedTasks.setComparator(UIFunctions.Sort.taskByGrade));
 
-        show_procurements.setOnAction(e -> setProcurementsUIVisibility());
-        show_tasks.setOnAction(e -> setProcurementsUIVisibility());
-        show_items_needed.setOnAction(e -> setProcurementsUIVisibility());
+        // todo: this will need to be removed when the debug task list goes
+        show_debug_tasks.setOnAction(e -> setTaskUIVisibility());
+        show_tasks.setOnAction(e -> setTaskUIVisibility());
+        show_items_needed.setOnAction(e -> setTaskUIVisibility());
     }
 
     /**
@@ -1404,8 +1400,8 @@ public class UIController
         exportLabel.getStyleClass().addAll("base_font");
         waypointLabel.getStyleClass().addAll("base_font");
 
-        procurement_list.setPlaceholder(procListLabel);
-        procurement_task_table.setPlaceholder(recipeTableLabel);
+        task_list.setPlaceholder(procListLabel);
+        task_table.setPlaceholder(recipeTableLabel);
         task_cost_table.setPlaceholder(costTableLabel);
         market_table.setPlaceholder(importLabel);
         market_table1.setPlaceholder(exportLabel);
@@ -1575,6 +1571,7 @@ public class UIController
 
         commanderData.getStarShip().associateShieldRegenLabels(s_regen_label, s_broken_regen_label);
 
+        ship_graphic.setFocusTraversable(true);
         commanderData.getStarShip().setShipGraphic(ship_graphic);
         commanderData.getStarShip().setDpsSpinner(dps_spinner, sys_spinner);
 
@@ -1721,7 +1718,7 @@ public class UIController
         bindTableResize(manufactured_table, manufactured_material_column);
         bindTableResize(data_table, data_material_column);
         bindTableResize(cargo_table, cargo_item_column);
-        bindTableResize(procurement_task_table, task_name_column);
+        bindTableResize(task_table, task_name_column);
         bindTableResize(task_cost_table, task_cost_name_column);
         bindTableResize(core_module_table, core_module_data_column);
         bindTableResize(optional_module_table, optional_module_data_column);
@@ -1736,7 +1733,7 @@ public class UIController
         core_module_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         optional_module_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         hardpoint_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-        procurement_task_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        task_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         task_cost_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         raw_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         manufactured_table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
@@ -1752,15 +1749,15 @@ public class UIController
     {
         disableListSelection(console_message_list);
 
-        disableTreeSelection(procurement_tree);
-        disableListSelection(procurement_list);
+        disableTreeSelection(task_tree);
+        disableListSelection(task_list);
 
         disableTableSelection(raw_table);
         disableTableSelection(manufactured_table);
         disableTableSelection(data_table);
         disableTableSelection(cargo_table);
 
-        disableTableSelection(procurement_task_table);
+        disableTableSelection(task_table);
         disableTableSelection(task_cost_table);
 
         disableTableSelection(ship_base_statistics_table);
@@ -1821,7 +1818,7 @@ public class UIController
      *
      * @param treeView tree view object to "disable" selection behavior
      */
-    private void disableTreeSelection(TreeView<ProcurementTask> treeView)
+    private void disableTreeSelection(TreeView<Task> treeView)
     {
         treeView.getSelectionModel().selectedIndexProperty()
                 .addListener((x,y,z) -> {
@@ -1910,9 +1907,9 @@ public class UIController
         else Platform.runLater(() -> doWork.accept(nextTransaction));
     }
 
-    private Map<ProcurementCost, Set<String>> costLabelCache = new HashMap<>();
+    private Map<TaskCost, Set<String>> costLabelCache = new HashMap<>();
 
-    private String calculateCostLabel(ProcurementType type, ProcurementRecipe recipe)
+    private String calculateCostLabel(TaskType type, TaskRecipe recipe)
     {
         List<String> tokens = new ArrayList<>();
 
@@ -1975,24 +1972,24 @@ public class UIController
      * @param task the task to adjust the count of in the tracked tasks list
      * @return the total count of the passed in task after the adjustment is applied, zero if the task was removed
      */
-    private void procurementListUpdate(long adjustment, Pair<ProcurementType, ProcurementRecipe> task)
+    private void submitTaskListUpdate(long adjustment, Pair<TaskType, TaskRecipe> task)
     {
-        Task<Void> task1 = new Task<Void>()
+        javafx.concurrent.Task task1 = new javafx.concurrent.Task()
         {
             @Override
             protected Void call()
             {
-                procurementListUpdate1(adjustment, task);
+                taskListUpdate(adjustment, task);
                 return null;
             }
         };
         messageExecutor.submit(task1);
     }
 
-    private void procurementListUpdate1(long adjustment, Pair<ProcurementType, ProcurementRecipe> task)
+    private void taskListUpdate(long adjustment, Pair<TaskType, TaskRecipe> task)
     {
         // find the task we need to adjust
-        AtomicReference<ProcurementTaskData> data = new AtomicReference<>(taskList.stream()
+        AtomicReference<TaskData> data = new AtomicReference<>(taskList.stream()
                 .filter(storedTask -> storedTask.matches(task))
                 .findFirst().orElse(null));
 
@@ -2011,14 +2008,14 @@ public class UIController
             else
             {
 
-                data.set(new ProcurementTaskData.Builder(0)
+                data.set(new TaskData.Builder(0)
                         .setType(task.getKey())
                         .setRecipe(task.getValue())
                         .setCheckInventory(commanderData::amountOf)
                         .setPendingTradeYield(calculateTradeYield)
-                        .setInventoryUpdate(addPairToProcurementList)
+                        .setInventoryUpdate(addPairToTaskList)
                         .setGetCurrentSystem(commanderData.getLocation()::getStarSystem)
-                        .createProcurementTaskData());
+                        .createTaskData());
 
 
                 taskList.add(data.get());
@@ -2038,7 +2035,7 @@ public class UIController
                                 costLabelCache::get,
                                 calculateTradeYield,
                                 tradeCostCache::get,
-                                addTaskToProcurementList))
+                                addToTaskList))
                         .forEach(costList::add);
             }
         }
@@ -2189,33 +2186,33 @@ public class UIController
         synchronizeBackingLists();
     }
 
-    private TreeItem<ProcurementTask> makeTradeTree()
+    private TreeItem<Task> makeTradeTree()
     {
-        TreeItem<ProcurementTask> materialTrades = new TreeItem<>(new ProcurementTask("Trades"));
+        TreeItem<Task> materialTrades = new TreeItem<>(new Task("Trades"));
 
         // loop through all possible trades
         Stream.of(MaterialTradeType.values())
                 .forEach(tradeCategory ->
                 {
                     // add a collapsible category label
-                    TreeItem<ProcurementTask> categoryItem =
-                            new TreeItem<>(new ProcurementTask(tradeCategory, tradeCategory.toString()));
+                    TreeItem<Task> categoryItem =
+                            new TreeItem<>(new Task(tradeCategory, tradeCategory.toString()));
 
                     // for this category, loop through trade sub-categories it contains
                     tradeCategory.subCategoryStream()
                             .forEach(subCategory ->
                             {
                                 // add a collapsible subcategory label
-                                TreeItem<ProcurementTask> subCatItem =
-                                        new TreeItem<>(new ProcurementTask(tradeCategory, subCategory.toString()));
+                                TreeItem<Task> subCatItem =
+                                        new TreeItem<>(new Task(tradeCategory, subCategory.toString()));
 
                                 // for this subcategory, loop through all materials it contains
                                 subCategory.materials().forEach(material -> material.getTradeBlueprint()
                                         .ifPresent(tradeBlueprint->
                                         {
                                             // add a collapsible a selectable material label
-                                            TreeItem<ProcurementTask> bluePrintItem =
-                                                    new TreeItem<>(new ProcurementTask(tradeCategory, tradeBlueprint));
+                                            TreeItem<Task> bluePrintItem =
+                                                    new TreeItem<>(new Task(tradeCategory, tradeBlueprint));
 
                                             // add the material item to the subcategory
                                             subCatItem.getChildren().add(bluePrintItem);
@@ -2232,9 +2229,9 @@ public class UIController
         return materialTrades;
     }
 
-    private TreeItem<ProcurementTask> makeModuleTree()
+    private TreeItem<Task> makeModuleTree()
     {
-        TreeItem<ProcurementTask> modulePrices = new TreeItem<>(new ProcurementTask("Modules"));
+        TreeItem<Task> modulePrices = new TreeItem<>(new Task("Modules"));
 
         // loop through all possible trades
         Stream.of(ModulePurchaseType.values())
@@ -2245,8 +2242,8 @@ public class UIController
                             .forEach(blueprint ->
                             {
                                 // add a collapsible subcategory label
-                                TreeItem<ProcurementTask> subCatItem =
-                                        new TreeItem<>(new ProcurementTask(modulePurchaseType, blueprint));
+                                TreeItem<Task> subCatItem =
+                                        new TreeItem<>(new Task(modulePurchaseType, blueprint));
 
                                 // add the subcategory item to the category
                                 modulePrices.getChildren().add(subCatItem);
@@ -2256,27 +2253,27 @@ public class UIController
         return modulePrices;
     }
 
-    private TreeItem<ProcurementTask> makeSynthesisTree()
+    private TreeItem<Task> makeSynthesisTree()
     {
-        TreeItem<ProcurementTask> modifications = new TreeItem<>(new ProcurementTask("Synthesis"));
+        TreeItem<Task> modifications = new TreeItem<>(new Task("Synthesis"));
 
         // loop through all mod categories
         Arrays.stream(SynthesisCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcurementTask> categoryItem = new TreeItem<>(new ProcurementTask(category.toString()));
+            TreeItem<Task> categoryItem = new TreeItem<>(new Task(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcurementTask> typeItem = new TreeItem<>(new ProcurementTask(type.toString()));
+                TreeItem<Task> typeItem = new TreeItem<>(new Task(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a selectable blueprint label
-                    TreeItem<ProcurementTask> bluePrintItem = new TreeItem<>(new ProcurementTask(type, blueprint));
+                    TreeItem<Task> bluePrintItem = new TreeItem<>(new Task(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -2293,27 +2290,27 @@ public class UIController
         return modifications;
     }
 
-    private TreeItem<ProcurementTask> makeModificationTree()
+    private TreeItem<Task> makeModificationTree()
     {
-        TreeItem<ProcurementTask> modifications = new TreeItem<>(new ProcurementTask("Modifications"));
+        TreeItem<Task> modifications = new TreeItem<>(new Task("Modifications"));
 
         // loop through all mod categories
         Arrays.stream(ModificationCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcurementTask> categoryItem = new TreeItem<>(new ProcurementTask(category.toString()));
+            TreeItem<Task> categoryItem = new TreeItem<>(new Task(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcurementTask> typeItem = new TreeItem<>(new ProcurementTask(type.toString()));
+                TreeItem<Task> typeItem = new TreeItem<>(new Task(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a selectable blueprint label
-                    TreeItem<ProcurementTask> bluePrintItem = new TreeItem<>(new ProcurementTask(type, blueprint));
+                    TreeItem<Task> bluePrintItem = new TreeItem<>(new Task(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -2330,15 +2327,15 @@ public class UIController
         return modifications;
     }
 
-    private TreeItem<ProcurementTask> makeExperimentTree()
+    private TreeItem<Task> makeExperimentTree()
     {
-        TreeItem<ProcurementTask> experiments = new TreeItem<>(new ProcurementTask("Experimentals"));
+        TreeItem<Task> experiments = new TreeItem<>(new Task("Experimentals"));
 
         // loop through all mod categories
         Arrays.stream(ExperimentalCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcurementTask> categoryItem = new TreeItem<>(new ProcurementTask(category.toString()));
+            TreeItem<Task> categoryItem = new TreeItem<>(new Task(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
@@ -2347,7 +2344,7 @@ public class UIController
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a selectable blueprint label
-                    TreeItem<ProcurementTask> bluePrintItem = new TreeItem<>(new ProcurementTask(type, blueprint));
+                    TreeItem<Task> bluePrintItem = new TreeItem<>(new Task(type, blueprint));
 
                     // add the blueprint item to this mod type
                     categoryItem.getChildren().add(bluePrintItem);
@@ -2362,27 +2359,27 @@ public class UIController
         return experiments;
     }
 
-    private TreeItem<ProcurementTask> makeTechnologyTree()
+    private TreeItem<Task> makeTechnologyTree()
     {
-        TreeItem<ProcurementTask> modifications = new TreeItem<>(new ProcurementTask("Technology"));
+        TreeItem<Task> modifications = new TreeItem<>(new Task("Technology"));
 
         // loop through all mod categories
         Arrays.stream(TechnologyCategory.values()).forEach(category ->
         {
             // add a collapsible category label
-            TreeItem<ProcurementTask> categoryItem = new TreeItem<>(new ProcurementTask(category.toString()));
+            TreeItem<Task> categoryItem = new TreeItem<>(new Task(category.toString()));
 
             // for this category, loop through all mod types it contains
             category.typeStream().forEach(type ->
             {
                 // add a collapsible mod type label
-                TreeItem<ProcurementTask> typeItem = new TreeItem<>(new ProcurementTask(type.toString()));
+                TreeItem<Task> typeItem = new TreeItem<>(new Task(type.toString()));
 
                 // for this mod type, loop through all blueprints it contains
                 type.blueprintStream().forEach(blueprint ->
                 {
                     // add a collapsible blueprint label
-                    TreeItem<ProcurementTask> bluePrintItem = new TreeItem<>(new ProcurementTask(type, blueprint));
+                    TreeItem<Task> bluePrintItem = new TreeItem<>(new Task(type, blueprint));
 
                     // add the blueprint item to this mod type
                     typeItem.getChildren().add(bluePrintItem);
@@ -2400,12 +2397,12 @@ public class UIController
     }
 
     @SuppressWarnings("unchecked")
-    private void makeProcurementTree()
+    private void makeTaskTree()
     {
-        // create an root object for procurements
-        TreeItem<ProcurementTask> root = new TreeItem<>(new ProcurementTask("root"));
+        // create an root object for tasks
+        TreeItem<Task> root = new TreeItem<>(new Task("root"));
 
-        // create and add the various procurement sub-trees to the root object
+        // create and add the various task sub-trees to the root object
         root.getChildren().addAll(
                 makeModuleTree(),
                 makeSynthesisTree(),
@@ -2418,12 +2415,12 @@ public class UIController
         root.setExpanded(true);
 
         // now that the root object has been filled with sub-trees, add it to the tree
-        procurement_tree.setRoot(root);
+        task_tree.setRoot(root);
 
         // hide the root, showing just its children in the tree view
-        procurement_tree.setShowRoot(false);
+        task_tree.setShowRoot(false);
 
-        procurement_tree.setOnMouseClicked((e)->{});
+        task_tree.setOnMouseClicked((e)->{});
     }
 
     private void sortInventory()
@@ -2443,22 +2440,22 @@ public class UIController
         cargo_table.getItems().sort(UIFunctions.Sort.itemByCount);
     }
 
-    private void setProcurementsUIVisibility()
+    private void setTaskUIVisibility()
     {
         int shown = 0;
 
-        if (show_procurements.isSelected())
+        if (show_debug_tasks.isSelected())
         {
             shown++;
-            procurement_label.setMinHeight(35);
-            procurement_box.setPrefHeight(10000);
-            procurement_box.setVisible(true);
+            task_label.setMinHeight(35);
+            task_debug_box.setPrefHeight(10000);
+            task_debug_box.setVisible(true);
         }
         else
         {
-            procurement_label.setMinHeight(0);
-            procurement_box.setPrefHeight(0);
-            procurement_box.setVisible(false);
+            task_label.setMinHeight(0);
+            task_debug_box.setPrefHeight(0);
+            task_debug_box.setVisible(false);
         }
 
         if (show_tasks.isSelected())
@@ -2489,13 +2486,13 @@ public class UIController
 
         if (shown == 1)
         {
-            if (show_procurements.isSelected()) show_procurements.setDisable(true);
+            if (show_debug_tasks.isSelected()) show_debug_tasks.setDisable(true);
             if (show_tasks.isSelected()) show_tasks.setDisable(true);
             if (show_items_needed.isSelected()) show_items_needed.setDisable(true);
         }
         else
         {
-            show_procurements.setDisable(false);
+            show_debug_tasks.setDisable(false);
             show_tasks.setDisable(false);
             show_items_needed.setDisable(false);
         }
@@ -2520,7 +2517,7 @@ public class UIController
         ((Map<String, Object>) data.get("materials"))
                 .forEach((key, value) ->
                 {
-                    ProcurementCost material = Material.valueOf(key);
+                    TaskCost material = Material.valueOf(key);
                     material.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
                     List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
                     material.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
@@ -2529,7 +2526,7 @@ public class UIController
         ((Map<String, Object>) data.get("commodities"))
                 .forEach((key, value) ->
                 {
-                    ProcurementCost commodity = Commodity.valueOf(key);
+                    TaskCost commodity = Commodity.valueOf(key);
                     commodity.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
                     List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
                     commodity.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
@@ -2552,13 +2549,13 @@ public class UIController
         List<Map<String, Object>> tasks = taskBackingList.stream()
                 .map(e->
                 {
-                    // todo: it may be beneficial to store the JSON output logic inside the procurement type
+                    // todo: it may be beneficial to store the JSON output logic inside the task type
                     // implementation, so if it needs to be different (ex: trade recipes) this code can delegate
                     // to another class that has the specific serialization logic
 
-                    Pair<ProcurementType, ProcurementRecipe> pair = e.asPair();
-                    ProcurementType type = pair.getKey();
-                    ProcurementRecipe recipe = pair.getValue();
+                    Pair<TaskType, TaskRecipe> pair = e.asPair();
+                    TaskType type = pair.getKey();
+                    TaskRecipe recipe = pair.getValue();
 
                     boolean isTrade = type instanceof MaterialTradeType;
                     boolean isModulePurchase = type instanceof ModulePurchaseType;
@@ -2636,8 +2633,8 @@ public class UIController
         List<Map<String, Object>> tasks = ((List<Map<String, Object>>) data.get("tasks"));
         tasks.forEach(taskEntry ->
         {
-            AtomicReference<ProcurementType> procType = new AtomicReference<>();
-            AtomicReference<ProcurementRecipe> recipeType = new AtomicReference<>();
+            AtomicReference<TaskType> procType = new AtomicReference<>();
+            AtomicReference<TaskRecipe> recipeType = new AtomicReference<>();
             AtomicInteger count = new AtomicInteger(0);
 
             taskEntry.forEach((key, value) ->

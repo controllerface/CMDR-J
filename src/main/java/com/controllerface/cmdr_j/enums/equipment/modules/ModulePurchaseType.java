@@ -1,15 +1,15 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
-import com.controllerface.cmdr_j.classes.procurements.ModulePurchaseBlueprint;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.ModulePurchaseBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
-public enum ModulePurchaseType implements ProcurementType
+public enum ModulePurchaseType implements TaskType
 {
     Hardpoint(EnumSet.allOf(HardpointModule.class)),
     Optional(EnumSet.allOf(OptionalInternalModule.class)),
@@ -19,7 +19,7 @@ public enum ModulePurchaseType implements ProcurementType
 
     private final EnumSet<? extends ShipModule> shipModules;
 
-    List<ProcurementBlueprint> blueprints;
+    List<TaskBlueprint> blueprints;
 
     ModulePurchaseType(EnumSet<? extends ShipModule> shipModules)
     {
@@ -35,7 +35,7 @@ public enum ModulePurchaseType implements ProcurementType
     }
 
     @Override
-    public List<ProcurementBlueprint> getBluePrints()
+    public List<TaskBlueprint> getBluePrints()
     {
         return blueprints;
     }

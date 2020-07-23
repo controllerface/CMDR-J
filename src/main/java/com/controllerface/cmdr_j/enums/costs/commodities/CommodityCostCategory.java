@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.costs.commodities;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCostCategory;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.TaskCostCategory;
 
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 4/11/2018.
  */
-public enum CommodityCostCategory implements ProcurementCostCategory
+public enum CommodityCostCategory implements TaskCostCategory
 {
     Drones(EnumSet.of(Commodity.DRONES)),
 
@@ -433,7 +433,7 @@ public enum CommodityCostCategory implements ProcurementCostCategory
         return commodities.contains(commodity);
     }
 
-    public static Optional<CommodityCostCategory> findMatchingCategory(ProcurementCost cost)
+    public static Optional<CommodityCostCategory> findMatchingCategory(TaskCost cost)
     {
         if (!(cost instanceof Commodity)) return Optional.empty();
         Commodity commodity = ((Commodity) cost);

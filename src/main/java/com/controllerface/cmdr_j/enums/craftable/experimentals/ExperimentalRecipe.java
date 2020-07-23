@@ -1,8 +1,8 @@
 package com.controllerface.cmdr_j.enums.craftable.experimentals;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.experimental.*;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 4/10/2018.
  */
-public enum ExperimentalRecipe implements ProcurementRecipe
+public enum ExperimentalRecipe implements TaskRecipe
 {
     special_armour_kinetic(new AngledPlating_Armour()),
     special_armour_chunky(new DeepPlating_Armour()),
@@ -114,9 +114,9 @@ public enum ExperimentalRecipe implements ProcurementRecipe
 
     ;
 
-    private final ProcurementRecipe delegate;
+    private final TaskRecipe delegate;
 
-    ExperimentalRecipe(ProcurementRecipe delegate)
+    ExperimentalRecipe(TaskRecipe delegate)
     {
         this.delegate = delegate;
         delegate.costStream().forEach(c->c.getCost().associate(this));

@@ -3,8 +3,8 @@ package com.controllerface.cmdr_j.enums.equipment.modules;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
@@ -28,13 +28,13 @@ public enum EmptyModule implements ShipModule
     }
 
     @Override
-    public ProcurementType modificationType()
+    public TaskType modificationType()
     {
         return null;
     }
 
     @Override
-    public ProcurementType experimentalType()
+    public TaskType experimentalType()
     {
         return null;
     }
@@ -46,13 +46,13 @@ public enum EmptyModule implements ShipModule
     }
 
     @Override
-    public List<ProcurementRecipe> getAssociated()
+    public List<TaskRecipe> getAssociated()
     {
         return null;
     }
 
     @Override
-    public void associate(ProcurementRecipe recipe)
+    public void associate(TaskRecipe recipe)
     {
 
     }

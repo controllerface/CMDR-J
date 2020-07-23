@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.commander;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementTask;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.Task;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialSubCostCategory;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialType;
@@ -18,14 +18,14 @@ import java.util.function.Function;
  */
 public class RawInventoryStorageBin extends InventoryStorageBin
 {
-    public RawInventoryStorageBin(Function<ProcurementCost, Integer> pendingTradeCost,
-                                  Consumer<ProcurementTask> addTask)
+    public RawInventoryStorageBin(Function<TaskCost, Integer> pendingTradeCost,
+                                  Consumer<Task> addTask)
     {
         super(pendingTradeCost, addTask);
     }
 
     @Override
-    public boolean check(ProcurementCost item)
+    public boolean check(TaskCost item)
     {
         return item instanceof Material &&
                 MaterialType.RAW.hasMaterial(((Material) item));

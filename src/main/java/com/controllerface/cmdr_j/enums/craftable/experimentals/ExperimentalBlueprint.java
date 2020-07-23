@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.experimentals;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 
 import java.util.EnumSet;
 import java.util.stream.Stream;
@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 4/11/2018.
  */
-public enum ExperimentalBlueprint implements ProcurementBlueprint
+public enum ExperimentalBlueprint implements TaskBlueprint
 {
     // weapons
     Beam_Laser(EnumSet.of(ExperimentalRecipe.special_concordant_sequence,
@@ -198,7 +198,7 @@ public enum ExperimentalBlueprint implements ProcurementBlueprint
         this.recipes = recipes;
     }
 
-    public Stream<? extends ProcurementRecipe> recipeStream()
+    public Stream<? extends TaskRecipe> recipeStream()
     {
         return recipes.stream();
     }

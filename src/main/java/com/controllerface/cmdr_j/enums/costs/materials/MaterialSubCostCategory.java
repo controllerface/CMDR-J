@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.costs.materials;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCostCategory;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.TaskCostCategory;
 
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  *
  * Created by Controllerface on 3/20/2018.
  */
-public enum MaterialSubCostCategory implements ProcurementCostCategory
+public enum MaterialSubCostCategory implements TaskCostCategory
 {
     /*
     Raw Elements
@@ -220,7 +220,7 @@ public enum MaterialSubCostCategory implements ProcurementCostCategory
         return materials.contains(material);
     }
 
-    public static Optional<MaterialSubCostCategory> findMatchingSubCategory(ProcurementCost cost)
+    public static Optional<MaterialSubCostCategory> findMatchingSubCategory(TaskCost cost)
     {
         if (!(cost instanceof Material)) return Optional.empty();
         Material material = ((Material) cost);

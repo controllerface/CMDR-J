@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes.procurements;
+package com.controllerface.cmdr_j.classes.tasks;
 
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
@@ -14,7 +14,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 
 import java.util.List;
@@ -42,15 +41,15 @@ import java.util.stream.IntStream;
  */
 public class ItemCostData implements Displayable
 {
-    private final ProcurementCost cost;
+    private final TaskCost cost;
     private final AtomicLong count = new AtomicLong(0);
 
-    private final Function<ProcurementCost, Long> checkInventory;
-    private final Predicate<ProcurementCost> isInCache;
-    private final Function<ProcurementCost, Set<String>> getCachedLabels;
-    private final Function<ProcurementCost, Integer> pendingTradeYield;
-    private final Function<ProcurementCost, Integer> pendingTradeCost;
-    private final Consumer<ProcurementTask> addTask;
+    private final Function<TaskCost, Long> checkInventory;
+    private final Predicate<TaskCost> isInCache;
+    private final Function<TaskCost, Set<String>> getCachedLabels;
+    private final Function<TaskCost, Integer> pendingTradeYield;
+    private final Function<TaskCost, Integer> pendingTradeCost;
+    private final Consumer<Task> addTask;
 
     private final VBox descriptionContainer = new VBox();
     private final VBox locationContainer = new VBox();
@@ -72,10 +71,10 @@ public class ItemCostData implements Displayable
     private static class ClassifiedTrade
     {
         private final TradeClassification classification;
-        private final ProcurementRecipe tradeRecipe;
+        private final TaskRecipe tradeRecipe;
         private final long max;
 
-        private ClassifiedTrade(TradeClassification classification, ProcurementRecipe tradeRecipe, long max)
+        private ClassifiedTrade(TradeClassification classification, TaskRecipe tradeRecipe, long max)
         {
             this.classification = classification;
             this.tradeRecipe = tradeRecipe;
@@ -84,13 +83,13 @@ public class ItemCostData implements Displayable
     }
 
 
-    public ItemCostData(ProcurementCost cost,
-                        Function<ProcurementCost, Long> checkInventory,
-                        Predicate<ProcurementCost> isInCache,
-                        Function<ProcurementCost, Set<String>> getCachedLabels,
-                        Function<ProcurementCost, Integer> pendingTradeYield,
-                        Function<ProcurementCost, Integer> pendingTradeCost,
-                        Consumer<ProcurementTask> addTask)
+    public ItemCostData(TaskCost cost,
+                        Function<TaskCost, Long> checkInventory,
+                        Predicate<TaskCost> isInCache,
+                        Function<TaskCost, Set<String>> getCachedLabels,
+                        Function<TaskCost, Integer> pendingTradeYield,
+                        Function<TaskCost, Integer> pendingTradeCost,
+                        Consumer<Task> addTask)
     {
         this.cost = cost;
         this.checkInventory = checkInventory;
@@ -127,7 +126,7 @@ public class ItemCostData implements Displayable
         Platform.runLater(this::renderProgress);
     }
 
-    public ProcurementCost getCost()
+    public TaskCost getCost()
     {
         return cost;
     }
@@ -199,7 +198,7 @@ public class ItemCostData implements Displayable
         if (progress < 1.0 && cost instanceof Material)
         {
             Material costMaterial = ((Material) cost);
-            Optional<ProcurementBlueprint> tradeBlueprint = costMaterial.getTradeBlueprint();
+            Optional<TaskBlueprint> tradeBlueprint = costMaterial.getTradeBlueprint();
 
             if (tradeBlueprint.isPresent())
             {
@@ -288,7 +287,7 @@ public class ItemCostData implements Displayable
                                 toLabel.getStyleClass().addAll("inventory_label", "base_font");
                                 HBox convBox = new HBox(from, toLabel, to);
 
-                                ProcurementTask tradeTask = new ProcurementTask(tradeType.get(), trade.tradeRecipe);
+                                Task tradeTask = new Task(tradeType.get(), trade.tradeRecipe);
 
                                 VBox btnhldr = new VBox();
                                 HBox btnlbl = new HBox();

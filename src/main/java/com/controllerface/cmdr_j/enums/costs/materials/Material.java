@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.costs.materials;
 
 import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
-import com.controllerface.cmdr_j.classes.procurements.*;
+import com.controllerface.cmdr_j.classes.tasks.*;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  *
  * Created by Controllerface on 3/20/2018.
  */
-public enum Material implements ProcurementCost
+public enum Material implements TaskCost
 {
     // RAW
 
@@ -192,7 +192,7 @@ public enum Material implements ProcurementCost
     private final ItemGrade grade;
     private String localizedName = toString();
     private String locationInformation;
-    private final List<ProcurementRecipe> associated = new ArrayList<>();
+    private final List<TaskRecipe> associated = new ArrayList<>();
 
     private final List<Pair<CostData, Integer>> tradeCosts = new ArrayList<>();
 
@@ -216,11 +216,11 @@ public enum Material implements ProcurementCost
         tradeCosts.add(new Pair<>(tradeCost, -1 * count));
     }
 
-    public Optional<ProcurementBlueprint> getTradeBlueprint()
+    public Optional<TaskBlueprint> getTradeBlueprint()
     {
         if (tradeCosts.isEmpty()) return Optional.empty();
 
-        List<ProcurementRecipe> tradeRecipes = tradeCosts.stream()
+        List<TaskRecipe> tradeRecipes = tradeCosts.stream()
                 .map(c->new MaterialTradeRecipe(c.getKey(), new CostData(this, c.getValue())))
                 .collect(Collectors.toList());
 
@@ -233,13 +233,13 @@ public enum Material implements ProcurementCost
     }
 
     @Override
-    public List<ProcurementRecipe> getAssociated()
+    public List<TaskRecipe> getAssociated()
     {
         return associated;
     }
 
     @Override
-    public void associate(ProcurementRecipe recipe)
+    public void associate(TaskRecipe recipe)
     {
         associated.add(recipe);
     }

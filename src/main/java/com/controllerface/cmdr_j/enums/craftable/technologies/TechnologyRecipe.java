@@ -2,8 +2,8 @@ package com.controllerface.cmdr_j.enums.craftable.technologies;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
-import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.techunlocks.*;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
@@ -12,14 +12,13 @@ import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
  * Created by Controllerface on 4/12/2018.
  */
-public enum TechnologyRecipe implements ProcurementRecipe
+public enum TechnologyRecipe implements TaskRecipe
 {
     Corrosion_Resistant_Cargo_Rack(new Corrosion_Resistant_Cargo_Rack(),
             OptionalInternalModule.int_corrosionproofcargorack_size1_class1,
@@ -159,12 +158,12 @@ public enum TechnologyRecipe implements ProcurementRecipe
 
     ;
 
-    private final ProcurementRecipe delegate;
+    private final TaskRecipe delegate;
     private final ShipModule[] modules;
 
     private static Icon icon = new Icon(UIFunctions.Icons.techBroker, 25, 25);
 
-    TechnologyRecipe(ProcurementRecipe delegate, ShipModule ... modules)
+    TechnologyRecipe(TaskRecipe delegate, ShipModule ... modules)
     {
         this.delegate = delegate;
         this.modules = modules;

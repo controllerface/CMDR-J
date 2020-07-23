@@ -2,11 +2,10 @@ package com.controllerface.cmdr_j.classes.modules;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
-import com.controllerface.cmdr_j.ui.UIFunctions;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,8 +13,8 @@ import java.util.List;
 public abstract class AbstractModule implements ShipModule
 {
     private final String displayText;
-    private final ProcurementType modificationType;
-    private final ProcurementType experimentalType;
+    private final TaskType modificationType;
+    private final TaskType experimentalType;
     private final ItemEffects itemEffects;
 
     public AbstractModule(String displayText, ItemEffects itemEffects)
@@ -23,14 +22,14 @@ public abstract class AbstractModule implements ShipModule
         this(displayText, null, null, itemEffects);
     }
 
-    public AbstractModule(String displayText, ProcurementType modificationType, ItemEffects itemEffects)
+    public AbstractModule(String displayText, TaskType modificationType, ItemEffects itemEffects)
     {
         this(displayText, modificationType, null, itemEffects);
     }
 
     public AbstractModule(String displayText,
-                          ProcurementType modificationType,
-                          ProcurementType experimentalType,
+                          TaskType modificationType,
+                          TaskType experimentalType,
                           ItemEffects itemEffects)
     {
         this.displayText = displayText;
@@ -52,13 +51,13 @@ public abstract class AbstractModule implements ShipModule
     }
 
     @Override
-    public ProcurementType experimentalType()
+    public TaskType experimentalType()
     {
         return experimentalType;
     }
 
     @Override
-    public ProcurementType modificationType()
+    public TaskType modificationType()
     {
         return modificationType;
     }
@@ -70,13 +69,13 @@ public abstract class AbstractModule implements ShipModule
     }
 
     @Override
-    public List<ProcurementRecipe> getAssociated()
+    public List<TaskRecipe> getAssociated()
     {
         return null;
     }
 
     @Override
-    public void associate(ProcurementRecipe recipe)
+    public void associate(TaskRecipe recipe)
     {
 
     }
@@ -107,7 +106,7 @@ public abstract class AbstractModule implements ShipModule
 
     /*
     this "grade" value is not intended to be used for modules grades, it is for materials which also are classes
-    as ProcurementCost objects, as are modules. While it is somewhat confusing, these items must all use a common
+    as TaskCost objects, as are modules. While it is somewhat confusing, these items must all use a common
     interface so they can all be used with the "task" system. As such, this should always be null for modules.
     */
     @Override

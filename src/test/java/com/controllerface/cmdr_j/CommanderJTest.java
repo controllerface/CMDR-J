@@ -36,8 +36,8 @@ import com.controllerface.cmdr_j.classes.modules.weapons.pulse.AbstractPulseLase
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.AbstractRailGun;
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.AbstractSeekerMissileRack;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.AbstractTorpedoPylon;
-import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Basic;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Premium;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Standard;
@@ -59,7 +59,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DecimalFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -314,7 +313,7 @@ public class CommanderJTest
                 .forEach(System.out::println);
     }
 
-    private Pair<String, String> getAbstractClass(ProcurementRecipe recipe)
+    private Pair<String, String> getAbstractClass(TaskRecipe recipe)
     {
 
         switch (recipe.getGrade())
@@ -619,7 +618,7 @@ public class CommanderJTest
 
                     stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffects;\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffectData;\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.classes.procurements.CostData;\n");
+                    stringBuilder.append("import com.controllerface.cmdr_j.classes.tasks.CostData;\n");
                     stringBuilder.append("import " + c.getValue() + ";\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.materials.Material;\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;\n");

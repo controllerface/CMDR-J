@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.commander;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementTask;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.Task;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -44,12 +44,12 @@ abstract class InventoryStorageBin
 
     /**
      * Implementations of InventoryStorageBin must implement this method to provide callers with a means to check if
-     * a given ProcurementCost item can be stored within that storage bin.
+     * a given TaskCost item can be stored within that storage bin.
      *
-     * @param item the ProcurementCost item to check for support
-     * @return true if the InventoryStorageBin implementation supports the given ProcurementCost, false if it doesn't
+     * @param item the TaskCost item to check for support
+     * @return true if the InventoryStorageBin implementation supports the given TaskCost, false if it doesn't
      */
-    protected abstract boolean check(ProcurementCost item);
+    protected abstract boolean check(TaskCost item);
 
     /**
      * A CheckBox UI element that controls the UI synchronization process. This is initialized to a non-null instance
@@ -61,8 +61,8 @@ abstract class InventoryStorageBin
     private CheckBox showZeroQuantities = new CheckBox();
 
 
-    private final Function<ProcurementCost, Integer> pendingTradeCost;
-    private final Consumer<ProcurementTask> addTask;
+    private final Function<TaskCost, Integer> pendingTradeCost;
+    private final Consumer<Task> addTask;
 
 
 
@@ -70,12 +70,12 @@ abstract class InventoryStorageBin
 
     /**
      * Called by the abstract class upon creating to setup the storage bin. Typically, this will initialize all of
-     * the supported ProcurementCost items for a given implementation with 0 counts.
+     * the supported TaskCost items for a given implementation with 0 counts.
      */
     public abstract void init();
 
-    InventoryStorageBin(Function<ProcurementCost, Integer> pendingTradeCost,
-                        Consumer<ProcurementTask> addTask)
+    InventoryStorageBin(Function<TaskCost, Integer> pendingTradeCost,
+                        Consumer<Task> addTask)
     {
         this.pendingTradeCost = pendingTradeCost;
         this.addTask = addTask;
@@ -112,13 +112,13 @@ abstract class InventoryStorageBin
     }
 
     /**
-     * Gets the count of a named ProcurementCost item stored within this InventoryStorageBin implementation. Note, if
-     * the named ProcurementCost is not supported for this storage bin, -1 is returned
+     * Gets the count of a named TaskCost item stored within this InventoryStorageBin implementation. Note, if
+     * the named TaskCost is not supported for this storage bin, -1 is returned
      *
-     * @param item the ProcurementCost item to retrieve the count of
-     * @return the count of the named ProcurementCost item within this storage bin, or -1 if the item is not supported
+     * @param item the TaskCost item to retrieve the count of
+     * @return the count of the named TaskCost item within this storage bin, or -1 if the item is not supported
      */
-    long amountOf(ProcurementCost item)
+    long amountOf(TaskCost item)
     {
         if (check(item))
         {
@@ -134,16 +134,16 @@ abstract class InventoryStorageBin
     }
 
     /**
-     * Adjusts the count of a given ProcurementCost item within this InventoryStorageBin implementation. Keep in mind
+     * Adjusts the count of a given TaskCost item within this InventoryStorageBin implementation. Keep in mind
      * that this method is used to adjust the count both up and down (i.e. increment or decrement). In other words,
      * the count value can be negative to signal removal of an item, and will be positive to signal addition of one.
      *
-     * Note that if the named ProcurementCost item is not supported, no action is taken.
+     * Note that if the named TaskCost item is not supported, no action is taken.
      *
-     * @param item the named ProcurementCost item to adjust the count of
+     * @param item the named TaskCost item to adjust the count of
      * @param count amount to adjust the current count by. can be negative
      */
-    synchronized void addItem(ProcurementCost item, long count)
+    synchronized void addItem(TaskCost item, long count)
     {
         if (check(item))
         {
@@ -167,7 +167,7 @@ abstract class InventoryStorageBin
      *
      * @param item the item to initialize
      */
-    void initializeItem(ProcurementCost item)
+    void initializeItem(TaskCost item)
     {
         inventory.add(new InventoryData(item, 0, this::amountOf, pendingTradeCost, addTask));
     }

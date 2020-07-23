@@ -49,10 +49,9 @@ import com.controllerface.cmdr_j.classes.modules.core.thrusters.size6.*;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.size7.*;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.size8.*;
 import com.controllerface.cmdr_j.classes.modules.core.planetarysuite.size1.PlanetarySuite_1I;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
 import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
@@ -648,12 +647,12 @@ public enum CoreInternalModule implements ShipModule
         this.delegate = delegate;
     }
 
-    public ProcurementType modificationType()
+    public TaskType modificationType()
     {
         return delegate.modificationType();
     }
 
-    public ProcurementType experimentalType()
+    public TaskType experimentalType()
     {
         return delegate.experimentalType();
     }
@@ -689,13 +688,13 @@ public enum CoreInternalModule implements ShipModule
     }
 
     @Override
-    public List<ProcurementRecipe> getAssociated()
+    public List<TaskRecipe> getAssociated()
     {
         return null;
     }
 
     @Override
-    public void associate(ProcurementRecipe recipe)
+    public void associate(TaskRecipe recipe)
     {
 
     }

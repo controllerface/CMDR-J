@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.synthesis;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 4/12/2018.
  */
-public enum SynthesisType implements ProcurementType
+public enum SynthesisType implements TaskType
 {
     Ammunition(EnumSet.of(SynthesisBlueprint.Small_Calibre_Munitions,
             SynthesisBlueprint.Large_Calibre_Munitions,
@@ -66,7 +66,7 @@ public enum SynthesisType implements ProcurementType
     }
 
     @Override
-    public List<ProcurementBlueprint> getBluePrints()
+    public List<TaskBlueprint> getBluePrints()
     {
         return new ArrayList<>(blueprints);
     }

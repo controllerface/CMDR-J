@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes.procurements;
+package com.controllerface.cmdr_j.classes.tasks;
 
 import java.util.stream.Stream;
 
@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  * 
  * Created by Controllerface on 5/4/2018.
  */
-public interface ProcurementBlueprint
+public interface TaskBlueprint
 {
-    Stream<? extends ProcurementRecipe> recipeStream();
+    Stream<? extends TaskRecipe> recipeStream();
 }

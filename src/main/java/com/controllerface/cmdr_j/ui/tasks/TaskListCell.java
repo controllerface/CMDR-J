@@ -1,9 +1,9 @@
-package com.controllerface.cmdr_j.ui.procurements;
+package com.controllerface.cmdr_j.ui.tasks;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementCost;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementTask;
+import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.Task;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -25,13 +25,13 @@ import java.util.stream.Collectors;
 /**
  * Created by Controllerface on 5/4/2018.
  */
-public class ProcurementListCell extends ListCell<ProcurementTask>
+public class TaskListCell extends ListCell<Task>
 {
-    private final Consumer<ProcurementTask> addMod;
-    private final Function<ProcurementCost, Long> checkMat;
+    private final Consumer<Task> addMod;
+    private final Function<TaskCost, Long> checkMat;
     private final ReadOnlyDoubleProperty parentWidth;
 
-    public ProcurementListCell(Consumer<ProcurementTask> addMod, Function<ProcurementCost, Long> checkMat, ReadOnlyDoubleProperty parentWidth)
+    public TaskListCell(Consumer<Task> addMod, Function<TaskCost, Long> checkMat, ReadOnlyDoubleProperty parentWidth)
     {
         this.addMod = addMod;
         this.checkMat = checkMat;
@@ -39,7 +39,7 @@ public class ProcurementListCell extends ListCell<ProcurementTask>
     }
 
     @Override
-    protected void updateItem(ProcurementTask item, boolean empty)
+    protected void updateItem(Task item, boolean empty)
     {
         super.updateItem(item, empty);
         if (item == null || empty)

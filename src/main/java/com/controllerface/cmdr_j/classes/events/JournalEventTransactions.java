@@ -5,7 +5,7 @@ import com.controllerface.cmdr_j.classes.ShipModuleData;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
-import com.controllerface.cmdr_j.classes.procurements.*;
+import com.controllerface.cmdr_j.classes.tasks.*;
 import com.controllerface.cmdr_j.enums.commander.PlayerStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
@@ -26,7 +26,6 @@ import com.controllerface.cmdr_j.threads.UserTransaction;
 import javafx.util.Pair;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.controllerface.cmdr_j.threads.UserTransaction.MessageType;
 import static com.controllerface.cmdr_j.threads.UserTransaction.TransactionType;
@@ -252,11 +251,11 @@ public class JournalEventTransactions
      */
 
     private static void adjustBlueprintDown(EventProcessingContext context,
-                                            ProcurementType procurementType,
-                                            ProcurementRecipe procurementRecipe,
+                                            TaskType taskType,
+                                            TaskRecipe taskRecipe,
                                             long amount)
     {
-        Pair<ProcurementType, ProcurementRecipe> bluePrint = new Pair<>(procurementType, procurementRecipe);
+        Pair<TaskType, TaskRecipe> bluePrint = new Pair<>(taskType, taskRecipe);
         context.getTransactions().add(UserTransaction.type(TransactionType.BLUEPRINT)
                 .setTransactionAmount(-1 * amount)
                 .setBlueprint(bluePrint)
@@ -297,7 +296,7 @@ public class JournalEventTransactions
      * @param cost the item type to adjust
      * @param count the amount by which to adjust the provided item
      */
-    public static void adjust(EventProcessingContext context, ProcurementCost cost, int count)
+    public static void adjust(EventProcessingContext context, TaskCost cost, int count)
     {
         context.getTransactions().add(UserTransaction.type(TransactionType.INVENTORY)
                 .setTransactionAmount(count)
@@ -316,7 +315,7 @@ public class JournalEventTransactions
      * @param cost the item type to adjust
      * @param count the amount by which to adjust the provided item
      */
-    public static void adjustDown(EventProcessingContext context, ProcurementCost cost, int count)
+    public static void adjustDown(EventProcessingContext context, TaskCost cost, int count)
     {
         adjust(context, cost, -1 * count);
     }
@@ -330,7 +329,7 @@ public class JournalEventTransactions
      */
     public static void adjust(EventProcessingContext context, Pair<String, Integer> pair, AdjustmentType adjustmentType)
     {
-        ProcurementCost cost;
+        TaskCost cost;
         switch (adjustmentType)
         {
             case COMMODITY:
@@ -747,20 +746,20 @@ public class JournalEventTransactions
         // if this crafting event is for applying an experimental effect
         if (experimentalEffect != null)
         {
-            ProcurementType experimentalType = module.experimentalType();
+            TaskType experimentalType = module.experimentalType();
             if (experimentalType == null)
             {
                 System.err.println("No experimental effects are registered for: " + module.displayText());
                 return;
             }
 
-            ProcurementRecipe experimentalRecipe = ExperimentalRecipe.valueOf(experimentalEffect);
+            TaskRecipe experimentalRecipe = ExperimentalRecipe.valueOf(experimentalEffect);
             logEngineeringMessage(context, "Applied Experimental Effect: " + experimentalRecipe.getDisplayLabel());
             adjustBlueprintDown(context, experimentalType, experimentalRecipe, 1);
         }
         else
         {
-            ProcurementType modificationType = module.modificationType();
+            TaskType modificationType = module.modificationType();
             if (modificationType == null)
             {
                 System.err.println("No engineering modifications are registered for: " + module.displayText());
@@ -769,8 +768,8 @@ public class JournalEventTransactions
 
             int grade = ((int) data.get("Level"));
 
-            ProcurementBlueprint blueprint = ModificationBlueprint.valueOf(modificationEffect);
-            ProcurementRecipe modificationRecipe = blueprint.recipeStream()
+            TaskBlueprint blueprint = ModificationBlueprint.valueOf(modificationEffect);
+            TaskRecipe modificationRecipe = blueprint.recipeStream()
                     .filter(recipe -> recipe.getGrade().getNumericalValue() == grade)
                     .findFirst().orElse(null);
 

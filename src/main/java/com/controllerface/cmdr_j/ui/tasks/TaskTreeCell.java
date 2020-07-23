@@ -1,6 +1,6 @@
-package com.controllerface.cmdr_j.ui.procurements;
+package com.controllerface.cmdr_j.ui.tasks;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementTask;
+import com.controllerface.cmdr_j.classes.tasks.Task;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.ui.UIFunctions;
@@ -14,11 +14,11 @@ import javafx.scene.control.TreeCell;
 /**
  * Created by Controllerface on 4/1/2018.
  */
-public class ProcurementTreeCell extends TreeCell<ProcurementTask>
+public class TaskTreeCell extends TreeCell<Task>
 {
-    private ProcurementTask thisItem = null;
+    private Task thisItem = null;
 
-    public ProcurementTreeCell(ObservableList<ProcurementTask> outputList, SimpleStringProperty outputLabel)
+    public TaskTreeCell(ObservableList<Task> outputList, SimpleStringProperty outputLabel)
     {
         this.setOnMouseClicked((e)->
         {
@@ -39,7 +39,7 @@ public class ProcurementTreeCell extends TreeCell<ProcurementTask>
                 outputLabel.set(displayText);
 
                 thisItem.getBlueprint().recipeStream()
-                        .map(recipe -> new ProcurementTask(thisItem.getType(), recipe))
+                        .map(recipe -> new Task(thisItem.getType(), recipe))
                         .forEach(outputList::add);
             }
 
@@ -52,7 +52,7 @@ public class ProcurementTreeCell extends TreeCell<ProcurementTask>
     }
 
     @Override
-    protected void updateItem(ProcurementTask item, boolean empty)
+    protected void updateItem(Task item, boolean empty)
     {
         super.updateItem(item, empty);
 

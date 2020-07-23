@@ -1,9 +1,8 @@
 package com.controllerface.cmdr_j.ui.tasks;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementTaskData;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
-import com.controllerface.cmdr_j.ui.UIFunctions;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskData;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -20,19 +19,19 @@ import java.util.function.BiConsumer;
 /**
  * Created by Controllerface on 4/2/2018.
  */
-public class TaskRemoveCell extends TableCell<ProcurementTaskData, Pair<ProcurementType, ProcurementRecipe>>
+public class TaskRemoveCell extends TableCell<TaskData, Pair<TaskType, TaskRecipe>>
 {
     private final HBox controls = new HBox();
 
-    private final BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> blueprintUpdate;
+    private final BiConsumer<Integer, Pair<TaskType, TaskRecipe>> blueprintUpdate;
 
-    public TaskRemoveCell(BiConsumer<Integer, Pair<ProcurementType, ProcurementRecipe>> blueprintUpdate)
+    public TaskRemoveCell(BiConsumer<Integer, Pair<TaskType, TaskRecipe>> blueprintUpdate)
     {
         this.blueprintUpdate = blueprintUpdate;
     }
 
     @Override
-    protected void updateItem(Pair<ProcurementType, ProcurementRecipe> item, boolean empty)
+    protected void updateItem(Pair<TaskType, TaskRecipe> item, boolean empty)
     {
         super.updateItem(item, empty);
 
@@ -75,6 +74,7 @@ public class TaskRemoveCell extends TableCell<ProcurementTaskData, Pair<Procurem
 
         removeButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
+        // todo: this is probably what is messing up trades
         removeButton.setOnAction((e) -> blueprintUpdate.accept(-9999, item));
 
         Tooltip tooltip = new Tooltip("Remove " + item.getValue().getDisplayLabel() + " from Tracked Tasks");

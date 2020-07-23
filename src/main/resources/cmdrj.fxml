@@ -458,7 +458,7 @@
                                                    <children>
                                                       <HBox minHeight="300.0" prefHeight="300.0">
                                                          <children>
-                                                            <SubScene fx:id="ship_graphic" height="250.0" width="500.0">
+                                                            <SubScene fx:id="ship_graphic" depthBuffer="true" height="250.0" width="500.0">
                                                               <root>
                                                                 <Region />
                                                               </root>
@@ -1261,7 +1261,7 @@
                                     </AnchorPane>
                                     <AnchorPane>
                                        <children>
-                                          <CheckBox fx:id="show_procurements" alignment="CENTER" mnemonicParsing="false" styleClass="base_font_style_only" text="Task Selector">
+                                          <CheckBox fx:id="show_debug_tasks" alignment="CENTER" mnemonicParsing="false" styleClass="base_font_style_only" text="Task Selector">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -1283,7 +1283,7 @@
                                        <children>
                                           <VBox fx:id="taskContols" minHeight="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <TableView fx:id="procurement_task_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" styleClass="module_table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="task_table" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" styleClass="module_table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
                                                       <TableColumn fx:id="task_remove_column" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" resizable="false" sortable="false" />
                                                     <TableColumn fx:id="task_name_column" editable="false" maxWidth="1.7976931348623157E308" minWidth="200.0" resizable="false" sortable="false" text="Task" />
@@ -1304,12 +1304,12 @@
                                           <TableColumn fx:id="task_cost_progress_column" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Progress" />
                                       </columns>
                                     </TableView>
-                                    <HBox fx:id="procurement_box">
+                                    <HBox fx:id="task_debug_box">
                                        <children>
-                                          <TreeView fx:id="procurement_tree" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="9800.0" />
+                                          <TreeView fx:id="task_tree" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="9800.0" />
                                           <VBox>
                                              <children>
-                                                <Label fx:id="procurement_label" minHeight="35.0" styleClass="base_font_style_only" text="Placeholder">
+                                                <Label fx:id="task_label" minHeight="35.0" styleClass="base_font_style_only" text="Placeholder">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
@@ -1320,7 +1320,7 @@
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </padding>
                                                 </Label>
-                                                <ListView fx:id="procurement_list" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="10000.0" />
+                                                <ListView fx:id="task_list" maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="10000.0" prefWidth="10000.0" />
                                              </children>
                                           </VBox>
                                        </children>

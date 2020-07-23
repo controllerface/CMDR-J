@@ -1,7 +1,7 @@
-package com.controllerface.cmdr_j.classes.procurements;
+package com.controllerface.cmdr_j.classes.tasks;
 
 /**
- * Stores the fixed cost of some procurement task. Objects of this type are intended to represent a specific item and
+ * Stores the fixed cost of some task. Objects of this type are intended to represent a specific item and
  * a count of that item, which would be required to craft some specific item. Note that most craftable items have
  * multiple cost requirements, and instance of this object would represent type type and count of ONE of these
  * requirements.
@@ -13,9 +13,9 @@ package com.controllerface.cmdr_j.classes.procurements;
 public class CostData
 {
     private final long quantity;
-    private final ProcurementCost cost;
+    private final TaskCost cost;
 
-    public CostData(ProcurementCost cost, long quantity)
+    public CostData(TaskCost cost, long quantity)
     {
         this.cost = cost;
         this.quantity = quantity;
@@ -27,7 +27,7 @@ public class CostData
         return cost + " : " + quantity;
     }
 
-    public ProcurementCost getCost()
+    public TaskCost getCost()
     {
         return cost;
     }

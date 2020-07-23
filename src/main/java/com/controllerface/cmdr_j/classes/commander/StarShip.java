@@ -1,5 +1,6 @@
 package com.controllerface.cmdr_j.classes.commander;
 
+import com.controllerface.cmdr_j.ui.models.ModelUtilities;
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ShipModuleData;
@@ -21,15 +22,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -1583,208 +1588,99 @@ public class StarShip
         return UIFunctions.Data.round(res + boost, 2);
     }
 
-    private TriangleMesh getTestCubeModel()
-    {
-        float hw = 100 / 2f;
-        float hh = 100 / 2f;
-        float hd = 100 / 2f;
-
-        float[] points = {
-                -hw, -hh, -hd, // point 0
-
-                hw, -hh, -hd, // point 1
-
-                hw,  hh, -hd, // point 2
-
-                -hw,  hh, -hd, // point 3
-
-                -hw, -hh,  hd, // point 4
-
-                hw, -hh,  hd, // point 5
-
-                hw,  hh,  hd, // point 6
-
-                -hw,  hh,  hd}; // point 7
-
-        float[] texCoords = {0, 1}; // dummy (0), not using textures
-
-        int[] faces = {
-                0, 0, 2, 0, 1, 0, // face 0: p0, p2, p1, 0 for texture co-ords
-
-                2, 0, 0, 0, 3, 0,
-
-                1, 0, 6, 0, 5, 0,
-
-                6, 0, 1, 0, 2, 0,
-
-                5, 0, 7, 0, 4, 0,
-
-                7, 0, 5, 0, 6, 0,
-
-                4, 0, 3, 0, 0, 0,
-
-                3, 0, 4, 0, 7, 0,
-
-                3, 0, 6, 0, 2, 0,
-
-                6, 0, 3, 0, 7, 0,
-
-                4, 0, 1, 0, 5, 0,
-
-                1, 0, 4, 0, 0, 0,
-        };
-
-        TriangleMesh mesh = new TriangleMesh();
-        mesh.getPoints().addAll(points);
-        mesh.getTexCoords().addAll(texCoords);
-        mesh.getFaces().addAll(faces);
-
-        return mesh;
-    }
-
-    private final float scaleMultiplier = 1.0f;
-
-    private TriangleMesh getModel()
-    {
-        TriangleMesh mesh = new TriangleMesh(VertexFormat.POINT_NORMAL_TEXCOORD);
-        mesh.getTexCoords().addAll(1, 0);
-
-        //AtomicInteger nextPoint = new AtomicInteger();
-        //AtomicInteger nextNormal = new AtomicInteger();
-
-        try
-        {
-            try(InputStream testModel = StarShip.class.getResourceAsStream("/models/test_model2.stl"))
-            {
-                Scanner scanner = new Scanner(testModel);
-                String stlStart = scanner.next();
-                if (!stlStart.equals("solid"))
-                {
-                    System.out.println("Bad STL format");
-                    return mesh;
-                }
-
-                while (scanner.hasNext())
-                {
-                    String nextToken = scanner.next();
-                    if (nextToken.equals("facet"))
-                    {
-                        scanner.next("normal");
-                        float n0 = scanner.nextFloat();
-                        float n1 = scanner.nextFloat();
-                        float n2 = scanner.nextFloat();
-
-                        mesh.getNormals().addAll(n0, n1, n2);
-
-                        scanner.next("outer");
-                        scanner.next("loop");
-
-                        scanner.next("vertex");
-                        float p0x = scanner.nextFloat() * scaleMultiplier;
-                        float p0y = scanner.nextFloat() * scaleMultiplier;
-                        float p0z = scanner.nextFloat() * scaleMultiplier;
-
-                        scanner.next("vertex");
-                        float p1x = scanner.nextFloat() * scaleMultiplier;
-                        float p1y = scanner.nextFloat() * scaleMultiplier;
-                        float p1z = scanner.nextFloat() * scaleMultiplier;
-
-                        scanner.next("vertex");
-                        float p2x = scanner.nextFloat() * scaleMultiplier;
-                        float p2y = scanner.nextFloat() * scaleMultiplier;
-                        float p2z = scanner.nextFloat() * scaleMultiplier;
-
-                        mesh.getPoints().addAll(p0x, p0y, p0z, p1x, p1y, p1z, p2x, p2y, p2z);
-
-//                        System.out.println("normal: " + n0 + "," + n1 + "," + n2);
-//                        System.out.println("vertex 0: " + p0x + "," + p0y + "," + p0z);
-//                        System.out.println("vertex 1: " + p1x + "," + p1y + "," + p1z);
-//                        System.out.println("vertex 2: " + p2x + "," + p2y + "," + p2z);
-
-                        scanner.next("endloop");
-                        scanner.next("endfacet");
-
-                        int p0Index = mesh.getPoints().size() / 3 - 3;
-                        int p1Index = mesh.getPoints().size() / 3 - 2;
-                        int p2Index = mesh.getPoints().size() / 3 - 1;
-                        int normalIndex = mesh.getNormals().size() / 3 - 1;
-
-                        mesh.getFaces().addAll(
-                                p0Index, normalIndex, 0,
-                                p1Index, normalIndex, 0,
-                                p2Index, normalIndex, 0);
-                    }
-                    else
-                    {
-                        System.out.println("token was: " + nextToken);
-                    }
-                }
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return mesh;
-        }
-
-        return mesh;
-    }
-
-
     private void renderShipGraphic()
     {
-        TriangleMesh mesh = getModel();
-
-        //getModel();
+        TriangleMesh mesh = ModelUtilities.STL.loadModel("/models/fdl_2.stl", false, false);
+                //getObjModel();
 
         // Create a Camera to view the 3D Shapes
         PerspectiveCamera camera = new PerspectiveCamera(false);
-        camera.setTranslateX(-150);
-        camera.setTranslateY(-125);
-        camera.setTranslateZ(-300);
 
-        // Add a Rotation Animation to the Camera
-        //RotateTransition rotation = new RotateTransition(Duration.seconds(2), camera);
-//        rotation.setCycleCount(Animation.INDEFINITE);
-//        rotation.setFromAngle(-10);
-//        rotation.setToAngle(10);
-//        rotation.setAutoReverse(true);
-//        rotation.setAxis(Rotate.X_AXIS);
-//        rotation.play();
+        DoubleProperty camX = new SimpleDoubleProperty(-80);
+        DoubleProperty camY = new SimpleDoubleProperty(-80);
+        DoubleProperty camZ = new SimpleDoubleProperty(-1000);
+        Translate cameraMove = new Translate(0,0,0);
+        cameraMove.xProperty().bind(camX);
+        cameraMove.yProperty().bind(camY);
+        cameraMove.zProperty().bind(camZ);
 
-//        AmbientLight alight = new AmbientLight(Color.RED);
-//        alight.setTranslateZ(-15000);
+        camera.getTransforms().addAll(cameraMove);
+
+        shipGraphic.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent event)
+            {
+                KeyCode keyCode = event.getCode();
+
+                switch (keyCode)
+                {
+                    case A:
+                        camX.setValue(camX.add(10).getValue());
+                        break;
+
+                    case D:
+                        camX.setValue(camX.subtract(10).getValue());
+                        break;
+
+                    case W:
+                        camY.setValue(camY.add(10).getValue());
+                        break;
+
+                    case S:
+                        camY.setValue(camY.subtract(10).getValue());
+                        break;
+
+                    case Q:
+                        camZ.setValue(camZ.add(10).getValue());
+                        break;
+
+                    case E:
+                        camZ.setValue(camZ.subtract(10).getValue());
+                        break;
+
+                    case SPACE:
+                        System.out.println("X: " + camX.get() + " Y: " + camY.get() + " Z:" + camZ.get());
+                }
+
+                //System.out.println("pressed! " + event);
+            }
+        });
+
 
         PointLight light = new PointLight(Color.BLUE);
         //light.setTranslateX(-150);
         //light.setTranslateY(-125);
-        light.setTranslateZ(-100);
+        light.setTranslateZ(-300);
 
         MeshView meshView = new MeshView();
         meshView.setMesh(mesh);
+        meshView.scaleXProperty().set(5);
+        meshView.scaleYProperty().set(5);
+        meshView.scaleZProperty().set(5);
         //meshView.setDrawMode(DrawMode.LINE);
 
-        Group root = new Group(meshView, light);
+        Group root = new Group(camera, meshView, light);
+
+        DoubleProperty angleX = new SimpleDoubleProperty(-30);
+        DoubleProperty angleY = new SimpleDoubleProperty(180);
+        DoubleProperty angleZ = new SimpleDoubleProperty(-45);
 
         Rotate xRotate = new Rotate(0, Rotate.X_AXIS);
         Rotate yRotate = new Rotate(0, Rotate.Y_AXIS);
-
-        DoubleProperty angleX = new SimpleDoubleProperty(0);
-        DoubleProperty angleY = new SimpleDoubleProperty(0);
-        meshView.getTransforms().addAll(xRotate, yRotate);
-
-        /*Bind Double property angleX/angleY with corresponding transformation.
-        When we update angleX / angleY, the transform will also be auto updated.*/
+        Rotate zRotate = new Rotate(0, Rotate.Z_AXIS);
+        meshView.getTransforms().addAll(xRotate, yRotate, zRotate);
         xRotate.angleProperty().bind(angleX);
         yRotate.angleProperty().bind(angleY);
+        zRotate.angleProperty().bind(angleZ);
 
         //Tracks drag starting point for x and y
-        AtomicReference<Double> anchorX = new AtomicReference<>(0d);
-        AtomicReference<Double> anchorY = new AtomicReference<>(0d);
+        AtomicReference<Double> clickX = new AtomicReference<>(0d);
+        AtomicReference<Double> clickY = new AtomicReference<>(0d);
 
         //Keep track of current angle for x and y
-        AtomicReference<Double> anchorAngleX = new AtomicReference<>(0d);
-        AtomicReference<Double> anchorAngleY = new AtomicReference<>(0d);
+        AtomicReference<Double> initialAngleX = new AtomicReference<>(0d);
+        AtomicReference<Double> initialAngleZ = new AtomicReference<>(0d);
 
         shipGraphic.setRoot(root);
         shipGraphic.setWidth(300);
@@ -1793,16 +1689,16 @@ public class StarShip
 
         shipGraphic.setOnMousePressed(event ->
         {
-            anchorX.set(event.getSceneX());
-            anchorY.set(event.getSceneY());
-            anchorAngleX.set(angleX.get());
-            anchorAngleY.set(angleY.get());
+            clickX.set(event.getSceneX());
+            clickY.set(event.getSceneY());
+            initialAngleX.set(angleX.get());
+            initialAngleZ.set(angleZ.get());
         });
 
         shipGraphic.setOnMouseDragged(event ->
         {
-            angleX.set(anchorAngleX.get() - (anchorY.get() - event.getSceneY()));
-            angleY.set(anchorAngleY.get() + anchorX.get() - event.getSceneX());
+            angleX.set(initialAngleX.get() - (clickY.get() - event.getSceneY()));
+            angleZ.set(initialAngleZ.get() - (clickX.get() - event.getSceneX()));
         });
     }
 }

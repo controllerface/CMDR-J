@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes.procurements;
+package com.controllerface.cmdr_j.classes.tasks;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  *
  * Created by Controllerface on 4/10/2018.
  */
-public interface ProcurementRecipe
+public interface TaskRecipe
 {
     Stream<CostData> costStream();
     String getShortLabel();

@@ -1,8 +1,8 @@
 package com.controllerface.cmdr_j.enums.craftable.modifications;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
+import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.armour.advanced.*;
 import com.controllerface.cmdr_j.classes.recipes.armour.explosive.*;
 import com.controllerface.cmdr_j.classes.recipes.armour.heavyduty.*;
@@ -84,7 +84,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 3/31/2018.
  */
-public enum ModificationRecipe implements ProcurementRecipe
+public enum ModificationRecipe implements TaskRecipe
 {
     /*
     Chaff Launcher
@@ -529,9 +529,9 @@ public enum ModificationRecipe implements ProcurementRecipe
 
     ;
 
-    private final ProcurementRecipe delegate;
+    private final TaskRecipe delegate;
 
-    ModificationRecipe(ProcurementRecipe delegate)
+    ModificationRecipe(TaskRecipe delegate)
     {
         this.delegate = delegate;
         delegate.costStream().forEach(c->c.getCost().associate(this));

@@ -3,18 +3,12 @@ plugins {
     id 'application'
     id 'maven'
     id 'org.openjfx.javafxplugin' version '0.0.8'
-//    id 'com.gluonhq.client-gradle-plugin' version '0.1.28'
 }
 
 javafx {
     version = "12"
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics' ]
 }
-
-//gluonClient {
-//    mainClassName = "com.controllerface.cmdr_j.Main"
-//}
-
 
 repositories {
     mavenCentral()

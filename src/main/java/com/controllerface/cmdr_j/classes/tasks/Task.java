@@ -1,21 +1,21 @@
-package com.controllerface.cmdr_j.classes.procurements;
+package com.controllerface.cmdr_j.classes.tasks;
 
 /**
- * Data storage object used in the "procurement tree" to hold the type and individual recipe of a possible item that
+ * Data storage object used in the "task tree" to hold the type and individual recipe of a possible item that
  * a player can craft. This object is used for both leaf and non-leaf nodes in the tree, with non-leaf nodes using a
  * supplied string as the text to display, and leaf nodes requiring the actual type and recipe values, which are used
  * to supply the display text.
  *
  * Created by Controllerface on 3/31/2018.
  */
-public class ProcurementTask
+public class Task
 {
     private final String text;
-    private final ProcurementType type;
-    private final ProcurementRecipe recipe;
-    private final ProcurementBlueprint blueprint;
+    private final TaskType type;
+    private final TaskRecipe recipe;
+    private final TaskBlueprint blueprint;
 
-    public ProcurementTask(String text)
+    public Task(String text)
     {
         this.text = text;
         this.type = null;
@@ -23,7 +23,7 @@ public class ProcurementTask
         this.blueprint = null;
     }
 
-    public ProcurementTask(ProcurementType type, String text)
+    public Task(TaskType type, String text)
     {
         this.text = text;
         this.type = type;
@@ -31,7 +31,7 @@ public class ProcurementTask
         this.blueprint = null;
     }
 
-    public ProcurementTask(ProcurementType type, ProcurementRecipe recipe)
+    public Task(TaskType type, TaskRecipe recipe)
     {
         this.text = recipe.toString();
         this.type = type;
@@ -39,7 +39,7 @@ public class ProcurementTask
         this.blueprint = null;
     }
 
-    public ProcurementTask(ProcurementType type, ProcurementBlueprint blueprint)
+    public Task(TaskType type, TaskBlueprint blueprint)
     {
         this.text = blueprint.toString();
         this.type = type;
@@ -47,17 +47,17 @@ public class ProcurementTask
         this.blueprint = blueprint;
     }
 
-    public ProcurementType getType()
+    public TaskType getType()
     {
         return type;
     }
 
-    public ProcurementRecipe getRecipe()
+    public TaskRecipe getRecipe()
     {
         return recipe;
     }
 
-    public ProcurementBlueprint getBlueprint()
+    public TaskBlueprint getBlueprint()
     {
         return blueprint;
     }

@@ -1,15 +1,15 @@
 package com.controllerface.cmdr_j.ui.tasks;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementTaskData;
+import com.controllerface.cmdr_j.classes.tasks.TaskData;
 import javafx.scene.control.TableCell;
 
 /**
  * Created by Controllerface on 4/8/2018.
  */
-public class TaskDataCell extends TableCell<ProcurementTaskData, ProcurementTaskData>
+public class TaskDataCell extends TableCell<TaskData, TaskData>
 {
     @Override
-    protected void updateItem(ProcurementTaskData item, boolean empty)
+    protected void updateItem(TaskData item, boolean empty)
     {
         super.updateItem(item, empty);
         if (item == null || empty)

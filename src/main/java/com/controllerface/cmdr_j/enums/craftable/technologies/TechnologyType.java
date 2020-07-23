@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.technologies;
 
-import com.controllerface.cmdr_j.classes.procurements.ProcurementBlueprint;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementType;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 4/12/2018.
  */
-public enum TechnologyType implements ProcurementType
+public enum TechnologyType implements TaskType
 {
     Human_Weapons(EnumSet.of(TechnologyBlueprint.Enzyme_Missile_Rack_Fixed,
             TechnologyBlueprint.Remote_Release_Flechette_Launcher_Turreted,
@@ -65,7 +65,7 @@ public enum TechnologyType implements ProcurementType
     }
 
     @Override
-    public List<ProcurementBlueprint> getBluePrints()
+    public List<TaskBlueprint> getBluePrints()
     {
         return new ArrayList<>(blueprints);
     }

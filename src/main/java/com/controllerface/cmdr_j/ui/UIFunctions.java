@@ -2,10 +2,10 @@ package com.controllerface.cmdr_j.ui;
 
 import com.controllerface.cmdr_j.classes.ItemEffectData;
 import com.controllerface.cmdr_j.classes.commander.InventoryData;
-import com.controllerface.cmdr_j.classes.procurements.CostData;
-import com.controllerface.cmdr_j.classes.procurements.ItemCostData;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementRecipe;
-import com.controllerface.cmdr_j.classes.procurements.ProcurementTaskData;
+import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.tasks.ItemCostData;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskData;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import javafx.beans.property.SimpleStringProperty;
@@ -209,8 +209,8 @@ public class UIFunctions
      */
     public static class Data
     {
-        static final Callback<TableColumn<ProcurementTaskData, ProgressBar>, TableCell<ProcurementTaskData, ProgressBar>>
-                taskProgressCellFactory = (param -> new TableCell<ProcurementTaskData, ProgressBar>()
+        static final Callback<TableColumn<TaskData, ProgressBar>, TableCell<TaskData, ProgressBar>>
+                taskProgressCellFactory = (param -> new TableCell<TaskData, ProgressBar>()
             {
                 @Override
                 public void updateItem(ProgressBar item, boolean empty)
@@ -553,8 +553,8 @@ public class UIFunctions
         static final Comparator<ProgressBar> progressByValue =
                 Comparator.comparingDouble(ProgressIndicator::getProgress);
 
-        // sorts procurement tasks by name, and ensure trade tasks always come after all other task types
-        static final Comparator<ProcurementTaskData> tasksByName =
+        // sorts tasks by name, and ensure trade tasks always come after all other task types
+        static final Comparator<TaskData> tasksByName =
                 (a, b)->
                 {
                     if (a.isTrade() != b.isTrade())
@@ -567,8 +567,8 @@ public class UIFunctions
                     return as.compareTo(bs);
                 };
 
-        // sorts procurement tasks by grade, and ensure trade tasks always come after all other task types
-        static final Comparator<ProcurementTaskData> taskByGrade =
+        // sorts tasks by grade, and ensure trade tasks always come after all other task types
+        static final Comparator<TaskData> taskByGrade =
                 (a, b) ->
                 {
                     if (a.isTrade() != b.isTrade())
@@ -606,7 +606,7 @@ public class UIFunctions
                 };
 
         // trade task by best cost/yield ratio
-        public static final Comparator<ProcurementRecipe> bestCostYieldRatio =
+        public static final Comparator<TaskRecipe> bestCostYieldRatio =
                 (a, b)->
                 {
                     long aCost = a.costStream().filter(c -> c.getQuantity() > 0)
