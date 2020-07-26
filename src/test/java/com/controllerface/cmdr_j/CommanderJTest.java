@@ -36,7 +36,7 @@ import com.controllerface.cmdr_j.classes.modules.weapons.pulse.AbstractPulseLase
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.AbstractRailGun;
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.AbstractSeekerMissileRack;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.AbstractTorpedoPylon;
-import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Basic;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Premium;
@@ -507,8 +507,8 @@ public class CommanderJTest
 
     private String costType(CostData data)
     {
-        if (data.getCost() instanceof Material) return "Material."+data.toString();
-        if (data.getCost() instanceof Commodity) return "Commodity."+data.toString();
+        if (data.cost instanceof Material) return "Material."+data.toString();
+        if (data.cost instanceof Commodity) return "Commodity."+data.toString();
         return "";
     }
 
@@ -571,9 +571,9 @@ public class CommanderJTest
                     String s = v.effects().effectStream()
                             .map(e->
                             {
-                                String val = e.isNumerical() ? String.valueOf(e.getDoubleValue()) : "\""+e.getStringValue()+"\"";
+                                String val = e.isNumerical() ? String.valueOf(e.getDoubleValue()) : "\""+e.getValueString()+"\"";
 
-                                return  "                  new ItemEffectData(ItemEffect." + e.getEffect().name() + ", " + val + ")";
+                                return  "                  new ItemEffectData(ItemEffect." + e.effect.name() + ", " + val + ")";
                             }).collect(Collectors.joining(",\n","new ItemEffects(\n","\n    "));
 
                     String items =
@@ -617,8 +617,8 @@ public class CommanderJTest
                     stringBuilder.append("package com.controllerface.cmdr_j.classes.modules.generated;\n\n");
 
                     stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffects;\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffectData;\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.classes.tasks.CostData;\n");
+                    stringBuilder.append("import com.controllerface.cmdr_j.classes.data.ItemEffectData;\n");
+                    stringBuilder.append("import com.controllerface.cmdr_j.classes.data.CostData;\n");
                     stringBuilder.append("import " + c.getValue() + ";\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.materials.Material;\n");
                     stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;\n");

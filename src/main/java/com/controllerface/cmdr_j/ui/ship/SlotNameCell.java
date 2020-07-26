@@ -1,7 +1,6 @@
 package com.controllerface.cmdr_j.ui.ship;
 
-import com.controllerface.cmdr_j.classes.ShipModuleData;
-import com.controllerface.cmdr_j.ui.UIFunctions;
+import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
@@ -9,7 +8,7 @@ import javafx.scene.control.TableCell;
 /**
  * Created by Controllerface on 4/26/2018.
  */
-public class SlotNameCell extends TableCell<ShipModuleData, String>
+public class SlotNameCell extends TableCell<ShipModuleDisplay, String>
 {
     @Override
     protected void updateItem(String item, boolean empty)

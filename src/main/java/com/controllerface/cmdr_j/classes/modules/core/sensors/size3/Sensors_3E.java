@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.modules.core.sensors.size3;
 
-import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.core.sensors.AbstractSensors;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;

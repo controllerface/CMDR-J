@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.modules.optional.limpets.fueltransfer.size7;
 
-import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.limpets.fueltransfer.AbstractFuelTransferLimpet;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;

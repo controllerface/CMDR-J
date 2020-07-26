@@ -22,7 +22,7 @@ public class MaterialsHandler implements JournalEventHandler
     {
         logInventoryMessage(context, "Reloading Material Storage");
 
-        context.getCommanderData().clearMaterials();
+        context.getCommander().clearMaterials();
 
         Map<String, Object> data = context.getRawData();
 

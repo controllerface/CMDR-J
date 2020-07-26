@@ -25,22 +25,22 @@ public class LoadoutHandler implements JournalEventHandler
     {
         logLoadoutMessage(context, "Entering Star Ship");
 
-        JournalSyncTask.shipStats.forEach(context.getCommanderData()::removeStat);
+        JournalSyncTask.shipStats.forEach(context.getCommander()::removeStat);
 
         setStatFromData(context, CoreInternalSlot.Ship);
         setStatFromData(context, CoreInternalSlot.ShipName);
         setStatFromData(context, CoreInternalSlot.ShipIdent);
 
-        String shipName = context.getCommanderData().getStat(CoreInternalSlot.Ship);
+        String shipName = context.getCommander().getStat(CoreInternalSlot.Ship);
         Ship ship;
         try
         {
             ship = Ship.findShip(shipName);
             logLoadoutMessage(context, "Ship Type: " + ship.getBaseShipStats().getDisplayName());
-            context.getCommanderData().setShip(ship);
-            context.getCommanderData().getStarShip()
+            context.getCommander().setShip(ship);
+            context.getCommander().getStarShip()
                     .setGivenName(extractStatString(context, CoreInternalSlot.ShipName));
-            context.getCommanderData().getStarShip()
+            context.getCommander().getStarShip()
                     .setShipID(extractStatString(context, CoreInternalSlot.ShipIdent));
         }
         catch (Exception e)
@@ -51,7 +51,7 @@ public class LoadoutHandler implements JournalEventHandler
         ((List<Map<String, Object>>) context.getRawData().get("Modules"))
                 .forEach(module -> setSlotFromLoadout(context, module));
 
-        context.getCommanderData().getStarShip().updateResistanceGraphs();
+        context.getCommander().getStarShip().updateResistanceGraphs();
 
 
 

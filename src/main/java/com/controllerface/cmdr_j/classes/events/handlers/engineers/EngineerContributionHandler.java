@@ -26,7 +26,7 @@ public class EngineerContributionHandler implements JournalEventHandler
         if (type.equalsIgnoreCase("Credits"))
         {
             int contribution = ((int) context.getRawData().get("Quantity"));
-            context.getCommanderData().adjustCreditBalance(-1 * contribution);
+            context.getCommander().adjustCreditBalance(-1 * contribution);
         }
 
         if (data.get("Material") != null) adjustMaterialQuantityDown(context, data);

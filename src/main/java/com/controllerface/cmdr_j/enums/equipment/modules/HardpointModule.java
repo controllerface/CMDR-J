@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
-import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.modules.utility.abrasionblaster.FixedAbrasionBlaster_Small;

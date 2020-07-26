@@ -28,7 +28,7 @@ public class CargoHandler implements JournalEventHandler
 
         logInventoryMessage(context, "Reloading Cargo");
 
-        context.getCommanderData().clearCargo();
+        context.getCommander().clearCargo();
         ((List<Map<String, Object>>) cargoData.get("Inventory"))
                 .forEach(item -> adjustCommodityCount(context, item));
     }

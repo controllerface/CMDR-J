@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.recipes;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
@@ -29,16 +29,16 @@ public class MaterialTradeRecipe implements TaskRecipe
         this.price = price;
         this.product = product;
 
-        icon = ((Material) product.getCost()).getIcon();
-        name = price.getCost().getLocalizedName();
+        icon = ((Material) product.cost).getIcon();
+        name = price.cost.getLocalizedName();
         label = generateDisplayLabel(price, product);
-        shortLabel = price.getCost().getLocalizedName();
+        shortLabel = price.cost.getLocalizedName();
     }
 
     private static String generateDisplayLabel(CostData price, CostData product)
     {
-        String priceCost = price.getQuantity() + " " + price.getCost().getLocalizedName();
-        String yieldCost = Math.abs(product.getQuantity()) + " " + product.getCost().getLocalizedName();
+        String priceCost = price.quantity + " " + price.cost.getLocalizedName();
+        String yieldCost = Math.abs(product.quantity) + " " + product.cost.getLocalizedName();
         return priceCost + " for " + yieldCost;
     }
 
@@ -72,14 +72,14 @@ public class MaterialTradeRecipe implements TaskRecipe
         Map<String, Object> costObject = new HashMap<>();
         Map<String, Object> yieldObject = new HashMap<>();
 
-        Material priceMaterial = ((Material) price.getCost());
-        Material yieldMaterial = ((Material) product.getCost());
+        Material priceMaterial = ((Material) price.cost);
+        Material yieldMaterial = ((Material) product.cost);
 
         costObject.put("name", priceMaterial.name());
-        costObject.put("count", price.getQuantity());
+        costObject.put("count", price.quantity);
 
         yieldObject.put("name", yieldMaterial.name());
-        yieldObject.put("count", product.getQuantity());
+        yieldObject.put("count", product.quantity);
 
         recipeObject.put("price", costObject);
         recipeObject.put("yield", yieldObject);
@@ -140,10 +140,10 @@ public class MaterialTradeRecipe implements TaskRecipe
         if (obj instanceof MaterialTradeRecipe)
         {
             MaterialTradeRecipe other = ((MaterialTradeRecipe) obj);
-            return (other.price.getCost() == this.price.getCost()
-                    && other.product.getCost() == this.product.getCost()
-                    && other.price.getQuantity() == this.price.getQuantity()
-                    && other.product.getQuantity() == this.product.getQuantity());
+            return (other.price.cost == this.price.cost
+                    && other.product.cost == this.product.cost
+                    && other.price.quantity == this.price.quantity
+                    && other.product.quantity == this.product.quantity);
         }
         return false;
     }

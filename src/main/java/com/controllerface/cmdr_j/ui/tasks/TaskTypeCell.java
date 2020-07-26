@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.ui.tasks;
 
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
-import com.controllerface.cmdr_j.classes.tasks.TaskData;
+import com.controllerface.cmdr_j.classes.tasks.TaskDisplay;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.geometry.Pos;
@@ -13,7 +13,7 @@ import javafx.scene.shape.SVGPath;
 /**
  * Created by Stephen on 7/6/2018.
  */
-public class TaskTypeCell extends TableCell<TaskData, TaskRecipe>
+public class TaskTypeCell extends TableCell<TaskDisplay, TaskRecipe>
 {
     @Override
     protected void updateItem(TaskRecipe item, boolean empty)

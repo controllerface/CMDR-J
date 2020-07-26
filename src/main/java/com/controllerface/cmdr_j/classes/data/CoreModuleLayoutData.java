@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes;
+package com.controllerface.cmdr_j.classes.data;
 
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ModuleSize;
 

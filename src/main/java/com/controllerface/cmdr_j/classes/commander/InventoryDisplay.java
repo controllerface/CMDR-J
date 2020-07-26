@@ -1,5 +1,6 @@
 package com.controllerface.cmdr_j.classes.commander;
 
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.tasks.*;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.commodities.CommodityCostCategory;
@@ -39,7 +40,7 @@ import java.util.stream.Collectors;
  *
  * Created by Controllerface on 3/27/2018.
  */
-public class InventoryData implements Displayable
+public class InventoryDisplay implements Displayable
 {
 
     /**
@@ -127,11 +128,11 @@ public class InventoryData implements Displayable
         return r.replace("F S D","FSD ");
     };
 
-    InventoryData(TaskCost inventoryItem,
-                  long quantity,
-                  Function<TaskCost, Long> checkInventory,
-                  Function<TaskCost, Integer> pendingTradeCost,
-                  Consumer<Task> addTask)
+    InventoryDisplay(TaskCost inventoryItem,
+                     long quantity,
+                     Function<TaskCost, Long> checkInventory,
+                     Function<TaskCost, Integer> pendingTradeCost,
+                     Consumer<Task> addTask)
     {
         this.inventoryItem = inventoryItem;
         this.quantity = quantity;
@@ -324,7 +325,7 @@ public class InventoryData implements Displayable
                     .map(material -> material.getTradeBlueprint().orElse(null))
                     .filter(Objects::nonNull)
                     .flatMap(TaskBlueprint::recipeStream)
-                    .filter(r -> r.costStream().findFirst().get().getCost() == inventoryItem)
+                    .filter(r -> r.costStream().findFirst().get().cost == inventoryItem)
                     .forEach(recipe ->
                     {
                         Optional<CostData> possibleTradeCost = recipe.costStream().findFirst();
@@ -332,24 +333,24 @@ public class InventoryData implements Displayable
 
                         if (possibleTradeCost.isPresent() && possibleTradeYield.isPresent())
                         {
-                            if (materialSubCostCategory1.hasMaterial(((Material) possibleTradeCost.get().getCost())))
+                            if (materialSubCostCategory1.hasMaterial(((Material) possibleTradeCost.get().cost)))
                             {
                                 CostData tradeCost = possibleTradeCost.get();
                                 CostData tradeYield = possibleTradeYield.get();
 
                                 Optional<MaterialTradeType> tradeType =
-                                        MaterialTradeType.findMatchingTradeType(((Material) tradeCost.getCost()));
+                                        MaterialTradeType.findMatchingTradeType(((Material) tradeCost.cost));
 
                                 if (tradeType.isPresent())
                                 {
-                                    boolean upgrade = tradeCost.getCost().getGrade()
-                                            .compareTo(tradeYield.getCost().getGrade()) < 0;
+                                    boolean upgrade = tradeCost.cost.getGrade()
+                                            .compareTo(tradeYield.cost.getGrade()) < 0;
 
-                                    Icon costIcon = tradeCost.getCost()
+                                    Icon costIcon = tradeCost.cost
                                             .getGrade()
                                             .getIcon();
 
-                                    Icon yieldIcon = tradeYield.getCost()
+                                    Icon yieldIcon = tradeYield.cost
                                             .getGrade()
                                             .getIcon();
 
@@ -378,13 +379,13 @@ public class InventoryData implements Displayable
 
                                     renderHave();
 
-                                    String x = tradeCost.getQuantity()
+                                    String x = tradeCost.quantity
                                             //+ " "
-                                            //+ tradeCost.getCost().getLocalizedName()
+                                            //+ tradeCost.cost.getLocalizedName()
                                             + " for "
-                                            + Math.abs(tradeYield.getQuantity())
+                                            + Math.abs(tradeYield.quantity)
                                             + " :: "
-                                            + tradeYield.getCost().getLocalizedName()
+                                            + tradeYield.cost.getLocalizedName()
                                             + " (";
 
                                     descOpen.setText(x);

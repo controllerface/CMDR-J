@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes;
+package com.controllerface.cmdr_j.classes.data;
 
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
@@ -7,10 +7,10 @@ import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
  */
 public class ModifierData
 {
-    private final ItemEffect effect;
-    private final double value;
-    private final double originalValue;
-    private final boolean lessIsGood;
+    public final ItemEffect effect;
+    public final double value;
+    public final double originalValue;
+    public final boolean lessIsGood;
 
     public ModifierData(ItemEffect effect, double value, double originalValue, boolean lessIsGood)
     {
@@ -19,9 +19,4 @@ public class ModifierData
         this.originalValue = originalValue;
         this.lessIsGood = lessIsGood;
     }
-
-    public ItemEffect getEffect() { return effect; }
-    public double getValue() { return value; }
-    double getOriginalValue() { return originalValue; }
-    boolean isLessIsGood() { return lessIsGood; }
 }

@@ -17,7 +17,7 @@ public class SearchAndRescueHandler implements JournalEventHandler
     {
         String name = ((String) context.getRawData().get("Name"));
         int reward = ((int) context.getRawData().get("Reward"));
-        context.getCommanderData().adjustCreditBalance(reward);
+        context.getCommander().adjustCreditBalance(reward);
         logGeneralMessage(context, "Search and rescue reward: " + reward + " CR for " + name);
     }
 }

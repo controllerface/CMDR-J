@@ -14,7 +14,7 @@ public class CarrierBuyHandler implements JournalEventHandler
         String callSign = ((String) context.getRawData().get("Callsign"));
 
         int price = ((int) context.getRawData().get("Price"));
-        context.getCommanderData().adjustCreditBalance(-1 * price);
+        context.getCommander().adjustCreditBalance(-1 * price);
 
         logGeneralMessage(context, "Purchased Fleet Carrier variant: " + shipType
                 + " call sign: " + callSign + " for " + price + " Credits");

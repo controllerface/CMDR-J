@@ -11,7 +11,7 @@ public class BuyAmmoHandler implements JournalEventHandler
     public void handle(EventProcessingContext context)
     {
         Integer amount = ((Integer) context.getRawData().get("Cost"));
-        context.getCommanderData().adjustCreditBalance(-1 * amount);
+        context.getCommander().adjustCreditBalance(-1 * amount);
         logGeneralMessage(context, "Ammo Restock: Paid " + amount + " Cr");
     }
 }

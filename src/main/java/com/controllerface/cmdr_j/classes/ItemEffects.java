@@ -1,5 +1,6 @@
 package com.controllerface.cmdr_j.classes;
 
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 import java.util.Arrays;
@@ -28,7 +29,7 @@ public class ItemEffects
 
     public Optional<ItemEffectData> effectByName(ItemEffect effect)
     {
-        return effectStream().filter(e->e.getEffect() == effect)
+        return effectStream().filter(e->e.effect == effect)
                 .findFirst();
     }
 

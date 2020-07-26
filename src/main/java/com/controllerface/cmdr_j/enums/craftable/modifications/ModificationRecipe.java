@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.modifications;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.armour.advanced.*;
 import com.controllerface.cmdr_j.classes.recipes.armour.explosive.*;
@@ -534,7 +534,7 @@ public enum ModificationRecipe implements TaskRecipe
     ModificationRecipe(TaskRecipe delegate)
     {
         this.delegate = delegate;
-        delegate.costStream().forEach(c->c.getCost().associate(this));
+        delegate.costStream().forEach(c->c.cost.associate(this));
     }
 
     @Override

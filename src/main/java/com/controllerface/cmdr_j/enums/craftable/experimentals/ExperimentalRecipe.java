@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.experimentals;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.experimental.*;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
@@ -119,7 +119,7 @@ public enum ExperimentalRecipe implements TaskRecipe
     ExperimentalRecipe(TaskRecipe delegate)
     {
         this.delegate = delegate;
-        delegate.costStream().forEach(c->c.getCost().associate(this));
+        delegate.costStream().forEach(c->c.cost.associate(this));
     }
 
     @Override

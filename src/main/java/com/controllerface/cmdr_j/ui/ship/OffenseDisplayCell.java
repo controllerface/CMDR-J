@@ -1,7 +1,6 @@
 package com.controllerface.cmdr_j.ui.ship;
 
-import com.controllerface.cmdr_j.classes.commander.ShipStatisticData;
-import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacteristic;
+import com.controllerface.cmdr_j.classes.data.ShipStatisticData;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;

@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.enums.equipment.ships.moduleslots;
 
-import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;

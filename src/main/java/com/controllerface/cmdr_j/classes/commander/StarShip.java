@@ -1,9 +1,10 @@
 package com.controllerface.cmdr_j.classes.commander;
 
+import com.controllerface.cmdr_j.classes.data.ShipStatisticData;
 import com.controllerface.cmdr_j.ui.models.ModelUtilities;
-import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.ShipModuleData;
+import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
@@ -22,23 +23,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -72,9 +67,9 @@ public class StarShip
     private final List<ShipStatisticData> massStatistics = new CopyOnWriteArrayList<>();
     private final List<ShipStatisticData> resistanceStatistics = new CopyOnWriteArrayList<>();
     private final List<ShipStatisticData> offenseStatistics = new CopyOnWriteArrayList<>();
-    private final List<ShipModuleData> coreInternals = new CopyOnWriteArrayList<>();
-    private final List<ShipModuleData> optionalInternals = new CopyOnWriteArrayList<>();
-    private final List<ShipModuleData> hardpoints = new CopyOnWriteArrayList<>();
+    private final List<ShipModuleDisplay> coreInternals = new CopyOnWriteArrayList<>();
+    private final List<ShipModuleDisplay> optionalInternals = new CopyOnWriteArrayList<>();
+    private final List<ShipModuleDisplay> hardpoints = new CopyOnWriteArrayList<>();
     //endregion
 
     //region UI Observable Lists
@@ -83,9 +78,9 @@ public class StarShip
     private final ObservableList<ShipStatisticData> observableMassStatistics = FXCollections.observableArrayList();
     private final ObservableList<ShipStatisticData> observableShieldStatistics = FXCollections.observableArrayList();
     private final ObservableList<ShipStatisticData> observableOffenseStatistics = FXCollections.observableArrayList();
-    private final ObservableList<ShipModuleData> observableCoreInternals = FXCollections.observableArrayList();
-    private final ObservableList<ShipModuleData> observableOptionalInternals = FXCollections.observableArrayList();
-    private final ObservableList<ShipModuleData> observableHardpoints = FXCollections.observableArrayList();
+    private final ObservableList<ShipModuleDisplay> observableCoreInternals = FXCollections.observableArrayList();
+    private final ObservableList<ShipModuleDisplay> observableOptionalInternals = FXCollections.observableArrayList();
+    private final ObservableList<ShipModuleDisplay> observableHardpoints = FXCollections.observableArrayList();
     //endregion
 
     //region Resistance Charts
@@ -222,12 +217,12 @@ public class StarShip
         sorted.setComparator(Comparator.comparing((data) -> data.shipCharacteristic));
     }
 
-    public void associateCoreTable(TableView<ShipModuleData> coreTable)
+    public void associateCoreTable(TableView<ShipModuleDisplay> coreTable)
     {
-        SortedList<ShipModuleData> sorted = new SortedList<>(observableCoreInternals);
+        SortedList<ShipModuleDisplay> sorted = new SortedList<>(observableCoreInternals);
         coreTable.setItems(sorted);
 
-        observableCoreInternals.addListener((ListChangeListener<ShipModuleData>) c -> coreTable.refresh());
+        observableCoreInternals.addListener((ListChangeListener<ShipModuleDisplay>) c -> coreTable.refresh());
         sorted.setComparator((a, b)->
         {
             CoreInternalSlot slotA = ((CoreInternalSlot) a.getModuleSlot());
@@ -236,12 +231,12 @@ public class StarShip
         });
     }
 
-    public void associateOptionalTable(TableView<ShipModuleData> optionalTable)
+    public void associateOptionalTable(TableView<ShipModuleDisplay> optionalTable)
     {
-        SortedList<ShipModuleData> sorted = new SortedList<>(observableOptionalInternals);
+        SortedList<ShipModuleDisplay> sorted = new SortedList<>(observableOptionalInternals);
         optionalTable.setItems(sorted);
 
-        observableOptionalInternals.addListener((ListChangeListener<ShipModuleData>) c -> optionalTable.refresh());
+        observableOptionalInternals.addListener((ListChangeListener<ShipModuleDisplay>) c -> optionalTable.refresh());
         sorted.setComparator((a, b)->
         {
             OptionalInternalSlot slotA = ((OptionalInternalSlot) a.getModuleSlot());
@@ -250,12 +245,12 @@ public class StarShip
         });
     }
 
-    public void associateHardpointTable(TableView<ShipModuleData> hardpointTable)
+    public void associateHardpointTable(TableView<ShipModuleDisplay> hardpointTable)
     {
-        SortedList<ShipModuleData> sorted = new SortedList<>(observableHardpoints);
+        SortedList<ShipModuleDisplay> sorted = new SortedList<>(observableHardpoints);
         hardpointTable.setItems(sorted);
 
-        observableHardpoints.addListener((ListChangeListener<ShipModuleData>) c -> hardpointTable.refresh());
+        observableHardpoints.addListener((ListChangeListener<ShipModuleDisplay>) c -> hardpointTable.refresh());
         sorted.setComparator((a, b)->
         {
             HardpointSlot slotA = ((HardpointSlot) a.getModuleSlot());
@@ -750,9 +745,9 @@ public class StarShip
         }
     }
 
-    private synchronized Stream<ShipModuleData> bufferedStream(List<ShipModuleData> modules)
+    private synchronized Stream<ShipModuleDisplay> bufferedStream(List<ShipModuleDisplay> modules)
     {
-        List<ShipModuleData> buffer = new ArrayList<>();
+        List<ShipModuleDisplay> buffer = new ArrayList<>();
 
         if (modules == coreInternals)
         {
@@ -781,7 +776,7 @@ public class StarShip
         return buffer.stream();
     }
 
-    synchronized void installShipModule(ShipModuleData shipModuleData)
+    synchronized void installShipModule(ShipModuleDisplay shipModuleDisplay)
     {
         // todo: perform checking for support in the Ship object
 
@@ -790,32 +785,32 @@ public class StarShip
         // internal slot. This makes it ok to call installShipModule() multiple times with new ShipModuleData objects that
         // contain updated stats (for example, if the player upgrades or changes a mod on an existing item).
 
-        if (CoreInternalSlot.typeMatches(shipModuleData.getModuleSlot()))
+        if (CoreInternalSlot.typeMatches(shipModuleDisplay.getModuleSlot()))
         {
             synchronized (coreInternals)
             {
-                coreInternals.remove(shipModuleData);
-                coreInternals.add(shipModuleData);
+                coreInternals.remove(shipModuleDisplay);
+                coreInternals.add(shipModuleDisplay);
                 synchronizeCoreInternals();
             }
         }
 
-        if (OptionalInternalSlot.typeMatches(shipModuleData.getModuleSlot()))
+        if (OptionalInternalSlot.typeMatches(shipModuleDisplay.getModuleSlot()))
         {
             synchronized (optionalInternals)
             {
-                optionalInternals.remove(shipModuleData);
-                optionalInternals.add(shipModuleData);
+                optionalInternals.remove(shipModuleDisplay);
+                optionalInternals.add(shipModuleDisplay);
                 synchronizeOptionalInternals();
             }
         }
 
-        if (HardpointSlot.typeMatches(shipModuleData.getModuleSlot()))
+        if (HardpointSlot.typeMatches(shipModuleDisplay.getModuleSlot()))
         {
             synchronized (hardpoints)
             {
-                hardpoints.remove(shipModuleData);
-                hardpoints.add(shipModuleData);
+                hardpoints.remove(shipModuleDisplay);
+                hardpoints.add(shipModuleDisplay);
                 synchronizeHardpoints();
             }
         }
@@ -1157,7 +1152,7 @@ public class StarShip
 
         // first check for an actual shield generator. The game ensures there will only ever be one generator
         // equipped, so there should only be one or none.
-        ShipModuleData shieldGenerator = optionalInternals.stream()
+        ShipModuleDisplay shieldGenerator = optionalInternals.stream()
                 .filter(m->m.getModule().modificationType() == ModificationType.Shield_Generator)
                 .findAny().orElse(null);
 
@@ -1174,7 +1169,7 @@ public class StarShip
 
         // get the stock optimal mass so we can check for modifications
         double stockOptimalMass = shieldGenerator.getModule().itemEffects().effectStream()
-                .filter(itemEffect -> itemEffect.getEffect() == ItemEffect.ShieldGenOptimalMass)
+                .filter(itemEffect -> itemEffect.effect == ItemEffect.ShieldGenOptimalMass)
                 .map(ItemEffectData::getDoubleValue)
                 .findFirst().orElse(0d);
 
@@ -1201,7 +1196,7 @@ public class StarShip
 
         // get the stock optimal strength so we can check for modifications
         double stockOptimalStrength = shieldGenerator.getModule().itemEffects().effectStream()
-                .filter(e->e.getEffect()==ItemEffect.ShieldGenStrength)
+                .filter(e -> e.effect == ItemEffect.ShieldGenStrength)
                 .map(ItemEffectData::getDoubleValue)
                 .findFirst().orElse(0d);
 
@@ -1330,7 +1325,7 @@ public class StarShip
                 .forEach(h->
                 {
                     ItemEffects effects = h.getModule().itemEffects();
-                    String t = effects.effectByName(ItemEffect.DamageType).get().getStringValue();
+                    String t = effects.effectByName(ItemEffect.DamageType).get().getValueString();
                     double dps = h.getEffectValue(ItemEffect.DamagePerSecond);
 
                     switch (t)
@@ -1397,7 +1392,7 @@ public class StarShip
     {
         if (ship == null) return 0.0d;
 
-        List<ShipModuleData> buffer;
+        List<ShipModuleDisplay> buffer;
 
         synchronized (coreInternals)
         {
@@ -1428,7 +1423,7 @@ public class StarShip
     {
         if (ship == null) return 0.0d;
 
-        List<ShipModuleData> buffer;
+        List<ShipModuleDisplay> buffer;
 
         synchronized (coreInternals)
         {
@@ -1512,7 +1507,7 @@ public class StarShip
                 .findFirst()
                 .map(s->
                 {
-                    switch (s.getStringValue())
+                    switch (s.getValueString())
                     {
                         case "A":
                             return 12.0;
@@ -1591,7 +1586,6 @@ public class StarShip
     private void renderShipGraphic()
     {
         TriangleMesh mesh = ModelUtilities.STL.loadModel("/models/fdl_2.stl", false, false);
-                //getObjModel();
 
         // Create a Camera to view the 3D Shapes
         PerspectiveCamera camera = new PerspectiveCamera(false);
@@ -1606,51 +1600,7 @@ public class StarShip
 
         camera.getTransforms().addAll(cameraMove);
 
-        shipGraphic.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent event)
-            {
-                KeyCode keyCode = event.getCode();
-
-                switch (keyCode)
-                {
-                    case A:
-                        camX.setValue(camX.add(10).getValue());
-                        break;
-
-                    case D:
-                        camX.setValue(camX.subtract(10).getValue());
-                        break;
-
-                    case W:
-                        camY.setValue(camY.add(10).getValue());
-                        break;
-
-                    case S:
-                        camY.setValue(camY.subtract(10).getValue());
-                        break;
-
-                    case Q:
-                        camZ.setValue(camZ.add(10).getValue());
-                        break;
-
-                    case E:
-                        camZ.setValue(camZ.subtract(10).getValue());
-                        break;
-
-                    case SPACE:
-                        System.out.println("X: " + camX.get() + " Y: " + camY.get() + " Z:" + camZ.get());
-                }
-
-                //System.out.println("pressed! " + event);
-            }
-        });
-
-
-        PointLight light = new PointLight(Color.BLUE);
-        //light.setTranslateX(-150);
-        //light.setTranslateY(-125);
+        PointLight light = new PointLight(UIFunctions.Style.lightOrange);
         light.setTranslateZ(-300);
 
         MeshView meshView = new MeshView();
@@ -1658,13 +1608,12 @@ public class StarShip
         meshView.scaleXProperty().set(5);
         meshView.scaleYProperty().set(5);
         meshView.scaleZProperty().set(5);
-        //meshView.setDrawMode(DrawMode.LINE);
 
-        Group root = new Group(camera, meshView, light);
+        Group shipGroup = new Group(camera, meshView, light);
 
-        DoubleProperty angleX = new SimpleDoubleProperty(-30);
+        DoubleProperty angleX = new SimpleDoubleProperty(-60);
         DoubleProperty angleY = new SimpleDoubleProperty(180);
-        DoubleProperty angleZ = new SimpleDoubleProperty(-45);
+        DoubleProperty angleZ = new SimpleDoubleProperty(-60);
 
         Rotate xRotate = new Rotate(0, Rotate.X_AXIS);
         Rotate yRotate = new Rotate(0, Rotate.Y_AXIS);
@@ -1682,7 +1631,7 @@ public class StarShip
         AtomicReference<Double> initialAngleX = new AtomicReference<>(0d);
         AtomicReference<Double> initialAngleZ = new AtomicReference<>(0d);
 
-        shipGraphic.setRoot(root);
+        shipGraphic.setRoot(shipGroup);
         shipGraphic.setWidth(300);
         shipGraphic.setHeight(250);
         shipGraphic.setCamera(camera);
@@ -1699,6 +1648,41 @@ public class StarShip
         {
             angleX.set(initialAngleX.get() - (clickY.get() - event.getSceneY()));
             angleZ.set(initialAngleZ.get() - (clickX.get() - event.getSceneX()));
+        });
+
+        // todo: this is for debugging, should remove eventually
+        shipGraphic.setOnKeyPressed(event ->
+        {
+            switch (event.getCode())
+            {
+                case A:
+                    camX.setValue(camX.add(10).getValue());
+                    break;
+
+                case D:
+                    camX.setValue(camX.subtract(10).getValue());
+                    break;
+
+                case W:
+                    camY.setValue(camY.add(10).getValue());
+                    break;
+
+                case S:
+                    camY.setValue(camY.subtract(10).getValue());
+                    break;
+
+                case Q:
+                    camZ.setValue(camZ.add(10).getValue());
+                    break;
+
+                case E:
+                    camZ.setValue(camZ.subtract(10).getValue());
+                    break;
+
+                case SPACE:
+                    System.out.println("X: " + camX.get() + " Y: " + camY.get() + " Z:" + camZ.get()
+                            + "aX: " + angleX.get() + " aZ: " + angleZ.get());
+            }
         });
     }
 }

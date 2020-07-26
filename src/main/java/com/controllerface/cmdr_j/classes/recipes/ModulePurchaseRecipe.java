@@ -2,7 +2,7 @@ package com.controllerface.cmdr_j.classes.recipes;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
-import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
@@ -67,13 +67,13 @@ public class ModulePurchaseRecipe implements TaskRecipe
 
     private static String generateDisplayLabel(CostData price, CostData product)
     {
-        String priceCost = String.format("%,8d%n", price.getQuantity()).trim() + " " + price.getCost().getLocalizedName();
+        String priceCost = String.format("%,8d%n", price.quantity).trim() + " " + price.cost.getLocalizedName();
 
-        double yieldCost_ = Math.abs(product.getQuantity());
+        double yieldCost_ = Math.abs(product.quantity);
 
         String yieldCost = yieldCost_ == 1
-                ? product.getCost().getLocalizedName()
-                : yieldCost_ + " " + product.getCost().getLocalizedName();
+                ? product.cost.getLocalizedName()
+                : yieldCost_ + " " + product.cost.getLocalizedName();
 
         return priceCost + " for " + yieldCost;
     }
@@ -164,10 +164,10 @@ public class ModulePurchaseRecipe implements TaskRecipe
         if (obj instanceof ModulePurchaseRecipe)
         {
             ModulePurchaseRecipe other = ((ModulePurchaseRecipe) obj);
-            return (other.price.getCost() == this.price.getCost()
-                    && other.product.getCost() == this.product.getCost()
-                    && other.price.getQuantity() == this.price.getQuantity()
-                    && other.product.getQuantity() == this.product.getQuantity());
+            return (other.price.cost == this.price.cost
+                    && other.product.cost == this.product.cost
+                    && other.price.quantity == this.price.quantity
+                    && other.product.quantity == this.product.quantity);
         }
         return false;
     }

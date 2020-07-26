@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.commander;
 
-import com.controllerface.cmdr_j.classes.ShipModuleData;
+import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.Task;
@@ -11,10 +11,15 @@ import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialType;
 import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
+import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import jetbrains.exodus.entitystore.Entity;
+import jetbrains.exodus.entitystore.EntityIterable;
+import jetbrains.exodus.entitystore.PersistentEntityStore;
+import jetbrains.exodus.entitystore.PersistentEntityStores;
 
 import java.text.NumberFormat;
 import java.util.*;
@@ -26,16 +31,10 @@ import java.util.function.Function;
  * This class is intended to store all relevant data related to the Commander (player), such as inventory, ship loadout
  * and various statistics that are tracked in the game.
  *
- * NOTE: Mutable state data object
- *
  * Created by Controllerface on 4/4/2018.
  */
-public class CommanderData
+public class Commander
 {
-
-    private final Function<TaskCost, Integer> pendingTradeCost;
-    private final Consumer<Task> addTask;
-
     /**
      * The Commander's star ship. Changes as the commander switches ships or modules
      */
@@ -73,21 +72,55 @@ public class CommanderData
      */
     private Label creditBalanceLabel;
 
+    private final PersistentEntityStore data = PersistentEntityStores.newInstance(UIFunctions.DATA_FOLDER+"/db");
+
     private long creditBalance = 0;
+
     /**
      * Various commander statistics
      */
     private final Map<Statistic, String> stats = new ConcurrentHashMap<>(new LinkedHashMap<>());
 
-    public CommanderData(Function<TaskCost, Integer> pendingTradeCost, Consumer<Task> addTask)
+    public Commander(Function<TaskCost, Integer> pendingTradeCost, Consumer<Task> addTask)
     {
-        this.pendingTradeCost = pendingTradeCost;
-        this.addTask = addTask;
+        cargo = new CargoStorageBin(pendingTradeCost, addTask);
+        rawMats = new RawInventoryStorageBin(pendingTradeCost, addTask);
+        mfdMats = new ManufacturedInventoryStorageBin(pendingTradeCost, addTask);
+        dataMats = new EncodedInventoryStorageBin(pendingTradeCost, addTask);
 
-        cargo = new CargoStorageBin(this.pendingTradeCost, this.addTask);
-        rawMats = new RawInventoryStorageBin(this.pendingTradeCost, this.addTask);
-        mfdMats = new ManufacturedInventoryStorageBin(this.pendingTradeCost, this.addTask);
-        dataMats = new EncodedInventoryStorageBin(this.pendingTradeCost, this.addTask);
+        // WORKING AREA
+        try
+        {
+            Comparable<Integer> x = data.computeInTransaction(tx ->
+            {
+                EntityIterable i = tx.getAll("Test");
+                if (i.isEmpty())
+                {
+                    Entity n = tx.newEntity("Test");
+                    n.setProperty("hello", "there");
+                    n.setProperty("count", 1);
+                    return 1;
+                }
+                else
+                {
+                    Entity z = i.getFirst();
+                    int c = 0;
+                    Comparable<Integer> s = z.getProperty("count");
+                    if (s instanceof Integer)
+                    {
+                        int sum = ((Integer) s) + 1;
+                        z.setProperty("count", sum);
+                        c = sum;
+                    }
+                    return c;
+                }
+            });
+            System.out.println(x);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void associateCommanderName(Label commanderName)
@@ -100,22 +133,22 @@ public class CommanderData
         this.creditBalanceLabel = creditBalanceLabel;
     }
 
-    public void associateCargoTable(TableView<InventoryData> cargoTable, CheckBox showZeroQuantities)
+    public void associateCargoTable(TableView<InventoryDisplay> cargoTable, CheckBox showZeroQuantities)
     {
         cargo.associateTableView(cargoTable, showZeroQuantities);
     }
 
-    public void associateRawTable(TableView<InventoryData> rawTable, CheckBox showZeroQuantities)
+    public void associateRawTable(TableView<InventoryDisplay> rawTable, CheckBox showZeroQuantities)
     {
         rawMats.associateTableView(rawTable, showZeroQuantities);
     }
 
-    public void associateManufacturedTable(TableView<InventoryData> mfdTable, CheckBox showZeroQuantities)
+    public void associateManufacturedTable(TableView<InventoryDisplay> mfdTable, CheckBox showZeroQuantities)
     {
         mfdMats.associateTableView(mfdTable, showZeroQuantities);
     }
 
-    public void associateDataTable(TableView<InventoryData> dataTable, CheckBox showZeroQuantities)
+    public void associateDataTable(TableView<InventoryDisplay> dataTable, CheckBox showZeroQuantities)
     {
         dataMats.associateTableView(dataTable, showZeroQuantities);
     }
@@ -178,11 +211,11 @@ public class CommanderData
     /**
      * Sets a given ship module slot to a given ship module object, in the commander's current ship
      *
-     * @param shipModuleData ship module data object describing the module
+     * @param shipModuleDisplay ship module data object describing the module
      */
-    public void setShipModule(ShipModuleData shipModuleData)
+    public void setShipModule(ShipModuleDisplay shipModuleDisplay)
     {
-        starShip.installShipModule(shipModuleData);
+        starShip.installShipModule(shipModuleDisplay);
     }
 
     /**

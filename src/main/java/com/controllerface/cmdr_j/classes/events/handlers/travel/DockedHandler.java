@@ -2,9 +2,7 @@ package com.controllerface.cmdr_j.classes.events.handlers.travel;
 
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
-import com.controllerface.cmdr_j.threads.UserTransaction;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
@@ -33,7 +31,7 @@ public class DockedHandler implements JournalEventHandler
 
         logTravelMessage(context, message);
 
-        context.getCommanderData().setStation(name);
-        context.getCommanderData().setEconomy(economy);
+        context.getCommander().setStation(name);
+        context.getCommander().setEconomy(economy);
     }
 }

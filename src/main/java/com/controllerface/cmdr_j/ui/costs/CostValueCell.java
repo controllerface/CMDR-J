@@ -1,13 +1,13 @@
 package com.controllerface.cmdr_j.ui.costs;
 
-import com.controllerface.cmdr_j.classes.tasks.ItemCostData;
+import com.controllerface.cmdr_j.classes.tasks.ItemCostDisplay;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 
 /**
  * Created by Controllerface on 4/26/2018.
  */
-public class CostValueCell extends TableCell<ItemCostData, String>
+public class CostValueCell extends TableCell<ItemCostDisplay, String>
 {
     @Override
     protected void updateItem(String item, boolean empty)

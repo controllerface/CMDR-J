@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.recipes;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 

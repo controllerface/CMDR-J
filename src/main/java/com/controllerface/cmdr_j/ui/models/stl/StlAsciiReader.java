@@ -1,11 +1,13 @@
 package com.controllerface.cmdr_j.ui.models.stl;
 
 import com.controllerface.cmdr_j.ui.models.FloatVector;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;
+import java.util.Iterator;
 import java.util.Scanner;
 
-public class StlAsciiReader implements StlReader
+public class StlAsciiReader implements Iterable<StlFacet>
 {
     private final Scanner scanner;
 
@@ -49,18 +51,26 @@ public class StlAsciiReader implements StlReader
         }
     }
 
+    @NotNull
     @Override
-    public boolean hasMoreFacets()
+    public Iterator<StlFacet> iterator()
     {
-        tryFacetRead();
-        return nextFacet != null;
-    }
+        return new Iterator<>()
+        {
+            @Override
+            public boolean hasNext()
+            {
+                tryFacetRead();
+                return nextFacet != null;
+            }
 
-    @Override
-    public StlFacet getNextFacet()
-    {
-        StlFacet next = nextFacet;
-        nextFacet = null;
-        return next;
+            @Override
+            public StlFacet next()
+            {
+                StlFacet next = nextFacet;
+                nextFacet = null;
+                return next;
+            }
+        };
     }
 }

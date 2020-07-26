@@ -1,8 +1,7 @@
 package com.controllerface.cmdr_j.classes.modules.utility.surfacescanner;
 
-import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.modules.optional.refinery.AbstractRefinery;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class DetailedSurfaceScanner_1I extends AbstractSurfaceScanner

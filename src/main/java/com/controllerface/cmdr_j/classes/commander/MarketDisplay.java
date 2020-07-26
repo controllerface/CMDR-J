@@ -1,24 +1,18 @@
 package com.controllerface.cmdr_j.classes.commander;
 
 import com.controllerface.cmdr_j.ui.Displayable;
-import com.controllerface.cmdr_j.ui.UIFunctions;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by Stephen on 1/4/2019.
  */
-public class MarketData implements Displayable
+public class MarketDisplay implements Displayable
 {
     private final String name;
     private final String category;
@@ -42,7 +36,7 @@ public class MarketData implements Displayable
      */
     private final AtomicBoolean initialRenderComplete = new AtomicBoolean(false);
 
-    private MarketData(Builder builder)
+    private MarketDisplay(Builder builder)
     {
         this.name = builder.name;
         this.category = builder.category;
@@ -54,7 +48,7 @@ public class MarketData implements Displayable
         this.demand = builder.demand;
     }
 
-    public MarketData duplicate()
+    public MarketDisplay duplicate()
     {
         return new Builder()
                 .setName(name)
@@ -234,9 +228,9 @@ public class MarketData implements Displayable
             return this;
         }
 
-        public MarketData build()
+        public MarketDisplay build()
         {
-            return new MarketData(this);
+            return new MarketDisplay(this);
         }
     }
 }

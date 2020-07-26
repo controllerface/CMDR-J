@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.ui.tasks;
 
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
-import com.controllerface.cmdr_j.classes.tasks.TaskData;
+import com.controllerface.cmdr_j.classes.tasks.TaskDisplay;
 import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,7 +19,7 @@ import java.util.function.BiConsumer;
 /**
  * Created by Controllerface on 4/2/2018.
  */
-public class TaskRemoveCell extends TableCell<TaskData, Pair<TaskType, TaskRecipe>>
+public class TaskRemoveCell extends TableCell<TaskDisplay, Pair<TaskType, TaskRecipe>>
 {
     private final HBox controls = new HBox();
 

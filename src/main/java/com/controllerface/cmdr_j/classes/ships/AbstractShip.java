@@ -1,14 +1,10 @@
 package com.controllerface.cmdr_j.classes.ships;
 
 import com.controllerface.cmdr_j.classes.BaseShipStats;
-import com.controllerface.cmdr_j.classes.CoreModuleLayoutData;
-import com.controllerface.cmdr_j.classes.HardPointLayoutData;
+import com.controllerface.cmdr_j.classes.data.CoreModuleLayoutData;
+import com.controllerface.cmdr_j.classes.data.HardPointLayoutData;
 import com.controllerface.cmdr_j.classes.OptionalModuleLayoutData;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
-import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
-import com.controllerface.cmdr_j.enums.equipment.ships.SpaceCraft;
-
-import java.util.Arrays;
 
 public abstract class AbstractShip
 {
@@ -22,7 +18,7 @@ public abstract class AbstractShip
                  CoreModuleLayoutData coreModules,
                  HardPointLayoutData hardpoints,
                  OptionalModuleLayoutData internals,
-                 ShipModule ...  armorModules)
+                 ShipModule ... armorModules)
     {
         this.baseShipStats = baseShipStats;
         this.coreModules = coreModules;

@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.synthesis;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.synthesis.*;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
@@ -106,7 +106,7 @@ public enum SynthesisRecipe implements TaskRecipe
     SynthesisRecipe(TaskRecipe delgate)
     {
         this.delegate = delgate;
-        delgate.costStream().forEach(c->c.getCost().associate(this));
+        delgate.costStream().forEach(c->c.cost.associate(this));
     }
 
     @Override

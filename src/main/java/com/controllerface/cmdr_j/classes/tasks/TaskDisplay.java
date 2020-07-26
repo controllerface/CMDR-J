@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.classes.tasks;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
@@ -38,7 +39,7 @@ import java.util.stream.Collectors;
  *
  * Created by Controllerface on 4/2/2018.
  */
-public class TaskData implements Displayable
+public class TaskDisplay implements Displayable
 {
     private final AtomicLong count;
     private final SimpleLongProperty countDisplay = new SimpleLongProperty();
@@ -73,7 +74,7 @@ public class TaskData implements Displayable
     private final HBox spinner;
 
 
-    private TaskData(Builder builder)
+    private TaskDisplay(Builder builder)
     {
         this.count = new AtomicLong(builder.count);
         countDisplay.set(this.count.get());
@@ -97,7 +98,7 @@ public class TaskData implements Displayable
     {
         return type.toString() + " : " + recipe.toString() + "\n" +
                 recipe.costStream()
-                        .map(c-> " - " + c.getCost().getLocalizedName())
+                        .map(c-> " - " + c.cost.getLocalizedName())
                         .collect(Collectors.joining("\n"));
     }
 
@@ -206,11 +207,11 @@ public class TaskData implements Displayable
             if (!typeMatch) return false;
 
             Set<TaskCost> theseCosts = recipe.costStream()
-                    .map(CostData::getCost)
+                    .map(data -> data.cost)
                     .collect(Collectors.toSet());
 
             Set<TaskCost> thoseCosts = pair.getValue().costStream()
-                    .map(CostData::getCost)
+                    .map(data -> data.cost)
                     .collect(Collectors.toSet());
 
             return theseCosts.equals(thoseCosts);
@@ -252,22 +253,22 @@ public class TaskData implements Displayable
         renderProgress();
     }
 
-    private Pair<Double, Boolean> calculateProgress(TaskData taskData)
+    private Pair<Double, Boolean> calculateProgress(TaskDisplay taskDisplay)
     {
         AtomicBoolean usesTrade = new AtomicBoolean(false);
 
         // get the number of "rolls" required for this task
-        long count = taskData.getCount();
+        long count = taskDisplay.getCount();
 
         AtomicLong accumulatedTotal = new AtomicLong(0);
 
-        long missing = taskData.asPair().getValue().costStream()
-                .filter(c->c.getQuantity() > 0)
+        long missing = taskDisplay.asPair().getValue().costStream()
+                .filter(c->c.quantity > 0)
                 .mapToLong(cost->
                 {
-                    long banked = checkInventory.apply(cost.getCost());
+                    long banked = checkInventory.apply(cost.cost);
 
-                    long calculatedCost = (cost.getQuantity() * count);
+                    long calculatedCost = (cost.quantity * count);
 
                     accumulatedTotal.addAndGet(calculatedCost);
 
@@ -276,7 +277,7 @@ public class TaskData implements Displayable
                     // only check pending trades if we're in the red without them
                     if (surplus < 0)
                     {
-                        Integer pendingYield = pendingTradeYield.apply(cost.getCost());
+                        Integer pendingYield = pendingTradeYield.apply(cost.cost);
                         if (pendingYield != null && pendingYield > 0)
                         {
                             usesTrade.set(true);
@@ -356,26 +357,26 @@ public class TaskData implements Displayable
         recipe.costStream()
                 .map(c->
                 {
-                    boolean isYield = c.getQuantity() < 0;
+                    boolean isYield = c.quantity < 0;
                     boolean hasEnough = isYield ||
-                            checkInventory.apply(c.getCost()) >= c.getQuantity() * getCount();
+                            checkInventory.apply(c.cost) >= c.quantity * getCount();
 
                     String text = //(valueIsPositive ? " +" : " ")
 //                            +
-                            String.format("%,8d%n", c.getQuantity()).trim();;//pair.getDoubleValue();
+                            String.format("%,8d%n", c.quantity).trim();;//pair.getDoubleValue();
 
-                    boolean isNegative = c.getQuantity() < 0;
+                    boolean isNegative = c.quantity < 0;
 
                     long d = isNegative
-                            ? Math.abs(c.getQuantity())
-                            : c.getQuantity();
+                            ? Math.abs(c.quantity)
+                            : c.quantity;
 
                     long d2 = d * getCount();
 
                     String quantity = (isNegative ? "+" : "-")
                             + String.format("%,8d%n", d2).trim();
 
-                    Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
+                    Label next = new Label(quantity + " " + c.cost.getLocalizedName());
                     next.getStyleClass().addAll("base_font");
                     next.setTextFill(hasEnough ? UIFunctions.Style.neutralWhite : UIFunctions.Style.negativeRed);
                     return next;
@@ -431,9 +432,9 @@ public class TaskData implements Displayable
     public boolean equals(Object obj)
     {
         if (obj == this) return true;
-        if (obj instanceof TaskData)
+        if (obj instanceof TaskDisplay)
         {
-            TaskData other = ((TaskData) obj);
+            TaskDisplay other = ((TaskDisplay) obj);
             boolean item = recipe.equals(other.recipe);
             boolean count = this.count.get() == other.count.get();
             return item && count;
@@ -499,9 +500,9 @@ public class TaskData implements Displayable
             return this;
         }
 
-        public TaskData createTaskData()
+        public TaskDisplay createTaskData()
         {
-            return new TaskData(this);
+            return new TaskDisplay(this);
         }
     }
 }

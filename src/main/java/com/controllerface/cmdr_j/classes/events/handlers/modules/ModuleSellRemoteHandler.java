@@ -17,6 +17,6 @@ public class ModuleSellRemoteHandler implements JournalEventHandler
     {
         logInventoryMessage(context, "Module Sold: " + context.getRawData().get("SellItem_Localised"));
         int sale = ((int) context.getRawData().get("SellPrice"));
-        context.getCommanderData().adjustCreditBalance(sale);
+        context.getCommander().adjustCreditBalance(sale);
     }
 }

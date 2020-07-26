@@ -16,7 +16,7 @@ public class SetUserShipNameHandler implements JournalEventHandler
         logLoadoutMessage(context, "Reloading Ship Name");
         String shipName = ((String) context.getRawData().get("UserShipName"));
         String shipID = ((String) context.getRawData().get("UserShipId"));
-        context.getCommanderData().getStarShip().setGivenName(shipName);
-        context.getCommanderData().getStarShip().setShipID(shipID);
+        context.getCommander().getStarShip().setGivenName(shipName);
+        context.getCommander().getStarShip().setShipID(shipID);
     }
 }

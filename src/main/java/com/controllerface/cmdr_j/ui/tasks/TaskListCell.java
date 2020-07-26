@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.ui.tasks;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.Task;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
@@ -59,14 +59,14 @@ public class TaskListCell extends ListCell<Task>
             List<CostData> data = this.getItem()
                     .getRecipe()
                     .costStream()
-                    .filter(c->c.getQuantity() > 0)
+                    .filter(c->c.quantity > 0)
                     .collect(Collectors.toList());
 
             int count = data.size();
             AtomicInteger good = new AtomicInteger(0);
             data.forEach(d->
             {
-                if(checkMat.apply(d.getCost())>=d.getQuantity())
+                if(checkMat.apply(d.cost)>=d.quantity)
                 {
                     good.incrementAndGet();
                 }
@@ -78,8 +78,8 @@ public class TaskListCell extends ListCell<Task>
             {
                 data.forEach(m ->
                 {
-                    long ch = checkMat.apply(m.getCost());
-                    if(ch < m.getQuantity())
+                    long ch = checkMat.apply(m.cost);
+                    if(ch < m.quantity)
                     {
                         missingSet.add(m);
                     }
@@ -125,10 +125,10 @@ public class TaskListCell extends ListCell<Task>
            item.getRecipe().costStream()
                     .map(c->
                     {
-                        String quantity = c.getQuantity() < 0
-                                ? "+" + Math.abs(c.getQuantity())
-                                : "-" + c.getQuantity();
-                        Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
+                        String quantity = c.quantity < 0
+                                ? "+" + Math.abs(c.quantity)
+                                : "-" + c.quantity;
+                        Label next = new Label(quantity + " " + c.cost.getLocalizedName());
                         next.getStyleClass().addAll("base_font");
                         return next;
                     })
@@ -211,9 +211,9 @@ public class TaskListCell extends ListCell<Task>
             progressIndicator.setStyle("-fx-accent: #00b3f7;");
 
             String msg = data.stream()
-                    .filter(d -> d.getQuantity() > 0)
-                    .map(d-> checkMat.apply(d.getCost()) + " x " +
-                            d.getCost().getLocalizedName()).collect(Collectors.joining("\n","\n","\n"));
+                    .filter(d -> d.quantity > 0)
+                    .map(d-> checkMat.apply(d.cost) + " x " +
+                            d.cost.getLocalizedName()).collect(Collectors.joining("\n","\n","\n"));
 
             //tooltip = new Tooltip("You can craft " + surplus + " of this item" + msg);
             tooltip = new Tooltip("You can craft this item: " + msg);
@@ -225,8 +225,8 @@ public class TaskListCell extends ListCell<Task>
             String suffix = missingSet.size() > 1 ? "s" : "";
             String missingMessage = "You need the following component" + suffix + " to craft this item:" +
                     missingSet.stream()
-                            .filter(x -> x.getQuantity() > 0)
-                            .map(x-> x.getQuantity()+ " x " + x.getCost().getLocalizedName())
+                            .filter(x -> x.quantity > 0)
+                            .map(x-> x.quantity + " x " + x.cost.getLocalizedName())
                             .collect(Collectors.joining("\n","\n","\n"));
 
             tooltip = new Tooltip(missingMessage);

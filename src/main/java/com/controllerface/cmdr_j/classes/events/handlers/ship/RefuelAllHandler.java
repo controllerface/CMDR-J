@@ -11,7 +11,7 @@ public class RefuelAllHandler implements JournalEventHandler
     public void handle(EventProcessingContext context)
     {
         int cost = ((int) context.getRawData().get("Cost"));
-        context.getCommanderData().adjustCreditBalance(-1 * cost);
+        context.getCommander().adjustCreditBalance(-1 * cost);
         logGeneralMessage(context, "Refueled: " + context.getRawData().get("Amount") + " tons:"
                 + " cost: " + cost + " Credits");
 

@@ -33,13 +33,7 @@ import com.controllerface.cmdr_j.classes.events.handlers.travel.*;
  * This enum defines all of the Journal API events that are currently supported. By convention, enum value names are
  * exact alphabetical matches for the JSON value string for the event it handles. This is a convenience that allows
  * support for an arbitrary event to be determined by using the valueOf() enum method. Internally, each enum value
- * contains the required processing logic for an event by defining a EventProcessingContext consumer function that
- * is executed on calls to the process() method.
- *
- * For every supported event, the logic to process it is defined as a lambda implementation and passed as a constructor
- * parameter for each event. This configuration helps consolidate all journal API processing code in one central
- * location, making it easy to share functionality among different methods where possible. The intention is that, for
- * maintenance and addition of new events, the bulk of the work to support them would be contained in this one class.
+ * contains the required processing logic for an event.
  *
  * Created by Controllerface on 4/16/2018.
  */

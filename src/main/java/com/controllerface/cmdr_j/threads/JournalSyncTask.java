@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.threads;
 
 import com.controllerface.cmdr_j.JSONSupport;
-import com.controllerface.cmdr_j.classes.commander.CommanderData;
+import com.controllerface.cmdr_j.classes.commander.Commander;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
@@ -115,7 +115,7 @@ public class JournalSyncTask implements Runnable
             };
 
 
-    private final CommanderData commanderData;
+    private final Commander commander;
     private final BlockingQueue<UserTransaction> transactions;
 
     private Path journalPath;
@@ -124,9 +124,9 @@ public class JournalSyncTask implements Runnable
 
     private long lastFileSize = 0;
 
-    public JournalSyncTask(CommanderData commanderData, BlockingQueue<UserTransaction> transactions)
+    public JournalSyncTask(Commander commander, BlockingQueue<UserTransaction> transactions)
     {
-        this.commanderData = commanderData;
+        this.commander = commander;
         this.transactions = transactions;
     }
 
@@ -402,7 +402,7 @@ public class JournalSyncTask implements Runnable
             throw new RuntimeException("Error reading journal data", e);
         }
 
-        EventProcessingContext context = new EventProcessingContext(data, transactions, commanderData);
+        EventProcessingContext context = new EventProcessingContext(data, transactions, commander);
         event.process(context);
     }
 }

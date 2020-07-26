@@ -1,14 +1,15 @@
 package com.controllerface.cmdr_j.ui;
 
 import com.controllerface.cmdr_j.JSONSupport;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
-import com.controllerface.cmdr_j.classes.MessageData;
-import com.controllerface.cmdr_j.classes.ShipModuleData;
+import com.controllerface.cmdr_j.classes.data.MessageData;
+import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import com.controllerface.cmdr_j.classes.WindowDimensions;
-import com.controllerface.cmdr_j.classes.commander.CommanderData;
-import com.controllerface.cmdr_j.classes.commander.InventoryData;
-import com.controllerface.cmdr_j.classes.commander.MarketData;
-import com.controllerface.cmdr_j.classes.commander.ShipStatisticData;
+import com.controllerface.cmdr_j.classes.commander.Commander;
+import com.controllerface.cmdr_j.classes.commander.InventoryDisplay;
+import com.controllerface.cmdr_j.classes.commander.MarketDisplay;
+import com.controllerface.cmdr_j.classes.data.ShipStatisticData;
 import com.controllerface.cmdr_j.classes.tasks.*;
 import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
@@ -156,17 +157,17 @@ public class UIController
     @FXML private Label s_regen_label;
     @FXML private Label s_broken_regen_label;
 
-    @FXML private TableView<ShipModuleData> core_module_table;
-    @FXML private TableColumn<ShipModuleData, String> core_module_name_column;
-    @FXML private TableColumn<ShipModuleData, ShipModuleData> core_module_data_column;
+    @FXML private TableView<ShipModuleDisplay> core_module_table;
+    @FXML private TableColumn<ShipModuleDisplay, String> core_module_name_column;
+    @FXML private TableColumn<ShipModuleDisplay, ShipModuleDisplay> core_module_data_column;
 
-    @FXML private TableView<ShipModuleData> optional_module_table;
-    @FXML private TableColumn<ShipModuleData, String> optional_module_name_column;
-    @FXML private TableColumn<ShipModuleData, ShipModuleData> optional_module_data_column;
+    @FXML private TableView<ShipModuleDisplay> optional_module_table;
+    @FXML private TableColumn<ShipModuleDisplay, String> optional_module_name_column;
+    @FXML private TableColumn<ShipModuleDisplay, ShipModuleDisplay> optional_module_data_column;
 
-    @FXML private TableView<ShipModuleData> hardpoint_table;
-    @FXML private TableColumn<ShipModuleData, String> hardpoint_name_column;
-    @FXML private TableColumn<ShipModuleData, ShipModuleData> hardpoint_data_column;
+    @FXML private TableView<ShipModuleDisplay> hardpoint_table;
+    @FXML private TableColumn<ShipModuleDisplay, String> hardpoint_name_column;
+    @FXML private TableColumn<ShipModuleDisplay, ShipModuleDisplay> hardpoint_data_column;
 
     @FXML private LineChart<Number, Number> ttd_shield_chart;
     @FXML private LineChart<Number, Number> ttd_hull_chart;
@@ -191,19 +192,19 @@ public class UIController
     @FXML private AnchorPane task_pane;
 
     // Task list and columns
-    @FXML private TableView<TaskData> task_table;
-    @FXML private TableColumn<TaskData, TaskRecipe> task_type_column;
-    @FXML private TableColumn<TaskData, TaskData> task_count_column;
-    @FXML private TableColumn<TaskData, TaskData> task_name_column;
-    @FXML private TableColumn<TaskData, ProgressBar> task_progress_column;
-    @FXML private TableColumn<TaskData, Pair<TaskType, TaskRecipe>> task_remove_column;
+    @FXML private TableView<TaskDisplay> task_table;
+    @FXML private TableColumn<TaskDisplay, TaskRecipe> task_type_column;
+    @FXML private TableColumn<TaskDisplay, TaskDisplay> task_count_column;
+    @FXML private TableColumn<TaskDisplay, TaskDisplay> task_name_column;
+    @FXML private TableColumn<TaskDisplay, ProgressBar> task_progress_column;
+    @FXML private TableColumn<TaskDisplay, Pair<TaskType, TaskRecipe>> task_remove_column;
 
     // Items needed/costs table and columns
-    @FXML private TableView<ItemCostData> task_cost_table;
-    @FXML private TableColumn<ItemCostData, String> task_cost_need_column;
+    @FXML private TableView<ItemCostDisplay> task_cost_table;
+    @FXML private TableColumn<ItemCostDisplay, String> task_cost_need_column;
     @FXML private TableColumn<Displayable, Displayable> task_cost_name_column;
-    @FXML private TableColumn<ItemCostData, ProgressBar> task_cost_progress_column;
-    @FXML private TableColumn<ItemCostData, ItemGrade> task_cost_type_column;
+    @FXML private TableColumn<ItemCostDisplay, ProgressBar> task_cost_progress_column;
+    @FXML private TableColumn<ItemCostDisplay, ItemGrade> task_cost_type_column;
 
 
     /*
@@ -215,47 +216,47 @@ public class UIController
 
     // Raw materials
     @FXML private Tab raw_mats_tab;
-    @FXML private TableView<InventoryData> raw_table;
-    @FXML private TableColumn<InventoryData, InventoryData> raw_material_column;
-    @FXML private TableColumn<InventoryData, InventoryData> raw_grade_column;
-    @FXML private TableColumn<InventoryData, Label> raw_quantity_column;
-    @FXML private TableColumn<InventoryData, ProgressBar> raw_material_progress_column;
+    @FXML private TableView<InventoryDisplay> raw_table;
+    @FXML private TableColumn<InventoryDisplay, InventoryDisplay> raw_material_column;
+    @FXML private TableColumn<InventoryDisplay, InventoryDisplay> raw_grade_column;
+    @FXML private TableColumn<InventoryDisplay, Label> raw_quantity_column;
+    @FXML private TableColumn<InventoryDisplay, ProgressBar> raw_material_progress_column;
 
     // Manufactured materials
-    @FXML private TableView<InventoryData> manufactured_table;
-    @FXML private TableColumn<InventoryData, InventoryData> manufactured_material_column;
-    @FXML private TableColumn<InventoryData, InventoryData> manufactured_grade_column;
-    @FXML private TableColumn<InventoryData, Label> manufactured_quantity_column;
-    @FXML private TableColumn<InventoryData, ProgressBar> manufactured_progress_column;
+    @FXML private TableView<InventoryDisplay> manufactured_table;
+    @FXML private TableColumn<InventoryDisplay, InventoryDisplay> manufactured_material_column;
+    @FXML private TableColumn<InventoryDisplay, InventoryDisplay> manufactured_grade_column;
+    @FXML private TableColumn<InventoryDisplay, Label> manufactured_quantity_column;
+    @FXML private TableColumn<InventoryDisplay, ProgressBar> manufactured_progress_column;
 
     // Data materials
-    @FXML private TableView<InventoryData> data_table;
-    @FXML private TableColumn<InventoryData, InventoryData> data_material_column;
-    @FXML private TableColumn<InventoryData, InventoryData> data_grade_column;
-    @FXML private TableColumn<InventoryData, Label> data_quantity_column;
-    @FXML private TableColumn<InventoryData, ProgressBar> data_progress_column;
+    @FXML private TableView<InventoryDisplay> data_table;
+    @FXML private TableColumn<InventoryDisplay, InventoryDisplay> data_material_column;
+    @FXML private TableColumn<InventoryDisplay, InventoryDisplay> data_grade_column;
+    @FXML private TableColumn<InventoryDisplay, Label> data_quantity_column;
+    @FXML private TableColumn<InventoryDisplay, ProgressBar> data_progress_column;
 
     // Cargo
-    @FXML private TableView<InventoryData> cargo_table;
-    @FXML private TableColumn<InventoryData, InventoryData> cargo_item_column;
-    @FXML private TableColumn<InventoryData, InventoryData> cargo_grade_column;
-    @FXML private TableColumn<InventoryData, Label> cargo_quantity_column;
+    @FXML private TableView<InventoryDisplay> cargo_table;
+    @FXML private TableColumn<InventoryDisplay, InventoryDisplay> cargo_item_column;
+    @FXML private TableColumn<InventoryDisplay, InventoryDisplay> cargo_grade_column;
+    @FXML private TableColumn<InventoryDisplay, Label> cargo_quantity_column;
 
     // Imports
-    @FXML private TableView<MarketData> market_table;
-    @FXML private TableColumn<MarketData, MarketData> market_commodity_col;
-    @FXML private TableColumn<MarketData, Integer> market_sell_col;
-    @FXML private TableColumn<MarketData, Integer> market_mean_col;
-    @FXML private TableColumn<MarketData, Integer> market_profit_col;
-    @FXML private TableColumn<MarketData, Integer> market_demand_col;
+    @FXML private TableView<MarketDisplay> market_table;
+    @FXML private TableColumn<MarketDisplay, MarketDisplay> market_commodity_col;
+    @FXML private TableColumn<MarketDisplay, Integer> market_sell_col;
+    @FXML private TableColumn<MarketDisplay, Integer> market_mean_col;
+    @FXML private TableColumn<MarketDisplay, Integer> market_profit_col;
+    @FXML private TableColumn<MarketDisplay, Integer> market_demand_col;
 
     // Exports
-    @FXML private TableView<MarketData> market_table1;
-    @FXML private TableColumn<MarketData, MarketData> market_commodity_col1;
-    @FXML private TableColumn<MarketData, Integer> market_buy_col1;
-    @FXML private TableColumn<MarketData, Integer> market_mean_col1;
-    @FXML private TableColumn<MarketData, Integer> market_stock_col1;
-    @FXML private TableColumn<MarketData, Integer> market_income_col1;
+    @FXML private TableView<MarketDisplay> market_table1;
+    @FXML private TableColumn<MarketDisplay, MarketDisplay> market_commodity_col1;
+    @FXML private TableColumn<MarketDisplay, Integer> market_buy_col1;
+    @FXML private TableColumn<MarketDisplay, Integer> market_mean_col1;
+    @FXML private TableColumn<MarketDisplay, Integer> market_stock_col1;
+    @FXML private TableColumn<MarketDisplay, Integer> market_income_col1;
 
 
     @FXML private ListView<MessageData> console_message_list;
@@ -297,17 +298,17 @@ public class UIController
     private final ObservableList<Task> procSelectorBackingList = FXCollections.observableArrayList();
 
     // the backing list for tracked tasks, and a sorted wrapper used to keep the UI view sorted
-    private final ObservableList<TaskData> taskBackingList = FXCollections.observableArrayList();
-    private final SortedList<TaskData> sortedTasks = new SortedList<>(taskBackingList, UIFunctions.Sort.tasksByName);
+    private final ObservableList<TaskDisplay> taskBackingList = FXCollections.observableArrayList();
+    private final SortedList<TaskDisplay> sortedTasks = new SortedList<>(taskBackingList, UIFunctions.Sort.tasksByName);
 
     // the backing list for needed items/costs, and a sorted wrapper used to keep the UI view sorted
-    private final ObservableList<ItemCostData> taskCostBackingList = FXCollections.observableArrayList();
-    private final SortedList<ItemCostData> sortedCosts = new SortedList<>(taskCostBackingList, UIFunctions.Sort.costsByNeed);
+    private final ObservableList<ItemCostDisplay> taskCostBackingList = FXCollections.observableArrayList();
+    private final SortedList<ItemCostDisplay> sortedCosts = new SortedList<>(taskCostBackingList, UIFunctions.Sort.costsByNeed);
 
     private final ObservableList<MessageData> consoleBackingList = FXCollections.observableArrayList();
 
-    private final ObservableList<MarketData> importMarketData = FXCollections.observableArrayList();
-    private final ObservableList<MarketData> exportMarketData = FXCollections.observableArrayList();
+    private final ObservableList<MarketDisplay> importMarketData = FXCollections.observableArrayList();
+    private final ObservableList<MarketDisplay> exportMarketData = FXCollections.observableArrayList();
 
 
     /*
@@ -349,12 +350,12 @@ public class UIController
      * done and resulting mutations to this list are complete, THEN the UI backing lists are synced with the contents
      * of this list. This is a best practice to ensure that heavy computations are not done on the UI thread.
      */
-    private final List<TaskData> taskList = new CopyOnWriteArrayList<>();
+    private final List<TaskDisplay> taskList = new CopyOnWriteArrayList<>();
 
     /**
      * This list functions the same way as the "raw" task list, only for the constituent costs of the tracked tasks.
      */
-    private final List<ItemCostData> costList = new CopyOnWriteArrayList<>();
+    private final List<ItemCostDisplay> costList = new CopyOnWriteArrayList<>();
 
     private final ScheduledExecutorService messageExecutor = Executors.newSingleThreadScheduledExecutor();
     private final ExecutorService transactionPool = Executors.newFixedThreadPool(4);
@@ -395,7 +396,7 @@ public class UIController
      * Holds all of the data related to a commander (i.e. the player's on-disk data). While running, this application
      * will continuously update the data in this object based on events that are written to the player's Journal file
      */
-    private final CommanderData commanderData = new CommanderData(tradeCostCache::get, addPairToTaskList_direct);
+    private final Commander commander = new Commander(tradeCostCache::get, addPairToTaskList_direct);
 
     private Consumer<Double> initialLoadCallback;
 
@@ -741,14 +742,14 @@ public class UIController
         bindTableResize(market_table1, market_commodity_col1);
 
         @SuppressWarnings("unchecked")
-        final Callback<TableColumn<MarketData, MarketData>, TableCell<MarketData, MarketData>>
+        final Callback<TableColumn<MarketDisplay, MarketDisplay>, TableCell<MarketDisplay, MarketDisplay>>
                 commodityCellFactory = (x) ->
         {
             TableCell<?,?> c = new CostDataCell();
-            return ((TableCell<MarketData, MarketData>) c);
+            return ((TableCell<MarketDisplay, MarketDisplay>) c);
         };
 
-        final Callback<TableColumn.CellDataFeatures<MarketData, MarketData>, ObservableValue<MarketData>>
+        final Callback<TableColumn.CellDataFeatures<MarketDisplay, MarketDisplay>, ObservableValue<MarketDisplay>>
                 commodityCellValueFactory = (materialData) -> new ReadOnlyObjectWrapper<>(materialData.getValue());
 
         market_commodity_col.setCellFactory(commodityCellFactory);
@@ -869,8 +870,8 @@ public class UIController
 
         if (nextTransaction.getStatusObject().get("Items") != null)
         {
-            List<MarketData> imports = new ArrayList<>();
-            List<MarketData> exports = new ArrayList<>();
+            List<MarketDisplay> imports = new ArrayList<>();
+            List<MarketDisplay> exports = new ArrayList<>();
 
             ((List<Map<String, Object>>) nextTransaction.getStatusObject().get("Items"))
                     .stream()
@@ -885,7 +886,7 @@ public class UIController
                                         : consumes ? "Imports"
                                                 : "None";
 
-                        return MarketData.builder().setMarket(market)
+                        return MarketDisplay.builder().setMarket(market)
                                 .setName(((String) object.get("Name_Localised")))
                                 .setCategory(((String) object.get("Category_Localised")))
                                 .setBuy(((int) object.get("BuyPrice")))
@@ -985,7 +986,7 @@ public class UIController
         // refresh. This allows the table to be refreshed in one function without leaking references into other scopes
         BiConsumer<TaskCost, Long> adjustItem = (item, amount) ->
         {
-            commanderData.adjustItem(item, amount);
+            commander.adjustItem(item, amount);
             if (task_cost_table != null) task_cost_table.refresh();
             if (task_table != null) task_table.refresh();
 
@@ -1077,7 +1078,7 @@ public class UIController
                             double main = ((double) fuelData.get("FuelMain"));
                             double tank = ((double) fuelData.get("FuelReservoir"));
 
-                            commanderData.getStarShip().setCurrentFuel(main + tank);
+                            commander.getStarShip().setCurrentFuel(main + tank);
 
                             status_cargo.setText(statusObject.get("Cargo") + " Tons");
                             status_fuel.setText(main + " Tons");
@@ -1150,7 +1151,7 @@ public class UIController
     private void startupTasks()
     {
         // disk monitor
-        exec.submit(new JournalSyncTask(commanderData, transactionQueue));
+        exec.submit(new JournalSyncTask(commander, transactionQueue));
         //Runnable inventorySyncTask = new JournalSyncTask(commanderData, transactionQueue);
         //Thread inventoryThread = new Thread(inventorySyncTask);
         //inventoryThread.setDaemon(true);
@@ -1308,11 +1309,11 @@ public class UIController
 
                         hBox.setAlignment(Pos.TOP_LEFT);
 
-                        Label typeLabel = new Label(item.getMessageType() + "  ");
+                        Label typeLabel = new Label(item.messageType + "  ");
                         typeLabel.getStyleClass().addAll("base_font");
-                        typeLabel.setTextFill(item.getMessageType().getColor());
+                        typeLabel.setTextFill(item.messageType.getColor());
 
-                        Label message = new Label(item.getMessage());
+                        Label message = new Label(item.message);
                         message.setWrapText(true);
                         message.getStyleClass().addAll("light_color_label","base_font");
                         hBox.getChildren().addAll(typeLabel, message);
@@ -1337,7 +1338,7 @@ public class UIController
         task_tree.setCellFactory(param -> new TaskTreeCell(procSelectorBackingList, labelText));
         task_list.setItems(procSelectorBackingList);
         task_list.setCellFactory(param -> new TaskListCell(addToTaskList,
-                commanderData::amountOf, task_list.widthProperty()));
+                commander::amountOf, task_list.widthProperty()));
 
         task_table.setItems(sortedTasks);
         sortedTasks.comparatorProperty().bind(task_table.comparatorProperty());
@@ -1437,12 +1438,12 @@ public class UIController
     private void initializeInventoryTables()
     {
         // associate the inventory lists with the table view UI elements that display their contents
-        commanderData.associateCommanderName(commander_name);
-        commanderData.associateCommanderBalance(credit_balance);
-        commanderData.associateCargoTable(cargo_table, show_zero_quantities);
-        commanderData.associateRawTable(raw_table, show_zero_quantities);
-        commanderData.associateManufacturedTable(manufactured_table, show_zero_quantities);
-        commanderData.associateDataTable(data_table, show_zero_quantities);
+        commander.associateCommanderName(commander_name);
+        commander.associateCommanderBalance(credit_balance);
+        commander.associateCargoTable(cargo_table, show_zero_quantities);
+        commander.associateRawTable(raw_table, show_zero_quantities);
+        commander.associateManufacturedTable(manufactured_table, show_zero_quantities);
+        commander.associateDataTable(data_table, show_zero_quantities);
 
         // set sorting comparators for each data column
         raw_grade_column.setComparator(UIFunctions.Sort.itemByGrade);
@@ -1460,7 +1461,7 @@ public class UIController
 
         // This callback defines a simple Label object to use as the contents of the quantity columns for each item
         // type. It is re used for all of the quantity columns, giving them a uniform look
-        final Callback<TableColumn.CellDataFeatures<InventoryData, Label>, ObservableValue<Label>>
+        final Callback<TableColumn.CellDataFeatures<InventoryDisplay, Label>, ObservableValue<Label>>
                 inventoryQuantityCellFactory = (materialData) ->
         {
             long quantity = materialData.getValue().getQuantity();
@@ -1493,7 +1494,7 @@ public class UIController
         // this Callback implementation provides a simple read-only wrapper around the InventoryData objects
         // stored in the various inventory lists. This is required to use custom display cells in JavaFX. We will
         // re-use this for all the relevant data columns
-        final Callback<TableColumn.CellDataFeatures<InventoryData, InventoryData>, ObservableValue<InventoryData>>
+        final Callback<TableColumn.CellDataFeatures<InventoryDisplay, InventoryDisplay>, ObservableValue<InventoryDisplay>>
                 inventoryItemCellValueFactory = (materialData) -> new ReadOnlyObjectWrapper<>(materialData.getValue());
 
         // These columns use a custom display cells but for the cell values can all use the same read-only wrapper
@@ -1512,11 +1513,11 @@ public class UIController
 
         // todo: use this for other displayables
         @SuppressWarnings("unchecked")
-        final Callback<TableColumn<InventoryData, InventoryData>, TableCell<InventoryData, InventoryData>>
+        final Callback<TableColumn<InventoryDisplay, InventoryDisplay>, TableCell<InventoryDisplay, InventoryDisplay>>
                 inventoryItemCellFactory = (x) ->
         {
             TableCell<?,?> c = new CostDataCell();
-            return ((TableCell<InventoryData, InventoryData>) c);
+            return ((TableCell<InventoryDisplay, InventoryDisplay>) c);
         };
 
 
@@ -1536,7 +1537,7 @@ public class UIController
 
         // the "item grade" columns use a very similar structure to the "data" columns, with the same read-only wrapper
         // factory but different custom data cells. This callback provides the custom cells for the item grades
-        final Callback<TableColumn<InventoryData, InventoryData>, TableCell<InventoryData, InventoryData>>
+        final Callback<TableColumn<InventoryDisplay, InventoryDisplay>, TableCell<InventoryDisplay, InventoryDisplay>>
                 inventoryGradeCellFactory = (x) -> new InventoryGradeCell();
 
         raw_grade_column.setCellFactory(inventoryGradeCellFactory);
@@ -1550,36 +1551,36 @@ public class UIController
      */
     private void initializeShipLoadoutTab()
     {
-        commanderData.getLocation().associateStarSystem(location_label);
-        commanderData.getLocation().associateSpaceStation(station_label);
-        commanderData.getLocation().associateEconomy(economy_label);
+        commander.getLocation().associateStarSystem(location_label);
+        commander.getLocation().associateSpaceStation(station_label);
+        commander.getLocation().associateEconomy(economy_label);
 
-        commanderData.getStarShip().associateShipManufacturer(ship_make_label);
-        commanderData.getStarShip().associateShipGivenName(ship_name_label);
-        commanderData.getStarShip().associateShipDisplayName(ship_type_label);
-        commanderData.getStarShip().associateShipID(ship_ID_label);
+        commander.getStarShip().associateShipManufacturer(ship_make_label);
+        commander.getStarShip().associateShipGivenName(ship_name_label);
+        commander.getStarShip().associateShipDisplayName(ship_type_label);
+        commander.getStarShip().associateShipID(ship_ID_label);
 
-        commanderData.getStarShip().associateBaseStatisticsTable(ship_base_statistics_table);
-        commanderData.getStarShip().associateHullStatisticsTable(ship_hull_statistics_table);
-        commanderData.getStarShip().associateMassStatisticsTable(ship_mass_statistics_table);
-        commanderData.getStarShip().associateShieldStatisticsTable(ship_shield_statistics_table);
+        commander.getStarShip().associateBaseStatisticsTable(ship_base_statistics_table);
+        commander.getStarShip().associateHullStatisticsTable(ship_hull_statistics_table);
+        commander.getStarShip().associateMassStatisticsTable(ship_mass_statistics_table);
+        commander.getStarShip().associateShieldStatisticsTable(ship_shield_statistics_table);
 
-        commanderData.getStarShip().associateOffensiveStatisticsTable(ship_offense_stats_table);
+        commander.getStarShip().associateOffensiveStatisticsTable(ship_offense_stats_table);
 
         dps_spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1.0, 250.0, 10.0, 1));
         sys_spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 4, 0.0, 0.5));
 
-        commanderData.getStarShip().associateShieldRegenLabels(s_regen_label, s_broken_regen_label);
+        commander.getStarShip().associateShieldRegenLabels(s_regen_label, s_broken_regen_label);
 
         ship_graphic.setFocusTraversable(true);
-        commanderData.getStarShip().setShipGraphic(ship_graphic);
-        commanderData.getStarShip().setDpsSpinner(dps_spinner, sys_spinner);
+        commander.getStarShip().setShipGraphic(ship_graphic);
+        commander.getStarShip().setDpsSpinner(dps_spinner, sys_spinner);
 
-        commanderData.getStarShip().associateCoreTable(core_module_table);
-        commanderData.getStarShip().associateOptionalTable(optional_module_table);
-        commanderData.getStarShip().associateHardpointTable(hardpoint_table);
+        commander.getStarShip().associateCoreTable(core_module_table);
+        commander.getStarShip().associateOptionalTable(optional_module_table);
+        commander.getStarShip().associateHardpointTable(hardpoint_table);
 
-        commanderData.getStarShip().associateTtdGraphs(ttd_shield_chart, ttd_hull_chart);
+        commander.getStarShip().associateTtdGraphs(ttd_shield_chart, ttd_hull_chart);
 
         ship_base_statistics_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
         ship_base_statistics_name_column.setCellFactory(x -> new StatDataCell());
@@ -1989,14 +1990,14 @@ public class UIController
     private void taskListUpdate(long adjustment, Pair<TaskType, TaskRecipe> task)
     {
         // find the task we need to adjust
-        AtomicReference<TaskData> data = new AtomicReference<>(taskList.stream()
+        AtomicReference<TaskDisplay> taskDisplay = new AtomicReference<>(taskList.stream()
                 .filter(storedTask -> storedTask.matches(task))
                 .findFirst().orElse(null));
 
 
         // if this happens, we don't currently have this task in the list, so we need to determine what to
         // do next based on the adjustment amount
-        if (data.get() == null)
+        if (taskDisplay.get() == null)
         {
 
             // this this was a 0 adjustment or negative, just return -1 indicating the task is not present
@@ -2008,17 +2009,17 @@ public class UIController
             else
             {
 
-                data.set(new TaskData.Builder(0)
+                taskDisplay.set(new TaskDisplay.Builder(0)
                         .setType(task.getKey())
                         .setRecipe(task.getValue())
-                        .setCheckInventory(commanderData::amountOf)
+                        .setCheckInventory(commander::amountOf)
                         .setPendingTradeYield(calculateTradeYield)
                         .setInventoryUpdate(addPairToTaskList)
-                        .setGetCurrentSystem(commanderData.getLocation()::getStarSystem)
+                        .setGetCurrentSystem(commander.getLocation()::getStarSystem)
                         .createTaskData());
 
 
-                taskList.add(data.get());
+                taskList.add(taskDisplay.get());
 
 
                 // initialize the costs as well, if they are not already present in the cost list. It is
@@ -2026,11 +2027,11 @@ public class UIController
                 // possible if another task requires some amount of the same material as this one.
                 // Otherwise, duplicate entries will end up in the list
                 task.getValue().costStream()
-                        .filter(costData -> costData.getQuantity() > 0)
-                        .map(CostData::getCost)
+                        .filter(costData -> costData.quantity > 0)
+                        .map(d -> d.cost)
                         .filter(taskCost -> costList.stream().noneMatch(cost -> cost.getCost().equals(taskCost)))
-                        .map(taskCost ->  new ItemCostData(taskCost,
-                                commanderData::amountOf,
+                        .map(taskCost ->  new ItemCostDisplay(taskCost,
+                                commander::amountOf,
                                 taskCostCache::contains,
                                 costLabelCache::get,
                                 calculateTradeYield,
@@ -2041,7 +2042,7 @@ public class UIController
         }
 
         // grab the count before adjustment so we can tell how much the final adjustment actually was
-        long oldCount = data.get().getCount();
+        long oldCount = taskDisplay.get().getCount();
 
         // here we do a quick sanity count, in case the count is already at the maximum. if that's the case,
         // we will not adjust further, just return the count
@@ -2060,19 +2061,19 @@ public class UIController
         if (newCount.get() < 0) newCount.set(0);
 
         // now we ACTUALLY set the new count, performing the adjustment
-        data.get().setCount(newCount.get());
+        taskDisplay.get().setCount(newCount.get());
 
         // to make sure we've cleaned everything up, if the new count became 0, remove the task
         if (newCount.get() == 0)
         {
-            taskList.remove(data.get());
+            taskList.remove(taskDisplay.get());
             String costLabel = calculateCostLabel(task.getKey(), task.getValue());
             task.getValue().costStream()
-                    .filter(costData -> costData.getQuantity() > 0)
+                    .filter(costData -> costData.quantity > 0)
                     .forEach(c ->
                     {
 
-                        costLabelCache.get(c.getCost()).remove(costLabel);
+                        costLabelCache.get(c.cost).remove(costLabel);
                     });
         }
 
@@ -2084,8 +2085,8 @@ public class UIController
         // note that costs with a quantity less than 0 are avoided, this is because a negative code is
         // considered a "yield" of a given task. not all tasks have their output tracked this way
         List<CostData> costAdjustments = task.getValue().costStream()
-                .filter(costData -> costData.getQuantity() > 0)
-                .map(taskCost -> new CostData(taskCost.getCost(), taskCost.getQuantity() * costDifference))
+                .filter(costData -> costData.quantity > 0)
+                .map(taskCost -> new CostData(taskCost.cost, taskCost.quantity * costDifference))
                 .collect(Collectors.toList());
 
         // if this is a trade recipe, calculate the total pending trade yield and store it. Some UI
@@ -2098,45 +2099,45 @@ public class UIController
             task.getValue().costStream()
                     .forEach(costData ->
                     {
-                        if (costData.getQuantity() < 0)
+                        if (costData.quantity < 0)
                         {
                             // since the cost will be negative, use absolute value
-                            long yield = Math.abs(costData.getQuantity());
+                            long yield = Math.abs(costData.quantity);
 
                             // the yield adjustment is applied to the current count of this cost
                             long yieldAdjustment = yield * adjustment;
 
                             // grab the current pending yield for this trade, init to zero if not present
-                            int current = tradeYieldCache.computeIfAbsent(costData.getCost(), (x) -> 0);
+                            int current = tradeYieldCache.computeIfAbsent(costData.cost, (x) -> 0);
 
                             // apply the adjustment to the current cost
                             current += yieldAdjustment;
 
                             // if the adjustment would make the quantity zero or less, remove the cached item
-                            if (current <= 0) tradeYieldCache.remove(costData.getCost());
+                            if (current <= 0) tradeYieldCache.remove(costData.cost);
 
                             // otherwise, update the cached pending yield
-                            else tradeYieldCache.put(costData.getCost(), current);
+                            else tradeYieldCache.put(costData.cost, current);
                         }
                         else
                         {
                             // since the cost will be positive, use value as-is
-                            long tradeCost = costData.getQuantity();
+                            long tradeCost = costData.quantity;
 
                             // the yield adjustment is applied to the current count of this cost
                             long costAdjustment = tradeCost * adjustment;
 
                             // grab the current pending yield for this trade, init to zero if not present
-                            int current = tradeCostCache.computeIfAbsent(costData.getCost(), (x) -> 0);
+                            int current = tradeCostCache.computeIfAbsent(costData.cost, (x) -> 0);
 
                             // apply the adjustment to the current cost
                             current += costAdjustment;
 
                             // if the adjustment would make the quantity zero or less, remove the cached item
-                            if (current <= 0) tradeCostCache.remove(costData.getCost());
+                            if (current <= 0) tradeCostCache.remove(costData.cost);
 
                             // otherwise, update the cached pending yield
-                            else tradeCostCache.put(costData.getCost(), current);
+                            else tradeCostCache.put(costData.cost, current);
                         }
                     });
         }
@@ -2170,7 +2171,7 @@ public class UIController
 
                     if (toAdjust == null) return;
 
-                    costToAdjust.setNeed(costToAdjust.getNeed() + toAdjust.getQuantity());
+                    costToAdjust.setNeed(costToAdjust.getNeed() + toAdjust.quantity);
                 })
                 .filter(adjustedCost -> adjustedCost.getNeed() <= 0)
                 .peek(removedCost ->
@@ -2588,19 +2589,16 @@ public class UIController
 
         data.put("tasks", tasks);
 
-        File file = new File(DATA_FOLDER, "tasks.json");
+        File file = new File(UIFunctions.DATA_FOLDER, "tasks.json");
         if (!file.exists() && !file.createNewFile()) throw new RuntimeException("Could not create file");
 
         JSONSupport.Write.jsonToFile.apply(file, data);
     }
 
-    private static final String DATA_FOLDER = System.getProperty("user.home")
-            + File.separator + "CMDR_J";
-
     @SuppressWarnings("unchecked")
     private void fromJson()
     {
-        File file = new File(DATA_FOLDER, "tasks.json");
+        File file = new File(UIFunctions.DATA_FOLDER, "tasks.json");
         if (!file.getParentFile().mkdirs() && !file.getParentFile().exists())
         {
             System.err.println("Parent directory inaccessible");

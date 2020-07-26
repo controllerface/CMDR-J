@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes.commander;
+package com.controllerface.cmdr_j.classes.data;
 
 import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacteristic;
 import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipManufacturer;
@@ -12,15 +12,14 @@ public class ShipStatisticData
 {
     public final ShipCharacteristic shipCharacteristic;
 
-    public final ShipSize shipSize;
+    public final Type statType;
+
     public final Boolean booleanStat;
+    public final Integer intStat;
     public final Double floatStat;
     public final Double rawFloat;
-    public final Integer intStat;
-
+    public final ShipSize shipSize;
     public final StatGroup statGroup;
-
-    public final Type statType;
 
     private enum Type
     {
@@ -41,7 +40,6 @@ public class ShipStatisticData
         public Double baseMultiplier;
         public Double boostMultiplier;
     }
-
 
     public ShipStatisticData(ShipCharacteristic shipCharacteristic, boolean booleanStat)
     {

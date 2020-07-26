@@ -1,4 +1,6 @@
-package com.controllerface.cmdr_j.classes.tasks;
+package com.controllerface.cmdr_j.classes.data;
+
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 
 /**
  * Stores the fixed cost of some task. Objects of this type are intended to represent a specific item and
@@ -12,8 +14,8 @@ package com.controllerface.cmdr_j.classes.tasks;
  */
 public class CostData
 {
-    private final long quantity;
-    private final TaskCost cost;
+    public final long quantity;
+    public final TaskCost cost;
 
     public CostData(TaskCost cost, long quantity)
     {
@@ -25,15 +27,5 @@ public class CostData
     public String toString()
     {
         return cost + " : " + quantity;
-    }
-
-    public TaskCost getCost()
-    {
-        return cost;
-    }
-
-    public long getQuantity()
-    {
-        return quantity;
     }
 }

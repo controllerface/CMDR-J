@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.events.handlers;
 
-import com.controllerface.cmdr_j.classes.commander.CommanderData;
+import com.controllerface.cmdr_j.classes.commander.Commander;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 
 import java.util.Map;
@@ -12,16 +12,16 @@ import java.util.concurrent.BlockingQueue;
 public class EventProcessingContext
 {
     private final BlockingQueue<UserTransaction> transactions;
-    private final CommanderData commanderData;
+    private final Commander commander;
     private final Map<String, Object> rawData;
 
     public EventProcessingContext(Map<String, Object> rawData,
                                   BlockingQueue<UserTransaction> transactions,
-                                  CommanderData commanderData)
+                                  Commander commander)
     {
         this.rawData = rawData;
         this.transactions = transactions;
-        this.commanderData = commanderData;
+        this.commander = commander;
     }
 
     public Map<String, Object> getRawData()
@@ -34,8 +34,8 @@ public class EventProcessingContext
         return transactions;
     }
 
-    public CommanderData getCommanderData()
+    public Commander getCommander()
     {
-        return commanderData;
+        return commander;
     }
 }

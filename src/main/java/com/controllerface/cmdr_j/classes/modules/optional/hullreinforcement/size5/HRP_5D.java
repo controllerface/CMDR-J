@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.modules.optional.hullreinforcement.size5;
 
-import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.hullreinforcement.AbstractHullPackage;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;

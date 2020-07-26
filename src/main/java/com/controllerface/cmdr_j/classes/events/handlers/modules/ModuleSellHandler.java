@@ -20,6 +20,6 @@ public class ModuleSellHandler implements JournalEventHandler
         JournalEventTransactions.emptySlotFromData(context);
 
         int sale = ((int) context.getRawData().get("SellPrice"));
-        context.getCommanderData().adjustCreditBalance(sale);
+        context.getCommander().adjustCreditBalance(sale);
     }
 }

@@ -1,11 +1,11 @@
 package com.controllerface.cmdr_j.ui;
 
-import com.controllerface.cmdr_j.classes.ItemEffectData;
-import com.controllerface.cmdr_j.classes.commander.InventoryData;
-import com.controllerface.cmdr_j.classes.tasks.CostData;
-import com.controllerface.cmdr_j.classes.tasks.ItemCostData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
+import com.controllerface.cmdr_j.classes.commander.InventoryDisplay;
+import com.controllerface.cmdr_j.classes.data.CostData;
+import com.controllerface.cmdr_j.classes.tasks.ItemCostDisplay;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
-import com.controllerface.cmdr_j.classes.tasks.TaskData;
+import com.controllerface.cmdr_j.classes.tasks.TaskDisplay;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import javafx.beans.property.SimpleStringProperty;
@@ -19,6 +19,7 @@ import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
@@ -41,6 +42,9 @@ import static java.lang.Math.*;
  */
 public class UIFunctions
 {
+    public static final String DATA_FOLDER = System.getProperty("user.home")
+            + File.separator + "CMDR_J";
+
     public static final int scrollBarAllowance = 20;
 
     public static class Symbols
@@ -56,6 +60,7 @@ public class UIFunctions
         public static final Color negativeRed = Color.rgb(0xff, 0x00, 0x00);
         public static final Color neutralBlack = Color.rgb(0x00, 0x00, 0x00);
         public static final Color standardOrange = Color.rgb(0xff, 0x71, 0x00);
+        public static final Color lightOrange = Color.rgb(0xff, 0xaa, 0x55);
         public static final Color thargoidGreen = Color.rgb(0x02,0x5B,0x30);
         public static final Color specialYellow = Color.rgb(0xff, 0xb0, 0x00);
         public static final Color darkOrange = Color.rgb(0xff, 0x71, 0x00);//Color.rgb(0xb7, 0x52, 0x00);
@@ -209,8 +214,8 @@ public class UIFunctions
      */
     public static class Data
     {
-        static final Callback<TableColumn<TaskData, ProgressBar>, TableCell<TaskData, ProgressBar>>
-                taskProgressCellFactory = (param -> new TableCell<TaskData, ProgressBar>()
+        static final Callback<TableColumn<TaskDisplay, ProgressBar>, TableCell<TaskDisplay, ProgressBar>>
+                taskProgressCellFactory = (param -> new TableCell<TaskDisplay, ProgressBar>()
             {
                 @Override
                 public void updateItem(ProgressBar item, boolean empty)
@@ -221,8 +226,8 @@ public class UIFunctions
                 }
             });
 
-        static final Callback<TableColumn<ItemCostData, ProgressBar>, TableCell<ItemCostData, ProgressBar>>
-                costProgressCellFactory = (param -> new TableCell<ItemCostData, ProgressBar>()
+        static final Callback<TableColumn<ItemCostDisplay, ProgressBar>, TableCell<ItemCostDisplay, ProgressBar>>
+                costProgressCellFactory = (param -> new TableCell<ItemCostDisplay, ProgressBar>()
         {
             @Override
             public void updateItem(ProgressBar item, boolean empty)
@@ -233,7 +238,7 @@ public class UIFunctions
             }
         });
 
-        static final Callback<TableColumn.CellDataFeatures<ItemCostData, String>, ObservableValue<String>>
+        static final Callback<TableColumn.CellDataFeatures<ItemCostDisplay, String>, ObservableValue<String>>
                 costNeedCellFactory = (modMaterial) ->
         {
             String suffix = "";
@@ -442,7 +447,7 @@ public class UIFunctions
             nextLabel.getStyleClass().addAll("base_font");
 
             // get the "more is good" flag for this effect
-            boolean moreIsGood = pair.getEffect().moreIsGood;
+            boolean moreIsGood = pair.effect.moreIsGood;
 
             boolean isNumerical = pair.isNumerical();
 
@@ -458,7 +463,7 @@ public class UIFunctions
                 // we want positive changes to have a plus sign (+) in their text. Negative values have a minus sign (-)
                 // prefix by default, so we only need to explicitly do this for positive numbers
 
-                String text = pair.getEffect().toString()
+                String text = pair.effect.toString()
                         + (valueIsPositive ? " +" : " ")
                         +  pair.getDoubleValue();;//pair.getDoubleValue();
 
@@ -479,7 +484,7 @@ public class UIFunctions
             }
             else
             {
-                nextLabel.setText(pair.getEffect().toString() + " " + pair.getStringValue());
+                nextLabel.setText(pair.effect.toString() + " " + pair.getValueString());
             }
 
             return nextLabel;
@@ -494,18 +499,18 @@ public class UIFunctions
             {
                 if (effectData.getDoubleValue() == Double.MAX_VALUE)
                 {
-                    return new Pair<>(effectData.getEffect().toString(), UIFunctions.Symbols.INFINITY);
+                    return new Pair<>(effectData.effect.toString(), UIFunctions.Symbols.INFINITY);
                 }
                 else
                 {
-                    return new Pair<>(effectData.getEffect().toString(),
+                    return new Pair<>(effectData.effect.toString(),
                             UIFunctions.Data.round(effectData.getDoubleValue(), 2));
                 }
 
             }
             else
             {
-                return new Pair<>(effectData.getEffect().toString(), effectData.getStringValue());
+                return new Pair<>(effectData.effect.toString(), effectData.getValueString());
             }
         };
     }
@@ -523,16 +528,16 @@ public class UIFunctions
                         : 1;
 
         // sort InventoryData objects by category ordinal
-        static final Comparator<InventoryData> itemByCategory =
-                Comparator.comparingInt(InventoryData::getCategoryOrdinal);
+        static final Comparator<InventoryDisplay> itemByCategory =
+                Comparator.comparingInt(InventoryDisplay::getCategoryOrdinal);
 
         // sort InventoryData objects by grade, lowest to highest
-        static final Comparator<InventoryData> itemByGrade =
-                Comparator.comparingInt(InventoryData::getGradeOrdinal);
+        static final Comparator<InventoryDisplay> itemByGrade =
+                Comparator.comparingInt(InventoryDisplay::getGradeOrdinal);
 
         // sort InventoryData objects numerically by count, highest to lowest
-        static final Comparator<InventoryData> itemByCount =
-                Comparator.comparingLong(InventoryData::getQuantity).reversed();
+        static final Comparator<InventoryDisplay> itemByCount =
+                Comparator.comparingLong(InventoryDisplay::getQuantity).reversed();
 
         // used for Label objects that are actually just string representations of Integer values. Will sort them
         // numerically lowest to highest
@@ -554,7 +559,7 @@ public class UIFunctions
                 Comparator.comparingDouble(ProgressIndicator::getProgress);
 
         // sorts tasks by name, and ensure trade tasks always come after all other task types
-        static final Comparator<TaskData> tasksByName =
+        static final Comparator<TaskDisplay> tasksByName =
                 (a, b)->
                 {
                     if (a.isTrade() != b.isTrade())
@@ -568,7 +573,7 @@ public class UIFunctions
                 };
 
         // sorts tasks by grade, and ensure trade tasks always come after all other task types
-        static final Comparator<TaskData> taskByGrade =
+        static final Comparator<TaskDisplay> taskByGrade =
                 (a, b) ->
                 {
                     if (a.isTrade() != b.isTrade())
@@ -580,7 +585,7 @@ public class UIFunctions
                 };
 
         // trade costs sorted by absolute need, with highest need always sorted first
-        static final Comparator<ItemCostData> costsByNeed =
+        static final Comparator<ItemCostDisplay> costsByNeed =
                 (a, b) ->
                 {
                     long aNeed = a.getNeed();
@@ -609,19 +614,19 @@ public class UIFunctions
         public static final Comparator<TaskRecipe> bestCostYieldRatio =
                 (a, b)->
                 {
-                    long aCost = a.costStream().filter(c -> c.getQuantity() > 0)
-                            .mapToLong(CostData::getQuantity).sum();
+                    long aCost = a.costStream().filter(c -> c.quantity > 0)
+                            .mapToLong(cd -> cd.quantity).sum();
 
-                    long bCost = b.costStream().filter(c -> c.getQuantity() > 0)
-                            .mapToLong(CostData::getQuantity).sum();
+                    long bCost = b.costStream().filter(c -> c.quantity > 0)
+                            .mapToLong(cd -> cd.quantity).sum();
 
-                    long aYield = a.costStream().filter(c -> c.getQuantity() < 0)
-                            .mapToLong(CostData::getQuantity)
+                    long aYield = a.costStream().filter(c -> c.quantity < 0)
+                            .mapToLong(cd -> cd.quantity)
                             .map(Math::abs)
                             .sum();
 
-                    long bYield = b.costStream().filter(c -> c.getQuantity() < 0)
-                            .mapToLong(CostData::getQuantity)
+                    long bYield = b.costStream().filter(c -> c.quantity < 0)
+                            .mapToLong(cd -> cd.quantity)
                             .map(Math::abs)
                             .sum();
 

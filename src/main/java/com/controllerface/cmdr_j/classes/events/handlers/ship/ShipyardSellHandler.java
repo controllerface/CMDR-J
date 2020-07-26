@@ -13,7 +13,7 @@ public class ShipyardSellHandler implements JournalEventHandler
         String shipType = ((String) context.getRawData().get("ShipType"));
 
         int sale = ((int) context.getRawData().get("ShipPrice"));
-        context.getCommanderData().adjustCreditBalance(sale);
+        context.getCommander().adjustCreditBalance(sale);
 
         logGeneralMessage(context, "Sold ship " + shipType);
     }

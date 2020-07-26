@@ -21,6 +21,6 @@ public class BuyDronesHandler implements JournalEventHandler
         adjust(context, Commodity.DRONES, ((int) context.getRawData().get("Count")));
 
         int cost = ((int) context.getRawData().get("TotalCost"));
-        context.getCommanderData().adjustCreditBalance(-1 * cost);
+        context.getCommander().adjustCreditBalance(-1 * cost);
     }
 }

@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.ui.inventory;
 
-import com.controllerface.cmdr_j.classes.commander.InventoryData;
+import com.controllerface.cmdr_j.classes.commander.InventoryDisplay;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.geometry.Insets;
@@ -14,10 +14,10 @@ import javafx.scene.layout.Region;
 /**
  * Created by Controllerface on 5/10/2018.
  */
-public class InventoryGradeCell extends TableCell<InventoryData, InventoryData>
+public class InventoryGradeCell extends TableCell<InventoryDisplay, InventoryDisplay>
 {
     @Override
-    protected void updateItem(InventoryData item, boolean empty)
+    protected void updateItem(InventoryDisplay item, boolean empty)
     {
         super.updateItem(item, empty);
         if (item == null || empty)

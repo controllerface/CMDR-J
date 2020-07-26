@@ -13,6 +13,6 @@ public class NpcCrewPaidWageHandler implements JournalEventHandler
         String npcCrewName = ((String) context.getRawData().get("NpcCrewName"));
         Integer amount = ((Integer) context.getRawData().get("Amount"));
         if (amount > 0) logGeneralMessage(context, "Paid " + npcCrewName + " " + amount + " Cr");
-        context.getCommanderData().adjustCreditBalance(-1 * amount);
+        context.getCommander().adjustCreditBalance(-1 * amount);
     }
 }

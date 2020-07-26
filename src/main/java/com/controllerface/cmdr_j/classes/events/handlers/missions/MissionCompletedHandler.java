@@ -25,7 +25,7 @@ public class MissionCompletedHandler implements JournalEventHandler
         Map<String, Object> data = context.getRawData();
 
         int creditReward = ((int)data.get("Reward"));
-        context.getCommanderData().adjustCreditBalance(creditReward);
+        context.getCommander().adjustCreditBalance(creditReward);
 
         if (data.get("MaterialsReward") != null)
         {

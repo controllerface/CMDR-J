@@ -1,9 +1,10 @@
 package com.controllerface.cmdr_j.classes.events;
 
-import com.controllerface.cmdr_j.classes.ModifierData;
-import com.controllerface.cmdr_j.classes.ShipModuleData;
+import com.controllerface.cmdr_j.classes.data.ModifierData;
+import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.tasks.*;
 import com.controllerface.cmdr_j.enums.commander.PlayerStat;
@@ -277,7 +278,7 @@ public class JournalEventTransactions
     public static void setStatFromData(EventProcessingContext context, Statistic stat)
     {
         String value = extractStatString(context, stat);
-        context.getCommanderData().setStat(stat, value);
+        context.getCommander().setStat(stat, value);
         if (stat != PlayerStat.Ship && stat != CoreInternalSlot.Ship)
         {
             logGeneralMessage(context, stat.getText() + " = " + value);
@@ -549,8 +550,8 @@ public class JournalEventTransactions
             experimentalRecipe = ExperimentalRecipe.Unknown;
         }
 
-        ShipModuleData shipModuleData = new ShipModuleData.Builder()
-                .setCurrentShip(context.getCommanderData().getStarShip())
+        ShipModuleDisplay shipModuleDisplay = new ShipModuleDisplay.Builder()
+                .setCurrentShip(context.getCommander().getStarShip())
                 .setModuleName(slot)
                 .setModule(module)
                 .setModifiers(modifiers)
@@ -561,7 +562,7 @@ public class JournalEventTransactions
                 .setUserTransactions(context.getTransactions())
                 .build();
 
-        context.getCommanderData().setShipModule(shipModuleData);
+        context.getCommander().setShipModule(shipModuleDisplay);
         logLoadoutMessage(context, messageBuffer.toString());
     }
 
@@ -606,19 +607,19 @@ public class JournalEventTransactions
 
         if (module != null) logLoadoutMessage(context, "Installed Module: " + module.displayText());
 
-        ShipModuleData shipModuleData = new ShipModuleData.Builder()
-                .setCurrentShip(context.getCommanderData().getStarShip())
+        ShipModuleDisplay shipModuleDisplay = new ShipModuleDisplay.Builder()
+                .setCurrentShip(context.getCommander().getStarShip())
                 .setModuleName(slot)
                 .setModule(module)
                 .setUserTransactions(context.getTransactions())
                 .build();
 
-        context.getCommanderData().setShipModule(shipModuleData);
+        context.getCommander().setShipModule(shipModuleDisplay);
     }
 
     public static void processRetrieveModule(EventProcessingContext context)
     {
-        ShipModuleData.Builder dataBuilder = new ShipModuleData.Builder();
+        ShipModuleDisplay.Builder dataBuilder = new ShipModuleDisplay.Builder();
         dataBuilder.setUserTransactions(context.getTransactions());
 
         Map<String, Object> data =  context.getRawData();
@@ -633,7 +634,7 @@ public class JournalEventTransactions
         if (module != null) logLoadoutMessage(context, "Installed Module: " + module.displayText());
 
         dataBuilder
-                .setCurrentShip(context.getCommanderData().getStarShip())
+                .setCurrentShip(context.getCommander().getStarShip())
                 .setModule(module)
                 .setModuleName(slot);
 
@@ -647,7 +648,7 @@ public class JournalEventTransactions
             dataBuilder.setLevel(level);
         }
 
-        context.getCommanderData().setShipModule(dataBuilder.build());
+        context.getCommander().setShipModule(dataBuilder.build());
     }
 
     public static void processArrival(EventProcessingContext context, String arrivalBody)
@@ -710,11 +711,11 @@ public class JournalEventTransactions
         yieldMaterial.getTradeBlueprint()
                 .map(blueprint -> blueprint.recipeStream()
                         .filter(recipe -> recipe.costStream()
-                                .filter(price -> price.getQuantity() > 0)
-                                .anyMatch(price -> price.getCost().equals(priceMaterial)))
+                                .filter(price -> price.quantity > 0)
+                                .anyMatch(price -> price.cost.equals(priceMaterial)))
                         .findFirst().orElse(null))
                 .ifPresent(recipe -> MaterialTradeType.findMatchingTradeType(priceMaterial)
-                        .ifPresent(tradeType -> recipe.costStream().map(CostData::getQuantity)
+                        .ifPresent(tradeType -> recipe.costStream().map(costData -> costData.quantity)
                                 .filter(quantity -> quantity > 0)
                                 .findFirst()
                                 .ifPresent(unitCost ->
@@ -799,7 +800,7 @@ public class JournalEventTransactions
             System.err.println("Ignoring Slot: " + slotKey);
             return;
         }
-        context.getCommanderData().setStat(slot, moduleName);
+        context.getCommander().setStat(slot, moduleName);
         setSlotFromData(context, slot, module, data);
     }
 }

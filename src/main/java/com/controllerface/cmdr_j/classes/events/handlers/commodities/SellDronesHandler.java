@@ -21,6 +21,6 @@ public class SellDronesHandler implements JournalEventHandler
         adjustDown(context, Commodity.DRONES, ((int) context.getRawData().get("Count")));
 
         int sale = ((int) context.getRawData().get("TotalSale"));
-        context.getCommanderData().adjustCreditBalance(sale);
+        context.getCommander().adjustCreditBalance(sale);
     }
 }

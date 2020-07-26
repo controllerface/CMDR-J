@@ -1,5 +1,6 @@
 package com.controllerface.cmdr_j.classes.tasks;
 
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
@@ -39,7 +40,7 @@ import java.util.stream.IntStream;
  *
  * Created by Controllerface on 4/2/2018.
  */
-public class ItemCostData implements Displayable
+public class ItemCostDisplay implements Displayable
 {
     private final TaskCost cost;
     private final AtomicLong count = new AtomicLong(0);
@@ -83,13 +84,13 @@ public class ItemCostData implements Displayable
     }
 
 
-    public ItemCostData(TaskCost cost,
-                        Function<TaskCost, Long> checkInventory,
-                        Predicate<TaskCost> isInCache,
-                        Function<TaskCost, Set<String>> getCachedLabels,
-                        Function<TaskCost, Integer> pendingTradeYield,
-                        Function<TaskCost, Integer> pendingTradeCost,
-                        Consumer<Task> addTask)
+    public ItemCostDisplay(TaskCost cost,
+                           Function<TaskCost, Long> checkInventory,
+                           Predicate<TaskCost> isInCache,
+                           Function<TaskCost, Set<String>> getCachedLabels,
+                           Function<TaskCost, Integer> pendingTradeYield,
+                           Function<TaskCost, Integer> pendingTradeCost,
+                           Consumer<Task> addTask)
     {
         this.cost = cost;
         this.checkInventory = checkInventory;
@@ -133,7 +134,7 @@ public class ItemCostData implements Displayable
 
     public boolean matches(CostData costData)
     {
-        return costData.getCost() == this.cost;
+        return costData.cost == this.cost;
     }
 
 
@@ -160,8 +161,6 @@ public class ItemCostData implements Displayable
         svg.setScaleY(scaleY);
         return svgShape;
     }
-
-
 
     private void renderTrades(double progress)
     {
@@ -211,29 +210,29 @@ public class ItemCostData implements Displayable
                         .map(recipe->
                         {
                             CostData tradeCost = recipe.costStream()
-                                    .filter(costData -> costData.getQuantity() > 0).findAny()
+                                    .filter(costData -> costData.quantity > 0).findAny()
                                     .orElse(null);
 
-                            Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
+                            Integer committedCost = pendingTradeCost.apply(tradeCost.cost);
                             int committed = (committedCost == null) ? 0 : committedCost;
-                            long have = checkInventory.apply(tradeCost.getCost()) - committed;
+                            long have = checkInventory.apply(tradeCost.cost) - committed;
 
 
                             boolean cannotAfford = recipe.costStream()
-                                    .filter(costData -> costData.getQuantity() > 0)
-                                    .anyMatch(costData -> checkInventory.apply(costData.getCost()) < costData.getQuantity());
+                                    .filter(costData -> costData.quantity > 0)
+                                    .anyMatch(costData -> checkInventory.apply(costData.cost) < costData.quantity);
 
                             boolean isCached = recipe.costStream()
-                                    .filter(costData -> costData.getQuantity() > 0)
-                                    .anyMatch(costData -> isInCache.test(costData.getCost()));
+                                    .filter(costData -> costData.quantity > 0)
+                                    .anyMatch(costData -> isInCache.test(costData.cost));
 
                             boolean overCommitted = !cannotAfford && recipe.costStream()
-                                    .filter(costData -> costData.getQuantity() > 0)
+                                    .filter(costData -> costData.quantity > 0)
                                     .anyMatch(costData -> committedCost != null &&
-                                            (checkInventory.apply(costData.getCost()) - committed) < costData.getQuantity());
+                                            (checkInventory.apply(costData.cost) - committed) < costData.quantity);
 
                             long max = IntStream.range(1, 100)
-                                    .mapToLong(i -> i * tradeCost.getQuantity())
+                                    .mapToLong(i -> i * tradeCost.quantity)
                                     .filter(i -> have >= i)
                                     .count();
 
@@ -263,25 +262,25 @@ public class ItemCostData implements Displayable
                         .map(trade ->
                         {
                             CostData tradeCost = trade.tradeRecipe.costStream()
-                                    .filter(costData -> costData.getQuantity() > 0).findAny()
+                                    .filter(costData -> costData.quantity > 0).findAny()
                                     .orElse(null);
 
                             if (tradeCost == null) return null;
 
                             CostData tradeYield = trade.tradeRecipe.costStream()
-                                    .filter(costData -> costData.getQuantity() <= 0).findAny()
+                                    .filter(costData -> costData.quantity <= 0).findAny()
                                     .orElse(null);
 
                             if (tradeYield == null) return null;
 
 
                             Optional<MaterialTradeType> tradeType =
-                                    MaterialTradeType.findMatchingTradeType(((Material) tradeCost.getCost()));
+                                    MaterialTradeType.findMatchingTradeType(((Material) tradeCost.cost));
 
                             if (tradeType.isPresent())
                             {
-                                Region from = generateIcon(tradeCost.getCost().getGrade());
-                                Region to = generateIcon(tradeYield.getCost().getGrade());
+                                Region from = generateIcon(tradeCost.cost.getGrade());
+                                Region to = generateIcon(tradeYield.cost.getGrade());
 
                                 Label toLabel = new Label(" to ");
                                 toLabel.getStyleClass().addAll("inventory_label", "base_font");
@@ -296,13 +295,13 @@ public class ItemCostData implements Displayable
                                 desc.getStyleClass().addAll("inventory_label", "base_font");
                                 desc.alignmentProperty().setValue(Pos.CENTER_LEFT);
 
-                                Integer committedCost = pendingTradeCost.apply(tradeCost.getCost());
+                                Integer committedCost = pendingTradeCost.apply(tradeCost.cost);
                                 int committed = (committedCost == null) ? 0 : committedCost;
-                                long have = checkInventory.apply(tradeCost.getCost()) - committed;
+                                long have = checkInventory.apply(tradeCost.cost) - committed;
 
-                                String x = tradeCost.getQuantity()
+                                String x = tradeCost.quantity
                                         + " for "
-                                        + Math.abs(tradeYield.getQuantity())
+                                        + Math.abs(tradeYield.quantity)
                                         + " :: "
                                         + trade.tradeRecipe.getShortLabel()
                                         + " (" + have + ")";
@@ -310,7 +309,7 @@ public class ItemCostData implements Displayable
                                 desc.setText(x);
 
                                 long max = IntStream.range(1, 100)
-                                        .mapToLong(i -> i * tradeCost.getQuantity())
+                                        .mapToLong(i -> i * tradeCost.quantity)
                                         .filter(i -> have >= i)
                                         .count();
 

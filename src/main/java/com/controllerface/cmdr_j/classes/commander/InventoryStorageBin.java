@@ -34,13 +34,13 @@ abstract class InventoryStorageBin
      * done, synchronization of the UI must occur only on the UI thread. As mutations CAN occur in rapid succession
      * (especially at startup) the backing list MUST allow at least one read and oen write to occur simultaneously.
      */
-    private final List<InventoryData> inventory = new CopyOnWriteArrayList<>();
+    private final List<InventoryDisplay> inventory = new CopyOnWriteArrayList<>();
 
     /**
      * This is the "observable" list that is used by JavaFX to automatically control what items are visible in the UI.
      * It is extremely important to ensure updates to this list occur ONLY from the JavaFX UI thread.
      */
-    private final ObservableList<InventoryData> observableInventory = FXCollections.observableArrayList();
+    private final ObservableList<InventoryDisplay> observableInventory = FXCollections.observableArrayList();
 
     /**
      * Implementations of InventoryStorageBin must implement this method to provide callers with a means to check if
@@ -84,7 +84,7 @@ abstract class InventoryStorageBin
         synchronize();
     }
 
-    void associateTableView(TableView<InventoryData> tableView, CheckBox showZeroQuantities)
+    void associateTableView(TableView<InventoryDisplay> tableView, CheckBox showZeroQuantities)
     {
         if (showZeroQuantities != null)
         {
@@ -93,7 +93,7 @@ abstract class InventoryStorageBin
         }
 
         tableView.setItems(observableInventory);
-        observableInventory.addListener((ListChangeListener<InventoryData>) c -> tableView.refresh());
+        observableInventory.addListener((ListChangeListener<InventoryDisplay>) c -> tableView.refresh());
     }
 
     /**
@@ -126,7 +126,7 @@ abstract class InventoryStorageBin
             {
                 return inventory.stream()
                         .filter(inventoryItem -> inventoryItem.getItem() == item)
-                        .map(InventoryData::getQuantity)
+                        .map(InventoryDisplay::getQuantity)
                         .findFirst().orElse(0L);
             }
         }
@@ -152,7 +152,7 @@ abstract class InventoryStorageBin
                 inventory.stream()
                         .filter(inventoryItem -> inventoryItem.getItem() == item)
                         .findFirst().map(inventoryItem -> inventoryItem.adjustCount(count))
-                        .orElseGet((() -> inventory.add(new InventoryData(item, count, this::amountOf, pendingTradeCost, addTask))));
+                        .orElseGet((() -> inventory.add(new InventoryDisplay(item, count, this::amountOf, pendingTradeCost, addTask))));
 
                 synchronize();
             }
@@ -169,7 +169,7 @@ abstract class InventoryStorageBin
      */
     void initializeItem(TaskCost item)
     {
-        inventory.add(new InventoryData(item, 0, this::amountOf, pendingTradeCost, addTask));
+        inventory.add(new InventoryDisplay(item, 0, this::amountOf, pendingTradeCost, addTask));
     }
 
     /**
@@ -195,7 +195,7 @@ abstract class InventoryStorageBin
                 if (showZeroQuantities.isSelected()) observableInventory.addAll(inventory);
                 else
                 {
-                    List<InventoryData> nonZeroItems = inventory.stream()
+                    List<InventoryDisplay> nonZeroItems = inventory.stream()
                             .filter(item -> item.getQuantity() > 0)
                             .collect(Collectors.toList());
 

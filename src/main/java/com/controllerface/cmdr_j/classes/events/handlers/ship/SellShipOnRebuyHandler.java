@@ -20,6 +20,6 @@ public class SellShipOnRebuyHandler implements JournalEventHandler
         logGeneralMessage(context, "Ship Sold: " + shipType);
 
         int sale = ((int) context.getRawData().get("ShipPrice"));
-        context.getCommanderData().adjustCreditBalance(sale);
+        context.getCommander().adjustCreditBalance(sale);
     }
 }

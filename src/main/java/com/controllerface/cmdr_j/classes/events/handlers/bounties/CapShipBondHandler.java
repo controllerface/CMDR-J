@@ -15,7 +15,7 @@ public class CapShipBondHandler implements JournalEventHandler
     {
         String victim = ((String) context.getRawData().get("VictimFaction"));
         int reward = ((int) context.getRawData().get("Reward"));
-        context.getCommanderData().adjustCreditBalance(reward);
+        context.getCommander().adjustCreditBalance(reward);
         String benefactor = ((String) context.getRawData().get("AwardingFaction"));
 
         logCombatMessage(context, "Capital ship bond against " + victim + " for " + reward + " credits paid by " + benefactor);

@@ -16,7 +16,7 @@ public class DatalinkVoucherHandler implements JournalEventHandler
     public void handle(EventProcessingContext context)
     {
         int reward = ((int) context.getRawData().get("Reward"));
-        context.getCommanderData().adjustCreditBalance(reward);
+        context.getCommander().adjustCreditBalance(reward);
         logGeneralMessage(context, "Data link scan reward: " + reward);
     }
 }

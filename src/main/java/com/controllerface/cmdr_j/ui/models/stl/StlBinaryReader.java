@@ -1,16 +1,18 @@
 package com.controllerface.cmdr_j.ui.models.stl;
 
 import com.controllerface.cmdr_j.ui.models.FloatVector;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class StlBinaryReader implements StlReader
+public class StlBinaryReader implements Iterable<StlFacet>
 {
     private final InputStream testModel;
     private final AtomicInteger remainingtriangles = new AtomicInteger(0);
@@ -86,29 +88,37 @@ public class StlBinaryReader implements StlReader
                 .orElse((short) 0);
     }
 
+    @NotNull
     @Override
-    public boolean hasMoreFacets()
+    public Iterator<StlFacet> iterator()
     {
-        return remainingtriangles.get() > 0;
-    }
+        return new Iterator<>()
+        {
+            @Override
+            public boolean hasNext()
+            {
+                return remainingtriangles.get() > 0;
+            }
 
-    @Override
-    public StlFacet getNextFacet()
-    {
-        try
-        {
-            FloatVector N = new FloatVector(getNextFloat(), getNextFloat(), getNextFloat());
-            FloatVector A = new FloatVector(getNextFloat(), getNextFloat(), getNextFloat());
-            FloatVector B = new FloatVector(getNextFloat(), getNextFloat(), getNextFloat());
-            FloatVector C = new FloatVector(getNextFloat(), getNextFloat(), getNextFloat());
-            getNextShort();
-            remainingtriangles.decrementAndGet();
-            return new StlFacet(A, B, C, N);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
+            @Override
+            public StlFacet next()
+            {
+                try
+                {
+                    FloatVector N = new FloatVector(getNextFloat(), getNextFloat(), getNextFloat());
+                    FloatVector A = new FloatVector(getNextFloat(), getNextFloat(), getNextFloat());
+                    FloatVector B = new FloatVector(getNextFloat(), getNextFloat(), getNextFloat());
+                    FloatVector C = new FloatVector(getNextFloat(), getNextFloat(), getNextFloat());
+                    getNextShort();
+                    remainingtriangles.decrementAndGet();
+                    return new StlFacet(A, B, C, N);
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        };
     }
 }

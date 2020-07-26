@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.enums.costs.materials;
 
-import com.controllerface.cmdr_j.classes.tasks.CostData;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import javafx.util.Pair;

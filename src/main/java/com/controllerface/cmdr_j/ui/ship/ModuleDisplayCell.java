@@ -1,19 +1,16 @@
 package com.controllerface.cmdr_j.ui.ship;
 
-import com.controllerface.cmdr_j.classes.ShipModuleData;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import javafx.scene.control.TableCell;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TitledPane;
 
 /**
  * Created by Controllerface on 5/7/2018.
  */
-public class ModuleDisplayCell extends TableCell<ShipModuleData, ShipModuleData>
+public class ModuleDisplayCell extends TableCell<ShipModuleDisplay, ShipModuleDisplay>
 {
     @Override
-    protected void updateItem(ShipModuleData shipModule, boolean empty)
+    protected void updateItem(ShipModuleDisplay shipModule, boolean empty)
     {
         super.updateItem(shipModule, empty);
         if (shipModule == null || empty)

@@ -14,7 +14,7 @@ public class ShipyardTransferHandler implements JournalEventHandler
         String location = ((String) context.getRawData().get("System"));
 
         int price = ((int) context.getRawData().get("TransferPrice"));
-        context.getCommanderData().adjustCreditBalance(-1 * price);
+        context.getCommander().adjustCreditBalance(-1 * price);
 
         logGeneralMessage(context, "Transferring ship " + shipType + " from " + location);
     }

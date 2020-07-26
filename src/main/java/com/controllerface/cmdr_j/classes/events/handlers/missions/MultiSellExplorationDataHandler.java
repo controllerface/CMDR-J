@@ -16,7 +16,7 @@ public class MultiSellExplorationDataHandler implements JournalEventHandler
     public void handle(EventProcessingContext context)
     {
         int reward = ((int) context.getRawData().get("TotalEarnings"));
-        context.getCommanderData().adjustCreditBalance(reward);
+        context.getCommander().adjustCreditBalance(reward);
         logGeneralMessage(context, "Exploration data sold for " + reward + " CR");
     }
 }

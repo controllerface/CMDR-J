@@ -22,7 +22,7 @@ public class LocationHandler implements JournalEventHandler
         logTravelMessage(context, "Spawned in the " + name + " System");
         List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
         StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
-        context.getCommanderData().setLocation(system);
+        context.getCommander().setLocation(system);
         processArrival(context, ((String) context.getRawData().get("Body")));
     }
 }

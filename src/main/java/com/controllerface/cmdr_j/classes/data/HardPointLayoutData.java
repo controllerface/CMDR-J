@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes;
+package com.controllerface.cmdr_j.classes.data;
 
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.HardPointSize;
 
@@ -21,9 +21,16 @@ public class HardPointLayoutData
         this.slots = builder.slots.toArray(h);
     }
 
-    public HardPointSize[] getSlots() { return slots; }
+    // todo: will need this or similar to add support for military and empty slots
+    public HardPointSize[] getSlots()
+    {
+        return slots;
+    }
 
-    public static Builder builder() { return new Builder(); }
+    public static Builder builder()
+    {
+        return new Builder();
+    }
 
     public static class Builder
     {

@@ -8,6 +8,10 @@ import javafx.scene.shape.VertexFormat;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class ModelUtilities
 {
@@ -29,21 +33,13 @@ public class ModelUtilities
             {
                 try(InputStream testModel = StarShip.class.getResourceAsStream(model))
                 {
-                    StlReader stlReader = ascii
+                    Iterable<StlFacet> stlReader = ascii
                             ? new StlAsciiReader(testModel)
                             : new StlBinaryReader(testModel);
 
-                    while (stlReader.hasMoreFacets())
-                    {
-                        StlFacet facet = stlReader.getNextFacet();
-                        int[] rawFace = new int[]
-                                {
-                                        calculatePointIndex(context, facet.pointA, facet.normal),
-                                        calculatePointIndex(context, facet.pointB, facet.normal),
-                                        calculatePointIndex(context, facet.pointC, facet.normal)
-                                };
-                        context.faceBuffer.add(rawFace);
-                    }
+                    StreamSupport.stream(stlReader.spliterator(), false)
+                            .map(facet -> calculateFace(context, facet))
+                            .forEach(context.faceBuffer::add);
                 }
             }
             catch (IOException e)
@@ -79,6 +75,14 @@ public class ModelUtilities
             return mesh;
         }
 
+        private static int[] calculateFace(StlImportContext context, StlFacet facet)
+        {
+            int indexA = calculatePointIndex(context, facet.pointA, facet.normal);
+            int indexB = calculatePointIndex(context, facet.pointB, facet.normal);
+            int indexC = calculatePointIndex(context, facet.pointC, facet.normal);
+            return new int[]{ indexA, indexB, indexC };
+        }
+
         private static int calculateNormal(StlImportContext importContext, String vertexKey)
         {
             FloatVector normalSum = importContext.normalMap.get(vertexKey);
@@ -107,13 +111,12 @@ public class ModelUtilities
 
         private static int calculatePointIndex(StlImportContext context, FloatVector point, FloatVector faceNormal)
         {
-            String vertexKey = point.x + ":" + point.y + ":" + point.z;
             context.mesh.getPoints().addAll(point.x, point.y, point.z);
-
             int vertex = context.nextPoint.getAndIncrement();
 
             if (context.calculateNormals)
             {
+                String vertexKey = point.x + ":" + point.y + ":" + point.z;
                 context.vertexMap.put(vertex, vertexKey);
                 FloatVector vertexNormal = Optional.ofNullable(context.normalMap.get(vertexKey))
                         .map(currentNormal -> currentNormal.add(faceNormal))

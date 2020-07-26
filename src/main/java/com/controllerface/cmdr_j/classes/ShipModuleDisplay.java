@@ -3,6 +3,10 @@ package com.controllerface.cmdr_j.classes;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.StarShip;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
+import com.controllerface.cmdr_j.classes.data.CoreModuleLayoutData;
+import com.controllerface.cmdr_j.classes.data.CostData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
+import com.controllerface.cmdr_j.classes.data.ModifierData;
 import com.controllerface.cmdr_j.classes.tasks.*;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
@@ -40,7 +44,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 5/2/2018.
  */
-public class ShipModuleData implements Displayable
+public class ShipModuleDisplay implements Displayable
 {
     private final StarShip currentShip;
     private final Statistic moduleSlot;
@@ -57,7 +61,7 @@ public class ShipModuleData implements Displayable
     private final TitledPane displayPane = new TitledPane();
     private final AtomicBoolean initialRenderComplete = new AtomicBoolean(false);
 
-    private ShipModuleData(Builder builder)
+    private ShipModuleDisplay(Builder builder)
     {
         this.currentShip = builder.currentShip;
         this.moduleSlot = builder.moduleName;
@@ -167,7 +171,7 @@ public class ShipModuleData implements Displayable
 
         HBox hBox = new HBox();
 
-        CostData costData = recipePair.getValue().costStream().filter(c->c.getQuantity() < 0).findAny()
+        CostData costData = recipePair.getValue().costStream().filter(c->c.quantity < 0).findAny()
                 .orElse(null);
 
         String xTxt = "Buy ";
@@ -176,15 +180,15 @@ public class ShipModuleData implements Displayable
         x.getStyleClass().add("module_purchase_label");
 
 
-        CostData costData2 = recipePair.getValue().costStream().filter(c->c.getQuantity() >= 0).findAny()
+        CostData costData2 = recipePair.getValue().costStream().filter(c->c.quantity >= 0).findAny()
                 .orElse(null);
 
         String yTxt = "";
 
         if (costData2 != null)
         {
-            yTxt += String.format("%,8d%n", costData2.getQuantity()).trim()
-                    + " " + costData2.getCost().getLocalizedName();
+            yTxt += String.format("%,8d%n", costData2.quantity).trim()
+                    + " " + costData2.cost.getLocalizedName();
         }
 
         Label y = new Label(yTxt);
@@ -259,10 +263,10 @@ public class ShipModuleData implements Displayable
                 recipePair.getValue().costStream()
                         .map(c->
                         {
-                            String quantity = c.getQuantity() < 0
-                                    ? "+" + Math.abs(c.getQuantity())
-                                    : "-" + c.getQuantity();
-                            Label next = new Label(quantity + " " + c.getCost().getLocalizedName());
+                            String quantity = c.quantity < 0
+                                    ? "+" + Math.abs(c.quantity)
+                                    : "-" + c.quantity;
+                            Label next = new Label(quantity + " " + c.cost.getLocalizedName());
                             next.getStyleClass().addAll("light_color_label", "base_font");
                             return next;
                         })
@@ -423,8 +427,8 @@ public class ShipModuleData implements Displayable
         //costEffectContainer.getStyleClass().addAll("ship_stats_table", "no_border");
         box.getChildren().add(costEffectContainer);
 
-        ShipModule shipModule = recipePair.getValue().costStream().filter(costData -> costData.getQuantity() < 0).findFirst()
-                .map(o-> ((ShipModule) o.getCost()))
+        ShipModule shipModule = recipePair.getValue().costStream().filter(costData -> costData.quantity < 0).findFirst()
+                .map(o-> ((ShipModule) o.cost))
                 .orElse(null);
 
         if (shipModule == null) return box;
@@ -435,9 +439,9 @@ public class ShipModuleData implements Displayable
                 .map(x ->
                 {
                     Pair<String, Object> l = UIFunctions.Convert.moduleEffectToLabel.apply(x);
-                    ItemEffectData c = module.itemEffects().effectByName(x.getEffect()).orElse(null);
+                    ItemEffectData c = module.itemEffects().effectByName(x.effect).orElse(null);
                     ModifierData s = modifiers.stream()
-                            .filter(m->m.getEffect() == x.getEffect())
+                            .filter(m->m.effect == x.effect)
                             .findAny()
                             .orElse(null);
 
@@ -450,21 +454,21 @@ public class ShipModuleData implements Displayable
                     }
                     else if (s != null)
                     {
-                        moreIsGood = s.getEffect().moreIsGood;
+                        moreIsGood = s.effect.moreIsGood;
                         modified = true;
 
-                        if (s.getValue() == Double.MAX_VALUE)
+                        if (s.value == Double.MAX_VALUE)
                         {
                             cn = UIFunctions.Symbols.INFINITY;
                         }
                         else
                         {
-                            cn = UIFunctions.Data.round(s.getValue(), 2);
+                            cn = UIFunctions.Data.round(s.value, 2);
                         }
                     }
                     else
                     {
-                        moreIsGood = c.getEffect().moreIsGood;
+                        moreIsGood = c.effect.moreIsGood;
                         if (c.isNumerical())
                         {
                             if (c.getDoubleValue() == Double.MAX_VALUE)
@@ -478,7 +482,7 @@ public class ShipModuleData implements Displayable
                         }
                         else
                         {
-                            cn = c.getStringValue();
+                            cn = c.getValueString();
                         }
                     }
                     return new ModuleComparison(moreIsGood, modified, l.getKey(), l.getValue(), cn);
@@ -486,22 +490,22 @@ public class ShipModuleData implements Displayable
                 .forEach(observableBaseStatistics::add);
 
         module.itemEffects().effectStream()
-                .filter(m -> shipModule.itemEffects().effectByName(m.getEffect())
+                .filter(m -> shipModule.itemEffects().effectByName(m.effect)
                         .isEmpty())
-                .filter(m -> modifiers.stream().noneMatch(x->x.getEffect() == m.getEffect()))
-                .map(m -> new ModuleComparison(m.getEffect().moreIsGood,
+                .filter(m -> modifiers.stream().noneMatch(x->x.effect == m.effect))
+                .map(m -> new ModuleComparison(m.effect.moreIsGood,
                         false,
-                        m.getEffect().toString(),
+                        m.effect.toString(),
                         "-",
                         m.getValueString()))
                 .forEach(observableBaseStatistics::add);
 
-        modifiers.stream().filter(m -> shipModule.itemEffects().effectByName(m.getEffect()).isEmpty())
-                .map(m -> new ModuleComparison(m.getEffect().moreIsGood,
+        modifiers.stream().filter(m -> shipModule.itemEffects().effectByName(m.effect).isEmpty())
+                .map(m -> new ModuleComparison(m.effect.moreIsGood,
                         true,
-                        m.getEffect().toString(),
+                        m.effect.toString(),
                         "-",
-                        m.getValue()))
+                        m.value))
                 .forEach(observableBaseStatistics::add);
 
         return box;
@@ -731,7 +735,6 @@ public class ShipModuleData implements Displayable
         AtomicBoolean armorSlot = new AtomicBoolean(false);
         AtomicBoolean exactSizeOnly = new AtomicBoolean(false);
 
-
         if (moduleSlot instanceof HardpointSlot)
         {
             taskType = ModulePurchaseType.Hardpoint;
@@ -910,7 +913,7 @@ public class ShipModuleData implements Displayable
                                 TaskRecipe moduleRecipe = taskType.getBluePrints().stream()
                                         .flatMap(TaskBlueprint::recipeStream)
                                         .filter(recipe -> recipe.costStream()
-                                                .map(CostData::getCost)
+                                                .map(data -> data.cost)
                                                 .anyMatch(cost -> cost == knownModule))
                                         .findAny().orElse(null);
 
@@ -930,7 +933,7 @@ public class ShipModuleData implements Displayable
 
                                 if (sizeData != null && classData != null)
                                 {
-                                    prefix += ((int) sizeData.getDoubleValue()) + classData.getStringValue() + " ";
+                                    prefix += ((int) sizeData.getDoubleValue()) + classData.getValueString() + " ";
                                 }
 
                                 ItemEffectData modeData = knownModule.itemEffects().effectByName(ItemEffect.WeaponMode)
@@ -938,12 +941,12 @@ public class ShipModuleData implements Displayable
 
                                 if (modeData != null)
                                 {
-                                    prefix += modeData.getStringValue() + " ";
+                                    prefix += modeData.getValueString() + " ";
                                 }
 
                                 AtomicReference<String> suffix  = new AtomicReference<>("");
 
-                                if (moduleRecipe.costStream().anyMatch(c -> c.getCost() == module))
+                                if (moduleRecipe.costStream().anyMatch(c -> c.cost == module))
                                 {
                                     suffix.set(" (equipped)");
                                 }
@@ -1151,7 +1154,7 @@ public class ShipModuleData implements Displayable
                 .orElse(-1);
 
         String grade = module.itemEffects().effectByName(ItemEffect.Class)
-                .map(ItemEffectData::getStringValue)
+                .map(ItemEffectData::getValueString)
                 .orElse("");
 
         if (size != -1)
@@ -1169,7 +1172,7 @@ public class ShipModuleData implements Displayable
         {
             Icon icon = null;
 
-            switch (weaponMount.getStringValue())
+            switch (weaponMount.getValueString())
             {
                 case "Fixed":
                     icon = UIFunctions.Icons.fixedIcon;
@@ -1294,7 +1297,7 @@ public class ShipModuleData implements Displayable
 
 
         boolean powerPlay = module.itemEffects().effectStream()
-                .anyMatch(e->e.getEffect() == ItemEffect.power_play);
+                .anyMatch(e->e.effect == ItemEffect.power_play);
 
         if (powerPlay)
         {
@@ -1369,22 +1372,22 @@ public class ShipModuleData implements Displayable
         List<Pair<ItemEffect, Label>> effects = module.itemEffects().effectStream()
 
                 // these are marker effects, handled elsewhere so filter out
-                .filter(effectData -> effectData.getEffect() != ItemEffect.guardian)
-                .filter(effectData -> effectData.getEffect() != ItemEffect.experimental)
-                .filter(effectData -> effectData.getEffect() != ItemEffect.power_play)
+                .filter(effectData -> effectData.effect != ItemEffect.guardian)
+                .filter(effectData -> effectData.effect != ItemEffect.experimental)
+                .filter(effectData -> effectData.effect != ItemEffect.power_play)
 
                 // size does not need to be displayed in the stat table as it is in the item description
-                .filter(effectData -> effectData.getEffect() != ItemEffect.Size)
+                .filter(effectData -> effectData.effect != ItemEffect.Size)
 
                 // filter out any stats that are affected by modifiers
                 .filter(effectData -> modifiers.stream()
-                        .noneMatch(modifierData -> modifierData.getEffect().equals(effectData.getEffect())))
+                        .noneMatch(modifierData -> modifierData.effect.equals(effectData.effect)))
 
                 .map(effectPair ->
                 {
                     Label label =  new Label(effectPair.getValueString());
                     label.getStyleClass().addAll("general_stat_label", "base_font");
-                    return new Pair<>(effectPair.getEffect(), label);
+                    return new Pair<>(effectPair.effect, label);
                 })
                 .collect(Collectors.toList());
 
@@ -1392,17 +1395,17 @@ public class ShipModuleData implements Displayable
         modifiers.stream()
                 .map(modifier ->
                 {
-                    String vals = String.valueOf(modifier.getValue());
+                    String vals = String.valueOf(modifier.value);
                     Label label = new Label(vals);
-                    Tooltip origVal = new Tooltip("Original Value:\n" + modifier.getOriginalValue());
+                    Tooltip origVal = new Tooltip("Original Value:\n" + modifier.originalValue);
                     origVal.getStyleClass().add("base_font");
                     label.getStyleClass().add("base_font");
                     label.setTooltip(origVal);
-                    boolean isLess = Double.compare(modifier.getValue(), modifier.getOriginalValue()) < 0;
-                    boolean isGood = modifier.isLessIsGood() == isLess;
+                    boolean isLess = Double.compare(modifier.value, modifier.originalValue) < 0;
+                    boolean isGood = modifier.lessIsGood == isLess;
                     if (isGood) label.setTextFill(UIFunctions.Style.positiveBlue);
                     else label.setTextFill(UIFunctions.Style.negativeRed);
-                    return new Pair<>(modifier.getEffect(), label);
+                    return new Pair<>(modifier.effect, label);
                 })
                 .forEach(effects::add);
 
@@ -1428,14 +1431,14 @@ public class ShipModuleData implements Displayable
         {
             experimentalEffectRecipe.effects().effectStream()
                     // filter out stats already accounted for via modifiers or on the module itself
-                    .filter(e->modifiers.stream().noneMatch(m->m.getEffect().equals(e.getEffect())))
-                    .filter(e->module.itemEffects().effectStream().noneMatch(m->m.getEffect().equals(e.getEffect())))
+                    .filter(e->modifiers.stream().noneMatch(m->m.effect.equals(e.effect)))
+                    .filter(e->module.itemEffects().effectStream().noneMatch(m->m.effect.equals(e.effect)))
 
                     // use an empty label for the value, only the effect itself is important
                     .forEach(exe->
                     {
                         Label label = new Label("");
-                        Pair<ItemEffect, Label> p = new Pair<>(exe.getEffect(), label);
+                        Pair<ItemEffect, Label> p = new Pair<>(exe.effect, label);
                         effects.add(0, p);
                     });
         }
@@ -1455,14 +1458,14 @@ public class ShipModuleData implements Displayable
     public double getEffectValue(ItemEffect effect)
     {
         Double stockValue = module.itemEffects().effectStream()
-                .filter(effectData -> effectData.getEffect() == effect)
+                .filter(effectData -> effectData.effect == effect)
                 .filter(ItemEffectData::isNumerical)
                 .map(ItemEffectData::getDoubleValue)
                 .findAny().orElse(null);
 
         Double modifiedValue = modifiers.stream()
-                .filter(modifierData -> modifierData.getEffect() == effect)
-                .map(ModifierData::getValue)
+                .filter(modifierData -> modifierData.effect == effect)
+                .map(modifierData -> modifierData.value)
                 .findAny().orElse(null);
 
         return (modifiedValue == null && stockValue == null)
@@ -1494,11 +1497,11 @@ public class ShipModuleData implements Displayable
         {
             return false;
         }
-        if (!(obj instanceof ShipModuleData))
+        if (!(obj instanceof ShipModuleDisplay))
         {
             return false;
         }
-        ShipModuleData other = ((ShipModuleData) obj);
+        ShipModuleDisplay other = ((ShipModuleDisplay) obj);
         return other == this || other.getModuleSlot() == this.moduleSlot;
     }
 
@@ -1568,10 +1571,10 @@ public class ShipModuleData implements Displayable
             return this;
         }
 
-        public ShipModuleData build()
+        public ShipModuleDisplay build()
         {
             if (modifiers == null) modifiers = new ArrayList<>();
-            return new ShipModuleData(this);
+            return new ShipModuleDisplay(this);
         }
     }
 }

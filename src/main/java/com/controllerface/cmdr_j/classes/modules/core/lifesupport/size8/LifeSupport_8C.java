@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.modules.core.lifesupport.size8;
 
-import com.controllerface.cmdr_j.classes.ItemEffectData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.core.lifesupport.AbstractLifeSupport;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;

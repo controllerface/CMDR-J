@@ -22,13 +22,13 @@ public class ModuleBuyHandler implements JournalEventHandler
         processBuyModule(context);
 
         int cost = ((int) context.getRawData().get("BuyPrice"));
-        context.getCommanderData().adjustCreditBalance(-1 * cost);
+        context.getCommander().adjustCreditBalance(-1 * cost);
 
         Optional.ofNullable(context.getRawData().get("SellPrice"))
                 .ifPresent(sellPrice ->
                 {
                     int sale = (int) sellPrice;
-                    context.getCommanderData().adjustCreditBalance(sale);
+                    context.getCommander().adjustCreditBalance(sale);
                 });
     }
 }

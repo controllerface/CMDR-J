@@ -16,7 +16,7 @@ public class PowerplaySalaryHandler implements JournalEventHandler
     public void handle(EventProcessingContext context)
     {
         int amount = ((int) context.getRawData().get("Amount"));
-        context.getCommanderData().adjustCreditBalance(amount);
+        context.getCommander().adjustCreditBalance(amount);
         logGeneralMessage(context, "Salary from " + context.getRawData().get("Power")
                 + ": " + amount + " Credits");
     }
