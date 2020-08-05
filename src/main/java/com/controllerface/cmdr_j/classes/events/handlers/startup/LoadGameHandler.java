@@ -28,7 +28,7 @@ public class LoadGameHandler implements JournalEventHandler
         setStatFromData(context, PlayerStat.Fuel_Level);
         setStatFromData(context, PlayerStat.Fuel_Capacity);
 
-        context.getCommander().getStarShip()
+        context.getCommander().getShip()
                 .setCurrentFuel(extractStatDouble(context, PlayerStat.Fuel_Level));
 
         setStatFromData(context, PlayerStat.Ship);

@@ -4,7 +4,6 @@ import com.controllerface.cmdr_j.classes.data.ModifierData;
 import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
-import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.tasks.*;
 import com.controllerface.cmdr_j.enums.commander.PlayerStat;
@@ -185,7 +184,7 @@ public class JournalEventTransactions
 
     /**
      * Extracts a Pair<String, Integer> pair from a raw JSON object, where the String key and Integer value are
-     * extracted from the ray JSON object by using the value of the provided keyName and valueName arguments
+     * extracted from the raw JSON object by using the value of the provided keyName and valueName arguments
      *
      * @param data raw JSON data
      * @param keyName key string to use to extract the returned pair's key name from the raw JSON object
@@ -551,7 +550,7 @@ public class JournalEventTransactions
         }
 
         ShipModuleDisplay shipModuleDisplay = new ShipModuleDisplay.Builder()
-                .setCurrentShip(context.getCommander().getStarShip())
+                .setCurrentShip(context.getCommander().getShip())
                 .setModuleName(slot)
                 .setModule(module)
                 .setModifiers(modifiers)
@@ -608,7 +607,7 @@ public class JournalEventTransactions
         if (module != null) logLoadoutMessage(context, "Installed Module: " + module.displayText());
 
         ShipModuleDisplay shipModuleDisplay = new ShipModuleDisplay.Builder()
-                .setCurrentShip(context.getCommander().getStarShip())
+                .setCurrentShip(context.getCommander().getShip())
                 .setModuleName(slot)
                 .setModule(module)
                 .setUserTransactions(context.getTransactions())
@@ -634,7 +633,7 @@ public class JournalEventTransactions
         if (module != null) logLoadoutMessage(context, "Installed Module: " + module.displayText());
 
         dataBuilder
-                .setCurrentShip(context.getCommander().getStarShip())
+                .setCurrentShip(context.getCommander().getShip())
                 .setModule(module)
                 .setModuleName(slot);
 

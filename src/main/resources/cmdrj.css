@@ -575,6 +575,56 @@ Ship module statistics tables
     -fx-text-fill: #ff8822;
 }
 
+.system_poi_list .scroll-bar:horizontal .increment-arrow,
+.system_poi_list .scroll-bar:horizontal .decrement-arrow,
+.system_poi_list .scroll-bar:horizontal .increment-button,
+.system_poi_list .scroll-bar:horizontal .decrement-button
+{
+    -fx-padding:0;
+}
+
+
+.system_poi_list
+{
+    -fx-background-color: #151515;
+}
+
+.system_poi_list .list-cell:odd
+{ /* <=== changed to even */
+    -fx-background-color: #151515;
+    -fx-text-fill: rgb(200, 200, 200);
+}
+
+.system_poi_list .list-cell:even
+{ /* <=== changed to even */
+    -fx-background-color: #181818;
+    -fx-text-fill: rgb(200, 200, 200);
+}
+
+.poi_field
+{
+    -fx-background-color: #333333;
+    -fx-font-size:16.0;
+    -fx-text-fill: rgb(200, 200, 200);
+}
+
+.poi_field:focused
+{
+    -fx-background-color: #555555;
+    -fx-font-size:16.0;
+    -fx-text-fill: #ff8822;
+}
+
+.poi_field .content
+{
+    -fx-background-color: #333333;
+}
+
+.poi_field:focused .content
+{
+    -fx-background-color: #555555;
+}
+
 .hidden
 {
     visibility: hidden;

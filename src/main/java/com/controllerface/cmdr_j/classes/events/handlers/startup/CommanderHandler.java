@@ -3,6 +3,9 @@ package com.controllerface.cmdr_j.classes.events.handlers.startup;
 import com.controllerface.cmdr_j.classes.events.JournalEventTransactions;
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
+import com.controllerface.cmdr_j.enums.commander.PlayerStat;
+
+import java.util.Optional;
 
 /**
  * Status event:
@@ -14,7 +17,11 @@ public class CommanderHandler implements JournalEventHandler
     @Override
     public void handle(EventProcessingContext context)
     {
-        JournalEventTransactions.logGeneralMessage(context, "Commander Loaded: "
-                + context.getRawData().get("Name"));
+        String name = Optional.ofNullable(context.getRawData().get("Name"))
+                .map(rawName -> ((String) rawName))
+                .orElse("[ERROR]");
+
+        context.getCommander().setStat(PlayerStat.Commander, name);
+        JournalEventTransactions.logGeneralMessage(context, "Commander Loaded: " + name);
     }
 }

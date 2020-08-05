@@ -17,19 +17,22 @@ public class CargoDepotHandler implements JournalEventHandler
     public void handle(EventProcessingContext context)
     {
         String updateType = ((String) context.getRawData().get("UpdateType"));
-        Pair<String, Integer> pair = extractPair(context.getRawData(), "CargoType", "Count");
-
+        Pair<String, Integer> pair;
         switch (updateType)
         {
             case "Deliver":
+                pair = extractPair(context.getRawData(), "CargoType", "Count");
                 logInventoryMessage(context, "Cargo Delivered");
                 adjustDown(context, pair, AdjustmentType.COMMODITY);
                 break;
 
             case "Collect":
+                pair = extractPair(context.getRawData(), "CargoType", "Count");
                 logInventoryMessage(context, "Cargo Collected");
                 adjust(context, pair, AdjustmentType.COMMODITY);
                 break;
+            case "WingUpdate":
+                // todo: maybe log a general message here
         }
     }
 }

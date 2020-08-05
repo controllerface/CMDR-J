@@ -18,6 +18,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.control.TreeView?>
@@ -1229,7 +1230,44 @@
                                   </Tab>
                                   <Tab text="Galactic POI">
                                     <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TabPane layoutX="25.0" layoutY="51.0" prefHeight="386.0" prefWidth="932.0" AnchorPane.bottomAnchor="467.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="51.0">
+                                                   <tabs>
+                                                      <Tab closable="false" text="Current System">
+                                                         <content>
+                                                            <TableView prefHeight="200.0" prefWidth="200.0">
+                                                              <columns>
+                                                                <TableColumn prefWidth="75.0" text="C1" />
+                                                                <TableColumn prefWidth="75.0" text="C2" />
+                                                              </columns>
+                                                            </TableView>
+                                                         </content>
+                                                         <content>
+                                                            <ListView fx:id="system_poi_list" editable="true" prefHeight="200.0" prefWidth="200.0" styleClass="system_poi_list" />
+                                                         </content>
+                                                      </Tab>
+                                                      <Tab closable="false" text="Galaxy">
+                                                         <content>
+                                                            <ListView prefHeight="293.0" prefWidth="932.0" />
+                                                         </content>
+                                                         <content>
+                                                            <TableView prefHeight="200.0" prefWidth="200.0">
+                                                              <columns>
+                                                                <TableColumn editable="false" prefWidth="255.0" text="System" />
+                                                                <TableColumn editable="false" prefWidth="650.0" text="NOTES" />
+                                                              </columns>
+                                                            </TableView>
+                                                         </content>
+                                                      </Tab>
+                                                   </tabs>
+                                                </TabPane>
+                                                <Label layoutX="31.0" layoutY="16.0" styleClass="header_font_small" text="Points of interest" />
+                                                <TextField fx:id="create_poi_name" layoutX="30.0" layoutY="496.0" prefHeight="23.0" prefWidth="298.0" promptText="Enter system name here" styleClass="poi_field" />
+                                                <TextArea fx:id="create_poi_notes" layoutX="31.0" layoutY="534.0" prefHeight="237.0" prefWidth="919.0" promptText="Enter notes about this point of interest here" styleClass="poi_field" wrapText="true" />
+                                                <Button fx:id="create_poi_button" layoutX="31.0" layoutY="778.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="90.0" styleClass="material_trade_button" text="Create POI" />
+                                                <Label layoutX="29.0" layoutY="464.0" styleClass="header_font_small" text="Add new POI" />
+                                             </children></AnchorPane>
                                     </content>
                                   </Tab>
                                 </tabs>

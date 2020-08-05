@@ -209,6 +209,13 @@ public enum JournalEvent
      */
     public void process(EventProcessingContext eventProcessingContext)
     {
-        handler.handle(eventProcessingContext);
+        try
+        {
+            handler.handle(eventProcessingContext);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

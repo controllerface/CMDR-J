@@ -38,9 +38,9 @@ public class LoadoutHandler implements JournalEventHandler
             ship = Ship.findShip(shipName);
             logLoadoutMessage(context, "Ship Type: " + ship.getBaseShipStats().getDisplayName());
             context.getCommander().setShip(ship);
-            context.getCommander().getStarShip()
+            context.getCommander().getShip()
                     .setGivenName(extractStatString(context, CoreInternalSlot.ShipName));
-            context.getCommander().getStarShip()
+            context.getCommander().getShip()
                     .setShipID(extractStatString(context, CoreInternalSlot.ShipIdent));
         }
         catch (Exception e)
@@ -51,7 +51,7 @@ public class LoadoutHandler implements JournalEventHandler
         ((List<Map<String, Object>>) context.getRawData().get("Modules"))
                 .forEach(module -> setSlotFromLoadout(context, module));
 
-        context.getCommander().getStarShip().updateResistanceGraphs();
+        context.getCommander().getShip().updateResistanceGraphs();
 
 
 

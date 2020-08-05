@@ -54,6 +54,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -63,6 +64,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -285,6 +289,10 @@ public class UIController
     @FXML private Label commander_name;
     @FXML private Label credit_balance;
 
+    @FXML private ListView<String> system_poi_list;
+    @FXML private Button create_poi_button;
+    @FXML private TextField create_poi_name;
+    @FXML private TextArea create_poi_notes;
 
     @FXML private Canvas mini_map;
     @FXML private Slider mini_map_scale;
@@ -1078,7 +1086,7 @@ public class UIController
                             double main = ((double) fuelData.get("FuelMain"));
                             double tank = ((double) fuelData.get("FuelReservoir"));
 
-                            commander.getStarShip().setCurrentFuel(main + tank);
+                            commander.getShip().setCurrentFuel(main + tank);
 
                             status_cargo.setText(statusObject.get("Cargo") + " Tons");
                             status_fuel.setText(main + " Tons");
@@ -1186,11 +1194,48 @@ public class UIController
     private void initializeUIComponents()
     {
         initializeTextPlaceholders();
+        initializeCommanderBindings();
         initializeInventoryTables();
         initializeShipLoadoutTab();
         initializeAutoResizeBindings();
         initializeSelectionOverrides();
         initializeTaskTab();
+
+        system_poi_list.setCellFactory(param -> new ListCell<>()
+        {
+            @Override
+            protected void updateItem(String item, boolean empty)
+            {
+                super.updateItem(item, empty);
+                if (empty || item==null)
+                {
+                    setGraphic(null);
+                    setText(null);
+                }
+                else
+                {
+                    HBox hBox = new HBox();
+
+                    hBox.setAlignment(Pos.TOP_LEFT);
+
+                    Label message = new Label(item);
+                    message.setWrapText(true);
+                    message.getStyleClass().addAll("light_color_label","base_font");
+                    hBox.getChildren().addAll(message);
+                    message.prefWidthProperty().bind(system_poi_list.widthProperty().subtract(30));
+                    setGraphic(hBox);
+
+                    // todo: use this to make the cell editable, and on edit completion, update the note
+                    setOnMouseClicked(event ->
+                    {
+                        if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2)
+                        {
+                            System.out.println("Double clicked");
+                        }
+                    });
+                }
+            }
+        });
 
         console_message_list.setItems(consoleBackingList);
         consoleBackingList.addListener((ListChangeListener<MessageData>) c -> console_message_list.refresh());
@@ -1337,8 +1382,8 @@ public class UIController
         task_label.textProperty().bind(labelText);
         task_tree.setCellFactory(param -> new TaskTreeCell(procSelectorBackingList, labelText));
         task_list.setItems(procSelectorBackingList);
-        task_list.setCellFactory(param -> new TaskListCell(addToTaskList,
-                commander::amountOf, task_list.widthProperty()));
+        task_list.setCellFactory(param ->
+                new TaskListCell(addToTaskList, commander::amountOf, task_list.widthProperty()));
 
         task_table.setItems(sortedTasks);
         sortedTasks.comparatorProperty().bind(task_table.comparatorProperty());
@@ -1386,6 +1431,10 @@ public class UIController
      */
     private void initializeTextPlaceholders()
     {
+        Label systemPoiLabel = new Label("There are no known points of interest in this system");
+        systemPoiLabel.getStyleClass().addAll("base_font");
+        system_poi_list.setPlaceholder(systemPoiLabel);
+
         // set placeholder labels shown when the task list is empty
         Label procListLabel = new Label("<---- Select a Task Category");
         Label recipeTableLabel = new Label("Tracked Tasks Will Appear Here");
@@ -1432,10 +1481,7 @@ public class UIController
         core_module_table.setPlaceholder(messageLabel2);
     }
 
-    /**
-     * Sets up the inventory tab
-     */
-    private void initializeInventoryTables()
+    private void initializeCommanderBindings()
     {
         // associate the inventory lists with the table view UI elements that display their contents
         commander.associateCommanderName(commander_name);
@@ -1445,6 +1491,14 @@ public class UIController
         commander.associateManufacturedTable(manufactured_table, show_zero_quantities);
         commander.associateDataTable(data_table, show_zero_quantities);
 
+        commander.associatePoiControls(create_poi_button, create_poi_name, create_poi_notes, system_poi_list, null);
+    }
+
+    /**
+     * Sets up the inventory tab
+     */
+    private void initializeInventoryTables()
+    {
         // set sorting comparators for each data column
         raw_grade_column.setComparator(UIFunctions.Sort.itemByGrade);
         raw_material_column.setComparator(UIFunctions.Sort.itemByCategory);
@@ -1555,32 +1609,32 @@ public class UIController
         commander.getLocation().associateSpaceStation(station_label);
         commander.getLocation().associateEconomy(economy_label);
 
-        commander.getStarShip().associateShipManufacturer(ship_make_label);
-        commander.getStarShip().associateShipGivenName(ship_name_label);
-        commander.getStarShip().associateShipDisplayName(ship_type_label);
-        commander.getStarShip().associateShipID(ship_ID_label);
+        commander.getShip().associateShipManufacturer(ship_make_label);
+        commander.getShip().associateShipGivenName(ship_name_label);
+        commander.getShip().associateShipDisplayName(ship_type_label);
+        commander.getShip().associateShipID(ship_ID_label);
 
-        commander.getStarShip().associateBaseStatisticsTable(ship_base_statistics_table);
-        commander.getStarShip().associateHullStatisticsTable(ship_hull_statistics_table);
-        commander.getStarShip().associateMassStatisticsTable(ship_mass_statistics_table);
-        commander.getStarShip().associateShieldStatisticsTable(ship_shield_statistics_table);
+        commander.getShip().associateBaseStatisticsTable(ship_base_statistics_table);
+        commander.getShip().associateHullStatisticsTable(ship_hull_statistics_table);
+        commander.getShip().associateMassStatisticsTable(ship_mass_statistics_table);
+        commander.getShip().associateShieldStatisticsTable(ship_shield_statistics_table);
 
-        commander.getStarShip().associateOffensiveStatisticsTable(ship_offense_stats_table);
+        commander.getShip().associateOffensiveStatisticsTable(ship_offense_stats_table);
 
         dps_spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1.0, 250.0, 10.0, 1));
         sys_spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 4, 0.0, 0.5));
 
-        commander.getStarShip().associateShieldRegenLabels(s_regen_label, s_broken_regen_label);
+        commander.getShip().associateShieldRegenLabels(s_regen_label, s_broken_regen_label);
 
         ship_graphic.setFocusTraversable(true);
-        commander.getStarShip().setShipGraphic(ship_graphic);
-        commander.getStarShip().setDpsSpinner(dps_spinner, sys_spinner);
+        commander.getShip().setShipGraphic(ship_graphic);
+        commander.getShip().setDpsSpinner(dps_spinner, sys_spinner);
 
-        commander.getStarShip().associateCoreTable(core_module_table);
-        commander.getStarShip().associateOptionalTable(optional_module_table);
-        commander.getStarShip().associateHardpointTable(hardpoint_table);
+        commander.getShip().associateCoreTable(core_module_table);
+        commander.getShip().associateOptionalTable(optional_module_table);
+        commander.getShip().associateHardpointTable(hardpoint_table);
 
-        commander.getStarShip().associateTtdGraphs(ttd_shield_chart, ttd_hull_chart);
+        commander.getShip().associateTtdGraphs(ttd_shield_chart, ttd_hull_chart);
 
         ship_base_statistics_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
         ship_base_statistics_name_column.setCellFactory(x -> new StatDataCell());

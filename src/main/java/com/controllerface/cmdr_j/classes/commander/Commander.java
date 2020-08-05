@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.classes.commander;
 
 import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import com.controllerface.cmdr_j.classes.StarSystem;
+import com.controllerface.cmdr_j.classes.data.EntityLinks;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.Task;
 import com.controllerface.cmdr_j.enums.commander.PlayerStat;
@@ -13,9 +14,8 @@ import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import jetbrains.exodus.entitystore.Entity;
 import jetbrains.exodus.entitystore.EntityIterable;
 import jetbrains.exodus.entitystore.PersistentEntityStore;
@@ -26,6 +26,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * This class is intended to store all relevant data related to the Commander (player), such as inventory, ship loadout
@@ -63,6 +65,14 @@ public class Commander
     private final InventoryStorageBin dataMats;
 
     /**
+     * When the commander name label is set, the change in text is delegated to a background UI thread, which can take
+     * a short time to change. However, we may need to know what the commander's name is before that change occurs in
+     * order to process other events correctly. For cases that need the name immediately, the internal implementation
+     * can use this value instead of relying on the text stored in the actual name Label.
+     */
+    private String commanderNameImmediate = "";
+
+    /**
      * Label for commander name
      */
     private Label commanderName;
@@ -72,7 +82,13 @@ public class Commander
      */
     private Label creditBalanceLabel;
 
-    private final PersistentEntityStore data = PersistentEntityStores.newInstance(UIFunctions.DATA_FOLDER+"/db");
+    private ListView<String> currentPoiNotes;
+
+    /**
+     * This object holds the persistent data related to this commander
+     */
+    private final PersistentEntityStore database =
+            PersistentEntityStores.newInstance(UIFunctions.DATA_FOLDER + "/db");
 
     private long creditBalance = 0;
 
@@ -89,39 +105,42 @@ public class Commander
         dataMats = new EncodedInventoryStorageBin(pendingTradeCost, addTask);
 
         // WORKING AREA
-        try
-        {
-            Comparable<Integer> x = data.computeInTransaction(tx ->
-            {
-                EntityIterable i = tx.getAll("Test");
-                if (i.isEmpty())
-                {
-                    Entity n = tx.newEntity("Test");
-                    n.setProperty("hello", "there");
-                    n.setProperty("count", 1);
-                    return 1;
-                }
-                else
-                {
-                    Entity z = i.getFirst();
-                    int c = 0;
-                    Comparable<Integer> s = z.getProperty("count");
-                    if (s instanceof Integer)
-                    {
-                        int sum = ((Integer) s) + 1;
-                        z.setProperty("count", sum);
-                        c = sum;
-                    }
-                    return c;
-                }
-            });
-            System.out.println(x);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+//        try
+//        {
+//            Comparable<Integer> x = database.computeInTransaction(tx ->
+//            {
+//                EntityIterable i = tx.getAll("Test");
+//                if (i.isEmpty())
+//                {
+//                    Entity n = tx.newEntity("Test");
+//                    n.setProperty("hello", "there");
+//                    n.setProperty("count", 1);
+//                    return 1;
+//                }
+//                else
+//                {
+//                    Entity z = i.getFirst();
+//                    int c = 0;
+//                    Comparable<Integer> s = z.getProperty("count");
+//                    if (s instanceof Integer)
+//                    {
+//                        int sum = ((Integer) s) + 1;
+//                        z.setProperty("count", sum);
+//                        c = sum;
+//                    }
+//                    return c;
+//                }
+//            });
+//            System.out.println(x);
+//        }
+//        catch (Exception e)
+//        {
+//            e.printStackTrace();
+//        }
     }
+
+
+
 
     public void associateCommanderName(Label commanderName)
     {
@@ -153,25 +172,79 @@ public class Commander
         dataMats.associateTableView(dataTable, showZeroQuantities);
     }
 
-    /**
-     * Clears out the material storage bins. Typically used when fully refreshing commander data from disk. Usually,
-     * this will be followed by a series of calls to adjustItem() with the actual counts of the materials.
-     */
-    public void clearMaterials()
+
+    public void associatePoiControls(Button poiButton,
+                                     TextField systemName,
+                                     TextArea poiNotes,
+                                     ListView<String> systemPoiList,
+                                     TableView galaxyPoiList)
     {
-        rawMats.clear();
-        mfdMats.clear();
-        dataMats.clear();
+        currentPoiNotes = systemPoiList;
+        poiButton.setOnMouseClicked(event ->
+        {
+            String targetSystem = systemName.getText().toUpperCase();
+            String notes = poiNotes.getText().toUpperCase();
+
+            if (targetSystem.isEmpty() || notes.isEmpty())
+            {
+                System.out.println("System name and notes must be non-empty");
+                return;
+            }
+
+            if (event.getButton() != MouseButton.PRIMARY)
+            {
+                return;
+            }
+
+            // update the notes and collect all notes we will need to display
+            List<String> updatedNotes = database.computeInTransaction(txn ->
+            {
+                // get this commander
+                Entity commander = txn.getAll(commanderNameImmediate).getFirst();
+                if (commander == null)
+                {
+                    System.out.println("ERROR!");
+                    return Collections.emptyList();
+                }
+
+                Entity starSystem = StreamSupport.stream(commander.getLinks(EntityLinks.STAR_SYSTEM).spliterator(), false)
+                        .filter(entity -> targetSystem.equals(entity.getType()))
+                        .findFirst().orElseGet(()->
+                {
+                    Entity newSystem = txn.newEntity(targetSystem);
+                    newSystem.setLink(EntityLinks.COMMANDER, commander);
+                    commander.addLink(EntityLinks.STAR_SYSTEM, newSystem);
+                    return newSystem;
+                });
+
+                // get any existing notes so we can display them
+                List<String> noteList = StreamSupport.stream(starSystem.getLinks(EntityLinks.POI_NOTES).spliterator(), false)
+                        .map(e -> e.getBlobString(EntityLinks.POI_NOTES))
+                        .collect(Collectors.toList());
+
+                // add the POI notes being set right now
+                noteList.add(notes);
+
+                Entity n = txn.newEntity(EntityLinks.POI_NOTES);
+                starSystem.addLink(EntityLinks.POI_NOTES, n);
+
+                n.setBlobString(EntityLinks.POI_NOTES, notes);
+
+                return noteList;
+            });
+
+            // if this was an update for the current system, update the list
+            if (targetSystem.equalsIgnoreCase(location.getStarSystem().getSystemName()))
+            {
+                systemPoiList.getItems().clear();
+                systemPoiList.getItems().addAll(updatedNotes);
+            }
+        });
     }
 
-    /**
-     * Clears out the cargo.path storage bin. Typically used when fully refreshing commander data from disk. Usually,
-     * this will be followed by a series of calls to adjustItem() with the actual counts of the items.
-     */
-    public void clearCargo()
-    {
-        cargo.clear();
-    }
+
+
+
 
     /**
      * Sets the current ship to the passed in ship type
@@ -181,11 +254,6 @@ public class Commander
     public void setShip(Ship ship)
     {
         starShip.setShip(ship);
-    }
-
-    public StarShip getStarShip()
-    {
-        return starShip;
     }
 
     public void setStation(String station)
@@ -201,11 +269,65 @@ public class Commander
     public void setLocation(StarSystem starSystem)
     {
         location.setStarSystem(starSystem);
-    }
+        String systemName = starSystem.getSystemName().toUpperCase();
 
-    public CommanderLocation getLocation()
-    {
-        return location;
+        // update the notes and collect all notes we will need to display
+        List<String> updatedNotes = database.computeInTransaction(txn ->
+        {
+            // get this commander
+            Entity commander = txn.getAll(commanderNameImmediate).getFirst();
+            if (commander == null)
+            {
+                System.out.println("ERROR!");
+                return Collections.emptyList();
+            }
+
+            Entity starSystem2 = StreamSupport.stream(commander.getLinks(EntityLinks.STAR_SYSTEM).spliterator(), false)
+                    .filter(entity -> systemName.equals(entity.getType()))
+                    .findFirst().orElseGet(()->
+                    {
+                        Entity newSystem = txn.newEntity(systemName);
+                        newSystem.setLink(EntityLinks.COMMANDER, commander);
+                        commander.addLink(EntityLinks.STAR_SYSTEM, newSystem);
+                        return newSystem;
+                    });
+
+            return StreamSupport.stream(starSystem2.getLinks(EntityLinks.POI_NOTES).spliterator(), false)
+                    .map(e -> e.getBlobString(EntityLinks.POI_NOTES))
+                    .collect(Collectors.toList());
+        });
+
+        Platform.runLater(()->
+        {
+            currentPoiNotes.getItems().clear();
+            currentPoiNotes.getItems().addAll(updatedNotes);
+        });
+
+
+//        database.executeInTransaction(txn ->
+//        {
+//            Entity commander = txn.getAll(commanderNameImmediate).getFirst();
+//            EntityIterable starSystems = commander.getLinks(EntityLinks.STAR_SYSTEM);
+//            Optional<Entity> system = StreamSupport.stream(starSystems.spliterator(),false)
+//                    .filter(entity ->
+//                    {
+//                        String s = entity.getType();
+//                        return s.equals(systemName);
+//                    }).findAny();
+//
+//            if (starSystems.isEmpty() || system.isEmpty())
+//            {
+//                Entity newSystem = txn.newEntity(systemName);
+//                newSystem.setLink(EntityLinks.COMMANDER, commander);
+//                commander.addLink(EntityLinks.STAR_SYSTEM, newSystem);
+//
+//                System.out.println("Visited: " + systemName + " for the first time!");
+//            }
+//            else
+//            {
+//                System.out.println("Welcome back to: " + systemName);
+//            }
+//        });
     }
 
     /**
@@ -226,7 +348,18 @@ public class Commander
      */
     public void setStat(Statistic key, String stat)
     {
-        if (key == PlayerStat.Commander) Platform.runLater(() -> commanderName.setText(stat));
+        if (key == PlayerStat.Commander)
+        {
+            Platform.runLater(() -> commanderName.setText(stat));
+            commanderNameImmediate = stat;
+            database.executeInTransaction(txn ->
+            {
+                if (txn.getAll(commanderNameImmediate).isEmpty())
+                {
+                    txn.newEntity(commanderNameImmediate);
+                }
+            });
+        }
 
         if (key == PlayerStat.Credits) setCreditBalanceLabel(stat);
 
@@ -239,21 +372,11 @@ public class Commander
         creditBalance = Long.parseLong(creditString.replace(",",""));
     }
 
-    public void adjustCreditBalance(long adjustment)
-    {
-        creditBalance += adjustment;
-        Platform.runLater(() ->
-                creditBalanceLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(creditBalance)));
-    }
 
-    /**
-     * Removes the value mapped to the given stat from the commands list of stats
-     *
-     * @param stat the named Statistic to remove from the commander's stat list
-     */
-    public void removeStat(Statistic stat)
+
+    public StarShip getShip()
     {
-        stats.remove(stat);
+        return starShip;
     }
 
     /**
@@ -276,6 +399,14 @@ public class Commander
     {
         return stats;
     }
+
+    public CommanderLocation getLocation()
+    {
+        return location;
+    }
+
+
+
 
     /**
      * Adjusts the count of the given TaskCost item in the  commander's inventory
@@ -325,6 +456,56 @@ public class Commander
             }
         }
     }
+
+    public void adjustCreditBalance(long adjustment)
+    {
+        creditBalance += adjustment;
+        Platform.runLater(() ->
+                creditBalanceLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(creditBalance)));
+    }
+
+    /**
+     * Removes the value mapped to the given stat from the commands list of stats
+     *
+     * @param stat the named Statistic to remove from the commander's stat list
+     */
+    public void removeStat(Statistic stat)
+    {
+        stats.remove(stat);
+    }
+
+    /**
+     * Clears out the material storage bins. Typically used when fully refreshing commander data from disk. Usually,
+     * this will be followed by a series of calls to adjustItem() with the actual counts of the materials.
+     */
+    public void clearMaterials()
+    {
+        rawMats.clear();
+        mfdMats.clear();
+        dataMats.clear();
+    }
+
+    /**
+     * Clears out the cargo.path storage bin. Typically used when fully refreshing commander data from disk. Usually,
+     * this will be followed by a series of calls to adjustItem() with the actual counts of the items.
+     */
+    public void clearCargo()
+    {
+        cargo.clear();
+    }
+
+
+
+
+
+    public void createPoi(String system, String notes)
+    {
+        // 1. add poi to DB
+
+        // 2. update current system and galaxy tables
+    }
+
+
 
     public long amountOf(TaskCost cost)
     {
