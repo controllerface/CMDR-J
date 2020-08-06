@@ -51,7 +51,6 @@ public class StlAsciiReader implements Iterable<StlFacet>
         }
     }
 
-    @NotNull
     @Override
     public Iterator<StlFacet> iterator()
     {
