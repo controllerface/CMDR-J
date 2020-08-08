@@ -39,21 +39,21 @@ startScripts {
 }
 sourceCompatibility = 1.11
 
-task createPom  {
-    pom {
-        project {
-            groupId 'com.controllerface.cmdr_j'
-            artifactId 'cmdr_j'
-            version '1.0.0-SNAPSHOT'
-
-            inceptionYear '2020'
-            licenses {
-                license {
-                    name 'The Apache Software License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    distribution 'repo'
-                }
-            }
-        }
-    }.writeTo("pom.xml")
-}
+//task createPom  {
+//    pom {
+//        project {
+//            groupId 'com.controllerface.cmdr_j'
+//            artifactId 'cmdr_j'
+//            version '1.0.0-SNAPSHOT'
+//
+//            inceptionYear '2020'
+//            licenses {
+//                license {
+//                    name 'The Apache Software License, Version 2.0'
+//                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    distribution 'repo'
+//                }
+//            }
+//        }
+//    }.writeTo("pom.xml")
+//}

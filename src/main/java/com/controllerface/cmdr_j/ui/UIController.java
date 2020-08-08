@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.ui;
 
 import com.controllerface.cmdr_j.JSONSupport;
 import com.controllerface.cmdr_j.classes.data.CostData;
+import com.controllerface.cmdr_j.classes.data.PoiData;
 import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.classes.data.MessageData;
 import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
@@ -49,6 +50,7 @@ import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -65,6 +67,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -75,6 +79,8 @@ import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import javafx.util.StringConverter;
+import javafx.util.converter.DefaultStringConverter;
 
 import java.io.File;
 import java.io.IOException;
@@ -289,7 +295,7 @@ public class UIController
     @FXML private Label commander_name;
     @FXML private Label credit_balance;
 
-    @FXML private ListView<String> system_poi_list;
+    @FXML private ListView<PoiData> system_poi_list;
     @FXML private Button create_poi_button;
     @FXML private TextField create_poi_name;
     @FXML private TextArea create_poi_notes;
@@ -1160,11 +1166,6 @@ public class UIController
     {
         // disk monitor
         exec.submit(new JournalSyncTask(commander, transactionQueue));
-        //Runnable inventorySyncTask = new JournalSyncTask(commanderData, transactionQueue);
-        //Thread inventoryThread = new Thread(inventorySyncTask);
-        //inventoryThread.setDaemon(true);
-        //inventoryThread.start();
-
         messageExecutor.scheduleAtFixedRate(this::processMessages, 0, 1, TimeUnit.SECONDS);
 
         while (!transactionsComplete)
@@ -1204,7 +1205,7 @@ public class UIController
         system_poi_list.setCellFactory(param -> new ListCell<>()
         {
             @Override
-            protected void updateItem(String item, boolean empty)
+            public void updateItem(PoiData item, boolean empty)
             {
                 super.updateItem(item, empty);
                 if (empty || item==null)
@@ -1214,23 +1215,49 @@ public class UIController
                 }
                 else
                 {
-                    HBox hBox = new HBox();
-
-                    hBox.setAlignment(Pos.TOP_LEFT);
-
-                    Label message = new Label(item);
-                    message.setWrapText(true);
-                    message.getStyleClass().addAll("light_color_label","base_font");
-                    hBox.getChildren().addAll(message);
-                    message.prefWidthProperty().bind(system_poi_list.widthProperty().subtract(30));
+                    HBox hBox = UIFunctions.Controls.createPoiControl(item.poiText, system_poi_list.widthProperty());
                     setGraphic(hBox);
 
-                    // todo: use this to make the cell editable, and on edit completion, update the note
                     setOnMouseClicked(event ->
                     {
                         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2)
                         {
-                            System.out.println("Double clicked");
+                            HBox h = (HBox) getGraphic();
+                            Label m = (Label) h.getChildren().get(0);
+                            TextArea textArea = new TextArea(m.getText());
+                            textArea.setPrefWidth(h.getWidth());
+                            textArea.setPrefHeight(h.getHeight() + 10);
+                            textArea.getStyleClass().addAll("poi_field");
+                            setGraphic(textArea);
+
+                            ChangeListener<Boolean> updateListener = (observable, oldValue, newValue) ->
+                            {
+                                if (oldValue)
+                                {
+                                    String newText = textArea.getText();
+                                    HBox newTextBox = UIFunctions.Controls
+                                            .createPoiControl(textArea.getText(), system_poi_list.widthProperty());
+                                    setGraphic(newTextBox);
+                                    if (!newText.equalsIgnoreCase(item.poiText))
+                                    {
+                                        commander.updatePoi(item.entityId, newText);
+                                    }
+                                }
+                            };
+
+                            textArea.setOnKeyPressed(event1 ->
+                            {
+                                if (event1.getCode() == KeyCode.ESCAPE)
+                                {
+                                    HBox newText = UIFunctions.Controls
+                                            .createPoiControl(item.poiText, system_poi_list.widthProperty());
+                                    textArea.focusedProperty().removeListener(updateListener);
+                                    setGraphic(newText);
+                                }
+                            });
+
+                            textArea.requestFocus();
+                            textArea.focusedProperty().addListener(updateListener);
                         }
                     });
                 }
@@ -1240,7 +1267,7 @@ public class UIController
         console_message_list.setItems(consoleBackingList);
         consoleBackingList.addListener((ListChangeListener<MessageData>) c -> console_message_list.refresh());
 
-        console_message_list.setSelectionModel(new MultipleSelectionModel<MessageData>()
+        console_message_list.setSelectionModel(new MultipleSelectionModel<>()
         {
             @Override
             public ObservableList<Integer> getSelectedIndices()
@@ -1332,6 +1359,7 @@ public class UIController
 
             }
         });
+
         // todo: abstract this factory out to UIFunctions or something
         console_message_list.setCellFactory(new Callback<ListView<MessageData>, ListCell<MessageData>>()
         {

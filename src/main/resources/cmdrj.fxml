@@ -10,6 +10,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
@@ -1252,12 +1253,7 @@
                                                             <ListView prefHeight="293.0" prefWidth="932.0" />
                                                          </content>
                                                          <content>
-                                                            <TableView prefHeight="200.0" prefWidth="200.0">
-                                                              <columns>
-                                                                <TableColumn editable="false" prefWidth="255.0" text="System" />
-                                                                <TableColumn editable="false" prefWidth="650.0" text="NOTES" />
-                                                              </columns>
-                                                            </TableView>
+                                                            <Pagination prefHeight="200.0" prefWidth="200.0" />
                                                          </content>
                                                       </Tab>
                                                    </tabs>

@@ -8,11 +8,13 @@ import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.tasks.TaskDisplay;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
@@ -637,5 +639,20 @@ public class UIFunctions
                     long y = aCost - bCost;
                     return y < 0 ? -1 : 1;
                 };
+    }
+
+    public static class Controls
+    {
+        public static HBox createPoiControl(String poiText, ReadOnlyDoubleProperty listWidth)
+        {
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.TOP_LEFT);
+            Label message = new Label(poiText);
+            message.setWrapText(true);
+            message.getStyleClass().addAll("light_color_label","base_font");
+            hBox.getChildren().addAll(message);
+            message.prefWidthProperty().bind(listWidth.subtract(30));
+            return hBox;
+        }
     }
 }

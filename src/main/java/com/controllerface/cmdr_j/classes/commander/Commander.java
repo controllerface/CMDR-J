@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.classes.commander;
 import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.classes.data.EntityLinks;
+import com.controllerface.cmdr_j.classes.data.PoiData;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.Task;
 import com.controllerface.cmdr_j.enums.commander.PlayerStat;
@@ -14,12 +15,10 @@ import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
-import jetbrains.exodus.entitystore.Entity;
-import jetbrains.exodus.entitystore.EntityIterable;
-import jetbrains.exodus.entitystore.PersistentEntityStore;
-import jetbrains.exodus.entitystore.PersistentEntityStores;
+import jetbrains.exodus.entitystore.*;
 
 import java.text.NumberFormat;
 import java.util.*;
@@ -82,7 +81,7 @@ public class Commander
      */
     private Label creditBalanceLabel;
 
-    private ListView<String> currentPoiNotes;
+    private ListView<PoiData> currentPoiNotes;
 
     /**
      * This object holds the persistent data related to this commander
@@ -176,10 +175,11 @@ public class Commander
     public void associatePoiControls(Button poiButton,
                                      TextField systemName,
                                      TextArea poiNotes,
-                                     ListView<String> systemPoiList,
+                                     ListView<PoiData> systemPoiList,
                                      TableView galaxyPoiList)
     {
         currentPoiNotes = systemPoiList;
+
         poiButton.setOnMouseClicked(event ->
         {
             String targetSystem = systemName.getText().toUpperCase();
@@ -197,7 +197,7 @@ public class Commander
             }
 
             // update the notes and collect all notes we will need to display
-            List<String> updatedNotes = database.computeInTransaction(txn ->
+            List<PoiData> updatedNotes = database.computeInTransaction(txn ->
             {
                 // get this commander
                 Entity commander = txn.getAll(commanderNameImmediate).getFirst();
@@ -218,18 +218,20 @@ public class Commander
                 });
 
                 // get any existing notes so we can display them
-                List<String> noteList = StreamSupport.stream(starSystem.getLinks(EntityLinks.POI_NOTES).spliterator(), false)
-                        .map(e -> e.getBlobString(EntityLinks.POI_NOTES))
+                List<PoiData> noteList = StreamSupport.stream(starSystem.getLinks(EntityLinks.POI_NOTES).spliterator(), false)
+                        .map(e ->
+                        {
+                            System.out.println("debug: " + e.getId());
+                            String t = e.getBlobString(EntityLinks.POI_NOTES);
+                            return new PoiData(e.getId(), t);
+                        })
                         .collect(Collectors.toList());
 
                 // add the POI notes being set right now
-                noteList.add(notes);
-
                 Entity n = txn.newEntity(EntityLinks.POI_NOTES);
                 starSystem.addLink(EntityLinks.POI_NOTES, n);
-
                 n.setBlobString(EntityLinks.POI_NOTES, notes);
-
+                noteList.add(new PoiData(n.getId(), notes));
                 return noteList;
             });
 
@@ -266,13 +268,12 @@ public class Commander
         location.setEconomy(economy);
     }
 
-    public void setLocation(StarSystem starSystem)
+    private void refreshSystemPoi(StarSystem starSystem)
     {
-        location.setStarSystem(starSystem);
         String systemName = starSystem.getSystemName().toUpperCase();
 
-        // update the notes and collect all notes we will need to display
-        List<String> updatedNotes = database.computeInTransaction(txn ->
+        // update the notes and collect all notes we will need to display for the current system
+        List<PoiData> updatedNotes = database.computeInTransaction(txn ->
         {
             // get this commander
             Entity commander = txn.getAll(commanderNameImmediate).getFirst();
@@ -293,7 +294,11 @@ public class Commander
                     });
 
             return StreamSupport.stream(starSystem2.getLinks(EntityLinks.POI_NOTES).spliterator(), false)
-                    .map(e -> e.getBlobString(EntityLinks.POI_NOTES))
+                    .map(entity ->
+                    {
+                        String notes = entity.getBlobString(EntityLinks.POI_NOTES);
+                        return new PoiData(entity.getId(), notes);
+                    })
                     .collect(Collectors.toList());
         });
 
@@ -302,32 +307,23 @@ public class Commander
             currentPoiNotes.getItems().clear();
             currentPoiNotes.getItems().addAll(updatedNotes);
         });
+    }
 
+    public void updatePoi(EntityId entityId, String notes)
+    {
+        database.executeInTransaction(txn ->
+        {
+            Entity entity = txn.getEntity(entityId);
+            entity.setBlobString(EntityLinks.POI_NOTES, notes);
+        });
 
-//        database.executeInTransaction(txn ->
-//        {
-//            Entity commander = txn.getAll(commanderNameImmediate).getFirst();
-//            EntityIterable starSystems = commander.getLinks(EntityLinks.STAR_SYSTEM);
-//            Optional<Entity> system = StreamSupport.stream(starSystems.spliterator(),false)
-//                    .filter(entity ->
-//                    {
-//                        String s = entity.getType();
-//                        return s.equals(systemName);
-//                    }).findAny();
-//
-//            if (starSystems.isEmpty() || system.isEmpty())
-//            {
-//                Entity newSystem = txn.newEntity(systemName);
-//                newSystem.setLink(EntityLinks.COMMANDER, commander);
-//                commander.addLink(EntityLinks.STAR_SYSTEM, newSystem);
-//
-//                System.out.println("Visited: " + systemName + " for the first time!");
-//            }
-//            else
-//            {
-//                System.out.println("Welcome back to: " + systemName);
-//            }
-//        });
+        refreshSystemPoi(location.getStarSystem());
+    }
+
+    public void setLocation(StarSystem starSystem)
+    {
+        location.setStarSystem(starSystem);
+        refreshSystemPoi(starSystem);
     }
 
     /**
