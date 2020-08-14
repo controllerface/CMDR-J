@@ -2,10 +2,10 @@ package com.controllerface.cmdr_j.classes.commander;
 
 import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import com.controllerface.cmdr_j.classes.StarSystem;
-import com.controllerface.cmdr_j.classes.data.EntityLinks;
+import com.controllerface.cmdr_j.classes.data.EntityKeys;
 import com.controllerface.cmdr_j.classes.data.PoiData;
-import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.Task;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.enums.commander.PlayerStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.commodities.CommodityType;
@@ -15,7 +15,8 @@ import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import jetbrains.exodus.entitystore.*;
@@ -26,7 +27,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * This class is intended to store all relevant data related to the Commander (player), such as inventory, ship loadout
@@ -83,6 +83,9 @@ public class Commander
 
     private ListView<PoiData> currentPoiNotes;
 
+    private TableView<PoiData> galaxyPoiTable;
+    private ObservableList<PoiData> galaxyPoiBackingList = FXCollections.observableArrayList();
+
     /**
      * This object holds the persistent data related to this commander
      */
@@ -102,40 +105,6 @@ public class Commander
         rawMats = new RawInventoryStorageBin(pendingTradeCost, addTask);
         mfdMats = new ManufacturedInventoryStorageBin(pendingTradeCost, addTask);
         dataMats = new EncodedInventoryStorageBin(pendingTradeCost, addTask);
-
-        // WORKING AREA
-//        try
-//        {
-//            Comparable<Integer> x = database.computeInTransaction(tx ->
-//            {
-//                EntityIterable i = tx.getAll("Test");
-//                if (i.isEmpty())
-//                {
-//                    Entity n = tx.newEntity("Test");
-//                    n.setProperty("hello", "there");
-//                    n.setProperty("count", 1);
-//                    return 1;
-//                }
-//                else
-//                {
-//                    Entity z = i.getFirst();
-//                    int c = 0;
-//                    Comparable<Integer> s = z.getProperty("count");
-//                    if (s instanceof Integer)
-//                    {
-//                        int sum = ((Integer) s) + 1;
-//                        z.setProperty("count", sum);
-//                        c = sum;
-//                    }
-//                    return c;
-//                }
-//            });
-//            System.out.println(x);
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-//        }
     }
 
 
@@ -172,75 +141,103 @@ public class Commander
     }
 
 
+    public void refreshGalaxyPoiTable()
+    {
+        galaxyPoiBackingList.clear();
+        database.executeInTransaction(txn ->
+        {
+            EntityKeys.entityStream(txn.getAll(EntityKeys.POI_NOTES))
+                    .map(n->
+                    {
+                        String name = n.getLink(EntityKeys.STAR_SYSTEM).getProperty(EntityKeys.NAME).toString();
+                        return new PoiData(n.getId(), name, n.getBlobString(EntityKeys.POI_NOTES));
+                    })
+                    .forEach(galaxyPoiBackingList::add);
+        });
+    }
+
+
+    private void addNewPoi(TextField systemName,
+                           TextArea poiNotes,
+                           ListView<PoiData> systemPoiList)
+    {
+        String targetSystem = systemName.getText().toUpperCase();
+        String notes = poiNotes.getText().toUpperCase();
+
+        if (targetSystem.isEmpty() || notes.isEmpty())
+        {
+            System.out.println("System name and notes must be non-empty");
+            return;
+        }
+
+        // update the notes and collect all notes we will need to display
+        List<PoiData> updatedNotes = database.computeInTransaction(txn ->
+        {
+            // get this commander
+            Entity commander = txn.find(EntityKeys.COMMANDER, EntityKeys.NAME, commanderNameImmediate).getFirst();
+            if (commander == null)
+            {
+                System.out.println("ERROR!");
+                return Collections.emptyList();
+            }
+
+            // query the DB for star systems with this system's name. If it does not exist yet, create it.
+            EntityIterable results = txn.find(EntityKeys.STAR_SYSTEM, EntityKeys.NAME, targetSystem);
+            Entity starSystem = Optional.ofNullable(results.getFirst())
+                    .orElseGet(() ->
+                    {
+                        Entity newSystem = txn.newEntity(EntityKeys.STAR_SYSTEM);
+                        newSystem.setProperty(EntityKeys.NAME, targetSystem);
+                        newSystem.setLink(EntityKeys.COMMANDER, commander);
+                        commander.addLink(EntityKeys.STAR_SYSTEM, newSystem);
+                        return newSystem;
+                    });
+
+            // get any existing notes so we can display them
+            List<PoiData> noteList = EntityKeys.entityStream(starSystem.getLinks(EntityKeys.POI_NOTES))
+                    .map(e ->
+                    {
+                        String t = e.getBlobString(EntityKeys.POI_NOTES);
+                        return new PoiData(e.getId(), targetSystem, t);
+                    })
+                    .collect(Collectors.toList());
+
+            // add the POI notes being set right now
+            Entity n = txn.newEntity(EntityKeys.POI_NOTES);
+            starSystem.addLink(EntityKeys.POI_NOTES, n);
+            n.addLink(EntityKeys.STAR_SYSTEM, starSystem);
+            n.setBlobString(EntityKeys.POI_NOTES, notes);
+            noteList.add(new PoiData(n.getId(), targetSystem, notes));
+            return noteList;
+        });
+
+        // if this was an update for the current system, update the list
+        if (targetSystem.equalsIgnoreCase(location.getStarSystem().getSystemName()))
+        {
+            systemPoiList.getItems().clear();
+            systemPoiList.getItems().addAll(updatedNotes);
+        }
+    }
+
+
     public void associatePoiControls(Button poiButton,
                                      TextField systemName,
                                      TextArea poiNotes,
                                      ListView<PoiData> systemPoiList,
-                                     TableView galaxyPoiList)
+                                     TableView<PoiData> galaxyPoiList)
     {
         currentPoiNotes = systemPoiList;
+        galaxyPoiTable = galaxyPoiList;
+        galaxyPoiTable.setItems(galaxyPoiBackingList);
 
         poiButton.setOnMouseClicked(event ->
         {
-            String targetSystem = systemName.getText().toUpperCase();
-            String notes = poiNotes.getText().toUpperCase();
-
-            if (targetSystem.isEmpty() || notes.isEmpty())
-            {
-                System.out.println("System name and notes must be non-empty");
-                return;
-            }
-
             if (event.getButton() != MouseButton.PRIMARY)
             {
                 return;
             }
 
-            // update the notes and collect all notes we will need to display
-            List<PoiData> updatedNotes = database.computeInTransaction(txn ->
-            {
-                // get this commander
-                Entity commander = txn.getAll(commanderNameImmediate).getFirst();
-                if (commander == null)
-                {
-                    System.out.println("ERROR!");
-                    return Collections.emptyList();
-                }
-
-                Entity starSystem = StreamSupport.stream(commander.getLinks(EntityLinks.STAR_SYSTEM).spliterator(), false)
-                        .filter(entity -> targetSystem.equals(entity.getType()))
-                        .findFirst().orElseGet(()->
-                {
-                    Entity newSystem = txn.newEntity(targetSystem);
-                    newSystem.setLink(EntityLinks.COMMANDER, commander);
-                    commander.addLink(EntityLinks.STAR_SYSTEM, newSystem);
-                    return newSystem;
-                });
-
-                // get any existing notes so we can display them
-                List<PoiData> noteList = StreamSupport.stream(starSystem.getLinks(EntityLinks.POI_NOTES).spliterator(), false)
-                        .map(e ->
-                        {
-                            System.out.println("debug: " + e.getId());
-                            String t = e.getBlobString(EntityLinks.POI_NOTES);
-                            return new PoiData(e.getId(), t);
-                        })
-                        .collect(Collectors.toList());
-
-                // add the POI notes being set right now
-                Entity n = txn.newEntity(EntityLinks.POI_NOTES);
-                starSystem.addLink(EntityLinks.POI_NOTES, n);
-                n.setBlobString(EntityLinks.POI_NOTES, notes);
-                noteList.add(new PoiData(n.getId(), notes));
-                return noteList;
-            });
-
-            // if this was an update for the current system, update the list
-            if (targetSystem.equalsIgnoreCase(location.getStarSystem().getSystemName()))
-            {
-                systemPoiList.getItems().clear();
-                systemPoiList.getItems().addAll(updatedNotes);
-            }
+            addNewPoi(systemName, poiNotes, systemPoiList);
         });
     }
 
@@ -276,28 +273,29 @@ public class Commander
         List<PoiData> updatedNotes = database.computeInTransaction(txn ->
         {
             // get this commander
-            Entity commander = txn.getAll(commanderNameImmediate).getFirst();
+            Entity commander = txn.find(EntityKeys.COMMANDER, EntityKeys.NAME, commanderNameImmediate).getFirst();
             if (commander == null)
             {
                 System.out.println("ERROR!");
                 return Collections.emptyList();
             }
 
-            Entity starSystem2 = StreamSupport.stream(commander.getLinks(EntityLinks.STAR_SYSTEM).spliterator(), false)
-                    .filter(entity -> systemName.equals(entity.getType()))
-                    .findFirst().orElseGet(()->
+            EntityIterable results = txn.find(EntityKeys.STAR_SYSTEM, EntityKeys.NAME, systemName);
+            Entity starSystem2 = Optional.ofNullable(results.getFirst())
+                    .orElseGet(()->
                     {
-                        Entity newSystem = txn.newEntity(systemName);
-                        newSystem.setLink(EntityLinks.COMMANDER, commander);
-                        commander.addLink(EntityLinks.STAR_SYSTEM, newSystem);
+                        Entity newSystem = txn.newEntity(EntityKeys.STAR_SYSTEM);
+                        newSystem.setProperty(EntityKeys.NAME, systemName);
+                        newSystem.setLink(EntityKeys.COMMANDER, commander);
+                        commander.addLink(EntityKeys.STAR_SYSTEM, newSystem);
                         return newSystem;
                     });
 
-            return StreamSupport.stream(starSystem2.getLinks(EntityLinks.POI_NOTES).spliterator(), false)
+            return EntityKeys.entityStream(starSystem2.getLinks(EntityKeys.POI_NOTES))
                     .map(entity ->
                     {
-                        String notes = entity.getBlobString(EntityLinks.POI_NOTES);
-                        return new PoiData(entity.getId(), notes);
+                        String notes = entity.getBlobString(EntityKeys.POI_NOTES);
+                        return new PoiData(entity.getId(), systemName, notes);
                     })
                     .collect(Collectors.toList());
         });
@@ -313,8 +311,18 @@ public class Commander
     {
         database.executeInTransaction(txn ->
         {
-            Entity entity = txn.getEntity(entityId);
-            entity.setBlobString(EntityLinks.POI_NOTES, notes);
+            Entity poi = txn.getEntity(entityId);
+            if (notes.isEmpty())
+            {
+                Optional.ofNullable(poi.getLinks(EntityKeys.STAR_SYSTEM).getFirst())
+                        .ifPresent(system -> system.deleteLink(EntityKeys.POI_NOTES, poi));
+
+                poi.delete();
+            }
+            else
+            {
+                poi.setBlobString(EntityKeys.POI_NOTES, notes);
+            }
         });
 
         refreshSystemPoi(location.getStarSystem());
@@ -350,9 +358,10 @@ public class Commander
             commanderNameImmediate = stat;
             database.executeInTransaction(txn ->
             {
-                if (txn.getAll(commanderNameImmediate).isEmpty())
+                if (txn.find(EntityKeys.COMMANDER, EntityKeys.NAME, commanderNameImmediate).isEmpty());
                 {
-                    txn.newEntity(commanderNameImmediate);
+                    txn.newEntity(EntityKeys.COMMANDER)
+                            .setProperty(EntityKeys.NAME, commanderNameImmediate);
                 }
             });
         }
@@ -489,19 +498,6 @@ public class Commander
     {
         cargo.clear();
     }
-
-
-
-
-
-    public void createPoi(String system, String notes)
-    {
-        // 1. add poi to DB
-
-        // 2. update current system and galaxy tables
-    }
-
-
 
     public long amountOf(TaskCost cost)
     {

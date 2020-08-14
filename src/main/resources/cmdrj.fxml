@@ -10,7 +10,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
@@ -1248,12 +1247,17 @@
                                                             <ListView fx:id="system_poi_list" editable="true" prefHeight="200.0" prefWidth="200.0" styleClass="system_poi_list" />
                                                          </content>
                                                       </Tab>
-                                                      <Tab closable="false" text="Galaxy">
+                                                      <Tab fx:id="galaxy_poi_tab" closable="false" text="Galaxy">
                                                          <content>
                                                             <ListView prefHeight="293.0" prefWidth="932.0" />
                                                          </content>
                                                          <content>
-                                                            <Pagination prefHeight="200.0" prefWidth="200.0" />
+                                                            <TableView fx:id="galaxy_poi_table" prefHeight="200.0" prefWidth="200.0" styleClass="galaxy_poi_table">
+                                                              <columns>
+                                                                <TableColumn fx:id="galaxy_poi_system_col" prefWidth="220.0" text="System" />
+                                                                <TableColumn fx:id="galaxy_poi_notes_col" minWidth="0.0" prefWidth="623.0" text="Notes" />
+                                                              </columns>
+                                                            </TableView>
                                                          </content>
                                                       </Tab>
                                                    </tabs>

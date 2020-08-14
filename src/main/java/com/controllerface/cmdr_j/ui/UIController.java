@@ -56,6 +56,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -294,6 +295,11 @@ public class UIController
 
     @FXML private Label commander_name;
     @FXML private Label credit_balance;
+
+    @FXML private Tab galaxy_poi_tab;
+    @FXML private TableView<PoiData> galaxy_poi_table;
+    @FXML private TableColumn<PoiData, String> galaxy_poi_system_col;
+    @FXML private TableColumn<PoiData, String> galaxy_poi_notes_col;
 
     @FXML private ListView<PoiData> system_poi_list;
     @FXML private Button create_poi_button;
@@ -1202,16 +1208,28 @@ public class UIController
         initializeSelectionOverrides();
         initializeTaskTab();
 
+        galaxy_poi_tab.setOnSelectionChanged(event ->
+        {
+            if (((Tab) event.getTarget()).isSelected())
+            {
+                commander.refreshGalaxyPoiTable();
+            }
+        });
+
+        galaxy_poi_system_col.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().systemName));
+        galaxy_poi_notes_col.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().poiText));
+
         system_poi_list.setCellFactory(param -> new ListCell<>()
         {
             @Override
             public void updateItem(PoiData item, boolean empty)
             {
                 super.updateItem(item, empty);
-                if (empty || item==null)
+                if (empty || item == null)
                 {
                     setGraphic(null);
                     setText(null);
+                    setOnMouseClicked(null);
                 }
                 else
                 {
@@ -1519,7 +1537,7 @@ public class UIController
         commander.associateManufacturedTable(manufactured_table, show_zero_quantities);
         commander.associateDataTable(data_table, show_zero_quantities);
 
-        commander.associatePoiControls(create_poi_button, create_poi_name, create_poi_notes, system_poi_list, null);
+        commander.associatePoiControls(create_poi_button, create_poi_name, create_poi_notes, system_poi_list, galaxy_poi_table);
     }
 
     /**

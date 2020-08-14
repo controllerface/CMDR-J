@@ -583,6 +583,29 @@ Ship module statistics tables
     -fx-padding:0;
 }
 
+.galaxy_poi_table
+{
+    -fx-background-color: #151515;
+        -fx-text-fill: #ffaa55;
+}
+
+/*
+.galaxy_poi_table .table-row-cell:odd
+{
+    -fx-background-color:  #ff00ff;
+}
+
+.galaxy_poi_table .table-row-cell:even
+{
+    -fx-background-color: #0ffff0;
+}
+
+.galaxy_poi_table .table-view .table-cell
+{
+    -fx-background-color: #222222;
+    -fx-text-fill: #ff0000;
+}
+*/
 
 .system_poi_list
 {
