@@ -33,7 +33,8 @@ public class JournalSyncTask implements Runnable
     private enum SupplementalDataFile
     {
         MARKET("Market.json"),
-        CARGO("Cargo.json");
+        CARGO("Cargo.json"),
+        NAV_ROUTE("NavRoute.json");
 
         private final String fileName;
 
@@ -337,6 +338,11 @@ public class JournalSyncTask implements Runnable
     public static Map<String, Object> readCargoData()
     {
         return readSupplementalFile(SupplementalDataFile.CARGO);
+    }
+
+    public static Map<String, Object> readNavRouteData()
+    {
+        return readSupplementalFile(SupplementalDataFile.NAV_ROUTE);
     }
 
     private void initializeJournalData()

@@ -283,7 +283,7 @@ public class ShipModuleDisplay implements Displayable
                     for (Engineer engineer : engineers)
                     {
                         Label engineerLabel = new Label(engineer.getFullName() + " :: "
-                                + engineer.getLocation().getSystemName());
+                                + engineer.getLocation().systemName);
                         engineerLabel.setTextFill(UIFunctions.Style.darkOrange);
                         engineerLabel.getStyleClass().add("base_font");
                         costEffectContainer.getChildren().add(engineerLabel);

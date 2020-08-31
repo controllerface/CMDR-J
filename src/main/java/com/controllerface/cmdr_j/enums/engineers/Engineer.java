@@ -27,17 +27,17 @@ public enum Engineer
      */
 
     DIDI_VATERMANN("Didi Vatermann",
-            new StarSystem("Vatermann LLC :: Leesti", 72.75, 48.75, 68.25),
+            new StarSystem("Vatermann LLC :: Leesti", 72.75, 68.25, 48.75, 3932277478114L),
             new Pair<>(new Pair<>(ModificationType.Shield_Booster, ExperimentalType.Shield_Booster), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator), ItemGrade.GRADE_3)),
 
     COLONEL_BRIS_DEKKER("Colonel Bris Dekker",
-            new StarSystem("Dekker's Yard :: Sol", 0, 0, 0),
+            new StarSystem("Dekker's Yard :: Sol", 0, 0, 0, 10477373803L),
             new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive_Interdictor, null), ItemGrade.GRADE_4),
             new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_3)),
 
     THE_SARGE("The Sarge",
-            new StarSystem("The Beach :: Beta-3 Tucani", 32.25, -55.1875, 23.875),
+            new StarSystem("The Beach :: Beta-3 Tucani", 32.25, 23.875, -55.1875, 2827992680811L),
             new Pair<>(new Pair<>(ModificationType.Collector_Limpet_Controller, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Fuel_Transfer_Limpet, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Hatch_Breaker_Limpet, null), ItemGrade.GRADE_5),
@@ -46,18 +46,18 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Rail_Gun, ExperimentalType.Rail_Gun), ItemGrade.GRADE_3)),
 
     MARCO_QWENT("Marco Qwent",
-            new StarSystem("Qwent Research Base :: Sirius", 6.25, -1.28125, -5.75),
+            new StarSystem("Qwent Research Base :: Sirius", 6.25, -5.75, -1.28125, 121569805492L),
             new Pair<>(new Pair<>(ModificationType.Power_Plant, ExperimentalType.Power_Plant), ItemGrade.GRADE_4),
             new Pair<>(new Pair<>(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor), ItemGrade.GRADE_3)),
 
     ZACARIAH_NEMO("Zacariah Nemo",
-            new StarSystem("Nemo Cyber Party Base :: Yoru", 97.875, -86.90625, 64.125),
+            new StarSystem("Nemo Cyber Party Base :: Yoru", 97.875, 64.125, -86.90625, 6131367744226L),
             new Pair<>(new Pair<>(ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon), ItemGrade.GRADE_3),
             new Pair<>(new Pair<>(ModificationType.Plasma_Accelerator, ExperimentalType.Plasma_Accelerator), ItemGrade.GRADE_2)),
 
     LORI_JAMESON("Lori Jameson",
-            new StarSystem("Jameson Base :: Shinrarta Dezhra", 55.71875, 17.59375, 27.15625),
+            new StarSystem("Jameson Base :: Shinrarta Dezhra", 55.71875, 27.15625, 17.59375, 3932277478106L),
             new Pair<>(new Pair<>(ModificationType.Sensors, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Detailed_Surface_Scanner, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Refinery, null), ItemGrade.GRADE_4),
@@ -70,7 +70,7 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Shield_Cell_Bank, ExperimentalType.Shield_Cell_Bank), ItemGrade.GRADE_3)),
 
     JURI_ISHMAAK("Juri Ishmaak",
-            new StarSystem("Pater's Memorial :: Giryak", 14.6875, 27.65625, 108.65625),
+            new StarSystem("Pater's Memorial :: Giryak", 14.6875, 108.65625, 27.65625, 4481899074282L),
             new Pair<>(new Pair<>(ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Sensors, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Detailed_Surface_Scanner, null), ItemGrade.GRADE_5),
@@ -82,7 +82,7 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Missile_Rack, ExperimentalType.Missile_Rack), ItemGrade.GRADE_3)),
 
     BILL_TURNER("Bill Turner",
-            new StarSystem("Turner Metallics Inc. :: Alioth", -33.65625, 72.46875 , -20.65625),
+            new StarSystem("Turner Metallics Inc. :: Alioth", -33.65625, -20.65625, 72.46875 , 1109989017963L),
             new Pair<>(new Pair<>(ModificationType.Plasma_Accelerator, ExperimentalType.Plasma_Accelerator), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Sensors, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Detailed_Surface_Scanner, null), ItemGrade.GRADE_5),
@@ -95,7 +95,7 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Manifest_Scanner, null), ItemGrade.GRADE_3)),
 
     TIANA_FORTUNE("Tiana Fortune",
-            new StarSystem("Fortune's Loss :: Achenar", 67.5, -119.46875, 24.84375),
+            new StarSystem("Fortune's Loss :: Achenar", 67.5, 24.84375, -119.46875, 164098653L),
             new Pair<>(new Pair<>(ModificationType.Frame_Shift_Wake_Scanner, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Kill_Warrant_Scanner, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Manifest_Scanner, null), ItemGrade.GRADE_5),
@@ -108,20 +108,20 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Detailed_Surface_Scanner, null), ItemGrade.GRADE_3)),
 
     ELVIRA_MARTUUK("Elvira Martuuk",
-            new StarSystem("Long Sight Base :: Khun", -171.59375, 19.96875, -56.96875),
+            new StarSystem("Long Sight Base :: Khun", -171.59375, -56.96875, 19.96875, 3107241104074L),
             new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator), ItemGrade.GRADE_3),
             new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_2),
             new Pair<>(new Pair<>(ModificationType.Shield_Cell_Bank, ExperimentalType.Shield_Cell_Bank), ItemGrade.GRADE_1)),
 
     BROO_TARQUIN("Broo Tarquin",
-            new StarSystem("Broo's Legacy :: Muang", 17.03125, -172.78125, -3.46875),
+            new StarSystem("Broo's Legacy :: Muang", 17.03125, -3.46875, -172.78125, 4481966019282L),
             new Pair<>(new Pair<>(ModificationType.Burst_Laser, ExperimentalType.Burst_Laser), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Beam_Laser, ExperimentalType.Beam_Laser), ItemGrade.GRADE_5)),
 
     FELICITY_FARSEER("Felicity Farseer",
-            new StarSystem("Farseer Inc. :: Deciat", 122.625, -0.8125, -47.28125),
+            new StarSystem("Farseer Inc. :: Deciat", 122.625, -47.28125, -0.8125, 6681123623626L),
             new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_3),
             new Pair<>(new Pair<>(ModificationType.Sensors, null), ItemGrade.GRADE_3),
@@ -131,33 +131,33 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Power_Plant, ExperimentalType.Power_Plant), ItemGrade.GRADE_1)),
 
     LEI_CHEUNG("Lei Cheung",
-            new StarSystem("Trader's Rest :: Laksak", -21.53125, -6.3125, 116.03125),
+            new StarSystem("Trader's Rest :: Laksak", -21.53125, 116.03125, -6.3125, 4305444669811L),
             new Pair<>(new Pair<>(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Sensors, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Detailed_Surface_Scanner, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Shield_Booster, ExperimentalType.Shield_Booster), ItemGrade.GRADE_3)),
 
     THE_DWELLER("The Dweller",
-            new StarSystem("Black Hide :: Wyrd", -11.625, 31.53125, -3.9375),
+            new StarSystem("Black Hide :: Wyrd", -11.625, -3.9375, 31.53125, 5031654888146L),
             new Pair<>(new Pair<>(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser), ItemGrade.GRADE_4),
             new Pair<>(new Pair<>(ModificationType.Burst_Laser, ExperimentalType.Burst_Laser), ItemGrade.GRADE_3),
             new Pair<>(new Pair<>(ModificationType.Beam_Laser, ExperimentalType.Beam_Laser), ItemGrade.GRADE_3)),
 
     HERA_TANI("Hera Tani",
-            new StarSystem("The Jet's Hole :: Kuwemaki", 134.65625, -226.90625, -7.8125),
+            new StarSystem("The Jet's Hole :: Kuwemaki", 134.65625, -7.8125, -226.90625, 1733321102034L),
             new Pair<>(new Pair<>(ModificationType.Power_Plant, ExperimentalType.Power_Plant), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Detailed_Surface_Scanner, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Sensors, null), ItemGrade.GRADE_3),
             new Pair<>(new Pair<>(ModificationType.Power_Distributor, ExperimentalType.Power_Distributor), ItemGrade.GRADE_3)),
 
     PROFESSOR_PALIN("Professor Palin",
-            new StarSystem("Abel Laboratory :: Arque", 66.5, 38.0625, 61.125),
+            new StarSystem("Abel Laboratory :: Arque", 66.5, 61.125, 38.0625, 113573366131L),
             new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_3)),
 
     RAM_TAH("Ram Tah",
-            new StarSystem("Phoenix Base :: Meene ", 118.78125, -56.4375, -97.1875),
+            new StarSystem("Phoenix Base :: Meene ", 118.78125, -97.1875, -56.4375, 3790082132323L),
             new Pair<>(new Pair<>(ModificationType.Electronic_Countermeasures, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Point_Defense, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Heat_Sink_Launcher, null), ItemGrade.GRADE_5),
@@ -168,12 +168,12 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Hatch_Breaker_Limpet, null), ItemGrade.GRADE_3)),
 
     SELENE_JEAN("Selene Jean",
-            new StarSystem("Prospector's Rest :: Kuk", -21.28125, 69.09375, -16.3125),
+            new StarSystem("Prospector's Rest :: Kuk", -21.28125, -16.3125, 69.09375, 24859942069665L),
             new Pair<>(new Pair<>(ModificationType.Hull_Reinforcement_Package, ExperimentalType.Hull_Reinforcement_Package), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Bulkheads, ExperimentalType.Bulkheads), ItemGrade.GRADE_5)),
 
     LIZ_RYDER("Liz Ryder",
-            new StarSystem("Demolition Unlimited :: Eurybia", 51.40625, -54.40625, -30.5),
+            new StarSystem("Demolition Unlimited :: Eurybia", 51.40625, -30.5, -54.40625, 1458309141194L),
             new Pair<>(new Pair<>(ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Torpedo_Pylon, ExperimentalType.Torpedo_Pylon), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Missile_Rack, ExperimentalType.Missile_Rack), ItemGrade.GRADE_5),
@@ -182,7 +182,7 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Bulkheads, ExperimentalType.Bulkheads), ItemGrade.GRADE_1)),
 
     TOD_MCQUINN("Tod \"The Blaster\" McQuinn",
-            new StarSystem("Trophy Camp :: Wolf 397", 40, 79.21875, -10.40625),
+            new StarSystem("Trophy Camp :: Wolf 397", 40, -10.40625, 79.21875, 3107576681170L),
             new Pair<>(new Pair<>(ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Rail_Gun, ExperimentalType.Rail_Gun), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Fragment_Cannon, ExperimentalType.Fragment_Cannon), ItemGrade.GRADE_3),
@@ -193,7 +193,7 @@ public enum Engineer
      */
 
     ETIENNE_DORN("Etienne Dorn",
-            new StarSystem("Kraken's Retreat :: Los",-9509.34375,-886.3125,19820.125),
+            new StarSystem("Kraken's Retreat :: Los",-9509.34375, 19820.125, -886.3125, 11887629902418L),
             new Pair<>(new Pair<>(ModificationType.Sensors, null), ItemGrade.GRADE_3),
             new Pair<>(new Pair<>(ModificationType.Rail_Gun, ExperimentalType.Rail_Gun), ItemGrade.GRADE_3),
             new Pair<>(new Pair<>(ModificationType.Power_Plant, ExperimentalType.Power_Plant), ItemGrade.GRADE_3),
@@ -205,7 +205,7 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Frame_Shift_Wake_Scanner, null), ItemGrade.GRADE_4)),
 
     MEL_BRANDON("Mel Brandon",
-            new StarSystem("The Brig :: Luchtaine",-9523.3125, -914.46875, 19825.90625),
+            new StarSystem("The Brig :: Luchtaine",-9523.3125, 19825.90625, -914.46875, 66038577537618L),
             new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser), ItemGrade.GRADE_5),
@@ -217,7 +217,7 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive_Interdictor, null), ItemGrade.GRADE_3)),
 
     MARSHA_HICKS("Marsha Hicks",
-            new StarSystem("The Watchtower :: Tir",-9532.9375, -923.4375, 19799.125),
+            new StarSystem("The Watchtower :: Tir",-9532.9375, 19799.125, -923.4375, 48996147307082L),
             new Pair<>(new Pair<>(ModificationType.Collector_Limpet_Controller, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Fuel_Scoop, null), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Multi_Cannon, ExperimentalType.Multi_Cannon), ItemGrade.GRADE_5),
@@ -229,7 +229,7 @@ public enum Engineer
             new Pair<>(new Pair<>(ModificationType.Hatch_Breaker_Limpet, null), ItemGrade.GRADE_1)),
 
     PETRA_OLMANOVA("Petra Olmenova",
-            new StarSystem("Sanctuary :: Asura",-9550.28125, -916.65625, 19816.1875),
+            new StarSystem("Sanctuary :: Asura",-9550.28125, 19816.1875, -916.65625, 12274907287851L),
             new Pair<>(new Pair<>(ModificationType.Hull_Reinforcement_Package, ExperimentalType.Hull_Reinforcement_Package), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Bulkheads, ExperimentalType.Bulkheads), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Heat_Sink_Launcher, null), ItemGrade.GRADE_4),
@@ -247,7 +247,7 @@ public enum Engineer
      */
 
     CHLOE_SEDESI("Chloe Sedesi",
-            new StarSystem("Conder's Dock :: Witch Head Sector DL-Y D17",351.96875, -373.46875, -711.09375),
+            new StarSystem("Conder's Dock :: Shenve",351.96875, -711.09375, -373.46875, 594676730147L),
             new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_3)),
     ;

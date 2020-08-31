@@ -7,23 +7,23 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
  */
 public class StarSystem
 {
-    private final String systemName;
-    private final double xPos;
-    private final double yPos;
-    private final double zPos;
+    // todo: make public, drop getters
+    public final String systemName;
+    public final double xPos;
+    public final double yPos;
+    public final double zPos;
+    public final long address;
 
-    public StarSystem(String systemName, double xPos, double yPos, double zPos)
+    public StarSystem(String systemName, double xPos, double yPos, double zPos, long address)
     {
         this.systemName = systemName;
+
         this.xPos = xPos;
         this.yPos = yPos;
         this.zPos = zPos;
-    }
 
-    public String getSystemName() { return systemName; }
-    public double getxPos() { return xPos; }
-    public double getyPos() { return yPos; }
-    public double getzPos() { return zPos; }
+        this.address = address;
+    }
 
     public double distanceBetween(StarSystem that)
     {

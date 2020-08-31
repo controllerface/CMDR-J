@@ -56,8 +56,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -67,11 +65,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -80,8 +75,6 @@ import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 import javafx.util.Callback;
 import javafx.util.Pair;
-import javafx.util.StringConverter;
-import javafx.util.converter.DefaultStringConverter;
 
 import java.io.File;
 import java.io.IOException;
@@ -299,17 +292,20 @@ public class UIController
     @FXML private Tab galaxy_poi_tab;
     @FXML private TableView<PoiData> galaxy_poi_table;
     @FXML private TableColumn<PoiData, String> galaxy_poi_system_col;
-    @FXML private TableColumn<PoiData, String> galaxy_poi_notes_col;
+    @FXML private TableColumn<PoiData, PoiData> galaxy_poi_notes_col;
 
     @FXML private ListView<PoiData> system_poi_list;
     @FXML private Button create_poi_button;
+    @FXML private Button current_system_button;
     @FXML private TextField create_poi_name;
     @FXML private TextArea create_poi_notes;
+    @FXML private ComboBox<String> poi_system_selector;
 
     @FXML private Canvas mini_map;
     @FXML private Slider mini_map_scale;
 
     @FXML private SubScene ship_graphic;
+    @FXML private SubScene galaxy_graphic;
 
     /*
     Backing lists for the task UI elements
@@ -824,6 +820,9 @@ public class UIController
 
         mini_map_scale.valueProperty().addListener((observable, oldValue, newValue) -> renderMiniMap());
 
+        poi_system_selector.getItems().addAll("test1", "test2", "test3");
+        poi_system_selector.setOnAction(event -> create_poi_name.textProperty().set(poi_system_selector.getValue()));
+
         waypoint_list.setCellFactory(new Callback<>()
         {
             @Override
@@ -1217,7 +1216,80 @@ public class UIController
         });
 
         galaxy_poi_system_col.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().systemName));
-        galaxy_poi_notes_col.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().poiText));
+
+        galaxy_poi_notes_col.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+
+        galaxy_poi_notes_col.setCellFactory(new Callback<>()
+        {
+            @Override
+            public TableCell<PoiData, PoiData> call(TableColumn<PoiData, PoiData> param)
+            {
+                return new TableCell<>()
+                {
+                    @Override
+                    protected void updateItem(PoiData item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+                        if (item == null || empty)
+                        {
+                            setText(null);
+                            setGraphic(null);
+                            setOnMouseClicked(null);
+                            return;
+                        }
+
+                        Label message = new Label(item.poiText);
+                        message.getStyleClass().addAll("light_color_label","base_font");
+                        setGraphic(message);
+                        prefWidthProperty()
+                                .bind(galaxy_poi_table.widthProperty().subtract(galaxy_poi_system_col.widthProperty()));
+
+
+                        setOnMouseClicked(event ->
+                        {
+                            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2)
+                            {
+                                Label m = (Label) getGraphic();
+                                String original = m.getText();
+                                TextArea textArea = new TextArea(m.getText());
+                                textArea.getStyleClass().addAll("poi_field");
+                                setGraphic(textArea);
+
+                                ChangeListener<Boolean> updateListener = (observable, oldValue, newValue) ->
+                                {
+                                    if (oldValue)
+                                    {
+                                        String editText = textArea.getText();
+                                        if (!editText.equalsIgnoreCase(original))
+                                        {
+                                            commander.updatePoi(item.entityId, editText);
+                                        }
+                                        Label newText = new Label(editText);
+                                        newText.getStyleClass().addAll("light_color_label","base_font");
+                                        setGraphic(newText);
+                                    }
+                                };
+
+                                textArea.setOnKeyPressed(event1 ->
+                                {
+                                    if (event1.getCode() == KeyCode.ESCAPE)
+                                    {
+                                        Label originalMessage = new Label(original);
+                                        originalMessage.getStyleClass().addAll("light_color_label","base_font");
+                                        textArea.focusedProperty().removeListener(updateListener);
+                                        setGraphic(originalMessage);
+                                    }
+                                });
+
+                                textArea.requestFocus();
+                                textArea.focusedProperty().addListener(updateListener);
+                            }
+                        });
+
+                    }
+                };
+            }
+        });
 
         system_poi_list.setCellFactory(param -> new ListCell<>()
         {
@@ -1529,15 +1601,25 @@ public class UIController
 
     private void initializeCommanderBindings()
     {
-        // associate the inventory lists with the table view UI elements that display their contents
-        commander.associateCommanderName(commander_name);
-        commander.associateCommanderBalance(credit_balance);
-        commander.associateCargoTable(cargo_table, show_zero_quantities);
-        commander.associateRawTable(raw_table, show_zero_quantities);
-        commander.associateManufacturedTable(manufactured_table, show_zero_quantities);
-        commander.associateDataTable(data_table, show_zero_quantities);
+        CommanderUIControls commanderUIControls = CommanderUIControls.builder()
+                .setCommanderName(commander_name)
+                .setCreditBalance(credit_balance)
+                .setShowZeroQuantities(show_zero_quantities)
+                .setCargoTable(cargo_table)
+                .setRawTable(raw_table)
+                .setManufacturedTable(manufactured_table)
+                .setDataTable(data_table)
+                .setCreatePoiButton(create_poi_button)
+                .setCurrentSystemButton(current_system_button)
+                .setCreatePoiName(create_poi_name)
+                .setCreatePoiNotes(create_poi_notes)
+                .setSystemPoiList(system_poi_list)
+                .setGalaxyPoiTable(galaxy_poi_table)
+                .setPoiSystemSelector(poi_system_selector)
+                .setGalaxyGraphic(galaxy_graphic)
+                .build();
 
-        commander.associatePoiControls(create_poi_button, create_poi_name, create_poi_notes, system_poi_list, galaxy_poi_table);
+        commander.associateUIControls(commanderUIControls);
     }
 
     /**
@@ -1673,6 +1755,7 @@ public class UIController
         commander.getShip().associateShieldRegenLabels(s_regen_label, s_broken_regen_label);
 
         ship_graphic.setFocusTraversable(true);
+        galaxy_graphic.setFocusTraversable(true);
         commander.getShip().setShipGraphic(ship_graphic);
         commander.getShip().setDpsSpinner(dps_spinner, sys_spinner);
 

@@ -585,8 +585,36 @@ Ship module statistics tables
 
 .galaxy_poi_table
 {
+    /*-fx-background-color: #151515;*/
+    -fx-text-fill: #ffaa55;
+    -fx-font-size:16.0;
+
+}
+
+.galaxy_poi_table .table-cell
+{
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffaa55;
+        -fx-border-width: 0 0 0 0;
+
+}
+
+.galaxy_poi_table .table-row-cell
+{
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 0 0;
+    -fx-table-cell-border-color: #343434;
+    -fx-background-color: #ffffff;
+}
+
+.galaxy_poi_table .table-row-cell:odd
+{
     -fx-background-color: #151515;
-        -fx-text-fill: #ffaa55;
+}
+
+.galaxy_poi_table .table-row-cell:even
+{
+    -fx-background-color: #181818;
 }
 
 /*

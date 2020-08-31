@@ -145,7 +145,7 @@ public class TaskListCell extends ListCell<Task>
                 for (Engineer engineer : engineers)
                 {
                     Label engineerLabel = new Label(engineer.getFullName() + " :: "
-                            + engineer.getLocation().getSystemName());
+                            + engineer.getLocation().systemName);
                     engineerLabel.getStyleClass().addAll("base_font");
                     engineerLabel.setTextFill(UIFunctions.Style.darkOrange);
                     costEffectContainer.getChildren().add(engineerLabel);

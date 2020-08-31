@@ -59,7 +59,7 @@ public class CommanderLocation
         {
             synchronized (currentLocation)
             {
-                currentLocation.set(this.starSystem.getSystemName());
+                currentLocation.set(this.starSystem.systemName);
             }
         });
     }

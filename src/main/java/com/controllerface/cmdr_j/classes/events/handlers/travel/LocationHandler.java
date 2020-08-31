@@ -19,10 +19,11 @@ public class LocationHandler implements JournalEventHandler
     public void handle(EventProcessingContext context)
     {
         String name = ((String) context.getRawData().get("StarSystem"));
+        long address = ((Number) context.getRawData().get("SystemAddress")).longValue();
         //Long systemAddress = ((Long) context.getRawData().get("SystemAddress"));
         logTravelMessage(context, "Spawned in the " + name + " System");
         List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
-        StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
+        StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(2), coordinates.get(1), address);
         context.getCommander().setLocation(system);
         processArrival(context, ((String) context.getRawData().get("Body")));
     }

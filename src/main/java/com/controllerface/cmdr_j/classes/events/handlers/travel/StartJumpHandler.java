@@ -21,7 +21,7 @@ public class StartJumpHandler implements JournalEventHandler
         String system = ((String) context.getRawData().get("StarSystem"));
         if (system !=null)
         {
-            String currentSystem = context.getCommander().getLocation().getStarSystem().getSystemName();
+            String currentSystem = context.getCommander().getLocation().getStarSystem().systemName;
             logTravelMessage(context, "Leaving the " + currentSystem + " System; Jumping to " + system);
         }
 

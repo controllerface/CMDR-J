@@ -13,17 +13,33 @@ import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialType;
 import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
+import com.controllerface.cmdr_j.ui.CommanderUIControls;
 import com.controllerface.cmdr_j.ui.UIFunctions;
+import com.controllerface.cmdr_j.ui.models.ModelUtilities;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.PointLight;
+import javafx.scene.SubScene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.MeshView;
+import javafx.scene.shape.Sphere;
+import javafx.scene.shape.TriangleMesh;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import jetbrains.exodus.entitystore.*;
 
 import java.text.NumberFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -71,20 +87,9 @@ public class Commander
      */
     private String commanderNameImmediate = "";
 
-    /**
-     * Label for commander name
-     */
-    private Label commanderName;
+    private CommanderUIControls uiControls;
 
-    /**
-     * Label for player's credit balance
-     */
-    private Label creditBalanceLabel;
-
-    private ListView<PoiData> currentPoiNotes;
-
-    private TableView<PoiData> galaxyPoiTable;
-    private ObservableList<PoiData> galaxyPoiBackingList = FXCollections.observableArrayList();
+    private final ObservableList<PoiData> galaxyPoiBackingList = FXCollections.observableArrayList();
 
     /**
      * This object holds the persistent data related to this commander
@@ -107,60 +112,260 @@ public class Commander
         dataMats = new EncodedInventoryStorageBin(pendingTradeCost, addTask);
     }
 
-
-
-
-    public void associateCommanderName(Label commanderName)
+    public void associateUIControls(CommanderUIControls commanderUIControls)
     {
-        this.commanderName = commanderName;
+        this.uiControls = commanderUIControls;
+
+        cargo.associateTableView(commanderUIControls.cargo_table, commanderUIControls.show_zero_quantities);
+        rawMats.associateTableView(commanderUIControls.raw_table, commanderUIControls.show_zero_quantities);
+        mfdMats.associateTableView(commanderUIControls.manufactured_table, commanderUIControls.show_zero_quantities);
+        dataMats.associateTableView(commanderUIControls.data_table, commanderUIControls.show_zero_quantities);
+
+        this.uiControls.galaxy_poi_table.setItems(galaxyPoiBackingList);
+
+        this.uiControls.create_poi_button.setOnMouseClicked(event -> Optional.of(event.getButton())
+                .filter(button -> button == MouseButton.PRIMARY)
+                .ifPresent(_x -> addNewPoi()));
+
+        this.uiControls.current_system_button.setOnMouseClicked(event ->
+                this.uiControls.create_poi_name.textProperty().set(location.getStarSystem().systemName));
+
+        renderGalaxyGraphic();
+
     }
 
-    public void associateCommanderBalance(Label creditBalanceLabel)
-    {
-        this.creditBalanceLabel = creditBalanceLabel;
-    }
+    // 25.21875 / -20.90625 / 25899.96875
+    double offsetX = -25.21875;
+    double offsetY = -25899.96875;
+    double offsetZ = 20.90625;
 
-    public void associateCargoTable(TableView<InventoryDisplay> cargoTable, CheckBox showZeroQuantities)
-    {
-        cargo.associateTableView(cargoTable, showZeroQuantities);
-    }
+    double scale = 1;
 
-    public void associateRawTable(TableView<InventoryDisplay> rawTable, CheckBox showZeroQuantities)
+    private void renderGalaxyGraphic()
     {
-        rawMats.associateTableView(rawTable, showZeroQuantities);
-    }
+        TriangleMesh mesh = ModelUtilities.STL.loadModel("/models/galaxy_model.stl", false, false);
 
-    public void associateManufacturedTable(TableView<InventoryDisplay> mfdTable, CheckBox showZeroQuantities)
-    {
-        mfdMats.associateTableView(mfdTable, showZeroQuantities);
-    }
+        // Create a Camera to view the 3D Shapes
+        PerspectiveCamera camera = new PerspectiveCamera(false);
 
-    public void associateDataTable(TableView<InventoryDisplay> dataTable, CheckBox showZeroQuantities)
-    {
-        dataMats.associateTableView(dataTable, showZeroQuantities);
-    }
+        DoubleProperty camX = new SimpleDoubleProperty(-400);
+        DoubleProperty camY = new SimpleDoubleProperty(300);
+        DoubleProperty camZ = new SimpleDoubleProperty(100000);
 
+        Rotate cRotate = new Rotate(180, Rotate.X_AXIS);
+
+        Translate cameraMove = new Translate(0,0,0);
+        cameraMove.xProperty().bind(camX);
+        cameraMove.yProperty().bind(camY);
+        cameraMove.zProperty().bind(camZ);
+
+        camera.getTransforms().addAll(cameraMove, cRotate);
+
+        Group sG = new Group();
+
+        PointLight light = new PointLight(UIFunctions.Style.lightOrange);
+        light.setTranslateZ(300000);
+
+
+        PhongMaterial orangeMaterial =
+                new PhongMaterial(UIFunctions.Style.standardOrange,
+                        null, null, null, null);
+        Sphere ballCurrent = new Sphere();
+        ballCurrent.setMaterial(orangeMaterial);
+        ballCurrent.setRadius(5);
+
+        Optional.ofNullable(location)
+                .map(CommanderLocation::getStarSystem)
+                .ifPresent(starSystem ->
+                {
+                    double xP = (location.getStarSystem().xPos + offsetX) * scale;
+                    double yP = (location.getStarSystem().yPos + offsetY) * scale;
+                    double zP = (location.getStarSystem().zPos + offsetZ) * scale;
+                    ballCurrent.translateXProperty().setValue(xP);
+                    ballCurrent.translateYProperty().setValue(yP);
+                    ballCurrent.translateZProperty().setValue(zP);
+                });
+
+        if (!currentRoute.isEmpty())
+        {
+            currentRoute.forEach(s->
+            {
+                Sphere next = new Sphere();
+                next.setMaterial(orangeMaterial);
+                next.setRadius(5 * scale);
+                double xP = (s.xPos + offsetX) * scale;
+                double yP = (s.yPos + offsetY) * scale;
+                double zP = (s.zPos + offsetZ) * scale;
+                next.translateXProperty().setValue(xP);
+                next.translateYProperty().setValue(yP);
+                next.translateZProperty().setValue(zP);
+                sG.getChildren().add(next);
+            });
+        }
+
+        Color color = new Color(1,0,0,1);
+        PhongMaterial redMaterial = new PhongMaterial(color, null, null, null, null);
+
+        Color color3 = new Color(0,1,0,1);
+        PhongMaterial greenMaterial = new PhongMaterial(color3, null, null, null, null);
+
+        Sphere center = new Sphere();
+        center.setMaterial(redMaterial);
+        center.setRadius(1);
+
+        Sphere ballXPositive = new Sphere();
+        ballXPositive.setMaterial(greenMaterial);
+        ballXPositive.setRadius(5);
+        ballXPositive.translateXProperty().setValue(500);
+
+        Sphere ballXNegative = new Sphere();
+        ballXNegative.setMaterial(redMaterial);
+        ballXNegative.setRadius(5);
+        ballXNegative.translateXProperty().setValue(-500);
+
+        Sphere ballYPositive = new Sphere();
+        ballYPositive.setMaterial(greenMaterial);
+        ballYPositive.setRadius(5);
+        ballYPositive.translateYProperty().setValue(500);
+
+        Sphere ballYNegative = new Sphere();
+        ballYNegative.setMaterial(redMaterial);
+        ballYNegative.setRadius(5);
+        ballYNegative.translateYProperty().setValue(-500);
+
+        Sphere ballZPositive = new Sphere();
+        ballZPositive.setMaterial(greenMaterial);
+        ballZPositive.setRadius(5);
+        ballZPositive.translateZProperty().setValue(50);
+
+        Sphere ballZNegative = new Sphere();
+        ballZNegative.setMaterial(redMaterial);
+        ballZNegative.setRadius(5);
+        ballZNegative.translateZProperty().setValue(-50);
+
+
+        Color color2 = new Color(0,0,0,.2);
+        PhongMaterial meshMaterial = new PhongMaterial(color2, null, null, null, null);
+
+        MeshView meshView = new MeshView();
+        meshView.setMesh(mesh);
+        meshView.scaleXProperty().set(1000);
+        meshView.scaleYProperty().set(1000);
+        meshView.scaleZProperty().set(1000);
+
+        meshView.setMaterial(meshMaterial);
+
+        sG.getChildren().addAll(center, ballCurrent);
+        sG.getChildren().addAll(ballXPositive, ballXNegative,
+                ballYPositive, ballYNegative,
+                ballZPositive, ballZNegative);
+
+        sG.getChildren().add(meshView);
+
+        Group shipGroup = new Group(camera, sG, light);
+
+        DoubleProperty angleX = new SimpleDoubleProperty(-60);
+        DoubleProperty angleY = new SimpleDoubleProperty(180);
+        DoubleProperty angleZ = new SimpleDoubleProperty(-60);
+
+        angleX.setValue(0);
+        angleY.setValue(0);
+        angleZ.setValue(0);
+
+        Rotate xRotate = new Rotate(0, Rotate.X_AXIS);
+        Rotate yRotate = new Rotate(0, Rotate.Y_AXIS);
+        Rotate zRotate = new Rotate(0, Rotate.Z_AXIS);
+        sG.getTransforms().addAll(xRotate, yRotate, zRotate);
+        xRotate.angleProperty().bind(angleX);
+        yRotate.angleProperty().bind(angleY);
+        zRotate.angleProperty().bind(angleZ);
+
+
+
+
+        //Tracks drag starting point for x and y
+        AtomicReference<Double> clickX = new AtomicReference<>(0d);
+        AtomicReference<Double> clickY = new AtomicReference<>(0d);
+
+        //Keep track of current angle for x and y
+        AtomicReference<Double> initialAngleX = new AtomicReference<>(0d);
+        AtomicReference<Double> initialAngleZ = new AtomicReference<>(0d);
+
+        uiControls.galaxyGraphic.setRoot(shipGroup);
+        //shipGraphic.setWidth(300);
+        //shipGraphic.setHeight(250);
+        uiControls.galaxyGraphic.setCamera(camera);
+
+        uiControls.galaxyGraphic.setOnMousePressed(event ->
+        {
+            clickX.set(event.getSceneX());
+            clickY.set(event.getSceneY());
+            initialAngleX.set(angleX.get());
+            initialAngleZ.set(angleZ.get());
+        });
+
+        uiControls.galaxyGraphic.setOnMouseDragged(event ->
+        {
+            angleX.set(initialAngleX.get() - (clickY.get() - event.getSceneY()));
+            angleZ.set(initialAngleZ.get() - (clickX.get() - event.getSceneX()));
+        });
+
+        // todo: this is for debugging, should remove eventually
+        uiControls.galaxyGraphic.setOnKeyPressed(event ->
+        {
+            switch (event.getCode())
+            {
+                case A:
+                    camX.setValue(camX.add(100).getValue());
+                    break;
+
+                case D:
+                    camX.setValue(camX.subtract(100).getValue());
+                    break;
+
+                case W:
+                    camY.setValue(camY.subtract(100).getValue());
+                    break;
+
+                case S:
+                    camY.setValue(camY.add(100).getValue());
+                    break;
+
+                case Q:
+                    camZ.setValue(camZ.add(100).getValue());
+                    break;
+
+                case E:
+                    camZ.setValue(camZ.subtract(100).getValue());
+                    break;
+
+                case SPACE:
+                    System.out.println("X: " + camX.get() + " Y: " + camY.get() + " Z:" + camZ.get()
+                            + "aX: " + angleX.get() + " aZ: " + angleZ.get());
+            }
+        });
+    }
 
     public void refreshGalaxyPoiTable()
     {
         galaxyPoiBackingList.clear();
-        database.executeInTransaction(txn ->
-        {
-            EntityKeys.entityStream(txn.getAll(EntityKeys.POI_NOTES))
-                    .map(n->
-                    {
-                        String name = n.getLink(EntityKeys.STAR_SYSTEM).getProperty(EntityKeys.NAME).toString();
-                        return new PoiData(n.getId(), name, n.getBlobString(EntityKeys.POI_NOTES));
-                    })
-                    .forEach(galaxyPoiBackingList::add);
-        });
+        database.executeInTransaction(transaction -> EntityKeys.entityStream(transaction.getAll(EntityKeys.POI_NOTES))
+                .map(note -> Optional.ofNullable(note.getLink(EntityKeys.STAR_SYSTEM))
+                        .map(system -> system.getProperty(EntityKeys.NAME))
+                        .map(Object::toString)
+                        .map(name -> new PoiData(note.getId(), name, note.getBlobString(EntityKeys.POI_NOTES))))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .forEach(galaxyPoiBackingList::add));
     }
 
 
-    private void addNewPoi(TextField systemName,
-                           TextArea poiNotes,
-                           ListView<PoiData> systemPoiList)
+    private void addNewPoi()
     {
+        TextField systemName = this.uiControls.create_poi_name;
+        TextArea poiNotes = this.uiControls.create_poi_notes;
+        ListView<PoiData> systemPoiList = this.uiControls.system_poi_list;
+
         String targetSystem = systemName.getText().toUpperCase();
         String notes = poiNotes.getText().toUpperCase();
 
@@ -177,29 +382,14 @@ public class Commander
             Entity commander = txn.find(EntityKeys.COMMANDER, EntityKeys.NAME, commanderNameImmediate).getFirst();
             if (commander == null)
             {
-                System.out.println("ERROR!");
+                System.err.println("ERROR!");
                 return Collections.emptyList();
             }
 
-            // query the DB for star systems with this system's name. If it does not exist yet, create it.
-            EntityIterable results = txn.find(EntityKeys.STAR_SYSTEM, EntityKeys.NAME, targetSystem);
-            Entity starSystem = Optional.ofNullable(results.getFirst())
-                    .orElseGet(() ->
-                    {
-                        Entity newSystem = txn.newEntity(EntityKeys.STAR_SYSTEM);
-                        newSystem.setProperty(EntityKeys.NAME, targetSystem);
-                        newSystem.setLink(EntityKeys.COMMANDER, commander);
-                        commander.addLink(EntityKeys.STAR_SYSTEM, newSystem);
-                        return newSystem;
-                    });
-
             // get any existing notes so we can display them
+            Entity starSystem = getStarSystemEntity(txn, commander, targetSystem);
             List<PoiData> noteList = EntityKeys.entityStream(starSystem.getLinks(EntityKeys.POI_NOTES))
-                    .map(e ->
-                    {
-                        String t = e.getBlobString(EntityKeys.POI_NOTES);
-                        return new PoiData(e.getId(), targetSystem, t);
-                    })
+                    .map(note -> new PoiData(note.getId(), targetSystem, note.getBlobString(EntityKeys.POI_NOTES)))
                     .collect(Collectors.toList());
 
             // add the POI notes being set right now
@@ -212,38 +402,46 @@ public class Commander
         });
 
         // if this was an update for the current system, update the list
-        if (targetSystem.equalsIgnoreCase(location.getStarSystem().getSystemName()))
+        if (targetSystem.equalsIgnoreCase(location.getStarSystem().systemName))
         {
             systemPoiList.getItems().clear();
             systemPoiList.getItems().addAll(updatedNotes);
         }
+
+        refreshGalaxyPoiTable();
     }
 
 
-    public void associatePoiControls(Button poiButton,
-                                     TextField systemName,
-                                     TextArea poiNotes,
-                                     ListView<PoiData> systemPoiList,
-                                     TableView<PoiData> galaxyPoiList)
+
+
+
+    //region DB Transaction Methods
+    // methods in this section mut only be used from within a DB transaction
+
+    /**
+     * Gets the DB entity for a start system. If this system has never been visited before now, a new
+     * DB entity will be created, and it will be returned.
+     *
+     * @param transaction current db transaction
+     * @param commander commander entity
+     * @param systemName name of the system to retrieve
+     * @return the DB entity for the star system
+     */
+    private static Entity getStarSystemEntity(StoreTransaction transaction, Entity commander, String systemName)
     {
-        currentPoiNotes = systemPoiList;
-        galaxyPoiTable = galaxyPoiList;
-        galaxyPoiTable.setItems(galaxyPoiBackingList);
-
-        poiButton.setOnMouseClicked(event ->
-        {
-            if (event.getButton() != MouseButton.PRIMARY)
-            {
-                return;
-            }
-
-            addNewPoi(systemName, poiNotes, systemPoiList);
-        });
+        EntityIterable results = transaction.find(EntityKeys.STAR_SYSTEM, EntityKeys.NAME, systemName);
+        return Optional.ofNullable(results.getFirst())
+                .orElseGet(()->
+                {
+                    Entity newSystem = transaction.newEntity(EntityKeys.STAR_SYSTEM);
+                    newSystem.setProperty(EntityKeys.NAME, systemName);
+                    newSystem.setLink(EntityKeys.COMMANDER, commander);
+                    commander.addLink(EntityKeys.STAR_SYSTEM, newSystem);
+                    return newSystem;
+                });
     }
 
-
-
-
+    //endregion
 
     /**
      * Sets the current ship to the passed in ship type
@@ -267,7 +465,7 @@ public class Commander
 
     private void refreshSystemPoi(StarSystem starSystem)
     {
-        String systemName = starSystem.getSystemName().toUpperCase();
+        String systemName = starSystem.systemName.toUpperCase();
 
         // update the notes and collect all notes we will need to display for the current system
         List<PoiData> updatedNotes = database.computeInTransaction(txn ->
@@ -280,18 +478,8 @@ public class Commander
                 return Collections.emptyList();
             }
 
-            EntityIterable results = txn.find(EntityKeys.STAR_SYSTEM, EntityKeys.NAME, systemName);
-            Entity starSystem2 = Optional.ofNullable(results.getFirst())
-                    .orElseGet(()->
-                    {
-                        Entity newSystem = txn.newEntity(EntityKeys.STAR_SYSTEM);
-                        newSystem.setProperty(EntityKeys.NAME, systemName);
-                        newSystem.setLink(EntityKeys.COMMANDER, commander);
-                        commander.addLink(EntityKeys.STAR_SYSTEM, newSystem);
-                        return newSystem;
-                    });
-
-            return EntityKeys.entityStream(starSystem2.getLinks(EntityKeys.POI_NOTES))
+            Entity starSystemEntity = getStarSystemEntity(txn, commander, systemName);
+            return EntityKeys.entityStream(starSystemEntity.getLinks(EntityKeys.POI_NOTES))
                     .map(entity ->
                     {
                         String notes = entity.getBlobString(EntityKeys.POI_NOTES);
@@ -302,8 +490,8 @@ public class Commander
 
         Platform.runLater(()->
         {
-            currentPoiNotes.getItems().clear();
-            currentPoiNotes.getItems().addAll(updatedNotes);
+            uiControls.system_poi_list.getItems().clear();
+            uiControls.system_poi_list.getItems().addAll(updatedNotes);
         });
     }
 
@@ -314,6 +502,11 @@ public class Commander
             Entity poi = txn.getEntity(entityId);
             if (notes.isEmpty())
             {
+                // must ensure than any incoming links are deleted before deleting the POI itself, otherwise
+                // other entities can end up with "dead links" to deleted notes. At some point, it would be
+                // a good idea to see if there is a way to query for all incoming links in Xodus to make this
+                // more robust. The is a way to do the below check using an incoming link query, but it requires
+                // the same foreknowledge of the links' existence.
                 Optional.ofNullable(poi.getLinks(EntityKeys.STAR_SYSTEM).getFirst())
                         .ifPresent(system -> system.deleteLink(EntityKeys.POI_NOTES, poi));
 
@@ -326,12 +519,39 @@ public class Commander
         });
 
         refreshSystemPoi(location.getStarSystem());
+        refreshGalaxyPoiTable();
+    }
+
+    List<StarSystem> currentRoute = new ArrayList<>();
+
+    public void setRoute(List<StarSystem> route)
+    {
+        currentRoute.clear();
+        currentRoute.addAll(route);
+        renderGalaxyGraphic();
     }
 
     public void setLocation(StarSystem starSystem)
     {
         location.setStarSystem(starSystem);
         refreshSystemPoi(starSystem);
+
+        List<String> systems = database.computeInTransaction(transaction ->
+                EntityKeys.entityStream(transaction.getAll(EntityKeys.STAR_SYSTEM))
+                        .map(entity -> entity.getProperty(EntityKeys.NAME))
+                        .filter(Objects::nonNull)
+                        .map(Object::toString)
+                        .collect(Collectors.toList()));
+
+        systems.sort(String::compareTo);
+
+        Platform.runLater(() ->
+        {
+            uiControls.poi_system_selector.getItems().clear();
+            uiControls.poi_system_selector.getItems().addAll(systems);
+        });
+
+        renderGalaxyGraphic();
     }
 
     /**
@@ -354,7 +574,7 @@ public class Commander
     {
         if (key == PlayerStat.Commander)
         {
-            Platform.runLater(() -> commanderName.setText(stat));
+            Platform.runLater(() -> uiControls.commander_name.setText(stat));
             commanderNameImmediate = stat;
             database.executeInTransaction(txn ->
             {
@@ -373,7 +593,7 @@ public class Commander
 
     private void setCreditBalanceLabel(String creditString)
     {
-        Platform.runLater(() -> creditBalanceLabel.setText(creditString));
+        Platform.runLater(() -> uiControls.credit_balance.setText(creditString));
         creditBalance = Long.parseLong(creditString.replace(",",""));
     }
 
@@ -466,7 +686,7 @@ public class Commander
     {
         creditBalance += adjustment;
         Platform.runLater(() ->
-                creditBalanceLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(creditBalance)));
+                uiControls.credit_balance.setText(NumberFormat.getNumberInstance(Locale.US).format(creditBalance)));
     }
 
     /**

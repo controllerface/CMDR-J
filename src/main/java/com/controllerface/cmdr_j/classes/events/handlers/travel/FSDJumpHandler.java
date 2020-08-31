@@ -19,9 +19,11 @@ public class FSDJumpHandler implements JournalEventHandler
     public void handle(EventProcessingContext context)
     {
         String name = ((String) context.getRawData().get("StarSystem"));
+        long address = ((Number) context.getRawData().get("SystemAddress")).longValue();
         logTravelMessage(context, "Arrived in the " + name + " System");
         List<Double> coordinates = ((List<Double>) context.getRawData().get("StarPos"));
-        StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(1), coordinates.get(2));
+        // todo: verify this data does come in X, Z, Y order as it appears to in game.
+        StarSystem system = new StarSystem(name, coordinates.get(0), coordinates.get(2), coordinates.get(1), address);
         context.getCommander().setLocation(system);
         processArrival(context, "(Supercruise)");
     }

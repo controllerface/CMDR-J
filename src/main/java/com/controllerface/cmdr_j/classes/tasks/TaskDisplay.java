@@ -395,10 +395,10 @@ public class TaskDisplay implements Displayable
                 StarSystem currentSystem = getCurrentSystem.get();
                 double distance = currentSystem==null ? 0.0 : currentSystem.distanceBetween(engineer.getLocation());
                 Label engineerLabel = new Label(engineer.getFullName() + " :: "
-                        + engineer.getLocation().getSystemName() + " (" + distance + " Ly)");
+                        + engineer.getLocation().systemName + " (" + distance + " Ly)");
                 engineerLabel.getStyleClass().addAll("base_font");
                 Tooltip locationTip = new Tooltip(engineer.getFullName() + " is " + distance +
-                        " light years from your current location ("+(currentSystem==null?"nowhere":currentSystem.getSystemName())+")");
+                        " light years from your current location ("+(currentSystem==null?"nowhere":currentSystem.systemName)+")");
                 locationTip.getStyleClass().addAll("base_font");
                 engineerLabel.setTooltip(locationTip);
                 engineerLabel.setTextFill(UIFunctions.Style.darkOrange);
