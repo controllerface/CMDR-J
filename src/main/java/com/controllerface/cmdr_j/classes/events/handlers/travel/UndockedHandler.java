@@ -24,7 +24,7 @@ public class UndockedHandler implements JournalEventHandler
                 .setStatusObject(Collections.emptyMap())
                 .build());
 
-        context.getCommander().setStation("Undocked");
-        context.getCommander().setEconomy("(No Market Data)");
+        context.getCommander().location.setStation("Undocked");
+        context.getCommander().location.setEconomy("(No Market Data)");
     }
 }

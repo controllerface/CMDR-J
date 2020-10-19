@@ -550,7 +550,7 @@ public class JournalEventTransactions
         }
 
         ShipModuleDisplay shipModuleDisplay = new ShipModuleDisplay.Builder()
-                .setCurrentShip(context.getCommander().getShip())
+                .setCurrentShip(context.getCommander().starShip)
                 .setModuleName(slot)
                 .setModule(module)
                 .setModifiers(modifiers)
@@ -561,7 +561,7 @@ public class JournalEventTransactions
                 .setUserTransactions(context.getTransactions())
                 .build();
 
-        context.getCommander().setShipModule(shipModuleDisplay);
+        context.getCommander().starShip.installShipModule(shipModuleDisplay);
         logLoadoutMessage(context, messageBuffer.toString());
     }
 
@@ -607,13 +607,13 @@ public class JournalEventTransactions
         if (module != null) logLoadoutMessage(context, "Installed Module: " + module.displayText());
 
         ShipModuleDisplay shipModuleDisplay = new ShipModuleDisplay.Builder()
-                .setCurrentShip(context.getCommander().getShip())
+                .setCurrentShip(context.getCommander().starShip)
                 .setModuleName(slot)
                 .setModule(module)
                 .setUserTransactions(context.getTransactions())
                 .build();
 
-        context.getCommander().setShipModule(shipModuleDisplay);
+        context.getCommander().starShip.installShipModule(shipModuleDisplay);
     }
 
     public static void processRetrieveModule(EventProcessingContext context)
@@ -633,7 +633,7 @@ public class JournalEventTransactions
         if (module != null) logLoadoutMessage(context, "Installed Module: " + module.displayText());
 
         dataBuilder
-                .setCurrentShip(context.getCommander().getShip())
+                .setCurrentShip(context.getCommander().starShip)
                 .setModule(module)
                 .setModuleName(slot);
 
@@ -647,7 +647,7 @@ public class JournalEventTransactions
             dataBuilder.setLevel(level);
         }
 
-        context.getCommander().setShipModule(dataBuilder.build());
+        context.getCommander().starShip.installShipModule(dataBuilder.build());
     }
 
     public static void processArrival(EventProcessingContext context, String arrivalBody)

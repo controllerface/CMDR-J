@@ -12,7 +12,7 @@ import java.util.Arrays;
 /**
  * Created by Controllerface on 4/16/2018.
  */
-public enum Ship implements SpaceCraft
+public enum ShipType implements SpaceCraft
 {
     // zorgon peterson
     adder(new Adder()),
@@ -97,7 +97,7 @@ public enum Ship implements SpaceCraft
     private final OptionalModuleLayoutData internals;
     private final ShipModule[] armorModules;
 
-    Ship(AbstractShip delegate)
+    ShipType(AbstractShip delegate)
     {
         this.delegate = delegate;
         this.baseShipStats = null;
@@ -132,7 +132,7 @@ public enum Ship implements SpaceCraft
         return delegate == null ? armorModules : delegate.armorModules;
     }
 
-    public static Ship findShip(String shipName) throws Exception
+    public static ShipType findShip(String shipName) throws Exception
     {
         Exception exception;
         try
@@ -144,8 +144,8 @@ public enum Ship implements SpaceCraft
             exception = e;
             if (shipName == null || shipName.isEmpty()) throw e;
         }
-        return Arrays.stream(Ship.values())
-                .filter(ship -> ship.name().toLowerCase().equals(shipName.toLowerCase()))
+        return Arrays.stream(ShipType.values())
+                .filter(shipType -> shipType.name().toLowerCase().equals(shipName.toLowerCase()))
                 .findFirst().orElseThrow(() -> exception);
     }
 }

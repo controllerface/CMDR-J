@@ -1,13 +1,13 @@
 package com.controllerface.cmdr_j.classes.commander;
 
 import com.controllerface.cmdr_j.classes.data.ShipStatisticData;
+import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
 import com.controllerface.cmdr_j.ui.models.ModelUtilities;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
-import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
@@ -53,7 +53,7 @@ import java.util.stream.Stream;
 public class StarShip
 {
     //region Basic Ship Data
-    private Ship ship;
+    private ShipType shipType;
     private double currentFuel = 0d;
     private final SimpleStringProperty shipID = new SimpleStringProperty("Loading...");
     private final SimpleStringProperty shipGivenName = new SimpleStringProperty("Loading...");
@@ -648,14 +648,14 @@ public class StarShip
         });
     }
 
-    public Ship getShip()
+    public ShipType getShipType()
     {
-        return ship;
+        return shipType;
     }
 
-    public void setShip(Ship ship)
+    public void setShipType(ShipType shipType)
     {
-        this.ship = ship;
+        this.shipType = shipType;
 
         synchronized (coreInternals)
         {
@@ -711,11 +711,11 @@ public class StarShip
 
     private void resetBaseStats()
     {
-        if (ship == null) return;
+        if (shipType == null) return;
 
         // make a local copy just to be safe
-        final String displayName = ship.getBaseShipStats().getDisplayName();
-        final String manufacturer = ship.getBaseShipStats().getManufacturer().toString();
+        final String displayName = shipType.getBaseShipStats().getDisplayName();
+        final String manufacturer = shipType.getBaseShipStats().getManufacturer().toString();
 
         Platform.runLater(()->
         {
@@ -734,11 +734,11 @@ public class StarShip
         {
             baseStatistics.clear();
 
-            baseStatistics.add(new ShipStatisticData(ShipCharacteristic.Agility, ship.getBaseShipStats().getAgility()));
-            baseStatistics.add(new ShipStatisticData(ShipCharacteristic.Speed, ship.getBaseShipStats().getSpeed()));
-            baseStatistics.add(new ShipStatisticData(ShipCharacteristic.Boost_Speed, ship.getBaseShipStats().getBoostSpeed()));
-            baseStatistics.add(new ShipStatisticData(ShipCharacteristic.Max_Speed, ship.getBaseShipStats().getMaxSpeed()));
-            baseStatistics.add(new ShipStatisticData(ShipCharacteristic.Max_Boost_Speed, ship.getBaseShipStats().getMaxBoostSpeed()));
+            baseStatistics.add(new ShipStatisticData(ShipCharacteristic.Agility, shipType.getBaseShipStats().getAgility()));
+            baseStatistics.add(new ShipStatisticData(ShipCharacteristic.Speed, shipType.getBaseShipStats().getSpeed()));
+            baseStatistics.add(new ShipStatisticData(ShipCharacteristic.Boost_Speed, shipType.getBaseShipStats().getBoostSpeed()));
+            baseStatistics.add(new ShipStatisticData(ShipCharacteristic.Max_Speed, shipType.getBaseShipStats().getMaxSpeed()));
+            baseStatistics.add(new ShipStatisticData(ShipCharacteristic.Max_Boost_Speed, shipType.getBaseShipStats().getMaxBoostSpeed()));
 
 
             synchronizeStatistics();
@@ -776,7 +776,7 @@ public class StarShip
         return buffer.stream();
     }
 
-    synchronized void installShipModule(ShipModuleDisplay shipModuleDisplay)
+    synchronized public void installShipModule(ShipModuleDisplay shipModuleDisplay)
     {
         // todo: perform checking for support in the Ship object
 
@@ -825,7 +825,7 @@ public class StarShip
      */
     private void calculateCurrentStats()
     {
-        if (ship == null)
+        if (shipType == null)
         {
             return;
         }
@@ -843,15 +843,15 @@ public class StarShip
             double maxRange = calculateCurrentJumpRange(currentMass);
             double totalPower = calculateCurrentPowerDraw();
 
-            massStatistics.add(new ShipStatisticData(ship.getBaseShipStats().getShipSize()));
+            massStatistics.add(new ShipStatisticData(shipType.getBaseShipStats().getShipSize()));
             massStatistics.add(new ShipStatisticData(ShipCharacteristic.Total_Power_Draw, totalPower));
             massStatistics.add(new ShipStatisticData(ShipCharacteristic.Current_Mass, currentMass));
             massStatistics.add(new ShipStatisticData(ShipCharacteristic.Current_Jump_Range, maxRange));
-            massStatistics.add(new ShipStatisticData(ShipCharacteristic.Mass_Lock_Factor, ship.getBaseShipStats().getMassLockFactor()));
-            massStatistics.add(new ShipStatisticData(ShipCharacteristic.Base_Hull_Mass, ship.getBaseShipStats().getHullMass()));
-            massStatistics.add(new ShipStatisticData(ShipCharacteristic.Crew_Seats, ship.getBaseShipStats().getCrewSeats()));
-            massStatistics.add(new ShipStatisticData(ShipCharacteristic.SLF_Capable, ship.getBaseShipStats().isSlfCapable()));
-            massStatistics.add(new ShipStatisticData(ShipCharacteristic.Hull_Hardness, ship.getBaseShipStats().getHullHardness()));
+            massStatistics.add(new ShipStatisticData(ShipCharacteristic.Mass_Lock_Factor, shipType.getBaseShipStats().getMassLockFactor()));
+            massStatistics.add(new ShipStatisticData(ShipCharacteristic.Base_Hull_Mass, shipType.getBaseShipStats().getHullMass()));
+            massStatistics.add(new ShipStatisticData(ShipCharacteristic.Crew_Seats, shipType.getBaseShipStats().getCrewSeats()));
+            massStatistics.add(new ShipStatisticData(ShipCharacteristic.SLF_Capable, shipType.getBaseShipStats().isSlfCapable()));
+            massStatistics.add(new ShipStatisticData(ShipCharacteristic.Hull_Hardness, shipType.getBaseShipStats().getHullHardness()));
         }
 
         synchronized (strengthStatistics)
@@ -1077,7 +1077,7 @@ public class StarShip
      */
     private ShipStatisticData.StatGroup calculateCurrentHullStrength()
     {
-        if (ship == null) return new ShipStatisticData.StatGroup();
+        if (shipType == null) return new ShipStatisticData.StatGroup();
         /*
         There are two statistics that affect hull strength, "hull boost" and "hull reinforcement".
 
@@ -1093,7 +1093,7 @@ public class StarShip
          */
 
         // start with the base armor rating
-        double hullStrength = ship.getBaseShipStats().getArmorRating();
+        double hullStrength = shipType.getBaseShipStats().getArmorRating();
 
         // loop through all the modules that can have hull reinforcement. For now, this
         // means only optional internals, but if this changes in the future, loop through
@@ -1161,7 +1161,7 @@ public class StarShip
 
         // get the ships base hull mass, this affects shield strength. Strength calculations only take into
         // account the base mass, additional modules do not affect strength in-game
-        double hullMass = ship.getBaseShipStats().getHullMass();
+        double hullMass = shipType.getBaseShipStats().getHullMass();
         double maximumMass = shieldGenerator.getEffectValue(ItemEffect.ShieldGenMaximumMass);
 
         // if the ship's mass exceeds maximum mass, the shield doesn't work
@@ -1241,7 +1241,7 @@ public class StarShip
          */
 
         // start with the base shield value
-        double baseShield = ship.getBaseShipStats().getShield();
+        double baseShield = shipType.getBaseShipStats().getShield();
 
         // calculate strength differences for the min/max range and the optimal/minimum strengths
         double strengthRangeDifference = maximumStrength - minimumStrength;
@@ -1390,7 +1390,7 @@ public class StarShip
 
     private double calculateCurrentPowerDraw()
     {
-        if (ship == null) return 0.0d;
+        if (shipType == null) return 0.0d;
 
         List<ShipModuleDisplay> buffer;
 
@@ -1421,7 +1421,7 @@ public class StarShip
 
     private double calculateCurrentHullMass()
     {
-        if (ship == null) return 0.0d;
+        if (shipType == null) return 0.0d;
 
         List<ShipModuleDisplay> buffer;
 
@@ -1445,7 +1445,7 @@ public class StarShip
                 .mapToDouble(Double::doubleValue)
                 .sum();
 
-        double hullMass = ship.getBaseShipStats().getHullMass();
+        double hullMass = shipType.getBaseShipStats().getHullMass();
 
         double totalHullMass = currentFuel +
                 hullMass + moduleMass;

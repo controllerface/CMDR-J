@@ -2,7 +2,7 @@ package com.controllerface.cmdr_j.classes.events.handlers.ship;
 
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
-import com.controllerface.cmdr_j.enums.equipment.ships.Ship;
+import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
 
@@ -32,15 +32,15 @@ public class LoadoutHandler implements JournalEventHandler
         setStatFromData(context, CoreInternalSlot.ShipIdent);
 
         String shipName = context.getCommander().getStat(CoreInternalSlot.Ship);
-        Ship ship;
+        ShipType shipType;
         try
         {
-            ship = Ship.findShip(shipName);
-            logLoadoutMessage(context, "Ship Type: " + ship.getBaseShipStats().getDisplayName());
-            context.getCommander().setShip(ship);
-            context.getCommander().getShip()
+            shipType = ShipType.findShip(shipName);
+            logLoadoutMessage(context, "Ship Type: " + shipType.getBaseShipStats().getDisplayName());
+            context.getCommander().starShip.setShipType(shipType);
+            context.getCommander().starShip
                     .setGivenName(extractStatString(context, CoreInternalSlot.ShipName));
-            context.getCommander().getShip()
+            context.getCommander().starShip
                     .setShipID(extractStatString(context, CoreInternalSlot.ShipIdent));
         }
         catch (Exception e)
@@ -51,7 +51,7 @@ public class LoadoutHandler implements JournalEventHandler
         ((List<Map<String, Object>>) context.getRawData().get("Modules"))
                 .forEach(module -> setSlotFromLoadout(context, module));
 
-        context.getCommander().getShip().updateResistanceGraphs();
+        context.getCommander().starShip.updateResistanceGraphs();
 
 
 

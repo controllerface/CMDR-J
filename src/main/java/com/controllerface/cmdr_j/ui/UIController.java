@@ -1,16 +1,13 @@
 package com.controllerface.cmdr_j.ui;
 
 import com.controllerface.cmdr_j.JSONSupport;
-import com.controllerface.cmdr_j.classes.data.CostData;
-import com.controllerface.cmdr_j.classes.data.PoiData;
+import com.controllerface.cmdr_j.classes.data.*;
 import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
-import com.controllerface.cmdr_j.classes.data.MessageData;
 import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import com.controllerface.cmdr_j.classes.WindowDimensions;
 import com.controllerface.cmdr_j.classes.commander.Commander;
 import com.controllerface.cmdr_j.classes.commander.InventoryDisplay;
 import com.controllerface.cmdr_j.classes.commander.MarketDisplay;
-import com.controllerface.cmdr_j.classes.data.ShipStatisticData;
 import com.controllerface.cmdr_j.classes.tasks.*;
 import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
@@ -279,7 +276,7 @@ public class UIController
     @FXML private Label status_heading;
     @FXML private Label status_bearing;
 
-    @FXML private Button status_mark;
+    @FXML private Button set_waypoint;
     @FXML private ListView<Waypoint> waypoint_list;
     @FXML private TextField waypoint_name_input;
 
@@ -773,7 +770,6 @@ public class UIController
         market_commodity_col1.setCellFactory(commodityCellFactory);
         market_commodity_col1.setCellValueFactory(commodityCellValueFactory);
 
-
         market_sell_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getSell()).asObject());
         market_mean_col.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getMean()).asObject());
         market_demand_col.setCellValueFactory(param ->
@@ -784,7 +780,6 @@ public class UIController
 
             return new SimpleIntegerProperty(demand).asObject();
         });
-
 
         market_profit_col.setCellValueFactory(param ->
         {
@@ -848,31 +843,8 @@ public class UIController
             }
         });
 
+        // todo: do this differently
         renderMiniMap();
-
-        status_mark.onMouseClickedProperty().setValue((e)->
-        {
-            double markedLat = Double.parseDouble(status_latitude.getText());
-            double markedLong = Double.parseDouble(status_longitude.getText());
-
-            waypoint_list.getItems().add(new Waypoint(waypoint_name_input.getText(), markedLat, markedLong));
-        });
-    }
-
-
-
-    private static class Waypoint
-    {
-        private final String name;
-        private final double latitude;
-        private final double longitude;
-
-        private Waypoint(String name, double latitude, double longitude)
-        {
-            this.name = name;
-            this.latitude = latitude;
-            this.longitude = longitude;
-        }
     }
 
     private String settlement = "";
@@ -983,14 +955,14 @@ public class UIController
 
         ;
 
-        final int bitmask;
+        final long bitmask;
 
-        Status(int bitmask)
+        Status(long bitmask)
         {
             this.bitmask = bitmask;
         }
 
-        public static Stream<Status> extractFlags(int flags)
+        public static Stream<Status> extractFlags(long flags)
         {
             return Stream.of(Status.values())
                     .filter(flag -> (flag.bitmask & flags) == flag.bitmask);
@@ -1077,7 +1049,7 @@ public class UIController
                         {
                             Map<String, Object> statusObject = nextTransaction.getStatusObject();
 
-                            Integer flags  = ((Integer) statusObject.get("Flags"));
+                            long flags  = ((Number) statusObject.get("Flags")).longValue();
 
                             // this is set to 0 when the game shuts down, there's no other data in the event to
                             // process, so just bail to avoid errors.
@@ -1097,7 +1069,7 @@ public class UIController
                             double main = ((double) fuelData.get("FuelMain"));
                             double tank = ((double) fuelData.get("FuelReservoir"));
 
-                            commander.getShip().setCurrentFuel(main + tank);
+                            commander.starShip.setCurrentFuel(main + tank);
 
                             status_cargo.setText(statusObject.get("Cargo") + " Tons");
                             status_fuel.setText(main + " Tons");
@@ -1501,7 +1473,7 @@ public class UIController
         task_tree.setCellFactory(param -> new TaskTreeCell(procSelectorBackingList, labelText));
         task_list.setItems(procSelectorBackingList);
         task_list.setCellFactory(param ->
-                new TaskListCell(addToTaskList, commander::amountOf, task_list.widthProperty()));
+                new TaskListCell(addToTaskList, commander::inventoryCount, task_list.widthProperty()));
 
         task_table.setItems(sortedTasks);
         sortedTasks.comparatorProperty().bind(task_table.comparatorProperty());
@@ -1617,6 +1589,11 @@ public class UIController
                 .setGalaxyPoiTable(galaxy_poi_table)
                 .setPoiSystemSelector(poi_system_selector)
                 .setGalaxyGraphic(galaxy_graphic)
+                .setAddWaypointButton(set_waypoint)
+                .setWaypointList(waypoint_list)
+                .setAddWaypointName(waypoint_name_input)
+                .setLatitudeLabel(status_latitude)
+                .setLongitudeLabel(status_longitude)
                 .build();
 
         commander.associateUIControls(commanderUIControls);
@@ -1733,37 +1710,37 @@ public class UIController
      */
     private void initializeShipLoadoutTab()
     {
-        commander.getLocation().associateStarSystem(location_label);
-        commander.getLocation().associateSpaceStation(station_label);
-        commander.getLocation().associateEconomy(economy_label);
+        commander.location.associateStarSystem(location_label);
+        commander.location.associateSpaceStation(station_label);
+        commander.location.associateEconomy(economy_label);
 
-        commander.getShip().associateShipManufacturer(ship_make_label);
-        commander.getShip().associateShipGivenName(ship_name_label);
-        commander.getShip().associateShipDisplayName(ship_type_label);
-        commander.getShip().associateShipID(ship_ID_label);
+        commander.starShip.associateShipManufacturer(ship_make_label);
+        commander.starShip.associateShipGivenName(ship_name_label);
+        commander.starShip.associateShipDisplayName(ship_type_label);
+        commander.starShip.associateShipID(ship_ID_label);
 
-        commander.getShip().associateBaseStatisticsTable(ship_base_statistics_table);
-        commander.getShip().associateHullStatisticsTable(ship_hull_statistics_table);
-        commander.getShip().associateMassStatisticsTable(ship_mass_statistics_table);
-        commander.getShip().associateShieldStatisticsTable(ship_shield_statistics_table);
+        commander.starShip.associateBaseStatisticsTable(ship_base_statistics_table);
+        commander.starShip.associateHullStatisticsTable(ship_hull_statistics_table);
+        commander.starShip.associateMassStatisticsTable(ship_mass_statistics_table);
+        commander.starShip.associateShieldStatisticsTable(ship_shield_statistics_table);
 
-        commander.getShip().associateOffensiveStatisticsTable(ship_offense_stats_table);
+        commander.starShip.associateOffensiveStatisticsTable(ship_offense_stats_table);
 
         dps_spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(1.0, 250.0, 10.0, 1));
         sys_spinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 4, 0.0, 0.5));
 
-        commander.getShip().associateShieldRegenLabels(s_regen_label, s_broken_regen_label);
+        commander.starShip.associateShieldRegenLabels(s_regen_label, s_broken_regen_label);
 
         ship_graphic.setFocusTraversable(true);
         galaxy_graphic.setFocusTraversable(true);
-        commander.getShip().setShipGraphic(ship_graphic);
-        commander.getShip().setDpsSpinner(dps_spinner, sys_spinner);
+        commander.starShip.setShipGraphic(ship_graphic);
+        commander.starShip.setDpsSpinner(dps_spinner, sys_spinner);
 
-        commander.getShip().associateCoreTable(core_module_table);
-        commander.getShip().associateOptionalTable(optional_module_table);
-        commander.getShip().associateHardpointTable(hardpoint_table);
+        commander.starShip.associateCoreTable(core_module_table);
+        commander.starShip.associateOptionalTable(optional_module_table);
+        commander.starShip.associateHardpointTable(hardpoint_table);
 
-        commander.getShip().associateTtdGraphs(ttd_shield_chart, ttd_hull_chart);
+        commander.starShip.associateTtdGraphs(ttd_shield_chart, ttd_hull_chart);
 
         ship_base_statistics_name_column.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().statName()));
         ship_base_statistics_name_column.setCellFactory(x -> new StatDataCell());
@@ -2195,10 +2172,10 @@ public class UIController
                 taskDisplay.set(new TaskDisplay.Builder(0)
                         .setType(task.getKey())
                         .setRecipe(task.getValue())
-                        .setCheckInventory(commander::amountOf)
+                        .setCheckInventory(commander::inventoryCount)
                         .setPendingTradeYield(calculateTradeYield)
                         .setInventoryUpdate(addPairToTaskList)
-                        .setGetCurrentSystem(commander.getLocation()::getStarSystem)
+                        .setGetCurrentSystem(commander.location::getStarSystem)
                         .createTaskData());
 
 
@@ -2214,7 +2191,7 @@ public class UIController
                         .map(d -> d.cost)
                         .filter(taskCost -> costList.stream().noneMatch(cost -> cost.getCost().equals(taskCost)))
                         .map(taskCost ->  new ItemCostDisplay(taskCost,
-                                commander::amountOf,
+                                commander::inventoryCount,
                                 taskCostCache::contains,
                                 costLabelCache::get,
                                 calculateTradeYield,

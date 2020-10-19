@@ -10,6 +10,7 @@ import com.controllerface.cmdr_j.classes.events.handlers.engineers.EngineerContr
 import com.controllerface.cmdr_j.classes.events.handlers.engineers.EngineerCraftHandler;
 import com.controllerface.cmdr_j.classes.events.handlers.engineers.EngineerProgressHandler;
 import com.controllerface.cmdr_j.classes.events.handlers.engineers.TechnologyBrokerHandler;
+import com.controllerface.cmdr_j.classes.events.handlers.exploration.*;
 import com.controllerface.cmdr_j.classes.events.handlers.materials.MaterialCollectedHandler;
 import com.controllerface.cmdr_j.classes.events.handlers.materials.MaterialDiscardedHandler;
 import com.controllerface.cmdr_j.classes.events.handlers.materials.MaterialTradeHandler;
@@ -97,12 +98,20 @@ public enum JournalEvent
     ModuleInfo(new ModuleInfoHandler()),
 
     /*
+    Exploration
+     */
+    SAAScanComplete(new SAAScanCompleteHandler()),
+    FSSSignalDiscovered(new FSSSignalDiscoveredHandler()),
+    FSSDiscoveryScan(new FSSDiscoveryScanHandler()),
+    FSSAllBodiesFound(new FSSAllBodiesFoundHandler()),
+    CodexEntry(new CodexEntryHandler()),
+
+    /*
     Travel
      */
     DockingRequested(new DockingRequestedHandler()),
     DockingGranted(new DockingGrantedHandler()),
     DockingDenied(new DockingDeniedHandler()),
-    FSSSignalDiscovered(new FSSSignalDiscoveredHandler()),
     ApproachBody(new ApproachBodyHandler()),
     ApproachSettlement(new ApproachSettlementHandler()),
     Docked(new DockedHandler()),
@@ -189,6 +198,7 @@ public enum JournalEvent
     DatalinkVoucher(new DatalinkVoucherHandler()),
     SellExplorationData(new SellExplorationDataHandler()),
     MultiSellExplorationData(new MultiSellExplorationDataHandler()),
+    ReservoirReplenished(new ReservoirReplenishedHandler()),
 
     ;
 

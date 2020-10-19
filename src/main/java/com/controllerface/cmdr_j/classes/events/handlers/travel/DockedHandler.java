@@ -31,7 +31,7 @@ public class DockedHandler implements JournalEventHandler
 
         logTravelMessage(context, message);
 
-        context.getCommander().setStation(name);
-        context.getCommander().setEconomy(economy);
+        context.getCommander().location.setStation(name);
+        context.getCommander().location.setEconomy(economy);
     }
 }

@@ -1,4 +1,4 @@
-package com.controllerface.cmdr_j.classes.events.handlers.travel;
+package com.controllerface.cmdr_j.classes.events.handlers.exploration;
 
 import com.controllerface.cmdr_j.classes.events.JournalEventTransactions;
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
@@ -23,6 +23,6 @@ public class FSSSignalDiscoveredHandler implements JournalEventHandler
         {
             name = ((String) context.getRawData().get("SignalName_Localised"));
         }
-        JournalEventTransactions.logTravelMessage(context, "Signal Discovered: " + name);
+        JournalEventTransactions.logExplorationMessage(context, "Signal Discovered: " + name);
     }
 }

@@ -7,7 +7,17 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
  */
 public class StarSystem
 {
-    // todo: make public, drop getters
+    /**
+     * When rendering galactic points on the galaxy model, the center of the model is actually
+     * Sagittarius A*, not Sol. However, all galactic coordinates are specified relative to SOL.
+     * These offsets can be applied to any galactic co-ordinates to translate them from offset
+     * to Sol to an offset from Sagittarius A*. I.e., the following offsets are the inverse of
+     * the coordinates of Sagittarius A*.
+     */
+    public static final double GALAXY_OFFSET_X = -25.21875;
+    public static final double GALAXY_OFFSET_Y = -25899.96875;
+    public static final double GALAXY_OFFSET_Z = 20.90625;
+
     public final String systemName;
     public final double xPos;
     public final double yPos;

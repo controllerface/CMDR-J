@@ -20,7 +20,6 @@ public class NavRouteHandler implements JournalEventHandler
     @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
-        // todo: figure out what this event does. it is not documented
         Map<String, Object> navData = JournalSyncTask.readNavRouteData();
         List<StarSystem> route = Optional.ofNullable(navData.get("Route"))
                 .map(o -> (List<Map<String, Object>>) o)
@@ -38,6 +37,5 @@ public class NavRouteHandler implements JournalEventHandler
                 })
                 .collect(Collectors.toList());
         context.getCommander().setRoute(route);
-        System.out.println(route.size());
     }
 }

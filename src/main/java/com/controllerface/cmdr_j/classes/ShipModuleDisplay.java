@@ -776,13 +776,13 @@ public class ShipModuleDisplay implements Displayable
             CoreInternalSlot internalSlot = ((CoreInternalSlot) moduleSlot);
             // consult ship for modules that can be fitted
 
-            CoreModuleLayoutData moduleLayoutData = currentShip.getShip().getCoreModules();
+            CoreModuleLayoutData moduleLayoutData = currentShip.getShipType().getCoreModules();
 
             int sizeValue = 0;
             switch (internalSlot)
             {
                 case Armour:
-                    moduleMap.put(0, Stream.of(currentShip.getShip().getArmorModules()).collect(Collectors.toList()));
+                    moduleMap.put(0, Stream.of(currentShip.getShipType().getArmorModules()).collect(Collectors.toList()));
                     armorSlot.set(true);
                     break;
 
