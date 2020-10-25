@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.classes.commander;
 
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.Task;
+import com.controllerface.cmdr_j.ui.InventoryDisplay;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;

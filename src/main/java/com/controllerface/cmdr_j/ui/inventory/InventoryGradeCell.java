@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.ui.inventory;
 
-import com.controllerface.cmdr_j.classes.commander.InventoryDisplay;
+import com.controllerface.cmdr_j.ui.InventoryDisplay;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.geometry.Insets;

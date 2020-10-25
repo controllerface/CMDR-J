@@ -1,15 +1,15 @@
-package com.controllerface.cmdr_j.classes.tasks;
+package com.controllerface.cmdr_j.ui;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.classes.StarSystem;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.enums.costs.special.AnyCost;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyType;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
-import com.controllerface.cmdr_j.ui.Displayable;
-import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.geometry.Insets;

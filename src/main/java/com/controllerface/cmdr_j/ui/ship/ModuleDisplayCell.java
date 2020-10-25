@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.ui.ship;
 
-import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
+import com.controllerface.cmdr_j.ui.ShipModuleDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TitledPane;
 

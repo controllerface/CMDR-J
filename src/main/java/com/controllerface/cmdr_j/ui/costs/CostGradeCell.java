@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.ui.costs;
 
-import com.controllerface.cmdr_j.classes.tasks.ItemCostDisplay;
+import com.controllerface.cmdr_j.ui.ItemCostDisplay;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;

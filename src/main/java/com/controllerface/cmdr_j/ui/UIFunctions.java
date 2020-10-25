@@ -1,11 +1,7 @@
 package com.controllerface.cmdr_j.ui;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
-import com.controllerface.cmdr_j.classes.commander.InventoryDisplay;
-import com.controllerface.cmdr_j.classes.data.CostData;
-import com.controllerface.cmdr_j.classes.tasks.ItemCostDisplay;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
-import com.controllerface.cmdr_j.classes.tasks.TaskDisplay;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import javafx.beans.property.ReadOnlyDoubleProperty;

@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.events;
 
 import com.controllerface.cmdr_j.classes.data.ModifierData;
-import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
+import com.controllerface.cmdr_j.ui.ShipModuleDisplay;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;

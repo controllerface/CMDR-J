@@ -1,6 +1,5 @@
-package com.controllerface.cmdr_j.classes.commander;
+package com.controllerface.cmdr_j.ui;
 
-import com.controllerface.cmdr_j.ui.Displayable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

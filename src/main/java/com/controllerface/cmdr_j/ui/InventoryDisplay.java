@@ -1,7 +1,10 @@
-package com.controllerface.cmdr_j.classes.commander;
+package com.controllerface.cmdr_j.ui;
 
 import com.controllerface.cmdr_j.classes.data.CostData;
-import com.controllerface.cmdr_j.classes.tasks.*;
+import com.controllerface.cmdr_j.classes.tasks.Task;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.commodities.CommodityCostCategory;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
@@ -15,9 +18,6 @@ import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisBlueprint;
 import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyBlueprint;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
-import com.controllerface.cmdr_j.ui.Displayable;
-import com.controllerface.cmdr_j.ui.Icon;
-import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -42,7 +42,6 @@ import java.util.stream.Collectors;
  */
 public class InventoryDisplay implements Displayable
 {
-
     /**
      * The actual inventory item being tracked
      */
@@ -128,7 +127,7 @@ public class InventoryDisplay implements Displayable
         return r.replace("F S D","FSD ");
     };
 
-    InventoryDisplay(TaskCost inventoryItem,
+    public InventoryDisplay(TaskCost inventoryItem,
                      long quantity,
                      Function<TaskCost, Long> checkInventory,
                      Function<TaskCost, Integer> pendingTradeCost,
@@ -592,7 +591,7 @@ public class InventoryDisplay implements Displayable
         return quantity;
     }
 
-    boolean adjustCount(long adjustment)
+    public boolean adjustCount(long adjustment)
     {
         this.quantity += adjustment;
         renderProgress();

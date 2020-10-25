@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.classes.commander;
 
-import com.controllerface.cmdr_j.classes.ShipModuleDisplay;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.classes.data.EntityKeys;
 import com.controllerface.cmdr_j.classes.data.PoiData;

@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.ui;
 
-import com.controllerface.cmdr_j.classes.commander.InventoryDisplay;
 import com.controllerface.cmdr_j.classes.data.PoiData;
 import com.controllerface.cmdr_j.classes.data.Waypoint;
 import javafx.scene.SubScene;

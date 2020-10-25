@@ -1,5 +1,6 @@
-package com.controllerface.cmdr_j.classes;
+package com.controllerface.cmdr_j.ui;
 
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.StarShip;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
@@ -20,9 +21,6 @@ import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalS
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
 import com.controllerface.cmdr_j.threads.UserTransaction;
-import com.controllerface.cmdr_j.ui.Displayable;
-import com.controllerface.cmdr_j.ui.Icon;
-import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;

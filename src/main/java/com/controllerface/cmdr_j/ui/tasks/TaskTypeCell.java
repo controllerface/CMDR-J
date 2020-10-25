@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.ui.tasks;
 
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
-import com.controllerface.cmdr_j.classes.tasks.TaskDisplay;
+import com.controllerface.cmdr_j.ui.TaskDisplay;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import javafx.geometry.Pos;
