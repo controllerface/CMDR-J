@@ -23,10 +23,9 @@ class JournalServlet extends EventSourceServlet
 {
     private final Set<EventSource> sources = ConcurrentHashMap.newKeySet();
 
-    private static final StaticAsset index = StaticAsset.make("/ui/index.html", "text/html");
-
     private static final Map<String, StaticAsset> staticAssets = Map.ofEntries
         (
+            Map.entry("/", StaticAsset.make("/ui/index.html", "text/html")),
             Map.entry("/ui.html", StaticAsset.make("/ui/ui.html", "text/html")),
             Map.entry("/ui.css", StaticAsset.make("/ui/ui.css", "text/css")),
             Map.entry("/ui.js", StaticAsset.make("/ui/ui.js", "text/javascript"))
@@ -50,14 +49,6 @@ class JournalServlet extends EventSourceServlet
         }),
 
         /**
-         * WebApp endpoint handler. Serves the Index page to the client
-         */
-        DEFAULT(EndpointType.ANY, "/", (request, response) ->
-        {
-            writeResourceResponse(response, index);
-        }),
-
-        /**
          * Serves static assets defined in the asset map.
          */
         STATIC_ASSET(EndpointType.GET, staticAssets::containsKey, (request, response) ->
@@ -67,29 +58,20 @@ class JournalServlet extends EventSourceServlet
 
         private final EndpointType type;
         private final Predicate<String> checkUri;
-        private final BiConsumer<HttpServletRequest, HttpServletResponse> callback;
-
-        EndPoint(EndpointType type,
-                 String uri,
-                 BiConsumer<HttpServletRequest, HttpServletResponse> callback)
-        {
-            this.type = type;
-            this.checkUri = (requestUri) -> requestUri.equals(uri);
-            this.callback = callback;
-        }
+        private final BiConsumer<HttpServletRequest, HttpServletResponse> endpoint;
 
         EndPoint(EndpointType type,
                  Predicate<String> checkUri,
-                 BiConsumer<HttpServletRequest, HttpServletResponse> callback)
+                 BiConsumer<HttpServletRequest, HttpServletResponse> endpoint)
         {
             this.type = type;
             this.checkUri = checkUri;
-            this.callback = callback;
+            this.endpoint = endpoint;
         }
 
-        public void respond(HttpServletRequest request, HttpServletResponse response)
+        public void accept(HttpServletRequest request, HttpServletResponse response)
         {
-            this.callback.accept(request, response);
+            this.endpoint.accept(request, response);
         }
 
         public EndpointType getType()
@@ -102,6 +84,26 @@ class JournalServlet extends EventSourceServlet
             return Arrays.stream(EndPoint.values())
                 .filter(endpoint -> endpoint.checkUri.test(uri))
                 .findFirst().orElse(NOT_FOUND);
+        }
+    }
+
+    private class JournalSource implements EventSource
+    {
+        private Emitter emitter;
+
+        @Override
+        public void onOpen(Emitter emitter) throws IOException
+        {
+            this.emitter = emitter;
+            sources.add(this);
+            emitter.data("hello");
+        }
+
+        @Override
+        public void onClose()
+        {
+            emitter.close();
+            sources.remove(this);
         }
     }
 
@@ -152,31 +154,11 @@ class JournalServlet extends EventSourceServlet
         EndPoint endpoint = EndPoint.fromUri(request.getRequestURI());
         if (endpoint.getType() == EndpointType.GET || endpoint.getType() == EndpointType.ANY)
         {
-            endpoint.respond(request, response);
+            endpoint.accept(request, response);
         }
         else
         {
             writeErrorResponse(response, HttpStatus.Code.METHOD_NOT_ALLOWED);
-        }
-    }
-
-    private class JournalSource implements EventSource
-    {
-        private Emitter emitter;
-
-        @Override
-        public void onOpen(Emitter emitter) throws IOException
-        {
-            this.emitter = emitter;
-            sources.add(this);
-            emitter.data("hello");
-        }
-
-        @Override
-        public void onClose()
-        {
-            emitter.close();
-            sources.remove(this);
         }
     }
 

@@ -16,11 +16,6 @@ public class JournalServer
     private HttpServlet servlet;
     public int port = 0;
 
-    private void servlet(HttpServlet servlet)
-    {
-        this.servlet = servlet;
-    }
-
     private ServletContextHandler createHandler()
     {
         if (this.servlet != null)
@@ -40,28 +35,10 @@ public class JournalServer
         return context;
     }
 
-    private void tryStartServer(Server server)
-    {
-        try
-        {
-            server.start();
-        }
-        catch (Exception e)
-        {
-            System.out.println("Could not start Server");
-            e.printStackTrace();
-        }
-    }
-
-    private void printPort()
-    {
-        System.out.println("Server Listening: " + getUrl());
-    }
-
-    public static JournalServer fromServlet(HttpServlet app)
+    public static JournalServer withServlet(HttpServlet servlet)
     {
         JournalServer server = new JournalServer();
-        server.servlet(app);
+        server.servlet = servlet;
         return server;
     }
 
@@ -74,21 +51,29 @@ public class JournalServer
     public JournalServer start()
     {
         this.server = new Server(this.port);
-        ServletContextHandler handler = this.createHandler();
-        this.server.setHandler(handler);
-        this.tryStartServer(this.server);
+        this.server.setHandler(createHandler());
+        try
+        {
+            server.start();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Could not start Server");
+            return this;
+        }
+
         this.port = getPort(this.server);
-        this.printPort();
+
+        System.out.println("Server Listening: " + getUrl());
+
         return this;
     }
 
     public URL getUrl()
     {
-        int port = getPort(this.server);
-
         try
         {
-            return new URL("http", "localhost", port, "/");
+            return new URL("http", "localhost", this.port, "/");
         }
         catch (MalformedURLException var3)
         {
@@ -100,10 +85,10 @@ public class JournalServer
     public static int getPort(Server server)
     {
         return Arrays.stream(server.getConnectors())
-                .filter((connector) -> connector instanceof ServerConnector)
-                .findFirst()
-                .map((connector) -> ((ServerConnector) connector).getLocalPort())
-                .orElseThrow(() -> new IllegalStateException("No Port Defined"));
+            .filter((connector) -> connector instanceof ServerConnector)
+            .findFirst()
+            .map((connector) -> ((ServerConnector) connector).getLocalPort())
+            .orElseThrow(() -> new IllegalStateException("No Port Defined"));
     }
 
     public void join()

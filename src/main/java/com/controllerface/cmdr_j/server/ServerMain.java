@@ -4,8 +4,9 @@ public class ServerMain
 {
     public static void main(String[] args)
     {
-        JournalServer server = JournalServer.fromServlet(new JournalServlet());
-        server.start();
-        server.join();
+        JournalServer.withServlet(new JournalServlet())
+            .port(9000)
+            .start()
+            .join();
     }
 }
