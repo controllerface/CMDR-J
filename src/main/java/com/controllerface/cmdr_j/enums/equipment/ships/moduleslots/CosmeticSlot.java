@@ -31,7 +31,7 @@ public enum CosmeticSlot implements Statistic
     }
 
     @Override
-    public String getKey()
+    public String getName()
     {
         return name();
     }

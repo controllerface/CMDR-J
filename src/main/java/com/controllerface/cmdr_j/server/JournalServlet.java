@@ -11,17 +11,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
 class JournalServlet extends EventSourceServlet
 {
-    private final Set<EventSource> sources = ConcurrentHashMap.newKeySet();
+    private final Set<JournalSource> sources = ConcurrentHashMap.newKeySet();
+
+    private final CommanderState commanderState;
 
     private static final Map<String, StaticAsset> staticAssets = Map.ofEntries
         (
@@ -30,6 +30,16 @@ class JournalServlet extends EventSourceServlet
             Map.entry("/ui.css", StaticAsset.make("/ui/ui.css", "text/css")),
             Map.entry("/ui.js", StaticAsset.make("/ui/ui.js", "text/javascript"))
         );
+
+    JournalServlet()
+    {
+        commanderState = new CommanderState(this::sendEvent);
+    }
+
+    public CommanderState getCommanderState()
+    {
+        return commanderState;
+    }
 
     private enum EndpointType
     {
@@ -87,6 +97,22 @@ class JournalServlet extends EventSourceServlet
         }
     }
 
+    private final BiConsumer<String, String> makeEmitterUpdate(JournalSource source)
+    {
+        return (name, data) ->
+        {
+            try
+            {
+               source.emitter.event(name, data);
+            }
+            catch (IOException ioe)
+            {
+                ioe.printStackTrace();
+                source.onClose();
+            }
+        };
+    }
+
     private class JournalSource implements EventSource
     {
         private Emitter emitter;
@@ -96,7 +122,7 @@ class JournalServlet extends EventSourceServlet
         {
             this.emitter = emitter;
             sources.add(this);
-            emitter.data("hello");
+            commanderState.emitCurrentState(makeEmitterUpdate(this));
         }
 
         @Override
@@ -166,5 +192,23 @@ class JournalServlet extends EventSourceServlet
     protected EventSource newEventSource(HttpServletRequest request)
     {
         return new JournalSource();
+    }
+
+    public void sendEvent(String name, String data)
+    {
+        Set<JournalSource> toRemove = new HashSet<>();
+        sources.forEach(s ->
+        {
+            try
+            {
+                s.emitter.event(name, data);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+                toRemove.add(s);
+            }
+        });
+        toRemove.forEach(JournalSource::onClose);
     }
 }

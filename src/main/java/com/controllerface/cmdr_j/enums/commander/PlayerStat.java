@@ -35,7 +35,7 @@ public enum PlayerStat implements Statistic
         this.formatFunction = formatFunction;
     }
 
-    public String getKey()
+    public String getName()
     {
         return key;
     }

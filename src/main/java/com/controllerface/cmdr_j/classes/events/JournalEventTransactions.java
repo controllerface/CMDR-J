@@ -174,7 +174,7 @@ public class JournalEventTransactions
 
     public static String extractStatString(EventProcessingContext context, Statistic stat)
     {
-        return stat.format(context.getRawData().get(stat.getKey()));
+        return stat.format(context.getRawData().get(stat.getName()));
     }
 
     public static double extractStatDouble(EventProcessingContext context, Statistic stat)
