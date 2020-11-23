@@ -339,7 +339,8 @@ public class JournalSyncTaskEX implements Runnable
     {
         Map<String, Object> eventData = JSONSupport.Parse.jsonString.apply(rawEvent);
         JournalEventEX.withName((String) eventData.get("event"))
-            .ifPresentOrElse(handler -> handler.process(journalServlet.getCommanderState(), eventData),
-                () -> System.out.println("ignored: " +  eventData.get("event")));
+            .ifPresent(handler -> handler.process(journalServlet.getPlayerState(), eventData));
+//            .ifPresentOrElse(handler -> handler.process(journalServlet.getPlayerState(), eventData),
+//                () -> System.out.println("ignored: " +  eventData.get("event")));
     }
 }

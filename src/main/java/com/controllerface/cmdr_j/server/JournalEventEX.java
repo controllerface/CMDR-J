@@ -1,10 +1,13 @@
 package com.controllerface.cmdr_j.server;
 
+import com.controllerface.cmdr_j.classes.commander.Statistic;
+import com.controllerface.cmdr_j.enums.commander.CommanderStat;
+import com.controllerface.cmdr_j.server.events.*;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 /**
  * This enum defines all of the Journal API events that are currently supported. By convention, enum value names are
@@ -20,9 +23,9 @@ public enum JournalEventEX
     /*
     Factions
      */
-//    Progress(new ProgressHandler()),
-//    Rank(new RankHandler()),
-//    Reputation(new ReputationHandler()),
+    Progress(new ProgressEvent()),
+    Rank(new RankEvent()),
+    Reputation(new ReputationEvent()),
 
     /*
     Market
@@ -35,7 +38,7 @@ public enum JournalEventEX
 //    RefuelAll(new RefuelAllHandler()),
 //    Outfitting(new OutfittingHandler()),
 //    Loadout(new LoadoutHandler()),
-//    SetUserShipName(new SetUserShipNameHandler()),
+    SetUserShipName(new SetUserShipNameEvent()),
 //    FuelScoop(new FuelScoopHandler()),
 //    DiscoveryScan(new DiscoveryScanHandler()),
 //    Scan(new ScanHandler()),
@@ -56,7 +59,7 @@ public enum JournalEventEX
 //    EngineerProgress(new EngineerProgressHandler()),
     Commander(new CommanderEvent()),
 //    Cargo(new CargoHandler()),
-//    LoadGame(new LoadGameHandler()),
+    LoadGame(new LoadGameEvent()),
 //    Materials(new MaterialsHandler()),
 //    SquadronStartup(new SquadronStartupHandler()),
 //    Fileheader(context -> {}),
@@ -181,9 +184,9 @@ public enum JournalEventEX
     /**
      * Stores the event processing logic for the corresponding event
      */
-    private final BiConsumer<CommanderState, Map<String, Object>> handler;
+    private final BiConsumer<PlayerState, Map<String, Object>> handler;
 
-    JournalEventEX(BiConsumer<CommanderState, Map<String, Object>> handler)
+    JournalEventEX(BiConsumer<PlayerState, Map<String, Object>> handler)
     {
         this.handler = handler;
     }
@@ -195,15 +198,43 @@ public enum JournalEventEX
             .findFirst();
     }
 
-    public void process(CommanderState commanderState, Map<String, Object> event)
+    public void process(PlayerState playerState, Map<String, Object> event)
     {
         try
         {
-            handler.accept(commanderState, event);
+            handler.accept(playerState, event);
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+    }
+
+    public static String extractString(Map<String, Object> event, String key)
+    {
+        return String.valueOf(event.get(key));
+    }
+
+    public static String extractStringStat(Map<String, Object> event, Statistic stat)
+    {
+        return stat.format(extractString(event, stat.getKey()));
+    }
+
+
+    // todo: maybe convert all calls to use this and make non-safe one private
+    public static void tryCommanderStat(PlayerState playerState, Map<String, Object> event, Statistic stat)
+    {
+        Optional.ofNullable(event.get(stat.getKey()))
+            .ifPresent((_e) -> setCommanderStat(playerState, event, stat));
+    }
+
+    public static void setCommanderStat(PlayerState playerState, Map<String, Object> event, Statistic stat)
+    {
+        playerState.setCommanderStat(stat, extractStringStat(event, stat));
+    }
+
+    public static void setShipStat(PlayerState playerState, Map<String, Object> event, Statistic stat)
+    {
+        playerState.setShipStat(stat, extractStringStat(event, stat));
     }
 }

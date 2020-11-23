@@ -1,12 +1,12 @@
 package com.controllerface.cmdr_j.classes.events;
 
 import com.controllerface.cmdr_j.classes.data.ModifierData;
+import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.ui.ShipModuleDisplay;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.tasks.*;
-import com.controllerface.cmdr_j.enums.commander.PlayerStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
@@ -174,7 +174,7 @@ public class JournalEventTransactions
 
     public static String extractStatString(EventProcessingContext context, Statistic stat)
     {
-        return stat.format(context.getRawData().get(stat.getName()));
+        return stat.format(context.getRawData().get(stat.getKey()));
     }
 
     public static double extractStatDouble(EventProcessingContext context, Statistic stat)
@@ -278,7 +278,7 @@ public class JournalEventTransactions
     {
         String value = extractStatString(context, stat);
         context.getCommander().setStat(stat, value);
-        if (stat != PlayerStat.Ship && stat != CoreInternalSlot.Ship)
+        if (stat != ShipStat.Ship)// && stat != CoreInternalSlot.Ship)
         {
             logGeneralMessage(context, stat.getText() + " = " + value);
         }

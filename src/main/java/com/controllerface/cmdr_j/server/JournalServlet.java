@@ -1,5 +1,6 @@
 package com.controllerface.cmdr_j.server;
 
+import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.servlets.EventSource;
 import org.eclipse.jetty.servlets.EventSourceServlet;
@@ -13,7 +14,6 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
@@ -21,7 +21,7 @@ class JournalServlet extends EventSourceServlet
 {
     private final Set<JournalSource> sources = ConcurrentHashMap.newKeySet();
 
-    private final CommanderState commanderState;
+    private final PlayerState playerState;
 
     private static final Map<String, StaticAsset> staticAssets = Map.ofEntries
         (
@@ -33,12 +33,12 @@ class JournalServlet extends EventSourceServlet
 
     JournalServlet()
     {
-        commanderState = new CommanderState(this::sendEvent);
+        playerState = new PlayerState(this::sendEvent);
     }
 
-    public CommanderState getCommanderState()
+    public PlayerState getPlayerState()
     {
-        return commanderState;
+        return playerState;
     }
 
     private enum EndpointType
@@ -122,7 +122,9 @@ class JournalServlet extends EventSourceServlet
         {
             this.emitter = emitter;
             sources.add(this);
-            commanderState.emitCurrentState(makeEmitterUpdate(this));
+            BiConsumer<String, String> emitterUpdate = makeEmitterUpdate(this);
+            playerState.emitCurrentState(emitterUpdate);
+            emitterUpdate.accept("greeting", playerState.getCommanderStat(CommanderStat.Commander));
         }
 
         @Override

@@ -49,7 +49,7 @@ public enum RankStat implements Statistic
         this.text = text;
     }
 
-    public String getName()
+    public String getKey()
     {
         return key;
     }
@@ -57,6 +57,12 @@ public enum RankStat implements Statistic
     public String getText()
     {
         return text;
+    }
+
+    @Override
+    public String getName()
+    {
+        return name();
     }
 
     public String format(Object raw)

@@ -2,7 +2,8 @@ package com.controllerface.cmdr_j.classes.events.handlers.startup;
 
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
-import com.controllerface.cmdr_j.enums.commander.PlayerStat;
+import com.controllerface.cmdr_j.enums.commander.CommanderStat;
+import com.controllerface.cmdr_j.enums.commander.ShipStat;
 
 import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.*;
 
@@ -18,21 +19,21 @@ public class LoadGameHandler implements JournalEventHandler
     {
         logGeneralMessage(context, "Commander Data Loaded");
 
-        setStatFromData(context, PlayerStat.Commander);
-        setStatFromData(context, PlayerStat.Credits);
-        setStatFromData(context, PlayerStat.Game_Mode);
+        setStatFromData(context, CommanderStat.Commander);
+        setStatFromData(context, CommanderStat.Credits);
+        setStatFromData(context, CommanderStat.Game_Mode);
 
-        if (context.getRawData().get("Group") != null) setStatFromData(context, PlayerStat.Private_Group);
-        if (context.getRawData().get("Loan") != null) setStatFromData(context, PlayerStat.Loan);
+        if (context.getRawData().get("Group") != null) setStatFromData(context, CommanderStat.Private_Group);
+        if (context.getRawData().get("Loan") != null) setStatFromData(context, CommanderStat.Loan);
 
-        setStatFromData(context, PlayerStat.Fuel_Level);
-        setStatFromData(context, PlayerStat.Fuel_Capacity);
+        setStatFromData(context, ShipStat.Fuel_Level);
+        setStatFromData(context, ShipStat.Fuel_Capacity);
 
         context.getCommander().starShip
-                .setCurrentFuel(extractStatDouble(context, PlayerStat.Fuel_Level));
+                .setCurrentFuel(extractStatDouble(context, ShipStat.Fuel_Level));
 
-        setStatFromData(context, PlayerStat.Ship);
-        setStatFromData(context, PlayerStat.Ship_Name);
-        setStatFromData(context, PlayerStat.Ship_Ident);
+        setStatFromData(context, ShipStat.Ship);
+        setStatFromData(context, ShipStat.Ship_Name);
+        setStatFromData(context, ShipStat.Ship_Ident);
     }
 }

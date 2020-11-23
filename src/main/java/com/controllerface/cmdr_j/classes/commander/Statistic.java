@@ -5,7 +5,8 @@ package com.controllerface.cmdr_j.classes.commander;
  */
 public interface Statistic
 {
-    String getName();
+    String getKey();
     String getText();
+    String getName();
     String format(Object raw);
 }

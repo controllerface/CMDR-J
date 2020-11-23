@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.classes.events.handlers.ship;
 
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
+import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.threads.JournalSyncTask;
@@ -27,11 +28,11 @@ public class LoadoutHandler implements JournalEventHandler
 
         JournalSyncTask.shipStats.forEach(context.getCommander()::removeStat);
 
-        setStatFromData(context, CoreInternalSlot.Ship);
-        setStatFromData(context, CoreInternalSlot.ShipName);
-        setStatFromData(context, CoreInternalSlot.ShipIdent);
+        setStatFromData(context, ShipStat.Ship);
+        setStatFromData(context, ShipStat.Ship_Name);
+        setStatFromData(context, ShipStat.Ship_Ident);
 
-        String shipName = context.getCommander().getStat(CoreInternalSlot.Ship);
+        String shipName = context.getCommander().getStat(ShipStat.Ship);
         ShipType shipType;
         try
         {
@@ -39,9 +40,9 @@ public class LoadoutHandler implements JournalEventHandler
             logLoadoutMessage(context, "Ship Type: " + shipType.getBaseShipStats().getDisplayName());
             context.getCommander().starShip.setShipType(shipType);
             context.getCommander().starShip
-                    .setGivenName(extractStatString(context, CoreInternalSlot.ShipName));
+                    .setGivenName(extractStatString(context, ShipStat.Ship_Name));
             context.getCommander().starShip
-                    .setShipID(extractStatString(context, CoreInternalSlot.ShipIdent));
+                    .setShipID(extractStatString(context, ShipStat.Ship_Ident));
         }
         catch (Exception e)
         {

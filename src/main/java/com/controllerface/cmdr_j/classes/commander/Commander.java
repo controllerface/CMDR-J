@@ -6,7 +6,7 @@ import com.controllerface.cmdr_j.classes.data.PoiData;
 import com.controllerface.cmdr_j.classes.data.Waypoint;
 import com.controllerface.cmdr_j.classes.tasks.Task;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
-import com.controllerface.cmdr_j.enums.commander.PlayerStat;
+import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.commodities.CommodityType;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
@@ -563,7 +563,7 @@ public class Commander
      */
     public void setStat(Statistic key, String stat)
     {
-        if (key == PlayerStat.Commander)
+        if (key == CommanderStat.Commander)
         {
             Platform.runLater(() -> uiControls.commanderName.setText(stat));
             commanderNameImmediate = stat;
@@ -577,7 +577,7 @@ public class Commander
             });
         }
 
-        if (key == PlayerStat.Credits)
+        if (key == CommanderStat.Credits)
         {
             Platform.runLater(() -> uiControls.creditBalance.setText(stat));
             creditBalance = Long.parseLong(stat.replace(",",""));

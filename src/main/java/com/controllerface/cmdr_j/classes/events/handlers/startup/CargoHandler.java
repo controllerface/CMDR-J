@@ -22,7 +22,7 @@ public class CargoHandler implements JournalEventHandler
     @SuppressWarnings("unchecked")
     public void handle(EventProcessingContext context)
     {
-        Map<String, Object> cargoData = context.getRawData().get("Inventory") == null
+        var cargoData = context.getRawData().get("Inventory") == null
                 ? JournalSyncTask.readCargoData()
                 : context.getRawData();
 

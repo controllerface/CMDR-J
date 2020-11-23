@@ -49,7 +49,7 @@ public enum HardpointSlot implements Statistic
     }
 
     @Override
-    public String getName()
+    public String getKey()
     {
         return name();
     }
@@ -58,6 +58,12 @@ public enum HardpointSlot implements Statistic
     public String getText()
     {
         return text;
+    }
+
+    @Override
+    public String getName()
+    {
+        return name();
     }
 
     @Override

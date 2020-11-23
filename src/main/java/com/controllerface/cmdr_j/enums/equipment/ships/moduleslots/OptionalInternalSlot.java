@@ -159,7 +159,7 @@ public enum OptionalInternalSlot implements Statistic
     }
 
     @Override
-    public String getName()
+    public String getKey()
     {
         return name();
     }
@@ -168,6 +168,12 @@ public enum OptionalInternalSlot implements Statistic
     public String getText()
     {
         return text;
+    }
+
+    @Override
+    public String getName()
+    {
+        return name();
     }
 
     @Override

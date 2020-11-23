@@ -142,7 +142,10 @@ public enum ShipType implements SpaceCraft
         catch (Exception e)
         {
             exception = e;
-            if (shipName == null || shipName.isEmpty()) throw e;
+            if (shipName == null || shipName.isEmpty())
+            {
+                throw exception;
+            }
         }
         return Arrays.stream(ShipType.values())
                 .filter(shipType -> shipType.name().toLowerCase().equals(shipName.toLowerCase()))

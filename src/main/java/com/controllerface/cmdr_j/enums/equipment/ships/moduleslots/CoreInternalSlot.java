@@ -17,11 +17,11 @@ import static com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModu
  */
 public enum CoreInternalSlot implements Statistic
 {
-    Ship("Ship"),
-
-    ShipIdent("Ship ID"),
-
-    ShipName("Ship Name"),
+//    Ship("Ship"),
+//
+//    ShipIdent("Ship ID"),
+//
+//    ShipName("Ship Name"),
 
     ShipCockpit("Cockpit"),
 
@@ -490,7 +490,7 @@ public enum CoreInternalSlot implements Statistic
     }
 
     @Override
-    public String getName()
+    public String getKey()
     {
         return name();
     }
@@ -499,6 +499,12 @@ public enum CoreInternalSlot implements Statistic
     public String getText()
     {
         return text;
+    }
+
+    @Override
+    public String getName()
+    {
+        return name();
     }
 
     @Override
