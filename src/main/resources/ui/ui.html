@@ -1,14 +1,122 @@
 <html>
-    <head>
-        <script src="ui.js"></script>
-        <link rel="stylesheet" href="ui.css">
-    </head>
-    <body>
-        <div id="greeting"></div>
-        <div id="top_tabs"></div>
-        <div id="header">
-            <div id="commander_name"></div>
-        </div>
-        <div id="section_content"></div>
-    </body>
+<head>
+    <script src="ui.js"></script>
+    <link rel="stylesheet" href="ui.css">
+</head>
+<body>
+<div id="content">
+
+    <div>
+        <h2>CMDR</h2>
+        <b id="Commander"></b>
+
+        <br/>
+        <br/>
+
+        <b>Game Mode</b>
+        <div id="Game_Mode"></div>
+        <br/>
+        <b>Private Group</b>
+        <div id="Private_Group"></div>
+        <br/>
+        <b>Credits</b>
+        <div id="Credits"></div>
+        <br/>
+        <b>Loan</b>
+        <div id="Loan"></div>
+    </div>
+
+
+    <div>
+        <h2>Ship</h2>
+
+        <b id="Ship"></b>
+        <div id="Ship_Ident"></div>
+        <div id="Ship_Name"></div>
+
+        <br/>
+
+        <b>Fuel</b>
+        <div id="Fuel_Level"></div>
+        <progress id="Fuel_Capacity"></progress>
+
+    </div>
+
+    <div>
+
+        <h2>Career Ranks</h2>
+
+        <div>Combat</div>
+        <b id="Rank_Combat"></b>
+        <br/>
+        <progress max=100 id="Progress_Combat"></progress>
+        <br/>
+        <br/>
+
+        <div>Trade</div>
+        <b id="Rank_Trade"></b>
+        <br/>
+        <progress max=100 id="Progress_Trade"></progress>
+        <br/>
+        <br/>
+
+        <div>Exploration</div>
+        <b id="Rank_Explore"></b>
+        <br/>
+        <progress max=100 id="Progress_Explore"></progress>
+        <br/>
+        <br/>
+
+        <div>CQC</div>
+        <b id="Rank_CQC"></b>
+        <br/>
+        <progress max=100 id="Progress_CQC"></progress>
+        <br/>
+        <br/>
+
+    </div>
+
+    <div>
+        <h2>Faction Reputation</h2>
+
+        <div>Federation</div>
+        <progress max=100 id="Reputation_Federation"></progress>
+        <br/>
+        <br/>
+
+        <div>Empire</div>
+        <progress max=100 id="Reputation_Empire"></progress>
+        <br/>
+        <br/>
+
+        <div>Alliance</div>
+        <progress max=100 id="Reputation_Alliance"></progress>
+        <br/>
+        <br/>
+
+        <div>Independent</div>
+        <progress max=100 id="Reputation_Independent"></progress>
+        <br/>
+        <br/>
+    </div>
+
+    <div>
+        <h2>Naval Ranks</h2>
+
+        <div>Federal</div>
+        <b id="Rank_Federation"></b>
+        <br/>
+        <progress max=100 id="Progress_Federation"></progress>
+        <br/>
+        <br/>
+
+        <div>Imperial</div>
+        <b id="Rank_Empire"></b>
+        <br/>
+        <progress max=100 id="Progress_Empire"></progress>
+        <br/>
+        <br/>
+    </div>
+</div>
+</body>
 </html>

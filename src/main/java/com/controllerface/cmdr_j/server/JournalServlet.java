@@ -97,7 +97,7 @@ class JournalServlet extends EventSourceServlet
         }
     }
 
-    private final BiConsumer<String, String> makeEmitterUpdate(JournalSource source)
+    private BiConsumer<String, String> makeEmitterUpdate(JournalSource source)
     {
         return (name, data) ->
         {
@@ -118,13 +118,12 @@ class JournalServlet extends EventSourceServlet
         private Emitter emitter;
 
         @Override
-        public void onOpen(Emitter emitter) throws IOException
+        public void onOpen(Emitter emitter)
         {
             this.emitter = emitter;
             sources.add(this);
             BiConsumer<String, String> emitterUpdate = makeEmitterUpdate(this);
             playerState.emitCurrentState(emitterUpdate);
-            emitterUpdate.accept("greeting", playerState.getCommanderStat(CommanderStat.Commander));
         }
 
         @Override
