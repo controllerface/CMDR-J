@@ -35,7 +35,7 @@ public enum JournalEventEX
     /*
     Ship
      */
-//    RefuelAll(new RefuelAllHandler()),
+    RefuelAll(new RefuelAllEvent()),
 //    Outfitting(new OutfittingHandler()),
 //    Loadout(new LoadoutHandler()),
     SetUserShipName(new SetUserShipNameEvent()),

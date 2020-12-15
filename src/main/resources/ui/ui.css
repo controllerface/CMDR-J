@@ -1,7 +1,5 @@
-/* Test ID */
-/* todo: remove this once started */
-#test
+#content
 {
-    background: #000;
-    color: #fa5;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
