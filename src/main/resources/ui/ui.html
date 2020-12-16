@@ -5,7 +5,7 @@
 </head>
 <body>
 <div id="content">
-    <div class="card" id="cmdr_card">
+    <div class="card" id="card1">
         <h2>CMDR</h2>
         <b id="Commander"></b>
 
@@ -26,7 +26,7 @@
     </div>
 
 
-    <div class="card">
+    <div class="card" id="card2">
         <h2>Ship</h2>
 
         <b id="Ship"></b>
@@ -41,7 +41,7 @@
 
     </div>
 
-    <div class="card">
+    <div class="card" id="card3">
 
         <h2>Career Ranks</h2>
 
@@ -75,7 +75,7 @@
 
     </div>
 
-    <div class="card">
+    <div class="card" id="card4">
         <h2>Faction Reputation</h2>
 
         <div>Federation</div>
@@ -99,7 +99,7 @@
         <br/>
     </div>
 
-    <div class="card">
+    <div class="card" id="card5">
         <h2>Naval Ranks</h2>
 
         <div>Federal</div>
@@ -115,6 +115,89 @@
         <progress max=100 id="Progress_Empire"></progress>
         <br/>
         <br/>
+    </div>
+
+    <div id="inventory">
+        <h2>Inventory</h2>
+        <div id="inventory_header">
+            <div>Material Name</div>
+            <div>Grade</div>
+            <div>Stock</div>
+        </div>
+        <div id="inventory_table">
+
+            <details id="raw_materials">
+                <summary>
+                    Raw
+                </summary>
+                <div class="inventory_bin">
+                    <div class="bin_category_header">Raw 1</div>
+                    <div class="bin_category">
+<!--                        <div class="bin_name">Carbon</div>-->
+                        <details class="bin_name">
+                            <summary>Carbon</summary>
+                            Data
+                        </details>
+
+                        <div class="bin_grade">1</div>
+                        <div class="bin_count">9</div>
+                    </div>
+                    <div class="bin_category">
+                        <div class="bin_name">Vanadium</div>
+                        <div class="bin_grade">1</div>
+                        <div class="bin_count">9</div>
+                    </div>
+                    <div class="bin_category">
+                        <div class="bin_name">Niobium</div>
+                        <div class="bin_grade">1</div>
+                        <div class="bin_count">9</div>
+                    </div>
+                    <div class="bin_category">
+                        <div class="bin_name">Yttrium</div>
+                        <div class="bin_grade">1</div>
+                        <div class="bin_count">9</div>
+                    </div>
+
+                    <div class="bin_category_header">Raw 2</div>
+                    <div class="bin_category">
+                        <div class="bin_name">Phosphorus</div>
+                        <div class="bin_grade">1</div>
+                        <div class="bin_count">9</div>
+                    </div>
+                    <div class="bin_category">
+                        <div class="bin_name">Chromium</div>
+                        <div class="bin_grade">1</div>
+                        <div class="bin_count">9</div>
+                    </div>
+                    <div class="bin_category">
+                        <div class="bin_name">Molybdenum</div>
+                        <div class="bin_grade">1</div>
+                        <div class="bin_count">9</div>
+                    </div>
+                    <div class="bin_category">
+                        <div class="bin_name">Technetium</div>
+                        <div class="bin_grade">1</div>
+                        <div class="bin_count">9</div>
+                    </div>
+
+                </div>
+            </details>
+
+            <details id="encoded_materials">
+                <summary>
+                    Encoded
+                </summary>
+                <div>This is Encoded material data</div>
+            </details>
+
+            <details id="manufactured_materials">
+                <summary>
+                    Manufactured
+                </summary>
+                <div>This is manufactured material data</div>
+            </details>
+
+        </div>
     </div>
 </div>
 </body>

@@ -33,5 +33,6 @@ public class MaterialsHandler implements JournalEventHandler
                 .forEach(item -> adjustMaterialCount(context, item));
 
         ((List<Map<String, Object>>) data.get("Encoded"))
-                .forEach(item -> adjustMaterialCount(context, item));    }
+                .forEach(item -> adjustMaterialCount(context, item));
+    }
 }
