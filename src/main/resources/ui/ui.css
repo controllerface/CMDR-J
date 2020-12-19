@@ -17,17 +17,18 @@
 }
 
 
-#inventory_header
-{
-    display: grid;
-    grid-template-columns: 5fr 1fr 2fr;
-    padding: 0.3em;
-}
-
 .bin_category
 {
     display: grid;
-    grid-template-columns: 5fr 1fr 2fr;
+    grid-template-columns: 5fr .5fr .5fr 2fr;
+    grid-area: inven;
+    padding: 0.3em;
+}
+
+.bin_header
+{
+    display: grid;
+    grid-template-columns: 5fr .5fr .5fr 2fr;
     grid-area: inven;
     padding: 0.3em;
 }
@@ -45,6 +46,12 @@
 .bin_count
 {
     border: solid 1px;
+}
+
+.bin_capacity 
+{
+    border: solid 1px;
+
 }
 
 
@@ -102,4 +109,101 @@
 .card:hover
 {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.input:disabled + label 
+{
+background: #ccc; 
+color: #777;
+cursor: not-allowed;
+}
+
+.input 
+{
+    position: absolute;
+    opacity: 0;
+}
+
+.input:focus + .label 
+{
+    z-index: 1;
+}
+
+.input:checked + .label 
+{
+    background: lightblue;
+    color: black;
+}
+    
+.input:checked + .label + .panel 
+{
+    display: block;
+}
+
+.label
+{
+        width: auto;
+        text-align: center;
+        padding-top: 4.5px;
+        padding-left: 5px;
+        background: #05a;
+        cursor: pointer;
+        font-weight: bold;
+        color: #fff;
+        transition: background 0.1s, color 0.1s;
+        border: 1px solid #242626;
+        box-shadow: 2px 2px grey;
+        margin: 1px;
+}
+
+.label:hover {
+  background: #aaf;
+  color: #000;
+}
+.label:active {
+  background: #aaf;
+}
+
+.panel
+{
+  grid-area: panel;
+  display: none;
+  background: #eee;
+  overflow: scroll;
+  padding-left: 3px;
+  height: 100%;
+}
+
+#tab0
+{
+    grid-area: tab0;
+    border-radius: 5px;
+}
+#tab1
+{
+    grid-area: tab1;
+    border-radius: 5px;
+}
+#tab2
+{
+    grid-area: tab2;
+    border-radius: 5px;
+}
+
+#container
+{
+    overflow: scroll;
+    /* position: absolute; */
+    left: 68px;
+    right: 50px;
+    top: 201px;
+    bottom: 332px;
+    display: grid;
+    grid-template-areas:
+    "tab0 tab1 tab2"
+    "panel panel panel";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+    background: #efefef;
+    overflow: hidden;
 }

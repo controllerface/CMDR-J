@@ -117,88 +117,94 @@
         <br/>
     </div>
 
-    <div id="inventory">
-        <h2>Inventory</h2>
-        <div id="inventory_header">
-            <div>Material Name</div>
-            <div>Grade</div>
-            <div>Stock</div>
+</div>
+<div id="container">
+<input name="tabs" type="radio" id="tab-0" checked="checked" class="input"/>
+<label id="tab0" for="tab-0" class="label">Raw</label>
+<div class="panel">
+    <div class="inventory_bin">
+        <div class="bin_header">
+            <div class="bin_name">Name</div>
+            <div class="bin_grade">Grade</div>
+            <div class="bin_count">Stock</div>
+            <div class="bin_capacity">Capacity</div>
         </div>
-        <div id="inventory_table">
-
-            <details id="raw_materials">
-                <summary>
-                    Raw
-                </summary>
-                <div class="inventory_bin">
-                    <div class="bin_category_header">Raw 1</div>
-                    <div class="bin_category">
+        <div class="bin_category_header">Raw 1</div>
+        <div class="bin_category">
 <!--                        <div class="bin_name">Carbon</div>-->
-                        <details class="bin_name">
-                            <summary>Carbon</summary>
-                            Data
-                        </details>
-
-                        <div class="bin_grade">1</div>
-                        <div class="bin_count">9</div>
-                    </div>
-                    <div class="bin_category">
-                        <div class="bin_name">Vanadium</div>
-                        <div class="bin_grade">1</div>
-                        <div class="bin_count">9</div>
-                    </div>
-                    <div class="bin_category">
-                        <div class="bin_name">Niobium</div>
-                        <div class="bin_grade">1</div>
-                        <div class="bin_count">9</div>
-                    </div>
-                    <div class="bin_category">
-                        <div class="bin_name">Yttrium</div>
-                        <div class="bin_grade">1</div>
-                        <div class="bin_count">9</div>
-                    </div>
-
-                    <div class="bin_category_header">Raw 2</div>
-                    <div class="bin_category">
-                        <div class="bin_name">Phosphorus</div>
-                        <div class="bin_grade">1</div>
-                        <div class="bin_count">9</div>
-                    </div>
-                    <div class="bin_category">
-                        <div class="bin_name">Chromium</div>
-                        <div class="bin_grade">1</div>
-                        <div class="bin_count">9</div>
-                    </div>
-                    <div class="bin_category">
-                        <div class="bin_name">Molybdenum</div>
-                        <div class="bin_grade">1</div>
-                        <div class="bin_count">9</div>
-                    </div>
-                    <div class="bin_category">
-                        <div class="bin_name">Technetium</div>
-                        <div class="bin_grade">1</div>
-                        <div class="bin_count">9</div>
-                    </div>
-
-                </div>
+            <details class="bin_name">
+                <summary>Carbon</summary>
+                Data
             </details>
 
-            <details id="encoded_materials">
-                <summary>
-                    Encoded
-                </summary>
-                <div>This is Encoded material data</div>
-            </details>
-
-            <details id="manufactured_materials">
-                <summary>
-                    Manufactured
-                </summary>
-                <div>This is manufactured material data</div>
-            </details>
+            <div class="bin_grade">1</div>
+            <div class="bin_count">10</div>
+            <div class="bin_capacity"><progress max="100" value="50"></progress></div>
+        </div>
+        <div class="bin_category">
+            <div class="bin_name">Vanadium</div>
+            <div class="bin_grade">1</div>
+            <div class="bin_count">9</div>
+            <div class="bin_capacity"><progress max="100" value="50"></progress></div>
 
         </div>
+        <div class="bin_category">
+            <div class="bin_name">Niobium</div>
+            <div class="bin_grade">1</div>
+            <div class="bin_count">9</div>
+            <div class="bin_capacity"><progress max="100" value="50"></progress></div>
+
+        </div>
+        <div class="bin_category">
+            <div class="bin_name">Yttrium</div>
+            <div class="bin_grade">1</div>
+            <div class="bin_count">9</div>
+            <div class="bin_capacity"><progress max="100" value="50"></progress></div>
+
+        </div>
+
+        <div class="bin_category_header">Raw 2</div>
+        <div class="bin_category">
+            <div class="bin_name">Phosphorus</div>
+            <div class="bin_grade">1</div>
+            <div class="bin_count">9</div>
+            <div class="bin_capacity"><progress max="100" value="50"></progress></div>
+
+        </div>
+        <div class="bin_category">
+            <div class="bin_name">Chromium</div>
+            <div class="bin_grade">1</div>
+            <div class="bin_count">9</div>
+            <div class="bin_capacity"><progress max="100" value="50"></progress></div>
+
+        </div>
+        <div class="bin_category">
+            <div class="bin_name">Molybdenum</div>
+            <div class="bin_grade">1</div>
+            <div class="bin_count">9</div>
+            <div class="bin_capacity"><progress max="100" value="50"></progress></div>
+
+        </div>
+        <div class="bin_category">
+            <div class="bin_name">Technetium</div>
+            <div class="bin_grade">1</div>
+            <div class="bin_count">9</div>
+            <div class="bin_capacity"><progress max="100" value="50"></progress></div>
+
+        </div>
+
     </div>
+</div>
+<input name="tabs" type="radio" id="tab-1" class="input"/>
+<label id="tab1" for="tab-1" class="label">Encoded</label>
+<div class="panel">
+    <span>Panel 1</span>
+</div>
+<input name="tabs" type="radio" id="tab-2" class="input"/>
+<label id="tab2" for="tab-2" class="label">Manufactured</label>
+<div class="panel">
+    <span>Panel 2</span>
+</div>
 </div>
 </body>
 </html>
