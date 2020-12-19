@@ -1,12 +1,12 @@
-#content
+#commander_info
 {
     display: grid;
     grid-template:
         "card1 card2 card3 card4 card5"
         "inven inven inven inven inven";
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    width: 90%;
-    margin-left: 3em;
+    /*width: 90%;*/
+    /*margin-left: 3em;*/
 }
 
 .card
@@ -131,8 +131,8 @@ cursor: not-allowed;
 
 .input:checked + .label 
 {
-    background: lightblue;
-    color: black;
+    background: #05a;
+    color: white;
 }
     
 .input:checked + .label + .panel 
@@ -146,10 +146,10 @@ cursor: not-allowed;
         text-align: center;
         padding-top: 4.5px;
         padding-left: 5px;
-        background: #05a;
+        background: lightblue;
         cursor: pointer;
         font-weight: bold;
-        color: #fff;
+        color: black;
         transition: background 0.1s, color 0.1s;
         border: 1px solid #242626;
         box-shadow: 2px 2px grey;
@@ -169,10 +169,63 @@ cursor: not-allowed;
   grid-area: panel;
   display: none;
   background: #eee;
-  overflow: scroll;
-  padding-left: 3px;
-  height: 100%;
 }
+
+
+
+#sections
+{
+    display: grid;
+    grid-template-areas:
+    "cmdr_tab careers_tab mats_tab loadout_tab task_tab"
+    "panel panel panel panel panel";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+    background: #efefef;
+}
+
+#inventory_container
+{
+    display: grid;
+    grid-template-areas:
+    "tab0 tab1 tab2"
+    "panel panel panel";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+    background: #efefef;
+}
+
+
+
+#cmdr_tab
+{
+    grid-area: cmdr_tab;
+    border-radius: 5px;
+}
+#careers_tab
+{
+    grid-area: careers_tab;
+    border-radius: 5px;
+}
+#mats_tab
+{
+    grid-area: mats_tab;
+    border-radius: 5px;
+}
+#loadout_tab
+{
+    grid-area: loadout_tab;
+    border-radius: 5px;
+}
+#task_tab
+{
+    grid-area: task_tab;
+    border-radius: 5px;
+}
+
+
+
+
 
 #tab0
 {
@@ -188,22 +241,4 @@ cursor: not-allowed;
 {
     grid-area: tab2;
     border-radius: 5px;
-}
-
-#container
-{
-    overflow: scroll;
-    /* position: absolute; */
-    left: 68px;
-    right: 50px;
-    top: 201px;
-    bottom: 332px;
-    display: grid;
-    grid-template-areas:
-    "tab0 tab1 tab2"
-    "panel panel panel";
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 2em auto;
-    background: #efefef;
-    overflow: hidden;
 }

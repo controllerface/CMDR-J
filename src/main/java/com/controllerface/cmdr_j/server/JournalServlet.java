@@ -25,7 +25,7 @@ class JournalServlet extends EventSourceServlet
 
     private static final Map<String, StaticAsset> staticAssets = Map.ofEntries
         (
-            Map.entry("/", StaticAsset.make("/ui/index.html", "text/html")),
+            Map.entry("/", StaticAsset.make("/ui/ui.html", "text/html")),
             Map.entry("/ui.html", StaticAsset.make("/ui/ui.html", "text/html")),
             Map.entry("/ui.css", StaticAsset.make("/ui/ui.css", "text/css")),
             Map.entry("/ui.js", StaticAsset.make("/ui/ui.js", "text/javascript"))
