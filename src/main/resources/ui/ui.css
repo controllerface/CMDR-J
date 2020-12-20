@@ -1,3 +1,24 @@
+summary
+{
+  outline: none;
+  cursor: pointer;
+}
+
+summary:hover
+{
+    background: orange;
+}
+
+details > summary
+{
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker
+{
+  display: none;
+}
+
 #commander_info
 {
     display: grid;
@@ -36,6 +57,9 @@
 .bin_name
 {
     border: solid 1px;
+    background: lightcyan;
+    border-radius: 3px;
+    padding: 3px;
 }
 
 .bin_grade

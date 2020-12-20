@@ -37,6 +37,7 @@ import com.controllerface.cmdr_j.classes.modules.weapons.railgun.AbstractRailGun
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.AbstractSeekerMissileRack;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.AbstractTorpedoPylon;
 import com.controllerface.cmdr_j.classes.data.CostData;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Basic;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Premium;
@@ -44,6 +45,8 @@ import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Standar
 import com.controllerface.cmdr_j.classes.recipes.AbstractTechnologyRecipe;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
+import com.controllerface.cmdr_j.enums.costs.materials.MaterialSubCostCategory;
+import com.controllerface.cmdr_j.enums.costs.materials.MaterialType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
@@ -51,6 +54,7 @@ import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import javafx.util.Pair;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -59,6 +63,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -298,6 +303,110 @@ public class CommanderJTest
                 .forEach(out2::add);
 
         out2.forEach(z-> System.out.println("Missing: " + z));
+    }
+
+    private int determineMaximum(ItemGrade itemGrade)
+    {
+        switch (itemGrade)
+        {
+            case VERY_COMMON:
+                return 300;
+            case COMMON:
+                return 250;
+            case STANDARD:
+                return 200;
+            case RARE:
+                return 150;
+            case VERY_RARE:
+                return 100;
+            default:
+                return 0;
+        }
+    }
+
+    /**
+     * Generates HTML for material categories
+     */
+    @Test
+    public void generateMaterialCategories()
+    {
+        InputStream jsonStream = null;
+        try
+        {
+            URL localizationData = getClass().getResource("/localization/eng.json");
+            jsonStream = localizationData.openStream();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        Map<String, Object> data = JSONSupport.Parse.jsonStream.apply(jsonStream);
+
+        ((Map<String, Object>) data.get("materials"))
+            .forEach((key, value) ->
+            {
+                TaskCost material = Material.valueOf(key);
+                material.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
+                List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
+                material.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
+            });
+
+
+        Arrays.stream(MaterialType.values())
+            .forEach(materialType ->
+            {
+                System.out.println("\n\n" + materialType +"\n\n");
+
+                StringBuilder buffer = new StringBuilder();
+                buffer.append("<div class=\"panel\">\n")
+                    .append("\t<div class=\"inventory_bin\">\n")
+                    .append("\t\t<div class=\"bin_header\">\n")
+                    .append("\t\t\t<div class=\"bin_name\">Name</div>\n")
+                    .append("\t\t\t<div class=\"bin_grade\">Grade</div>\n")
+                    .append("\t\t\t<div class=\"bin_count\">Stock</div>\n")
+                    .append("\t\t\t<div class=\"bin_capacity\">Capacity</div>\n")
+                    .append("\t\t</div>\n\n");
+
+                materialType.categories()
+                    .forEach(category ->
+                    {
+                        buffer.append("\t\t<div class=\"bin_category_header\">")
+                            .append(category)
+                            .append("</div>\n");
+
+                        category.materials()
+                            .forEach(material ->
+                            {
+                                var grade = material.getGrade();
+                                var max = determineMaximum(grade);
+                                var materialName = material.name();
+                                buffer.append("\t\t<div class=\"bin_category\" id=\"")
+                                    .append(materialName.toLowerCase())
+                                    .append("_bin\">\n")
+                                    .append("\t\t\t<details class=\"bin_name\">\n")
+                                    .append("\t\t\t\t<summary>")
+                                    .append(material.getLocalizedName())
+                                    .append("</summary>\n")
+                                    .append("\t\t\t\tTrade data\n")
+                                    .append("\t\t\t</details>\n")
+                                    .append("\t\t\t<div class=\"bin_grade\">")
+                                    .append(grade)
+                                    .append("</div>\n")
+                                    .append("\t\t\t<div class=\"bin_count\"></div>\n")
+                                    .append("\t\t\t<div class=\"bin_capacity\">\n")
+                                    .append("\t\t\t\t<progress max=\"")
+                                    .append(max)
+                                    .append("\"></progress>\n")
+                                    .append("\t\t\t</div>\n")
+                                    .append("\t\t</div>\n");
+                            });
+                    });
+
+                buffer.append("\t</div>\n")
+                    .append("</div>\n\n");
+                System.out.println(buffer.toString());
+            });
     }
 
     @Test
