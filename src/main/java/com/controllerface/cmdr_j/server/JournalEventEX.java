@@ -1,8 +1,11 @@
 package com.controllerface.cmdr_j.server;
 
 import com.controllerface.cmdr_j.classes.commander.Statistic;
+import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import com.controllerface.cmdr_j.server.events.*;
+import com.controllerface.cmdr_j.threads.UserTransaction;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -60,7 +63,7 @@ public enum JournalEventEX
     Commander(new CommanderEvent()),
 //    Cargo(new CargoHandler()),
     LoadGame(new LoadGameEvent()),
-//    Materials(new MaterialsHandler()),
+    Materials(new MaterialsEvent()),
 //    SquadronStartup(new SquadronStartupHandler()),
 //    Fileheader(context -> {}),
 
@@ -236,5 +239,18 @@ public enum JournalEventEX
     public static void setShipStat(PlayerState playerState, Map<String, Object> event, Statistic stat)
     {
         playerState.setShipStat(stat, extractStringStat(event, stat));
+    }
+
+
+
+
+
+    public static void adjust(EventProcessingContext context, TaskCost cost, int count)
+    {
+        context.getTransactions().add(UserTransaction.type(UserTransaction.TransactionType.INVENTORY)
+            .setTransactionAmount(count)
+            .setInventoryItem(cost)
+            .build());
+
     }
 }

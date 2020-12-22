@@ -5,6 +5,7 @@ import com.controllerface.cmdr_j.classes.data.EntityKeys;
 import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import com.controllerface.cmdr_j.enums.commander.RankStat;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
+import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
@@ -26,6 +27,8 @@ public class PlayerState
 
     private final Map<Statistic, String> commanderStatistics = new ConcurrentHashMap<>();
     private final Map<Statistic, String> shipStatistics = new ConcurrentHashMap<>();
+
+    private final Map<Material, Integer> materials = new ConcurrentHashMap<>();
 
     /**
      * Contains the commander's current credit balance.
@@ -65,7 +68,6 @@ public class PlayerState
 
     public void setCommanderStat(Statistic statistic, String value)
     {
-        // todo: port database access/update logic to this class
         executeWithLock(() ->
         {
             commanderStatistics.put(statistic, value);
@@ -80,9 +82,17 @@ public class PlayerState
             .orElse("[EMPTY]");
     }
 
+    public void setMaterialCount(Material material, Integer count)
+    {
+        executeWithLock(() ->
+        {
+            materials.put(material, count);
+            globalUpdate.accept(material.name(), count.toString());
+        });
+    }
+
     public void setShipStat(Statistic statistic, String value)
     {
-        // todo: port database access/update logic to this class
         executeWithLock(() ->
         {
             shipStatistics.put(statistic, value);
@@ -98,11 +108,14 @@ public class PlayerState
             // todo: as more state is tracked, this will need to be updated to make sure
             //  all important data is emitted during this call
 
-            BiConsumer<Statistic, String> sendUpdate =
+            BiConsumer<Statistic, String> statUpdate =
                 (statistic, value) -> directUpdate.accept(statistic.getName(), value);
 
-            commanderStatistics.forEach(sendUpdate);
-            shipStatistics.forEach(sendUpdate);
+            commanderStatistics.forEach(statUpdate);
+            shipStatistics.forEach(statUpdate);
+
+            materials.forEach((material, value) ->
+                directUpdate.accept(material.name(), value.toString()));
         });
     }
 

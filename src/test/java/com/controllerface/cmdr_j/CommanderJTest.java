@@ -354,6 +354,13 @@ public class CommanderJTest
 
 
         Arrays.stream(MaterialType.values())
+
+            // uncomment a filter to generate only that type
+
+            //.filter(materialType -> materialType == MaterialType.RAW)
+            //.filter(materialType -> materialType == MaterialType.ENCODED)
+            .filter(materialType -> materialType == MaterialType.MANUFACTURED)
+
             .forEach(materialType ->
             {
                 System.out.println("\n\n" + materialType +"\n\n");
@@ -382,8 +389,8 @@ public class CommanderJTest
                                 var max = determineMaximum(grade);
                                 var materialName = material.name();
                                 buffer.append("\t\t<div class=\"bin_category\" id=\"")
-                                    .append(materialName.toLowerCase())
-                                    .append("_bin\">\n")
+                                    .append(materialName)
+                                    .append("\">\n")
                                     .append("\t\t\t<details class=\"bin_name\">\n")
                                     .append("\t\t\t\t<summary>")
                                     .append(material.getLocalizedName())
@@ -393,11 +400,11 @@ public class CommanderJTest
                                     .append("\t\t\t<div class=\"bin_grade\">")
                                     .append(grade)
                                     .append("</div>\n")
-                                    .append("\t\t\t<div class=\"bin_count\"></div>\n")
+                                    .append("\t\t\t<div class=\"bin_count\">0</div>\n")
                                     .append("\t\t\t<div class=\"bin_capacity\">\n")
                                     .append("\t\t\t\t<progress max=\"")
                                     .append(max)
-                                    .append("\"></progress>\n")
+                                    .append("\" value=\"0\"></progress>\n")
                                     .append("\t\t\t</div>\n")
                                     .append("\t\t</div>\n");
                             });
@@ -407,6 +414,24 @@ public class CommanderJTest
                     .append("</div>\n\n");
                 System.out.println(buffer.toString());
             });
+    }
+
+    @Test
+    public void generateMaterialEvents()
+    {
+        StringBuilder buffer = new StringBuilder();
+        Arrays.stream(MaterialType.values())
+            .flatMap(MaterialType::categories)
+            .flatMap(MaterialSubCostCategory::materials)
+            .forEach(m->
+            {
+                String name = m.name();
+                buffer.append(name)
+                    .append(": (e) => setMaterialCount(\"")
+                    .append(name)
+                    .append("\", e.data),\n");
+            });
+        System.out.println(buffer.toString());
     }
 
     @Test
