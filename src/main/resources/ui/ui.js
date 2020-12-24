@@ -153,8 +153,8 @@ function setElementProgressMax(id, data)
 function setMaterialCount(id, data)
 {
     let materialBin = document.getElementById(id);
-    let count = materialBin.querySelector('.bin_count');
-    let capacity = materialBin.querySelector('.bin_capacity > progress');
+    let count = materialBin.querySelector('.binCount');
+    let capacity = materialBin.querySelector('.binCapacity > progress');
     count.textContent = data;
     capacity.value = data;
 }

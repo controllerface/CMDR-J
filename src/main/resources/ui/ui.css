@@ -19,7 +19,7 @@ details > summary::-webkit-details-marker
   display: none;
 }
 
-#commander_info
+#commanderInfo
 {
     display: grid;
     grid-template:
@@ -38,7 +38,7 @@ details > summary::-webkit-details-marker
 }
 
 
-.bin_category
+.binCategory
 {
     display: grid;
     grid-template-columns: 5fr .5fr .5fr 2fr;
@@ -46,7 +46,7 @@ details > summary::-webkit-details-marker
     padding: 0.3em;
 }
 
-.bin_header
+.binHeader
 {
     display: grid;
     grid-template-columns: 5fr .5fr .5fr 2fr;
@@ -54,7 +54,7 @@ details > summary::-webkit-details-marker
     padding: 0.3em;
 }
 
-.bin_name
+.binName
 {
     border: solid 1px;
     background: lightcyan;
@@ -62,36 +62,20 @@ details > summary::-webkit-details-marker
     padding: 3px;
 }
 
-.bin_grade
+.binGrade
 {
     border: solid 1px;
 }
 
-.bin_count
+.binCount
 {
     border: solid 1px;
 }
 
-.bin_capacity 
+.binCapacity
 {
     border: solid 1px;
 
-}
-
-
-#raw_materials
-{
-    background: green;
-}
-
-#encoded_materials
-{
-    background: blue;
-}
-
-#manufactured_materials
-{
-    background: red;
 }
 
 
@@ -135,36 +119,36 @@ details > summary::-webkit-details-marker
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.input:disabled + label 
+.tabInput:disabled + label
 {
 background: #ccc; 
 color: #777;
 cursor: not-allowed;
 }
 
-.input 
+.tabInput
 {
     position: absolute;
     opacity: 0;
 }
 
-.input:focus + .label 
+.tabInput:focus + .tabLabel
 {
     z-index: 1;
 }
 
-.input:checked + .label 
+.tabInput:checked + .tabLabel
 {
     background: #05a;
     color: white;
 }
     
-.input:checked + .label + .panel 
+.tabInput:checked + .tabLabel + .panel
 {
     display: block;
 }
 
-.label
+.tabLabel
 {
         width: auto;
         text-align: center;
@@ -180,11 +164,11 @@ cursor: not-allowed;
         margin: 1px;
 }
 
-.label:hover {
+.tabLabel:hover {
   background: #aaf;
   color: #000;
 }
-.label:active {
+.tabLabel:active {
   background: #aaf;
 }
 
@@ -195,74 +179,102 @@ cursor: not-allowed;
   background: #eee;
 }
 
-
+/* Main Sections */
 
 #sections
 {
     display: grid;
     grid-template-areas:
-    "cmdr_tab careers_tab mats_tab loadout_tab task_tab"
-    "panel panel panel panel panel";
+    "cmdrTab careersTab matsTab loadoutTab taskTab"
+    "panel   panel      panel   panel      panel";
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     background: #efefef;
 }
 
-#inventory_container
+#cmdrTab
+{
+    grid-area: cmdrTab;
+    border-radius: 5px;
+}
+#careersTab
+{
+    grid-area: careersTab;
+    border-radius: 5px;
+}
+#matsTab
+{
+    grid-area: matsTab;
+    border-radius: 5px;
+}
+#loadoutTab
+{
+    grid-area: loadoutTab;
+    border-radius: 5px;
+}
+#taskTab
+{
+    grid-area: taskTab;
+    border-radius: 5px;
+}
+
+
+/* Material Inventory */
+
+#inventoryContainer
 {
     display: grid;
     grid-template-areas:
-    "tab0 tab1 tab2"
-    "panel panel panel";
+    "rawTab encTab manufacturedTab"
+    "panel  panel  panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     background: #efefef;
 }
 
-
-
-#cmdr_tab
+#rawTab
 {
-    grid-area: cmdr_tab;
+    grid-area: rawTab;
     border-radius: 5px;
 }
-#careers_tab
+#encTab
 {
-    grid-area: careers_tab;
+    grid-area: encTab;
     border-radius: 5px;
 }
-#mats_tab
+#manufacturedTab
 {
-    grid-area: mats_tab;
-    border-radius: 5px;
-}
-#loadout_tab
-{
-    grid-area: loadout_tab;
-    border-radius: 5px;
-}
-#task_tab
-{
-    grid-area: task_tab;
+    grid-area: manufacturedTab;
     border-radius: 5px;
 }
 
 
 
+/* Loadout */
 
-
-#tab0
+#loadoutContainer
 {
-    grid-area: tab0;
+    display: grid;
+    grid-template-areas:
+    "coreInternalsTab optionalInternalsTab hardpointsTab"
+    "panel            panel                panel";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+    background: #efefef;
+}
+
+#coreInternalsTab
+{
+    grid-area: coreInternalsTab;
     border-radius: 5px;
 }
-#tab1
+#optionalInternalsTab
 {
-    grid-area: tab1;
+    grid-area: optionalInternalsTab;
     border-radius: 5px;
 }
-#tab2
+#hardpointsTab
 {
-    grid-area: tab2;
+    grid-area: hardpointsTab;
     border-radius: 5px;
 }

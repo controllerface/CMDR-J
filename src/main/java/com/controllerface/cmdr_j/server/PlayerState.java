@@ -27,14 +27,12 @@ public class PlayerState
 
     private final Map<Statistic, String> commanderStatistics = new ConcurrentHashMap<>();
     private final Map<Statistic, String> shipStatistics = new ConcurrentHashMap<>();
-
     private final Map<Material, Integer> materials = new ConcurrentHashMap<>();
 
     /**
      * Contains the commander's current credit balance.
      */
     private long creditBalance = 0;
-
 
     /**
      * This object holds the persistent data related to this commander
@@ -76,12 +74,6 @@ public class PlayerState
         });
     }
 
-    public String getCommanderStat(Statistic statistic)
-    {
-        return Optional.ofNullable(commanderStatistics.get(statistic))
-            .orElse("[EMPTY]");
-    }
-
     public void setMaterialCount(Material material, Integer count)
     {
         executeWithLock(() ->
@@ -108,11 +100,11 @@ public class PlayerState
             // todo: as more state is tracked, this will need to be updated to make sure
             //  all important data is emitted during this call
 
-            BiConsumer<Statistic, String> statUpdate =
-                (statistic, value) -> directUpdate.accept(statistic.getName(), value);
+            commanderStatistics.forEach((statistic, value) ->
+                directUpdate.accept(statistic.getName(), value));
 
-            commanderStatistics.forEach(statUpdate);
-            shipStatistics.forEach(statUpdate);
+            shipStatistics.forEach((statistic, value) ->
+                directUpdate.accept(statistic.getName(), value));
 
             materials.forEach((material, value) ->
                 directUpdate.accept(material.name(), value.toString()));

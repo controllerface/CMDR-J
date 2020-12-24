@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.server;
 
-import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.servlets.EventSource;
 import org.eclipse.jetty.servlets.EventSourceServlet;
@@ -25,26 +24,23 @@ class JournalServlet extends EventSourceServlet
 
     private static final Map<String, StaticAsset> staticAssets = Map.ofEntries
         (
-            Map.entry("/", StaticAsset.make("/ui/ui.html", "text/html")),
-            Map.entry("/ui.html", StaticAsset.make("/ui/ui.html", "text/html")),
-            Map.entry("/ui.css", StaticAsset.make("/ui/ui.css", "text/css")),
-            Map.entry("/ui.js", StaticAsset.make("/ui/ui.js", "text/javascript"))
+            Map.entry("/",
+                StaticAsset.make("/ui/ui.html", "text/html")),
+
+            Map.entry("/ui.html",
+                StaticAsset.make("/ui/ui.html", "text/html")),
+
+            Map.entry("/ui.css",
+                StaticAsset.make("/ui/ui.css", "text/css")),
+
+            Map.entry("/ui.js",
+                StaticAsset.make("/ui/ui.js", "text/javascript"))
         );
-
-    JournalServlet()
-    {
-        playerState = new PlayerState(this::sendEvent);
-    }
-
-    public PlayerState getPlayerState()
-    {
-        return playerState;
-    }
 
     private enum EndpointType
     {
         GET,
-        POST,
+        //POST, not needed yet
         ANY
     }
 
@@ -97,22 +93,6 @@ class JournalServlet extends EventSourceServlet
         }
     }
 
-    private BiConsumer<String, String> makeEmitterUpdate(JournalSource source)
-    {
-        return (name, data) ->
-        {
-            try
-            {
-               source.emitter.event(name, data);
-            }
-            catch (IOException ioe)
-            {
-                ioe.printStackTrace();
-                source.onClose();
-            }
-        };
-    }
-
     private class JournalSource implements EventSource
     {
         private Emitter emitter;
@@ -132,6 +112,32 @@ class JournalServlet extends EventSourceServlet
             emitter.close();
             sources.remove(this);
         }
+    }
+
+    JournalServlet()
+    {
+        playerState = new PlayerState(this::sendEvent);
+    }
+
+    public PlayerState getPlayerState()
+    {
+        return playerState;
+    }
+
+    private BiConsumer<String, String> makeEmitterUpdate(JournalSource source)
+    {
+        return (name, data) ->
+        {
+            try
+            {
+               source.emitter.event(name, data);
+            }
+            catch (IOException ioe)
+            {
+                ioe.printStackTrace();
+                source.onClose();
+            }
+        };
     }
 
     /**
@@ -165,6 +171,24 @@ class JournalServlet extends EventSourceServlet
         }
     }
 
+    private void sendEvent(String name, String data)
+    {
+        Set<JournalSource> toRemove = new HashSet<>();
+        sources.forEach(s ->
+        {
+            try
+            {
+                s.emitter.event(name, data);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+                toRemove.add(s);
+            }
+        });
+        toRemove.forEach(JournalSource::onClose);
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
@@ -195,21 +219,5 @@ class JournalServlet extends EventSourceServlet
         return new JournalSource();
     }
 
-    public void sendEvent(String name, String data)
-    {
-        Set<JournalSource> toRemove = new HashSet<>();
-        sources.forEach(s ->
-        {
-            try
-            {
-                s.emitter.event(name, data);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-                toRemove.add(s);
-            }
-        });
-        toRemove.forEach(JournalSource::onClose);
-    }
+
 }
