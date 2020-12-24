@@ -159,6 +159,19 @@ function setMaterialCount(id, data)
     capacity.value = data;
 }
 
+function setLoadout(data)
+{
+    console.log(data);
+}
+
+function requestLoadout()
+{
+    fetch('/loadout')
+      .then(response => response.json())
+      .then(data => setLoadout(data))
+      .catch(error => console.error(error));
+}
+
 const eventListeners =
 {
     Commander: (e) => setElementText("Commander", e.data),
@@ -341,6 +354,8 @@ const eventListeners =
     ANCIENTBIOLOGICALDATA: (e) => setMaterialCount("ANCIENTBIOLOGICALDATA", e.data),
     ANCIENTLANGUAGEDATA: (e) => setMaterialCount("ANCIENTLANGUAGEDATA", e.data),
     ANCIENTTECHNOLOGICALDATA: (e) => setMaterialCount("ANCIENTTECHNOLOGICALDATA", e.data),
+
+    Loadout: (e) => requestLoadout(),
 };
 
 window.onload = (e) =>

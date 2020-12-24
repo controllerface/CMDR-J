@@ -19,23 +19,8 @@ details > summary::-webkit-details-marker
   display: none;
 }
 
-#commanderInfo
-{
-    display: grid;
-    grid-template:
-        "card1 card2 card3 card4 card5"
-        "inven inven inven inven inven";
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    /*width: 90%;*/
-    /*margin-left: 3em;*/
-}
 
-.card
-{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    padding: 20px;
-}
+
 
 
 .binCategory
@@ -75,7 +60,6 @@ details > summary::-webkit-details-marker
 .binCapacity
 {
     border: solid 1px;
-
 }
 
 
@@ -85,6 +69,24 @@ details > summary::-webkit-details-marker
     border: 1px solid black;
     width: 90%;
     margin-left: 3em;
+}
+
+#commanderInfo
+{
+    display: grid;
+    grid-template:
+        "card1 card2 card3 card4 card5"
+        "inven inven inven inven inven";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    /*width: 90%;*/
+    /*margin-left: 3em;*/
+}
+
+.card
+{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    padding: 20px;
 }
 
 #card1
@@ -112,18 +114,19 @@ details > summary::-webkit-details-marker
     grid-area: card5;
 }
 
-
-
 .card:hover
 {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
+
+
+
 .tabInput:disabled + label
 {
-background: #ccc; 
-color: #777;
-cursor: not-allowed;
+    background: #ccc;
+    color: #777;
+    cursor: not-allowed;
 }
 
 .tabInput
@@ -143,41 +146,46 @@ cursor: not-allowed;
     color: white;
 }
     
-.tabInput:checked + .tabLabel + .panel
+.tabInput:checked + .tabLabel + .tabPanel
 {
     display: block;
 }
 
 .tabLabel
 {
-        width: auto;
-        text-align: center;
-        padding-top: 4.5px;
-        padding-left: 5px;
-        background: lightblue;
-        cursor: pointer;
-        font-weight: bold;
-        color: black;
-        transition: background 0.1s, color 0.1s;
-        border: 1px solid #242626;
-        box-shadow: 2px 2px grey;
-        margin: 1px;
+    width: auto;
+    text-align: center;
+    padding-top: 4.5px;
+    padding-left: 5px;
+    background: lightblue;
+    cursor: pointer;
+    font-weight: bold;
+    color: black;
+    transition: background 0.1s, color 0.1s;
+    border: 1px solid #242626;
+    box-shadow: 2px 2px grey;
+    margin: 1px;
 }
 
-.tabLabel:hover {
-  background: #aaf;
-  color: #000;
-}
-.tabLabel:active {
-  background: #aaf;
-}
-
-.panel
+.tabLabel:hover
 {
-  grid-area: panel;
-  display: none;
-  background: #eee;
+    background: #aaf;
+    color: #000;
 }
+
+.tabLabel:active
+{
+    background: #aaf;
+}
+
+.tabPanel
+{
+    grid-area: panel;
+    display: none;
+    background: #eee;
+}
+
+
 
 /* Main Sections */
 

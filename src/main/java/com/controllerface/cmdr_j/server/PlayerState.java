@@ -1,11 +1,13 @@
 package com.controllerface.cmdr_j.server;
 
+import com.controllerface.cmdr_j.JSONSupport;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.data.EntityKeys;
 import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import com.controllerface.cmdr_j.enums.commander.RankStat;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
+import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
@@ -14,6 +16,8 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
 import jetbrains.exodus.entitystore.PersistentEntityStore;
 import jetbrains.exodus.entitystore.PersistentEntityStores;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,12 +31,16 @@ public class PlayerState
 
     private final Map<Statistic, String> commanderStatistics = new ConcurrentHashMap<>();
     private final Map<Statistic, String> shipStatistics = new ConcurrentHashMap<>();
+    private final Map<Statistic, ShipModuleData> shipModules = new ConcurrentHashMap<>();
+
     private final Map<Material, Integer> materials = new ConcurrentHashMap<>();
 
     /**
      * Contains the commander's current credit balance.
      */
     private long creditBalance = 0;
+
+    private ShipType shipType;
 
     /**
      * This object holds the persistent data related to this commander
@@ -93,6 +101,21 @@ public class PlayerState
         });
     }
 
+    public void clearShipModules()
+    {
+        shipModules.clear();
+    }
+
+    public void setShipModule(Statistic statistic, ShipModuleData shipModuleData)
+    {
+        shipModules.put(statistic, shipModuleData);
+    }
+
+    public void emitLoadoutEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Loadout", "updated"));
+    }
+
     public void emitCurrentState(BiConsumer<String, String> directUpdate)
     {
         executeWithLock(() ->
@@ -108,6 +131,8 @@ public class PlayerState
 
             materials.forEach((material, value) ->
                 directUpdate.accept(material.name(), value.toString()));
+
+            directUpdate.accept("Loadout", "updated");
         });
     }
 
@@ -160,9 +185,22 @@ public class PlayerState
             {
                 // todo: parse value
             }
+
             if (statistic == ShipStat.Fuel_Capacity)
             {
                 // todo: parse value
+            }
+
+            if (statistic == ShipStat.Ship)
+            {
+                try
+                {
+                    shipType = ShipType.findShip(value);
+                }
+                catch (Exception e)
+                {
+                    System.err.println("Could not determine ship type: " + value);
+                }
             }
         }
 
@@ -185,5 +223,15 @@ public class PlayerState
         {
 
         }
+    }
+
+    public String emitLoadoutJson()
+    {
+        var map = new HashMap<String, Object>();
+
+        shipModules.forEach((key, value) ->
+            map.put(key.getKey(), value.toJson()));
+
+        return JSONSupport.Write.jsonToString.apply(map);
     }
 }

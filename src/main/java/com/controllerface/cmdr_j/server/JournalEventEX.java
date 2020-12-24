@@ -1,16 +1,30 @@
 package com.controllerface.cmdr_j.server;
 
+import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.enums.commander.CommanderStat;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
+import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
+import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.Cosmetic;
+import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
 import com.controllerface.cmdr_j.server.events.*;
 import com.controllerface.cmdr_j.threads.UserTransaction;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This enum defines all of the Journal API events that are currently supported. By convention, enum value names are
@@ -40,7 +54,7 @@ public enum JournalEventEX
      */
     RefuelAll(new RefuelAllEvent()),
 //    Outfitting(new OutfittingHandler()),
-//    Loadout(new LoadoutHandler()),
+    Loadout(new LoadoutEvent()),
     SetUserShipName(new SetUserShipNameEvent()),
 //    FuelScoop(new FuelScoopHandler()),
 //    DiscoveryScan(new DiscoveryScanHandler()),
@@ -244,13 +258,65 @@ public enum JournalEventEX
 
 
 
-
-    public static void adjust(EventProcessingContext context, TaskCost cost, int count)
+    /**
+     * Determines what statistic type is being represented by a given String name, and returns the matching object, or
+     * null if the name is not recognized.
+     *
+     * @param statName the String name of a Statistic enum type
+     * @return the Statistic enum value matching the provided name, or null if the name is not valid
+     */
+    public static Statistic determineStatType(String statName)
     {
-        context.getTransactions().add(UserTransaction.type(UserTransaction.TransactionType.INVENTORY)
-            .setTransactionAmount(count)
-            .setInventoryItem(cost)
-            .build());
+        Statistic statistic;
 
+        try {statistic = CoreInternalSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        if (statistic != null) return statistic;
+
+        try {statistic = CosmeticSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        if (statistic != null) return statistic;
+
+        try {statistic = HardpointSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        if (statistic != null) return statistic;
+
+        try {statistic = OptionalInternalSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        return statistic;
     }
+
+    public static ShipModule determineModuleType(String moduleName)
+    {
+        ShipModule module;
+
+        try { module = HardpointModule.findModule(moduleName); }
+        catch (Exception e) { module = null; }
+        if (module != null) return module;
+
+        try { module = CoreInternalModule.findModule(moduleName); }
+        catch (Exception e) { module = null; }
+        if (module != null) return module;
+
+        try { module = OptionalInternalModule.findModule(moduleName); }
+        catch (Exception e) { module = null; }
+        if (module != null) return module;
+
+        try { module = Cosmetic.findCosmetic(moduleName); }
+        catch (Exception e) { module = null; }
+        return module;
+    }
+
+    public static ModificationBlueprint determineModificationBlueprint(String modname)
+    {
+        try { return ModificationBlueprint.valueOf(modname); }
+        catch (Exception e) { return null; }
+    }
+
+    public static ExperimentalRecipe determineExperimentalRecipe(String expname)
+    {
+        try { return ExperimentalRecipe.valueOf(expname); }
+        catch (Exception e) { return null; }
+    }
+
 }

@@ -359,26 +359,26 @@ public class CommanderJTest
 
             //.filter(materialType -> materialType == MaterialType.RAW)
             //.filter(materialType -> materialType == MaterialType.ENCODED)
-            .filter(materialType -> materialType == MaterialType.MANUFACTURED)
+            //.filter(materialType -> materialType == MaterialType.MANUFACTURED)
 
             .forEach(materialType ->
             {
                 System.out.println("\n\n" + materialType +"\n\n");
 
                 StringBuilder buffer = new StringBuilder();
-                buffer.append("<div class=\"panel\">\n")
-                    .append("\t<div class=\"inventory_bin\">\n")
-                    .append("\t\t<div class=\"bin_header\">\n")
-                    .append("\t\t\t<div class=\"bin_name\">Name</div>\n")
-                    .append("\t\t\t<div class=\"bin_grade\">Grade</div>\n")
-                    .append("\t\t\t<div class=\"bin_count\">Stock</div>\n")
-                    .append("\t\t\t<div class=\"bin_capacity\">Capacity</div>\n")
+                buffer.append("<div class=\"tabPanel\">\n")
+                    .append("\t<div class=\"inventoryBin\">\n")
+                    .append("\t\t<div class=\"binHeader\">\n")
+                    .append("\t\t\t<div class=\"binName\">Name</div>\n")
+                    .append("\t\t\t<div class=\"binGrade\">Grade</div>\n")
+                    .append("\t\t\t<div class=\"binCount\">Stock</div>\n")
+                    .append("\t\t\t<div class=\"binCapacity\">Capacity</div>\n")
                     .append("\t\t</div>\n\n");
 
                 materialType.categories()
                     .forEach(category ->
                     {
-                        buffer.append("\t\t<div class=\"bin_category_header\">")
+                        buffer.append("\t\t<div class=\"binCategoryHeader\">")
                             .append(category)
                             .append("</div>\n");
 
@@ -388,20 +388,20 @@ public class CommanderJTest
                                 var grade = material.getGrade();
                                 var max = determineMaximum(grade);
                                 var materialName = material.name();
-                                buffer.append("\t\t<div class=\"bin_category\" id=\"")
+                                buffer.append("\t\t<div class=\"binCategory\" id=\"")
                                     .append(materialName)
                                     .append("\">\n")
-                                    .append("\t\t\t<details class=\"bin_name\">\n")
+                                    .append("\t\t\t<details class=\"binName\">\n")
                                     .append("\t\t\t\t<summary>")
                                     .append(material.getLocalizedName())
                                     .append("</summary>\n")
                                     .append("\t\t\t\tTrade data\n")
                                     .append("\t\t\t</details>\n")
-                                    .append("\t\t\t<div class=\"bin_grade\">")
+                                    .append("\t\t\t<div class=\"binGrade\">")
                                     .append(grade)
                                     .append("</div>\n")
-                                    .append("\t\t\t<div class=\"bin_count\">0</div>\n")
-                                    .append("\t\t\t<div class=\"bin_capacity\">\n")
+                                    .append("\t\t\t<div class=\"binCount\">0</div>\n")
+                                    .append("\t\t\t<div class=\"binCapacity\">\n")
                                     .append("\t\t\t\t<progress max=\"")
                                     .append(max)
                                     .append("\" value=\"0\"></progress>\n")

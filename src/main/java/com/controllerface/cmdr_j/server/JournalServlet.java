@@ -22,6 +22,12 @@ class JournalServlet extends EventSourceServlet
 
     private final PlayerState playerState;
 
+    @FunctionalInterface
+    private interface EndpointHandler
+    {
+        void respond(HttpServletRequest request, HttpServletResponse response, PlayerState playerState);
+    }
+
     private static final Map<String, StaticAsset> staticAssets = Map.ofEntries
         (
             Map.entry("/",
@@ -49,35 +55,47 @@ class JournalServlet extends EventSourceServlet
         /**
          * Default endpoint handler called when nothing matches
          */
-        NOT_FOUND(EndpointType.ANY, (x) -> false, (request, response) ->
+        NOT_FOUND(EndpointType.ANY, (x) -> false, (_r, response, _p) ->
         {
             writeErrorResponse(response, HttpStatus.Code.NOT_FOUND);
+        }),
+
+        LOADOUT(EndpointType.GET, "/loadout", (_r, response, playerState) ->
+        {
+            writeLoadoutResponse(response, playerState);
         }),
 
         /**
          * Serves static assets defined in the asset map.
          */
-        STATIC_ASSET(EndpointType.GET, staticAssets::containsKey, (request, response) ->
+        STATIC_ASSET(EndpointType.GET, staticAssets::containsKey, (request, response, _p) ->
         {
             writeResourceResponse(response, staticAssets.get(request.getRequestURI()));
         });
 
         private final EndpointType type;
         private final Predicate<String> checkUri;
-        private final BiConsumer<HttpServletRequest, HttpServletResponse> endpoint;
+        private final EndpointHandler endpoint;
+
+        EndPoint(EndpointType type,
+                 String uri,
+                 EndpointHandler endpoint)
+        {
+            this(type, (requestUri) -> requestUri.equals(uri), endpoint);
+        }
 
         EndPoint(EndpointType type,
                  Predicate<String> checkUri,
-                 BiConsumer<HttpServletRequest, HttpServletResponse> endpoint)
+                 EndpointHandler endpoint)
         {
             this.type = type;
             this.checkUri = checkUri;
             this.endpoint = endpoint;
         }
 
-        public void accept(HttpServletRequest request, HttpServletResponse response)
+        public void accept(HttpServletRequest request, HttpServletResponse response, PlayerState playerState)
         {
-            this.endpoint.accept(request, response);
+            this.endpoint.respond(request, response, playerState);
         }
 
         public EndpointType getType()
@@ -171,6 +189,21 @@ class JournalServlet extends EventSourceServlet
         }
     }
 
+    private static void writeLoadoutResponse(HttpServletResponse response, PlayerState playerState)
+    {
+        System.out.println("Loadout requested");
+        response.setStatus(200);
+        response.setHeader("Content-Type", "application/json");
+        try
+        {
+            response.getWriter().print(playerState.emitLoadoutJson());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     private void sendEvent(String name, String data)
     {
         Set<JournalSource> toRemove = new HashSet<>();
@@ -205,7 +238,7 @@ class JournalServlet extends EventSourceServlet
         EndPoint endpoint = EndPoint.fromUri(request.getRequestURI());
         if (endpoint.getType() == EndpointType.GET || endpoint.getType() == EndpointType.ANY)
         {
-            endpoint.accept(request, response);
+            endpoint.accept(request, response, playerState);
         }
         else
         {
