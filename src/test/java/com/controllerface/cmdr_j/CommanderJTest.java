@@ -352,8 +352,6 @@ public class CommanderJTest
                 material.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
             });
 
-        // trivial change to et new git hash
-
         Arrays.stream(MaterialType.values())
 
             // uncomment a filter to generate only that type
