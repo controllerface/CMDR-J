@@ -433,19 +433,6 @@ public class CommanderJTest
         System.out.println(buffer.toString());
     }
 
-    @Test
-    public void banana()
-    {
-        Stream.of(CoreInternalModule.values())
-                .forEach(System.out::println);
-
-        Stream.of(HardpointModule.values())
-                .forEach(System.out::println);
-
-        Stream.of(OptionalInternalModule.values())
-                .forEach(System.out::println);
-    }
-
     private Pair<String, String> getAbstractClass(TaskRecipe recipe)
     {
 
