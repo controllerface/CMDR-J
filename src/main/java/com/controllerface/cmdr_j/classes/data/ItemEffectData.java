@@ -23,7 +23,9 @@ public class ItemEffectData
     {
         this.effect = effect;
         this.doubleValue = doubleValue;
-        this.stringValue = doubleValue == Double.MAX_VALUE ? UIFunctions.Symbols.INFINITY : null;
+        this.stringValue = doubleValue == Double.MAX_VALUE
+            ? UIFunctions.Symbols.INFINITY :
+            null;
     }
 
     public double getDoubleValue()

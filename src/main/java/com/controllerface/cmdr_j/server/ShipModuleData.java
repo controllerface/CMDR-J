@@ -4,8 +4,10 @@ import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.ModifierData;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ShipModuleData
 {
@@ -36,6 +38,7 @@ public class ShipModuleData
         this.quality = builder.quality;
     }
 
+    @SuppressWarnings("unchecked")
     public Map<String, Object> toJson()
     {
         var map = new HashMap<String, Object>();
@@ -63,6 +66,43 @@ public class ShipModuleData
         Optional.ofNullable(experimentalEffectRecipe)
             .ifPresent(exp -> map.put("experimental", exp.getDisplayLabel()));
 
+        Map<String, Object> effects = new HashMap<>();
+
+        module.itemEffects().effectStream()
+            .forEach(effectData ->
+            {
+                var name = effectData.effect.toString();
+                var values = new HashMap<String, Object>();
+                if (effectData.isNumerical())
+                {
+                    values.put("value", effectData.getDoubleValue());
+                }
+                else
+                {
+                    values.put("value", effectData.getValueString());
+                }
+
+                Optional.of(effectData.effect.unit)
+                    .filter(unit -> !unit.isEmpty())
+                    .ifPresent(unit -> values.put("unit", unit));
+
+                effects.put(name, values);
+            });
+
+        modifiers.forEach(modifierData ->
+        {
+            var name = modifierData.effect.toString();
+            var values = (Map<String, Object>) effects.computeIfAbsent(name,
+                (_k) -> new HashMap<String, Object>());
+            values.put("value", modifierData.value);
+            values.put("originalValue", modifierData.originalValue);
+            boolean positive = modifierData.lessIsGood
+                ? modifierData.value < modifierData.originalValue
+                : modifierData.value > modifierData.originalValue;
+            values.put("impact", positive ? "positive" : "negative");
+        });
+
+        map.put("effects", effects);
         return map;
     }
 
