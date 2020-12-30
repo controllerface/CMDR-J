@@ -159,9 +159,84 @@ function setMaterialCount(id, data)
     capacity.value = data;
 }
 
+function setCoreInternals(coreModules)
+{
+
+}
+
+function setOptionalInternals(optionalModules)
+{
+
+}
+
+function setHardpoints(hardPoints)
+{
+    console.log(hardPoints);
+    let hardpointContainer = document.getElementById('hardpoints');
+    let slots = Object.keys(hardPoints);
+    for (let i = 0, len = slots.length; i < len; i++)
+    {
+        let slot = slots[i];
+        let module = hardPoints[slot];
+        let size = document.createElement('div');
+        let moduleElement = document.createElement('details');
+        let moduleName = document.createElement('summary');
+        moduleName.textContent = module['name'];
+        moduleElement.appendChild(moduleName);
+
+        if (module['effects'])
+        {
+            let effects = module['effects'];
+            let statisticsElement = document.createElement('pre');
+
+            let statistics = Object.keys(effects);
+            let content = "";
+            for (let j = 0, len = statistics.length; j < len; j++)
+            {
+                let stat = statistics[j];
+                let info = effects[stat];
+                content += stat + " : " + info['value'] + "\n"
+            }
+            statisticsElement.textContent = content;
+
+            moduleElement.appendChild(statisticsElement);
+        }
+
+
+        size.textContent = slot;
+        moduleElement.classList.add('module');
+        hardpointContainer.appendChild(size);
+        hardpointContainer.appendChild(moduleElement);
+    }
+}
+
 function setLoadout(data)
 {
-    console.log(data);
+    let coreModules = {};
+    let optionalModules = {};
+    let hardPoints = {};
+    let slots = Object.keys(data);
+
+    for (let i = 0, len = slots.length; i < len; i++)
+    {
+        let slot = slots[i];
+        if (slot.includes('Hardpoint'))
+        {
+            hardPoints[slot] = data[slot];
+        }
+        else if (slot.includes('_Size'))
+        {
+            optionalModules[slot] = data[slot];
+        }
+        else
+        {
+            coreModules[slot] = data[slot];
+        }
+    }
+
+    setCoreInternals(coreModules);
+    setOptionalInternals(optionalModules);
+    setHardpoints(hardPoints);
 }
 
 function requestLoadout()

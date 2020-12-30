@@ -276,13 +276,27 @@ details > summary::-webkit-details-marker
     grid-area: coreInternalsTab;
     border-radius: 5px;
 }
+
 #optionalInternalsTab
 {
     grid-area: optionalInternalsTab;
     border-radius: 5px;
 }
+
 #hardpointsTab
 {
     grid-area: hardpointsTab;
     border-radius: 5px;
+}
+
+
+.moduleList
+{
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+}
+
+.module
+{
+    background: lightblue;
 }
