@@ -161,12 +161,82 @@ function setMaterialCount(id, data)
 
 function setCoreInternals(coreModules)
 {
+    console.log(coreModules);
+    let coreModulesContainer = document.getElementById('coreInternals');
+    let slots = Object.keys(coreModules);
+    for (let i = 0, len = slots.length; i < len; i++)
+    {
+        let slot = slots[i];
+        let module = coreModules[slot];
+        let size = document.createElement('div');
+        let moduleElement = document.createElement('details');
+        let moduleName = document.createElement('summary');
+        moduleName.textContent = module['name'];
+        moduleElement.appendChild(moduleName);
+
+        if (module['effects'])
+        {
+            let effects = module['effects'];
+            let statisticsElement = document.createElement('pre');
+
+            let statistics = Object.keys(effects);
+            let content = "";
+            for (let j = 0, len = statistics.length; j < len; j++)
+            {
+                let stat = statistics[j];
+                let info = effects[stat];
+                content += stat + " : " + info['value'] + "\n"
+            }
+            statisticsElement.textContent = content;
+
+            moduleElement.appendChild(statisticsElement);
+        }
+        size.textContent = slot;
+        moduleElement.classList.add('module');
+        coreModulesContainer.appendChild(size);
+        coreModulesContainer.appendChild(moduleElement);
+    }
 
 }
 
 function setOptionalInternals(optionalModules)
 {
+    console.log(optionalModules);
+    let optionalModulesContainer = document.getElementById('optionalInternals');
+    let slots = Object.keys(optionalModules);
+    for (let i = 0, len = slots.length; i < len; i++)
+    {
+        let slot = slots[i];
+        let module = optionalModules[slot];
+        let size = document.createElement('div');
+        let moduleElement = document.createElement('details');
+        let moduleName = document.createElement('summary');
+        moduleName.textContent = module['name'];
+        moduleElement.appendChild(moduleName);
 
+        if (module['effects'])
+        {
+            let effects = module['effects'];
+            let statisticsElement = document.createElement('pre');
+
+            let statistics = Object.keys(effects);
+            let content = "";
+            for (let j = 0, len = statistics.length; j < len; j++)
+            {
+                let stat = statistics[j];
+                let info = effects[stat];
+                content += stat + " : " + info['value'] + "\n"
+            }
+            statisticsElement.textContent = content;
+
+            moduleElement.appendChild(statisticsElement);
+        }
+        size.textContent = slot;
+        moduleElement.classList.add('module');
+        optionalModulesContainer.appendChild(size);
+        optionalModulesContainer.appendChild(moduleElement);
+
+    }
 }
 
 function setHardpoints(hardPoints)
@@ -201,8 +271,6 @@ function setHardpoints(hardPoints)
 
             moduleElement.appendChild(statisticsElement);
         }
-
-
         size.textContent = slot;
         moduleElement.classList.add('module');
         hardpointContainer.appendChild(size);

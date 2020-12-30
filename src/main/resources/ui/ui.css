@@ -290,13 +290,15 @@ details > summary::-webkit-details-marker
 }
 
 
-.moduleList
+/*.moduleList
 {
     display: grid;
     grid-template-columns: 1fr 10fr;
-}
+}*/
+
 
 .module
 {
     background: lightblue;
+    color: black;
 }
