@@ -141,7 +141,7 @@ public class PlayerState
         executeWithLock(() ->
         {
             creditBalance += adjustment;
-            String balance = String.valueOf(creditBalance);
+            var balance = String.valueOf(creditBalance);
             commanderStatistics.put(CommanderStat.Credits, balance);
             globalUpdate.accept(CommanderStat.Credits.getName(), balance);
         });

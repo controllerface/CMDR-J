@@ -53,13 +53,16 @@ class JournalServlet extends EventSourceServlet
     private enum EndPoint
     {
         /**
-         * Default endpoint handler called when nothing matches
+         * Default endpoint handler called when nothing matches.
          */
         NOT_FOUND(EndpointType.ANY, (x) -> false, (_r, response, _p) ->
         {
             writeErrorResponse(response, HttpStatus.Code.NOT_FOUND);
         }),
 
+        /**
+         * Returns the player's current loadout information.
+         */
         LOADOUT(EndpointType.GET, "/loadout", (_r, response, playerState) ->
         {
             writeLoadoutResponse(response, playerState);
