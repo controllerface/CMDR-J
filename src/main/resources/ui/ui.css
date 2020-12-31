@@ -289,13 +289,11 @@ details > summary::-webkit-details-marker
     border-radius: 5px;
 }
 
-
-/*.moduleList
+.moduleList
 {
     display: grid;
-    grid-template-columns: 1fr 10fr;
-}*/
-
+    grid-template-columns: 12em auto;
+}
 
 .module
 {
