@@ -1,3 +1,8 @@
+body
+{
+    overflow: scroll;
+}
+
 summary
 {
   outline: none;
@@ -20,47 +25,99 @@ details > summary::-webkit-details-marker
 }
 
 
-
-
-
-.binCategory
+.gradeIcon
 {
-    display: grid;
-    grid-template-columns: 5fr .5fr .5fr 2fr;
-    grid-area: inven;
-    padding: 0.3em;
+    height: 1.6em;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+}
+
+progress[value]
+{
+    appearance: none;
+}
+
+progress[value]::-webkit-progress-value
+{
+    background: orange;
+}
+
+progress[value]::-webkit-progress-bar
+{
+    background: #333;
+}
+
+.binCategoryHeader
+{
+    font-weight: bold;
+    margin: .2em;
 }
 
 .binHeader
 {
     display: grid;
-    grid-template-columns: 5fr .5fr .5fr 2fr;
+    grid-template-columns: 5fr .5fr .5fr 15em;
     grid-area: inven;
     padding: 0.3em;
 }
 
-.binName
+.binHeaderName
 {
     border: solid 1px;
     background: lightcyan;
-    border-radius: 3px;
+    border-radius: 3px 0px 0px 3px;
+    padding: 3px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.binHeaderGrade
+{
+    border: solid 1px;
+    text-align: center;
+    font-weight: bold;
     padding: 3px;
 }
 
-.binGrade
+.binHeaderCount
 {
     border: solid 1px;
+    text-align: center;
+    font-weight: bold;
+    padding: 3px;
 }
 
-.binCount
+.binHeaderCapacity
 {
     border: solid 1px;
+    text-align: center;
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 0px 3px 3px 0px;
 }
 
-.binCapacity
+
+
+
+.cargoBinHeader
+{
+    display: grid;
+    grid-template-columns: 5fr .5fr .5fr;
+    grid-area: inven;
+    padding: 0.3em;
+}
+
+.binHeaderType
 {
     border: solid 1px;
+    text-align: center;
+    font-weight: bold;
+    padding: 3px;
 }
+
+
+
+
 
 
 #inventory
@@ -198,6 +255,9 @@ details > summary::-webkit-details-marker
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     background: #efefef;
+    max-width: 60em;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #cmdrTab
@@ -225,6 +285,98 @@ details > summary::-webkit-details-marker
     grid-area: taskTab;
     border-radius: 5px;
 }
+
+
+
+
+
+
+
+/* Career Focused Tabs */
+
+#careersContainer
+{
+    display: grid;
+    grid-template-areas:
+    "combatTab tradeTab explorationTab"
+    "panel     panel    panel";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+    background: #efefef;
+}
+
+#combatTab
+{
+    grid-area: combatTab;
+    border-radius: 5px;
+}
+#tradeTab
+{
+    grid-area: tradeTab;
+    border-radius: 5px;
+}
+#explorationTab
+{
+    grid-area: explorationTab;
+    border-radius: 5px;
+}
+
+
+/* Combat Tabs*/
+
+#combatContainer
+{
+    display: grid;
+    grid-template-areas:
+    "offenseTab defenseTab"
+    "panel      panel     ";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2em auto;
+    background: #efefef;
+}
+
+#offenseTab
+{
+    grid-area: offenseTab;
+    border-radius: 5px;
+}
+#defenseTab
+{
+    grid-area: defenseTab;
+    border-radius: 5px;
+}
+
+
+/* Trade Tabs*/
+
+#tradeContainer
+{
+    display: grid;
+    grid-template-areas:
+    "cargoTab   marketTab"
+    "panel      panel    ";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2em auto;
+    background: #efefef;
+}
+
+#cargoTab
+{
+    grid-area: cargoTab;
+    border-radius: 5px;
+}
+
+#marketTab
+{
+    grid-area: marketTab;
+    border-radius: 5px;
+}
+
+
+
+
+
+
 
 
 /* Material Inventory */

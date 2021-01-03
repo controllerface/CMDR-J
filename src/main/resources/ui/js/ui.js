@@ -188,10 +188,7 @@ the current count, which are used to update the appropriate material count in th
 function setMaterialCount(id, data)
 {
     let materialBin = document.getElementById(id);
-    let count = materialBin.querySelector('.binCount');
-    let capacity = materialBin.querySelector('.binCapacity > progress');
-    count.textContent = data;
-    capacity.value = data;
+    materialBin.stock = data;
 }
 
 /*
@@ -316,6 +313,30 @@ function requestLoadout()
       .then(response => response.json())
       .then(data => setLoadout(data))
       .catch(error => console.error(error));
+}
+
+/*
+Called when the cargo clear event comes in, before the cargo counts are sent.
+*/
+function handleCargo(e)
+{
+    let cargoContainer = document.getElementById('tradeCargo');
+    if (e === 'Clear')
+    {
+        let existingBins = cargoContainer.querySelectorAll('cargo-bin');
+        for (let i = 0, len = existingBins.length; i < len; i++)
+        {
+            cargoContainer.removeChild(existingBins[i]);
+        }
+    }
+    else
+    {
+        let cargoData = JSON.parse(e);
+        let cargoBin = document.createElement('cargo-bin');
+        cargoBin.commodity = cargoData['name'];
+        cargoBin.stock = cargoData['count'];
+        cargoContainer.append(cargoBin);
+    }
 }
 
 /*
@@ -525,6 +546,7 @@ const eventListeners =
 
     // Signals the player's ship loadout has changed
     Loadout: (e) => requestLoadout(),
+    Cargo: (e) => handleCargo(e.data),
 };
 
 window.onload = (e) =>

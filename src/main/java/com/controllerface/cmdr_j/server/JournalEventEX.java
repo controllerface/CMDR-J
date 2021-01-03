@@ -75,7 +75,7 @@ public enum JournalEventEX
 //    Powerplay(new PowerplayHandler()),
 //    EngineerProgress(new EngineerProgressHandler()),
     Commander(new CommanderEvent()),
-//    Cargo(new CargoHandler()),
+    Cargo(new CargoEvent()),
     LoadGame(new LoadGameEvent()),
     Materials(new MaterialsEvent()),
 //    SquadronStartup(new SquadronStartupHandler()),

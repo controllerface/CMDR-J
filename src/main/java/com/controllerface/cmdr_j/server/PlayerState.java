@@ -6,6 +6,7 @@ import com.controllerface.cmdr_j.classes.data.EntityKeys;
 import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import com.controllerface.cmdr_j.enums.commander.RankStat;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
+import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
@@ -16,10 +17,8 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
 import jetbrains.exodus.entitystore.PersistentEntityStore;
 import jetbrains.exodus.entitystore.PersistentEntityStores;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -34,6 +33,28 @@ public class PlayerState
     private final Map<Statistic, ShipModuleData> shipModules = new ConcurrentHashMap<>();
 
     private final Map<Material, Integer> materials = new ConcurrentHashMap<>();
+    private final Map<Commodity, CommodityData> cargo = new ConcurrentHashMap<>();
+
+    private static class CommodityData
+    {
+        final String name;
+        final Integer count;
+
+        private CommodityData(String name, Integer count)
+        {
+            this.name = name;
+            this.count = count;
+        }
+
+        String toJson()
+        {
+            Map<String, Object> data = new HashMap<>();
+            data.put("name", name);
+            data.put("count", count);
+            return JSONSupport.Write.jsonToString.apply(data);
+        }
+    }
+
 
     /**
      * Contains the commander's current credit balance.
@@ -79,6 +100,25 @@ public class PlayerState
             commanderStatistics.put(statistic, value);
             globalUpdate.accept(statistic.getName(), value);
             updateInternalState(statistic, value);
+        });
+    }
+
+    public void clearCargo()
+    {
+        executeWithLock(() ->
+        {
+            cargo.clear();
+            globalUpdate.accept("Cargo","Clear");
+        });
+    }
+
+    public void setCargoCount(Commodity commodity, String name, Integer count)
+    {
+        executeWithLock(() ->
+        {
+            var commodityData = new CommodityData(name, count);
+            cargo.put(commodity, commodityData);
+            globalUpdate.accept(name, commodityData.toJson());
         });
     }
 
@@ -131,6 +171,11 @@ public class PlayerState
 
             materials.forEach((material, value) ->
                 directUpdate.accept(material.name(), value.toString()));
+
+            directUpdate.accept("Cargo", "Clear");
+
+            cargo.forEach((commodity, value) ->
+                directUpdate.accept("Cargo", value.toJson()));
 
             directUpdate.accept("Loadout", "updated");
         });

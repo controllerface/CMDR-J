@@ -1,0 +1,79 @@
+.binCategory
+{
+    display: grid;
+    grid-template-columns: 5fr .5fr .5fr 15em;
+    grid-area: inven;
+    padding: 0.3em;
+}
+
+.gradeIcon
+{
+    height: 1.6em;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+}
+
+.binName
+{
+    border: solid 1px;
+    background: lightcyan;
+    border-radius: 3px 0px 0px 3px;
+    padding: 5px;
+}
+
+.binGrade
+{
+    border: solid 1px;
+    text-align: center;
+}
+
+.binCount
+{
+    border: solid 1px;
+    text-align: center;
+    padding-top: .35em;
+}
+
+.binCapacity
+{
+    border: solid 1px;
+    text-align: center;
+    padding-top: .35em;
+    border-radius: 0px 3px 3px 0px;
+}
+
+progress
+{
+    appearance: none;
+}
+
+progress::-webkit-progress-value
+{
+    background: orange;
+}
+
+progress::-webkit-progress-bar
+{
+    background: #333;
+}
+
+details > summary
+{
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker
+{
+  display: none;
+}
+
+summary
+{
+  outline: none;
+  cursor: pointer;
+}
+
+summary:hover
+{
+    background: orange;
+}

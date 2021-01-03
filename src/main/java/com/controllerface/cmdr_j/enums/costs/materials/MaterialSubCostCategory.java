@@ -180,17 +180,17 @@ public enum MaterialSubCostCategory implements TaskCostCategory
 
     // Thargoid Data
     Thargoid_Data(7, EnumSet.of(Material.TG_STRUCTURALDATA,
+            Material.UNKNOWNSHIPSIGNATURE,
             Material.TG_SHIPFLIGHTDATA,
             Material.TG_SHIPSYSTEMSDATA,
             Material.TG_COMPOSITIONDATA,
-            Material.UNKNOWNSHIPSIGNATURE,
-            Material.TG_RESIDUEDATA,
-            Material.UNKNOWNWAKEDATA)),
+            Material.UNKNOWNWAKEDATA,
+            Material.TG_RESIDUEDATA)),
 
     // Guardian Blueprint Data
     Guardian_Blueprint_Data(8, EnumSet.of(Material.GUARDIAN_MODULEBLUEPRINT,
-                  Material.GUARDIAN_VESSELBLUEPRINT,
-                  Material.GUARDIAN_WEAPONBLUEPRINT)),
+            Material.GUARDIAN_VESSELBLUEPRINT,
+            Material.GUARDIAN_WEAPONBLUEPRINT)),
 
     // Guardian Obelisk Data
     Guardian_Obelisk_Data(9, EnumSet.of(Material.ANCIENTHISTORICALDATA,

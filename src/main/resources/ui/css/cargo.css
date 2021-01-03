@@ -1,0 +1,55 @@
+.binCategory
+{
+    display: grid;
+    grid-template-columns: 5fr .5fr .5fr;
+    padding: 0.3em;
+}
+
+.typeIcon
+{
+    height: 1.6em;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+}
+
+.binName
+{
+    border: solid 1px;
+    background: lightcyan;
+    border-radius: 3px 0px 0px 3px;
+    padding: 5px;
+}
+
+.binType
+{
+    border: solid 1px;
+    text-align: center;
+}
+
+.binCount
+{
+    border: solid 1px;
+    text-align: center;
+    padding-top: .35em;
+}
+
+details > summary
+{
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker
+{
+  display: none;
+}
+
+summary
+{
+  outline: none;
+  cursor: pointer;
+}
+
+summary:hover
+{
+    background: orange;
+}

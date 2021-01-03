@@ -31,16 +31,43 @@ class JournalServlet extends EventSourceServlet
     private static final Map<String, StaticAsset> staticAssets = Map.ofEntries
         (
             Map.entry("/",
-                StaticAsset.make("/ui/ui.html", "text/html")),
+                StaticAsset.make("/ui/html/ui.html", "text/html")),
 
             Map.entry("/ui.html",
-                StaticAsset.make("/ui/ui.html", "text/html")),
+                StaticAsset.make("/ui/html/ui.html", "text/html")),
 
             Map.entry("/ui.css",
-                StaticAsset.make("/ui/ui.css", "text/css")),
+                StaticAsset.make("/ui/css/ui.css", "text/css")),
+
+            Map.entry("/cargo.css",
+                StaticAsset.make("/ui/css/cargo.css", "text/css")),
+
+            Map.entry("/material.css",
+                StaticAsset.make("/ui/css/material.css", "text/css")),
 
             Map.entry("/ui.js",
-                StaticAsset.make("/ui/ui.js", "text/javascript"))
+                StaticAsset.make("/ui/js/ui.js", "text/javascript")),
+
+            Map.entry("/cargo.js",
+                StaticAsset.make("/ui/js/cargo.js", "text/javascript")),
+
+            Map.entry("/material.js",
+                StaticAsset.make("/ui/js/material.js", "text/javascript")),
+
+            Map.entry("/grade-1.svg",
+                StaticAsset.make("/ui/img/grade-1.svg", "image/svg+xml")),
+
+            Map.entry("/grade-2.svg",
+                StaticAsset.make("/ui/img/grade-2.svg", "image/svg+xml")),
+
+            Map.entry("/grade-3.svg",
+                StaticAsset.make("/ui/img/grade-3.svg", "image/svg+xml")),
+
+            Map.entry("/grade-4.svg",
+                StaticAsset.make("/ui/img/grade-4.svg", "image/svg+xml")),
+
+            Map.entry("/grade-5.svg",
+                StaticAsset.make("/ui/img/grade-5.svg", "image/svg+xml"))
         );
 
     private enum EndpointType
