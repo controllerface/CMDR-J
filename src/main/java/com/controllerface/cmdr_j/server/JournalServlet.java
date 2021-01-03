@@ -40,7 +40,22 @@ class JournalServlet extends EventSourceServlet
                 StaticAsset.make("/ui/ui.css", "text/css")),
 
             Map.entry("/ui.js",
-                StaticAsset.make("/ui/ui.js", "text/javascript"))
+                StaticAsset.make("/ui/ui.js", "text/javascript")),
+
+            Map.entry("/grade-1.svg",
+                StaticAsset.make("/ui/img/grade-1.svg", "image/svg+xml")),
+
+            Map.entry("/grade-2.svg",
+                StaticAsset.make("/ui/img/grade-2.svg", "image/svg+xml")),
+
+            Map.entry("/grade-3.svg",
+                StaticAsset.make("/ui/img/grade-3.svg", "image/svg+xml")),
+
+            Map.entry("/grade-4.svg",
+                StaticAsset.make("/ui/img/grade-4.svg", "image/svg+xml")),
+
+            Map.entry("/grade-5.svg",
+                StaticAsset.make("/ui/img/grade-5.svg", "image/svg+xml"))
         );
 
     private enum EndpointType

@@ -32,7 +32,6 @@
                 <div id="Loan"></div>
             </div>
 
-
             <div class="card" id="card2">
                 <h2>Ship</h2>
 
@@ -131,7 +130,21 @@
     <input name="categoryTabs" type="radio" id="careersTabButton" class="tabInput"/>
     <label id="careersTab" for="careersTabButton" class="tabLabel">Careers</label>
     <div class="tabPanel">
-        <span>Careers</span>
+        <div id="careersContainer">
+
+            <input name="careerTabs" type="radio" id="combatTabButton" checked="checked" class="tabInput"/>
+            <label id="combatTab" for="combatTabButton" class="tabLabel">Combat</label>
+            <div class="tabPanel" id="combatCareer"></div>
+
+            <input name="careerTabs" type="radio" id="tradeTabButton" class="tabInput"/>
+            <label id="tradeTab" for="tradeTabButton" class="tabLabel">Trade</label>
+            <div class="tabPanel" id="tradeCareer"></div>
+
+            <input name="careerTabs" type="radio" id="explorationTabButton" class="tabInput"/>
+            <label id="explorationTab" for="explorationTabButton" class="tabLabel">Exploration</label>
+            <div class="tabPanel" id="explorationCareer"></div>
+
+        </div>
     </div>
 
 
@@ -158,7 +171,7 @@
                             <summary>Carbon</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -169,7 +182,7 @@
                             <summary>Vanadium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -180,7 +193,7 @@
                             <summary>Niobium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -191,7 +204,7 @@
                             <summary>Yttrium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -203,7 +216,7 @@
                             <summary>Phosphorus</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -214,7 +227,7 @@
                             <summary>Chromium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -225,7 +238,7 @@
                             <summary>Molybdenum</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -236,7 +249,7 @@
                             <summary>Technetium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -248,7 +261,7 @@
                             <summary>Sulphur</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -259,7 +272,7 @@
                             <summary>Manganese</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -270,7 +283,7 @@
                             <summary>Cadmium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -281,7 +294,7 @@
                             <summary>Ruthenium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -293,7 +306,7 @@
                             <summary>Iron</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -304,7 +317,7 @@
                             <summary>Zinc</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -315,7 +328,7 @@
                             <summary>Tin</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -326,7 +339,7 @@
                             <summary>Selenium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -338,7 +351,7 @@
                             <summary>Nickel</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -349,7 +362,7 @@
                             <summary>Germanium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -360,7 +373,7 @@
                             <summary>Tungsten</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -371,7 +384,7 @@
                             <summary>Tellurium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -383,7 +396,7 @@
                             <summary>Rhenium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -394,7 +407,7 @@
                             <summary>Arsenic</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -405,7 +418,7 @@
                             <summary>Mercury</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -416,7 +429,7 @@
                             <summary>Polonium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -428,7 +441,7 @@
                             <summary>Lead</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -439,7 +452,7 @@
                             <summary>Zirconium</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -450,7 +463,7 @@
                             <summary>Boron</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -461,7 +474,7 @@
                             <summary>Antimony</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -487,7 +500,7 @@
                             <summary>Anomalous Bulk Scan Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -498,7 +511,7 @@
                             <summary>Unidentified Scan Archives</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -509,7 +522,7 @@
                             <summary>Classified Scan Databanks</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -520,7 +533,7 @@
                             <summary>Divergent Scan Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -531,7 +544,7 @@
                             <summary>Classified Scan Fragment</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -543,7 +556,7 @@
                             <summary>Exceptional Scrambled Emission Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -554,7 +567,7 @@
                             <summary>Irregular Emission Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -565,7 +578,7 @@
                             <summary>Unexpected Emission Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -576,7 +589,7 @@
                             <summary>Decoded Emission Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -587,7 +600,7 @@
                             <summary>Abnormal Compact Emissions Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -599,7 +612,7 @@
                             <summary>Specialised Legacy Firmware</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -610,7 +623,7 @@
                             <summary>Modified Consumer Firmware</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -621,7 +634,7 @@
                             <summary>Cracked Industrial Firmware</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -632,7 +645,7 @@
                             <summary>Security Firmware Patch</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -643,7 +656,7 @@
                             <summary>Modified Embedded Firmware</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -655,7 +668,7 @@
                             <summary>Unusual Encrypted Files</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -666,7 +679,7 @@
                             <summary>Tagged Encryption Codes</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -677,7 +690,7 @@
                             <summary>Open Symmetric Keys</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -688,7 +701,7 @@
                             <summary>Atypical Encryption Archives</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -699,7 +712,7 @@
                             <summary>Adaptive Encryptors Capture</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -711,7 +724,7 @@
                             <summary>Distorted Shield Cycle Recordings</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -722,7 +735,7 @@
                             <summary>Inconsistent Shield Soak Analysis</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -733,7 +746,7 @@
                             <summary>Untypical Shield Scans</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -744,7 +757,7 @@
                             <summary>Aberrant Shield Pattern Analysis</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -755,7 +768,7 @@
                             <summary>Peculiar Shield Frequency Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -767,7 +780,7 @@
                             <summary>Atypical Disrupted Wake Echoes</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -778,7 +791,7 @@
                             <summary>Anomalous FSD Telemetry</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -789,7 +802,7 @@
                             <summary>Strange Wake Solutions</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -800,7 +813,7 @@
                             <summary>Eccentric Hyperspace Trajectories</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -811,44 +824,33 @@
                             <summary>Datamined Wake Exceptions</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
                         </div>
                     </div>
                     <div class="binCategoryHeader">Thargoid Data</div>
-                    <div class="binCategory" id="UNKNOWNSHIPSIGNATURE">
-                        <details class="binName">
-                            <summary>Thargoid Ship Signature</summary>
-                            Trade data
-                        </details>
-                        <div class="binGrade">Standard</div>
-                        <div class="binCount">0</div>
-                        <div class="binCapacity">
-                            <progress max="200" value="0"></progress>
-                        </div>
-                    </div>
-                    <div class="binCategory" id="UNKNOWNWAKEDATA">
-                        <details class="binName">
-                            <summary>Thargoid Wake Data</summary>
-                            Trade data
-                        </details>
-                        <div class="binGrade">Rare</div>
-                        <div class="binCount">0</div>
-                        <div class="binCapacity">
-                            <progress max="150" value="0"></progress>
-                        </div>
-                    </div>
                     <div class="binCategory" id="TG_STRUCTURALDATA">
                         <details class="binName">
                             <summary>Thargoid Structural Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
+                        </div>
+                    </div>
+                    <div class="binCategory" id="UNKNOWNSHIPSIGNATURE">
+                        <details class="binName">
+                            <summary>Thargoid Ship Signature</summary>
+                            Trade data
+                        </details>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
+                        <div class="binCount">0</div>
+                        <div class="binCapacity">
+                            <progress max="200" value="0"></progress>
                         </div>
                     </div>
                     <div class="binCategory" id="TG_SHIPFLIGHTDATA">
@@ -856,7 +858,7 @@
                             <summary>Ship Flight Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -867,7 +869,7 @@
                             <summary>Ship Systems Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -878,10 +880,21 @@
                             <summary>Thargoid Material Composition Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
+                        </div>
+                    </div>
+                    <div class="binCategory" id="UNKNOWNWAKEDATA">
+                        <details class="binName">
+                            <summary>Thargoid Wake Data</summary>
+                            Trade data
+                        </details>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
+                        <div class="binCount">0</div>
+                        <div class="binCapacity">
+                            <progress max="150" value="0"></progress>
                         </div>
                     </div>
                     <div class="binCategory" id="TG_RESIDUEDATA">
@@ -889,7 +902,7 @@
                             <summary>Thargoid Residue Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -901,7 +914,7 @@
                             <summary>Guardian Module Blueprint Segment</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -912,7 +925,7 @@
                             <summary>Guardian Vessel Blueprint Segment</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -923,7 +936,7 @@
                             <summary>Guardian Weapon Blueprint Segment</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -935,7 +948,7 @@
                             <summary>Pattern Gamma Obelisk Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -946,7 +959,7 @@
                             <summary>Pattern Beta Obelisk Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -957,7 +970,7 @@
                             <summary>Pattern Alpha Obelisk Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -968,7 +981,7 @@
                             <summary>Pattern Delta Obelisk Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -979,7 +992,7 @@
                             <summary>Pattern Epsilon Obelisk Data</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -1005,7 +1018,7 @@
                             <summary>Salvaged Alloys</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1016,7 +1029,7 @@
                             <summary>Galvanising Alloys</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1027,7 +1040,7 @@
                             <summary>Phase Alloys</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1038,7 +1051,7 @@
                             <summary>Proto Light Alloys</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -1049,7 +1062,7 @@
                             <summary>Proto Radiolic Alloys</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -1061,7 +1074,7 @@
                             <summary>Grid Resistors</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1072,7 +1085,7 @@
                             <summary>Hybrid Capacitors</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1083,7 +1096,7 @@
                             <summary>Electrochemical Arrays</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1094,7 +1107,7 @@
                             <summary>Polymer Capacitors</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -1105,7 +1118,7 @@
                             <summary>Military Supercapacitors</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -1117,7 +1130,7 @@
                             <summary>Chemical Storage Units</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1128,7 +1141,7 @@
                             <summary>Chemical Processors</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1139,7 +1152,7 @@
                             <summary>Chemical Distillery</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1150,7 +1163,7 @@
                             <summary>Chemical Manipulators</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -1161,7 +1174,7 @@
                             <summary>Pharmaceutical Isolators</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -1173,7 +1186,7 @@
                             <summary>Compact Composites</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1184,7 +1197,7 @@
                             <summary>Filament Composites</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1195,7 +1208,7 @@
                             <summary>High Density Composites</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1206,7 +1219,7 @@
                             <summary>Proprietary Composites</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -1217,7 +1230,7 @@
                             <summary>Core Dynamics Composites</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -1229,7 +1242,7 @@
                             <summary>Basic Conductors</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1240,7 +1253,7 @@
                             <summary>Conductive Components</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1251,7 +1264,7 @@
                             <summary>Conductive Ceramics</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1262,7 +1275,7 @@
                             <summary>Conductive Polymers</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -1273,7 +1286,7 @@
                             <summary>Biotech Conductors</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -1285,7 +1298,7 @@
                             <summary>Crystal Shards</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1296,7 +1309,7 @@
                             <summary>Flawed Focus Crystals</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1307,7 +1320,7 @@
                             <summary>Focus Crystals</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1318,7 +1331,7 @@
                             <summary>Refined Focus Crystals</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -1329,7 +1342,7 @@
                             <summary>Exquisite Focus Crystals</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -1341,7 +1354,7 @@
                             <summary>Heat Conduction Wiring</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1352,7 +1365,7 @@
                             <summary>Heat Dispersion Plate</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1363,7 +1376,7 @@
                             <summary>Heat Exchangers</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1374,7 +1387,7 @@
                             <summary>Heat Vanes</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -1385,7 +1398,7 @@
                             <summary>Proto Heat Radiators</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -1397,7 +1410,7 @@
                             <summary>Mechanical Scrap</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1408,7 +1421,7 @@
                             <summary>Mechanical Equipment</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1419,7 +1432,7 @@
                             <summary>Mechanical Components</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1430,7 +1443,7 @@
                             <summary>Configurable Components</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -1441,7 +1454,7 @@
                             <summary>Improvised Components</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -1453,7 +1466,7 @@
                             <summary>Worn Shield Emitters</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1464,7 +1477,7 @@
                             <summary>Shield Emitters</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1475,7 +1488,7 @@
                             <summary>Shielding Sensors</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1486,7 +1499,7 @@
                             <summary>Compound Shielding</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -1497,7 +1510,7 @@
                             <summary>Imperial Shielding</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -1509,7 +1522,7 @@
                             <summary>Tempered Alloys</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1520,7 +1533,7 @@
                             <summary>Heat Resistant Ceramics</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1531,7 +1544,7 @@
                             <summary>Precipitated Alloys</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1542,7 +1555,7 @@
                             <summary>Thermic Alloys</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="150" value="0"></progress>
@@ -1553,7 +1566,7 @@
                             <summary>Military Grade Alloys</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Rare</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="100" value="0"></progress>
@@ -1565,7 +1578,7 @@
                             <summary>Thargoid Carapace</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1576,43 +1589,10 @@
                             <summary>Thargoid Energy Cell</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
-                        </div>
-                    </div>
-                    <div class="binCategory" id="UNKNOWNTECHNOLOGYCOMPONENTS">
-                        <details class="binName">
-                            <summary>Thargoid Technological Components</summary>
-                            Trade data
-                        </details>
-                        <div class="binGrade">Rare</div>
-                        <div class="binCount">0</div>
-                        <div class="binCapacity">
-                            <progress max="150" value="0"></progress>
-                        </div>
-                    </div>
-                    <div class="binCategory" id="UNKNOWNENERGYSOURCE">
-                        <details class="binName">
-                            <summary>Sensor Fragment</summary>
-                            Trade data
-                        </details>
-                        <div class="binGrade">Very Rare</div>
-                        <div class="binCount">0</div>
-                        <div class="binCapacity">
-                            <progress max="100" value="0"></progress>
-                        </div>
-                    </div>
-                    <div class="binCategory" id="UNKNOWNORGANICCIRCUITRY">
-                        <details class="binName">
-                            <summary>Thargoid Organic Circuitry</summary>
-                            Trade data
-                        </details>
-                        <div class="binGrade">Very Rare</div>
-                        <div class="binCount">0</div>
-                        <div class="binCapacity">
-                            <progress max="100" value="0"></progress>
                         </div>
                     </div>
                     <div class="binCategory" id="TG_BIOMECHANICALCONDUITS">
@@ -1620,7 +1600,7 @@
                             <summary>Bio Mechanical Conduits</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1631,7 +1611,7 @@
                             <summary>Propulsion Elements</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1642,7 +1622,7 @@
                             <summary>Weapon Parts</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1653,10 +1633,43 @@
                             <summary>Wreckage Components</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
+                        </div>
+                    </div>
+                    <div class="binCategory" id="UNKNOWNTECHNOLOGYCOMPONENTS">
+                        <details class="binName">
+                            <summary>Thargoid Technological Components</summary>
+                            Trade data
+                        </details>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-4.svg" title="Rare"></div>
+                        <div class="binCount">0</div>
+                        <div class="binCapacity">
+                            <progress max="150" value="0"></progress>
+                        </div>
+                    </div>
+                    <div class="binCategory" id="UNKNOWNENERGYSOURCE">
+                        <details class="binName">
+                            <summary>Sensor Fragment</summary>
+                            Trade data
+                        </details>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
+                        <div class="binCount">0</div>
+                        <div class="binCapacity">
+                            <progress max="100" value="0"></progress>
+                        </div>
+                    </div>
+                    <div class="binCategory" id="UNKNOWNORGANICCIRCUITRY">
+                        <details class="binName">
+                            <summary>Thargoid Organic Circuitry</summary>
+                            Trade data
+                        </details>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-5.svg" title="Very Rare"></div>
+                        <div class="binCount">0</div>
+                        <div class="binCapacity">
+                            <progress max="100" value="0"></progress>
                         </div>
                     </div>
                     <div class="binCategoryHeader">Guardian Technology</div>
@@ -1665,7 +1678,7 @@
                             <summary>Guardian Power Cell</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1676,7 +1689,7 @@
                             <summary>Guardian Sentinel Wreckage Components</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Very Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-1.svg" title="Very Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="300" value="0"></progress>
@@ -1687,7 +1700,7 @@
                             <summary>Guardian Power Conduit</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Common</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-2.svg" title="Common"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="250" value="0"></progress>
@@ -1698,7 +1711,7 @@
                             <summary>Guardian Sentinel Weapon Parts</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>
@@ -1709,7 +1722,7 @@
                             <summary>Guardian Technology Component</summary>
                             Trade data
                         </details>
-                        <div class="binGrade">Standard</div>
+                        <div class="binGrade"><img class="gradeIcon" src="grade-3.svg" title="Standard"></div>
                         <div class="binCount">0</div>
                         <div class="binCapacity">
                             <progress max="200" value="0"></progress>

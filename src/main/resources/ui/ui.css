@@ -1,3 +1,8 @@
+body
+{
+    overflow: scroll;
+}
+
 summary
 {
   outline: none;
@@ -20,13 +25,32 @@ details > summary::-webkit-details-marker
 }
 
 
+.gradeIcon
+{
+    height: 1.6em;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+}
 
+progress[value]
+{
+    appearance: none;
+}
 
+progress[value]::-webkit-progress-value
+{
+    background: orange;
+}
+
+progress[value]::-webkit-progress-bar
+{
+    background: #333;
+}
 
 .binCategory
 {
     display: grid;
-    grid-template-columns: 5fr .5fr .5fr 2fr;
+    grid-template-columns: 5fr .5fr .5fr 15em;
     grid-area: inven;
     padding: 0.3em;
 }
@@ -34,7 +58,7 @@ details > summary::-webkit-details-marker
 .binHeader
 {
     display: grid;
-    grid-template-columns: 5fr .5fr .5fr 2fr;
+    grid-template-columns: 5fr .5fr .5fr 15em;
     grid-area: inven;
     padding: 0.3em;
 }
@@ -50,16 +74,19 @@ details > summary::-webkit-details-marker
 .binGrade
 {
     border: solid 1px;
+    text-align: center;
 }
 
 .binCount
 {
     border: solid 1px;
+    text-align: center;
 }
 
 .binCapacity
 {
     border: solid 1px;
+    text-align: center;
 }
 
 
@@ -225,6 +252,53 @@ details > summary::-webkit-details-marker
     grid-area: taskTab;
     border-radius: 5px;
 }
+
+
+
+
+
+
+
+/* Career Focused Tabs */
+
+#careersContainer
+{
+    display: grid;
+    grid-template-areas:
+    "combatTab tradeTab explorationTab"
+    "panel     panel    panel";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+    background: #efefef;
+}
+
+#combatTab
+{
+    grid-area: combatTab;
+    border-radius: 5px;
+}
+#tradeTab
+{
+    grid-area: tradeTab;
+    border-radius: 5px;
+}
+#explorationTab
+{
+    grid-area: explorationTab;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Material Inventory */

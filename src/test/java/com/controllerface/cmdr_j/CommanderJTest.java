@@ -37,6 +37,8 @@ import com.controllerface.cmdr_j.classes.modules.weapons.railgun.AbstractRailGun
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.AbstractSeekerMissileRack;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.AbstractTorpedoPylon;
 import com.controllerface.cmdr_j.classes.data.CostData;
+import com.controllerface.cmdr_j.classes.tasks.Task;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Basic;
@@ -46,6 +48,7 @@ import com.controllerface.cmdr_j.classes.recipes.AbstractTechnologyRecipe;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialSubCostCategory;
+import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
@@ -55,6 +58,7 @@ import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
+import javafx.scene.control.TreeItem;
 import javafx.util.Pair;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -431,6 +435,80 @@ public class CommanderJTest
                     .append("\", e.data),\n");
             });
         System.out.println(buffer.toString());
+    }
+
+    @Test
+    public void generateMaterialTrades()
+    {
+
+//        Stream.of(MaterialTradeType.values())
+//            .forEach(tradeCategory ->
+//            {
+//                // add a collapsible category label
+//                TreeItem<Task> categoryItem =
+//                    new TreeItem<>(new Task(tradeCategory, tradeCategory.toString()));
+//
+//                // for this category, loop through trade sub-categories it contains
+//                tradeCategory.subCategoryStream()
+//                    .forEach(subCategory ->
+//                    {
+//                        // add a collapsible subcategory label
+//                        TreeItem<Task> subCatItem =
+//                            new TreeItem<>(new Task(tradeCategory, subCategory.toString()));
+//
+//                        // for this subcategory, loop through all materials it contains
+//                        subCategory.materials().forEach(material -> material.getTradeBlueprint()
+//                            .ifPresent(tradeBlueprint->
+//                            {
+//                                // add a collapsible a selectable material label
+//                                TreeItem<Task> bluePrintItem =
+//                                    new TreeItem<>(new Task(tradeCategory, tradeBlueprint));
+//
+//                                // add the material item to the subcategory
+//                                subCatItem.getChildren().add(bluePrintItem);
+//                            }));
+//
+//                        // add the subcategory item to the category
+//                        categoryItem.getChildren().add(subCatItem);
+//                    });
+//
+//                // add the category item to the root
+//                System.out.println(categoryItem);
+//            });
+
+
+        Stream.of(MaterialTradeType.values())
+            .forEach(x-> System.out.println("Test: " + x));
+
+
+
+
+        TaskCost cost = Material.NIOBIUM;
+
+        MaterialSubCostCategory.findMatchingSubCategory(cost)
+            .ifPresent(category ->
+            {
+                System.out.println("debug 1:" + category);
+
+                category.materials()
+                    //.peek(x -> System.out.println("Debug x: " + x))
+                    .filter(x->x != cost)
+                    //.peek(y -> System.out.println("Debug y: " + y))
+                    .map(material -> material.getTradeBlueprint().orElse(null))
+                    //.peek(z -> System.out.println("Debug z: " + z))
+                    .filter(Objects::nonNull)
+                    //.peek(a -> System.out.println("Debug a: " + a))
+                    .flatMap(TaskBlueprint::recipeStream)
+                    //.peek(b -> System.out.println("Debug b: " + b))
+                    .filter(r -> r.costStream().findFirst().get().cost == cost)
+                    .forEach(recipe ->
+                    {
+                        recipe.costStream()
+                            .forEach(c-> System.out.println(c.cost + " : " + c.quantity));
+                        System.out.println("-----");
+                    });
+
+            });
     }
 
     private Pair<String, String> getAbstractClass(TaskRecipe recipe)
