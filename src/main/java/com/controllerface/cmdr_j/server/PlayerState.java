@@ -8,6 +8,7 @@ import com.controllerface.cmdr_j.enums.commander.RankStat;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
@@ -17,12 +18,14 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
 import jetbrains.exodus.entitystore.PersistentEntityStore;
 import jetbrains.exodus.entitystore.PersistentEntityStores;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
+import java.util.stream.IntStream;
 
 public class PlayerState
 {
@@ -39,11 +42,13 @@ public class PlayerState
     {
         final String name;
         final Integer count;
+        final ItemGrade grade;
 
-        private CommodityData(String name, Integer count)
+        private CommodityData(String name, Integer count, ItemGrade grade)
         {
             this.name = name;
             this.count = count;
+            this.grade = grade;
         }
 
         String toJson()
@@ -51,6 +56,7 @@ public class PlayerState
             Map<String, Object> data = new HashMap<>();
             data.put("name", name);
             data.put("count", count);
+            data.put("type", grade.name().toLowerCase());
             return JSONSupport.Write.jsonToString.apply(data);
         }
     }
@@ -116,7 +122,7 @@ public class PlayerState
     {
         executeWithLock(() ->
         {
-            var commodityData = new CommodityData(name, count);
+            var commodityData = new CommodityData(name, count, commodity.getGrade());
             cargo.put(commodity, commodityData);
             globalUpdate.accept(name, commodityData.toJson());
         });
@@ -270,12 +276,114 @@ public class PlayerState
         }
     }
 
+    private String formatSlotKey(Statistic statistic)
+    {
+        // todo: process military modules
+        var rawKey = statistic.getKey();
+
+        if (statistic == CoreInternalSlot.FrameShiftDrive)
+        {
+            rawKey += "_" + shipType.getCoreModules().getFrameShiftDrive().intValue;
+        }
+        else if (statistic == CoreInternalSlot.FuelTank)
+        {
+            rawKey += "_" + shipType.getCoreModules().getFuelTank().intValue;
+        }
+        else if (statistic == CoreInternalSlot.LifeSupport)
+        {
+            rawKey += "_" + shipType.getCoreModules().getLifeSupport().intValue;
+        }
+        else if (statistic == CoreInternalSlot.MainEngines)
+        {
+            rawKey += "_" + shipType.getCoreModules().getThrusters().intValue;
+        }
+        else if (statistic == CoreInternalSlot.PowerDistributor)
+        {
+            rawKey += "_" + shipType.getCoreModules().getPowerDistributor().intValue;
+        }
+        else if (statistic == CoreInternalSlot.PowerPlant)
+        {
+            rawKey += "_" + shipType.getCoreModules().getPowerPlant().intValue;
+        }
+        else if (statistic == CoreInternalSlot.Radar)
+        {
+            rawKey += "_" + shipType.getCoreModules().getSensors().intValue;
+        }
+
+        return rawKey;
+    }
+
+    private void addEmptySlots(Map<String, Object> map)
+    {
+        var optionalCounts = new HashMap<Integer, Integer>();
+
+        Arrays.stream(shipType.getInternals().getSlots())
+            .forEach(moduleSize ->
+            {
+                var current = optionalCounts.computeIfAbsent(moduleSize.intValue, (_k)-> 0) + 1;
+                optionalCounts.put(moduleSize.intValue, current);
+            });
+
+        shipModules.forEach((statistic, moduleData)->
+        {
+            // todo: handle military slots
+            if (statistic.getKey().contains("_Size"))
+            {
+                var sizeStart = statistic.getKey().indexOf("_");
+                var rawSize = statistic.getKey().substring(sizeStart + 5);
+                var size = Integer.parseInt(rawSize);
+                var left = optionalCounts.get(size) - 1;
+                optionalCounts.put(size, left);
+            }
+        });
+
+        optionalCounts.forEach((size, count) -> IntStream.range(0, count)
+            .mapToObj(i -> "Empty_" + size + (i + 1))
+            .forEach(slot->
+            {
+                var empty = new HashMap<String, Object>();
+                empty.put("name", "[Empty]");
+                map.put(slot, empty);
+            }));
+
+        var hardpointCounts = new HashMap<String, Integer>();
+
+        Arrays.stream(shipType.getHardpoints().getSlots())
+            .forEach(moduleSize ->
+            {
+                var current = hardpointCounts.computeIfAbsent(moduleSize.name(), (_k)-> 0) + 1;
+                hardpointCounts.put(moduleSize.name(), current);
+            });
+
+        shipModules.forEach((statistic, moduleData)->
+        {
+            if (statistic.getKey().contains("Hardpoint"))
+            {
+                var hardPointStart = statistic.getKey().indexOf("Hardpoint");
+                var rawSize = statistic.getKey().substring(0, hardPointStart);
+                var left = hardpointCounts.get(rawSize) - 1;
+                hardpointCounts.put(rawSize, left);
+            }
+        });
+
+        hardpointCounts.forEach((size, count) -> IntStream.range(0, count)
+            .mapToObj(i->"Empty_" + size + "Hardpoint" + (i + 1))
+            .forEach(slot->
+            {
+                var empty = new HashMap<String, Object>();
+                empty.put("name","[Empty]");
+                map.put(slot, empty);
+            }));
+    }
+
     public String emitLoadoutJson()
     {
         var map = new HashMap<String, Object>();
 
-        shipModules.forEach((key, value) ->
-            map.put(key.getKey(), value.toJson()));
+        shipModules.forEach((statistic, moduleData) ->
+            map.put(formatSlotKey(statistic), moduleData.toJson()));
+
+        addEmptySlots(map);
 
         return JSONSupport.Write.jsonToString.apply(map);
     }

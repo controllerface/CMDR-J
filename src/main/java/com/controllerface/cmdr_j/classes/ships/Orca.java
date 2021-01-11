@@ -53,10 +53,10 @@ public class Orca extends AbstractShip
                         .build(),
 
                 OptionalModuleLayoutData.builder()
-                        .addModule(ModuleSize.SIZE_6_RESERVED)
+                        .addModule(ModuleSize.SIZE_6)
                         .addModule(ModuleSize.SIZE_5)
                         .addModule(ModuleSize.SIZE_5)
-                        .addModule(ModuleSize.SIZE_5_RESERVED)
+                        .addModule(ModuleSize.SIZE_5)
                         .addModule(ModuleSize.SIZE_4)
                         .addModule(ModuleSize.SIZE_3)
                         .addModule(ModuleSize.SIZE_2)

@@ -4,7 +4,9 @@ import com.controllerface.cmdr_j.classes.data.ModifierData;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
+import com.controllerface.cmdr_j.enums.equipment.modules.Cosmetic;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
 import com.controllerface.cmdr_j.server.JournalEventEX;
 import com.controllerface.cmdr_j.server.PlayerState;
 import com.controllerface.cmdr_j.server.ShipModuleData;
@@ -45,6 +47,12 @@ public class LoadoutEvent implements BiConsumer<PlayerState, Map<String, Object>
 
         var slot = JournalEventEX.determineStatType(slotKey);
         var module = JournalEventEX.determineModuleType(moduleKey);
+
+        if (slot instanceof CosmeticSlot)
+        {
+            System.out.println("Ignoring Cosmetic Slot: " + slot);
+            return;
+        }
 
         if (slot == null || module == null)
         {

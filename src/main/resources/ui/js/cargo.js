@@ -19,7 +19,7 @@ class CargoBin extends HTMLElement
         let gradeContainer = document.createElement('div');
         gradeContainer.classList.add('binType');
         this.commodityType = document.createElement('img');
-        this.commodityType.classList.add('gradeIcon');
+        this.commodityType.classList.add('typeIcon');
         gradeContainer.appendChild(this.commodityType);
 
         // commodity stock count
@@ -82,6 +82,20 @@ class CargoBin extends HTMLElement
         else if (name === 'stock')
         {
             this.commodityStock.textContent = newValue;
+        }
+
+        else if (name === 'type')
+        {
+            switch (newValue)
+            {
+                case 'planet':
+                    this.commodityType.src = 'planet.svg';
+                    this.commodityType.title = 'Planetary Ports';
+                    break;
+
+                default:
+                    console.error('Unknown Type: ' + newValue);
+            }
         }
     }
 }

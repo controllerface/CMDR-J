@@ -19,9 +19,6 @@ public enum ModuleSize
     SIZE_4_MILITARY(4),
     SIZE_5_MILITARY(5),
 
-    SIZE_5_RESERVED(5),
-    SIZE_6_RESERVED(6),
-
     ;
 
     public final int intValue;

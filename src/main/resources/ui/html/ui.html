@@ -1,8 +1,12 @@
 <html>
 <head>
     <script src="ui.js"></script>
+    <script src="marketEntry.js"></script>
+    <script src="market.js"></script>
     <script src="material.js"></script>
     <script src="cargo.js"></script>
+    <script src="moduleBay.js"></script>
+    <script src="shipModule.js"></script>
     <link rel="stylesheet" href="ui.css">
 </head>
 <body>
@@ -170,7 +174,34 @@
 
                     <input name="combatTabs" type="radio" id="marketTabButton" class="tabInput"/>
                     <label id="marketTab" for="marketTabButton" class="tabLabel">Market</label>
-                    <div class="tabPanel" id="tradeMarket"></div>
+                    <div class="tabPanel" id="tradeMarket">
+                        <market-info>
+<!--                            <market-entry slot="imports"-->
+<!--                                          commodity="test import"-->
+<!--                                          quantity="100"-->
+<!--                                          price="10000"-->
+<!--                                          mean="9000"-->
+<!--                                          profit="1000"></market-entry>-->
+<!--                            <market-entry slot="imports"-->
+<!--                                          commodity="test import 2"-->
+<!--                                          quantity="100"-->
+<!--                                          price="10000"-->
+<!--                                          mean="9000"-->
+<!--                                          profit="1000"></market-entry>-->
+<!--                            <market-entry slot="exports"-->
+<!--                                          commodity="test export"-->
+<!--                                          quantity="100"-->
+<!--                                          price="10000"-->
+<!--                                          mean="9000"-->
+<!--                                          profit="1000"></market-entry>-->
+<!--                            <market-entry slot="exports"-->
+<!--                                          commodity="test export 2"-->
+<!--                                          quantity="100"-->
+<!--                                          price="10000"-->
+<!--                                          mean="9000"-->
+<!--                                          profit="1000"></market-entry>-->
+                        </market-info>
+                    </div>
 
                 </div>
 
@@ -435,15 +466,21 @@
 
             <input name="loadoutTabs" type="radio" id="coreInternalsTabButton" class="tabInput"/>
             <label id="coreInternalsTab" for="coreInternalsTabButton" class="tabLabel">Core Internals</label>
-            <div class="tabPanel" id="coreInternals"></div>
+            <div class="tabPanel">
+                <module-bay id="coreInternals"></module-bay>
+            </div>
 
             <input name="loadoutTabs" type="radio" id="optionalInternalsTabButton" class="tabInput"/>
             <label id="optionalInternalsTab" for="optionalInternalsTabButton" class="tabLabel">Optional Internals</label>
-            <div class="tabPanel" id="optionalInternals"></div>
+            <div class="tabPanel">
+                <module-bay id="optionalInternals"></module-bay>
+            </div>
 
             <input name="loadoutTabs" type="radio" id="hardpointsTabButton" class="tabInput"/>
             <label id="hardpointsTab" for="hardpointsTabButton" class="tabLabel">Hardpoints</label>
-            <div class="tabPanel" id="hardpoints"></div>
+            <div class="tabPanel">
+                <module-bay id="hardpoints"></module-bay>
+            </div>
 
         </div>
     </div>

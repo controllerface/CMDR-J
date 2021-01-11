@@ -1,0 +1,51 @@
+summary
+{
+  outline: none;
+  cursor: pointer;
+}
+
+summary:hover
+{
+    background: #555;
+}
+
+details > summary
+{
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker
+{
+  display: none;
+}
+
+.moduleList
+{
+    display: grid;
+    grid-template-columns: 14em auto;
+}
+
+.module
+{
+    border: solid 1px #bd6206;
+    padding: 3px;
+    padding-left: 6px;
+    margin: 3px;
+    margin-left: 0px;
+    margin-right: 4px;
+    border-radius: 0px 3px 3px 0px;
+    color: antiquewhite;
+}
+
+.slotName
+{
+    border: solid 1px dimgray;
+    border-radius: 3px 0px 0px 3px;
+    padding: 3px;
+    padding-right: 6px;
+    margin: 3px;
+    margin-right: 0px;
+    margin-left: 4px;
+    text-align: right;
+    font-weight: bold;
+}

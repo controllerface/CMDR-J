@@ -1,3 +1,5 @@
+@import "common.css";
+
 .binCategory
 {
     display: grid;
@@ -15,28 +17,29 @@
 
 .binName
 {
-    border: solid 1px;
-    background: lightcyan;
+    border: solid 1px #bd6206;
     border-radius: 3px 0px 0px 3px;
     padding: 5px;
+    color: antiquewhite;
 }
 
 .binGrade
 {
-    border: solid 1px;
+    border: solid 1px #bd6206;
     text-align: center;
 }
 
 .binCount
 {
-    border: solid 1px;
+    border: solid 1px #bd6206;
     text-align: center;
     padding-top: .35em;
+    color: antiquewhite;
 }
 
 .binCapacity
 {
-    border: solid 1px;
+    border: solid 1px #bd6206;
     text-align: center;
     padding-top: .35em;
     border-radius: 0px 3px 3px 0px;
@@ -49,7 +52,7 @@ progress
 
 progress::-webkit-progress-value
 {
-    background: orange;
+    background: #f07b05;
 }
 
 progress::-webkit-progress-bar
@@ -75,5 +78,5 @@ summary
 
 summary:hover
 {
-    background: orange;
+    background: #555;
 }

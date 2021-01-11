@@ -52,7 +52,7 @@ public class Dolphin extends AbstractShip
                         .build(),
 
                 OptionalModuleLayoutData.builder()
-                        .addModule(ModuleSize.SIZE_5_RESERVED)
+                        .addModule(ModuleSize.SIZE_5)
                         .addModule(ModuleSize.SIZE_4)
                         .addModule(ModuleSize.SIZE_4)
                         .addModule(ModuleSize.SIZE_3)

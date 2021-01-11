@@ -197,17 +197,11 @@ information for each module.
 */
 function updateModules(containerId, moduleData)
 {
-    console.log(moduleData);
-
     // get the UI tab for the appropriate module category
     let moduleTab = document.getElementById(containerId);
 
     // this clears out any elements that may already be present in the tab
     moduleTab.textContent = "";
-
-    // create a new empty container element that will hold the module information
-    let moduleContainer = document.createElement('div');
-    moduleContainer.classList.add('moduleList');
 
     // get all the slot names and sort them
     let slots = Object.keys(moduleData);
@@ -238,36 +232,12 @@ function updateModules(containerId, moduleData)
     {
         let slot = slots[i];
         let module = moduleData[slot];
-        let slotName = document.createElement('div');
-        let moduleElement = document.createElement('details');
-        let moduleName = document.createElement('summary');
-        moduleName.textContent = module['name'];
-        moduleElement.appendChild(moduleName);
 
-        if (module['effects'])
-        {
-            let effects = module['effects'];
-            let statisticsElement = document.createElement('pre');
-
-            let statistics = Object.keys(effects);
-            let content = "";
-            for (let j = 0, len = statistics.length; j < len; j++)
-            {
-                let stat = statistics[j];
-                let info = effects[stat];
-                content += stat + " : " + info['value'] + "\n"
-            }
-            statisticsElement.textContent = content;
-
-            moduleElement.appendChild(statisticsElement);
-        }
-        slotName.textContent = slot;
-        moduleElement.classList.add('module');
-        moduleContainer.appendChild(slotName);
-        moduleContainer.appendChild(moduleElement);
+        let shipModule = document.createElement('ship-module');
+        shipModule.slotName = slot;
+        shipModule.loadModuleData(module);
+        moduleTab.appendChild(shipModule);
     }
-
-    moduleTab.appendChild(moduleContainer);
 }
 
 /*
@@ -316,7 +286,9 @@ function requestLoadout()
 }
 
 /*
-Called when the cargo clear event comes in, before the cargo counts are sent.
+Called when the cargo event comes in. When the initial event is received it
+triggers a clearing of the last known values, then the current values are
+received immediately after.
 */
 function handleCargo(e)
 {
@@ -335,6 +307,7 @@ function handleCargo(e)
         let cargoBin = document.createElement('cargo-bin');
         cargoBin.commodity = cargoData['name'];
         cargoBin.stock = cargoData['count'];
+        cargoBin.type = cargoData['type'];
         cargoContainer.append(cargoBin);
     }
 }

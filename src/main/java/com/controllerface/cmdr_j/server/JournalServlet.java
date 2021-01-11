@@ -33,17 +33,29 @@ class JournalServlet extends EventSourceServlet
             Map.entry("/",
                 StaticAsset.make("/ui/html/ui.html", "text/html")),
 
+            Map.entry("/EUROCAPS.ttf",
+                StaticAsset.make("/ui/font/EUROCAPS.ttf", "font/ttf")),
+
             Map.entry("/ui.html",
                 StaticAsset.make("/ui/html/ui.html", "text/html")),
 
             Map.entry("/ui.css",
                 StaticAsset.make("/ui/css/ui.css", "text/css")),
 
+            Map.entry("/common.css",
+                StaticAsset.make("/ui/css/common.css", "text/css")),
+
             Map.entry("/cargo.css",
                 StaticAsset.make("/ui/css/cargo.css", "text/css")),
 
+            Map.entry("/market.css",
+                StaticAsset.make("/ui/css/market.css", "text/css")),
+
             Map.entry("/material.css",
                 StaticAsset.make("/ui/css/material.css", "text/css")),
+
+            Map.entry("/module.css",
+                StaticAsset.make("/ui/css/module.css", "text/css")),
 
             Map.entry("/ui.js",
                 StaticAsset.make("/ui/js/ui.js", "text/javascript")),
@@ -51,8 +63,23 @@ class JournalServlet extends EventSourceServlet
             Map.entry("/cargo.js",
                 StaticAsset.make("/ui/js/cargo.js", "text/javascript")),
 
+            Map.entry("/market.js",
+                StaticAsset.make("/ui/js/market.js", "text/javascript")),
+
+            Map.entry("/marketEntry.js",
+                StaticAsset.make("/ui/js/marketEntry.js", "text/javascript")),
+
             Map.entry("/material.js",
                 StaticAsset.make("/ui/js/material.js", "text/javascript")),
+
+            Map.entry("/moduleBay.js",
+                StaticAsset.make("/ui/js/moduleBay.js", "text/javascript")),
+
+            Map.entry("/shipModule.js",
+                StaticAsset.make("/ui/js/shipModule.js", "text/javascript")),
+
+            Map.entry("/planet.svg",
+                StaticAsset.make("/ui/img/planet.svg", "image/svg+xml")),
 
             Map.entry("/grade-1.svg",
                 StaticAsset.make("/ui/img/grade-1.svg", "image/svg+xml")),

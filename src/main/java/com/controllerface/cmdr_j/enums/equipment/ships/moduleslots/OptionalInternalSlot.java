@@ -143,8 +143,6 @@ public enum OptionalInternalSlot implements Statistic
     Military02("Military", 0),
     Military03("Military", 0),
 
-    // todo: probably need reserved slots for cabins
-
     PlanetaryApproachSuite("Planetary", -1),
 
     ;

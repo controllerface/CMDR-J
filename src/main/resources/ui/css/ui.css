@@ -1,6 +1,15 @@
+@import "common.css";
+
+*
+{
+    font-family: EUROCAPS;
+    color: #f07b05;
+}
+
 body
 {
     overflow: scroll;
+    background: black
 }
 
 summary
@@ -11,7 +20,7 @@ summary
 
 summary:hover
 {
-    background: orange;
+    background: #555;
 }
 
 details > summary
@@ -39,7 +48,7 @@ progress[value]
 
 progress[value]::-webkit-progress-value
 {
-    background: orange;
+    background: #f07b05;
 }
 
 progress[value]::-webkit-progress-bar
@@ -63,8 +72,7 @@ progress[value]::-webkit-progress-bar
 
 .binHeaderName
 {
-    border: solid 1px;
-    background: lightcyan;
+    border: solid 1px dimgray;
     border-radius: 3px 0px 0px 3px;
     padding: 3px;
     font-weight: bold;
@@ -73,7 +81,7 @@ progress[value]::-webkit-progress-bar
 
 .binHeaderGrade
 {
-    border: solid 1px;
+    border: solid 1px dimgray;
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -81,7 +89,7 @@ progress[value]::-webkit-progress-bar
 
 .binHeaderCount
 {
-    border: solid 1px;
+    border: solid 1px dimgray;
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -89,7 +97,7 @@ progress[value]::-webkit-progress-bar
 
 .binHeaderCapacity
 {
-    border: solid 1px;
+    border: solid 1px dimgray;
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -109,7 +117,7 @@ progress[value]::-webkit-progress-bar
 
 .binHeaderType
 {
-    border: solid 1px;
+    border: solid 1px dimgray;
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -123,7 +131,7 @@ progress[value]::-webkit-progress-bar
 #inventory
 {
     grid-area: inven;
-    border: 1px solid black;
+    border: 1px solid #bd6206;
     width: 90%;
     margin-left: 3em;
 }
@@ -141,7 +149,7 @@ progress[value]::-webkit-progress-bar
 
 .card
 {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 #f07b05;
     transition: 0.3s;
     padding: 20px;
 }
@@ -173,7 +181,7 @@ progress[value]::-webkit-progress-bar
 
 .card:hover
 {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px 0 #f07b05;
 }
 
 
@@ -199,8 +207,8 @@ progress[value]::-webkit-progress-bar
 
 .tabInput:checked + .tabLabel
 {
-    background: #05a;
-    color: white;
+    background: #f07b05;
+    color: black;
 }
     
 .tabInput:checked + .tabLabel + .tabPanel
@@ -214,32 +222,32 @@ progress[value]::-webkit-progress-bar
     text-align: center;
     padding-top: 4.5px;
     padding-left: 5px;
-    background: lightblue;
+    background: black;
     cursor: pointer;
     font-weight: bold;
-    color: black;
+    color: antiquewhite;
     transition: background 0.1s, color 0.1s;
-    border: 1px solid #242626;
-    box-shadow: 2px 2px grey;
+    border: 2px solid #bd6206;
+    /*box-shadow: 2px 2px #f07b05;*/
     margin: 1px;
 }
 
 .tabLabel:hover
 {
-    background: #aaf;
-    color: #000;
+    background: #f07b05;
+    color: #fff;
 }
 
 .tabLabel:active
 {
-    background: #aaf;
+    background: #fff;
 }
 
 .tabPanel
 {
     grid-area: panel;
     display: none;
-    background: #eee;
+    /*background: #eee;*/
 }
 
 
@@ -254,7 +262,7 @@ progress[value]::-webkit-progress-bar
     "panel   panel      panel   panel      panel";
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-    background: #efefef;
+    /*background: #efefef;*/
     max-width: 60em;
     margin-left: auto;
     margin-right: auto;
@@ -302,7 +310,7 @@ progress[value]::-webkit-progress-bar
     "panel     panel    panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-    background: #efefef;
+    /*background: #efefef;*/
 }
 
 #combatTab
@@ -332,7 +340,7 @@ progress[value]::-webkit-progress-bar
     "panel      panel     ";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
-    background: #efefef;
+    /*background: #efefef;*/
 }
 
 #offenseTab
@@ -357,7 +365,7 @@ progress[value]::-webkit-progress-bar
     "panel      panel    ";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
-    background: #efefef;
+    /*background: #efefef;*/
 }
 
 #cargoTab
@@ -389,7 +397,7 @@ progress[value]::-webkit-progress-bar
     "panel  panel  panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-    background: #efefef;
+    /*background: #efefef;*/
 }
 
 #rawTab
@@ -420,7 +428,7 @@ progress[value]::-webkit-progress-bar
     "panel            panel                panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-    background: #efefef;
+    /*background: #efefef;*/
 }
 
 #coreInternalsTab
@@ -439,16 +447,4 @@ progress[value]::-webkit-progress-bar
 {
     grid-area: hardpointsTab;
     border-radius: 5px;
-}
-
-.moduleList
-{
-    display: grid;
-    grid-template-columns: 12em auto;
-}
-
-.module
-{
-    background: lightblue;
-    color: black;
 }
