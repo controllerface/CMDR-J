@@ -12,6 +12,32 @@ body
     background: black
 }
 
+
+body::-webkit-scrollbar
+{
+  width: 1em;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track
+{
+  background: black;        /* color of the tracking area */
+  border: 1px solid #f07b05;
+}
+
+body::-webkit-scrollbar-thumb
+{
+  background-color: #333;    /* color of the scroll thumb */
+  border-radius: 3px;       /* roundness of the scroll thumb */
+  border: 2px solid #f07b05;  /* creates padding around scroll thumb */
+}
+
+body::-webkit-scrollbar-corner
+{
+    background: black;
+}
+
+
+
 summary
 {
   outline: none;
