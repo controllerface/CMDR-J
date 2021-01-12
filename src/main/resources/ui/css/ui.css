@@ -12,7 +12,6 @@ body
     background: black
 }
 
-
 body::-webkit-scrollbar
 {
   width: 1em;               /* width of the entire scrollbar */
@@ -35,8 +34,6 @@ body::-webkit-scrollbar-corner
 {
     background: black;
 }
-
-
 
 summary
 {

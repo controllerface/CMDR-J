@@ -49,3 +49,30 @@ details > summary::-webkit-details-marker
     text-align: right;
     font-weight: bold;
 }
+
+.statTable
+{
+    display: grid;
+    grid-template-columns: 3fr 2fr 3fr;
+}
+
+.statName
+{
+    text-align: right;
+    padding-right: 8px;
+    background: linear-gradient(90deg, black, #222);
+}
+
+.statValue
+{
+    text-align: right;
+    padding-right: 5px;
+    background: #222;
+}
+
+.statUnit
+{
+    text-align: left;
+    color: #f07b05;
+    background: linear-gradient(90deg, #222, black);
+}

@@ -156,7 +156,7 @@ public class Commander
     //region DB Transactions ** methods in this region must only be called from within a DB transaction **
 
     /**
-     * Gets the DB entity for a start system. If this system has never been visited before now, a new
+     * Gets the DB entity for a star system. If this system has never been visited before now, a new
      * DB entity will be created, and it will be returned.
      *
      * @param transaction current db transaction

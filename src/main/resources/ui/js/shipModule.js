@@ -51,19 +51,60 @@ class ShipModule extends HTMLElement
         {
             console.log(module);
             let effects = module['effects'];
-            let statisticsElement = document.createElement('pre');
+
+            let statContainer = document.createElement('div');
+            statContainer.classList.add('statTable');
+
 
             let statistics = Object.keys(effects);
-            let content = "";
             for (let j = 0, len = statistics.length; j < len; j++)
             {
                 let stat = statistics[j];
                 let info = effects[stat];
-                content += stat + " : " + info['value'] + "\n"
-            }
-            statisticsElement.textContent = content;
 
-            this.moduleElement.appendChild(statisticsElement);
+                let statName = document.createElement('span');
+                statName.classList.add('statName');
+                statName.textContent = stat;
+
+                let statValue = document.createElement('span');
+                statValue.classList.add('statValue');
+                statValue.textContent = info['value'];
+
+                let statUnit = document.createElement('span');
+                statUnit.classList.add('statUnit');
+                statUnit.textContent = info['unit'];
+
+                statContainer.append(statName, statValue, statUnit);
+                //content += stat + " : " + info['value'] + "\n"
+            }
+
+            this.moduleElement.appendChild(statContainer);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//            let statisticsElement = document.createElement('pre');
+//            let statistics = Object.keys(effects);
+//            let content = "";
+//            for (let j = 0, len = statistics.length; j < len; j++)
+//            {
+//                let stat = statistics[j];
+//                let info = effects[stat];
+//                content += stat + " : " + info['value'] + "\n"
+//            }
+//            statisticsElement.textContent = content;
+//
+//            this.moduleElement.appendChild(statisticsElement);
         }
     }
 
