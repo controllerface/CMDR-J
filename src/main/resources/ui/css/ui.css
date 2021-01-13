@@ -35,6 +35,49 @@ body::-webkit-scrollbar-corner
     background: black;
 }
 
+.dashboard
+{
+    border: 2px solid #f07b05;
+    height: 14em;
+    border-radius: 3px;
+    max-width: 59.5em;
+    margin: auto;
+}
+
+.dashboardVitals
+{
+    display: grid;
+    grid-template-columns: 8em auto;
+}
+
+.dashboardHeader
+{
+    font-size: 3em;
+    text-align: right;
+}
+
+.dashboardValue
+{
+    font-size: 3em;
+    color: antiquewhite;
+    text-align: left;
+    padding-left: .2em;
+}
+
+.dashboardSmallHeader
+{
+    font-size: 1.5em;
+    text-align: right;
+}
+
+.dashboardSmallValue
+{
+    font-size: 1.5em;
+    color: antiquewhite;
+    text-align: left;
+    padding-left: .5em;
+}
+
 summary
 {
   outline: none;

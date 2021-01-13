@@ -47,8 +47,8 @@ public class UIFunctions
 
     public static class Symbols
     {
-        public static final String DEGREES = new String(new byte[]{(byte)0x00,(byte)0xb0}, StandardCharsets.UTF_16);
-        public static final String INFINITY = new String(new byte[]{(byte)0x22,(byte)0x1e}, StandardCharsets.UTF_16);
+        public static final String DEGREES = "&deg;";
+        public static final String INFINITY = "&infin;";
     }
 
     public static class Style

@@ -82,6 +82,13 @@ public class ShipModuleData
                     values.put("value", effectData.getValueString());
                 }
 
+                var type = effectData.effect.effectType
+                    .toString()
+                    .toLowerCase()
+                    .replace("_", "");
+
+                values.put("effectType", type);
+
                 Optional.of(effectData.effect.unit)
                     .filter(unit -> !unit.isEmpty())
                     .ifPresent(unit -> values.put("unit", unit));
@@ -91,6 +98,12 @@ public class ShipModuleData
 
         modifiers.forEach(modifierData ->
         {
+            if (modifierData.value == modifierData.originalValue)
+            {
+                // the journal sometimes glitches listing a value as
+                // modified from 0 to 0. In that case just bail out.
+                return;
+            }
             var name = modifierData.effect.toString();
             var values = (Map<String, Object>) effects.computeIfAbsent(name,
                 (_k) -> new HashMap<String, Object>());

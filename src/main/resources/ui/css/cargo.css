@@ -24,7 +24,7 @@
 {
     border: solid 1px #bd6206;
     text-align: center;
-    background: dimgray;
+    background: linear-gradient(90deg, black, dimgray, black);
 }
 
 .binCount

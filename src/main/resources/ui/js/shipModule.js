@@ -46,65 +46,204 @@ class ShipModule extends HTMLElement
 
     loadModuleData(module)
     {
-        this.moduleNameElement.textContent = module['name'];
+        let moduleName = document.createElement('span');
+        moduleName.textContent = module['name'];
+
+        let moduleSize;
+        let moduleClass;
+
+        if (this.getAttribute('slotname') !== 'Armour' && module['name'] !== '[Empty]')
+        {
+            moduleSize = document.createElement('span');
+            moduleSize.classList.add('moduleSize');
+
+            moduleClass = document.createElement('span');
+            moduleClass.classList.add('moduleClass');
+
+            this.moduleNameElement.append(moduleSize, moduleClass);
+        }
+
+        this.moduleNameElement.append(moduleName);
+
         if (module['effects'])
         {
             console.log(module);
             let effects = module['effects'];
 
+            if (effects['guardian'])
+            {
+                delete effects['guardian'];
+                moduleName.classList.add('guardian');
+            }
+
+            if (module['ammoInClip'])
+            {
+                effects['Ammo in Clip'] = {value: module['ammoInClip']};
+            }
+
+            if (module['ammoInHopper'])
+            {
+                effects['Ammo in Hopper'] = {value: module['ammoInHopper']};
+            }
+
             let statContainer = document.createElement('div');
             statContainer.classList.add('statTable');
 
+            if (module['modification'])
+            {
+                moduleName.classList.add('modification');
+
+                let statRow = document.createElement('div');
+                statRow.classList.add('statRow');
+
+                let statName = document.createElement('span');
+                statName.classList.add('statName');
+                statName.classList.add('modification');
+                statName.textContent = 'Modification';
+
+                let statValue = document.createElement('span');
+                statValue.classList.add('statValue');
+                statValue.classList.add('modification');
+                statValue.textContent = module['modification'];
+
+                let statUnit = document.createElement('span');
+                statUnit.classList.add('statUnit');
+
+                let modGrade = document.createElement('span');
+                let modProgress = document.createElement('progress');
+                modProgress.classList.add('modificationProgress');
+                modProgress.max = 1;
+                modProgress.value = module['modQuality'];
+                let toolTip = 'Modification Progress: ' + (module['modQuality'] * 100) + '%';
+                modProgress.setAttribute('title', toolTip);
+                modGrade.textContent = "G" + module['modLevel'];
+                statUnit.append(modGrade, modProgress);
+
+                statRow.append(statName, statValue, statUnit);
+                statContainer.append(statRow);
+            }
+
+            if (module['experimental'])
+            {
+                moduleName.classList.add('experimental');
+
+                let statRow = document.createElement('div');
+                statRow.classList.add('statRow');
+
+                let statName = document.createElement('span');
+                statName.classList.add('statName');
+                statName.classList.add('experimental');
+                statName.textContent = 'Experimental Effect';
+
+                let statValue = document.createElement('span');
+                statValue.classList.add('statValue');
+                statValue.classList.add('experimental');
+                statValue.textContent = module['experimental'];
+
+                let statUnit = document.createElement('span');
+                statUnit.classList.add('statUnit');
+
+                statRow.append(statName, statValue, statUnit);
+                statContainer.append(statRow);
+            }
+
 
             let statistics = Object.keys(effects);
+            statistics.sort((a, b) =>
+            {
+                if (a === 'Size')
+                {
+                    return -1;
+                }
+                if (b === 'Size')
+                {
+                    return 1;
+                }
+
+                if (a === 'Class')
+                {
+                    if (b === 'Size')
+                    {
+                        return 1;
+                    }
+                    else return -1;
+                }
+                if (b === 'Class')
+                {
+                    if (a === 'Size')
+                    {
+                        return -1;
+                    }
+                    else return 1;
+                }
+
+                // fall back to the default string compare for all other modules
+                return a.localeCompare(b);
+            });
+
             for (let j = 0, len = statistics.length; j < len; j++)
             {
+                let statRow = document.createElement('div');
+                statRow.classList.add('statRow');
+
                 let stat = statistics[j];
                 let info = effects[stat];
+
+                if (stat === 'Size')
+                {
+                    moduleSize.textContent = info['value'];
+                }
+
+                if (stat === 'Class')
+                {
+                    moduleClass.textContent = info['value'];
+                }
 
                 let statName = document.createElement('span');
                 statName.classList.add('statName');
                 statName.textContent = stat;
 
+                if (info['effectType'] !== 'standard')
+                {
+                    statName.classList.add(info['effectType']);
+                }
+
                 let statValue = document.createElement('span');
                 statValue.classList.add('statValue');
                 statValue.textContent = info['value'];
 
+                if (info['originalValue'])
+                {
+                    let toolTip = "Original Value: " + info['originalValue'];
+                    statValue.setAttribute('title', toolTip);
+                }
+
+                if (info['impact'])
+                {
+                    statValue.classList.add(info['impact']);
+                }
+
                 let statUnit = document.createElement('span');
                 statUnit.classList.add('statUnit');
-                statUnit.textContent = info['unit'];
 
-                statContainer.append(statName, statValue, statUnit);
-                //content += stat + " : " + info['value'] + "\n"
+                let unitText = info['unit'];
+                if (unitText)
+                {
+                    if (unitText === '&deg;' || unitText === '&infin;')
+                    {
+                        statUnit.innerHTML = unitText;
+                    }
+                    else
+                    {
+                        statUnit.textContent = unitText;
+                    }
+                }
+
+                statRow.append(statName, statValue, statUnit);
+                statContainer.append(statRow);
             }
 
             this.moduleElement.appendChild(statContainer);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//            let statisticsElement = document.createElement('pre');
-//            let statistics = Object.keys(effects);
-//            let content = "";
-//            for (let j = 0, len = statistics.length; j < len; j++)
-//            {
-//                let stat = statistics[j];
-//                let info = effects[stat];
-//                content += stat + " : " + info['value'] + "\n"
-//            }
-//            statisticsElement.textContent = content;
-//
-//            this.moduleElement.appendChild(statisticsElement);
         }
     }
 
@@ -113,6 +252,10 @@ class ShipModule extends HTMLElement
         if (rawSlot === 'PlanetaryApproachSuite')
         {
             return 'Planetary Approach Suite';
+        }
+        else if (rawSlot === 'Armour')
+        {
+            return 'Bulkheads';
         }
         else if (rawSlot.includes('Hardpoint'))
         {

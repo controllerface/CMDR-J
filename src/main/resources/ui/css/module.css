@@ -52,8 +52,31 @@ details > summary::-webkit-details-marker
 
 .statTable
 {
+    border-top: 1px dotted #bd6206;
     display: grid;
-    grid-template-columns: 3fr 2fr 3fr;
+}
+
+.statRow
+{
+    display: grid;
+    grid-template-columns: 3fr 3fr 2fr;
+}
+
+.statRow:hover > span
+{
+    background: #572c02;
+}
+
+@keyframes slideRight
+{
+  from { padding-right: 10em; }
+  to { padding-right: 5px }
+}
+
+@keyframes slideLeft
+{
+  from { padding-left: 10em; }
+  to { padding-left: 5px }
 }
 
 .statName
@@ -61,15 +84,8 @@ details > summary::-webkit-details-marker
     text-align: right;
     padding-right: 8px;
     background: linear-gradient(90deg, black, #222);
-    /*Typing effect */
     overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: .15em solid #f07b05; /* The typwriter cursor */
     white-space: nowrap; /* Keeps the content on a single line */
-    letter-spacing: .15em;
-    animation:
-      typing 2.5s steps(30, end),
-      blink-caret 1s step-end 3;
-
 }
 
 .statValue
@@ -77,34 +93,88 @@ details > summary::-webkit-details-marker
     text-align: right;
     padding-right: 5px;
     background: #222;
-    /*Typing effect */
-      overflow: hidden; /* Ensures the content is not revealed until the animation */
-      border-right: .15em solid #f07b05; /* The typwriter cursor */
-      white-space: nowrap; /* Keeps the content on a single line */
-      letter-spacing: .15em;
-      animation:
-        typing 1.5s steps(30, end),
-        blink-caret 1s step-end 3;
-    }
-
-    .statUnit
-    {
-        text-align: left;
-        padding-left: 5px;
-        color: #f07b05;
-        background: linear-gradient(90deg, #222, black);
-    }
-
-    /* The typing effect */
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-
-    /* The typewriter cursor effect */
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: #f07b05 }
-    }
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    white-space: nowrap; /* Keeps the content on a single line */
+    animation: slideRight 0.1s steps(30, end)
 }
 
+.statUnit
+{
+    text-align: left;
+    padding-left: 5px;
+    color: #f07b05;
+    background: linear-gradient(90deg, #222, black);
+    animation: slideLeft 0.1s steps(30, end)
+}
+
+.positive
+{
+    color: #00b3f7;
+}
+
+.negative
+{
+    color: #ff0000;
+}
+
+.modification
+{
+    color: #ff7100;
+}
+
+.experimental
+{
+    color: #ffb000;
+}
+
+.guardian
+{
+    color: #0a8bd6;
+}
+
+.antixeno
+{
+    color: #029e4c;
+}
+
+progress[value]
+{
+    appearance: none;
+}
+
+progress[value]::-webkit-progress-value
+{
+    background: #ff7100;
+    height: .6em;
+    margin-top: .21em;
+}
+
+progress[value]::-webkit-progress-bar
+{
+    background: #333;
+    height: .6em;
+    margin-top: .21em;
+}
+
+.modificationProgress
+{
+    width: 40%;
+    margin-left: .5em;
+}
+
+.moduleSize
+{
+    font-family: monospace;
+    font-size: 1.1em;
+    color: #888;
+    font-weight: bold;
+}
+
+.moduleClass
+{
+    font-family: monospace;
+    margin-right: .5em;
+    font-size: 1.1em;
+    color: #888;
+    font-weight: bold;
+}

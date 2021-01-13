@@ -294,7 +294,7 @@ public enum ItemEffect
 
     // placeholder effects for certain modules that don't have intrinsic effects, but need something to display
     empty("-","Empty Compartment", true), // used for the "empty" module so it doesn't look odd
-    planetary_approach("","Planetary Approach and Landing Capabilities", true), // planetary approach suite
+    planetary_approach("","Landing Capabilities", true), // planetary approach suite
     guardian("", "", true),              // is a guardian module
     human("", "", true),                 // is a experimental human tech broker module
     experimental("", "", true),          // is a experimental human (Aegis) module

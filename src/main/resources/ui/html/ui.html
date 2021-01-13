@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>CMDR J - v2.2 (Alpha)</title>
     <script src="ui.js"></script>
     <script src="marketEntry.js"></script>
     <script src="market.js"></script>
@@ -11,19 +12,32 @@
 </head>
 <body>
 
-<main id="sections">
+<div class="dashboard">
+    <div class="dashboardVitals">
+        <span class="dashboardHeader">CMDR</span>
+        <span class="dashboardValue" id="Commander"></span>
 
+        <span class="dashboardSmallHeader" id="Ship_Ident"></span>
+        <span class="dashboardSmallValue" id="Ship_Name"></span>
+
+        <span class="dashboardSmallHeader">Credits</span>
+        <span class="dashboardSmallValue" id="Credits"></span>
+    </div>
+</div>
+
+
+<main id="sections">
     <!-- Commander Tab  -->
     <input name="categoryTabs" type="radio" id="cmdrTabButton" class="tabInput"/>
     <label id="cmdrTab" for="cmdrTabButton" class="tabLabel">Commander</label>
     <div class="tabPanel">
         <div id="commanderInfo">
             <div class="card" id="card1">
-                <h2>CMDR</h2>
-                <b id="Commander"></b>
+<!--                <h2>CMDR</h2>-->
+<!--                <b id="Commander"></b>-->
 
-                <br/>
-                <br/>
+<!--                <br/>-->
+<!--                <br/>-->
 
                 <b>Game Mode</b>
                 <div id="Game_Mode"></div>
@@ -31,8 +45,8 @@
                 <b>Private Group</b>
                 <div id="Private_Group"></div>
                 <br/>
-                <b>Credits</b>
-                <div id="Credits"></div>
+<!--                <b>Credits</b>-->
+<!--                <div id="Credits"></div>-->
                 <br/>
                 <b>Loan</b>
                 <div id="Loan"></div>
@@ -42,8 +56,8 @@
                 <h2>Ship</h2>
 
                 <b id="Ship"></b>
-                <div id="Ship_Ident"></div>
-                <div id="Ship_Name"></div>
+<!--                <div id="Ship_Ident"></div>-->
+<!--                <div id="Ship_Name"></div>-->
 
                 <br/>
 
