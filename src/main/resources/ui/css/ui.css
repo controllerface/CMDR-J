@@ -35,19 +35,137 @@ body::-webkit-scrollbar-corner
     background: black;
 }
 
+
+@keyframes headerSwoop
+{
+    0% { background: linear-gradient(-55deg, #000, #222, #000); }
+    1% { background: linear-gradient(-54deg, #000, #222, #000); }
+    2% { background: linear-gradient(-52deg, #000, #222, #000); }
+    3% { background: linear-gradient(-52deg, #000, #222, #000); }
+    4% { background: linear-gradient(-51deg, #000, #222, #000); }
+    5% { background: linear-gradient(-50deg, #000, #222, #000); }
+    6% { background: linear-gradient(-49deg, #000, #222, #000); }
+    7% { background: linear-gradient(-48deg, #000, #222, #000); }
+    8% { background: linear-gradient(-47deg, #000, #222, #000); }
+    9% { background: linear-gradient(-46deg, #000, #222, #000); }
+    10% { background: linear-gradient(-45deg, #000, #222, #000); }
+    11% { background: linear-gradient(-44deg, #000, #222, #000); }
+    12% { background: linear-gradient(-43deg, #000, #222, #000); }
+    13% { background: linear-gradient(-42deg, #000, #222, #000); }
+    14% { background: linear-gradient(-41deg, #000, #222, #000); }
+    15% { background: linear-gradient(-40deg, #000, #222, #000); }
+    16% { background: linear-gradient(-39deg, #000, #222, #000); }
+    17% { background: linear-gradient(-38deg, #000, #222, #000); }
+    18% { background: linear-gradient(-37deg, #000, #222, #000); }
+    19% { background: linear-gradient(-36deg, #000, #222, #000); }
+    20% { background: linear-gradient(-35deg, #000, #222, #000); }
+    21% { background: linear-gradient(-34deg, #000, #222, #000); }
+    22% { background: linear-gradient(-33deg, #000, #222, #000); }
+    23% { background: linear-gradient(-32deg, #000, #222, #000); }
+    24% { background: linear-gradient(-31deg, #000, #222, #000); }
+    25% { background: linear-gradient(-30deg, #000, #222, #000); }
+    26% { background: linear-gradient(-29deg, #000, #222, #000); }
+    27% { background: linear-gradient(-28deg, #000, #222, #000); }
+    28% { background: linear-gradient(-27deg, #000, #222, #000); }
+    29% { background: linear-gradient(-26deg, #000, #222, #000); }
+    30% { background: linear-gradient(-25deg, #000, #222, #000); }
+    31% { background: linear-gradient(-24deg, #000, #222, #000); }
+    32% { background: linear-gradient(-23deg, #000, #222, #000); }
+    33% { background: linear-gradient(-22deg, #000, #222, #000); }
+    34% { background: linear-gradient(-21deg, #000, #222, #000); }
+    35% { background: linear-gradient(-20deg, #000, #222, #000); }
+    36% { background: linear-gradient(-19deg, #000, #222, #000); }
+    37% { background: linear-gradient(-18deg, #000, #222, #000); }
+    38% { background: linear-gradient(-17deg, #000, #222, #000); }
+    39% { background: linear-gradient(-16deg, #000, #222, #000); }
+    40% { background: linear-gradient(-15deg, #000, #222, #000); }
+    41% { background: linear-gradient(-14deg, #000, #222, #000); }
+    42% { background: linear-gradient(-13deg, #000, #222, #000); }
+    43% { background: linear-gradient(-12deg, #000, #222, #000); }
+    44% { background: linear-gradient(-11deg, #000, #222, #000); }
+    45% { background: linear-gradient(-10deg, #000, #222, #000); }
+    46% { background: linear-gradient(-9deg, #000, #222, #000); }
+    47% { background: linear-gradient(-8deg, #000, #222, #000); }
+    48% { background: linear-gradient(-7deg, #000, #222, #000); }
+    49% { background: linear-gradient(-6deg, #000, #222, #000); }
+    50% { background: linear-gradient(-5deg, #000, #222, #000); }
+    51% { background: linear-gradient(-4deg, #000, #222, #000); }
+    52% { background: linear-gradient(-3deg, #000, #222, #000); }
+    53% { background: linear-gradient(-2deg, #000, #222, #000); }
+    54% { background: linear-gradient(-1deg, #000, #222, #000); }
+    55% { background: linear-gradient(0deg, #000, #222, #000); }
+    56% { background: linear-gradient(1deg, #000, #222, #000); }
+    57% { background: linear-gradient(2deg, #000, #222, #000); }
+    58% { background: linear-gradient(3deg, #000, #222, #000); }
+    59% { background: linear-gradient(4deg, #000, #222, #000); }
+    60% { background: linear-gradient(5deg, #000, #222, #000); }
+    61% { background: linear-gradient(6deg, #000, #222, #000); }
+    62% { background: linear-gradient(7deg, #000, #222, #000); }
+    63% { background: linear-gradient(8deg, #000, #222, #000); }
+    64% { background: linear-gradient(9deg, #000, #222, #000); }
+    65% { background: linear-gradient(10deg, #000, #222, #000); }
+    66% { background: linear-gradient(11deg, #000, #222, #000); }
+    67% { background: linear-gradient(12deg, #000, #222, #000); }
+    68% { background: linear-gradient(13deg, #000, #222, #000); }
+    69% { background: linear-gradient(14deg, #000, #222, #000); }
+    70% { background: linear-gradient(15deg, #000, #222, #000); }
+    71% { background: linear-gradient(16deg, #000, #222, #000); }
+    72% { background: linear-gradient(17deg, #000, #222, #000); }
+    73% { background: linear-gradient(18deg, #000, #222, #000); }
+    74% { background: linear-gradient(19deg, #000, #222, #000); }
+    75% { background: linear-gradient(20deg, #000, #222, #000); }
+    76% { background: linear-gradient(21deg, #000, #222, #000); }
+    77% { background: linear-gradient(22deg, #000, #222, #000); }
+    78% { background: linear-gradient(23deg, #000, #222, #000); }
+    79% { background: linear-gradient(24deg, #000, #222, #000); }
+    80% { background: linear-gradient(25deg, #000, #222, #000); }
+    81% { background: linear-gradient(26deg, #000, #222, #000); }
+    82% { background: linear-gradient(27deg, #000, #222, #000); }
+    83% { background: linear-gradient(28deg, #000, #222, #000); }
+    84% { background: linear-gradient(29deg, #000, #222, #000); }
+    85% { background: linear-gradient(30deg, #000, #222, #000); }
+    86% { background: linear-gradient(31deg, #000, #222, #000); }
+    87% { background: linear-gradient(32deg, #000, #222, #000); }
+    88% { background: linear-gradient(33deg, #000, #222, #000); }
+    89% { background: linear-gradient(34deg, #000, #222, #000); }
+    90% { background: linear-gradient(35deg, #000, #222, #000); }
+    91% { background: linear-gradient(36deg, #000, #222, #000); }
+    92% { background: linear-gradient(37deg, #000, #222, #000); }
+    93% { background: linear-gradient(38deg, #000, #222, #000); }
+    94% { background: linear-gradient(39deg, #000, #222, #000); }
+    95% { background: linear-gradient(40deg, #000, #222, #000); }
+    96% { background: linear-gradient(41deg, #000, #222, #000); }
+    97% { background: linear-gradient(42deg, #000, #222, #000); }
+    98% { background: linear-gradient(43deg, #000, #222, #000); }
+    99% { background: linear-gradient(44deg, #000, #222, #000); }
+    100% { background: linear-gradient(45deg, #000, #222, #000); }
+}
+
+
 .dashboard
 {
     border: 2px solid #f07b05;
-    height: 14em;
+    height: 9em;
     border-radius: 3px;
     max-width: 59.5em;
     margin: auto;
+    display: grid;
+    grid-template-columns: auto 17em;
+    background: linear-gradient(45deg, #000, #222, #000);
+    animation: headerSwoop 1.3s;
 }
 
 .dashboardVitals
 {
     display: grid;
     grid-template-columns: 8em auto;
+}
+
+.dashboardInfo
+{
+    display: grid;
+    grid-template-columns: 9em auto;
+    margin: .5em;
 }
 
 .dashboardHeader
@@ -62,6 +180,7 @@ body::-webkit-scrollbar-corner
     color: antiquewhite;
     text-align: left;
     padding-left: .2em;
+    overflow: hidden;
 }
 
 .dashboardSmallHeader
@@ -77,6 +196,39 @@ body::-webkit-scrollbar-corner
     text-align: left;
     padding-left: .5em;
 }
+
+.dashboardSmallValueUnpadded
+{
+    font-size: 1.5em;
+    text-align: left;
+}
+
+.dashboardTinyHeader
+{
+    text-align: right;
+    font-size: 1em;
+}
+
+.dashboardTinyValue
+{
+    font-size: 1em;
+    text-align: left;
+    padding-left: .8em;
+    color: antiquewhite;
+}
+
+.dashboardRankMeter
+{
+    width: 95%;
+    height: .5em;
+}
+
+.dashboardFuelMeter
+{
+    height: .6em;
+    vertical-align: baseline;
+}
+
 
 summary
 {
@@ -324,8 +476,8 @@ progress[value]::-webkit-progress-bar
 {
     display: grid;
     grid-template-areas:
-    "cmdrTab careersTab matsTab loadoutTab taskTab"
-    "panel   panel      panel   panel      panel";
+    "cmdrTab shipTab inventoryTab navigationTab taskTab"
+    "panel   panel   panel        panel         panel";
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     /*background: #efefef;*/
@@ -339,21 +491,25 @@ progress[value]::-webkit-progress-bar
     grid-area: cmdrTab;
     border-radius: 5px;
 }
-#careersTab
+
+#shipTab
 {
-    grid-area: careersTab;
+    grid-area: shipTab;
     border-radius: 5px;
 }
-#matsTab
+
+#inventoryTab
 {
-    grid-area: matsTab;
+    grid-area: inventoryTab;
     border-radius: 5px;
 }
-#loadoutTab
+
+#navigationTab
 {
-    grid-area: loadoutTab;
+    grid-area: navigationTab;
     border-radius: 5px;
 }
+
 #taskTab
 {
     grid-area: taskTab;
@@ -363,128 +519,33 @@ progress[value]::-webkit-progress-bar
 
 
 
+/* Star Ship Tabs */
 
-
-
-/* Career Focused Tabs */
-
-#careersContainer
+#shipContainer
 {
     display: grid;
     grid-template-areas:
-    "combatTab tradeTab explorationTab"
-    "panel     panel    panel";
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 2em auto;
-    /*background: #efefef;*/
-}
-
-#combatTab
-{
-    grid-area: combatTab;
-    border-radius: 5px;
-}
-#tradeTab
-{
-    grid-area: tradeTab;
-    border-radius: 5px;
-}
-#explorationTab
-{
-    grid-area: explorationTab;
-    border-radius: 5px;
-}
-
-
-/* Combat Tabs*/
-
-#combatContainer
-{
-    display: grid;
-    grid-template-areas:
-    "offenseTab defenseTab"
-    "panel      panel     ";
+    "loadoutTab systemsTab"
+    "panel panel";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
     /*background: #efefef;*/
 }
 
-#offenseTab
+#loadoutTab
 {
-    grid-area: offenseTab;
-    border-radius: 5px;
-}
-#defenseTab
-{
-    grid-area: defenseTab;
+    grid-area: loadoutTab;
     border-radius: 5px;
 }
 
-
-/* Trade Tabs*/
-
-#tradeContainer
+#systemsTab
 {
-    display: grid;
-    grid-template-areas:
-    "cargoTab   marketTab"
-    "panel      panel    ";
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 2em auto;
-    /*background: #efefef;*/
-}
-
-#cargoTab
-{
-    grid-area: cargoTab;
-    border-radius: 5px;
-}
-
-#marketTab
-{
-    grid-area: marketTab;
+    grid-area: systemsTab;
     border-radius: 5px;
 }
 
 
-
-
-
-
-
-
-/* Material Inventory */
-
-#inventoryContainer
-{
-    display: grid;
-    grid-template-areas:
-    "rawTab encTab manufacturedTab"
-    "panel  panel  panel";
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 2em auto;
-    /*background: #efefef;*/
-}
-
-#rawTab
-{
-    grid-area: rawTab;
-    border-radius: 5px;
-}
-#encTab
-{
-    grid-area: encTab;
-    border-radius: 5px;
-}
-#manufacturedTab
-{
-    grid-area: manufacturedTab;
-    border-radius: 5px;
-}
-
-
-
-/* Loadout */
+/* Loadout Tabs */
 
 #loadoutContainer
 {
@@ -514,3 +575,111 @@ progress[value]::-webkit-progress-bar
     grid-area: hardpointsTab;
     border-radius: 5px;
 }
+
+
+/* Systems Tabs */
+
+#systemsContainer
+{
+    display: grid;
+    grid-template-areas:
+    "offenseTab defenseTab agilityTab"
+    "panel      panel      panel";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+    /*background: #efefef;*/
+}
+
+#offenseTab
+{
+    grid-area: offenseTab;
+    border-radius: 5px;
+}
+
+#defenseTab
+{
+    grid-area: defenseTab;
+    border-radius: 5px;
+}
+
+#agilityTab
+{
+    grid-area: agilityTab;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+/* Inventory Tabs*/
+
+#inventoryContainer
+{
+    display: grid;
+    grid-template-areas:
+    "matsTab cargoTab marketTab"
+    "panel   panel    panel";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+    /*background: #efefef;*/
+}
+
+#matsTab
+{
+    grid-area: matsTab;
+    border-radius: 5px;
+}
+
+#cargoTab
+{
+    grid-area: cargoTab;
+    border-radius: 5px;
+}
+
+#marketTab
+{
+    grid-area: marketTab;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+/* Material Inventory */
+
+#materialsContainer
+{
+    display: grid;
+    grid-template-areas:
+    "rawTab encTab manufacturedTab"
+    "panel  panel  panel";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+    /*background: #efefef;*/
+}
+
+#rawTab
+{
+    grid-area: rawTab;
+    border-radius: 5px;
+}
+#encTab
+{
+    grid-area: encTab;
+    border-radius: 5px;
+}
+#manufacturedTab
+{
+    grid-area: manufacturedTab;
+    border-radius: 5px;
+}
+
+
+

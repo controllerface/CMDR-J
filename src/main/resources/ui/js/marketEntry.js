@@ -19,8 +19,6 @@ class MarketEntry extends HTMLElement
         this.tradeProfit = document.createElement('span');
         this.tradeProfit.classList.add('marketProfit')
 
-        console.log('did it!');
-
         entry.append(this.commodityName,
             this.tradeQuantity,
             this.marketPrice,
@@ -103,7 +101,6 @@ class MarketEntry extends HTMLElement
 
     attributeChangedCallback(name, oldValue, newValue)
     {
-        console.log('name: ' + name + ' value:' + newValue);
         let target = this.determineTarget(name);
         if (target)
         {

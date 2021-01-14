@@ -95,7 +95,7 @@ details > summary::-webkit-details-marker
     background: #222;
     overflow: hidden; /* Ensures the content is not revealed until the animation */
     white-space: nowrap; /* Keeps the content on a single line */
-    animation: slideRight 0.1s steps(30, end)
+    animation: slideRight 0.1s ease; /*steps(30, end)*/
 }
 
 .statUnit
@@ -104,7 +104,7 @@ details > summary::-webkit-details-marker
     padding-left: 5px;
     color: #f07b05;
     background: linear-gradient(90deg, #222, black);
-    animation: slideLeft 0.1s steps(30, end)
+    animation: slideLeft 0.3s ease;/*steps(30, end)*/
 }
 
 .positive

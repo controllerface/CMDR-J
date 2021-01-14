@@ -167,7 +167,10 @@ of some other type, the value will likely be ignored.
 */
 function setElementProgress(id, progress)
 {
-    document.getElementById(id).value = progress;
+    let target = document.getElementById(id)
+    target.value = progress;
+    let toolTip = progress + ' / ' + target.max;
+    target.setAttribute('title', toolTip);
 }
 
 /*
@@ -178,7 +181,10 @@ of some other type, the max value will likely be ignored.
 */
 function setElementProgressMax(id, max)
 {
-    document.getElementById(id).max = max;
+    let target = document.getElementById(id)
+    target.max = max;
+    let toolTip = target.value + ' / ' + max;
+    target.setAttribute('title', toolTip);
 }
 
 /*
@@ -332,13 +338,12 @@ const eventListeners =
     // Current ship info; the ship model name, and the player controlled ship name and ID
     Ship: (e) => setElementText("Ship", shipTypes[e.data.toLowerCase()]),
     Ship_Name: (e) => setElementText("Ship_Name", e.data),
-    Ship_Ident: (e) => setElementText("Ship_Ident", e.data.toUpperCase()),
+    Ship_Ident: (e) => setElementText("Ship_Ident", '[' + e.data.toUpperCase() + ']'),
 
     // Current fuel level data; max and current level
     Fuel_Capacity: (e) => setElementProgressMax("Fuel_Capacity", e.data),
     Fuel_Level: (e) =>
     {
-        setElementText("Fuel_Level", e.data),
         setElementProgress("Fuel_Capacity", e.data)
     },
 

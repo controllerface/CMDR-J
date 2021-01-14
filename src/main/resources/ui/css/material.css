@@ -27,6 +27,7 @@
 {
     border: solid 1px #bd6206;
     text-align: center;
+    background: linear-gradient(90deg, black, #222, black);
 }
 
 .binCount
@@ -35,6 +36,7 @@
     text-align: center;
     padding-top: .35em;
     color: antiquewhite;
+    font-weight: bold;
 }
 
 .binCapacity

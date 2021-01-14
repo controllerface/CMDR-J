@@ -13,6 +13,7 @@ class ShipModule extends HTMLElement
         this.moduleElement = document.createElement('details');
         this.moduleElement.classList.add('module');
         this.moduleNameElement = document.createElement('summary');
+        this.moduleNameElement.setAttribute('tabindex','0');
         this.moduleElement.appendChild(this.moduleNameElement);
 
         container.append(this.slotNameElement, this.moduleElement);
@@ -67,7 +68,6 @@ class ShipModule extends HTMLElement
 
         if (module['effects'])
         {
-            console.log(module);
             let effects = module['effects'];
 
             if (effects['guardian'])
