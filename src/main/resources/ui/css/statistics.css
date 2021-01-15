@@ -1,0 +1,32 @@
+.category
+{
+    font-weight: bold;
+    margin: .2em;
+    margin-top: .5em;
+}
+
+.statRow
+{
+    display: grid;
+    grid-template-columns: auto 15em;
+}
+
+.statName
+{
+    border: 1px solid #f07b05;
+    color: antiquewhite;
+    padding: .2em;
+    border-radius: 3px;
+    margin: .2em;
+}
+
+.statValue
+{
+    font-weight: bold;
+    border: 1px solid #f07b05;
+    color: antiquewhite;
+    padding: .2em;
+    border-radius: 3px;
+    text-align: center;
+    margin: .2em;
+}

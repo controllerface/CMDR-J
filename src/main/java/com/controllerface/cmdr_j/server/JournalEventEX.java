@@ -186,7 +186,7 @@ public enum JournalEventEX
     Misc
      */
 //    Music(new MusicHandler()),
-//    Statistics(new StatisticsHandler()),
+    Statistics(new StatisticsEvent()),
 //    Resurrect(new ResurrectHandler()),
 //    ReceiveText(new ReceiveTextHandler()),
 //    NpcCrewPaidWage(new NpcCrewPaidWageHandler()),

@@ -9,7 +9,7 @@
 body
 {
     overflow: scroll;
-    background: black
+        background: linear-gradient(90deg, #111, black, black, black, black, black, #111);
 }
 
 body::-webkit-scrollbar
@@ -35,113 +35,6 @@ body::-webkit-scrollbar-corner
     background: black;
 }
 
-
-@keyframes headerSwoop
-{
-    0% { background: linear-gradient(-55deg, #000, #222, #000); }
-    1% { background: linear-gradient(-54deg, #000, #222, #000); }
-    2% { background: linear-gradient(-52deg, #000, #222, #000); }
-    3% { background: linear-gradient(-52deg, #000, #222, #000); }
-    4% { background: linear-gradient(-51deg, #000, #222, #000); }
-    5% { background: linear-gradient(-50deg, #000, #222, #000); }
-    6% { background: linear-gradient(-49deg, #000, #222, #000); }
-    7% { background: linear-gradient(-48deg, #000, #222, #000); }
-    8% { background: linear-gradient(-47deg, #000, #222, #000); }
-    9% { background: linear-gradient(-46deg, #000, #222, #000); }
-    10% { background: linear-gradient(-45deg, #000, #222, #000); }
-    11% { background: linear-gradient(-44deg, #000, #222, #000); }
-    12% { background: linear-gradient(-43deg, #000, #222, #000); }
-    13% { background: linear-gradient(-42deg, #000, #222, #000); }
-    14% { background: linear-gradient(-41deg, #000, #222, #000); }
-    15% { background: linear-gradient(-40deg, #000, #222, #000); }
-    16% { background: linear-gradient(-39deg, #000, #222, #000); }
-    17% { background: linear-gradient(-38deg, #000, #222, #000); }
-    18% { background: linear-gradient(-37deg, #000, #222, #000); }
-    19% { background: linear-gradient(-36deg, #000, #222, #000); }
-    20% { background: linear-gradient(-35deg, #000, #222, #000); }
-    21% { background: linear-gradient(-34deg, #000, #222, #000); }
-    22% { background: linear-gradient(-33deg, #000, #222, #000); }
-    23% { background: linear-gradient(-32deg, #000, #222, #000); }
-    24% { background: linear-gradient(-31deg, #000, #222, #000); }
-    25% { background: linear-gradient(-30deg, #000, #222, #000); }
-    26% { background: linear-gradient(-29deg, #000, #222, #000); }
-    27% { background: linear-gradient(-28deg, #000, #222, #000); }
-    28% { background: linear-gradient(-27deg, #000, #222, #000); }
-    29% { background: linear-gradient(-26deg, #000, #222, #000); }
-    30% { background: linear-gradient(-25deg, #000, #222, #000); }
-    31% { background: linear-gradient(-24deg, #000, #222, #000); }
-    32% { background: linear-gradient(-23deg, #000, #222, #000); }
-    33% { background: linear-gradient(-22deg, #000, #222, #000); }
-    34% { background: linear-gradient(-21deg, #000, #222, #000); }
-    35% { background: linear-gradient(-20deg, #000, #222, #000); }
-    36% { background: linear-gradient(-19deg, #000, #222, #000); }
-    37% { background: linear-gradient(-18deg, #000, #222, #000); }
-    38% { background: linear-gradient(-17deg, #000, #222, #000); }
-    39% { background: linear-gradient(-16deg, #000, #222, #000); }
-    40% { background: linear-gradient(-15deg, #000, #222, #000); }
-    41% { background: linear-gradient(-14deg, #000, #222, #000); }
-    42% { background: linear-gradient(-13deg, #000, #222, #000); }
-    43% { background: linear-gradient(-12deg, #000, #222, #000); }
-    44% { background: linear-gradient(-11deg, #000, #222, #000); }
-    45% { background: linear-gradient(-10deg, #000, #222, #000); }
-    46% { background: linear-gradient(-9deg, #000, #222, #000); }
-    47% { background: linear-gradient(-8deg, #000, #222, #000); }
-    48% { background: linear-gradient(-7deg, #000, #222, #000); }
-    49% { background: linear-gradient(-6deg, #000, #222, #000); }
-    50% { background: linear-gradient(-5deg, #000, #222, #000); }
-    51% { background: linear-gradient(-4deg, #000, #222, #000); }
-    52% { background: linear-gradient(-3deg, #000, #222, #000); }
-    53% { background: linear-gradient(-2deg, #000, #222, #000); }
-    54% { background: linear-gradient(-1deg, #000, #222, #000); }
-    55% { background: linear-gradient(0deg, #000, #222, #000); }
-    56% { background: linear-gradient(1deg, #000, #222, #000); }
-    57% { background: linear-gradient(2deg, #000, #222, #000); }
-    58% { background: linear-gradient(3deg, #000, #222, #000); }
-    59% { background: linear-gradient(4deg, #000, #222, #000); }
-    60% { background: linear-gradient(5deg, #000, #222, #000); }
-    61% { background: linear-gradient(6deg, #000, #222, #000); }
-    62% { background: linear-gradient(7deg, #000, #222, #000); }
-    63% { background: linear-gradient(8deg, #000, #222, #000); }
-    64% { background: linear-gradient(9deg, #000, #222, #000); }
-    65% { background: linear-gradient(10deg, #000, #222, #000); }
-    66% { background: linear-gradient(11deg, #000, #222, #000); }
-    67% { background: linear-gradient(12deg, #000, #222, #000); }
-    68% { background: linear-gradient(13deg, #000, #222, #000); }
-    69% { background: linear-gradient(14deg, #000, #222, #000); }
-    70% { background: linear-gradient(15deg, #000, #222, #000); }
-    71% { background: linear-gradient(16deg, #000, #222, #000); }
-    72% { background: linear-gradient(17deg, #000, #222, #000); }
-    73% { background: linear-gradient(18deg, #000, #222, #000); }
-    74% { background: linear-gradient(19deg, #000, #222, #000); }
-    75% { background: linear-gradient(20deg, #000, #222, #000); }
-    76% { background: linear-gradient(21deg, #000, #222, #000); }
-    77% { background: linear-gradient(22deg, #000, #222, #000); }
-    78% { background: linear-gradient(23deg, #000, #222, #000); }
-    79% { background: linear-gradient(24deg, #000, #222, #000); }
-    80% { background: linear-gradient(25deg, #000, #222, #000); }
-    81% { background: linear-gradient(26deg, #000, #222, #000); }
-    82% { background: linear-gradient(27deg, #000, #222, #000); }
-    83% { background: linear-gradient(28deg, #000, #222, #000); }
-    84% { background: linear-gradient(29deg, #000, #222, #000); }
-    85% { background: linear-gradient(30deg, #000, #222, #000); }
-    86% { background: linear-gradient(31deg, #000, #222, #000); }
-    87% { background: linear-gradient(32deg, #000, #222, #000); }
-    88% { background: linear-gradient(33deg, #000, #222, #000); }
-    89% { background: linear-gradient(34deg, #000, #222, #000); }
-    90% { background: linear-gradient(35deg, #000, #222, #000); }
-    91% { background: linear-gradient(36deg, #000, #222, #000); }
-    92% { background: linear-gradient(37deg, #000, #222, #000); }
-    93% { background: linear-gradient(38deg, #000, #222, #000); }
-    94% { background: linear-gradient(39deg, #000, #222, #000); }
-    95% { background: linear-gradient(40deg, #000, #222, #000); }
-    96% { background: linear-gradient(41deg, #000, #222, #000); }
-    97% { background: linear-gradient(42deg, #000, #222, #000); }
-    98% { background: linear-gradient(43deg, #000, #222, #000); }
-    99% { background: linear-gradient(44deg, #000, #222, #000); }
-    100% { background: linear-gradient(45deg, #000, #222, #000); }
-}
-
-
 .dashboard
 {
     border: 2px solid #f07b05;
@@ -152,7 +45,6 @@ body::-webkit-scrollbar-corner
     display: grid;
     grid-template-columns: auto 17em;
     background: linear-gradient(45deg, #000, #222, #000);
-    animation: headerSwoop 1.3s;
 }
 
 .dashboardVitals
@@ -358,49 +250,48 @@ progress[value]::-webkit-progress-bar
 {
     display: grid;
     grid-template:
-        "card1 card2 card3 card4 card5"
-        "inven inven inven inven inven";
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    /*width: 90%;*/
-    /*margin-left: 3em;*/
+        "commanderStatsTab commanderRankTab"
+        "panel             panel";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2em auto;
+    max-width: 60em;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.card
+#commanderStatsTab
 {
-    box-shadow: 0 4px 8px 0 #f07b05;
-    transition: 0.3s;
-    padding: 20px;
+    grid-area: commanderStatsTab;
+    border-radius: 5px;
 }
 
-#card1
+#commanderRankTab
 {
-    grid-area: card1;
+    grid-area: commanderRankTab;
+    border-radius: 5px;
 }
 
-#card2
+
+#gameMode
 {
-    grid-area: card2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: .2em;
+    border: 1px solid dimgray;
+    border-radius: 3px;
 }
 
-#card3
+.modeType
 {
-    grid-area: card3;
+    text-align: center;
 }
 
-#card4
+.modeStat
 {
-    grid-area: card4;
+    color: antiquewhite;
 }
 
-#card5
-{
-    grid-area: card5;
-}
 
-.card:hover
-{
-    box-shadow: 0 8px 16px 0 #f07b05;
-}
 
 
 
@@ -443,7 +334,7 @@ progress[value]::-webkit-progress-bar
     background: black;
     cursor: pointer;
     font-weight: bold;
-    color: antiquewhite;
+    color: darkgray;
     transition: background 0.1s, color 0.1s;
     border: 2px solid #bd6206;
     /*box-shadow: 2px 2px #f07b05;*/

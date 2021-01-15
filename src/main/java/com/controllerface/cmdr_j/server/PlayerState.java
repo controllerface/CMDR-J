@@ -34,6 +34,7 @@ public class PlayerState
     private final Map<Statistic, String> commanderStatistics = new ConcurrentHashMap<>();
     private final Map<Statistic, String> shipStatistics = new ConcurrentHashMap<>();
     private final Map<Statistic, ShipModuleData> shipModules = new ConcurrentHashMap<>();
+    private final Map<String, Map<String, String>> extendedStats = new ConcurrentHashMap<>();
 
     private final Map<Material, Integer> materials = new ConcurrentHashMap<>();
     private final Map<Commodity, CommodityData> cargo = new ConcurrentHashMap<>();
@@ -157,9 +158,19 @@ public class PlayerState
         shipModules.put(statistic, shipModuleData);
     }
 
+    public void setExtendedStats(String category, Map<String, String> stats)
+    {
+        extendedStats.put(category, stats);
+    }
+
     public void emitLoadoutEvent()
     {
         executeWithLock(() -> globalUpdate.accept("Loadout", "updated"));
+    }
+
+    public void emitExtendedStatsEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Statistics", "updated"));
     }
 
     public void emitCurrentState(BiConsumer<String, String> directUpdate)
@@ -184,6 +195,8 @@ public class PlayerState
                 directUpdate.accept("Cargo", value.toJson()));
 
             directUpdate.accept("Loadout", "updated");
+
+            directUpdate.accept("Statistics", "updated");
         });
     }
 
@@ -385,6 +398,13 @@ public class PlayerState
 
         addEmptySlots(map);
 
+        return JSONSupport.Write.jsonToString.apply(map);
+    }
+
+    public String emitExtendedStatsJson()
+    {
+        var map = new HashMap<String, Object>();
+        map.put("statistics", extendedStats);
         return JSONSupport.Write.jsonToString.apply(map);
     }
 }

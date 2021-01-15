@@ -6,6 +6,8 @@
     <script src="market.js"></script>
     <script src="material.js"></script>
     <script src="cargo.js"></script>
+    <script src="commanderStat.js"></script>
+    <script src="statCategory.js"></script>
     <script src="moduleBay.js"></script>
     <script src="shipModule.js"></script>
     <link rel="stylesheet" href="ui.css">
@@ -75,95 +77,110 @@
     <label id="cmdrTab" for="cmdrTabButton" class="tabLabel">Commander</label>
     <div class="tabPanel">
         <div id="commanderInfo">
-            <div class="card" id="card1">
 
-                <b>Game Mode</b>
-                <div id="Game_Mode"></div>
-                <br/>
-                <b>Private Group</b>
-                <div id="Private_Group"></div>
-                <br/>
-                <br/>
-                <b>Loan</b>
-                <div id="Loan"></div>
+            <!-- Stats Tab  -->
+            <input name="commanderTabs" type="radio" id="statsTabButton" class="tabInput"/>
+            <label id="commanderStatsTab" for="statsTabButton" class="tabLabel">Statistics</label>
+            <div class="tabPanel">
+                <div id="gameMode">
+                    <div class="modeType">
+                        <b>Game Mode</b>
+                        <span class="modeStat" id="Game_Mode"></span>
+                    </div>
+                    <div class="modeType">
+                        <b>Private Group</b>
+                        <span class="modeStat" id="Private_Group"></span>
+                    </div>
+                    <div class="modeType">
+                        <b>Loan</b>
+                        <span class="modeStat" id="Loan"></span><span> CR</span>
+                    </div>
+                </div>
+                <div id="extendedStatistics"></div>
             </div>
 
-            <div class="card" id="card2">
-            </div>
+            <input name="commanderTabs" type="radio" id="reputationTabButton" class="tabInput"/>
+            <label id="commanderRankTab" for="reputationTabButton" class="tabLabel">Rank</label>
+            <div class="tabPanel">
 
-            <div class="card" id="card3">
-            </div>
 
-            <div class="card" id="card4">
-                <h2>Faction Reputation</h2>
+                <div id="card2">
+                </div>
 
-                <div>Federation</div>
-                <meter min="-100"
-                       max="100"
-                       low="-35"
-                       high="90"
-                       optimum="100"
-                       id="Reputation_Federation"></meter>
-                <br/>
-                <br/>
+                <div id="card3">
+                </div>
 
-                <div>Empire</div>
-                <meter min="-100"
-                       max="100"
-                       low="-35"
-                       high="90"
-                       optimum="100"
-                       id="Reputation_Empire"></meter>
-                <br/>
-                <br/>
+                <div id="card4">
+                    <h2>Faction Reputation</h2>
 
-                <div>Alliance</div>
-                <meter min="-100"
-                       max="100"
-                       low="-35"
-                       high="90"
-                       optimum="100"
-                       id="Reputation_Alliance"></meter>
-                <br/>
-                <br/>
+                    <div>Federation</div>
+                    <meter min="-100"
+                           max="100"
+                           low="-35"
+                           high="90"
+                           optimum="100"
+                           id="Reputation_Federation"></meter>
+                    <br/>
+                    <br/>
 
-                <div>Independent</div>
-                <meter min="-100"
-                       max="100"
-                       low="-35"
-                       high="90"
-                       optimum="100"
-                       id="Reputation_Independent"></meter>
-                <br/>
-                <br/>
+                    <div>Empire</div>
+                    <meter min="-100"
+                           max="100"
+                           low="-35"
+                           high="90"
+                           optimum="100"
+                           id="Reputation_Empire"></meter>
+                    <br/>
+                    <br/>
 
-                <div>Test</div>
-                <meter min="-100"
-                       max="100"
-                       low="-35"
-                       high="90"
-                       optimum="100"
-                       value="-45"></meter>
-                <br/>
-                <br/>
-            </div>
+                    <div>Alliance</div>
+                    <meter min="-100"
+                           max="100"
+                           low="-35"
+                           high="90"
+                           optimum="100"
+                           id="Reputation_Alliance"></meter>
+                    <br/>
+                    <br/>
 
-            <div class="card" id="card5">
-                <h2>Naval Ranks</h2>
+                    <div>Independent</div>
+                    <meter min="-100"
+                           max="100"
+                           low="-35"
+                           high="90"
+                           optimum="100"
+                           id="Reputation_Independent"></meter>
+                    <br/>
+                    <br/>
 
-                <div>Federal</div>
-                <b id="Rank_Federation"></b>
-                <br/>
-                <progress max="100" id="Progress_Federation"></progress>
-                <br/>
-                <br/>
+                    <div>Test</div>
+                    <meter min="-100"
+                           max="100"
+                           low="-35"
+                           high="90"
+                           optimum="100"
+                           value="-45"></meter>
+                    <br/>
+                    <br/>
+                </div>
 
-                <div>Imperial</div>
-                <b id="Rank_Empire"></b>
-                <br/>
-                <progress max="100" id="Progress_Empire"></progress>
-                <br/>
-                <br/>
+                <div id="card5">
+                    <h2>Naval Ranks</h2>
+
+                    <div>Federal</div>
+                    <b id="Rank_Federation"></b>
+                    <br/>
+                    <progress max="100" id="Progress_Federation"></progress>
+                    <br/>
+                    <br/>
+
+                    <div>Imperial</div>
+                    <b id="Rank_Empire"></b>
+                    <br/>
+                    <progress max="100" id="Progress_Empire"></progress>
+                    <br/>
+                    <br/>
+                </div>
             </div>
 
         </div>

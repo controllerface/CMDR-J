@@ -58,11 +58,20 @@ class JournalServlet extends EventSourceServlet
             Map.entry("/module.css",
                 StaticAsset.make("/ui/css/module.css", "text/css")),
 
+            Map.entry("/statistics.css",
+                StaticAsset.make("/ui/css/statistics.css", "text/css")),
+
             Map.entry("/ui.js",
                 StaticAsset.make("/ui/js/ui.js", "text/javascript")),
 
             Map.entry("/cargo.js",
                 StaticAsset.make("/ui/js/cargo.js", "text/javascript")),
+
+            Map.entry("/commanderStat.js",
+                StaticAsset.make("/ui/js/commanderStat.js", "text/javascript")),
+
+            Map.entry("/statCategory.js",
+                StaticAsset.make("/ui/js/statCategory.js", "text/javascript")),
 
             Map.entry("/market.js",
                 StaticAsset.make("/ui/js/market.js", "text/javascript")),
@@ -120,7 +129,15 @@ class JournalServlet extends EventSourceServlet
          */
         LOADOUT(EndpointType.GET, "/loadout", (_r, response, playerState) ->
         {
-            writeLoadoutResponse(response, playerState);
+            writeJsonResponse(response, playerState.emitLoadoutJson());
+        }),
+
+        /**
+         * Returns the player's current extended stats information.
+         */
+        STATISTICS(EndpointType.GET, "/statistics", (_r, response, playerState) ->
+        {
+            writeJsonResponse(response, playerState.emitExtendedStatsJson());
         }),
 
         /**
@@ -247,14 +264,13 @@ class JournalServlet extends EventSourceServlet
         }
     }
 
-    private static void writeLoadoutResponse(HttpServletResponse response, PlayerState playerState)
+    private static void writeJsonResponse(HttpServletResponse response, String json)
     {
-        System.out.println("Loadout requested");
         response.setStatus(200);
         response.setHeader("Content-Type", "application/json");
         try
         {
-            response.getWriter().print(playerState.emitLoadoutJson());
+            response.getWriter().print(json);
         }
         catch (IOException e)
         {

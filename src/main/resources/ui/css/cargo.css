@@ -29,6 +29,7 @@
 
 .binCount
 {
+    font-weight: bold;
     border: solid 1px #bd6206;
     text-align: center;
     padding-top: .35em;

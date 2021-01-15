@@ -280,14 +280,47 @@ function setLoadout(data)
     updateModules('hardpoints', hardPoints);
 }
 
-/*
-When the player's loadout is updated, this method requests that data from the local server.
-*/
-function requestLoadout()
+function setStatistics(data)
 {
-    fetch('/loadout')
+    let statData = data['statistics'];
+    let statContainer = document.getElementById('extendedStatistics');
+    let categories = Object.keys(statData);
+    categories.sort();
+
+    for (let i = 0, len = categories.length; i < len; i++)
+    {
+        let category = categories[i];
+        let statistics = statData[category];
+
+        let nextCategory = document.createElement('stat-category');
+        nextCategory.category = category;
+
+        let statNames = Object.keys(statistics);
+        statNames.sort();
+
+        for (let j = 0, statLen = statNames.length; j < statLen; j++)
+        {
+            let statName = statNames[j];
+            let statValue = statistics[statName];
+
+            let nextStat = document.createElement('commander-stat');
+            nextStat.statistic = statName;
+            nextStat.statValue = statValue;
+            nextCategory.append(nextStat);
+        }
+        statContainer.append(nextCategory);
+    }
+}
+
+/*
+Called when a complex JSON event trigger is detected. Requests the endpoint
+of the complex object and passes the data to the provided callback.
+*/
+function requestJsonEndpoint(endpoint, callback)
+{
+    fetch(endpoint)
       .then(response => response.json())
-      .then(data => setLoadout(data))
+      .then(data => callback(data))
       .catch(error => console.error(error));
 }
 
@@ -523,7 +556,8 @@ const eventListeners =
     ANCIENTTECHNOLOGICALDATA: (e) => setMaterialCount("ANCIENTTECHNOLOGICALDATA", e.data),
 
     // Signals the player's ship loadout has changed
-    Loadout: (e) => requestLoadout(),
+    Loadout: (e) => requestJsonEndpoint('/loadout', setLoadout),
+    Statistics: (e) => requestJsonEndpoint('/statistics', setStatistics),
     Cargo: (e) => handleCargo(e.data),
 };
 
