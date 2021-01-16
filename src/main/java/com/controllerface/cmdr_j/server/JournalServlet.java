@@ -140,6 +140,14 @@ class JournalServlet extends EventSourceServlet
         }),
 
         /**
+         * Returns the market data from the most recently visited market.
+         */
+        MARKET(EndpointType.GET, "/market", (_r, response, playerState) ->
+        {
+            writeJsonResponse(response, playerState.writeMarketData());
+        }),
+
+        /**
          * Serves static assets defined in the asset map.
          */
         STATIC_ASSET(EndpointType.GET, staticAssets::containsKey, (request, response, _p) ->

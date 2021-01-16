@@ -28,7 +28,8 @@ details > summary::-webkit-details-marker
 .module
 {
     border: solid 1px #bd6206;
-    border-left: dotted 1px #bd6206;
+    border-left: dotted 1px dimgray;
+
     padding: 3px;
     padding-left: 6px;
     margin: 3px;

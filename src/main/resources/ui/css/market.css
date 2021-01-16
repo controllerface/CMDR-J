@@ -1,3 +1,37 @@
+#marketHeader
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+    border: 2px solid dimgray;
+    border-radius: 3px;
+    padding: .5em;
+}
+
+.marketHeaderRow
+{
+    text-align: center;
+}
+
+.marketHeaderName
+{
+    font-weight: bold;
+    margin-right: .4em;
+}
+
+.marketHeaderValue
+{
+    color: antiquewhite;
+}
+
+.marketTypeValue
+{
+    color: lightgray;
+    margin-left: .2em;
+}
+
+
 .marketData
 {
     display: grid;
@@ -42,6 +76,7 @@
 .marketName
 {
     border: solid 1px #bd6206;
+    border-right: 0px;
     border-radius: 3px 0px 0px 3px;
     padding: 3px;
     color: antiquewhite;
@@ -50,26 +85,34 @@
 .marketQuantity
 {
     border: solid 1px #bd6206;
+    border-left: 1px dotted dimgray;
+    border-right: 0px;
     text-align: center;
     padding: 3px;
     color: antiquewhite;
+    font-weight: bold;
 }
 
 .marketPrice
 {
     border: solid 1px #bd6206;
+    border-left: 1px dotted dimgray;
+    border-right: 0px;
     text-align: center;
     padding: 3px;
     color: antiquewhite;
+    font-weight: bold;
 }
 
 .marketProfit
 {
     border: solid 1px #bd6206;
+    border-left: 1px dotted dimgray;
     text-align: center;
     padding: 3px;
     border-radius: 0px 3px 3px 0px;
     color: antiquewhite;
+    font-weight: bold;
 }
 
 .marketPlaceholder

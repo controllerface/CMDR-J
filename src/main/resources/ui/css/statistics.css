@@ -13,7 +13,7 @@
 
 .statName
 {
-    border: 1px solid #f07b05;
+    border: 1px solid #bd6206;
     border-right: 0px;
     color: antiquewhite;
     padding: .2em;
@@ -25,7 +25,7 @@
 .statValue
 {
     font-weight: bold;
-    border: 1px solid #f07b05;
+    border: 1px solid #bd6206;
     border-left: 1px dotted dimgray;
     color: antiquewhite;
     padding: .2em;

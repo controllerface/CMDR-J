@@ -5,6 +5,30 @@ class MarketInfo extends HTMLElement
         super();
         this.attachShadow({mode: 'open'});
 
+        let header = document.createElement('div');
+        header.setAttribute('id', 'marketHeader');
+        let stationRow = document.createElement('div');
+        stationRow.classList.add('marketHeaderRow');
+        let stationLabel = document.createElement('span');
+        stationLabel.textContent = "Station";
+        stationLabel.classList.add('marketHeaderName');
+        this.stationName = document.createElement('span');
+        this.stationName.classList.add('marketHeaderValue');
+        this.stationType = document.createElement('span');
+        this.stationType.classList.add('marketTypeValue');
+        stationRow.append(stationLabel, this.stationName, this.stationType);
+
+        let systemRow = document.createElement('div');
+        systemRow.classList.add('marketHeaderRow');
+        let systemLabel = document.createElement('span');
+        systemLabel.textContent = "Star System";
+        systemLabel.classList.add('marketHeaderName');
+        this.systemName = document.createElement('span');
+        this.systemName.classList.add('marketHeaderValue');
+        systemRow.append(systemLabel, this.systemName);
+
+        header.append(stationRow, systemRow);
+
         this.imports = document.createElement('div');
 
         let importHeader = document.createElement('div');
@@ -89,7 +113,58 @@ class MarketInfo extends HTMLElement
         styleSheet.setAttribute('rel', 'stylesheet');
         styleSheet.setAttribute('href', 'market.css');
 
-        this.shadowRoot.append(styleSheet, this.imports, this.exports);
+        this.shadowRoot.append(styleSheet, header, this.imports, this.exports);
+    }
+
+    set station(value)
+    {
+        this.setAttribute('station', value);
+    }
+
+    get station()
+    {
+        this.getAttribute('station');
+    }
+
+    set type(value)
+    {
+        this.setAttribute('type', value);
+    }
+
+    get type()
+    {
+        this.getAttribute('type');
+    }
+
+    set system(value)
+    {
+        this.setAttribute('system', value);
+    }
+
+    get system()
+    {
+        this.getAttribute('system');
+    }
+
+    static get observedAttributes()
+    {
+        return ['station', 'type', 'system'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue)
+    {
+        if (name === 'station')
+        {
+            this.stationName.textContent = newValue;
+        }
+        else if (name === 'type')
+        {
+            this.stationType.textContent = '[' + newValue + ']';
+        }
+        else if (name === 'system')
+        {
+            this.systemName.textContent = newValue;
+        }
     }
 }
 

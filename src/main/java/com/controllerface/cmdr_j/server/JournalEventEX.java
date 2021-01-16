@@ -47,7 +47,7 @@ public enum JournalEventEX
     /*
     Market
      */
-//    Market(new MarketHandler()),
+    Market(new MarketEvent()),
 
     /*
     Ship

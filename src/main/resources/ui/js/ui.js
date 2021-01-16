@@ -312,6 +312,82 @@ function setStatistics(data)
     }
 }
 
+function setMarketData(data)
+{
+    console.log(data);
+    let market = document.getElementById('marketInfo');
+    market.station = data['name'];
+    market.type = data['type'];
+    market.system = data['system'];
+
+    let imports = data['imports'];
+    let exports = data['exports'];
+
+    let importTypes = Object.keys(imports);
+    let exportTypes = Object.keys(exports);
+
+    importTypes.sort();
+    exportTypes.sort();
+
+    for (let i = 0, len = importTypes.length; i < len; i++)
+    {
+        let category = importTypes[i];
+        let categoryElement = document.createElement('span');
+        categoryElement.classList.add('binCategoryHeader');
+        categoryElement.setAttribute('slot', 'imports');
+        categoryElement.textContent = category;
+        market.append(categoryElement);
+
+        let items = imports[category];
+        let itemTypes = Object.keys(items);
+        itemTypes.sort();
+
+        for (let it = 0, itLen = itemTypes.length; it < itLen; it++)
+        {
+            let itemName = itemTypes[it];
+            let item = items[itemName];
+            let nextItem = document.createElement('market-entry');
+            nextItem.setAttribute('slot', 'imports');
+            nextItem.commodity = itemName;
+            nextItem.quantity = item['quantity'];
+            nextItem.price = item['price'];
+            nextItem.mean = item['mean'];
+            nextItem.profit = item['profit'];
+            market.append(nextItem);
+        }
+
+    }
+
+    for (let e = 0, len = exportTypes.length; e < len; e++)
+    {
+        let category = exportTypes[e];
+        let categoryElement = document.createElement('h4');
+        categoryElement.classList.add('binCategoryHeader');
+        categoryElement.setAttribute('slot', 'exports');
+        categoryElement.textContent = category;
+        market.append(categoryElement);
+
+        let items = exports[category];
+        let itemTypes = Object.keys(items);
+        itemTypes.sort();
+
+        for (let it = 0, itLen = itemTypes.length; it < itLen; it++)
+        {
+            let itemName = itemTypes[it];
+            let item = items[itemName];
+            let nextItem = document.createElement('market-entry');
+            nextItem.setAttribute('slot', 'exports');
+            nextItem.commodity = itemName;
+            nextItem.quantity = item['quantity'];
+            nextItem.price = item['price'];
+            nextItem.mean = item['mean'];
+            nextItem.profit = item['profit'];
+            market.append(nextItem);
+        }
+    }
+
+}
+
 /*
 Called when a complex JSON event trigger is detected. Requests the endpoint
 of the complex object and passes the data to the provided callback.
@@ -558,6 +634,7 @@ const eventListeners =
     // Signals the player's ship loadout has changed
     Loadout: (e) => requestJsonEndpoint('/loadout', setLoadout),
     Statistics: (e) => requestJsonEndpoint('/statistics', setStatistics),
+    Market: (e) => requestJsonEndpoint('/market', setMarketData),
     Cargo: (e) => handleCargo(e.data),
 };
 

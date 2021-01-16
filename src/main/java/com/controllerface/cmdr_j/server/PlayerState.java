@@ -48,6 +48,7 @@ public class PlayerState
     private final Map<String, Map<String, String>> extendedStats = new ConcurrentHashMap<>();
     private final Map<Material, Integer> materials = new ConcurrentHashMap<>();
     private final Map<Commodity, CommodityData> cargo = new ConcurrentHashMap<>();
+    private final Map<String, Object> marketData = new HashMap<>();
 
     /**
      * Contains the commander's current credit balance.
@@ -119,6 +120,12 @@ public class PlayerState
             globalUpdate.accept(statistic.getName(), value);
             updateInternalState(statistic, value);
         });
+    }
+
+    public void setMarketData(Map<String, Object> marketData)
+    {
+        this.marketData.clear();
+        this.marketData.putAll(marketData);
     }
 
     public void setExtendedStats(String category, Map<String, String> stats)
@@ -261,6 +268,11 @@ public class PlayerState
         executeWithLock(() -> globalUpdate.accept("Statistics", "updated"));
     }
 
+    public void emitMarketEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Market", "updated"));
+    }
+
     /**
      * When a client connects, this is called to ensure the client gets the current state
      * data. Note that after a client is connected, state data must be emitted as it changes
@@ -291,6 +303,8 @@ public class PlayerState
             directUpdate.accept("Loadout", "updated");
 
             directUpdate.accept("Statistics", "updated");
+
+            directUpdate.accept("Market", "updated");
         });
     }
 
@@ -419,6 +433,11 @@ public class PlayerState
         var map = new HashMap<String, Object>();
         map.put("statistics", extendedStats);
         return JSONSupport.Write.jsonToString.apply(map);
+    }
+
+    public String writeMarketData()
+    {
+        return JSONSupport.Write.jsonToString.apply(marketData);
     }
 
     //endregion
