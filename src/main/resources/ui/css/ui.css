@@ -485,9 +485,9 @@ progress[value]::-webkit-progress-bar
 {
     display: grid;
     grid-template-areas:
-    "offenseTab defenseTab agilityTab"
-    "panel      panel      panel";
-    grid-template-columns: 1fr 1fr 1fr;
+    "offenseTab defenseTab engineeringTab powerTab"
+    "panel      panel      panel          panel";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     /*background: #efefef;*/
 }
@@ -504,12 +504,17 @@ progress[value]::-webkit-progress-bar
     border-radius: 5px;
 }
 
-#agilityTab
+#engineeringTab
 {
-    grid-area: agilityTab;
+    grid-area: engineeringTab;
     border-radius: 5px;
 }
 
+#powerTab
+{
+    grid-area: powerTab;
+    border-radius: 5px;
+}
 
 
 

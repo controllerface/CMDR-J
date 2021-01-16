@@ -1571,9 +1571,10 @@ public class StarShip
         double z = 1 / c;
         double res = x * Math.pow(y, z);
 
-        double boost = optionalInternals.stream().map(mod->mod.getEffectValue(ItemEffect.FSDJumpRangeBoost))
-                .mapToDouble(d-> d)
-                .sum();
+        double boost = optionalInternals.stream()
+            .map(mod->mod.getEffectValue(ItemEffect.FSDJumpRangeBoost))
+            .mapToDouble(d-> d)
+            .sum();
 
         if (Double.isNaN(res))
         {

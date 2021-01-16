@@ -4,7 +4,6 @@ import com.controllerface.cmdr_j.server.JournalSyncTaskEX;
 import com.controllerface.cmdr_j.server.PlayerState;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +15,6 @@ public class MarketEvent implements BiConsumer<PlayerState, Map<String, Object>>
     @SuppressWarnings("unchecked")
     public void accept(PlayerState playerState, Map<String, Object> event)
     {
-        System.out.println(event);
-
         var marketData = JournalSyncTaskEX.readMarketData();
         var name = ((String) marketData.get("StationName"));
         var type = ((String) marketData.get("StationType"));
