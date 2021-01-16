@@ -12,6 +12,9 @@ import java.util.List;
  */
 public enum Commodity implements TaskCost
 {
+    // todo: probably should add the "Frontier IDs" of all items to make
+    //  searches and stuff easier (once those features are added)
+
     // Chemicals
     AGRONOMICTREATMENT(ItemGrade.Space),
     EXPLOSIVES(ItemGrade.Space),

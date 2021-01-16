@@ -31,13 +31,30 @@ public class PlayerState
 {
     private final Lock stateLock = new ReentrantLock();
 
+    /**
+     * This object holds the persistent data related to this commander
+     */
+    private final PersistentEntityStore database =
+        PersistentEntityStores.newInstance(UIFunctions.DATA_FOLDER + "/db");
+
+    /**
+     * This is an event sink used when state changes must be communicated to listening clients
+     */
+    private final BiConsumer<String, String> globalUpdate;
+
     private final Map<Statistic, String> commanderStatistics = new ConcurrentHashMap<>();
     private final Map<Statistic, String> shipStatistics = new ConcurrentHashMap<>();
     private final Map<Statistic, ShipModuleData> shipModules = new ConcurrentHashMap<>();
     private final Map<String, Map<String, String>> extendedStats = new ConcurrentHashMap<>();
-
     private final Map<Material, Integer> materials = new ConcurrentHashMap<>();
     private final Map<Commodity, CommodityData> cargo = new ConcurrentHashMap<>();
+
+    /**
+     * Contains the commander's current credit balance.
+     */
+    private long creditBalance = 0;
+
+    private ShipType shipType;
 
     private static class CommodityData
     {
@@ -62,26 +79,6 @@ public class PlayerState
         }
     }
 
-
-    /**
-     * Contains the commander's current credit balance.
-     */
-    private long creditBalance = 0;
-
-    private ShipType shipType;
-
-    /**
-     * This object holds the persistent data related to this commander
-     */
-    private final PersistentEntityStore database =
-        PersistentEntityStores.newInstance(UIFunctions.DATA_FOLDER + "/db");
-
-
-    /**
-     * This is an event sink used when state changes must be communicated to listening clients
-     */
-    private final BiConsumer<String, String> globalUpdate;
-
     public PlayerState(BiConsumer<String, String> globalUpdate)
     {
         this.globalUpdate = globalUpdate;
@@ -100,6 +97,20 @@ public class PlayerState
         }
     }
 
+    public void clearCargo()
+    {
+        executeWithLock(() ->
+        {
+            cargo.clear();
+            globalUpdate.accept("Cargo","Clear");
+        });
+    }
+
+    public void clearShipModules()
+    {
+        shipModules.clear();
+    }
+
     public void setCommanderStat(Statistic statistic, String value)
     {
         executeWithLock(() ->
@@ -110,13 +121,9 @@ public class PlayerState
         });
     }
 
-    public void clearCargo()
+    public void setExtendedStats(String category, Map<String, String> stats)
     {
-        executeWithLock(() ->
-        {
-            cargo.clear();
-            globalUpdate.accept("Cargo","Clear");
-        });
+        extendedStats.put(category, stats);
     }
 
     public void setCargoCount(Commodity commodity, String name, Integer count)
@@ -148,56 +155,9 @@ public class PlayerState
         });
     }
 
-    public void clearShipModules()
-    {
-        shipModules.clear();
-    }
-
     public void setShipModule(Statistic statistic, ShipModuleData shipModuleData)
     {
         shipModules.put(statistic, shipModuleData);
-    }
-
-    public void setExtendedStats(String category, Map<String, String> stats)
-    {
-        extendedStats.put(category, stats);
-    }
-
-    public void emitLoadoutEvent()
-    {
-        executeWithLock(() -> globalUpdate.accept("Loadout", "updated"));
-    }
-
-    public void emitExtendedStatsEvent()
-    {
-        executeWithLock(() -> globalUpdate.accept("Statistics", "updated"));
-    }
-
-    public void emitCurrentState(BiConsumer<String, String> directUpdate)
-    {
-        executeWithLock(() ->
-        {
-            // todo: as more state is tracked, this will need to be updated to make sure
-            //  all important data is emitted during this call
-
-            commanderStatistics.forEach((statistic, value) ->
-                directUpdate.accept(statistic.getName(), value));
-
-            shipStatistics.forEach((statistic, value) ->
-                directUpdate.accept(statistic.getName(), value));
-
-            materials.forEach((material, value) ->
-                directUpdate.accept(material.name(), value.toString()));
-
-            directUpdate.accept("Cargo", "Clear");
-
-            cargo.forEach((commodity, value) ->
-                directUpdate.accept("Cargo", value.toJson()));
-
-            directUpdate.accept("Loadout", "updated");
-
-            directUpdate.accept("Statistics", "updated");
-        });
     }
 
     public void adjustCreditBalance(long adjustment)
@@ -288,6 +248,55 @@ public class PlayerState
 
         }
     }
+
+    //region UI Event Emitters
+
+    public void emitLoadoutEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Loadout", "updated"));
+    }
+
+    public void emitExtendedStatsEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Statistics", "updated"));
+    }
+
+    /**
+     * When a client connects, this is called to ensure the client gets the current state
+     * data. Note that after a client is connected, state data must be emitted as it changes
+     * in individual events.
+     * @param directUpdate the event sink for the newly connected client
+     */
+    public void emitCurrentState(BiConsumer<String, String> directUpdate)
+    {
+        executeWithLock(() ->
+        {
+            // todo: as more state is tracked, this will need to be updated to make sure
+            //  all important data is emitted during this call
+
+            commanderStatistics.forEach((statistic, value) ->
+                directUpdate.accept(statistic.getName(), value));
+
+            shipStatistics.forEach((statistic, value) ->
+                directUpdate.accept(statistic.getName(), value));
+
+            materials.forEach((material, value) ->
+                directUpdate.accept(material.name(), value.toString()));
+
+            directUpdate.accept("Cargo", "Clear");
+
+            cargo.forEach((commodity, value) ->
+                directUpdate.accept("Cargo", value.toJson()));
+
+            directUpdate.accept("Loadout", "updated");
+
+            directUpdate.accept("Statistics", "updated");
+        });
+    }
+
+    //endregion
+
+    //region Formatting Utils
 
     private String formatSlotKey(Statistic statistic)
     {
@@ -389,7 +398,11 @@ public class PlayerState
             }));
     }
 
-    public String emitLoadoutJson()
+    //endregion
+
+    //region Complex JSON Object Writers
+
+    public String writeLoadoutJson()
     {
         var map = new HashMap<String, Object>();
 
@@ -401,10 +414,12 @@ public class PlayerState
         return JSONSupport.Write.jsonToString.apply(map);
     }
 
-    public String emitExtendedStatsJson()
+    public String writeExtendedStatsJson()
     {
         var map = new HashMap<String, Object>();
         map.put("statistics", extendedStats);
         return JSONSupport.Write.jsonToString.apply(map);
     }
+
+    //endregion
 }

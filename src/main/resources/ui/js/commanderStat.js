@@ -54,7 +54,26 @@ class CommanderStat extends HTMLElement
 
         if (name === 'statvalue')
         {
-            this.valueElement.textContent = newValue;
+            if (newValue.includes(' '))
+            {
+                let tokens = newValue.split(' ');
+                let unit = false;
+                for (let i = 0; i < tokens.length; i++)
+                {
+                    let next = document.createElement('span');
+                    next.textContent = tokens[i];
+                    if (unit)
+                    {
+                        next.classList.add('valueUnit');
+                    }
+                    this.valueElement.append(next);
+                    unit = !unit;
+                }
+            }
+            else
+            {
+                this.valueElement.textContent = newValue;
+            }
         }
     }
 }

@@ -29,7 +29,27 @@ public class StatisticsEvent implements BiConsumer<PlayerState, Map<String, Obje
                     var formattedName = name
                         .replace("_", " ")
                         .replace("NpcCrew"," NPC Crew")
-                        .replace("TotalWages", "Total Wages");
+                        .replace("TotalWages", "Total Wages")
+                        .replace("SearchRescue", "Search and Rescue")
+                        .replace("Passengers", "Passenger");
+
+                    if (formattedName.contains("Missions Ejected"))
+                    {
+                        formattedName = "Passengers Ejected";
+                    }
+                    else if (formattedName.contains("Missions Delivered"))
+                    {
+                        formattedName = "Passengers Delivered";
+                    }
+                    else if (formattedName.contains("Missions VIP"))
+                    {
+                        formattedName = "VIP Passengers";
+                    }
+                    else if (formattedName.contains("Missions Bulk"))
+                    {
+                        formattedName = "Regular Passengers";
+                    }
+
                     var formattedValue = formatValue(formattedName, value);
                     remapped.put(formattedName, formattedValue);
                 });
@@ -50,7 +70,7 @@ public class StatisticsEvent implements BiConsumer<PlayerState, Map<String, Obje
             return duration.replace("PT","")
                 .replace("H", " H ")
                 .replace("M", " M ")
-                .replace("S", " S");
+                .replace("S", " S").trim();
         }
         else
         {

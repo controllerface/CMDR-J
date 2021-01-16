@@ -18,6 +18,7 @@
 .binName
 {
     border: solid 1px #bd6206;
+    border-right: 0px;
     border-radius: 3px 0px 0px 3px;
     padding: 5px;
     color: antiquewhite;
@@ -26,6 +27,8 @@
 .binGrade
 {
     border: solid 1px #bd6206;
+    border-left: dotted 1px dimgray;
+    border-right: dotted 1px dimgray;
     text-align: center;
     background: linear-gradient(90deg, black, #222, black);
 }
@@ -33,6 +36,8 @@
 .binCount
 {
     border: solid 1px #bd6206;
+    border-right: 0px;
+    border-left: 0px;
     text-align: center;
     padding-top: .35em;
     color: antiquewhite;
@@ -42,6 +47,7 @@
 .binCapacity
 {
     border: solid 1px #bd6206;
+    border-left: dotted 1px dimgray;
     text-align: center;
     padding-top: .35em;
     border-radius: 0px 3px 3px 0px;

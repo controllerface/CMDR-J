@@ -183,6 +183,7 @@ progress[value]::-webkit-progress-bar
 .binHeaderName
 {
     border: solid 1px dimgray;
+    border-right: 0px;
     border-radius: 3px 0px 0px 3px;
     padding: 3px;
     font-weight: bold;
@@ -192,6 +193,8 @@ progress[value]::-webkit-progress-bar
 .binHeaderGrade
 {
     border: solid 1px dimgray;
+    border-left: dotted 1px dimgray;
+    border-right: dotted 1px dimgray;
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -200,20 +203,33 @@ progress[value]::-webkit-progress-bar
 .binHeaderCount
 {
     border: solid 1px dimgray;
+    border-left: 0px;
+    border-right: 0px;
     text-align: center;
     font-weight: bold;
     padding: 3px;
 }
 
+.binHeaderCountEnd
+{
+    border: solid 1px dimgray;
+    border-left: 0px;
+    border-radius: 0px 3px 3px 0px;
+    text-align: center;
+    font-weight: bold;
+    padding: 3px;
+}
+
+
 .binHeaderCapacity
 {
     border: solid 1px dimgray;
+    border-left: dotted 1px dimgray;
     text-align: center;
     font-weight: bold;
     padding: 3px;
     border-radius: 0px 3px 3px 0px;
 }
-
 
 
 
@@ -228,6 +244,8 @@ progress[value]::-webkit-progress-bar
 .binHeaderType
 {
     border: solid 1px dimgray;
+    border-left: dotted 1px dimgray;
+    border-right: dotted 1px dimgray;
     text-align: center;
     font-weight: bold;
     padding: 3px;

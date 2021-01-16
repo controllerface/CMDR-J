@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
@@ -129,7 +128,7 @@ class JournalServlet extends EventSourceServlet
          */
         LOADOUT(EndpointType.GET, "/loadout", (_r, response, playerState) ->
         {
-            writeJsonResponse(response, playerState.emitLoadoutJson());
+            writeJsonResponse(response, playerState.writeLoadoutJson());
         }),
 
         /**
@@ -137,7 +136,7 @@ class JournalServlet extends EventSourceServlet
          */
         STATISTICS(EndpointType.GET, "/statistics", (_r, response, playerState) ->
         {
-            writeJsonResponse(response, playerState.emitExtendedStatsJson());
+            writeJsonResponse(response, playerState.writeExtendedStatsJson());
         }),
 
         /**

@@ -14,19 +14,30 @@
 .statName
 {
     border: 1px solid #f07b05;
+    border-right: 0px;
     color: antiquewhite;
     padding: .2em;
-    border-radius: 3px;
+    border-radius: 3px 0px 0px 3px;
     margin: .2em;
+    margin-right: 0px;
 }
 
 .statValue
 {
     font-weight: bold;
     border: 1px solid #f07b05;
+    border-left: 1px dotted dimgray;
     color: antiquewhite;
     padding: .2em;
-    border-radius: 3px;
+    border-radius: 0px 3px 3px 0px;
     text-align: center;
     margin: .2em;
+    margin-left: 0px;
+}
+
+.valueUnit
+{
+    color: #f07b05;
+    margin-left: .2em;
+    margin-right: .2em;
 }
