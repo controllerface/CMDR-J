@@ -314,8 +314,13 @@ function setStatistics(data)
 
 function setMarketData(data)
 {
-    console.log(data);
+    if (Object.keys(data).length === 0)
+    {
+        return
+    }
+
     let market = document.getElementById('marketInfo');
+    market.textContent = "";
     market.station = data['name'];
     market.type = data['type'];
     market.system = data['system'];
@@ -400,6 +405,14 @@ function requestJsonEndpoint(endpoint, callback)
       .catch(error => console.error(error));
 }
 
+function handleMaterial(e)
+{
+    let data = JSON.parse(e);
+    let name = data['name'];
+    let count = data['count'];
+    setMaterialCount(name, count);
+}
+
 /*
 Called when the cargo event comes in. When the initial event is received it
 triggers a clearing of the last known values, then the current values are
@@ -427,6 +440,43 @@ function handleCargo(e)
     }
 }
 
+function handleShipData(data)
+{
+    let layout = JSON.parse(data);
+    console.log(layout);
+    let baseStats = layout['baseStats'];
+
+    let shipStats = document.getElementById('shipStats');
+    shipStats.manufacturer = baseStats['manufacturer'];
+    shipStats.model = baseStats['displayName'];
+    shipStats.shipSize = baseStats['shipSize'];
+    shipStats.baseCost = parseInt(baseStats['baseCost'], 10).toLocaleString("en-US");
+    shipStats.crewSeats = baseStats['crewSeats'];
+    shipStats.slf = baseStats['slfCapable'];
+
+    let agilityStats = document.getElementById('agilityStats');
+
+    shipStats.baseHull = baseStats['hullMass']
+    shipStats.massLock = baseStats['massLockFactor']
+    shipStats.baseAgility = baseStats['agility']
+    shipStats.speed = baseStats['speed']
+    shipStats.maxSpeed = baseStats['maxSpeed']
+    shipStats.boost = baseStats['boostSpeed']
+    shipStats.maxBoost = baseStats['maxBoostSpeed']
+}
+
+function handleMassData(property, data)
+{
+    let agilityStats = document.getElementById('agilityStats');
+    agilityStats[property] = data;
+}
+
+function handleShipValueData(property, data)
+{
+    let shipStats = document.getElementById('shipStats');
+    shipStats[property] = data;
+}
+
 /*
 This object contains event listener functions that will be bound to the local event source
 on page load. For each key listed below, the mapped function is bound to an event with the
@@ -448,17 +498,31 @@ const eventListeners =
     Ship: (e) => setElementText("Ship", shipTypes[e.data.toLowerCase()]),
     Ship_Name: (e) => setElementText("Ship_Name", e.data),
     Ship_Ident: (e) => setElementText("Ship_Ident", '[' + e.data.toUpperCase() + ']'),
+    Ship_Data: (e) => handleShipData(e.data),
 
     // Current fuel level data; max and current level
-    Fuel_Capacity: (e) => setElementProgressMax("Fuel_Capacity", e.data),
+    Fuel_Capacity: (e) =>
+    {
+        setElementProgressMax("Fuel_Capacity", e.data);
+        handleShipValueData('fuelCapacity', e.data)
+    },
     Fuel_Level: (e) =>
     {
-        setElementProgress("Fuel_Capacity", e.data)
+        setElementProgress("Fuel_Capacity", e.data);
     },
+    ReserveCapacity: (e) => handleShipValueData('resevoirCapacity', e.data),
 
-    // Monetary info; current balance, and current loan amount if any
+    // Monetary info; current balance, insurance costs, and current loan amount if any
     Credits: (e) => setElementText("Credits", parseInt(e.data, 10).toLocaleString("en-US")),
+    Rebuy: (e) => setElementText("Rebuy", parseInt(e.data, 10).toLocaleString("en-US")),
     Loan: (e) => setElementText("Loan", parseInt(e.data, 10).toLocaleString("en-US")),
+
+    CargoCapacity: (e) => handleShipValueData('cargoCapacity', e.data),
+    UnladenMass: (e) => handleShipValueData('unladenMass', e.data),
+    CurrentMass: (e) => handleShipValueData('currentMass', e.data),
+    MaxJumpRange: (e) => handleShipValueData('maxRange', e.data),
+    HullValue: (e) => handleShipValueData('hullValue', parseInt(e.data, 10).toLocaleString("en-US")),
+    ModulesValue: (e) => handleShipValueData('moduleValue', parseInt(e.data, 10).toLocaleString("en-US")),
 
     // Current career ranks
     Rank_Combat: (e) => setElementText("Rank_Combat", combatRanks[e.data]),
@@ -488,154 +552,20 @@ const eventListeners =
     // Independent (non-allied) reputation
     Reputation_Independent: (e) => setElementProgress("Reputation_Independent", e.data),
 
-    // Raw materials
-    CARBON: (e) => setMaterialCount("CARBON", e.data),
-    VANADIUM: (e) => setMaterialCount("VANADIUM", e.data),
-    NIOBIUM: (e) => setMaterialCount("NIOBIUM", e.data),
-    YTTRIUM: (e) => setMaterialCount("YTTRIUM", e.data),
-    PHOSPHORUS: (e) => setMaterialCount("PHOSPHORUS", e.data),
-    CHROMIUM: (e) => setMaterialCount("CHROMIUM", e.data),
-    MOLYBDENUM: (e) => setMaterialCount("MOLYBDENUM", e.data),
-    TECHNETIUM: (e) => setMaterialCount("TECHNETIUM", e.data),
-    SULPHUR: (e) => setMaterialCount("SULPHUR", e.data),
-    MANGANESE: (e) => setMaterialCount("MANGANESE", e.data),
-    CADMIUM: (e) => setMaterialCount("CADMIUM", e.data),
-    RUTHENIUM: (e) => setMaterialCount("RUTHENIUM", e.data),
-    IRON: (e) => setMaterialCount("IRON", e.data),
-    ZINC: (e) => setMaterialCount("ZINC", e.data),
-    TIN: (e) => setMaterialCount("TIN", e.data),
-    SELENIUM: (e) => setMaterialCount("SELENIUM", e.data),
-    NICKEL: (e) => setMaterialCount("NICKEL", e.data),
-    GERMANIUM: (e) => setMaterialCount("GERMANIUM", e.data),
-    TUNGSTEN: (e) => setMaterialCount("TUNGSTEN", e.data),
-    TELLURIUM: (e) => setMaterialCount("TELLURIUM", e.data),
-    RHENIUM: (e) => setMaterialCount("RHENIUM", e.data),
-    ARSENIC: (e) => setMaterialCount("ARSENIC", e.data),
-    MERCURY: (e) => setMaterialCount("MERCURY", e.data),
-    POLONIUM: (e) => setMaterialCount("POLONIUM", e.data),
-    LEAD: (e) => setMaterialCount("LEAD", e.data),
-    ZIRCONIUM: (e) => setMaterialCount("ZIRCONIUM", e.data),
-    BORON: (e) => setMaterialCount("BORON", e.data),
-    ANTIMONY: (e) => setMaterialCount("ANTIMONY", e.data),
-
-    // Manufactured materials
-    SALVAGEDALLOYS: (e) => setMaterialCount("SALVAGEDALLOYS", e.data),
-    GALVANISINGALLOYS: (e) => setMaterialCount("GALVANISINGALLOYS", e.data),
-    PHASEALLOYS: (e) => setMaterialCount("PHASEALLOYS", e.data),
-    PROTOLIGHTALLOYS: (e) => setMaterialCount("PROTOLIGHTALLOYS", e.data),
-    PROTORADIOLICALLOYS: (e) => setMaterialCount("PROTORADIOLICALLOYS", e.data),
-    GRIDRESISTORS: (e) => setMaterialCount("GRIDRESISTORS", e.data),
-    HYBRIDCAPACITORS: (e) => setMaterialCount("HYBRIDCAPACITORS", e.data),
-    ELECTROCHEMICALARRAYS: (e) => setMaterialCount("ELECTROCHEMICALARRAYS", e.data),
-    POLYMERCAPACITORS: (e) => setMaterialCount("POLYMERCAPACITORS", e.data),
-    MILITARYSUPERCAPACITORS: (e) => setMaterialCount("MILITARYSUPERCAPACITORS", e.data),
-    CHEMICALSTORAGEUNITS: (e) => setMaterialCount("CHEMICALSTORAGEUNITS", e.data),
-    CHEMICALPROCESSORS: (e) => setMaterialCount("CHEMICALPROCESSORS", e.data),
-    CHEMICALDISTILLERY: (e) => setMaterialCount("CHEMICALDISTILLERY", e.data),
-    CHEMICALMANIPULATORS: (e) => setMaterialCount("CHEMICALMANIPULATORS", e.data),
-    PHARMACEUTICALISOLATORS: (e) => setMaterialCount("PHARMACEUTICALISOLATORS", e.data),
-    COMPACTCOMPOSITES: (e) => setMaterialCount("COMPACTCOMPOSITES", e.data),
-    FILAMENTCOMPOSITES: (e) => setMaterialCount("FILAMENTCOMPOSITES", e.data),
-    HIGHDENSITYCOMPOSITES: (e) => setMaterialCount("HIGHDENSITYCOMPOSITES", e.data),
-    FEDPROPRIETARYCOMPOSITES: (e) => setMaterialCount("FEDPROPRIETARYCOMPOSITES", e.data),
-    FEDCORECOMPOSITES: (e) => setMaterialCount("FEDCORECOMPOSITES", e.data),
-    BASICCONDUCTORS: (e) => setMaterialCount("BASICCONDUCTORS", e.data),
-    CONDUCTIVECOMPONENTS: (e) => setMaterialCount("CONDUCTIVECOMPONENTS", e.data),
-    CONDUCTIVECERAMICS: (e) => setMaterialCount("CONDUCTIVECERAMICS", e.data),
-    CONDUCTIVEPOLYMERS: (e) => setMaterialCount("CONDUCTIVEPOLYMERS", e.data),
-    BIOTECHCONDUCTORS: (e) => setMaterialCount("BIOTECHCONDUCTORS", e.data),
-    CRYSTALSHARDS: (e) => setMaterialCount("CRYSTALSHARDS", e.data),
-    UNCUTFOCUSCRYSTALS: (e) => setMaterialCount("UNCUTFOCUSCRYSTALS", e.data),
-    FOCUSCRYSTALS: (e) => setMaterialCount("FOCUSCRYSTALS", e.data),
-    REFINEDFOCUSCRYSTALS: (e) => setMaterialCount("REFINEDFOCUSCRYSTALS", e.data),
-    EXQUISITEFOCUSCRYSTALS: (e) => setMaterialCount("EXQUISITEFOCUSCRYSTALS", e.data),
-    HEATCONDUCTIONWIRING: (e) => setMaterialCount("HEATCONDUCTIONWIRING", e.data),
-    HEATDISPERSIONPLATE: (e) => setMaterialCount("HEATDISPERSIONPLATE", e.data),
-    HEATEXCHANGERS: (e) => setMaterialCount("HEATEXCHANGERS", e.data),
-    HEATVANES: (e) => setMaterialCount("HEATVANES", e.data),
-    PROTOHEATRADIATORS: (e) => setMaterialCount("PROTOHEATRADIATORS", e.data),
-    MECHANICALSCRAP: (e) => setMaterialCount("MECHANICALSCRAP", e.data),
-    MECHANICALEQUIPMENT: (e) => setMaterialCount("MECHANICALEQUIPMENT", e.data),
-    MECHANICALCOMPONENTS: (e) => setMaterialCount("MECHANICALCOMPONENTS", e.data),
-    CONFIGURABLECOMPONENTS: (e) => setMaterialCount("CONFIGURABLECOMPONENTS", e.data),
-    IMPROVISEDCOMPONENTS: (e) => setMaterialCount("IMPROVISEDCOMPONENTS", e.data),
-    WORNSHIELDEMITTERS: (e) => setMaterialCount("WORNSHIELDEMITTERS", e.data),
-    SHIELDEMITTERS: (e) => setMaterialCount("SHIELDEMITTERS", e.data),
-    SHIELDINGSENSORS: (e) => setMaterialCount("SHIELDINGSENSORS", e.data),
-    COMPOUNDSHIELDING: (e) => setMaterialCount("COMPOUNDSHIELDING", e.data),
-    IMPERIALSHIELDING: (e) => setMaterialCount("IMPERIALSHIELDING", e.data),
-    TEMPEREDALLOYS: (e) => setMaterialCount("TEMPEREDALLOYS", e.data),
-    HEATRESISTANTCERAMICS: (e) => setMaterialCount("HEATRESISTANTCERAMICS", e.data),
-    PRECIPITATEDALLOYS: (e) => setMaterialCount("PRECIPITATEDALLOYS", e.data),
-    THERMICALLOYS: (e) => setMaterialCount("THERMICALLOYS", e.data),
-    MILITARYGRADEALLOYS: (e) => setMaterialCount("MILITARYGRADEALLOYS", e.data),
-    UNKNOWNCARAPACE: (e) => setMaterialCount("UNKNOWNCARAPACE", e.data),
-    UNKNOWNENERGYCELL: (e) => setMaterialCount("UNKNOWNENERGYCELL", e.data),
-    UNKNOWNTECHNOLOGYCOMPONENTS: (e) => setMaterialCount("UNKNOWNTECHNOLOGYCOMPONENTS", e.data),
-    UNKNOWNENERGYSOURCE: (e) => setMaterialCount("UNKNOWNENERGYSOURCE", e.data),
-    UNKNOWNORGANICCIRCUITRY: (e) => setMaterialCount("UNKNOWNORGANICCIRCUITRY", e.data),
-    TG_BIOMECHANICALCONDUITS: (e) => setMaterialCount("TG_BIOMECHANICALCONDUITS", e.data),
-    TG_PROPULSIONELEMENT: (e) => setMaterialCount("TG_PROPULSIONELEMENT", e.data),
-    TG_WEAPONPARTS: (e) => setMaterialCount("TG_WEAPONPARTS", e.data),
-    TG_WRECKAGECOMPONENTS: (e) => setMaterialCount("TG_WRECKAGECOMPONENTS", e.data),
-    GUARDIAN_POWERCELL: (e) => setMaterialCount("GUARDIAN_POWERCELL", e.data),
-    GUARDIAN_SENTINEL_WRECKAGECOMPONENTS: (e) => setMaterialCount("GUARDIAN_SENTINEL_WRECKAGECOMPONENTS", e.data),
-    GUARDIAN_POWERCONDUIT: (e) => setMaterialCount("GUARDIAN_POWERCONDUIT", e.data),
-    GUARDIAN_SENTINEL_WEAPONPARTS: (e) => setMaterialCount("GUARDIAN_SENTINEL_WEAPONPARTS", e.data),
-    GUARDIAN_TECHCOMPONENT: (e) => setMaterialCount("GUARDIAN_TECHCOMPONENT", e.data),
-
-    // Encoded materials
-    BULKSCANDATA: (e) => setMaterialCount("BULKSCANDATA", e.data),
-    SCANARCHIVES: (e) => setMaterialCount("SCANARCHIVES", e.data),
-    SCANDATABANKS: (e) => setMaterialCount("SCANDATABANKS", e.data),
-    ENCODEDSCANDATA: (e) => setMaterialCount("ENCODEDSCANDATA", e.data),
-    CLASSIFIEDSCANDATA: (e) => setMaterialCount("CLASSIFIEDSCANDATA", e.data),
-    SCRAMBLEDEMISSIONDATA: (e) => setMaterialCount("SCRAMBLEDEMISSIONDATA", e.data),
-    ARCHIVEDEMISSIONDATA: (e) => setMaterialCount("ARCHIVEDEMISSIONDATA", e.data),
-    EMISSIONDATA: (e) => setMaterialCount("EMISSIONDATA", e.data),
-    DECODEDEMISSIONDATA: (e) => setMaterialCount("DECODEDEMISSIONDATA", e.data),
-    COMPACTEMISSIONSDATA: (e) => setMaterialCount("COMPACTEMISSIONSDATA", e.data),
-    LEGACYFIRMWARE: (e) => setMaterialCount("LEGACYFIRMWARE", e.data),
-    CONSUMERFIRMWARE: (e) => setMaterialCount("CONSUMERFIRMWARE", e.data),
-    INDUSTRIALFIRMWARE: (e) => setMaterialCount("INDUSTRIALFIRMWARE", e.data),
-    SECURITYFIRMWARE: (e) => setMaterialCount("SECURITYFIRMWARE", e.data),
-    EMBEDDEDFIRMWARE: (e) => setMaterialCount("EMBEDDEDFIRMWARE", e.data),
-    ENCRYPTEDFILES: (e) => setMaterialCount("ENCRYPTEDFILES", e.data),
-    ENCRYPTIONCODES: (e) => setMaterialCount("ENCRYPTIONCODES", e.data),
-    SYMMETRICKEYS: (e) => setMaterialCount("SYMMETRICKEYS", e.data),
-    ENCRYPTIONARCHIVES: (e) => setMaterialCount("ENCRYPTIONARCHIVES", e.data),
-    ADAPTIVEENCRYPTORS: (e) => setMaterialCount("ADAPTIVEENCRYPTORS", e.data),
-    SHIELDCYCLERECORDINGS: (e) => setMaterialCount("SHIELDCYCLERECORDINGS", e.data),
-    SHIELDSOAKANALYSIS: (e) => setMaterialCount("SHIELDSOAKANALYSIS", e.data),
-    SHIELDDENSITYREPORTS: (e) => setMaterialCount("SHIELDDENSITYREPORTS", e.data),
-    SHIELDPATTERNANALYSIS: (e) => setMaterialCount("SHIELDPATTERNANALYSIS", e.data),
-    SHIELDFREQUENCYDATA: (e) => setMaterialCount("SHIELDFREQUENCYDATA", e.data),
-    DISRUPTEDWAKEECHOES: (e) => setMaterialCount("DISRUPTEDWAKEECHOES", e.data),
-    FSDTELEMETRY: (e) => setMaterialCount("FSDTELEMETRY", e.data),
-    WAKESOLUTIONS: (e) => setMaterialCount("WAKESOLUTIONS", e.data),
-    HYPERSPACETRAJECTORIES: (e) => setMaterialCount("HYPERSPACETRAJECTORIES", e.data),
-    DATAMINEDWAKE: (e) => setMaterialCount("DATAMINEDWAKE", e.data),
-    UNKNOWNSHIPSIGNATURE: (e) => setMaterialCount("UNKNOWNSHIPSIGNATURE", e.data),
-    UNKNOWNWAKEDATA: (e) => setMaterialCount("UNKNOWNWAKEDATA", e.data),
-    TG_STRUCTURALDATA: (e) => setMaterialCount("TG_STRUCTURALDATA", e.data),
-    TG_SHIPFLIGHTDATA: (e) => setMaterialCount("TG_SHIPFLIGHTDATA", e.data),
-    TG_SHIPSYSTEMSDATA: (e) => setMaterialCount("TG_SHIPSYSTEMSDATA", e.data),
-    TG_COMPOSITIONDATA: (e) => setMaterialCount("TG_COMPOSITIONDATA", e.data),
-    TG_RESIDUEDATA: (e) => setMaterialCount("TG_RESIDUEDATA", e.data),
-    GUARDIAN_MODULEBLUEPRINT: (e) => setMaterialCount("GUARDIAN_MODULEBLUEPRINT", e.data),
-    GUARDIAN_VESSELBLUEPRINT: (e) => setMaterialCount("GUARDIAN_VESSELBLUEPRINT", e.data),
-    GUARDIAN_WEAPONBLUEPRINT: (e) => setMaterialCount("GUARDIAN_WEAPONBLUEPRINT", e.data),
-    ANCIENTHISTORICALDATA: (e) => setMaterialCount("ANCIENTHISTORICALDATA", e.data),
-    ANCIENTCULTURALDATA: (e) => setMaterialCount("ANCIENTCULTURALDATA", e.data),
-    ANCIENTBIOLOGICALDATA: (e) => setMaterialCount("ANCIENTBIOLOGICALDATA", e.data),
-    ANCIENTLANGUAGEDATA: (e) => setMaterialCount("ANCIENTLANGUAGEDATA", e.data),
-    ANCIENTTECHNOLOGICALDATA: (e) => setMaterialCount("ANCIENTTECHNOLOGICALDATA", e.data),
-
     // Signals the player's ship loadout has changed
     Loadout: (e) => requestJsonEndpoint('/loadout', setLoadout),
+
+    // Extended player stats (total time played, etc.)
     Statistics: (e) => requestJsonEndpoint('/statistics', setStatistics),
+
+    // Information about the most recently visited commodity market
     Market: (e) => requestJsonEndpoint('/market', setMarketData),
+
+    // Called when the player's cargo manifest changes, contains info about each item
     Cargo: (e) => handleCargo(e.data),
+
+    // Called when the player's crafting material counts change
+    Material: (e) => handleMaterial(e.data),
 };
 
 window.onload = (e) =>

@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.server;
 
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.data.ModifierData;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
@@ -36,6 +37,22 @@ public class ShipModuleData
         this.integrity = builder.integrity;
         this.level = builder.level;
         this.quality = builder.quality;
+    }
+
+    public Optional<ItemEffectData> effectByName(ItemEffect effect)
+    {
+        Optional<ModifierData> modifed = modifiers.stream()
+            .filter(modifierData -> modifierData.effect == effect)
+            .findFirst();
+
+        if (modifed.isEmpty())
+        {
+            return modifed.map(m->new ItemEffectData(m.effect, m.value));
+        }
+
+        return module.itemEffects().effectStream()
+            .filter(e -> e.effect == effect)
+            .findFirst();
     }
 
     @SuppressWarnings("unchecked")

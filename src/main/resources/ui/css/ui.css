@@ -38,7 +38,7 @@ body::-webkit-scrollbar-corner
 .dashboard
 {
     border: 2px solid #f07b05;
-    height: 9em;
+    height: 10em;
     border-radius: 3px;
     max-width: 59.5em;
     margin: auto;
@@ -427,11 +427,17 @@ progress[value]::-webkit-progress-bar
 {
     display: grid;
     grid-template-areas:
-    "loadoutTab systemsTab"
-    "panel panel";
-    grid-template-columns: 1fr 1fr;
+    "baseStatsTab loadoutTab systemsTab"
+    "panel        panel      panel";
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     /*background: #efefef;*/
+}
+
+#baseStatsTab
+{
+    grid-area: baseStatsTab;
+    border-radius: 5px;
 }
 
 #loadoutTab
@@ -485,9 +491,9 @@ progress[value]::-webkit-progress-bar
 {
     display: grid;
     grid-template-areas:
-    "offenseTab defenseTab engineeringTab powerTab"
-    "panel      panel      panel          panel";
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    "offenseTab defenseTab powerTab"
+    "panel      panel      panel";
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     /*background: #efefef;*/
 }
@@ -501,12 +507,6 @@ progress[value]::-webkit-progress-bar
 #defenseTab
 {
     grid-area: defenseTab;
-    border-radius: 5px;
-}
-
-#engineeringTab
-{
-    grid-area: engineeringTab;
     border-radius: 5px;
 }
 

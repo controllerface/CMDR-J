@@ -10,7 +10,162 @@
     <script src="statCategory.js"></script>
     <script src="moduleBay.js"></script>
     <script src="shipModule.js"></script>
+    <script src="shipStats.js"></script>
     <link rel="stylesheet" href="ui.css">
+
+    <!-- Ship base stats template -->
+
+    <template id="template_ShipStats">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="dataHeader">
+            <div class="headerEntry">
+                <b>Manufacturer</b>
+                <span id="shipStat_manufacturer" class="headerStat">None</span>
+            </div>
+            <div class="headerEntry">
+                <b>Model</b>
+                <span id="shipStat_model" class="headerStat">Unknown</span>
+            </div>
+            <div class="headerEntry">
+                <b>Ship Size</b>
+                <span id="shipStat_shipsize" class="headerStat">None</span>
+            </div>
+        </div>
+
+        <div class="category">Cargo/Fuel</div>
+        <div class="statRow">
+            <span class="statName">Cargo Capacity</span>
+            <span class="statValue">
+                <span id="shipStat_cargocapacity">0</span>
+                <span class="valueUnit">T</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Fuel Capacity</span>
+            <span class="statValue">
+                <span id="shipStat_fuelcapacity">0</span>
+                <span class="valueUnit">T</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Fuel Reservoir Capacity</span>
+            <span class="statValue">
+                <span id="shipStat_resevoircapacity">0</span>
+                <span class="valueUnit">T</span>
+            </span>
+        </div>
+
+        <div class="category">Crew</div>
+        <div class="statRow">
+            <span class="statName">Crew Seats</span>
+            <span class="statValue">
+                <span id="shipStat_crewseats">0</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Ship Launched Fighter Capability</span>
+            <span class="statValue">
+                <span id="shipStat_slf">false</span>
+            </span>
+        </div>
+
+        <div class="category">Cost Metrics</div>
+        <div class="statRow">
+            <span class="statName">Base Cost</span>
+            <span class="statValue">
+                <span id="shipStat_basecost">0</span>
+                <span class="valueUnit">CR</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Current Hull Value</span>
+            <span class="statValue">
+                <span id="shipStat_hullvalue">0</span>
+                <span class="valueUnit">CR</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Current Modules Value</span>
+            <span class="statValue">
+                <span id="shipStat_modulevalue">0</span>
+                <span class="valueUnit">CR</span>
+            </span>
+        </div>
+
+
+        <div class="category">Mass/Range</div>
+        <div class="statRow">
+            <span class="statName">Max Jump Range</span>
+            <span class="statValue">
+                <span id="shipStat_maxrange">0</span>
+                <span class="valueUnit">LY</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Current Mass</span>
+            <span class="statValue">
+                <span id="shipStat_currentmass">0</span>
+                <span class="valueUnit">T</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Unladen Mass</span>
+            <span class="statValue">
+                <span id="shipStat_unladenmass">0</span>
+                <span class="valueUnit">T</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Base Hull Mass</span>
+            <span class="statValue">
+                <span id="shipStat_basehull">0</span>
+                <span class="valueUnit">T</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Mass Lock Factor</span>
+            <span class="statValue">
+                <span id="shipStat_masslock">0</span>
+            </span>
+        </div>
+
+        <div class="category">Speed/Agility</div>
+        <div class="statRow">
+            <span class="statName">Base Agility Rating</span>
+            <span class="statValue">
+                <span id="shipStat_baseagility">0</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Base Speed</span>
+            <span class="statValue">
+                <span id="shipStat_speed">0</span>
+                <span class="valueUnit">M/S</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Max Speed</span>
+            <span class="statValue">
+                <span id="shipStat_maxspeed">0</span>
+                <span class="valueUnit">M/S</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Boost Speed</span>
+            <span class="statValue">
+                <span id="shipStat_boost">0</span>
+                <span class="valueUnit">M/S</span>
+            </span>
+        </div>
+        <div class="statRow">
+            <span class="statName">Max Boost Speed</span>
+            <span class="statValue">
+                <span id="shipStat_maxboost">0</span>
+                <span class="valueUnit">M/S</span>
+            </span>
+        </div>
+    </template>
+
 </head>
 <body>
 
@@ -34,6 +189,9 @@
 
         <span class="dashboardSmallHeader">Credits</span>
         <span class="dashboardSmallValue" id="Credits"></span>
+
+        <span class="dashboardSmallHeader">Rebuy</span>
+        <span class="dashboardSmallValue" id="Rebuy">0</span>
     </div>
 
     <div class="dashboardInfo">
@@ -192,6 +350,12 @@
     <div class="tabPanel">
         <div id="shipContainer">
 
+            <input name="shipTabs" type="radio" id="baseStatsTabButton" class="tabInput"/>
+            <label id="baseStatsTab" for="baseStatsTabButton" class="tabLabel">Statistics</label>
+            <div class="tabPanel">
+                <ship-stats id="shipStats"></ship-stats>
+            </div>
+
             <input name="shipTabs" type="radio" id="loadoutTabButton" class="tabInput"/>
             <label id="loadoutTab" for="loadoutTabButton" class="tabLabel">Loadout</label>
             <div class="tabPanel">
@@ -220,7 +384,7 @@
 
             <input name="shipTabs" type="radio" id="systemsTabButton" class="tabInput"/>
             <label id="systemsTab" for="systemsTabButton" class="tabLabel">Systems Analysis</label>
-            <div class="tabPanel" id="combatCareer">
+            <div class="tabPanel">
 
                 <div id="systemsContainer">
 
@@ -231,10 +395,6 @@
                     <input name="systemsTabs" type="radio" id="defenseTabButton" class="tabInput"/>
                     <label id="defenseTab" for="defenseTabButton" class="tabLabel">Defense</label>
                     <div class="tabPanel" id="combatDefense">TODO: Defense</div>
-
-                    <input name="systemsTabs" type="radio" id="engineeringTabButton" class="tabInput"/>
-                    <label id="engineeringTab" for="engineeringTabButton" class="tabLabel">Engineering</label>
-                    <div class="tabPanel" id="engineeringStats">TODO: Engineering</div>
 
                     <input name="systemsTabs" type="radio" id="powerTabButton" class="tabInput"/>
                     <label id="powerTab" for="powerTabButton" class="tabLabel">Power Usage</label>

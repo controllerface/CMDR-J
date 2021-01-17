@@ -15,6 +15,7 @@ import java.util.Arrays;
 public enum ShipType implements SpaceCraft
 {
     // zorgon peterson
+
     adder(new Adder()),
 
     hauler(new Hauler()),
@@ -64,8 +65,6 @@ public enum ShipType implements SpaceCraft
     // core dynamics
 
     eagle(new Eagle()),
-    empire_eagle(new IEagle()),
-
     vulture(new Vulture()),
 
     federation_dropship_mkii(new FedAssault()),
@@ -83,6 +82,7 @@ public enum ShipType implements SpaceCraft
 
     // gutamaya
 
+    empire_eagle(new IEagle()),
     empire_trader(new IClipper()),
     empire_courier(new ICourier()),
     cutter(new ICutter()),
@@ -91,45 +91,39 @@ public enum ShipType implements SpaceCraft
 
     private final AbstractShip delegate;
 
-    private final BaseShipStats baseShipStats;
-    private final CoreModuleLayoutData coreModules;
-    private final HardPointLayoutData hardpoints;
-    private final OptionalModuleLayoutData internals;
-    private final ShipModule[] armorModules;
-
     ShipType(AbstractShip delegate)
     {
         this.delegate = delegate;
-        this.baseShipStats = null;
-        this.coreModules = null;
-        this.hardpoints = null;
-        this.internals = null;
-        this.armorModules = null;
     }
 
     public BaseShipStats getBaseShipStats()
     {
-        return delegate == null ? baseShipStats : delegate.baseShipStats;
+        return delegate.baseShipStats;
     }
 
     public CoreModuleLayoutData getCoreModules()
     {
-        return delegate == null ? coreModules : delegate.coreModules;
+        return delegate.coreModules;
     }
 
     public HardPointLayoutData getHardpoints()
     {
-        return delegate == null ? hardpoints : delegate.hardpoints;
+        return delegate.hardpoints;
     }
 
     public OptionalModuleLayoutData getInternals()
     {
-        return delegate == null ? internals : delegate.internals;
+        return delegate.internals;
     }
 
     public ShipModule[] getArmorModules()
     {
-        return delegate == null ? armorModules : delegate.armorModules;
+        return delegate.armorModules;
+    }
+
+    public String toJson()
+    {
+        return delegate.toJson();
     }
 
     public static ShipType findShip(String shipName) throws Exception

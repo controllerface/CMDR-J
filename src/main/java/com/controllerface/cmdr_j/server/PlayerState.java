@@ -8,6 +8,7 @@ import com.controllerface.cmdr_j.enums.commander.RankStat;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
@@ -18,9 +19,7 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
 import jetbrains.exodus.entitystore.PersistentEntityStore;
 import jetbrains.exodus.entitystore.PersistentEntityStores;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -54,6 +53,9 @@ public class PlayerState
      * Contains the commander's current credit balance.
      */
     private long creditBalance = 0;
+
+    // todo: need to account for resevoir value as well from status file
+    private double currentFuel = 0;
 
     private ShipType shipType;
 
@@ -143,12 +145,20 @@ public class PlayerState
         });
     }
 
+    private String writeMaterialEvent(Material material, Integer count)
+    {
+        var event = new HashMap<String, Object>();
+        event.put("name", material.name());
+        event.put("count", count.toString());
+        return JSONSupport.Write.jsonToString.apply(event);
+    }
+
     public void setMaterialCount(Material material, Integer count)
     {
         executeWithLock(() ->
         {
             materials.put(material, count);
-            globalUpdate.accept(material.name(), count.toString());
+            globalUpdate.accept("Material", writeMaterialEvent(material, count));
         });
     }
 
@@ -215,6 +225,7 @@ public class PlayerState
             if (statistic == ShipStat.Fuel_Level)
             {
                 // todo: parse value
+                currentFuel = Double.parseDouble(value.replace(",",""));
             }
 
             if (statistic == ShipStat.Fuel_Capacity)
@@ -227,6 +238,7 @@ public class PlayerState
                 try
                 {
                     shipType = ShipType.findShip(value);
+                    executeWithLock(() -> globalUpdate.accept("Ship_Data", shipType.toJson()));
                 }
                 catch (Exception e)
                 {
@@ -256,11 +268,42 @@ public class PlayerState
         }
     }
 
+    private double calculateCurrentMass()
+    {
+        if (shipType == null) return 0.0d;
+
+        var moduleMass = shipModules.values().stream()
+            .map(shipModuleData -> shipModuleData.effectByName(ItemEffect.Mass))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .mapToDouble(e->e.doubleValue)
+            .sum();
+
+        var hullMass = shipType.getBaseShipStats().hullMass;
+
+        var tonnage = cargo.values().stream()
+            .mapToDouble(v->v.count)
+            .sum();
+
+        double totalHullMass = currentFuel + tonnage + hullMass + moduleMass;
+
+        // round the result to 1 decimal place to match the in-game UI
+        return UIFunctions.Data.round(totalHullMass, 1);
+    }
+
+
+
+
     //region UI Event Emitters
 
     public void emitLoadoutEvent()
     {
         executeWithLock(() -> globalUpdate.accept("Loadout", "updated"));
+    }
+
+    public void emitCurrentMass()
+    {
+        executeWithLock(() -> globalUpdate.accept("CurrentMass", String.valueOf(calculateCurrentMass())));
     }
 
     public void emitExtendedStatsEvent()
@@ -293,7 +336,7 @@ public class PlayerState
                 directUpdate.accept(statistic.getName(), value));
 
             materials.forEach((material, value) ->
-                directUpdate.accept(material.name(), value.toString()));
+                directUpdate.accept("Material", writeMaterialEvent(material, value)));
 
             directUpdate.accept("Cargo", "Clear");
 
@@ -305,6 +348,13 @@ public class PlayerState
             directUpdate.accept("Statistics", "updated");
 
             directUpdate.accept("Market", "updated");
+
+            if (shipType != null)
+            {
+                directUpdate.accept("Ship_Data", shipType.toJson());
+            }
+
+            directUpdate.accept("CurrentMass", String.valueOf(calculateCurrentMass()));
         });
     }
 
@@ -319,31 +369,31 @@ public class PlayerState
 
         if (statistic == CoreInternalSlot.FrameShiftDrive)
         {
-            rawKey += "_" + shipType.getCoreModules().getFrameShiftDrive().intValue;
+            rawKey += "_" + shipType.getCoreModules().frameShiftDrive.intValue;
         }
         else if (statistic == CoreInternalSlot.FuelTank)
         {
-            rawKey += "_" + shipType.getCoreModules().getFuelTank().intValue;
+            rawKey += "_" + shipType.getCoreModules().fuelTank.intValue;
         }
         else if (statistic == CoreInternalSlot.LifeSupport)
         {
-            rawKey += "_" + shipType.getCoreModules().getLifeSupport().intValue;
+            rawKey += "_" + shipType.getCoreModules().lifeSupport.intValue;
         }
         else if (statistic == CoreInternalSlot.MainEngines)
         {
-            rawKey += "_" + shipType.getCoreModules().getThrusters().intValue;
+            rawKey += "_" + shipType.getCoreModules().thrusters.intValue;
         }
         else if (statistic == CoreInternalSlot.PowerDistributor)
         {
-            rawKey += "_" + shipType.getCoreModules().getPowerDistributor().intValue;
+            rawKey += "_" + shipType.getCoreModules().powerDistributor.intValue;
         }
         else if (statistic == CoreInternalSlot.PowerPlant)
         {
-            rawKey += "_" + shipType.getCoreModules().getPowerPlant().intValue;
+            rawKey += "_" + shipType.getCoreModules().powerPlant.intValue;
         }
         else if (statistic == CoreInternalSlot.Radar)
         {
-            rawKey += "_" + shipType.getCoreModules().getSensors().intValue;
+            rawKey += "_" + shipType.getCoreModules().sensors.intValue;
         }
 
         return rawKey;

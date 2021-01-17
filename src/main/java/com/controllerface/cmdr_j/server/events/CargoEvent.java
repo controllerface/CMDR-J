@@ -27,6 +27,8 @@ public class CargoEvent implements BiConsumer<PlayerState, Map<String, Object>>
 
         ((List<Map<String, Object>>) cargoData.get("Inventory"))
             .forEach(item -> setCargoCount(playerState, item));
+
+        playerState.emitCurrentMass();
     }
 
     private void setCargoCount(PlayerState playerState, Map<String, Object> item)

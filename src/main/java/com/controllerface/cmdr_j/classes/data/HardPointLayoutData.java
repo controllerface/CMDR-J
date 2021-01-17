@@ -21,7 +21,6 @@ public class HardPointLayoutData
         this.slots = builder.slots.toArray(h);
     }
 
-    // todo: will need this or similar to add support for military and empty slots
     public HardPointSize[] getSlots()
     {
         return slots;

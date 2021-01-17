@@ -1,3 +1,25 @@
+.dataHeader
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+    border: 2px solid dimgray;
+    border-radius: 3px;
+    padding: .5em;
+}
+
+.headerEntry
+{
+    text-align: center;
+}
+
+.headerStat
+{
+    color: antiquewhite;
+    padding-left: .2em;
+}
+
 .category
 {
     font-weight: bold;

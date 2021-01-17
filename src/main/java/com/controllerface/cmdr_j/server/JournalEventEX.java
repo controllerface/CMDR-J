@@ -84,7 +84,7 @@ public enum JournalEventEX
     /*
     Status
      */
-//    Status(new StatusHandler()),
+    Status(new StatusEvent()),
 //    HeatWarning(new HeatWarningHandler()),
 //    HullDamage(new HullDamageHandler()),
 //    ShieldState(new ShieldStateHandler()),

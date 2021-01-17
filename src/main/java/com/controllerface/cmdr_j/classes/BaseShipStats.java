@@ -8,22 +8,22 @@ import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipSize;
  */
 public class BaseShipStats
 {
-    private final String displayName;
-    private final ShipSize shipSize;
-    private final ShipManufacturer manufacturer;
-    private final double agility;
-    private final double hullMass;
-    private final double hullHardness;
-    private final double speed;
-    private final double maxSpeed;
-    private final double boostSpeed;
-    private final double maxBoostSpeed;
-    private final double armorRating;
-    private final double shield;
-    private final double baseCost;
-    private final int massLockFactor;
-    private final int crewSeats;
-    private final boolean slfCapable;
+    public final String displayName;
+    public final ShipSize shipSize;
+    public final ShipManufacturer manufacturer;
+    public final double agility;
+    public final double hullMass;
+    public final double hullHardness;
+    public final double speed;
+    public final double maxSpeed;
+    public final double boostSpeed;
+    public final double maxBoostSpeed;
+    public final double armorRating;
+    public final double shield;
+    public final double baseCost;
+    public final int massLockFactor;
+    public final int crewSeats;
+    public final boolean slfCapable;
 
     private BaseShipStats(Builder builder)
     {
@@ -44,23 +44,6 @@ public class BaseShipStats
         this.crewSeats = builder.crewSeats;
         this.slfCapable = builder.slfCapable;
     }
-
-    public String getDisplayName() { return displayName; }
-    public ShipSize getShipSize() { return shipSize; }
-    public ShipManufacturer getManufacturer() { return manufacturer; }
-    public double getAgility() { return agility; }
-    public double getHullMass() { return hullMass; }
-    public double getHullHardness() { return hullHardness; }
-    public double getSpeed() { return speed; }
-    public double getMaxSpeed() {return maxSpeed; }
-    public double getBoostSpeed() { return boostSpeed; }
-    public double getMaxBoostSpeed() { return maxBoostSpeed; }
-    public double getArmorRating() { return armorRating; }
-    public double getShield() { return shield; }
-    public double getBaseCost() { return baseCost; }
-    public int getMassLockFactor() { return massLockFactor; }
-    public int getCrewSeats() { return crewSeats; }
-    public boolean isSlfCapable() { return slfCapable; }
 
     public static Builder builder() { return new Builder(); }
 

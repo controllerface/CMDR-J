@@ -37,7 +37,7 @@ public class LoadoutHandler implements JournalEventHandler
         try
         {
             shipType = ShipType.findShip(shipName);
-            logLoadoutMessage(context, "Ship Type: " + shipType.getBaseShipStats().getDisplayName());
+            logLoadoutMessage(context, "Ship Type: " + shipType.getBaseShipStats().displayName);
             context.getCommander().starShip.setShipType(shipType);
             context.getCommander().starShip
                     .setGivenName(extractStatString(context, ShipStat.Ship_Name));

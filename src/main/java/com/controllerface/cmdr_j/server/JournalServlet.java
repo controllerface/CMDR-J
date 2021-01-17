@@ -30,80 +30,45 @@ class JournalServlet extends EventSourceServlet
 
     private static final Map<String, StaticAsset> staticAssets = Map.ofEntries
         (
-            Map.entry("/",
-                StaticAsset.make("/ui/html/ui.html", "text/html")),
+            /* HTML */
+            Map.entry("/", StaticAsset.make("/ui/html/ui.html")),
+            Map.entry("/ui.html", StaticAsset.make("/ui/html/ui.html")),
 
-            Map.entry("/EUROCAPS.ttf",
-                StaticAsset.make("/ui/font/EUROCAPS.ttf", "font/ttf")),
+            /* Fonts */
 
-            Map.entry("/ui.html",
-                StaticAsset.make("/ui/html/ui.html", "text/html")),
+            Map.entry("/EUROCAPS.ttf", StaticAsset.make("/ui/font/EUROCAPS.ttf")),
 
-            Map.entry("/ui.css",
-                StaticAsset.make("/ui/css/ui.css", "text/css")),
+            /* CSS */
 
-            Map.entry("/common.css",
-                StaticAsset.make("/ui/css/common.css", "text/css")),
+            Map.entry("/cargo.css", StaticAsset.make("/ui/css/cargo.css")),
+            Map.entry("/common.css", StaticAsset.make("/ui/css/common.css")),
+            Map.entry("/market.css", StaticAsset.make("/ui/css/market.css")),
+            Map.entry("/material.css", StaticAsset.make("/ui/css/material.css")),
+            Map.entry("/module.css", StaticAsset.make("/ui/css/module.css")),
+            Map.entry("/statistics.css", StaticAsset.make("/ui/css/statistics.css")),
+            Map.entry("/ui.css", StaticAsset.make("/ui/css/ui.css")),
 
-            Map.entry("/cargo.css",
-                StaticAsset.make("/ui/css/cargo.css", "text/css")),
+            /* Javascript */
 
-            Map.entry("/market.css",
-                StaticAsset.make("/ui/css/market.css", "text/css")),
+            Map.entry("/cargo.js", StaticAsset.make("/ui/js/cargo.js")),
+            Map.entry("/commanderStat.js", StaticAsset.make("/ui/js/commanderStat.js")),
+            Map.entry("/market.js", StaticAsset.make("/ui/js/market.js")),
+            Map.entry("/marketEntry.js", StaticAsset.make("/ui/js/marketEntry.js")),
+            Map.entry("/material.js", StaticAsset.make("/ui/js/material.js")),
+            Map.entry("/moduleBay.js", StaticAsset.make("/ui/js/moduleBay.js")),
+            Map.entry("/shipModule.js", StaticAsset.make("/ui/js/shipModule.js")),
+            Map.entry("/shipStats.js", StaticAsset.make("/ui/js/shipStats.js")),
+            Map.entry("/statCategory.js", StaticAsset.make("/ui/js/statCategory.js")),
+            Map.entry("/ui.js", StaticAsset.make("/ui/js/ui.js")),
 
-            Map.entry("/material.css",
-                StaticAsset.make("/ui/css/material.css", "text/css")),
+            /* Images */
 
-            Map.entry("/module.css",
-                StaticAsset.make("/ui/css/module.css", "text/css")),
-
-            Map.entry("/statistics.css",
-                StaticAsset.make("/ui/css/statistics.css", "text/css")),
-
-            Map.entry("/ui.js",
-                StaticAsset.make("/ui/js/ui.js", "text/javascript")),
-
-            Map.entry("/cargo.js",
-                StaticAsset.make("/ui/js/cargo.js", "text/javascript")),
-
-            Map.entry("/commanderStat.js",
-                StaticAsset.make("/ui/js/commanderStat.js", "text/javascript")),
-
-            Map.entry("/statCategory.js",
-                StaticAsset.make("/ui/js/statCategory.js", "text/javascript")),
-
-            Map.entry("/market.js",
-                StaticAsset.make("/ui/js/market.js", "text/javascript")),
-
-            Map.entry("/marketEntry.js",
-                StaticAsset.make("/ui/js/marketEntry.js", "text/javascript")),
-
-            Map.entry("/material.js",
-                StaticAsset.make("/ui/js/material.js", "text/javascript")),
-
-            Map.entry("/moduleBay.js",
-                StaticAsset.make("/ui/js/moduleBay.js", "text/javascript")),
-
-            Map.entry("/shipModule.js",
-                StaticAsset.make("/ui/js/shipModule.js", "text/javascript")),
-
-            Map.entry("/planet.svg",
-                StaticAsset.make("/ui/img/planet.svg", "image/svg+xml")),
-
-            Map.entry("/grade-1.svg",
-                StaticAsset.make("/ui/img/grade-1.svg", "image/svg+xml")),
-
-            Map.entry("/grade-2.svg",
-                StaticAsset.make("/ui/img/grade-2.svg", "image/svg+xml")),
-
-            Map.entry("/grade-3.svg",
-                StaticAsset.make("/ui/img/grade-3.svg", "image/svg+xml")),
-
-            Map.entry("/grade-4.svg",
-                StaticAsset.make("/ui/img/grade-4.svg", "image/svg+xml")),
-
-            Map.entry("/grade-5.svg",
-                StaticAsset.make("/ui/img/grade-5.svg", "image/svg+xml"))
+            Map.entry("/grade-1.svg", StaticAsset.make("/ui/img/grade-1.svg")),
+            Map.entry("/grade-2.svg", StaticAsset.make("/ui/img/grade-2.svg")),
+            Map.entry("/grade-3.svg", StaticAsset.make("/ui/img/grade-3.svg")),
+            Map.entry("/grade-4.svg", StaticAsset.make("/ui/img/grade-4.svg")),
+            Map.entry("/grade-5.svg", StaticAsset.make("/ui/img/grade-5.svg")),
+            Map.entry("/planet.svg", StaticAsset.make("/ui/img/planet.svg"))
         );
 
     private enum EndpointType

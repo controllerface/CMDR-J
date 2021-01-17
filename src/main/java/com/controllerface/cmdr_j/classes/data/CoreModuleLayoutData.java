@@ -12,13 +12,13 @@ import com.controllerface.cmdr_j.enums.equipment.modules.stats.ModuleSize;
  */
 public class CoreModuleLayoutData
 {
-    private final ModuleSize powerPlant;
-    private final ModuleSize thrusters;
-    private final ModuleSize frameShiftDrive;
-    private final ModuleSize lifeSupport;
-    private final ModuleSize powerDistributor;
-    private final ModuleSize sensors;
-    private final ModuleSize fuelTank;
+    public final ModuleSize powerPlant;
+    public final ModuleSize thrusters;
+    public final ModuleSize frameShiftDrive;
+    public final ModuleSize lifeSupport;
+    public final ModuleSize powerDistributor;
+    public final ModuleSize sensors;
+    public final ModuleSize fuelTank;
 
     private CoreModuleLayoutData(Builder builder)
     {
@@ -30,14 +30,6 @@ public class CoreModuleLayoutData
         this.sensors = builder.sensors;
         this.fuelTank = builder.fuelTank;
     }
-
-    public ModuleSize getPowerPlant() { return powerPlant; }
-    public ModuleSize getThrusters() { return thrusters; }
-    public ModuleSize getFrameShiftDrive() { return frameShiftDrive; }
-    public ModuleSize getLifeSupport() { return lifeSupport; }
-    public ModuleSize getPowerDistributor() { return powerDistributor; }
-    public ModuleSize getSensors() { return sensors; }
-    public ModuleSize getFuelTank() { return fuelTank; }
 
     public static Builder builder() { return new Builder(); }
 

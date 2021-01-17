@@ -785,33 +785,33 @@ public class ShipModuleDisplay implements Displayable
                     break;
 
                 case PowerPlant:
-                    sizeValue = moduleLayoutData.getPowerPlant().intValue;
+                    sizeValue = moduleLayoutData.powerPlant.intValue;
                     break;
 
                 case MainEngines:
-                    sizeValue = moduleLayoutData.getThrusters().intValue;
+                    sizeValue = moduleLayoutData.thrusters.intValue;
                     break;
 
                 case FrameShiftDrive:
-                    sizeValue = moduleLayoutData.getFrameShiftDrive().intValue;
+                    sizeValue = moduleLayoutData.frameShiftDrive.intValue;
                     break;
 
                 case LifeSupport:
-                    sizeValue = moduleLayoutData.getLifeSupport().intValue;
+                    sizeValue = moduleLayoutData.lifeSupport.intValue;
                     exactSizeOnly.set(true);
                     break;
 
                 case PowerDistributor:
-                    sizeValue = moduleLayoutData.getPowerDistributor().intValue;
+                    sizeValue = moduleLayoutData.powerDistributor.intValue;
                     break;
 
                 case Radar:
-                    sizeValue = moduleLayoutData.getSensors().intValue;
+                    sizeValue = moduleLayoutData.sensors.intValue;
                     exactSizeOnly.set(true);
                     break;
 
                 case FuelTank:
-                    sizeValue = moduleLayoutData.getFuelTank().intValue;
+                    sizeValue = moduleLayoutData.fuelTank.intValue;
                     break;
 
                 // if we are looking at one of the non changeable slots, just bail

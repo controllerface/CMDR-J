@@ -14,6 +14,7 @@ import com.controllerface.cmdr_j.server.ShipModuleData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class LoadoutEvent implements BiConsumer<PlayerState, Map<String, Object>>
@@ -25,6 +26,24 @@ public class LoadoutEvent implements BiConsumer<PlayerState, Map<String, Object>
         JournalEventEX.setShipStat(playerState, event, ShipStat.Ship);
         JournalEventEX.setShipStat(playerState, event, ShipStat.Ship_Ident);
         JournalEventEX.setShipStat(playerState, event, ShipStat.Ship_Name);
+        JournalEventEX.setShipStat(playerState, event, ShipStat.Rebuy);
+        JournalEventEX.setShipStat(playerState, event, ShipStat.UnladenMass);
+        JournalEventEX.setShipStat(playerState, event, ShipStat.MaxJumpRange);
+        JournalEventEX.setShipStat(playerState, event, ShipStat.CargoCapacity);
+
+        Map<String, Object> fuelData = ((Map<String, Object>) event.get("FuelCapacity"));
+
+        JournalEventEX.setShipStat(playerState, fuelData, ShipStat.ReserveCapacity);
+
+        if (event.get("HullValue") != null)
+        {
+            JournalEventEX.setShipStat(playerState, event, ShipStat.HullValue);
+        }
+
+        if (event.get("ModulesValue") != null)
+        {
+            JournalEventEX.setShipStat(playerState, event, ShipStat.ModulesValue);
+        }
 
         playerState.clearShipModules();
 
@@ -32,6 +51,7 @@ public class LoadoutEvent implements BiConsumer<PlayerState, Map<String, Object>
             .forEach(moduleData -> setModule(playerState, moduleData));
 
         playerState.emitLoadoutEvent();
+        playerState.emitCurrentMass();
     }
 
     @SuppressWarnings("unchecked")

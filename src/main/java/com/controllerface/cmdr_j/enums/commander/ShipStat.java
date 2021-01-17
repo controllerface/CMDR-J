@@ -15,6 +15,13 @@ public enum ShipStat implements Statistic
     Ship("Ship", "Ship Type", Object::toString),
     Ship_Ident("ShipIdent","Ship ID", Object::toString),
     Ship_Name("ShipName","Ship Name", Object::toString),
+    Rebuy("Rebuy","Rebuy", Object::toString),
+    UnladenMass("UnladenMass","Unladen Mass", Object::toString),
+    MaxJumpRange("MaxJumpRange","Max Jump Range", Object::toString),
+    CargoCapacity("CargoCapacity","Cargo Capacity", Object::toString),
+    HullValue("HullValue","Hull Value", Object::toString),
+    ModulesValue("ModulesValue","Modules Value", Object::toString),
+    ReserveCapacity("Reserve","Fuel Reserve Capacity", Object::toString),
 
     Fuel_Level("FuelLevel","Fuel Level", (o) ->
     {
