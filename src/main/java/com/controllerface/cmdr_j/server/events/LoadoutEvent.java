@@ -4,7 +4,6 @@ import com.controllerface.cmdr_j.classes.data.ModifierData;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
-import com.controllerface.cmdr_j.enums.equipment.modules.Cosmetic;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
 import com.controllerface.cmdr_j.server.JournalEventEX;
@@ -14,7 +13,6 @@ import com.controllerface.cmdr_j.server.ShipModuleData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class LoadoutEvent implements BiConsumer<PlayerState, Map<String, Object>>
@@ -61,7 +59,7 @@ public class LoadoutEvent implements BiConsumer<PlayerState, Map<String, Object>
         var moduleKey = ((String) moduleData.get("Item"));
         var powered = ((Boolean) moduleData.get("On"));
         var priority = ((Integer) moduleData.get("Priority"));
-        var integrity = ((Double) moduleData.get("Health"));
+        var health = ((Double) moduleData.get("Health"));
         var ammoInClip = ((Integer) moduleData.get("AmmoInClip"));
         var ammoInHopper = ((Integer) moduleData.get("AmmoInHopper"));
 
@@ -84,7 +82,7 @@ public class LoadoutEvent implements BiConsumer<PlayerState, Map<String, Object>
         var moduleBuilder = new ShipModuleData.Builder(module)
             .setPowered(powered)
             .setPriority(priority)
-            .setIntegrity(integrity)
+            .setHealth(health)
             .setAmmoInClip(ammoInClip)
             .setAmmoInHopper(ammoInHopper);
 

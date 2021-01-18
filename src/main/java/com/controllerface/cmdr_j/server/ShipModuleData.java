@@ -6,9 +6,9 @@ import com.controllerface.cmdr_j.classes.data.ModifierData;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
+import com.controllerface.cmdr_j.ui.UIFunctions;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ShipModuleData
 {
@@ -20,7 +20,7 @@ public class ShipModuleData
     public final Integer ammoInHopper;
     public final Boolean powered;
     public final Integer priority;
-    public final Double integrity;
+    public final Double health;
     public final Integer level;
     public final Double quality;
 
@@ -34,7 +34,7 @@ public class ShipModuleData
         this.ammoInHopper = builder.ammoInHopper;
         this.powered = builder.powered;
         this.priority = builder.priority;
-        this.integrity = builder.integrity;
+        this.health = builder.health;
         this.level = builder.level;
         this.quality = builder.quality;
     }
@@ -63,7 +63,7 @@ public class ShipModuleData
         map.put("name", module.displayText());
         map.put("powered", powered);
         map.put("priority", priority);
-        map.put("integrity", integrity);
+        map.put("health", UIFunctions.Data.round(health * 100, 0));
 
         Optional.ofNullable(level)
             .ifPresent(modLevel -> map.put("modLevel", modLevel));
@@ -146,7 +146,7 @@ public class ShipModuleData
         private Integer ammoInHopper;
         private Boolean powered;
         private Integer priority;
-        private Double integrity;
+        private Double health;
         private Integer level;
         private Double quality;
 
@@ -197,9 +197,9 @@ public class ShipModuleData
             return this;
         }
 
-        public Builder setIntegrity(Double integrity)
+        public Builder setHealth(Double health)
         {
-            this.integrity = integrity;
+            this.health = health;
             return this;
         }
 

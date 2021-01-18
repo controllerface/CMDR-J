@@ -3,6 +3,8 @@ package com.controllerface.cmdr_j.enums.equipment.modules;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.modules.core.bulkheads.*;
+import com.controllerface.cmdr_j.classes.modules.core.cargobay.GenericCargoBay;
+import com.controllerface.cmdr_j.classes.modules.core.cockpit.GenericCockpit;
 import com.controllerface.cmdr_j.classes.modules.core.distributor.size1.*;
 import com.controllerface.cmdr_j.classes.modules.core.distributor.size2.*;
 import com.controllerface.cmdr_j.classes.modules.core.distributor.size3.*;
@@ -62,6 +64,53 @@ import java.util.List;
  */
 public enum CoreInternalModule implements ShipModule
 {
+    /**
+     * Generic Cargo Bay
+     */
+    modularcargobaydoor(new GenericCargoBay()),
+
+    /**
+     * Ship Cockpits
+     */
+    dolphin_cockpit(new GenericCockpit("Dolphin")),
+    ferdelance_cockpit(new GenericCockpit("Fer-de-Lance")),
+    mamba_cockpit(new GenericCockpit("Mamba")),
+    krait_mkii_cockpit(new GenericCockpit("Krait Mk II")),
+    krait_light_cockpit(new GenericCockpit("Krait Phantom")),
+    python_cockpit(new GenericCockpit("Python")),
+    belugaliner_cockpit(new GenericCockpit("Beluga")),
+    orca_cockpit(new GenericCockpit("Orca")),
+    asp_scout_cockpit(new GenericCockpit("Asp Scout")),
+    asp_cockpit(new GenericCockpit("Asp Explorer")),
+    independant_trader_cockpit(new GenericCockpit("Keelback")),
+    vulture_cockpit(new GenericCockpit("Vulture")),
+    viper_cockpit(new GenericCockpit("Viper MkIII")),
+    diamondbackxl_cockpit(new GenericCockpit("Diamondback Explorer")),
+    adder_cockpit(new GenericCockpit("Adder")),
+    diamondback_cockpit(new GenericCockpit("Diamondback Scout")),
+    viper_mkiv_cockpit(new GenericCockpit("Viper MkIV")),
+    anaconda_cockpit(new GenericCockpit("Anaconda")),
+    cobramkiii_cockpit(new GenericCockpit("Cobra MkIII")),
+    type9_cockpit(new GenericCockpit("Type-9 Heavy")),
+    type7_cockpit(new GenericCockpit("Type-7 Transporter")),
+    cobramkiv_cockpit(new GenericCockpit("Cobra MkIV")),
+    eagle_cockpit(new GenericCockpit("Eagle")),
+    hauler_cockpit(new GenericCockpit("Hauler")),
+    sidewinder_cockpit(new GenericCockpit("Sidewinder")),
+    type6_cockpit(new GenericCockpit("Type-6 Transporter")),
+    empire_trader_cockpit(new GenericCockpit("Imperial Clipper")),
+    federation_dropship_cockpit(new GenericCockpit("Federal Dropship")),
+    cutter_cockpit(new GenericCockpit("Imperial Cutter")),
+    empire_eagle_cockpit(new GenericCockpit("Imperial Eagle")),
+    typex_cockpit(new GenericCockpit("Alliance Chieftain")),
+    typex_2_cockpit(new GenericCockpit("Alliance Crusader")),
+    typex_3_cockpit(new GenericCockpit("Alliance Challenger")),
+    federation_corvette_cockpit(new GenericCockpit("Federal Corvette")),
+    empire_courier_cockpit(new GenericCockpit("Imperial Courier")),
+    federation_gunship_cockpit(new GenericCockpit("Federal Gunship")),
+    type9_military_cockpit(new GenericCockpit("Type-10 Defender")),
+    federation_dropship_mkii_cockpit(new GenericCockpit("Federal Assault Ship")),
+
     /**
      * Ship Armor
      */

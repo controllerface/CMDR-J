@@ -230,6 +230,15 @@ function updateModules(containerId, moduleData)
             return -1;
         }
 
+        if (a === 'ShipCockpit')
+        {
+            return -1;
+        }
+        if (b === 'ShipCockpit')
+        {
+            return 1;
+        }
+
         // fall back to the default string compare for all other modules
         return a.localeCompare(b);
     });
@@ -253,6 +262,8 @@ in the UI.
 */
 function setLoadout(data)
 {
+    console.log(data);
+
     let coreModules = {};
     let optionalModules = {};
     let hardPoints = {};
@@ -443,26 +454,128 @@ function handleCargo(e)
 function handleShipData(data)
 {
     let layout = JSON.parse(data);
-    console.log(layout);
+
     let baseStats = layout['baseStats'];
+    let coreSlots = layout['coreSlots'];
+    let optionalSlots = layout['optionalSlots'];
+    let hardpointSlots = layout['hardpointSlots'];
 
     let shipStats = document.getElementById('shipStats');
+
+    // base stats
+
     shipStats.manufacturer = baseStats['manufacturer'];
     shipStats.model = baseStats['displayName'];
     shipStats.shipSize = baseStats['shipSize'];
     shipStats.baseCost = parseInt(baseStats['baseCost'], 10).toLocaleString("en-US");
     shipStats.crewSeats = baseStats['crewSeats'];
     shipStats.slf = baseStats['slfCapable'];
+    shipStats.baseHull = baseStats['hullMass'];
+    shipStats.massLock = baseStats['massLockFactor'];
+    shipStats.baseAgility = baseStats['agility'];
+    shipStats.speed = baseStats['speed'];
+    shipStats.maxSpeed = baseStats['maxSpeed'];
+    shipStats.boost = baseStats['boostSpeed'];
+    shipStats.maxBoost = baseStats['maxBoostSpeed'];
 
-    let agilityStats = document.getElementById('agilityStats');
+    // core internals
 
-    shipStats.baseHull = baseStats['hullMass']
-    shipStats.massLock = baseStats['massLockFactor']
-    shipStats.baseAgility = baseStats['agility']
-    shipStats.speed = baseStats['speed']
-    shipStats.maxSpeed = baseStats['maxSpeed']
-    shipStats.boost = baseStats['boostSpeed']
-    shipStats.maxBoost = baseStats['maxBoostSpeed']
+    shipStats.frameShiftDrive = coreSlots['frameShiftDrive'];
+    shipStats.fuelTank = coreSlots['fuelTank'];
+    shipStats.lifeSupport = coreSlots['lifeSupport'];
+    shipStats.powerDistributor = coreSlots['powerDistributor'];
+    shipStats.powerPlant = coreSlots['powerPlant'];
+    shipStats.sensors = coreSlots['sensors'];
+    shipStats.thrusters = coreSlots['thrusters'];
+
+    // optional internals
+
+    if (optionalSlots['SIZE_1'])
+    {
+        shipStats.size_1 = optionalSlots['SIZE_1'];
+    }
+
+    if (optionalSlots['SIZE_2'])
+    {
+        shipStats.size_2 = optionalSlots['SIZE_2'];
+    }
+
+    if (optionalSlots['MILITARY_SIZE_2'])
+    {
+        shipStats.military_size_2 = optionalSlots['MILITARY_SIZE_2'];
+    }
+
+    if (optionalSlots['SIZE_3'])
+    {
+        shipStats.size_3 = optionalSlots['SIZE_3'];
+    }
+
+    if (optionalSlots['MILITARY_SIZE_3'])
+    {
+        shipStats.military_size_3 = optionalSlots['MILITARY_SIZE_3'];
+    }
+
+    if (optionalSlots['SIZE_4'])
+    {
+        shipStats.size_4 = optionalSlots['SIZE_4'];
+    }
+
+    if (optionalSlots['MILITARY_SIZE_4'])
+    {
+        shipStats.military_size_4 = optionalSlots['MILITARY_SIZE_4'];
+    }
+
+    if (optionalSlots['SIZE_5'])
+    {
+        shipStats.size_5 = optionalSlots['SIZE_5'];
+    }
+
+    if (optionalSlots['MILITARY_SIZE_5'])
+    {
+        shipStats.military_size_5 = optionalSlots['MILITARY_SIZE_5'];
+    }
+
+    if (optionalSlots['SIZE_6'])
+    {
+        shipStats.size_6 = optionalSlots['SIZE_6'];
+    }
+
+    if (optionalSlots['SIZE_7'])
+    {
+        shipStats.size_7 = optionalSlots['SIZE_7'];
+    }
+
+    if (optionalSlots['SIZE_8'])
+    {
+        shipStats.size_8 = optionalSlots['SIZE_8'];
+    }
+
+    // hardpoint slots
+
+    if (hardpointSlots['Tiny'])
+    {
+        shipStats.size_tiny = hardpointSlots['Tiny'];
+    }
+
+    if (hardpointSlots['Small'])
+    {
+        shipStats.size_small = hardpointSlots['Small'];
+    }
+
+    if (hardpointSlots['Medium'])
+    {
+        shipStats.size_medium = hardpointSlots['Medium'];
+    }
+
+    if (hardpointSlots['Large'])
+    {
+        shipStats.size_large = hardpointSlots['Large'];
+    }
+
+    if (hardpointSlots['Huge'])
+    {
+        shipStats.size_huge = hardpointSlots['Huge'];
+    }
 }
 
 function handleMassData(property, data)

@@ -181,3 +181,24 @@ progress[value]::-webkit-progress-bar
     color: #888;
     font-weight: bold;
 }
+
+.moduleHealth
+{
+    float: right;
+    margin-right: .2em;
+}
+
+.moduleHealthFull
+{
+    color: #00b3f7;
+}
+
+.moduleHealthHalf
+{
+    color: #ffb000;
+}
+
+.moduleHealthLow
+{
+    color: #ff0000;
+}

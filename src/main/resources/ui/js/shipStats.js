@@ -8,6 +8,245 @@ class ShipStats extends HTMLElement
         this.shadowRoot.append(template.content.cloneNode(true));
     }
 
+    set frameShiftDrive(value)
+    {
+        this.setAttribute('frameshiftdrive', value);
+    }
+
+    get frameShiftDrive()
+    {
+        this.getAttribute('frameshiftdrive');
+    }
+
+    set fuelTank(value)
+    {
+        this.setAttribute('fueltank', value);
+    }
+
+    get fuelTank()
+    {
+        this.getAttribute('fueltank');
+    }
+
+    set lifeSupport(value)
+    {
+        this.setAttribute('lifesupport', value);
+    }
+
+    get lifeSupport()
+    {
+        this.getAttribute('lifesupport');
+    }
+
+    set powerDistributor(value)
+    {
+        this.setAttribute('powerdistributor', value);
+    }
+
+    get powerDistributor()
+    {
+        this.getAttribute('powerdistributor');
+    }
+
+    set powerPlant(value)
+    {
+        this.setAttribute('powerplant', value);
+    }
+
+    get powerPlant()
+    {
+        this.getAttribute('powerplant');
+    }
+
+    set sensors(value)
+    {
+        this.setAttribute('sensors', value);
+    }
+
+    get sensors()
+    {
+        this.getAttribute('sensors');
+    }
+
+    set thrusters(value)
+    {
+        this.setAttribute('thrusters', value);
+    }
+
+    get thrusters()
+    {
+        this.getAttribute('thrusters');
+    }
+
+    set size_1(value)
+    {
+        this.setAttribute('size_1', value);
+    }
+
+    get size_1()
+    {
+        this.getAttribute('size_1');
+    }
+
+    set size_2(value)
+    {
+        this.setAttribute('size_2', value);
+    }
+
+    get size_2()
+    {
+        this.getAttribute('size_2');
+    }
+
+    set military_size_2(value)
+    {
+        this.setAttribute('military_size_2', value);
+    }
+
+    get military_size_2()
+    {
+        this.getAttribute('military_size_2');
+    }
+
+    set size_3(value)
+    {
+        this.setAttribute('size_3', value);
+    }
+
+    get size_3()
+    {
+        this.getAttribute('size_3');
+    }
+
+    set military_size_3(value)
+    {
+        this.setAttribute('military_size_3', value);
+    }
+
+    get military_size_3()
+    {
+        this.getAttribute('military_size_3');
+    }
+
+    set size_4(value)
+    {
+        this.setAttribute('size_4', value);
+    }
+
+    get size_4()
+    {
+        this.getAttribute('size_4');
+    }
+
+    set military_size_4(value)
+    {
+        this.setAttribute('military_size_4', value);
+    }
+
+    get military_size_4()
+    {
+        this.getAttribute('military_size_4');
+    }
+
+    set size_5(value)
+    {
+        this.setAttribute('size_5', value);
+    }
+
+    get size_5()
+    {
+        this.getAttribute('size_5');
+    }
+
+    set military_size_5(value)
+    {
+        this.setAttribute('military_size_5', value);
+    }
+
+    get military_size_5()
+    {
+        this.getAttribute('military_size_5');
+    }
+
+    set size_6(value)
+    {
+        this.setAttribute('size_6', value);
+    }
+
+    get size_6()
+    {
+        this.getAttribute('size_6');
+    }
+
+    set size_7(value)
+    {
+        this.setAttribute('size_7', value);
+    }
+
+    get size_7()
+    {
+        this.getAttribute('size_7');
+    }
+
+    set size_8(value)
+    {
+        this.setAttribute('size_8', value);
+    }
+
+    get size_8()
+    {
+        this.getAttribute('size_8');
+    }
+
+    set size_tiny(value)
+    {
+        this.setAttribute('size_tiny', value);
+    }
+
+    get size_tiny()
+    {
+        this.getAttribute('size_tiny');
+    }
+
+    set size_small(value)
+    {
+        this.setAttribute('size_small', value);
+    }
+
+    get size_small()
+    {
+        this.getAttribute('size_small');
+    }
+
+    set size_medium(value)
+    {
+        this.setAttribute('size_medium', value);
+    }
+
+    get size_medium()
+    {
+        this.getAttribute('size_medium');
+    }
+
+    set size_large(value)
+    {
+        this.setAttribute('size_large', value);
+    }
+
+    get size_large()
+    {
+        this.getAttribute('size_large');
+    }
+
+    set size_huge(value)
+    {
+        this.setAttribute('size_huge', value);
+    }
+
+    get size_huge()
+    {
+        this.getAttribute('size_huge');
+    }
 
     set cargoCapacity(value)
     {
@@ -221,7 +460,31 @@ class ShipStats extends HTMLElement
 
     static get observedAttributes()
     {
-        return ['cargocapacity',
+        return ['frameshiftdrive',
+                'fueltank',
+                'lifesupport',
+                'powerdistributor',
+                'powerplant',
+                'sensors',
+                'thrusters',
+                'size_1',
+                'size_2',
+                'military_size_2',
+                'size_3',
+                'military_size_3',
+                'size_4',
+                'military_size_4',
+                'size_5',
+                'military_size_5',
+                'size_6',
+                'size_7',
+                'size_8',
+                'size_tiny',
+                'size_small',
+                'size_medium',
+                'size_large',
+                'size_huge',
+                'cargocapacity',
                 'fuelcapacity',
                 'resevoircapacity',
                 'crewseats',
@@ -247,6 +510,13 @@ class ShipStats extends HTMLElement
     attributeChangedCallback(name, oldValue, newValue)
     {
         this.shadowRoot.getElementById('shipStat_' + name).textContent = newValue;
+        if (name.includes('size_'))
+        {
+            this.shadowRoot.getElementById('shipStat_' + name)
+                .parentElement
+                .parentElement
+                .classList.remove('unused');
+        }
     }
 }
 

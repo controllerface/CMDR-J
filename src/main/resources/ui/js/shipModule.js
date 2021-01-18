@@ -53,7 +53,10 @@ class ShipModule extends HTMLElement
         let moduleSize;
         let moduleClass;
 
-        if (this.getAttribute('slotname') !== 'Armour' && module['name'] !== '[Empty]')
+        if (this.getAttribute('slotname') !== 'Armour'
+            && this.getAttribute('slotname') !== 'ShipCockpit'
+            && this.getAttribute('slotname') !== 'CargoHatch'
+            && module['name'] !== '[Empty]')
         {
             moduleSize = document.createElement('span');
             moduleSize.classList.add('moduleSize');
@@ -65,6 +68,28 @@ class ShipModule extends HTMLElement
         }
 
         this.moduleNameElement.append(moduleName);
+
+        if (module['health'])
+        {
+            let health = module['health'];
+            let moduleHealth = document.createElement('span');
+            moduleHealth.textContent = '[' + health + ']';
+            moduleHealth.classList.add('moduleHealth');
+            moduleHealth.setAttribute('title', 'Module Health');
+            if (health == 100)
+            {
+                moduleHealth.classList.add('moduleHealthFull');
+            }
+            else if (health > 50)
+            {
+                moduleHealth.classList.add('moduleHealthHalf');
+            }
+            else
+            {
+                moduleHealth.classList.add('moduleHealthLow');
+            }
+            this.moduleNameElement.append(moduleHealth);
+        }
 
         if (module['effects'])
         {
@@ -249,7 +274,15 @@ class ShipModule extends HTMLElement
 
     formatSlotName(rawSlot)
     {
-        if (rawSlot === 'PlanetaryApproachSuite')
+        if (rawSlot === 'ShipCockpit')
+        {
+            return 'Bridge';
+        }
+        else if (rawSlot === 'CargoHatch')
+        {
+            return 'Cargo Hatch';
+        }
+        else if (rawSlot === 'PlanetaryApproachSuite')
         {
             return 'Planetary Approach Suite';
         }
@@ -327,16 +360,12 @@ class ShipModule extends HTMLElement
 
     static get observedAttributes()
     {
-        return ['modulename', 'slotname'];
+        return ['slotname'];
     }
 
     attributeChangedCallback(name, oldValue, newValue)
     {
-        if (name === 'modulename')
-        {
-            this.moduleNameElement.textContent = newValue;
-        }
-        else if (name === 'slotname')
+        if (name === 'slotname')
         {
             this.slotNameElement.textContent = this.formatSlotName(newValue);
         }

@@ -17,12 +17,6 @@ import static com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModu
  */
 public enum CoreInternalSlot implements Statistic
 {
-//    Ship("Ship"),
-//
-//    ShipIdent("Ship ID"),
-//
-//    ShipName("Ship Name"),
-
     ShipCockpit("Cockpit"),
 
     CargoHatch("Cargo Hatch"),
