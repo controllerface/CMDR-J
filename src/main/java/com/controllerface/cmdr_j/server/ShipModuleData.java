@@ -41,13 +41,13 @@ public class ShipModuleData
 
     public Optional<ItemEffectData> effectByName(ItemEffect effect)
     {
-        Optional<ModifierData> modifed = modifiers.stream()
+        Optional<ModifierData> modified = modifiers.stream()
             .filter(modifierData -> modifierData.effect == effect)
             .findFirst();
 
-        if (modifed.isEmpty())
+        if (modified.isPresent())
         {
-            return modifed.map(m->new ItemEffectData(m.effect, m.value));
+            return modified.map(mod -> new ItemEffectData(mod.effect, mod.value));
         }
 
         return module.itemEffects().effectStream()

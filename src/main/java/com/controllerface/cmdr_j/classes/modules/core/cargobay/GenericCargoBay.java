@@ -10,7 +10,8 @@ public class GenericCargoBay extends AbstractCargoBay
     {
         super("",
                 new ItemEffects(
-                        new ItemEffectData(ItemEffect.cargo_door, "Installed")
+                    new ItemEffectData(ItemEffect.cargo_door, "Installed"),
+                    new ItemEffectData(ItemEffect.PowerDraw, 0.6d)
                 ));
     }
 

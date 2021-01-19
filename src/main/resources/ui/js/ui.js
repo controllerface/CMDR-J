@@ -262,8 +262,6 @@ in the UI.
 */
 function setLoadout(data)
 {
-    console.log(data);
-
     let coreModules = {};
     let optionalModules = {};
     let hardPoints = {};
@@ -590,6 +588,37 @@ function handleShipValueData(property, data)
     shipStats[property] = data;
 }
 
+function handlePowerData(data)
+{
+    let powerData = JSON.parse(data);
+
+    let powerStats = document.getElementById('powerStats');
+    powerStats.capacity = powerData['capacity'];
+    powerStats.draw = powerData['powerDraw'];
+    powerStats.retracted = powerData['retractedDraw'];
+
+    let moduleData = powerData['modules'];
+    let moduleNames = Object.keys(moduleData);
+    moduleNames.sort((a, b) =>
+    {
+        let drawA = moduleData[a]['draw'];
+        let drawB = moduleData[b]['draw'];
+        return drawB - drawA;
+    })
+
+    for (let i = 0, len = moduleNames.length; i < len; i++)
+    {
+        let module = moduleNames[i];
+        let nextModule = document.createElement('power-module');
+        nextModule.moduleName = module;
+        nextModule.draw = moduleData[module]['draw'];
+        nextModule.load = moduleData[module]['share'];
+        nextModule.priority = moduleData[module]['priority'];
+        nextModule.powered = moduleData[module]['powered'];
+        powerStats.append(nextModule);
+    }
+}
+
 /*
 This object contains event listener functions that will be bound to the local event source
 on page load. For each key listed below, the mapped function is bound to an event with the
@@ -673,6 +702,9 @@ const eventListeners =
 
     // Information about the most recently visited commodity market
     Market: (e) => requestJsonEndpoint('/market', setMarketData),
+
+    // Contains information about current power usage on the player's ship
+    PowerStats: (e) => handlePowerData(e.data),
 
     // Called when the player's cargo manifest changes, contains info about each item
     Cargo: (e) => handleCargo(e.data),

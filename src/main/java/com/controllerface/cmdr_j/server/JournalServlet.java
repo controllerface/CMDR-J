@@ -56,6 +56,8 @@ class JournalServlet extends EventSourceServlet
             Map.entry("/marketEntry.js", StaticAsset.make("/ui/js/marketEntry.js")),
             Map.entry("/material.js", StaticAsset.make("/ui/js/material.js")),
             Map.entry("/moduleBay.js", StaticAsset.make("/ui/js/moduleBay.js")),
+            Map.entry("/powerModule.js", StaticAsset.make("/ui/js/powerModule.js")),
+            Map.entry("/powerStats.js", StaticAsset.make("/ui/js/powerStats.js")),
             Map.entry("/shipModule.js", StaticAsset.make("/ui/js/shipModule.js")),
             Map.entry("/shipStats.js", StaticAsset.make("/ui/js/shipStats.js")),
             Map.entry("/statCategory.js", StaticAsset.make("/ui/js/statCategory.js")),

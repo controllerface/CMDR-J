@@ -50,6 +50,7 @@ public class LoadoutEvent implements BiConsumer<PlayerState, Map<String, Object>
 
         playerState.emitLoadoutEvent();
         playerState.emitCurrentMass();
+        playerState.emitPowerStats();
     }
 
     @SuppressWarnings("unchecked")

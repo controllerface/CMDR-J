@@ -24,6 +24,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class PlayerState
@@ -268,16 +270,28 @@ public class PlayerState
         }
     }
 
-    private double calculateCurrentMass()
+    private double calculateEffectValue(ItemEffect effect)
     {
-        if (shipType == null) return 0.0d;
+        return calculateFilteredEffectValue(effect, (_s) -> true);
+    }
 
-        var moduleMass = shipModules.values().stream()
-            .map(shipModuleData -> shipModuleData.effectByName(ItemEffect.Mass))
+    private double calculateFilteredEffectValue(ItemEffect effect, Predicate<Statistic> allowedSlot)
+    {
+        return shipModules.entrySet().stream()
+            .filter(e -> allowedSlot.test(e.getKey()))
+            .map(Map.Entry::getValue)
+            .map(shipModuleData -> shipModuleData.effectByName(effect))
             .filter(Optional::isPresent)
             .map(Optional::get)
             .mapToDouble(e->e.doubleValue)
             .sum();
+    }
+
+    private double calculateCurrentMass()
+    {
+        if (shipType == null) return 0.0d;
+
+        var moduleMass = calculateEffectValue(ItemEffect.Mass);
 
         var hullMass = shipType.getBaseShipStats().hullMass;
 
@@ -289,6 +303,59 @@ public class PlayerState
 
         // round the result to 1 decimal place to match the in-game UI
         return UIFunctions.Data.round(totalHullMass, 1);
+    }
+
+    private static final Predicate<Statistic> nonWeaponSlots = (slot) ->
+    {
+        if (slot instanceof HardpointSlot)
+        {
+            return slot.getText().contains("Utility");
+        }
+        else return true;
+    };
+
+    private static final Comparator<Map.Entry<Statistic, ShipModuleData>> highestDraw =
+        Comparator.comparingDouble((Map.Entry<Statistic, ShipModuleData> e) -> e.getValue().effectByName(ItemEffect.PowerDraw)
+            .map(ef->ef.doubleValue).orElse(0.0d))
+            .reversed();
+
+    private String calculateCurrentPowerUsage()
+    {
+        var powerCapacity = calculateEffectValue(ItemEffect.PowerCapacity);
+
+        var powerDraw = calculateEffectValue(ItemEffect.PowerDraw);
+
+        var retractedDraw = calculateFilteredEffectValue(ItemEffect.PowerDraw, nonWeaponSlots);
+
+        var moduleMap = new LinkedHashMap<String, Map<String, Object>>();
+
+        shipModules.entrySet().stream()
+            .filter(m->m.getValue().effectByName(ItemEffect.PowerDraw).isPresent())
+            .sorted(highestDraw)
+            .forEach(m->
+            {
+                var moduleData = m.getValue();
+                double draw = moduleData.effectByName(ItemEffect.PowerDraw)
+                    .map(e->e.doubleValue).orElse(0.0d);
+                if (draw == 0.0)
+                {
+                    return;
+                }
+                var share = UIFunctions.Data.round(((draw / powerCapacity) * 100), 2);
+                var powerData = new HashMap<String, Object>();
+                powerData.put("draw", UIFunctions.Data.round(draw, 2));
+                powerData.put("powered", moduleData.powered ? "on" : "off");
+                powerData.put("priority", moduleData.priority);
+                powerData.put("share", share);
+                moduleMap.put(moduleData.module.displayText(), powerData);
+            });
+
+        var output = new HashMap<String, Object>();
+        output.put("capacity", UIFunctions.Data.round(powerCapacity, 2));
+        output.put("powerDraw", UIFunctions.Data.round(powerDraw, 2));
+        output.put("retractedDraw", UIFunctions.Data.round(retractedDraw, 2));
+        output.put("modules", moduleMap);
+        return JSONSupport.Write.jsonToString.apply(output);
     }
 
 
@@ -314,6 +381,11 @@ public class PlayerState
     public void emitMarketEvent()
     {
         executeWithLock(() -> globalUpdate.accept("Market", "updated"));
+    }
+
+    public void emitPowerStats()
+    {
+        executeWithLock(() -> globalUpdate.accept("PowerStats", calculateCurrentPowerUsage()));
     }
 
     /**
@@ -355,6 +427,8 @@ public class PlayerState
             }
 
             directUpdate.accept("CurrentMass", String.valueOf(calculateCurrentMass()));
+
+            directUpdate.accept("PowerStats", calculateCurrentPowerUsage());
         });
     }
 

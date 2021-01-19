@@ -11,10 +11,11 @@
     <script src="moduleBay.js"></script>
     <script src="shipModule.js"></script>
     <script src="shipStats.js"></script>
+    <script src="powerStats.js"></script>
+    <script src="powerModule.js"></script>
     <link rel="stylesheet" href="ui.css">
 
     <!-- Ship base stats template -->
-
     <template id="template_ShipStats">
         <link rel="stylesheet" href="statistics.css">
         <div class="dataHeader">
@@ -322,6 +323,53 @@
         </div>
     </template>
 
+    <!-- Power stats tab template -->
+    <template id="template_PowerStats">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="dataHeader">
+            <div class="headerEntry">
+                <b>Power Capacity</b>
+                <span id="powerStat_capacity" class="headerStat">0</span>
+                <span class="valueUnit">MW</span>
+            </div>
+            <div class="headerEntry">
+                <b>Total Draw</b>
+                <span id="powerStat_draw" class="headerStat">0</span>
+                <span class="valueUnit">MW</span>
+            </div>
+            <div class="headerEntry">
+                <b>Retracted Draw</b>
+                <span id="powerStat_retracted" class="headerStat">0</span>
+                <span class="valueUnit">MW</span>
+            </div>
+        </div>
+        <div class="powerHeader">
+            <span class="powerNameHeader">Module Name</span>
+            <span class="powerLeftHeader">Draw</span>
+            <span class="powerInnerHeader">Load</span>
+            <span class="powerInnerHeader">Priority</span>
+            <span class="powerRightHeader">State</span>
+        </div>
+        <slot></slot>
+    </template>
+
+    <!-- Power stats module row template -->
+    <template id="template_PowerModule">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="powerRow">
+            <span id="powerModule_modulename" class="powerModuleName">Test</span>
+            <div class="powerModuleLeft">
+                <span id="powerModule_draw">1</span>
+                <span class="valueUnit">MW</span>
+            </div>
+            <div class="powerModuleInner">
+                <span id="powerModule_load">5</span>
+                <span class="valueUnit">%</span>
+            </div>
+            <span id="powerModule_priority" class="powerModuleInner">1</span>
+            <span id="powerModule_powered" class="powerModuleRight">on</span>
+        </div>
+    </template>
 </head>
 <body>
 
@@ -554,7 +602,9 @@
 
                     <input name="systemsTabs" type="radio" id="powerTabButton" class="tabInput"/>
                     <label id="powerTab" for="powerTabButton" class="tabLabel">Power Usage</label>
-                    <div class="tabPanel" id="powerStats">TODO: Power Usage</div>
+                    <div class="tabPanel">
+                        <power-stats id="powerStats"></power-stats>
+                    </div>
 
                 </div>
 
