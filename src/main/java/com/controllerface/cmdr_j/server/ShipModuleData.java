@@ -55,6 +55,13 @@ public class ShipModuleData
             .findFirst();
     }
 
+    public Optional<ItemEffectData> stockEffectByName(ItemEffect effect)
+    {
+        return module.itemEffects().effectStream()
+            .filter(e -> e.effect == effect)
+            .findFirst();
+    }
+
     @SuppressWarnings("unchecked")
     public Map<String, Object> toJson()
     {

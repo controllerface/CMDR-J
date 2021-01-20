@@ -1,18 +1,23 @@
 <html>
 <head>
     <title>CMDR J - v2.2 (Alpha)</title>
+
     <script src="ui.js"></script>
+    <script src="cargo.js"></script>
+    <script src="commanderStat.js"></script>
+    <script src="defenseResistance.js"></script>
+    <script src="defenseStats.js"></script>
+    <script src="defenseValue.js"></script>
     <script src="marketEntry.js"></script>
     <script src="market.js"></script>
     <script src="material.js"></script>
-    <script src="cargo.js"></script>
-    <script src="commanderStat.js"></script>
-    <script src="statCategory.js"></script>
     <script src="moduleBay.js"></script>
+    <script src="powerModule.js"></script>
+    <script src="powerStats.js"></script>
     <script src="shipModule.js"></script>
     <script src="shipStats.js"></script>
-    <script src="powerStats.js"></script>
-    <script src="powerModule.js"></script>
+    <script src="statCategory.js"></script>
+
     <link rel="stylesheet" href="ui.css">
 
     <!-- Ship base stats template -->
@@ -323,6 +328,87 @@
         </div>
     </template>
 
+    <!-- Defense stat table template -->
+    <template id="template_DefenseStats">
+        <link rel="stylesheet" href="statistics.css">
+
+        <div class="defenseStatHeader">
+            <div class="headerEntry">
+                <b>Shield Regen Rate</b>
+                <span id="defenseStat_shieldregen" class="headerStat">0</span>
+                <span class="valueUnit">MJ/S</span>
+            </div>
+            <div class="headerEntry">
+                <b>Broken Regen Rate</b>
+                <span id="defenseStat_brokenregen" class="headerStat">0</span>
+                <span class="valueUnit">MJ/S</span>
+            </div>
+        </div>
+
+        <div class="defenseHeader">
+            <span class="statEntryNameHeader">Statistic</span>
+            <span class="statEntryLeftHeader">Value</span>
+            <span class="statEntryInnerHeader">Base</span>
+            <span class="statEntryInnerHeader">Reinforcement</span>
+            <span class="statEntryInnerHeader">Raw</span>
+            <span class="statEntryRightHeader">Min/Max</span>
+        </div>
+
+        <slot name="hullShield"></slot>
+
+        <div class="defenseHeader">
+            <span class="statEntryNameHeader">Statistic</span>
+            <span class="statEntryLeftHeader">Value</span>
+            <span class="statEntryInnerHeader">Base [Multiplier]</span>
+            <span class="statEntryInnerHeader">[Multiplier] Boost</span>
+            <span class="statEntryInnerHeader">Raw</span>
+            <span class="statEntryRightHeader">Min/Max</span>
+        </div>
+
+        <slot name="resistance"></slot>
+    </template>
+
+    <!-- Defense statistic template -->
+    <template id="template_DefenseValue">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="defenseRow">
+            <span id="defenseValue_statistic" class="statEntryName">Name</span>
+            <span id="defenseValue_statvalue" class="statEntryLeft">0</span>
+            <span id="defenseValue_base" class="statEntryInner">0</span>
+            <span id="defenseValue_reinforcement" class="statEntryInner">0</span>
+            <span id="defenseValue_raw" class="statEntryInner">0</span>
+            <span id="defenseValue_minmax" class="statEntryRight">0</span>
+        </div>
+    </template>
+
+    <!-- Defense resistance statistic template -->
+    <template id="template_DefenseResistance">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="defenseRow">
+            <span id="defenseResist_statistic" class="statEntryName">Name</span>
+            <div class="statEntryLeft">
+                <span id="defenseResist_statvalue">0</span>
+                <span class="valueUnit">%</span>
+            </div>
+            <div class="statEntryInner">
+                <span id="defenseResist_base">0</span>
+                <span class="valueUnit">%</span>
+                <span class="multiplierBracket">[</span>
+                <span id="defenseResist_basemultiplier">0.0</span>
+                <span class="multiplierBracket">]</span>
+            </div>
+            <div class="statEntryInner">
+                <span class="multiplierBracket">[</span>
+                <span id="defenseResist_boostmultiplier">0.0</span>
+                <span class="multiplierBracket">]</span>
+                <span id="defenseResist_boost">0</span>
+                <span class="valueUnit">%</span>
+            </div>
+            <span id="defenseResist_raw" class="statEntryInner">0</span>
+            <span id="defenseResist_minmax" class="statEntryRight">0</span>
+        </div>
+    </template>
+
     <!-- Power stats tab template -->
     <template id="template_PowerStats">
         <link rel="stylesheet" href="statistics.css">
@@ -344,11 +430,11 @@
             </div>
         </div>
         <div class="powerHeader">
-            <span class="powerNameHeader">Module Name</span>
-            <span class="powerLeftHeader">Draw</span>
-            <span class="powerInnerHeader">Load</span>
-            <span class="powerInnerHeader">Priority</span>
-            <span class="powerRightHeader">State</span>
+            <span class="statEntryNameHeader">Module Name</span>
+            <span class="statEntryLeftHeader">Draw</span>
+            <span class="statEntryInnerHeader">Load</span>
+            <span class="statEntryInnerHeader">Priority</span>
+            <span class="statEntryRightHeader">State</span>
         </div>
         <slot></slot>
     </template>
@@ -357,19 +443,20 @@
     <template id="template_PowerModule">
         <link rel="stylesheet" href="statistics.css">
         <div class="powerRow">
-            <span id="powerModule_modulename" class="powerModuleName">Test</span>
-            <div class="powerModuleLeft">
+            <span id="powerModule_modulename" class="statEntryName">Test</span>
+            <div class="statEntryLeft">
                 <span id="powerModule_draw">1</span>
                 <span class="valueUnit">MW</span>
             </div>
-            <div class="powerModuleInner">
+            <div class="statEntryInner">
                 <span id="powerModule_load">5</span>
                 <span class="valueUnit">%</span>
             </div>
-            <span id="powerModule_priority" class="powerModuleInner">1</span>
-            <span id="powerModule_powered" class="powerModuleRight">on</span>
+            <span id="powerModule_priority" class="statEntryInner">1</span>
+            <span id="powerModule_powered" class="statEntryRight">on</span>
         </div>
     </template>
+
 </head>
 <body>
 
@@ -589,7 +676,6 @@
             <input name="shipTabs" type="radio" id="systemsTabButton" class="tabInput"/>
             <label id="systemsTab" for="systemsTabButton" class="tabLabel">Systems Analysis</label>
             <div class="tabPanel">
-
                 <div id="systemsContainer">
 
                     <input name="systemsTabs" type="radio" id="offenseTabButton" class="tabInput"/>
@@ -598,7 +684,9 @@
 
                     <input name="systemsTabs" type="radio" id="defenseTabButton" class="tabInput"/>
                     <label id="defenseTab" for="defenseTabButton" class="tabLabel">Defense</label>
-                    <div class="tabPanel" id="combatDefense">TODO: Defense</div>
+                    <div class="tabPanel">
+                        <defense-stats id="defenseStats"></defense-stats>
+                    </div>
 
                     <input name="systemsTabs" type="radio" id="powerTabButton" class="tabInput"/>
                     <label id="powerTab" for="powerTabButton" class="tabLabel">Power Usage</label>
@@ -607,9 +695,7 @@
                     </div>
 
                 </div>
-
             </div>
-
         </div>
     </div>
 

@@ -593,6 +593,7 @@ function handlePowerData(data)
     let powerData = JSON.parse(data);
 
     let powerStats = document.getElementById('powerStats');
+    powerStats.textContent = "";
     powerStats.capacity = powerData['capacity'];
     powerStats.draw = powerData['powerDraw'];
     powerStats.retracted = powerData['retractedDraw'];
@@ -617,6 +618,131 @@ function handlePowerData(data)
         nextModule.powered = moduleData[module]['powered'];
         powerStats.append(nextModule);
     }
+}
+
+function handleDefenseData(data)
+{
+    let defenseData = JSON.parse(data);
+    let defenseStats = document.getElementById('defenseStats');
+    defenseStats.textContent = '';
+
+    defenseStats.shieldRegen = defenseData['regen'];
+    defenseStats.brokenRegenRate = defenseData['brokenRegen'];
+
+    let shieldData = defenseData['Shield Strength'];
+    let hullData = defenseData['Hull Strength'];
+    let shieldExplosiveData = defenseData['Shield Explosive'];
+    let shieldKineticData = defenseData['Shield Kinetic'];
+    let shieldThermalData = defenseData['Shield Thermal'];
+    let hullExplosiveData = defenseData['Hull Explosive'];
+    let hullKineticData = defenseData['Hull Kinetic'];
+    let hullThermalData = defenseData['Hull Thermal'];
+    let hullCausticData = defenseData['Hull Caustic'];
+
+    let shieldStrength = document.createElement('defense-value');
+    shieldStrength.setAttribute('slot', 'hullShield');
+    shieldStrength.statistic = 'Shield Strength';
+    shieldStrength.statValue = shieldData['value'];
+    shieldStrength.base = shieldData['base'];
+    shieldStrength.reinforcement = shieldData['reinforcement'];
+    shieldStrength.raw = shieldData['raw'];
+    shieldStrength.minmax = shieldData['minmax'];
+
+    let hullStrength = document.createElement('defense-value');
+    hullStrength.setAttribute('slot', 'hullShield');
+    hullStrength.statistic = 'Hull Strength';
+    hullStrength.statValue = hullData['value'];
+    hullStrength.base = hullData['base'];
+    hullStrength.reinforcement = hullData['reinforcement'];
+    hullStrength.raw = hullData['raw'];
+    hullStrength.minmax = '-';
+
+    let shieldExplosive = document.createElement('defense-resistance');
+    shieldExplosive.setAttribute('slot', 'resistance');
+    shieldExplosive.statistic = 'Shield Explosive';
+    shieldExplosive.statValue = shieldExplosiveData['value'];
+    shieldExplosive.base = shieldExplosiveData['base'];
+    shieldExplosive.baseMultiplier = shieldExplosiveData['baseMultiplier'];
+    shieldExplosive.boost = shieldExplosiveData['boost'];
+    shieldExplosive.boostMultiplier = shieldExplosiveData['boostMultiplier'];
+    shieldExplosive.raw = shieldExplosiveData['raw'];
+    shieldExplosive.minmax = shieldExplosiveData['minmax'];
+
+    let shieldKinetic = document.createElement('defense-resistance');
+    shieldKinetic.setAttribute('slot', 'resistance');
+    shieldKinetic.statistic = 'Shield Kinetic';
+    shieldKinetic.statValue = shieldKineticData['value'];
+    shieldKinetic.base = shieldKineticData['base'];
+    shieldKinetic.baseMultiplier = shieldKineticData['baseMultiplier'];
+    shieldKinetic.boost = shieldKineticData['boost'];
+    shieldKinetic.boostMultiplier = shieldKineticData['boostMultiplier'];
+    shieldKinetic.raw = shieldKineticData['raw'];
+    shieldKinetic.minmax = shieldKineticData['minmax'];
+
+    let shieldThermal = document.createElement('defense-resistance');
+    shieldThermal.setAttribute('slot', 'resistance');
+    shieldThermal.statistic = 'Shield Thermal';
+    shieldThermal.statValue = shieldThermalData['value'];
+    shieldThermal.base = shieldThermalData['base'];
+    shieldThermal.baseMultiplier = shieldThermalData['baseMultiplier'];
+    shieldThermal.boost = shieldThermalData['boost'];
+    shieldThermal.boostMultiplier = shieldThermalData['boostMultiplier'];
+    shieldThermal.raw = shieldThermalData['raw'];
+    shieldThermal.minmax = shieldThermalData['minmax'];
+
+    let hullExplosive = document.createElement('defense-resistance');
+    hullExplosive.setAttribute('slot', 'resistance');
+    hullExplosive.statistic = 'Hull Explosive';
+    hullExplosive.statValue = hullExplosiveData['value'];
+    hullExplosive.base = hullExplosiveData['base'];
+    hullExplosive.baseMultiplier = hullExplosiveData['baseMultiplier'];
+    hullExplosive.boost = hullExplosiveData['boost'];
+    hullExplosive.boostMultiplier = hullExplosiveData['boostMultiplier'];
+    hullExplosive.raw = hullExplosiveData['raw'];
+    hullExplosive.minmax = hullExplosiveData['minmax'];
+
+    let hullKinetic = document.createElement('defense-resistance');
+    hullKinetic.setAttribute('slot', 'resistance');
+    hullKinetic.statistic = 'Hull Kinetic';
+    hullKinetic.statValue = hullKineticData['value'];
+    hullKinetic.base = hullKineticData['base'];
+    hullKinetic.baseMultiplier = hullKineticData['baseMultiplier'];
+    hullKinetic.boost = hullKineticData['boost'];
+    hullKinetic.boostMultiplier = hullKineticData['boostMultiplier'];
+    hullKinetic.raw = hullKineticData['raw'];
+    hullKinetic.minmax = hullKineticData['minmax'];
+
+    let hullThermal = document.createElement('defense-resistance');
+    hullThermal.setAttribute('slot', 'resistance');
+    hullThermal.statistic = 'Hull Thermal';
+    hullThermal.statValue = hullThermalData['value'];
+    hullThermal.base = hullThermalData['base'];
+    hullThermal.baseMultiplier = hullThermalData['baseMultiplier'];
+    hullThermal.boost = hullThermalData['boost'];
+    hullThermal.boostMultiplier = hullThermalData['boostMultiplier'];
+    hullThermal.raw = hullThermalData['raw'];
+    hullThermal.minmax = hullThermalData['minmax'];
+
+    let hullCaustic = document.createElement('defense-resistance');
+    hullCaustic.setAttribute('slot', 'resistance');
+    hullCaustic.statistic = 'Hull Caustic';
+    hullCaustic.statValue = hullCausticData['value'];
+    hullCaustic.base = hullCausticData['base'];
+    hullCaustic.baseMultiplier = hullCausticData['baseMultiplier'];
+    hullCaustic.boost = hullCausticData['boost'];
+    hullCaustic.boostMultiplier = hullCausticData['boostMultiplier'];
+    hullCaustic.raw = hullCausticData['raw'];
+    hullCaustic.minmax = hullCausticData['minmax'];
+
+    defenseStats.append(shieldStrength,
+                        hullStrength,
+                        shieldExplosive,
+                        shieldKinetic,
+                        shieldThermal,
+                        hullExplosive,
+                        hullKinetic,
+                        hullThermal,
+                        hullCaustic);
 }
 
 /*
@@ -705,6 +831,9 @@ const eventListeners =
 
     // Contains information about current power usage on the player's ship
     PowerStats: (e) => handlePowerData(e.data),
+
+    // Defensive information about the player's current ship loadout
+    DefenseStats: (e) => handleDefenseData(e.data),
 
     // Called when the player's cargo manifest changes, contains info about each item
     Cargo: (e) => handleCargo(e.data),

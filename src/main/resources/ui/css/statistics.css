@@ -9,6 +9,17 @@
     padding: .5em;
 }
 
+.defenseStatHeader
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+    border: 2px solid dimgray;
+    border-radius: 3px;
+    padding: .5em;
+}
+
 .headerEntry
 {
     text-align: center;
@@ -64,15 +75,14 @@
     margin-right: .2em;
 }
 
-.powerHeader
+.multiplierBracket
 {
-    display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
-    margin: .2em;
-    margin-top: .5em;
+    color: dimgray;
+    margin-left: .2em;
+    margin-right: .2em;
 }
 
-.powerNameHeader
+.statEntryNameHeader
 {
     border: solid 1px dimgray;
     border-radius: 3px 0px 0px 3px;
@@ -81,7 +91,7 @@
     text-align: center;
 }
 
-.powerLeftHeader
+.statEntryLeftHeader
 {
     border: solid 1px dimgray;
     text-align: center;
@@ -89,7 +99,7 @@
     padding: 3px;
 }
 
-.powerInnerHeader
+.statEntryInnerHeader
 {
     border: solid 1px dimgray;
     text-align: center;
@@ -97,7 +107,7 @@
     padding: 3px;
 }
 
-.powerRightHeader
+.statEntryRightHeader
 {
     border: solid 1px dimgray;
     text-align: center;
@@ -106,14 +116,7 @@
     border-radius: 0px 3px 3px 0px;
 }
 
-.powerRow
-{
-    display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
-    margin: .2em;
-}
-
-.powerModuleName
+.statEntryName
 {
     border: solid 1px #bd6206;
     border-right: 0px;
@@ -122,7 +125,7 @@
     color: antiquewhite;
 }
 
-.powerModuleLeft
+.statEntryLeft
 {
     border: solid 1px #bd6206;
     border-left: 1px dotted dimgray;
@@ -133,7 +136,7 @@
     font-weight: bold;
 }
 
-.powerModuleInner
+.statEntryInner
 {
     border: solid 1px #bd6206;
     border-left: 1px dotted dimgray;
@@ -144,7 +147,7 @@
     font-weight: bold;
 }
 
-.powerModuleRight
+.statEntryRight
 {
     border: solid 1px #bd6206;
     border-left: dotted 1px dimgray;
@@ -152,6 +155,37 @@
     padding-top: .35em;
     border-radius: 0px 3px 3px 0px;
     font-weight: bold;
+}
+
+
+.defenseHeader
+{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+}
+
+.defenseRow
+{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1fr 1fr;
+    margin: .2em;
+}
+
+.powerHeader
+{
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+}
+
+.powerRow
+{
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    margin: .2em;
 }
 
 .unused

@@ -39,6 +39,20 @@ public class ShipStatisticData
         public Double boostValue;
         public Double baseMultiplier;
         public Double boostMultiplier;
+
+        @Override
+        public String toString()
+        {
+            return "StatGroup{" +
+                "floatStat=" + floatStat +
+                ", rawFloat=" + rawFloat +
+                ", diminishCap=" + diminishCap +
+                ", baseValue=" + baseValue +
+                ", boostValue=" + boostValue +
+                ", baseMultiplier=" + baseMultiplier +
+                ", boostMultiplier=" + boostMultiplier +
+                '}';
+        }
     }
 
     public ShipStatisticData(ShipCharacteristic shipCharacteristic, boolean booleanStat)
