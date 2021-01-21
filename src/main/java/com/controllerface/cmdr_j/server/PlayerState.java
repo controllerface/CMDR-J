@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.server;
 
 import com.controllerface.cmdr_j.JSONSupport;
+import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.data.EntityKeys;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
@@ -26,6 +27,9 @@ import jetbrains.exodus.entitystore.PersistentEntityStores;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.DoubleAccumulator;
+import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
@@ -77,6 +81,21 @@ public class PlayerState
             return slot.getText().contains("Utility");
         }
         else return true;
+    };
+
+    /**
+     * Filter function used when streaming modules to filter in only weapons. Note that
+     * utility mounts like point defense turrets are specifically filtered out since this
+     * is used to calculate overall DPS and such modules are not included because they
+     * only target missiles and other small munitions.
+     */
+    private static final Predicate<Statistic> nonUtilityHardpoints = (slot) ->
+    {
+        if (slot instanceof HardpointSlot)
+        {
+            return !slot.getText().contains("Utility");
+        }
+        else return false;
     };
 
     /**
@@ -792,6 +811,129 @@ public class PlayerState
         return calculatedResistance;
     }
 
+    private String calculateOffenseStats()
+    {
+        // total combined
+        double totalDPS = calculateFilteredEffectValue(ItemEffect.DamagePerSecond, nonUtilityHardpoints);
+
+        DoubleAdder absoluteDamage = new DoubleAdder();
+        DoubleAdder thermalDamage = new DoubleAdder();
+        DoubleAdder kineticDamage = new DoubleAdder();
+        DoubleAdder explosiveDamage = new DoubleAdder();
+
+        var weaponBreakdown = new ArrayList<Map<String, Object>>();
+
+        shipModules.entrySet().stream()
+            .filter(entry -> entry.getKey() instanceof HardpointSlot)
+            .filter(entry-> ((HardpointSlot) entry.getKey()).getSize() > 0)
+            .map(Map.Entry::getValue)
+            .forEach(module ->
+            {
+                var type = module.effectByName(ItemEffect.DamageType)
+                    .map(ItemEffectData::getValueString)
+                    .orElse("");
+
+                double dps = module.effectByName(ItemEffect.DamagePerSecond)
+                    .map(ItemEffectData::getDoubleValue)
+                    .orElse(0.0d);
+
+                var thermalShare = 0.0d;
+                var kineticShare = 0.0d;
+                var explosiveShare = 0.0d;
+                var absoluteShare = 0.0d;
+
+                switch (type)
+                {
+                    case "Absolute":
+                        absoluteShare = dps * .6;
+                        thermalShare = dps * .2;
+                        kineticShare = dps * .2;
+                        break;
+
+                    case "Thermal":
+                        thermalShare = dps;
+                        break;
+
+                    case "Kinetic":
+                        kineticShare = dps;
+                        break;
+
+                    case "Explosive":
+                        explosiveShare = dps;
+                        break;
+
+                    case "Thermo-Kinetic":
+                        thermalShare = dps * .666;
+                        kineticShare = dps * .333;
+                        break;
+
+                    // todo: experimentals that modify dmg tye, see cannon
+                    default:
+                        System.err.println("Unknown damage type: " + type);
+                        break;
+                }
+
+                thermalDamage.add(thermalShare);
+                kineticDamage.add(kineticShare);
+                explosiveDamage.add(explosiveShare);
+                absoluteDamage.add(absoluteShare);
+
+                var damageData = new HashMap<String, Object>();
+                damageData.put("total", dps);
+                damageData.put("thermal", thermalShare);
+                damageData.put("kinetic", kineticShare);
+                damageData.put("explosive", explosiveShare);
+                damageData.put("absolute", absoluteShare);
+
+                var moduleData = new HashMap<String, Object>();
+                moduleData.put(module.module.displayText(), damageData);
+
+                weaponBreakdown.add(moduleData);
+            });
+
+        var turretBreakdown = new ArrayList<Map<String, Object>>();
+
+        shipModules.entrySet().stream()
+            .filter(entry -> entry.getKey() instanceof HardpointSlot)
+            .filter(entry-> ((HardpointSlot) entry.getKey()).getSize() == 0)
+            .map(Map.Entry::getValue)
+            .forEach(module ->
+            {
+                double dps = module.effectByName(ItemEffect.DamagePerSecond)
+                    .map(ItemEffectData::getDoubleValue)
+                    .orElse(0.0d);
+
+                if (dps == 0.0d)
+                {
+                    return;
+                }
+
+                var moduleData = new HashMap<String, Object>();
+                moduleData.put(module.module.displayText(), dps);
+
+                turretBreakdown.add(moduleData);
+            });
+
+        var data = new HashMap<String, Object>();
+        data.put("totalDPS", totalDPS);
+        data.put("totalThermal", thermalDamage.sum());
+        data.put("totalKinetic", kineticDamage.sum());
+        data.put("totalExplosive", explosiveDamage.sum());
+        data.put("totalAbsolute", absoluteDamage.sum());
+
+        if (!weaponBreakdown.isEmpty())
+        {
+            data.put("weapons", weaponBreakdown);
+        }
+
+        if (!turretBreakdown.isEmpty())
+        {
+            data.put("defenseTurrets", turretBreakdown);
+        }
+
+        return JSONSupport.Write.jsonToString.apply(data);
+    }
+
     private String calculateDefenseStats()
     {
         var shieldRegenRate = calculateEffectValue(ItemEffect.RegenRate);
@@ -930,6 +1072,11 @@ public class PlayerState
         executeWithLock(() -> globalUpdate.accept("PowerStats", calculateCurrentPowerUsage()));
     }
 
+    public void emitOffenseStats()
+    {
+        executeWithLock(() -> globalUpdate.accept("OffenseStats", calculateOffenseStats()));
+    }
+
     public void emitDefenseStats()
     {
         executeWithLock(() -> globalUpdate.accept("DefenseStats", calculateDefenseStats()));
@@ -976,6 +1123,8 @@ public class PlayerState
             directUpdate.accept("CurrentMass", String.valueOf(calculateCurrentMass()));
 
             directUpdate.accept("PowerStats", calculateCurrentPowerUsage());
+
+            directUpdate.accept("OffenseStats", calculateOffenseStats());
 
             directUpdate.accept("DefenseStats", calculateDefenseStats());
         });

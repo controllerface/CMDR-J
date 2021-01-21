@@ -1,5 +1,6 @@
 <html>
 <head>
+
     <title>CMDR J - v2.2 (Alpha)</title>
 
     <script src="ui.js"></script>
@@ -12,6 +13,9 @@
     <script src="market.js"></script>
     <script src="material.js"></script>
     <script src="moduleBay.js"></script>
+    <script src="offenseStats.js"></script>
+    <script src="offenseModule.js"></script>
+    <script src="offenseTurret.js"></script>
     <script src="powerModule.js"></script>
     <script src="powerStats.js"></script>
     <script src="shipModule.js"></script>
@@ -329,6 +333,82 @@
     </template>
 
     <!-- Defense stat table template -->
+    <template id="template_OffenseStats">
+        <link rel="stylesheet" href="statistics.css">
+
+        <div class="offenseHeader">
+            <span class="statEntryNameHeader">Cumulative DPS</span>
+            <span class="statEntryInnerHeader">Total</span>
+            <span class="statEntryLeftHeader">Thermal</span>
+            <span class="statEntryInnerHeader">Kinetic</span>
+            <span class="statEntryInnerHeader">Explosive</span>
+            <span class="statEntryRightHeader">Absolute</span>
+        </div>
+
+        <div class="offenseRow">
+            <span class="statEntryName">Damage Output</span>
+            <div class="statEntryLeft">
+                <span id="offenseStats_total">0</span>
+                <span class="valueUnit">DPS</span>
+            </div>
+            <div class="statEntryInner">
+                <span id="offenseStats_thermal">0</span>
+                <span class="valueUnit">DPS</span>
+            </div>
+            <div class="statEntryInner">
+                <span id="offenseStats_kinetic">0</span>
+                <span class="valueUnit">DPS</span>
+            </div>
+            <div class="statEntryInner">
+                <span id="offenseStats_explosive">0</span>
+                <span class="valueUnit">DPS</span>
+            </div>
+            <div class="statEntryRightCap">
+                <span id="offenseStats_absolute">0</span>
+                <span class="valueUnit">DPS</span>
+            </div>
+        </div>
+
+        <div class="Category">
+            Damage by hardpoint
+        </div>
+
+        <div class="offenseHeader">
+            <span class="statEntryNameHeader">Hardpoint</span>
+            <span class="statEntryLeftHeader">Total</span>
+            <span class="statEntryInnerHeader">Thermal</span>
+            <span class="statEntryInnerHeader">Kinetic</span>
+            <span class="statEntryInnerHeader">Explosive</span>
+            <span class="statEntryRightHeader">Absolute</span>
+        </div>
+
+        <slot name="weapons">
+            <div class="emptySection">
+                No Weapons Installed
+            </div>
+        </slot>
+
+        <div class="Category">
+            Point Defense Turrets
+        </div>
+
+        <div class="offenseTurretsHeader">
+            <span class="statEntryNameHeader">Turret</span>
+            <span class="statEntryLeftHeader">Total</span>
+            <span class="statEntryRightHeader">Damage Type</span>
+        </div>
+
+        <slot name="turrets">
+            <div class="emptySection">
+                No Point Defense Turrets Installed
+            </div>
+        </slot>
+        <div class="emptySection">
+            Note: Turret damage not included in DPS totals
+        </div>
+    </template>
+
+    <!-- Defense stat table template -->
     <template id="template_DefenseStats">
         <link rel="stylesheet" href="statistics.css">
 
@@ -357,15 +437,59 @@
         <slot name="hullShield"></slot>
 
         <div class="defenseHeader">
-            <span class="statEntryNameHeader">Statistic</span>
+            <span class="statEntryNameHeader">Resistance</span>
             <span class="statEntryLeftHeader">Value</span>
             <span class="statEntryInnerHeader">Base [Multiplier]</span>
-            <span class="statEntryInnerHeader">[Multiplier] Boost</span>
+            <span class="statEntryInnerHeader">Boost [Multiplier]</span>
             <span class="statEntryInnerHeader">Raw</span>
             <span class="statEntryRightHeader">Min/Max</span>
         </div>
 
         <slot name="resistance"></slot>
+    </template>
+
+    <!-- Offense stats for an installed weapon -->
+    <template id="template_OffenseModule">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="offenseRow">
+            <span class="statEntryName" id="offenseModule_module">None</span>
+
+            <div class="statEntryLeft">
+                <span id="offenseModule_total">0</span>
+                <span class="valueUnit">DPS</span>
+            </div>
+            <div class="statEntryInner">
+                <span id="offenseModule_thermal">0</span>
+                <span class="valueUnit">DPS</span>
+            </div>
+            <div class="statEntryInner">
+                <span id="offenseModule_kinetic">0</span>
+                <span class="valueUnit">DPS</span>
+            </div>
+            <div class="statEntryInner">
+                <span id="offenseModule_explosive">0</span>
+                <span class="valueUnit">DPS</span>
+            </div>
+            <div class="statEntryRightCap">
+                <span id="offenseModule_absolute">0</span>
+                <span class="valueUnit">DPS</span>
+            </div>
+        </div>
+    </template>
+
+    <!-- Offense stats for an installed poitn defense turret -->
+    <template id="template_OffenseTurret">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="offenseTurretsRow">
+            <span class="statEntryName" id="offenseTurret_module">None</span>
+
+            <div class="statEntryLeft">
+                <span id="offenseTurret_total">0</span>
+                <span class="valueUnit">DPS</span>
+            </div>
+
+            <span class="statEntryRightCap" id="offenseTurret_type">0</span>
+        </div>
     </template>
 
     <!-- Defense statistic template -->
@@ -398,11 +522,11 @@
                 <span class="multiplierBracket">]</span>
             </div>
             <div class="statEntryInner">
+                <span id="defenseResist_boost">0</span>
+                <span class="valueUnit">%</span>
                 <span class="multiplierBracket">[</span>
                 <span id="defenseResist_boostmultiplier">0.0</span>
                 <span class="multiplierBracket">]</span>
-                <span id="defenseResist_boost">0</span>
-                <span class="valueUnit">%</span>
             </div>
             <span id="defenseResist_raw" class="statEntryInner">0</span>
             <span id="defenseResist_minmax" class="statEntryRight">0</span>
@@ -458,6 +582,7 @@
     </template>
 
 </head>
+
 <body>
 
 <div class="dashboard">
@@ -519,8 +644,8 @@
 
 </div>
 
-
 <main id="sections">
+
     <!-- Commander Tab  -->
     <input name="categoryTabs" type="radio" id="cmdrTabButton" class="tabInput"/>
     <label id="cmdrTab" for="cmdrTabButton" class="tabLabel">Commander</label>
@@ -680,7 +805,9 @@
 
                     <input name="systemsTabs" type="radio" id="offenseTabButton" class="tabInput"/>
                     <label id="offenseTab" for="offenseTabButton" class="tabLabel">Offense</label>
-                    <div class="tabPanel" id="combatOffense">TODO: Offense</div>
+                    <div class="tabPanel">
+                        <offense-stats id="offenseStats"></offense-stats>
+                    </div>
 
                     <input name="systemsTabs" type="radio" id="defenseTabButton" class="tabInput"/>
                     <label id="defenseTab" for="defenseTabButton" class="tabLabel">Defense</label>

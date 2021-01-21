@@ -620,6 +620,62 @@ function handlePowerData(data)
     }
 }
 
+function handleOffenseData(data)
+{
+    let offenseData = JSON.parse(data);
+
+    console.log(offenseData);
+
+    let offenseStats = document.getElementById('offenseStats');
+    offenseStats.textContent = "";
+
+    offenseStats.total = offenseData['totalDPS'];
+    offenseStats.thermal = offenseData['totalThermal'];
+    offenseStats.kinetic = offenseData['totalKinetic'];
+    offenseStats.explosive = offenseData['totalExplosive'];
+    offenseStats.absolute = offenseData['totalAbsolute'];
+
+    if (offenseData['weapons'])
+    {
+        let weaponData = offenseData['weapons'];
+
+        for (let i = 0, len = weaponData.length; i < len; i++)
+        {
+            let nextWeapon = weaponData[i];
+            let weaponName = Object.keys(nextWeapon)[0];
+            let data = nextWeapon[weaponName];
+            let weaponElement = document.createElement('offense-module');
+            weaponElement.setAttribute('slot', 'weapons');
+            weaponElement.module = weaponName;
+            weaponElement.total = data['total'];
+            weaponElement.thermal = data['thermal'];
+            weaponElement.kinetic = data['kinetic'];
+            weaponElement.explosive = data['explosive'];
+            weaponElement.absolute = data['absolute'];
+            offenseStats.append(weaponElement);
+        }
+    }
+
+    if (offenseData['defenseTurrets'])
+    {
+        let turretData = offenseData['defenseTurrets'];
+
+        for (let i = 0, len = turretData.length; i < len; i++)
+        {
+            let nextTurret = turretData[i];
+            let turretName = Object.keys(nextTurret)[0];
+            let data = nextTurret[turretName];
+            let turretElement = document.createElement('offense-turret');
+            turretElement.setAttribute('slot', 'turrets');
+            turretElement.module = turretName;
+            turretElement.total = data;
+            turretElement.type = 'Kinetic';
+            offenseStats.append(turretElement);
+        }
+    }
+
+}
+
 function handleDefenseData(data)
 {
     let defenseData = JSON.parse(data);
@@ -692,7 +748,7 @@ function handleDefenseData(data)
 
     let hullExplosive = document.createElement('defense-resistance');
     hullExplosive.setAttribute('slot', 'resistance');
-    hullExplosive.statistic = 'Hull Explosive';
+    hullExplosive.statistic = 'Armour Explosive';
     hullExplosive.statValue = hullExplosiveData['value'];
     hullExplosive.base = hullExplosiveData['base'];
     hullExplosive.baseMultiplier = hullExplosiveData['baseMultiplier'];
@@ -703,7 +759,7 @@ function handleDefenseData(data)
 
     let hullKinetic = document.createElement('defense-resistance');
     hullKinetic.setAttribute('slot', 'resistance');
-    hullKinetic.statistic = 'Hull Kinetic';
+    hullKinetic.statistic = 'Armour Kinetic';
     hullKinetic.statValue = hullKineticData['value'];
     hullKinetic.base = hullKineticData['base'];
     hullKinetic.baseMultiplier = hullKineticData['baseMultiplier'];
@@ -714,7 +770,7 @@ function handleDefenseData(data)
 
     let hullThermal = document.createElement('defense-resistance');
     hullThermal.setAttribute('slot', 'resistance');
-    hullThermal.statistic = 'Hull Thermal';
+    hullThermal.statistic = 'Armour Thermal';
     hullThermal.statValue = hullThermalData['value'];
     hullThermal.base = hullThermalData['base'];
     hullThermal.baseMultiplier = hullThermalData['baseMultiplier'];
@@ -725,7 +781,7 @@ function handleDefenseData(data)
 
     let hullCaustic = document.createElement('defense-resistance');
     hullCaustic.setAttribute('slot', 'resistance');
-    hullCaustic.statistic = 'Hull Caustic';
+    hullCaustic.statistic = 'Armour Caustic';
     hullCaustic.statValue = hullCausticData['value'];
     hullCaustic.base = hullCausticData['base'];
     hullCaustic.baseMultiplier = hullCausticData['baseMultiplier'];
@@ -831,6 +887,9 @@ const eventListeners =
 
     // Contains information about current power usage on the player's ship
     PowerStats: (e) => handlePowerData(e.data),
+
+    // Offensive information about the player's current ship loadout
+    OffenseStats: (e) => handleOffenseData(e.data),
 
     // Defensive information about the player's current ship loadout
     DefenseStats: (e) => handleDefenseData(e.data),

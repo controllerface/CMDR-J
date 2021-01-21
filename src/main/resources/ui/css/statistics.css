@@ -125,6 +125,17 @@
     color: antiquewhite;
 }
 
+.statEntryLeftCap
+{
+    border: solid 1px #bd6206;
+    border-right: 0px;
+    border-radius: 3px 0px 0px 3px;
+    text-align: center;
+    padding-top: .35em;
+    color: antiquewhite;
+    font-weight: bold;
+}
+
 .statEntryLeft
 {
     border: solid 1px #bd6206;
@@ -157,6 +168,64 @@
     font-weight: bold;
 }
 
+.statEntryRightCap
+{
+    border: solid 1px #bd6206;
+    border-left: dotted 1px dimgray;
+    text-align: center;
+    padding-top: .35em;
+    border-radius: 0px 3px 3px 0px;
+    color: antiquewhite;
+    font-weight: bold;
+}
+
+
+
+.offenseTotalsHeader
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+}
+
+.offenseHeader
+{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+}
+
+.offenseTurretsHeader
+{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+}
+
+.offenseTotalsRow
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    margin: .2em;
+}
+
+.offenseRow
+{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    margin: .2em;
+}
+
+.offenseTurretsRow
+{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    margin: .2em;
+}
+
 
 .defenseHeader
 {
@@ -186,6 +255,17 @@
     display: grid;
     grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
     margin: .2em;
+}
+
+.emptySection
+{
+    border: solid 1px #bd6206;
+    border-radius: 3px 3px 3px 3px;
+    padding: 1em;
+    font-weight: bold;
+    text-align: center;
+    margin: 4px;
+    color: antiquewhite;
 }
 
 .unused
