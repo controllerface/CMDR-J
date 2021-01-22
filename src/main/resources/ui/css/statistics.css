@@ -261,7 +261,7 @@
 .engineerHeader
 {
     display: grid;
-    grid-template-columns: 2fr 2fr 1.5fr 1fr .5fr .5fr;
+    grid-template-columns: 1.6fr 2fr .8fr 1fr .5fr .5fr;
     margin: .2em;
     margin-top: .5em;
 }
@@ -269,7 +269,7 @@
 .engineerRow
 {
     display: grid;
-    grid-template-columns: 2fr 2fr 1.5fr 1fr .5fr .5fr;
+    grid-template-columns: 1.6fr 2fr .8fr 1fr .5fr .5fr;
     margin: .2em;
     margin-top: .5em;
 }
