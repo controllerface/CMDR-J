@@ -38,7 +38,7 @@ body::-webkit-scrollbar-corner
 .dashboard
 {
     border: 2px solid #f07b05;
-    height: 10em;
+    height: 12em;
     border-radius: 3px;
     max-width: 59.5em;
     margin: auto;
@@ -242,11 +242,6 @@ progress[value]::-webkit-progress-bar
     padding: 3px;
 }
 
-
-
-
-
-
 #inventory
 {
     grid-area: inven;
@@ -255,22 +250,26 @@ progress[value]::-webkit-progress-bar
     margin-left: 3em;
 }
 
+
+
+
+
 #commanderInfo
 {
     display: grid;
     grid-template:
-        "commanderStatsTab commanderRankTab"
-        "panel             panel";
-    grid-template-columns: 1fr 1fr;
+        "engineersRankTab commanderRankTab commanderStatsTab"
+        "panel            panel            panel";
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     max-width: 60em;
     margin-left: auto;
     margin-right: auto;
 }
 
-#commanderStatsTab
+#engineersRankTab
 {
-    grid-area: commanderStatsTab;
+    grid-area: engineersRankTab;
     border-radius: 5px;
 }
 
@@ -279,6 +278,14 @@ progress[value]::-webkit-progress-bar
     grid-area: commanderRankTab;
     border-radius: 5px;
 }
+
+#commanderStatsTab
+{
+    grid-area: commanderStatsTab;
+    border-radius: 5px;
+}
+
+
 
 
 #gameMode
@@ -589,4 +596,34 @@ progress[value]::-webkit-progress-bar
 }
 
 
+/* Material Inventory */
+
+#navigationContainer
+{
+    display: grid;
+    grid-template-areas:
+    "gpsTab poiTab routeTab"
+    "panel  panel  panel";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+    /*background: #efefef;*/
+}
+
+#gpsTab
+{
+    grid-area: gpsTab;
+    border-radius: 5px;
+}
+
+#poiTab
+{
+    grid-area: poiTab;
+    border-radius: 5px;
+}
+
+#routeTab
+{
+    grid-area: routeTab;
+    border-radius: 5px;
+}
 

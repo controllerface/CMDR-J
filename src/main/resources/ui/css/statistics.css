@@ -257,6 +257,24 @@
     margin: .2em;
 }
 
+
+.engineerHeader
+{
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr 1fr .5fr .5fr;
+    margin: .2em;
+    margin-top: .5em;
+}
+
+.engineerRow
+{
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr 1fr .5fr .5fr;
+    margin: .2em;
+    margin-top: .5em;
+}
+
+
 .emptySection
 {
     border: solid 1px #bd6206;

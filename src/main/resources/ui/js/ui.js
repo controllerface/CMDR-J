@@ -624,8 +624,6 @@ function handleOffenseData(data)
 {
     let offenseData = JSON.parse(data);
 
-    console.log(offenseData);
-
     let offenseStats = document.getElementById('offenseStats');
     offenseStats.textContent = "";
 
@@ -801,6 +799,33 @@ function handleDefenseData(data)
                         hullCaustic);
 }
 
+function handleEngineerData(data)
+{
+    let engineerData = JSON.parse(data);
+    let engineerStats = document.getElementById('engineerStats');
+    engineerStats.textContent = "";
+
+    let engineers = Object.keys(engineerData);
+    engineers.sort();
+
+    for (let i = 0, len = engineers.length; i < len; i++)
+    {
+        let engineer = engineers[i];
+        let engineerInfo = engineerData[engineer];
+        let nextEngineer = document.createElement('engineer-data');
+        nextEngineer.engineer = engineerInfo['name'];
+        nextEngineer.system = engineerInfo['system'];
+        nextEngineer.location = engineerInfo['location'];
+        nextEngineer.distance = (engineerInfo['distance'] === -1)
+            ? '???'
+            : parseInt(engineerInfo['distance'], 10).toLocaleString("en-US");
+        nextEngineer.status = engineerInfo['status'];
+        nextEngineer.rank = engineerInfo['rank'];
+        nextEngineer.progress = (engineerInfo['rank'] === 5) ? '-' : engineerInfo['progress'];
+        engineerStats.append(nextEngineer);
+    }
+}
+
 /*
 This object contains event listener functions that will be bound to the local event source
 on page load. For each key listed below, the mapped function is bound to an event with the
@@ -811,6 +836,9 @@ const eventListeners =
 {
     // The player's commander name
     Commander: (e) => setElementText("Commander", e.data),
+
+    // The player's current location
+    Location: (e) => setElementText("Location", e.data),
 
     // Current game mode
     Game_Mode: (e) => setElementText("Game_Mode", e.data),
@@ -893,6 +921,9 @@ const eventListeners =
 
     // Defensive information about the player's current ship loadout
     DefenseStats: (e) => handleDefenseData(e.data),
+
+    // Engineer progress information
+    Engineers: (e) => handleEngineerData(e.data),
 
     // Called when the player's cargo manifest changes, contains info about each item
     Cargo: (e) => handleCargo(e.data),

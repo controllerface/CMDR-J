@@ -37,7 +37,7 @@ public class StarSystem
 
     public double distanceBetween(StarSystem that)
     {
-        // AB=|√((x2−x1)^2+(y2−y1)^2+(z2−z1)^2)|
+        // AB = |√((x2−x1)^2+(y2−y1)^2+(z2−z1)^2)|
 
         double xDiff = that.xPos - this.xPos;
         double yDiff = that.yPos - this.yPos;

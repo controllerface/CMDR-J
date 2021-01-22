@@ -73,7 +73,7 @@ public enum JournalEventEX
      */
 //    Missions(new MissionsHandler()),
 //    Powerplay(new PowerplayHandler()),
-//    EngineerProgress(new EngineerProgressHandler()),
+    EngineerProgress(new EngineerProgressEvent()),
     Commander(new CommanderEvent()),
     Cargo(new CargoEvent()),
     LoadGame(new LoadGameEvent()),
@@ -113,7 +113,7 @@ public enum JournalEventEX
 //    Docked(new DockedHandler()),
 //    FSDJump(new FSDJumpHandler()),
 //    FSDTarget(new FSDTargetHandler()),
-//    Location(new LocationHandler()),
+    Location(new LocationEvent()),
 //    NavRoute(new NavRouteHandler()),
 //    StartJump(new StartJumpHandler()),
 //    SupercruiseEntry(new SupercruiseEntryHandler()),

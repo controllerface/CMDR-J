@@ -9,6 +9,8 @@
     <script src="defenseResistance.js"></script>
     <script src="defenseStats.js"></script>
     <script src="defenseValue.js"></script>
+    <script src="engineerData.js"></script>
+    <script src="engineerStats.js"></script>
     <script src="marketEntry.js"></script>
     <script src="market.js"></script>
     <script src="material.js"></script>
@@ -581,6 +583,48 @@
         </div>
     </template>
 
+    <!-- Engineer stats container template -->
+    <template id="template_EngineerStats">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="engineerHeader">
+            <span class="statEntryNameHeader">Engineer</span>
+            <span class="statEntryLeftHeader">Location</span>
+            <span class="statEntryInnerHeader">Distance</span>
+            <span class="statEntryInnerHeader">Status</span>
+            <span class="statEntryRightHeader">Next</span>
+            <span class="statEntryInnerHeader">Rank</span>
+        </div>
+        <slot></slot>
+    </template>
+
+    <template id="template_EngineerData">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="engineerRow">
+            <span class="statEntryName" id="engineerData_engineer"></span>
+
+            <div class="statEntryLeft">
+                <span id="engineerData_location"></span>
+                <br />
+                <span class="multiplierBracket">[</span>
+                <span class="valueUnit" id="engineerData_system"></span>
+                <span class="multiplierBracket">]</span>
+            </div>
+
+            <div class="statEntryInner">
+                <span id="engineerData_distance"></span>
+                <span class="valueUnit">LY</span>
+            </div>
+
+            <span class="statEntryInner" id="engineerData_status"></span>
+
+            <div class="statEntryInner">
+                <span id="engineerData_progress"></span>
+                <span class="valueUnit">%</span>
+            </div>
+
+            <span class="statEntryRightCap" id="engineerData_rank"></span>
+        </div>
+    </template>
 </head>
 
 <body>
@@ -602,6 +646,8 @@
 
         </div>
 
+        <span class="dashboardSmallHeader">Location</span>
+        <span class="dashboardSmallValue" id="Location">Nowhere</span>
 
         <span class="dashboardSmallHeader">Credits</span>
         <span class="dashboardSmallValue" id="Credits"></span>
@@ -653,28 +699,15 @@
         <div id="commanderInfo">
 
             <!-- Stats Tab  -->
-            <input name="commanderTabs" type="radio" id="statsTabButton" class="tabInput"/>
-            <label id="commanderStatsTab" for="statsTabButton" class="tabLabel">Statistics</label>
+
+            <input name="commanderTabs" type="radio" id="engineersTabButton" class="tabInput"/>
+            <label id="engineersRankTab" for="engineersTabButton" class="tabLabel">Engineers</label>
             <div class="tabPanel">
-                <div id="gameMode">
-                    <div class="modeType">
-                        <b>Game Mode</b>
-                        <span class="modeStat" id="Game_Mode"></span>
-                    </div>
-                    <div class="modeType">
-                        <b>Private Group</b>
-                        <span class="modeStat" id="Private_Group"></span>
-                    </div>
-                    <div class="modeType">
-                        <b>Loan</b>
-                        <span class="modeStat" id="Loan"></span><span> CR</span>
-                    </div>
-                </div>
-                <div id="extendedStatistics"></div>
+                <engineer-stats id="engineerStats"></engineer-stats>
             </div>
 
             <input name="commanderTabs" type="radio" id="reputationTabButton" class="tabInput"/>
-            <label id="commanderRankTab" for="reputationTabButton" class="tabLabel">Rank</label>
+            <label id="commanderRankTab" for="reputationTabButton" class="tabLabel">Faction Reputation</label>
             <div class="tabPanel">
 
 
@@ -755,6 +788,26 @@
                     <br/>
                     <br/>
                 </div>
+            </div>
+
+            <input name="commanderTabs" type="radio" id="statsTabButton" class="tabInput"/>
+            <label id="commanderStatsTab" for="statsTabButton" class="tabLabel">Statistics</label>
+            <div class="tabPanel">
+                <div id="gameMode">
+                    <div class="modeType">
+                        <b>Game Mode</b>
+                        <span class="modeStat" id="Game_Mode"></span>
+                    </div>
+                    <div class="modeType">
+                        <b>Private Group</b>
+                        <span class="modeStat" id="Private_Group"></span>
+                    </div>
+                    <div class="modeType">
+                        <b>Loan</b>
+                        <span class="modeStat" id="Loan"></span><span> CR</span>
+                    </div>
+                </div>
+                <div id="extendedStatistics"></div>
             </div>
 
         </div>
@@ -1096,11 +1149,31 @@
         </div>
     </div>
 
-    <!-- Task Tab  -->
+    <!-- Navigation Tab  -->
     <input name="categoryTabs" type="radio" id="navigationTabButton" class="tabInput"/>
     <label id="navigationTab" for="navigationTabButton" class="tabLabel">Navigation</label>
     <div class="tabPanel">
-        <span>TODO: Navigation</span>
+        <div id="navigationContainer">
+
+            <input name="navigationTabs" type="radio" id="gpsTabButton" class="tabInput"/>
+            <label id="gpsTab" for="gpsTabButton" class="tabLabel">Planetary GPS</label>
+            <div class="tabPanel">
+                <span>TODO: GPS</span>
+            </div>
+
+            <input name="navigationTabs" type="radio" id="poiTabButton" class="tabInput"/>
+            <label id="poiTab" for="poiTabButton" class="tabLabel">Galactic POI</label>
+            <div class="tabPanel">
+                <span>TODO: POI</span>
+            </div>
+
+            <input name="navigationTabs" type="radio" id="routeTabButton" class="tabInput"/>
+            <label id="routeTab" for="routeTabButton" class="tabLabel">Route</label>
+            <div class="tabPanel">
+                <span>TODO: Route</span>
+            </div>
+
+        </div>
     </div>
 
     <!-- Task Tab  -->

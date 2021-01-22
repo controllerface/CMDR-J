@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.server;
 
 import com.controllerface.cmdr_j.JSONSupport;
 import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.data.EntityKeys;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
@@ -12,6 +13,7 @@ import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
+import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
@@ -58,7 +60,8 @@ public class PlayerState
     private final Map<String, Map<String, String>> extendedStats = new ConcurrentHashMap<>();
     private final Map<Material, Integer> materials = new ConcurrentHashMap<>();
     private final Map<Commodity, CommodityData> cargo = new ConcurrentHashMap<>();
-    private final Map<String, Object> marketData = new HashMap<>();
+    private final Map<String, Object> marketData = new ConcurrentHashMap<>();
+    private final Map<Engineer, Map<String, Object>> engineerProgress = new ConcurrentHashMap<>();
 
     /**
      * Contains the commander's current credit balance.
@@ -69,6 +72,8 @@ public class PlayerState
     private double currentFuel = 0;
 
     private ShipType shipType;
+
+    private StarSystem starSystem;
 
     /**
      * Filter function used when streaming modules to filter out only weapons. Used when
@@ -161,6 +166,18 @@ public class PlayerState
         shipModules.clear();
     }
 
+    public void setLocation(StarSystem starSystem)
+    {
+        this.starSystem = starSystem;
+
+        engineerProgress.forEach((engineer, data) ->
+            data.put("distance", engineer.getLocation().distanceBetween(this.starSystem)));
+
+        executeWithLock(() -> globalUpdate.accept("Location", this.starSystem.systemName));
+
+        emitEngineerData();
+    }
+
     public void setCommanderStat(Statistic statistic, String value)
     {
         executeWithLock(() ->
@@ -198,6 +215,15 @@ public class PlayerState
         event.put("name", material.name());
         event.put("count", count.toString());
         return JSONSupport.Write.jsonToString.apply(event);
+    }
+
+    public void setEngineerProgress(Engineer engineer, Map<String, Object> data)
+    {
+        if (starSystem != null)
+        {
+            data.put("distance", engineer.getLocation().distanceBetween(starSystem));
+        }
+        engineerProgress.put(engineer, data);
     }
 
     public void setMaterialCount(Material material, Integer count)
@@ -1045,7 +1071,37 @@ public class PlayerState
         return JSONSupport.Write.jsonToString.apply(data);
     }
 
+    private String prepareEngineerData()
+    {
+        Arrays.stream(Engineer.values())
+            .filter(e->!engineerProgress.containsKey(e))
+            .forEach(engineer ->
+            {
+                var unknownEngineer = new HashMap<String, Object>();
+                unknownEngineer.put("status", "Unknown");
+                unknownEngineer.put("rank", 0);
+                unknownEngineer.put("progress", 0);
+                unknownEngineer.put("location", "Unknown");
+                unknownEngineer.put("system", "Unknown");
+                unknownEngineer.put("distance", -1);
+                unknownEngineer.put("name", engineer.getFullName());
+                engineerProgress.put(engineer, unknownEngineer);
+            });
+
+        var formattedData = new HashMap<String, Object>();
+        engineerProgress.forEach(((engineer, data) ->
+            formattedData.put(engineer.name(), data)));
+
+        return JSONSupport.Write.jsonToString.apply(formattedData);
+    }
+
     //region UI Event Emitters
+
+    public void emitEngineerData()
+    {
+        // todo: emit data
+        executeWithLock(() -> globalUpdate.accept("Engineers", prepareEngineerData()));
+    }
 
     public void emitLoadoutEvent()
     {
@@ -1115,10 +1171,17 @@ public class PlayerState
 
             directUpdate.accept("Market", "updated");
 
+            if (starSystem != null)
+            {
+                directUpdate.accept("Location", starSystem.systemName);
+            }
+
             if (shipType != null)
             {
                 directUpdate.accept("Ship_Data", shipType.toJson());
             }
+
+            directUpdate.accept("Engineers", prepareEngineerData());
 
             directUpdate.accept("CurrentMass", String.valueOf(calculateCurrentMass()));
 
