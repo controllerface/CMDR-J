@@ -149,6 +149,34 @@ const shipTypes =
     cutter : "Imperial Cutter"
 }
 
+function determineReputation(status)
+{
+    if (status <= -90)
+    {
+        return "Hostile";
+    }
+    else if (status > -90 && status <= -35)
+    {
+        return "Unfriendly";
+    }
+    else if (status > -35 && status <= 4)
+    {
+        return "Neutral";
+    }
+    else if (status > 4 && status <= 35)
+    {
+        return "Cordial";
+    }
+    else if (status > 35 && status <= 90)
+    {
+        return "Friendly";
+    }
+    else if (status > 90)
+    {
+        return "Allied";
+    }
+}
+
 /*
 Called with an element ID and text value, which is set as the textContent property on the located
 element. Note that the located DOM element is assumed to exist already in the DOM. If the element
@@ -826,6 +854,12 @@ function handleEngineerData(data)
     }
 }
 
+function handleFactionData(statistic, data)
+{
+    let factionStats = document.getElementById('factionStats');
+    factionStats[statistic] = data;
+}
+
 /*
 This object contains event listener functions that will be bound to the local event source
 on page load. For each key listed below, the mapped function is bound to an event with the
@@ -888,21 +922,33 @@ const eventListeners =
     Progress_Explore: (e) => setElementProgress("Progress_Explore", e.data),
     Progress_CQC: (e) => setElementProgress("Progress_CQC", e.data),
 
-    // Federal naval rank and reputation
-    Rank_Federation: (e) => setElementText("Rank_Federation", federalRanks[e.data]),
-    Progress_Federation: (e) => setElementProgress("Progress_Federation", e.data),
-    Reputation_Federation: (e) => setElementProgress("Reputation_Federation", e.data),
+    // Naval ranks
+    Rank_Federation: (e) => handleFactionData("federalNavy", federalRanks[e.data]),
+    Progress_Federation: (e) => handleFactionData("federalNavyProgress", e.data),
+    Rank_Empire: (e) => handleFactionData("imperialNavy", empireRanks[e.data]),
+    Progress_Empire: (e) => handleFactionData("imperialNavyProgress", e.data),
 
-    // Imperial navy rank and reputation
-    Rank_Empire: (e) => setElementText("Rank_Empire", empireRanks[e.data]),
-    Progress_Empire: (e) => setElementProgress("Progress_Empire", e.data),
-    Reputation_Empire: (e) => setElementProgress("Reputation_Empire", e.data),
-
-    // Alliance reputation
-    Reputation_Alliance: (e) => setElementProgress("Reputation_Alliance", e.data),
-
-    // Independent (non-allied) reputation
-    Reputation_Independent: (e) => setElementProgress("Reputation_Independent", e.data),
+    // Faction reputations
+    Reputation_Federation: (e) =>
+    {
+        handleFactionData("federation", determineReputation(e.data));
+        handleFactionData("federationProgress", e.data);
+    },
+    Reputation_Empire: (e) =>
+    {
+        handleFactionData("empire", determineReputation(e.data));
+        handleFactionData("empireProgress", e.data);
+    },
+    Reputation_Alliance: (e) =>
+    {
+        handleFactionData("alliance", determineReputation(e.data));
+        handleFactionData("allianceProgress", e.data);
+    },
+    Reputation_Independent: (e) =>
+    {
+        handleFactionData("independent", determineReputation(e.data));
+        handleFactionData("independentProgress", e.data);
+    },
 
     // Signals the player's ship loadout has changed
     Loadout: (e) => requestJsonEndpoint('/loadout', setLoadout),

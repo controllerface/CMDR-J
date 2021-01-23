@@ -1,10 +1,12 @@
+@import "common.css";
+
 .dataHeader
 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin: .2em;
     margin-top: .5em;
-    border: 2px solid dimgray;
+    border: 2px solid var(--default-divider);
     border-radius: 3px;
     padding: .5em;
 }
@@ -15,7 +17,7 @@
     grid-template-columns: 1fr 1fr;
     margin: .2em;
     margin-top: .5em;
-    border: 2px solid dimgray;
+    border: 2px solid var(--default-divider);
     border-radius: 3px;
     padding: .5em;
 }
@@ -27,7 +29,7 @@
 
 .headerStat
 {
-    color: antiquewhite;
+    color: var(--default-text);
     padding-left: .2em;
 }
 
@@ -46,9 +48,9 @@
 
 .statName
 {
-    border: 1px solid #bd6206;
+    border: 1px solid var(--default-border);
     border-right: 0px;
-    color: antiquewhite;
+    color: var(--default-text);
     padding: .2em;
     border-radius: 3px 0px 0px 3px;
     margin: .2em;
@@ -58,9 +60,9 @@
 .statValue
 {
     font-weight: bold;
-    border: 1px solid #bd6206;
-    border-left: 1px dotted dimgray;
-    color: antiquewhite;
+    border: 1px solid var(--default-border);
+    border-left: 1px dotted var(--default-divider);
+    color: var(--default-text);
     padding: .2em;
     border-radius: 0px 3px 3px 0px;
     text-align: center;
@@ -70,21 +72,21 @@
 
 .valueUnit
 {
-    color: #f07b05;
+    color: var(--default-color);
     margin-left: .2em;
     margin-right: .2em;
 }
 
 .multiplierBracket
 {
-    color: dimgray;
+    color: var(--default-divider);
     margin-left: .2em;
     margin-right: .2em;
 }
 
 .statEntryNameHeader
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     border-radius: 3px 0px 0px 3px;
     padding: 3px;
     font-weight: bold;
@@ -93,7 +95,7 @@
 
 .statEntryLeftHeader
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -101,7 +103,7 @@
 
 .statEntryInnerHeader
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -109,7 +111,7 @@
 
 .statEntryRightHeader
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -118,50 +120,50 @@
 
 .statEntryName
 {
-    border: solid 1px #bd6206;
+    border: solid 1px var(--default-border);
     border-right: 0px;
     border-radius: 3px 0px 0px 3px;
     padding: 5px;
-    color: antiquewhite;
+    color: var(--default-text);
 }
 
 .statEntryLeftCap
 {
-    border: solid 1px #bd6206;
+    border: solid 1px var(--default-border);
     border-right: 0px;
     border-radius: 3px 0px 0px 3px;
     text-align: center;
     padding-top: .35em;
-    color: antiquewhite;
+    color: var(--default-text);
     font-weight: bold;
 }
 
 .statEntryLeft
 {
-    border: solid 1px #bd6206;
-    border-left: 1px dotted dimgray;
+    border: solid 1px var(--default-border);
+    border-left: 1px dotted var(--default-divider);
     border-right: 0px;
     text-align: center;
     padding-top: .35em;
-    color: antiquewhite;
+    color: var(--default-text);
     font-weight: bold;
 }
 
 .statEntryInner
 {
-    border: solid 1px #bd6206;
-    border-left: 1px dotted dimgray;
-    border-right: 1px dotted dimgray;
+    border: solid 1px var(--default-border);
+    border-left: 1px dotted var(--default-divider);
+    border-right: 1px dotted var(--default-divider);
     text-align: center;
     padding-top: .35em;
-    color: antiquewhite;
+    color: var(--default-text);
     font-weight: bold;
 }
 
 .statEntryRight
 {
-    border: solid 1px #bd6206;
-    border-left: dotted 1px dimgray;
+    border: solid 1px var(--default-border);
+    border-left: dotted 1px var(--default-divider);
     text-align: center;
     padding-top: .35em;
     border-radius: 0px 3px 3px 0px;
@@ -170,12 +172,12 @@
 
 .statEntryRightCap
 {
-    border: solid 1px #bd6206;
-    border-left: dotted 1px dimgray;
+    border: solid 1px var(--default-border);
+    border-left: dotted 1px var(--default-divider);
     text-align: center;
     padding-top: .35em;
     border-radius: 0px 3px 3px 0px;
-    color: antiquewhite;
+    color: var(--default-text);
     font-weight: bold;
 }
 
@@ -275,15 +277,31 @@
 }
 
 
+.factionHeader
+{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+}
+
+.factionRow
+{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+}
+
 .emptySection
 {
-    border: solid 1px #bd6206;
+    border: solid 1px var(--default-border);
     border-radius: 3px 3px 3px 3px;
     padding: 1em;
     font-weight: bold;
     text-align: center;
     margin: 4px;
-    color: antiquewhite;
+    color: var(--default-text);
 }
 
 .unused

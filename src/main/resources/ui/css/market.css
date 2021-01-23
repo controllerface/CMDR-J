@@ -1,10 +1,12 @@
+@import "common.css";
+
 #marketHeader
 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin: .2em;
     margin-top: .5em;
-    border: 2px solid dimgray;
+    border: 2px solid var(--default-divider);
     border-radius: 3px;
     padding: .5em;
 }
@@ -22,7 +24,7 @@
 
 .marketHeaderValue
 {
-    color: antiquewhite;
+    color: var(--default-text);
 }
 
 .marketTypeValue
@@ -41,7 +43,7 @@
 
 .marketNameHeader
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     border-radius: 3px 0px 0px 3px;
     padding: 3px;
     font-weight: bold;
@@ -50,7 +52,7 @@
 
 .marketQuantityHeader
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -58,7 +60,7 @@
 
 .marketPriceHeader
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -66,7 +68,7 @@
 
 .marketProfitHeader
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -75,53 +77,53 @@
 
 .marketName
 {
-    border: solid 1px #bd6206;
+    border: solid 1px var(--default-border);
     border-right: 0px;
     border-radius: 3px 0px 0px 3px;
     padding: 3px;
-    color: antiquewhite;
+    color: var(--default-text);
 }
 
 .marketQuantity
 {
-    border: solid 1px #bd6206;
-    border-left: 1px dotted dimgray;
+    border: solid 1px var(--default-border);
+    border-left: 1px dotted var(--default-divider);
     border-right: 0px;
     text-align: center;
     padding: 3px;
-    color: antiquewhite;
+    color: var(--default-text);
     font-weight: bold;
 }
 
 .marketPrice
 {
-    border: solid 1px #bd6206;
-    border-left: 1px dotted dimgray;
+    border: solid 1px var(--default-border);
+    border-left: 1px dotted var(--default-divider);
     border-right: 0px;
     text-align: center;
     padding: 3px;
-    color: antiquewhite;
+    color: var(--default-text);
     font-weight: bold;
 }
 
 .marketProfit
 {
-    border: solid 1px #bd6206;
-    border-left: 1px dotted dimgray;
+    border: solid 1px var(--default-border);
+    border-left: 1px dotted var(--default-divider);
     text-align: center;
     padding: 3px;
     border-radius: 0px 3px 3px 0px;
-    color: antiquewhite;
+    color: var(--default-text);
     font-weight: bold;
 }
 
 .marketPlaceholder
 {
-    border: solid 1px #bd6206;
+    border: solid 1px var(--default-border);
     border-radius: 3px 3px 3px 3px;
     padding: 1em;
     font-weight: bold;
     text-align: center;
     margin: 4px;
-    color: antiquewhite;
+    color: var(--default-text);
 }

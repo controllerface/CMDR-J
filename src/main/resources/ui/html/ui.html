@@ -15,6 +15,7 @@
     <script src="market.js"></script>
     <script src="material.js"></script>
     <script src="moduleBay.js"></script>
+    <script src="factionStats.js"></script>
     <script src="offenseStats.js"></script>
     <script src="offenseModule.js"></script>
     <script src="offenseTurret.js"></script>
@@ -591,12 +592,13 @@
             <span class="statEntryLeftHeader">Location</span>
             <span class="statEntryInnerHeader">Distance</span>
             <span class="statEntryInnerHeader">Status</span>
-            <span class="statEntryRightHeader">Next</span>
-            <span class="statEntryInnerHeader">Rank</span>
+            <span class="statEntryInnerHeader">Next</span>
+            <span class="statEntryRightHeader">Rank</span>
         </div>
         <slot></slot>
     </template>
 
+    <!-- Engineer data container template -->
     <template id="template_EngineerData">
         <link rel="stylesheet" href="statistics.css">
         <div class="engineerRow">
@@ -623,6 +625,94 @@
 
             <span class="statEntryRightCap" id="engineerData_rank"></span>
         </div>
+    </template>
+
+    <!-- Faction reputations and naval ranks -->
+    <template id="template_FactionStats">
+        <link rel="stylesheet" href="statistics.css">
+
+        <div class="category">Naval Ranks</div>
+        <div class="factionHeader">
+            <span class="statEntryNameHeader">Navy</span>
+            <span class="statEntryLeftHeader">Rank</span>
+            <span class="statEntryRightHeader">Progress</span>
+        </div>
+
+        <div class="factionRow">
+            <span class="statEntryName">Federal</span>
+            <span class="statEntryLeft" id="factionStats_federalnavy">None</span>
+            <div class="statEntryRightCap">
+                <progress max="100" id="factionStats_federalnavyprogress" value="0"></progress>
+            </div>
+        </div>
+
+        <div class="factionRow">
+            <span class="statEntryName">Imperial</span>
+            <span class="statEntryLeft" id="factionStats_imperialnavy">None</span>
+            <div class="statEntryRightCap">
+                <progress max="100" id="factionStats_imperialnavyprogress" value="0"></progress>
+            </div>
+        </div>
+
+        <div class="category">Factions</div>
+        <div class="factionHeader">
+            <span class="statEntryNameHeader">Faction</span>
+            <span class="statEntryLeftHeader">Reputation</span>
+            <span class="statEntryRightHeader">Status</span>
+        </div>
+
+        <div class="factionRow">
+            <span class="statEntryName">Federation</span>
+            <span class="statEntryLeft" id="factionStats_federation">None</span>
+            <div class="statEntryRightCap">
+                <meter min="-100"
+                       max="100"
+                       low="-35"
+                       high="90"
+                       optimum="100"
+                       value="0"
+                       id="factionStats_federationprogress"></meter>            </div>
+        </div>
+
+        <div class="factionRow">
+            <span class="statEntryName">Empire</span>
+            <span class="statEntryLeft" id="factionStats_empire">None</span>
+            <div class="statEntryRightCap">
+                <meter min="-100"
+                       max="100"
+                       low="-35"
+                       high="90"
+                       optimum="100"
+                       value="0"
+                       id="factionStats_empireprogress"></meter>              </div>
+        </div>
+
+        <div class="factionRow">
+            <span class="statEntryName">Alliance</span>
+            <span class="statEntryLeft" id="factionStats_alliance">None</span>
+            <div class="statEntryRightCap">
+                <meter min="-100"
+                       max="100"
+                       low="-35"
+                       high="90"
+                       optimum="100"
+                       value="0"
+                       id="factionStats_allianceprogress"></meter>               </div>
+        </div>
+
+        <div class="factionRow">
+            <span class="statEntryName">Independent</span>
+            <span class="statEntryLeft" id="factionStats_independent">None</span>
+            <div class="statEntryRightCap">
+                <meter min="-100"
+                       max="100"
+                       low="-35"
+                       high="90"
+                       optimum="100"
+                       value="0"
+                       id="factionStats_independentprogress"></meter>               </div>
+        </div>
+
     </template>
 </head>
 
@@ -708,85 +798,7 @@
             <input name="commanderTabs" type="radio" id="reputationTabButton" class="tabInput"/>
             <label id="commanderRankTab" for="reputationTabButton" class="tabLabel">Faction Reputation</label>
             <div class="tabPanel">
-
-
-                <div id="card2">
-                </div>
-
-                <div id="card3">
-                </div>
-
-                <div id="card4">
-                    <h2>Faction Reputation</h2>
-
-                    <div>Federation</div>
-                    <meter min="-100"
-                           max="100"
-                           low="-35"
-                           high="90"
-                           optimum="100"
-                           id="Reputation_Federation"></meter>
-                    <br/>
-                    <br/>
-
-                    <div>Empire</div>
-                    <meter min="-100"
-                           max="100"
-                           low="-35"
-                           high="90"
-                           optimum="100"
-                           id="Reputation_Empire"></meter>
-                    <br/>
-                    <br/>
-
-                    <div>Alliance</div>
-                    <meter min="-100"
-                           max="100"
-                           low="-35"
-                           high="90"
-                           optimum="100"
-                           id="Reputation_Alliance"></meter>
-                    <br/>
-                    <br/>
-
-                    <div>Independent</div>
-                    <meter min="-100"
-                           max="100"
-                           low="-35"
-                           high="90"
-                           optimum="100"
-                           id="Reputation_Independent"></meter>
-                    <br/>
-                    <br/>
-
-                    <div>Test</div>
-                    <meter min="-100"
-                           max="100"
-                           low="-35"
-                           high="90"
-                           optimum="100"
-                           value="-45"></meter>
-                    <br/>
-                    <br/>
-                </div>
-
-                <div id="card5">
-                    <h2>Naval Ranks</h2>
-
-                    <div>Federal</div>
-                    <b id="Rank_Federation"></b>
-                    <br/>
-                    <progress max="100" id="Progress_Federation"></progress>
-                    <br/>
-                    <br/>
-
-                    <div>Imperial</div>
-                    <b id="Rank_Empire"></b>
-                    <br/>
-                    <progress max="100" id="Progress_Empire"></progress>
-                    <br/>
-                    <br/>
-                </div>
+                <faction-stats id="factionStats"></faction-stats>
             </div>
 
             <input name="commanderTabs" type="radio" id="statsTabButton" class="tabInput"/>

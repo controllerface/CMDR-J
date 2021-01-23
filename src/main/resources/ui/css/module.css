@@ -1,3 +1,5 @@
+@import "common.css";
+
 summary
 {
   outline: none;
@@ -27,8 +29,8 @@ details > summary::-webkit-details-marker
 
 .module
 {
-    border: solid 1px #bd6206;
-    border-left: dotted 1px dimgray;
+    border: solid 1px var(--default-border);
+    border-left: dotted 1px var(--default-divider);
 
     padding: 3px;
     padding-left: 6px;
@@ -36,12 +38,12 @@ details > summary::-webkit-details-marker
     margin-left: 0px;
     margin-right: 4px;
     border-radius: 0px 3px 3px 0px;
-    color: antiquewhite;
+    color: var(--default-text);
 }
 
 .slotName
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     border-right: 0px;
     border-radius: 3px 0px 0px 3px;
     padding: 3px;
@@ -55,7 +57,7 @@ details > summary::-webkit-details-marker
 
 .statTable
 {
-    border-top: 1px dotted #bd6206;
+    border-top: 1px dotted var(--default-border);
     display: grid;
 }
 
@@ -105,56 +107,23 @@ details > summary::-webkit-details-marker
 {
     text-align: left;
     padding-left: 5px;
-    color: #f07b05;
+    color: var(--default-color);
     background: linear-gradient(90deg, #222, black);
     animation: slideLeft 0.3s ease;/*steps(30, end)*/
 }
 
-.positive
-{
-    color: #00b3f7;
-}
 
-.negative
-{
-    color: #ff0000;
-}
 
-.modification
-{
-    color: #ff7100;
-}
 
-.experimental
+progress::-webkit-progress-value
 {
-    color: #ffb000;
-}
-
-.guardian
-{
-    color: #0a8bd6;
-}
-
-.antixeno
-{
-    color: #029e4c;
-}
-
-progress[value]
-{
-    appearance: none;
-}
-
-progress[value]::-webkit-progress-value
-{
-    background: #ff7100;
+    background: var(--modification-color);
     height: .6em;
     margin-top: .21em;
 }
 
-progress[value]::-webkit-progress-bar
+progress::-webkit-progress-bar
 {
-    background: #333;
     height: .6em;
     margin-top: .21em;
 }
@@ -190,15 +159,15 @@ progress[value]::-webkit-progress-bar
 
 .moduleHealthFull
 {
-    color: #00b3f7;
+    color: var(--positive-color);
 }
 
 .moduleHealthHalf
 {
-    color: #ffb000;
+    color: var(--experimental-color);
 }
 
 .moduleHealthLow
 {
-    color: #ff0000;
+    color: var(--negative-color);
 }

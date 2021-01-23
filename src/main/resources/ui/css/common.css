@@ -3,3 +3,152 @@
     font-family: EUROCAPS;
     src: url('EUROCAPS.ttf');
 }
+
+*
+{
+    font-family: EUROCAPS;
+
+    /* Main UI color, used in most places where no other color is specified */
+    --default-color: #f07b05;
+
+    /* Used for cases where a slightly muted color is needed, typically behind
+    a progress bar or other element that would lose definition if seen as transparent */
+    --default-background: #333;
+
+    --default-divider: dimgray;
+
+    /* Used in most cases as the default text color */
+    --default-text: antiquewhite;
+
+    /* Typically used for statistic entries in UI panels */
+    --default-border: #bd6206;
+
+    /* Indicates something is positive, better than normal */
+    --positive-color: #00b3f7;
+
+    /* Indicates something is negative, worse than normal */
+    --negative-color: #ff0000;
+
+    /* Used to signify an item has an engineering mod, or is a modification effect */
+    --modification-color: #ff7100;
+
+    /* Used to signify an item has, or is, an experimental effect */
+    --experimental-color: #ffb000;
+
+    /* Used to signify an item or effect is guardian related */
+    --guardian-color: #0a8bd6;
+
+    /* Used to signify an item or effect is anti-xeno (Aegis) related */
+    --anti-xeno-color: #029e4c;
+}
+
+/*
+Represents a value that is positive, for example a modification to a module stat that is
+beneficial, or a faction reputation that is better than average.
+*/
+.positive
+{
+    color: var(--positive-color);
+}
+
+/*
+Represents a value that is negative, for example a modification to a module stat that is
+detrimental, or a faction reputation that is worse than average.
+*/
+.negative
+{
+    color: var(--negative-color);
+}
+
+/*
+Represents an engineer specific modification effect or a module that has such an effect.
+*/
+.modification
+{
+    color: var(--modification-color);
+}
+
+/*
+Represents an engineer specific experimental effect or a module that has such an effect.
+*/
+.experimental
+{
+    color: var(--experimental-color);
+}
+
+/*
+Represents an guardian specific effect or a module.
+*/
+.guardian
+{
+    color: var(--guardian-color);
+}
+
+/*
+Represents an anti-xeno specific effect or a module.
+*/
+.antixeno
+{
+    color: var(--anti-xeno-color);
+}
+
+/*
+Global styling parameters for <progress> elements. Note these may be overridden in cases
+where it is necessary.
+*/
+progress
+{
+    appearance: none;
+}
+
+progress::-webkit-progress-value
+{
+    background: var(--default-color);
+}
+
+progress::-webkit-progress-bar
+{
+    background: var(--default-background);
+}
+
+/*
+Global styling parameters for <meter> elements. These are mainly used to represent faction
+reputation states that range from -100 to 100.
+*/
+
+meter
+{
+    background: var(--default-background);
+    border-radius: 0px;
+    width: 10em;
+    height: 1em;
+}
+
+meter::-webkit-meter-bar
+{
+    background: var(--default-background);
+    border: 0px;
+    border-radius: 0px;
+    height: 1em;
+}
+
+meter::-webkit-meter-optimum-value
+{
+    background: var(--positive-color);
+    border-radius: 0px;
+    height: 1em;
+}
+
+meter::-webkit-meter-suboptimum-value
+{
+    background: var(--default-color);
+    border-radius: 0px;
+    height: 1em;
+}
+
+meter::-webkit-meter-even-less-good-value
+{
+    background: var(--negative-color);
+    border-radius: 0px;
+    height: 1em;
+}

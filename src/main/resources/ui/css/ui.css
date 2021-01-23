@@ -2,8 +2,7 @@
 
 *
 {
-    font-family: EUROCAPS;
-    color: #f07b05;
+    color: var(--default-color);
 }
 
 body
@@ -14,20 +13,20 @@ body
 
 body::-webkit-scrollbar
 {
-  width: 1em;               /* width of the entire scrollbar */
+  width: 1em;
 }
 
 body::-webkit-scrollbar-track
 {
-  background: black;        /* color of the tracking area */
-  border: 1px solid #f07b05;
+  background: black;
+  border: 1px solid var(--default-color);
 }
 
 body::-webkit-scrollbar-thumb
 {
-  background-color: #333;    /* color of the scroll thumb */
-  border-radius: 3px;       /* roundness of the scroll thumb */
-  border: 2px solid #f07b05;  /* creates padding around scroll thumb */
+  background-color: var(--default-background);
+  border-radius: 3px;
+  border: 2px solid var(--default-color);
 }
 
 body::-webkit-scrollbar-corner
@@ -37,7 +36,7 @@ body::-webkit-scrollbar-corner
 
 .dashboard
 {
-    border: 2px solid #f07b05;
+    border: 2px solid var(--default-color);
     height: 12em;
     border-radius: 3px;
     max-width: 59.5em;
@@ -69,7 +68,7 @@ body::-webkit-scrollbar-corner
 .dashboardValue
 {
     font-size: 3em;
-    color: antiquewhite;
+    color: var(--default-text);
     text-align: left;
     padding-left: .2em;
     overflow: hidden;
@@ -84,7 +83,7 @@ body::-webkit-scrollbar-corner
 .dashboardSmallValue
 {
     font-size: 1.5em;
-    color: antiquewhite;
+    color: var(--default-text);
     text-align: left;
     padding-left: .5em;
 }
@@ -106,7 +105,7 @@ body::-webkit-scrollbar-corner
     font-size: 1em;
     text-align: left;
     padding-left: .8em;
-    color: antiquewhite;
+    color: var(--default-text);
 }
 
 .dashboardRankMeter
@@ -151,20 +150,7 @@ details > summary::-webkit-details-marker
     margin-bottom: 0.1em;
 }
 
-progress[value]
-{
-    appearance: none;
-}
 
-progress[value]::-webkit-progress-value
-{
-    background: #f07b05;
-}
-
-progress[value]::-webkit-progress-bar
-{
-    background: #333;
-}
 
 .binCategoryHeader
 {
@@ -182,7 +168,7 @@ progress[value]::-webkit-progress-bar
 
 .binHeaderName
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     border-radius: 3px 0px 0px 3px;
     padding: 3px;
     font-weight: bold;
@@ -191,7 +177,7 @@ progress[value]::-webkit-progress-bar
 
 .binHeaderGrade
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -199,7 +185,7 @@ progress[value]::-webkit-progress-bar
 
 .binHeaderCount
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -207,7 +193,7 @@ progress[value]::-webkit-progress-bar
 
 .binHeaderCountEnd
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     border-radius: 0px 3px 3px 0px;
     text-align: center;
     font-weight: bold;
@@ -217,7 +203,7 @@ progress[value]::-webkit-progress-bar
 
 .binHeaderCapacity
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -236,7 +222,7 @@ progress[value]::-webkit-progress-bar
 
 .binHeaderType
 {
-    border: solid 1px dimgray;
+    border: solid 1px var(--default-divider);
     text-align: center;
     font-weight: bold;
     padding: 3px;
@@ -245,7 +231,7 @@ progress[value]::-webkit-progress-bar
 #inventory
 {
     grid-area: inven;
-    border: 1px solid #bd6206;
+    border: 1px solid var(--default-border);
     width: 90%;
     margin-left: 3em;
 }
@@ -294,7 +280,7 @@ progress[value]::-webkit-progress-bar
     grid-template-columns: 1fr 1fr 1fr;
     margin: .2em;
     margin-top: .5em;
-    border: 2px solid dimgray;
+    border: 2px solid var(--default-divider);
     border-radius: 3px;
     padding: .5em;
 }
@@ -306,7 +292,7 @@ progress[value]::-webkit-progress-bar
 
 .modeStat
 {
-    color: antiquewhite;
+    color: var(--default-text);
 }
 
 
@@ -334,7 +320,7 @@ progress[value]::-webkit-progress-bar
 
 .tabInput:checked + .tabLabel
 {
-    background: #f07b05;
+    background: var(--default-color);
     color: black;
 }
     
@@ -354,14 +340,14 @@ progress[value]::-webkit-progress-bar
     font-weight: bold;
     color: darkgray;
     transition: background 0.1s, color 0.1s;
-    border: 2px solid #bd6206;
+    border: 2px solid var(--default-border);
     /*box-shadow: 2px 2px #f07b05;*/
     margin: 1px;
 }
 
 .tabLabel:hover
 {
-    background: #f07b05;
+    background: var(--default-color);
     color: #fff;
 }
 
