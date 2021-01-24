@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.server;
 import com.controllerface.cmdr_j.JSONSupport;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.StarSystem;
+import com.controllerface.cmdr_j.classes.StellarBody;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.data.EntityKeys;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
@@ -24,8 +25,10 @@ import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInter
 import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacteristic;
 import com.controllerface.cmdr_j.ui.ShipModuleDisplay;
 import com.controllerface.cmdr_j.ui.UIFunctions;
+import jetbrains.exodus.entitystore.Entity;
 import jetbrains.exodus.entitystore.PersistentEntityStore;
 import jetbrains.exodus.entitystore.PersistentEntityStores;
+import jetbrains.exodus.entitystore.StoreTransaction;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -54,19 +57,23 @@ public class PlayerState
      */
     private final BiConsumer<String, String> globalUpdate;
 
-    private final Map<Statistic, String> commanderStatistics = new ConcurrentHashMap<>();
-    private final Map<Statistic, String> shipStatistics = new ConcurrentHashMap<>();
-    private final Map<Statistic, ShipModuleData> shipModules = new ConcurrentHashMap<>();
-    private final Map<String, Map<String, String>> extendedStats = new ConcurrentHashMap<>();
-    private final Map<Material, Integer> materials = new ConcurrentHashMap<>();
-    private final Map<Commodity, CommodityData> cargo = new ConcurrentHashMap<>();
-    private final Map<String, Object> marketData = new ConcurrentHashMap<>();
-    private final Map<Engineer, Map<String, Object>> engineerProgress = new ConcurrentHashMap<>();
+    private final Map<Statistic, String> commanderStatistics = new HashMap<>();
+    private final Map<Statistic, String> shipStatistics = new HashMap<>();
+    private final Map<Statistic, ShipModuleData> shipModules = new HashMap<>();
+    private final Map<String, Map<String, String>> extendedStats = new HashMap<>();
+    private final Map<Material, Integer> materials = new HashMap<>();
+    private final Map<Commodity, CommodityData> cargo = new HashMap<>();
+    private final Map<String, Object> marketData = new HashMap<>();
+    private final Map<Engineer, Map<String, Object>> engineerProgress = new HashMap<>();
+
+    private final List<StarSystem> currentRoute = new ArrayList<>();
 
     /**
      * Contains the commander's current credit balance.
      */
     private long creditBalance = 0;
+
+    private String commmanderName = "";
 
     // todo: need to account for resevoir value as well from status file
     private double currentFuel = 0;
@@ -166,12 +173,28 @@ public class PlayerState
         shipModules.clear();
     }
 
+    public void setCurrentRoute(List<StarSystem> route)
+    {
+        executeWithLock(() ->
+        {
+            currentRoute.clear();
+            currentRoute.addAll(route);
+            globalUpdate.accept("Route", prepareNavRouteData());
+        });
+    }
+
     public void setLocation(StarSystem starSystem)
     {
         this.starSystem = starSystem;
 
         engineerProgress.forEach((engineer, data) ->
             data.put("distance", engineer.getLocation().distanceBetween(this.starSystem)));
+
+        database.executeInTransaction((transaction)->
+        {
+            var systemEntity = getStarSystemEntity(transaction);
+            System.out.println("System: " + systemEntity);
+        });
 
         executeWithLock(() -> globalUpdate.accept("Location", this.starSystem.systemName));
 
@@ -269,15 +292,8 @@ public class PlayerState
         {
             if (statistic == CommanderStat.Commander)
             {
-                database.executeInTransaction(txn ->
-                {
-                    String commander = commanderStatistics.get(CommanderStat.Commander);
-                    if (txn.find(EntityKeys.COMMANDER, EntityKeys.NAME, commander).isEmpty())
-                    {
-                        txn.newEntity(EntityKeys.COMMANDER)
-                            .setProperty(EntityKeys.NAME, commander);
-                    }
-                });
+                commmanderName = commanderStatistics.get(CommanderStat.Commander);
+                database.executeInTransaction(this::ensureCommanderExists);
             }
 
             if (statistic == CommanderStat.Credits)
@@ -318,26 +334,6 @@ public class PlayerState
                     System.err.println("Could not determine ship type: " + value);
                 }
             }
-        }
-
-        if (statistic instanceof CoreInternalSlot)
-        {
-
-        }
-
-        if (statistic instanceof CosmeticSlot)
-        {
-
-        }
-
-        if (statistic instanceof HardpointSlot)
-        {
-
-        }
-
-        if (statistic instanceof OptionalInternalSlot)
-        {
-
         }
     }
 
@@ -666,7 +662,6 @@ public class PlayerState
         // round the result to 1 decimal place to match the in-game UI
         return statGroup;
     }
-
 
     private ShipStatisticData.StatGroup getArmorResistanceTotal(ItemEffect resistanceEffect)
     {
@@ -1095,6 +1090,145 @@ public class PlayerState
         return JSONSupport.Write.jsonToString.apply(formattedData);
     }
 
+    private String prepareNavRouteData()
+    {
+        var data = new HashMap<String, Object>();
+        var routePoints = currentRoute.stream().map(routeSystem ->
+        {
+            var formattedData = new HashMap<String, Object>();
+            formattedData.put("name", routeSystem.systemName);
+            formattedData.put("distance", this.starSystem.distanceBetween(routeSystem));
+            return formattedData;
+        }).collect(Collectors.toList());
+        data.put("route", routePoints);
+        return JSONSupport.Write.jsonToString.apply(data);
+    }
+
+    public void updateStellarBody(StellarBody stellarBody)
+    {
+        database.executeInTransaction((transaction)->
+        {
+            var systemEntity = getStarSystemEntity(transaction);
+            if (systemEntity == null) return;
+
+            var bodies = transaction.find(EntityKeys.STELLAR_BODY, EntityKeys.STELLAR_BODY_ID, stellarBody.id);
+            var bodyEntity = EntityKeys.entityStream(bodies)
+                .filter(body ->
+                {
+                    var linkedSystem = body.getLink(EntityKeys.STAR_SYSTEM);
+                    if (linkedSystem == null) return false;
+                    boolean b = linkedSystem.getId().compareTo(systemEntity.getId()) == 0;
+                    if (b)
+                    {
+                        System.out.println("Found body: " + body);
+                    }
+                    return b;
+                })
+                .findFirst().orElseGet(() ->
+                {
+                    var newBody = transaction.newEntity(EntityKeys.STELLAR_BODY);
+                    newBody.setLink(EntityKeys.STAR_SYSTEM, systemEntity);
+                    systemEntity.addLink(EntityKeys.STELLAR_BODY, newBody);
+                    System.out.println("New Body: " + newBody);
+                    return newBody;
+                });
+            stellarBody.storeBodyData(bodyEntity);
+        });
+
+        executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
+    }
+
+    //region Database Access Functions
+
+    private void ensureCommanderExists(StoreTransaction transaction)
+    {
+        if (commmanderName.isEmpty())
+        {
+            System.err.println("Commander name is empty!");
+        }
+        if (transaction.find(EntityKeys.COMMANDER, EntityKeys.NAME, commmanderName).isEmpty())
+        {
+            transaction.newEntity(EntityKeys.COMMANDER)
+                .setProperty(EntityKeys.NAME, commmanderName);
+        }
+    }
+
+    private Entity getCommanderEntity(StoreTransaction transaction)
+    {
+        if (commmanderName.isEmpty()) return null;
+        return transaction.find(EntityKeys.COMMANDER, EntityKeys.NAME, commmanderName).getFirst();
+    }
+
+    private Entity getStarSystemEntity(StoreTransaction transaction)
+    {
+        var commanderEntity = getCommanderEntity(transaction);
+        if (commanderEntity == null) return null;
+
+        var systems = transaction.find(EntityKeys.STAR_SYSTEM, EntityKeys.STAR_SYSTEM_ADDRESS, starSystem.address);
+        var systemEntity = EntityKeys.entityStream(systems)
+            .filter(system ->
+            {
+                System.out.println("Found system");
+                var linkedCommander = system.getLink(EntityKeys.COMMANDER);
+                if (linkedCommander == null) return false;
+                return linkedCommander.getId().compareTo(commanderEntity.getId()) == 0;
+            })
+            .findFirst().orElseGet(()->
+            {
+                System.out.println("New system");
+                var newSystem = transaction.newEntity(EntityKeys.STAR_SYSTEM);
+                starSystem.storeSystemData(newSystem);
+                newSystem.setLink(EntityKeys.COMMANDER, commanderEntity);
+                commanderEntity.addLink(EntityKeys.STAR_SYSTEM, newSystem);
+                return newSystem;
+            });
+
+        System.out.println("System: " + systemEntity);
+        return systemEntity;
+    }
+
+    private static void entityToMap(Entity entity, Map<String, Object> map)
+    {
+        entity.getPropertyNames()
+            .forEach(propertyName -> map.put(propertyName, entity.getProperty(propertyName)));
+    }
+
+    private Map<String, Object> prepareCartographicData(long systemAddress)
+    {
+        return database.computeInTransaction(transaction ->
+        {
+            var data = new HashMap<String, Object>();
+            var commanderEntity = getCommanderEntity(transaction);
+            if (commanderEntity == null) return data;
+
+            var systems = transaction.find(EntityKeys.STAR_SYSTEM, EntityKeys.STAR_SYSTEM_ADDRESS, systemAddress);
+            EntityKeys.entityStream(systems)
+                .filter(system ->
+                {
+                    var commander = system.getLink(EntityKeys.COMMANDER);
+                    return commander != null && commander.getId().compareTo(commanderEntity.getId()) == 0;
+                })
+                .findFirst()
+                .ifPresent(systemEntity ->
+                {
+                    entityToMap(systemEntity, data);
+                    var bodies = systemEntity.getLinks(EntityKeys.STELLAR_BODY);
+                    var bodyList = EntityKeys.entityStream(bodies)
+                        .map(bodyEntity ->
+                        {
+                            var bodyData = new HashMap<String, Object>();
+                            entityToMap(bodyEntity, bodyData);
+                            return bodyData;
+                        })
+                        .collect(Collectors.toList());
+                    data.put("bodies", bodyList);
+                });
+            return data;
+        });
+    }
+
+    //endregion
+
     //region UI Event Emitters
 
     public void emitEngineerData()
@@ -1174,11 +1308,17 @@ public class PlayerState
             if (starSystem != null)
             {
                 directUpdate.accept("Location", starSystem.systemName);
+                directUpdate.accept("Cartography", String.valueOf(starSystem.address));
             }
 
             if (shipType != null)
             {
                 directUpdate.accept("Ship_Data", shipType.toJson());
+            }
+
+            if (!currentRoute.isEmpty())
+            {
+                directUpdate.accept("Route", prepareNavRouteData());
             }
 
             directUpdate.accept("Engineers", prepareEngineerData());
@@ -1323,6 +1463,11 @@ public class PlayerState
     public String writeMarketData()
     {
         return JSONSupport.Write.jsonToString.apply(marketData);
+    }
+
+    public String writeCartographicData(long systemAddress)
+    {
+        return JSONSupport.Write.jsonToString.apply(prepareCartographicData(systemAddress));
     }
 
     //endregion

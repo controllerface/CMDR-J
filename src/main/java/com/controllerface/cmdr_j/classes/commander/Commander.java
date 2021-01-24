@@ -96,7 +96,7 @@ public class Commander
      * This object holds the persistent data related to this commander
      */
     private final PersistentEntityStore database =
-            PersistentEntityStores.newInstance(UIFunctions.DATA_FOLDER + "/db");
+            PersistentEntityStores.newInstance(UIFunctions.DATA_FOLDER + "/db_old");
 
     /**
      * Various commander statistics

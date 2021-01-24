@@ -860,6 +860,32 @@ function handleFactionData(statistic, data)
     factionStats[statistic] = data;
 }
 
+function handleRouteData(data)
+{
+    let route = JSON.parse(data)['route'];
+
+    let navigationRoute = document.getElementById('navigationRoute');
+    navigationRoute.textContent = "";
+    navigationRoute.destination = route[route.length - 1]['name'];
+    navigationRoute.distance = route[route.length - 1]['distance'];
+
+    for (let i = 0, len = route.length; i < len; i++)
+    {
+        let nextSystem = route[i];
+        let nextEntry = document.createElement('route-entry');
+        nextEntry.system = nextSystem['name'];
+        nextEntry.distance = nextSystem['distance'];
+        navigationRoute.append(nextEntry);
+    }
+}
+
+function setCartographyData(data)
+{
+    console.log(data);
+    let systemCartography = document.getElementById('systemCartography');
+    systemCartography.system = data['star_system'];
+}
+
 /*
 This object contains event listener functions that will be bound to the local event source
 on page load. For each key listed below, the mapped function is bound to an event with the
@@ -976,6 +1002,11 @@ const eventListeners =
 
     // Called when the player's crafting material counts change
     Material: (e) => handleMaterial(e.data),
+
+    // Contains the player's currently planned navigation route
+    Route: (e) => handleRouteData(e.data),
+
+    Cartography: (e) => requestJsonEndpoint('/cartography?id=' + e.data, setCartographyData),
 };
 
 window.onload = (e) =>

@@ -183,91 +183,54 @@
 
 
 
-.offenseTotalsHeader
-{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    margin: .2em;
-    margin-top: .5em;
-}
-
-.offenseHeader
-{
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-    margin: .2em;
-    margin-top: .5em;
-}
-
-.offenseTurretsHeader
-{
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    margin: .2em;
-    margin-top: .5em;
-}
-
+.offenseTotalsHeader,
 .offenseTotalsRow
 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     margin: .2em;
+    margin-top: .5em;
 }
 
+.offenseHeader,
 .offenseRow
 {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
     margin: .2em;
+    margin-top: .5em;
 }
 
+.offenseTurretsHeader,
 .offenseTurretsRow
 {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     margin: .2em;
-}
-
-
-.defenseHeader
-{
-    display: grid;
-    grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1fr 1fr;
-    margin: .2em;
     margin-top: .5em;
 }
 
+
+.defenseHeader,
 .defenseRow
 {
     display: grid;
     grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1fr 1fr;
     margin: .2em;
-}
-
-.powerHeader
-{
-    display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
-    margin: .2em;
     margin-top: .5em;
 }
 
+.powerHeader,
 .powerRow
 {
     display: grid;
     grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
     margin: .2em;
-}
-
-
-.engineerHeader
-{
-    display: grid;
-    grid-template-columns: 1.6fr 2fr .8fr 1fr .5fr .5fr;
-    margin: .2em;
     margin-top: .5em;
 }
 
+
+.engineerHeader,
 .engineerRow
 {
     display: grid;
@@ -277,14 +240,7 @@
 }
 
 
-.factionHeader
-{
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    margin: .2em;
-    margin-top: .5em;
-}
-
+.factionHeader,
 .factionRow
 {
     display: grid;
@@ -292,6 +248,29 @@
     margin: .2em;
     margin-top: .5em;
 }
+
+
+.navigationStatHeader
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+    border: 2px solid var(--default-divider);
+    border-radius: 3px;
+    padding: .5em;
+}
+
+.navigationHeader,
+.navigationRow
+{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+}
+
+
 
 .emptySection
 {

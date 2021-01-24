@@ -16,14 +16,17 @@
     <script src="material.js"></script>
     <script src="moduleBay.js"></script>
     <script src="factionStats.js"></script>
+    <script src="navigationRoute.js"></script>
     <script src="offenseStats.js"></script>
     <script src="offenseModule.js"></script>
     <script src="offenseTurret.js"></script>
     <script src="powerModule.js"></script>
     <script src="powerStats.js"></script>
+    <script src="routeEntry.js"></script>
     <script src="shipModule.js"></script>
     <script src="shipStats.js"></script>
     <script src="statCategory.js"></script>
+    <script src="systemCartography.js"></script>
 
     <link rel="stylesheet" href="ui.css">
 
@@ -480,7 +483,7 @@
         </div>
     </template>
 
-    <!-- Offense stats for an installed poitn defense turret -->
+    <!-- Offense stats for an installed point defense turret -->
     <template id="template_OffenseTurret">
         <link rel="stylesheet" href="statistics.css">
         <div class="offenseTurretsRow">
@@ -714,6 +717,62 @@
         </div>
 
     </template>
+
+    <!-- Navigation route information -->
+    <template id="template_NavigationRoute">
+        <link rel="stylesheet" href="statistics.css">
+
+        <div class="navigationStatHeader">
+            <div class="headerEntry">
+                <b>Destination</b>
+                <span id="navigationRoute_destination" class="headerStat">None</span>
+            </div>
+            <div class="headerEntry">
+                <b>Distance Remaining</b>
+                <span id="navigationRoute_distance" class="headerStat">-</span>
+                <span class="valueUnit">LY</span>
+            </div>
+        </div>
+
+        <div class="navigationHeader">
+            <span class="statEntryNameHeader">Star System</span>
+            <span class="statEntryRightHeader">Distance</span>
+        </div>
+
+        <slot>
+            <div class="emptySection">
+                No Route Currently Plotted
+            </div>
+        </slot>
+
+    </template>
+
+    <!-- Navigation route entry -->
+    <template id="template_RouteEntry">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="navigationRow">
+            <span class="statEntryName" id="routeEntry_system"></span>
+            <div class="statEntryRightCap">
+                <span id="routeEntry_distance"></span>
+                <span class="valueUnit">LY</span>
+            </div>
+        </div>
+    </template>
+
+    <template id="template_SystemCartography">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="navigationStatHeader">
+            <div class="headerEntry">
+                <b>System Name</b>
+                <span id="systemCartography_system" class="headerStat">None</span>
+            </div>
+            <div class="headerEntry">
+                <b>Bodies</b>
+                <span id="systemCartography_bodies" class="headerStat">?</span>
+            </div>
+        </div>
+    </template>
+
 </head>
 
 <body>
@@ -1160,28 +1219,48 @@
         </div>
     </div>
 
-    <!-- Navigation Tab  -->
-    <input name="categoryTabs" type="radio" id="navigationTabButton" class="tabInput"/>
-    <label id="navigationTab" for="navigationTabButton" class="tabLabel">Navigation</label>
+    <!-- Astrometrics Tab  -->
+    <input name="categoryTabs" type="radio" id="astrometricsTabButton" class="tabInput"/>
+    <label id="astrometricsTab" for="astrometricsTabButton" class="tabLabel">Astrometrics</label>
     <div class="tabPanel">
-        <div id="navigationContainer">
+        <div id="astrometricsContainer">
 
-            <input name="navigationTabs" type="radio" id="gpsTabButton" class="tabInput"/>
+            <input name="astrometricsTabs" type="radio" id="routeTabButton" class="tabInput"/>
+            <label id="routeTab" for="routeTabButton" class="tabLabel">Navigation</label>
+            <div class="tabPanel">
+                <navigation-route id="navigationRoute"></navigation-route>
+            </div>
+
+            <input name="astrometricsTabs" type="radio" id="cartographicsTabButton" class="tabInput"/>
+            <label id="cartographicsTab" for="cartographicsTabButton" class="tabLabel">Cartographics</label>
+            <div class="tabPanel">
+                <div id="cartographicsContainer">
+
+                    <input name="cartographicsTabs" type="radio" id="currentTabButton" class="tabInput"/>
+                    <label id="currentTab" for="currentTabButton" class="tabLabel">Current System</label>
+                    <div class="tabPanel">
+                        <system-cartography id="systemCartography"></system-cartography>
+                    </div>
+
+                    <input name="cartographicsTabs" type="radio" id="catalogTabButton" class="tabInput"/>
+                    <label id="catalogTab" for="catalogTabButton" class="tabLabel">System Catalog</label>
+                    <div class="tabPanel">
+                        <span>TODO: System Catalog</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <input name="astrometricsTabs" type="radio" id="gpsTabButton" class="tabInput"/>
             <label id="gpsTab" for="gpsTabButton" class="tabLabel">Planetary GPS</label>
             <div class="tabPanel">
                 <span>TODO: GPS</span>
             </div>
 
-            <input name="navigationTabs" type="radio" id="poiTabButton" class="tabInput"/>
+            <input name="astrometricsTabs" type="radio" id="poiTabButton" class="tabInput"/>
             <label id="poiTab" for="poiTabButton" class="tabLabel">Galactic POI</label>
             <div class="tabPanel">
                 <span>TODO: POI</span>
-            </div>
-
-            <input name="navigationTabs" type="radio" id="routeTabButton" class="tabInput"/>
-            <label id="routeTab" for="routeTabButton" class="tabLabel">Route</label>
-            <div class="tabPanel">
-                <span>TODO: Route</span>
             </div>
 
         </div>

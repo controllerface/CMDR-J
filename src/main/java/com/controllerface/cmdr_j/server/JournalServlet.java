@@ -62,14 +62,18 @@ class JournalServlet extends EventSourceServlet
             Map.entry("/material.js", StaticAsset.make("/ui/js/material.js")),
             Map.entry("/moduleBay.js", StaticAsset.make("/ui/js/moduleBay.js")),
             Map.entry("/factionStats.js", StaticAsset.make("/ui/js/factionStats.js")),
+            Map.entry("/navigationRoute.js", StaticAsset.make("/ui/js/navigationRoute.js")),
             Map.entry("/offenseStats.js", StaticAsset.make("/ui/js/offenseStats.js")),
             Map.entry("/offenseModule.js", StaticAsset.make("/ui/js/offenseModule.js")),
             Map.entry("/offenseTurret.js", StaticAsset.make("/ui/js/offenseTurret.js")),
             Map.entry("/powerModule.js", StaticAsset.make("/ui/js/powerModule.js")),
             Map.entry("/powerStats.js", StaticAsset.make("/ui/js/powerStats.js")),
+            Map.entry("/routeEntry.js", StaticAsset.make("/ui/js/routeEntry.js")),
             Map.entry("/shipModule.js", StaticAsset.make("/ui/js/shipModule.js")),
             Map.entry("/shipStats.js", StaticAsset.make("/ui/js/shipStats.js")),
             Map.entry("/statCategory.js", StaticAsset.make("/ui/js/statCategory.js")),
+            Map.entry("/systemCartography.js", StaticAsset.make("/ui/js/systemCartography.js")),
+
             Map.entry("/ui.js", StaticAsset.make("/ui/js/ui.js")),
 
             /* Images */
@@ -121,6 +125,17 @@ class JournalServlet extends EventSourceServlet
         MARKET(EndpointType.GET, "/market", (_r, response, playerState) ->
         {
             writeJsonResponse(response, playerState.writeMarketData());
+        }),
+
+        /**
+         * Returns the market data from the most recently visited market.
+         */
+        CARTOGRAPHY(EndpointType.GET, "/cartography", (request, response, playerState) ->
+        {
+            var id = request.getParameter("id");
+            System.out.println("Cartography requested: " + id);
+            var systemAddress = Long.parseLong(id);
+            writeJsonResponse(response, playerState.writeCartographicData(systemAddress));
         }),
 
         /**
@@ -272,7 +287,6 @@ class JournalServlet extends EventSourceServlet
             }
             catch (IOException e)
             {
-                e.printStackTrace();
                 toRemove.add(s);
             }
         });

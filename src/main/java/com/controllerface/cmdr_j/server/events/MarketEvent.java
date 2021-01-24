@@ -16,6 +16,8 @@ public class MarketEvent implements BiConsumer<PlayerState, Map<String, Object>>
     public void accept(PlayerState playerState, Map<String, Object> event)
     {
         var marketData = JournalSyncTaskEX.readMarketData();
+        if (marketData.isEmpty()) return;
+
         var name = ((String) marketData.get("StationName"));
         var type = ((String) marketData.get("StationType"));
         var system = ((String) marketData.get("StarSystem"));

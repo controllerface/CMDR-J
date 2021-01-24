@@ -371,11 +371,10 @@ details > summary::-webkit-details-marker
 {
     display: grid;
     grid-template-areas:
-    "cmdrTab shipTab inventoryTab navigationTab taskTab"
-    "panel   panel   panel        panel         panel";
+    "cmdrTab shipTab inventoryTab astrometricsTab taskTab"
+    "panel   panel   panel        panel           panel";
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-    /*background: #efefef;*/
     max-width: 60em;
     margin-left: auto;
     margin-right: auto;
@@ -399,9 +398,9 @@ details > summary::-webkit-details-marker
     border-radius: 5px;
 }
 
-#navigationTab
+#astrometricsTab
 {
-    grid-area: navigationTab;
+    grid-area: astrometricsTab;
     border-radius: 5px;
 }
 
@@ -424,7 +423,6 @@ details > summary::-webkit-details-marker
     "panel        panel      panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-    /*background: #efefef;*/
 }
 
 #baseStatsTab
@@ -456,7 +454,6 @@ details > summary::-webkit-details-marker
     "panel            panel                panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-    /*background: #efefef;*/
 }
 
 #coreInternalsTab
@@ -488,7 +485,6 @@ details > summary::-webkit-details-marker
     "panel      panel      panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-    /*background: #efefef;*/
 }
 
 #offenseTab
@@ -524,7 +520,6 @@ details > summary::-webkit-details-marker
     "panel   panel    panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-    /*background: #efefef;*/
 }
 
 #matsTab
@@ -562,7 +557,6 @@ details > summary::-webkit-details-marker
     "panel  panel  panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-    /*background: #efefef;*/
 }
 
 #rawTab
@@ -584,15 +578,26 @@ details > summary::-webkit-details-marker
 
 /* Material Inventory */
 
-#navigationContainer
+#astrometricsContainer
 {
     display: grid;
     grid-template-areas:
-    "gpsTab poiTab routeTab"
-    "panel  panel  panel";
-    grid-template-columns: 1fr 1fr 1fr;
+    "routeTab cartographicsTab gpsTab poiTab"
+    "panel    panel            panel  panel";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-    /*background: #efefef;*/
+}
+
+#routeTab
+{
+    grid-area: routeTab;
+    border-radius: 5px;
+}
+
+#cartographicsTab
+{
+    grid-area: cartographicsTab;
+    border-radius: 5px;
 }
 
 #gpsTab
@@ -607,9 +612,32 @@ details > summary::-webkit-details-marker
     border-radius: 5px;
 }
 
-#routeTab
+
+
+#cartographicsContainer
 {
-    grid-area: routeTab;
+    display: grid;
+    grid-template-areas:
+    "currentTab catalogTab"
+    "panel    panel";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2em auto;
+}
+
+#currentTab
+{
+    grid-area: currentTab;
     border-radius: 5px;
 }
+
+#catalogTab
+{
+    grid-area: catalogTab;
+    border-radius: 5px;
+}
+
+
+
+
+
 
