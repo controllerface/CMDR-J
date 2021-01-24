@@ -5,6 +5,7 @@
 
     <script src="ui.js"></script>
     <script src="cargo.js"></script>
+    <script src="cartographicData.js"></script>
     <script src="commanderStat.js"></script>
     <script src="defenseResistance.js"></script>
     <script src="defenseStats.js"></script>
@@ -759,6 +760,7 @@
         </div>
     </template>
 
+    <!-- System cartography data -->
     <template id="template_SystemCartography">
         <link rel="stylesheet" href="statistics.css">
         <div class="navigationStatHeader">
@@ -771,8 +773,18 @@
                 <span id="systemCartography_bodies" class="headerStat">?</span>
             </div>
         </div>
+        <slot></slot>
     </template>
 
+    <template id="template_CartographicData">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="bodyRow">
+            <div class="bodyType" id="cartographicData_bodytype"></div>
+            <details class="bodyData" id="cartographicData_bodydata">
+                <summary id="cartographicData_bodyname"></summary>
+            </details>
+        </div>
+    </template>
 </head>
 
 <body>
@@ -1239,7 +1251,9 @@
                     <input name="cartographicsTabs" type="radio" id="currentTabButton" class="tabInput"/>
                     <label id="currentTab" for="currentTabButton" class="tabLabel">Current System</label>
                     <div class="tabPanel">
-                        <system-cartography id="systemCartography"></system-cartography>
+                        <system-cartography id="systemCartography">
+                            <cartographic-data bodytype="Test Type" bodyname="Test Name"></cartographic-data>
+                        </system-cartography>
                     </div>
 
                     <input name="cartographicsTabs" type="radio" id="catalogTabButton" class="tabInput"/>

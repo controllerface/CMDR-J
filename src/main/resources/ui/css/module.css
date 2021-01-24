@@ -1,26 +1,5 @@
 @import "common.css";
 
-summary
-{
-  outline: none;
-  cursor: pointer;
-}
-
-summary:hover
-{
-    background: #555;
-}
-
-details > summary
-{
-  list-style: none;
-}
-
-details > summary::-webkit-details-marker
-{
-  display: none;
-}
-
 .moduleList
 {
     display: grid;
@@ -31,7 +10,6 @@ details > summary::-webkit-details-marker
 {
     border: solid 1px var(--default-border);
     border-left: dotted 1px var(--default-divider);
-
     padding: 3px;
     padding-left: 6px;
     margin: 3px;

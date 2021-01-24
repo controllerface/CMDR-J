@@ -1,11 +1,12 @@
 package com.controllerface.cmdr_j.classes.commander;
 
 import com.controllerface.cmdr_j.classes.StarSystem;
-import com.controllerface.cmdr_j.classes.data.EntityKeys;
+import com.controllerface.cmdr_j.database.EntityKeys;
 import com.controllerface.cmdr_j.classes.data.PoiData;
 import com.controllerface.cmdr_j.classes.data.Waypoint;
 import com.controllerface.cmdr_j.classes.tasks.Task;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.database.EntityUtilities;
 import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.commodities.CommodityType;
@@ -210,7 +211,7 @@ public class Commander
 
             // get any existing notes so we can display them
             Entity starSystem = getStarSystemEntity(txn, commander, targetSystem);
-            List<PoiData> noteList = EntityKeys.entityStream(starSystem.getLinks(EntityKeys.POI_NOTES))
+            List<PoiData> noteList = EntityUtilities.entityStream(starSystem.getLinks(EntityKeys.POI_NOTES))
                     .map(note -> new PoiData(note.getId(), targetSystem, note.getBlobString(EntityKeys.POI_NOTES)))
                     .collect(Collectors.toList());
 
@@ -260,7 +261,7 @@ public class Commander
             }
 
             Entity starSystemEntity = getStarSystemEntity(txn, commander, systemName);
-            return EntityKeys.entityStream(starSystemEntity.getLinks(EntityKeys.POI_NOTES))
+            return EntityUtilities.entityStream(starSystemEntity.getLinks(EntityKeys.POI_NOTES))
                     .map(entity ->
                     {
                         String notes = entity.getBlobString(EntityKeys.POI_NOTES);
@@ -487,7 +488,7 @@ public class Commander
         refreshSystemPoi(starSystem);
 
         List<String> systems = database.computeInTransaction(transaction ->
-                EntityKeys.entityStream(transaction.getAll(EntityKeys.STAR_SYSTEM))
+                EntityUtilities.entityStream(transaction.getAll(EntityKeys.STAR_SYSTEM))
                         .map(entity -> entity.getProperty(EntityKeys.NAME))
                         .filter(Objects::nonNull)
                         .map(Object::toString)
@@ -541,7 +542,7 @@ public class Commander
     public void refreshGalaxyPoiTable()
     {
         galaxyPoiBackingList.clear();
-        database.executeInTransaction(transaction -> EntityKeys.entityStream(transaction.getAll(EntityKeys.POI_NOTES))
+        database.executeInTransaction(transaction -> EntityUtilities.entityStream(transaction.getAll(EntityKeys.POI_NOTES))
                 .map(note -> Optional.ofNullable(note.getLink(EntityKeys.STAR_SYSTEM))
                         .map(system -> system.getProperty(EntityKeys.NAME))
                         .map(Object::toString)

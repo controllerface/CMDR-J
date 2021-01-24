@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes;
 
-import com.controllerface.cmdr_j.classes.data.EntityKeys;
+import com.controllerface.cmdr_j.database.EntityKeys;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import jetbrains.exodus.entitystore.Entity;
 

@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes;
 
-import com.controllerface.cmdr_j.classes.data.EntityKeys;
+import com.controllerface.cmdr_j.database.EntityKeys;
 import jetbrains.exodus.entitystore.Entity;
 
 public class GenericBody extends StellarBody

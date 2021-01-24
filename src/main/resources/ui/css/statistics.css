@@ -11,17 +11,6 @@
     padding: .5em;
 }
 
-.defenseStatHeader
-{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: .2em;
-    margin-top: .5em;
-    border: 2px solid var(--default-divider);
-    border-radius: 3px;
-    padding: .5em;
-}
-
 .headerEntry
 {
     text-align: center;
@@ -181,7 +170,17 @@
     font-weight: bold;
 }
 
-
+.defenseStatHeader,
+.navigationStatHeader
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: .2em;
+    margin-top: .5em;
+    border: 2px solid var(--default-divider);
+    border-radius: 3px;
+    padding: .5em;
+}
 
 .offenseTotalsHeader,
 .offenseTotalsRow
@@ -249,18 +248,6 @@
     margin-top: .5em;
 }
 
-
-.navigationStatHeader
-{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: .2em;
-    margin-top: .5em;
-    border: 2px solid var(--default-divider);
-    border-radius: 3px;
-    padding: .5em;
-}
-
 .navigationHeader,
 .navigationRow
 {
@@ -270,7 +257,38 @@
     margin-top: .5em;
 }
 
+.bodyRow
+{
+    display: grid;
+    grid-template-columns: 14em auto;
+}
 
+.bodyType
+{
+    border: solid 1px var(--default-divider);
+    border-right: 0px;
+    border-radius: 3px 0px 0px 3px;
+    padding: 3px;
+    padding-right: 6px;
+    margin: 3px;
+    margin-right: 0px;
+    margin-left: 4px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.bodyData
+{
+    border: solid 1px var(--default-border);
+    border-left: dotted 1px var(--default-divider);
+    padding: 3px;
+    padding-left: 6px;
+    margin: 3px;
+    margin-left: 0px;
+    margin-right: 4px;
+    border-radius: 0px 3px 3px 0px;
+    color: var(--default-text);
+}
 
 .emptySection
 {

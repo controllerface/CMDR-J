@@ -2,6 +2,8 @@ package com.controllerface.cmdr_j.classes;
 
 import jetbrains.exodus.entitystore.Entity;
 
+import java.util.Arrays;
+
 public abstract class StellarBody
 {
     public final BodyType type;
@@ -19,20 +21,17 @@ public abstract class StellarBody
     {
         Star,
         Planet,
-        Cluster,
-        Ring;
+        PlanetaryRing,
+        StellarRing,
+        Station,
+        AsteroidCluster,
+        Unknown;
 
         public static StellarBody.BodyType determineType(String type)
         {
-            if (type.equalsIgnoreCase("Star"))
-            {
-                return StellarBody.BodyType.Star;
-            }
-            else
-            {
-                // todo: do other types if necessary
-                return StellarBody.BodyType.Planet;
-            }
+            return Arrays.stream(BodyType.values())
+                .filter(bodyType->bodyType.toString().equalsIgnoreCase(type))
+                .findFirst().orElse(Unknown);
         }
     }
 

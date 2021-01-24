@@ -1,13 +1,13 @@
 package com.controllerface.cmdr_j.server;
 
 import com.controllerface.cmdr_j.JSONSupport;
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.classes.StellarBody;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
-import com.controllerface.cmdr_j.classes.data.EntityKeys;
+import com.controllerface.cmdr_j.database.EntityKeys;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.data.ShipStatisticData;
+import com.controllerface.cmdr_j.database.EntityUtilities;
 import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import com.controllerface.cmdr_j.enums.commander.RankStat;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
@@ -19,11 +19,8 @@ import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
-import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
-import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacteristic;
-import com.controllerface.cmdr_j.ui.ShipModuleDisplay;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import jetbrains.exodus.entitystore.Entity;
 import jetbrains.exodus.entitystore.PersistentEntityStore;
@@ -31,9 +28,6 @@ import jetbrains.exodus.entitystore.PersistentEntityStores;
 import jetbrains.exodus.entitystore.StoreTransaction;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.atomic.DoubleAccumulator;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -1112,7 +1106,7 @@ public class PlayerState
             if (systemEntity == null) return;
 
             var bodies = transaction.find(EntityKeys.STELLAR_BODY, EntityKeys.STELLAR_BODY_ID, stellarBody.id);
-            var bodyEntity = EntityKeys.entityStream(bodies)
+            var bodyEntity = EntityUtilities.entityStream(bodies)
                 .filter(body ->
                 {
                     var linkedSystem = body.getLink(EntityKeys.STAR_SYSTEM);
@@ -1165,7 +1159,7 @@ public class PlayerState
         if (commanderEntity == null) return null;
 
         var systems = transaction.find(EntityKeys.STAR_SYSTEM, EntityKeys.STAR_SYSTEM_ADDRESS, starSystem.address);
-        var systemEntity = EntityKeys.entityStream(systems)
+        var systemEntity = EntityUtilities.entityStream(systems)
             .filter(system ->
             {
                 System.out.println("Found system");
@@ -1202,7 +1196,7 @@ public class PlayerState
             if (commanderEntity == null) return data;
 
             var systems = transaction.find(EntityKeys.STAR_SYSTEM, EntityKeys.STAR_SYSTEM_ADDRESS, systemAddress);
-            EntityKeys.entityStream(systems)
+            EntityUtilities.entityStream(systems)
                 .filter(system ->
                 {
                     var commander = system.getLink(EntityKeys.COMMANDER);
@@ -1213,7 +1207,7 @@ public class PlayerState
                 {
                     entityToMap(systemEntity, data);
                     var bodies = systemEntity.getLinks(EntityKeys.STELLAR_BODY);
-                    var bodyList = EntityKeys.entityStream(bodies)
+                    var bodyList = EntityUtilities.entityStream(bodies)
                         .map(bodyEntity ->
                         {
                             var bodyData = new HashMap<String, Object>();
