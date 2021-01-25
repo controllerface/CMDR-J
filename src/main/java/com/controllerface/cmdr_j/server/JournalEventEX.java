@@ -58,7 +58,7 @@ public enum JournalEventEX
     SetUserShipName(new SetUserShipNameEvent()),
 //    FuelScoop(new FuelScoopHandler()),
 //    DiscoveryScan(new DiscoveryScanHandler()),
-//    Scan(new ScanHandler()),
+    Scan(new ScanEvent()),
 //    Shipyard(new ShipyardHandler()),
 //    ShipyardBuy(new ShipyardBuyHandler()),
 //    ShipyardSell(new ShipyardSellHandler()),
@@ -98,8 +98,8 @@ public enum JournalEventEX
      */
 //    SAAScanComplete(new SAAScanCompleteHandler()),
 //    FSSSignalDiscovered(new FSSSignalDiscoveredHandler()),
-//    FSSDiscoveryScan(new FSSDiscoveryScanHandler()),
-//    FSSAllBodiesFound(new FSSAllBodiesFoundHandler()),
+    FSSDiscoveryScan(new FSSDiscoveryScanEvent()),
+    FSSAllBodiesFound(new FSSAllBodiesFoundEvent()),
 //    CodexEntry(new CodexEntryHandler()),
 
     /*

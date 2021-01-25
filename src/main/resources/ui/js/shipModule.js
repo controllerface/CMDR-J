@@ -112,27 +112,27 @@ class ShipModule extends HTMLElement
             }
 
             let statContainer = document.createElement('div');
-            statContainer.classList.add('statTable');
+            statContainer.classList.add('infoTable');
 
             if (module['modification'])
             {
                 moduleName.classList.add('modification');
 
                 let statRow = document.createElement('div');
-                statRow.classList.add('statRow');
+                statRow.classList.add('infoRow');
 
                 let statName = document.createElement('span');
-                statName.classList.add('statName');
+                statName.classList.add('infoName');
                 statName.classList.add('modification');
                 statName.textContent = 'Modification';
 
                 let statValue = document.createElement('span');
-                statValue.classList.add('statValue');
+                statValue.classList.add('infoValue');
                 statValue.classList.add('modification');
                 statValue.textContent = module['modification'];
 
                 let statUnit = document.createElement('span');
-                statUnit.classList.add('statUnit');
+                statUnit.classList.add('infoUnit');
 
                 let modGrade = document.createElement('span');
                 let modProgress = document.createElement('progress');
@@ -153,20 +153,20 @@ class ShipModule extends HTMLElement
                 moduleName.classList.add('experimental');
 
                 let statRow = document.createElement('div');
-                statRow.classList.add('statRow');
+                statRow.classList.add('infoRow');
 
                 let statName = document.createElement('span');
-                statName.classList.add('statName');
+                statName.classList.add('infoName');
                 statName.classList.add('experimental');
                 statName.textContent = 'Experimental Effect';
 
                 let statValue = document.createElement('span');
-                statValue.classList.add('statValue');
+                statValue.classList.add('infoValue');
                 statValue.classList.add('experimental');
                 statValue.textContent = module['experimental'];
 
                 let statUnit = document.createElement('span');
-                statUnit.classList.add('statUnit');
+                statUnit.classList.add('infoUnit');
 
                 statRow.append(statName, statValue, statUnit);
                 statContainer.append(statRow);
@@ -209,7 +209,7 @@ class ShipModule extends HTMLElement
             for (let j = 0, len = statistics.length; j < len; j++)
             {
                 let statRow = document.createElement('div');
-                statRow.classList.add('statRow');
+                statRow.classList.add('infoRow');
 
                 let stat = statistics[j];
                 let info = effects[stat];
@@ -225,7 +225,7 @@ class ShipModule extends HTMLElement
                 }
 
                 let statName = document.createElement('span');
-                statName.classList.add('statName');
+                statName.classList.add('infoName');
                 statName.textContent = stat;
 
                 if (info['effectType'] !== 'standard')
@@ -234,7 +234,7 @@ class ShipModule extends HTMLElement
                 }
 
                 let statValue = document.createElement('span');
-                statValue.classList.add('statValue');
+                statValue.classList.add('infoValue');
                 statValue.textContent = info['value'];
 
                 if (info['originalValue'])
@@ -249,7 +249,7 @@ class ShipModule extends HTMLElement
                 }
 
                 let statUnit = document.createElement('span');
-                statUnit.classList.add('statUnit');
+                statUnit.classList.add('infoUnit');
 
                 let unitText = info['unit'];
                 if (unitText)

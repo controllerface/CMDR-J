@@ -9,22 +9,27 @@ public abstract class StellarBody
     public final BodyType type;
     public final String name;
     public final int id;
+    public final long address;
 
-    protected StellarBody(BodyType type, String name, int id)
+    protected StellarBody(BodyType type, String name, int id, long address)
     {
         this.name = name;
         this.id = id;
         this.type = type;
+        this.address = address;
     }
 
     public enum BodyType
     {
         Star,
         Planet,
+        Moon,
+        RoguePlanet,
         PlanetaryRing,
         StellarRing,
         Station,
         AsteroidCluster,
+        Null, // barycentre
         Unknown;
 
         public static StellarBody.BodyType determineType(String type)

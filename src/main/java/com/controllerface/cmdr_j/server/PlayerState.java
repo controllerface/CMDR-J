@@ -186,7 +186,7 @@ public class PlayerState
 
         database.executeInTransaction((transaction)->
         {
-            var systemEntity = getStarSystemEntity(transaction);
+            var systemEntity = getOrCreateStarSystemEntity(transaction);
             System.out.println("System: " + systemEntity);
         });
 
@@ -1098,11 +1098,28 @@ public class PlayerState
         return JSONSupport.Write.jsonToString.apply(data);
     }
 
+    public void updateSystemBodyCount(long address, int count)
+    {
+        database.executeInTransaction(transaction -> Optional.ofNullable(getStarSystemEntity(transaction, address))
+            .ifPresent(systemEntity -> systemEntity.setProperty(EntityKeys.STAR_SYSTEM_BODY_COUNT, count)));
+
+        if (address == starSystem.address)
+        {
+            executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
+        }
+    }
+
     public void updateStellarBody(StellarBody stellarBody)
     {
         database.executeInTransaction((transaction)->
         {
-            var systemEntity = getStarSystemEntity(transaction);
+            if (starSystem.address != stellarBody.address)
+            {
+                System.out.println("Setting data for bodies not in the current system is not currently supported");
+                return;
+            }
+
+            var systemEntity = getOrCreateStarSystemEntity(transaction);
             if (systemEntity == null) return;
 
             var bodies = transaction.find(EntityKeys.STELLAR_BODY, EntityKeys.STELLAR_BODY_ID, stellarBody.id);
@@ -1128,8 +1145,6 @@ public class PlayerState
                 });
             stellarBody.storeBodyData(bodyEntity);
         });
-
-        executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
     }
 
     //region Database Access Functions
@@ -1153,7 +1168,7 @@ public class PlayerState
         return transaction.find(EntityKeys.COMMANDER, EntityKeys.NAME, commmanderName).getFirst();
     }
 
-    private Entity getStarSystemEntity(StoreTransaction transaction)
+    private Entity getOrCreateStarSystemEntity(StoreTransaction transaction)
     {
         var commanderEntity = getCommanderEntity(transaction);
         if (commanderEntity == null) return null;
@@ -1179,6 +1194,22 @@ public class PlayerState
 
         System.out.println("System: " + systemEntity);
         return systemEntity;
+    }
+
+    private Entity getStarSystemEntity(StoreTransaction transaction, long address)
+    {
+        var commanderEntity = getCommanderEntity(transaction);
+        if (commanderEntity == null) return null;
+
+        var systems = transaction.find(EntityKeys.STAR_SYSTEM, EntityKeys.STAR_SYSTEM_ADDRESS, address);
+        return EntityUtilities.entityStream(systems)
+            .filter(system ->
+            {
+                var linkedCommander = system.getLink(EntityKeys.COMMANDER);
+                if (linkedCommander == null) return false;
+                return linkedCommander.getId().compareTo(commanderEntity.getId()) == 0;
+            })
+            .findFirst().orElse(null);
     }
 
     private static void entityToMap(Entity entity, Map<String, Object> map)
@@ -1214,6 +1245,8 @@ public class PlayerState
                             entityToMap(bodyEntity, bodyData);
                             return bodyData;
                         })
+                        .sorted(Comparator.comparingInt(map ->
+                            ((Number) map.get(EntityKeys.STELLAR_BODY_ID)).intValue()))
                         .collect(Collectors.toList());
                     data.put("bodies", bodyList);
                 });
@@ -1264,6 +1297,11 @@ public class PlayerState
     public void emitDefenseStats()
     {
         executeWithLock(() -> globalUpdate.accept("DefenseStats", calculateDefenseStats()));
+    }
+
+    public void emitCartographyData()
+    {
+        executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
     }
 
     /**

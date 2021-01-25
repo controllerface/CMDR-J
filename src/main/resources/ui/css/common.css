@@ -177,3 +177,65 @@ details > summary::-webkit-details-marker
 {
   display: none;
 }
+
+
+/*
+Some reusable stat classes
+*/
+
+.infoTable
+{
+    border-top: 1px dotted var(--default-border);
+    display: grid;
+}
+
+.infoRow
+{
+    display: grid;
+    grid-template-columns: 2.5fr 3fr 2fr;
+}
+
+.infoRow:hover > span
+{
+    background: #572c02;
+}
+
+@keyframes slideRight
+{
+  from { padding-right: 10em; }
+  to { padding-right: 5px }
+}
+
+@keyframes slideLeft
+{
+  from { padding-left: 10em; }
+  to { padding-left: 5px }
+}
+
+.infoName
+{
+    text-align: right;
+    padding-right: 8px;
+    background: linear-gradient(90deg, black, #222);
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    white-space: nowrap; /* Keeps the content on a single line */
+}
+
+.infoValue
+{
+    text-align: right;
+    padding-right: 5px;
+    background: #222;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    white-space: nowrap; /* Keeps the content on a single line */
+    animation: slideRight 0.1s ease; /*steps(30, end)*/
+}
+
+.infoUnit
+{
+    text-align: left;
+    padding-left: 5px;
+    color: var(--default-color);
+    background: linear-gradient(90deg, #222, black);
+    animation: slideLeft 0.3s ease;/*steps(30, end)*/
+}

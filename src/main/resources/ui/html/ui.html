@@ -763,19 +763,24 @@
     <!-- System cartography data -->
     <template id="template_SystemCartography">
         <link rel="stylesheet" href="statistics.css">
-        <div class="navigationStatHeader">
+        <div class="dataHeader">
             <div class="headerEntry">
                 <b>System Name</b>
                 <span id="systemCartography_system" class="headerStat">None</span>
             </div>
             <div class="headerEntry">
-                <b>Bodies</b>
+                <b>Total Bodies</b>
                 <span id="systemCartography_bodies" class="headerStat">?</span>
+            </div>
+            <div class="headerEntry">
+                <b>Scanned Bodies</b>
+                <span id="systemCartography_scannedbodies" class="headerStat">0</span>
             </div>
         </div>
         <slot></slot>
     </template>
 
+    <!-- Data pertaining to a single stellar body -->
     <template id="template_CartographicData">
         <link rel="stylesheet" href="statistics.css">
         <div class="bodyRow">
@@ -1251,9 +1256,7 @@
                     <input name="cartographicsTabs" type="radio" id="currentTabButton" class="tabInput"/>
                     <label id="currentTab" for="currentTabButton" class="tabLabel">Current System</label>
                     <div class="tabPanel">
-                        <system-cartography id="systemCartography">
-                            <cartographic-data bodytype="Test Type" bodyname="Test Name"></cartographic-data>
-                        </system-cartography>
+                        <system-cartography id="systemCartography"></system-cartography>
                     </div>
 
                     <input name="cartographicsTabs" type="radio" id="catalogTabButton" class="tabInput"/>

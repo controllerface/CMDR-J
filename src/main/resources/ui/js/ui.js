@@ -883,7 +883,30 @@ function setCartographyData(data)
 {
     console.log(data);
     let systemCartography = document.getElementById('systemCartography');
+    systemCartography.textContent = "";
     systemCartography.system = data['star_system'];
+
+    if (data['star_system_body_count'])
+    {
+        systemCartography.bodies = data['star_system_body_count'];
+    }
+
+    if (data['bodies'])
+    {
+        let bodies = data['bodies'];
+
+        systemCartography.scannedBodies = bodies.length;
+
+        for (let i = 0, len = bodies.length; i < len; i++)
+        {
+            let body = bodies[i];
+            let nextEntry = document.createElement('cartographic-data');
+            nextEntry.bodyType = body['stellar_body_type'];
+            nextEntry.bodyName = body['stellar_body_name'];
+            nextEntry.loadBodyData(body);
+            systemCartography.append(nextEntry);
+        }
+    }
 }
 
 /*

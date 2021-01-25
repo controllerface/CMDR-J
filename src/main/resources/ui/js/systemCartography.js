@@ -28,10 +28,21 @@ class SystemCartography extends HTMLElement
         this.getAttribute('bodies');
     }
 
+    set scannedBodies(value)
+    {
+        this.setAttribute('scannedbodies', value);
+    }
+
+    get scannedBodies()
+    {
+        this.getAttribute('scannedbodies');
+    }
+
     static get observedAttributes()
     {
         return ['system',
-                'bodies'];
+                'bodies',
+                'scannedbodies'];
     }
 
     attributeChangedCallback(name, oldValue, newValue)

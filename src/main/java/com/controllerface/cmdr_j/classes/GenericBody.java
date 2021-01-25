@@ -5,9 +5,9 @@ import jetbrains.exodus.entitystore.Entity;
 
 public class GenericBody extends StellarBody
 {
-    public GenericBody(BodyType type, String name, int id)
+    public GenericBody(BodyType type, String name, int id, long address)
     {
-        super(type, name, id);
+        super(type, name, id, address);
     }
 
     @Override
