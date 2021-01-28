@@ -1216,6 +1216,14 @@ public class PlayerState
     {
         entity.getPropertyNames()
             .forEach(propertyName -> map.put(propertyName, entity.getProperty(propertyName)));
+
+        entity.getBlobNames()
+            .forEach(propertyName ->
+            {
+                var json = JSONSupport.Parse.jsonString.apply(entity.getBlobString(propertyName));
+                map.put(propertyName, json.get("json"));
+            });
+
     }
 
     private Map<String, Object> prepareCartographicData(long systemAddress)

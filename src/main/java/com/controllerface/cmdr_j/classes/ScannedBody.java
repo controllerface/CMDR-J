@@ -1,8 +1,10 @@
 package com.controllerface.cmdr_j.classes;
 
+import com.controllerface.cmdr_j.JSONSupport;
 import com.controllerface.cmdr_j.database.EntityKeys;
 import jetbrains.exodus.entitystore.Entity;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +33,10 @@ public class ScannedBody extends StellarBody
         {
             if (value instanceof List)
             {
-                System.out.println("List data not yet supported for body entities");
+                var json = new HashMap<String, Object>();
+                json.put("json", value);
+                bodyEntity.setBlobString(name, JSONSupport.Write.jsonToString.apply(json));
+                //System.out.println("List type: " + name + " skipped: " + value);
                 return;
             }
             if (value instanceof String)

@@ -209,7 +209,6 @@
     margin-top: .5em;
 }
 
-
 .defenseHeader,
 .defenseRow
 {
@@ -228,7 +227,6 @@
     margin-top: .5em;
 }
 
-
 .engineerHeader,
 .engineerRow
 {
@@ -237,7 +235,6 @@
     margin: .2em;
     margin-top: .5em;
 }
-
 
 .factionHeader,
 .factionRow
@@ -290,7 +287,47 @@
     color: var(--default-text);
 }
 
+.expandedSummary
+{
+    border: solid 1px var(--default-border);
+    border-radius: 3px 3px 3px 3px;
+    padding-right: .2em;
+}
 
+.expandedData
+{
+    display: grid;
+    border: solid 1px var(--default-divider);
+    border-radius: 3px 3px 3px 3px;
+    padding: .2em;
+}
+
+.expandedEntry
+{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.expandedName
+{
+    text-align: left;
+}
+
+.landable
+{
+    background: linear-gradient(
+                169deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #111, var(--default-color), var(--default-color));
+}
+
+.expandedValue
+{
+    color: var(--default-color);
+    text-align: right;
+}
 
 .emptySection
 {

@@ -192,7 +192,7 @@ Some reusable stat classes
 .infoRow
 {
     display: grid;
-    grid-template-columns: 2.5fr 3fr 2fr;
+    grid-template-columns: 2.5fr 3fr 1.6fr;
 }
 
 .infoRow:hover > span
