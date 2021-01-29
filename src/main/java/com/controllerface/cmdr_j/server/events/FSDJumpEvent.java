@@ -19,6 +19,7 @@ public class FSDJumpEvent implements BiConsumer<PlayerState, Map<String, Object>
         var address = ((Number) event.get("SystemAddress")).longValue();
         var coordinates = ((List<Double>) event.get("StarPos"));
         var system = new StarSystem(name, coordinates.get(0), coordinates.get(2), coordinates.get(1), address);
+
         playerState.setLocation(system);
         playerState.emitEngineerData();
 
@@ -26,7 +27,8 @@ public class FSDJumpEvent implements BiConsumer<PlayerState, Map<String, Object>
         var bodyName = ((String) event.get("Body"));
         var bodyType = StellarBody.BodyType.determineType(((String) event.get("BodyType")));
         var body = new GenericBody(bodyType, bodyName, bodyID, address);
-        playerState.updateStellarBody(body);
+
+        playerState.discoverStellarBody(body);
         playerState.emitCartographyData();
     }
 }

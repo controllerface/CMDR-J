@@ -32,6 +32,8 @@ class CartographicData extends HTMLElement
     {
         switch (name)
         {
+            case 'AbsoluteMagnitude': return 'Absolute Magnitude';
+            case 'Age_MY': return 'Age';
             case 'AtmosphereType': return 'Atmosphere Type';
             case 'AtmosphereComposition': return 'Atmosphere Composition';
             case 'AxialTilt': return 'Axial Tilt';
@@ -47,6 +49,7 @@ class CartographicData extends HTMLElement
             case 'stellar_body_id': return 'Body ID';
             case 'stellar_body_type': return 'Body Type';
             case 'stellar_body_name': return 'Body Name';
+            case 'StellarMass': return 'Stellar Mass';
             case 'SurfaceGravity': return 'Surface Gravity';
             case 'SurfacePressure': return 'Surface Pressure';
             case 'SurfaceTemperature': return 'Surface Temperature';
@@ -61,7 +64,13 @@ class CartographicData extends HTMLElement
     {
         if (isNaN(value) || typeof value === 'boolean')
         {
-            return value;
+            switch (value)
+            {
+                case 'NavBeaconDetail': return 'NavBeacon Detail';
+                case 'AsteroidCluster': return 'Asteroid Cluster';
+                case 'CarbonDioxide': return 'Carbon Dioxide';
+                default: return value;
+            }
         }
         else if (Number.isInteger(value))
         {
@@ -77,13 +86,15 @@ class CartographicData extends HTMLElement
     {
         switch (name)
         {
-            case 'DistanceFromArrivalLS': return 'LS';
+            case 'Age_MY': return 'Million Years';
             case 'AxialTilt': return '&deg;';
+            case 'DistanceFromArrivalLS': return 'LS';
             case 'OrbitalInclination': return '&deg;';
             case 'Periapsis': return '&deg;';
             case 'OrbitalPeriod': return 'Days';
             case 'RotationPeriod': return 'Days';
             case 'SemiMajorAxis': return 'AU';
+            case 'StellarMass': return 'Solar Masses';
             case 'SurfaceGravity': return 'G';
             case 'SurfacePressure': return 'ATM';
             case 'SurfaceTemperature': return 'K';
@@ -174,6 +185,26 @@ class CartographicData extends HTMLElement
                 let date = new Date(value);
                 statValue.textContent = date.toLocaleString();
             }
+            else if (stat === 'Composition')
+            {
+                console.log(value);
+
+                let detailData = this.createExpandedStatContainer('Composition Data');
+                let types = Object.keys(value);
+                console.log(types);
+                types.sort();
+
+                for (let i = 0, len = types.length; i < len; i++)
+                {
+                    let materialName = types[i];
+                    let materialPercent = (value[materialName] * 100).toFixed(2) + ' %';
+                    console.log(materialName);
+
+                    let nextMaterialEntry = this.createExpandedStatEntry(materialName, materialPercent);
+                    detailData[1].append(nextMaterialEntry);
+                }
+                statValue.append(detailData[0]);
+            }
             else if (stat === 'Rings')
             {
                 let detailData = this.createExpandedStatContainer('Ring Data');
@@ -247,9 +278,26 @@ class CartographicData extends HTMLElement
                 'bodyname'];
     }
 
+    formatType(type)
+    {
+        switch (type)
+        {
+            case 'AsteroidCluster': return 'Asteroid Cluster';
+            case 'PlanetaryRing': return 'Planetary Ring';
+            case 'StellarRing': return 'Stellar Ring';
+            default: return type;
+        }
+    }
+
     attributeChangedCallback(name, oldValue, newValue)
     {
-        this.shadowRoot.getElementById('cartographicData_' + name).textContent = newValue;
+        let text = newValue;
+        if (name === 'bodytype')
+        {
+            text = this.formatType(newValue);
+        }
+
+        this.shadowRoot.getElementById('cartographicData_' + name).textContent = text;
     }
 }
 

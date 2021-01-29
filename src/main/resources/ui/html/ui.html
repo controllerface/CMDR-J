@@ -28,6 +28,7 @@
     <script src="shipStats.js"></script>
     <script src="statCategory.js"></script>
     <script src="systemCartography.js"></script>
+    <script src="systemCatalog.js"></script>
 
     <link rel="stylesheet" href="ui.css">
 
@@ -792,6 +793,17 @@
             </details>
         </div>
     </template>
+
+    <template id="template_SystemCatalog">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="emptySection">
+            <label for="systemCatalog_systemselector">Select or search for star system:</label>
+            <input class="catalogList" id="systemCatalog_systemselector" list="systemCatalog_datalist" />
+            <datalist id="systemCatalog_datalist">
+            </datalist>
+        </div>
+        <slot></slot>
+    </template>
 </head>
 
 <body>
@@ -1264,7 +1276,9 @@
                     <input name="cartographicsTabs" type="radio" id="catalogTabButton" class="tabInput"/>
                     <label id="catalogTab" for="catalogTabButton" class="tabLabel">System Catalog</label>
                     <div class="tabPanel">
-                        <span>TODO: System Catalog</span>
+                        <system-catalog id="systemCatalog">
+                            <system-cartography id="catalogCartography"></system-cartography>
+                        </system-catalog>
                     </div>
 
                 </div>

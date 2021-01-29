@@ -1,5 +1,7 @@
 package com.controllerface.cmdr_j.server;
 
+import com.controllerface.cmdr_j.JSONSupport;
+import com.controllerface.cmdr_j.threads.JournalSyncTask;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.servlets.EventSource;
 import org.eclipse.jetty.servlets.EventSourceServlet;
@@ -74,6 +76,7 @@ class JournalServlet extends EventSourceServlet
             Map.entry("/shipStats.js", StaticAsset.make("/ui/js/shipStats.js")),
             Map.entry("/statCategory.js", StaticAsset.make("/ui/js/statCategory.js")),
             Map.entry("/systemCartography.js", StaticAsset.make("/ui/js/systemCartography.js")),
+            Map.entry("/systemCatalog.js", StaticAsset.make("/ui/js/systemCatalog.js")),
 
             Map.entry("/ui.js", StaticAsset.make("/ui/js/ui.js")),
 
@@ -129,14 +132,38 @@ class JournalServlet extends EventSourceServlet
         }),
 
         /**
-         * Returns the market data from the most recently visited market.
+         * Returns the list of cataloged star systems the player has visited.
+         */
+        CATALOG(EndpointType.GET, "/catalog", (_r, response, playerState) ->
+        {
+            writeJsonResponse(response, playerState.writeCatalogList());
+        }),
+
+        /**
+         * Returns cartographic data for the requested star system.
          */
         CARTOGRAPHY(EndpointType.GET, "/cartography", (request, response, playerState) ->
         {
             var id = request.getParameter("id");
-            System.out.println("Cartography requested: " + id);
             var systemAddress = Long.parseLong(id);
             writeJsonResponse(response, playerState.writeCartographicData(systemAddress));
+        }),
+
+        /**
+         * Initiates an import of exploration data from the player's journal files
+         */
+        IMPORT(EndpointType.GET, "/import", (request, response, playerState) ->
+        {
+            importExplorationData(playerState);
+            response.setStatus(201);
+            try
+            {
+                response.getWriter().print("Import Complete");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }),
 
         /**
@@ -209,6 +236,52 @@ class JournalServlet extends EventSourceServlet
     JournalServlet()
     {
         playerState = new PlayerState(this::sendEvent);
+    }
+
+    private static void importExplorationData(PlayerState playerState)
+    {
+        Arrays.stream(JournalSyncTaskEX.listJournalFiles())
+            .sorted(JournalSyncTaskEX.oldestJournalFile)
+            .flatMap(JournalSyncTaskEX::readLines)
+            .map(JSONSupport.Parse.jsonString)
+            .filter(event ->
+            {
+                var eventName = ((String) event.get("event"));
+                if (eventName == null) return false;
+                return eventName.equalsIgnoreCase("Scan")
+                    || eventName.equalsIgnoreCase("FSSAllBodiesFound")
+                    || eventName.equalsIgnoreCase("FSSDiscoveryScan")
+                    || eventName.equalsIgnoreCase("FSDJump")
+                    || eventName.equalsIgnoreCase("Location");
+            })
+            .filter(event -> event.get("SystemAddress") != null)
+            .forEach(event ->
+            {
+                var eventName = ((String) event.get("event"));
+                if (eventName.equalsIgnoreCase("Location"))
+                {
+                    if (event.get("BodyID") == null) return;
+                    JournalEventEX.Location.process(playerState, event);
+                }
+                else if (eventName.equalsIgnoreCase("FSDJump"))
+                {
+                    if (event.get("BodyID") == null) return;
+                    JournalEventEX.FSDJump.process(playerState, event);
+                }
+                else if (eventName.equalsIgnoreCase("Scan"))
+                {
+                    if (event.get("BodyID") == null) return;
+                    JournalEventEX.Scan.process(playerState, event);
+                }
+                else if (eventName.equalsIgnoreCase("FSSAllBodiesFound"))
+                {
+                    JournalEventEX.FSSAllBodiesFound.process(playerState, event);
+                }
+                else if (eventName.equalsIgnoreCase("FSSDiscoveryScan"))
+                {
+                    JournalEventEX.FSSDiscoveryScan.process(playerState, event);
+                }
+            });
     }
 
     public PlayerState getPlayerState()

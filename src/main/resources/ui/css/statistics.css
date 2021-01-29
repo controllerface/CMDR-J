@@ -340,6 +340,11 @@
     color: var(--default-text);
 }
 
+.catalogList
+{
+    width: 25em;
+}
+
 .unused
 {
     display: none;

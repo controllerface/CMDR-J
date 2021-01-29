@@ -879,10 +879,9 @@ function handleRouteData(data)
     }
 }
 
-function setCartographyData(data)
+function setCartographyData(data, id)
 {
-    console.log(data);
-    let systemCartography = document.getElementById('systemCartography');
+    let systemCartography = document.getElementById(id);
     systemCartography.textContent = "";
     systemCartography.system = data['star_system'];
 
@@ -906,6 +905,33 @@ function setCartographyData(data)
             nextEntry.loadBodyData(body);
             systemCartography.append(nextEntry);
         }
+    }
+}
+
+function setSystemCartographyData(data)
+{
+    setCartographyData(data, 'systemCartography');
+}
+
+function setCataloguedSystemData(data)
+{
+    setCartographyData(data, 'catalogCartography');
+}
+
+function setSystemCatalog(data)
+{
+    let entries = data['entries'];
+    entries.sort((a,b) =>
+    {
+        let aName = a['name'];
+        let bName = b['name'];
+        return bName.localeCompare(aName);
+    })
+    let catalog = document.getElementById('systemCatalog');
+    for (let i = 0, len = entries.length; i < len; i++)
+    {
+        let nextSystem = entries[i];
+        catalog.loadSystemData(nextSystem);
     }
 }
 
@@ -1029,7 +1055,9 @@ const eventListeners =
     // Contains the player's currently planned navigation route
     Route: (e) => handleRouteData(e.data),
 
-    Cartography: (e) => requestJsonEndpoint('/cartography?id=' + e.data, setCartographyData),
+    Cartography: (e) => requestJsonEndpoint('/cartography?id=' + e.data, setSystemCartographyData),
+
+    Catalog: (e) => requestJsonEndpoint('/catalog', setSystemCatalog),
 };
 
 window.onload = (e) =>

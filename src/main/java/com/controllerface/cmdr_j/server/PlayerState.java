@@ -184,15 +184,20 @@ public class PlayerState
         engineerProgress.forEach((engineer, data) ->
             data.put("distance", engineer.getLocation().distanceBetween(this.starSystem)));
 
-        database.executeInTransaction((transaction)->
-        {
-            var systemEntity = getOrCreateStarSystemEntity(transaction);
-            System.out.println("System: " + systemEntity);
-        });
+        discoverLocation(this.starSystem);
 
         executeWithLock(() -> globalUpdate.accept("Location", this.starSystem.systemName));
 
         emitEngineerData();
+    }
+
+    public void discoverLocation(StarSystem starSystem)
+    {
+        database.executeInTransaction((transaction)->
+        {
+            var systemEntity = getOrCreateStarSystemEntity(transaction, starSystem);
+            System.out.println("System: " + systemEntity);
+        });
     }
 
     public void setCommanderStat(Statistic statistic, String value)
@@ -1109,18 +1114,16 @@ public class PlayerState
         }
     }
 
-    public void updateStellarBody(StellarBody stellarBody)
+    public void discoverStellarBody(StellarBody stellarBody)
     {
         database.executeInTransaction((transaction)->
         {
-            if (starSystem.address != stellarBody.address)
+            var systemEntity = getStarSystemEntity(transaction, stellarBody.address);
+            if (systemEntity == null)
             {
-                System.out.println("Setting data for bodies not in the current system is not currently supported");
+                System.out.println("Setting data for bodies with no known system is not currently supported");
                 return;
             }
-
-            var systemEntity = getOrCreateStarSystemEntity(transaction);
-            if (systemEntity == null) return;
 
             var bodies = transaction.find(EntityKeys.STELLAR_BODY, EntityKeys.STELLAR_BODY_ID, stellarBody.id);
             var bodyEntity = EntityUtilities.entityStream(bodies)
@@ -1128,19 +1131,13 @@ public class PlayerState
                 {
                     var linkedSystem = body.getLink(EntityKeys.STAR_SYSTEM);
                     if (linkedSystem == null) return false;
-                    boolean b = linkedSystem.getId().compareTo(systemEntity.getId()) == 0;
-                    if (b)
-                    {
-                        System.out.println("Found body: " + body);
-                    }
-                    return b;
+                    return linkedSystem.getId().compareTo(systemEntity.getId()) == 0;
                 })
                 .findFirst().orElseGet(() ->
                 {
                     var newBody = transaction.newEntity(EntityKeys.STELLAR_BODY);
                     newBody.setLink(EntityKeys.STAR_SYSTEM, systemEntity);
                     systemEntity.addLink(EntityKeys.STELLAR_BODY, newBody);
-                    System.out.println("New Body: " + newBody);
                     return newBody;
                 });
             stellarBody.storeBodyData(bodyEntity);
@@ -1168,32 +1165,28 @@ public class PlayerState
         return transaction.find(EntityKeys.COMMANDER, EntityKeys.NAME, commmanderName).getFirst();
     }
 
-    private Entity getOrCreateStarSystemEntity(StoreTransaction transaction)
+    private Entity getOrCreateStarSystemEntity(StoreTransaction transaction, StarSystem starSystem)
     {
         var commanderEntity = getCommanderEntity(transaction);
         if (commanderEntity == null) return null;
 
         var systems = transaction.find(EntityKeys.STAR_SYSTEM, EntityKeys.STAR_SYSTEM_ADDRESS, starSystem.address);
-        var systemEntity = EntityUtilities.entityStream(systems)
+        return EntityUtilities.entityStream(systems)
             .filter(system ->
             {
-                System.out.println("Found system");
                 var linkedCommander = system.getLink(EntityKeys.COMMANDER);
                 if (linkedCommander == null) return false;
                 return linkedCommander.getId().compareTo(commanderEntity.getId()) == 0;
             })
             .findFirst().orElseGet(()->
             {
-                System.out.println("New system");
                 var newSystem = transaction.newEntity(EntityKeys.STAR_SYSTEM);
                 starSystem.storeSystemData(newSystem);
                 newSystem.setLink(EntityKeys.COMMANDER, commanderEntity);
                 commanderEntity.addLink(EntityKeys.STAR_SYSTEM, newSystem);
+                emitSystemCatalog();
                 return newSystem;
             });
-
-        System.out.println("System: " + systemEntity);
-        return systemEntity;
     }
 
     private Entity getStarSystemEntity(StoreTransaction transaction, long address)
@@ -1224,6 +1217,26 @@ public class PlayerState
                 map.put(propertyName, json.get("json"));
             });
 
+    }
+
+    private Map<String, Object> prepareCatalogList()
+    {
+        return database.computeInTransaction(txn ->
+        {
+            var data = new HashMap<String, Object>();
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return data;
+            var entries = EntityUtilities.entityStream(commander.getLinks(EntityKeys.STAR_SYSTEM))
+                .map(system->
+                {
+                    var listEntry = new HashMap<String, Object>();
+                    listEntry.put("name", system.getProperty(EntityKeys.STAR_SYSTEM));
+                    listEntry.put("address", system.getProperty(EntityKeys.STAR_SYSTEM_ADDRESS));
+                    return listEntry;
+                }).collect(Collectors.toList());
+            data.put("entries", entries);
+            return data;
+        });
     }
 
     private Map<String, Object> prepareCartographicData(long systemAddress)
@@ -1312,6 +1325,11 @@ public class PlayerState
         executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
     }
 
+    public void emitSystemCatalog()
+    {
+        executeWithLock(() -> globalUpdate.accept("Catalog", "updated"));
+    }
+
     /**
      * When a client connects, this is called to ensure the client gets the current state
      * data. Note that after a client is connected, state data must be emitted as it changes
@@ -1344,6 +1362,8 @@ public class PlayerState
             directUpdate.accept("Statistics", "updated");
 
             directUpdate.accept("Market", "updated");
+
+            directUpdate.accept("Catalog", "updated");
 
             if (starSystem != null)
             {
@@ -1508,6 +1528,11 @@ public class PlayerState
     public String writeCartographicData(long systemAddress)
     {
         return JSONSupport.Write.jsonToString.apply(prepareCartographicData(systemAddress));
+    }
+
+    public String writeCatalogList()
+    {
+        return JSONSupport.Write.jsonToString.apply(prepareCatalogList());
     }
 
     //endregion

@@ -72,6 +72,8 @@ public class JournalSyncTaskEX implements Runnable
                 }
             };
 
+    public static final Comparator<File> oldestJournalFile = newestJournalFile.reversed();
+
     private Path journalPath;
     private final AtomicInteger lastLine = new AtomicInteger(0);
     private final AtomicReference<String> currentJournalFile = new AtomicReference<>("");
@@ -221,10 +223,9 @@ public class JournalSyncTaskEX implements Runnable
         }
     }
 
-    private static Stream<String> readLines(File file)
+    public static Stream<String> readLines(File file)
     {
         List<String> fileLines = new ArrayList<>();
-
         try
         {
             FileReader reader = new FileReader(file);
@@ -295,14 +296,19 @@ public class JournalSyncTaskEX implements Runnable
         return readSupplementalFile(SupplementalDataFile.NAV_ROUTE);
     }
 
+    public static File[] listJournalFiles()
+    {
+        File journalFolder = new File(JOURNAL_FOLDER);
+        return journalFolder.listFiles((directory, file) ->
+            file.startsWith("Journal.") && file.endsWith(".log"));
+    }
+
     private void initializeJournalData()
     {
         // todo: maybe this should be configurable
-        File journalFolder = new File(JOURNAL_FOLDER);
-        journalPath = journalFolder.toPath();
+        journalPath = new File(JOURNAL_FOLDER).toPath();
 
-        File[] journalFiles = journalFolder
-                .listFiles((directory, file) -> file.startsWith("Journal") && file.endsWith(".log"));
+        File[] journalFiles = listJournalFiles();
 
         // todo: maybe print an error of some kind
         if (journalFiles == null) return;
@@ -316,7 +322,7 @@ public class JournalSyncTaskEX implements Runnable
     private void reInitializeJournalData()
     {
         File[] journalFiles = journalPath.toFile()
-                .listFiles((directory, file) -> file.startsWith("Journal") && file.endsWith(".log"));
+            .listFiles((directory, file) -> file.startsWith("Journal") && file.endsWith(".log"));
 
         // todo: maybe print an error of some kind
         if (journalFiles == null) return;

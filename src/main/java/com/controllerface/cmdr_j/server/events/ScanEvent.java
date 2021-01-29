@@ -24,7 +24,8 @@ public class ScanEvent implements BiConsumer<PlayerState, Map<String, Object>>
         event.remove("StarSystem");
 
         var scannedBody = new ScannedBody(bodyType, bodyName, bodyId, address, event);
-        playerState.updateStellarBody(scannedBody);
+
+        playerState.discoverStellarBody(scannedBody);
         playerState.emitCartographyData();
     }
 

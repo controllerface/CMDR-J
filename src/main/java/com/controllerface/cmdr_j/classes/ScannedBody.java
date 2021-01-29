@@ -36,7 +36,13 @@ public class ScannedBody extends StellarBody
                 var json = new HashMap<String, Object>();
                 json.put("json", value);
                 bodyEntity.setBlobString(name, JSONSupport.Write.jsonToString.apply(json));
-                //System.out.println("List type: " + name + " skipped: " + value);
+                return;
+            }
+            if (value instanceof Map)
+            {
+                var json = new HashMap<String, Object>();
+                json.put("json", value);
+                bodyEntity.setBlobString(name, JSONSupport.Write.jsonToString.apply(json));
                 return;
             }
             if (value instanceof String)
