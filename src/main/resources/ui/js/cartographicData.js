@@ -53,6 +53,7 @@ class CartographicData extends HTMLElement
             case 'SurfaceGravity': return 'Surface Gravity';
             case 'SurfacePressure': return 'Surface Pressure';
             case 'SurfaceTemperature': return 'Surface Temperature';
+            case 'TerraformState': return 'Terraform State';
             case 'TidalLock': return 'Tidal Lock';
             case 'timestamp': return 'Last Updated';
 
@@ -139,7 +140,19 @@ class CartographicData extends HTMLElement
 
         if (body['Landable'] === true)
         {
-            this.shadowRoot.getElementById('cartographicData_bodyname').classList.add('positive');
+            this.shadowRoot.getElementById('cartographicData_bodyname')
+                .classList.add('positive');
+        }
+
+        if (body['TerraformState'])
+        {
+            let terraformState = body['TerraformState'];
+
+            if (terraformState === 'Terraformable')
+            {
+                this.shadowRoot.getElementById('cartographicData_bodyname')
+                    .classList.add('antixeno');
+            }
         }
 
         if (body['PlanetClass'])

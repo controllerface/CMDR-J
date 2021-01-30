@@ -144,9 +144,11 @@ public class PlayerState
             EntityUtilities.entityStream(txn.getAll(EntityKeys.STELLAR_BODY))
                 .filter(body->
                 {
-                    var c = body.getProperty("PlanetClass");
+                    var c = ((String) body.getProperty("PlanetClass"));
                     if (c == null) return false;
-                    return ((String) c).contains("Water");
+                    return c.contains("Water")
+                        || c.contains("Ammonia")
+                        || c.contains("Earth");
                 })
                 .forEach(body->
                 {
