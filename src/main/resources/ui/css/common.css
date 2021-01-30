@@ -271,7 +271,7 @@ Some reusable stat classes
 
 
 /*
-Styles used for various planet types
+Styles used for various star types
 */
 
 .star
@@ -280,8 +280,140 @@ Styles used for various planet types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #111, dimgray, white);
+                #111, dimgray, dimgray);
 }
+
+.star_O
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #335eff, #9bb0ff, #9bb0ff);
+}
+
+.star_B
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #2e61ff, #aabfff, #aabfff);
+}
+
+.star_A
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #668aff, #cad7ff, #cad7ff);
+}
+
+.star_F
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #7766ff, #f8f7ff, #f8f7ff);
+}
+
+.star_G
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #ffa85c, #fff4ea, #fff4ea);
+}
+
+.star_K
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #ff9f30, #ffd2a1, #ffd2a1);
+}
+
+.star_M
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #ffb836, #ffcc6f, #ffcc6f);
+}
+
+.star_L
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #9e0507, #cb0b30, #cb0b30);
+}
+
+.star_T
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #cb0b30, #9e0507, #9e0507);
+}
+
+.star_Y
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #821e3f, #571a3b, #571a3b);
+}
+
+
+.star_TTS
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #ffb429, #9bb0ff, #ff9a6f);
+}
+
+
+.star_M_RedGiant
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, #ff3b3b,
+                #ff9a6f, #ff9a6f, #ff9a6f);
+}
+
+.star_M_RedSuperGiant
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, #ff3b3b, #ff3b3b,
+                #ff9a6f, #ff9a6f, #ff9a6f);
+}
+
+.star_K_OrangeGiant
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, #ff8c0d,
+                #ffb86b, #ffb86b, #ffb86b);
+}
+
+/*
+Colors for different world types
+*/
 
 .ammoniaWorld
 {

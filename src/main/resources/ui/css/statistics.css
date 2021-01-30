@@ -330,6 +330,15 @@
     color: var(--default-text);
 }
 
+.starType
+{
+    float: right;
+    margin-right: .2em;
+    font-family: monospace;
+    font-weight: bold;
+    color: var(--default-color);
+}
+
 .catalogList
 {
     width: 25em;

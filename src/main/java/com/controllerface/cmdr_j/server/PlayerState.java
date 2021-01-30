@@ -139,6 +139,7 @@ public class PlayerState
     {
         this.globalUpdate = globalUpdate;
 
+        // DEBUG SECTION
         database.executeInTransaction(txn ->
         {
             EntityUtilities.entityStream(txn.getAll(EntityKeys.STELLAR_BODY))
@@ -162,6 +163,30 @@ public class PlayerState
                     }
                 });
         });
+
+        System.out.println("---------------------");
+
+        database.executeInTransaction(txn ->
+        {
+            EntityUtilities.entityStream(txn.getAll(EntityKeys.STELLAR_BODY))
+                .filter(body->
+                {
+                    var c = ((String) body.getProperty("StarType"));
+                    return c != null;
+                })
+                .forEach(body->
+                {
+                    var c = ((String) body.getProperty("StarType"));
+                    var system = body.getLink(EntityKeys.STAR_SYSTEM);
+                    if (system != null)
+                    {
+                        var s = system.getProperty(EntityKeys.STAR_SYSTEM);
+                        var n = body.getProperty(EntityKeys.STELLAR_BODY_NAME);
+                        System.out.println(c + " = " + s + " : " + n);
+                    }
+                });
+        });
+
     }
 
     private void executeWithLock(Procedure procedure)

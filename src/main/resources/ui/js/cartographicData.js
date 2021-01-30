@@ -46,6 +46,7 @@ class CartographicData extends HTMLElement
             case 'RotationPeriod': return 'Rotation Period';
             case 'ScanType': return 'Scan Type';
             case 'SemiMajorAxis': return 'Semi-Major Axis';
+            case 'StarType': return 'Star Type';
             case 'stellar_body_id': return 'Body ID';
             case 'stellar_body_type': return 'Body Type';
             case 'stellar_body_name': return 'Body Name';
@@ -181,7 +182,48 @@ class CartographicData extends HTMLElement
 
         if (body['stellar_body_type'] === 'Star')
         {
-            this.shadowRoot.getElementById('cartographicData_bodytype').classList.add('star');
+            let starType = body['StarType'];
+            let colorClass = 'star';
+
+            if (starType)
+            {
+                switch (starType)
+                {
+                    case 'O':
+                    case 'B':
+                    case 'A':
+                    case 'F':
+                    case 'G':
+                    case 'K':
+                    case 'M':
+                    case 'L':
+                    case 'T':
+                    case 'Y':
+                    case 'TTS':
+                    case 'M_RedGiant':
+                    case 'M_RedSuperGiant':
+                    case 'K_OrangeGiant':
+                        colorClass = 'star_' + starType;
+                        break;
+                }
+
+                let subClass = body['Subclass'];
+
+                let formattedType = starType
+                    .replace('M_RedGiant', '(Red Giant) M')
+                    .replace('M_RedSuperGiant', '(Red Super-Giant) M')
+                    .replace('K_OrangeGiant', '(Orange Giant) K');
+
+                let classElement = document.createElement('span');
+                classElement.textContent = '[' + formattedType + subClass + ']';
+                classElement.classList.add('starType');
+
+                this.shadowRoot.getElementById('cartographicData_bodyname')
+                    .append(classElement);
+            }
+
+            this.shadowRoot.getElementById('cartographicData_bodytype')
+                .classList.add(colorClass);
         }
 
         let statistics = Object.keys(body);
@@ -228,19 +270,14 @@ class CartographicData extends HTMLElement
             }
             else if (stat === 'Composition')
             {
-                console.log(value);
-
                 let detailData = this.createExpandedStatContainer('Composition Data');
                 let types = Object.keys(value);
-                console.log(types);
                 types.sort();
 
                 for (let i = 0, len = types.length; i < len; i++)
                 {
                     let materialName = types[i];
                     let materialPercent = (value[materialName] * 100).toFixed(2) + ' %';
-                    console.log(materialName);
-
                     let nextMaterialEntry = this.createExpandedStatEntry(materialName, materialPercent);
                     detailData[1].append(nextMaterialEntry);
                 }
