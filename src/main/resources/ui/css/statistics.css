@@ -313,16 +313,6 @@
     text-align: left;
 }
 
-.landable
-{
-    background: linear-gradient(
-                169deg,
-                black, black, black,
-                black, black, black,
-                black, black, black,
-                #111, var(--default-color), var(--default-color));
-}
-
 .expandedValue
 {
     color: var(--default-color);

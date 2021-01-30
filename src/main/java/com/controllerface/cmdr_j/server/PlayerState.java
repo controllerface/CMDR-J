@@ -138,6 +138,28 @@ public class PlayerState
     public PlayerState(BiConsumer<String, String> globalUpdate)
     {
         this.globalUpdate = globalUpdate;
+
+        database.executeInTransaction(txn ->
+        {
+            EntityUtilities.entityStream(txn.getAll(EntityKeys.STELLAR_BODY))
+                .filter(body->
+                {
+                    var c = body.getProperty("PlanetClass");
+                    if (c == null) return false;
+                    return ((String) c).contains("Water");
+                })
+                .forEach(body->
+                {
+                    var c = body.getProperty("PlanetClass");
+                    var system = body.getLink(EntityKeys.STAR_SYSTEM);
+                    if (system != null)
+                    {
+                        var s = system.getProperty(EntityKeys.STAR_SYSTEM);
+                        var n = body.getProperty(EntityKeys.STELLAR_BODY_NAME);
+                        System.out.println(c + " = " + s + " : " + n);
+                    }
+                });
+        });
     }
 
     private void executeWithLock(Procedure procedure)

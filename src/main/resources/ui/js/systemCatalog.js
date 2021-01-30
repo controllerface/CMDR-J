@@ -18,6 +18,9 @@ class SystemCatalog extends HTMLElement
                 requestJsonEndpoint('/cartography?id=' + option.id, setCataloguedSystemData);
             }
         });
+
+        let clearButton = this.shadowRoot.getElementById('systemCatalog_clearbutton');
+        clearButton.addEventListener('click', (e) => selector.value = '');
     }
 
     loadSystemData(system)

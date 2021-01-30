@@ -139,8 +139,36 @@ class CartographicData extends HTMLElement
 
         if (body['Landable'] === true)
         {
-            this.shadowRoot.getElementById('cartographicData_bodyname').parentElement
-                .classList.add('landable');
+            this.shadowRoot.getElementById('cartographicData_bodyname').classList.add('positive');
+        }
+
+        if (body['PlanetClass'])
+        {
+            let planetClass = body['PlanetClass'];
+            let colorClass = '';
+            if (planetClass === 'Ammonia world')
+            {
+                colorClass = 'ammoniaWorld';
+            }
+            else if (planetClass === 'Earthlike body')
+            {
+                colorClass = 'earthLikeWorld';
+            }
+            else if (planetClass === 'Water world')
+            {
+                colorClass = 'waterWorld';
+            }
+
+            if (colorClass !== '')
+            {
+                this.shadowRoot.getElementById('cartographicData_bodytype')
+                    .classList.add(colorClass);
+            }
+        }
+
+        if (body['stellar_body_type'] === 'Star')
+        {
+            this.shadowRoot.getElementById('cartographicData_bodytype').classList.add('star');
         }
 
         let statistics = Object.keys(body);

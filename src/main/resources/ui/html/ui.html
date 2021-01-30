@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 
     <title>CMDR J - v2.2 (Alpha)</title>
@@ -794,15 +794,21 @@
         </div>
     </template>
 
+    <!-- Star system catalog selector -->
     <template id="template_SystemCatalog">
         <link rel="stylesheet" href="statistics.css">
         <div class="emptySection">
-            <label for="systemCatalog_systemselector">Select or search for star system:</label>
-            <input class="catalogList" id="systemCatalog_systemselector" list="systemCatalog_datalist" />
+            <label for="systemCatalog_systemselector">Known Systems</label>
+            <input type="text" class="catalogList" id="systemCatalog_systemselector" list="systemCatalog_datalist" />
             <datalist id="systemCatalog_datalist">
             </datalist>
+            <input id="systemCatalog_clearbutton" type="button" value="clear"/>
         </div>
         <slot></slot>
+    </template>
+
+    <template id="template_SystemPOI">
+
     </template>
 </head>
 
@@ -1293,7 +1299,20 @@
             <input name="astrometricsTabs" type="radio" id="poiTabButton" class="tabInput"/>
             <label id="poiTab" for="poiTabButton" class="tabLabel">Galactic POI</label>
             <div class="tabPanel">
-                <span>TODO: POI</span>
+                <div>Something here</div>
+                <div id="poiContainer">
+                    <input name="poiTabs" type="radio" id="currentPoiTabButton" class="tabInput"/>
+                    <label id="currentPoiTab" for="currentPoiTabButton" class="tabLabel">Current System</label>
+                    <div class="tabPanel">
+                        <span>TODO: Current System POI</span>
+                    </div>
+
+                    <input name="poiTabs" type="radio" id="galaxyPoiTabButton" class="tabInput"/>
+                    <label id="galaxyPoiTab" for="galaxyPoiTabButton" class="tabLabel">All systems</label>
+                    <div class="tabPanel">
+                        <span>TODO: POI Catalog</span>
+                    </div>
+                </div>
             </div>
 
         </div>

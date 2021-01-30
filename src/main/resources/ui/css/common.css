@@ -178,6 +178,33 @@ details > summary::-webkit-details-marker
   display: none;
 }
 
+/*
+Global input element styles
+*/
+
+input[type=button]
+{
+    background: var(--default-background);
+    color: var(--default-color);
+    border: 1px solid var(--default-border);
+    border-radius: 3px 3px 3px 3px;
+}
+
+input[type=button]:hover
+{
+    background: var(--default-border);
+    color: white;
+}
+
+input[type=text]
+{
+    border: solid 1px var(--default-border);
+    border-radius: 3px 3px 3px 3px;
+    background: var(--default-background);
+    color: var(--default-color);
+    font-weight: bold;
+}
+
 
 /*
 Some reusable stat classes
@@ -193,6 +220,8 @@ Some reusable stat classes
 {
     display: grid;
     grid-template-columns: 2.5fr 3fr 1.6fr;
+    background: linear-gradient(90deg, black, #222);
+
 }
 
 .infoRow:hover > span
@@ -216,7 +245,7 @@ Some reusable stat classes
 {
     text-align: right;
     padding-right: 8px;
-    background: linear-gradient(90deg, black, #222);
+    /*background: linear-gradient(90deg, black, #222);*/
     overflow: hidden; /* Ensures the content is not revealed until the animation */
     white-space: nowrap; /* Keeps the content on a single line */
 }
@@ -225,7 +254,7 @@ Some reusable stat classes
 {
     text-align: right;
     padding-right: 5px;
-    background: #222;
+    /*background: #222;*/
     overflow: hidden; /* Ensures the content is not revealed until the animation */
     white-space: nowrap; /* Keeps the content on a single line */
     animation: slideRight 0.1s ease; /*steps(30, end)*/
@@ -236,6 +265,47 @@ Some reusable stat classes
     text-align: left;
     padding-left: 5px;
     color: var(--default-color);
-    background: linear-gradient(90deg, #222, black);
+    /*background: linear-gradient(90deg, #222, black);*/
     animation: slideLeft 0.3s ease;/*steps(30, end)*/
+}
+
+
+/*
+Styles used for various planet types
+*/
+
+.star
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                #111, dimgray, white);
+}
+
+.ammoniaWorld
+{
+    background: linear-gradient(200deg,
+                transparent, transparent, transparent,
+                transparent, transparent, transparent,
+                transparent, transparent, transparent,
+                #4a1f00, #660000, #660000);
+}
+
+.earthLikeWorld
+{
+    background: linear-gradient(200deg,
+                transparent, transparent, transparent,
+                transparent, transparent, transparent,
+                transparent, transparent, transparent,
+                #57faf4, green, blue);
+}
+
+.waterWorld
+{
+    background: linear-gradient(200deg,
+                transparent, transparent, transparent,
+                transparent, transparent, transparent,
+                transparent, transparent, transparent,
+                #5860f5, blue, blue);
 }

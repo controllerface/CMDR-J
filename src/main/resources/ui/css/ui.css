@@ -506,10 +506,6 @@ details > summary::-webkit-details-marker
 }
 
 
-
-
-
-
 /* Inventory Tabs*/
 
 #inventoryContainer
@@ -539,12 +535,6 @@ details > summary::-webkit-details-marker
     grid-area: marketTab;
     border-radius: 5px;
 }
-
-
-
-
-
-
 
 
 /* Material Inventory */
@@ -613,6 +603,7 @@ details > summary::-webkit-details-marker
 }
 
 
+/* Cartographic Data */
 
 #cartographicsContainer
 {
@@ -637,6 +628,29 @@ details > summary::-webkit-details-marker
 }
 
 
+/* POI Data */
+
+#poiContainer
+{
+    display: grid;
+    grid-template-areas:
+    "currentPoiTab galaxyPoiTab"
+    "panel         panel";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2em auto;
+}
+
+#currentPoiTab
+{
+    grid-area: currentPoiTab;
+    border-radius: 5px;
+}
+
+#galaxyPoiTab
+{
+    grid-area: galaxyPoiTab;
+    border-radius: 5px;
+}
 
 
 
