@@ -71,6 +71,7 @@ class CartographicData extends HTMLElement
                 case 'NavBeaconDetail': return 'NavBeacon Detail';
                 case 'AsteroidCluster': return 'Asteroid Cluster';
                 case 'CarbonDioxide': return 'Carbon Dioxide';
+                case 'BlackHole': return 'Black Hole';
                 default: return value;
             }
         }
@@ -180,32 +181,15 @@ class CartographicData extends HTMLElement
             }
         }
 
-        if (body['stellar_body_type'] === 'Star')
+        if (body['stellar_body_type'] === 'Star'
+            || body['stellar_body_type'] === 'BlackHole')
         {
             let starType = body['StarType'];
             let colorClass = 'star';
 
             if (starType)
             {
-                switch (starType)
-                {
-                    case 'O':
-                    case 'B':
-                    case 'A':
-                    case 'F':
-                    case 'G':
-                    case 'K':
-                    case 'M':
-                    case 'L':
-                    case 'T':
-                    case 'Y':
-                    case 'TTS':
-                    case 'M_RedGiant':
-                    case 'M_RedSuperGiant':
-                    case 'K_OrangeGiant':
-                        colorClass = 'star_' + starType;
-                        break;
-                }
+                colorClass = determineStarStyle(starType);
 
                 let subClass = body['Subclass'];
 
@@ -224,6 +208,16 @@ class CartographicData extends HTMLElement
 
             this.shadowRoot.getElementById('cartographicData_bodytype')
                 .classList.add(colorClass);
+        }
+
+        if (body['stellar_body_mapped'])
+        {
+            let mappedElement = document.createElement('span');
+            mappedElement.textContent = '[MAPPED]';
+            mappedElement.classList.add('mappedIndicator');
+
+            this.shadowRoot.getElementById('cartographicData_bodyname')
+                .append(mappedElement);
         }
 
         let statistics = Object.keys(body);
@@ -252,7 +246,7 @@ class CartographicData extends HTMLElement
             let stat = statistics[j];
             let value = body[stat];
 
-            if (stat === 'Parents') continue;
+            if (stat === 'Parents' || stat === 'stellar_body_mapped') continue;
 
             let statRow = document.createElement('div');
             statRow.classList.add('infoRow');
@@ -363,6 +357,7 @@ class CartographicData extends HTMLElement
             case 'AsteroidCluster': return 'Asteroid Cluster';
             case 'PlanetaryRing': return 'Planetary Ring';
             case 'StellarRing': return 'Stellar Ring';
+            case 'BlackHole': return 'Black Hole';
             default: return type;
         }
     }

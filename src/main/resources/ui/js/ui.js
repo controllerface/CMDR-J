@@ -177,6 +177,40 @@ function determineReputation(status)
     }
 }
 
+function determineStarStyle(starClass)
+{
+    if (starClass)
+    {
+        switch (starClass)
+        {
+            case 'O':
+            case 'B':
+            case 'A':
+            case 'F':
+            case 'G':
+            case 'K':
+            case 'M':
+            case 'L':
+            case 'T':
+            case 'Y':
+            case 'H':
+            case 'N':
+            case 'W':
+            case 'AeBe':
+            case 'TTS':
+            case 'M_RedGiant':
+            case 'M_RedSuperGiant':
+            case 'K_OrangeGiant':
+                return 'star_' + starClass;
+            default: return 'star';
+        }
+    }
+    else
+    {
+        return 'star';
+    }
+}
+
 /*
 Called with an element ID and text value, which is set as the textContent property on the located
 element. Note that the located DOM element is assumed to exist already in the DOM. If the element
@@ -862,10 +896,12 @@ function handleFactionData(statistic, data)
 
 function handleRouteData(data)
 {
-    let route = JSON.parse(data)['route'];
+    let routeData = JSON.parse(data);
+    let route = routeData['route'];
 
     let navigationRoute = document.getElementById('navigationRoute');
     navigationRoute.textContent = "";
+    navigationRoute.jumps = routeData['jumps'];
     navigationRoute.destination = route[route.length - 1]['name'];
     navigationRoute.distance = route[route.length - 1]['distance'];
 
@@ -875,6 +911,7 @@ function handleRouteData(data)
         let nextEntry = document.createElement('route-entry');
         nextEntry.system = nextSystem['name'];
         nextEntry.distance = nextSystem['distance'];
+        nextEntry.starClass = nextSystem['starClass'];
         navigationRoute.append(nextEntry);
     }
 }
@@ -888,6 +925,10 @@ function setCartographyData(data, id)
     if (data['star_system_body_count'])
     {
         systemCartography.bodies = data['star_system_body_count'];
+    }
+    else
+    {
+        systemCartography.bodies = '?';
     }
 
     if (data['bodies'])

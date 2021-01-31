@@ -724,10 +724,14 @@
     <template id="template_NavigationRoute">
         <link rel="stylesheet" href="statistics.css">
 
-        <div class="navigationStatHeader">
+        <div class="dataHeader">
             <div class="headerEntry">
                 <b>Destination</b>
                 <span id="navigationRoute_destination" class="headerStat">None</span>
+            </div>
+            <div class="headerEntry">
+                <b>Jumps</b>
+                <span id="navigationRoute_jumps" class="headerStat">0</span>
             </div>
             <div class="headerEntry">
                 <b>Distance Remaining</b>
@@ -753,7 +757,14 @@
     <template id="template_RouteEntry">
         <link rel="stylesheet" href="statistics.css">
         <div class="navigationRow">
-            <span class="statEntryName" id="routeEntry_system"></span>
+            <div class="statEntryName">
+                <span id="routeEntry_system"></span>
+                <div class="starType">
+                    <span class="multiplierBracket">[</span>
+                    <span title="Arrival Star Class" id="routeEntry_starclass"></span>
+                    <span class="multiplierBracket">]</span>
+                </div>
+            </div>
             <div class="statEntryRightCap">
                 <span id="routeEntry_distance"></span>
                 <span class="valueUnit">LY</span>

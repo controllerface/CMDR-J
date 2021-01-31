@@ -11,6 +11,7 @@ public class EntityKeys
     public static final String STAR_SYSTEM_Y = "system_pos_y";
     public static final String STAR_SYSTEM_Z = "system_pos_z";
     public static final String STELLAR_BODY = "stellar_body";
+    public static final String STELLAR_BODY_MAPPED = "stellar_body_mapped";
     public static final String STELLAR_BODY_ID = "stellar_body_id";
     public static final String STELLAR_BODY_NAME = "stellar_body_name";
     public static final String STELLAR_BODY_TYPE = "stellar_body_type";

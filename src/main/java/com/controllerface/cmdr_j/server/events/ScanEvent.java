@@ -35,7 +35,11 @@ public class ScanEvent implements BiConsumer<PlayerState, Map<String, Object>>
         // star type is the simplest
         if (event.get("StarType") != null)
         {
-            return StellarBody.BodyType.Star;
+            if (event.get("StarType").equals("H"))
+            {
+                return StellarBody.BodyType.BlackHole;
+            }
+            else return StellarBody.BodyType.Star;
         }
 
         var parents = ((List<Map<String, Object>>) event.get("Parents"));

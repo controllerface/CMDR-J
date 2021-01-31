@@ -289,7 +289,9 @@ Styles used for various star types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #335eff, #9bb0ff, #9bb0ff);
+                black, black, black,
+                rgba(38, 0, 255, 0.25),
+                #2600ff, #9bb0ff, white, white);
 }
 
 .star_B
@@ -298,7 +300,7 @@ Styles used for various star types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #2e61ff, #aabfff, #aabfff);
+                rgba(46, 97, 255, 0.25), #aabfff, white);
 }
 
 .star_A
@@ -307,7 +309,7 @@ Styles used for various star types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #668aff, #cad7ff, #cad7ff);
+                rgba(102, 138, 255, 0.25), #cad7ff, #cad7ff);
 }
 
 .star_F
@@ -316,7 +318,7 @@ Styles used for various star types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #7766ff, #f8f7ff, #f8f7ff);
+                rgba(119, 102, 255, 0.25), #f8f7ff, #f8f7ff);
 }
 
 .star_G
@@ -325,7 +327,7 @@ Styles used for various star types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #ffa85c, #fff4ea, #fff4ea);
+                rgba(255, 168, 92, 0.25), #fff4ea, #fff4ea);
 }
 
 .star_K
@@ -334,7 +336,7 @@ Styles used for various star types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #ff9f30, #ffd2a1, #ffd2a1);
+                rgba(255, 159, 48, 0.25), #ffd2a1, #ffd2a1);
 }
 
 .star_M
@@ -343,7 +345,7 @@ Styles used for various star types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #ffb836, #ffcc6f, #ffcc6f);
+                rgba(255, 184, 54, 0.25), #ffcc6f, #ffcc6f);
 }
 
 .star_L
@@ -352,7 +354,7 @@ Styles used for various star types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #9e0507, #cb0b30, #cb0b30);
+                rgba(158, 5, 7, 0.25), #cb0b30, #cb0b30);
 }
 
 .star_T
@@ -361,7 +363,7 @@ Styles used for various star types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #cb0b30, #9e0507, #9e0507);
+                rgba(203, 11, 48, 0.25), #9e0507, #9e0507);
 }
 
 .star_Y
@@ -370,9 +372,52 @@ Styles used for various star types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #821e3f, #571a3b, #571a3b);
+                rgba(130, 30, 63, 0.25), #541a0b, #571a3b);
 }
 
+
+.star_H
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, rgba(44, 89, 94, 0.1), black,
+                rgba(255, 255, 255, 0.1), rgba(44, 89, 94, 0.25),
+                black, black);
+}
+
+.star_N
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, rgba(0, 0, 255, 0.1),
+                black, black, black,
+                black, transparent, black,
+                rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.25),
+                blue, white);
+}
+
+.star_W
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                black, black, black,
+                rgba(136, 0, 255, 0.25),
+                #1100ff, #9bb0ff, white, white);
+}
+
+.star_AeBe
+{
+    background: linear-gradient(330deg,
+                black, black, black,
+                black, black, black,
+                black, black,
+                rgba(255, 186, 110, 0.1),
+                rgba(255, 186, 110, 0.5),
+                rgba(255, 255, 255, 0.75), white, #ffdcb5);
+}
 
 .star_TTS
 {
@@ -380,7 +425,7 @@ Styles used for various star types
                 black, black, black,
                 black, black, black,
                 black, black, black,
-                #ffb429, #9bb0ff, #ff9a6f);
+                rgba(255, 180, 41, 0.25), #9bb0ff, #ff9a6f);
 }
 
 
@@ -389,7 +434,7 @@ Styles used for various star types
     background: linear-gradient(330deg,
                 black, black, black,
                 black, black, black,
-                black, black, #ff3b3b,
+                black, black, rgba(255, 59, 59, 0.25),
                 #ff9a6f, #ff9a6f, #ff9a6f);
 }
 
@@ -398,7 +443,7 @@ Styles used for various star types
     background: linear-gradient(330deg,
                 black, black, black,
                 black, black, black,
-                black, #ff3b3b, #ff3b3b,
+                black, rgba(255, 59, 59, 0.25), #ff3b3b,
                 #ff9a6f, #ff9a6f, #ff9a6f);
 }
 
@@ -407,7 +452,7 @@ Styles used for various star types
     background: linear-gradient(330deg,
                 black, black, black,
                 black, black, black,
-                black, black, #ff8c0d,
+                black, black, rgba(255, 140, 13, 0.25),
                 #ffb86b, #ffb86b, #ffb86b);
 }
 
@@ -421,7 +466,7 @@ Colors for different world types
                 transparent, transparent, transparent,
                 transparent, transparent, transparent,
                 transparent, transparent, transparent,
-                #4a1f00, #660000, #1f0038);
+                rgba(74, 31, 0, .75), #660000, #1f0038);
 }
 
 .earthLikeWorld
@@ -430,7 +475,7 @@ Colors for different world types
                 transparent, transparent, transparent,
                 transparent, transparent, transparent,
                 transparent, transparent, transparent,
-                #57faf4, green, blue);
+                rgba(87, 250, 244, .50), green, blue);
 }
 
 .waterWorld
@@ -439,5 +484,5 @@ Colors for different world types
                 transparent, transparent, transparent,
                 transparent, transparent, transparent,
                 transparent, transparent, transparent,
-                #5860f5, blue, blue);
+                rgba(88, 96, 245, .50), blue, blue);
 }

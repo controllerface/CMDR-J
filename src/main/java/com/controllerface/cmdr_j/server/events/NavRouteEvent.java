@@ -1,5 +1,6 @@
 package com.controllerface.cmdr_j.server.events;
 
+import com.controllerface.cmdr_j.classes.RouteEntry;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.server.JournalSyncTaskEX;
 import com.controllerface.cmdr_j.server.PlayerState;
@@ -28,11 +29,13 @@ public class NavRouteEvent implements BiConsumer<PlayerState, Map<String, Object
                 var systemName = ((String) routeEntry.get("StarSystem"));
                 var systemAddress = ((Number) routeEntry.get("SystemAddress"));
                 var coordinates = ((List<Number>) routeEntry.get("StarPos"));
-                return new StarSystem(systemName,
+                var starClass = ((String) routeEntry.get("StarClass"));
+                var system = new StarSystem(systemName,
                     coordinates.get(0).doubleValue(),
                     coordinates.get(2).doubleValue(),
                     coordinates.get(1).doubleValue(),
                     systemAddress.longValue());
+                return new RouteEntry(system, starClass);
             })
             .collect(Collectors.toList());
 

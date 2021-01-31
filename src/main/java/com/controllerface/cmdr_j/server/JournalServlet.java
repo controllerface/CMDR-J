@@ -1,7 +1,6 @@
 package com.controllerface.cmdr_j.server;
 
 import com.controllerface.cmdr_j.JSONSupport;
-import com.controllerface.cmdr_j.threads.JournalSyncTask;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.servlets.EventSource;
 import org.eclipse.jetty.servlets.EventSourceServlet;
@@ -14,7 +13,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
@@ -23,6 +26,7 @@ class JournalServlet extends EventSourceServlet
     private final Set<JournalSource> sources = ConcurrentHashMap.newKeySet();
 
     private final PlayerState playerState;
+
 
     @FunctionalInterface
     private interface EndpointHandler
@@ -212,6 +216,22 @@ class JournalServlet extends EventSourceServlet
         }
     }
 
+    private BlockingQueue<EmittedEvent> eventQueue = new LinkedBlockingQueue<>();
+
+    private static AtomicBoolean importing = new AtomicBoolean(false);
+
+    private class EmittedEvent
+    {
+        private final String name;
+        private final String eventData;
+
+        private EmittedEvent(String name, String eventData)
+        {
+            this.name = name;
+            this.eventData = eventData;
+        }
+    }
+
     private class JournalSource implements EventSource
     {
         private Emitter emitter;
@@ -236,52 +256,94 @@ class JournalServlet extends EventSourceServlet
     JournalServlet()
     {
         playerState = new PlayerState(this::sendEvent);
+
+//        Thread emitterThread = new Thread(() ->
+//        {
+//            boolean running = true;
+//            while (running)
+//            {
+//                try
+//                {
+//                    var next = eventQueue.take();
+//                    sendEvent(next.name, next.eventData);
+//                }
+//                catch (Exception e)
+//                {
+//                    System.out.println("Event thread error, exiting...");
+//                    e.printStackTrace();
+//                    running = false;
+//                }
+//            }
+//        });
+//        emitterThread.setDaemon(true);
+//        emitterThread.start();
     }
 
     private static void importExplorationData(PlayerState playerState)
     {
-        Arrays.stream(JournalSyncTaskEX.listJournalFiles())
-            .sorted(JournalSyncTaskEX.oldestJournalFile)
-            .flatMap(JournalSyncTaskEX::readLines)
-            .map(JSONSupport.Parse.jsonString)
-            .filter(event ->
-            {
-                var eventName = ((String) event.get("event"));
-                if (eventName == null) return false;
-                return eventName.equalsIgnoreCase("Scan")
-                    || eventName.equalsIgnoreCase("FSSAllBodiesFound")
-                    || eventName.equalsIgnoreCase("FSSDiscoveryScan")
-                    || eventName.equalsIgnoreCase("FSDJump")
-                    || eventName.equalsIgnoreCase("Location");
-            })
-            .filter(event -> event.get("SystemAddress") != null)
-            .forEach(event ->
-            {
-                var eventName = ((String) event.get("event"));
-                if (eventName.equalsIgnoreCase("Location"))
+        importing.set(true);
+        try
+        {
+            Arrays.stream(JournalSyncTaskEX.listJournalFiles())
+                .sorted(JournalSyncTaskEX.oldestJournalFile)
+                .flatMap(JournalSyncTaskEX::readLines)
+                .map(JSONSupport.Parse.jsonString)
+                .filter(event ->
                 {
-                    if (event.get("BodyID") == null) return;
-                    JournalEventEX.Location.process(playerState, event);
-                }
-                else if (eventName.equalsIgnoreCase("FSDJump"))
+                    var eventName = ((String) event.get("event"));
+                    if (eventName == null) return false;
+                    return eventName.equalsIgnoreCase("Scan")
+                        || eventName.equalsIgnoreCase("FSSAllBodiesFound")
+                        || eventName.equalsIgnoreCase("FSSDiscoveryScan")
+                        || eventName.equalsIgnoreCase("FSDJump")
+                        || eventName.equalsIgnoreCase("SAAScanComplete")
+                        || eventName.equalsIgnoreCase("Location");
+                })
+                .filter(event -> event.get("SystemAddress") != null)
+                .forEach(event ->
                 {
-                    if (event.get("BodyID") == null) return;
-                    JournalEventEX.FSDJump.process(playerState, event);
-                }
-                else if (eventName.equalsIgnoreCase("Scan"))
-                {
-                    if (event.get("BodyID") == null) return;
-                    JournalEventEX.Scan.process(playerState, event);
-                }
-                else if (eventName.equalsIgnoreCase("FSSAllBodiesFound"))
-                {
-                    JournalEventEX.FSSAllBodiesFound.process(playerState, event);
-                }
-                else if (eventName.equalsIgnoreCase("FSSDiscoveryScan"))
-                {
-                    JournalEventEX.FSSDiscoveryScan.process(playerState, event);
-                }
-            });
+                    var eventName = ((String) event.get("event"));
+                    if (eventName.equalsIgnoreCase("Location"))
+                    {
+                        if (event.get("BodyID") == null) return;
+                        JournalEventEX.Location.process(playerState, event);
+                    }
+                    else if (eventName.equalsIgnoreCase("FSDJump"))
+                    {
+                        if (event.get("BodyID") == null) return;
+                        JournalEventEX.FSDJump.process(playerState, event);
+                    }
+                    else if (eventName.equalsIgnoreCase("Scan"))
+                    {
+                        if (event.get("BodyID") == null) return;
+                        JournalEventEX.Scan.process(playerState, event);
+                    }
+                    else if (eventName.equalsIgnoreCase("SAAScanComplete"))
+                    {
+                        if (event.get("BodyID") == null) return;
+                        JournalEventEX.SAAScanComplete.process(playerState, event);
+                    }
+                    else if (eventName.equalsIgnoreCase("FSSAllBodiesFound"))
+                    {
+                        JournalEventEX.FSSAllBodiesFound.process(playerState, event);
+                    }
+                    else if (eventName.equalsIgnoreCase("FSSDiscoveryScan"))
+                    {
+                        JournalEventEX.FSSDiscoveryScan.process(playerState, event);
+                    }
+                });
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error during import: " + e.getMessage());
+            e.printStackTrace();
+        }
+        finally
+        {
+            importing.set(false);
+            playerState.emitCartographyData();
+            playerState.emitSystemCatalog();
+        }
     }
 
     public PlayerState getPlayerState()
@@ -350,8 +412,10 @@ class JournalServlet extends EventSourceServlet
         }
     }
 
-    private void sendEvent(String name, String data)
+    private synchronized void sendEvent(String name, String data)
     {
+        if (importing.get()) return;
+
         Set<JournalSource> toRemove = new HashSet<>();
         sources.forEach(s ->
         {
@@ -359,7 +423,7 @@ class JournalServlet extends EventSourceServlet
             {
                 s.emitter.event(name, data);
             }
-            catch (IOException e)
+            catch (Exception e)
             {
                 toRemove.add(s);
             }

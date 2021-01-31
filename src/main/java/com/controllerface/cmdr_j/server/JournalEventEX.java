@@ -96,7 +96,7 @@ public enum JournalEventEX
     /*
     Exploration
      */
-//    SAAScanComplete(new SAAScanCompleteHandler()),
+    SAAScanComplete(new SAAScanCompleteEvent()),
 //    FSSSignalDiscovered(new FSSSignalDiscoveredHandler()),
     FSSDiscoveryScan(new FSSDiscoveryScanEvent()),
     FSSAllBodiesFound(new FSSAllBodiesFoundEvent()),

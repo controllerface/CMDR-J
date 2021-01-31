@@ -28,14 +28,32 @@ class RouteEntry extends HTMLElement
         this.getAttribute('distance');
     }
 
+    set starClass(value)
+    {
+        this.setAttribute('starclass', value);
+    }
+
+    get starClass()
+    {
+        this.getAttribute('starclass');
+    }
+
     static get observedAttributes()
     {
         return ['system',
-                'distance'];
+                'distance',
+                'starclass'];
     }
 
     attributeChangedCallback(name, oldValue, newValue)
     {
+        if (name === 'starclass')
+        {
+            let colorClass = determineStarStyle(newValue);
+            this.shadowRoot.getElementById('routeEntry_distance')
+                .parentElement.classList.add(colorClass);
+        }
+
         this.shadowRoot.getElementById('routeEntry_' + name).textContent = newValue;
     }
 }

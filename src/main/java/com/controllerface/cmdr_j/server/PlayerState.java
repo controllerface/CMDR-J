@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.server;
 
 import com.controllerface.cmdr_j.JSONSupport;
+import com.controllerface.cmdr_j.classes.RouteEntry;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.classes.StellarBody;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
@@ -60,7 +61,7 @@ public class PlayerState
     private final Map<String, Object> marketData = new HashMap<>();
     private final Map<Engineer, Map<String, Object>> engineerProgress = new HashMap<>();
 
-    private final List<StarSystem> currentRoute = new ArrayList<>();
+    private final List<RouteEntry> currentRoute = new ArrayList<>();
 
     /**
      * Contains the commander's current credit balance.
@@ -216,7 +217,7 @@ public class PlayerState
         shipModules.clear();
     }
 
-    public void setCurrentRoute(List<StarSystem> route)
+    public void setCurrentRoute(List<RouteEntry> route)
     {
         executeWithLock(() ->
         {
@@ -235,8 +236,16 @@ public class PlayerState
 
         discoverLocation(this.starSystem);
 
-        executeWithLock(() -> globalUpdate.accept("Location", this.starSystem.systemName));
+        executeWithLock(() ->
+        {
+            globalUpdate.accept("Location", this.starSystem.systemName);
+            if (!currentRoute.isEmpty())
+            {
+                globalUpdate.accept("Route", prepareNavRouteData());
+            }
+        });
 
+        emitSystemCatalog();
         emitEngineerData();
     }
 
@@ -1141,14 +1150,16 @@ public class PlayerState
     private String prepareNavRouteData()
     {
         var data = new HashMap<String, Object>();
-        var routePoints = currentRoute.stream().map(routeSystem ->
+        var routePoints = currentRoute.stream().map(routeEntry ->
         {
             var formattedData = new HashMap<String, Object>();
-            formattedData.put("name", routeSystem.systemName);
-            formattedData.put("distance", this.starSystem.distanceBetween(routeSystem));
+            formattedData.put("name", routeEntry.starSystem.systemName);
+            formattedData.put("distance", this.starSystem.distanceBetween(routeEntry.starSystem));
+            formattedData.put("starClass", routeEntry.starClass);
             return formattedData;
         }).collect(Collectors.toList());
         data.put("route", routePoints);
+        data.put("jumps", currentRoute.size());
         return JSONSupport.Write.jsonToString.apply(data);
     }
 
@@ -1156,6 +1167,19 @@ public class PlayerState
     {
         database.executeInTransaction(transaction -> Optional.ofNullable(getStarSystemEntity(transaction, address))
             .ifPresent(systemEntity -> systemEntity.setProperty(EntityKeys.STAR_SYSTEM_BODY_COUNT, count)));
+
+        if (address == starSystem.address)
+        {
+            executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
+        }
+    }
+
+    public void updateBodyMapped(long address, int body)
+    {
+        database.executeInTransaction(transaction -> Optional.ofNullable(getStarSystemEntity(transaction, address))
+            .flatMap(systemEntity -> EntityUtilities.entityStream(systemEntity.getLinks(EntityKeys.STELLAR_BODY))
+            .filter(systemBody -> Objects.equals(systemBody.getProperty(EntityKeys.STELLAR_BODY_ID), body))
+            .findFirst()).ifPresent(foundBody -> foundBody.setProperty(EntityKeys.STELLAR_BODY_MAPPED, true)));
 
         if (address == starSystem.address)
         {
@@ -1233,7 +1257,6 @@ public class PlayerState
                 starSystem.storeSystemData(newSystem);
                 newSystem.setLink(EntityKeys.COMMANDER, commanderEntity);
                 commanderEntity.addLink(EntityKeys.STAR_SYSTEM, newSystem);
-                emitSystemCatalog();
                 return newSystem;
             });
     }

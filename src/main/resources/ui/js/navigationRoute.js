@@ -28,10 +28,21 @@ class NavigationRoute extends HTMLElement
         this.getAttribute('distance');
     }
 
+    set jumps(value)
+    {
+        this.setAttribute('jumps', value);
+    }
+
+    get jumps()
+    {
+        this.getAttribute('jumps');
+    }
+
     static get observedAttributes()
     {
         return ['destination',
-                'distance'];
+                'distance',
+                'jumps'];
     }
 
     attributeChangedCallback(name, oldValue, newValue)

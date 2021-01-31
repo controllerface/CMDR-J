@@ -339,6 +339,15 @@
     color: var(--default-color);
 }
 
+.mappedIndicator
+{
+    float: right;
+    margin-right: .2em;
+    font-family: monospace;
+    font-weight: bold;
+    color: var(--positive-color);
+}
+
 .catalogList
 {
     width: 25em;

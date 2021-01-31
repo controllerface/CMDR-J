@@ -22,6 +22,7 @@ public abstract class StellarBody
     public enum BodyType
     {
         Star,
+        BlackHole,
         Planet,
         Moon,
         RoguePlanet,
