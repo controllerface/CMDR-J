@@ -318,7 +318,12 @@ class ShipModule extends HTMLElement
             // todo: handle military modules
             let sizeStart = rawSlot.indexOf('_Size');
             let size = rawSlot.substring(sizeStart + 5);
-            return 'Standard Size ' + size;
+            let type = 'Standard';
+            if (rawSlot.includes('Military'))
+            {
+                type = 'Military';
+            }
+            return type + ' Size ' + size;
         }
         else if (rawSlot.includes('_'))
         {

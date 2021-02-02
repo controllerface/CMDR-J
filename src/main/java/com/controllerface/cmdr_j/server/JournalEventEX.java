@@ -53,6 +53,7 @@ public enum JournalEventEX
     Ship
      */
     RefuelAll(new RefuelAllEvent()),
+    RepairAll(new RepairAllEvent()),
 //    Outfitting(new OutfittingHandler()),
     Loadout(new LoadoutEvent()),
     SetUserShipName(new SetUserShipNameEvent()),
@@ -124,28 +125,28 @@ public enum JournalEventEX
     /*
     Bounties
      */
-//    Bounty(new BountyHandler()),
-//    FactionKillBond(new FactionKillBondHandler()),
-//    CapShipBond(new CapShipBondHandler()),
+    Bounty(new BountyEvent()),
+    FactionKillBond(new FactionKillBondEvent()),
+    CapShipBond(new CapShipBondEvent()),
 
     /*
     Commodities
      */
-//    BuyDrones(new BuyDronesHandler()),
+    BuyDrones(new BuyDronesEvent()),
 //    CargoDepot(new CargoDepotHandler()),
 //    CollectCargo(new CollectCargoHandler()),
 //    EjectCargo(new EjectCargoHandler()),
 //    LaunchDrone(new LaunchDroneHandler()),
-//    MarketBuy(new MarketBuyHandler()),
-//    MarketSell(new MarketSellHandler()),
+    MarketBuy(new MarketBuyEvent()),
+    MarketSell(new MarketSellEvent()),
 //    MiningRefined(new MiningRefinedHandler()),
-//    SellDrones(new SellDronesHandler()),
-//    BuyAmmo(new BuyAmmoHandler()),
+    SellDrones(new SellDronesEvent()),
+    BuyAmmo(new BuyAmmoEvent()),
 
     /*
     Engineers
      */
-//    EngineerContribution(new EngineerContributionHandler()),
+    EngineerContribution(new EngineerContributionEvent()),
 //    EngineerCraft(new EngineerCraftHandler()),
 //    TechnologyBroker(new TechnologyBrokerHandler()),
 
@@ -162,7 +163,7 @@ public enum JournalEventEX
      */
 //    MissionCompleted(new MissionCompletedHandler()),
 //    ScientificResearch(new ScientificResearchHandler()),
-//    CommunityGoalReward(new CommunityGoalRewardHandler()),
+    CommunityGoalReward(new CommunityGoalRewardEvent()),
 //    SearchAndRescue(new SearchAndRescueHandler()),
 
     /*
@@ -180,20 +181,21 @@ public enum JournalEventEX
      */
 //    PowerplayCollect(new PowerplayCollectHandler()),
 //    PowerplayDeliver(new PowerplayDeliverHandler()),
-//    PowerplaySalary(new PowerplaySalaryHandler()),
+    PowerplaySalary(new PowerplaySalaryEvent()),
 
     /*
     Misc
      */
 //    Music(new MusicHandler()),
     Statistics(new StatisticsEvent()),
+    RedeemVoucher(new RedeemVoucherEvent()),
 //    Resurrect(new ResurrectHandler()),
 //    ReceiveText(new ReceiveTextHandler()),
 //    NpcCrewPaidWage(new NpcCrewPaidWageHandler()),
 //    SellShipOnRebuy(new SellShipOnRebuyHandler()),
-//    DatalinkVoucher(new DatalinkVoucherHandler()),
-//    SellExplorationData(new SellExplorationDataHandler()),
-//    MultiSellExplorationData(new MultiSellExplorationDataHandler()),
+    DatalinkVoucher(new DatalinkVoucherEvent()),
+    SellExplorationData(new SellExplorationDataEvent()),
+    MultiSellExplorationData(new MultiSellExplorationDataEvent()),
 //    ReservoirReplenished(new ReservoirReplenishedHandler()),
 
     ;

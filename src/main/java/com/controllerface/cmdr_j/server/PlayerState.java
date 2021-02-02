@@ -141,52 +141,52 @@ public class PlayerState
         this.globalUpdate = globalUpdate;
 
         // DEBUG SECTION
-        database.executeInTransaction(txn ->
-        {
-            EntityUtilities.entityStream(txn.getAll(EntityKeys.STELLAR_BODY))
-                .filter(body->
-                {
-                    var c = ((String) body.getProperty("PlanetClass"));
-                    if (c == null) return false;
-                    return c.contains("Water")
-                        || c.contains("Ammonia")
-                        || c.contains("Earth");
-                })
-                .forEach(body->
-                {
-                    var c = body.getProperty("PlanetClass");
-                    var system = body.getLink(EntityKeys.STAR_SYSTEM);
-                    if (system != null)
-                    {
-                        var s = system.getProperty(EntityKeys.STAR_SYSTEM);
-                        var n = body.getProperty(EntityKeys.STELLAR_BODY_NAME);
-                        System.out.println(c + " = " + s + " : " + n);
-                    }
-                });
-        });
-
-        System.out.println("---------------------");
-
-        database.executeInTransaction(txn ->
-        {
-            EntityUtilities.entityStream(txn.getAll(EntityKeys.STELLAR_BODY))
-                .filter(body->
-                {
-                    var c = ((String) body.getProperty("StarType"));
-                    return c != null;
-                })
-                .forEach(body->
-                {
-                    var c = ((String) body.getProperty("StarType"));
-                    var system = body.getLink(EntityKeys.STAR_SYSTEM);
-                    if (system != null)
-                    {
-                        var s = system.getProperty(EntityKeys.STAR_SYSTEM);
-                        var n = body.getProperty(EntityKeys.STELLAR_BODY_NAME);
-                        System.out.println(c + " = " + s + " : " + n);
-                    }
-                });
-        });
+//        database.executeInTransaction(txn ->
+//        {
+//            EntityUtilities.entityStream(txn.getAll(EntityKeys.STELLAR_BODY))
+//                .filter(body->
+//                {
+//                    var c = ((String) body.getProperty("PlanetClass"));
+//                    if (c == null) return false;
+//                    return c.contains("Water")
+//                        || c.contains("Ammonia")
+//                        || c.contains("Earth");
+//                })
+//                .forEach(body->
+//                {
+//                    var c = body.getProperty("PlanetClass");
+//                    var system = body.getLink(EntityKeys.STAR_SYSTEM);
+//                    if (system != null)
+//                    {
+//                        var s = system.getProperty(EntityKeys.STAR_SYSTEM);
+//                        var n = body.getProperty(EntityKeys.STELLAR_BODY_NAME);
+//                        System.out.println(c + " = " + s + " : " + n);
+//                    }
+//                });
+//        });
+//
+//        System.out.println("---------------------");
+//
+//        database.executeInTransaction(txn ->
+//        {
+//            EntityUtilities.entityStream(txn.getAll(EntityKeys.STELLAR_BODY))
+//                .filter(body->
+//                {
+//                    var c = ((String) body.getProperty("StarType"));
+//                    return c != null;
+//                })
+//                .forEach(body->
+//                {
+//                    var c = ((String) body.getProperty("StarType"));
+//                    var system = body.getLink(EntityKeys.STAR_SYSTEM);
+//                    if (system != null)
+//                    {
+//                        var s = system.getProperty(EntityKeys.STAR_SYSTEM);
+//                        var n = body.getProperty(EntityKeys.STELLAR_BODY_NAME);
+//                        System.out.println(c + " = " + s + " : " + n);
+//                    }
+//                });
+//        });
 
     }
 
@@ -205,11 +205,8 @@ public class PlayerState
 
     public void clearCargo()
     {
-        executeWithLock(() ->
-        {
-            cargo.clear();
-            globalUpdate.accept("Cargo","Clear");
-        });
+        cargo.clear();
+        executeWithLock(() -> globalUpdate.accept("Cargo","Clear"));
     }
 
     public void clearShipModules()
@@ -219,12 +216,10 @@ public class PlayerState
 
     public void setCurrentRoute(List<RouteEntry> route)
     {
-        executeWithLock(() ->
-        {
-            currentRoute.clear();
-            currentRoute.addAll(route);
-            globalUpdate.accept("Route", prepareNavRouteData());
-        });
+        currentRoute.clear();
+        currentRoute.addAll(route);
+        var routeData = prepareNavRouteData();
+        executeWithLock(() -> globalUpdate.accept("Route", routeData));
     }
 
     public void setLocation(StarSystem starSystem)
@@ -236,14 +231,13 @@ public class PlayerState
 
         discoverLocation(this.starSystem);
 
-        executeWithLock(() ->
+        if (!currentRoute.isEmpty())
         {
-            globalUpdate.accept("Location", this.starSystem.systemName);
-            if (!currentRoute.isEmpty())
-            {
-                globalUpdate.accept("Route", prepareNavRouteData());
-            }
-        });
+            var navData = prepareNavRouteData();
+            executeWithLock(() -> globalUpdate.accept("Route", navData));
+        }
+
+        executeWithLock(() -> globalUpdate.accept("Location", this.starSystem.systemName));
 
         emitSystemCatalog();
         emitEngineerData();
@@ -254,7 +248,10 @@ public class PlayerState
         database.executeInTransaction((transaction)->
         {
             var systemEntity = getOrCreateStarSystemEntity(transaction, starSystem);
-            System.out.println("System: " + systemEntity);
+            if (systemEntity == null)
+            {
+                System.err.println("Could nto create system entity");
+            }
         });
     }
 
@@ -281,12 +278,10 @@ public class PlayerState
 
     public void setCargoCount(Commodity commodity, String name, Integer count)
     {
-        executeWithLock(() ->
-        {
-            var commodityData = new CommodityData(name, count, commodity.getGrade());
-            cargo.put(commodity, commodityData);
-            globalUpdate.accept(name, commodityData.toJson());
-        });
+        var commodityData = new CommodityData(name, count, commodity.getGrade());
+        cargo.put(commodity, commodityData);
+        var jsonData = commodityData.toJson();
+        executeWithLock(() -> globalUpdate.accept("Cargo", jsonData));
     }
 
     private String writeMaterialEvent(Material material, Integer count)
@@ -332,13 +327,10 @@ public class PlayerState
 
     public void adjustCreditBalance(long adjustment)
     {
-        executeWithLock(() ->
-        {
-            creditBalance += adjustment;
-            var balance = String.valueOf(creditBalance);
-            commanderStatistics.put(CommanderStat.Credits, balance);
-            globalUpdate.accept(CommanderStat.Credits.getName(), balance);
-        });
+        creditBalance += adjustment;
+        var balance = String.valueOf(creditBalance);
+        commanderStatistics.put(CommanderStat.Credits, balance);
+        executeWithLock(() -> globalUpdate.accept(CommanderStat.Credits.getName(), balance));
     }
 
     private void updateInternalState(Statistic statistic, String value)
@@ -1012,21 +1004,32 @@ public class PlayerState
         return JSONSupport.Write.jsonToString.apply(data);
     }
 
+    private void formatStrength(HashMap<String, Object> dataMap, ShipStatisticData.StatGroup stats, boolean minmax)
+    {
+        dataMap.put("value", UIFunctions.Data.round(stats.floatStat,0));
+        dataMap.put("base", UIFunctions.Data.round(stats.baseValue, 1));
+        dataMap.put("reinforcement", UIFunctions.Data.round(stats.boostValue, 1));
+        dataMap.put("raw", UIFunctions.Data.round(stats.rawFloat, 1));
+        if (minmax)
+        {
+            dataMap.put("minmax", UIFunctions.Data.round(stats.diminishCap, 1));
+        }
+    }
+
+    private void formatResistance(HashMap<String, Object> dataMap, ShipStatisticData.StatGroup stats)
+    {
+        dataMap.put("value", UIFunctions.Data.round(stats.floatStat, 2));
+        dataMap.put("raw", UIFunctions.Data.round(stats.rawFloat,2));
+        dataMap.put("base", UIFunctions.Data.round(stats.baseValue, 2));
+        dataMap.put("baseMultiplier", UIFunctions.Data.round(stats.baseMultiplier,2));
+        dataMap.put("boost", UIFunctions.Data.round(stats.boostValue, 2));
+        dataMap.put("boostMultiplier", UIFunctions.Data.round(stats.boostMultiplier, 2));
+        dataMap.put("minmax", UIFunctions.Data.round(stats.diminishCap, 2));
+    }
+
     private String calculateDefenseStats()
     {
-        var shieldRegenRate = calculateEffectValue(ItemEffect.RegenRate);
-        var brokenRegenRate = calculateEffectValue(ItemEffect.BrokenRegenRate);
-
-        ShipStatisticData.StatGroup shieldStats = calculateCurrentShieldStrength();
-        ShipStatisticData.StatGroup hullStats = calculateCurrentHullStrength();
-        ShipStatisticData.StatGroup shieldExplosive = calculateResistance(ShipCharacteristic.Shield_Explosive);
-        ShipStatisticData.StatGroup shieldKinetic = calculateResistance(ShipCharacteristic.Shield_Kinetic);
-        ShipStatisticData.StatGroup shieldThermal = calculateResistance(ShipCharacteristic.Shield_Thermal);
-        ShipStatisticData.StatGroup hullCaustic = calculateResistance(ShipCharacteristic.Armour_Caustic);
-        ShipStatisticData.StatGroup hullExplosive = calculateResistance(ShipCharacteristic.Armour_Explosive);
-        ShipStatisticData.StatGroup hullKinetic = calculateResistance(ShipCharacteristic.Armour_Kinetic);
-        ShipStatisticData.StatGroup hullThermal = calculateResistance(ShipCharacteristic.Armour_Thermal);
-
+        // create dat containers
         var data = new HashMap<String, Object>();
         var shieldData = new HashMap<String, Object>();
         var hullData = new HashMap<String, Object>();
@@ -1038,83 +1041,38 @@ public class PlayerState
         var hullThermalData = new HashMap<String, Object>();
         var hullCausticData = new HashMap<String, Object>();
 
-        shieldData.put("value", UIFunctions.Data.round(shieldStats.floatStat,0));
-        shieldData.put("base", UIFunctions.Data.round(shieldStats.baseValue, 1));
-        shieldData.put("reinforcement", UIFunctions.Data.round(shieldStats.boostValue, 1));
-        shieldData.put("raw", UIFunctions.Data.round(shieldStats.rawFloat, 1));
-        shieldData.put("minmax", UIFunctions.Data.round(shieldStats.diminishCap, 1));
+        // calculate values
+        var shieldRegenRate = calculateEffectValue(ItemEffect.RegenRate);
+        var brokenRegenRate = calculateEffectValue(ItemEffect.BrokenRegenRate);
+        var shieldStats = calculateCurrentShieldStrength();
+        var hullStats = calculateCurrentHullStrength();
+        var shieldExplosive = calculateResistance(ShipCharacteristic.Shield_Explosive);
+        var shieldKinetic = calculateResistance(ShipCharacteristic.Shield_Kinetic);
+        var shieldThermal = calculateResistance(ShipCharacteristic.Shield_Thermal);
+        var hullExplosive = calculateResistance(ShipCharacteristic.Armour_Explosive);
+        var hullKinetic = calculateResistance(ShipCharacteristic.Armour_Kinetic);
+        var hullThermal = calculateResistance(ShipCharacteristic.Armour_Thermal);
+        var hullCaustic = calculateResistance(ShipCharacteristic.Armour_Caustic);
 
-        hullData.put("value", UIFunctions.Data.round(hullStats.floatStat, 0));
-        hullData.put("base", UIFunctions.Data.round(hullStats.baseValue, 1));
-        hullData.put("reinforcement", UIFunctions.Data.round(hullStats.boostValue, 1));
-        hullData.put("raw", UIFunctions.Data.round(hullStats.rawFloat, 1));
+        // format values
+        formatStrength(shieldData, shieldStats, true);
+        formatStrength(hullData, hullStats, false);
+        formatResistance(shieldExplosiveData, shieldExplosive);
+        formatResistance(shieldKineticData, shieldKinetic);
+        formatResistance(shieldThermalData, shieldThermal);
+        formatResistance(hullExplosiveData, hullExplosive);
+        formatResistance(hullKineticData, hullKinetic);
+        formatResistance(hullThermalData, hullThermal);
+        formatResistance(hullCausticData, hullCaustic);
 
-        shieldExplosiveData.put("value", UIFunctions.Data.round(shieldExplosive.floatStat, 0));
-        shieldExplosiveData.put("raw", UIFunctions.Data.round(shieldExplosive.rawFloat,1));
-        shieldExplosiveData.put("base", UIFunctions.Data.round(shieldExplosive.baseValue, 1));
-        shieldExplosiveData.put("baseMultiplier", UIFunctions.Data.round(shieldExplosive.baseMultiplier,1));
-        shieldExplosiveData.put("boost", UIFunctions.Data.round(shieldExplosive.boostValue, 1));
-        shieldExplosiveData.put("boostMultiplier", UIFunctions.Data.round(shieldExplosive.boostMultiplier, 1));
-        shieldExplosiveData.put("minmax", UIFunctions.Data.round(shieldExplosive.diminishCap, 1));
-
-        shieldKineticData.put("value", UIFunctions.Data.round(shieldKinetic.floatStat, 0));
-        shieldKineticData.put("raw", UIFunctions.Data.round(shieldKinetic.rawFloat, 1));
-        shieldKineticData.put("base", UIFunctions.Data.round(shieldKinetic.baseValue, 1));
-        shieldKineticData.put("baseMultiplier", UIFunctions.Data.round(shieldKinetic.baseMultiplier, 1));
-        shieldKineticData.put("boost", UIFunctions.Data.round(shieldKinetic.boostValue, 1));
-        shieldKineticData.put("boostMultiplier", UIFunctions.Data.round(shieldKinetic.boostMultiplier, 1));
-        shieldKineticData.put("minmax", UIFunctions.Data.round(shieldKinetic.diminishCap, 1));
-
-        shieldThermalData.put("value", UIFunctions.Data.round(shieldThermal.floatStat, 1));
-        shieldThermalData.put("raw", UIFunctions.Data.round(shieldThermal.rawFloat, 1));
-        shieldThermalData.put("base", UIFunctions.Data.round(shieldThermal.baseValue, 1));
-        shieldThermalData.put("baseMultiplier", UIFunctions.Data.round(shieldThermal.baseMultiplier, 1));
-        shieldThermalData.put("boost", UIFunctions.Data.round(shieldThermal.boostValue, 1));
-        shieldThermalData.put("boostMultiplier", UIFunctions.Data.round(shieldThermal.boostMultiplier, 1));
-        shieldThermalData.put("minmax", UIFunctions.Data.round(shieldThermal.diminishCap, 1));
-
-        hullExplosiveData.put("value", UIFunctions.Data.round(hullExplosive.floatStat, 0));
-        hullExplosiveData.put("raw", UIFunctions.Data.round(hullExplosive.rawFloat, 1));
-        hullExplosiveData.put("base", UIFunctions.Data.round(hullExplosive.baseValue, 1));
-        hullExplosiveData.put("baseMultiplier", UIFunctions.Data.round(hullExplosive.baseMultiplier, 1));
-        hullExplosiveData.put("boost", UIFunctions.Data.round(hullExplosive.boostValue, 1));
-        hullExplosiveData.put("boostMultiplier", UIFunctions.Data.round(hullExplosive.boostMultiplier, 1));
-        hullExplosiveData.put("minmax", UIFunctions.Data.round(hullExplosive.diminishCap, 1));
-
-        hullKineticData.put("value", UIFunctions.Data.round(hullKinetic.floatStat, 0));
-        hullKineticData.put("raw", UIFunctions.Data.round(hullKinetic.rawFloat, 1));
-        hullKineticData.put("base", UIFunctions.Data.round(hullKinetic.baseValue, 1));
-        hullKineticData.put("baseMultiplier", UIFunctions.Data.round(hullKinetic.baseMultiplier, 1));
-        hullKineticData.put("boost", UIFunctions.Data.round(hullKinetic.boostValue, 1));
-        hullKineticData.put("boostMultiplier", UIFunctions.Data.round(hullKinetic.boostMultiplier, 1));
-        hullKineticData.put("minmax", UIFunctions.Data.round(hullKinetic.diminishCap, 1));
-
-        hullThermalData.put("value", UIFunctions.Data.round(hullThermal.floatStat, 0));
-        hullThermalData.put("raw", UIFunctions.Data.round(hullThermal.rawFloat, 1));
-        hullThermalData.put("base", UIFunctions.Data.round(hullThermal.baseValue, 1));
-        hullThermalData.put("baseMultiplier", UIFunctions.Data.round(hullThermal.baseMultiplier, 1));
-        hullThermalData.put("boost", UIFunctions.Data.round(hullThermal.boostValue, 1));
-        hullThermalData.put("boostMultiplier", UIFunctions.Data.round(hullThermal.boostMultiplier, 1));
-        hullThermalData.put("minmax", UIFunctions.Data.round(hullThermal.diminishCap, 1));
-
-        hullCausticData.put("value", UIFunctions.Data.round(hullCaustic.floatStat, 0));
-        hullCausticData.put("raw", UIFunctions.Data.round(hullCaustic.rawFloat, 1));
-        hullCausticData.put("base", UIFunctions.Data.round(hullCaustic.baseValue, 1));
-        hullCausticData.put("baseMultiplier", UIFunctions.Data.round(hullCaustic.baseMultiplier, 1));
-        hullCausticData.put("boost", UIFunctions.Data.round(hullCaustic.boostValue, 1));
-        hullCausticData.put("boostMultiplier", UIFunctions.Data.round(hullCaustic.boostMultiplier, 1));
-        hullCausticData.put("minmax", UIFunctions.Data.round(hullCaustic.diminishCap, 1));
-
+        // store formatted data
         data.put("regen", UIFunctions.Data.round(shieldRegenRate, 2));
         data.put("brokenRegen", UIFunctions.Data.round(brokenRegenRate, 2));
-
         data.put("Shield Strength", shieldData);
         data.put("Hull Strength", hullData);
-
         data.put("Shield Explosive", shieldExplosiveData);
         data.put("Shield Kinetic", shieldKineticData);
         data.put("Shield Thermal", shieldThermalData);
-
         data.put("Hull Explosive", hullExplosiveData);
         data.put("Hull Kinetic", hullKineticData);
         data.put("Hull Thermal", hullThermalData);
@@ -1159,7 +1117,7 @@ public class PlayerState
             return formattedData;
         }).collect(Collectors.toList());
         data.put("route", routePoints);
-        data.put("jumps", currentRoute.size());
+        data.put("jumps", currentRoute.size() - 1);
         return JSONSupport.Write.jsonToString.apply(data);
     }
 
@@ -1353,8 +1311,8 @@ public class PlayerState
 
     public void emitEngineerData()
     {
-        // todo: emit data
-        executeWithLock(() -> globalUpdate.accept("Engineers", prepareEngineerData()));
+        var engineerData = prepareEngineerData();
+        executeWithLock(() -> globalUpdate.accept("Engineers", engineerData));
     }
 
     public void emitLoadoutEvent()
@@ -1364,7 +1322,8 @@ public class PlayerState
 
     public void emitCurrentMass()
     {
-        executeWithLock(() -> globalUpdate.accept("CurrentMass", String.valueOf(calculateCurrentMass())));
+        var currentMass = calculateCurrentMass();
+        executeWithLock(() -> globalUpdate.accept("CurrentMass", String.valueOf(currentMass)));
     }
 
     public void emitExtendedStatsEvent()
@@ -1379,17 +1338,20 @@ public class PlayerState
 
     public void emitPowerStats()
     {
-        executeWithLock(() -> globalUpdate.accept("PowerStats", calculateCurrentPowerUsage()));
+        var powerStats = calculateCurrentPowerUsage();
+        executeWithLock(() -> globalUpdate.accept("PowerStats", powerStats));
     }
 
     public void emitOffenseStats()
     {
-        executeWithLock(() -> globalUpdate.accept("OffenseStats", calculateOffenseStats()));
+        var offenseStats = calculateOffenseStats();
+        executeWithLock(() -> globalUpdate.accept("OffenseStats", offenseStats));
     }
 
     public void emitDefenseStats()
     {
-        executeWithLock(() -> globalUpdate.accept("DefenseStats", calculateDefenseStats()));
+        var defenseStats = calculateDefenseStats();
+        executeWithLock(() -> globalUpdate.accept("DefenseStats", defenseStats));
     }
 
     public void emitCartographyData()
@@ -1469,9 +1431,16 @@ public class PlayerState
 
     //region Formatting Utils
 
+    private int getMilitarySize()
+    {
+        return Arrays.stream(shipType.getInternals().getSlots())
+            .filter(moduleSize -> moduleSize.name().contains("MILITARY"))
+            .map(moduleSize -> moduleSize.intValue)
+            .findFirst().orElseThrow();
+    }
+
     private String formatSlotKey(Statistic statistic)
     {
-        // todo: process military modules
         var rawKey = statistic.getKey();
 
         if (statistic == CoreInternalSlot.FrameShiftDrive)
@@ -1502,6 +1471,10 @@ public class PlayerState
         {
             rawKey += "_" + shipType.getCoreModules().sensors.intValue;
         }
+        else if (rawKey.startsWith("Military"))
+        {
+            rawKey += "_Size" + getMilitarySize();
+        }
 
         return rawKey;
     }
@@ -1509,12 +1482,22 @@ public class PlayerState
     private void addEmptySlots(Map<String, Object> map)
     {
         var optionalCounts = new HashMap<Integer, Integer>();
+        var militaryCounts = new HashMap<Integer, Integer>();
 
         Arrays.stream(shipType.getInternals().getSlots())
             .forEach(moduleSize ->
             {
-                var current = optionalCounts.computeIfAbsent(moduleSize.intValue, (_k)-> 0) + 1;
-                optionalCounts.put(moduleSize.intValue, current);
+                System.out.println("debug 1: " + moduleSize);
+                if (moduleSize.name().contains("MILITARY"))
+                {
+                    var current = militaryCounts.computeIfAbsent(moduleSize.intValue, (_k)-> 0) + 1;
+                    militaryCounts.put(moduleSize.intValue, current);
+                }
+                else
+                {
+                    var current = optionalCounts.computeIfAbsent(moduleSize.intValue, (_k)-> 0) + 1;
+                    optionalCounts.put(moduleSize.intValue, current);
+                }
             });
 
         shipModules.forEach((statistic, moduleData)->
@@ -1528,10 +1511,25 @@ public class PlayerState
                 var left = optionalCounts.get(size) - 1;
                 optionalCounts.put(size, left);
             }
+            else if (statistic.getKey().contains("Military"))
+            {
+                var size = getMilitarySize();
+                var left = militaryCounts.get(size) - 1;
+                militaryCounts.put(size, left);
+            }
         });
 
+        militaryCounts.forEach((size, count) -> IntStream.range(0, count)
+            .mapToObj(i -> "Empty" + "Military_" + (i + 1) + "_Size" + size)
+            .forEach(slot->
+            {
+                var empty = new HashMap<String, Object>();
+                empty.put("name", "[Empty]");
+                map.put(slot, empty);
+            }));
+
         optionalCounts.forEach((size, count) -> IntStream.range(0, count)
-            .mapToObj(i -> "Empty_" + size + (i + 1))
+            .mapToObj(i -> "Empty" + "_" + (i + 1) + "_Size" + size)
             .forEach(slot->
             {
                 var empty = new HashMap<String, Object>();
