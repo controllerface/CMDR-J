@@ -39,7 +39,7 @@ class MarketEntry extends HTMLElement
 
     get commodity()
     {
-        this.getAttribute('commodity');
+        return this.getAttribute('commodity');
     }
 
     set quantity(value)
@@ -49,7 +49,7 @@ class MarketEntry extends HTMLElement
 
     get quantity()
     {
-        this.getAttribute('quantity');
+        return this.getAttribute('quantity');
     }
 
     set price(value)
@@ -59,7 +59,7 @@ class MarketEntry extends HTMLElement
 
     get price()
     {
-        this.getAttribute('price');
+        return this.getAttribute('price');
     }
 
     set mean(value)
@@ -69,7 +69,7 @@ class MarketEntry extends HTMLElement
 
     get mean()
     {
-        this.getAttribute('mean');
+        return this.getAttribute('mean');
     }
 
     set profit(value)
@@ -79,7 +79,7 @@ class MarketEntry extends HTMLElement
 
     get profit()
     {
-        this.getAttribute('profit');
+        return this.getAttribute('profit');
     }
 
     static get observedAttributes()

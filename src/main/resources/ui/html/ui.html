@@ -21,6 +21,7 @@
     <script src="offenseStats.js"></script>
     <script src="offenseModule.js"></script>
     <script src="offenseTurret.js"></script>
+    <script src="poiForm.js"></script>
     <script src="powerModule.js"></script>
     <script src="powerStats.js"></script>
     <script src="routeEntry.js"></script>
@@ -811,15 +812,22 @@
         <div class="emptySection">
             <label for="systemCatalog_systemselector">Known Systems</label>
             <input type="text" class="catalogList" id="systemCatalog_systemselector" list="systemCatalog_datalist" />
-            <datalist id="systemCatalog_datalist">
-            </datalist>
+            <datalist id="systemCatalog_datalist"></datalist>
+            <input id="systemCatalog_currentbutton" type="button" value="current system"/>
             <input id="systemCatalog_clearbutton" type="button" value="clear"/>
+
         </div>
         <slot></slot>
     </template>
 
-    <template id="template_SystemPOI">
-
+    <template id="template_POIForm">
+        <link rel="stylesheet" href="poi.css">
+        <div class="poiFormContainer">
+            <label for="poiForm_system">System Name</label>
+            <input type="text" id="poiForm_system">
+            <textarea class="poiTextArea" id="poiForm_poitext"></textarea>
+            <input type="button" value="Add POI" id="poiForm_addbutton">
+        </div>
     </template>
 </head>
 
@@ -839,6 +847,9 @@
             <span class="dashboardTinyValue" id="Ship"></span>
             <span>fuel</span>
             <progress class="dashboardFuelMeter" id="Fuel_Capacity"></progress>
+            <br />
+            <span class="dashboardTinyValue" id="Rebuy">0</span>
+            <span>rebuy</span>
 
         </div>
 
@@ -848,8 +859,7 @@
         <span class="dashboardSmallHeader">Credits</span>
         <span class="dashboardSmallValue" id="Credits"></span>
 
-        <span class="dashboardSmallHeader">Rebuy</span>
-        <span class="dashboardSmallValue" id="Rebuy">0</span>
+
     </div>
 
     <div class="dashboardInfo">
@@ -1308,9 +1318,9 @@
             </div>
 
             <input name="astrometricsTabs" type="radio" id="poiTabButton" class="tabInput"/>
-            <label id="poiTab" for="poiTabButton" class="tabLabel">Galactic POI</label>
+            <label id="poiTab" for="poiTabButton" class="tabLabel">Points of Interest</label>
             <div class="tabPanel">
-                <div>Something here</div>
+                <poi-form></poi-form>
                 <div id="poiContainer">
                     <input name="poiTabs" type="radio" id="currentPoiTabButton" class="tabInput"/>
                     <label id="currentPoiTab" for="currentPoiTabButton" class="tabLabel">Current System</label>

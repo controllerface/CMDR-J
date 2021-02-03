@@ -20,7 +20,7 @@ public class FixedGuardianPlasmaCharger_Large extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.DamagePerSecond, 35.0),
                         new ItemEffectData(ItemEffect.Damage, 7.0),
                         //new ItemEffectData(ItemEffect.ChargeTime, 1.8), // todo: find this stat
-                        new ItemEffectData(ItemEffect.Damage_Multiplier_at_Full_Charge, 17.0),
+                        new ItemEffectData(ItemEffect.Damage_Multiplier_guardian, 17.0),
                         new ItemEffectData(ItemEffect.DistributorDraw, 2.42),
                         new ItemEffectData(ItemEffect.ThermalLoad, 6.15),
                         new ItemEffectData(ItemEffect.ArmourPenetration, 95.0),

@@ -916,10 +916,17 @@ function handleRouteData(data)
     }
 }
 
+function getCurrentSystemAddress()
+{
+    let systemCartography = document.getElementById('systemCartography');
+    return systemCartography.address;
+}
+
 function setCartographyData(data, id)
 {
     let systemCartography = document.getElementById(id);
     systemCartography.textContent = "";
+    systemCartography.address = data['system_address'];
     systemCartography.system = data['star_system'];
 
     if (data['star_system_body_count'])

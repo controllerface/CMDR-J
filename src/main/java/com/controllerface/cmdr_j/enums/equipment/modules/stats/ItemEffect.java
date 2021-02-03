@@ -263,10 +263,10 @@ public enum ItemEffect
     /*
     Thargoid Shutdown Field Neutralizer
      */
-    Disruption_Barrier_Active_Power("", "", true, EffectType.ANTI_XENO),
-    Disruption_Barrier_Charge_Duration("", "", true, EffectType.ANTI_XENO),
-    Disruption_Barrier_Cooldown("", "", false, EffectType.ANTI_XENO),
-    Disruption_Barrier_Range("", "", true, EffectType.ANTI_XENO),
+    Disruption_Barrier_Active_Power("", "Barrier Active Power Draw", true, EffectType.ANTI_XENO),
+    Disruption_Barrier_Charge_Duration("", "Barrier Charge Time", true, EffectType.ANTI_XENO),
+    Disruption_Barrier_Cooldown("", "Barrier Cool Down", false, EffectType.ANTI_XENO),
+    Disruption_Barrier_Range("", "Barrier Range", true, EffectType.ANTI_XENO),
 
     /*
     As-yet-unknown stats
@@ -317,8 +317,9 @@ public enum ItemEffect
     // synthetic effects, used for tech broker items
     Anti_Xeno_Ammo_Compatible("", "", true, EffectType.ANTI_XENO),
     Hybrid_Power("", "", true, EffectType.GUARDIAN),
-    Thargoid_Disruption_Protection("", "", true, EffectType.GUARDIAN),
+    Thargoid_Disruption_Protection("", "", true, EffectType.ANTI_XENO),
     Damage_Multiplier_at_Full_Charge("", "", true),
+    Damage_Multiplier_guardian("", "Damage Multiplier at Full Charge", true, EffectType.GUARDIAN),
 
     // synthetic effect used for displaying mod progress as a stat in the stat table
     Modification_Progress("%","",true, EffectType.MODIFICATION),

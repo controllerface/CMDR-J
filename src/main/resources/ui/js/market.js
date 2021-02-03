@@ -123,7 +123,7 @@ class MarketInfo extends HTMLElement
 
     get station()
     {
-        this.getAttribute('station');
+        return this.getAttribute('station');
     }
 
     set type(value)
@@ -133,7 +133,7 @@ class MarketInfo extends HTMLElement
 
     get type()
     {
-        this.getAttribute('type');
+        return this.getAttribute('type');
     }
 
     set system(value)
@@ -143,7 +143,7 @@ class MarketInfo extends HTMLElement
 
     get system()
     {
-        this.getAttribute('system');
+        return this.getAttribute('system');
     }
 
     static get observedAttributes()

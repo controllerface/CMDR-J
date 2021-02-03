@@ -8,6 +8,16 @@ class SystemCartography extends HTMLElement
         this.shadowRoot.append(template.content.cloneNode(true));
     }
 
+    set address(value)
+    {
+        this.setAttribute('address', value);
+    }
+
+    get address()
+    {
+        return this.getAttribute('address');
+    }
+
     set system(value)
     {
         this.setAttribute('system', value);
@@ -15,7 +25,7 @@ class SystemCartography extends HTMLElement
 
     get system()
     {
-        this.getAttribute('system');
+        return this.getAttribute('system');
     }
 
     set bodies(value)
@@ -25,7 +35,7 @@ class SystemCartography extends HTMLElement
 
     get bodies()
     {
-        this.getAttribute('bodies');
+        return this.getAttribute('bodies');
     }
 
     set scannedBodies(value)
@@ -35,7 +45,7 @@ class SystemCartography extends HTMLElement
 
     get scannedBodies()
     {
-        this.getAttribute('scannedbodies');
+        return this.getAttribute('scannedbodies');
     }
 
     static get observedAttributes()

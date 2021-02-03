@@ -13,7 +13,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -51,28 +50,30 @@ class JournalServlet extends EventSourceServlet
             Map.entry("/market.css", StaticAsset.make("/ui/css/market.css")),
             Map.entry("/material.css", StaticAsset.make("/ui/css/material.css")),
             Map.entry("/module.css", StaticAsset.make("/ui/css/module.css")),
+            Map.entry("/poi.css", StaticAsset.make("/ui/css/poi.css")),
             Map.entry("/statistics.css", StaticAsset.make("/ui/css/statistics.css")),
             Map.entry("/ui.css", StaticAsset.make("/ui/css/ui.css")),
 
             /* Javascript */
 
-            Map.entry("/engineerData.js", StaticAsset.make("/ui/js/engineerData.js")),
-            Map.entry("/engineerStats.js", StaticAsset.make("/ui/js/engineerStats.js")),
             Map.entry("/cargo.js", StaticAsset.make("/ui/js/cargo.js")),
             Map.entry("/cartographicData.js", StaticAsset.make("/ui/js/cartographicData.js")),
             Map.entry("/commanderStat.js", StaticAsset.make("/ui/js/commanderStat.js")),
             Map.entry("/defenseResistance.js", StaticAsset.make("/ui/js/defenseResistance.js")),
             Map.entry("/defenseStats.js", StaticAsset.make("/ui/js/defenseStats.js")),
             Map.entry("/defenseValue.js", StaticAsset.make("/ui/js/defenseValue.js")),
+            Map.entry("/engineerData.js", StaticAsset.make("/ui/js/engineerData.js")),
+            Map.entry("/engineerStats.js", StaticAsset.make("/ui/js/engineerStats.js")),
+            Map.entry("/factionStats.js", StaticAsset.make("/ui/js/factionStats.js")),
             Map.entry("/market.js", StaticAsset.make("/ui/js/market.js")),
             Map.entry("/marketEntry.js", StaticAsset.make("/ui/js/marketEntry.js")),
             Map.entry("/material.js", StaticAsset.make("/ui/js/material.js")),
             Map.entry("/moduleBay.js", StaticAsset.make("/ui/js/moduleBay.js")),
-            Map.entry("/factionStats.js", StaticAsset.make("/ui/js/factionStats.js")),
             Map.entry("/navigationRoute.js", StaticAsset.make("/ui/js/navigationRoute.js")),
             Map.entry("/offenseStats.js", StaticAsset.make("/ui/js/offenseStats.js")),
             Map.entry("/offenseModule.js", StaticAsset.make("/ui/js/offenseModule.js")),
             Map.entry("/offenseTurret.js", StaticAsset.make("/ui/js/offenseTurret.js")),
+            Map.entry("/poiForm.js", StaticAsset.make("/ui/js/poiForm.js")),
             Map.entry("/powerModule.js", StaticAsset.make("/ui/js/powerModule.js")),
             Map.entry("/powerStats.js", StaticAsset.make("/ui/js/powerStats.js")),
             Map.entry("/routeEntry.js", StaticAsset.make("/ui/js/routeEntry.js")),
@@ -81,7 +82,6 @@ class JournalServlet extends EventSourceServlet
             Map.entry("/statCategory.js", StaticAsset.make("/ui/js/statCategory.js")),
             Map.entry("/systemCartography.js", StaticAsset.make("/ui/js/systemCartography.js")),
             Map.entry("/systemCatalog.js", StaticAsset.make("/ui/js/systemCatalog.js")),
-
             Map.entry("/ui.js", StaticAsset.make("/ui/js/ui.js")),
 
             /* Images */

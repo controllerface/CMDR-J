@@ -15,7 +15,7 @@ class FactionStats extends HTMLElement
 
     get federalNavy()
     {
-        this.getAttribute('federalnavy');
+        return this.getAttribute('federalnavy');
     }
 
     set federalNavyProgress(value)
@@ -25,7 +25,7 @@ class FactionStats extends HTMLElement
 
     get federalNavyProgress()
     {
-        this.getAttribute('federalnavyprogress');
+        return this.getAttribute('federalnavyprogress');
     }
 
     set imperialNavy(value)
@@ -35,7 +35,7 @@ class FactionStats extends HTMLElement
 
     get imperialNavy()
     {
-        this.getAttribute('imperialnavy');
+        return this.getAttribute('imperialnavy');
     }
 
     set imperialNavyProgress(value)
@@ -45,7 +45,7 @@ class FactionStats extends HTMLElement
 
     get imperialNavyProgress()
     {
-        this.getAttribute('imperialnavyprogress');
+        return this.getAttribute('imperialnavyprogress');
     }
 
     set federation(value)
@@ -55,7 +55,7 @@ class FactionStats extends HTMLElement
 
     get federation()
     {
-        this.getAttribute('federation');
+        return this.getAttribute('federation');
     }
 
     set federationProgress(value)
@@ -65,7 +65,7 @@ class FactionStats extends HTMLElement
 
     get federationProgress()
     {
-        this.getAttribute('federationprogress');
+        return this.getAttribute('federationprogress');
     }
 
     set empire(value)
@@ -75,7 +75,7 @@ class FactionStats extends HTMLElement
 
     get empire()
     {
-        this.getAttribute('empire');
+        return this.getAttribute('empire');
     }
 
     set empireProgress(value)
@@ -85,7 +85,7 @@ class FactionStats extends HTMLElement
 
     get empireProgress()
     {
-        this.getAttribute('empireprogress');
+        return this.getAttribute('empireprogress');
     }
 
     set alliance(value)
@@ -95,7 +95,7 @@ class FactionStats extends HTMLElement
 
     get alliance()
     {
-        this.getAttribute('alliance');
+        return this.getAttribute('alliance');
     }
 
     set allianceProgress(value)
@@ -105,7 +105,7 @@ class FactionStats extends HTMLElement
 
     get allianceProgress()
     {
-        this.getAttribute('allianceprogress');
+        return this.getAttribute('allianceprogress');
     }
 
     set independent(value)
@@ -115,7 +115,7 @@ class FactionStats extends HTMLElement
 
     get independent()
     {
-        this.getAttribute('independent');
+        return this.getAttribute('independent');
     }
 
     set independentProgress(value)
@@ -125,7 +125,7 @@ class FactionStats extends HTMLElement
 
     get independentProgress()
     {
-        this.getAttribute('independentprogress');
+        return this.getAttribute('independentprogress');
     }
 
     static get observedAttributes()

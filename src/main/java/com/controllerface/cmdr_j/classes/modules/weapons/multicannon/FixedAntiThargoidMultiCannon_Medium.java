@@ -31,7 +31,7 @@ public class FixedAntiThargoidMultiCannon_Medium extends AbstractExperimentalMod
                         new ItemEffectData(ItemEffect.BreachDamage, 2.8),
                         new ItemEffectData(ItemEffect.MinBreachChance, 50.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),
-                        new ItemEffectData(ItemEffect.DamageType, "Anti-Xeno"),
+                        new ItemEffectData(ItemEffect.DamageType, "Kinetic/AX"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Fixed"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
                 ));

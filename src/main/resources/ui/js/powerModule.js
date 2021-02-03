@@ -15,7 +15,7 @@ class PowerModule extends HTMLElement
 
     get moduleName()
     {
-        this.getAttribute('modulename');
+        return this.getAttribute('modulename');
     }
 
     set draw(value)
@@ -25,7 +25,7 @@ class PowerModule extends HTMLElement
 
     get draw()
     {
-        this.getAttribute('draw');
+        return this.getAttribute('draw');
     }
 
     set load(value)
@@ -35,7 +35,7 @@ class PowerModule extends HTMLElement
 
     get load()
     {
-        this.getAttribute('load');
+        return this.getAttribute('load');
     }
 
     set priority(value)
@@ -45,7 +45,7 @@ class PowerModule extends HTMLElement
 
     get priority()
     {
-        this.getAttribute('priority');
+        return this.getAttribute('priority');
     }
 
     set powered(value)
@@ -55,7 +55,7 @@ class PowerModule extends HTMLElement
 
     get powered()
     {
-        this.getAttribute('powered');
+        return this.getAttribute('powered');
     }
 
     static get observedAttributes()

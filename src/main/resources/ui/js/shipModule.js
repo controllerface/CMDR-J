@@ -32,7 +32,7 @@ class ShipModule extends HTMLElement
 
     get moduleName()
     {
-        this.getAttribute('modulename');
+        return this.getAttribute('modulename');
     }
 
     set slotName(value)
@@ -42,7 +42,7 @@ class ShipModule extends HTMLElement
 
     get slotName()
     {
-        this.getAttribute('slotname');
+        return this.getAttribute('slotname');
     }
 
     loadModuleData(module)
@@ -99,6 +99,18 @@ class ShipModule extends HTMLElement
             {
                 delete effects['guardian'];
                 moduleName.classList.add('guardian');
+            }
+
+            if (effects['human'])
+            {
+                delete effects['human'];
+                moduleName.classList.add('humantech');
+            }
+
+            if (effects['experimental'])
+            {
+                delete effects['experimental'];
+                moduleName.classList.add('aegistech');
             }
 
             if (module['ammoInClip'])
@@ -234,6 +246,12 @@ class ShipModule extends HTMLElement
                 }
 
                 let statValue = document.createElement('span');
+
+                if (stat === 'Damage Type' && info['value'].includes('/AX'))
+                {
+                    statName.classList.add('antixeno');
+                }
+
                 statValue.classList.add('infoValue');
                 statValue.textContent = info['value'];
 

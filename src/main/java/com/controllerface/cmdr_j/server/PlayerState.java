@@ -447,6 +447,7 @@ public class PlayerState
 
         var powerDraw = calculateEffectValue(ItemEffect.PowerDraw);
 
+        // todo: some utility modules are also retractable and need to be accounted for
         var retractedDraw = calculateFilteredEffectValue(ItemEffect.PowerDraw, nonWeaponSlots);
 
         var moduleMap = new LinkedHashMap<String, Map<String, Object>>();
@@ -915,20 +916,24 @@ public class PlayerState
                 switch (type)
                 {
                     case "Absolute":
+                    case "Absolute/AX":
                         absoluteShare = dps * .6;
                         thermalShare = dps * .2;
                         kineticShare = dps * .2;
                         break;
 
                     case "Thermal":
+                    case "Thermal/AX":
                         thermalShare = dps;
                         break;
 
                     case "Kinetic":
+                    case "Kinetic/AX":
                         kineticShare = dps;
                         break;
 
                     case "Explosive":
+                    case "Explosive/AX":
                         explosiveShare = dps;
                         break;
 
@@ -937,7 +942,7 @@ public class PlayerState
                         kineticShare = dps * .333;
                         break;
 
-                    // todo: experimentals that modify dmg tye, see cannon
+                    // todo: experimentals that modify dmg type, see cannon
                     default:
                         System.err.println("Unknown damage type: " + type);
                         break;
@@ -1487,7 +1492,6 @@ public class PlayerState
         Arrays.stream(shipType.getInternals().getSlots())
             .forEach(moduleSize ->
             {
-                System.out.println("debug 1: " + moduleSize);
                 if (moduleSize.name().contains("MILITARY"))
                 {
                     var current = militaryCounts.computeIfAbsent(moduleSize.intValue, (_k)-> 0) + 1;
@@ -1502,7 +1506,6 @@ public class PlayerState
 
         shipModules.forEach((statistic, moduleData)->
         {
-            // todo: handle military slots
             if (statistic.getKey().contains("_Size"))
             {
                 var sizeStart = statistic.getKey().indexOf("_");

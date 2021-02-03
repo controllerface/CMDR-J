@@ -15,7 +15,7 @@ class RouteEntry extends HTMLElement
 
     get system()
     {
-        this.getAttribute('system');
+        return this.getAttribute('system');
     }
 
     set distance(value)
@@ -25,7 +25,7 @@ class RouteEntry extends HTMLElement
 
     get distance()
     {
-        this.getAttribute('distance');
+        return this.getAttribute('distance');
     }
 
     set starClass(value)
@@ -35,7 +35,7 @@ class RouteEntry extends HTMLElement
 
     get starClass()
     {
-        this.getAttribute('starclass');
+        return this.getAttribute('starclass');
     }
 
     static get observedAttributes()

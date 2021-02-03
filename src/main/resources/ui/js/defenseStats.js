@@ -15,7 +15,7 @@ class DefenseStats extends HTMLElement
 
     get shieldRegen()
     {
-        this.getAttribute('shieldregen');
+        return this.getAttribute('shieldregen');
     }
 
     set brokenRegenRate(value)
@@ -25,7 +25,7 @@ class DefenseStats extends HTMLElement
 
     get brokenRegen()
     {
-        this.getAttribute('brokenregen');
+        return this.getAttribute('brokenregen');
     }
 
     static get observedAttributes()

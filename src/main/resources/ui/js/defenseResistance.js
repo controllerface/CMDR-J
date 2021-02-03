@@ -15,7 +15,7 @@ class DefenseResistance extends HTMLElement
 
     get statistic()
     {
-        this.getAttribute('statistic');
+        return this.getAttribute('statistic');
     }
 
     set statValue(value)
@@ -25,7 +25,7 @@ class DefenseResistance extends HTMLElement
 
     get statValue()
     {
-        this.getAttribute('statvalue');
+        return this.getAttribute('statvalue');
     }
 
     set base(value)
@@ -35,7 +35,7 @@ class DefenseResistance extends HTMLElement
 
     get base()
     {
-        this.getAttribute('base');
+        return this.getAttribute('base');
     }
 
     set baseMultiplier(value)
@@ -45,7 +45,7 @@ class DefenseResistance extends HTMLElement
 
     get baseMultiplier()
     {
-        this.getAttribute('basemultiplier');
+        return this.getAttribute('basemultiplier');
     }
 
     set boost(value)
@@ -55,7 +55,7 @@ class DefenseResistance extends HTMLElement
 
     get boost()
     {
-        this.getAttribute('boost');
+        return this.getAttribute('boost');
     }
 
     set boostMultiplier(value)
@@ -65,7 +65,7 @@ class DefenseResistance extends HTMLElement
 
     get boostMultiplier()
     {
-        this.getAttribute('boostmultiplier');
+        return this.getAttribute('boostmultiplier');
     }
 
     set raw(value)
@@ -75,7 +75,7 @@ class DefenseResistance extends HTMLElement
 
     get raw()
     {
-        this.getAttribute('raw');
+        return this.getAttribute('raw');
     }
 
     set minmax(value)
@@ -85,7 +85,7 @@ class DefenseResistance extends HTMLElement
 
     get minmax()
     {
-        this.getAttribute('minmax');
+        return this.getAttribute('minmax');
     }
 
     static get observedAttributes()

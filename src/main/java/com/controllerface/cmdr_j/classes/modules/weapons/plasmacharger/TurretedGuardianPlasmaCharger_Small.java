@@ -20,7 +20,7 @@ public class TurretedGuardianPlasmaCharger_Small extends AbstractGuardianModule
                         new ItemEffectData(ItemEffect.DamagePerSecond, 10.0),
                         new ItemEffectData(ItemEffect.Damage, 2),
                         //new ItemEffectData(ItemEffect.ChargeTime, 1.8), // todo: find this stat
-                        new ItemEffectData(ItemEffect.Damage_Multiplier_at_Full_Charge, 17.0),
+                        new ItemEffectData(ItemEffect.Damage_Multiplier_guardian, 17.0),
                         new ItemEffectData(ItemEffect.DistributorDraw, 0.8),
                         new ItemEffectData(ItemEffect.ThermalLoad, 5.01),
                         new ItemEffectData(ItemEffect.ArmourPenetration, 65.0),

@@ -38,7 +38,13 @@
     /* Used to signify an item or effect is guardian related */
     --guardian-color: #0a8bd6;
 
-    /* Used to signify an item or effect is anti-xeno (Aegis) related */
+    /* Used to signify human tech broker modules */
+    --human-tech-color: #04d165;
+
+    /* Used to signify aegis experimental modules */
+    --aegis-tech-color: #a81818;
+
+    /* Used to signify an effect is anti-xeno */
     --anti-xeno-color: #029e4c;
 }
 
@@ -85,7 +91,23 @@ Represents an guardian specific effect or a module.
 }
 
 /*
-Represents an anti-xeno specific effect or a module.
+Represents a human tech broker a module.
+*/
+.humantech
+{
+    color: var(--human-tech-color);
+}
+
+/*
+Represents an aegis experimental module.
+*/
+.aegistech
+{
+    color: var(--aegis-tech-color);
+}
+
+/*
+Represents an anti-xeno specific effect.
 */
 .antixeno
 {
@@ -196,6 +218,12 @@ input[type=button]:hover
     color: white;
 }
 
+input[type=button]:active
+{
+    background: white;
+    color: var(--default-border);
+}
+
 input[type=text]
 {
     border: solid 1px var(--default-border);
@@ -205,6 +233,15 @@ input[type=text]
     font-weight: bold;
 }
 
+textarea
+{
+    border: solid 1px var(--default-border);
+    border-radius: 3px 3px 3px 3px;
+    background: var(--default-background);
+    color: var(--default-color);
+    font-weight: bold;
+    resize: none;
+}
 
 /*
 Some reusable stat classes
@@ -219,9 +256,9 @@ Some reusable stat classes
 .infoRow
 {
     display: grid;
+    border-bottom: 1px dashed var(--default-background);
     grid-template-columns: 2.5fr 3fr 1.6fr;
     background: linear-gradient(90deg, black, #222);
-
 }
 
 .infoRow:hover > span
@@ -245,16 +282,13 @@ Some reusable stat classes
 {
     text-align: right;
     padding-right: 8px;
-    /*background: linear-gradient(90deg, black, #222);*/
     overflow: hidden; /* Ensures the content is not revealed until the animation */
-    white-space: nowrap; /* Keeps the content on a single line */
 }
 
 .infoValue
 {
     text-align: right;
     padding-right: 5px;
-    /*background: #222;*/
     overflow: hidden; /* Ensures the content is not revealed until the animation */
     white-space: nowrap; /* Keeps the content on a single line */
     animation: slideRight 0.1s ease; /*steps(30, end)*/
@@ -265,7 +299,6 @@ Some reusable stat classes
     text-align: left;
     padding-left: 5px;
     color: var(--default-color);
-    /*background: linear-gradient(90deg, #222, black);*/
     animation: slideLeft 0.3s ease;/*steps(30, end)*/
 }
 

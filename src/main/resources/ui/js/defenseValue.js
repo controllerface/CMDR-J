@@ -15,7 +15,7 @@ class DefenseValue extends HTMLElement
 
     get statistic()
     {
-        this.getAttribute('statistic');
+        return this.getAttribute('statistic');
     }
 
     set statValue(value)
@@ -25,7 +25,7 @@ class DefenseValue extends HTMLElement
 
     get statValue()
     {
-        this.getAttribute('statvalue');
+        return this.getAttribute('statvalue');
     }
 
     set base(value)
@@ -35,7 +35,7 @@ class DefenseValue extends HTMLElement
 
     get base()
     {
-        this.getAttribute('base');
+        return this.getAttribute('base');
     }
 
     set reinforcement(value)
@@ -45,7 +45,7 @@ class DefenseValue extends HTMLElement
 
     get reinforcement()
     {
-        this.getAttribute('reinforcement');
+        return this.getAttribute('reinforcement');
     }
 
     set raw(value)
@@ -55,7 +55,7 @@ class DefenseValue extends HTMLElement
 
     get raw()
     {
-        this.getAttribute('raw');
+        return this.getAttribute('raw');
     }
 
     set minmax(value)
@@ -65,7 +65,7 @@ class DefenseValue extends HTMLElement
 
     get minmax()
     {
-        this.getAttribute('minmax');
+        return this.getAttribute('minmax');
     }
 
     static get observedAttributes()

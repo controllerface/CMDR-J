@@ -15,7 +15,7 @@ class NavigationRoute extends HTMLElement
 
     get destination()
     {
-        this.getAttribute('destination');
+        return this.getAttribute('destination');
     }
 
     set distance(value)
@@ -25,7 +25,7 @@ class NavigationRoute extends HTMLElement
 
     get distance()
     {
-        this.getAttribute('distance');
+        return this.getAttribute('distance');
     }
 
     set jumps(value)
@@ -35,7 +35,7 @@ class NavigationRoute extends HTMLElement
 
     get jumps()
     {
-        this.getAttribute('jumps');
+        return this.getAttribute('jumps');
     }
 
     static get observedAttributes()

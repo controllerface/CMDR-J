@@ -31,7 +31,7 @@ public class TurretedAntiThargoidMissileRack_Medium extends AbstractExperimental
                         new ItemEffectData(ItemEffect.BreachDamage, 0.1),
                         new ItemEffectData(ItemEffect.MinBreachChance, 80.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 100.0),
-                        new ItemEffectData(ItemEffect.DamageType, "Anti-Xeno"),
+                        new ItemEffectData(ItemEffect.DamageType, "Explosive/AX"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Turret")
                 ));
     }

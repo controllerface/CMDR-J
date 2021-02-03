@@ -15,7 +15,7 @@ class PowerStats extends HTMLElement
 
     get capacity()
     {
-        this.getAttribute('capacity');
+        return this.getAttribute('capacity');
     }
 
     set draw(value)
@@ -25,7 +25,7 @@ class PowerStats extends HTMLElement
 
     get draw()
     {
-        this.getAttribute('draw');
+        return this.getAttribute('draw');
     }
 
     set retracted(value)
@@ -35,7 +35,7 @@ class PowerStats extends HTMLElement
 
     get retracted()
     {
-        this.getAttribute('retracted');
+        return this.getAttribute('retracted');
     }
 
     static get observedAttributes()

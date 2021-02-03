@@ -10,7 +10,7 @@ class SystemCatalog extends HTMLElement
         let selector = this.shadowRoot.getElementById('systemCatalog_systemselector');
         selector.addEventListener('input', (e)=>
         {
-            let value  = selector.value;
+            let value = selector.value;
             let list = this.shadowRoot.getElementById('systemCatalog_datalist');
             let option = list.querySelector('option[value="' + value + '"]');
             if (option)
@@ -21,6 +21,18 @@ class SystemCatalog extends HTMLElement
 
         let clearButton = this.shadowRoot.getElementById('systemCatalog_clearbutton');
         clearButton.addEventListener('click', (e) => selector.value = '');
+
+        let currentButton = this.shadowRoot.getElementById('systemCatalog_currentbutton');
+        currentButton.addEventListener('click', (e) =>
+        {
+            let currentAddress = getCurrentSystemAddress();
+            let list = this.shadowRoot.getElementById('systemCatalog_datalist');
+            console.log(currentAddress);
+            let option = list.querySelector('option[id="' + currentAddress + '"]');
+            selector.value = option.value;
+            let inputEvent = new InputEvent('input');
+            selector.dispatchEvent(inputEvent);
+        });
     }
 
     loadSystemData(system)

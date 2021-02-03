@@ -15,7 +15,7 @@ class ShipStats extends HTMLElement
 
     get frameShiftDrive()
     {
-        this.getAttribute('frameshiftdrive');
+        return this.getAttribute('frameshiftdrive');
     }
 
     set fuelTank(value)
@@ -25,7 +25,7 @@ class ShipStats extends HTMLElement
 
     get fuelTank()
     {
-        this.getAttribute('fueltank');
+        return this.getAttribute('fueltank');
     }
 
     set lifeSupport(value)
@@ -35,7 +35,7 @@ class ShipStats extends HTMLElement
 
     get lifeSupport()
     {
-        this.getAttribute('lifesupport');
+        return this.getAttribute('lifesupport');
     }
 
     set powerDistributor(value)
@@ -45,7 +45,7 @@ class ShipStats extends HTMLElement
 
     get powerDistributor()
     {
-        this.getAttribute('powerdistributor');
+        return this.getAttribute('powerdistributor');
     }
 
     set powerPlant(value)
@@ -55,7 +55,7 @@ class ShipStats extends HTMLElement
 
     get powerPlant()
     {
-        this.getAttribute('powerplant');
+        return this.getAttribute('powerplant');
     }
 
     set sensors(value)
@@ -65,7 +65,7 @@ class ShipStats extends HTMLElement
 
     get sensors()
     {
-        this.getAttribute('sensors');
+        return this.getAttribute('sensors');
     }
 
     set thrusters(value)
@@ -75,7 +75,7 @@ class ShipStats extends HTMLElement
 
     get thrusters()
     {
-        this.getAttribute('thrusters');
+        return this.getAttribute('thrusters');
     }
 
     set size_1(value)
@@ -85,7 +85,7 @@ class ShipStats extends HTMLElement
 
     get size_1()
     {
-        this.getAttribute('size_1');
+        return this.getAttribute('size_1');
     }
 
     set size_2(value)
@@ -95,7 +95,7 @@ class ShipStats extends HTMLElement
 
     get size_2()
     {
-        this.getAttribute('size_2');
+        return this.getAttribute('size_2');
     }
 
     set military_size_2(value)
@@ -105,7 +105,7 @@ class ShipStats extends HTMLElement
 
     get military_size_2()
     {
-        this.getAttribute('military_size_2');
+        return this.getAttribute('military_size_2');
     }
 
     set size_3(value)
@@ -115,7 +115,7 @@ class ShipStats extends HTMLElement
 
     get size_3()
     {
-        this.getAttribute('size_3');
+        return this.getAttribute('size_3');
     }
 
     set military_size_3(value)
@@ -125,7 +125,7 @@ class ShipStats extends HTMLElement
 
     get military_size_3()
     {
-        this.getAttribute('military_size_3');
+        return this.getAttribute('military_size_3');
     }
 
     set size_4(value)
@@ -135,7 +135,7 @@ class ShipStats extends HTMLElement
 
     get size_4()
     {
-        this.getAttribute('size_4');
+        return this.getAttribute('size_4');
     }
 
     set military_size_4(value)
@@ -145,7 +145,7 @@ class ShipStats extends HTMLElement
 
     get military_size_4()
     {
-        this.getAttribute('military_size_4');
+        return this.getAttribute('military_size_4');
     }
 
     set size_5(value)
@@ -155,7 +155,7 @@ class ShipStats extends HTMLElement
 
     get size_5()
     {
-        this.getAttribute('size_5');
+        return this.getAttribute('size_5');
     }
 
     set military_size_5(value)
@@ -165,7 +165,7 @@ class ShipStats extends HTMLElement
 
     get military_size_5()
     {
-        this.getAttribute('military_size_5');
+        return this.getAttribute('military_size_5');
     }
 
     set size_6(value)
@@ -175,7 +175,7 @@ class ShipStats extends HTMLElement
 
     get size_6()
     {
-        this.getAttribute('size_6');
+        return this.getAttribute('size_6');
     }
 
     set size_7(value)
@@ -185,7 +185,7 @@ class ShipStats extends HTMLElement
 
     get size_7()
     {
-        this.getAttribute('size_7');
+        return this.getAttribute('size_7');
     }
 
     set size_8(value)
@@ -195,7 +195,7 @@ class ShipStats extends HTMLElement
 
     get size_8()
     {
-        this.getAttribute('size_8');
+        return this.getAttribute('size_8');
     }
 
     set size_tiny(value)
@@ -205,7 +205,7 @@ class ShipStats extends HTMLElement
 
     get size_tiny()
     {
-        this.getAttribute('size_tiny');
+        return this.getAttribute('size_tiny');
     }
 
     set size_small(value)
@@ -215,7 +215,7 @@ class ShipStats extends HTMLElement
 
     get size_small()
     {
-        this.getAttribute('size_small');
+        return this.getAttribute('size_small');
     }
 
     set size_medium(value)
@@ -225,7 +225,7 @@ class ShipStats extends HTMLElement
 
     get size_medium()
     {
-        this.getAttribute('size_medium');
+        return this.getAttribute('size_medium');
     }
 
     set size_large(value)
@@ -235,7 +235,7 @@ class ShipStats extends HTMLElement
 
     get size_large()
     {
-        this.getAttribute('size_large');
+        return this.getAttribute('size_large');
     }
 
     set size_huge(value)
@@ -245,7 +245,7 @@ class ShipStats extends HTMLElement
 
     get size_huge()
     {
-        this.getAttribute('size_huge');
+        return this.getAttribute('size_huge');
     }
 
     set cargoCapacity(value)
@@ -255,7 +255,7 @@ class ShipStats extends HTMLElement
 
     get cargoCapacity()
     {
-        this.getAttribute('cargocapacity');
+        return this.getAttribute('cargocapacity');
     }
 
     set fuelCapacity(value)
@@ -265,7 +265,7 @@ class ShipStats extends HTMLElement
 
     get fuelCapacity()
     {
-        this.getAttribute('fuelcapacity');
+        return this.getAttribute('fuelcapacity');
     }
 
     set resevoirCapacity(value)
@@ -275,7 +275,7 @@ class ShipStats extends HTMLElement
 
     get resevoirCapacity()
     {
-        this.getAttribute('resevoircapacity');
+        return this.getAttribute('resevoircapacity');
     }
 
     set crewSeats(value)
@@ -285,7 +285,7 @@ class ShipStats extends HTMLElement
 
     get crewSeats()
     {
-        this.getAttribute('crewseats');
+        return this.getAttribute('crewseats');
     }
 
     set slf(value)
@@ -295,7 +295,7 @@ class ShipStats extends HTMLElement
 
     get slf()
     {
-        this.getAttribute('slf');
+        return this.getAttribute('slf');
     }
 
     set manufacturer(value)
@@ -305,7 +305,7 @@ class ShipStats extends HTMLElement
 
     get manufacturer()
     {
-        this.getAttribute('manufacturer');
+        return this.getAttribute('manufacturer');
     }
 
     set model(value)
@@ -315,7 +315,7 @@ class ShipStats extends HTMLElement
 
     get model()
     {
-        this.getAttribute('model');
+        return this.getAttribute('model');
     }
 
     set shipSize(value)
@@ -325,7 +325,7 @@ class ShipStats extends HTMLElement
 
     get shipSize()
     {
-        this.getAttribute('shipsize');
+        return this.getAttribute('shipsize');
     }
 
     set baseCost(value)
@@ -335,7 +335,7 @@ class ShipStats extends HTMLElement
 
     get baseCost()
     {
-        this.getAttribute('basecost');
+        return this.getAttribute('basecost');
     }
 
     set hullValue(value)
@@ -345,7 +345,7 @@ class ShipStats extends HTMLElement
 
     get hullValue()
     {
-        this.getAttribute('hullvalue');
+        return this.getAttribute('hullvalue');
     }
 
     set moduleValue(value)
@@ -355,7 +355,7 @@ class ShipStats extends HTMLElement
 
     get moduleValue()
     {
-        this.getAttribute('modulevalue');
+        return this.getAttribute('modulevalue');
     }
 
     set baseHull(value)
@@ -365,7 +365,7 @@ class ShipStats extends HTMLElement
 
     get baseHull()
     {
-        this.getAttribute('basehull');
+        return this.getAttribute('basehull');
     }
 
     set maxRange(value)
@@ -375,7 +375,7 @@ class ShipStats extends HTMLElement
 
     get maxRange()
     {
-        this.getAttribute('maxrange');
+        return this.getAttribute('maxrange');
     }
 
     set unladenMass(value)
@@ -385,7 +385,7 @@ class ShipStats extends HTMLElement
 
     get unladenMass()
     {
-        this.getAttribute('unladenmass');
+        return this.getAttribute('unladenmass');
     }
 
     set currentMass(value)
@@ -395,7 +395,7 @@ class ShipStats extends HTMLElement
 
     get currentMass()
     {
-        this.getAttribute('currentmass');
+        return this.getAttribute('currentmass');
     }
 
     set massLock(value)
@@ -405,7 +405,7 @@ class ShipStats extends HTMLElement
 
     get massLock()
     {
-        this.getAttribute('masslock');
+        return this.getAttribute('masslock');
     }
 
     set baseAgility(value)
@@ -415,7 +415,7 @@ class ShipStats extends HTMLElement
 
     get baseAgility()
     {
-        this.getAttribute('baseagility');
+        return this.getAttribute('baseagility');
     }
 
     set speed(value)
@@ -425,7 +425,7 @@ class ShipStats extends HTMLElement
 
     get speed()
     {
-        this.getAttribute('speed');
+        return this.getAttribute('speed');
     }
 
     set maxSpeed(value)
@@ -435,7 +435,7 @@ class ShipStats extends HTMLElement
 
     get maxSpeed()
     {
-        this.getAttribute('maxspeed');
+        return this.getAttribute('maxspeed');
     }
 
     set boost(value)
@@ -445,7 +445,7 @@ class ShipStats extends HTMLElement
 
     get boost()
     {
-        this.getAttribute('boost');
+        return this.getAttribute('boost');
     }
 
     set maxBoost(value)
@@ -455,7 +455,7 @@ class ShipStats extends HTMLElement
 
     get maxBoost()
     {
-        this.getAttribute('maxboost');
+        return this.getAttribute('maxboost');
     }
 
     static get observedAttributes()

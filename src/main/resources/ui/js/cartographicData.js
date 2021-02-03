@@ -15,7 +15,7 @@ class CartographicData extends HTMLElement
 
     get bodyType()
     {
-        this.getAttribute('bodytype');
+        return this.getAttribute('bodytype');
     }
 
     set bodyName(value)
@@ -25,7 +25,7 @@ class CartographicData extends HTMLElement
 
     get bodyName()
     {
-        this.getAttribute('bodyname');
+        return this.getAttribute('bodyname');
     }
 
     formatName(name)

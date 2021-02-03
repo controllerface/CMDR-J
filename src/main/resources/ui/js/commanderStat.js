@@ -27,7 +27,7 @@ class CommanderStat extends HTMLElement
 
     get statistic()
     {
-        this.getAttribute('statistic');
+        return this.getAttribute('statistic');
     }
 
     set statValue(value)
@@ -37,7 +37,7 @@ class CommanderStat extends HTMLElement
 
     get statValue()
     {
-        this.getAttribute('statValue');
+        return this.getAttribute('statValue');
     }
 
     static get observedAttributes()

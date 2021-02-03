@@ -15,7 +15,7 @@ class OffenseTurret extends HTMLElement
 
     get module()
     {
-        this.getAttribute('module');
+        return this.getAttribute('module');
     }
 
     set total(value)
@@ -25,7 +25,7 @@ class OffenseTurret extends HTMLElement
 
     get total()
     {
-        this.getAttribute('total');
+        return this.getAttribute('total');
     }
 
     set type(value)
@@ -35,7 +35,7 @@ class OffenseTurret extends HTMLElement
 
     get type()
     {
-        this.getAttribute('type');
+        return this.getAttribute('type');
     }
 
     static get observedAttributes()

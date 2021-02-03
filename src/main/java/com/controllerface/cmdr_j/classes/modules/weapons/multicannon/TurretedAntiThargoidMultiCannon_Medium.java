@@ -31,7 +31,7 @@ public class TurretedAntiThargoidMultiCannon_Medium extends AbstractExperimental
                         new ItemEffectData(ItemEffect.BreachDamage, 0.4),
                         new ItemEffectData(ItemEffect.MinBreachChance, 50.0),
                         new ItemEffectData(ItemEffect.MaxBreachChance, 50.0),
-                        new ItemEffectData(ItemEffect.DamageType, "Anti-Xeno"),
+                        new ItemEffectData(ItemEffect.DamageType, "Kinetic/AX"),
                         new ItemEffectData(ItemEffect.WeaponMode, "Turret"),
                         new ItemEffectData(ItemEffect.DamageFalloffRange, 2000.0)
                 ));

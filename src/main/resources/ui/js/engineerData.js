@@ -15,7 +15,7 @@ class EngineerData extends HTMLElement
 
     get engineer()
     {
-        this.getAttribute('engineer');
+        return this.getAttribute('engineer');
     }
 
     set system(value)
@@ -25,7 +25,7 @@ class EngineerData extends HTMLElement
 
     get system()
     {
-        this.getAttribute('system');
+        return this.getAttribute('system');
     }
 
     set location(value)
@@ -35,7 +35,7 @@ class EngineerData extends HTMLElement
 
     get location()
     {
-        this.getAttribute('location');
+        return this.getAttribute('location');
     }
 
     set distance(value)
@@ -45,7 +45,7 @@ class EngineerData extends HTMLElement
 
     get distance()
     {
-        this.getAttribute('distance');
+        return this.getAttribute('distance');
     }
 
     set status(value)
@@ -55,7 +55,7 @@ class EngineerData extends HTMLElement
 
     get status()
     {
-        this.getAttribute('status');
+        return this.getAttribute('status');
     }
 
     set rank(value)
@@ -65,7 +65,7 @@ class EngineerData extends HTMLElement
 
     get rank()
     {
-        this.getAttribute('rank');
+        return this.getAttribute('rank');
     }
 
     set progress(value)
@@ -75,7 +75,7 @@ class EngineerData extends HTMLElement
 
     get progress()
     {
-        this.getAttribute('progress');
+        return this.getAttribute('progress');
     }
 
     static get observedAttributes()

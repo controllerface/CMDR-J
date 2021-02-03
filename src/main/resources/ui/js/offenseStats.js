@@ -15,7 +15,7 @@ class OffenseStats extends HTMLElement
 
     get total()
     {
-        this.getAttribute('total');
+        return this.getAttribute('total');
     }
 
     set thermal(value)
@@ -25,7 +25,7 @@ class OffenseStats extends HTMLElement
 
     get thermal()
     {
-        this.getAttribute('thermal');
+        return this.getAttribute('thermal');
     }
 
     set kinetic(value)
@@ -35,7 +35,7 @@ class OffenseStats extends HTMLElement
 
     get kinetic()
     {
-        this.getAttribute('kinetic');
+        return this.getAttribute('kinetic');
     }
 
     set explosive(value)
@@ -45,7 +45,7 @@ class OffenseStats extends HTMLElement
 
     get explosive()
     {
-        this.getAttribute('explosive');
+        return this.getAttribute('explosive');
     }
 
     set absolute(value)
@@ -55,7 +55,7 @@ class OffenseStats extends HTMLElement
 
     get absolute()
     {
-        this.getAttribute('absolute');
+        return this.getAttribute('absolute');
     }
 
     static get observedAttributes()

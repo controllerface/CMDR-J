@@ -25,7 +25,7 @@ class StatCategory extends HTMLElement
 
     get category()
     {
-        this.getAttribute('category');
+        return this.getAttribute('category');
     }
 
     static get observedAttributes()
