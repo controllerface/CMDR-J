@@ -13,6 +13,7 @@ public class ApproachSettlementEvent implements BiConsumer<PlayerState, Map<Stri
     public void accept(PlayerState playerState, Map<String, Object> event)
     {
         System.out.println(event);
+        if (event.get("Latitude") == null) return;
         var latitude = ((Number) event.get("Latitude")).doubleValue();
         var longitude = ((Number) event.get("Longitude")).doubleValue();
         var name = ((String) event.get("Name"));

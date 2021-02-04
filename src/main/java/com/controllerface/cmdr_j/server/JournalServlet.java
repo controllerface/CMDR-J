@@ -473,6 +473,7 @@ class JournalServlet extends EventSourceServlet
             }
             catch (Exception e)
             {
+                e.printStackTrace();
                 toRemove.add(s);
             }
         });

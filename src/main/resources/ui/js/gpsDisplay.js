@@ -59,8 +59,8 @@ class GPSDisplay extends HTMLElement
             let canvasCenterX = this.viewport.width / 2;
             let canvasCenterY = this.viewport.height / 2;
 
-            let centerX = 0; //this.viewport.width / 2;
-            let centerY = 0; //this.viewport.height / 2;
+            let centerX = this.viewport.width / 2;
+            let centerY = this.viewport.height / 2;
 
             // define a y off-set for the "tip" of the arrow. Will re use the center X
             let topY = centerY - 10;
@@ -78,8 +78,10 @@ class GPSDisplay extends HTMLElement
 
             ctx.save();
             let rot = this.coordinateData['heading'] * Math.PI / 180;
+            let antiRot = -90 * Math.PI / 180;
             ctx.translate(canvasCenterX, canvasCenterY);
             ctx.rotate(rot);
+            ctx.translate(-1 * canvasCenterX, -1 * canvasCenterY);
             ctx.beginPath();
             ctx.moveTo(centerX, topY);
             ctx.lineTo(rightX, rightY);
@@ -97,7 +99,9 @@ class GPSDisplay extends HTMLElement
                 lonOffset = lonOffset * 1000;
 
                 let markX = centerX - latOffset;
-                let markY = centerY + lonOffset;
+                let markY = centerY - lonOffset;
+
+
 
 
 //        new double[]{markX - 3, markX - 3, markX + 3, markX + 3},
@@ -105,8 +109,9 @@ class GPSDisplay extends HTMLElement
 
 
                 ctx.save();
-                ctx.translate(canvasCenterX, canvasCenterY);
-                //ctx.rotate(rot);
+            ctx.translate(canvasCenterX, canvasCenterY);
+            ctx.rotate(antiRot);
+            ctx.translate(-1 * canvasCenterX, -1 * canvasCenterY);
                 ctx.moveTo(markX - 3, markY - 3);
                 ctx.lineTo(markX - 3, markY + 3);
                 ctx.lineTo(markX + 3, markY + 3);
