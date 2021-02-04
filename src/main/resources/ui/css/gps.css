@@ -1,0 +1,15 @@
+@import "common.css";
+
+.gpsContainer
+{
+    border: solid 3px var(--default-background);
+    border-radius: 3px 3px 3px 3px;
+    margin: .2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.viewport
+{
+    margin-left: 20px;
+}

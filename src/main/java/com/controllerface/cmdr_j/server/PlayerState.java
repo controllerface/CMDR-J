@@ -23,10 +23,7 @@ import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalS
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacteristic;
 import com.controllerface.cmdr_j.ui.UIFunctions;
-import jetbrains.exodus.entitystore.Entity;
-import jetbrains.exodus.entitystore.PersistentEntityStore;
-import jetbrains.exodus.entitystore.PersistentEntityStores;
-import jetbrains.exodus.entitystore.StoreTransaction;
+import jetbrains.exodus.entitystore.*;
 
 import java.util.*;
 import java.util.concurrent.atomic.DoubleAdder;
@@ -39,7 +36,7 @@ import java.util.stream.IntStream;
 
 public class PlayerState
 {
-    private final Lock stateLock = new ReentrantLock();
+    private final Lock stateLock = new ReentrantLock(true);
 
     /**
      * This object holds the persistent data related to this commander
@@ -62,6 +59,10 @@ public class PlayerState
     private final Map<Engineer, Map<String, Object>> engineerProgress = new HashMap<>();
 
     private final List<RouteEntry> currentRoute = new ArrayList<>();
+
+    private LocalCoordinates localCoordinates;
+
+    private SettlementLocation localSettlement;
 
     /**
      * Contains the commander's current credit balance.
@@ -320,6 +321,41 @@ public class PlayerState
         });
     }
 
+    public void setClosestSettlement(SettlementLocation settlementLocation)
+    {
+        this.localSettlement = settlementLocation;
+        if (localCoordinates == null) return;
+
+        var map = this.localSettlement.toMap();
+        var dist = calculateDistance(this.localSettlement.longitude,
+            this.localSettlement.latitude);
+
+        map.put("distance", dist);
+        var xTest = localCoordinates.radius
+            * Math.cos(this.localSettlement.latitude)
+            * Math.cos(this.localSettlement.longitude);
+        var yTest = localCoordinates.radius
+            * Math.cos(this.localSettlement.latitude)
+            * Math.sin(this.localSettlement.longitude);
+
+        map.put("x", xTest);
+        map.put("y", yTest);
+        var locationData = JSONSupport.Write.jsonToString.apply(map);
+        executeWithLock(() -> globalUpdate.accept("Settlement", locationData));
+    }
+
+    public void setLocalCoordinates(LocalCoordinates localCoordinates)
+    {
+        this.localCoordinates = localCoordinates;
+        var locationData = JSONSupport.Write.jsonToString.apply(this.localCoordinates.toMap());
+        executeWithLock(() -> globalUpdate.accept("Coordinates", locationData));
+
+        if (localSettlement != null)
+        {
+            setClosestSettlement(localSettlement);
+        }
+    }
+
     public void setShipModule(Statistic statistic, ShipModuleData shipModuleData)
     {
         shipModules.put(statistic, shipModuleData);
@@ -331,6 +367,15 @@ public class PlayerState
         var balance = String.valueOf(creditBalance);
         commanderStatistics.put(CommanderStat.Credits, balance);
         executeWithLock(() -> globalUpdate.accept(CommanderStat.Credits.getName(), balance));
+    }
+
+    public void updateFuelLevels(double main, double reservoir)
+    {
+        // todo: maybe track both levels separately if needed?
+        currentFuel = main + reservoir;
+        var fuelString = String.valueOf(currentFuel);
+        shipStatistics.put(ShipStat.Fuel_Level, fuelString);
+        executeWithLock(() -> globalUpdate.accept(ShipStat.Fuel_Level.getName(), fuelString));
     }
 
     private void updateInternalState(Statistic statistic, String value)
@@ -1180,6 +1225,38 @@ public class PlayerState
         });
     }
 
+
+    /**
+     * Haversine function: hav(θ) = sin ^ 2 (θ/2)
+     *
+     * @param radAngle input angle in radians
+     * @return haversine distance of the input angle
+     */
+    private double haversine(double radAngle)
+    {
+        return Math.sin(radAngle / 2) * Math.sin(radAngle / 2);
+    }
+
+    private double calculateDistance(double waypointLong, double waypointLat)
+    {
+        double latDistance = Math.toRadians(waypointLat - localCoordinates.latitude);
+        double lonDistance = Math.toRadians(waypointLong - localCoordinates.longitude);
+
+        double a = haversine(latDistance)
+            + Math.cos(Math.toRadians(localCoordinates.latitude))
+            * Math.cos(Math.toRadians(waypointLat))
+            * haversine(lonDistance);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        double adjustedDistance = localCoordinates.radius * c;
+
+        return Math.sqrt(Math.pow(adjustedDistance, 2) +
+            Math.pow(localCoordinates.altitude, 2));
+    }
+
+
+
     //region Database Access Functions
 
     private void ensureCommanderExists(StoreTransaction transaction)
@@ -1240,15 +1317,15 @@ public class PlayerState
             .findFirst().orElse(null);
     }
 
-    private static void entityToMap(Entity entity, Map<String, Object> map)
+    private static void bodyEntityToMap(Entity stellarBody, Map<String, Object> map)
     {
-        entity.getPropertyNames()
-            .forEach(propertyName -> map.put(propertyName, entity.getProperty(propertyName)));
+        stellarBody.getPropertyNames()
+            .forEach(propertyName -> map.put(propertyName, stellarBody.getProperty(propertyName)));
 
-        entity.getBlobNames()
+        stellarBody.getBlobNames()
             .forEach(propertyName ->
             {
-                var json = JSONSupport.Parse.jsonString.apply(entity.getBlobString(propertyName));
+                var json = JSONSupport.Parse.jsonString.apply(stellarBody.getBlobString(propertyName));
                 map.put(propertyName, json.get("json"));
             });
 
@@ -1292,19 +1369,33 @@ public class PlayerState
                 .findFirst()
                 .ifPresent(systemEntity ->
                 {
-                    entityToMap(systemEntity, data);
+                    bodyEntityToMap(systemEntity, data);
                     var bodies = systemEntity.getLinks(EntityKeys.STELLAR_BODY);
+                    var poiNotes = systemEntity.getLinks(EntityKeys.POI_NOTE);
                     var bodyList = EntityUtilities.entityStream(bodies)
                         .map(bodyEntity ->
                         {
                             var bodyData = new HashMap<String, Object>();
-                            entityToMap(bodyEntity, bodyData);
+                            bodyEntityToMap(bodyEntity, bodyData);
                             return bodyData;
                         })
                         .sorted(Comparator.comparingInt(map ->
                             ((Number) map.get(EntityKeys.STELLAR_BODY_ID)).intValue()))
                         .collect(Collectors.toList());
+                    var poiNoteList = EntityUtilities.entityStream(poiNotes)
+                        .map(poiNote->
+                        {
+                            var poiData = new HashMap<>();
+                            poiData.put("poi", poiNote.getBlobString(EntityKeys.POI_TEXT));
+                            poiData.put("id", poiNote.getId().toString());
+                            return poiData;
+                        })
+                        .collect(Collectors.toList());
                     data.put("bodies", bodyList);
+                    if (!poiNoteList.isEmpty())
+                    {
+                        data.put("poi", poiNoteList);
+                    }
                 });
             return data;
         });
@@ -1357,6 +1448,14 @@ public class PlayerState
     {
         var defenseStats = calculateDefenseStats();
         executeWithLock(() -> globalUpdate.accept("DefenseStats", defenseStats));
+    }
+
+    public void emitCartographyIfCurrent(long address)
+    {
+        if (starSystem.address == address)
+        {
+            emitCartographyData();
+        }
     }
 
     public void emitCartographyData()
@@ -1418,6 +1517,32 @@ public class PlayerState
             if (!currentRoute.isEmpty())
             {
                 directUpdate.accept("Route", prepareNavRouteData());
+            }
+
+            if (localCoordinates != null)
+            {
+                directUpdate.accept("Coordinates", JSONSupport.Write.jsonToString.apply(localCoordinates.toMap()));
+
+
+                if (localSettlement != null)
+                {
+                    var map = this.localSettlement.toMap();
+                    var dist = calculateDistance(this.localSettlement.longitude,
+                        this.localSettlement.latitude);
+
+                    map.put("distance", dist);
+                    var xTest = localCoordinates.radius
+                        * Math.cos(this.localSettlement.latitude)
+                        * Math.cos(this.localSettlement.longitude);
+                    var yTest = localCoordinates.radius
+                        * Math.cos(this.localSettlement.latitude)
+                        * Math.sin(this.localSettlement.longitude);
+
+                    map.put("x", xTest);
+                    map.put("y", yTest);
+                    directUpdate.accept("Settlement", JSONSupport.Write.jsonToString.apply(map));
+                }
+
             }
 
             directUpdate.accept("Engineers", prepareEngineerData());
@@ -1571,6 +1696,44 @@ public class PlayerState
     }
 
     //endregion
+
+    public boolean savePoiData(long systemAddress, String poiText)
+    {
+        return database.computeInTransaction(transaction ->
+        {
+            var system = getStarSystemEntity(transaction, systemAddress);
+            if (system == null) return false;
+            var newPoi = transaction.newEntity(EntityKeys.POI_NOTE);
+            newPoi.setLink(EntityKeys.STAR_SYSTEM, system);
+            system.addLink(EntityKeys.POI_NOTE, newPoi);
+            newPoi.setBlobString(EntityKeys.POI_TEXT, poiText);
+            return true;
+        });
+    }
+
+    public boolean deletePoiData(long systemAddress, String poiId)
+    {
+        return database.computeInTransaction(transaction ->
+        {
+            var system = getStarSystemEntity(transaction, systemAddress);
+            if (system == null) return false;
+
+            String[] parts = poiId.split("-");
+            var type = Integer.parseInt(parts[0]);
+            var local = Long.parseLong(parts[1]);
+            var entityId = new PersistentEntityId(type, local);
+            var note = transaction.getEntity(entityId);
+            var parent = note.getLink(EntityKeys.STAR_SYSTEM);
+            if (parent == null) return false;
+
+            if (parent.getId().equals(system.getId()))
+            {
+                return system.deleteLink(EntityKeys.POI_NOTE, note)
+                    && note.delete();
+            }
+            return false;
+        });
+    }
 
     //region Complex JSON Object Writers
 

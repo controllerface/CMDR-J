@@ -15,6 +15,7 @@
     a progress bar or other element that would lose definition if seen as transparent */
     --default-background: #333;
 
+    /* Used for subtle dividers between elements, typically when touching directly */
     --default-divider: dimgray;
 
     /* Used in most cases as the default text color */
@@ -46,6 +47,14 @@
 
     /* Used to signify an effect is anti-xeno */
     --anti-xeno-color: #029e4c;
+
+    /* GPS map colors */
+
+    /* Background color */
+    --gps-background: #211100;
+
+    /* Border and line color */
+    --gps-line: #f07b05;
 }
 
 /*
@@ -221,6 +230,13 @@ input[type=button]:hover
 input[type=button]:active
 {
     background: white;
+    color: var(--default-border);
+}
+
+input[type=button]:disabled
+{
+    border: 1px solid var(--default-background);
+    background: black;
     color: var(--default-border);
 }
 

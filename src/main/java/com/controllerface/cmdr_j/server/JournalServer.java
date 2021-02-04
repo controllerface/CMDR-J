@@ -1,13 +1,18 @@
 package com.controllerface.cmdr_j.server;
 
+import com.controllerface.cmdr_j.ui.UIFunctions;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.HttpServlet;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 
 public class JournalServer
@@ -31,7 +36,10 @@ public class JournalServer
     private ServletContextHandler createHttpAppHandler(HttpServlet servlet)
     {
         ServletContextHandler context = new ServletContextHandler();
-        context.addServlet(new ServletHolder(servlet), "/*");
+        var servletHolder = new ServletHolder(servlet);
+        servletHolder.getRegistration()
+            .setMultipartConfig(new MultipartConfigElement(UIFunctions.DATA_FOLDER + "/tmp"));
+        context.addServlet(servletHolder, "/*");
         return context;
     }
 

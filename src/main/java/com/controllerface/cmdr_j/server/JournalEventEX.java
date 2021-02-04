@@ -110,7 +110,7 @@ public enum JournalEventEX
 //    DockingGranted(new DockingGrantedHandler()),
 //    DockingDenied(new DockingDeniedHandler()),
 //    ApproachBody(new ApproachBodyHandler()),
-//    ApproachSettlement(new ApproachSettlementHandler()),
+    ApproachSettlement(new ApproachSettlementEvent()),
 //    Docked(new DockedHandler()),
     FSDJump(new FSDJumpEvent()),
 //    FSDTarget(new FSDTargetHandler()),

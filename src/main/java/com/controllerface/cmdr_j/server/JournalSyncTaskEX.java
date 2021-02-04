@@ -127,7 +127,7 @@ public class JournalSyncTaskEX implements Runnable
             {
                 if (sawChange.get())
                 {
-                    System.out.println("Saw file change but watch key did not trigger");
+                    //System.out.println("Saw file change but watch key did not trigger");
                 }
 
                 File[] files = journalPath.toFile().listFiles();

@@ -17,11 +17,12 @@
     <script src="material.js"></script>
     <script src="moduleBay.js"></script>
     <script src="factionStats.js"></script>
+    <script src="gpsDisplay.js"></script>
     <script src="navigationRoute.js"></script>
     <script src="offenseStats.js"></script>
     <script src="offenseModule.js"></script>
     <script src="offenseTurret.js"></script>
-    <script src="poiForm.js"></script>
+    <script src="poiEntry.js"></script>
     <script src="powerModule.js"></script>
     <script src="powerStats.js"></script>
     <script src="routeEntry.js"></script>
@@ -790,6 +791,12 @@
                 <span id="systemCartography_scannedbodies" class="headerStat">0</span>
             </div>
         </div>
+        <details>
+            <summary class="poiInfoDropdown">Points of interest</summary>
+            <div class="poiList">
+                <slot name="poiData"><span class="poiPlaceholder">No known points of interest</span></slot>
+            </div>
+        </details>
         <slot></slot>
     </template>
 
@@ -815,20 +822,32 @@
             <datalist id="systemCatalog_datalist"></datalist>
             <input id="systemCatalog_currentbutton" type="button" value="current system"/>
             <input id="systemCatalog_clearbutton" type="button" value="clear"/>
-
+            <br />
+            <details>
+                <summary class="poiEntryDropdown">Create Point of interest</summary>
+                <textarea placeholder="Enter notes about this point of interest..." class="poiTextArea" id="systemCatalog_poitext"></textarea>
+                <input type="button" disabled="disabled" value="Add POI" id="systemCatalog_addbutton">
+            </details>
         </div>
         <slot></slot>
     </template>
 
-    <template id="template_POIForm">
-        <link rel="stylesheet" href="poi.css">
-        <div class="poiFormContainer">
-            <label for="poiForm_system">System Name</label>
-            <input type="text" id="poiForm_system">
-            <textarea class="poiTextArea" id="poiForm_poitext"></textarea>
-            <input type="button" value="Add POI" id="poiForm_addbutton">
+    <!-- POI notes entry -->
+    <template id="template_POIEntry">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="poiGrid">
+            <span class="poiEntry" id="poiEntry_text"></span>
+            <input class="poiDeleteButton" title="delete this POI" id="poiEntry_delete" type="button" value="X">
         </div>
     </template>
+
+    <template id="template_GPSDisplay">
+        <link rel="stylesheet" href="gps.css">
+        <div id="gpsDisplay_gps" class="gpsContainer">
+            <canvas class="viewport" id="gpsDisplay_viewport"></canvas>
+        </div>
+    </template>
+
 </head>
 
 <body>
@@ -1283,10 +1302,24 @@
     <div class="tabPanel">
         <div id="astrometricsContainer">
 
-            <input name="astrometricsTabs" type="radio" id="routeTabButton" class="tabInput"/>
-            <label id="routeTab" for="routeTabButton" class="tabLabel">Navigation</label>
+            <input name="astrometricsTabs" type="radio" id="navigationTabButton" class="tabInput"/>
+            <label id="navigationTab" for="navigationTabButton" class="tabLabel">Navigation</label>
             <div class="tabPanel">
-                <navigation-route id="navigationRoute"></navigation-route>
+                <div id="navigationContainer">
+
+                    <input name="navigationTabs" type="radio" id="routeTabButton" class="tabInput"/>
+                    <label id="routeTab" for="routeTabButton" class="tabLabel">Jump Route</label>
+                    <div class="tabPanel">
+                        <navigation-route id="navigationRoute"></navigation-route>
+                    </div>
+
+                    <input name="navigationTabs" type="radio" id="gpsTabButton" class="tabInput"/>
+                    <label id="gpsTab" for="gpsTabButton" class="tabLabel">Planetary GPS</label>
+                    <div class="tabPanel">
+                        <gps-display id="gpsDisplay"></gps-display>
+                    </div>
+
+                </div>
             </div>
 
             <input name="astrometricsTabs" type="radio" id="cartographicsTabButton" class="tabInput"/>
@@ -1308,31 +1341,6 @@
                         </system-catalog>
                     </div>
 
-                </div>
-            </div>
-
-            <input name="astrometricsTabs" type="radio" id="gpsTabButton" class="tabInput"/>
-            <label id="gpsTab" for="gpsTabButton" class="tabLabel">Planetary GPS</label>
-            <div class="tabPanel">
-                <span>TODO: GPS</span>
-            </div>
-
-            <input name="astrometricsTabs" type="radio" id="poiTabButton" class="tabInput"/>
-            <label id="poiTab" for="poiTabButton" class="tabLabel">Points of Interest</label>
-            <div class="tabPanel">
-                <poi-form></poi-form>
-                <div id="poiContainer">
-                    <input name="poiTabs" type="radio" id="currentPoiTabButton" class="tabInput"/>
-                    <label id="currentPoiTab" for="currentPoiTabButton" class="tabLabel">Current System</label>
-                    <div class="tabPanel">
-                        <span>TODO: Current System POI</span>
-                    </div>
-
-                    <input name="poiTabs" type="radio" id="galaxyPoiTabButton" class="tabInput"/>
-                    <label id="galaxyPoiTab" for="galaxyPoiTabButton" class="tabLabel">All systems</label>
-                    <div class="tabPanel">
-                        <span>TODO: POI Catalog</span>
-                    </div>
                 </div>
             </div>
 

@@ -916,6 +916,30 @@ function handleRouteData(data)
     }
 }
 
+function setPoi(address, poiText, callback)
+{
+    let formData = new FormData();
+    formData.append('id', address);
+    formData.append('poi', poiText);
+    let post = { method: 'POST', body: formData};
+
+    fetch('/poi?action=add', post)
+      .then(response => callback(response))
+      .catch(error => console.error(error));
+}
+
+function removePoi(address, poiId)
+{
+    let formData = new FormData();
+    formData.append('id', address);
+    formData.append('poi', poiId);
+    let post = { method: 'POST', body: formData};
+
+    fetch('/poi?action=delete', post)
+      .then(response => console.log(response))
+      .catch(error => console.error(error));
+}
+
 function getCurrentSystemAddress()
 {
     let systemCartography = document.getElementById('systemCartography');
@@ -928,6 +952,23 @@ function setCartographyData(data, id)
     systemCartography.textContent = "";
     systemCartography.address = data['system_address'];
     systemCartography.system = data['star_system'];
+
+    if (data['poi'])
+    {
+        let poiData = data['poi'];
+        for (let i = 0, len = poiData.length; i < len; i++)
+        {
+            let nextPoiData = poiData[i];
+            let id = nextPoiData['id'];
+            let text = nextPoiData['poi'];
+            let nextPoi = document.createElement('poi-entry');
+            nextPoi.setAttribute('slot','poiData');
+            nextPoi.poi = id;
+            nextPoi.text = text;
+            nextPoi.address = systemCartography.address;
+            systemCartography.append(nextPoi);
+        }
+    }
 
     if (data['star_system_body_count'])
     {
@@ -981,6 +1022,22 @@ function setSystemCatalog(data)
         let nextSystem = entries[i];
         catalog.loadSystemData(nextSystem);
     }
+}
+
+function handleCoordinates(data)
+{
+    let coordinateData = JSON.parse(data);
+    console.log(coordinateData);
+    let gpsDisplay = document.getElementById('gpsDisplay');
+    gpsDisplay.loadCoordinateData(coordinateData);
+}
+
+function handleSettlement(data)
+{
+    let coordinateData = JSON.parse(data);
+    console.log(coordinateData);
+    let gpsDisplay = document.getElementById('gpsDisplay');
+    gpsDisplay.loadSettlementData(coordinateData);
 }
 
 /*
@@ -1103,9 +1160,17 @@ const eventListeners =
     // Contains the player's currently planned navigation route
     Route: (e) => handleRouteData(e.data),
 
+    // Stellar cartographic info about the current start system
     Cartography: (e) => requestJsonEndpoint('/cartography?id=' + e.data, setSystemCartographyData),
 
+    // Catalog of known systems, which can be used to load cartographic data for any known system
     Catalog: (e) => requestJsonEndpoint('/catalog', setSystemCatalog),
+
+    // Local coordinate data describing the player's location within a system
+    Coordinates: (e) => handleCoordinates(e.data),
+
+    // Local coordinate data describing a nearby settlement that the player has approached
+    Settlement: (e) => handleSettlement(e.data),
 };
 
 window.onload = (e) =>

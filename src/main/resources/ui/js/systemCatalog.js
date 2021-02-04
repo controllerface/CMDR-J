@@ -10,12 +10,23 @@ class SystemCatalog extends HTMLElement
         let selector = this.shadowRoot.getElementById('systemCatalog_systemselector');
         selector.addEventListener('input', (e)=>
         {
-            let value = selector.value;
+            let idStart = selector.value.indexOf('[');
+            let idEnd = selector.value.indexOf(']');
+            if (idStart == -1 || idEnd == -1) return;
+
+            let name = selector.value.substring(0, idStart).trim();
+            let address = selector.value.substring(idStart + 1, idEnd);
+
             let list = this.shadowRoot.getElementById('systemCatalog_datalist');
-            let option = list.querySelector('option[value="' + value + '"]');
+            let option = list.querySelector('option[id="' + address + '"]');
             if (option)
             {
+                selector.value = name;
                 requestJsonEndpoint('/cartography?id=' + option.id, setCataloguedSystemData);
+                let poiButton = this.shadowRoot.getElementById('systemCatalog_addbutton');
+                poiButton.removeAttribute('disabled');
+                poiButton.value = "Add POI for " + name;
+                poiButton.setAttribute('address', option.getAttribute('id'));
             }
         });
 
@@ -27,11 +38,29 @@ class SystemCatalog extends HTMLElement
         {
             let currentAddress = getCurrentSystemAddress();
             let list = this.shadowRoot.getElementById('systemCatalog_datalist');
-            console.log(currentAddress);
             let option = list.querySelector('option[id="' + currentAddress + '"]');
             selector.value = option.value;
             let inputEvent = new InputEvent('input');
             selector.dispatchEvent(inputEvent);
+        });
+
+        let addPoiButton = this.shadowRoot.getElementById('systemCatalog_addbutton');
+        addPoiButton.addEventListener('click', (e) =>
+        {
+            let poiTextArea = this.shadowRoot.getElementById('systemCatalog_poitext');
+            let address = addPoiButton.getAttribute('address');
+
+            let callback = (e) =>
+            {
+                // todo: only update if successful
+                console.log(e);
+                let list = this.shadowRoot.getElementById('systemCatalog_datalist');
+                let option = list.querySelector('option[id="' + address + '"]');
+                selector.value = option.value;
+                let inputEvent = new InputEvent('input');
+                selector.dispatchEvent(inputEvent);
+            }
+            setPoi(address, poiTextArea.value, callback);
         });
     }
 
@@ -44,7 +73,7 @@ class SystemCatalog extends HTMLElement
         if (!option)
         {
             let newEntry = document.createElement('option');
-            newEntry.value = name;
+            newEntry.value = name + " [" + address + "]";
             newEntry.id = address;
             list.prepend(newEntry);
         }

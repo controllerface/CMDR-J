@@ -8,17 +8,17 @@ import org.eclipse.jetty.servlets.EventSourceServlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Writer;
+import javax.servlet.http.Part;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import static com.controllerface.cmdr_j.server.JournalUI.*;
 
 class JournalServlet extends EventSourceServlet
 {
@@ -26,79 +26,39 @@ class JournalServlet extends EventSourceServlet
 
     private final PlayerState playerState;
 
+    private static final AtomicBoolean importing = new AtomicBoolean(false);
 
-    @FunctionalInterface
-    private interface EndpointHandler
+    private class JournalSource implements EventSource
     {
-        void respond(HttpServletRequest request, HttpServletResponse response, PlayerState playerState);
+        private Emitter emitter;
+
+        @Override
+        public void onOpen(Emitter emitter)
+        {
+            this.emitter = emitter;
+            sources.add(this);
+            BiConsumer<String, String> emitterUpdate = makeEmitterUpdate(this);
+            playerState.emitCurrentState(emitterUpdate);
+        }
+
+        @Override
+        public void onClose()
+        {
+            emitter.close();
+            sources.remove(this);
+        }
     }
 
-    private static final Map<String, StaticAsset> staticAssets = Map.ofEntries
-        (
-            /* HTML */
-            Map.entry("/", StaticAsset.make("/ui/html/ui.html")),
-            Map.entry("/ui.html", StaticAsset.make("/ui/html/ui.html")),
-
-            /* Fonts */
-
-            Map.entry("/EUROCAPS.ttf", StaticAsset.make("/ui/font/EUROCAPS.ttf")),
-
-            /* CSS */
-
-            Map.entry("/cargo.css", StaticAsset.make("/ui/css/cargo.css")),
-            Map.entry("/common.css", StaticAsset.make("/ui/css/common.css")),
-            Map.entry("/market.css", StaticAsset.make("/ui/css/market.css")),
-            Map.entry("/material.css", StaticAsset.make("/ui/css/material.css")),
-            Map.entry("/module.css", StaticAsset.make("/ui/css/module.css")),
-            Map.entry("/poi.css", StaticAsset.make("/ui/css/poi.css")),
-            Map.entry("/statistics.css", StaticAsset.make("/ui/css/statistics.css")),
-            Map.entry("/ui.css", StaticAsset.make("/ui/css/ui.css")),
-
-            /* Javascript */
-
-            Map.entry("/cargo.js", StaticAsset.make("/ui/js/cargo.js")),
-            Map.entry("/cartographicData.js", StaticAsset.make("/ui/js/cartographicData.js")),
-            Map.entry("/commanderStat.js", StaticAsset.make("/ui/js/commanderStat.js")),
-            Map.entry("/defenseResistance.js", StaticAsset.make("/ui/js/defenseResistance.js")),
-            Map.entry("/defenseStats.js", StaticAsset.make("/ui/js/defenseStats.js")),
-            Map.entry("/defenseValue.js", StaticAsset.make("/ui/js/defenseValue.js")),
-            Map.entry("/engineerData.js", StaticAsset.make("/ui/js/engineerData.js")),
-            Map.entry("/engineerStats.js", StaticAsset.make("/ui/js/engineerStats.js")),
-            Map.entry("/factionStats.js", StaticAsset.make("/ui/js/factionStats.js")),
-            Map.entry("/market.js", StaticAsset.make("/ui/js/market.js")),
-            Map.entry("/marketEntry.js", StaticAsset.make("/ui/js/marketEntry.js")),
-            Map.entry("/material.js", StaticAsset.make("/ui/js/material.js")),
-            Map.entry("/moduleBay.js", StaticAsset.make("/ui/js/moduleBay.js")),
-            Map.entry("/navigationRoute.js", StaticAsset.make("/ui/js/navigationRoute.js")),
-            Map.entry("/offenseStats.js", StaticAsset.make("/ui/js/offenseStats.js")),
-            Map.entry("/offenseModule.js", StaticAsset.make("/ui/js/offenseModule.js")),
-            Map.entry("/offenseTurret.js", StaticAsset.make("/ui/js/offenseTurret.js")),
-            Map.entry("/poiForm.js", StaticAsset.make("/ui/js/poiForm.js")),
-            Map.entry("/powerModule.js", StaticAsset.make("/ui/js/powerModule.js")),
-            Map.entry("/powerStats.js", StaticAsset.make("/ui/js/powerStats.js")),
-            Map.entry("/routeEntry.js", StaticAsset.make("/ui/js/routeEntry.js")),
-            Map.entry("/shipModule.js", StaticAsset.make("/ui/js/shipModule.js")),
-            Map.entry("/shipStats.js", StaticAsset.make("/ui/js/shipStats.js")),
-            Map.entry("/statCategory.js", StaticAsset.make("/ui/js/statCategory.js")),
-            Map.entry("/systemCartography.js", StaticAsset.make("/ui/js/systemCartography.js")),
-            Map.entry("/systemCatalog.js", StaticAsset.make("/ui/js/systemCatalog.js")),
-            Map.entry("/ui.js", StaticAsset.make("/ui/js/ui.js")),
-
-            /* Images */
-
-            Map.entry("/grade-1.svg", StaticAsset.make("/ui/img/grade-1.svg")),
-            Map.entry("/grade-2.svg", StaticAsset.make("/ui/img/grade-2.svg")),
-            Map.entry("/grade-3.svg", StaticAsset.make("/ui/img/grade-3.svg")),
-            Map.entry("/grade-4.svg", StaticAsset.make("/ui/img/grade-4.svg")),
-            Map.entry("/grade-5.svg", StaticAsset.make("/ui/img/grade-5.svg")),
-            Map.entry("/planet.svg", StaticAsset.make("/ui/img/planet.svg"))
-        );
-
-    private enum EndpointType
+    private static class PoiRequest
     {
-        GET,
-        //POST, not needed yet
-        ANY
+        private final long address;
+        private final String poiData;
+
+        private PoiRequest(long address, String poiData)
+        {
+            this.address = address;
+            this.poiData = poiData;
+        }
     }
 
     private enum EndPoint
@@ -156,17 +116,46 @@ class JournalServlet extends EventSourceServlet
         /**
          * Initiates an import of exploration data from the player's journal files
          */
-        IMPORT(EndpointType.GET, "/import", (request, response, playerState) ->
+        IMPORT(EndpointType.GET, "/import", (_r, response, playerState) ->
         {
             importExplorationData(playerState);
-            response.setStatus(201);
-            try
+            writeCreatedResponse(response,"Import Complete");
+        }),
+
+        /**
+         * Handles requests related to POI notes
+         */
+        POI(EndpointType.POST, "/poi", (request, response, playerState) ->
+        {
+            var action = request.getParameter("action");
+            long address = -1L;
+            switch (action)
             {
-                response.getWriter().print("Import Complete");
+                case "add":
+                    System.out.println("adding");
+                    address = addPoi(request, playerState);
+                    System.out.println("add result: " + address);
+                    break;
+
+                case "delete":
+                    System.out.println("deleting");
+                    address = deletePoi(request, playerState);
+                    System.out.println("delete result: " + address);
+                    break;
             }
-            catch (IOException e)
+
+            System.out.println("DEBUG: " + address);
+
+            if (address != -1)
             {
-                e.printStackTrace();
+                System.out.println("Writing success");
+                writeCreatedResponse(response, "POI Data Updated");
+                playerState.emitCartographyIfCurrent(address);
+            }
+            else
+            {
+                System.out.println("Writing error");
+                writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
             }
         }),
 
@@ -216,43 +205,6 @@ class JournalServlet extends EventSourceServlet
         }
     }
 
-    private BlockingQueue<EmittedEvent> eventQueue = new LinkedBlockingQueue<>();
-
-    private static AtomicBoolean importing = new AtomicBoolean(false);
-
-    private class EmittedEvent
-    {
-        private final String name;
-        private final String eventData;
-
-        private EmittedEvent(String name, String eventData)
-        {
-            this.name = name;
-            this.eventData = eventData;
-        }
-    }
-
-    private class JournalSource implements EventSource
-    {
-        private Emitter emitter;
-
-        @Override
-        public void onOpen(Emitter emitter)
-        {
-            this.emitter = emitter;
-            sources.add(this);
-            BiConsumer<String, String> emitterUpdate = makeEmitterUpdate(this);
-            playerState.emitCurrentState(emitterUpdate);
-        }
-
-        @Override
-        public void onClose()
-        {
-            emitter.close();
-            sources.remove(this);
-        }
-    }
-
     JournalServlet()
     {
         playerState = new PlayerState(this::sendEvent);
@@ -277,6 +229,41 @@ class JournalServlet extends EventSourceServlet
 //        });
 //        emitterThread.setDaemon(true);
 //        emitterThread.start();
+    }
+
+    public PlayerState getPlayerState()
+    {
+        return playerState;
+    }
+
+    private static PoiRequest readPoiRequest(HttpServletRequest request)
+    {
+        var poiText = "";
+        var systemAddress = 0L;
+        try
+        {
+            var parts = request.getParts();
+            for (Part part : parts)
+            {
+                var name = part.getName();
+                var streamReader = new InputStreamReader(part.getInputStream());
+                var buffer = new BufferedReader(streamReader);
+                var input = buffer.lines().collect(Collectors.joining("\n"));
+                if (name.equals("id"))
+                {
+                    systemAddress = Long.parseLong(input);;
+                }
+                else if (name.equals("poi"))
+                {
+                    poiText = input;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+        return new PoiRequest(systemAddress, poiText);
     }
 
     private static void importExplorationData(PlayerState playerState)
@@ -346,25 +333,52 @@ class JournalServlet extends EventSourceServlet
         }
     }
 
-    public PlayerState getPlayerState()
+    private static long addPoi(HttpServletRequest request, PlayerState playerState)
     {
-        return playerState;
+        var poiRequest = readPoiRequest(request);
+
+        if (poiRequest == null)
+        {
+            return -1L;
+        }
+
+        if (poiRequest.address == 0L || poiRequest.poiData.isBlank())
+        {
+            return -1L;
+        }
+
+        if (playerState.savePoiData(poiRequest.address, poiRequest.poiData))
+        {
+            return poiRequest.address;
+        }
+        else
+        {
+            return -1L;
+        }
     }
 
-    private BiConsumer<String, String> makeEmitterUpdate(JournalSource source)
+    private static long deletePoi(HttpServletRequest request, PlayerState playerState)
     {
-        return (name, data) ->
+        var poiRequest = readPoiRequest(request);
+
+        if (poiRequest == null)
         {
-            try
-            {
-               source.emitter.event(name, data);
-            }
-            catch (IOException ioe)
-            {
-                ioe.printStackTrace();
-                source.onClose();
-            }
-        };
+            return -1L;
+        }
+
+        if (poiRequest.address == 0L || poiRequest.poiData.isBlank())
+        {
+            return -1L;
+        }
+
+        if (playerState.deletePoiData(poiRequest.address, poiRequest.poiData))
+        {
+            return poiRequest.address;
+        }
+        else
+        {
+            return -1L;
+        }
     }
 
     /**
@@ -402,14 +416,44 @@ class JournalServlet extends EventSourceServlet
     {
         response.setStatus(200);
         response.setHeader("Content-Type", "application/json");
-        try
+        try (PrintWriter writer = response.getWriter())
         {
-            response.getWriter().print(json);
+            writer.print(json);
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+    }
+
+    private static void writeCreatedResponse(HttpServletResponse response, String message)
+    {
+        response.setStatus(201);
+        response.setHeader("Content-Type", "text/plain");
+        try (OutputStream out = response.getOutputStream())
+        {
+            out.write(message.getBytes(StandardCharsets.UTF_8));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private BiConsumer<String, String> makeEmitterUpdate(JournalSource source)
+    {
+        return (name, data) ->
+        {
+            try
+            {
+                source.emitter.event(name, data);
+            }
+            catch (IOException ioe)
+            {
+                ioe.printStackTrace();
+                source.onClose();
+            }
+        };
     }
 
     private synchronized void sendEvent(String name, String data)
@@ -423,6 +467,10 @@ class JournalServlet extends EventSourceServlet
             {
                 s.emitter.event(name, data);
             }
+            catch (IllegalStateException ise)
+            {
+                System.err.println("Possibly benign issue?");
+            }
             catch (Exception e)
             {
                 toRemove.add(s);
@@ -430,6 +478,8 @@ class JournalServlet extends EventSourceServlet
         });
         toRemove.forEach(JournalSource::onClose);
     }
+
+    //region Public API
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
@@ -456,10 +506,24 @@ class JournalServlet extends EventSourceServlet
     }
 
     @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
+    {
+        EndPoint endpoint = EndPoint.fromUri(request.getRequestURI());
+        if (endpoint.getType() == EndpointType.POST || endpoint.getType() == EndpointType.ANY)
+        {
+            endpoint.accept(request, response, playerState);
+        }
+        else
+        {
+            writeErrorResponse(response, HttpStatus.Code.METHOD_NOT_ALLOWED);
+        }
+    }
+
+    @Override
     protected EventSource newEventSource(HttpServletRequest request)
     {
         return new JournalSource();
     }
 
-
+    //endregion
 }

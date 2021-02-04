@@ -572,15 +572,15 @@ details > summary::-webkit-details-marker
 {
     display: grid;
     grid-template-areas:
-    "routeTab cartographicsTab gpsTab poiTab"
-    "panel    panel            panel  panel";
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    "navigationTab cartographicsTab"
+    "panel    panel";
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
 }
 
-#routeTab
+#navigationTab
 {
-    grid-area: routeTab;
+    grid-area: navigationTab;
     border-radius: 5px;
 }
 
@@ -590,15 +590,25 @@ details > summary::-webkit-details-marker
     border-radius: 5px;
 }
 
-#gpsTab
+#navigationContainer
 {
-    grid-area: gpsTab;
+    display: grid;
+    grid-template-areas:
+    "routeTab gpsTab"
+    "panel    panel";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2em auto;
+}
+
+#routeTab
+{
+    grid-area: routeTab;
     border-radius: 5px;
 }
 
-#poiTab
+#gpsTab
 {
-    grid-area: poiTab;
+    grid-area: gpsTab;
     border-radius: 5px;
 }
 

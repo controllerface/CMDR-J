@@ -211,15 +211,15 @@ public class Commander
 
             // get any existing notes so we can display them
             Entity starSystem = getStarSystemEntity(txn, commander, targetSystem);
-            List<PoiData> noteList = EntityUtilities.entityStream(starSystem.getLinks(EntityKeys.POI_NOTES))
-                    .map(note -> new PoiData(note.getId(), targetSystem, note.getBlobString(EntityKeys.POI_NOTES)))
+            List<PoiData> noteList = EntityUtilities.entityStream(starSystem.getLinks(EntityKeys.POI_NOTE))
+                    .map(note -> new PoiData(note.getId(), targetSystem, note.getBlobString(EntityKeys.POI_NOTE)))
                     .collect(Collectors.toList());
 
             // add the POI notes being set right now
-            Entity n = txn.newEntity(EntityKeys.POI_NOTES);
-            starSystem.addLink(EntityKeys.POI_NOTES, n);
+            Entity n = txn.newEntity(EntityKeys.POI_NOTE);
+            starSystem.addLink(EntityKeys.POI_NOTE, n);
             n.addLink(EntityKeys.STAR_SYSTEM, starSystem);
-            n.setBlobString(EntityKeys.POI_NOTES, notes);
+            n.setBlobString(EntityKeys.POI_NOTE, notes);
             noteList.add(new PoiData(n.getId(), targetSystem, notes));
             return noteList;
         });
@@ -261,10 +261,10 @@ public class Commander
             }
 
             Entity starSystemEntity = getStarSystemEntity(txn, commander, systemName);
-            return EntityUtilities.entityStream(starSystemEntity.getLinks(EntityKeys.POI_NOTES))
+            return EntityUtilities.entityStream(starSystemEntity.getLinks(EntityKeys.POI_NOTE))
                     .map(entity ->
                     {
-                        String notes = entity.getBlobString(EntityKeys.POI_NOTES);
+                        String notes = entity.getBlobString(EntityKeys.POI_NOTE);
                         return new PoiData(entity.getId(), systemName, notes);
                     })
                     .collect(Collectors.toList());
@@ -525,13 +525,13 @@ public class Commander
                 // more robust. The is a way to do the below check using an incoming link query, but it requires
                 // the same foreknowledge of the links' existence.
                 Optional.ofNullable(poi.getLinks(EntityKeys.STAR_SYSTEM).getFirst())
-                        .ifPresent(system -> system.deleteLink(EntityKeys.POI_NOTES, poi));
+                        .ifPresent(system -> system.deleteLink(EntityKeys.POI_NOTE, poi));
 
                 poi.delete();
             }
             else
             {
-                poi.setBlobString(EntityKeys.POI_NOTES, notes);
+                poi.setBlobString(EntityKeys.POI_NOTE, notes);
             }
         });
 
@@ -542,11 +542,11 @@ public class Commander
     public void refreshGalaxyPoiTable()
     {
         galaxyPoiBackingList.clear();
-        database.executeInTransaction(transaction -> EntityUtilities.entityStream(transaction.getAll(EntityKeys.POI_NOTES))
+        database.executeInTransaction(transaction -> EntityUtilities.entityStream(transaction.getAll(EntityKeys.POI_NOTE))
                 .map(note -> Optional.ofNullable(note.getLink(EntityKeys.STAR_SYSTEM))
                         .map(system -> system.getProperty(EntityKeys.NAME))
                         .map(Object::toString)
-                        .map(name -> new PoiData(note.getId(), name, note.getBlobString(EntityKeys.POI_NOTES))))
+                        .map(name -> new PoiData(note.getId(), name, note.getBlobString(EntityKeys.POI_NOTE))))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .forEach(galaxyPoiBackingList::add));

@@ -15,5 +15,6 @@ public class EntityKeys
     public static final String STELLAR_BODY_ID = "stellar_body_id";
     public static final String STELLAR_BODY_NAME = "stellar_body_name";
     public static final String STELLAR_BODY_TYPE = "stellar_body_type";
-    public static final String POI_NOTES = "poi_notes";
+    public static final String POI_NOTE = "poi_note";
+    public static final String POI_TEXT = "poi_text";
 }
