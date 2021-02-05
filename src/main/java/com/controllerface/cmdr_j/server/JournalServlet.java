@@ -134,9 +134,18 @@ class JournalServlet extends EventSourceServlet
             writeCreatedResponse(response,"Import Complete");
         }),
 
+        /**
+         * Sets or clears a local (on-planet) waypoint for tracking
+         */
         TRACK(EndpointType.GET, "/track", (request, response, playerState) ->
         {
             var target = request.getParameter("target");
+
+            if (target == null)
+            {
+                writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
+                return;
+            }
 
             if (target.equalsIgnoreCase("clear"))
             {

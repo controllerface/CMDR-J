@@ -26,11 +26,9 @@ public class JournalUI
             Map.entry("/ui.html", StaticAsset.make("/ui/html/ui.html")),
 
             /* Fonts */
-
             Map.entry("/EUROCAPS.ttf", StaticAsset.make("/ui/font/EUROCAPS.ttf")),
 
             /* CSS */
-
             Map.entry("/cargo.css", StaticAsset.make("/ui/css/cargo.css")),
             Map.entry("/common.css", StaticAsset.make("/ui/css/common.css")),
             Map.entry("/gps.css", StaticAsset.make("/ui/css/gps.css")),
@@ -41,7 +39,6 @@ public class JournalUI
             Map.entry("/ui.css", StaticAsset.make("/ui/css/ui.css")),
 
             /* Javascript */
-
             Map.entry("/cargo.js", StaticAsset.make("/ui/js/cargo.js")),
             Map.entry("/cartographicData.js", StaticAsset.make("/ui/js/cartographicData.js")),
             Map.entry("/commanderStat.js", StaticAsset.make("/ui/js/commanderStat.js")),
@@ -73,7 +70,6 @@ public class JournalUI
             Map.entry("/ui.js", StaticAsset.make("/ui/js/ui.js")),
 
             /* Images */
-
             Map.entry("/grade-1.svg", StaticAsset.make("/ui/img/grade-1.svg")),
             Map.entry("/grade-2.svg", StaticAsset.make("/ui/img/grade-2.svg")),
             Map.entry("/grade-3.svg", StaticAsset.make("/ui/img/grade-3.svg")),

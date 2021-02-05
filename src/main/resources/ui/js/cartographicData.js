@@ -327,7 +327,7 @@ class CartographicData extends HTMLElement
             let statUnit = document.createElement('span');
             statUnit.classList.add('infoUnit');
             let unitText = this.determineUnit(stat);
-            if (unitText.startsWith('&'))
+            if (unitText === '&deg;')
             {
                 statUnit.innerHTML = unitText;
             }
@@ -335,7 +335,6 @@ class CartographicData extends HTMLElement
             {
                 statUnit.textContent = unitText;
             }
-
 
             statRow.append(statName, statValue, statUnit);
             statContainer.append(statRow);

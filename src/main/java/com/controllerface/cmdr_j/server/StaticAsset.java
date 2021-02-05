@@ -7,12 +7,14 @@ public class StaticAsset
     public final String location;
     public final String mimetype;
 
-    public static Map<String, String> mimeTypes = Map.of(
-        "css",  "text/css",
-        "html", "text/html",
-        "ttf",  "font/ttf",
-        "svg",  "image/svg+xml",
-        "js",   "text/javascript");
+    public static Map<String, String> mimeTypes = Map.of
+        (
+            "css",  "text/css",
+            "html", "text/html",
+            "ttf",  "font/ttf",
+            "svg",  "image/svg+xml",
+            "js",   "text/javascript"
+        );
 
     public StaticAsset(String location, String mimetype)
     {
