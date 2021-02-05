@@ -128,6 +128,18 @@ class FactionStats extends HTMLElement
         return this.getAttribute('independentprogress');
     }
 
+    clearLocalFactions()
+    {
+        let factions = this.querySelectorAll('system-faction');
+        if (factions)
+        {
+            factions.forEach((faction) =>
+            {
+                faction.parentElement.removeChild(faction);
+            })
+        }
+    }
+
     static get observedAttributes()
     {
         return ['federalnavy',

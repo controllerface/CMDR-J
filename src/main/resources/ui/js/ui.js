@@ -894,6 +894,41 @@ function handleFactionData(statistic, data)
     factionStats[statistic] = data;
 }
 
+function handleSystemFactionData(data)
+{
+    let factionStats = document.getElementById('factionStats');
+    if (data === 'clear')
+    {
+        factionStats.clearLocalFactions();
+    }
+    else
+    {
+        let faction = JSON.parse(data);
+        console.log(faction);
+
+        let newFaction = document.createElement('system-faction');
+        newFaction.factionName = faction['Name'];
+        let progress = faction['MyReputation'];
+        newFaction.reputation = determineReputation(progress);
+        newFaction.progress = progress;
+        newFaction.influence = faction['Influence'];
+        newFaction.state = faction['FactionState'];
+        newFaction.allegiance = faction['Allegiance'];
+        newFaction.government = faction['Government'];
+        newFaction.happiness = faction['Happiness_Localised'];
+
+        //todo:
+        // PendingStates [array]
+        // RecovingStates [array]
+        // ActiveStates [array]
+        // SquadronFaction [boolean]
+        // HappiestSystem [boolean]
+        // HomeSystem [boolean]
+
+        factionStats.append(newFaction);
+    }
+}
+
 function handleRouteData(data)
 {
     let routeData = JSON.parse(data);
@@ -1180,6 +1215,8 @@ const eventListeners =
     BodyName: (e) => document.getElementById('gpsDisplay').bodyName = e.data,
 
     Bearing: (e) => document.getElementById('gpsDisplay').bearing = e.data,
+
+    Faction: (e) => handleSystemFactionData(e.data),
 };
 
 window.onload = (e) =>

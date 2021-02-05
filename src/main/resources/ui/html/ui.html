@@ -32,6 +32,7 @@
     <script src="statCategory.js"></script>
     <script src="systemCartography.js"></script>
     <script src="systemCatalog.js"></script>
+    <script src="systemFaction.js"></script>
 
     <link rel="stylesheet" href="ui.css">
 
@@ -639,6 +640,16 @@
     <template id="template_FactionStats">
         <link rel="stylesheet" href="statistics.css">
 
+        <div class="category">Local Factions</div>
+        <div class="factionHeader">
+            <span class="statEntryNameHeader">Faction</span>
+            <span class="statEntryLeftHeader">Reputation</span>
+            <span class="statEntryRightHeader">Status</span>
+        </div>
+        <slot>
+            <div class="emptySection">No local factions</div>
+        </slot>
+
         <div class="category">Naval Ranks</div>
         <div class="factionHeader">
             <span class="statEntryNameHeader">Navy</span>
@@ -662,9 +673,9 @@
             </div>
         </div>
 
-        <div class="category">Factions</div>
+        <div class="category">Galactic Powers</div>
         <div class="factionHeader">
-            <span class="statEntryNameHeader">Faction</span>
+            <span class="statEntryNameHeader">Power</span>
             <span class="statEntryLeftHeader">Reputation</span>
             <span class="statEntryRightHeader">Status</span>
         </div>
@@ -679,7 +690,8 @@
                        high="90"
                        optimum="100"
                        value="0"
-                       id="factionStats_federationprogress"></meter>            </div>
+                       id="factionStats_federationprogress"></meter>
+            </div>
         </div>
 
         <div class="factionRow">
@@ -692,7 +704,8 @@
                        high="90"
                        optimum="100"
                        value="0"
-                       id="factionStats_empireprogress"></meter>              </div>
+                       id="factionStats_empireprogress"></meter>
+            </div>
         </div>
 
         <div class="factionRow">
@@ -705,7 +718,8 @@
                        high="90"
                        optimum="100"
                        value="0"
-                       id="factionStats_allianceprogress"></meter>               </div>
+                       id="factionStats_allianceprogress"></meter>
+            </div>
         </div>
 
         <div class="factionRow">
@@ -718,9 +732,55 @@
                        high="90"
                        optimum="100"
                        value="0"
-                       id="factionStats_independentprogress"></meter>               </div>
+                       id="factionStats_independentprogress"></meter>
+            </div>
         </div>
 
+    </template>
+
+    <!-- System faction information -->
+    <template id="template_SystemFaction">
+        <link rel="stylesheet" href="statistics.css">
+
+        <details>
+            <summary>
+                <div class="factionRow">
+                    <span class="statEntryName" id="systemFaction_factionname">None</span>
+                    <span class="statEntryLeft" id="systemFaction_reputation">None</span>
+                    <div class="statEntryRightCap">
+                        <meter min="-100"
+                               max="100"
+                               low="-35"
+                               high="90"
+                               optimum="100"
+                               value="0"
+                               id="systemFaction_progress"></meter>
+                    </div>
+                </div>
+            </summary>
+            <div class="statRow">
+                <span class="factionStatName">System Influence</span>
+                <span class="factionStatValue">
+                    <progress id="systemFaction_influence" max="1"></progress>
+                </span>
+            </div>
+            <div class="statRow">
+                <span class="factionStatName">Government</span>
+                <span class="factionStatValue" id="systemFaction_government">-</span>
+            </div>
+            <div class="statRow">
+                <span class="factionStatName">Allegiance</span>
+                <span class="factionStatValue" id="systemFaction_allegiance">-</span>
+            </div>
+            <div class="statRow">
+                <span class="factionStatName">Current State</span>
+                <span class="factionStatValue" id="systemFaction_state">-</span>
+            </div>
+            <div class="statRow">
+                <span class="factionStatName">Happiness</span>
+                <span class="factionStatValue" id="systemFaction_happiness">-</span>
+            </div>
+        </details>
     </template>
 
     <!-- Navigation route information -->
@@ -1002,7 +1062,7 @@
             </div>
 
             <input name="commanderTabs" type="radio" id="reputationTabButton" class="tabInput"/>
-            <label id="commanderRankTab" for="reputationTabButton" class="tabLabel">Faction Reputation</label>
+            <label id="commanderRankTab" for="reputationTabButton" class="tabLabel">Rank/Reputation</label>
             <div class="tabPanel">
                 <faction-stats id="factionStats"></faction-stats>
             </div>

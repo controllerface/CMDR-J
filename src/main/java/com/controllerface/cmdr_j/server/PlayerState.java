@@ -1563,6 +1563,40 @@ public class PlayerState
         executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
     }
 
+    private final List<Map<String, Object>> systemFactions = new ArrayList<>();
+
+    private void emitFactionData(BiConsumer<String, String> sink)
+    {
+        synchronized (systemFactions)
+        {
+            systemFactions.stream()
+                .map(JSONSupport.Write.jsonToString)
+                .forEach(faction -> sink.accept("Faction", faction));
+        }
+    }
+
+    public void clearFactionData()
+    {
+        synchronized (systemFactions)
+        {
+            systemFactions.clear();
+        }
+        executeWithLock(() -> globalUpdate.accept("Faction", "clear"));
+    }
+
+    public void acceptFactionData(List<Map<String, Object>> factionData)
+    {
+        synchronized (systemFactions)
+        {
+            systemFactions.clear();
+            systemFactions.addAll(factionData);
+            systemFactions.sort(Comparator
+                .comparingDouble((Map<String, Object> f) -> (Double) f.get("Influence"))
+                .reversed());
+        }
+        executeWithLock(() -> emitFactionData(globalUpdate));
+    }
+
     public void emitSystemCatalog()
     {
         executeWithLock(() -> globalUpdate.accept("Catalog", "updated"));
@@ -1648,6 +1682,11 @@ public class PlayerState
                 {
                     directUpdate.accept("Bearing", bearing);
                 }
+            }
+
+            if (!systemFactions.isEmpty())
+            {
+                emitFactionData(directUpdate);
             }
 
             directUpdate.accept("BodyName", nearestBody);

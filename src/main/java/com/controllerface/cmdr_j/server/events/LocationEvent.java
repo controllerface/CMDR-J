@@ -35,5 +35,15 @@ public class LocationEvent implements BiConsumer<PlayerState, Map<String, Object
 
         playerState.discoverStellarBody(body);
         playerState.emitCartographyData();
+
+        var factions = ((List<Map<String, Object>>) event.get("Factions"));
+        if (factions == null || factions.isEmpty())
+        {
+            playerState.clearFactionData();
+        }
+        else
+        {
+            playerState.acceptFactionData(factions);
+        }
     }
 }

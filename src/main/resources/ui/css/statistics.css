@@ -79,6 +79,42 @@
     margin-left: 0px;
 }
 
+
+.factionStatName
+{
+    border: 1px dashed var(--default-divider);
+    border-top: 0px;
+    border-right: 0px;
+    color: var(--default-color);
+    padding: .2em;
+    border-radius: 0px 0px 0px 3px;
+    margin-left: .2em;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+}
+
+.factionStatValue
+{
+    font-weight: bold;
+    border: 1px dashed var(--default-divider);
+    border-top: 0px;
+    border-left: 0px;
+    color: var(--default-text);
+    padding: .2em;
+    border-radius: 0px 0px 3px 0px;
+    text-align: center;
+    margin-right: .2em;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+}
+
+
+
+
+
+
 .valueUnit
 {
     color: var(--default-color);

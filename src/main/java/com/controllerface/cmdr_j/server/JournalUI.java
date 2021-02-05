@@ -67,6 +67,7 @@ public class JournalUI
             Map.entry("/statCategory.js", StaticAsset.make("/ui/js/statCategory.js")),
             Map.entry("/systemCartography.js", StaticAsset.make("/ui/js/systemCartography.js")),
             Map.entry("/systemCatalog.js", StaticAsset.make("/ui/js/systemCatalog.js")),
+            Map.entry("/systemFaction.js", StaticAsset.make("/ui/js/systemFaction.js")),
             Map.entry("/ui.js", StaticAsset.make("/ui/js/ui.js")),
 
             /* Images */
