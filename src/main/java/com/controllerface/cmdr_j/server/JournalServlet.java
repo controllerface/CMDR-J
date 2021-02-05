@@ -22,7 +22,7 @@ import static com.controllerface.cmdr_j.server.JournalUI.*;
 
 class JournalServlet extends EventSourceServlet
 {
-    private final Set<JournalSource> sources = ConcurrentHashMap.newKeySet();
+    private final Set<JournalSource> sources = Collections.synchronizedSet(new HashSet<>());
 
     private final PlayerState playerState;
 
@@ -37,6 +37,7 @@ class JournalServlet extends EventSourceServlet
         {
             this.emitter = emitter;
             sources.add(this);
+            System.out.println("New Emitter: " + emitter);
             BiConsumer<String, String> emitterUpdate = makeEmitterUpdate(this);
             playerState.emitCurrentState(emitterUpdate);
         }
@@ -44,8 +45,19 @@ class JournalServlet extends EventSourceServlet
         @Override
         public void onClose()
         {
-            emitter.close();
-            sources.remove(this);
+            try
+            {
+                System.out.println("Old Emitter: " + emitter);
+                emitter.close();
+            }
+            catch (Exception e)
+            {
+                // ignore
+            }
+            finally
+            {
+                sources.remove(this);
+            }
         }
     }
 
@@ -120,6 +132,22 @@ class JournalServlet extends EventSourceServlet
         {
             importExplorationData(playerState);
             writeCreatedResponse(response,"Import Complete");
+        }),
+
+        TRACK(EndpointType.GET, "/track", (request, response, playerState) ->
+        {
+            var target = request.getParameter("target");
+
+            if (target.equalsIgnoreCase("clear"))
+            {
+                playerState.clearTrackedLocation();
+            }
+            else
+            {
+                playerState.setTrackedLocation(target);
+            }
+
+            writeCreatedResponse(response, "Tracking updated");
         }),
 
         /**
@@ -456,28 +484,31 @@ class JournalServlet extends EventSourceServlet
         };
     }
 
-    private synchronized void sendEvent(String name, String data)
+    private void sendEvent(String name, String data)
     {
         if (importing.get()) return;
 
         Set<JournalSource> toRemove = new HashSet<>();
-        sources.forEach(s ->
+        synchronized (sources)
         {
-            try
+            sources.forEach(s ->
             {
-                s.emitter.event(name, data);
-            }
-            catch (IllegalStateException ise)
-            {
-                System.err.println("Possibly benign issue?");
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                toRemove.add(s);
-            }
-        });
-        toRemove.forEach(JournalSource::onClose);
+                try
+                {
+                    s.emitter.event(name, data);
+                }
+                catch (IllegalStateException ise)
+                {
+                    System.err.println("Possibly benign issue?");
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                    toRemove.add(s);
+                }
+            });
+            toRemove.forEach(JournalSource::onClose);
+        }
     }
 
     //region Public API

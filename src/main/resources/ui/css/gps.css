@@ -1,7 +1,9 @@
 @import "common.css";
 
-.gpsContainer
+.controlContainer
 {
+    display: grid;
+    grid-template-columns: 5fr 10fr;
     border: solid 3px var(--default-background);
     border-radius: 3px 3px 3px 3px;
     margin: .2em;
@@ -9,7 +11,100 @@
     padding-bottom: 1em;
 }
 
+.gpsContainer
+{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.waypointHeader
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: .2em;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px dashed var(--default-divider);
+}
+
+.waypointContainer
+{
+    border: solid 1px var(--default-color);
+    border-radius: 3px 3px 3px 3px;
+    margin-left: 1em;
+}
+
+.waypointList
+{
+    overflow-y: scroll;
+    height: 22em;
+}
+
+.gpsLabel
+{
+    margin-left: 1em;
+    margin-top: 0.5em;
+    margin-bottom: -0.5em;
+    font-weight: bold;
+    display: block;
+}
+
+.scaleSlider
+{
+    margin: 1em;
+    width: -webkit-fill-available;
+}
+
+.waypointData
+{
+    display: grid;
+    grid-template-rows: 1.8em auto;
+    border: 1px dotted var(--default-divider);
+    border-radius: 3px;
+    margin: .2em;
+    background: var(--default-background);
+}
+
+.selectedWaypoint
+{
+    border: 1px solid var(--positive-color);
+}
+
+.waypointType
+{
+    color: var(--default-text);
+    font-weight: bold;
+    padding: .2em;
+    border-bottom: 1px solid var(--default-divider);
+}
+
+.waypointInfo
+{
+    padding:.2em;
+}
+
+.waypointDestinationHeader
+{
+    border: 1px solid var(--default-color);
+    border-radius: 3px;
+    margin-left: 1em;
+    padding: .2em;
+    margin-right: 1.4em;
+    margin-top: -1em;
+    margin-bottom: 0.2em;
+}
+
+.waypointDestination
+{
+    color: var(--default-text);
+}
+
+.gotoButton
+{
+    float: right;
+}
+
 .viewport
 {
-    margin-left: 20px;
+    margin-left: 1.1em;
 }

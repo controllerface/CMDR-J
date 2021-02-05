@@ -8,31 +8,9 @@
 body
 {
     overflow: scroll;
-        background: linear-gradient(90deg, #111, black, black, black, black, black, #111);
+    background: linear-gradient(90deg, #111, black, black, black, black, black, #111);
 }
 
-body::-webkit-scrollbar
-{
-  width: 1em;
-}
-
-body::-webkit-scrollbar-track
-{
-  background: black;
-  border: 1px solid var(--default-color);
-}
-
-body::-webkit-scrollbar-thumb
-{
-  background-color: var(--default-background);
-  border-radius: 3px;
-  border: 2px solid var(--default-color);
-}
-
-body::-webkit-scrollbar-corner
-{
-    background: black;
-}
 
 .dashboard
 {

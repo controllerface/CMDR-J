@@ -1,5 +1,25 @@
 @import "common.css";
 
+.singleHeader
+{
+    margin: .2em;
+    margin-top: .2em;
+    border: 2px solid var(--default-divider);
+    border-radius: 3px;
+    padding: .5em;
+}
+
+.quadHeader
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: .2em;
+    margin-top: .2em;
+    border: 2px solid var(--default-divider);
+    border-radius: 3px;
+    padding: .5em;
+}
+
 .dataHeader
 {
     display: grid;

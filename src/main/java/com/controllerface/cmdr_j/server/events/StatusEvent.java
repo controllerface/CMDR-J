@@ -15,8 +15,6 @@ public class StatusEvent implements BiConsumer<PlayerState, Map<String, Object>>
     @SuppressWarnings("unchecked")
     public void accept(PlayerState playerState, Map<String, Object> event)
     {
-        System.out.println(event);
-
         var flags = ((Number) event.get("Flags")).longValue();
         if (flags == 0L) return;
 
@@ -25,7 +23,6 @@ public class StatusEvent implements BiConsumer<PlayerState, Map<String, Object>>
         var reservoirFuel = ((Number) fuel.get("FuelReservoir")).doubleValue();
 
         playerState.updateFuelLevels(mainFuel, reservoirFuel);
-
 
         var flagSet = StatusFlags.extractFlags(flags)
             .collect(Collectors.toSet());

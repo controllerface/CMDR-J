@@ -36,13 +36,6 @@ public class LocalCoordinates
         dataMap.put("altitude", altitude);
         dataMap.put("heading", heading);
         dataMap.put("radius", radius);
-
-        var xTest = radius * Math.cos(latitude) * Math.cos(longitude);
-        var yTest = radius * Math.cos(latitude) * Math.sin(longitude);
-
-        dataMap.put("x", xTest);
-        dataMap.put("y", yTest);
-
         return dataMap;
     }
 }

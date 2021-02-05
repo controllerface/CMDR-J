@@ -26,6 +26,7 @@
     <script src="powerModule.js"></script>
     <script src="powerStats.js"></script>
     <script src="routeEntry.js"></script>
+    <script src="settlementPoint.js"></script>
     <script src="shipModule.js"></script>
     <script src="shipStats.js"></script>
     <script src="statCategory.js"></script>
@@ -787,7 +788,7 @@
                 <span id="systemCartography_bodies" class="headerStat">?</span>
             </div>
             <div class="headerEntry">
-                <b>Scanned Bodies</b>
+                <b>Scanned Signals</b>
                 <span id="systemCartography_scannedbodies" class="headerStat">0</span>
             </div>
         </div>
@@ -841,13 +842,82 @@
         </div>
     </template>
 
+    <!-- Planetary GPS viewer -->
     <template id="template_GPSDisplay">
+        <link rel="stylesheet" href="statistics.css">
         <link rel="stylesheet" href="gps.css">
-        <div id="gpsDisplay_gps" class="gpsContainer">
-            <canvas class="viewport" id="gpsDisplay_viewport"></canvas>
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Body</b>
+                <span id="gpsDisplay_body" class="headerStat">None</span>
+            </div>
+        </div>
+        <div class="quadHeader">
+            <div class="headerEntry">
+                <b>Latitude</b>
+                <span id="gpsDisplay_latitude" class="headerStat">-</span>
+                <span class="valueUnit">&deg;</span>
+            </div>
+            <div class="headerEntry">
+                <b>Longitude</b>
+                <span id="gpsDisplay_longitude" class="headerStat">-</span>
+                <span class="valueUnit">&deg;</span>
+            </div>
+            <div class="headerEntry">
+                <b>Altitude</b>
+                <span id="gpsDisplay_altitude" class="headerStat">-</span>
+                <span class="valueUnit">M</span>
+            </div>
+            <div class="headerEntry">
+                <b>Heading</b>
+                <span id="gpsDisplay_heading" class="headerStat">-</span>
+                <span class="valueUnit">&deg;</span>
+            </div>
+        </div>
+
+        <div class="controlContainer">
+            <div id="gpsDisplay_waypoints" class="waypointContainer">
+                <div class="waypointHeader">
+                    <span>Waypoints</span>
+                    <input type="button" value="Mark location">
+                </div>
+                <div class="waypointList">
+                    <slot name="settlement">
+                        <div class="emptySection">
+                        </div>
+                    </slot>
+                    <slot name="waypoint">
+                        <div class="emptySection">
+                            no waypoints set
+                        </div>
+                    </slot>
+                </div>
+            </div>
+            <div id="gpsDisplay_gps" class="gpsContainer">
+                <div class="waypointDestinationHeader">
+                    <b>Destination bearing</b>
+                    <span class="waypointDestination" id="gpsDisplay_destination">-</span>
+                    <b>&deg;</b>
+                </div>
+                <canvas class="viewport" id="gpsDisplay_viewport"></canvas>
+                <label class="gpsLabel" for="gpsDisplay_scale">Map Scale</label>
+                <input id="gpsDisplay_scale" min="1" max="5000" value="1000" class="scaleSlider" type="range">
+            </div>
         </div>
     </template>
 
+    <!-- Waypoint element for an on-planet settlement -->
+    <template id="template_SettlementPoint">
+        <link rel="stylesheet" href="statistics.css">
+        <link rel="stylesheet" href="gps.css">
+        <div id="settlementPoint_container" class="waypointData">
+            <div class="waypointType">
+                <span>Settlement</span>
+                <input id="settlementPoint_gotobutton" class="gotoButton" type="button" value="track">
+            </div>
+            <div class="waypointInfo" id="settlementPoint_settlementname">Name</div>
+        </div>
+    </template>
 </head>
 
 <body>
@@ -1308,7 +1378,7 @@
                 <div id="navigationContainer">
 
                     <input name="navigationTabs" type="radio" id="routeTabButton" class="tabInput"/>
-                    <label id="routeTab" for="routeTabButton" class="tabLabel">Jump Route</label>
+                    <label id="routeTab" for="routeTabButton" class="tabLabel">Hyperspace Route</label>
                     <div class="tabPanel">
                         <navigation-route id="navigationRoute"></navigation-route>
                     </div>

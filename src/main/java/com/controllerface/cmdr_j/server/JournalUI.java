@@ -64,6 +64,7 @@ public class JournalUI
             Map.entry("/powerModule.js", StaticAsset.make("/ui/js/powerModule.js")),
             Map.entry("/powerStats.js", StaticAsset.make("/ui/js/powerStats.js")),
             Map.entry("/routeEntry.js", StaticAsset.make("/ui/js/routeEntry.js")),
+            Map.entry("/settlementPoint.js", StaticAsset.make("/ui/js/settlementPoint.js")),
             Map.entry("/shipModule.js", StaticAsset.make("/ui/js/shipModule.js")),
             Map.entry("/shipStats.js", StaticAsset.make("/ui/js/shipStats.js")),
             Map.entry("/statCategory.js", StaticAsset.make("/ui/js/statCategory.js")),

@@ -26,6 +26,7 @@ import com.controllerface.cmdr_j.ui.UIFunctions;
 import jetbrains.exodus.entitystore.*;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -33,6 +34,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static java.lang.Math.*;
 
 public class PlayerState
 {
@@ -64,19 +67,24 @@ public class PlayerState
 
     private SettlementLocation localSettlement;
 
+    private String nearestBody = "";
+
     /**
      * Contains the commander's current credit balance.
      */
     private long creditBalance = 0;
 
-    private String commmanderName = "";
+    private String commanderName = "";
 
-    // todo: need to account for resevoir value as well from status file
     private double currentFuel = 0;
 
     private ShipType shipType;
 
     private StarSystem starSystem;
+
+    private AtomicReference<String> trackedLocation = new AtomicReference<>("");
+
+    private static final Predicate<Double> nonZeroValue = (x) -> Objects.requireNonNull(x) != 0.0d;
 
     /**
      * Filter function used when streaming modules to filter out only weapons. Used when
@@ -244,6 +252,12 @@ public class PlayerState
         emitEngineerData();
     }
 
+    public void approachBody(String bodyName)
+    {
+        nearestBody = bodyName;
+        executeWithLock(() -> globalUpdate.accept("BodyName", bodyName));
+    }
+
     public void discoverLocation(StarSystem starSystem)
     {
         database.executeInTransaction((transaction)->
@@ -327,19 +341,16 @@ public class PlayerState
         if (localCoordinates == null) return;
 
         var map = this.localSettlement.toMap();
-        var dist = calculateDistance(this.localSettlement.longitude,
-            this.localSettlement.latitude);
-
+        var dist = calculateDistance(this.localSettlement.longitude, this.localSettlement.latitude);
+        var unit = dist < 1000
+            ? "m"
+            : "km";
+        if (unit.equals("km"))
+        {
+            dist = UIFunctions.Data.round(dist / 1000d, 1);
+        }
         map.put("distance", dist);
-        var xTest = localCoordinates.radius
-            * Math.cos(this.localSettlement.latitude)
-            * Math.cos(this.localSettlement.longitude);
-        var yTest = localCoordinates.radius
-            * Math.cos(this.localSettlement.latitude)
-            * Math.sin(this.localSettlement.longitude);
-
-        map.put("x", xTest);
-        map.put("y", yTest);
+        map.put("unit", unit);
         var locationData = JSONSupport.Write.jsonToString.apply(map);
         executeWithLock(() -> globalUpdate.accept("Settlement", locationData));
     }
@@ -354,6 +365,49 @@ public class PlayerState
         {
             setClosestSettlement(localSettlement);
         }
+
+        var bearing = getBearing();
+        if (!bearing.isEmpty())
+        {
+            executeWithLock(() -> globalUpdate.accept("Bearing", bearing));
+        }
+    }
+
+    private String getBearing()
+    {
+        if (localCoordinates != null)
+        {
+            if (trackedLocation.get().equalsIgnoreCase("settlement"))
+            {
+                if (localSettlement != null)
+                {
+                    var bearing = calculateBearingAngle(localCoordinates.latitude,
+                        localCoordinates.longitude,
+                        localSettlement.latitude,
+                        localSettlement.longitude);
+
+                    return String.valueOf(bearing);
+                }
+            }
+            // todo: track other points
+        }
+        return "";
+    }
+
+    public void setTrackedLocation(String trackedLocation)
+    {
+        this.trackedLocation.set(trackedLocation);
+        var bearing = getBearing();
+        if (!bearing.isEmpty())
+        {
+            executeWithLock(() -> globalUpdate.accept("Bearing", bearing));
+        }
+    }
+
+    public void clearTrackedLocation()
+    {
+        this.trackedLocation.set("");
+        executeWithLock(() -> globalUpdate.accept("Bearing", "-"));
     }
 
     public void setShipModule(Statistic statistic, ShipModuleData shipModuleData)
@@ -386,7 +440,7 @@ public class PlayerState
         {
             if (statistic == CommanderStat.Commander)
             {
-                commmanderName = commanderStatistics.get(CommanderStat.Commander);
+                commanderName = commanderStatistics.get(CommanderStat.Commander);
                 database.executeInTransaction(this::ensureCommanderExists);
             }
 
@@ -670,14 +724,14 @@ public class PlayerState
         double strengthRatio = optimalStrengthDifference / strengthRangeDifference;
 
         // calculate mass factors for the hull and optimal masses, maxing out at 1
-        double hullMassFactor = Math.min(1, hullMassRatio);
-        double optimalMassFactor = Math.min(1, optimalMassRatio);
+        double hullMassFactor = min(1, hullMassRatio);
+        double optimalMassFactor = min(1, optimalMassRatio);
 
         // calculate a strength exponent to apply to the hull mass factor
-        double strengthExponent = Math.log(strengthRatio) / Math.log(optimalMassFactor);
+        double strengthExponent = log(strengthRatio) / log(optimalMassFactor);
 
         // calculate the final shield power modifier
-        double strengthPower = Math.pow(hullMassFactor, strengthExponent);
+        double strengthPower = pow(hullMassFactor, strengthExponent);
 
         // calculate the total shield multiplier and divide by 100, since it is applied as a percentage increase
         double shieldMultiplier = (minimumStrength + strengthPower * strengthRangeDifference) / 100d;
@@ -770,7 +824,7 @@ public class PlayerState
             .map(shipModuleData -> shipModuleData.effectByName(resistanceEffect).map(e -> e.doubleValue))
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .filter(nonZero)
+            .filter(nonZeroValue)
             .mapToDouble(Double::doubleValue)
             .map(next -> 100d - next)
             .map(next -> next / 100d)
@@ -789,7 +843,7 @@ public class PlayerState
             .map(m->m.effectByName(resistanceEffect).map(e->e.doubleValue))
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .filter(nonZero)
+            .filter(nonZeroValue)
             .map(next -> 100d - next)
             .map(next -> next / 100d)
             .map(n -> UIFunctions.Data.round(n, 5))
@@ -833,9 +887,6 @@ public class PlayerState
         return statGroup;
     }
 
-    private static final Predicate<Double> nonZero = (x) -> Objects.requireNonNull(x) != 0.0d;
-
-
     private ShipStatisticData.StatGroup getShieldResistanceTotal(ItemEffect resistanceEffect)
     {
         List<Double> resistances = new ArrayList<>();
@@ -845,7 +896,7 @@ public class PlayerState
                 .map(shipModuleData -> shipModuleData.effectByName(resistanceEffect).map(e -> e.doubleValue))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .filter(nonZero)
+                .filter(nonZeroValue)
                 .map(next -> 100d - next)
                 .map(next -> next / 100d)
                 .map(n->UIFunctions.Data.round(n, 5))
@@ -857,7 +908,7 @@ public class PlayerState
             .map(shipModuleData -> shipModuleData.effectByName(resistanceEffect).map(e -> e.doubleValue))
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .filter(nonZero)
+            .filter(nonZeroValue)
             .map(next -> 100d - next)
             .map(next -> next / 100d)
             .map(n->UIFunctions.Data.round(n, 5))
@@ -1234,25 +1285,74 @@ public class PlayerState
      */
     private double haversine(double radAngle)
     {
-        return Math.sin(radAngle / 2) * Math.sin(radAngle / 2);
+        return sin(radAngle / 2) * sin(radAngle / 2);
     }
 
+    /**
+     * Calculates a distance between two latitude/longitude pairs, taking into account the radius of the planet and
+     * the player's altitude. Waypoints are currently assumed to be on the planet's surface for the purpose of
+     * distance calculations. Due to irregularities in planet topology, the distances may be slightly off depending on
+     * the planet. For use as a general guide though, the values and relative positions in the map should be correct.
+     * The unit of measurement for this function is meters.
+     *
+     * This method uses the old trigonometric Haversine function to determine the "Great circle distance" between two
+     * latitude and longitude points on the planet. This implementation also accounts for altitude when determining the
+     * distance to a position.
+     *
+     * @param waypointLong the waypoint's longitude
+     * @param waypointLat the waypoint's latitude
+     * @return the approximate distance between the two points in meters
+     */
     private double calculateDistance(double waypointLong, double waypointLat)
     {
-        double latDistance = Math.toRadians(waypointLat - localCoordinates.latitude);
-        double lonDistance = Math.toRadians(waypointLong - localCoordinates.longitude);
+        double latDistance = toRadians(waypointLat - localCoordinates.latitude);
+        double lonDistance = toRadians(waypointLong - localCoordinates.longitude);
 
         double a = haversine(latDistance)
-            + Math.cos(Math.toRadians(localCoordinates.latitude))
-            * Math.cos(Math.toRadians(waypointLat))
+            + cos(toRadians(localCoordinates.latitude))
+            * cos(toRadians(waypointLat))
             * haversine(lonDistance);
 
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
         double adjustedDistance = localCoordinates.radius * c;
 
-        return Math.sqrt(Math.pow(adjustedDistance, 2) +
-            Math.pow(localCoordinates.altitude, 2));
+        return sqrt(pow(adjustedDistance, 2) + pow(localCoordinates.altitude, 2));
+    }
+
+    /**
+     * Finds the bearing, in degrees, that an observer at a given set of coordinates should travel in order to move
+     * toward a point at a different set of co-ordinates. Coordinates are given as latitude/longitude pairs
+     * representing the current location and the destination. The returned bearing value is converted to the angle
+     * range between 0 and 360 (as opposed to between -180 and 180) and is rounded to 2 decimal places.
+     *
+     * NOTE: uses static import of {@linkplain java.lang.Math}
+     *
+     * @param locationLatitude latitude of the current location
+     * @param locationLongitude longitude of the current location
+     * @param destinationLatitude latitude of the destination
+     * @param destinationLongitude longitude of the destination
+     * @return bearing angle from the current location that will lead to the destination
+     */
+    static double calculateBearingAngle(double locationLatitude,
+                                        double locationLongitude,
+                                        double destinationLatitude,
+                                        double destinationLongitude)
+    {
+        double phiStart = toRadians(locationLatitude);
+        double phiEnd = toRadians(destinationLatitude);
+        double delta = toRadians(destinationLongitude - locationLongitude);
+
+        double ordinate = (sin(delta) * cos(phiEnd));
+        double abscissa = (cos(phiStart) * sin(phiEnd) - sin(phiStart) * cos(phiEnd) * cos(delta));
+        double theta = atan2(ordinate, abscissa);
+
+        double bearing = toDegrees(theta);
+        if (bearing < 0 )
+        {
+            bearing += 360;
+        }
+        return UIFunctions.Data.round(bearing, 2);
     }
 
 
@@ -1261,21 +1361,21 @@ public class PlayerState
 
     private void ensureCommanderExists(StoreTransaction transaction)
     {
-        if (commmanderName.isEmpty())
+        if (commanderName.isEmpty())
         {
             System.err.println("Commander name is empty!");
         }
-        if (transaction.find(EntityKeys.COMMANDER, EntityKeys.NAME, commmanderName).isEmpty())
+        if (transaction.find(EntityKeys.COMMANDER, EntityKeys.NAME, commanderName).isEmpty())
         {
             transaction.newEntity(EntityKeys.COMMANDER)
-                .setProperty(EntityKeys.NAME, commmanderName);
+                .setProperty(EntityKeys.NAME, commanderName);
         }
     }
 
     private Entity getCommanderEntity(StoreTransaction transaction)
     {
-        if (commmanderName.isEmpty()) return null;
-        return transaction.find(EntityKeys.COMMANDER, EntityKeys.NAME, commmanderName).getFirst();
+        if (commanderName.isEmpty()) return null;
+        return transaction.find(EntityKeys.COMMANDER, EntityKeys.NAME, commanderName).getFirst();
     }
 
     private Entity getOrCreateStarSystemEntity(StoreTransaction transaction, StarSystem starSystem)
@@ -1523,27 +1623,34 @@ public class PlayerState
             {
                 directUpdate.accept("Coordinates", JSONSupport.Write.jsonToString.apply(localCoordinates.toMap()));
 
-
                 if (localSettlement != null)
                 {
                     var map = this.localSettlement.toMap();
-                    var dist = calculateDistance(this.localSettlement.longitude,
-                        this.localSettlement.latitude);
-
+                    var dist = calculateDistance(this.localSettlement.longitude, this.localSettlement.latitude);
+                    var unit = dist < 1000
+                        ? "m"
+                        : "km";
+                    if (unit.equals("km"))
+                    {
+                        dist = dist / 1000d;
+                    }
+                    dist = UIFunctions.Data.round(dist, 1);
                     map.put("distance", dist);
-                    var xTest = localCoordinates.radius
-                        * Math.cos(this.localSettlement.latitude)
-                        * Math.cos(this.localSettlement.longitude);
-                    var yTest = localCoordinates.radius
-                        * Math.cos(this.localSettlement.latitude)
-                        * Math.sin(this.localSettlement.longitude);
-
-                    map.put("x", xTest);
-                    map.put("y", yTest);
+                    map.put("unit", unit);
                     directUpdate.accept("Settlement", JSONSupport.Write.jsonToString.apply(map));
                 }
-
             }
+
+            if (!trackedLocation.get().isEmpty())
+            {
+                var bearing = getBearing();
+                if (!bearing.isEmpty())
+                {
+                    directUpdate.accept("Bearing", bearing);
+                }
+            }
+
+            directUpdate.accept("BodyName", nearestBody);
 
             directUpdate.accept("Engineers", prepareEngineerData());
 

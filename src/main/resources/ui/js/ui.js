@@ -1027,7 +1027,6 @@ function setSystemCatalog(data)
 function handleCoordinates(data)
 {
     let coordinateData = JSON.parse(data);
-    console.log(coordinateData);
     let gpsDisplay = document.getElementById('gpsDisplay');
     gpsDisplay.loadCoordinateData(coordinateData);
 }
@@ -1035,9 +1034,15 @@ function handleCoordinates(data)
 function handleSettlement(data)
 {
     let coordinateData = JSON.parse(data);
-    console.log(coordinateData);
     let gpsDisplay = document.getElementById('gpsDisplay');
     gpsDisplay.loadSettlementData(coordinateData);
+}
+
+function setTrackedLocation(target)
+{
+    fetch('/track?target=' + target)
+      .then(response => console.log(response))
+      .catch(error => console.error(error));
 }
 
 /*
@@ -1171,6 +1176,10 @@ const eventListeners =
 
     // Local coordinate data describing a nearby settlement that the player has approached
     Settlement: (e) => handleSettlement(e.data),
+
+    BodyName: (e) => document.getElementById('gpsDisplay').bodyName = e.data,
+
+    Bearing: (e) => document.getElementById('gpsDisplay').bearing = e.data,
 };
 
 window.onload = (e) =>
