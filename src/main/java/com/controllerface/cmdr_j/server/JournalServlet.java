@@ -135,6 +135,50 @@ class JournalServlet extends EventSourceServlet
         }),
 
         /**
+         * Creates a waypoint at the player's current location.
+         */
+        WAYPOINT(EndpointType.GET, "/waypoint", (request, response, playerState) ->
+        {
+            var toRemove = request.getParameter("remove");
+            var toRename = request.getParameter("rename");
+            var newName = request.getParameter("name");
+
+            if (toRemove == null && toRename == null)
+            {
+                if (playerState.createWaypoint())
+                {
+                    writeCreatedResponse(response,"Waypoint created");
+                }
+                else
+                {
+                    writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
+                }
+            }
+            else if (toRemove != null)
+            {
+                if (playerState.deleteWaypoint(toRemove))
+                {
+                    writeCreatedResponse(response,"Waypoint deleted");
+                }
+                else
+                {
+                    writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
+                }
+            }
+            else
+            {
+                if (playerState.renameWaypoint(toRename, newName))
+                {
+                    writeCreatedResponse(response,"Waypoint renamed");
+                }
+                else
+                {
+                    writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
+                }
+            }
+        }),
+
+        /**
          * Sets or clears a local (on-planet) waypoint for tracking
          */
         TRACK(EndpointType.GET, "/track", (request, response, playerState) ->
@@ -508,11 +552,14 @@ class JournalServlet extends EventSourceServlet
                 }
                 catch (IllegalStateException ise)
                 {
-                    System.err.println("Possibly benign issue?");
+                    // this is benign issue, Jetty throws this after
+                    // sending event data sometimes, but the connection
+                    // still works fine. It appears to be a somewhat
+                    // common issue for many other users of the library
+                    // I found when googling.
                 }
                 catch (Exception e)
                 {
-                    e.printStackTrace();
                     toRemove.add(s);
                 }
             });

@@ -48,10 +48,8 @@
     /* Used to signify an effect is anti-xeno */
     --anti-xeno-color: #029e4c;
 
-    /* GPS map colors */
-
-    /* Background color */
-    --gps-background: #211100;
+    /* GPS marker */
+    --gps-marker: rgba(240, 123, 5, 0.5);
 }
 
 /*

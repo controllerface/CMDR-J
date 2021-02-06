@@ -28,13 +28,17 @@ public class LocationEvent implements BiConsumer<PlayerState, Map<String, Object
         var bodyType = StellarBody.BodyType.determineType(((String) event.get("BodyType")));
         var body = new GenericBody(bodyType, bodyName, bodyID, address);
 
-        if (bodyType == StellarBody.BodyType.Planet)
-        {
-            playerState.approachBody(bodyName);
-        }
-
         playerState.discoverStellarBody(body);
         playerState.emitCartographyData();
+
+        if (bodyType == StellarBody.BodyType.Planet)
+        {
+            playerState.approachBody(body);
+        }
+        else
+        {
+            playerState.leaveBody();
+        }
 
         var factions = ((List<Map<String, Object>>) event.get("Factions"));
         if (factions == null || factions.isEmpty())

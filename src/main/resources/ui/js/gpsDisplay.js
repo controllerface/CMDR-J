@@ -12,6 +12,13 @@ class GPSDisplay extends HTMLElement
         this.currentWidth = 0;
         this.needColorInit = true;
         this.GPS_rotation = -90 * Math.PI / 180;
+        this.waypoints = {};
+
+        let addWaypointButton = this.shadowRoot.getElementById('gpsDisplay_addwaypoint');
+        addWaypointButton.addEventListener('click', (e) =>
+        {
+            createWaypoint();
+        })
 
         requestAnimationFrame(() => this.render());
     }
@@ -22,9 +29,11 @@ class GPSDisplay extends HTMLElement
         {
             let computedStyle = getComputedStyle(document.documentElement);
             this.color_BG = computedStyle.getPropertyValue('--default-background');
+            this.color_marker = computedStyle.getPropertyValue('--gps-marker');
             this.color_line = computedStyle.getPropertyValue('--default-color');
             this.color_text = computedStyle.getPropertyValue('--default-text');
             this.color_destination = computedStyle.getPropertyValue('--positive-color');
+            this.color_ship = computedStyle.getPropertyValue('--anti-xeno-color');
             this.needColorInit = false;
         }
     }
@@ -38,7 +47,7 @@ class GPSDisplay extends HTMLElement
         }
         let w = gpsRect.width - 40;
         this.viewport.width = w;
-        this.viewport.height = w / 2;
+        this.viewport.height = w * 0.75; //w / 2;
         this.centerX = this.viewport.width / 2;
         this.centerY = this.viewport.height / 2;
     }
@@ -70,7 +79,7 @@ class GPSDisplay extends HTMLElement
 
         ctx.save();
 
-        ctx.fillStyle = this.color_line;
+        ctx.fillStyle = this.color_marker;
         let rot = this.coordinateData['heading'] * Math.PI / 180;
         let antiRot = -90 * Math.PI / 180;
         ctx.translate(this.centerX, this.centerY);
@@ -87,11 +96,15 @@ class GPSDisplay extends HTMLElement
         ctx.restore();
     }
 
-    renderSettlement(ctx)
+
+
+
+
+    renderMapPoint(ctx, pointData, fillColor)
     {
-        let latOffset = this.coordinateData['latitude'] - this.settlementData['latitude'];
+        let latOffset = this.coordinateData['latitude'] - pointData['latitude'];
         latOffset = latOffset * this.scale.value;
-        let lonOffset = this.coordinateData['longitude'] - this.settlementData['longitude'];
+        let lonOffset = this.coordinateData['longitude'] - pointData['longitude'];
         lonOffset = lonOffset * this.scale.value;
 
         let markX = this.centerX - latOffset;
@@ -99,18 +112,20 @@ class GPSDisplay extends HTMLElement
 
         ctx.save();
 
-        if (this.settlementData['isDestination'])
+        if (pointData['isDestination'])
         {
             ctx.fillStyle = this.color_destination;
         }
         else
         {
-            ctx.fillStyle = this.color_line;
+            ctx.fillStyle = fillColor;
         }
 
         ctx.translate(this.centerX, this.centerY);
         ctx.rotate(this.GPS_rotation);
         ctx.translate(-1 * this.centerX, -1 * this.centerY);
+
+        ctx.beginPath();
         ctx.moveTo(markX - 3, markY - 3);
         ctx.lineTo(markX - 3, markY + 3);
         ctx.lineTo(markX + 3, markY + 3);
@@ -118,9 +133,8 @@ class GPSDisplay extends HTMLElement
         ctx.closePath();
         ctx.fill();
 
-        let settlementName = this.settlementData['name'].toLowerCase();
-        let settlementDistance = this.settlementData['distance']
-            + ' ' + this.settlementData['unit'];
+        let pointName = pointData['name'].toLowerCase();
+        let pointDistance = pointData['distance'] + ' ' + pointData['unit'];
 
         let textX = markX - 4;
 
@@ -129,10 +143,20 @@ class GPSDisplay extends HTMLElement
         ctx.rotate(-1 * this.GPS_rotation);
         ctx.translate(-1 * markX, -1 * markY);
         ctx.font = '12px EUROCAPS';
-        ctx.fillText(settlementName, textX, markY + 14);
+        ctx.fillText(pointName, textX, markY + 14);
         ctx.fillStyle = this.color_line;
-        ctx.fillText(settlementDistance, textX, markY + 28);
+        ctx.fillText(pointDistance, textX, markY + 28);
 
+        ctx.restore();
+    }
+
+    renderOffPlanet(ctx)
+    {
+        ctx.save();
+        ctx.fillStyle = this.color_line;
+        ctx.textAlign = "center";
+        ctx.font = '24px EUROCAPS';
+        ctx.fillText("Off PLanet", this.centerX, this.centerY);
         ctx.restore();
     }
 
@@ -147,11 +171,30 @@ class GPSDisplay extends HTMLElement
 
         if (this.coordinateData)
         {
-            if (this.settlementData)
+            if (this.coordinateData['nearPlanet'] == false)
             {
-                this.renderSettlement(ctx);
+                this.renderOffPlanet(ctx);
             }
-            this.renderPlayer(ctx);
+            else
+            {
+                if (this.settlementData)
+                {
+                    this.renderMapPoint(ctx, this.settlementData, this.color_line);
+                }
+                if (this.touchdownData)
+                {
+                    this.renderMapPoint(ctx, this.touchdownData, this.color_ship);
+                }
+                if (this.waypoints)
+                {
+                    let ids = Object.keys(this.waypoints);
+                    for (let i = 0, len = ids.length; i < len; i++)
+                    {
+                        this.renderMapPoint(ctx, this.waypoints[ids[i]], this.color_line);
+                    }
+                }
+                this.renderPlayer(ctx);
+            }
         }
 
         requestAnimationFrame(() => this.render());
@@ -168,6 +211,13 @@ class GPSDisplay extends HTMLElement
 
     loadSettlementData(settlementData)
     {
+        if (this.settlementData && this.settlementData['name'] === settlementData['name'])
+        {
+            this.settlementData['unit'] = settlementData['unit'];
+            this.settlementData['distance'] = settlementData['distance'];
+            return;
+        }
+
         this.settlementData = settlementData;
         let existingSettlements = this.querySelectorAll('settlement-point');
         if (existingSettlements)
@@ -179,14 +229,82 @@ class GPSDisplay extends HTMLElement
         }
         let newSettlement = document.createElement('settlement-point');
         newSettlement.setAttribute('slot', 'settlement');
-        newSettlement.settlementName = settlementData['name'];
+        newSettlement.waypointName = settlementData['name'];
         this.append(newSettlement);
         this.settlementData['element'] = newSettlement;
     }
 
-    set bodyName(value)
+    clearSettlementData()
     {
-        this.shadowRoot.getElementById('gpsDisplay_body').textContent = value;
+        this.settlementData = null;
+        let existingSettlements = this.querySelectorAll('settlement-point');
+        if (existingSettlements)
+        {
+            existingSettlements.forEach((e) =>
+            {
+                e.parentElement.removeChild(e);
+            });
+        }
+    }
+
+    loadWaypointData(waypointData)
+    {
+        if (waypointData['remove'])
+        {
+            // remove
+            let toRemove = this.waypoints[waypointData['waypointId']];
+            let element = toRemove['element'];
+            element.parentElement.removeChild(element);
+            delete this.waypoints[toRemove['waypointId']];
+            // todo: what if currently tracked?
+            return;
+        }
+
+        if (this.waypoints[waypointData['waypointId']])
+        {
+            // update
+            let toUpdate = this.waypoints[waypointData['waypointId']];
+            toUpdate['unit'] = waypointData['unit'];
+            toUpdate['distance'] = waypointData['distance'];
+            toUpdate['name'] = waypointData['name'];
+        }
+        else
+        {
+            // add
+            this.waypoints[waypointData['waypointId']] = waypointData;
+            let newWaypoint = document.createElement('waypoint-location');
+            newWaypoint.setAttribute('slot', 'waypoint');
+            newWaypoint.waypointName = waypointData['name'];
+            newWaypoint.setAttribute('waypointId', waypointData['waypointId']);
+            this.append(newWaypoint);
+            this.waypoints[waypointData['waypointId']]['element'] = newWaypoint;
+        }
+    }
+
+    loadTouchdownData(touchdownData)
+    {
+        this.touchdownData = touchdownData;
+        let existingPoints = this.querySelectorAll('landing-point');
+        if (existingPoints)
+        {
+            existingPoints.forEach((e) =>
+            {
+                e.parentElement.removeChild(e);
+            });
+        }
+        let newLanding = document.createElement('landing-point');
+        newLanding.setAttribute('slot', 'settlement');
+        newLanding.waypointName = touchdownData['name'];
+        this.append(newLanding);
+        this.touchdownData['element'] = newLanding;
+    }
+
+    set bodyData(bodyData)
+    {
+        let bodyElement = this.shadowRoot.getElementById('gpsDisplay_body');
+        bodyElement.textContent = bodyData['name'];
+        bodyElement.setAttribute('bodyId', bodyData['id']);
+        bodyElement.setAttribute('address', bodyData['address']);
     }
 
     set bearing(value)
@@ -196,20 +314,97 @@ class GPSDisplay extends HTMLElement
 
     setDestination(element)
     {
-        if (this.settlementData['element'] === element)
+        setTrackedLocation('clear', () =>
         {
-            this.settlementData['isDestination'] = true;
-            setTrackedLocation('settlement');
-        }
+            // clear
+            if (this.settlementData)
+            {
+               this.settlementData['isDestination'] = false;
+               if (this.settlementData['element'] != element)
+               {
+                   this.settlementData['element'].toggleSelect(true);
+               }
+            }
 
-        // todo: add waypoints
+            if (this.touchdownData)
+            {
+               this.touchdownData['isDestination'] = false;
+               if (this.touchdownData['element'] != element)
+               {
+                   this.touchdownData['element'].toggleSelect(true);
+               }
+            }
+
+            if (this.waypoints)
+            {
+               let ids = Object.keys(this.waypoints);
+               for (let i = 0, len = ids.length; i < len; i++)
+               {
+                   this.waypoints[ids[i]]['isDestination'] = false;
+                   if (this.waypoints[ids[i]]['element'] != element)
+                   {
+                       this.waypoints[ids[i]]['element'].toggleSelect(true);
+                   }
+               }
+            }
+
+
+            if (this.settlementData && this.settlementData['element'] === element)
+            {
+               this.settlementData['isDestination'] = true;
+               setTrackedLocation('settlement');
+               return;
+            }
+
+            if (this.touchdownData && this.touchdownData['element'] === element)
+            {
+               this.touchdownData['isDestination'] = true;
+               setTrackedLocation('touchdown');
+               return;
+            }
+
+            if (this.waypoints)
+            {
+                let ids = Object.keys(this.waypoints);
+                for (let i = 0, len = ids.length; i < len; i++)
+                {
+                    if (this.waypoints[ids[i]]['element'] === element)
+                    {
+                        this.waypoints[ids[i]]['isDestination'] = true;
+                        setTrackedLocation(this.waypoints[ids[i]]['waypointId']);
+                        return;
+                    }
+                }
+            }
+        });
     }
 
     clearDestination()
     {
-        this.settlementData['isDestination'] = false;
-        setTrackedLocation('clear');
-        // todo: add waypoints
+        setTrackedLocation('clear', () =>
+        {
+            if (this.settlementData)
+            {
+                this.settlementData['isDestination'] = false;
+                this.settlementData['element'].toggleSelect(true);
+            }
+
+            if (this.touchdownData)
+            {
+                this.touchdownData['isDestination'] = false;
+                this.touchdownData['element'].toggleSelect(true);
+            }
+
+            if (this.waypoints)
+            {
+                let ids = Object.keys(this.waypoints);
+                for (let i = 0, len = ids.length; i < len; i++)
+                {
+                    this.waypoints[ids[i]]['isDestination'] = false;
+                    this.waypoints[ids[i]]['element'].toggleSelect(true);
+                }
+            }
+        });
     }
 }
 

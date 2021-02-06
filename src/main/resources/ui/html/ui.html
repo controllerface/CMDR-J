@@ -18,6 +18,7 @@
     <script src="moduleBay.js"></script>
     <script src="factionStats.js"></script>
     <script src="gpsDisplay.js"></script>
+
     <script src="navigationRoute.js"></script>
     <script src="offenseStats.js"></script>
     <script src="offenseModule.js"></script>
@@ -26,13 +27,17 @@
     <script src="powerModule.js"></script>
     <script src="powerStats.js"></script>
     <script src="routeEntry.js"></script>
-    <script src="settlementPoint.js"></script>
+
     <script src="shipModule.js"></script>
     <script src="shipStats.js"></script>
     <script src="statCategory.js"></script>
     <script src="systemCartography.js"></script>
     <script src="systemCatalog.js"></script>
     <script src="systemFaction.js"></script>
+
+    <script src="waypointLocation.js"></script>
+    <script src="landingPoint.js"></script>
+    <script src="settlementPoint.js"></script>
 
     <link rel="stylesheet" href="ui.css">
 
@@ -416,7 +421,7 @@
             </div>
         </slot>
         <div class="emptySection">
-            Note: Turret damage not included in DPS totals
+            Turret damage not included in DPS totals
         </div>
     </template>
 
@@ -939,13 +944,10 @@
             <div id="gpsDisplay_waypoints" class="waypointContainer">
                 <div class="waypointHeader">
                     <span>Waypoints</span>
-                    <input type="button" value="Mark location">
+                    <input id="gpsDisplay_addwaypoint" type="button" value="Mark location">
                 </div>
                 <div class="waypointList">
-                    <slot name="settlement">
-                        <div class="emptySection">
-                        </div>
-                    </slot>
+                    <slot name="settlement"></slot>
                     <slot name="waypoint">
                         <div class="emptySection">
                             no waypoints set
@@ -966,18 +968,21 @@
         </div>
     </template>
 
-    <!-- Waypoint element for an on-planet settlement -->
-    <template id="template_SettlementPoint">
+    <!-- Waypoint data -->
+    <template id="template_WaypointLocation">
         <link rel="stylesheet" href="statistics.css">
         <link rel="stylesheet" href="gps.css">
-        <div id="settlementPoint_container" class="waypointData">
+        <div id="waypointLocation_container" class="waypointData">
             <div class="waypointType">
-                <span>Settlement</span>
-                <input id="settlementPoint_gotobutton" class="gotoButton" type="button" value="track">
+                <span id="waypointLocation_title">Waypoint</span>
+                <input id="waypointLocation_removebutton" class="waypointButton" type="button" value="X">
+                <input id="waypointLocation_renamebutton" class="waypointButton" type="button" value="rename">
+                <input id="waypointLocation_gotobutton" class="waypointButton" type="button" value="track">
             </div>
-            <div class="waypointInfo" id="settlementPoint_settlementname">Name</div>
+            <div class="waypointInfo" id="waypointLocation_waypointname">Name</div>
         </div>
     </template>
+
 </head>
 
 <body>

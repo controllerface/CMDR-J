@@ -49,6 +49,7 @@ public class JournalUI
             Map.entry("/engineerStats.js", StaticAsset.make("/ui/js/engineerStats.js")),
             Map.entry("/factionStats.js", StaticAsset.make("/ui/js/factionStats.js")),
             Map.entry("/gpsDisplay.js", StaticAsset.make("/ui/js/gpsDisplay.js")),
+            Map.entry("/landingPoint.js", StaticAsset.make("/ui/js/landingPoint.js")),
             Map.entry("/market.js", StaticAsset.make("/ui/js/market.js")),
             Map.entry("/marketEntry.js", StaticAsset.make("/ui/js/marketEntry.js")),
             Map.entry("/material.js", StaticAsset.make("/ui/js/material.js")),
@@ -69,6 +70,7 @@ public class JournalUI
             Map.entry("/systemCatalog.js", StaticAsset.make("/ui/js/systemCatalog.js")),
             Map.entry("/systemFaction.js", StaticAsset.make("/ui/js/systemFaction.js")),
             Map.entry("/ui.js", StaticAsset.make("/ui/js/ui.js")),
+            Map.entry("/waypointLocation.js", StaticAsset.make("/ui/js/waypointLocation.js")),
 
             /* Images */
             Map.entry("/grade-1.svg", StaticAsset.make("/ui/img/grade-1.svg")),

@@ -355,6 +355,7 @@ function setStatistics(data)
 {
     let statData = data['statistics'];
     let statContainer = document.getElementById('extendedStatistics');
+    statContainer.textContent = '';
     let categories = Object.keys(statData);
     categories.sort();
 
@@ -1073,11 +1074,84 @@ function handleSettlement(data)
     gpsDisplay.loadSettlementData(coordinateData);
 }
 
-function setTrackedLocation(target)
+function handleTouchdown(data)
+{
+    let coordinateData = JSON.parse(data);
+    let gpsDisplay = document.getElementById('gpsDisplay');
+    gpsDisplay.loadTouchdownData(coordinateData);
+}
+
+function setTrackedLocation(target, callback)
 {
     fetch('/track?target=' + target)
+      .then(response => { if (callback) callback(); })
+      .catch(error => console.error(error));
+}
+
+function createWaypoint()
+{
+    fetch('/waypoint')
       .then(response => console.log(response))
       .catch(error => console.error(error));
+}
+
+function removeWaypoint(name, waypointId)
+{
+    if (!name || !waypointId)
+    {
+        console.error('Bad info: ' + name + ' : ' + waypointId);
+        return;
+    }
+
+    let message = 'Do you really want to delete this waypoint? : ' + name;
+    if (confirm(message))
+    {
+        fetch('/waypoint?remove=' + waypointId)
+          .then(response => console.log(response))
+          .catch(error => console.error(error));
+    }
+}
+
+function renameWaypoint(currentName, waypointId, callback)
+{
+    if (!currentName || !waypointId)
+    {
+        console.error('Bad info: ' + currentName + ' : ' + waypointId);
+        return;
+    }
+
+    let message = 'Enter new name for this waypoint';
+    let newName = prompt(message, currentName);
+    if (newName)
+    {
+        fetch('/waypoint?rename=' + waypointId + '&name=' + newName)
+          .then(response => { if (callback) callback(newName); })
+          .catch(error => console.error(error));
+    }
+}
+
+function approachBody(data)
+{
+    let bodyData = JSON.parse(data);
+    console.log(bodyData);
+    let gpsDisplay = document.getElementById('gpsDisplay');
+    gpsDisplay.bodyData = bodyData;
+}
+
+function handleWaypoint(data)
+{
+    if (data === 'clear')
+    {
+        console.log('clear waypoints');
+        // todo: actually clear them
+    }
+    else
+    {
+        let waypointData = JSON.parse(data);
+        console.log(waypointData);
+        let gpsDisplay = document.getElementById('gpsDisplay');
+        gpsDisplay.loadWaypointData(waypointData);
+    }
 }
 
 /*
@@ -1154,16 +1228,19 @@ const eventListeners =
         handleFactionData("federation", determineReputation(e.data));
         handleFactionData("federationProgress", e.data);
     },
+
     Reputation_Empire: (e) =>
     {
         handleFactionData("empire", determineReputation(e.data));
         handleFactionData("empireProgress", e.data);
     },
+
     Reputation_Alliance: (e) =>
     {
         handleFactionData("alliance", determineReputation(e.data));
         handleFactionData("allianceProgress", e.data);
     },
+
     Reputation_Independent: (e) =>
     {
         handleFactionData("independent", determineReputation(e.data));
@@ -1212,11 +1289,17 @@ const eventListeners =
     // Local coordinate data describing a nearby settlement that the player has approached
     Settlement: (e) => handleSettlement(e.data),
 
-    BodyName: (e) => document.getElementById('gpsDisplay').bodyName = e.data,
+    ApproachBody: (e) => approachBody(e.data),
+
+    LeaveBody: (e) => document.getElementById('gpsDisplay').clearSettlementData(),
 
     Bearing: (e) => document.getElementById('gpsDisplay').bearing = e.data,
 
     Faction: (e) => handleSystemFactionData(e.data),
+
+    Waypoint: (e) => handleWaypoint(e.data),
+
+    Touchdown: (e) => handleTouchdown(e.data),
 };
 
 window.onload = (e) =>

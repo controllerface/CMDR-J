@@ -10,9 +10,12 @@ class POIEntry extends HTMLElement
         let deleteButton = this.shadowRoot.getElementById('poiEntry_delete');
         deleteButton.addEventListener('click', (e) =>
         {
-            let address = this.getAttribute('address');
-            let id = this.getAttribute('poi');
-            removePoi(address, id);
+            if(confirm('Are you sure you want to delete this POI? : ' + this.text))
+            {
+                let address = this.getAttribute('address');
+                let id = this.getAttribute('poi');
+                removePoi(address, id);
+            }
         });
     }
 

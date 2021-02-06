@@ -67,7 +67,7 @@ public class PlayerState
 
     private SettlementLocation localSettlement;
 
-    private String nearestBody = "";
+    private StellarBody nearestBody;
 
     /**
      * Contains the commander's current credit balance.
@@ -82,7 +82,10 @@ public class PlayerState
 
     private StarSystem starSystem;
 
-    private AtomicReference<String> trackedLocation = new AtomicReference<>("");
+    private double touchdownLatitude = -1;
+    private double touchdownLongitude = -1;
+
+    private final AtomicReference<String> trackedLocation = new AtomicReference<>("");
 
     private static final Predicate<Double> nonZeroValue = (x) -> Objects.requireNonNull(x) != 0.0d;
 
@@ -121,6 +124,25 @@ public class PlayerState
         Comparator.comparingDouble((Map.Entry<Statistic, ShipModuleData> e) -> e.getValue().effectByName(ItemEffect.PowerDraw)
             .map(ef->ef.doubleValue).orElse(0.0d))
             .reversed();
+
+    /**
+     * Comparator used to sort local factions by their influence within the star system, from most to least influence.
+     */
+    private static final Comparator<Map<String, Object>> highestInfluence =
+        Comparator.comparingDouble((Map<String, Object> f) -> (Double) f.get("Influence"))
+            .reversed();
+
+    private static class GPSLocation
+    {
+        private final double latitude;
+        private final double longitude;
+
+        private GPSLocation(double latitude, double longitude)
+        {
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }
+    }
 
     private static class CommodityData
     {
@@ -252,10 +274,229 @@ public class PlayerState
         emitEngineerData();
     }
 
-    public void approachBody(String bodyName)
+    public void approachBody(StellarBody stellarBody)
     {
-        nearestBody = bodyName;
-        executeWithLock(() -> globalUpdate.accept("BodyName", bodyName));
+        nearestBody = stellarBody;
+        String bodyData = JSONSupport.Write.jsonToString.apply(nearestBody.toMap());
+        executeWithLock(() -> globalUpdate.accept("ApproachBody", bodyData));
+        emitWaypointData(globalUpdate);
+    }
+
+    public void leaveBody()
+    {
+        nearestBody = null;
+        localSettlement = null;
+        executeWithLock(() -> globalUpdate.accept("LeaveBody", "leave"));
+    }
+
+    private void emitTouchdownData(BiConsumer<String, String> sink)
+    {
+        if (touchdownLatitude == -1 || touchdownLongitude == -1 || localCoordinates == null)
+        {
+            return;
+        }
+
+        var touchdownData = new HashMap<String, Object>();
+        touchdownData.put("latitude", this.touchdownLatitude);
+        touchdownData.put("longitude", this.touchdownLongitude);
+        touchdownData.put("name", shipStatistics.get(ShipStat.Ship_Name));
+
+        var dist = calculateDistance(touchdownLongitude, touchdownLatitude);
+        var unit = dist < 1000
+            ? "m"
+            : "km";
+        if (unit.equals("km"))
+        {
+            dist = dist / 1000d;
+        }
+        dist = UIFunctions.Data.round(dist, 1);
+        touchdownData.put("distance", dist);
+        touchdownData.put("unit", unit);
+
+        var touchdownJson = JSONSupport.Write.jsonToString.apply(touchdownData);
+        executeWithLock(() -> sink.accept("Touchdown", touchdownJson));
+    }
+
+    public void touchDown(double touchdownLatitude, double touchdownLongitude)
+    {
+        this.touchdownLatitude = touchdownLatitude;
+        this.touchdownLongitude = touchdownLongitude;
+        emitTouchdownData(globalUpdate);
+    }
+
+    public void liftoff()
+    {
+        this.touchdownLatitude = -1;
+        this.touchdownLongitude = -1;
+    }
+
+    public void emitWaypointData(BiConsumer<String, String> sink)
+    {
+        if (starSystem == null || nearestBody == null || localCoordinates == null) return;
+
+        var waypointData = database.computeInTransaction(txn ->
+        {
+            var currentSystem = getStarSystemEntity(txn, starSystem.address);
+            if (currentSystem == null) return null;
+
+            var currentBody = EntityUtilities.entityStream(currentSystem.getLinks(EntityKeys.STELLAR_BODY))
+                .filter(body -> body.getProperty(EntityKeys.STELLAR_BODY_ID).equals(nearestBody.id))
+                .findFirst().orElse(null);
+
+            if (currentBody == null) return null;
+
+            return EntityUtilities.entityStream(currentBody.getLinks(EntityKeys.WAYPOINT))
+                .map(waypointEntity ->
+                {
+                    var waypointMap = new HashMap<String, Object>();
+                    var waypointLatitude = ((Double) waypointEntity.getProperty(EntityKeys.WAYPOINT_LATITUDE));
+                    var waypointLongitude = ((Double) waypointEntity.getProperty(EntityKeys.WAYPOINT_LONGITUDE));
+
+                    if (waypointLatitude == null || waypointLongitude == null) return null;
+
+                    waypointMap.put("waypointId", waypointEntity.getId().toString());
+                    waypointMap.put("name", waypointEntity.getProperty(EntityKeys.WAYPOINT_NAME));
+                    waypointMap.put("latitude", waypointLatitude);
+                    waypointMap.put("longitude", waypointLongitude);
+
+                    var dist = calculateDistance(waypointLongitude, waypointLatitude);
+                    var unit = dist < 1000
+                        ? "m"
+                        : "km";
+                    if (unit.equals("km"))
+                    {
+                        dist = UIFunctions.Data.round(dist / 1000d, 1);
+                    }
+                    waypointMap.put("distance", dist);
+                    waypointMap.put("unit", unit);
+
+                    return waypointMap;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        });
+
+        if (waypointData != null && !waypointData.isEmpty())
+        {
+            waypointData.forEach(waypoint->
+            {
+                String waypointJson = JSONSupport.Write.jsonToString.apply(waypoint);
+                executeWithLock(() -> sink.accept("Waypoint", waypointJson));
+            });
+        }
+    }
+
+    public boolean createWaypoint()
+    {
+        if (localCoordinates == null || nearestBody == null)
+        {
+            return false;
+        }
+        var created = database.computeInTransaction(txn ->
+        {
+            var currentSystem = getStarSystemEntity(txn, starSystem.address);
+            if (currentSystem == null) return false;
+
+            var currentBody = EntityUtilities.entityStream(currentSystem.getLinks(EntityKeys.STELLAR_BODY))
+                .filter(body -> body.getProperty(EntityKeys.STELLAR_BODY_ID).equals(nearestBody.id))
+                .findFirst().orElse(null);
+
+            if (currentBody == null) return false;
+
+            var newWaypoint = txn.newEntity(EntityKeys.WAYPOINT);
+            newWaypoint.setLink(EntityKeys.STELLAR_BODY, currentBody);
+            currentBody.addLink(EntityKeys.WAYPOINT, newWaypoint);
+            var name = "Waypoint-"+ System.currentTimeMillis();
+            newWaypoint.setProperty(EntityKeys.WAYPOINT_NAME, name);
+            newWaypoint.setProperty(EntityKeys.WAYPOINT_LATITUDE, localCoordinates.latitude);
+            newWaypoint.setProperty(EntityKeys.WAYPOINT_LONGITUDE, localCoordinates.longitude);
+            return true;
+        });
+
+        if (created)
+        {
+            emitWaypointData(globalUpdate);
+        }
+
+        return created;
+    }
+
+    public boolean renameWaypoint(String waypointId, String newName)
+    {
+        if (waypointId == null || newName == null) return false;
+
+        var renamed = database.computeInTransaction(txn ->
+        {
+            String[] parts = waypointId.split("-");
+            var type = Integer.parseInt(parts[0]);
+            var local = Long.parseLong(parts[1]);
+            var entityId = new PersistentEntityId(type, local);
+            var toRename = txn.getEntity(entityId);
+            toRename.setProperty(EntityKeys.WAYPOINT_NAME, newName);
+
+            var waypointMap = new HashMap<String, Object>();
+            var waypointLatitude = ((Double) toRename.getProperty(EntityKeys.WAYPOINT_LATITUDE));
+            var waypointLongitude = ((Double) toRename.getProperty(EntityKeys.WAYPOINT_LONGITUDE));
+
+            if (waypointLatitude == null || waypointLongitude == null) return null;
+
+            waypointMap.put("waypointId", toRename.getId().toString());
+            waypointMap.put("name", toRename.getProperty(EntityKeys.WAYPOINT_NAME));
+            waypointMap.put("latitude", waypointLatitude);
+            waypointMap.put("longitude", waypointLongitude);
+
+            var dist = calculateDistance(waypointLongitude, waypointLatitude);
+            var unit = dist < 1000
+                ? "m"
+                : "km";
+            if (unit.equals("km"))
+            {
+                dist = UIFunctions.Data.round(dist / 1000d, 1);
+            }
+            waypointMap.put("distance", dist);
+            waypointMap.put("unit", unit);
+
+            return waypointMap;
+        });
+
+        if (renamed != null)
+        {
+            String waypointJson = JSONSupport.Write.jsonToString.apply(renamed);
+            executeWithLock(() -> globalUpdate.accept("Waypoint", waypointJson));
+        }
+
+        return renamed != null;
+    }
+
+    public boolean deleteWaypoint(String waypointId)
+    {
+        if (localCoordinates == null || nearestBody == null)
+        {
+            return false;
+        }
+        var removed = database.computeInTransaction(txn ->
+        {
+            String[] parts = waypointId.split("-");
+            var type = Integer.parseInt(parts[0]);
+            var local = Long.parseLong(parts[1]);
+            var entityId = new PersistentEntityId(type, local);
+            var toRemove = txn.getEntity(entityId);
+            var linkedBody = toRemove.getLink(EntityKeys.STELLAR_BODY);
+            if (linkedBody == null) return false;
+            linkedBody.deleteLink(EntityKeys.WAYPOINT, toRemove);
+            return toRemove.delete();
+        });
+
+        if (removed)
+        {
+            var removeData = new HashMap<String, Object>();
+            removeData.put("remove", true);
+            removeData.put("waypointId", waypointId);
+            String waypointJson = JSONSupport.Write.jsonToString.apply(removeData);
+            executeWithLock(() -> globalUpdate.accept("Waypoint", waypointJson));
+        }
+
+        return removed;
     }
 
     public void discoverLocation(StarSystem starSystem)
@@ -265,7 +506,7 @@ public class PlayerState
             var systemEntity = getOrCreateStarSystemEntity(transaction, starSystem);
             if (systemEntity == null)
             {
-                System.err.println("Could nto create system entity");
+                System.err.println("Could not create system entity");
             }
         });
     }
@@ -366,6 +607,9 @@ public class PlayerState
             setClosestSettlement(localSettlement);
         }
 
+        emitWaypointData(globalUpdate);
+        emitTouchdownData(globalUpdate);
+
         var bearing = getBearing();
         if (!bearing.isEmpty())
         {
@@ -389,7 +633,49 @@ public class PlayerState
                     return String.valueOf(bearing);
                 }
             }
-            // todo: track other points
+            if (trackedLocation.get().equalsIgnoreCase("touchdown"))
+            {
+                if (touchdownLongitude != -1 && touchdownLatitude != -1)
+                {
+                    var bearing = calculateBearingAngle(localCoordinates.latitude,
+                        localCoordinates.longitude,
+                        touchdownLatitude,
+                        touchdownLongitude);
+
+                    return String.valueOf(bearing);
+                }
+            }
+            else if (!trackedLocation.get().isEmpty())
+            {
+                var waypointLocation = database.computeInTransaction(txn ->
+                {
+                    try
+                    {
+                        String[] parts = trackedLocation.get().split("-");
+                        var type = Integer.parseInt(parts[0]);
+                        var local = Long.parseLong(parts[1]);
+                        var entityId = new PersistentEntityId(type, local);
+                        var entity = txn.getEntity(entityId);
+                        var lat = ((Double) entity.getProperty(EntityKeys.WAYPOINT_LATITUDE));
+                        var lon = ((Double) entity.getProperty(EntityKeys.WAYPOINT_LONGITUDE));
+                        return new GPSLocation(lat, lon);
+                    }
+                    catch (Exception e)
+                    {
+                        return null;
+                    }
+                });
+
+                if (waypointLocation != null)
+                {
+                    var bearing = calculateBearingAngle(localCoordinates.latitude,
+                        localCoordinates.longitude,
+                        waypointLocation.latitude,
+                        waypointLocation.longitude);
+
+                    return String.valueOf(bearing);
+                }
+            }
         }
         return "";
     }
@@ -1050,11 +1336,11 @@ public class PlayerState
                 absoluteDamage.add(absoluteShare);
 
                 var damageData = new HashMap<String, Object>();
-                damageData.put("total", dps);
-                damageData.put("thermal", thermalShare);
-                damageData.put("kinetic", kineticShare);
-                damageData.put("explosive", explosiveShare);
-                damageData.put("absolute", absoluteShare);
+                damageData.put("total", UIFunctions.Data.round(dps, 2));
+                damageData.put("thermal", UIFunctions.Data.round(thermalShare, 2));
+                damageData.put("kinetic", UIFunctions.Data.round(kineticShare, 2));
+                damageData.put("explosive", UIFunctions.Data.round(explosiveShare, 2));
+                damageData.put("absolute", UIFunctions.Data.round(absoluteShare, 2));
 
                 var moduleData = new HashMap<String, Object>();
                 moduleData.put(module.module.displayText(), damageData);
@@ -1086,11 +1372,11 @@ public class PlayerState
             });
 
         var data = new HashMap<String, Object>();
-        data.put("totalDPS", totalDPS);
-        data.put("totalThermal", thermalDamage.sum());
-        data.put("totalKinetic", kineticDamage.sum());
-        data.put("totalExplosive", explosiveDamage.sum());
-        data.put("totalAbsolute", absoluteDamage.sum());
+        data.put("totalDPS", UIFunctions.Data.round(totalDPS, 2));
+        data.put("totalThermal", UIFunctions.Data.round(thermalDamage.sum(), 2));
+        data.put("totalKinetic", UIFunctions.Data.round(kineticDamage.sum(), 2));
+        data.put("totalExplosive", UIFunctions.Data.round(explosiveDamage.sum(), 2));
+        data.put("totalAbsolute", UIFunctions.Data.round(absoluteDamage.sum(), 2 ));
 
         if (!weaponBreakdown.isEmpty())
         {
@@ -1590,9 +1876,7 @@ public class PlayerState
         {
             systemFactions.clear();
             systemFactions.addAll(factionData);
-            systemFactions.sort(Comparator
-                .comparingDouble((Map<String, Object> f) -> (Double) f.get("Influence"))
-                .reversed());
+            systemFactions.sort(highestInfluence);
         }
         executeWithLock(() -> emitFactionData(globalUpdate));
     }
@@ -1686,10 +1970,20 @@ public class PlayerState
 
             if (!systemFactions.isEmpty())
             {
+                directUpdate.accept("Faction", "clear");
                 emitFactionData(directUpdate);
             }
 
-            directUpdate.accept("BodyName", nearestBody);
+            if (nearestBody != null)
+            {
+                String bodyData = JSONSupport.Write.jsonToString.apply(nearestBody.toMap());
+                directUpdate.accept("ApproachBody", bodyData);
+            }
+
+            emitTouchdownData(directUpdate);
+
+            emitWaypointData(directUpdate);
+
 
             directUpdate.accept("Engineers", prepareEngineerData());
 
@@ -1717,6 +2011,7 @@ public class PlayerState
 
     private String formatSlotKey(Statistic statistic)
     {
+        System.out.println(statistic);
         var rawKey = statistic.getKey();
 
         if (statistic == CoreInternalSlot.FrameShiftDrive)

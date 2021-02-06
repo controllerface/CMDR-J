@@ -13,6 +13,7 @@ public class SetUserShipNameEvent implements BiConsumer<PlayerState, Map<String,
     public void accept(PlayerState playerState, Map<String, Object> event)
     {
         JournalEventEX.setShipStat(playerState, event, ShipStat.Ship);
+        // todo: these should be coerced to the normal name/ID stats
         JournalEventEX.setShipStat(playerState, event, ShipStat.UserShipName);
         JournalEventEX.setShipStat(playerState, event, ShipStat.UserShipId);
     }
