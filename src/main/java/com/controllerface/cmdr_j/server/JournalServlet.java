@@ -12,7 +12,6 @@ import javax.servlet.http.Part;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
@@ -24,7 +23,7 @@ class JournalServlet extends EventSourceServlet
 {
     private final Set<JournalSource> sources = Collections.synchronizedSet(new HashSet<>());
 
-    private final PlayerState playerState;
+    private final GameState gameState;
 
     private static final AtomicBoolean importing = new AtomicBoolean(false);
 
@@ -39,7 +38,7 @@ class JournalServlet extends EventSourceServlet
             sources.add(this);
             System.out.println("New Emitter: " + emitter);
             BiConsumer<String, String> emitterUpdate = makeEmitterUpdate(this);
-            playerState.emitCurrentState(emitterUpdate);
+            gameState.emitCurrentState(emitterUpdate);
         }
 
         @Override
@@ -268,9 +267,9 @@ class JournalServlet extends EventSourceServlet
             this.endpoint = endpoint;
         }
 
-        public void accept(HttpServletRequest request, HttpServletResponse response, PlayerState playerState)
+        public void accept(HttpServletRequest request, HttpServletResponse response, GameState gameState)
         {
-            this.endpoint.respond(request, response, playerState);
+            this.endpoint.respond(request, response, gameState);
         }
 
         public EndpointType getType()
@@ -288,7 +287,7 @@ class JournalServlet extends EventSourceServlet
 
     JournalServlet()
     {
-        playerState = new PlayerState(this::sendEvent);
+        gameState = new GameState(this::sendEvent);
 
 //        Thread emitterThread = new Thread(() ->
 //        {
@@ -312,9 +311,9 @@ class JournalServlet extends EventSourceServlet
 //        emitterThread.start();
     }
 
-    public PlayerState getPlayerState()
+    public GameState getGameState()
     {
-        return playerState;
+        return gameState;
     }
 
     private static PoiRequest readPoiRequest(HttpServletRequest request)
@@ -347,7 +346,7 @@ class JournalServlet extends EventSourceServlet
         return new PoiRequest(systemAddress, poiText);
     }
 
-    private static void importExplorationData(PlayerState playerState)
+    private static void importExplorationData(GameState gameState)
     {
         importing.set(true);
         try
@@ -374,30 +373,30 @@ class JournalServlet extends EventSourceServlet
                     if (eventName.equalsIgnoreCase("Location"))
                     {
                         if (event.get("BodyID") == null) return;
-                        JournalEventEX.Location.process(playerState, event);
+                        JournalEventEX.Location.process(gameState, event);
                     }
                     else if (eventName.equalsIgnoreCase("FSDJump"))
                     {
                         if (event.get("BodyID") == null) return;
-                        JournalEventEX.FSDJump.process(playerState, event);
+                        JournalEventEX.FSDJump.process(gameState, event);
                     }
                     else if (eventName.equalsIgnoreCase("Scan"))
                     {
                         if (event.get("BodyID") == null) return;
-                        JournalEventEX.Scan.process(playerState, event);
+                        JournalEventEX.Scan.process(gameState, event);
                     }
                     else if (eventName.equalsIgnoreCase("SAAScanComplete"))
                     {
                         if (event.get("BodyID") == null) return;
-                        JournalEventEX.SAAScanComplete.process(playerState, event);
+                        JournalEventEX.SAAScanComplete.process(gameState, event);
                     }
                     else if (eventName.equalsIgnoreCase("FSSAllBodiesFound"))
                     {
-                        JournalEventEX.FSSAllBodiesFound.process(playerState, event);
+                        JournalEventEX.FSSAllBodiesFound.process(gameState, event);
                     }
                     else if (eventName.equalsIgnoreCase("FSSDiscoveryScan"))
                     {
-                        JournalEventEX.FSSDiscoveryScan.process(playerState, event);
+                        JournalEventEX.FSSDiscoveryScan.process(gameState, event);
                     }
                 });
         }
@@ -409,12 +408,12 @@ class JournalServlet extends EventSourceServlet
         finally
         {
             importing.set(false);
-            playerState.emitCartographyData();
-            playerState.emitSystemCatalog();
+            gameState.emitCartographyData();
+            gameState.emitSystemCatalog();
         }
     }
 
-    private static long addPoi(HttpServletRequest request, PlayerState playerState)
+    private static long addPoi(HttpServletRequest request, GameState gameState)
     {
         var poiRequest = readPoiRequest(request);
 
@@ -428,7 +427,7 @@ class JournalServlet extends EventSourceServlet
             return -1L;
         }
 
-        if (playerState.savePoiData(poiRequest.address, poiRequest.poiData))
+        if (gameState.savePoiData(poiRequest.address, poiRequest.poiData))
         {
             return poiRequest.address;
         }
@@ -438,7 +437,7 @@ class JournalServlet extends EventSourceServlet
         }
     }
 
-    private static long deletePoi(HttpServletRequest request, PlayerState playerState)
+    private static long deletePoi(HttpServletRequest request, GameState gameState)
     {
         var poiRequest = readPoiRequest(request);
 
@@ -452,7 +451,7 @@ class JournalServlet extends EventSourceServlet
             return -1L;
         }
 
-        if (playerState.deletePoiData(poiRequest.address, poiRequest.poiData))
+        if (gameState.deletePoiData(poiRequest.address, poiRequest.poiData))
         {
             return poiRequest.address;
         }
@@ -585,7 +584,7 @@ class JournalServlet extends EventSourceServlet
         EndPoint endpoint = EndPoint.fromUri(request.getRequestURI());
         if (endpoint.getType() == EndpointType.GET || endpoint.getType() == EndpointType.ANY)
         {
-            endpoint.accept(request, response, playerState);
+            endpoint.accept(request, response, gameState);
         }
         else
         {
@@ -599,7 +598,7 @@ class JournalServlet extends EventSourceServlet
         EndPoint endpoint = EndPoint.fromUri(request.getRequestURI());
         if (endpoint.getType() == EndpointType.POST || endpoint.getType() == EndpointType.ANY)
         {
-            endpoint.accept(request, response, playerState);
+            endpoint.accept(request, response, gameState);
         }
         else
         {

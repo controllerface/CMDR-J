@@ -1,5 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
+    <link rel="stylesheet" href="ui.css">
 
     <title>CMDR J - v2.2 (Alpha)</title>
 
@@ -7,18 +8,21 @@
     <script src="cargo.js"></script>
     <script src="cartographicData.js"></script>
     <script src="commanderStat.js"></script>
+    <script src="conflictData.js"></script>
+    <script src="currentMissions.js"></script>
     <script src="defenseResistance.js"></script>
     <script src="defenseStats.js"></script>
     <script src="defenseValue.js"></script>
     <script src="engineerData.js"></script>
     <script src="engineerStats.js"></script>
+    <script src="factionStats.js"></script>
+    <script src="gpsDisplay.js"></script>
+    <script src="localConflict.js"></script>
     <script src="marketEntry.js"></script>
     <script src="market.js"></script>
     <script src="material.js"></script>
+    <script src="missionData.js"></script>
     <script src="moduleBay.js"></script>
-    <script src="factionStats.js"></script>
-    <script src="gpsDisplay.js"></script>
-
     <script src="navigationRoute.js"></script>
     <script src="offenseStats.js"></script>
     <script src="offenseModule.js"></script>
@@ -27,7 +31,6 @@
     <script src="powerModule.js"></script>
     <script src="powerStats.js"></script>
     <script src="routeEntry.js"></script>
-
     <script src="shipModule.js"></script>
     <script src="shipStats.js"></script>
     <script src="statCategory.js"></script>
@@ -35,11 +38,16 @@
     <script src="systemCatalog.js"></script>
     <script src="systemFaction.js"></script>
 
+    <!--
+    Class hierarchy:
+        Waypoint -> LandingPoint -> SettlementPoint
+     must load in that order
+     -->
     <script src="waypointLocation.js"></script>
     <script src="landingPoint.js"></script>
     <script src="settlementPoint.js"></script>
 
-    <link rel="stylesheet" href="ui.css">
+
 
     <!-- Ship base stats template -->
     <template id="template_ShipStats">
@@ -648,8 +656,8 @@
         <div class="category">Local Factions</div>
         <div class="factionHeader">
             <span class="statEntryNameHeader">Faction</span>
-            <span class="statEntryLeftHeader">Reputation</span>
-            <span class="statEntryRightHeader">Status</span>
+            <span class="statEntryLeftHeader">Status</span>
+            <span class="statEntryRightHeader">Reputation</span>
         </div>
         <slot>
             <div class="emptySection">No local factions</div>
@@ -681,8 +689,8 @@
         <div class="category">Galactic Powers</div>
         <div class="factionHeader">
             <span class="statEntryNameHeader">Power</span>
-            <span class="statEntryLeftHeader">Reputation</span>
-            <span class="statEntryRightHeader">Status</span>
+            <span class="statEntryLeftHeader">Status</span>
+            <span class="statEntryRightHeader">Reputation</span>
         </div>
 
         <div class="factionRow">
@@ -983,6 +991,124 @@
         </div>
     </template>
 
+    <!-- Local conflict summary and container -->
+    <template id="template_LocalConflict">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>local Conflicts</b>
+            </div>
+        </div>
+        <slot>
+            <div class="emptySection">No factions in conflict</div>
+        </slot>
+    </template>
+
+    <!-- Local conflict data -->
+    <template id="template_ConflictData">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="conflictInfo">
+            <div class="dualHeader">
+                <div class="headerEntry">
+                    <b>Conflict</b>
+                    <span id="conflictData_type" class="headerStat">None</span>
+                </div>
+                <div class="headerEntry">
+                    <b>Status</b>
+                    <span id="conflictData_status" class="headerStat">None</span>
+                </div>
+            </div>
+            <div class="conflictFactions">
+                <div class="conflictFactionStats">
+                    <h2 id="conflictData_faction1">Faction 1</h2>
+                    <div>
+                        <b>Stake</b>
+                        <span class="conflictStat" id="conflictData_stake1">-</span>
+                    </div>
+                    <div>
+                        <b>Days Won</b>
+                        <span class="conflictStat" id="conflictData_days1">-</span>
+                    </div>
+                </div>
+
+                <h1 class="versus">VS</h1>
+
+                <div class="conflictFactionStats">
+                    <h2 id="conflictData_faction2">Faction 1</h2>
+                    <div>
+                        <b>Stake</b>
+                        <span class="conflictStat" id="conflictData_stake2">-</span>
+                    </div>
+                    <div>
+                        <b>Days Won</b>
+                        <span class="conflictStat" id="conflictData_days2">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Mission information container -->
+    <template id="template_CurrentMissions">
+        <link rel="stylesheet" href="statistics.css">
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Active Missions</b>
+            </div>
+        </div>
+        <slot name="active">
+            <div class="emptySection">No active missions</div>
+        </slot>
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Completed Missions</b>
+            </div>
+        </div>
+        <slot name="complete">
+            <div class="emptySection">No completed missions</div>
+        </slot>
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Failed Missions</b>
+            </div>
+        </div>
+
+        <slot name="failed">
+            <div class="emptySection">No failed missions</div>
+        </slot>
+    </template>
+
+    <!-- Mission details -->
+    <template id="template_MissionData">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="mission">
+            <span class="missionTitle" id="missionData_title">-</span>
+
+            <div class="missionInfoRow">
+                <b>Faction</b>
+                <b>Reward</b>
+                <b>Influence</b>
+                <b>Reuptation</b>
+            </div>
+
+            <div class="missionInfoRow">
+                <span class="missionValue" id="missionData_faction">-</span>
+                <div>
+                    <span class="missionValue" id="missionData_reward">-</span>
+                    <span class="valueUnit">CR</span>
+                </div>
+
+                <span class="missionValue" id="missionData_influence">-</span>
+                <span class="missionValue" id="missionData_reputation">-</span>
+            </div>
+            <hr />
+            <slot></slot>
+        </div>
+
+    </template>
 </head>
 
 <body>
@@ -1060,18 +1186,6 @@
 
             <!-- Stats Tab  -->
 
-            <input name="commanderTabs" type="radio" id="engineersTabButton" class="tabInput"/>
-            <label id="engineersRankTab" for="engineersTabButton" class="tabLabel">Engineers</label>
-            <div class="tabPanel">
-                <engineer-stats id="engineerStats"></engineer-stats>
-            </div>
-
-            <input name="commanderTabs" type="radio" id="reputationTabButton" class="tabInput"/>
-            <label id="commanderRankTab" for="reputationTabButton" class="tabLabel">Rank/Reputation</label>
-            <div class="tabPanel">
-                <faction-stats id="factionStats"></faction-stats>
-            </div>
-
             <input name="commanderTabs" type="radio" id="statsTabButton" class="tabInput"/>
             <label id="commanderStatsTab" for="statsTabButton" class="tabLabel">Statistics</label>
             <div class="tabPanel">
@@ -1090,6 +1204,19 @@
                     </div>
                 </div>
                 <div id="extendedStatistics"></div>
+            </div>
+
+            <input name="commanderTabs" type="radio" id="politicsTabButton" class="tabInput"/>
+            <label id="politicsTab" for="politicsTabButton" class="tabLabel">Politics</label>
+            <div class="tabPanel">
+                <local-conflict id="localConflicts"></local-conflict>
+                <faction-stats id="factionStats"></faction-stats>
+            </div>
+
+            <input name="commanderTabs" type="radio" id="engineersTabButton" class="tabInput"/>
+            <label id="engineersRankTab" for="engineersTabButton" class="tabLabel">Engineers</label>
+            <div class="tabPanel">
+                <engineer-stats id="engineerStats"></engineer-stats>
             </div>
 
         </div>
@@ -1168,23 +1295,6 @@
 
         <div id="inventoryContainer">
 
-            <input name="inventoryTabs" type="radio" id="cargoTabButton" class="tabInput"/>
-            <label id="cargoTab" for="cargoTabButton" class="tabLabel">Cargo</label>
-            <div class="tabPanel" id="tradeCargo">
-                <div class="cargoBinHeader">
-                    <span class="binHeaderName">Commodity Name</span>
-                    <span class="binHeaderType">Type</span>
-                    <span class="binHeaderCountEnd">Stock</span>
-                </div>
-            </div>
-
-            <input name="inventoryTabs" type="radio" id="marketTabButton" class="tabInput"/>
-            <label id="marketTab" for="marketTabButton" class="tabLabel">Market</label>
-            <div class="tabPanel" id="tradeMarket">
-                <market-info id="marketInfo" station="None" system="None"></market-info>
-            </div>
-
-            <!-- Materials Tab  -->
             <input name="inventoryTabs" type="radio" id="matsTabButton" class="tabInput"/>
             <label id="matsTab" for="matsTabButton" class="tabLabel">Materials</label>
             <div class="tabPanel">
@@ -1428,6 +1538,24 @@
                 </div>
             </div>
 
+            <input name="inventoryTabs" type="radio" id="cargoTabButton" class="tabInput"/>
+            <label id="cargoTab" for="cargoTabButton" class="tabLabel">Cargo</label>
+            <div class="tabPanel" id="tradeCargo">
+                <div class="cargoBinHeader">
+                    <span class="binHeaderName">Commodity Name</span>
+                    <span class="binHeaderType">Type</span>
+                    <span class="binHeaderCountEnd">Stock</span>
+                </div>
+            </div>
+
+            <input name="inventoryTabs" type="radio" id="marketTabButton" class="tabInput"/>
+            <label id="marketTab" for="marketTabButton" class="tabLabel">Market</label>
+            <div class="tabPanel" id="tradeMarket">
+                <market-info id="marketInfo" station="None" system="None"></market-info>
+            </div>
+
+
+
         </div>
     </div>
 
@@ -1482,11 +1610,23 @@
         </div>
     </div>
 
-    <!-- Task Tab  -->
-    <input name="categoryTabs" type="radio" id="taskTabButton" class="tabInput"/>
-    <label id="taskTab" for="taskTabButton" class="tabLabel">Task Planner</label>
+    <!-- Activities Tab  -->
+    <input name="categoryTabs" type="radio" id="activitiesTabButton" class="tabInput"/>
+    <label id="activitiesTab" for="activitiesTabButton" class="tabLabel">Activities</label>
     <div class="tabPanel">
-        <span>TODO: Tasks</span>
+        <div id="activitiesContainer">
+
+            <input name="activitiesTabs" type="radio" id="missionTabButton" class="tabInput"/>
+            <label id="missionTab" for="missionTabButton" class="tabLabel">Missions</label>
+            <div class="tabPanel">
+                <current-missions id="currentMissions"></current-missions>
+            </div>
+
+            <input name="activitiesTabs" type="radio" id="tasksTabButton" class="tabInput"/>
+            <label id="tasksTab" for="tasksTabButton" class="tabLabel">Tasks</label>
+            <div class="tabPanel">TODO: tasks</div>
+
+        </div>
     </div>
 
 </main>

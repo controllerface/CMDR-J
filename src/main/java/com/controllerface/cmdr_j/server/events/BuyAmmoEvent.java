@@ -1,16 +1,16 @@
 package com.controllerface.cmdr_j.server.events;
 
-import com.controllerface.cmdr_j.server.PlayerState;
+import com.controllerface.cmdr_j.server.GameState;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class BuyAmmoEvent implements BiConsumer<PlayerState, Map<String, Object>>
+public class BuyAmmoEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
-    public void accept(PlayerState playerState, Map<String, Object> event)
+    public void accept(GameState gameState, Map<String, Object> event)
     {
         var cost = ((Number) event.get("Cost")).intValue();
-        playerState.adjustCreditBalance(-1 * cost);
+        gameState.adjustCreditBalance(-1 * cost);
     }
 }

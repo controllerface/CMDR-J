@@ -1,15 +1,15 @@
 package com.controllerface.cmdr_j.server.events;
 
-import com.controllerface.cmdr_j.server.PlayerState;
+import com.controllerface.cmdr_j.server.GameState;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-public class TouchdownEvent implements BiConsumer<PlayerState, Map<String, Object>>
+public class TouchdownEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
-    public void accept(PlayerState playerState, Map<String, Object> event)
+    public void accept(GameState gameState, Map<String, Object> event)
     {
         var playerControlled = Optional.ofNullable(event.get("PlayerControlled"))
             .map(o-> ((Boolean) o))
@@ -19,7 +19,7 @@ public class TouchdownEvent implements BiConsumer<PlayerState, Map<String, Objec
         {
             var latitude = ((Number) event.get("Latitude")).doubleValue();
             var longitude = ((Number) event.get("Longitude")).doubleValue();
-            playerState.touchDown(latitude, longitude);
+            gameState.touchDown(latitude, longitude);
         }
     }
 }

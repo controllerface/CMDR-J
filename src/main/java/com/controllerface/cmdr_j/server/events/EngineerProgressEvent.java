@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.server.events;
 
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
-import com.controllerface.cmdr_j.server.PlayerState;
+import com.controllerface.cmdr_j.server.GameState;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,25 +9,25 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-public class EngineerProgressEvent implements BiConsumer<PlayerState, Map<String, Object>>
+public class EngineerProgressEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
     @SuppressWarnings("unchecked")
-    public void accept(PlayerState playerState, Map<String, Object> event)
+    public void accept(GameState gameState, Map<String, Object> event)
     {
         if (event.get("Engineers") != null)
         {
             var engineers = ((List<Map<String, Object>>) event.get("Engineers"));
-            engineers.forEach(engineerData -> setEngineerProgress(playerState, engineerData));
+            engineers.forEach(engineerData -> setEngineerProgress(gameState, engineerData));
         }
         else
         {
-            setEngineerProgress(playerState, event);
+            setEngineerProgress(gameState, event);
         }
-        playerState.emitEngineerData();
+        gameState.emitEngineerData();
     }
 
-    private void setEngineerProgress(PlayerState playerState, Map<String, Object> engineerData)
+    private void setEngineerProgress(GameState gameState, Map<String, Object> engineerData)
     {
         var id = ((Number) engineerData.get("EngineerID")).intValue();
         Engineer engineer = Engineer.findEngineerById(id);
@@ -45,6 +45,6 @@ public class EngineerProgressEvent implements BiConsumer<PlayerState, Map<String
         formattedData.put("location", engineer.getFacility());
         formattedData.put("system", engineer.getLocation().systemName);
         formattedData.put("name", engineer.getFullName());
-        playerState.setEngineerProgress(engineer, formattedData);
+        gameState.setEngineerProgress(engineer, formattedData);
     }
 }

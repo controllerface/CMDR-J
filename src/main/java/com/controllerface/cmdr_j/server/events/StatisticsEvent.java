@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.server.events;
 
-import com.controllerface.cmdr_j.server.PlayerState;
+import com.controllerface.cmdr_j.server.GameState;
 
 import java.text.NumberFormat;
 import java.time.Duration;
@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class StatisticsEvent implements BiConsumer<PlayerState, Map<String, Object>>
+public class StatisticsEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
     @SuppressWarnings("unchecked")
-    public void accept(PlayerState playerState, Map<String, Object> event)
+    public void accept(GameState gameState, Map<String, Object> event)
     {
         event.forEach((category, stats)->
         {
@@ -55,10 +55,10 @@ public class StatisticsEvent implements BiConsumer<PlayerState, Map<String, Obje
                 });
 
             var formattedCategory = category.replace("_", " ");
-            playerState.setExtendedStats(formattedCategory, remapped);
+            gameState.setExtendedStats(formattedCategory, remapped);
         });
 
-        playerState.emitExtendedStatsEvent();
+        gameState.emitExtendedStatsEvent();
     }
 
     private String formatValue(String formattedName, Object value)

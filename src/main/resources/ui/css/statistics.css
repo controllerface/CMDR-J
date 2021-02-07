@@ -52,7 +52,7 @@
 .statRow
 {
     display: grid;
-    grid-template-columns: auto 15em;
+    grid-template-columns: auto 17.5em;
 }
 
 .statName
@@ -227,7 +227,8 @@
 }
 
 .defenseStatHeader,
-.navigationStatHeader
+.navigationStatHeader,
+.dualHeader
 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -382,7 +383,7 @@
     padding: 1em;
     font-weight: bold;
     text-align: center;
-    margin: 4px;
+    margin: .2em;
     color: var(--default-text);
 }
 
@@ -488,7 +489,77 @@
     width: 25em;
 }
 
+.conflictInfo
+{
+    border: solid 1px var(--default-border);
+    border-radius: 3px 3px 3px 3px;
+    padding: 1em;
+    text-align: center;
+    margin: 4px;
+}
+
+.conflictFactions
+{
+    display: grid;
+    grid-template-columns: 1fr 10em 1fr;
+}
+
+.conflictFactionStats
+{
+    display: grid;
+}
+
+.conflictStat
+{
+    color: var(--default-text);
+    font-weight: bold;
+}
+
+.versus
+{
+    color: var(--default-text);
+}
+
+.mission
+{
+    border: solid 1px var(--default-border);
+    border-radius: 3px 3px 3px 3px;
+    padding: 1em;
+    margin: .2em;
+}
+
+.missionTitle
+{
+    font-size: 1.4em;
+    color: var(--default-text);
+    font-weight: bold;
+}
+
+.missionInfoRow
+{
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr 1fr;
+    margin-bottom: .4em;
+}
+
+.missionDetailRow,
+::slotted(.missionDetailRow)
+{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.missionValue
+{
+    color: var(--default-text);
+}
+
 .unused
 {
     display: none;
+}
+
+hr
+{
+  border: 1px dashed var(--default-divider);
 }

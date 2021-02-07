@@ -9,7 +9,7 @@ public class JournalUI
     @FunctionalInterface
     public interface EndpointHandler
     {
-        void respond(HttpServletRequest request, HttpServletResponse response, PlayerState playerState);
+        void respond(HttpServletRequest request, HttpServletResponse response, GameState gameState);
     }
 
     public enum EndpointType
@@ -42,6 +42,8 @@ public class JournalUI
             Map.entry("/cargo.js", StaticAsset.make("/ui/js/cargo.js")),
             Map.entry("/cartographicData.js", StaticAsset.make("/ui/js/cartographicData.js")),
             Map.entry("/commanderStat.js", StaticAsset.make("/ui/js/commanderStat.js")),
+            Map.entry("/conflictData.js", StaticAsset.make("/ui/js/conflictData.js")),
+            Map.entry("/currentMissions.js", StaticAsset.make("/ui/js/currentMissions.js")),
             Map.entry("/defenseResistance.js", StaticAsset.make("/ui/js/defenseResistance.js")),
             Map.entry("/defenseStats.js", StaticAsset.make("/ui/js/defenseStats.js")),
             Map.entry("/defenseValue.js", StaticAsset.make("/ui/js/defenseValue.js")),
@@ -50,9 +52,11 @@ public class JournalUI
             Map.entry("/factionStats.js", StaticAsset.make("/ui/js/factionStats.js")),
             Map.entry("/gpsDisplay.js", StaticAsset.make("/ui/js/gpsDisplay.js")),
             Map.entry("/landingPoint.js", StaticAsset.make("/ui/js/landingPoint.js")),
+            Map.entry("/localConflict.js", StaticAsset.make("/ui/js/localConflict.js")),
             Map.entry("/market.js", StaticAsset.make("/ui/js/market.js")),
             Map.entry("/marketEntry.js", StaticAsset.make("/ui/js/marketEntry.js")),
             Map.entry("/material.js", StaticAsset.make("/ui/js/material.js")),
+            Map.entry("/missionData.js", StaticAsset.make("/ui/js/missionData.js")),
             Map.entry("/moduleBay.js", StaticAsset.make("/ui/js/moduleBay.js")),
             Map.entry("/navigationRoute.js", StaticAsset.make("/ui/js/navigationRoute.js")),
             Map.entry("/offenseStats.js", StaticAsset.make("/ui/js/offenseStats.js")),

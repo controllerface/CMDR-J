@@ -7,7 +7,7 @@ import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBluep
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
 import com.controllerface.cmdr_j.server.JournalEventEX;
-import com.controllerface.cmdr_j.server.PlayerState;
+import com.controllerface.cmdr_j.server.GameState;
 import com.controllerface.cmdr_j.server.ShipModuleData;
 
 import java.util.ArrayList;
@@ -15,48 +15,48 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class LoadoutEvent implements BiConsumer<PlayerState, Map<String, Object>>
+public class LoadoutEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
     @SuppressWarnings("unchecked")
-    public void accept(PlayerState playerState, Map<String, Object> event)
+    public void accept(GameState gameState, Map<String, Object> event)
     {
-        JournalEventEX.setShipStat(playerState, event, ShipStat.Ship);
-        JournalEventEX.setShipStat(playerState, event, ShipStat.Ship_Ident);
-        JournalEventEX.setShipStat(playerState, event, ShipStat.Ship_Name);
-        JournalEventEX.setShipStat(playerState, event, ShipStat.Rebuy);
-        JournalEventEX.setShipStat(playerState, event, ShipStat.UnladenMass);
-        JournalEventEX.setShipStat(playerState, event, ShipStat.MaxJumpRange);
-        JournalEventEX.setShipStat(playerState, event, ShipStat.CargoCapacity);
+        JournalEventEX.setShipStat(gameState, event, ShipStat.Ship);
+        JournalEventEX.setShipStat(gameState, event, ShipStat.Ship_Ident);
+        JournalEventEX.setShipStat(gameState, event, ShipStat.Ship_Name);
+        JournalEventEX.setShipStat(gameState, event, ShipStat.Rebuy);
+        JournalEventEX.setShipStat(gameState, event, ShipStat.UnladenMass);
+        JournalEventEX.setShipStat(gameState, event, ShipStat.MaxJumpRange);
+        JournalEventEX.setShipStat(gameState, event, ShipStat.CargoCapacity);
 
         Map<String, Object> fuelData = ((Map<String, Object>) event.get("FuelCapacity"));
 
-        JournalEventEX.setShipStat(playerState, fuelData, ShipStat.ReserveCapacity);
+        JournalEventEX.setShipStat(gameState, fuelData, ShipStat.ReserveCapacity);
 
         if (event.get("HullValue") != null)
         {
-            JournalEventEX.setShipStat(playerState, event, ShipStat.HullValue);
+            JournalEventEX.setShipStat(gameState, event, ShipStat.HullValue);
         }
 
         if (event.get("ModulesValue") != null)
         {
-            JournalEventEX.setShipStat(playerState, event, ShipStat.ModulesValue);
+            JournalEventEX.setShipStat(gameState, event, ShipStat.ModulesValue);
         }
 
-        playerState.clearShipModules();
+        gameState.clearShipModules();
 
         ((List<Map<String, Object>>) event.get("Modules"))
-            .forEach(moduleData -> setModule(playerState, moduleData));
+            .forEach(moduleData -> setModule(gameState, moduleData));
 
-        playerState.emitLoadoutEvent();
-        playerState.emitCurrentMass();
-        playerState.emitPowerStats();
-        playerState.emitOffenseStats();
-        playerState.emitDefenseStats();
+        gameState.emitLoadoutEvent();
+        gameState.emitCurrentMass();
+        gameState.emitPowerStats();
+        gameState.emitOffenseStats();
+        gameState.emitDefenseStats();
     }
 
     @SuppressWarnings("unchecked")
-    private void setModule(PlayerState playerState, Map<String, Object> moduleData)
+    private void setModule(GameState gameState, Map<String, Object> moduleData)
     {
         var slotKey = ((String) moduleData.get("Slot"));
         var moduleKey = ((String) moduleData.get("Item"));
@@ -131,6 +131,6 @@ public class LoadoutEvent implements BiConsumer<PlayerState, Map<String, Object>
         }
 
         var shipModule = moduleBuilder.build();
-        playerState.setShipModule(slot, shipModule);
+        gameState.setShipModule(slot, shipModule);
     }
 }

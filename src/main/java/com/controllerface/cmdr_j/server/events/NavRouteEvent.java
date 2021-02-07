@@ -3,7 +3,7 @@ package com.controllerface.cmdr_j.server.events;
 import com.controllerface.cmdr_j.classes.RouteEntry;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.server.JournalSyncTaskEX;
-import com.controllerface.cmdr_j.server.PlayerState;
+import com.controllerface.cmdr_j.server.GameState;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
-public class NavRouteEvent implements BiConsumer<PlayerState, Map<String, Object>>
+public class NavRouteEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
     @SuppressWarnings("unchecked")
-    public void accept(PlayerState playerState, Map<String, Object> event)
+    public void accept(GameState gameState, Map<String, Object> event)
     {
         var navData = JournalSyncTaskEX.readNavRouteData();
         if (navData.isEmpty()) return;
@@ -39,6 +39,6 @@ public class NavRouteEvent implements BiConsumer<PlayerState, Map<String, Object
             })
             .collect(Collectors.toList());
 
-        playerState.setCurrentRoute(route);
+        gameState.setCurrentRoute(route);
     }
 }

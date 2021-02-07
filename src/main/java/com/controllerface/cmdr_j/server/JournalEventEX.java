@@ -2,9 +2,6 @@ package com.controllerface.cmdr_j.server;
 
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
-import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
-import com.controllerface.cmdr_j.classes.tasks.TaskCost;
-import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
@@ -16,15 +13,11 @@ import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
 import com.controllerface.cmdr_j.server.events.*;
-import com.controllerface.cmdr_j.threads.UserTransaction;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This enum defines all of the Journal API events that are currently supported. By convention, enum value names are
@@ -72,7 +65,6 @@ public enum JournalEventEX
     /*
     Startup
      */
-//    Missions(new MissionsHandler()),
 //    Powerplay(new PowerplayHandler()),
     EngineerProgress(new EngineerProgressEvent()),
     Commander(new CommanderEvent()),
@@ -163,7 +155,11 @@ public enum JournalEventEX
     /*
     Missions
      */
-//    MissionCompleted(new MissionCompletedHandler()),
+    Missions(new MissionsEvent()),
+    MissionAccepted(new MissionAcceptedEvent()),
+    MissionCompleted(new MissionCompletedEvent()),
+    MissionFailed(new MissionFailedEvent()),
+    MissionAbandoned(new MissionAbandonedEvent()),
 //    ScientificResearch(new ScientificResearchHandler()),
     CommunityGoalReward(new CommunityGoalRewardEvent()),
 //    SearchAndRescue(new SearchAndRescueHandler()),
@@ -205,9 +201,9 @@ public enum JournalEventEX
     /**
      * Stores the event processing logic for the corresponding event
      */
-    private final BiConsumer<PlayerState, Map<String, Object>> handler;
+    private final BiConsumer<GameState, Map<String, Object>> handler;
 
-    JournalEventEX(BiConsumer<PlayerState, Map<String, Object>> handler)
+    JournalEventEX(BiConsumer<GameState, Map<String, Object>> handler)
     {
         this.handler = handler;
     }
@@ -219,11 +215,11 @@ public enum JournalEventEX
             .findFirst();
     }
 
-    public void process(PlayerState playerState, Map<String, Object> event)
+    public void process(GameState gameState, Map<String, Object> event)
     {
         try
         {
-            handler.accept(playerState, event);
+            handler.accept(gameState, event);
         }
         catch (Exception e)
         {
@@ -243,20 +239,20 @@ public enum JournalEventEX
 
 
     // todo: maybe convert all calls to use this and make non-safe one private
-    public static void tryCommanderStat(PlayerState playerState, Map<String, Object> event, Statistic stat)
+    public static void tryCommanderStat(GameState gameState, Map<String, Object> event, Statistic stat)
     {
         Optional.ofNullable(event.get(stat.getKey()))
-            .ifPresent((_e) -> setCommanderStat(playerState, event, stat));
+            .ifPresent((_e) -> setCommanderStat(gameState, event, stat));
     }
 
-    public static void setCommanderStat(PlayerState playerState, Map<String, Object> event, Statistic stat)
+    public static void setCommanderStat(GameState gameState, Map<String, Object> event, Statistic stat)
     {
-        playerState.setCommanderStat(stat, extractStringStat(event, stat));
+        gameState.setCommanderStat(stat, extractStringStat(event, stat));
     }
 
-    public static void setShipStat(PlayerState playerState, Map<String, Object> event, Statistic stat)
+    public static void setShipStat(GameState gameState, Map<String, Object> event, Statistic stat)
     {
-        playerState.setShipStat(stat, extractStringStat(event, stat));
+        gameState.setShipStat(stat, extractStringStat(event, stat));
     }
 
 

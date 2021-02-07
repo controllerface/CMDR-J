@@ -1,19 +1,19 @@
 package com.controllerface.cmdr_j.server.events;
 
 import com.controllerface.cmdr_j.server.LocalCoordinates;
-import com.controllerface.cmdr_j.server.PlayerState;
+import com.controllerface.cmdr_j.server.GameState;
 import com.controllerface.cmdr_j.server.StatusFlags;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
-public class StatusEvent implements BiConsumer<PlayerState, Map<String, Object>>
+public class StatusEvent implements BiConsumer<GameState, Map<String, Object>>
 {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void accept(PlayerState playerState, Map<String, Object> event)
+    public void accept(GameState gameState, Map<String, Object> event)
     {
         var flags = ((Number) event.get("Flags")).longValue();
         if (flags == 0L) return;
@@ -22,7 +22,7 @@ public class StatusEvent implements BiConsumer<PlayerState, Map<String, Object>>
         var mainFuel = ((Number) fuel.get("FuelMain")).doubleValue();
         var reservoirFuel = ((Number) fuel.get("FuelReservoir")).doubleValue();
 
-        playerState.updateFuelLevels(mainFuel, reservoirFuel);
+        gameState.updateFuelLevels(mainFuel, reservoirFuel);
 
         var flagSet = StatusFlags.extractFlags(flags)
             .collect(Collectors.toSet());
@@ -44,7 +44,7 @@ public class StatusEvent implements BiConsumer<PlayerState, Map<String, Object>>
         }
 
         var localCoordinates = new LocalCoordinates(nearPlanet, latitude, longitude, altitude, heading, radius);
-        playerState.setLocalCoordinates(localCoordinates);
+        gameState.setLocalCoordinates(localCoordinates);
 
         // todo: use these?
 //        var cargoTonnage = ((Number) event.get("Cargo")).doubleValue();

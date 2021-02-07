@@ -1,15 +1,15 @@
 package com.controllerface.cmdr_j.server.events;
 
-import com.controllerface.cmdr_j.server.PlayerState;
+import com.controllerface.cmdr_j.server.GameState;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class LeaveBodyEvent implements BiConsumer<PlayerState, Map<String, Object>>
+public class LeaveBodyEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
-    public void accept(PlayerState playerState, Map<String, Object> event)
+    public void accept(GameState gameState, Map<String, Object> event)
     {
-        playerState.leaveBody();
+        gameState.leaveBody();
     }
 }

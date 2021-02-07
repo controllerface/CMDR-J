@@ -905,7 +905,6 @@ function handleSystemFactionData(data)
     else
     {
         let faction = JSON.parse(data);
-        console.log(faction);
 
         let newFaction = document.createElement('system-faction');
         newFaction.factionName = faction['Name'];
@@ -1133,24 +1132,88 @@ function renameWaypoint(currentName, waypointId, callback)
 function approachBody(data)
 {
     let bodyData = JSON.parse(data);
-    console.log(bodyData);
     let gpsDisplay = document.getElementById('gpsDisplay');
     gpsDisplay.bodyData = bodyData;
 }
 
 function handleWaypoint(data)
 {
+    let gpsDisplay = document.getElementById('gpsDisplay');
     if (data === 'clear')
     {
-        console.log('clear waypoints');
-        // todo: actually clear them
+        gpsDisplay.clearWaypointData();
     }
     else
     {
         let waypointData = JSON.parse(data);
-        console.log(waypointData);
-        let gpsDisplay = document.getElementById('gpsDisplay');
         gpsDisplay.loadWaypointData(waypointData);
+    }
+}
+
+function handleConflicts(data)
+{
+    let conflictContainer = document.getElementById('localConflicts');
+    if (data === 'clear')
+    {
+        conflictContainer.textContent = '';
+    }
+    else
+    {
+        let conflictData = JSON.parse(data);
+        let conflicts = conflictData['conflicts'];
+        conflicts.forEach(conflict =>
+        {
+            let nextConflict = document.createElement('conflict-data');
+            nextConflict.type = conflict['WarType'];
+            nextConflict.status = conflict['Status'];
+
+            nextConflict.faction1 = conflict['Faction1']['Name'];
+            nextConflict.stake1 = conflict['Faction1']['Stake'];
+            nextConflict.days1 = conflict['Faction1']['WonDays'];
+
+            nextConflict.faction2 = conflict['Faction2']['Name'];
+            nextConflict.stake2 = conflict['Faction2']['Stake'];
+            nextConflict.days2 = conflict['Faction2']['WonDays'];
+
+            conflictContainer.append(nextConflict);
+        })
+    }
+}
+
+function handleMissions(data)
+{
+    let missionContainer = document.getElementById('currentMissions');
+    if (data === 'clear')
+    {
+        missionData.textContent = '';
+    }
+    else
+    {
+        let missionData = JSON.parse(data);
+        let missions = missionData['missions'];
+
+        missions.forEach(mission =>
+        {
+
+            let nextMission = document.querySelector('mission-data[missionid="' + mission['missionID'] +'"]');
+            if (!nextMission)
+            {
+                nextMission = document.createElement('mission-data');
+            }
+
+            nextMission.setAttribute('slot', mission['state']);
+            nextMission.title = mission['name'];
+            nextMission.faction = mission['faction'];
+            nextMission.reward = parseInt(mission['reward'], 10).toLocaleString("en-US");
+            nextMission.influence = mission['influence'];
+            nextMission.reputation = mission['reputation'];
+            nextMission.missionID = mission['missionID'];
+            nextMission.setDetails(mission['details']);
+
+            console.log(mission['details']);
+
+            missionContainer.append(nextMission);
+        });
     }
 }
 
@@ -1289,17 +1352,33 @@ const eventListeners =
     // Local coordinate data describing a nearby settlement that the player has approached
     Settlement: (e) => handleSettlement(e.data),
 
+    // When getting near to a planet (orbital cruise range) this contains data about it
     ApproachBody: (e) => approachBody(e.data),
 
-    LeaveBody: (e) => document.getElementById('gpsDisplay').clearSettlementData(),
+    // Going above orbital cruise range causes this to be emitted
+    LeaveBody: (e) =>
+    {
+        document.getElementById('gpsDisplay').clearSettlementData();
+        document.getElementById('gpsDisplay').clearTouchdownData();
+    },
 
+    // If planetary GPS is being used, this periodically updates with the bearing to the target
     Bearing: (e) => document.getElementById('gpsDisplay').bearing = e.data,
 
+    // Contains information about local system factions
     Faction: (e) => handleSystemFactionData(e.data),
 
+    // GPS tracking is periodically updates with any waypoint data, including distances
     Waypoint: (e) => handleWaypoint(e.data),
 
+    // Landing on a planet's surface (not docked at a settlement) emits the lat/long upon touchdown
     Touchdown: (e) => handleTouchdown(e.data),
+
+    // Information about local factions engaged in conflict
+    Conflicts: (e) => handleConflicts(e.data),
+
+    // Information about the player's current missions
+    Missions: (e) => handleMissions(e.data),
 };
 
 window.onload = (e) =>

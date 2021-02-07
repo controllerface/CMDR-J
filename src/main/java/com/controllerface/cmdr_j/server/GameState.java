@@ -37,7 +37,7 @@ import java.util.stream.IntStream;
 
 import static java.lang.Math.*;
 
-public class PlayerState
+public class GameState
 {
     private final Lock stateLock = new ReentrantLock(true);
 
@@ -62,6 +62,8 @@ public class PlayerState
     private final Map<Engineer, Map<String, Object>> engineerProgress = new HashMap<>();
 
     private final List<RouteEntry> currentRoute = new ArrayList<>();
+
+    private final List<Map<String, Object>> systemFactions = new ArrayList<>();
 
     private LocalCoordinates localCoordinates;
 
@@ -157,6 +159,11 @@ public class PlayerState
             this.grade = grade;
         }
 
+        private CommodityData adjustAndClone(Integer adjustment)
+        {
+            return new CommodityData(name, count + adjustment, grade);
+        }
+
         String toJson()
         {
             Map<String, Object> data = new HashMap<>();
@@ -167,7 +174,7 @@ public class PlayerState
         }
     }
 
-    public PlayerState(BiConsumer<String, String> globalUpdate)
+    public GameState(BiConsumer<String, String> globalUpdate)
     {
         this.globalUpdate = globalUpdate;
 
@@ -234,6 +241,81 @@ public class PlayerState
         }
     }
 
+    public void emitMissionData()
+    {
+        emitMissionData(globalUpdate);
+    }
+
+    private void emitMissionData(BiConsumer<String, String> sink)
+    {
+        var json = database.computeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return "";
+            var data = new HashMap<String, Object>();
+            var missionList = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MISSION))
+                .map(MissionData::toMap)
+                .collect(Collectors.toList());
+            data.put("missions", missionList);
+            return JSONSupport.Write.jsonToString.apply(data);
+        });
+
+        sink.accept("Missions", json);
+    }
+
+    public void updateMissionState(MissionData.MissionState state, long missionId)
+    {
+        database.executeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return;
+            EntityUtilities.entityStream(commander.getLinks(EntityKeys.MISSION))
+                .filter(entity -> Objects.equals(entity.getProperty("missionID"), missionId))
+                .findFirst()
+                .ifPresent(mission -> mission.setProperty("state", state.name().toLowerCase()));
+        });
+    }
+
+    public void completeMission(long missionID)
+    {
+        database.executeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return;
+
+            EntityUtilities.entityStream(commander.getLinks(EntityKeys.MISSION))
+                .filter(entity -> Objects.equals(entity.getProperty("missionID"), missionID))
+                .findFirst().ifPresent(mission ->
+                {
+                    commander.deleteLink(EntityKeys.MISSION, mission);
+                    mission.delete();
+                });
+        });
+        executeWithLock(() -> emitMissionData(globalUpdate));
+    }
+
+    public void acceptMission(MissionData missionData)
+    {
+        database.executeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return;
+
+            var mission = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MISSION))
+                .filter(entity -> Objects.equals(entity.getProperty("missionID"), missionData.missionID))
+                .findFirst().orElseGet(() ->
+                {
+                    var newMission = txn.newEntity(EntityKeys.MISSION);
+                    commander.addLink(EntityKeys.MISSION, newMission);
+                    newMission.setLink(EntityKeys.COMMANDER, commander);
+                    return newMission;
+                });
+
+            missionData.storeMissionData(mission);
+        });
+        executeWithLock(() -> emitMissionData(globalUpdate));
+    }
+
     public void clearCargo()
     {
         cargo.clear();
@@ -286,6 +368,8 @@ public class PlayerState
     {
         nearestBody = null;
         localSettlement = null;
+        touchdownLatitude = -1;
+        touchdownLongitude = -1;
         executeWithLock(() -> globalUpdate.accept("LeaveBody", "leave"));
     }
 
@@ -532,6 +616,27 @@ public class PlayerState
         extendedStats.put(category, stats);
     }
 
+    public void adjustCargoCount(Commodity commodity, String name, Integer adjustment)
+    {
+        var commodityData = cargo.computeIfPresent(commodity,
+            (k, data) -> data.adjustAndClone(adjustment));
+
+        if (commodityData == null)
+        {
+            System.err.println("Error: cargo adjusted but not present: " + commodity + " : " +name);
+            return;
+        }
+
+        var jsonData = commodityData.toJson();
+
+        if (commodityData.count < 1)
+        {
+            cargo.remove(commodity);
+        }
+
+        executeWithLock(() -> globalUpdate.accept("Cargo", jsonData));
+    }
+
     public void setCargoCount(Commodity commodity, String name, Integer count)
     {
         var commodityData = new CommodityData(name, count, commodity.getGrade());
@@ -557,13 +662,16 @@ public class PlayerState
         engineerProgress.put(engineer, data);
     }
 
+    public void adjustMaterialCount(Material material, Integer count)
+    {
+        var newCount = materials.computeIfPresent(material, (k, c) -> c + count);
+        executeWithLock(() -> globalUpdate.accept("Material", writeMaterialEvent(material, newCount)));
+    }
+
     public void setMaterialCount(Material material, Integer count)
     {
-        executeWithLock(() ->
-        {
-            materials.put(material, count);
-            globalUpdate.accept("Material", writeMaterialEvent(material, count));
-        });
+        materials.put(material, count);
+        executeWithLock(() -> globalUpdate.accept("Material", writeMaterialEvent(material, count)));
     }
 
     public void setShipStat(Statistic statistic, String value)
@@ -1714,7 +1822,6 @@ public class PlayerState
                 var json = JSONSupport.Parse.jsonString.apply(stellarBody.getBlobString(propertyName));
                 map.put(propertyName, json.get("json"));
             });
-
     }
 
     private Map<String, Object> prepareCatalogList()
@@ -1849,7 +1956,18 @@ public class PlayerState
         executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
     }
 
-    private final List<Map<String, Object>> systemFactions = new ArrayList<>();
+    private void emitConflictData(BiConsumer<String, String> sink)
+    {
+        String conflictJson;
+        synchronized (localConflicts)
+        {
+            var conflictData = new HashMap<String, Object>();
+            conflictData.put("conflicts", localConflicts);
+            conflictJson = JSONSupport.Write.jsonToString.apply(conflictData);
+        }
+        sink.accept("Conflicts", conflictJson);
+    }
+
 
     private void emitFactionData(BiConsumer<String, String> sink)
     {
@@ -1879,6 +1997,27 @@ public class PlayerState
             systemFactions.sort(highestInfluence);
         }
         executeWithLock(() -> emitFactionData(globalUpdate));
+    }
+
+    private final List<Map<String, Object>> localConflicts = new ArrayList<>();
+
+    public void clearConflictData()
+    {
+        synchronized (localConflicts)
+        {
+            localConflicts.clear();
+        }
+        executeWithLock(() -> globalUpdate.accept("Conflicts", "clear"));
+    }
+
+    public void acceptConflictData(List<Map<String, Object>> conflictData)
+    {
+        synchronized (localConflicts)
+        {
+            localConflicts.clear();
+            localConflicts.addAll(conflictData);
+        }
+        executeWithLock(() -> emitConflictData(globalUpdate));
     }
 
     public void emitSystemCatalog()
@@ -1974,6 +2113,12 @@ public class PlayerState
                 emitFactionData(directUpdate);
             }
 
+            if (!localConflicts.isEmpty())
+            {
+                directUpdate.accept("Conflicts", "clear");
+                emitConflictData(directUpdate);
+            }
+
             if (nearestBody != null)
             {
                 String bodyData = JSONSupport.Write.jsonToString.apply(nearestBody.toMap());
@@ -1984,7 +2129,6 @@ public class PlayerState
 
             emitWaypointData(directUpdate);
 
-
             directUpdate.accept("Engineers", prepareEngineerData());
 
             directUpdate.accept("CurrentMass", String.valueOf(calculateCurrentMass()));
@@ -1994,6 +2138,8 @@ public class PlayerState
             directUpdate.accept("OffenseStats", calculateOffenseStats());
 
             directUpdate.accept("DefenseStats", calculateDefenseStats());
+
+            emitMissionData(directUpdate);
         });
     }
 
@@ -2011,7 +2157,6 @@ public class PlayerState
 
     private String formatSlotKey(Statistic statistic)
     {
-        System.out.println(statistic);
         var rawKey = statistic.getKey();
 
         if (statistic == CoreInternalSlot.FrameShiftDrive)

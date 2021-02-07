@@ -25,4 +25,6 @@ public class EntityKeys
     public static final String WAYPOINT_NAME = "waypoint_name";
     public static final String WAYPOINT_LATITUDE = "waypoint_latitue";
     public static final String WAYPOINT_LONGITUDE = "waypoint_longitude";
+
+    public static final String MISSION = "mission";
 }

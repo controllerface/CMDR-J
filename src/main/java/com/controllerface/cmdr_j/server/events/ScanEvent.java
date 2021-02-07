@@ -2,16 +2,16 @@ package com.controllerface.cmdr_j.server.events;
 
 import com.controllerface.cmdr_j.classes.ScannedBody;
 import com.controllerface.cmdr_j.classes.StellarBody;
-import com.controllerface.cmdr_j.server.PlayerState;
+import com.controllerface.cmdr_j.server.GameState;
 
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class ScanEvent implements BiConsumer<PlayerState, Map<String, Object>>
+public class ScanEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
-    public void accept(PlayerState playerState, Map<String, Object> event)
+    public void accept(GameState gameState, Map<String, Object> event)
     {
         var bodyType = determineBodyType(event);
         var bodyName = ((String) event.remove("BodyName"));
@@ -25,8 +25,8 @@ public class ScanEvent implements BiConsumer<PlayerState, Map<String, Object>>
 
         var scannedBody = new ScannedBody(bodyType, bodyName, bodyId, address, event);
 
-        playerState.discoverStellarBody(scannedBody);
-        playerState.emitCartographyData();
+        gameState.discoverStellarBody(scannedBody);
+        gameState.emitCartographyData();
     }
 
     @SuppressWarnings("unchecked")
