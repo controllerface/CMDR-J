@@ -45,7 +45,6 @@ import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -187,6 +186,20 @@ public class GameState
             data.put("count", count);
             data.put("type", grade.name().toLowerCase());
             return JSONSupport.Write.jsonToString.apply(data);
+        }
+    }
+
+    private static class TaskData
+    {
+        public final String name;
+        public final String ship;
+        public final Integer rank;
+
+        private TaskData(String name, String ship, Integer rank)
+        {
+            this.name = name;
+            this.ship = ship;
+            this.rank = rank;
         }
     }
 
@@ -2157,6 +2170,8 @@ public class GameState
             directUpdate.accept("DefenseStats", calculateDefenseStats());
 
             emitMissionData(directUpdate);
+
+            emitAllTaskData(directUpdate);
         });
     }
 
@@ -2338,6 +2353,64 @@ public class GameState
         });
     }
 
+    private void emitAllTaskData(BiConsumer<String, String> sink)
+    {
+        List<Map<String, Object>> taskSummaries = database.computeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return Collections.emptyList();
+            return EntityUtilities.entityStream(commander.getLinks(EntityKeys.TASK))
+                .map(entity ->
+                {
+                    var map = new HashMap<String, Object>();
+                    map.put("key", entity.getProperty(EntityKeys.TASK_KEY));
+                    map.put("count", entity.getProperty(EntityKeys.TASK_COUNT));
+                    return map;
+                }).collect(Collectors.toList());
+        });
+
+        taskSummaries.forEach(taskSummary ->
+            emitTaskData(sink, ((String) taskSummary.get("key")), ((Integer) taskSummary.get("count"))));
+    }
+
+    private void emitTaskData(BiConsumer<String, String> sink, String taskKey, Integer count)
+    {
+        var data = new HashMap<String, Object>();
+        data.put("key", taskKey);
+        data.put("count", count);
+        if (count > 0)
+        {
+            var task = taskCatalog.keyMap.get(taskKey);
+            var taskdata = determineTaskData(task);
+            data.put("name", taskdata.name);
+            var costs = task.costStream()
+                .filter(costData -> costData.quantity >= 0)
+                .map(costData ->
+                {
+                    var costMap = new HashMap<String, Object>();
+                    costMap.put("cost", costData.cost.getLocalizedName());
+                    costMap.put("count", costData.quantity);
+                    return costMap;
+                }).collect(Collectors.toList());
+
+            data.put("costs", costs);
+
+            var effects = task.effects().effectStream()
+                .map(effect ->
+                {
+                    var effectMap = new HashMap<String, Object>();
+                    effectMap.put("effect", effect.effect.toString());
+                    effectMap.put("value", effect.getValueString());
+                    effectMap.put("unit", effect.effect.unit);
+                    return effectMap;
+                }).collect(Collectors.toList());
+
+            data.put("effects", effects);
+        }
+        var jsonData = JSONSupport.Write.jsonToString.apply(data);
+        executeWithLock(() -> sink.accept("Task", jsonData));
+    }
+
     public boolean adjustTask(String taskKey, String type)
     {
         TaskCatalog.AdjustmentType adjustmentType =
@@ -2353,20 +2426,65 @@ public class GameState
             return false;
         }
 
-        var resultOK = database.computeInTransaction(txn ->
+        var resultCount = database.computeInTransaction(txn ->
         {
             var commander = getCommanderEntity(txn);
-            if (commander == null) return false;
+            if (commander == null) return null;
 
-            return false;
+            var taskEntity = EntityUtilities.entityStream(commander.getLinks(EntityKeys.TASK))
+                .filter(task -> Objects.equals(task.getProperty(EntityKeys.TASK_KEY), taskKey))
+                .findFirst().orElseGet(() ->
+                {
+                    if (adjustmentType == TaskCatalog.AdjustmentType.SUBTRACT)
+                    {
+                        return null;
+                    }
+
+                    var newTask = txn.newEntity(EntityKeys.TASK);
+                    newTask.setLink(EntityKeys.COMMANDER, commander);
+                    commander.addLink(EntityKeys.TASK, newTask);
+                    newTask.setProperty(EntityKeys.TASK_KEY, taskKey);
+                    newTask.setProperty(EntityKeys.TASK_COUNT, 0);
+                    return newTask;
+                });
+
+            if (taskEntity == null) return null;
+
+            var currentCount = ((Integer) taskEntity.getProperty(EntityKeys.TASK_COUNT));
+            if (currentCount == null) return null;
+
+            switch (adjustmentType)
+            {
+                case ADD:
+                    currentCount++;
+                    break;
+
+                case SUBTRACT:
+                    currentCount--;
+                    break;
+
+                case DELETE:
+                    currentCount = -1;
+                    break;
+            }
+
+            if (currentCount < 1)
+            {
+                taskEntity.delete();
+                return 0;
+            }
+            else
+            {
+                taskEntity.setProperty(EntityKeys.TASK_COUNT, currentCount);
+                return currentCount;
+            }
         });
 
-        if (resultOK)
-        {
-            // emit task state
-        }
+        if (resultCount == null) return false;
 
-        return resultOK;
+        emitTaskData(globalUpdate, taskKey, resultCount);
+
+        return true;
     }
 
 
@@ -2420,6 +2538,111 @@ public class GameState
 
     private final TaskCatalog taskCatalog = buildTaskCatalog();
 
+    private TaskData determineModuleTaskData(ModulePurchaseRecipe taskRecipe)
+    {
+        var baseName = taskRecipe.product.cost.getLocalizedName();
+
+        var size = ((ShipModule) taskRecipe.product.cost).itemEffects()
+            .effectByName(ItemEffect.Size)
+            .map(d->d.doubleValue)
+            .map(Double::intValue)
+            .orElse(-1);
+
+        var grade = ((ShipModule) taskRecipe.product.cost).itemEffects()
+            .effectByName(ItemEffect.Class)
+            .map(d->d.stringValue)
+            .orElse("");
+
+        var mount = ((ShipModule) taskRecipe.product.cost).itemEffects()
+            .effectByName(ItemEffect.WeaponMode)
+            .map(d->d.stringValue)
+            .orElse("");
+
+        var isArmour = baseName.endsWith("Armour");
+
+        var sortRank = 0;
+        var shipType = "";
+        var name = baseName;
+
+        if (isArmour)
+        {
+            if (baseName.contains("Lightweight"))
+            {
+                sortRank = 1;
+                shipType = baseName.substring(0, baseName.indexOf("Lightweight") - 1);
+            }
+            else if (baseName.contains("Reinforced"))
+            {
+                sortRank = 2;
+                shipType = baseName.substring(0, baseName.indexOf("Reinforced") - 1);
+            }
+            else if (baseName.contains("Military"))
+            {
+                sortRank = 3;
+                shipType = baseName.substring(0, baseName.indexOf("Military") - 1);
+            }
+            else if (baseName.contains("Mirrored"))
+            {
+                sortRank = 4;
+                shipType = baseName.substring(0, baseName.indexOf("Mirrored") - 1);
+            }
+            else if (baseName.contains("Reactive"))
+            {
+                sortRank = 5;
+                shipType = baseName.substring(0, baseName.indexOf("Reactive") - 1);
+            }
+        }
+        else
+        {
+            var gradeEffect = 0;
+            switch (grade.toUpperCase())
+            {
+                case "A":
+                    gradeEffect = 5;
+                    break;
+
+                case "B":
+                    gradeEffect = 4;
+                    break;
+
+                case "C":
+                    gradeEffect = 3;
+                    break;
+
+                case "D":
+                    gradeEffect = 2;
+                    break;
+
+                case "E":
+                    gradeEffect = 1;
+                    break;
+            }
+
+            if (name.toLowerCase().contains("enhanced performance thrusters"))
+            {
+                gradeEffect += 1;
+            }
+
+            sortRank = (size * 10) + gradeEffect;
+
+            name = size + grade + " " + baseName;
+            if (!mount.isEmpty())
+            {
+                name += " [" + mount + "]";
+            }
+        }
+
+        return new TaskData(name, shipType, sortRank);
+    }
+    private TaskData determineTaskData(TaskRecipe recipe)
+    {
+        if (recipe instanceof ModulePurchaseRecipe)
+        {
+            return determineModuleTaskData(((ModulePurchaseRecipe) recipe));
+        }
+        return new TaskData(recipe.getDisplayLabel(), "", 0);
+    }
+
     @SuppressWarnings("unchecked")
     public TaskCatalog buildTaskCatalog()
     {
@@ -2442,7 +2665,7 @@ public class GameState
                 TaskCost material = Material.valueOf(key);
                 material.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
                 List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
-                material.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
+                material.setLocationInformation(String.join("\n", locations));
             });
 
         ((Map<String, Object>) data.get("commodities"))
@@ -2451,8 +2674,7 @@ public class GameState
                 TaskCost commodity = Commodity.valueOf(key);
                 commodity.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
                 List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
-                commodity.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
-
+                commodity.setLocationInformation(String.join("\n", locations));
             });
 
         var keyMap = new HashMap<String, TaskRecipe>();
@@ -2502,105 +2724,16 @@ public class GameState
 
                     addPair.accept(key, taskRecipe);
 
-                    var baseName = taskRecipe.product.cost.getLocalizedName();
-
-                    var size = ((ShipModule) taskRecipe.product.cost).itemEffects()
-                        .effectByName(ItemEffect.Size)
-                        .map(d->d.doubleValue)
-                        .map(Double::intValue)
-                        .orElse(-1);
-
-                    var grade = ((ShipModule) taskRecipe.product.cost).itemEffects()
-                        .effectByName(ItemEffect.Class)
-                        .map(d->d.stringValue)
-                        .orElse("");
-
-                    var mount = ((ShipModule) taskRecipe.product.cost).itemEffects()
-                        .effectByName(ItemEffect.WeaponMode)
-                        .map(d->d.stringValue)
-                        .orElse("");
-
-                    var isArmour = baseName.endsWith("Armour");
-
-                    var sortRank = 0;
-                    var shipType = "";
-                    var name = baseName;
-
-                    if (isArmour)
-                    {
-                        if (baseName.contains("Lightweight"))
-                        {
-                            sortRank = 1;
-                            shipType = baseName.substring(0, baseName.indexOf("Lightweight") - 1);
-                        }
-                        else if (baseName.contains("Reinforced"))
-                        {
-                            sortRank = 2;
-                            shipType = baseName.substring(0, baseName.indexOf("Reinforced") - 1);
-                        }
-                        else if (baseName.contains("Military"))
-                        {
-                            sortRank = 3;
-                            shipType = baseName.substring(0, baseName.indexOf("Military") - 1);
-                        }
-                        else if (baseName.contains("Mirrored"))
-                        {
-                            sortRank = 4;
-                            shipType = baseName.substring(0, baseName.indexOf("Mirrored") - 1);
-                        }
-                        else if (baseName.contains("Reactive"))
-                        {
-                            sortRank = 5;
-                            shipType = baseName.substring(0, baseName.indexOf("Reactive") - 1);
-                        }
-                    }
-                    else
-                    {
-                        var gradeEffect = 0;
-                        switch (grade.toUpperCase())
-                        {
-                            case "A":
-                                gradeEffect = 5;
-                                break;
-
-                            case "B":
-                                gradeEffect = 4;
-                                break;
-
-                            case "C":
-                                gradeEffect = 3;
-                                break;
-
-                            case "D":
-                                gradeEffect = 2;
-                                break;
-
-                            case "E":
-                                gradeEffect = 1;
-                                break;
-                        }
-
-                        if (name.toLowerCase().contains("enhanced performance thrusters"))
-                        {
-                            gradeEffect += 1;
-                        }
-
-                        sortRank = (size * 10) + gradeEffect;
-
-                        name = size + grade + " " + baseName;
-                        if (!mount.isEmpty())
-                        {
-                            name += " [" + mount + "]";
-                        }
-                    }
+                    var taskData = determineModuleTaskData(taskRecipe);
 
                     var dataMap = new HashMap<String, Object>();
                     dataMap.put("key", key);
-                    dataMap.put("name", name);
-                    dataMap.put("sort", sortRank);
-                    if (!shipType.isEmpty())
+                    dataMap.put("name", taskData.name);
+                    dataMap.put("sort", taskData.rank);
+
+                    if (!taskData.ship.isEmpty())
                     {
-                        dataMap.put("ship", shipType);
+                        dataMap.put("ship", taskData.ship);
                     }
 
                     var costList = new ArrayList<Map<String, Object>>();

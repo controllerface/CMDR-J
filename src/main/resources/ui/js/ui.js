@@ -1217,6 +1217,31 @@ function handleMissions(data)
     }
 }
 
+function adjustTask(key, type)
+{
+    fetch('/tasks?key=' + key + '&type=' + type)
+      .then(response => console.log(response))
+      .catch(error => console.error(error));
+}
+
+function handleTaskData(data)
+{
+    let taskData = JSON.parse(data);
+    console.log(taskData);
+    let taskContainer = document.getElementById('trackedTasks');
+    let existingTask = taskContainer.querySelector('task-data[key="' + taskData['key'] + '"]');
+    if (existingTask)
+    {
+        // update task count only
+    }
+    else
+    {
+        let newTask = document.createElement('task-data');
+        newTask.taskName = taskData['name'];
+        taskContainer.append(newTask);
+    }
+}
+
 /*
 This object contains event listener functions that will be bound to the local event source
 on page load. For each key listed below, the mapped function is bound to an event with the
@@ -1379,6 +1404,8 @@ const eventListeners =
 
     // Information about the player's current missions
     Missions: (e) => handleMissions(e.data),
+
+    Task: (e) => handleTaskData(e.data),
 };
 
 window.onload = (e) =>

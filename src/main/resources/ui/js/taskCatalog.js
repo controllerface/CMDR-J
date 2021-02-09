@@ -68,6 +68,10 @@ class TaskCatalog extends HTMLElement
         button.classList.add('taskButton');
         button.textContent = label;
         button.value = value;
+        button.addEventListener('click', (e) =>
+        {
+            adjustTask(e.target.value, 'add');
+        })
         return button;
     }
 

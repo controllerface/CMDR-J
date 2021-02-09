@@ -13,13 +13,15 @@ public class TaskCatalog
     public enum AdjustmentType
     {
         ADD,
-        REMOVE;
+        SUBTRACT,
+        DELETE;
 
         public static AdjustmentType fromString(String typeString)
         {
             if (typeString == null) return null;
             if (typeString.equalsIgnoreCase("add")) return ADD;
-            if (typeString.equalsIgnoreCase("remove")) return REMOVE;
+            if (typeString.equalsIgnoreCase("subtract")) return SUBTRACT;
+            if (typeString.equalsIgnoreCase("delete")) return DELETE;
             return null;
         }
     }

@@ -38,6 +38,8 @@
     <script src="systemCatalog.js"></script>
     <script src="systemFaction.js"></script>
     <script src="taskCatalog.js"></script>
+    <script src="taskData.js"></script>
+    <script src="trackedTasks.js"></script>
 
     <!--
     Class hierarchy:
@@ -1165,6 +1167,30 @@
         <div id="taskCatalog_synthesis"></div>
 
     </template>
+
+    <!-- Tracked tasks -->
+    <template id="template_TrackedTasks">
+        <link rel="stylesheet" href="statistics.css">
+        <link rel="stylesheet" href="tasks.css">
+        <slot>
+            <div class="emptySection">No tracked tasks</div>
+        </slot>
+    </template>
+
+    <!-- Tracked task information -->
+    <template id="template_TaskData">
+        <link rel="stylesheet" href="statistics.css">
+        <link rel="stylesheet" href="tasks.css">
+        <details class="taskDetails">
+            <summary>
+                <span id="taskData_taskname"></span>
+                <button class="taskButton" id="taskData_addbutton">+</button>
+                <button class="taskButton" id="taskData_subtractbutton">-</button>
+            </summary>
+            <div class="taskCostData" id="taskData_costs"></div>
+        </details>
+    </template>
+
 </head>
 
 <body>
@@ -1685,7 +1711,9 @@
 
                     <input name="taskTabs" type="radio" id="plannedTabButton" class="tabInput"/>
                     <label id="plannedTab" for="plannedTabButton" class="tabLabel">In Progress</label>
-                    <div class="tabPanel">TODO: in progress</div>
+                    <div class="tabPanel">
+                        <tracked-tasks id="trackedTasks"></tracked-tasks>
+                    </div>
 
                     <input name="taskTabs" type="radio" id="requiredTabButton" class="tabInput"/>
                     <label id="requiredTab" for="requiredTabButton" class="tabLabel">Bill of Materials</label>
