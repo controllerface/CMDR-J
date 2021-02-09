@@ -240,6 +240,35 @@ class JournalServlet extends EventSourceServlet
         }),
 
         /**
+         * Initiates an import of exploration data from the player's journal files
+         */
+        TASKS(EndpointType.GET, "/tasks", (request, response, playerState) ->
+        {
+            var key = request.getParameter("key");
+            var type = request.getParameter("type");
+            if (key == null && type != null && type.equalsIgnoreCase("catalog"))
+            {
+                writeJsonResponse(response, playerState.writeTaskCatalog());
+            }
+            else if (key == null && type == null)
+            {
+                writeJsonResponse(response, playerState.writeTaskData());
+            }
+            else
+            {
+                var result = playerState.adjustTask(key, type);
+                if (result)
+                {
+                    writeCreatedResponse(response, "Task Adjusted");
+                }
+                else
+                {
+                    writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
+                }
+            }
+        }),
+
+        /**
          * Serves static assets defined in the asset map.
          */
         STATIC_ASSET(EndpointType.GET, staticAssets::containsKey, (request, response, _p) ->

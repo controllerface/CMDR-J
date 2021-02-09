@@ -4,7 +4,11 @@ import com.controllerface.cmdr_j.JSONSupport;
 import com.controllerface.cmdr_j.classes.RouteEntry;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.classes.StellarBody;
+import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
+import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.database.EntityKeys;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.data.ShipStatisticData;
@@ -14,8 +18,14 @@ import com.controllerface.cmdr_j.enums.commander.RankStat;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
+import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalCategory;
+import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationCategory;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
+import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisCategory;
+import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
+import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
@@ -25,15 +35,21 @@ import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacterist
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import jetbrains.exodus.entitystore.*;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.lang.Math.*;
 
@@ -178,6 +194,7 @@ public class GameState
     {
         this.globalUpdate = globalUpdate;
 
+        buildTaskCatalog();
         // DEBUG SECTION
 //        database.executeInTransaction(txn ->
 //        {
@@ -2321,6 +2338,38 @@ public class GameState
         });
     }
 
+    public boolean adjustTask(String taskKey, String type)
+    {
+        TaskCatalog.AdjustmentType adjustmentType =
+            TaskCatalog.AdjustmentType.fromString(type);
+
+        if (adjustmentType == null)
+        {
+            return false;
+        }
+
+        if (!taskCatalog.keyMap.containsKey(taskKey))
+        {
+            return false;
+        }
+
+        var resultOK = database.computeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return false;
+
+            return false;
+        });
+
+        if (resultOK)
+        {
+            // emit task state
+        }
+
+        return resultOK;
+    }
+
+
     //region Complex JSON Object Writers
 
     public String writeLoadoutJson()
@@ -2357,5 +2406,399 @@ public class GameState
         return JSONSupport.Write.jsonToString.apply(prepareCatalogList());
     }
 
+    public String writeTaskCatalog()
+    {
+        return taskCatalog.rawCatalogJson;
+    }
+
+    public String writeTaskData()
+    {
+        return "";
+    }
+
     //endregion
+
+    private final TaskCatalog taskCatalog = buildTaskCatalog();
+
+    @SuppressWarnings("unchecked")
+    public TaskCatalog buildTaskCatalog()
+    {
+        InputStream jsonStream = null;
+        try
+        {
+            URL localizationData = getClass().getResource("/localization/eng.json");
+            jsonStream = localizationData.openStream();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        Map<String, Object> data = JSONSupport.Parse.jsonStream.apply(jsonStream);
+
+        ((Map<String, Object>) data.get("materials"))
+            .forEach((key, value) ->
+            {
+                TaskCost material = Material.valueOf(key);
+                material.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
+                List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
+                material.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
+            });
+
+        ((Map<String, Object>) data.get("commodities"))
+            .forEach((key, value) ->
+            {
+                TaskCost commodity = Commodity.valueOf(key);
+                commodity.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
+                List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
+                commodity.setLocationInformation(locations.stream().collect(Collectors.joining("\n")));
+
+            });
+
+        var keyMap = new HashMap<String, TaskRecipe>();
+        var recipeMap = new HashMap<TaskRecipe, String>();
+
+        BiConsumer<String, TaskRecipe> addPair = (key, recipe) ->
+        {
+            var val = keyMap.get(key);
+            if (val == null)
+            {
+                keyMap.put(key, recipe);
+                recipeMap.put(recipe, key);
+            }
+            else
+            {
+                System.err.println("ERROR! " + key + " Already exists!");
+            }
+        };
+
+        var modules = new HashMap<String, Map<String, Object>>();
+        var synthesis = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
+        var modifications = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
+        var experimental = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
+        var technology = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
+        var trades = new HashMap<String, Map<String, Map<String, Map<String, Map<String, Object>>>>>();
+
+        var jsonMap  = new HashMap<String, Object>();
+        jsonMap.put("modules", modules);
+        jsonMap.put("synthesis", synthesis);
+        jsonMap.put("modifications", modifications);
+        jsonMap.put("experimental", experimental);
+        jsonMap.put("technology", technology);
+        jsonMap.put("trades", trades);
+
+        // module purchases
+        Stream.of(ModulePurchaseType.values()).forEach(modulePurchaseType ->
+            modulePurchaseType.getBluePrints().forEach(taskBlueprint ->
+            {
+                Map<String, Object> currentBlueprint = modules
+                    .computeIfAbsent(taskBlueprint.toString(), (_k) -> new HashMap<>());
+
+                taskBlueprint.recipeStream().map(r -> ((ModulePurchaseRecipe) r)).forEach(taskRecipe ->
+                {
+                    var key = "Purchase"
+                        + ":" + taskBlueprint.toString()
+                        + ":" + taskRecipe.getEnumName();
+
+                    addPair.accept(key, taskRecipe);
+
+                    var baseName = taskRecipe.product.cost.getLocalizedName();
+
+                    var size = ((ShipModule) taskRecipe.product.cost).itemEffects()
+                        .effectByName(ItemEffect.Size)
+                        .map(d->d.doubleValue)
+                        .map(Double::intValue)
+                        .orElse(-1);
+
+                    var grade = ((ShipModule) taskRecipe.product.cost).itemEffects()
+                        .effectByName(ItemEffect.Class)
+                        .map(d->d.stringValue)
+                        .orElse("");
+
+                    var mount = ((ShipModule) taskRecipe.product.cost).itemEffects()
+                        .effectByName(ItemEffect.WeaponMode)
+                        .map(d->d.stringValue)
+                        .orElse("");
+
+                    var isArmour = baseName.endsWith("Armour");
+
+                    var sortRank = 0;
+                    var shipType = "";
+                    var name = baseName;
+
+                    if (isArmour)
+                    {
+                        if (baseName.contains("Lightweight"))
+                        {
+                            sortRank = 1;
+                            shipType = baseName.substring(0, baseName.indexOf("Lightweight") - 1);
+                        }
+                        else if (baseName.contains("Reinforced"))
+                        {
+                            sortRank = 2;
+                            shipType = baseName.substring(0, baseName.indexOf("Reinforced") - 1);
+                        }
+                        else if (baseName.contains("Military"))
+                        {
+                            sortRank = 3;
+                            shipType = baseName.substring(0, baseName.indexOf("Military") - 1);
+                        }
+                        else if (baseName.contains("Mirrored"))
+                        {
+                            sortRank = 4;
+                            shipType = baseName.substring(0, baseName.indexOf("Mirrored") - 1);
+                        }
+                        else if (baseName.contains("Reactive"))
+                        {
+                            sortRank = 5;
+                            shipType = baseName.substring(0, baseName.indexOf("Reactive") - 1);
+                        }
+                    }
+                    else
+                    {
+                        var gradeEffect = 0;
+                        switch (grade.toUpperCase())
+                        {
+                            case "A":
+                                gradeEffect = 5;
+                                break;
+
+                            case "B":
+                                gradeEffect = 4;
+                                break;
+
+                            case "C":
+                                gradeEffect = 3;
+                                break;
+
+                            case "D":
+                                gradeEffect = 2;
+                                break;
+
+                            case "E":
+                                gradeEffect = 1;
+                                break;
+                        }
+
+                        if (name.toLowerCase().contains("enhanced performance thrusters"))
+                        {
+                            gradeEffect += 1;
+                        }
+
+                        sortRank = (size * 10) + gradeEffect;
+
+                        name = size + grade + " " + baseName;
+                        if (!mount.isEmpty())
+                        {
+                            name += " [" + mount + "]";
+                        }
+                    }
+
+                    var dataMap = new HashMap<String, Object>();
+                    dataMap.put("key", key);
+                    dataMap.put("name", name);
+                    dataMap.put("sort", sortRank);
+                    if (!shipType.isEmpty())
+                    {
+                        dataMap.put("ship", shipType);
+                    }
+
+                    var costList = new ArrayList<Map<String, Object>>();
+                    var costMap = new HashMap<String, Object>();
+                    costMap.put("amount", NumberFormat
+                        .getNumberInstance(Locale.getDefault()).format(taskRecipe.price.quantity));
+                    costMap.put("unit", "Credits");
+                    costList.add(costMap);
+                    dataMap.put("costs", costList);
+
+                    // todo: rest of the data
+                    currentBlueprint.put(taskRecipe.getEnumName(), dataMap);
+                });
+            }));
+
+        // synthesis
+        Stream.of(SynthesisCategory.values()).forEach(synthesisCategory ->
+        {
+            Map<String, Map<String, Map<String, Object>>> currentCategory = synthesis
+                .computeIfAbsent(synthesisCategory.name(), (_k)-> new HashMap<>());
+
+            synthesisCategory.typeStream().forEach(synthesisType ->
+            {
+                Map<String, Map<String, Object>> currentType = currentCategory
+                    .computeIfAbsent(synthesisType.name(), (_k)-> new HashMap<>());
+
+                synthesisType.blueprintStream().forEach(synthesisBlueprint ->
+                {
+                    Map<String, Object> currentBlueprint = currentType
+                        .computeIfAbsent(synthesisBlueprint.name(), (_k)-> new HashMap<>());
+
+                    synthesisBlueprint.recipeStream().forEach(synthesisRecipe ->
+                    {
+                        var key = synthesisCategory.name()
+                            + ":" + synthesisType.name()
+                            + ":" + synthesisBlueprint.name()
+                            + ":" + synthesisRecipe.name();
+
+                        addPair.accept(key, synthesisRecipe);
+
+                        var dataMap = new HashMap<String, Object>();
+                        dataMap.put("key", key);
+                        dataMap.put("name", synthesisRecipe.getDisplayLabel());
+                        // todo: rest of the data
+                        currentBlueprint.put(synthesisRecipe.name(), dataMap);
+                    });
+                });
+            });
+        });
+
+        // modifications
+        Stream.of(ModificationCategory.values()).forEach(modificationCategory ->
+        {
+            Map<String, Map<String, Map<String, Object>>> currentCategory = modifications
+                .computeIfAbsent(modificationCategory.name(), (_k)-> new HashMap<>());
+
+            modificationCategory.typeStream().forEach(modificationType ->
+            {
+                Map<String, Map<String, Object>> currentType = currentCategory
+                    .computeIfAbsent(modificationType.name(), (_k)-> new HashMap<>());
+
+                modificationType.blueprintStream().forEach(modificationBlueprint ->
+                {
+                    Map<String, Object> currentBlueprint = currentType
+                        .computeIfAbsent(modificationBlueprint.name(), (_k)-> new HashMap<>());
+
+                    modificationBlueprint.recipeStream().forEach(modificationRecipe ->
+                    {
+                        var key = modificationCategory.name()
+                            + ":" + modificationType.getName()
+                            + ":" + modificationBlueprint.name()
+                            + ":" + modificationRecipe.getName();
+
+                        addPair.accept(key, modificationRecipe);
+
+                        var dataMap = new HashMap<String, Object>();
+                        dataMap.put("key", key);
+                        dataMap.put("name", modificationRecipe.getDisplayLabel());
+                        // todo: rest of the data
+                        currentBlueprint.put(modificationRecipe.getName(), dataMap);
+                    });
+                });
+            });
+        });
+
+        // experimental effects
+        Stream.of(ExperimentalCategory.values()).forEach(experimentalCategory ->
+        {
+            Map<String, Map<String, Map<String, Object>>> currentCategory = experimental
+                .computeIfAbsent(experimentalCategory.name(), (_k)-> new HashMap<>());
+
+            experimentalCategory.typeStream().forEach(experimentalType ->
+            {
+                Map<String, Map<String, Object>> currentType = currentCategory
+                    .computeIfAbsent(experimentalType.name(), (_k)-> new HashMap<>());
+
+                experimentalType.blueprintStream().forEach(experimentalBlueprint ->
+                {
+                    Map<String, Object> currentBlueprint = currentType
+                        .computeIfAbsent(experimentalBlueprint.name(), (_k)-> new HashMap<>());
+
+                    experimentalBlueprint.recipeStream().forEach(experimentalRecipe ->
+                    {
+                        var key = experimentalCategory.name()
+                            + ":" + experimentalType.getName()
+                            + ":" + experimentalBlueprint.name()
+                            + ":" + experimentalRecipe.getName();
+
+                        addPair.accept(key, experimentalRecipe);
+
+                        var dataMap = new HashMap<String, Object>();
+                        dataMap.put("key", key);
+                        dataMap.put("name", experimentalRecipe.getDisplayLabel());
+                        // todo: rest of the data
+                        currentBlueprint.put(experimentalRecipe.getName(), dataMap);
+                    });
+                });
+            });
+        });
+
+        // technology unlocks
+        Stream.of(TechnologyCategory.values()).forEach(technologyCategory ->
+        {
+            Map<String, Map<String, Map<String, Object>>> currentCategory = technology
+                .computeIfAbsent(technologyCategory.name(), (_k)-> new HashMap<>());
+
+            technologyCategory.typeStream().forEach(technologyType ->
+            {
+                Map<String, Map<String, Object>> currentType = currentCategory
+                    .computeIfAbsent(technologyType.name(), (_k)-> new HashMap<>());
+
+                technologyType.blueprintStream().forEach(technologyBlueprint ->
+                {
+                    Map<String, Object> currentBlueprint = currentType
+                        .computeIfAbsent(technologyBlueprint.name(), (_k)-> new HashMap<>());
+
+                    technologyBlueprint.recipeStream().forEach(technologyRecipe ->
+                    {
+                        var key = technologyCategory.name()
+                            + ":" + technologyType.getName()
+                            + ":" + technologyBlueprint.name()
+                            + ":" + technologyRecipe.getName();
+
+                        addPair.accept(key, technologyRecipe);
+
+                        var dataMap = new HashMap<String, Object>();
+                        dataMap.put("key", key);
+                        dataMap.put("name", technologyRecipe.getDisplayLabel());
+                        // todo: rest of the data
+                        currentBlueprint.put(technologyRecipe.getName(), dataMap);
+                    });
+                });
+            });
+        });
+
+        // todo: engineer unlocks
+
+        // trades
+        Stream.of(MaterialTradeType.values()).forEach(materialTradeType ->
+        {
+            Map<String, Map<String, Map<String, Map<String, Object>>>> currentCategory = trades
+                .computeIfAbsent(materialTradeType.name(), (_k)-> new HashMap<>());
+
+            materialTradeType.subCategoryStream().forEach(materialSubCostCategory ->
+            {
+                Map<String, Map<String, Map<String, Object>>> currentSubType = currentCategory
+                    .computeIfAbsent(materialSubCostCategory.name(), (_k)-> new HashMap<>());
+
+                materialSubCostCategory.materials().forEach(material ->
+                {
+                    Map<String, Map<String, Object>> currentMaterial = currentSubType
+                        .computeIfAbsent(material.name(), (_k)-> new HashMap<>());
+
+                    material.getTradeBlueprint().ifPresent(materialTradeBlueprint ->
+                    {
+                        Map<String, Object> currentBlueprint = currentMaterial
+                            .computeIfAbsent(materialTradeBlueprint.toString(), (_k)-> new HashMap<>());
+
+                        materialTradeBlueprint.recipeStream().forEach(materialTradeRecipe ->
+                        {
+                            var key = materialTradeType.getName()
+                                + ":" + materialSubCostCategory.name()
+                                + ":" + materialTradeBlueprint.toString()
+                                + ":" + materialTradeRecipe.getName();
+
+                            addPair.accept(key, materialTradeRecipe);
+
+                            var dataMap = new HashMap<String, Object>();
+                            dataMap.put("key", key);
+                            dataMap.put("name", materialTradeRecipe.getDisplayLabel());
+                            currentBlueprint.put(materialTradeRecipe.getName(), dataMap);
+                        });
+                    });
+                });
+            });
+        });
+
+        var rawJson = JSONSupport.Write.jsonToString.apply(jsonMap);
+        return new TaskCatalog(keyMap, recipeMap, rawJson);
+    }
 }

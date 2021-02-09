@@ -1,0 +1,70 @@
+.taskCategorySummary
+{
+    padding: .2em;
+}
+
+.taskCategoryDetails
+{
+    border: solid 1px var(--default-color);
+    font-weight: bold;
+    color: var(--alternate-text);
+    border-radius: 3px 3px 3px 3px;
+    padding: .2em;
+    margin: .2em;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.taskSubCategoryDetails
+{
+    border: solid 1px var(--default-background);
+    border-radius: 3px 3px 3px 3px;
+    color: var(--default-color);
+    padding: .2em;
+    margin: .2em;
+}
+
+.taskDetails
+{
+    color: var(--default-text);
+    border: solid 1px var(--default-divider);
+    border-radius: 3px 3px 3px 3px;
+    padding: .2em;
+    margin: .2em;
+}
+
+.taskButton
+{
+    display: block;
+    float: right;
+    background: transparent;
+    color: var(--default-color);
+    text-align: left;
+    cursor: pointer;
+    border: 1px dashed var(--default-background);
+}
+
+.taskButton:hover
+{
+    background: var(--default-text);
+}
+
+.taskButton:active
+{
+    background: var(--default-color);
+}
+
+.taskCostData
+{
+    display: grid;
+    font-weight: normal;
+}
+
+.taskCost
+{
+    display: grid;
+    grid-template-columns: auto 1fr;
+}

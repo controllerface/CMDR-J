@@ -11,6 +11,7 @@ public class ReconLimpet_7E extends AbstractReconLimpet
     {
         super("7E Recon Limpet Controller",
                 new ItemEffects(
+                        new ItemEffectData(ItemEffect.Size, 7.0),
                         new ItemEffectData(ItemEffect.Mass, 128d),
                         new ItemEffectData(ItemEffect.Class, "E"),
                         new ItemEffectData(ItemEffect.Integrity, 157d),

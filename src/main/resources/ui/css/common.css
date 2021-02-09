@@ -21,6 +21,8 @@
     /* Used in most cases as the default text color */
     --default-text: antiquewhite;
 
+    --alternate-text: gray;
+
     /* Typically used for statistic entries in UI panels */
     --default-border: #bd6206;
 

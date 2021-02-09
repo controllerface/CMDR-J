@@ -239,6 +239,10 @@ class GPSDisplay extends HTMLElement
                 this.renderPlayer();
             }
         }
+        else
+        {
+            this.renderOffPlanet();
+        }
 
         requestAnimationFrame(() => this.render());
     }
@@ -297,8 +301,9 @@ class GPSDisplay extends HTMLElement
             let toRemove = this.waypoints[waypointData['waypointId']];
             let element = toRemove['element'];
             element.parentElement.removeChild(element);
+            let waypoint = this.waypoints[toRemove['waypointId']];
+            if (waypoint['isDestination']) this.clearDestination();
             delete this.waypoints[toRemove['waypointId']];
-            // todo: what if currently tracked?
             return;
         }
 

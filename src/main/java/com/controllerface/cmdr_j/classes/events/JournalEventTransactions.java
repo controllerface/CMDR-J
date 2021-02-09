@@ -140,6 +140,10 @@ public class JournalEventTransactions
         catch (Exception e) { module = null; }
         if (module != null) return module;
 
+        try { module = UtilityModule.findModule(moduleName); }
+        catch (Exception e) { module = null; }
+        if (module != null) return module;
+
         try { module = CoreInternalModule.findModule(moduleName); }
         catch (Exception e) { module = null; }
         if (module != null) return module;

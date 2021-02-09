@@ -735,7 +735,7 @@ public class ShipModuleDisplay implements Displayable
 
         if (moduleSlot instanceof HardpointSlot)
         {
-            taskType = ModulePurchaseType.Hardpoint;
+            taskType = ModulePurchaseType.Weapon_Hardpoints;
             HardpointSlot hardpointSlot = ((HardpointSlot) moduleSlot);
             List<ShipModule> compatibleModules = HardpointModule.findModulesBySize(hardpointSlot.getSize());
             compatibleModules.forEach(m->
@@ -749,7 +749,7 @@ public class ShipModuleDisplay implements Displayable
         }
         else if (moduleSlot instanceof OptionalInternalSlot)
         {
-            taskType = ModulePurchaseType.Optional;
+            taskType = ModulePurchaseType.Optional_Internal;
             OptionalInternalSlot internalSlot = ((OptionalInternalSlot) moduleSlot);
             if (internalSlot.getSize() == 0)
             {
@@ -770,7 +770,7 @@ public class ShipModuleDisplay implements Displayable
         }
         else if (moduleSlot instanceof CoreInternalSlot)
         {
-            taskType = ModulePurchaseType.Core;
+            taskType = ModulePurchaseType.Core_Internal;
             CoreInternalSlot internalSlot = ((CoreInternalSlot) moduleSlot);
             // consult ship for modules that can be fitted
 

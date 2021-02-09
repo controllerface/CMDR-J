@@ -11,9 +11,10 @@ import java.util.List;
 
 public enum ModulePurchaseType implements TaskType
 {
-    Hardpoint(EnumSet.allOf(HardpointModule.class)),
-    Optional(EnumSet.allOf(OptionalInternalModule.class)),
-    Core(EnumSet.allOf(CoreInternalModule.class)),
+    Core_Internal(EnumSet.allOf(CoreInternalModule.class)),
+    Optional_Internal(EnumSet.allOf(OptionalInternalModule.class)),
+    Utility_Mounts(EnumSet.allOf(UtilityModule.class)),
+    Weapon_Hardpoints(EnumSet.allOf(HardpointModule.class)),
 
     ;
 
@@ -26,7 +27,6 @@ public enum ModulePurchaseType implements TaskType
         this.shipModules = shipModules;
         blueprints = Collections.singletonList(new ModulePurchaseBlueprint(name(), shipModules));
     }
-
 
     @Override
     public String getName()

@@ -665,6 +665,38 @@ details > summary::-webkit-details-marker
     border-radius: 5px;
 }
 
+
+
+#taskContainer
+{
+    display: grid;
+    grid-template:
+        "plannedTab requiredTab taskListTab"
+        "panel      panel       panel";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#plannedTab
+{
+    grid-area: plannedTab;
+    border-radius: 5px;
+}
+
+#requiredTab
+{
+    grid-area: requiredTab;
+    border-radius: 5px;
+}
+
+#taskListTab
+{
+    grid-area: taskListTab;
+    border-radius: 5px;
+}
+
 .slottedName
 {
     font-weight: bold;

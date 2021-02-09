@@ -5,10 +5,8 @@ import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
-import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
-import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
-import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
-import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.*;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
@@ -20,8 +18,8 @@ import java.util.stream.Stream;
  */
 public class ModulePurchaseRecipe implements TaskRecipe
 {
-    private final CostData price;
-    private final CostData product;
+    public final CostData price;
+    public final CostData product;
     private final String name;
     private final String label;
     private final String shortLabel;
@@ -34,6 +32,10 @@ public class ModulePurchaseRecipe implements TaskRecipe
         if (product instanceof HardpointModule)
         {
             enumName = ((HardpointModule) product).name();
+        }
+        else if (product instanceof UtilityModule)
+        {
+            enumName = ((UtilityModule) product).name();
         }
         else if (product instanceof OptionalInternalModule)
         {
@@ -71,9 +73,24 @@ public class ModulePurchaseRecipe implements TaskRecipe
 
         double yieldCost_ = Math.abs(product.quantity);
 
+        var size = ((ShipModule) product.cost).itemEffects()
+            .effectByName(ItemEffect.Size)
+            .map(d->d.doubleValue)
+            .map(Double::intValue)
+            .orElse(-1);
+
+        var grade = ((ShipModule) product.cost).itemEffects()
+            .effectByName(ItemEffect.Class)
+            .map(d->d.stringValue)
+            .orElse("");
+
+        var classifier = size == -1
+            ? ""
+            : size + grade + " ";
+
         String yieldCost = yieldCost_ == 1
-                ? product.cost.getLocalizedName()
-                : yieldCost_ + " " + product.cost.getLocalizedName();
+                ? classifier + product.cost.getLocalizedName()
+                : yieldCost_ + " " + classifier + product.cost.getLocalizedName();
 
         return priceCost + " for " + yieldCost;
     }
@@ -105,15 +122,15 @@ public class ModulePurchaseRecipe implements TaskRecipe
     public static ModulePurchaseRecipe deserializeRecipe(ModulePurchaseType procType, String enumName)
     {
         ModulePurchaseRecipe recipe = null;
-        if (procType == ModulePurchaseType.Hardpoint)
+        if (procType == ModulePurchaseType.Weapon_Hardpoints)
         {
             recipe = new ModulePurchaseRecipe(HardpointModule.valueOf(enumName));
         }
-        else if (procType == ModulePurchaseType.Optional)
+        else if (procType == ModulePurchaseType.Optional_Internal)
         {
             recipe = new ModulePurchaseRecipe(OptionalInternalModule.valueOf(enumName));
         }
-        else if (procType == ModulePurchaseType.Core)
+        else if (procType == ModulePurchaseType.Core_Internal)
         {
             recipe = new ModulePurchaseRecipe(CoreInternalModule.valueOf(enumName));
         }

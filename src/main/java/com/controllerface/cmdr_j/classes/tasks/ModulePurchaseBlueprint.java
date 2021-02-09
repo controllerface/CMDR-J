@@ -20,8 +20,12 @@ public class ModulePurchaseBlueprint implements TaskBlueprint
     {
         this.ss = ss;
         recipes = x.stream()
-                .map(ModulePurchaseRecipe::new)
-                .collect(Collectors.toList());
+            .filter(y->!y.name().equals("int_planetapproachsuite"))
+            .filter(y->!y.name().equals("modularcargobaydoor"))
+            .filter(y->!y.name().endsWith("_cockpit"))
+            .filter(y->!y.name().endsWith("_free"))
+            .map(ModulePurchaseRecipe::new)
+            .collect(Collectors.toList());
     }
 
     @Override

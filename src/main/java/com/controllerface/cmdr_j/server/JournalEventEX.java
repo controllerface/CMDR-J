@@ -4,10 +4,7 @@ import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
-import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
-import com.controllerface.cmdr_j.enums.equipment.modules.Cosmetic;
-import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
-import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
+import com.controllerface.cmdr_j.enums.equipment.modules.*;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
@@ -291,6 +288,10 @@ public enum JournalEventEX
         ShipModule module;
 
         try { module = HardpointModule.findModule(moduleName); }
+        catch (Exception e) { module = null; }
+        if (module != null) return module;
+
+        try { module = UtilityModule.findModule(moduleName); }
         catch (Exception e) { module = null; }
         if (module != null) return module;
 

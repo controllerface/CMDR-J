@@ -37,6 +37,7 @@
     <script src="systemCartography.js"></script>
     <script src="systemCatalog.js"></script>
     <script src="systemFaction.js"></script>
+    <script src="taskCatalog.js"></script>
 
     <!--
     Class hierarchy:
@@ -1109,6 +1110,61 @@
         </div>
 
     </template>
+
+    <!-- Task Catalog -->
+    <template id="template_TaskCatalog">
+        <link rel="stylesheet" href="statistics.css">
+        <link rel="stylesheet" href="tasks.css">
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Purchase Modules</b>
+            </div>
+        </div>
+
+        <div id="taskCatalog_modules"></div>
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Engineer Modifications</b>
+            </div>
+        </div>
+
+        <div id="taskCatalog_modifications"></div>
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Experimental Effects</b>
+            </div>
+        </div>
+
+        <div id="taskCatalog_experimentals"></div>
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Technology Brokers</b>
+            </div>
+        </div>
+
+        <div id="taskCatalog_techbrokers"></div>
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Material Trades</b>
+            </div>
+        </div>
+
+        <div id="taskCatalog_trades"></div>
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Synthesis</b>
+            </div>
+        </div>
+
+        <div id="taskCatalog_synthesis"></div>
+
+    </template>
 </head>
 
 <body>
@@ -1624,7 +1680,25 @@
 
             <input name="activitiesTabs" type="radio" id="tasksTabButton" class="tabInput"/>
             <label id="tasksTab" for="tasksTabButton" class="tabLabel">Tasks</label>
-            <div class="tabPanel">TODO: tasks</div>
+            <div class="tabPanel">
+                <div id="taskContainer">
+
+                    <input name="taskTabs" type="radio" id="plannedTabButton" class="tabInput"/>
+                    <label id="plannedTab" for="plannedTabButton" class="tabLabel">In Progress</label>
+                    <div class="tabPanel">TODO: in progress</div>
+
+                    <input name="taskTabs" type="radio" id="requiredTabButton" class="tabInput"/>
+                    <label id="requiredTab" for="requiredTabButton" class="tabLabel">Bill of Materials</label>
+                    <div class="tabPanel">TODO: Requirements</div>
+
+                    <input name="taskTabs" type="radio" id="taskListTabButton" class="tabInput"/>
+                    <label id="taskListTab" for="taskListTabButton" class="tabLabel">Task Catalog</label>
+                    <div class="tabPanel">
+                        <task-catalog></task-catalog>
+                    </div>
+
+                </div>
+            </div>
 
         </div>
     </div>

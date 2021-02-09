@@ -179,61 +179,6 @@ public enum HardpointModule implements ShipModule
     hpt_advancedtorppylon_fixed_medium(new FixedTorpedoPylon_Medium()),
     hpt_advancedtorppylon_fixed_large(new FixedTorpedoPylon_Large()),
 
-    hpt_mininglaser_fixed_small(new FixedMiningLaser_Small()),
-    hpt_mininglaser_turret_small(new TurretedMiningLaser_Small()),
-    hpt_mininglaser_fixed_small_advanced(new FixedMiningLance_Small()),
-    hpt_mininglaser_fixed_medium(new FixedMiningLaser_Medium()),
-    hpt_mininglaser_turret_medium(new TurretedMiningLaser_Medium()),
-
-    hpt_mining_seismchrgwarhd_fixed_medium(new FixedSeismicChargeLauncher_Medium()),
-    hpt_mining_seismchrgwarhd_turret_medium(new TurretedSeismicChargeLauncher_Medium()),
-
-    hpt_mining_subsurfdispmisle_fixed_small(new FixedSubSurfaceDisplacementMissile_Small()),
-    hpt_mining_subsurfdispmisle_turret_small(new TurretedSubSurfaceDisplacementMissile_Small()),
-    hpt_mining_subsurfdispmisle_fixed_medium(new FixedSubSurfaceDisplacementMissile_Medium()),
-    hpt_mining_subsurfdispmisle_turret_medium(new TurretedSubSurfaceDisplacementMissile_Medium()),
-
-    hpt_mining_abrblstr_fixed_small(new FixedAbrasionBlaster_Small()),
-    hpt_mining_abrblstr_turret_small(new TurretedAbrasionBlaster_Small()),
-
-    hpt_mrascanner_size0_class1(new PulseWaveAnalyzer_0E()),
-    hpt_mrascanner_size0_class2(new PulseWaveAnalyzer_0D()),
-    hpt_mrascanner_size0_class3(new PulseWaveAnalyzer_0C()),
-    hpt_mrascanner_size0_class4(new PulseWaveAnalyzer_0B()),
-    hpt_mrascanner_size0_class5(new PulseWaveAnalyzer_0A()),
-
-    hpt_shieldbooster_size0_class1(new ShieldBooster_0E()),
-    hpt_shieldbooster_size0_class2(new ShieldBooster_0D()),
-    hpt_shieldbooster_size0_class3(new ShieldBooster_0C()),
-    hpt_shieldbooster_size0_class4(new ShieldBooster_0B()),
-    hpt_shieldbooster_size0_class5(new ShieldBooster_0A()),
-
-    hpt_cloudscanner_size0_class1(new FSDWakeScanner_0E()),
-    hpt_cloudscanner_size0_class2(new FSDWakeScanner_0D()),
-    hpt_cloudscanner_size0_class3(new FSDWakeScanner_0C()),
-    hpt_cloudscanner_size0_class4(new FSDWakeScanner_0B()),
-    hpt_cloudscanner_size0_class5(new FSDWakeScanner_0A()),
-
-    hpt_crimescanner_size0_class1(new Kill_warrantScanner_0E()),
-    hpt_crimescanner_size0_class2(new Kill_warrantScanner_0D()),
-    hpt_crimescanner_size0_class3(new Kill_warrantScanner_0C()),
-    hpt_crimescanner_size0_class4(new Kill_warrantScanner_0B()),
-    hpt_crimescanner_size0_class5(new Kill_warrantScanner_0A()),
-
-    hpt_cargoscanner_size0_class1(new ManifestScanner_0E()),
-    hpt_cargoscanner_size0_class2(new ManifestScanner_0D()),
-    hpt_cargoscanner_size0_class3(new ManifestScanner_0C()),
-    hpt_cargoscanner_size0_class4(new ManifestScanner_0B()),
-    hpt_cargoscanner_size0_class5(new ManifestScanner_0A()),
-
-    hpt_chafflauncher_tiny(new Launcher_Chaff()),
-
-    hpt_heatsinklauncher_turret_tiny(new Launcher_HeatSink()),
-
-    hpt_plasmapointdefence_turret_tiny(new DefenseTurret_Point()),
-
-    hpt_electroniccountermeasure_tiny(new CounterMeasures_Electronic()),
-
     hpt_atmulticannon_fixed_medium(new FixedAntiThargoidMultiCannon_Medium()),
     hpt_atmulticannon_turret_medium(new TurretedAntiThargoidMultiCannon_Medium()),
     hpt_atmulticannon_fixed_large(new FixedAntiThargoidMultiCannon_Large()),
@@ -269,7 +214,6 @@ public enum HardpointModule implements ShipModule
     hpt_flechettelauncher_fixed_medium(new FixedRemoteReleaseFlechetteLauncher_Medium()),
     hpt_flechettelauncher_turret_medium(new TurretedRemoteReleaseFlechetteLauncher_Medium()),
 
-
     hpt_plasmashockcannon_fixed_small(new FixedShockCannon_Small()),
     hpt_plasmashockcannon_gimbal_small(new GimballedShockCannon_Small()),
     hpt_plasmashockcannon_turret_small(new TurretedShockCannon_Small()),
@@ -279,14 +223,6 @@ public enum HardpointModule implements ShipModule
     hpt_plasmashockcannon_fixed_large(new FixedShockCannon_Large()),
     hpt_plasmashockcannon_gimbal_large(new GimballedShockCannon_Large()),
     hpt_plasmashockcannon_turret_large(new TurretedShockCannon_Large()),
-
-    /**
-     * Experimental (AEGIS, Anti-Thargoid) Modules
-     */
-
-    hpt_antiunknownshutdown_tiny(new AntiShutdownField_0F()),
-
-    hpt_xenoscanner_basic_tiny(new XenoScanner_0E()),
 
     ;
 
