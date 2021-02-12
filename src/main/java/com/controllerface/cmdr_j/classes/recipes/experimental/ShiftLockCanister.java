@@ -13,7 +13,7 @@ public class ShiftLockCanister extends AbstractExperimentalRecipe
     {
         super("Shift-Lock Canister", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Area_FSD_Reboot, 0.0)
+                  new ItemEffectData(ItemEffect.Area_FSD_Reboot, "Installed")
             ),
             new CostData(Material.TEMPEREDALLOYS, 5),
             new CostData(Material.WAKESOLUTIONS, 3),

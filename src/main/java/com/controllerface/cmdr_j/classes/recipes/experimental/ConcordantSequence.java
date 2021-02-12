@@ -13,7 +13,7 @@ public class ConcordantSequence extends AbstractExperimentalRecipe
     {
         super("Concordant Sequence", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Wing_Shield_Regeneration_Increased, 0.0),
+                  new ItemEffectData(ItemEffect.Wing_Shield_Regeneration_Increased, "Installed"),
                   new ItemEffectData(ItemEffect.ThermalLoad, 50.0)
             ),
             new CostData(Material.FOCUSCRYSTALS, 5),

@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.classes.modules.weapons.beam;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
+import com.controllerface.cmdr_j.ui.UIFunctions;
 
 public class GimballedBeamLaser_Medium extends AbstractBeamLaser
 {
@@ -20,7 +21,7 @@ public class GimballedBeamLaser_Medium extends AbstractBeamLaser
                 new ItemEffectData(ItemEffect.ThermalLoad, 5.32),
                 new ItemEffectData(ItemEffect.ArmourPenetration, 35.0),
                 new ItemEffectData(ItemEffect.MaximumRange, 3000.0),
-                new ItemEffectData(ItemEffect.RateOfFire, Double.MAX_VALUE),
+                new ItemEffectData(ItemEffect.RateOfFire, UIFunctions.Symbols.INFINITY),
                 new ItemEffectData(ItemEffect.BreachDamage, 10.0),
                 new ItemEffectData(ItemEffect.MinBreachChance, 40.0),
                 new ItemEffectData(ItemEffect.MaxBreachChance, 80.0),

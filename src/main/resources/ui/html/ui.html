@@ -5,6 +5,7 @@
     <title>CMDR J - v2.2 (Alpha)</title>
 
     <script src="ui.js"></script>
+    <script src="billOfMaterials.js"></script>
     <script src="cargo.js"></script>
     <script src="cartographicData.js"></script>
     <script src="commanderStat.js"></script>
@@ -30,6 +31,7 @@
     <script src="poiEntry.js"></script>
     <script src="powerModule.js"></script>
     <script src="powerStats.js"></script>
+    <script src="requiredMaterial.js"></script>
     <script src="routeEntry.js"></script>
     <script src="shipModule.js"></script>
     <script src="shipStats.js"></script>
@@ -1181,13 +1183,39 @@
     <template id="template_TaskData">
         <link rel="stylesheet" href="statistics.css">
         <link rel="stylesheet" href="tasks.css">
-        <details class="taskDetails">
+        <details class="taskDetails" id="taskData_details">
             <summary>
                 <span id="taskData_taskname"></span>
-                <button class="taskButton" id="taskData_addbutton">+</button>
-                <button class="taskButton" id="taskData_subtractbutton">-</button>
+                <button class="taskDeleteButton" id="taskData_deletebutton">x</button>
+                <span class="taskSpacer">&nbsp;</span>
+                <button class="taskAddButton" id="taskData_addbutton">+</button>
+                <span class="taskCount" id="taskData_count">0</span>
+                <button class="taskSubtractButton" id="taskData_subtractbutton">-</button>
             </summary>
             <div class="taskCostData" id="taskData_costs"></div>
+        </details>
+    </template>
+
+    <!-- Bill of materials -->
+    <template id="template_BillOfMaterials">
+        <link rel="stylesheet" href="statistics.css">
+        <link rel="stylesheet" href="tasks.css">
+        <slot>
+            <div class="emptySection">No required materials</div>
+        </slot>
+    </template>
+
+    <!-- Required material for a tracked task -->
+    <template id="template_RequiredMaterial">
+        <link rel="stylesheet" href="statistics.css">
+        <link rel="stylesheet" href="tasks.css">
+        <details class="taskDetails" id="requiredMaterial_details">
+            <summary>
+                <span id="requiredMaterial_materialname">-</span>
+                <progress id="requiredMaterial_progress" class="materialProgress"></progress>
+                <span class="materialNeed" id="requiredMaterial_deficit"></span>
+            </summary>
+            <span>Test</span>
         </details>
     </template>
 
@@ -1374,7 +1402,6 @@
     <input name="categoryTabs" type="radio" id="inventoryTabButton" class="tabInput"/>
     <label id="inventoryTab" for="inventoryTabButton" class="tabLabel">Inventory</label>
     <div class="tabPanel">
-
         <div id="inventoryContainer">
 
             <input name="inventoryTabs" type="radio" id="matsTabButton" class="tabInput"/>
@@ -1635,9 +1662,6 @@
             <div class="tabPanel" id="tradeMarket">
                 <market-info id="marketInfo" station="None" system="None"></market-info>
             </div>
-
-
-
         </div>
     </div>
 
@@ -1717,14 +1741,15 @@
 
                     <input name="taskTabs" type="radio" id="requiredTabButton" class="tabInput"/>
                     <label id="requiredTab" for="requiredTabButton" class="tabLabel">Bill of Materials</label>
-                    <div class="tabPanel">TODO: Requirements</div>
+                    <div class="tabPanel">
+                        <bill-of-materials id="billOfMaterials"></bill-of-materials>
+                    </div>
 
                     <input name="taskTabs" type="radio" id="taskListTabButton" class="tabInput"/>
                     <label id="taskListTab" for="taskListTabButton" class="tabLabel">Task Catalog</label>
                     <div class="tabPanel">
                         <task-catalog></task-catalog>
                     </div>
-
                 </div>
             </div>
 

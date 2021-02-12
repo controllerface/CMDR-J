@@ -13,7 +13,7 @@ public class PenetratorMunitions extends AbstractExperimentalRecipe
     {
         super("Penetrator Munitions", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Module_Damage, 0.0)
+                  new ItemEffectData(ItemEffect.Target_Module_Damage, "Installed")
             ),
             new CostData(Material.GALVANISINGALLOYS, 5),
             new CostData(Material.ELECTROCHEMICALARRAYS, 3),

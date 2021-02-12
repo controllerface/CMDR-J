@@ -13,7 +13,7 @@ public class TargetLockBreaker extends AbstractExperimentalRecipe
     {
         super("Target Lock Breaker", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Loses_Target_Lock, 0.0)
+                  new ItemEffectData(ItemEffect.Target_Loses_Target_Lock, "Installed")
             ),
             new CostData(Material.SELENIUM, 5),
             new CostData(Material.SECURITYFIRMWARE, 3),

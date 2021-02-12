@@ -13,7 +13,7 @@ public class ReverberatingCascade extends AbstractExperimentalRecipe
     {
         super("Reverberating Cascade", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Shield_Generator_Damaged, 0.0)
+                  new ItemEffectData(ItemEffect.Target_Shield_Generator_Damaged, "Installed")
             ),
             new CostData(Material.CONFIGURABLECOMPONENTS, 2),
             new CostData(Material.SCANDATABANKS, 3),

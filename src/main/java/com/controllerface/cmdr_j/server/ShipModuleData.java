@@ -92,6 +92,36 @@ public class ShipModuleData
 
         Map<String, Object> effects = new HashMap<>();
 
+        Optional.ofNullable(experimentalEffectRecipe)
+            .ifPresent(experimentalRecipe -> experimentalRecipe.effects().effectStream()
+                .filter(e->e.effect.effectType == ItemEffect.EffectType.EXPERIMENTAL)
+                .forEach(effectData->
+                {
+                    var name = effectData.effect.toString();
+                    var values = new HashMap<String, Object>();
+                    if (effectData.isNumerical())
+                    {
+                        values.put("value", effectData.getDoubleValue());
+                    }
+                    else
+                    {
+                        values.put("value", effectData.getValueString());
+                    }
+
+                    var type = effectData.effect.effectType
+                        .toString()
+                        .toLowerCase()
+                        .replace("_", "");
+
+                    values.put("effectType", type);
+
+                    Optional.of(effectData.effect.unit)
+                        .filter(unit -> !unit.isEmpty())
+                        .ifPresent(unit -> values.put("unit", unit));
+
+                    effects.put(name, values);
+                }));
+
         module.itemEffects().effectStream()
             .forEach(effectData ->
             {

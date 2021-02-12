@@ -963,7 +963,7 @@ function setPoi(address, poiText, callback)
       .catch(error => console.error(error));
 }
 
-function removePoi(address, poiId)
+function removePoi(address, poiId, callback)
 {
     let formData = new FormData();
     formData.append('id', address);
@@ -971,7 +971,7 @@ function removePoi(address, poiId)
     let post = { method: 'POST', body: formData};
 
     fetch('/poi?action=delete', post)
-      .then(response => console.log(response))
+      .then(response => { if (callback) callback(response); })
       .catch(error => console.error(error));
 }
 
@@ -1087,14 +1087,14 @@ function setTrackedLocation(target, callback)
       .catch(error => console.error(error));
 }
 
-function createWaypoint()
+function createWaypoint(callback)
 {
     fetch('/waypoint')
-      .then(response => console.log(response))
+      .then(response => { if (callback) callback(response); })
       .catch(error => console.error(error));
 }
 
-function removeWaypoint(name, waypointId)
+function removeWaypoint(name, waypointId, callback)
 {
     if (!name || !waypointId)
     {
@@ -1106,7 +1106,7 @@ function removeWaypoint(name, waypointId)
     if (confirm(message))
     {
         fetch('/waypoint?remove=' + waypointId)
-          .then(response => console.log(response))
+          .then(response => { if (callback) callback(response); })
           .catch(error => console.error(error));
     }
 }
@@ -1209,35 +1209,74 @@ function handleMissions(data)
             nextMission.reputation = mission['reputation'];
             nextMission.missionID = mission['missionID'];
             nextMission.setDetails(mission['details']);
-
-            console.log(mission['details']);
-
             missionContainer.append(nextMission);
         });
     }
 }
 
-function adjustTask(key, type)
+function adjustTask(key, type, callback)
 {
     fetch('/tasks?key=' + key + '&type=' + type)
-      .then(response => console.log(response))
+      .then(response => { if (callback) callback(response); })
       .catch(error => console.error(error));
+}
+
+function handleTaskMaterials(materialData)
+{
+    console.log(materialData);
+    let taskContainer = document.getElementById('billOfMaterials');
+    taskContainer.textContent = "";
+    let materials = Object.keys(materialData);
+    materials.sort((a, b) =>
+    {
+        return materialData[b]['deficit'] - materialData[a]['deficit'];
+    });
+    for (let i = 0, len = materials.length; i < len; i++)
+    {
+        let materialName = materials[i];
+        let material = materialData[materialName];
+        let nextMaterial = document.createElement('required-material');
+        nextMaterial.materialName = materialName;
+        nextMaterial.deficit = material['deficit'];
+        nextMaterial.loadData(material);
+        taskContainer.append(nextMaterial);
+    }
 }
 
 function handleTaskData(data)
 {
+    if (data === 'materials')
+    {
+        fetch("/tasks?type=materials")
+          .then(response => response.json())
+          .then(data => handleTaskMaterials(data))
+          .catch(error => console.error(error));
+        return;
+    }
+
     let taskData = JSON.parse(data);
-    console.log(taskData);
     let taskContainer = document.getElementById('trackedTasks');
     let existingTask = taskContainer.querySelector('task-data[key="' + taskData['key'] + '"]');
+    let remove = taskData['count'] < 1;
     if (existingTask)
     {
-        // update task count only
+        if (remove)
+        {
+            existingTask.parentElement.removeChild(existingTask);
+        }
+        else
+        {
+            existingTask.count = taskData['count'];
+        }
     }
-    else
+    else if(!remove)
     {
         let newTask = document.createElement('task-data');
         newTask.taskName = taskData['name'];
+        newTask.key = taskData['key'];
+        newTask.count = taskData['count'];
+        newTask.loadCostData(taskData['costs']);
+        newTask.loadEffectData(taskData['effects']);
         taskContainer.append(newTask);
     }
 }

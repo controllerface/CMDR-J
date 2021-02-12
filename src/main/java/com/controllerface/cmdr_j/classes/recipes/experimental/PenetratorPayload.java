@@ -13,7 +13,7 @@ public class PenetratorPayload extends AbstractExperimentalRecipe
     {
         super("Penetrator Payload", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Module_Damage, 0.0)
+                  new ItemEffectData(ItemEffect.Target_Module_Damage, "Installed")
             ),
             new CostData(Material.MECHANICALCOMPONENTS, 3),
             new CostData(Material.TUNGSTEN, 3),

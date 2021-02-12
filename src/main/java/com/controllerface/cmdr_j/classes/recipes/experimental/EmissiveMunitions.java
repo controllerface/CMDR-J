@@ -13,7 +13,7 @@ public class EmissiveMunitions extends AbstractExperimentalRecipe
     {
         super("Emissive Munitions", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Signature_Increased, 0.0),
+                  new ItemEffectData(ItemEffect.Target_Signature_Increased, "Installed"),
                   new ItemEffectData(ItemEffect.ThermalLoad, 100.0)
             ),
             new CostData(Material.MECHANICALEQUIPMENT, 5),

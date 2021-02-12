@@ -13,7 +13,7 @@ public class OverloadMunitions extends AbstractExperimentalRecipe
     {
         super("Overload Munitions", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Damage_Partially_Thermal, 0.0)
+                  new ItemEffectData(ItemEffect.Damage_Partially_Thermal, 50.0)
             ),
             new CostData(Material.FILAMENTCOMPOSITES, 5),
             new CostData(Material.ENCRYPTIONCODES, 4),

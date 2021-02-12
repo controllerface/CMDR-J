@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.classes.modules;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
+import com.controllerface.cmdr_j.ui.UIFunctions;
 
 public class AdvancedDiscoveryScanner extends AbstractModule
 {
@@ -12,7 +13,7 @@ public class AdvancedDiscoveryScanner extends AbstractModule
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Mass, 2d),
                         new ItemEffectData(ItemEffect.Integrity, 40d),
-                        new ItemEffectData(ItemEffect.DiscoveryScannerRange, Double.MAX_VALUE),
+                        new ItemEffectData(ItemEffect.DiscoveryScannerRange, UIFunctions.Symbols.INFINITY),
                         new ItemEffectData(ItemEffect.DiscoveryScannerPassiveRange, 33.36d),
                         new ItemEffectData(ItemEffect.MaxAngle, 10d),
                         new ItemEffectData(ItemEffect.ScannerTimeToScan, 5d)

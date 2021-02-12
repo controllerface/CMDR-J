@@ -40,5 +40,15 @@ public class FSDJumpEvent implements BiConsumer<GameState, Map<String, Object>>
         {
             gameState.acceptFactionData(factions);
         }
+
+        var conflicts = ((List<Map<String, Object>>) event.get("Conflicts"));
+        if (conflicts == null || conflicts.isEmpty())
+        {
+            gameState.clearConflictData();
+        }
+        else
+        {
+            gameState.acceptConflictData(conflicts);
+        }
     }
 }

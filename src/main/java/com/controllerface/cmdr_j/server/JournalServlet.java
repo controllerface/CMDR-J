@@ -246,24 +246,39 @@ class JournalServlet extends EventSourceServlet
         {
             var key = request.getParameter("key");
             var type = request.getParameter("type");
-            if (key == null && type != null && type.equalsIgnoreCase("catalog"))
+
+            if (type == null)
             {
-                writeJsonResponse(response, playerState.writeTaskCatalog());
-            }
-            else if (key == null && type == null)
-            {
-                writeJsonResponse(response, playerState.writeTaskData());
+                writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
             }
             else
             {
-                var result = playerState.adjustTask(key, type);
-                if (result)
+                if (key == null)
                 {
-                    writeCreatedResponse(response, "Task Adjusted");
+                    if (type.equalsIgnoreCase("catalog"))
+                    {
+                        writeJsonResponse(response, playerState.writeTaskCatalog());
+                    }
+                    else if (type.equalsIgnoreCase("materials"))
+                    {
+                        writeJsonResponse(response, playerState.writeTaskMaterials());
+                    }
+                    else
+                    {
+                        writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
+                    }
                 }
                 else
                 {
-                    writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
+                    var result = playerState.adjustTask(key, type);
+                    if (result)
+                    {
+                        writeCreatedResponse(response, "Task Adjusted");
+                    }
+                    else
+                    {
+                        writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
+                    }
                 }
             }
         }),

@@ -13,7 +13,7 @@ public class FeedbackCascade_Legacy extends AbstractExperimentalRecipe
     {
         super("Feedback Cascade (Legacy)", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Shield_Cell_Disrupted, 0.0),
+                  new ItemEffectData(ItemEffect.Target_Shield_Cell_Disrupted, "Installed"),
                   new ItemEffectData(ItemEffect.Damage, -20.0)
             ),
             new CostData(Material.SYMMETRICKEYS, 5),

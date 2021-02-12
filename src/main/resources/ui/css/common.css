@@ -164,6 +164,21 @@ progress::-webkit-progress-bar
     background: var(--default-background);
 }
 
+.progressComplete
+{
+    appearance: none;
+}
+
+.progressComplete::-webkit-progress-value
+{
+    background: var(--positive-color);
+}
+
+.progressComplete::-webkit-progress-bar
+{
+    background: var(--default-background);
+}
+
 /*
 Global styling parameters for <meter> elements. These are mainly used to represent faction
 reputation states that range from -100 to 100.

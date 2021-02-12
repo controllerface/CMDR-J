@@ -19,8 +19,11 @@ import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
+import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalCategory;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationCategory;
+import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisCategory;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
@@ -66,6 +69,9 @@ public class GameState
      * This is an event sink used when state changes must be communicated to listening clients
      */
     private final BiConsumer<String, String> globalUpdate;
+
+    private static final TaskCatalog taskCatalog = new TaskCatalog();
+    private final String rawCatalogJson = buildTaskCatalog();
 
     private final Map<Statistic, String> commanderStatistics = new HashMap<>();
     private final Map<Statistic, String> shipStatistics = new HashMap<>();
@@ -194,12 +200,45 @@ public class GameState
         public final String name;
         public final String ship;
         public final Integer rank;
+        public final List<Map<String, Object>> effects;
+        public final List<Map<String, Object>> costs;
 
-        private TaskData(String name, String ship, Integer rank)
+        private TaskData(String name,
+                         String ship,
+                         Integer rank,
+                         List<Map<String, Object>> effects,
+                         List<Map<String, Object>> costs)
         {
             this.name = name;
             this.ship = ship;
             this.rank = rank;
+            this.effects = effects;
+            this.costs = costs;
+        }
+
+        private TaskData(String name,
+                         Integer rank,
+                         List<Map<String, Object>> effects,
+                         List<Map<String, Object>> costs)
+        {
+            this(name, "", rank, effects, costs);
+        }
+
+        private TaskData(String name, Integer rank)
+        {
+            this(name, "", rank, Collections.emptyList(), Collections.emptyList());
+        }
+    }
+
+    private static class TaskSummary
+    {
+        private final String key;
+        private final int count;
+
+        private TaskSummary(String key, int count)
+        {
+            this.key = key;
+            this.count = count;
         }
     }
 
@@ -207,7 +246,6 @@ public class GameState
     {
         this.globalUpdate = globalUpdate;
 
-        buildTaskCatalog();
         // DEBUG SECTION
 //        database.executeInTransaction(txn ->
 //        {
@@ -1314,8 +1352,7 @@ public class GameState
     private ShipStatisticData.StatGroup getShieldResistanceTotal(ItemEffect resistanceEffect)
     {
         List<Double> resistances = new ArrayList<>();
-        double shieldResistence =
-            shipModules.values().stream()
+        double shieldResistence = shipModules.values().stream()
                 .filter(shipModuleData -> shipModuleData.module.modificationType() == ModificationType.Shield_Generator)
                 .map(shipModuleData -> shipModuleData.effectByName(resistanceEffect).map(e -> e.doubleValue))
                 .filter(Optional::isPresent)
@@ -1402,6 +1439,104 @@ public class GameState
         return calculatedResistance;
     }
 
+    private static class DamageBreakdown
+    {
+        final double thermalShare;
+        final double kineticShare;
+        final double explosiveShare;
+        final double absoluteShare;
+
+        private DamageBreakdown(double thermalShare, double kineticShare, double explosiveShare, double absoluteShare)
+        {
+            this.thermalShare = thermalShare;
+            this.kineticShare = kineticShare;
+            this.explosiveShare = explosiveShare;
+            this.absoluteShare = absoluteShare;
+        }
+    }
+
+    private DamageBreakdown calculateDamageShares(double dps,
+                                                  double partialExplosive,
+                                                  double partialKinetic,
+                                                  double partialThermal,
+                                                  double naturalShare,
+                                                  String type,
+                                                  String naturalType)
+    {
+        var thermalShare = 0.0d;
+        var kineticShare = 0.0d;
+        var explosiveShare = 0.0d;
+        var absoluteShare = 0.0d;
+
+        DamageBreakdown naturalBreakdown = null;
+        if (naturalShare != 1.0)
+        {
+            naturalBreakdown = calculateDamageShares(dps * naturalShare,
+                0.0d,
+                0.0d,
+                0.0d,
+                1.0,
+                naturalType,
+                type);
+        }
+
+        switch (type)
+        {
+            case "Absolute":
+            case "Absolute/AX":
+                absoluteShare = dps * .6;
+                thermalShare = dps * .2;
+                kineticShare = dps * .2;
+                break;
+
+            case "Thermal":
+            case "Thermal/AX":
+                thermalShare = dps;
+                break;
+
+            case "Kinetic":
+            case "Kinetic/AX":
+                kineticShare = dps;
+                break;
+
+            case "Explosive":
+            case "Explosive/AX":
+                explosiveShare = dps;
+                break;
+
+            case "Thermo-Kinetic":
+                thermalShare = dps * .666;
+                kineticShare = dps * .333;
+                break;
+
+            case "PartialExplosive":
+                explosiveShare = dps * partialExplosive;
+                break;
+
+            case "PartialKinetic":
+                kineticShare = dps * partialKinetic;
+                break;
+
+            case "PartialThermal":
+                thermalShare = dps * partialThermal;
+                break;
+
+            default:
+                System.err.println("Unknown damage type: " + type);
+                break;
+        }
+
+        if (naturalBreakdown != null)
+        {
+            thermalShare += naturalBreakdown.thermalShare;
+            kineticShare += naturalBreakdown.kineticShare;
+            explosiveShare += naturalBreakdown.explosiveShare;
+            absoluteShare += naturalBreakdown.absoluteShare;
+        }
+
+        return new DamageBreakdown(thermalShare, kineticShare, explosiveShare, absoluteShare);
+    }
+
     private String calculateOffenseStats()
     {
         // total combined
@@ -1428,57 +1563,59 @@ public class GameState
                     .map(ItemEffectData::getDoubleValue)
                     .orElse(0.0d);
 
-                var thermalShare = 0.0d;
-                var kineticShare = 0.0d;
-                var explosiveShare = 0.0d;
-                var absoluteShare = 0.0d;
+                double partialExplosive = module.effectByName(ItemEffect.Damage_Partially_Explosive)
+                    .map(ItemEffectData::getDoubleValue)
+                    .map(effectValue -> effectValue * 0.01d)
+                    .orElse(0.0d);
 
-                switch (type)
+                double partialKinetic = module.effectByName(ItemEffect.Damage_Partially_Kinetic)
+                    .map(ItemEffectData::getDoubleValue)
+                    .map(effectValue -> effectValue * 0.01d)
+                    .orElse(0.0d);
+
+                double partialThermal = module.effectByName(ItemEffect.Damage_Partially_Thermal)
+                    .map(ItemEffectData::getDoubleValue)
+                    .map(effectValue -> effectValue * 0.01d)
+                    .orElse(0.0d);
+
+                var naturalType = type;
+                var naturalShare = 1.0d;
+
+                if (partialExplosive > 0.0)
                 {
-                    case "Absolute":
-                    case "Absolute/AX":
-                        absoluteShare = dps * .6;
-                        thermalShare = dps * .2;
-                        kineticShare = dps * .2;
-                        break;
-
-                    case "Thermal":
-                    case "Thermal/AX":
-                        thermalShare = dps;
-                        break;
-
-                    case "Kinetic":
-                    case "Kinetic/AX":
-                        kineticShare = dps;
-                        break;
-
-                    case "Explosive":
-                    case "Explosive/AX":
-                        explosiveShare = dps;
-                        break;
-
-                    case "Thermo-Kinetic":
-                        thermalShare = dps * .666;
-                        kineticShare = dps * .333;
-                        break;
-
-                    // todo: experimentals that modify dmg type, see cannon
-                    default:
-                        System.err.println("Unknown damage type: " + type);
-                        break;
+                    type = "PartialExplosive";
+                    naturalShare = 1.0 - partialExplosive;
+                }
+                else if (partialKinetic > 0.0)
+                {
+                    type = "PartialKinetic";
+                    naturalShare = 1.0 - partialKinetic;
+                }
+                else if (partialThermal > 0.0)
+                {
+                    type = "PartialThermal";
+                    naturalShare = 1.0 - partialThermal;
                 }
 
-                thermalDamage.add(thermalShare);
-                kineticDamage.add(kineticShare);
-                explosiveDamage.add(explosiveShare);
-                absoluteDamage.add(absoluteShare);
+                var damageShares = calculateDamageShares(dps,
+                    partialExplosive,
+                    partialKinetic,
+                    partialThermal,
+                    naturalShare,
+                    type,
+                    naturalType);
+
+                thermalDamage.add(damageShares.thermalShare);
+                kineticDamage.add(damageShares.kineticShare);
+                explosiveDamage.add(damageShares.explosiveShare);
+                absoluteDamage.add(damageShares.absoluteShare);
 
                 var damageData = new HashMap<String, Object>();
                 damageData.put("total", UIFunctions.Data.round(dps, 2));
-                damageData.put("thermal", UIFunctions.Data.round(thermalShare, 2));
-                damageData.put("kinetic", UIFunctions.Data.round(kineticShare, 2));
-                damageData.put("explosive", UIFunctions.Data.round(explosiveShare, 2));
-                damageData.put("absolute", UIFunctions.Data.round(absoluteShare, 2));
+                damageData.put("thermal", UIFunctions.Data.round(damageShares.thermalShare, 2));
+                damageData.put("kinetic", UIFunctions.Data.round(damageShares.kineticShare, 2));
+                damageData.put("explosive", UIFunctions.Data.round(damageShares.explosiveShare, 2));
+                damageData.put("absolute", UIFunctions.Data.round(damageShares.absoluteShare, 2));
 
                 var moduleData = new HashMap<String, Object>();
                 moduleData.put(module.module.displayText(), damageData);
@@ -2172,6 +2309,8 @@ public class GameState
             emitMissionData(directUpdate);
 
             emitAllTaskData(directUpdate);
+
+            directUpdate.accept("Task", "materials");
         });
     }
 
@@ -2353,24 +2492,37 @@ public class GameState
         });
     }
 
-    private void emitAllTaskData(BiConsumer<String, String> sink)
+    private List<TaskSummary> getTaskSummaries()
     {
-        List<Map<String, Object>> taskSummaries = database.computeInTransaction(txn ->
+        return database.computeInTransaction(txn ->
         {
             var commander = getCommanderEntity(txn);
             if (commander == null) return Collections.emptyList();
+
             return EntityUtilities.entityStream(commander.getLinks(EntityKeys.TASK))
                 .map(entity ->
                 {
-                    var map = new HashMap<String, Object>();
-                    map.put("key", entity.getProperty(EntityKeys.TASK_KEY));
-                    map.put("count", entity.getProperty(EntityKeys.TASK_COUNT));
-                    return map;
-                }).collect(Collectors.toList());
+                    try
+                    {
+                        var key = ((String) entity.getProperty(EntityKeys.TASK_KEY));
+                        int count = ((Integer) Objects.requireNonNull(entity.getProperty(EntityKeys.TASK_COUNT)));
+                        return new TaskSummary(key, count);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
         });
+    }
 
-        taskSummaries.forEach(taskSummary ->
-            emitTaskData(sink, ((String) taskSummary.get("key")), ((Integer) taskSummary.get("count"))));
+    private void emitAllTaskData(BiConsumer<String, String> sink)
+    {
+        List<TaskSummary> taskSummaries = getTaskSummaries();
+        taskSummaries.forEach(taskSummary -> emitTaskData(sink, taskSummary.key, taskSummary.count));
     }
 
     private void emitTaskData(BiConsumer<String, String> sink, String taskKey, Integer count)
@@ -2383,29 +2535,8 @@ public class GameState
             var task = taskCatalog.keyMap.get(taskKey);
             var taskdata = determineTaskData(task);
             data.put("name", taskdata.name);
-            var costs = task.costStream()
-                .filter(costData -> costData.quantity >= 0)
-                .map(costData ->
-                {
-                    var costMap = new HashMap<String, Object>();
-                    costMap.put("cost", costData.cost.getLocalizedName());
-                    costMap.put("count", costData.quantity);
-                    return costMap;
-                }).collect(Collectors.toList());
-
-            data.put("costs", costs);
-
-            var effects = task.effects().effectStream()
-                .map(effect ->
-                {
-                    var effectMap = new HashMap<String, Object>();
-                    effectMap.put("effect", effect.effect.toString());
-                    effectMap.put("value", effect.getValueString());
-                    effectMap.put("unit", effect.effect.unit);
-                    return effectMap;
-                }).collect(Collectors.toList());
-
-            data.put("effects", effects);
+            data.put("costs", taskdata.costs);
+            data.put("effects", taskdata.effects);
         }
         var jsonData = JSONSupport.Write.jsonToString.apply(data);
         executeWithLock(() -> sink.accept("Task", jsonData));
@@ -2470,6 +2601,7 @@ public class GameState
 
             if (currentCount < 1)
             {
+                commander.deleteLink(EntityKeys.TASK, taskEntity);
                 taskEntity.delete();
                 return 0;
             }
@@ -2483,6 +2615,8 @@ public class GameState
         if (resultCount == null) return false;
 
         emitTaskData(globalUpdate, taskKey, resultCount);
+
+        executeWithLock(()-> globalUpdate.accept("Task", "materials"));
 
         return true;
     }
@@ -2526,18 +2660,62 @@ public class GameState
 
     public String writeTaskCatalog()
     {
-        return taskCatalog.rawCatalogJson;
+        return rawCatalogJson;
     }
 
-    public String writeTaskData()
+    public String writeTaskMaterials()
     {
-        return "";
+        var summaries = getTaskSummaries();
+        var costCounts = new HashMap<TaskCost, Long>();
+        summaries.forEach(summary ->
+        {
+            var recipe = taskCatalog.keyMap.get(summary.key);
+            recipe.costStream()
+                .filter(costData -> costData.quantity > 0)
+                .forEach(costData ->
+                {
+                    long currentCount = costCounts.computeIfAbsent(costData.cost, (_k) -> 0L);
+                    currentCount += costData.quantity * summary.count;
+                    costCounts.put(costData.cost, currentCount);
+                });
+        });
+        var dataMap = new HashMap<String, Object>();
+        costCounts.forEach((cost, count) ->
+        {
+            long current = 0L;
+            var name = cost.getLocalizedName();
+            if (cost instanceof Material)
+            {
+                current = Optional.ofNullable(materials.get(cost))
+                    .map(Long::valueOf)
+                    .orElse(0L);
+            }
+            else if (cost instanceof Commodity)
+            {
+                current = Optional.ofNullable(cargo.get(cost))
+                    .map(commodity -> commodity.count)
+                    .map(Long::valueOf)
+                    .orElse(0L);
+            }
+            else if (cost instanceof CreditCost)
+            {
+                current = creditBalance;
+                name = "Credits";
+            }
+
+            var deficit = current >= count
+                ? 0
+                : count - current;
+
+            var costMap = new HashMap<String, Object>();
+            costMap.put("needed", count);
+            costMap.put("deficit", deficit);
+            dataMap.put(name, costMap);
+        });
+        return JSONSupport.Write.jsonToString.apply(dataMap);
     }
 
     //endregion
-
-    private final TaskCatalog taskCatalog = buildTaskCatalog();
-
     private TaskData determineModuleTaskData(ModulePurchaseRecipe taskRecipe)
     {
         var baseName = taskRecipe.product.cost.getLocalizedName();
@@ -2632,19 +2810,150 @@ public class GameState
             }
         }
 
-        return new TaskData(name, shipType, sortRank);
+        name = "Purchase - " + name;
+
+        var costs = new ArrayList<Map<String, Object>>();
+        var costMap = new HashMap<String, Object>();
+
+        costMap.put("amount", NumberFormat
+            .getNumberInstance(Locale.getDefault())
+            .format(taskRecipe.price.quantity));
+
+        costMap.put("unit", "Credits");
+        costs.add(costMap);
+
+        var effects = ((ShipModule) taskRecipe.product.cost).itemEffects()
+            .effectStream()
+            .map(effect ->
+            {
+                Map<String, Object> effectMap = new HashMap<>();
+                effectMap.put("effect", effect.effect.toString());
+                effectMap.put("value", effect.getValueString());
+                effectMap.put("unit", effect.effect.unit);
+                return effectMap;
+            }).collect(Collectors.toList());
+
+        return new TaskData(name, shipType, sortRank, effects, costs);
     }
+
+    private TaskData determineModificationTaskData(ModificationRecipe modificationRecipe)
+    {
+        var prefix = taskCatalog.typePrefixes.get(taskCatalog.taskMap.get(modificationRecipe));
+        var name = prefix
+            + " - " + modificationRecipe.getParentBlueprintName()
+            + " - " + modificationRecipe.getShortLabel();
+        var sortRank = 0;
+        var enumName = modificationRecipe.getName();
+        var token = enumName.lastIndexOf("_");
+        var grade = enumName.substring(token + 1);
+        sortRank = Integer.parseInt(grade);
+
+        var costs = modificationRecipe.costStream()
+            .map(costData ->
+            {
+                Map<String, Object> costMap = new HashMap<>();
+                costMap.put("amount", costData.quantity);
+                costMap.put("unit", costData.cost.getLocalizedName());
+                return costMap;
+            }).collect(Collectors.toList());
+
+        var effects = modificationRecipe.effects()
+            .effectStream()
+            .map(effect ->
+            {
+                Map<String, Object> effectMap = new HashMap<>();
+
+                var value = effect.getDoubleValue();
+                var valueSign = (value > 0) ? "+": "";
+                var valueString = valueSign + value;
+                var impact = effect.effect.moreIsGood
+                    ? value > 0
+                        ? "positive"
+                        : "negative"
+                    : value > 0
+                        ? "negative"
+                        : "positive";
+
+                effectMap.put("effect", effect.effect.toString());
+                effectMap.put("value", valueString);
+                effectMap.put("unit", effect.effect.unit);
+                effectMap.put("impact", impact);
+                return effectMap;
+            }).collect(Collectors.toList());
+
+        return new TaskData(name, sortRank, effects, costs);
+    }
+
+    private TaskData determineExperimentalTaskData(ExperimentalRecipe experimentalRecipe)
+    {
+        var prefix = taskCatalog.typePrefixes.get(taskCatalog.taskMap.get(experimentalRecipe));
+
+        var name = prefix + " - " + experimentalRecipe.getDisplayLabel();
+
+        var costs = experimentalRecipe.costStream()
+            .map(costData ->
+            {
+                Map<String, Object> costMap = new HashMap<>();
+                costMap.put("amount", costData.quantity);
+                costMap.put("unit", costData.cost.getLocalizedName());
+                return costMap;
+            }).collect(Collectors.toList());
+
+        var effects = experimentalRecipe.effects()
+            .effectStream()
+            .map(effect ->
+            {
+                Map<String, Object> effectMap = new HashMap<>();
+
+                String valueString;
+                String impact;
+                if (effect.isNumerical())
+                {
+                    var value = effect.getDoubleValue();
+                    var valueSign = (value > 0)
+                        ? "+"
+                        : "";
+
+                    valueString = valueSign + value;
+                    impact = effect.effect.moreIsGood
+                        ? value > 0
+                        ? "positive"
+                        : "negative"
+                        : value > 0
+                            ? "negative"
+                            : "positive";
+                }
+                else
+                {
+                    valueString = effect.stringValue;
+                    impact = "positive";
+                }
+
+                effectMap.put("effect", effect.effect.toString());
+                effectMap.put("value", valueString);
+                effectMap.put("unit", effect.effect.unit);
+                effectMap.put("impact", impact);
+                return effectMap;
+            }).collect(Collectors.toList());
+
+        return new TaskData(name, 0, effects, costs);
+    }
+
     private TaskData determineTaskData(TaskRecipe recipe)
     {
         if (recipe instanceof ModulePurchaseRecipe)
         {
             return determineModuleTaskData(((ModulePurchaseRecipe) recipe));
         }
-        return new TaskData(recipe.getDisplayLabel(), "", 0);
+        if (recipe instanceof ModificationRecipe)
+        {
+            return determineModificationTaskData(((ModificationRecipe) recipe));
+        }
+        return new TaskData(recipe.getDisplayLabel(), 0);
     }
 
     @SuppressWarnings("unchecked")
-    public TaskCatalog buildTaskCatalog()
+    public String buildTaskCatalog()
     {
         InputStream jsonStream = null;
         try
@@ -2677,16 +2986,13 @@ public class GameState
                 commodity.setLocationInformation(String.join("\n", locations));
             });
 
-        var keyMap = new HashMap<String, TaskRecipe>();
-        var recipeMap = new HashMap<TaskRecipe, String>();
-
         BiConsumer<String, TaskRecipe> addPair = (key, recipe) ->
         {
-            var val = keyMap.get(key);
+            var val = taskCatalog.keyMap.get(key);
             if (val == null)
             {
-                keyMap.put(key, recipe);
-                recipeMap.put(recipe, key);
+                taskCatalog.keyMap.put(key, recipe);
+                taskCatalog.taskMap.put(recipe, key);
             }
             else
             {
@@ -2697,7 +3003,7 @@ public class GameState
         var modules = new HashMap<String, Map<String, Object>>();
         var synthesis = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
         var modifications = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
-        var experimental = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
+        var experimental = new HashMap<String, Map<String, Map<String, Object>>>();
         var technology = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
         var trades = new HashMap<String, Map<String, Map<String, Map<String, Map<String, Object>>>>>();
 
@@ -2730,21 +3036,14 @@ public class GameState
                     dataMap.put("key", key);
                     dataMap.put("name", taskData.name);
                     dataMap.put("sort", taskData.rank);
+                    dataMap.put("costs", taskData.costs);
+                    dataMap.put("effects", taskData.effects);
 
                     if (!taskData.ship.isEmpty())
                     {
                         dataMap.put("ship", taskData.ship);
                     }
 
-                    var costList = new ArrayList<Map<String, Object>>();
-                    var costMap = new HashMap<String, Object>();
-                    costMap.put("amount", NumberFormat
-                        .getNumberInstance(Locale.getDefault()).format(taskRecipe.price.quantity));
-                    costMap.put("unit", "Credits");
-                    costList.add(costMap);
-                    dataMap.put("costs", costList);
-
-                    // todo: rest of the data
                     currentBlueprint.put(taskRecipe.getEnumName(), dataMap);
                 });
             }));
@@ -2800,19 +3099,26 @@ public class GameState
                     Map<String, Object> currentBlueprint = currentType
                         .computeIfAbsent(modificationBlueprint.name(), (_k)-> new HashMap<>());
 
-                    modificationBlueprint.recipeStream().forEach(modificationRecipe ->
+                    modificationBlueprint.recipeStream().map(r-> ((ModificationRecipe) r)).forEach(modificationRecipe ->
                     {
-                        var key = modificationCategory.name()
+                        var key = "Modification"
+                            + ":" + modificationCategory.name()
                             + ":" + modificationType.getName()
                             + ":" + modificationBlueprint.name()
                             + ":" + modificationRecipe.getName();
 
                         addPair.accept(key, modificationRecipe);
+                        taskCatalog.typePrefixes.put(key, modificationType.toString());
+
+                        var taskData = determineModificationTaskData(modificationRecipe);
 
                         var dataMap = new HashMap<String, Object>();
                         dataMap.put("key", key);
-                        dataMap.put("name", modificationRecipe.getDisplayLabel());
-                        // todo: rest of the data
+                        dataMap.put("name", taskData.name);
+                        dataMap.put("sort", taskData.rank);
+                        dataMap.put("costs", taskData.costs);
+                        dataMap.put("effects", taskData.effects);
+
                         currentBlueprint.put(modificationRecipe.getName(), dataMap);
                     });
                 });
@@ -2822,35 +3128,37 @@ public class GameState
         // experimental effects
         Stream.of(ExperimentalCategory.values()).forEach(experimentalCategory ->
         {
-            Map<String, Map<String, Map<String, Object>>> currentCategory = experimental
+            Map<String, Map<String, Object>> currentCategory = experimental
                 .computeIfAbsent(experimentalCategory.name(), (_k)-> new HashMap<>());
 
             experimentalCategory.typeStream().forEach(experimentalType ->
             {
-                Map<String, Map<String, Object>> currentType = currentCategory
+                Map<String, Object> currentType = currentCategory
                     .computeIfAbsent(experimentalType.name(), (_k)-> new HashMap<>());
 
                 experimentalType.blueprintStream().forEach(experimentalBlueprint ->
-                {
-                    Map<String, Object> currentBlueprint = currentType
-                        .computeIfAbsent(experimentalBlueprint.name(), (_k)-> new HashMap<>());
+                    experimentalBlueprint.recipeStream().map(e-> ((ExperimentalRecipe) e))
+                        .forEach(experimentalRecipe ->
+                        {
+                            var key = "Experimental"
+                                + ":" + experimentalCategory.name()
+                                + ":" + experimentalType.getName()
+                                + ":" + experimentalRecipe.getName();
 
-                    experimentalBlueprint.recipeStream().forEach(experimentalRecipe ->
-                    {
-                        var key = experimentalCategory.name()
-                            + ":" + experimentalType.getName()
-                            + ":" + experimentalBlueprint.name()
-                            + ":" + experimentalRecipe.getName();
+                            addPair.accept(key, experimentalRecipe);
+                            taskCatalog.typePrefixes.put(key, experimentalType.toString());
 
-                        addPair.accept(key, experimentalRecipe);
+                            var taskData = determineExperimentalTaskData(experimentalRecipe);
 
-                        var dataMap = new HashMap<String, Object>();
-                        dataMap.put("key", key);
-                        dataMap.put("name", experimentalRecipe.getDisplayLabel());
-                        // todo: rest of the data
-                        currentBlueprint.put(experimentalRecipe.getName(), dataMap);
-                    });
-                });
+                            var dataMap = new HashMap<String, Object>();
+                            dataMap.put("key", key);
+                            dataMap.put("name", taskData.name);
+                            dataMap.put("sort", taskData.rank);
+                            dataMap.put("costs", taskData.costs);
+                            dataMap.put("effects", taskData.effects);
+
+                            currentType.put(experimentalRecipe.getName(), dataMap);
+                        }));
             });
         });
 
@@ -2931,7 +3239,6 @@ public class GameState
             });
         });
 
-        var rawJson = JSONSupport.Write.jsonToString.apply(jsonMap);
-        return new TaskCatalog(keyMap, recipeMap, rawJson);
+        return JSONSupport.Write.jsonToString.apply(jsonMap);
     }
 }

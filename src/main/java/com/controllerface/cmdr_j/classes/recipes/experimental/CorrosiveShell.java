@@ -13,7 +13,7 @@ public class CorrosiveShell extends AbstractExperimentalRecipe
     {
         super("Corrosive Shell", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Armor_Hardness_Reduced, 0.0),
+                  new ItemEffectData(ItemEffect.Target_Armor_Hardness_Reduced, "Installed"),
                   new ItemEffectData(ItemEffect.AmmoMaximum, -20.0)
             ),
             new CostData(Material.CHEMICALSTORAGEUNITS, 5),

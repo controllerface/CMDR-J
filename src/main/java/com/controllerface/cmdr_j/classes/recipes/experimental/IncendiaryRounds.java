@@ -13,7 +13,7 @@ public class IncendiaryRounds extends AbstractExperimentalRecipe
     {
         super("Incendiary Rounds", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Damage_Partially_Thermal, 0.0),
+                  new ItemEffectData(ItemEffect.Damage_Partially_Thermal, 90.0),
                   new ItemEffectData(ItemEffect.RateOfFire, -5.26),
                   new ItemEffectData(ItemEffect.ThermalLoad, 200.0)
             ),

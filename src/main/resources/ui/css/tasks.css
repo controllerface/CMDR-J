@@ -44,7 +44,64 @@
     color: var(--default-color);
     text-align: left;
     cursor: pointer;
-    border: 1px dashed var(--default-background);
+    border-radius: 3px;
+    border: 1px solid var(--default-color);
+}
+
+.taskAddButton
+{
+    display: block;
+    float: right;
+    background: transparent;
+    color: var(--default-color);
+    text-align: center;
+    cursor: pointer;
+    width: 2em;
+    border-radius: 0px 3px 3px 0px;
+    border: 1px solid var(--default-color);
+}
+
+.taskSubtractButton
+{
+    display: block;
+    float: right;
+    background: transparent;
+    color: var(--default-color);
+    text-align: center;
+    cursor: pointer;
+    width: 2em;
+    border-radius: 3px 0px 0px 3px;
+    border: 1px solid var(--default-color);
+}
+
+.taskDeleteButton
+{
+    display: block;
+    float: right;
+    background: transparent;
+    color: var(--default-color);
+    text-align: left;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid var(--default-color);
+}
+
+.taskCount
+{
+    display: block;
+    float: right;
+    height: 1.12em;
+    width: 3em;
+    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    border: 1px solid var(--default-color);
+}
+
+.taskSpacer
+{
+    float: right;
+    width: 1em;
 }
 
 .taskButton:hover
@@ -67,4 +124,40 @@
 {
     display: grid;
     grid-template-columns: auto 1fr;
+}
+
+.taskEffectData
+{
+    display: grid;
+    font-weight: normal;
+}
+
+.taskEffect
+{
+    display: grid;
+    grid-template-columns: 5fr 1fr 1fr;
+}
+
+.taskEffectName
+{
+    text-align: right;
+}
+
+.taskEffectValue
+{
+    text-align: right;
+}
+
+.materialProgress
+{
+    display: block;
+    float: right;
+    margin-top: .1em;
+}
+
+.materialNeed
+{
+    display: block;
+    float: right;
+    margin-right: .5em;
 }

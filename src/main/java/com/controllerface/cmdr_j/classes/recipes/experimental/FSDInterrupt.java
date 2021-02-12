@@ -13,7 +13,7 @@ public class FSDInterrupt extends AbstractExperimentalRecipe
     {
         super("FSD Interrupt", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_FSD_Reboot, 0.0),
+                  new ItemEffectData(ItemEffect.Target_FSD_Reboot, "Installed"),
                   new ItemEffectData(ItemEffect.Damage, -30.0),
                   new ItemEffectData(ItemEffect.RateOfFire, -50.0)
             ),

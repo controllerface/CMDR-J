@@ -13,7 +13,7 @@ public class PlasmaSlug extends AbstractExperimentalRecipe
     {
         super("Plasma Slug", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Reload_from_Ship_Fuel, 0.0),
+                  new ItemEffectData(ItemEffect.Reload_from_Ship_Fuel, "Installed"),
                   new ItemEffectData(ItemEffect.Damage, -10.0),
                   new ItemEffectData(ItemEffect.ThermalLoad, -40.0),
                   new ItemEffectData(ItemEffect.AmmoMaximum, -100.0)

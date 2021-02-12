@@ -13,7 +13,7 @@ public class HighYieldShell extends AbstractExperimentalRecipe
     {
         super("High Yield Shell", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Damage_Partially_Explosive, 0.0),
+                  new ItemEffectData(ItemEffect.Damage_Partially_Explosive, 50.0),
                   new ItemEffectData(ItemEffect.RateOfFire, -11.11)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),

@@ -2,13 +2,14 @@ package com.controllerface.cmdr_j.server;
 
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class TaskCatalog
 {
-    public final Map<String, TaskRecipe> keyMap;
-    public final Map<TaskRecipe, String> taskMap;
-    public final String rawCatalogJson;
+    public final Map<String, TaskRecipe> keyMap = new HashMap<>();
+    public final Map<TaskRecipe, String> taskMap = new HashMap<>();
+    public final Map<String, String> typePrefixes = new HashMap<>();
 
     public enum AdjustmentType
     {
@@ -24,12 +25,5 @@ public class TaskCatalog
             if (typeString.equalsIgnoreCase("delete")) return DELETE;
             return null;
         }
-    }
-
-    public TaskCatalog(Map<String, TaskRecipe> keyMap, Map<TaskRecipe, String> taskMap, String rawCatalogJson)
-    {
-        this.keyMap = keyMap;
-        this.taskMap = taskMap;
-        this.rawCatalogJson = rawCatalogJson;
     }
 }

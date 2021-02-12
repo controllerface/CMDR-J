@@ -13,7 +13,7 @@ public class ThermalCascade extends AbstractExperimentalRecipe
     {
         super("Thermal Cascade", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Shielded_Target_Heat_Increased, 0.0)
+                  new ItemEffectData(ItemEffect.Shielded_Target_Heat_Increased, "Installed")
             ),
             new CostData(Material.HEATCONDUCTIONWIRING, 5),
             new CostData(Material.HYBRIDCAPACITORS, 4),

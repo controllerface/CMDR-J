@@ -13,7 +13,7 @@ public class RadiantCanister extends AbstractExperimentalRecipe
     {
         super("Radiant Canister", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Area_Heat_Increased_Sensors_Disrupted, 0.0)
+                  new ItemEffectData(ItemEffect.Area_Heat_Increased_Sensors_Disrupted, "Installed")
             ),
             new CostData(Material.POLONIUM, 1),
             new CostData(Material.PHASEALLOYS, 3),

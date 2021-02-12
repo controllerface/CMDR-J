@@ -13,7 +13,7 @@ public class AutoLoader extends AbstractExperimentalRecipe
     {
         super("Auto Loader", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Auto_Reload_While_Firing, 0.0)
+                  new ItemEffectData(ItemEffect.Auto_Reload_While_Firing, "Installed")
             ),
             new CostData(Material.MECHANICALEQUIPMENT, 4),
             new CostData(Material.MECHANICALCOMPONENTS, 3),

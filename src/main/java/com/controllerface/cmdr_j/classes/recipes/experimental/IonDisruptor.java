@@ -13,7 +13,7 @@ public class IonDisruptor extends AbstractExperimentalRecipe
     {
         super("Ion Disruptor", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Thrusters_Reboot, 0.0)
+                  new ItemEffectData(ItemEffect.Target_Thrusters_Reboot, "Installed")
             ),
             new CostData(Material.SULPHUR, 5),
             new CostData(Material.PHOSPHORUS, 5),

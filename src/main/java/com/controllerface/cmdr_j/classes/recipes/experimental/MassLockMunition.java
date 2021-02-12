@@ -13,7 +13,7 @@ public class MassLockMunition extends AbstractExperimentalRecipe
     {
         super("Mass Lock Munition", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_FSD_Inhibited, 0.0)
+                  new ItemEffectData(ItemEffect.Target_FSD_Inhibited, "Installed")
             ),
             new CostData(Material.MECHANICALEQUIPMENT, 5),
             new CostData(Material.HIGHDENSITYCOMPOSITES, 3),

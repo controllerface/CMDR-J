@@ -13,7 +13,7 @@ public class SuperPenetrator extends AbstractExperimentalRecipe
     {
         super("Super Penetrator", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Module_Damage, 0.0),
+                  new ItemEffectData(ItemEffect.Target_Module_Damage, "Installed"),
                   new ItemEffectData(ItemEffect.ThermalLoad, -40.0)
             ),
             new CostData(Material.PROTOLIGHTALLOYS, 3),

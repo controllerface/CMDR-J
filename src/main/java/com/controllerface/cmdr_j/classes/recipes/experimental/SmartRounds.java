@@ -13,7 +13,7 @@ public class SmartRounds extends AbstractExperimentalRecipe
     {
         super("Smart Rounds", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.No_Damage_to_Untargeted_Ships, 0.0)
+                  new ItemEffectData(ItemEffect.No_Damage_to_Untargeted_Ships, "Installed")
             ),
             new CostData(Material.MECHANICALSCRAP, 5),
             new CostData(Material.SECURITYFIRMWARE, 3),

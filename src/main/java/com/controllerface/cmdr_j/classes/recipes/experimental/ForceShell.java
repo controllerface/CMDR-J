@@ -13,7 +13,7 @@ public class ForceShell extends AbstractExperimentalRecipe
     {
         super("Force Shell", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Pushed_Off_Course, 0.0),
+                  new ItemEffectData(ItemEffect.Target_Pushed_Off_Course, "Installed"),
                   new ItemEffectData(ItemEffect.ShotSpeed, -16.67)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),

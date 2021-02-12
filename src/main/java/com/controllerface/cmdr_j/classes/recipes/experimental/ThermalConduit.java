@@ -13,7 +13,7 @@ public class ThermalConduit extends AbstractExperimentalRecipe
     {
         super("Thermal Conduit", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Damage_Increases_with_Heat_Level, 0.0)
+                  new ItemEffectData(ItemEffect.Damage_Increases_with_Heat_Level, "Installed")
             ),
             new CostData(Material.HEATDISPERSIONPLATE, 5),
             new CostData(Material.SULPHUR, 5),

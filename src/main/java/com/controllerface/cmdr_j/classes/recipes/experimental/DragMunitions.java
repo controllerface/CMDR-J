@@ -13,7 +13,7 @@ public class DragMunitions extends AbstractExperimentalRecipe
     {
         super("Drag Munitions", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Speed_Reduced, 0.0)
+                  new ItemEffectData(ItemEffect.Target_Speed_Reduced, "Installed")
             ),
             new CostData(Material.CARBON, 5),
             new CostData(Material.GRIDRESISTORS, 5),

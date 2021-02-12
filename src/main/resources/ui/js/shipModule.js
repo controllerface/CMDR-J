@@ -253,7 +253,16 @@ class ShipModule extends HTMLElement
                 }
 
                 statValue.classList.add('infoValue');
-                statValue.textContent = info['value'];
+
+                let valueText = info['value'];
+                if (valueText === '&infin;')
+                {
+                    statValue.innerHTML = info['value'];
+                }
+                else
+                {
+                    statValue.textContent = info['value'];
+                }
 
                 if (info['originalValue'])
                 {

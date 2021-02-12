@@ -13,7 +13,7 @@ public class ThermalVent extends AbstractExperimentalRecipe
     {
         super("Thermal Vent", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Heat_Reduced_when_Striking_Target, 0.0)
+                  new ItemEffectData(ItemEffect.Heat_Reduced_when_Striking_Target, "Installed")
             ),
             new CostData(Material.UNCUTFOCUSCRYSTALS, 5),
             new CostData(Material.CONDUCTIVEPOLYMERS, 3),

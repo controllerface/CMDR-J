@@ -13,7 +13,7 @@ public class DispersalField extends AbstractExperimentalRecipe
     {
         super("Dispersal Field", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Target_Tracking_Reduced, 0.0)
+                  new ItemEffectData(ItemEffect.Target_Tracking_Reduced, "Installed")
             ),
             new CostData(Material.CONDUCTIVECOMPONENTS, 5),
             new CostData(Material.HYBRIDCAPACITORS, 5),
