@@ -15,10 +15,10 @@ public class FSD_FastBoot_5 extends AbstractModificationRecipe
         super(FSD_FastBoot_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.BootTime, -80d),
-                                new ItemEffectData(ItemEffect.Integrity, -15d),
-                                new ItemEffectData(ItemEffect.FSDOptimalMass, 15d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, 20d)
+                                new ItemEffectData(ItemEffect.BootTime_Percent, -80d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -15d),
+                                new ItemEffectData(ItemEffect.FSDOptimalMass_Percent, 15d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, 20d)
                         ),
                 new CostData(Material.ELECTROCHEMICALARRAYS, 1),
                 new CostData(Material.HEATVANES, 1),

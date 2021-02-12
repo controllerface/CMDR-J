@@ -13,8 +13,8 @@ public class MassManager extends AbstractExperimentalRecipe
     {
         super("Mass Manager", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Integrity, -8.0),
-                  new ItemEffectData(ItemEffect.FSDOptimalMass, 4.0)
+                  new ItemEffectData(ItemEffect.Integrity_Percent, -8.0),
+                  new ItemEffectData(ItemEffect.FSDOptimalMass_Percent, 4.0)
             ),
             new CostData(Material.DISRUPTEDWAKEECHOES, 5),
             new CostData(Material.GALVANISINGALLOYS, 3),

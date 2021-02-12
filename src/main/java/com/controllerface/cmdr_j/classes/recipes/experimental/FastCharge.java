@@ -13,8 +13,8 @@ public class FastCharge extends AbstractExperimentalRecipe
     {
         super("Fast Charge", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.RegenRate, 15.0),
-                  new ItemEffectData(ItemEffect.BrokenRegenRate, 15.0),
+                  new ItemEffectData(ItemEffect.RegenRate_Percent, 15.0),
+                  new ItemEffectData(ItemEffect.BrokenRegenRate_Percent, 15.0),
                   new ItemEffectData(ItemEffect.KineticResistance, -1.0),
                   new ItemEffectData(ItemEffect.ThermicResistance, -1.0),
                   new ItemEffectData(ItemEffect.ExplosiveResistance, -1.0)

@@ -14,7 +14,7 @@ public class ScrambleSpectrum extends AbstractExperimentalRecipe
         super("Scramble Spectrum", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Target_Module_Malfunction, "Installed"),
-                  new ItemEffectData(ItemEffect.RateOfFire, -11.11)
+                  new ItemEffectData(ItemEffect.RateOfFire_Percent, -10)
             ),
             new CostData(Material.CRYSTALSHARDS, 5),
             new CostData(Material.SHIELDDENSITYREPORTS, 3),

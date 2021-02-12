@@ -24,12 +24,19 @@ public enum ItemEffect
     Size("", "", true),
     Class("", "", true),
     Mass("T","", false),
+    Mass_Percent("%","", false),
     Integrity("", "", true),
+    Integrity_Percent("%", "", true),
     Range("M", "", true),
+    Range_Percent("%", "", true),
     BootTime("S", "Boot Time", false),
+    BootTime_Percent("%", "Boot Time", false),
     DistributorDraw("MW", "Distributor Draw", false),
+    DistributorDraw_Percent("%", "Distributor Draw", false),
     PowerDraw("MW", "Power Draw", false),
+    PowerDraw_Percent("%", "Power Draw", false),
     ThermalLoad("", "Thermal Load", false),
+    ThermalLoad_Percent("%", "Thermal Load", false),
     MaxAngle(UIFunctions.Symbols.DEGREES, "Max Angle", true),
     MaxRange("M", "Max Range", true), // todo: determine use, probably sensors, moddable? alias of above?
 
@@ -40,14 +47,18 @@ public enum ItemEffect
 
     ShieldBankHeat("H/S", "Thermal Load", false),
     EngineHeatRate("H/MW", "Thermal Load", false),
+    EngineHeatRate_Percent("%", "Thermal Load", false),
     FSDHeatRate("H/MW", "Thermal Load", false),
+    FSDHeatRate_Percent("%", "Thermal Load", false),
 
     EngineMinimumMass("T", "Minimum Mass", true),
     ShieldGenMinimumMass("T", "Minimum Mass", true),
 
     ShieldGenOptimalMass("T", "Optimal Mass", true),
     EngineOptimalMass("T", "Optimal Mass", true),
+    EngineOptimalMass_Percent("%", "Optimal Mass", true),
     FSDOptimalMass("T", "Optimised Mass", true),
+    FSDOptimalMass_Percent("%", "Optimised Mass", true),
 
     MaximumMass("T", "Maximum Mass", true),
     ShieldGenMaximumMass("T", "Maximum Mass", true),
@@ -60,24 +71,30 @@ public enum ItemEffect
     WeaponMode("", "Weapon Mount", true),
     DamageType("", "Damage Type", true),
     Damage("", "Damage", true),
+    Damage_Percent("%", "Damage", true),
     MaximumRange("M", "Maximum Range", true),
     DamageFalloffRange("M", "Damage Falloff Range", true),
 
     AmmoClipSize("", "Clip Size", true),
     AmmoMaximum("", "Ammo Max", true),
+    AmmoMaximum_Percent("%", "Ammo Max", true),
     ArmourPenetration("", "Piercing", true),
+    ArmourPenetration_Percent("%", "Piercing", true),
     BreachDamage("", "Breach Damage", true),
     MaxBreachChance("%", "Maximum Beach Chance", true),
     MinBreachChance("%", "Minimum Beach Chance", true),
     RateOfFire("/S", "Rate of Fire", true),
+    RateOfFire_Percent("%", "Rate of Fire", true),
     BurstRateOfFire("","Burst Rate of Fire", true),
     BurstSize("", "Burst Size", true),
     DamagePerSecond("/S", "Damage per Second", true),
     FalloffRange("M", "Falloff Range", true),
     Jitter(UIFunctions.Symbols.DEGREES,"Jitter", false),
     ReloadTime("S", "Reload Time", false),
+    ReloadTime_Percent("%", "Reload Time", false),
     RoundsPerShot("", "Rounds per Shot", true),
     ShotSpeed("M/S","Shot Speed", true),
+    ShotSpeed_Percent("%","Shot Speed", true),
 
 
     /*
@@ -85,6 +102,7 @@ public enum ItemEffect
      */
 
     DefenceModifierHealthAddition("", "Hull Reinforcement", true),
+    DefenceModifierHealthAddition_Percent("%", "Hull Reinforcement", true),
     DefenceModifierHealthMultiplier("%", "Hull Boost", true),
     DefenceModifierShieldMultiplier("%", "Shield Boost", true),
     ModuleDefenceAbsorption("%", "Damage Protection", true),
@@ -97,9 +115,12 @@ public enum ItemEffect
      */
 
     RegenRate("MJ/S", "Regen Rate", true),
+    RegenRate_Percent("%", "Regen Rate", true),
     BrokenRegenRate("MJ/S", "Broken Regen Rate", true),
+    BrokenRegenRate_Percent("%", "Broken Regen Rate", true),
     ShieldGenMinStrength("MJ", "Minimum Strength", true),
     ShieldGenStrength("MJ", "Optimal Strength", true),
+    ShieldGenStrength_Percent("%", "Optimal Strength", true),
     ShieldGenMaxStrength("MJ", "Maximum Strength", true),
 
 
@@ -108,8 +129,11 @@ public enum ItemEffect
      */
 
     ShieldBankDuration("S", "Duration", true),
+    ShieldBankDuration_Percent("%", "Duration", true),
     ShieldBankReinforcement("MJ/S", "Shield Reinforcement", true),
+    ShieldBankReinforcement_Percent("%", "Shield Reinforcement", true),
     ShieldBankSpinUp("S", "Spin-up Time", false),
+    ShieldBankSpinUp_Percent("%", "Spin-up Time", false),
 
     /*
     Resistances
@@ -128,7 +152,9 @@ public enum ItemEffect
      */
 
     PowerCapacity("MW", "Power Capacity", true),
+    PowerCapacity_Percent("%", "Power Capacity", true),
     HeatEfficiency("H/MW/S", "Heat Efficiency", false),
+    HeatEfficiency_Percent("%", "Heat Efficiency", false),
 
 
     /*
@@ -146,6 +172,7 @@ public enum ItemEffect
 
     FSDFuelUseIncrease("", "", true),
     MaxFuelPerJump("T", "Maximum Fuel per Jump" ,true),
+    MaxFuelPerJump_Percent("T", "Maximum Fuel per Jump" ,true),
 
     // guardian
     FSDJumpRangeBoost("LY", "Jump Range Increase", true, EffectType.GUARDIAN),
@@ -161,6 +188,12 @@ public enum ItemEffect
     SystemsRecharge("MW/S", "Systems Recharge", true),
     WeaponsCapacity("MW", "Weapons Capacity", true),
     WeaponsRecharge("MW/S", "Weapons Recharge", true),
+    EnginesCapacity_Percent("%", "Engines Capacity", true),
+    EnginesRecharge_Percent("%", "Engines Recharge", true),
+    SystemsCapacity_Percent("%", "Systems Capacity", true),
+    SystemsRecharge_Percent("%", "Systems Recharge", true),
+    WeaponsCapacity_Percent("%", "Weapons Capacity", true),
+    WeaponsRecharge_Percent("%", "Weapons Recharge", true),
 
 
     /*
@@ -198,6 +231,7 @@ public enum ItemEffect
     DSS_RateMult("%", "Scan Rate Increase", true),
     DSS_PatchRadius("%", "Probe Radius", true),
     FSDInterdictorFacingLimit(UIFunctions.Symbols.DEGREES, "Facing Limit", true),
+    FSDInterdictorFacingLimit_Percent("%", "Facing Limit", true),
     FSDInterdictorRange("S", "Range", true),
     ScannerRange("M", "Range", true),
     ScannerTimeToScan("S", "Time to Scan", false),

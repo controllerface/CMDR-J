@@ -14,8 +14,8 @@ public class FeedbackCascade extends AbstractExperimentalRecipe
         super("Feedback Cascade", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Target_Shield_Cell_Disrupted, "Installed"),
-                  new ItemEffectData(ItemEffect.Damage, -20.0),
-                  new ItemEffectData(ItemEffect.ThermalLoad, -40.0)
+                  new ItemEffectData(ItemEffect.Damage_Percent, -20.0),
+                  new ItemEffectData(ItemEffect.ThermalLoad_Percent, -40.0)
             ),
             new CostData(Material.SYMMETRICKEYS, 5),
             new CostData(Material.SHIELDEMITTERS, 5),

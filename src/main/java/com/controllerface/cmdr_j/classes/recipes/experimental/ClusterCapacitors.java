@@ -13,12 +13,12 @@ public class ClusterCapacitors extends AbstractExperimentalRecipe
     {
         super("Cluster Capacitors", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.WeaponsCapacity, 8.0),
-                  new ItemEffectData(ItemEffect.WeaponsRecharge, -2.0),
-                  new ItemEffectData(ItemEffect.EnginesCapacity, 8.0),
-                  new ItemEffectData(ItemEffect.EnginesRecharge, -2.0),
-                  new ItemEffectData(ItemEffect.SystemsCapacity, 8.0),
-                  new ItemEffectData(ItemEffect.SystemsRecharge, -2.0)
+                  new ItemEffectData(ItemEffect.WeaponsCapacity_Percent, 8.0),
+                  new ItemEffectData(ItemEffect.WeaponsRecharge_Percent, -2.0),
+                  new ItemEffectData(ItemEffect.EnginesCapacity_Percent, 8.0),
+                  new ItemEffectData(ItemEffect.EnginesRecharge_Percent, -2.0),
+                  new ItemEffectData(ItemEffect.SystemsCapacity_Percent, 8.0),
+                  new ItemEffectData(ItemEffect.SystemsRecharge_Percent, -2.0)
             ),
             new CostData(Material.PHOSPHORUS, 5),
             new CostData(Material.HEATRESISTANTCERAMICS, 3),

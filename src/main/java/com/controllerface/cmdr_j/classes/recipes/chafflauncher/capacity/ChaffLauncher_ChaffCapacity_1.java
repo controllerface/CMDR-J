@@ -15,9 +15,9 @@ public class ChaffLauncher_ChaffCapacity_1 extends AbstractModificationRecipe
         super(ChaffLauncher_ChaffCapacity_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.AmmoMaximum, 50d),
-                                new ItemEffectData(ItemEffect.Mass, 100d),
-                                new ItemEffectData(ItemEffect.ReloadTime, 10d)
+                                new ItemEffectData(ItemEffect.AmmoMaximum_Percent, 50d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 100d),
+                                new ItemEffectData(ItemEffect.ReloadTime_Percent, 10d)
                         ),
                 new CostData(Material.MECHANICALSCRAP, 1),
                 new CostData(Material.NIOBIUM, 1),

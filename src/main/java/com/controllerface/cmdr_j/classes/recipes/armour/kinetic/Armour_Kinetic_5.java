@@ -15,8 +15,8 @@ public class Armour_Kinetic_5 extends AbstractModificationRecipe
         super(Armour_Kinetic_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, -17d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 48d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, -12d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 40d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, -12d)
                         ),
                 new CostData(Material.FEDCORECOMPOSITES, 1),

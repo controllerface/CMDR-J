@@ -15,8 +15,8 @@ public class HullReinforcement_Explosive_3 extends AbstractModificationRecipe
         super(HullReinforcement_Explosive_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, 25.4d),
-                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 9d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, 26d),
+                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition_Percent, 9d),
                                 new ItemEffectData(ItemEffect.KineticResistance, -6d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, -6d)
                         ),

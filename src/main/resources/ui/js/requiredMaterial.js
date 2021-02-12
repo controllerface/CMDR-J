@@ -10,7 +10,6 @@ class RequiredMaterial extends HTMLElement
         let details = this.shadowRoot.getElementById('requiredMaterial_details');
         details.addEventListener('toggle', (e) =>
         {
-            console.log(document.querySelectorAll('required-material'));
             if (e.target.hasAttribute('open'))
             {
                 Array.from(document.querySelectorAll('required-material'))
@@ -55,6 +54,17 @@ class RequiredMaterial extends HTMLElement
         {
             progress.classList.add('progressComplete');
         }
+
+        let relatedTasks = materialData['related'];
+        let details = this.shadowRoot.getElementById('requiredMaterial_details');
+        relatedTasks.sort();
+        relatedTasks.forEach(task =>
+        {
+            let next = document.createElement('span');
+            next.textContent = task;
+            next.classList.add('materialTask');
+            details.append(next);
+        });
     }
 
     deselect()

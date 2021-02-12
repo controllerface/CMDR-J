@@ -15,9 +15,9 @@ public class FSDinterdictor_Expanded_4 extends AbstractModificationRecipe
         super(FSDinterdictor_Expanded_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, 100d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 40d),
-                                new ItemEffectData(ItemEffect.Range, -25d)
+                                new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit_Percent, 100d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 40d),
+                                new ItemEffectData(ItemEffect.Range_Percent, -25d)
                         ),
                 new CostData(Material.ENCODEDSCANDATA, 1),
                 new CostData(Material.MECHANICALEQUIPMENT, 1),

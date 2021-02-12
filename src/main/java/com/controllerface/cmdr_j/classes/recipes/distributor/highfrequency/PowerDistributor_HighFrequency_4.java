@@ -15,12 +15,12 @@ public class PowerDistributor_HighFrequency_4 extends AbstractModificationRecipe
         super(PowerDistributor_HighFrequency_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.EnginesCapacity, -4d),
-                                new ItemEffectData(ItemEffect.EnginesRecharge, 36d),
-                                new ItemEffectData(ItemEffect.SystemsCapacity, -4d),
-                                new ItemEffectData(ItemEffect.SystemsRecharge, 36d),
-                                new ItemEffectData(ItemEffect.WeaponsCapacity, -4d),
-                                new ItemEffectData(ItemEffect.WeaponsRecharge, 36d)
+                                new ItemEffectData(ItemEffect.EnginesCapacity_Percent, -4d),
+                                new ItemEffectData(ItemEffect.EnginesRecharge_Percent, 36d),
+                                new ItemEffectData(ItemEffect.SystemsCapacity_Percent, -4d),
+                                new ItemEffectData(ItemEffect.SystemsRecharge_Percent, 36d),
+                                new ItemEffectData(ItemEffect.WeaponsCapacity_Percent, -4d),
+                                new ItemEffectData(ItemEffect.WeaponsRecharge_Percent, 36d)
                         ),
                 new CostData(Material.CHEMICALMANIPULATORS, 1),
                 new CostData(Material.INDUSTRIALFIRMWARE, 1),

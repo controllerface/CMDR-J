@@ -15,12 +15,12 @@ public class PowerDistributor_PrioritySystems_5 extends AbstractModificationReci
         super(PowerDistributor_PrioritySystems_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.EnginesCapacity, -15d),
-                                new ItemEffectData(ItemEffect.EnginesRecharge, -5d),
-                                new ItemEffectData(ItemEffect.SystemsCapacity, 60d),
-                                new ItemEffectData(ItemEffect.SystemsRecharge, 44d),
-                                new ItemEffectData(ItemEffect.WeaponsCapacity, -15d),
-                                new ItemEffectData(ItemEffect.WeaponsRecharge, -15d)
+                                new ItemEffectData(ItemEffect.EnginesCapacity_Percent, -15d),
+                                new ItemEffectData(ItemEffect.EnginesRecharge_Percent, -5d),
+                                new ItemEffectData(ItemEffect.SystemsCapacity_Percent, 60d),
+                                new ItemEffectData(ItemEffect.SystemsRecharge_Percent, 44d),
+                                new ItemEffectData(ItemEffect.WeaponsCapacity_Percent, -15d),
+                                new ItemEffectData(ItemEffect.WeaponsRecharge_Percent, -15d)
                         ),
                 new CostData(Material.SCANDATABANKS, 1),
                 new CostData(Material.CADMIUM, 1),

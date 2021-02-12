@@ -15,10 +15,10 @@ public class FSD_LongRange_1 extends AbstractModificationRecipe
         super(FSD_LongRange_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -3d),
-                                new ItemEffectData(ItemEffect.Mass, 10d),
-                                new ItemEffectData(ItemEffect.FSDOptimalMass, 15d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 3d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -3d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 10d),
+                                new ItemEffectData(ItemEffect.FSDOptimalMass_Percent, 15d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 3d)
                         ),
                 new CostData(Material.DISRUPTEDWAKEECHOES, 1));
     }

@@ -13,7 +13,7 @@ public class ReflectivePlating_HullReinforcement extends AbstractExperimentalRec
     {
         super("Reflective Plating", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, -5.0),
+                  new ItemEffectData(ItemEffect.DefenceModifierHealthAddition_Percent, -5.0),
                   new ItemEffectData(ItemEffect.ThermicResistance, 2.0)
             ),
             new CostData(Material.HEATCONDUCTIONWIRING, 5),

@@ -13,8 +13,8 @@ public class DeepCharge extends AbstractExperimentalRecipe
     {
         super("Deep Charge", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.PowerDraw, 5.0),
-                  new ItemEffectData(ItemEffect.MaxFuelPerJump, 10.0)
+                  new ItemEffectData(ItemEffect.PowerDraw_Percent, 5.0),
+                  new ItemEffectData(ItemEffect.MaxFuelPerJump_Percent, 10.0)
             ),
             new CostData(Material.DISRUPTEDWAKEECHOES, 5),
             new CostData(Material.GALVANISINGALLOYS, 3),

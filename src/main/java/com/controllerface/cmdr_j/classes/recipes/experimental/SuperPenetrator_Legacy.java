@@ -14,7 +14,7 @@ public class SuperPenetrator_Legacy extends AbstractExperimentalRecipe
         super("Super Penetrator (Legacy)", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Target_Module_Damage, "Installed"),
-                  new ItemEffectData(ItemEffect.ReloadTime, 50.0)
+                  new ItemEffectData(ItemEffect.ReloadTime_Percent, 50.0)
             ),
             new CostData(Material.PROTOLIGHTALLOYS, 3),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 3),

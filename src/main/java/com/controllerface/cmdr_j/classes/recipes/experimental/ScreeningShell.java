@@ -14,7 +14,7 @@ public class ScreeningShell extends AbstractExperimentalRecipe
         super("Screening Shell", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Effectiveness_Increase_Against_Munitions, "Installed"),
-                  new ItemEffectData(ItemEffect.ReloadTime, -50.0)
+                  new ItemEffectData(ItemEffect.ReloadTime_Percent, -50.0)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),
             new CostData(Material.SHIELDCYCLERECORDINGS, 5),

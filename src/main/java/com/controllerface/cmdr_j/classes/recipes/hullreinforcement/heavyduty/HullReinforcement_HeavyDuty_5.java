@@ -15,11 +15,11 @@ public class HullReinforcement_HeavyDuty_5 extends AbstractModificationRecipe
         super(HullReinforcement_HeavyDuty_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, 14.6d),
-                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 72d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 14.6d),
-                                new ItemEffectData(ItemEffect.Mass, 40d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, 14.6d)
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, 15d),
+                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition_Percent, 72d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 15d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 40d),
+                                new ItemEffectData(ItemEffect.ThermicResistance, 15d)
                         ),
                 new CostData(Material.COMPOUNDSHIELDING, 1),
                 new CostData(Material.FEDCORECOMPOSITES, 1),

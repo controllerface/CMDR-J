@@ -13,8 +13,8 @@ public class Monstered extends AbstractExperimentalRecipe
     {
         super("Monstered", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, 10.0),
-                  new ItemEffectData(ItemEffect.PowerCapacity, 5.0)
+                  new ItemEffectData(ItemEffect.Mass_Percent, 10.0),
+                  new ItemEffectData(ItemEffect.PowerCapacity_Percent, 5.0)
             ),
             new CostData(Material.GRIDRESISTORS, 5),
             new CostData(Material.VANADIUM, 3),

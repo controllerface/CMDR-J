@@ -15,8 +15,8 @@ public class Armour_Explosive_5 extends AbstractModificationRecipe
         super(Armour_Explosive_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, 56d),
-                                new ItemEffectData(ItemEffect.KineticResistance, -14d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, 40d),
+                                new ItemEffectData(ItemEffect.KineticResistance, -12d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, -12d)
                         ),
                 new CostData(Material.MOLYBDENUM, 1),

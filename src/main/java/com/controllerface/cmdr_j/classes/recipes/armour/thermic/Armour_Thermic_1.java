@@ -15,8 +15,8 @@ public class Armour_Thermic_1 extends AbstractModificationRecipe
         super(Armour_Thermic_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, -6d),
-                                new ItemEffectData(ItemEffect.KineticResistance, -5d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, -4d),
+                                new ItemEffectData(ItemEffect.KineticResistance, -4d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, 12d)
                         ),
                 new CostData(Material.HEATCONDUCTIONWIRING, 1));

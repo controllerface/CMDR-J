@@ -15,10 +15,10 @@ public class FSD_FastBoot_4 extends AbstractModificationRecipe
         super(FSD_FastBoot_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.BootTime, -65d),
-                                new ItemEffectData(ItemEffect.Integrity, -12d),
-                                new ItemEffectData(ItemEffect.FSDOptimalMass, 12d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, 16d)
+                                new ItemEffectData(ItemEffect.BootTime_Percent, -65d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -12d),
+                                new ItemEffectData(ItemEffect.FSDOptimalMass_Percent, 12d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, 16d)
                         ),
                 new CostData(Material.CADMIUM, 1),
                 new CostData(Material.HEATEXCHANGERS, 1),

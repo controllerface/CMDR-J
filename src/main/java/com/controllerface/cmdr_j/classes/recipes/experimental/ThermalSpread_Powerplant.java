@@ -13,7 +13,7 @@ public class ThermalSpread_Powerplant extends AbstractExperimentalRecipe
     {
         super("Thermal Spread", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.ThermalLoad, -10.0)
+                  new ItemEffectData(ItemEffect.HeatEfficiency_Percent, -10.0)
             ),
             new CostData(Material.GRIDRESISTORS, 5),
             new CostData(Material.VANADIUM, 3),

@@ -15,10 +15,10 @@ public class FSD_Shielded_1 extends AbstractModificationRecipe
         super(FSD_Shielded_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 25d),
-                                new ItemEffectData(ItemEffect.Mass, 4d),
-                                new ItemEffectData(ItemEffect.FSDOptimalMass, 3d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, -10d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 25d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 4d),
+                                new ItemEffectData(ItemEffect.FSDOptimalMass_Percent, 3d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, -10d)
                         ),
                 new CostData(Material.NICKEL, 1));
     }

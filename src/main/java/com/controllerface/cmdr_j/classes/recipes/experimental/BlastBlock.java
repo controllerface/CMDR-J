@@ -13,7 +13,7 @@ public class BlastBlock extends AbstractExperimentalRecipe
     {
         super("Blast Block", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, -1.0),
+                  new ItemEffectData(ItemEffect.ShieldGenStrength_Percent, -1.0),
                   new ItemEffectData(ItemEffect.ExplosiveResistance, 2.0)
             ),
             new CostData(Material.SHIELDSOAKANALYSIS, 5),

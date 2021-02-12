@@ -15,8 +15,8 @@ public class Armour_Kinetic_4 extends AbstractModificationRecipe
         super(Armour_Kinetic_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, -14d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 39.6d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, -10d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 33d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, -10d)
                         ),
                 new CostData(Material.GALVANISINGALLOYS, 1),

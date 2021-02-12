@@ -13,7 +13,7 @@ public class ThermalSpread_FSD extends AbstractExperimentalRecipe
     {
         super("Thermal Spread", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.FSDHeatRate, -10.0)
+                  new ItemEffectData(ItemEffect.FSDHeatRate_Percent, -10.0)
             ),
             new CostData(Material.DISRUPTEDWAKEECHOES, 5),
             new CostData(Material.GALVANISINGALLOYS, 3),

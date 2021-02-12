@@ -15,10 +15,10 @@ public class FSDinterdictor_LongRange_1 extends AbstractModificationRecipe
         super(FSDinterdictor_LongRange_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit, -10d),
-                                new ItemEffectData(ItemEffect.Mass, 10d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 10d),
-                                new ItemEffectData(ItemEffect.Range, 20d)
+                                new ItemEffectData(ItemEffect.FSDInterdictorFacingLimit_Percent, -10d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 10d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 10d),
+                                new ItemEffectData(ItemEffect.Range_Percent, 20d)
                         ),
                 new CostData(Material.ENCRYPTEDFILES, 1));
     }

@@ -13,8 +13,8 @@ public class Oversized extends AbstractExperimentalRecipe
     {
         super("Oversized", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.PowerDraw, 5.0),
-                  new ItemEffectData(ItemEffect.Damage, 3.0)
+                  new ItemEffectData(ItemEffect.PowerDraw_Percent, 5.0),
+                  new ItemEffectData(ItemEffect.Damage_Percent, 3.0)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),
             new CostData(Material.MECHANICALCOMPONENTS, 3),

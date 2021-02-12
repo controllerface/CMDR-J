@@ -24,7 +24,6 @@ class TaskData extends HTMLElement
         let details = this.shadowRoot.getElementById('taskData_details');
         details.addEventListener('toggle', (e) =>
         {
-            console.log(document.querySelectorAll('task-data'));
             if (e.target.hasAttribute('open'))
             {
                 Array.from(document.querySelectorAll('task-data'))
@@ -106,6 +105,10 @@ class TaskData extends HTMLElement
             effectName.textContent = effect['effect'];
             effectName.classList.add('taskEffectName');
             let value = document.createElement('span');
+            if (effect['impact'])
+            {
+                value.classList.add(effect['impact']);
+            }
             if (effect['value'] === '&infin;')
             {
                 value.innerHTML = effect['value'];

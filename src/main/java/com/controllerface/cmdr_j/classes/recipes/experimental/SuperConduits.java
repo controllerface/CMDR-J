@@ -13,12 +13,12 @@ public class SuperConduits extends AbstractExperimentalRecipe
     {
         super("Super Conduits", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.WeaponsCapacity, -4.0),
-                  new ItemEffectData(ItemEffect.WeaponsRecharge, 4.0),
-                  new ItemEffectData(ItemEffect.EnginesCapacity, -4.0),
-                  new ItemEffectData(ItemEffect.EnginesRecharge, 4.0),
-                  new ItemEffectData(ItemEffect.SystemsCapacity, -4.0),
-                  new ItemEffectData(ItemEffect.SystemsRecharge, 4.0)
+                  new ItemEffectData(ItemEffect.WeaponsCapacity_Percent, -4.0),
+                  new ItemEffectData(ItemEffect.WeaponsRecharge_Percent, 4.0),
+                  new ItemEffectData(ItemEffect.EnginesCapacity_Percent, -4.0),
+                  new ItemEffectData(ItemEffect.EnginesRecharge_Percent, 4.0),
+                  new ItemEffectData(ItemEffect.SystemsCapacity_Percent, -4.0),
+                  new ItemEffectData(ItemEffect.SystemsRecharge_Percent, 4.0)
             ),
             new CostData(Material.PHOSPHORUS, 5),
             new CostData(Material.HEATRESISTANTCERAMICS, 3),

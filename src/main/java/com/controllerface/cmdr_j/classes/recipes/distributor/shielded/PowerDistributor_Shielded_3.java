@@ -15,9 +15,9 @@ public class PowerDistributor_Shielded_3 extends AbstractModificationRecipe
         super(PowerDistributor_Shielded_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 120d),
-                                new ItemEffectData(ItemEffect.Mass, 9d),
-                                new ItemEffectData(ItemEffect.PowerDraw, -20d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 120d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 9d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, -20d)
                         ),
                 new CostData(Material.CARBON, 1),
                 new CostData(Material.HIGHDENSITYCOMPOSITES, 1),

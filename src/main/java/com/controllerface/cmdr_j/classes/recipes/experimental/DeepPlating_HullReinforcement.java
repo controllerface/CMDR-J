@@ -13,7 +13,7 @@ public class DeepPlating_HullReinforcement extends AbstractExperimentalRecipe
     {
         super("Deep Plating", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 10.0),
+                  new ItemEffectData(ItemEffect.DefenceModifierHealthAddition_Percent, 10.0),
                   new ItemEffectData(ItemEffect.KineticResistance, -2.0),
                   new ItemEffectData(ItemEffect.ThermicResistance, -2.0),
                   new ItemEffectData(ItemEffect.ExplosiveResistance, -2.0)

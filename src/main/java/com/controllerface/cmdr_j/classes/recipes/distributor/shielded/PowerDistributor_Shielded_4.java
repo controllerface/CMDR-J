@@ -15,9 +15,9 @@ public class PowerDistributor_Shielded_4 extends AbstractModificationRecipe
         super(PowerDistributor_Shielded_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 160d),
-                                new ItemEffectData(ItemEffect.Mass, 12d),
-                                new ItemEffectData(ItemEffect.PowerDraw, -25d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 160d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 12d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, -25d)
                         ),
                 new CostData(Material.FEDPROPRIETARYCOMPOSITES, 1),
                 new CostData(Material.SHIELDINGSENSORS, 1),

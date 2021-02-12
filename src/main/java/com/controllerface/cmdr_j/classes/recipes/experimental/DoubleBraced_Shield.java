@@ -13,7 +13,7 @@ public class DoubleBraced_Shield extends AbstractExperimentalRecipe
     {
         super("Double Braced", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Integrity, 15.0)
+                  new ItemEffectData(ItemEffect.Integrity_Percent, 15.0)
             ),
             new CostData(Material.WORNSHIELDEMITTERS, 5),
             new CostData(Material.UNCUTFOCUSCRYSTALS, 3),

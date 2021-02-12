@@ -14,7 +14,7 @@ public class DragDrives extends AbstractExperimentalRecipe
         super("Drag Drives", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.EngineOptPerformance, 4.0),
-                  new ItemEffectData(ItemEffect.EngineHeatRate, 10.0)
+                  new ItemEffectData(ItemEffect.EngineHeatRate_Percent, 10.0)
             ),
             new CostData(Material.IRON, 5),
             new CostData(Material.HYBRIDCAPACITORS, 3),

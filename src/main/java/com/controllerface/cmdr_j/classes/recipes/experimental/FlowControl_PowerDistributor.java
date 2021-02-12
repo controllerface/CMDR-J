@@ -13,7 +13,7 @@ public class FlowControl_PowerDistributor extends AbstractExperimentalRecipe
     {
         super("Flow Control", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.PowerDraw, -10.0)
+                  new ItemEffectData(ItemEffect.PowerDraw_Percent, -10.0)
             ),
             new CostData(Material.PHOSPHORUS, 5),
             new CostData(Material.HEATRESISTANTCERAMICS, 3),

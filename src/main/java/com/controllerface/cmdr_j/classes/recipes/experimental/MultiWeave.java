@@ -13,8 +13,8 @@ public class MultiWeave extends AbstractExperimentalRecipe
     {
         super("Multi-Weave", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.PowerDraw, 10.0),
-                  new ItemEffectData(ItemEffect.DistributorDraw, 25.0),
+                  new ItemEffectData(ItemEffect.PowerDraw_Percent, 10.0),
+                  new ItemEffectData(ItemEffect.DistributorDraw_Percent, 25.0),
                   new ItemEffectData(ItemEffect.KineticResistance, 3.0),
                   new ItemEffectData(ItemEffect.ThermicResistance, 3.0),
                   new ItemEffectData(ItemEffect.ExplosiveResistance, 3.0)

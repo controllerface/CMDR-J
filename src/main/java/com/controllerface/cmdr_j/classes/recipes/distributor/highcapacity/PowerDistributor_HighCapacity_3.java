@@ -15,13 +15,13 @@ public class PowerDistributor_HighCapacity_3 extends AbstractModificationRecipe
         super(PowerDistributor_HighCapacity_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.EnginesCapacity, 26d),
-                                new ItemEffectData(ItemEffect.EnginesRecharge, -10d),
-                                new ItemEffectData(ItemEffect.Integrity, 20d),
-                                new ItemEffectData(ItemEffect.SystemsCapacity, 26d),
-                                new ItemEffectData(ItemEffect.SystemsRecharge, -10d),
-                                new ItemEffectData(ItemEffect.WeaponsCapacity, 26d),
-                                new ItemEffectData(ItemEffect.WeaponsRecharge, -10d)
+                                new ItemEffectData(ItemEffect.EnginesCapacity_Percent, 26d),
+                                new ItemEffectData(ItemEffect.EnginesRecharge_Percent, -10d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 20d),
+                                new ItemEffectData(ItemEffect.SystemsCapacity_Percent, 26d),
+                                new ItemEffectData(ItemEffect.SystemsRecharge_Percent, -10d),
+                                new ItemEffectData(ItemEffect.WeaponsCapacity_Percent, 26d),
+                                new ItemEffectData(ItemEffect.WeaponsRecharge_Percent, -10d)
                         ),
                 new CostData(Material.CHROMIUM, 1),
                 new CostData(Material.HIGHDENSITYCOMPOSITES, 1),

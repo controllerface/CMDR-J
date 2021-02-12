@@ -13,8 +13,8 @@ public class MultiServos extends AbstractExperimentalRecipe
     {
         super("Multi-Servos", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.PowerDraw, 5.0),
-                  new ItemEffectData(ItemEffect.RateOfFire, 3.0)
+                  new ItemEffectData(ItemEffect.PowerDraw_Percent, 5.0),
+                  new ItemEffectData(ItemEffect.RateOfFire_Percent, 3.0)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),
             new CostData(Material.FOCUSCRYSTALS, 4),

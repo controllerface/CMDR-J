@@ -116,7 +116,7 @@ public enum ExperimentalBlueprint implements TaskBlueprint
             ExperimentalRecipe.special_weapon_rateoffire,
             ExperimentalRecipe.special_weapon_damage,
             ExperimentalRecipe.special_phasing_sequence,
-            ExperimentalRecipe.special_plasma_slug,//_cooled,
+            ExperimentalRecipe.special_plasma_slug,
             ExperimentalRecipe.special_weapon_lightweight,
             ExperimentalRecipe.special_lock_breaker,
             ExperimentalRecipe.special_thermal_conduit)),
@@ -126,7 +126,7 @@ public enum ExperimentalBlueprint implements TaskBlueprint
             ExperimentalRecipe.special_weapon_efficient,
             ExperimentalRecipe.special_weapon_rateoffire,
             ExperimentalRecipe.special_weapon_damage,
-            ExperimentalRecipe.special_plasma_slug,//_cooled,
+            ExperimentalRecipe.special_plasma_slug_cooled,
             ExperimentalRecipe.special_weapon_lightweight,
             ExperimentalRecipe.special_super_penetrator_cooled)),
 

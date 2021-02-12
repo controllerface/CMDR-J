@@ -1223,7 +1223,6 @@ function adjustTask(key, type, callback)
 
 function handleTaskMaterials(materialData)
 {
-    console.log(materialData);
     let taskContainer = document.getElementById('billOfMaterials');
     taskContainer.textContent = "";
     let materials = Object.keys(materialData);

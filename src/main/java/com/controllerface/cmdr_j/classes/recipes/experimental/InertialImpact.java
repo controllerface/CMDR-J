@@ -14,7 +14,7 @@ public class InertialImpact extends AbstractExperimentalRecipe
         super("Inertial Impact", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Damage_Partially_Kinetic, 50.0),
-                  new ItemEffectData(ItemEffect.Damage, 50.0),
+                  new ItemEffectData(ItemEffect.Damage_Percent, 50.0),
                   new ItemEffectData(ItemEffect.Jitter, 3.0)
             ),
             new CostData(Material.UNCUTFOCUSCRYSTALS, 5),

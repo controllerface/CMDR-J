@@ -13,7 +13,7 @@ public class StrippedDown_Shield extends AbstractExperimentalRecipe
     {
         super("Stripped Down", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, -10.0)
+                  new ItemEffectData(ItemEffect.Mass_Percent, -10.0)
             ),
             new CostData(Material.WORNSHIELDEMITTERS, 5),
             new CostData(Material.UNCUTFOCUSCRYSTALS, 3),

@@ -95,6 +95,12 @@ class ShipModule extends HTMLElement
         {
             let effects = module['effects'];
 
+            if (effects['power play'])
+            {
+                delete effects['power play'];
+                moduleName.classList.add('powerPlayClass');
+            }
+
             if (effects['guardian'])
             {
                 delete effects['guardian'];
@@ -183,7 +189,6 @@ class ShipModule extends HTMLElement
                 statRow.append(statName, statValue, statUnit);
                 statContainer.append(statRow);
             }
-
 
             let statistics = Object.keys(effects);
             statistics.sort((a, b) =>

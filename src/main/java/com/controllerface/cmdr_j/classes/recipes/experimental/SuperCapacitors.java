@@ -13,7 +13,7 @@ public class SuperCapacitors extends AbstractExperimentalRecipe
     {
         super("Super Capacitors", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 5.0),
+                  new ItemEffectData(ItemEffect.ShieldGenStrength_Percent, 5.0),
                   new ItemEffectData(ItemEffect.KineticResistance, -2.0),
                   new ItemEffectData(ItemEffect.ThermicResistance, -2.0),
                   new ItemEffectData(ItemEffect.ExplosiveResistance, -2.0)

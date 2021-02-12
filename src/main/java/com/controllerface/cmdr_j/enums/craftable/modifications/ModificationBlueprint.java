@@ -100,13 +100,15 @@ public enum ModificationBlueprint implements TaskBlueprint
             ModificationRecipe.FSDinterdictor_Expanded_1,
             ModificationRecipe.FSDinterdictor_Expanded_2,
             ModificationRecipe.FSDinterdictor_Expanded_3,
-            ModificationRecipe.FSDinterdictor_Expanded_4),
+            ModificationRecipe.FSDinterdictor_Expanded_4,
+            ModificationRecipe.FSDinterdictor_Expanded_5),
 
     FSDinterdictor_LongRange("Long Range",
             ModificationRecipe.FSDinterdictor_LongRange_1,
             ModificationRecipe.FSDinterdictor_LongRange_2,
             ModificationRecipe.FSDinterdictor_LongRange_3,
-            ModificationRecipe.FSDinterdictor_LongRange_4),
+            ModificationRecipe.FSDinterdictor_LongRange_4,
+            ModificationRecipe.FSDinterdictor_LongRange_5),
 
     HeatSinkLauncher_HeatSinkCapacity("Ammo Capacity",
             ModificationRecipe.HeatSinkLauncher_HeatSinkCapacity_1),

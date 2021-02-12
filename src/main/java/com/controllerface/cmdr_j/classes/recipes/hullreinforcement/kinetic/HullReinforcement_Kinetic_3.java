@@ -16,8 +16,8 @@ public class HullReinforcement_Kinetic_3 extends AbstractModificationRecipe
                 new ItemEffects
                         (
                                 new ItemEffectData(ItemEffect.ExplosiveResistance, -6d),
-                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 9d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 25.4d),
+                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition_Percent, 9d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 26d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, -6d)
                         ),
                 new CostData(Material.HIGHDENSITYCOMPOSITES, 1),

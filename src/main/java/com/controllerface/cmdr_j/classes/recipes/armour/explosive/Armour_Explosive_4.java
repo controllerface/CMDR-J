@@ -15,8 +15,8 @@ public class Armour_Explosive_4 extends AbstractModificationRecipe
         super(Armour_Explosive_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, 46.2d),
-                                new ItemEffectData(ItemEffect.KineticResistance, -12d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, 33d),
+                                new ItemEffectData(ItemEffect.KineticResistance, -10d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, -10d)
                         ),
                 new CostData(Material.GALVANISINGALLOYS, 1),

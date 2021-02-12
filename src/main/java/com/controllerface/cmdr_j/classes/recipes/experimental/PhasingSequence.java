@@ -14,7 +14,7 @@ public class PhasingSequence extends AbstractExperimentalRecipe
         super("Phasing Sequence", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Part_of_Damage_Through_Shields, 10.0),
-                  new ItemEffectData(ItemEffect.Damage, -10.0)
+                  new ItemEffectData(ItemEffect.Damage_Percent, -10.0)
             ),
             new CostData(Material.FOCUSCRYSTALS, 5),
             new CostData(Material.SHIELDPATTERNANALYSIS, 3),

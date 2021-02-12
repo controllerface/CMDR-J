@@ -14,7 +14,8 @@ public class SuperPenetrator extends AbstractExperimentalRecipe
         super("Super Penetrator", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Target_Module_Damage, "Installed"),
-                  new ItemEffectData(ItemEffect.ThermalLoad, -40.0)
+                  new ItemEffectData(ItemEffect.ReloadTime_Percent, 50.0),
+                  new ItemEffectData(ItemEffect.ThermalLoad_Percent, -40.0)
             ),
             new CostData(Material.PROTOLIGHTALLOYS, 3),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 3),

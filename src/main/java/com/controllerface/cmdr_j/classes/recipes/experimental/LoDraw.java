@@ -13,9 +13,9 @@ public class LoDraw extends AbstractExperimentalRecipe
     {
         super("Lo-Draw", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.PowerDraw, -20.0),
+                  new ItemEffectData(ItemEffect.PowerDraw_Percent, -20.0),
                   new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, -2.0),
-                  new ItemEffectData(ItemEffect.DistributorDraw, -20.0),
+                  new ItemEffectData(ItemEffect.DistributorDraw_Percent, -20.0),
                   new ItemEffectData(ItemEffect.KineticResistance, -1.0),
                   new ItemEffectData(ItemEffect.ThermicResistance, -1.0),
                   new ItemEffectData(ItemEffect.ExplosiveResistance, -1.0)

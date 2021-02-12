@@ -14,7 +14,7 @@ public class ThermalShock extends AbstractExperimentalRecipe
         super("Thermal Shock", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Target_Heat_Increased, "Installed"),
-                  new ItemEffectData(ItemEffect.Damage, -10.0)
+                  new ItemEffectData(ItemEffect.Damage_Percent, -10.0)
             ),
             new CostData(Material.UNCUTFOCUSCRYSTALS, 5),
             new CostData(Material.HEATRESISTANTCERAMICS, 3),

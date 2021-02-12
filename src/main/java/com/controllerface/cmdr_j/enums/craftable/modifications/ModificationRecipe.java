@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.enums.craftable.modifications;
 
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.CostData;
+import com.controllerface.cmdr_j.classes.recipes.interdictor.longrange.*;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.armour.advanced.*;
 import com.controllerface.cmdr_j.classes.recipes.armour.explosive.*;
@@ -28,10 +29,7 @@ import com.controllerface.cmdr_j.classes.recipes.interdictor.expanded.FSDinterdi
 import com.controllerface.cmdr_j.classes.recipes.interdictor.expanded.FSDinterdictor_Expanded_2;
 import com.controllerface.cmdr_j.classes.recipes.interdictor.expanded.FSDinterdictor_Expanded_3;
 import com.controllerface.cmdr_j.classes.recipes.interdictor.expanded.FSDinterdictor_Expanded_4;
-import com.controllerface.cmdr_j.classes.recipes.interdictor.longrange.FSDinterdictor_LongRange_1;
-import com.controllerface.cmdr_j.classes.recipes.interdictor.longrange.FSDinterdictor_LongRange_2;
-import com.controllerface.cmdr_j.classes.recipes.interdictor.longrange.FSDinterdictor_LongRange_3;
-import com.controllerface.cmdr_j.classes.recipes.interdictor.longrange.FSDinterdictor_LongRange_4;
+import com.controllerface.cmdr_j.classes.recipes.interdictor.expanded.FSDinterdictor_Expanded_5;
 import com.controllerface.cmdr_j.classes.recipes.misc.fastscan.*;
 import com.controllerface.cmdr_j.classes.recipes.misc.lightweight.*;
 import com.controllerface.cmdr_j.classes.recipes.misc.longrange.*;
@@ -277,11 +275,13 @@ public enum ModificationRecipe implements TaskRecipe
     FSDinterdictor_Expanded_2(new FSDinterdictor_Expanded_2()),
     FSDinterdictor_Expanded_3(new FSDinterdictor_Expanded_3()),
     FSDinterdictor_Expanded_4(new FSDinterdictor_Expanded_4()),
+    FSDinterdictor_Expanded_5(new FSDinterdictor_Expanded_5()),
 
     FSDinterdictor_LongRange_1(new FSDinterdictor_LongRange_1()),
     FSDinterdictor_LongRange_2(new FSDinterdictor_LongRange_2()),
     FSDinterdictor_LongRange_3(new FSDinterdictor_LongRange_3()),
     FSDinterdictor_LongRange_4(new FSDinterdictor_LongRange_4()),
+    FSDinterdictor_LongRange_5(new FSDinterdictor_LongRange_5()),
 
 
     /*

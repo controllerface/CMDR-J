@@ -15,13 +15,13 @@ public class PowerDistributor_HighCapacity_5 extends AbstractModificationRecipe
         super(PowerDistributor_HighCapacity_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.EnginesCapacity, 42d),
-                                new ItemEffectData(ItemEffect.EnginesRecharge, -18d),
-                                new ItemEffectData(ItemEffect.Integrity, 30d),
-                                new ItemEffectData(ItemEffect.SystemsCapacity, 42d),
-                                new ItemEffectData(ItemEffect.SystemsRecharge, -18d),
-                                new ItemEffectData(ItemEffect.WeaponsCapacity, 42d),
-                                new ItemEffectData(ItemEffect.WeaponsRecharge, -18d)
+                                new ItemEffectData(ItemEffect.EnginesCapacity_Percent, 42d),
+                                new ItemEffectData(ItemEffect.EnginesRecharge_Percent, -18d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 30d),
+                                new ItemEffectData(ItemEffect.SystemsCapacity_Percent, 42d),
+                                new ItemEffectData(ItemEffect.SystemsRecharge_Percent, -18d),
+                                new ItemEffectData(ItemEffect.WeaponsCapacity_Percent, 42d),
+                                new ItemEffectData(ItemEffect.WeaponsRecharge_Percent, -18d)
                         ),
                 new CostData(Material.INDUSTRIALFIRMWARE, 1),
                 new CostData(Material.MILITARYSUPERCAPACITORS, 1),

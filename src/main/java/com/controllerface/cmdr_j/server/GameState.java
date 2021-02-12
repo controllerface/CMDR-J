@@ -43,6 +43,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.locks.Lock;
@@ -70,7 +71,13 @@ public class GameState
      */
     private final BiConsumer<String, String> globalUpdate;
 
-    private static final TaskCatalog taskCatalog = new TaskCatalog();
+    /**
+     * The task catalog is built at construction time, as the buildTaskCatalog() method
+     * is called, but the return value is actually the raw JSON representation of that
+     * catalog. This is done for efficiency as the catalog itself is quite large and
+     * may be requested multiple times, so serializing it more than once is just wasteful.
+     */
+    private final TaskCatalog taskCatalog = new TaskCatalog();
     private final String rawCatalogJson = buildTaskCatalog();
 
     private final Map<Statistic, String> commanderStatistics = new HashMap<>();
@@ -81,35 +88,28 @@ public class GameState
     private final Map<Commodity, CommodityData> cargo = new HashMap<>();
     private final Map<String, Object> marketData = new HashMap<>();
     private final Map<Engineer, Map<String, Object>> engineerProgress = new HashMap<>();
-
     private final List<RouteEntry> currentRoute = new ArrayList<>();
-
     private final List<Map<String, Object>> systemFactions = new ArrayList<>();
-
-    private LocalCoordinates localCoordinates;
-
-    private SettlementLocation localSettlement;
-
-    private StellarBody nearestBody;
-
-    /**
-     * Contains the commander's current credit balance.
-     */
-    private long creditBalance = 0;
+    private final List<Map<String, Object>> localConflicts = new ArrayList<>();
+    private final AtomicReference<String> trackedLocation = new AtomicReference<>("");
 
     private String commanderName = "";
-
+    private long creditBalance = 0;
     private double currentFuel = 0;
 
     private ShipType shipType;
-
     private StarSystem starSystem;
+    private StellarBody nearestBody;
 
     private double touchdownLatitude = -1;
     private double touchdownLongitude = -1;
 
-    private final AtomicReference<String> trackedLocation = new AtomicReference<>("");
+    private LocalCoordinates localCoordinates;
+    private SettlementLocation localSettlement;
 
+    /**
+     * Filter function for numeric effect values that allows only non-zero values.
+     */
     private static final Predicate<Double> nonZeroValue = (x) -> Objects.requireNonNull(x) != 0.0d;
 
     /**
@@ -242,6 +242,22 @@ public class GameState
         }
     }
 
+    private static class DamageBreakdown
+    {
+        final double thermalShare;
+        final double kineticShare;
+        final double explosiveShare;
+        final double absoluteShare;
+
+        private DamageBreakdown(double thermalShare, double kineticShare, double explosiveShare, double absoluteShare)
+        {
+            this.thermalShare = thermalShare;
+            this.kineticShare = kineticShare;
+            this.explosiveShare = explosiveShare;
+            this.absoluteShare = absoluteShare;
+        }
+    }
+
     public GameState(BiConsumer<String, String> globalUpdate)
     {
         this.globalUpdate = globalUpdate;
@@ -307,28 +323,6 @@ public class GameState
         {
             stateLock.unlock();
         }
-    }
-
-    public void emitMissionData()
-    {
-        emitMissionData(globalUpdate);
-    }
-
-    private void emitMissionData(BiConsumer<String, String> sink)
-    {
-        var json = database.computeInTransaction(txn ->
-        {
-            var commander = getCommanderEntity(txn);
-            if (commander == null) return "";
-            var data = new HashMap<String, Object>();
-            var missionList = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MISSION))
-                .map(MissionData::toMap)
-                .collect(Collectors.toList());
-            data.put("missions", missionList);
-            return JSONSupport.Write.jsonToString.apply(data);
-        });
-
-        sink.accept("Missions", json);
     }
 
     public void updateMissionState(MissionData.MissionState state, long missionId)
@@ -441,34 +435,6 @@ public class GameState
         executeWithLock(() -> globalUpdate.accept("LeaveBody", "leave"));
     }
 
-    private void emitTouchdownData(BiConsumer<String, String> sink)
-    {
-        if (touchdownLatitude == -1 || touchdownLongitude == -1 || localCoordinates == null)
-        {
-            return;
-        }
-
-        var touchdownData = new HashMap<String, Object>();
-        touchdownData.put("latitude", this.touchdownLatitude);
-        touchdownData.put("longitude", this.touchdownLongitude);
-        touchdownData.put("name", shipStatistics.get(ShipStat.Ship_Name));
-
-        var dist = calculateDistance(touchdownLongitude, touchdownLatitude);
-        var unit = dist < 1000
-            ? "m"
-            : "km";
-        if (unit.equals("km"))
-        {
-            dist = dist / 1000d;
-        }
-        dist = UIFunctions.Data.round(dist, 1);
-        touchdownData.put("distance", dist);
-        touchdownData.put("unit", unit);
-
-        var touchdownJson = JSONSupport.Write.jsonToString.apply(touchdownData);
-        executeWithLock(() -> sink.accept("Touchdown", touchdownJson));
-    }
-
     public void touchDown(double touchdownLatitude, double touchdownLongitude)
     {
         this.touchdownLatitude = touchdownLatitude;
@@ -480,62 +446,6 @@ public class GameState
     {
         this.touchdownLatitude = -1;
         this.touchdownLongitude = -1;
-    }
-
-    public void emitWaypointData(BiConsumer<String, String> sink)
-    {
-        if (starSystem == null || nearestBody == null || localCoordinates == null) return;
-
-        var waypointData = database.computeInTransaction(txn ->
-        {
-            var currentSystem = getStarSystemEntity(txn, starSystem.address);
-            if (currentSystem == null) return null;
-
-            var currentBody = EntityUtilities.entityStream(currentSystem.getLinks(EntityKeys.STELLAR_BODY))
-                .filter(body -> body.getProperty(EntityKeys.STELLAR_BODY_ID).equals(nearestBody.id))
-                .findFirst().orElse(null);
-
-            if (currentBody == null) return null;
-
-            return EntityUtilities.entityStream(currentBody.getLinks(EntityKeys.WAYPOINT))
-                .map(waypointEntity ->
-                {
-                    var waypointMap = new HashMap<String, Object>();
-                    var waypointLatitude = ((Double) waypointEntity.getProperty(EntityKeys.WAYPOINT_LATITUDE));
-                    var waypointLongitude = ((Double) waypointEntity.getProperty(EntityKeys.WAYPOINT_LONGITUDE));
-
-                    if (waypointLatitude == null || waypointLongitude == null) return null;
-
-                    waypointMap.put("waypointId", waypointEntity.getId().toString());
-                    waypointMap.put("name", waypointEntity.getProperty(EntityKeys.WAYPOINT_NAME));
-                    waypointMap.put("latitude", waypointLatitude);
-                    waypointMap.put("longitude", waypointLongitude);
-
-                    var dist = calculateDistance(waypointLongitude, waypointLatitude);
-                    var unit = dist < 1000
-                        ? "m"
-                        : "km";
-                    if (unit.equals("km"))
-                    {
-                        dist = UIFunctions.Data.round(dist / 1000d, 1);
-                    }
-                    waypointMap.put("distance", dist);
-                    waypointMap.put("unit", unit);
-
-                    return waypointMap;
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        });
-
-        if (waypointData != null && !waypointData.isEmpty())
-        {
-            waypointData.forEach(waypoint->
-            {
-                String waypointJson = JSONSupport.Write.jsonToString.apply(waypoint);
-                executeWithLock(() -> sink.accept("Waypoint", waypointJson));
-            });
-        }
     }
 
     public boolean createWaypoint()
@@ -711,14 +621,6 @@ public class GameState
         cargo.put(commodity, commodityData);
         var jsonData = commodityData.toJson();
         executeWithLock(() -> globalUpdate.accept("Cargo", jsonData));
-    }
-
-    private String writeMaterialEvent(Material material, Integer count)
-    {
-        var event = new HashMap<String, Object>();
-        event.put("name", material.name());
-        event.put("count", count.toString());
-        return JSONSupport.Write.jsonToString.apply(event);
     }
 
     public void setEngineerProgress(Engineer engineer, Map<String, Object> data)
@@ -1439,22 +1341,6 @@ public class GameState
         return calculatedResistance;
     }
 
-    private static class DamageBreakdown
-    {
-        final double thermalShare;
-        final double kineticShare;
-        final double explosiveShare;
-        final double absoluteShare;
-
-        private DamageBreakdown(double thermalShare, double kineticShare, double explosiveShare, double absoluteShare)
-        {
-            this.thermalShare = thermalShare;
-            this.kineticShare = kineticShare;
-            this.explosiveShare = explosiveShare;
-            this.absoluteShare = absoluteShare;
-        }
-    }
-
     private DamageBreakdown calculateDamageShares(double dps,
                                                   double partialExplosive,
                                                   double partialKinetic,
@@ -1837,7 +1723,6 @@ public class GameState
         });
     }
 
-
     /**
      * Haversine function: hav(θ) = sin ^ 2 (θ/2)
      *
@@ -1916,6 +1801,44 @@ public class GameState
         return UIFunctions.Data.round(bearing, 2);
     }
 
+    public void clearFactionData()
+    {
+        synchronized (systemFactions)
+        {
+            systemFactions.clear();
+        }
+        executeWithLock(() -> globalUpdate.accept("Faction", "clear"));
+    }
+
+    public void acceptFactionData(List<Map<String, Object>> factionData)
+    {
+        synchronized (systemFactions)
+        {
+            systemFactions.clear();
+            systemFactions.addAll(factionData);
+            systemFactions.sort(highestInfluence);
+        }
+        executeWithLock(() -> emitFactionData(globalUpdate));
+    }
+
+    public void clearConflictData()
+    {
+        synchronized (localConflicts)
+        {
+            localConflicts.clear();
+        }
+        executeWithLock(() -> globalUpdate.accept("Conflicts", "clear"));
+    }
+
+    public void acceptConflictData(List<Map<String, Object>> conflictData)
+    {
+        synchronized (localConflicts)
+        {
+            localConflicts.clear();
+            localConflicts.addAll(conflictData);
+        }
+        executeWithLock(() -> emitConflictData(globalUpdate));
+    }
 
 
     //region Database Access Functions
@@ -2135,7 +2058,6 @@ public class GameState
         sink.accept("Conflicts", conflictJson);
     }
 
-
     private void emitFactionData(BiConsumer<String, String> sink)
     {
         synchronized (systemFactions)
@@ -2146,50 +2068,138 @@ public class GameState
         }
     }
 
-    public void clearFactionData()
-    {
-        synchronized (systemFactions)
-        {
-            systemFactions.clear();
-        }
-        executeWithLock(() -> globalUpdate.accept("Faction", "clear"));
-    }
-
-    public void acceptFactionData(List<Map<String, Object>> factionData)
-    {
-        synchronized (systemFactions)
-        {
-            systemFactions.clear();
-            systemFactions.addAll(factionData);
-            systemFactions.sort(highestInfluence);
-        }
-        executeWithLock(() -> emitFactionData(globalUpdate));
-    }
-
-    private final List<Map<String, Object>> localConflicts = new ArrayList<>();
-
-    public void clearConflictData()
-    {
-        synchronized (localConflicts)
-        {
-            localConflicts.clear();
-        }
-        executeWithLock(() -> globalUpdate.accept("Conflicts", "clear"));
-    }
-
-    public void acceptConflictData(List<Map<String, Object>> conflictData)
-    {
-        synchronized (localConflicts)
-        {
-            localConflicts.clear();
-            localConflicts.addAll(conflictData);
-        }
-        executeWithLock(() -> emitConflictData(globalUpdate));
-    }
-
     public void emitSystemCatalog()
     {
         executeWithLock(() -> globalUpdate.accept("Catalog", "updated"));
+    }
+
+    public void emitMissionData()
+    {
+        emitMissionData(globalUpdate);
+    }
+
+    private void emitMissionData(BiConsumer<String, String> sink)
+    {
+        var json = database.computeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return "";
+            var data = new HashMap<String, Object>();
+            var missionList = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MISSION))
+                .map(MissionData::toMap)
+                .collect(Collectors.toList());
+            data.put("missions", missionList);
+            return JSONSupport.Write.jsonToString.apply(data);
+        });
+
+        sink.accept("Missions", json);
+    }
+
+    private void emitAllTaskData(BiConsumer<String, String> sink)
+    {
+        List<TaskSummary> taskSummaries = getTaskSummaries();
+        taskSummaries.forEach(taskSummary -> emitTaskData(sink, taskSummary.key, taskSummary.count));
+    }
+
+    private void emitTaskData(BiConsumer<String, String> sink, String taskKey, Integer count)
+    {
+        var data = new HashMap<String, Object>();
+        data.put("key", taskKey);
+        data.put("count", count);
+        if (count > 0)
+        {
+            var task = taskCatalog.keyMap.get(taskKey);
+            var taskdata = determineTaskData(task);
+            data.put("name", taskdata.name);
+            data.put("costs", taskdata.costs);
+            data.put("effects", taskdata.effects);
+        }
+        var jsonData = JSONSupport.Write.jsonToString.apply(data);
+        executeWithLock(() -> sink.accept("Task", jsonData));
+    }
+
+    private void emitTouchdownData(BiConsumer<String, String> sink)
+    {
+        if (touchdownLatitude == -1 || touchdownLongitude == -1 || localCoordinates == null)
+        {
+            return;
+        }
+
+        var touchdownData = new HashMap<String, Object>();
+        touchdownData.put("latitude", this.touchdownLatitude);
+        touchdownData.put("longitude", this.touchdownLongitude);
+        touchdownData.put("name", shipStatistics.get(ShipStat.Ship_Name));
+
+        var dist = calculateDistance(touchdownLongitude, touchdownLatitude);
+        var unit = dist < 1000
+            ? "m"
+            : "km";
+        if (unit.equals("km"))
+        {
+            dist = dist / 1000d;
+        }
+        dist = UIFunctions.Data.round(dist, 1);
+        touchdownData.put("distance", dist);
+        touchdownData.put("unit", unit);
+
+        var touchdownJson = JSONSupport.Write.jsonToString.apply(touchdownData);
+        executeWithLock(() -> sink.accept("Touchdown", touchdownJson));
+    }
+
+    public void emitWaypointData(BiConsumer<String, String> sink)
+    {
+        if (starSystem == null || nearestBody == null || localCoordinates == null) return;
+
+        var waypointData = database.computeInTransaction(txn ->
+        {
+            var currentSystem = getStarSystemEntity(txn, starSystem.address);
+            if (currentSystem == null) return null;
+
+            var currentBody = EntityUtilities.entityStream(currentSystem.getLinks(EntityKeys.STELLAR_BODY))
+                .filter(body -> body.getProperty(EntityKeys.STELLAR_BODY_ID).equals(nearestBody.id))
+                .findFirst().orElse(null);
+
+            if (currentBody == null) return null;
+
+            return EntityUtilities.entityStream(currentBody.getLinks(EntityKeys.WAYPOINT))
+                .map(waypointEntity ->
+                {
+                    var waypointMap = new HashMap<String, Object>();
+                    var waypointLatitude = ((Double) waypointEntity.getProperty(EntityKeys.WAYPOINT_LATITUDE));
+                    var waypointLongitude = ((Double) waypointEntity.getProperty(EntityKeys.WAYPOINT_LONGITUDE));
+
+                    if (waypointLatitude == null || waypointLongitude == null) return null;
+
+                    waypointMap.put("waypointId", waypointEntity.getId().toString());
+                    waypointMap.put("name", waypointEntity.getProperty(EntityKeys.WAYPOINT_NAME));
+                    waypointMap.put("latitude", waypointLatitude);
+                    waypointMap.put("longitude", waypointLongitude);
+
+                    var dist = calculateDistance(waypointLongitude, waypointLatitude);
+                    var unit = dist < 1000
+                        ? "m"
+                        : "km";
+                    if (unit.equals("km"))
+                    {
+                        dist = UIFunctions.Data.round(dist / 1000d, 1);
+                    }
+                    waypointMap.put("distance", dist);
+                    waypointMap.put("unit", unit);
+
+                    return waypointMap;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        });
+
+        if (waypointData != null && !waypointData.isEmpty())
+        {
+            waypointData.forEach(waypoint->
+            {
+                String waypointJson = JSONSupport.Write.jsonToString.apply(waypoint);
+                executeWithLock(() -> sink.accept("Waypoint", waypointJson));
+            });
+        }
     }
 
     /**
@@ -2519,29 +2529,6 @@ public class GameState
         });
     }
 
-    private void emitAllTaskData(BiConsumer<String, String> sink)
-    {
-        List<TaskSummary> taskSummaries = getTaskSummaries();
-        taskSummaries.forEach(taskSummary -> emitTaskData(sink, taskSummary.key, taskSummary.count));
-    }
-
-    private void emitTaskData(BiConsumer<String, String> sink, String taskKey, Integer count)
-    {
-        var data = new HashMap<String, Object>();
-        data.put("key", taskKey);
-        data.put("count", count);
-        if (count > 0)
-        {
-            var task = taskCatalog.keyMap.get(taskKey);
-            var taskdata = determineTaskData(task);
-            data.put("name", taskdata.name);
-            data.put("costs", taskdata.costs);
-            data.put("effects", taskdata.effects);
-        }
-        var jsonData = JSONSupport.Write.jsonToString.apply(data);
-        executeWithLock(() -> sink.accept("Task", jsonData));
-    }
-
     public boolean adjustTask(String taskKey, String type)
     {
         TaskCatalog.AdjustmentType adjustmentType =
@@ -2621,7 +2608,6 @@ public class GameState
         return true;
     }
 
-
     //region Complex JSON Object Writers
 
     public String writeLoadoutJson()
@@ -2663,10 +2649,16 @@ public class GameState
         return rawCatalogJson;
     }
 
+    private static class RunningCostData
+    {
+        private final Set<String> relatedTasks = new HashSet<>();
+        private final AtomicLong runningCount = new AtomicLong(0);
+    }
+
     public String writeTaskMaterials()
     {
         var summaries = getTaskSummaries();
-        var costCounts = new HashMap<TaskCost, Long>();
+        var costCounts = new HashMap<TaskCost, RunningCostData>();
         summaries.forEach(summary ->
         {
             var recipe = taskCatalog.keyMap.get(summary.key);
@@ -2674,11 +2666,14 @@ public class GameState
                 .filter(costData -> costData.quantity > 0)
                 .forEach(costData ->
                 {
-                    long currentCount = costCounts.computeIfAbsent(costData.cost, (_k) -> 0L);
-                    currentCount += costData.quantity * summary.count;
-                    costCounts.put(costData.cost, currentCount);
+                    var runningData = costCounts.computeIfAbsent(costData.cost, (_k) -> new RunningCostData());
+                    runningData.runningCount.addAndGet(costData.quantity * summary.count);
+                    var n = determineTaskData(recipe).name;
+                    runningData.relatedTasks.add(n);
+                    costCounts.put(costData.cost, runningData);
                 });
         });
+
         var dataMap = new HashMap<String, Object>();
         costCounts.forEach((cost, count) ->
         {
@@ -2703,19 +2698,29 @@ public class GameState
                 name = "Credits";
             }
 
-            var deficit = current >= count
+            var deficit = current >= count.runningCount.get()
                 ? 0
-                : count - current;
+                : count.runningCount.get() - current;
 
             var costMap = new HashMap<String, Object>();
-            costMap.put("needed", count);
+            costMap.put("needed", count.runningCount.get());
             costMap.put("deficit", deficit);
+            costMap.put("related", count.relatedTasks);
             dataMap.put(name, costMap);
         });
         return JSONSupport.Write.jsonToString.apply(dataMap);
     }
 
+    private String writeMaterialEvent(Material material, Integer count)
+    {
+        var event = new HashMap<String, Object>();
+        event.put("name", material.name());
+        event.put("count", count.toString());
+        return JSONSupport.Write.jsonToString.apply(event);
+    }
+
     //endregion
+
     private TaskData determineModuleTaskData(ModulePurchaseRecipe taskRecipe)
     {
         var baseName = taskRecipe.product.cost.getLocalizedName();
@@ -2948,6 +2953,10 @@ public class GameState
         if (recipe instanceof ModificationRecipe)
         {
             return determineModificationTaskData(((ModificationRecipe) recipe));
+        }
+        if (recipe instanceof ExperimentalRecipe)
+        {
+            return determineExperimentalTaskData(((ExperimentalRecipe) recipe));
         }
         return new TaskData(recipe.getDisplayLabel(), 0);
     }

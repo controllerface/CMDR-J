@@ -13,8 +13,8 @@ public class RecyclingCell extends AbstractExperimentalRecipe
     {
         super("Recycling Cell", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.ShieldBankDuration, 10.0),
-                  new ItemEffectData(ItemEffect.ShieldBankReinforcement, -5.0)
+                  new ItemEffectData(ItemEffect.ShieldBankDuration_Percent, 10.0),
+                  new ItemEffectData(ItemEffect.ShieldBankReinforcement_Percent, -5.0)
             ),
             new CostData(Material.CHEMICALSTORAGEUNITS, 5),
             new CostData(Material.CHROMIUM, 3),

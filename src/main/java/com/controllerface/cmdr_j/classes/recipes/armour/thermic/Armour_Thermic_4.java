@@ -15,8 +15,8 @@ public class Armour_Thermic_4 extends AbstractModificationRecipe
         super(Armour_Thermic_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, -14d),
-                                new ItemEffectData(ItemEffect.KineticResistance, -12d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, -10d),
+                                new ItemEffectData(ItemEffect.KineticResistance, -10d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, 33d)
                         ),
                 new CostData(Material.GALVANISINGALLOYS, 1),

@@ -96,6 +96,7 @@ public enum ExperimentalRecipe implements TaskRecipe
     special_penetrator_payload(new PenetratorPayload()),
     special_phasing_sequence(new PhasingSequence()),
     special_plasma_slug(new PlasmaSlug()),
+    special_plasma_slug_cooled(new PlasmaSlugCooled()),
     special_radiant_canister(new RadiantCanister()),
     special_regeneration_sequence(new RegenerationSequence()),
     special_reverberating_cascade(new ReverberatingCascade()),

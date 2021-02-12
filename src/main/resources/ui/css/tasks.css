@@ -161,3 +161,10 @@
     float: right;
     margin-right: .5em;
 }
+
+.materialTask
+{
+    display: block;
+    clear: right;
+    color: var(--default-color);
+}

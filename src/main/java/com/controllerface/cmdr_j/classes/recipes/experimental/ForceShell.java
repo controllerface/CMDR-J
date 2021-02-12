@@ -14,7 +14,7 @@ public class ForceShell extends AbstractExperimentalRecipe
         super("Force Shell", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Target_Pushed_Off_Course, "Installed"),
-                  new ItemEffectData(ItemEffect.ShotSpeed, -16.67)
+                  new ItemEffectData(ItemEffect.ShotSpeed_Percent, -17)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),
             new CostData(Material.ZINC, 5),

@@ -15,12 +15,12 @@ public class PowerDistributor_PriorityEngines_3 extends AbstractModificationReci
         super(PowerDistributor_PriorityEngines_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.EnginesCapacity, 40d),
-                                new ItemEffectData(ItemEffect.EnginesRecharge, 30d),
-                                new ItemEffectData(ItemEffect.SystemsCapacity, -9d),
-                                new ItemEffectData(ItemEffect.SystemsRecharge, -9d),
-                                new ItemEffectData(ItemEffect.WeaponsCapacity, -9d),
-                                new ItemEffectData(ItemEffect.WeaponsRecharge, -3d)
+                                new ItemEffectData(ItemEffect.EnginesCapacity_Percent, 40d),
+                                new ItemEffectData(ItemEffect.EnginesRecharge_Percent, 30d),
+                                new ItemEffectData(ItemEffect.SystemsCapacity_Percent, -9d),
+                                new ItemEffectData(ItemEffect.SystemsRecharge_Percent, -9d),
+                                new ItemEffectData(ItemEffect.WeaponsCapacity_Percent, -9d),
+                                new ItemEffectData(ItemEffect.WeaponsRecharge_Percent, -3d)
                         ),
                 new CostData(Material.BULKSCANDATA, 1),
                 new CostData(Material.CHROMIUM, 1),

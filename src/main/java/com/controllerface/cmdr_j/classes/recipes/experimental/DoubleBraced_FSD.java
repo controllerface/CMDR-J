@@ -13,7 +13,7 @@ public class DoubleBraced_FSD extends AbstractExperimentalRecipe
     {
         super("Double Braced", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Integrity, 15.0)
+                  new ItemEffectData(ItemEffect.Integrity_Percent, 25.0)
             ),
             new CostData(Material.DISRUPTEDWAKEECHOES, 5),
             new CostData(Material.GALVANISINGALLOYS, 3),

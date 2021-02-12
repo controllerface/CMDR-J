@@ -15,8 +15,8 @@ public class Armour_Thermic_5 extends AbstractModificationRecipe
         super(Armour_Thermic_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, -17d),
-                                new ItemEffectData(ItemEffect.KineticResistance, -14d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, -12d),
+                                new ItemEffectData(ItemEffect.KineticResistance, -12d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, 40d)
                         ),
                 new CostData(Material.MOLYBDENUM, 1),

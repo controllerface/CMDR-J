@@ -13,7 +13,7 @@ public class DriveDistributors extends AbstractExperimentalRecipe
     {
         super("Drive Distributors", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.EngineOptimalMass, 10.0)
+                  new ItemEffectData(ItemEffect.EngineOptimalMass_Percent, 10.0)
             ),
             new CostData(Material.IRON, 5),
             new CostData(Material.HYBRIDCAPACITORS, 3),

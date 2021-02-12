@@ -13,11 +13,12 @@ public class HullReinforcement_Advanced_1 extends AbstractModificationRecipe
     public HullReinforcement_Advanced_1()
     {
         super(HullReinforcement_Advanced_1.class.getSimpleName(), ItemGrade.GRADE_1,
-                new ItemEffects
-                        (
-                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, -4d),
-                                new ItemEffectData(ItemEffect.Mass, -8d)
-                        ),
-                new CostData(Material.IRON, 1));
+            new ItemEffects
+                (
+                    new ItemEffectData(ItemEffect.DefenceModifierHealthAddition_Percent, -4d),
+                    new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, 8d),
+                    new ItemEffectData(ItemEffect.Mass_Percent, -8d)
+                ),
+            new CostData(Material.IRON, 1));
     }
 }

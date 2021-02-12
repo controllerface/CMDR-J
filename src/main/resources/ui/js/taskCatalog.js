@@ -135,6 +135,10 @@ class TaskCatalog extends HTMLElement
             effectName.textContent = effect['effect'];
             effectName.classList.add('taskEffectName');
             let value = document.createElement('span');
+            if (effect['impact'])
+            {
+                value.classList.add(effect['impact']);
+            }
             if (effect['value'] === '&infin;')
             {
                 value.innerHTML = effect['value'];

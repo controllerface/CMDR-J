@@ -15,10 +15,10 @@ public class FSD_Shielded_3 extends AbstractModificationRecipe
         super(FSD_Shielded_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 75d),
-                                new ItemEffectData(ItemEffect.Mass, 12d),
-                                new ItemEffectData(ItemEffect.FSDOptimalMass, 9d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, -20d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 75d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 12d),
+                                new ItemEffectData(ItemEffect.FSDOptimalMass_Percent, 9d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, -20d)
                         ),
                 new CostData(Material.CARBON, 1),
                 new CostData(Material.SHIELDINGSENSORS, 1),

@@ -13,7 +13,7 @@ public class LayeredPlating_HullReinforcement extends AbstractExperimentalRecipe
     {
         super("Layered Plating", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, -5.0),
+                  new ItemEffectData(ItemEffect.DefenceModifierHealthAddition_Percent, -5.0),
                   new ItemEffectData(ItemEffect.ExplosiveResistance, 2.0)
             ),
             new CostData(Material.HEATCONDUCTIONWIRING, 5),

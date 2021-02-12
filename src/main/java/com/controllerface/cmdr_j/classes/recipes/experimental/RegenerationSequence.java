@@ -14,7 +14,7 @@ public class RegenerationSequence extends AbstractExperimentalRecipe
         super("Regeneration Sequence", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Target_Wing_Shield_Regeneration, "Installed"),
-                  new ItemEffectData(ItemEffect.Damage, -10.0)
+                  new ItemEffectData(ItemEffect.Damage_Percent, -10.0)
             ),
             new CostData(Material.REFINEDFOCUSCRYSTALS, 3),
             new CostData(Material.SHIELDINGSENSORS, 4),

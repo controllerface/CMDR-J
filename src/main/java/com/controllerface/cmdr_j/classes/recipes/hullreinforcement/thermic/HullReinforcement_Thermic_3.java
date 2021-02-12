@@ -16,9 +16,9 @@ public class HullReinforcement_Thermic_3 extends AbstractModificationRecipe
                 new ItemEffects
                         (
                                 new ItemEffectData(ItemEffect.ExplosiveResistance, -6d),
-                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 9d),
+                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition_Percent, 9d),
                                 new ItemEffectData(ItemEffect.KineticResistance, -6d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, 25.4d)
+                                new ItemEffectData(ItemEffect.ThermicResistance, 26d)
                         ),
                 new CostData(Material.HEATEXCHANGERS, 1),
                 new CostData(Material.SALVAGEDALLOYS, 1),

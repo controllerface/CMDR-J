@@ -13,7 +13,7 @@ public class StrippedDown_Weapon extends AbstractExperimentalRecipe
     {
         super("Stripped Down", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Mass, -10.0)
+                  new ItemEffectData(ItemEffect.Mass_Percent, -10.0)
             ),
             new CostData(Material.SALVAGEDALLOYS, 5),
             new CostData(Material.CARBON, 5),

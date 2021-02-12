@@ -16,9 +16,9 @@ public class HullReinforcement_Thermic_2 extends AbstractModificationRecipe
                 new ItemEffects
                         (
                                 new ItemEffectData(ItemEffect.ExplosiveResistance, -4d),
-                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 6d),
+                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition_Percent, 6d),
                                 new ItemEffectData(ItemEffect.KineticResistance, -4d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, 18.5d)
+                                new ItemEffectData(ItemEffect.ThermicResistance, 19d)
                         ),
                 new CostData(Material.HEATDISPERSIONPLATE, 1),
                 new CostData(Material.NICKEL, 1));

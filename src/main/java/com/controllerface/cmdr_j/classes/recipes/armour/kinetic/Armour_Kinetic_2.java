@@ -15,8 +15,8 @@ public class Armour_Kinetic_2 extends AbstractModificationRecipe
         super(Armour_Kinetic_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, -8d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 22.8d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, -6d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 19d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, -6d)
                         ),
                 new CostData(Material.NICKEL, 1),

@@ -74,6 +74,11 @@ progress::-webkit-progress-bar
     font-weight: bold;
 }
 
+.powerPlayClass
+{
+    text-decoration: underline;
+}
+
 .moduleHealth
 {
     float: right;

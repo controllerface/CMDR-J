@@ -16,9 +16,9 @@ public class HullReinforcement_Thermic_5 extends AbstractModificationRecipe
                 new ItemEffects
                         (
                                 new ItemEffectData(ItemEffect.ExplosiveResistance, -10d),
-                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition, 15d),
+                                new ItemEffectData(ItemEffect.DefenceModifierHealthAddition_Percent, 15d),
                                 new ItemEffectData(ItemEffect.KineticResistance, -10d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, 39d)
+                                new ItemEffectData(ItemEffect.ThermicResistance, 40d)
                         ),
                 new CostData(Material.MOLYBDENUM, 1),
                 new CostData(Material.PHASEALLOYS, 1),

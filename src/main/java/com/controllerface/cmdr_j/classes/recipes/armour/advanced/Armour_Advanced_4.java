@@ -15,10 +15,10 @@ public class Armour_Advanced_4 extends AbstractModificationRecipe
         super(Armour_Advanced_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, 16.8d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, 12d),
                                 new ItemEffectData(ItemEffect.DefenceModifierHealthMultiplier, -4d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 14.4d),
-                                new ItemEffectData(ItemEffect.Mass, -45d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 12d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, -45d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, 12d)
                         ),
                 new CostData(Material.CONDUCTIVECERAMICS, 1),

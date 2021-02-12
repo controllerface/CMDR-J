@@ -14,7 +14,9 @@ public class HighYieldShell extends AbstractExperimentalRecipe
         super("High Yield Shell", 
             new ItemEffects(
                   new ItemEffectData(ItemEffect.Damage_Partially_Explosive, 50.0),
-                  new ItemEffectData(ItemEffect.RateOfFire, -11.11)
+                  new ItemEffectData(ItemEffect.ArmourPenetration_Percent, 25),
+                  new ItemEffectData(ItemEffect.Damage_Percent, -35),
+                  new ItemEffectData(ItemEffect.RateOfFire_Percent, -10)
             ),
             new CostData(Material.MECHANICALSCRAP, 5),
             new CostData(Material.PROTOLIGHTALLOYS, 3),

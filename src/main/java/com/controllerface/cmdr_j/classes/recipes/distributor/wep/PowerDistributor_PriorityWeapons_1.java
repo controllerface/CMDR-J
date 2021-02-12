@@ -15,12 +15,12 @@ public class PowerDistributor_PriorityWeapons_1 extends AbstractModificationReci
         super(PowerDistributor_PriorityWeapons_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.EnginesCapacity, -3d),
-                                new ItemEffectData(ItemEffect.EnginesRecharge, -3d),
-                                new ItemEffectData(ItemEffect.SystemsCapacity, -3d),
-                                new ItemEffectData(ItemEffect.SystemsRecharge, -1d),
-                                new ItemEffectData(ItemEffect.WeaponsCapacity, 20d),
-                                new ItemEffectData(ItemEffect.WeaponsRecharge, 16d)
+                                new ItemEffectData(ItemEffect.EnginesCapacity_Percent, -3d),
+                                new ItemEffectData(ItemEffect.EnginesRecharge_Percent, -3d),
+                                new ItemEffectData(ItemEffect.SystemsCapacity_Percent, -3d),
+                                new ItemEffectData(ItemEffect.SystemsRecharge_Percent, -1d),
+                                new ItemEffectData(ItemEffect.WeaponsCapacity_Percent, 20d),
+                                new ItemEffectData(ItemEffect.WeaponsRecharge_Percent, 16d)
                         ),
                 new CostData(Material.SULPHUR, 1));
     }

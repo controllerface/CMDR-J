@@ -15,8 +15,8 @@ public class Armour_Explosive_1 extends AbstractModificationRecipe
         super(Armour_Explosive_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, 16.8d),
-                                new ItemEffectData(ItemEffect.KineticResistance, -5d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, 12d),
+                                new ItemEffectData(ItemEffect.KineticResistance, -4d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, -4d)
                         ),
                 new CostData(Material.NICKEL, 1));

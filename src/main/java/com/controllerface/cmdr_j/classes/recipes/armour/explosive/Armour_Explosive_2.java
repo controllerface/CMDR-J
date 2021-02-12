@@ -15,8 +15,8 @@ public class Armour_Explosive_2 extends AbstractModificationRecipe
         super(Armour_Explosive_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, 26.6d),
-                                new ItemEffectData(ItemEffect.KineticResistance, -7d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, 19d),
+                                new ItemEffectData(ItemEffect.KineticResistance, -6d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, -6d)
                         ),
                 new CostData(Material.CARBON, 1),
