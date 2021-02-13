@@ -11,9 +11,9 @@ public class SRV_Refuel_Standard extends AbstractSynthesisRecipe_Standard
 {
     public SRV_Refuel_Standard()
     {
-        super("SRV Refuel Standard", 
+        super("SRV Refuel [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refuel, 0.0),
+                  new ItemEffectData(ItemEffect.Refuel, "synthesized"),
                   new ItemEffectData(ItemEffect.Fuel_Efficiency, 100.0)
             ),
             new CostData(Material.SULPHUR, 1),

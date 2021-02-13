@@ -11,9 +11,9 @@ public class Small_Calibre_Munitions_Standard extends AbstractSynthesisRecipe_St
 {
     public Small_Calibre_Munitions_Standard()
     {
-        super("Small Calibre Munitions Standard", 
+        super("Small Calibre Munitions [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 15.0)
             ),
             new CostData(Material.IRON, 2),

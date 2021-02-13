@@ -11,9 +11,9 @@ public class Enzyme_Missile_Munitions_Standard extends AbstractSynthesisRecipe_S
 {
     public Enzyme_Missile_Munitions_Standard()
     {
-        super("Enzyme Missile Munitions Standard", 
+        super("Enzyme Missile Munitions [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 15.0)
             ),
             new CostData(Material.SULPHUR, 6),

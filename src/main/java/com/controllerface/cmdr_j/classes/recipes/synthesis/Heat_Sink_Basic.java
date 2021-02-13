@@ -11,9 +11,9 @@ public class Heat_Sink_Basic extends AbstractSynthesisRecipe_Basic
 {
     public Heat_Sink_Basic()
     {
-        super("Heat Sink Basic", 
+        super("Heat Sink [Basic]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refill, 0.0)
+                  new ItemEffectData(ItemEffect.Refill, "synthesized")
             ),
             new CostData(Material.BASICCONDUCTORS, 2),
             new CostData(Material.HEATCONDUCTIONWIRING, 2));

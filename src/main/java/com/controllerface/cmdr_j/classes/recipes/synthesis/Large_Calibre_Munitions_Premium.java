@@ -11,9 +11,9 @@ public class Large_Calibre_Munitions_Premium extends AbstractSynthesisRecipe_Pre
 {
     public Large_Calibre_Munitions_Premium()
     {
-        super("Large Calibre Munitions Premium", 
+        super("Large Calibre Munitions [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 30.0)
             ),
             new CostData(Material.ZINC, 8),

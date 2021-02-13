@@ -11,9 +11,9 @@ public class SRV_Refuel_Premium extends AbstractSynthesisRecipe_Premium
 {
     public SRV_Refuel_Premium()
     {
-        super("SRV Refuel Premium", 
+        super("SRV Refuel [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refuel, 0.0),
+                  new ItemEffectData(ItemEffect.Refuel, "synthesized"),
                   new ItemEffectData(ItemEffect.Fuel_Efficiency, 200.0)
             ),
             new CostData(Material.SULPHUR, 1),

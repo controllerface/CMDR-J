@@ -11,9 +11,9 @@ public class High_Velocity_Munitions_Basic extends AbstractSynthesisRecipe_Basic
 {
     public High_Velocity_Munitions_Basic()
     {
-        super("High Velocity Munitions Basic", 
+        super("High Velocity Munitions [Basic]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0)
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized")
             ),
             new CostData(Material.IRON, 2),
             new CostData(Material.VANADIUM, 1));

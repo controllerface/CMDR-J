@@ -11,10 +11,10 @@ public class Guardian_Shard_Cannon_Munitions_Premium extends AbstractSynthesisRe
 {
     public Guardian_Shard_Cannon_Munitions_Premium()
     {
-        super("Guardian Shard Cannon Munitions Premium",
+        super("Guardian Shard Cannon Munitions [Premium]",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
-                        new ItemEffectData(ItemEffect.Rearm, 0.0),
+                        new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                         new ItemEffectData(ItemEffect.Damage_Boost, 30.0)
                 ),
                 new CostData(Material.CARBON, 8),

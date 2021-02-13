@@ -11,9 +11,9 @@ public class SRV_Refuel_Basic extends AbstractSynthesisRecipe_Basic
 {
     public SRV_Refuel_Basic()
     {
-        super("SRV Refuel Basic", 
+        super("SRV Refuel [Basic]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refuel, 0.0)
+                  new ItemEffectData(ItemEffect.Refuel, "synthesized")
             ),
             new CostData(Material.SULPHUR, 1),
             new CostData(Material.PHOSPHORUS, 1));

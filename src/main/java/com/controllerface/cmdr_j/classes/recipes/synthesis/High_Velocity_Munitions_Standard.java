@@ -11,9 +11,9 @@ public class High_Velocity_Munitions_Standard extends AbstractSynthesisRecipe_St
 {
     public High_Velocity_Munitions_Standard()
     {
-        super("High Velocity Munitions Standard", 
+        super("High Velocity Munitions [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 15.0)
             ),
             new CostData(Material.IRON, 4),

@@ -13,7 +13,7 @@ public class Life_Support extends AbstractSynthesisRecipe_Basic
     {
         super("Life Support", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refill, 0.0)
+                  new ItemEffectData(ItemEffect.Refill, "synthesized")
             ),
             new CostData(Material.IRON, 2),
             new CostData(Material.NICKEL, 1));

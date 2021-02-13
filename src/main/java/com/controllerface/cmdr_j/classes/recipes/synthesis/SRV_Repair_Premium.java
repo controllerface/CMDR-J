@@ -11,9 +11,9 @@ public class SRV_Repair_Premium extends AbstractSynthesisRecipe_Premium
 {
     public SRV_Repair_Premium()
     {
-        super("SRV Repair Premium", 
+        super("SRV Repair [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Repair, 0.0),
+                  new ItemEffectData(ItemEffect.Repair, "synthesized"),
                   new ItemEffectData(ItemEffect.Hull_Strength, 100.0)
             ),
             new CostData(Material.ZINC, 1),

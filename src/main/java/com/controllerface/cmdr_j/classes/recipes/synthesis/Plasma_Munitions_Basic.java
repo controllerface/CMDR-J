@@ -11,9 +11,9 @@ public class Plasma_Munitions_Basic extends AbstractSynthesisRecipe_Basic
 {
     public Plasma_Munitions_Basic()
     {
-        super("Plasma Munitions Basic", 
+        super("Plasma Munitions [Basic]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0)
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized")
             ),
             new CostData(Material.SULPHUR, 3),
             new CostData(Material.PHOSPHORUS, 4),

@@ -11,9 +11,9 @@ public class AX_Remote_Flak_Munitions_Premium extends AbstractSynthesisRecipe_Pr
 {
     public AX_Remote_Flak_Munitions_Premium()
     {
-        super("AX Remote Flak Munitions Premium", 
+        super("AX Remote Flak Munitions [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 10.0)
             ),
             new CostData(Material.ZINC, 8),

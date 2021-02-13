@@ -11,10 +11,10 @@ public class Chaff_Standard extends AbstractSynthesisRecipe_Standard
 {
     public Chaff_Standard()
     {
-        super("Chaff Standard", 
+        super("Chaff [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refill, 0.0),
-                  new ItemEffectData(ItemEffect.ChaffJamDuration, 1.0)
+                  new ItemEffectData(ItemEffect.Refill, "synthesized"),
+                  new ItemEffectData(ItemEffect.Chaff_Duration_Increase, 1.0)
             ),
             new CostData(Material.COMPACTCOMPOSITES, 1),
             new CostData(Material.FILAMENTCOMPOSITES, 2),

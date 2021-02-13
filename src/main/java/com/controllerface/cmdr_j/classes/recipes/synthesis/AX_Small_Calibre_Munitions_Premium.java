@@ -11,9 +11,9 @@ public class AX_Small_Calibre_Munitions_Premium extends AbstractSynthesisRecipe_
 {
     public AX_Small_Calibre_Munitions_Premium()
     {
-        super("AX Small Calibre Munitions Premium", 
+        super("AX Small Calibre Munitions [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 10.0)
             ),
             new CostData(Material.IRON, 3),

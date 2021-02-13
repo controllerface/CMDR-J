@@ -48,7 +48,6 @@ class TaskCatalog extends HTMLElement
             {
                 Array.from(parent.children).forEach(child =>
                 {
-
                     if (child !== e.target)
                     {
                         child.removeAttribute('open');
@@ -171,6 +170,7 @@ class TaskCatalog extends HTMLElement
         for (let i = 0, len = ships.length; i < len; i++)
         {
             let armourTypes = this.createSubCategoryElement(ships[i]);
+            armourTypes.setAttribute('taskType', categoryElement.getAttribute('taskType'));
             this.createModulePurchaseElements(containers[ships[i]], armourTypes);
             categoryElement.append(armourTypes);
         }
@@ -178,10 +178,12 @@ class TaskCatalog extends HTMLElement
 
     createModulePurchaseElements(moduleData, categoryElement)
     {
+        let taskType = categoryElement.getAttribute('taskType');
         moduleData.sort(this.moduleSort);
         moduleData.forEach(t =>
         {
-            let moduleElement = this.createTaskElement(t['name'], t['key'], 'Plan This Purchase');
+            let moduleElement = this.createTaskElement(t['name'], t['key'], 'Plan This ' + taskType);
+            moduleElement.setAttribute('taskType', categoryElement.getAttribute('taskType'));
             this.createTaskCosts(moduleElement, t['costs']);
             this.createTaskEffects(moduleElement, t['effects']);
             categoryElement.append(moduleElement);
@@ -190,7 +192,9 @@ class TaskCatalog extends HTMLElement
 
     createModificationTask(moduleData, categoryElement)
     {
-        let moduleElement = this.createTaskElement(moduleData['name'], moduleData['key'], 'Plan This Purchase');
+        let taskType = categoryElement.getAttribute('taskType');
+        let moduleElement = this.createTaskElement(moduleData['name'], moduleData['key'], 'Plan This ' + taskType);
+        moduleElement.setAttribute('taskType', categoryElement.getAttribute('taskType'));
         this.createTaskCosts(moduleElement, moduleData['costs']);
         this.createTaskEffects(moduleElement, moduleData['effects']);
         categoryElement.append(moduleElement);
@@ -296,6 +300,7 @@ class TaskCatalog extends HTMLElement
         this.sortModules(sortContainers, moduleData);
 
         let armourTypes = this.createSubCategoryElement('Armour');
+        armourTypes.setAttribute('taskType', categoryElement.getAttribute('taskType'));
         this.loadArmourPurchases(armourModules, armourTypes);
         categoryElement.append(armourTypes);
 
@@ -369,6 +374,7 @@ class TaskCatalog extends HTMLElement
         this.createModuleTasks(typeContainers, categoryElement);
 
         let limpetTypes = this.createSubCategoryElement('Limpet Controllers');
+        limpetTypes.setAttribute('taskType', categoryElement.getAttribute('taskType'));
         this.loadLimpetPurchases(limpetControllers, limpetTypes);
         categoryElement.append(limpetTypes);
 
@@ -519,6 +525,7 @@ class TaskCatalog extends HTMLElement
     loadCategoryData(text, data, loader, category)
     {
         let element = this.createCategoryElement(text);
+        element.setAttribute('taskType', category.getAttribute('taskType'));
         loader.call(this, data, element);
         category.append(element);
     }
@@ -526,6 +533,7 @@ class TaskCatalog extends HTMLElement
     loadSubcategoryData(text, data, loader, category)
     {
         let element = this.createSubCategoryElement(text);
+        element.setAttribute('taskType', category.getAttribute('taskType'));
         loader.call(this, data, element);
         category.append(element);
     }
@@ -1935,14 +1943,15 @@ class TaskCatalog extends HTMLElement
     }
 
 
-    loadTradeCategories(tradeData, categoryElement)
+    /* Material Trades */
+
+    loadMaterialTrades(tradeData, categoryElement)
     {
-        console.log(tradeData);
         let material = Object.keys(tradeData);
         material.sort();
         material.forEach(type =>
         {
-            console.log(tradeData[type]['grade'] + " : " + type);
+            //console.log(tradeData[type]['grade'] + " : " + type);
             this.loadSubcategoryData(type,
                                      tradeData[type],
                                      this.loadModificationGrades,
@@ -1950,8 +1959,7 @@ class TaskCatalog extends HTMLElement
         });
     }
 
-
-    loadEncodedTrades(tradeData, categoryElement)
+    loadTradeCategories(tradeData, categoryElement)
     {
         let subTypes = Object.keys(tradeData);
         subTypes.sort();
@@ -1959,35 +1967,61 @@ class TaskCatalog extends HTMLElement
         {
             this.loadSubcategoryData(type.replaceAll('_', ' '),
                                      tradeData[type],
-                                     this.loadTradeCategories,
+                                     this.loadMaterialTrades,
                                      categoryElement);
         });
     }
 
-    loadManufacturedTrades(tradeData, categoryElement)
+
+    /* Synthesis Tasks */
+
+    loadSynthesisCategories(synthesisData, categoryElement)
     {
-        let subTypes = Object.keys(tradeData);
+        let subTypes = Object.keys(synthesisData);
         subTypes.sort();
         subTypes.forEach(type =>
         {
             this.loadSubcategoryData(type.replaceAll('_', ' '),
-                                     tradeData[type],
-                                     this.loadTradeCategories,
+                                     synthesisData[type],
+                                     this.loadModificationGrades,
                                      categoryElement);
         });
     }
 
-    loadRawTrades(tradeData, categoryElement)
+    loadMunitionsSynthesis(synthesisData, categoryElement)
     {
-        let subTypes = Object.keys(tradeData);
-        subTypes.sort();
-        subTypes.forEach(type =>
-        {
-            this.loadSubcategoryData(type.replaceAll('_', ' '),
-                                     tradeData[type],
-                                     this.loadTradeCategories,
-                                     categoryElement);
-        });
+        this.loadCategoryData('Ammunition',
+                              synthesisData['Ammunition'],
+                              this.loadSynthesisCategories,
+                              categoryElement);
+
+        this.loadCategoryData('Anti-Xeno',
+                              synthesisData['Anti_Xeno'],
+                              this.loadSynthesisCategories,
+                              categoryElement);
+
+        this.loadCategoryData('Guardian Tech',
+                              synthesisData['Guardian_Tech'],
+                              this.loadSynthesisCategories,
+                              categoryElement);
+
+        this.loadCategoryData('Human Tech',
+                              synthesisData['Human_Tech'],
+                              this.loadSynthesisCategories,
+                              categoryElement);
+    }
+
+    loadUtilitySynthesis(synthesisData, categoryElement)
+    {
+        this.loadCategoryData('SRV',
+                              synthesisData['SRV'],
+                              this.loadSynthesisCategories,
+                              categoryElement);
+
+        this.loadCategoryData('Ship',
+                              synthesisData['Ship'],
+                              this.loadSynthesisCategories,
+                              categoryElement);
     }
 
 
@@ -2089,23 +2123,33 @@ class TaskCatalog extends HTMLElement
 
         this.loadCategoryData('Encoded Data',
                               tradeData['Encoded_Data'],
-                              this.loadEncodedTrades,
+                              this.loadTradeCategories,
                               tradeContainer);
 
         this.loadCategoryData('Manufactured Materials',
                               tradeData['Manufactured_Materials'],
-                              this.loadManufacturedTrades,
+                              this.loadTradeCategories,
                               tradeContainer);
 
         this.loadCategoryData('Raw Elements',
                               tradeData['Raw_Elements'],
-                              this.loadRawTrades,
+                              this.loadTradeCategories,
                               tradeContainer);
     }
 
     loadSynthesis(synthesisData)
     {
-//        console.log(synthesisData);
+        let synthesisContainer = this.shadowRoot.getElementById('taskCatalog_synthesis');
+
+        this.loadCategoryData('Munitions',
+                              synthesisData['Munitions'],
+                              this.loadMunitionsSynthesis,
+                              synthesisContainer);
+
+        this.loadCategoryData('Utility',
+                              synthesisData['Utility'],
+                              this.loadUtilitySynthesis,
+                              synthesisContainer);
     }
 
     loadTaskCatalog(catalogData)

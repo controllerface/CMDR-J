@@ -11,9 +11,9 @@ public class Flechette_Launcher_Munitions_Premium extends AbstractSynthesisRecip
 {
     public Flechette_Launcher_Munitions_Premium()
     {
-        super("Flechette Launcher Munitions Premium", 
+        super("Flechette Launcher Munitions [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 10.0)
             ),
             new CostData(Material.TUNGSTEN, 6),

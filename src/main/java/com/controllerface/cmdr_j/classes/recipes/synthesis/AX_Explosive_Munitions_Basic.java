@@ -11,9 +11,9 @@ public class AX_Explosive_Munitions_Basic extends AbstractSynthesisRecipe_Basic
 {
     public AX_Explosive_Munitions_Basic()
     {
-        super("AX Explosive Munitions Basic", 
+        super("AX Explosive Munitions [Basic]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0)
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized")
             ),
             new CostData(Material.IRON, 3),
             new CostData(Material.NICKEL, 3),

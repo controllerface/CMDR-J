@@ -11,9 +11,9 @@ public class AX_Explosive_Munitions_Standard extends AbstractSynthesisRecipe_Sta
 {
     public AX_Explosive_Munitions_Standard()
     {
-        super("AX Explosive Munitions Standard", 
+        super("AX Explosive Munitions [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 5.0)
             ),
             new CostData(Material.SULPHUR, 6),

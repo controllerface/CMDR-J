@@ -11,9 +11,9 @@ public class AX_Remote_Flak_Munitions_Standard extends AbstractSynthesisRecipe_S
 {
     public AX_Remote_Flak_Munitions_Standard()
     {
-        super("AX Remote Flak Munitions Standard", 
+        super("AX Remote Flak Munitions [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 5.0)
             ),
             new CostData(Material.TIN, 2),

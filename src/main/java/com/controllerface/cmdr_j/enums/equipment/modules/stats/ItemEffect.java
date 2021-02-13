@@ -350,15 +350,19 @@ public enum ItemEffect
     tech_unlock("", "Unlock Technology", true),           // used for tech broker unlock recipes
 
     // synthetic effects, used for synthesis recipes
-    Rearm("", "", true),                // ammunition replenishment
-    Refuel("", "", true),               // fuel replenishment
-    Repair("", "", true),               // srv Repair
-    Refill("", "", true),               // non-damage ammunition replenishment
-    Repair_Speed("", "", true),         // afmu speed
-    Damage_Boost("", "", true),         // ammo damage boost
-    Fuel_Efficiency("", "", true),      // srv fuel
-    Hull_Strength("", "", true),        // srv hull
-    Heat_Dissipation("", "", false),    // heat sink refill
+    Rearm("", "", true),                       // ammunition replenishment
+    Refuel("", "", true),                      // fuel replenishment
+    Repair("", "", true),                      // srv Repair
+    Refill("", "", true),                      // non-damage ammunition replenishment
+    Limpet_Restock("max", "", true),                  // limpets restock
+    Repair_Speed("%", "", true),               // afmu speed
+    Damage_Boost("%", "", true),               // ammo damage boost
+    Fuel_Efficiency("%", "", true),            // srv fuel
+    Hull_Strength("%", "", true),              // srv hull
+    Heat_Dissipation_Increase("%", "", false), // heat sink refill
+    Chaff_Duration_Increase("S", "", true),    // chaff duration increase
+    Jump_Range_Increase("%", "", true),        // jump range incerase
+
 
     // synthetic effects, used for tech broker items
     Anti_Xeno_Ammo_Compatible("", "", true, EffectType.ANTI_XENO),

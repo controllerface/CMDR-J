@@ -11,9 +11,9 @@ public class Small_Calibre_Munitions_Premium extends AbstractSynthesisRecipe_Pre
 {
     public Small_Calibre_Munitions_Premium()
     {
-        super("Small Calibre Munitions Premium", 
+        super("Small Calibre Munitions [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 30.0)
             ),
             new CostData(Material.SULPHUR, 2),

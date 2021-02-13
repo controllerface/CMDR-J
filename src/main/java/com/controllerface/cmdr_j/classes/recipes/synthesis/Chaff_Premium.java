@@ -11,10 +11,10 @@ public class Chaff_Premium extends AbstractSynthesisRecipe_Premium
 {
     public Chaff_Premium()
     {
-        super("Chaff Premium", 
+        super("Chaff [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refill, 0.0),
-                  new ItemEffectData(ItemEffect.ChaffJamDuration, 2.0)
+                  new ItemEffectData(ItemEffect.Refill, "synthesized"),
+                  new ItemEffectData(ItemEffect.Chaff_Duration_Increase, 2.0)
             ),
             new CostData(Material.COMPACTCOMPOSITES, 1),
             new CostData(Material.FILAMENTCOMPOSITES, 2),

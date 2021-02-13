@@ -11,9 +11,9 @@ public class High_Velocity_Munitions_Premium extends AbstractSynthesisRecipe_Pre
 {
     public High_Velocity_Munitions_Premium()
     {
-        super("High Velocity Munitions Premium", 
+        super("High Velocity Munitions [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 30.0)
             ),
             new CostData(Material.VANADIUM, 4),

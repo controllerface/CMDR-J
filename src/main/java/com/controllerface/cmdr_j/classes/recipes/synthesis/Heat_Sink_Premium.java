@@ -11,10 +11,10 @@ public class Heat_Sink_Premium extends AbstractSynthesisRecipe_Premium
 {
     public Heat_Sink_Premium()
     {
-        super("Heat Sink Premium", 
+        super("Heat Sink [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refill, 0.0),
-                  new ItemEffectData(ItemEffect.Heat_Dissipation, 30.0)
+                  new ItemEffectData(ItemEffect.Refill, "synthesized"),
+                  new ItemEffectData(ItemEffect.Heat_Dissipation_Increase, 30.0)
             ),
             new CostData(Material.BASICCONDUCTORS, 2),
             new CostData(Material.HEATCONDUCTIONWIRING, 2),

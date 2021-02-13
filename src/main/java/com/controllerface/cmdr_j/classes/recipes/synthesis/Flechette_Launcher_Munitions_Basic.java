@@ -11,9 +11,9 @@ public class Flechette_Launcher_Munitions_Basic extends AbstractSynthesisRecipe_
 {
     public Flechette_Launcher_Munitions_Basic()
     {
-        super("Flechette Launcher Munitions Basic", 
+        super("Flechette Launcher Munitions [Basic]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0)
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized")
             ),
             new CostData(Material.TUNGSTEN, 1),
             new CostData(Material.ELECTROCHEMICALARRAYS, 3),

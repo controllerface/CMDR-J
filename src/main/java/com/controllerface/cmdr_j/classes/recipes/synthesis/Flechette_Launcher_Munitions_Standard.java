@@ -11,9 +11,9 @@ public class Flechette_Launcher_Munitions_Standard extends AbstractSynthesisReci
 {
     public Flechette_Launcher_Munitions_Standard()
     {
-        super("Flechette Launcher Munitions Standard", 
+        super("Flechette Launcher Munitions [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 5.0)
             ),
             new CostData(Material.TUNGSTEN, 4),

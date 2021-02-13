@@ -11,9 +11,9 @@ public class Large_Calibre_Munitions_Basic extends AbstractSynthesisRecipe_Basic
 {
     public Large_Calibre_Munitions_Basic()
     {
-        super("Large Calibre Munitions Basic", 
+        super("Large Calibre Munitions [Basic]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0)
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized")
             ),
             new CostData(Material.NICKEL, 4),
             new CostData(Material.CARBON, 3),

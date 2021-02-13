@@ -11,9 +11,9 @@ public class FSD_Injection_Premium extends AbstractSynthesisRecipe_Premium
 {
     public FSD_Injection_Premium()
     {
-        super("FSD Injection Premium", 
+        super("FSD Injection [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 100.0)
+                  new ItemEffectData(ItemEffect.Jump_Range_Increase, 100.0)
             ),
             new CostData(Material.CARBON, 1),
             new CostData(Material.GERMANIUM, 1),

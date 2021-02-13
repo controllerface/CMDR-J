@@ -11,10 +11,10 @@ public class Guardian_Shard_Cannon_Munitions_Basic extends AbstractSynthesisReci
 {
     public Guardian_Shard_Cannon_Munitions_Basic()
     {
-        super("Guardian Shard Cannon Munitions Basic",
+        super("Guardian Shard Cannon Munitions [Basic]",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
-                        new ItemEffectData(ItemEffect.Rearm, 0.0)
+                        new ItemEffectData(ItemEffect.Rearm, "synthesized")
                 ),
                 new CostData(Material.CARBON, 3),
                 new CostData(Material.VANADIUM, 2),

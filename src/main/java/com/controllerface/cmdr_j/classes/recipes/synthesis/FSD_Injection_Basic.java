@@ -11,9 +11,9 @@ public class FSD_Injection_Basic extends AbstractSynthesisRecipe_Basic
 {
     public FSD_Injection_Basic()
     {
-        super("FSD Injection Basic", 
+        super("FSD Injection [Basic]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.FSDJumpRangeBoost, 25.0)
+                  new ItemEffectData(ItemEffect.Jump_Range_Increase, 25.0)
             ),
             new CostData(Material.CARBON, 1),
             new CostData(Material.VANADIUM, 1),

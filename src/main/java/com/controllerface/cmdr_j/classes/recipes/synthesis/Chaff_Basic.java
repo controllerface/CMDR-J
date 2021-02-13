@@ -11,9 +11,9 @@ public class Chaff_Basic extends AbstractSynthesisRecipe_Basic
 {
     public Chaff_Basic()
     {
-        super("Chaff Basic", 
+        super("Chaff [Basic]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refill, 0.0)
+                  new ItemEffectData(ItemEffect.Refill, "synthesized")
             ),
             new CostData(Material.COMPACTCOMPOSITES, 1),
             new CostData(Material.FILAMENTCOMPOSITES, 1));

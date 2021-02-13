@@ -11,9 +11,9 @@ public class SRV_Ammo_Restock_Standard extends AbstractSynthesisRecipe_Standard
 {
     public SRV_Ammo_Restock_Standard()
     {
-        super("SRV Ammo Restock Standard", 
+        super("SRV Ammo Restock [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 15.0)
             ),
             new CostData(Material.PHOSPHORUS, 1),

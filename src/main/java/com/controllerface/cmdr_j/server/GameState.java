@@ -29,6 +29,7 @@ import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationCateg
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisCategory;
+import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
@@ -3081,6 +3082,47 @@ public class GameState
         return new TaskData(tradeRecipe.getDisplayLabel(), rank, effects, costs);
     }
 
+    private TaskData determineSynthesisTaskData(SynthesisRecipe synthesisRecipe)
+    {
+        var costs = synthesisRecipe.costStream()
+            .filter(costData -> costData.quantity > 0)
+            .map(costData ->
+            {
+                Map<String, Object> costMap = new HashMap<>();
+                costMap.put("amount", costData.quantity);
+                costMap.put("unit", costData.cost.getLocalizedName());
+                costMap.put("grade", costData.cost.getGrade().name());
+                return costMap;
+            }).collect(Collectors.toList());
+
+        var effects = synthesisRecipe.effects().effectStream()
+            .map(effect ->
+            {
+                Map<String, Object> effectMap = new HashMap<>();
+                effectMap.put("effect", effect.effect.toString());
+                effectMap.put("value", effect.getValueString());
+                effectMap.put("unit", effect.effect.unit);
+                effectMap.put("impact", "positive");
+                return effectMap;
+            }).collect(Collectors.toList());
+
+        var name = "Synthesize - " + synthesisRecipe.getDisplayLabel();
+        var rank = 0;
+        if (name.contains("Basic"))
+        {
+            rank = 1;
+        }
+        else if (name.contains("Standard"))
+        {
+            rank = 2;
+        }
+        else if (name.contains("Premium"))
+        {
+            rank = 3;
+        }
+        return new TaskData(name, rank, effects, costs);
+    }
+
     private TaskData determineTaskData(TaskRecipe recipe)
     {
         if (recipe instanceof ModulePurchaseRecipe)
@@ -3102,6 +3144,10 @@ public class GameState
         if (recipe instanceof MaterialTradeRecipe)
         {
             return determineTradeTaskData(((MaterialTradeRecipe) recipe));
+        }
+        if (recipe instanceof SynthesisRecipe)
+        {
+            return determineSynthesisTaskData(((SynthesisRecipe) recipe));
         }
         return new TaskData(recipe.getDisplayLabel(), 0);
     }
@@ -3226,11 +3272,15 @@ public class GameState
                             + ":" + synthesisRecipe.name();
 
                         addPair.accept(key, synthesisRecipe);
+                        var taskData = determineSynthesisTaskData(synthesisRecipe);
 
                         var dataMap = new HashMap<String, Object>();
                         dataMap.put("key", key);
-                        dataMap.put("name", synthesisRecipe.getDisplayLabel());
-                        // todo: rest of the data
+                        dataMap.put("name", taskData.name);
+                        dataMap.put("sort", taskData.rank);
+                        dataMap.put("costs", taskData.costs);
+                        dataMap.put("effects", taskData.effects);
+
                         currentBlueprint.put(synthesisRecipe.name(), dataMap);
                     });
                 });
@@ -3376,8 +3426,8 @@ public class GameState
                         Map<String, Object> currentBlueprint = currentSubType
                             .computeIfAbsent(materialTradeBlueprint.toString(), (_k)-> new HashMap<>());
 
-                        System.out.println(((MaterialTradeBlueprint) materialTradeBlueprint)
-                            .material.getGrade().getNumericalValue());
+//                        System.out.println(((MaterialTradeBlueprint) materialTradeBlueprint)
+//                            .material.getGrade().getNumericalValue());
 
 //                        currentBlueprint.put("grade", ((MaterialTradeBlueprint) materialTradeBlueprint)
 //                            .material.getGrade().getNumericalValue());
@@ -3394,7 +3444,6 @@ public class GameState
                                 addPair.accept(key, materialTradeRecipe);
 
                                 var taskData = determineTradeTaskData(materialTradeRecipe);
-
 
                                 var dataMap = new HashMap<String, Object>();
                                 dataMap.put("key", key);

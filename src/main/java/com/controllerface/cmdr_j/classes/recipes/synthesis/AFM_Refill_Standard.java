@@ -11,9 +11,9 @@ public class AFM_Refill_Standard extends AbstractSynthesisRecipe_Standard
 {
     public AFM_Refill_Standard()
     {
-        super("AFM Refill Standard", 
+        super("AFM Refill [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refill, 0.0),
+                  new ItemEffectData(ItemEffect.Refill, "synthesized"),
                   new ItemEffectData(ItemEffect.Repair_Speed, 50.0)
             ),
             new CostData(Material.TIN, 1),

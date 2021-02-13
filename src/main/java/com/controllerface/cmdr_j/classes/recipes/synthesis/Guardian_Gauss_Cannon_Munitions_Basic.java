@@ -11,10 +11,10 @@ public class Guardian_Gauss_Cannon_Munitions_Basic extends AbstractSynthesisReci
 {
     public Guardian_Gauss_Cannon_Munitions_Basic()
     {
-        super("Guardian Gauss Cannon Munitions Basic",
+        super("Guardian Gauss Cannon Munitions [Basic]",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.guardian, 1.0),
-                        new ItemEffectData(ItemEffect.Rearm, 0.0)
+                        new ItemEffectData(ItemEffect.Rearm, "synthesized")
                 ),
                 new CostData(Material.MANGANESE, 3),
                 new CostData(Material.FOCUSCRYSTALS, 2),

@@ -11,9 +11,9 @@ public class AFM_Refill_Basic extends AbstractSynthesisRecipe_Basic
 {
     public AFM_Refill_Basic()
     {
-        super("AFM Refill Basic", 
+        super("AFM Refill [Basic]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refill, 0.0)
+                  new ItemEffectData(ItemEffect.Refill, "synthesized")
             ),
             new CostData(Material.NICKEL, 2),
             new CostData(Material.ZINC, 2),

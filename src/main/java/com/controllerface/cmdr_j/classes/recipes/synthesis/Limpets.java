@@ -13,7 +13,8 @@ public class Limpets extends AbstractSynthesisRecipe_Basic
     {
         super("Limpets", 
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refill, 0.0)
+                new ItemEffectData(ItemEffect.Refill, "synthesized"),
+                new ItemEffectData(ItemEffect.Limpet_Restock, 4)
             ),
             new CostData(Material.IRON, 10),
             new CostData(Material.NICKEL, 10));

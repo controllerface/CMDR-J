@@ -11,10 +11,10 @@ public class Heat_Sink_Standard extends AbstractSynthesisRecipe_Standard
 {
     public Heat_Sink_Standard()
     {
-        super("Heat Sink Standard", 
+        super("Heat Sink [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refill, 0.0),
-                  new ItemEffectData(ItemEffect.Heat_Dissipation, 15.0)
+                  new ItemEffectData(ItemEffect.Refill, "synthesized"),
+                  new ItemEffectData(ItemEffect.Heat_Dissipation_Increase, 15.0)
             ),
             new CostData(Material.BASICCONDUCTORS, 2),
             new CostData(Material.HEATCONDUCTIONWIRING, 2),

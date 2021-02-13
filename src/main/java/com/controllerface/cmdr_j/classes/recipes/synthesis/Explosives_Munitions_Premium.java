@@ -11,9 +11,9 @@ public class Explosives_Munitions_Premium extends AbstractSynthesisRecipe_Premiu
 {
     public Explosives_Munitions_Premium()
     {
-        super("Explosives Munitions Premium", 
+        super("Explosives Munitions [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 30.0)
             ),
             new CostData(Material.PHOSPHORUS, 5),

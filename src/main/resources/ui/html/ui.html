@@ -1123,35 +1123,11 @@
 
         <div class="singleHeader">
             <div class="headerEntry">
-                <b>Purchase Modules</b>
+                <b>Synthesis</b>
             </div>
         </div>
 
-        <div id="taskCatalog_modules"></div>
-
-        <div class="singleHeader">
-            <div class="headerEntry">
-                <b>Engineer Modifications</b>
-            </div>
-        </div>
-
-        <div id="taskCatalog_modifications"></div>
-
-        <div class="singleHeader">
-            <div class="headerEntry">
-                <b>Experimental Effects</b>
-            </div>
-        </div>
-
-        <div id="taskCatalog_experimentals"></div>
-
-        <div class="singleHeader">
-            <div class="headerEntry">
-                <b>Technology Brokers</b>
-            </div>
-        </div>
-
-        <div id="taskCatalog_techbrokers"></div>
+        <div id="taskCatalog_synthesis" taskType="synthesis"></div>
 
         <div class="singleHeader">
             <div class="headerEntry">
@@ -1159,15 +1135,39 @@
             </div>
         </div>
 
-        <div id="taskCatalog_trades"></div>
+        <div id="taskCatalog_trades" taskType="trade"></div>
 
         <div class="singleHeader">
             <div class="headerEntry">
-                <b>Synthesis</b>
+                <b>Technology Brokers</b>
             </div>
         </div>
 
-        <div id="taskCatalog_synthesis"></div>
+        <div id="taskCatalog_techbrokers" taskType="unlock"></div>
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Purchase Modules</b>
+            </div>
+        </div>
+
+        <div id="taskCatalog_modules" taskType="purchase"></div>
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Engineer Modifications</b>
+            </div>
+        </div>
+
+        <div id="taskCatalog_modifications" taskType="modification"></div>
+
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Experimental Effects</b>
+            </div>
+        </div>
+
+        <div id="taskCatalog_experimentals" taskType="experimental effect"></div>
 
     </template>
 
@@ -1236,6 +1236,7 @@
             <div class="emptySection">Not currently carrying any cargo</div>
         </slot>
     </template>
+
 </head>
 
 <body>

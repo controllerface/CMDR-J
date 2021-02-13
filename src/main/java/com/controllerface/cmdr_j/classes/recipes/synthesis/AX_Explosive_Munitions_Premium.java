@@ -11,9 +11,9 @@ public class AX_Explosive_Munitions_Premium extends AbstractSynthesisRecipe_Prem
 {
     public AX_Explosive_Munitions_Premium()
     {
-        super("AX Explosive Munitions Premium", 
+        super("AX Explosive Munitions [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 10.0)
             ),
             new CostData(Material.TUNGSTEN, 5),

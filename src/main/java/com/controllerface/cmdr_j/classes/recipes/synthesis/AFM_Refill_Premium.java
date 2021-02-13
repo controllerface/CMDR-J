@@ -11,9 +11,9 @@ public class AFM_Refill_Premium extends AbstractSynthesisRecipe_Premium
 {
     public AFM_Refill_Premium()
     {
-        super("AFM Refill Premium", 
+        super("AFM Refill [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Refill, 0.0),
+                  new ItemEffectData(ItemEffect.Refill, "synthesized"),
                   new ItemEffectData(ItemEffect.Repair_Speed, 100.0)
             ),
             new CostData(Material.ZINC, 2),

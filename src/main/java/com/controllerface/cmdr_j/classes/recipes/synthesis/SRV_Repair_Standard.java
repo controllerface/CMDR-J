@@ -11,9 +11,9 @@ public class SRV_Repair_Standard extends AbstractSynthesisRecipe_Standard
 {
     public SRV_Repair_Standard()
     {
-        super("SRV Repair Standard", 
+        super("SRV Repair [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Repair, 0.0),
+                  new ItemEffectData(ItemEffect.Repair, "synthesized"),
                   new ItemEffectData(ItemEffect.Hull_Strength, 50.0)
             ),
             new CostData(Material.NICKEL, 3),

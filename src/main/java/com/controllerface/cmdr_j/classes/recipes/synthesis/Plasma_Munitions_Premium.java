@@ -11,9 +11,9 @@ public class Plasma_Munitions_Premium extends AbstractSynthesisRecipe_Premium
 {
     public Plasma_Munitions_Premium()
     {
-        super("Plasma Munitions Premium", 
+        super("Plasma Munitions [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 30.0)
             ),
             new CostData(Material.SELENIUM, 5),

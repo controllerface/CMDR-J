@@ -11,9 +11,9 @@ public class Plasma_Munitions_Standard extends AbstractSynthesisRecipe_Standard
 {
     public Plasma_Munitions_Standard()
     {
-        super("Plasma Munitions Standard", 
+        super("Plasma Munitions [Standard]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 15.0)
             ),
             new CostData(Material.PHOSPHORUS, 5),

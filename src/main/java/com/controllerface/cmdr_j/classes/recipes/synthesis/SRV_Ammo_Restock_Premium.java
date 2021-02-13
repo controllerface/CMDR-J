@@ -11,9 +11,9 @@ public class SRV_Ammo_Restock_Premium extends AbstractSynthesisRecipe_Premium
 {
     public SRV_Ammo_Restock_Premium()
     {
-        super("SRV Ammo Restock Premium", 
+        super("SRV Ammo Restock [Premium]",
             new ItemEffects(
-                  new ItemEffectData(ItemEffect.Rearm, 0.0),
+                  new ItemEffectData(ItemEffect.Rearm, "synthesized"),
                   new ItemEffectData(ItemEffect.Damage_Boost, 30.0)
             ),
             new CostData(Material.PHOSPHORUS, 2),
