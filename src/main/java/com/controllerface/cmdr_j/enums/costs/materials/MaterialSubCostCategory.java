@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.enums.costs.materials;
 
-import com.controllerface.cmdr_j.classes.events.handlers.ship.LoadoutHandler;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.TaskCostCategory;
 

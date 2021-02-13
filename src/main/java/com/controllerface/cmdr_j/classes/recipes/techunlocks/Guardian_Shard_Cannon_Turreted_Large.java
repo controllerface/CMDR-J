@@ -12,7 +12,7 @@ public class Guardian_Shard_Cannon_Turreted_Large extends AbstractTechnologyReci
 {
     public Guardian_Shard_Cannon_Turreted_Large()
     {
-        super("Guardian Shard Cannon Turreted Large", 
+        super("Large Guardian Shard Cannon [Turreted]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

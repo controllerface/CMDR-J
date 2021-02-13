@@ -11,7 +11,7 @@ public class Guardian_Gauss_Cannon_Fixed_Small extends AbstractTechnologyRecipe
 {
     public Guardian_Gauss_Cannon_Fixed_Small()
     {
-        super("Guardian Gauss Cannon Fixed Small",
+        super("Small Guardian Gauss Cannon [Fixed]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

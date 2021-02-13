@@ -12,7 +12,7 @@ public class Remote_Release_Flechette_Launcher_Turreted_Medium extends AbstractT
 {
     public Remote_Release_Flechette_Launcher_Turreted_Medium()
     {
-        super("Remote Release Flechette Launcher Turreted Medium", 
+        super("Medium Remote Release Flechette Launcher [Turreted]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

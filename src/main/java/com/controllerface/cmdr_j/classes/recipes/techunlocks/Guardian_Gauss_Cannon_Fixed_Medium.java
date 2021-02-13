@@ -12,7 +12,7 @@ public class Guardian_Gauss_Cannon_Fixed_Medium extends AbstractTechnologyRecipe
 {
     public Guardian_Gauss_Cannon_Fixed_Medium()
     {
-        super("Guardian Gauss Cannon Fixed Medium", 
+        super("Medium Guardian Gauss Cannon [Fixed]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

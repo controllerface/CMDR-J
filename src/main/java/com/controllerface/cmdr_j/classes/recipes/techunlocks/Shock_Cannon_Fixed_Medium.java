@@ -12,7 +12,7 @@ public class Shock_Cannon_Fixed_Medium extends AbstractTechnologyRecipe
 {
     public Shock_Cannon_Fixed_Medium()
     {
-        super("Shock Cannon Fixed Medium", 
+        super("Medium Shock Cannon [Fixed]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

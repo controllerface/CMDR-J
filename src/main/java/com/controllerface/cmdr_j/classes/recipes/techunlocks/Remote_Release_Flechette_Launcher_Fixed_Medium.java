@@ -12,7 +12,7 @@ public class Remote_Release_Flechette_Launcher_Fixed_Medium extends AbstractTech
 {
     public Remote_Release_Flechette_Launcher_Fixed_Medium()
     {
-        super("Remote Release Flechette Launcher Fixed Medium", 
+        super("Medium Remote Release Flechette Launcher [Fixed]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

@@ -52,17 +52,26 @@ public enum TechnologyRecipe implements TaskRecipe
     Shock_Cannon_Fixed_Medium(new Shock_Cannon_Fixed_Medium(),
             HardpointModule.hpt_plasmashockcannon_fixed_medium),
 
+    Shock_Cannon_Fixed_Small(new Shock_Cannon_Fixed_Small(),
+        HardpointModule.hpt_plasmashockcannon_fixed_small),
+
     Shock_Cannon_Gimballed_Large(new Shock_Cannon_Gimballed_Large(),
             HardpointModule.hpt_plasmashockcannon_gimbal_large),
 
     Shock_Cannon_Gimballed_Medium(new Shock_Cannon_Gimballed_Medium(),
             HardpointModule.hpt_plasmashockcannon_gimbal_medium),
 
+    Shock_Cannon_Gimballed_Small(new Shock_Cannon_Gimballed_Small(),
+        HardpointModule.hpt_plasmashockcannon_gimbal_small),
+
     Shock_Cannon_Turreted_Large(new Shock_Cannon_Turreted_Large(),
             HardpointModule.hpt_plasmashockcannon_turret_large),
 
     Shock_Cannon_Turreted_Medium(new Shock_Cannon_Turreted_Medium(),
             HardpointModule.hpt_plasmashockcannon_turret_medium),
+
+    Shock_Cannon_Turreted_Small(new Shock_Cannon_Turreted_Small(),
+        HardpointModule.hpt_plasmashockcannon_turret_small),
 
     Guardian_FSD_Booster(new Guardian_FSD_Booster(),
             OptionalInternalModule.int_guardianfsdbooster_size1,
@@ -138,11 +147,18 @@ public enum TechnologyRecipe implements TaskRecipe
     Guardian_Plasma_Charger_Fixed_Medium(new Guardian_Plasma_Charger_Fixed_Medium(),
             HardpointModule.hpt_guardian_plasmalauncher_fixed_medium),
 
+    Guardian_Plasma_Charger_Fixed_Small(new Guardian_Plasma_Charger_Fixed_Small(),
+        HardpointModule.hpt_guardian_plasmalauncher_fixed_small),
+
     Guardian_Plasma_Charger_Turreted_Large(new Guardian_Plasma_Charger_Turreted_Large(),
             HardpointModule.hpt_guardian_plasmalauncher_turret_large),
 
     Guardian_Plasma_Charger_Turreted_Medium(new Guardian_Plasma_Charger_Turreted_Medium(),
             HardpointModule.hpt_guardian_plasmalauncher_turret_medium),
+
+    Guardian_Plasma_Charger_Turreted_Small(new Guardian_Plasma_Charger_Turreted_Small(),
+        HardpointModule.hpt_guardian_plasmalauncher_turret_small),
+
 
     Guardian_Shard_Cannon_Fixed_Large(new Guardian_Shard_Cannon_Fixed_Large(),
             HardpointModule.hpt_guardian_shardcannon_fixed_large),
@@ -150,11 +166,17 @@ public enum TechnologyRecipe implements TaskRecipe
     Guardian_Shard_Cannon_Fixed_Medium(new Guardian_Shard_Cannon_Fixed_Medium(),
             HardpointModule.hpt_guardian_shardcannon_fixed_medium),
 
+    Guardian_Shard_Cannon_Fixed_Small(new Guardian_Shard_Cannon_Fixed_Small(),
+        HardpointModule.hpt_guardian_shardcannon_fixed_small),
+
     Guardian_Shard_Cannon_Turreted_Large(new Guardian_Shard_Cannon_Turreted_Large(),
             HardpointModule.hpt_guardian_shardcannon_turret_large),
 
     Guardian_Shard_Cannon_Turreted_Medium(new Guardian_Shard_Cannon_Turreted_Medium(),
             HardpointModule.hpt_guardian_shardcannon_turret_medium),
+
+    Guardian_Shard_Cannon_Turreted_Small(new Guardian_Shard_Cannon_Turreted_Small(),
+        HardpointModule.hpt_guardian_shardcannon_turret_small),
 
     ;
 

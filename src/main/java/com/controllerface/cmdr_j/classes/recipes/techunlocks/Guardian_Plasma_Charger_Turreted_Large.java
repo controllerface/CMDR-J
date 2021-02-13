@@ -12,7 +12,7 @@ public class Guardian_Plasma_Charger_Turreted_Large extends AbstractTechnologyRe
 {
     public Guardian_Plasma_Charger_Turreted_Large()
     {
-        super("Guardian Plasma Charger Turreted Large", 
+        super("Large Guardian Plasma Charger [Turreted]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

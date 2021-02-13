@@ -45,6 +45,7 @@ public class JournalUI
         /* Javascript */
         assetMap.put("/billOfMaterials.js",     StaticAsset.make("/ui/js/billOfMaterials.js"));
         assetMap.put("/cargo.js",               StaticAsset.make("/ui/js/cargo.js"));
+        assetMap.put("/cargoManifest.js",       StaticAsset.make("/ui/js/cargoManifest.js"));
         assetMap.put("/cartographicData.js",    StaticAsset.make("/ui/js/cartographicData.js"));
         assetMap.put("/commanderStat.js",       StaticAsset.make("/ui/js/commanderStat.js"));
         assetMap.put("/conflictData.js",        StaticAsset.make("/ui/js/conflictData.js"));

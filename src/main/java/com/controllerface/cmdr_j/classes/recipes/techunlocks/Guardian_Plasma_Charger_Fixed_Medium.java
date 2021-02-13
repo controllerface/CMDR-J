@@ -12,7 +12,7 @@ public class Guardian_Plasma_Charger_Fixed_Medium extends AbstractTechnologyReci
 {
     public Guardian_Plasma_Charger_Fixed_Medium()
     {
-        super("Guardian Plasma Charger Fixed Medium", 
+        super("Medium Guardian Plasma Charger [Fixed]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

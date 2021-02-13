@@ -12,7 +12,7 @@ public class Shock_Cannon_Turreted_Medium extends AbstractTechnologyRecipe
 {
     public Shock_Cannon_Turreted_Medium()
     {
-        super("Shock Cannon Turreted Medium", 
+        super("Medium Shock Cannon [Turreted]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

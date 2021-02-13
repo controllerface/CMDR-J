@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public class MaterialTradeBlueprint implements TaskBlueprint
 {
     private final List<TaskRecipe> recipes;
-    private final Material material;
+    public final Material material;
 
     public MaterialTradeBlueprint(Material material, List<TaskRecipe> recipes)
     {

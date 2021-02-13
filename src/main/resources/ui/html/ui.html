@@ -7,6 +7,7 @@
     <script src="ui.js"></script>
     <script src="billOfMaterials.js"></script>
     <script src="cargo.js"></script>
+    <script src="cargoManifest.js"></script>
     <script src="cartographicData.js"></script>
     <script src="commanderStat.js"></script>
     <script src="conflictData.js"></script>
@@ -1193,6 +1194,7 @@
                 <button class="taskSubtractButton" id="taskData_subtractbutton">-</button>
             </summary>
             <div class="taskCostData" id="taskData_costs"></div>
+            <hr>
         </details>
     </template>
 
@@ -1211,13 +1213,29 @@
         <link rel="stylesheet" href="tasks.css">
         <details class="taskDetails" id="requiredMaterial_details">
             <summary>
+                <span id="requiredMaterial_needed" class="materialNeed"></span>
                 <span id="requiredMaterial_materialname">-</span>
                 <progress id="requiredMaterial_progress" class="materialProgress"></progress>
-                <span id="requiredMaterial_deficit" class="materialNeed" ></span>
+                <span class="materialDeficitLabel">needed</span>
+                <span id="requiredMaterial_deficit" class="materialDeficit"></span>
             </summary>
+            <hr>
         </details>
     </template>
 
+    <!-- Cargo manifest -->
+    <template id="template_CargoManifest">
+        <link rel="stylesheet" href="ui.css">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="cargoBinHeader">
+            <span class="binHeaderName">Commodity Name</span>
+            <span class="binHeaderType">Type</span>
+            <span class="binHeaderCountEnd">Stock</span>
+        </div>
+        <slot>
+            <div class="emptySection">Not currently carrying any cargo</div>
+        </slot>
+    </template>
 </head>
 
 <body>
@@ -1649,11 +1667,7 @@
             <input name="inventoryTabs" type="radio" id="cargoTabButton" class="tabInput"/>
             <label id="cargoTab" for="cargoTabButton" class="tabLabel">Cargo</label>
             <div class="tabPanel" id="tradeCargo">
-                <div class="cargoBinHeader">
-                    <span class="binHeaderName">Commodity Name</span>
-                    <span class="binHeaderType">Type</span>
-                    <span class="binHeaderCountEnd">Stock</span>
-                </div>
+                <cargo-manifest id="tradeCargo"></cargo-manifest>
             </div>
 
             <input name="inventoryTabs" type="radio" id="marketTabButton" class="tabInput"/>

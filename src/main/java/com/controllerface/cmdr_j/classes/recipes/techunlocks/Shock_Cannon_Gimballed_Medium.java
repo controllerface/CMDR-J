@@ -12,7 +12,7 @@ public class Shock_Cannon_Gimballed_Medium extends AbstractTechnologyRecipe
 {
     public Shock_Cannon_Gimballed_Medium()
     {
-        super("Shock Cannon Gimballed Medium", 
+        super("Medium Shock Cannon [Gimballed]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

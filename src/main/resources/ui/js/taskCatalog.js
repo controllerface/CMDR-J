@@ -6,10 +6,8 @@ class TaskCatalog extends HTMLElement
         this.attachShadow({mode: 'open'});
         let template = document.getElementById('template_TaskCatalog');
         this.shadowRoot.append(template.content.cloneNode(true));
-
         this.moduleSort = (a, b) => a['sort'] - b['sort'];
         this.shipSort = (a, b) => a['ship'].localeCompare(b['ship']);
-
     }
 
 
@@ -35,7 +33,8 @@ class TaskCatalog extends HTMLElement
         details.classList.add('taskCategoryDetails');
         let summary = document.createElement('summary');
         summary.textContent = label;
-        details.append(summary);
+        let hr = document.createElement('hr');
+        details.append(summary, hr);
         return details;
     }
 
@@ -60,7 +59,8 @@ class TaskCatalog extends HTMLElement
         details.classList.add('taskSubCategoryDetails');
         let summary = document.createElement('summary');
         summary.textContent = label;
-        details.append(summary);
+        let hr = document.createElement('hr');
+        details.append(summary, hr);
         return details;
     }
 
@@ -100,7 +100,8 @@ class TaskCatalog extends HTMLElement
         let button = this.createTaskButton(buttonText, key);
         summary.textContent = label;
         summary.append(button);
-        details.append(summary);
+        let hr = document.createElement('hr');
+        details.append(summary, hr);
         return details;
     }
 
@@ -1815,6 +1816,181 @@ class TaskCatalog extends HTMLElement
     }
 
 
+    /* Tech Broker Unlocks */
+
+    loadHumanOptionalModules(techBrokerData, categoryElement)
+    {
+        this.loadSubcategoryData('Corrosion Resistant Cargo Rack',
+                                 techBrokerData['Corrosion_Resistant_Cargo_Rack'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Meta Alloy Hull Reinforcement',
+                                 techBrokerData['Meta_Alloy_Hull_Reinforcement'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+    }
+
+    loadHumanWeapons(techBrokerData, categoryElement)
+    {
+        this.loadSubcategoryData('Enzyme Missile Rack',
+                                 techBrokerData['Enzyme_Missile_Rack'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Remote Release Flechette Launcher',
+                                 techBrokerData['Remote_Release_Flechette_Launcher'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Shock Cannon',
+                                 techBrokerData['Shock_Cannon'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+    }
+
+    loadHumanTechBroker(techBrokerData, categoryElement)
+    {
+        this.loadSubcategoryData('Optional Internal Modules',
+                                 techBrokerData['Human_Optional_Internal'],
+                                 this.loadHumanOptionalModules,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Weapons',
+                                 techBrokerData['Human_Weapons'],
+                                 this.loadHumanWeapons,
+                                 categoryElement);
+    }
+
+    loadGuardianCoreModules(techBrokerData, categoryElement)
+    {
+        this.loadSubcategoryData('Hybrid Power Distributor',
+                                 techBrokerData['Guardian_Hybrid_Power_Distributor'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Power Plant',
+                                 techBrokerData['Guardian_Power_Plant'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+    }
+
+    loadGuardianOptionalModules(techBrokerData, categoryElement)
+    {
+        this.loadSubcategoryData('FSD Booster',
+                                 techBrokerData['Guardian_FSD_Booster'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Hull Reinforcement',
+                                 techBrokerData['Guardian_Hull_Reinforcement'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Module Reinforcement',
+                                 techBrokerData['Guardian_Module_Reinforcement'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Shield Reinforcement',
+                                 techBrokerData['Guardian_Shield_Booster'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+    }
+
+    loadGuardianWeapons(techBrokerData, categoryElement)
+    {
+        this.loadSubcategoryData('Gauss Cannon',
+                                 techBrokerData['Guardian_Gauss_Cannon'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Plasma Charger',
+                                 techBrokerData['Guardian_Plasma_Charger'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Shard Cannon',
+                                 techBrokerData['Guardian_Shard_Cannon'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+    }
+
+    loadGuardianTechBroker(techBrokerData, categoryElement)
+    {
+        this.loadSubcategoryData('Core Internal Modules',
+                                 techBrokerData['Guardian_Core_Internal'],
+                                 this.loadGuardianCoreModules,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Optional Internal Modules',
+                                 techBrokerData['Guardian_Optional_Internal'],
+                                 this.loadGuardianOptionalModules,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Weapons',
+                                 techBrokerData['Guardian_Weapons'],
+                                 this.loadGuardianWeapons,
+                                 categoryElement);
+    }
+
+
+    loadTradeCategories(tradeData, categoryElement)
+    {
+        console.log(tradeData);
+        let material = Object.keys(tradeData);
+        material.sort();
+        material.forEach(type =>
+        {
+            console.log(tradeData[type]['grade'] + " : " + type);
+            this.loadSubcategoryData(type,
+                                     tradeData[type],
+                                     this.loadModificationGrades,
+                                     categoryElement);
+        });
+    }
+
+
+    loadEncodedTrades(tradeData, categoryElement)
+    {
+        let subTypes = Object.keys(tradeData);
+        subTypes.sort();
+        subTypes.forEach(type =>
+        {
+            this.loadSubcategoryData(type.replaceAll('_', ' '),
+                                     tradeData[type],
+                                     this.loadTradeCategories,
+                                     categoryElement);
+        });
+    }
+
+    loadManufacturedTrades(tradeData, categoryElement)
+    {
+        let subTypes = Object.keys(tradeData);
+        subTypes.sort();
+        subTypes.forEach(type =>
+        {
+            this.loadSubcategoryData(type.replaceAll('_', ' '),
+                                     tradeData[type],
+                                     this.loadTradeCategories,
+                                     categoryElement);
+        });
+    }
+
+    loadRawTrades(tradeData, categoryElement)
+    {
+        let subTypes = Object.keys(tradeData);
+        subTypes.sort();
+        subTypes.forEach(type =>
+        {
+            this.loadSubcategoryData(type.replaceAll('_', ' '),
+                                     tradeData[type],
+                                     this.loadTradeCategories,
+                                     categoryElement);
+        });
+    }
+
+
     /* Main Category Loading Methods */
 
     loadModulePurchases(moduleData)
@@ -1894,12 +2070,37 @@ class TaskCatalog extends HTMLElement
 
     loadTechBrokers(techBrokerData)
     {
-//        console.log(techBrokerData);
+        let techBrokerContainer = this.shadowRoot.getElementById('taskCatalog_techbrokers');
+
+        this.loadCategoryData('Human',
+                              techBrokerData['Human'],
+                              this.loadHumanTechBroker,
+                              techBrokerContainer);
+
+        this.loadCategoryData('Guardian',
+                              techBrokerData['Guardian'],
+                              this.loadGuardianTechBroker,
+                              techBrokerContainer);
     }
 
     loadTrades(tradeData)
     {
-//        console.log(tradeData);
+        let tradeContainer = this.shadowRoot.getElementById('taskCatalog_trades');
+
+        this.loadCategoryData('Encoded Data',
+                              tradeData['Encoded_Data'],
+                              this.loadEncodedTrades,
+                              tradeContainer);
+
+        this.loadCategoryData('Manufactured Materials',
+                              tradeData['Manufactured_Materials'],
+                              this.loadManufacturedTrades,
+                              tradeContainer);
+
+        this.loadCategoryData('Raw Elements',
+                              tradeData['Raw_Elements'],
+                              this.loadRawTrades,
+                              tradeContainer);
     }
 
     loadSynthesis(synthesisData)

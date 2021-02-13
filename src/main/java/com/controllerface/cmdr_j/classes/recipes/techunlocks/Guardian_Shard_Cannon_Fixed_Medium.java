@@ -12,7 +12,7 @@ public class Guardian_Shard_Cannon_Fixed_Medium extends AbstractTechnologyRecipe
 {
     public Guardian_Shard_Cannon_Fixed_Medium()
     {
-        super("Guardian Shard Cannon Fixed Medium", 
+        super("Medium Guardian Shard Cannon [Fixed]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

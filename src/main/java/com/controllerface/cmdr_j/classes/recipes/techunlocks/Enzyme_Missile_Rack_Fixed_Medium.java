@@ -12,7 +12,7 @@ public class Enzyme_Missile_Rack_Fixed_Medium extends AbstractTechnologyRecipe
 {
     public Enzyme_Missile_Rack_Fixed_Medium()
     {
-        super("Enzyme Missile Rack Fixed Medium", 
+        super("Medium Enzyme Missile Rack [Fixed]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

@@ -44,6 +44,16 @@ class RequiredMaterial extends HTMLElement
         return this.getAttribute('deficit');
     }
 
+    set needed(value)
+    {
+        this.setAttribute('needed', value);
+    }
+
+    get needed()
+    {
+        return this.getAttribute('needed');
+    }
+
     loadData(materialData)
     {
         let progress = this.shadowRoot.getElementById('requiredMaterial_progress');
@@ -76,12 +86,18 @@ class RequiredMaterial extends HTMLElement
     static get observedAttributes()
     {
         return ['materialname',
-                'deficit'];
+                'deficit',
+                'needed'];
     }
 
     attributeChangedCallback(name, oldValue, newValue)
     {
-        this.shadowRoot.getElementById('requiredMaterial_' + name).textContent = newValue;
+        let text = newValue;
+        if (name === 'deficit' || name === 'needed')
+        {
+            text = parseInt(newValue, 10).toLocaleString("en-US")
+        }
+        this.shadowRoot.getElementById('requiredMaterial_' + name).textContent = text;
     }
 }
 

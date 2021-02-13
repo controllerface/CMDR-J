@@ -12,7 +12,7 @@ public class Guardian_Plasma_Charger_Turreted_Medium extends AbstractTechnologyR
 {
     public Guardian_Plasma_Charger_Turreted_Medium()
     {
-        super("Guardian Plasma Charger Turreted Medium", 
+        super("Medium Guardian Plasma Charger [Turreted]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

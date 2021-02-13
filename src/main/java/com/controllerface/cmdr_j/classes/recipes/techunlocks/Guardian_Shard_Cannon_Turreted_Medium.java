@@ -12,7 +12,7 @@ public class Guardian_Shard_Cannon_Turreted_Medium extends AbstractTechnologyRec
 {
     public Guardian_Shard_Cannon_Turreted_Medium()
     {
-        super("Guardian Shard Cannon Turreted Medium", 
+        super("Medium Guardian Shard Cannon [Turreted]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),

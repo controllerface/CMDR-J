@@ -6,7 +6,9 @@ import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.classes.StellarBody;
 import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
+import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
+import com.controllerface.cmdr_j.classes.tasks.MaterialTradeBlueprint;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.database.EntityKeys;
@@ -18,6 +20,7 @@ import com.controllerface.cmdr_j.enums.commander.RankStat;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
+import com.controllerface.cmdr_j.enums.costs.materials.MaterialSubCostCategory;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalCategory;
@@ -27,6 +30,7 @@ import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecip
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisCategory;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
+import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
@@ -43,6 +47,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.DoubleAdder;
@@ -2698,13 +2703,14 @@ public class GameState
                 name = "Credits";
             }
 
-            var deficit = current >= count.runningCount.get()
+            var costDeficit = current >= count.runningCount.get()
                 ? 0
                 : count.runningCount.get() - current;
 
             var costMap = new HashMap<String, Object>();
+
             costMap.put("needed", count.runningCount.get());
-            costMap.put("deficit", deficit);
+            costMap.put("deficit", costDeficit);
             costMap.put("related", count.relatedTasks);
             dataMap.put(name, costMap);
         });
@@ -2944,6 +2950,137 @@ public class GameState
         return new TaskData(name, 0, effects, costs);
     }
 
+    private TaskData determineTechBrokerTaskData(TechnologyRecipe technologyRecipe)
+    {
+        var name = "Unlock " + technologyRecipe.getShortLabel();
+
+        var costs = technologyRecipe.costStream()
+            .map(costData ->
+            {
+                Map<String, Object> costMap = new HashMap<>();
+                costMap.put("amount", costData.quantity);
+                costMap.put("unit", costData.cost.getLocalizedName());
+                return costMap;
+            }).collect(Collectors.toList());
+
+        var effects = Stream.of(technologyRecipe.getModules())
+            .map(module ->
+            {
+                var size = module.itemEffects()
+                    .effectByName(ItemEffect.Size)
+                    .map(d->d.doubleValue)
+                    .map(Double::intValue)
+                    .orElse(-1);
+
+                var grade = module.itemEffects()
+                    .effectByName(ItemEffect.Class)
+                    .map(d->d.stringValue)
+                    .orElse("");
+
+                Map<String, Object> effectMap = new HashMap<>();
+                var effect = size + grade + " " + module.displayText();
+                effectMap.put("effect", effect);
+                effectMap.put("value", "unlock");
+                effectMap.put("unit", "");
+                effectMap.put("impact", "positive");
+                return effectMap;
+            }).collect(Collectors.toList());
+
+        var rank = 0;
+        if (technologyRecipe.getModules().length == 1)
+        {
+            var module = technologyRecipe.getModules()[0];
+            var size = module.itemEffects()
+                .effectByName(ItemEffect.Size)
+                .map(d->d.doubleValue)
+                .map(Double::intValue)
+                .orElse(0);
+
+            var grade = module.itemEffects()
+                .effectByName(ItemEffect.Class)
+                .map(d->d.stringValue)
+                .orElse("");
+
+            var gradeEffect = 0;
+            switch (grade.toUpperCase())
+            {
+                case "A":
+                    gradeEffect = 5;
+                    break;
+
+                case "B":
+                    gradeEffect = 4;
+                    break;
+
+                case "C":
+                    gradeEffect = 3;
+                    break;
+
+                case "D":
+                    gradeEffect = 2;
+                    break;
+
+                case "E":
+                    gradeEffect = 1;
+                    break;
+            }
+
+            rank = (size * 10) + gradeEffect;
+        }
+
+        return new TaskData(name, rank, effects, costs);
+    }
+
+    private TaskData determineTradeTaskData(MaterialTradeRecipe tradeRecipe)
+    {
+        var qty = new AtomicLong(0);
+        var priceType = new AtomicReference<MaterialSubCostCategory>(null);
+        var yieldType = new AtomicReference<MaterialSubCostCategory>(null);
+        var costs = tradeRecipe.costStream()
+            .filter(costData -> costData.quantity > 0)
+            .map(costData ->
+            {
+                MaterialSubCostCategory.findMatchingSubCategory(costData.cost)
+                    .ifPresent(priceType::set);
+
+                Map<String, Object> costMap = new HashMap<>();
+                qty.set(costData.quantity);
+                costMap.put("amount", costData.quantity);
+                costMap.put("unit", costData.cost.getLocalizedName());
+                costMap.put("grade", costData.cost.getGrade().name());
+                return costMap;
+            }).collect(Collectors.toList());
+
+        var effects = tradeRecipe.costStream()
+            .filter(costData -> costData.quantity < 0)
+            .map(costData ->
+            {
+                MaterialSubCostCategory.findMatchingSubCategory(costData.cost)
+                    .ifPresent(yieldType::set);
+
+                var abs = Math.abs(costData.quantity);
+                var impact = qty.get() < abs
+                    ? "positive"
+                    : "negative";
+
+                Map<String, Object> effectMap = new HashMap<>();
+                effectMap.put("effect", costData.cost.getLocalizedName());
+                effectMap.put("value", "acquire");
+                effectMap.put("unit", abs);
+                effectMap.put("impact", impact);
+                effectMap.put("grade", costData.cost.getGrade().name());
+                return effectMap;
+            }).collect(Collectors.toList());
+
+        var rank = qty.intValue();
+        if (!Objects.equals(priceType.get(), yieldType.get()))
+        {
+            rank += 100;
+        }
+
+        return new TaskData(tradeRecipe.getDisplayLabel(), rank, effects, costs);
+    }
+
     private TaskData determineTaskData(TaskRecipe recipe)
     {
         if (recipe instanceof ModulePurchaseRecipe)
@@ -2957,6 +3094,14 @@ public class GameState
         if (recipe instanceof ExperimentalRecipe)
         {
             return determineExperimentalTaskData(((ExperimentalRecipe) recipe));
+        }
+        if (recipe instanceof TechnologyRecipe)
+        {
+            return determineTechBrokerTaskData(((TechnologyRecipe) recipe));
+        }
+        if (recipe instanceof MaterialTradeRecipe)
+        {
+            return determineTradeTaskData(((MaterialTradeRecipe) recipe));
         }
         return new TaskData(recipe.getDisplayLabel(), 0);
     }
@@ -3014,7 +3159,7 @@ public class GameState
         var modifications = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
         var experimental = new HashMap<String, Map<String, Map<String, Object>>>();
         var technology = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
-        var trades = new HashMap<String, Map<String, Map<String, Map<String, Map<String, Object>>>>>();
+        var trades = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
 
         var jsonMap  = new HashMap<String, Object>();
         jsonMap.put("modules", modules);
@@ -3189,17 +3334,22 @@ public class GameState
 
                     technologyBlueprint.recipeStream().forEach(technologyRecipe ->
                     {
-                        var key = technologyCategory.name()
+                        var key = "Unlock"
+                            + ":" + technologyCategory.name()
                             + ":" + technologyType.getName()
                             + ":" + technologyBlueprint.name()
                             + ":" + technologyRecipe.getName();
 
                         addPair.accept(key, technologyRecipe);
 
+                        var taskData = determineTechBrokerTaskData(technologyRecipe);
+
                         var dataMap = new HashMap<String, Object>();
                         dataMap.put("key", key);
-                        dataMap.put("name", technologyRecipe.getDisplayLabel());
-                        // todo: rest of the data
+                        dataMap.put("name", taskData.name);
+                        dataMap.put("sort", taskData.rank);
+                        dataMap.put("costs", taskData.costs);
+                        dataMap.put("effects", taskData.effects);
                         currentBlueprint.put(technologyRecipe.getName(), dataMap);
                     });
                 });
@@ -3211,38 +3361,49 @@ public class GameState
         // trades
         Stream.of(MaterialTradeType.values()).forEach(materialTradeType ->
         {
-            Map<String, Map<String, Map<String, Map<String, Object>>>> currentCategory = trades
+            Map<String, Map<String, Map<String, Object>>> currentCategory = trades
                 .computeIfAbsent(materialTradeType.name(), (_k)-> new HashMap<>());
 
             materialTradeType.subCategoryStream().forEach(materialSubCostCategory ->
             {
-                Map<String, Map<String, Map<String, Object>>> currentSubType = currentCategory
+                Map<String, Map<String, Object>> currentSubType = currentCategory
                     .computeIfAbsent(materialSubCostCategory.name(), (_k)-> new HashMap<>());
 
                 materialSubCostCategory.materials().forEach(material ->
                 {
-                    Map<String, Map<String, Object>> currentMaterial = currentSubType
-                        .computeIfAbsent(material.name(), (_k)-> new HashMap<>());
-
                     material.getTradeBlueprint().ifPresent(materialTradeBlueprint ->
                     {
-                        Map<String, Object> currentBlueprint = currentMaterial
+                        Map<String, Object> currentBlueprint = currentSubType
                             .computeIfAbsent(materialTradeBlueprint.toString(), (_k)-> new HashMap<>());
 
-                        materialTradeBlueprint.recipeStream().forEach(materialTradeRecipe ->
-                        {
-                            var key = materialTradeType.getName()
-                                + ":" + materialSubCostCategory.name()
-                                + ":" + materialTradeBlueprint.toString()
-                                + ":" + materialTradeRecipe.getName();
+                        System.out.println(((MaterialTradeBlueprint) materialTradeBlueprint)
+                            .material.getGrade().getNumericalValue());
 
-                            addPair.accept(key, materialTradeRecipe);
+//                        currentBlueprint.put("grade", ((MaterialTradeBlueprint) materialTradeBlueprint)
+//                            .material.getGrade().getNumericalValue());
 
-                            var dataMap = new HashMap<String, Object>();
-                            dataMap.put("key", key);
-                            dataMap.put("name", materialTradeRecipe.getDisplayLabel());
-                            currentBlueprint.put(materialTradeRecipe.getName(), dataMap);
-                        });
+                        materialTradeBlueprint.recipeStream().map(r-> ((MaterialTradeRecipe) r))
+                            .forEach(materialTradeRecipe ->
+                            {
+                                var key = "Trade"
+                                    + ":" + materialTradeType.getName()
+                                    + ":" + materialSubCostCategory.name()
+                                    + ":" + materialTradeBlueprint.toString()
+                                    + ":" + materialTradeRecipe.getName();
+
+                                addPair.accept(key, materialTradeRecipe);
+
+                                var taskData = determineTradeTaskData(materialTradeRecipe);
+
+
+                                var dataMap = new HashMap<String, Object>();
+                                dataMap.put("key", key);
+                                dataMap.put("name", taskData.name);
+                                dataMap.put("sort", taskData.rank);
+                                dataMap.put("costs", taskData.costs);
+                                dataMap.put("effects", taskData.effects);
+                                currentBlueprint.put(materialTradeRecipe.getName(), dataMap);
+                            });
                     });
                 });
             });

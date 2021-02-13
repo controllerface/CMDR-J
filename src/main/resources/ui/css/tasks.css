@@ -135,7 +135,7 @@
 .taskEffect
 {
     display: grid;
-    grid-template-columns: 5fr 1fr 1fr;
+    grid-template-columns: 5fr .5fr .2fr;;
 }
 
 .taskEffectName
@@ -157,9 +157,23 @@
 
 .materialNeed
 {
+    margin-right: .2em;
+    color: var(--default-color);
+}
+
+.materialDeficit
+{
     display: block;
     float: right;
     margin-right: .5em;
+}
+
+.materialDeficitLabel
+{
+    display: block;
+    float: right;
+    margin-right: .5em;
+    color: var(--default-color);
 }
 
 .materialTask

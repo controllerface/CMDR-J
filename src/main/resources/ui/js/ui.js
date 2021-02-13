@@ -1237,6 +1237,7 @@ function handleTaskMaterials(materialData)
         let nextMaterial = document.createElement('required-material');
         nextMaterial.materialName = materialName;
         nextMaterial.deficit = material['deficit'];
+        nextMaterial.needed = material['needed'];
         nextMaterial.loadData(material);
         taskContainer.append(nextMaterial);
     }

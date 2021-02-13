@@ -1,25 +1,25 @@
 package com.controllerface.cmdr_j.classes.recipes.techunlocks;
 
-import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.CostData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.recipes.AbstractTechnologyRecipe;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class Guardian_Plasma_Charger_Fixed_Large extends AbstractTechnologyRecipe
+public class Shock_Cannon_Fixed_Small extends AbstractTechnologyRecipe
 {
-    public Guardian_Plasma_Charger_Fixed_Large()
+    public Shock_Cannon_Fixed_Small()
     {
-        super("Large Guardian Plasma Charger [Fixed]",
+        super("Small Shock Cannon [Fixed]",
             new ItemEffects(
                     new ItemEffectData(ItemEffect.tech_unlock, 0.0)
             ),
-            new CostData(Material.GUARDIAN_WEAPONBLUEPRINT, 1),
-            new CostData(Material.GUARDIAN_POWERCONDUIT, 28),
-            new CostData(Material.GUARDIAN_SENTINEL_WEAPONPARTS, 20),
-            new CostData(Material.CHROMIUM, 28),
-            new CostData(Commodity.COOLINGHOSES, 10));
+            new CostData(Material.VANADIUM, 8),
+            new CostData(Material.TUNGSTEN, 10),
+            new CostData(Material.RHENIUM, 8),
+            new CostData(Material.TECHNETIUM, 12),
+            new CostData(Commodity.POWERCONVERTER, 4));
     }
 }
