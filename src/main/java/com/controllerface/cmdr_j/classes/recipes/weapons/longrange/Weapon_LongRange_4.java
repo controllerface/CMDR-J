@@ -15,11 +15,10 @@ public class Weapon_LongRange_4 extends AbstractModificationRecipe
         super(Weapon_LongRange_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.FalloffRange, 80d),
-                                new ItemEffectData(ItemEffect.Mass, 25d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 12d),
-                                new ItemEffectData(ItemEffect.Range, 80d),
-                                new ItemEffectData(ItemEffect.ShotSpeed, 80d)
+                                new ItemEffectData(ItemEffect.DamageFalloffRange_Percent, 80d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 25d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 12d),
+                                new ItemEffectData(ItemEffect.Range_Percent, 80d)
                         ),
                 new CostData(Material.CONDUCTIVEPOLYMERS, 1),
                 new CostData(Material.FOCUSCRYSTALS, 1),

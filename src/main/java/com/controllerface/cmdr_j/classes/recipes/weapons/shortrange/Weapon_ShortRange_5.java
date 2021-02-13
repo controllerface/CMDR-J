@@ -15,9 +15,9 @@ public class Weapon_ShortRange_5 extends AbstractModificationRecipe
         super(Weapon_ShortRange_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Damage, 75d),
-                                new ItemEffectData(ItemEffect.Range, -50d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, 40d)
+                                new ItemEffectData(ItemEffect.Damage_Percent, 75d),
+                                new ItemEffectData(ItemEffect.Range_Percent, -50d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, 40d)
                         ),
                 new CostData(Material.BIOTECHCONDUCTORS, 1),
                 new CostData(Material.CONFIGURABLECOMPONENTS, 1),

@@ -15,7 +15,6 @@ public class Sensor_Misc_Expanded_5 extends AbstractModificationRecipe
         super(Sensor_Misc_Expanded_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Mass, 100d),
                                 new ItemEffectData(ItemEffect.DSS_PatchRadius, 50d)
                         ),
                 new CostData(Material.PROTORADIOLICALLOYS, 1),

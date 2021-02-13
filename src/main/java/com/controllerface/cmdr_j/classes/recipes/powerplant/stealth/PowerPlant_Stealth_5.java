@@ -15,9 +15,9 @@ public class PowerPlant_Stealth_5 extends AbstractModificationRecipe
         super(PowerPlant_Stealth_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.HeatEfficiency, -65d),
-                                new ItemEffectData(ItemEffect.Mass, 20d),
-                                new ItemEffectData(ItemEffect.PowerCapacity, -15d)
+                                new ItemEffectData(ItemEffect.HeatEfficiency_Percent, -65d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 20d),
+                                new ItemEffectData(ItemEffect.PowerCapacity_Percent, -15d)
                         ),
                 new CostData(Material.PROTOHEATRADIATORS, 1),
                 new CostData(Material.NIOBIUM, 1),

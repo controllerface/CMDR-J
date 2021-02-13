@@ -15,11 +15,11 @@ public class Engine_Dirty_5 extends AbstractModificationRecipe
         super(Engine_Dirty_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -15d),
-                                new ItemEffectData(ItemEffect.EngineOptimalMass, -13d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -15d),
+                                new ItemEffectData(ItemEffect.EngineOptimalMass_Percent, -13d),
                                 new ItemEffectData(ItemEffect.EngineOptPerformance, 40d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 12d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, 60d)
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 12d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, 60d)
                         ),
                 new CostData(Material.CADMIUM, 1),
                 new CostData(Material.INDUSTRIALFIRMWARE, 1),

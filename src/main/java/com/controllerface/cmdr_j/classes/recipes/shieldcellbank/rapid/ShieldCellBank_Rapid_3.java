@@ -15,10 +15,10 @@ public class ShieldCellBank_Rapid_3 extends AbstractModificationRecipe
         super(ShieldCellBank_Rapid_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.BootTime, 20d),
-                                new ItemEffectData(ItemEffect.ShieldBankDuration, -18d),
-                                new ItemEffectData(ItemEffect.ShieldBankReinforcement, 15d),
-                                new ItemEffectData(ItemEffect.ShieldBankSpinUp, -30d)
+                                new ItemEffectData(ItemEffect.BootTime_Percent, 20d),
+                                new ItemEffectData(ItemEffect.ShieldBankDuration_Percent, -18d),
+                                new ItemEffectData(ItemEffect.ShieldBankReinforcement_Percent, 15d),
+                                new ItemEffectData(ItemEffect.ShieldBankSpinUp_Percent, -30d)
                         ),
                 new CostData(Material.HYBRIDCAPACITORS, 1),
                 new CostData(Material.PRECIPITATEDALLOYS, 1),

@@ -17,7 +17,7 @@ public class ShieldBooster_Thermic_1 extends AbstractModificationRecipe
                         (
                                 new ItemEffectData(ItemEffect.ExplosiveResistance, -1d),
                                 new ItemEffectData(ItemEffect.KineticResistance, -1d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, 7d)
+                                new ItemEffectData(ItemEffect.ThermicResistance, 8d)
                         ),
                 new CostData(Material.IRON, 1));
     }

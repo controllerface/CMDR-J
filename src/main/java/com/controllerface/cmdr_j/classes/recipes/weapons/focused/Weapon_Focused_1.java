@@ -15,10 +15,10 @@ public class Weapon_Focused_1 extends AbstractModificationRecipe
         super(Weapon_Focused_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ArmourPenetration, 40d),
-                                new ItemEffectData(ItemEffect.Range, 36d),
-                                new ItemEffectData(ItemEffect.RateOfFire, 36d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, 1d)
+                                new ItemEffectData(ItemEffect.ArmourPenetration_Percent, 40d),
+                                new ItemEffectData(ItemEffect.Range_Percent, 36d),
+                                new ItemEffectData(ItemEffect.DamageFalloffRange_Percent, 36d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, 1d)
                         ),
                 new CostData(Material.IRON, 1));
 

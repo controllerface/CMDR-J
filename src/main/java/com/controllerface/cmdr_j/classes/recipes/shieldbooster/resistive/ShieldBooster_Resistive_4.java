@@ -15,11 +15,11 @@ public class ShieldBooster_Resistive_4 extends AbstractModificationRecipe
         super(ShieldBooster_Resistive_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, 14d),
-                                new ItemEffectData(ItemEffect.Integrity, -10d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 14d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 20d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, 14d)
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, 15d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -10d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 15d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 20d),
+                                new ItemEffectData(ItemEffect.ThermicResistance, 15d)
                         ),
                 new CostData(Material.CONDUCTIVECERAMICS, 1),
                 new CostData(Material.MANGANESE, 1),

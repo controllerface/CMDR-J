@@ -16,9 +16,9 @@ public class ShieldBooster_Resistive_1 extends AbstractModificationRecipe
                 new ItemEffects
                         (
                                 new ItemEffectData(ItemEffect.ExplosiveResistance, 5d),
-                                new ItemEffectData(ItemEffect.Integrity, -4d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -4d),
                                 new ItemEffectData(ItemEffect.KineticResistance, 5d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 5d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 5d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, 5d)
                         ),
                 new CostData(Material.PHOSPHORUS, 1));

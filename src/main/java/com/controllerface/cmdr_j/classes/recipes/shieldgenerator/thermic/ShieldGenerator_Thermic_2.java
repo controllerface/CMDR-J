@@ -15,7 +15,7 @@ public class ShieldGenerator_Thermic_2 extends AbstractModificationRecipe
         super(ShieldGenerator_Thermic_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 25d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 25d),
                                 new ItemEffectData(ItemEffect.KineticResistance, -8d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, 20d)
                         ),

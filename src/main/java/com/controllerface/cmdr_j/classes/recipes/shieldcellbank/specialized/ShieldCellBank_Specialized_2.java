@@ -15,11 +15,11 @@ public class ShieldCellBank_Specialized_2 extends AbstractModificationRecipe
         super(ShieldCellBank_Specialized_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.BootTime, -16d),
-                                new ItemEffectData(ItemEffect.Integrity, -10d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 15d),
-                                new ItemEffectData(ItemEffect.ShieldBankReinforcement, 6d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, -12d)
+                                new ItemEffectData(ItemEffect.BootTime_Percent, -16d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -10d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 15d),
+                                new ItemEffectData(ItemEffect.ShieldBankReinforcement_Percent, 6d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, -12d)
                         ),
                 new CostData(Material.CONDUCTIVECOMPONENTS, 1),
                 new CostData(Material.LEGACYFIRMWARE, 1));

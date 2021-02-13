@@ -16,9 +16,9 @@ public class ShieldBooster_Resistive_5 extends AbstractModificationRecipe
                 new ItemEffects
                         (
                                 new ItemEffectData(ItemEffect.ExplosiveResistance, 17d),
-                                new ItemEffectData(ItemEffect.Integrity, -12d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -12d),
                                 new ItemEffectData(ItemEffect.KineticResistance, 17d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 25d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 25d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, 17d)
                         ),
                 new CostData(Material.CONDUCTIVECERAMICS, 1),

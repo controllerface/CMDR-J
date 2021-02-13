@@ -16,9 +16,9 @@ public class Weapon_DoubleShot_5 extends AbstractModificationRecipe
                 new ItemEffects
                         (
                                 new ItemEffectData(ItemEffect.BurstSize, 2d),
-                                new ItemEffectData(ItemEffect.BurstRateOfFire, 1400d),
+                                new ItemEffectData(ItemEffect.BurstRateOfFire_Percent, 1400d),
                                 new ItemEffectData(ItemEffect.AmmoClipSize, 6d),
-                                new ItemEffectData(ItemEffect.Range, -10d)
+                                new ItemEffectData(ItemEffect.Range_Percent, -10d)
                         ),
                 new CostData(Material.CONFIGURABLECOMPONENTS, 1),
                 new CostData(Material.HIGHDENSITYCOMPOSITES, 1),

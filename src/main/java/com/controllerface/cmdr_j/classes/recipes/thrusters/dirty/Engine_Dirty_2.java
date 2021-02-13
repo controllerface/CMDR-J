@@ -15,11 +15,11 @@ public class Engine_Dirty_2 extends AbstractModificationRecipe
         super(Engine_Dirty_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -6d),
-                                new ItemEffectData(ItemEffect.EngineOptimalMass, -5d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -6d),
+                                new ItemEffectData(ItemEffect.EngineOptimalMass_Percent, -5d),
                                 new ItemEffectData(ItemEffect.EngineOptPerformance, 19d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 6d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, 30d)
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 6d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, 30d)
                         ),
                 new CostData(Material.MECHANICALEQUIPMENT, 1),
                 new CostData(Material.LEGACYFIRMWARE, 1));

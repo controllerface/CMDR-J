@@ -15,8 +15,8 @@ public class Misc_Shielded_2 extends AbstractModificationRecipe
         super(Misc_Shielded_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 120d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 40d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 120d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 40d)
                         ),
                 new CostData(Material.CARBON, 1),
                 new CostData(Material.SHIELDEMITTERS, 1));

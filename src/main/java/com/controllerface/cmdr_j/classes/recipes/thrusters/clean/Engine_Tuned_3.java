@@ -15,11 +15,11 @@ public class Engine_Tuned_3 extends AbstractModificationRecipe
         super(Engine_Tuned_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -8d),
-                                new ItemEffectData(ItemEffect.EngineOptimalMass, -6d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -8d),
+                                new ItemEffectData(ItemEffect.EngineOptimalMass_Percent, -6d),
                                 new ItemEffectData(ItemEffect.EngineOptPerformance, 18d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 8d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, -40d)
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 8d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, -40d)
                         ),
                 new CostData(Material.CONDUCTIVECOMPONENTS, 1),
                 new CostData(Material.LEGACYFIRMWARE, 1),

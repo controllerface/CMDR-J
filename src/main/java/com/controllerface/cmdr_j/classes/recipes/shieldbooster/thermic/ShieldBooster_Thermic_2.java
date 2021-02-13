@@ -15,8 +15,8 @@ public class ShieldBooster_Thermic_2 extends AbstractModificationRecipe
         super(ShieldBooster_Thermic_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, -2d),
-                                new ItemEffectData(ItemEffect.KineticResistance, -2d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, -1d),
+                                new ItemEffectData(ItemEffect.KineticResistance, -1d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, 12d)
                         ),
                 new CostData(Material.GERMANIUM, 1),

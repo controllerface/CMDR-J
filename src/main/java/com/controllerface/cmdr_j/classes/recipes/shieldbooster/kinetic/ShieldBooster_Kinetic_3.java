@@ -15,9 +15,9 @@ public class ShieldBooster_Kinetic_3 extends AbstractModificationRecipe
         super(ShieldBooster_Kinetic_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, -3d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, -2d),
                                 new ItemEffectData(ItemEffect.KineticResistance, 17d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, -3d)
+                                new ItemEffectData(ItemEffect.ThermicResistance, -2d)
                         ),
                 new CostData(Material.FOCUSCRYSTALS, 1),
                 new CostData(Material.HYBRIDCAPACITORS, 1),

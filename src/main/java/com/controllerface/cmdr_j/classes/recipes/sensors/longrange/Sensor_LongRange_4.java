@@ -15,9 +15,9 @@ public class Sensor_LongRange_4 extends AbstractModificationRecipe
         super(Sensor_LongRange_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Mass, 80d),
-                                new ItemEffectData(ItemEffect.SensorTargetScanAngle, -25d),
-                                new ItemEffectData(ItemEffect.Range, 60d)
+                                new ItemEffectData(ItemEffect.Mass_Percent, 80d),
+                                new ItemEffectData(ItemEffect.SensorTargetScanAngle_Percent, -25d),
+                                new ItemEffectData(ItemEffect.Range_Percent, 60d)
                         ),
                 new CostData(Material.DECODEDEMISSIONDATA, 1),
                 new CostData(Material.ELECTROCHEMICALARRAYS, 1),

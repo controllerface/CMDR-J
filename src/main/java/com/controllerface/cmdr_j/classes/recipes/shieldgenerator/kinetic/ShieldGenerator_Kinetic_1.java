@@ -15,9 +15,9 @@ public class ShieldGenerator_Kinetic_1 extends AbstractModificationRecipe
         super(ShieldGenerator_Kinetic_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 20d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 6d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, -4d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 20d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 10d),
+                                new ItemEffectData(ItemEffect.ThermicResistance, -3d)
                         ),
                 new CostData(Material.SHIELDCYCLERECORDINGS, 1));
     }

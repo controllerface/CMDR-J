@@ -15,9 +15,9 @@ public class Sensor_LongRange_2 extends AbstractModificationRecipe
         super(Sensor_LongRange_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Mass, 40d),
-                                new ItemEffectData(ItemEffect.SensorTargetScanAngle, -15d),
-                                new ItemEffectData(ItemEffect.Range, 30d)
+                                new ItemEffectData(ItemEffect.Mass_Percent, 40d),
+                                new ItemEffectData(ItemEffect.SensorTargetScanAngle_Percent, -15d),
+                                new ItemEffectData(ItemEffect.Range_Percent, 30d)
                         ),
                 new CostData(Material.HYBRIDCAPACITORS, 1),
                 new CostData(Material.IRON, 1));

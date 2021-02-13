@@ -15,8 +15,8 @@ public class Misc_Reinforced_4 extends AbstractModificationRecipe
         super(Misc_Reinforced_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 240d),
-                                new ItemEffectData(ItemEffect.Mass, 120d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 240d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 120d)
                         ),
                 new CostData(Material.MOLYBDENUM, 1),
                 new CostData(Material.TUNGSTEN, 1),

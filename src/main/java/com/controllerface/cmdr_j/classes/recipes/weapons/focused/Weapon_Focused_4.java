@@ -15,10 +15,10 @@ public class Weapon_Focused_4 extends AbstractModificationRecipe
         super(Weapon_Focused_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ArmourPenetration, 100d),
-                                new ItemEffectData(ItemEffect.Range, 84d),
-                                new ItemEffectData(ItemEffect.RateOfFire, 84d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, 4d)
+                                new ItemEffectData(ItemEffect.ArmourPenetration_Percent, 100d),
+                                new ItemEffectData(ItemEffect.Range_Percent, 84d),
+                                new ItemEffectData(ItemEffect.DamageFalloffRange_Percent, 84d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, 4d)
                         ),
                 new CostData(Material.FOCUSCRYSTALS, 1),
                 new CostData(Material.GERMANIUM, 1),

@@ -16,8 +16,8 @@ public class ShieldBooster_Explosive_5 extends AbstractModificationRecipe
                 new ItemEffects
                         (
                                 new ItemEffectData(ItemEffect.ExplosiveResistance, 27d),
-                                new ItemEffectData(ItemEffect.KineticResistance, -5d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, -5d)
+                                new ItemEffectData(ItemEffect.KineticResistance, -4d),
+                                new ItemEffectData(ItemEffect.ThermicResistance, -4d)
                         ),
                 new CostData(Material.SHIELDPATTERNANALYSIS, 1),
                 new CostData(Material.EXQUISITEFOCUSCRYSTALS, 1),

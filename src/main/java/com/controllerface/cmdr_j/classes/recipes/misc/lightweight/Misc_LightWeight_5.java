@@ -15,8 +15,8 @@ public class Misc_LightWeight_5 extends AbstractModificationRecipe
         super(Misc_LightWeight_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -50d),
-                                new ItemEffectData(ItemEffect.Mass, -85d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -50d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, -85d)
                         ),
                 new CostData(Material.CONDUCTIVECERAMICS, 1),
                 new CostData(Material.PROTOLIGHTALLOYS, 1),

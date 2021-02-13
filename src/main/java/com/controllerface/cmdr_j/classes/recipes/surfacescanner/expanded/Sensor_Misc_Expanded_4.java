@@ -15,7 +15,6 @@ public class Sensor_Misc_Expanded_4 extends AbstractModificationRecipe
         super(Sensor_Misc_Expanded_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Mass, 80d),
                                 new ItemEffectData(ItemEffect.DSS_PatchRadius, 40d)
                         ),
                 new CostData(Material.PROTOLIGHTALLOYS, 1),

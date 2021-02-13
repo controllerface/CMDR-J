@@ -15,10 +15,9 @@ public class Weapon_Overcharged_3 extends AbstractModificationRecipe
         super(Weapon_Overcharged_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.AmmoClipSize, -9d),
-                                new ItemEffectData(ItemEffect.Damage, 50d),
-                                new ItemEffectData(ItemEffect.DistributorDraw, 25d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, 9d)
+                                new ItemEffectData(ItemEffect.Damage_Percent, 50d),
+                                new ItemEffectData(ItemEffect.DistributorDraw_Percent, 25d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, 9d)
                         ),
                 new CostData(Material.CONDUCTIVECOMPONENTS, 1),
                 new CostData(Material.ELECTROCHEMICALARRAYS, 1),

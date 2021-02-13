@@ -15,10 +15,10 @@ public class Weapon_LightWeight_4 extends AbstractModificationRecipe
         super(Weapon_LightWeight_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.DistributorDraw, -30d),
-                                new ItemEffectData(ItemEffect.Integrity, -50d),
-                                new ItemEffectData(ItemEffect.Mass, -75d),
-                                new ItemEffectData(ItemEffect.PowerDraw, -30d)
+                                new ItemEffectData(ItemEffect.DistributorDraw_Percent, -30d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -50d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, -75d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, -30d)
                         ),
                 new CostData(Material.CONDUCTIVECOMPONENTS, 1),
                 new CostData(Material.PHASEALLOYS, 1),

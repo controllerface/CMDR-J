@@ -15,9 +15,9 @@ public class ShieldBooster_Kinetic_2 extends AbstractModificationRecipe
         super(ShieldBooster_Kinetic_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, -2d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, -1d),
                                 new ItemEffectData(ItemEffect.KineticResistance, 12d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, -2d)
+                                new ItemEffectData(ItemEffect.ThermicResistance, -1d)
                         ),
                 new CostData(Material.GERMANIUM, 1),
                 new CostData(Material.GRIDRESISTORS, 1));

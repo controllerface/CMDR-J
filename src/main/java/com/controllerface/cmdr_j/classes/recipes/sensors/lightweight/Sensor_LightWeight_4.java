@@ -15,9 +15,9 @@ public class Sensor_LightWeight_4 extends AbstractModificationRecipe
         super(Sensor_LightWeight_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -40d),
-                                new ItemEffectData(ItemEffect.Mass, -65d),
-                                new ItemEffectData(ItemEffect.SensorTargetScanAngle, -20d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -40d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, -65d),
+                                new ItemEffectData(ItemEffect.SensorTargetScanAngle_Percent, -20d)
                         ),
                 new CostData(Material.CONDUCTIVECOMPONENTS, 1),
                 new CostData(Material.PHASEALLOYS, 1),

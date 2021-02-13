@@ -16,7 +16,7 @@ public class ShieldBooster_Kinetic_1 extends AbstractModificationRecipe
                 new ItemEffects
                         (
                                 new ItemEffectData(ItemEffect.ExplosiveResistance, -1d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 7d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 8d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, -1d)
                         ),
                 new CostData(Material.IRON, 1));

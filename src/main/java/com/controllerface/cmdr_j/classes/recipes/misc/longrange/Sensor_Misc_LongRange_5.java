@@ -15,9 +15,9 @@ public class Sensor_Misc_LongRange_5 extends AbstractModificationRecipe
         super(Sensor_Misc_LongRange_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.PowerDraw, 50d),
-                                new ItemEffectData(ItemEffect.SensorTargetScanAngle, -30d),
-                                new ItemEffectData(ItemEffect.Range, 120d)
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 50d),
+                                new ItemEffectData(ItemEffect.SensorTargetScanAngle_Percent, -30d),
+                                new ItemEffectData(ItemEffect.Range_Percent, 120d)
                         ),
                 new CostData(Material.COMPACTEMISSIONSDATA, 1),
                 new CostData(Material.NIOBIUM, 1),

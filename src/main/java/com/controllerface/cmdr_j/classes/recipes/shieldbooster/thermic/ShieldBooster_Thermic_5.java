@@ -15,8 +15,8 @@ public class ShieldBooster_Thermic_5 extends AbstractModificationRecipe
         super(ShieldBooster_Thermic_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, -5d),
-                                new ItemEffectData(ItemEffect.KineticResistance, -5d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, -4d),
+                                new ItemEffectData(ItemEffect.KineticResistance, -4d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, 27d)
                         ),
                 new CostData(Material.SHIELDPATTERNANALYSIS, 1),

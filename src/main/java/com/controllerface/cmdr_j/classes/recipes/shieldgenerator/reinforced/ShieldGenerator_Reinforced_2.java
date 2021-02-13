@@ -15,12 +15,12 @@ public class ShieldGenerator_Reinforced_2 extends AbstractModificationRecipe
         super(ShieldGenerator_Reinforced_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.BrokenRegenRate, -10d),
-                                new ItemEffectData(ItemEffect.DistributorDraw, 6d),
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, 37.5d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 4.5d),
-                                new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 20d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, 9d)
+                                new ItemEffectData(ItemEffect.BrokenRegenRate_Percent, -10d),
+                                new ItemEffectData(ItemEffect.DistributorDraw_Percent, 6d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, 8d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 8d),
+                                new ItemEffectData(ItemEffect.ShieldGenStrength_Percent, 20d),
+                                new ItemEffectData(ItemEffect.ThermicResistance, 8d)
                         ),
                 new CostData(Material.CONDUCTIVECOMPONENTS, 1),
                 new CostData(Material.PHOSPHORUS, 1));

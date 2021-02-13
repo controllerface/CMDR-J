@@ -15,9 +15,9 @@ public class ShieldGenerator_Kinetic_4 extends AbstractModificationRecipe
         super(ShieldGenerator_Kinetic_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 35d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 24d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, -14d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 35d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 40d),
+                                new ItemEffectData(ItemEffect.ThermicResistance, -12d)
                         ),
                 new CostData(Material.FOCUSCRYSTALS, 1),
                 new CostData(Material.SHIELDSOAKANALYSIS, 1),

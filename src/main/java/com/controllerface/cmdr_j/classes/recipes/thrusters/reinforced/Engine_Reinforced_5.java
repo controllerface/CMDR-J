@@ -15,9 +15,9 @@ public class Engine_Reinforced_5 extends AbstractModificationRecipe
         super(Engine_Reinforced_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 110d),
-                                new ItemEffectData(ItemEffect.Mass, 25d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, -50d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 110d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 25d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, -50d)
                         ),
                 new CostData(Material.HEATEXCHANGERS, 1),
                 new CostData(Material.IMPERIALSHIELDING, 1),

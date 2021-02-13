@@ -15,9 +15,9 @@ public class Weapon_ShortRange_4 extends AbstractModificationRecipe
         super(Weapon_ShortRange_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Damage, 63d),
-                                new ItemEffectData(ItemEffect.Range, -40d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, 30d)
+                                new ItemEffectData(ItemEffect.Damage_Percent, 63d),
+                                new ItemEffectData(ItemEffect.Range_Percent, -40d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, 30d)
                         ),
                 new CostData(Material.CONDUCTIVEPOLYMERS, 1),
                 new CostData(Material.ELECTROCHEMICALARRAYS, 1),

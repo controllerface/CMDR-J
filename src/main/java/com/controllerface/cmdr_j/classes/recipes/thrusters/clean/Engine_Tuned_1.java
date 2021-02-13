@@ -15,9 +15,9 @@ public class Engine_Tuned_1 extends AbstractModificationRecipe
         super(Engine_Tuned_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.EngineOptimalMass, -2d),
+                                new ItemEffectData(ItemEffect.EngineOptimalMass_Percent, -2d),
                                 new ItemEffectData(ItemEffect.EngineOptPerformance, 8d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, -20d)
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, -20d)
                         ),
                 new CostData(Material.SULPHUR, 1));
     }

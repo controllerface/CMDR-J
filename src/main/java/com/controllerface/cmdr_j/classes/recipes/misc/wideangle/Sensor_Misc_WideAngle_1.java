@@ -15,9 +15,9 @@ public class Sensor_Misc_WideAngle_1 extends AbstractModificationRecipe
         super(Sensor_Misc_WideAngle_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Mass, 20d),
-                                new ItemEffectData(ItemEffect.SensorTargetScanAngle, 40d),
-                                new ItemEffectData(ItemEffect.ScannerTimeToScan, 10d)
+                                new ItemEffectData(ItemEffect.Mass_Percent, 20d),
+                                new ItemEffectData(ItemEffect.SensorTargetScanAngle_Percent, 40d),
+                                new ItemEffectData(ItemEffect.ScannerTimeToScan_Percent, 10d)
                         ),
                 new CostData(Material.MECHANICALSCRAP, 1));
     }

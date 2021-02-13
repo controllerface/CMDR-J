@@ -15,10 +15,10 @@ public class Weapon_Efficient_2 extends AbstractModificationRecipe
         super(Weapon_Efficient_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.DamagePerSecond, 12d),
-                                new ItemEffectData(ItemEffect.DistributorDraw, -15d),
-                                new ItemEffectData(ItemEffect.PowerDraw, -12d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, -43d)
+                                new ItemEffectData(ItemEffect.DamagePerSecond_Percent, 12d),
+                                new ItemEffectData(ItemEffect.DistributorDraw_Percent, -15d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, -12d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, -43d)
                         ),
                 new CostData(Material.HEATDISPERSIONPLATE, 1),
                 new CostData(Material.SULPHUR, 1));

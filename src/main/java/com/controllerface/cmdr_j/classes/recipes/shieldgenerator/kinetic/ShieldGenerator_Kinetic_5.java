@@ -15,9 +15,9 @@ public class ShieldGenerator_Kinetic_5 extends AbstractModificationRecipe
         super(ShieldGenerator_Kinetic_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 40d),
-                                new ItemEffectData(ItemEffect.KineticResistance, 30d),
-                                new ItemEffectData(ItemEffect.ThermicResistance, -18d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 40d),
+                                new ItemEffectData(ItemEffect.KineticResistance, 50d),
+                                new ItemEffectData(ItemEffect.ThermicResistance, -15d)
                         ),
                 new CostData(Material.REFINEDFOCUSCRYSTALS, 1),
                 new CostData(Material.RUTHENIUM, 1),

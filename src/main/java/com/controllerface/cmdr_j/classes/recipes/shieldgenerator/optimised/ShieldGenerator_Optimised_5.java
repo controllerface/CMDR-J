@@ -15,11 +15,11 @@ public class ShieldGenerator_Optimised_5 extends AbstractModificationRecipe
         super(ShieldGenerator_Optimised_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -25d),
-                                new ItemEffectData(ItemEffect.Mass, -50d),
-                                new ItemEffectData(ItemEffect.ShieldGenOptimalMass, -6d),
-                                new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 22.5d),
-                                new ItemEffectData(ItemEffect.PowerDraw, -40d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -25d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, -50d),
+                                new ItemEffectData(ItemEffect.ShieldGenOptimalMass_Percent, -6d),
+                                new ItemEffectData(ItemEffect.ShieldGenStrength_Percent, 15d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, -40d)
                         ),
                 new CostData(Material.MILITARYGRADEALLOYS, 1),
                 new CostData(Material.TIN, 1),

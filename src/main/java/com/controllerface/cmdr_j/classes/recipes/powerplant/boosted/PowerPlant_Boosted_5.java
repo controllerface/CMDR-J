@@ -15,9 +15,9 @@ public class PowerPlant_Boosted_5 extends AbstractModificationRecipe
         super(PowerPlant_Boosted_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.HeatEfficiency, 25d),
-                                new ItemEffectData(ItemEffect.Integrity, -25d),
-                                new ItemEffectData(ItemEffect.PowerCapacity, 40d)
+                                new ItemEffectData(ItemEffect.HeatEfficiency_Percent, 25d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -25d),
+                                new ItemEffectData(ItemEffect.PowerCapacity_Percent, 40d)
                         ),
                 new CostData(Material.CHEMICALMANIPULATORS, 1),
                 new CostData(Material.CONDUCTIVECERAMICS, 1),

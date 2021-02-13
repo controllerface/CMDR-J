@@ -15,8 +15,8 @@ public class Misc_Reinforced_2 extends AbstractModificationRecipe
         super(Misc_Reinforced_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 120d),
-                                new ItemEffectData(ItemEffect.Mass, 60d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 120d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 60d)
                         ),
                 new CostData(Material.NICKEL, 1),
                 new CostData(Material.SHIELDEMITTERS, 1));

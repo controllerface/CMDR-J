@@ -15,9 +15,9 @@ public class PowerPlant_Stealth_3 extends AbstractModificationRecipe
         super(PowerPlant_Stealth_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.HeatEfficiency, -45d),
-                                new ItemEffectData(ItemEffect.Mass, 12d),
-                                new ItemEffectData(ItemEffect.PowerCapacity, -9d)
+                                new ItemEffectData(ItemEffect.HeatEfficiency_Percent, -45d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 12d),
+                                new ItemEffectData(ItemEffect.PowerCapacity_Percent, -9d)
                         ),
                 new CostData(Material.HEATEXCHANGERS, 1),
                 new CostData(Material.IRON, 1),

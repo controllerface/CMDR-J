@@ -15,10 +15,10 @@ public class PowerPlant_Armoured_2 extends AbstractModificationRecipe
         super(PowerPlant_Armoured_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.HeatEfficiency, -6d),
-                                new ItemEffectData(ItemEffect.Integrity, 60d),
-                                new ItemEffectData(ItemEffect.PowerCapacity, 6d),
-                                new ItemEffectData(ItemEffect.Mass, 8d)
+                                new ItemEffectData(ItemEffect.HeatEfficiency_Percent, -6d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 60d),
+                                new ItemEffectData(ItemEffect.PowerCapacity_Percent, 6d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 8d)
                         ),
                 new CostData(Material.CARBON, 1),
                 new CostData(Material.SHIELDEMITTERS, 1));

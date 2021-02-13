@@ -15,8 +15,8 @@ public class Misc_Reinforced_5 extends AbstractModificationRecipe
         super(Misc_Reinforced_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 300d),
-                                new ItemEffectData(ItemEffect.Mass, 150d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 300d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 150d)
                         ),
                 new CostData(Material.HIGHDENSITYCOMPOSITES, 1),
                 new CostData(Material.MOLYBDENUM, 1),

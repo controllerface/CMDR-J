@@ -15,9 +15,9 @@ public class Engine_Reinforced_2 extends AbstractModificationRecipe
         super(Engine_Reinforced_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 50d),
-                                new ItemEffectData(ItemEffect.Mass, 10d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, -20d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 50d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 10d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, -20d)
                         ),
                 new CostData(Material.HEATCONDUCTIONWIRING, 1),
                 new CostData(Material.VANADIUM, 1));

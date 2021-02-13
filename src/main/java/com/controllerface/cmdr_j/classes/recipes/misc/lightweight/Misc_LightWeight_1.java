@@ -15,8 +15,8 @@ public class Misc_LightWeight_1 extends AbstractModificationRecipe
         super(Misc_LightWeight_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -10d),
-                                new ItemEffectData(ItemEffect.Mass, -45d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -10d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, -45d)
                         ),
                 new CostData(Material.PHOSPHORUS, 1));
     }

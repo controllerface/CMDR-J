@@ -15,9 +15,9 @@ public class PowerPlant_Stealth_2 extends AbstractModificationRecipe
         super(PowerPlant_Stealth_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.HeatEfficiency, -35d),
-                                new ItemEffectData(ItemEffect.Mass, 8d),
-                                new ItemEffectData(ItemEffect.PowerCapacity, -6d)
+                                new ItemEffectData(ItemEffect.HeatEfficiency_Percent, -35d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 8d),
+                                new ItemEffectData(ItemEffect.PowerCapacity_Percent, -6d)
                         ),
                 new CostData(Material.IRON, 1),
                 new CostData(Material.ARCHIVEDEMISSIONDATA, 1));

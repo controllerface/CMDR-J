@@ -15,9 +15,9 @@ public class Sensor_Misc_FastScan_2 extends AbstractModificationRecipe
         super(Sensor_Misc_FastScan_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -20d),
-                                new ItemEffectData(ItemEffect.Range, -10d),
-                                new ItemEffectData(ItemEffect.ScannerTimeToScan, -35d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -20d),
+                                new ItemEffectData(ItemEffect.Range_Percent, -10d),
+                                new ItemEffectData(ItemEffect.ScannerTimeToScan_Percent, -35d)
                         ),
                 new CostData(Material.UNCUTFOCUSCRYSTALS, 1),
                 new CostData(Material.PHOSPHORUS, 1));

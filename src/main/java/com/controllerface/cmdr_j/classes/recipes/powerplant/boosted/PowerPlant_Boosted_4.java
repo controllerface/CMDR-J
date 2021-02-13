@@ -15,9 +15,9 @@ public class PowerPlant_Boosted_4 extends AbstractModificationRecipe
         super(PowerPlant_Boosted_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.HeatEfficiency, 20d),
-                                new ItemEffectData(ItemEffect.Integrity, -20d),
-                                new ItemEffectData(ItemEffect.PowerCapacity, 33d)
+                                new ItemEffectData(ItemEffect.HeatEfficiency_Percent, 20d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -20d),
+                                new ItemEffectData(ItemEffect.PowerCapacity_Percent, 33d)
                         ),
                 new CostData(Material.CADMIUM, 1),
                 new CostData(Material.CONDUCTIVECERAMICS, 1),

@@ -15,9 +15,9 @@ public class PowerPlant_Boosted_3 extends AbstractModificationRecipe
         super(PowerPlant_Boosted_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.HeatEfficiency, 15d),
-                                new ItemEffectData(ItemEffect.Integrity, -15d),
-                                new ItemEffectData(ItemEffect.PowerCapacity, 26d)
+                                new ItemEffectData(ItemEffect.HeatEfficiency_Percent, 15d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -15d),
+                                new ItemEffectData(ItemEffect.PowerCapacity_Percent, 26d)
                         ),
                 new CostData(Material.CONDUCTIVECOMPONENTS, 1),
                 new CostData(Material.HEATCONDUCTIONWIRING, 1),

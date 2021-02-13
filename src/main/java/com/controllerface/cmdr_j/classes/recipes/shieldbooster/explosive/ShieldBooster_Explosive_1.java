@@ -15,7 +15,7 @@ public class ShieldBooster_Explosive_1 extends AbstractModificationRecipe
         super(ShieldBooster_Explosive_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.ExplosiveResistance, 7d),
+                                new ItemEffectData(ItemEffect.ExplosiveResistance, 8d),
                                 new ItemEffectData(ItemEffect.KineticResistance, -1d),
                                 new ItemEffectData(ItemEffect.ThermicResistance, -1d)
                         ),

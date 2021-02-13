@@ -15,9 +15,9 @@ public class Weapon_ShortRange_3 extends AbstractModificationRecipe
         super(Weapon_ShortRange_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Damage, 51d),
-                                new ItemEffectData(ItemEffect.Range, -30d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, 20d)
+                                new ItemEffectData(ItemEffect.Damage_Percent, 51d),
+                                new ItemEffectData(ItemEffect.Range_Percent, -30d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, 20d)
                         ),
                 new CostData(Material.ELECTROCHEMICALARRAYS, 1),
                 new CostData(Material.CONSUMERFIRMWARE, 1),

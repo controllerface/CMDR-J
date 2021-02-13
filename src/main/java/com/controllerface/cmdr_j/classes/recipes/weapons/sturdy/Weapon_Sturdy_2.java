@@ -15,10 +15,10 @@ public class Weapon_Sturdy_2 extends AbstractModificationRecipe
         super(Weapon_Sturdy_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 150d),
-                                new ItemEffectData(ItemEffect.Mass, 40d),
-                                new ItemEffectData(ItemEffect.ArmourPenetration, 30d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, -15d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 150d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 40d),
+                                new ItemEffectData(ItemEffect.ArmourPenetration_Percent, 30d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, -15d)
                         ),
                 new CostData(Material.NICKEL, 1),
                 new CostData(Material.SHIELDEMITTERS, 1));

@@ -15,9 +15,9 @@ public class PowerPlant_Boosted_1 extends AbstractModificationRecipe
         super(PowerPlant_Boosted_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.HeatEfficiency, 5d),
-                                new ItemEffectData(ItemEffect.Integrity, -5d),
-                                new ItemEffectData(ItemEffect.PowerCapacity, 12d)
+                                new ItemEffectData(ItemEffect.HeatEfficiency_Percent, 5d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -5d),
+                                new ItemEffectData(ItemEffect.PowerCapacity_Percent, 12d)
                         ),
                 new CostData(Material.SULPHUR, 1));
     }

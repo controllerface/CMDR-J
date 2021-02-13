@@ -15,11 +15,11 @@ public class ShieldGenerator_Optimised_3 extends AbstractModificationRecipe
         super(ShieldGenerator_Optimised_3.class.getSimpleName(), ItemGrade.GRADE_3,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -15d),
-                                new ItemEffectData(ItemEffect.Mass, -34d),
-                                new ItemEffectData(ItemEffect.ShieldGenOptimalMass, -4d),
-                                new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 13.5d),
-                                new ItemEffectData(ItemEffect.PowerDraw, -30d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -15d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, -34d),
+                                new ItemEffectData(ItemEffect.ShieldGenOptimalMass_Percent, -4d),
+                                new ItemEffectData(ItemEffect.ShieldGenStrength_Percent, 9d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, -30d)
                         ),
                 new CostData(Material.SHIELDCYCLERECORDINGS, 1),
                 new CostData(Material.GERMANIUM, 1),

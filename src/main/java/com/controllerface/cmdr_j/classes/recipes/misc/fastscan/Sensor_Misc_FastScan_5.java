@@ -15,9 +15,9 @@ public class Sensor_Misc_FastScan_5 extends AbstractModificationRecipe
         super(Sensor_Misc_FastScan_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -50d),
-                                new ItemEffectData(ItemEffect.Range, -25d),
-                                new ItemEffectData(ItemEffect.ScannerTimeToScan, -80d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -50d),
+                                new ItemEffectData(ItemEffect.Range_Percent, -25d),
+                                new ItemEffectData(ItemEffect.ScannerTimeToScan_Percent, -80d)
                         ),
                 new CostData(Material.ADAPTIVEENCRYPTORS, 1),
                 new CostData(Material.ARSENIC, 1),

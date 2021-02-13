@@ -55,6 +55,7 @@ public enum ItemEffect
     ShieldGenMinimumMass("T", "Minimum Mass", true),
 
     ShieldGenOptimalMass("T", "Optimal Mass", true),
+    ShieldGenOptimalMass_Percent("%", "Optimal Mass", true),
     EngineOptimalMass("T", "Optimal Mass", true),
     EngineOptimalMass_Percent("%", "Optimal Mass", true),
     FSDOptimalMass("T", "Optimised Mass", true),
@@ -74,8 +75,10 @@ public enum ItemEffect
     Damage_Percent("%", "Damage", true),
     MaximumRange("M", "Maximum Range", true),
     DamageFalloffRange("M", "Damage Falloff Range", true),
+    DamageFalloffRange_Percent("%", "Damage Falloff Range", true),
 
     AmmoClipSize("", "Clip Size", true),
+    AmmoClipSize_Percent("%", "Clip Size", true),
     AmmoMaximum("", "Ammo Max", true),
     AmmoMaximum_Percent("%", "Ammo Max", true),
     ArmourPenetration("", "Piercing", true),
@@ -86,8 +89,10 @@ public enum ItemEffect
     RateOfFire("/S", "Rate of Fire", true),
     RateOfFire_Percent("%", "Rate of Fire", true),
     BurstRateOfFire("","Burst Rate of Fire", true),
+    BurstRateOfFire_Percent("%","Burst Rate of Fire", true),
     BurstSize("", "Burst Size", true),
     DamagePerSecond("/S", "Damage per Second", true),
+    DamagePerSecond_Percent("%", "Damage per Second", true),
     FalloffRange("M", "Falloff Range", true),
     Jitter(UIFunctions.Symbols.DEGREES,"Jitter", false),
     ReloadTime("S", "Reload Time", false),
@@ -172,7 +177,7 @@ public enum ItemEffect
 
     FSDFuelUseIncrease("", "", true),
     MaxFuelPerJump("T", "Maximum Fuel per Jump" ,true),
-    MaxFuelPerJump_Percent("T", "Maximum Fuel per Jump" ,true),
+    MaxFuelPerJump_Percent("%", "Maximum Fuel per Jump" ,true),
 
     // guardian
     FSDJumpRangeBoost("LY", "Jump Range Increase", true, EffectType.GUARDIAN),
@@ -235,7 +240,9 @@ public enum ItemEffect
     FSDInterdictorRange("S", "Range", true),
     ScannerRange("M", "Range", true),
     ScannerTimeToScan("S", "Time to Scan", false),
+    ScannerTimeToScan_Percent("%", "Time to Scan", false),
     SensorTargetScanAngle(UIFunctions.Symbols.DEGREES, "Max Angle", true),
+    SensorTargetScanAngle_Percent("%", "Max Angle", true),
 
 
     /*

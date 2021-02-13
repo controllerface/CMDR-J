@@ -15,10 +15,10 @@ public class ShieldBooster_HeavyDuty_5 extends AbstractModificationRecipe
         super(ShieldBooster_HeavyDuty_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, 15d),
-                                new ItemEffectData(ItemEffect.Mass, 300d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 25d),
-                                new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 45.6d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, 15d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 300d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 25d),
+                                new ItemEffectData(ItemEffect.DefenceModifierShieldMultiplier, 38d)
                         ),
                 new CostData(Material.ANTIMONY, 1),
                 new CostData(Material.POLYMERCAPACITORS, 1),

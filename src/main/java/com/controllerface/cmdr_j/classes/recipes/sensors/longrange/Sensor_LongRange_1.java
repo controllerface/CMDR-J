@@ -15,9 +15,9 @@ public class Sensor_LongRange_1 extends AbstractModificationRecipe
         super(Sensor_LongRange_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Mass, 20d),
-                                new ItemEffectData(ItemEffect.SensorTargetScanAngle, -10d),
-                                new ItemEffectData(ItemEffect.Range, 15d)
+                                new ItemEffectData(ItemEffect.Mass_Percent, 20d),
+                                new ItemEffectData(ItemEffect.SensorTargetScanAngle_Percent, -10d),
+                                new ItemEffectData(ItemEffect.Range_Percent, 15d)
                         ),
                 new CostData(Material.IRON, 1));
     }

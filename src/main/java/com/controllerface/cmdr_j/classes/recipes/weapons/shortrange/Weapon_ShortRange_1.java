@@ -15,8 +15,8 @@ public class Weapon_ShortRange_1 extends AbstractModificationRecipe
         super(Weapon_ShortRange_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Damage, 27d),
-                                new ItemEffectData(ItemEffect.Range, -10d)
+                                new ItemEffectData(ItemEffect.Damage_Percent, 27d),
+                                new ItemEffectData(ItemEffect.Range_Percent, -10d)
                         ),
                 new CostData(Material.NICKEL, 1));
     }

@@ -15,11 +15,11 @@ public class Weapon_HighCapacity_5 extends AbstractModificationRecipe
         super(Weapon_HighCapacity_5.class.getSimpleName(), ItemGrade.GRADE_5,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.AmmoMaximum, 100d),
-                                new ItemEffectData(ItemEffect.AmmoClipSize, 100d),
-                                new ItemEffectData(ItemEffect.Mass, 60d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 20d),
-                                new ItemEffectData(ItemEffect.RateOfFire, 10d)
+                                new ItemEffectData(ItemEffect.AmmoMaximum_Percent, 100d),
+                                new ItemEffectData(ItemEffect.AmmoClipSize_Percent, 100d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 60d),
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 20d),
+                                new ItemEffectData(ItemEffect.RateOfFire_Percent, 10d)
                         ),
                 new CostData(Material.MECHANICALCOMPONENTS, 1),
                 new CostData(Material.MILITARYSUPERCAPACITORS, 1),

@@ -15,8 +15,8 @@ public class Weapon_Efficient_1 extends AbstractModificationRecipe
         super(Weapon_Efficient_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.DamagePerSecond, 8d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, -38d)
+                                new ItemEffectData(ItemEffect.DamagePerSecond_Percent, 8d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, -38d)
                         ),
                 new CostData(Material.SULPHUR, 1));
     }

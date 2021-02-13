@@ -15,8 +15,8 @@ public class Weapon_LightWeight_1 extends AbstractModificationRecipe
         super(Weapon_LightWeight_1.class.getSimpleName(), ItemGrade.GRADE_1,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -20d),
-                                new ItemEffectData(ItemEffect.Mass, -30d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -20d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, -30d)
                         ),
                 new CostData(Material.PHOSPHORUS, 1));
 

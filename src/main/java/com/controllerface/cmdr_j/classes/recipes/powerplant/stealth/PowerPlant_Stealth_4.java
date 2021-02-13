@@ -15,9 +15,9 @@ public class PowerPlant_Stealth_4 extends AbstractModificationRecipe
         super(PowerPlant_Stealth_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.HeatEfficiency, -55d),
-                                new ItemEffectData(ItemEffect.Mass, 16d),
-                                new ItemEffectData(ItemEffect.PowerCapacity, -12d)
+                                new ItemEffectData(ItemEffect.HeatEfficiency_Percent, -55d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, 16d),
+                                new ItemEffectData(ItemEffect.PowerCapacity_Percent, -12d)
                         ),
                 new CostData(Material.HEATVANES, 1),
                 new CostData(Material.GERMANIUM, 1),

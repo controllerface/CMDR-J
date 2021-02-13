@@ -15,11 +15,11 @@ public class Engine_Dirty_4 extends AbstractModificationRecipe
         super(Engine_Dirty_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -12d),
-                                new ItemEffectData(ItemEffect.EngineOptimalMass, -10d),
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -12d),
+                                new ItemEffectData(ItemEffect.EngineOptimalMass_Percent, -10d),
                                 new ItemEffectData(ItemEffect.EngineOptPerformance, 33d),
-                                new ItemEffectData(ItemEffect.PowerDraw, 10d),
-                                new ItemEffectData(ItemEffect.ThermalLoad, 50d)
+                                new ItemEffectData(ItemEffect.PowerDraw_Percent, 10d),
+                                new ItemEffectData(ItemEffect.ThermalLoad_Percent, 50d)
                         ),
                 new CostData(Material.CONFIGURABLECOMPONENTS, 1),
                 new CostData(Material.CONSUMERFIRMWARE, 1),

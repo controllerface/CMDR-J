@@ -15,11 +15,11 @@ public class Weapon_RapidFire_4 extends AbstractModificationRecipe
         super(Weapon_RapidFire_4.class.getSimpleName(), ItemGrade.GRADE_4,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Damage, -4d),
-                                new ItemEffectData(ItemEffect.DistributorDraw, -25d),
-                                new ItemEffectData(ItemEffect.Jitter, 50d),
-                                new ItemEffectData(ItemEffect.ReloadTime, -55d),
-                                new ItemEffectData(ItemEffect.RateOfFire, 35d)
+                                new ItemEffectData(ItemEffect.Damage_Percent, -4d),
+                                new ItemEffectData(ItemEffect.DistributorDraw_Percent, -25d),
+                                new ItemEffectData(ItemEffect.Jitter, 0.5d),
+                                new ItemEffectData(ItemEffect.ReloadTime_Percent, -56d),
+                                new ItemEffectData(ItemEffect.RateOfFire_Percent, 35d)
                         ),
                 new CostData(Material.MECHANICALCOMPONENTS, 1),
                 new CostData(Material.CONSUMERFIRMWARE, 1),

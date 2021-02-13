@@ -15,9 +15,9 @@ public class Sensor_LightWeight_2 extends AbstractModificationRecipe
         super(Sensor_LightWeight_2.class.getSimpleName(), ItemGrade.GRADE_2,
                 new ItemEffects
                         (
-                                new ItemEffectData(ItemEffect.Integrity, -20d),
-                                new ItemEffectData(ItemEffect.Mass, -35d),
-                                new ItemEffectData(ItemEffect.SensorTargetScanAngle, -10d)
+                                new ItemEffectData(ItemEffect.Integrity_Percent, -20d),
+                                new ItemEffectData(ItemEffect.Mass_Percent, -35d),
+                                new ItemEffectData(ItemEffect.SensorTargetScanAngle_Percent, -10d)
                         ),
                 new CostData(Material.MANGANESE, 1),
                 new CostData(Material.SALVAGEDALLOYS, 1));
