@@ -3,6 +3,9 @@ package com.controllerface.cmdr_j.server;
 import com.controllerface.cmdr_j.JSONSupport;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +23,7 @@ import java.util.stream.Stream;
  */
 public class JournalSyncTaskEX implements Runnable
 {
-    private final JournalServlet journalServlet;
+    private final GameState gameState;
 
     private enum SupplementalDataFile
     {
@@ -36,10 +39,15 @@ public class JournalSyncTaskEX implements Runnable
         }
     }
 
-    private static final String JOURNAL_FOLDER = System.getProperty("user.home")
-            + File.separator + "Saved Games"
-            + File.separator + "Frontier Developments"
-            + File.separator + "Elite Dangerous";
+    private static final String DEFAULT_JOURNAL_FOLDER = System.getProperty("user.home")
+        + File.separator + "Saved Games"
+        + File.separator + "Frontier Developments"
+        + File.separator + "Elite Dangerous";
+
+    private static final boolean testing = Boolean.parseBoolean(System.getProperty("journal.test", "false"));
+
+    private static final String journalFolder = setJournalFolder();
+
 
     /**
      * Comparator used when starting up to locate the newest journal file on disk
@@ -80,9 +88,16 @@ public class JournalSyncTaskEX implements Runnable
 
     private long lastFileSize = 0;
 
-    public JournalSyncTaskEX(JournalServlet journalServlet)
+    public JournalSyncTaskEX(GameState gameState)
     {
-        this.journalServlet = journalServlet;
+        this.gameState = gameState;
+    }
+
+    private static String setJournalFolder()
+    {
+        return testing
+            ? System.getProperty("journal.test.folder")
+            : DEFAULT_JOURNAL_FOLDER;
     }
 
     @Override
@@ -90,7 +105,15 @@ public class JournalSyncTaskEX implements Runnable
     {
         Thread.currentThread().setName("Commander Journal Sync");
 
-        initializeJournalData();
+        try
+        {
+            initializeJournalData();
+        }
+        catch (MalformedURLException | URISyntaxException e)
+        {
+            e.printStackTrace();
+            return;
+        }
 
         AtomicBoolean sawChange =  new AtomicBoolean(false);
         WatchKey watchKey;
@@ -102,6 +125,7 @@ public class JournalSyncTaskEX implements Runnable
                     StandardWatchEventKinds.ENTRY_CREATE,
                     StandardWatchEventKinds.ENTRY_MODIFY,
                     StandardWatchEventKinds.OVERFLOW);
+
             System.out.println("Journal Folder : " + watchKey.watchable());
             System.out.println("Journal File: " + currentJournalFile.get());
         }
@@ -118,6 +142,12 @@ public class JournalSyncTaskEX implements Runnable
                 watchKey = watchService.poll(1, TimeUnit.SECONDS);
             }
             catch (InterruptedException e)
+            {
+                go = false;
+                continue;
+            }
+
+            if (Thread.interrupted())
             {
                 go = false;
                 continue;
@@ -181,6 +211,8 @@ public class JournalSyncTaskEX implements Runnable
                     });
             watchKey.reset();
         }
+
+        System.out.println("Done");
     }
 
     private void processEventFile(File file, boolean readAll)
@@ -245,10 +277,12 @@ public class JournalSyncTaskEX implements Runnable
         lastFileSize = file.length();
         currentJournalFile.set(file.getName());
 
+        FileReader reader = null;
+        BufferedReader buf = null;
         try
         {
-            FileReader reader = new FileReader(file);
-            BufferedReader buf = new BufferedReader(reader);
+            reader = new FileReader(file);
+            buf = new BufferedReader(reader);
 
             buf.lines().forEach((e) ->
             {
@@ -260,12 +294,26 @@ public class JournalSyncTaskEX implements Runnable
         {
             e.printStackTrace();
         }
+        finally
+        {
+            if (buf != null)
+            {
+                try
+                {
+                    buf.close();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
         return journalLines.stream();
     }
 
     private static Map<String, Object> readSupplementalFile(SupplementalDataFile dataFile)
     {
-        File journalFolder = new File(JOURNAL_FOLDER);
+        File journalFolder = new File(JournalSyncTaskEX.journalFolder);
 
         File[] dataFiles = journalFolder.listFiles(((dir, name) -> name.equals(dataFile.fileName)));
 
@@ -298,15 +346,24 @@ public class JournalSyncTaskEX implements Runnable
 
     public static File[] listJournalFiles()
     {
-        File journalFolder = new File(JOURNAL_FOLDER);
+        File journalFolder = new File(JournalSyncTaskEX.journalFolder);
+
+        var test = journalFolder.isDirectory();
+
+        System.out.println(test);
+
         return journalFolder.listFiles((directory, file) ->
             file.startsWith("Journal.") && file.endsWith(".log"));
     }
 
-    private void initializeJournalData()
+    private void initializeJournalData() throws MalformedURLException, URISyntaxException
     {
         // todo: maybe this should be configurable
-        journalPath = new File(JOURNAL_FOLDER).toPath();
+        journalPath =
+//            testing
+//            ? Paths.get(new URL(journalFolder).toURI())
+//            :
+                new File(journalFolder).toPath();
 
         File[] journalFiles = listJournalFiles();
 
@@ -345,6 +402,6 @@ public class JournalSyncTaskEX implements Runnable
     {
         Map<String, Object> eventData = JSONSupport.Parse.jsonString.apply(rawEvent);
         JournalEventEX.withName((String) eventData.get("event"))
-            .ifPresent(handler -> handler.process(journalServlet.getGameState(), eventData));
+            .ifPresent(handler -> handler.process(gameState, eventData));
     }
 }

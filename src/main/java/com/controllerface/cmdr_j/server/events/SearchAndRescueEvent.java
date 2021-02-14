@@ -6,17 +6,17 @@ import com.controllerface.cmdr_j.server.GameState;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class MarketSellEvent implements BiConsumer<GameState, Map<String, Object>>
+public class SearchAndRescueEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        var type = ((String) event.get("Type"));
+        var type = ((String) event.get("Name"));
         var count = ((Number) event.get("Count")).intValue();
         var item = Commodity.valueOf(type);
         gameState.adjustCargoCount(item, -1 * count);
 
-        var sale = ((Number) event.get("TotalSale")).intValue();
-        gameState.adjustCreditBalance(sale);
+        var reward = ((Number) event.get("Reward")).intValue();
+        gameState.adjustCreditBalance(reward);
     }
 }

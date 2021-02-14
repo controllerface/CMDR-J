@@ -23,7 +23,6 @@ public class SynthesisHandler implements JournalEventHandler
         String name = ((String) context.getRawData().get("Name"));
         logInventoryMessage(context, "Synthesis Complete: " + name);
 
-        // todo: need a way to check max cargo size. This will be "up to four" limpets, depending on cargo space
         if (name.contains("Limpet")) adjust(context, Commodity.DRONES, 4);
         ((List<Map<String, Object>>) context.getRawData().get("Materials"))
                 .forEach(material -> adjustMaterialCountDown(context, material));

@@ -3,16 +3,10 @@ package com.controllerface.cmdr_j.server.events;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.server.GameState;
-import com.controllerface.cmdr_j.server.MissionData;
-import javafx.util.Pair;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.BiConsumer;
-
-import static com.controllerface.cmdr_j.classes.events.JournalEventTransactions.*;
 
 public class MissionCompletedEvent implements BiConsumer<GameState, Map<String, Object>>
 {
@@ -57,14 +51,9 @@ public class MissionCompletedEvent implements BiConsumer<GameState, Map<String, 
     private void adjustCargoCount(GameState gameState, Map<String, Object> item)
     {
         String name = ((String) item.get("Name"));
-        String nameLocalized = ((String) item.get("Name_Localised"));
-        if (nameLocalized == null)
-        {
-            nameLocalized = name;
-        }
         Commodity commodity = Commodity.valueOf(name.toUpperCase());
         Integer count = ((Integer) item.get("Count"));
-        gameState.adjustCargoCount(commodity, nameLocalized, count);
+        gameState.adjustCargoCount(commodity, count);
     }
 
     private void adjustCommodityCount(GameState gameState, Map<String, Object> item)
@@ -73,13 +62,8 @@ public class MissionCompletedEvent implements BiConsumer<GameState, Map<String, 
             .replace("$","")
             .replace("_Name;","")
             .toUpperCase();
-        String nameLocalized = ((String) item.get("Commodity_Localised"));
-        if (nameLocalized == null)
-        {
-            nameLocalized = name;
-        }
         Commodity commodity = Commodity.valueOf(name.toUpperCase());
         Integer count = ((Integer) item.get("Count"));
-        gameState.adjustCargoCount(commodity, nameLocalized, -1 * count);
+        gameState.adjustCargoCount(commodity, -1 * count);
     }
 }

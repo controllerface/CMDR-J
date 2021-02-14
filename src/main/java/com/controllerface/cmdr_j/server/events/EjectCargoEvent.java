@@ -6,7 +6,7 @@ import com.controllerface.cmdr_j.server.GameState;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class MarketSellEvent implements BiConsumer<GameState, Map<String, Object>>
+public class EjectCargoEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
@@ -15,8 +15,5 @@ public class MarketSellEvent implements BiConsumer<GameState, Map<String, Object
         var count = ((Number) event.get("Count")).intValue();
         var item = Commodity.valueOf(type);
         gameState.adjustCargoCount(item, -1 * count);
-
-        var sale = ((Number) event.get("TotalSale")).intValue();
-        gameState.adjustCreditBalance(sale);
     }
 }

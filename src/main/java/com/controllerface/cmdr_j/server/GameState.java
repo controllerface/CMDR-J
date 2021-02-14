@@ -8,7 +8,6 @@ import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
-import com.controllerface.cmdr_j.classes.tasks.MaterialTradeBlueprint;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.database.EntityKeys;
@@ -48,7 +47,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.DoubleAdder;
@@ -66,11 +64,13 @@ public class GameState
 {
     private final Lock stateLock = new ReentrantLock(true);
 
+    private static final String DATABASE_DIRECTORY = "/db";
+
     /**
      * This object holds the persistent data related to this commander
      */
-    private final PersistentEntityStore database =
-        PersistentEntityStores.newInstance(UIFunctions.DATA_FOLDER + "/db");
+    private final PersistentEntityStore database;
+
 
     /**
      * This is an event sink used when state changes must be communicated to listening clients
@@ -102,6 +102,7 @@ public class GameState
     private String commanderName = "";
     private long creditBalance = 0;
     private double currentFuel = 0;
+    private int cargoCapacity = 0;
 
     private ShipType shipType;
     private StarSystem starSystem;
@@ -268,6 +269,9 @@ public class GameState
     {
         this.globalUpdate = globalUpdate;
 
+        this.database = PersistentEntityStores
+            .newInstance(UIFunctions.DATA_FOLDER + DATABASE_DIRECTORY);
+
         // DEBUG SECTION
 //        database.executeInTransaction(txn ->
 //        {
@@ -316,6 +320,15 @@ public class GameState
 //                });
 //        });
 
+    }
+
+    GameState(String dbDirectory)
+    {
+        this.globalUpdate = (a, b) ->
+            System.out.println("event: " + a + " data: " + b);
+
+        this.database = PersistentEntityStores
+            .newInstance(UIFunctions.DATA_FOLDER + dbDirectory);
     }
 
     private void executeWithLock(Procedure procedure)
@@ -452,6 +465,18 @@ public class GameState
     {
         this.touchdownLatitude = -1;
         this.touchdownLongitude = -1;
+    }
+
+    public int getCargoCapacity()
+    {
+        return cargoCapacity;
+    }
+
+    public int getCurrentTonnage()
+    {
+        return cargo.values().stream()
+            .mapToInt(c->c.count)
+            .sum();
     }
 
     public boolean createWaypoint()
@@ -600,14 +625,14 @@ public class GameState
         extendedStats.put(category, stats);
     }
 
-    public void adjustCargoCount(Commodity commodity, String name, Integer adjustment)
+    public void adjustCargoCount(Commodity commodity, Integer adjustment)
     {
         var commodityData = cargo.computeIfPresent(commodity,
             (k, data) -> data.adjustAndClone(adjustment));
 
         if (commodityData == null)
         {
-            System.err.println("Error: cargo adjusted but not present: " + commodity + " : " +name);
+            System.err.println("Error: cargo adjusted but not present: " + commodity);
             return;
         }
 
@@ -780,9 +805,14 @@ public class GameState
         executeWithLock(() -> globalUpdate.accept("Bearing", "-"));
     }
 
-    public void setShipModule(Statistic statistic, ShipModuleData shipModuleData)
+    public void setShipModule(Statistic moduleSlot, ShipModuleData shipModuleData)
     {
-        shipModules.put(statistic, shipModuleData);
+        shipModules.put(moduleSlot, shipModuleData);
+    }
+
+    public ShipModuleData getShipModule(Statistic moduleSlot)
+    {
+        return shipModules.get(moduleSlot);
     }
 
     public void adjustCreditBalance(long adjustment)
@@ -800,6 +830,13 @@ public class GameState
         var fuelString = String.valueOf(currentFuel);
         shipStatistics.put(ShipStat.Fuel_Level, fuelString);
         executeWithLock(() -> globalUpdate.accept(ShipStat.Fuel_Level.getName(), fuelString));
+    }
+
+    public void refillFuel()
+    {
+        currentFuel = Double.parseDouble(shipStatistics.get(ShipStat.Fuel_Capacity));
+        shipStatistics.put(ShipStat.Fuel_Level, shipStatistics.get(ShipStat.Fuel_Capacity));
+        executeWithLock(() -> globalUpdate.accept(ShipStat.Fuel_Level.getName(), String.valueOf(currentFuel)));
     }
 
     private void updateInternalState(Statistic statistic, String value)
@@ -831,13 +868,17 @@ public class GameState
         {
             if (statistic == ShipStat.Fuel_Level)
             {
-                // todo: parse value
                 currentFuel = Double.parseDouble(value.replace(",",""));
             }
 
             if (statistic == ShipStat.Fuel_Capacity)
             {
                 // todo: parse value
+            }
+
+            if (statistic == ShipStat.CargoCapacity)
+            {
+                cargoCapacity = Integer.parseInt(value.replace(",",""));
             }
 
             if (statistic == ShipStat.Ship)
@@ -2535,6 +2576,13 @@ public class GameState
         });
     }
 
+    public void completeTask(TaskRecipe recipe)
+    {
+        var key = taskCatalog.taskMap.get(recipe);
+        System.out.println("Key: " + key);
+        adjustTask(key, "subtract");
+    }
+
     public boolean adjustTask(String taskKey, String type)
     {
         TaskCatalog.AdjustmentType adjustmentType =
@@ -2609,7 +2657,7 @@ public class GameState
 
         emitTaskData(globalUpdate, taskKey, resultCount);
 
-        executeWithLock(()-> globalUpdate.accept("Task", "materials"));
+        executeWithLock(() -> globalUpdate.accept("Task", "materials"));
 
         return true;
     }

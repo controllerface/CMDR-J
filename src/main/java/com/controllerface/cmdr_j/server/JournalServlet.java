@@ -332,27 +332,6 @@ class JournalServlet extends EventSourceServlet
     JournalServlet()
     {
         gameState = new GameState(this::sendEvent);
-
-//        Thread emitterThread = new Thread(() ->
-//        {
-//            boolean running = true;
-//            while (running)
-//            {
-//                try
-//                {
-//                    var next = eventQueue.take();
-//                    sendEvent(next.name, next.eventData);
-//                }
-//                catch (Exception e)
-//                {
-//                    System.out.println("Event thread error, exiting...");
-//                    e.printStackTrace();
-//                    running = false;
-//                }
-//            }
-//        });
-//        emitterThread.setDaemon(true);
-//        emitterThread.start();
     }
 
     public GameState getGameState()

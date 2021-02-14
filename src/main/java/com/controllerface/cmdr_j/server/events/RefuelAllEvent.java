@@ -10,8 +10,8 @@ public class RefuelAllEvent implements BiConsumer<GameState, Map<String, Object>
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        // todo: adjust fuel amount
         var cost = ((int) event.get("Cost"));
         gameState.adjustCreditBalance(-1 * cost);
+        gameState.refillFuel();
     }
 }

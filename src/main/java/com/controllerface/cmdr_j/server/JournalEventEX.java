@@ -44,74 +44,74 @@ public enum JournalEventEX
      */
     RefuelAll(new RefuelAllEvent()),
     RepairAll(new RepairAllEvent()),
-//    Outfitting(new OutfittingHandler()),
+//    Outfitting(new OutfittingHandler()),                      // informational
     Loadout(new LoadoutEvent()),
     SetUserShipName(new SetUserShipNameEvent()),
-//    FuelScoop(new FuelScoopHandler()),
-//    DiscoveryScan(new DiscoveryScanHandler()),
+//    FuelScoop(new FuelScoopHandler()),                        // fuel
+//    DiscoveryScan(new DiscoveryScanHandler()),                // informational
     Scan(new ScanEvent()),
-//    Shipyard(new ShipyardHandler()),
-//    ShipyardBuy(new ShipyardBuyHandler()),
-//    ShipyardSell(new ShipyardSellHandler()),
-//    ShipyardTransfer(new ShipyardTransferHandler()),
-//    ShipTargeted(new ShipTargetedHandler()),
-//    StoredShips(new StoredShipsHandler()),
-//    CarrierBuy(new CarrierBuyHandler()),
-//    CarrierNameChange(new CarrierNameChangeHandler()),
+//    Shipyard(new ShipyardHandler()),                          // informational
+//    ShipyardBuy(new ShipyardBuyHandler()),                    // credits
+//    ShipyardSell(new ShipyardSellHandler()),                  // credits
+//    ShipyardTransfer(new ShipyardTransferHandler()),          // informational
+//    ShipTargeted(new ShipTargetedHandler()),                  // informational
+//    StoredShips(new StoredShipsHandler()),                    // informational
+//    CarrierBuy(new CarrierBuyHandler()),                      // informational
+//    CarrierNameChange(new CarrierNameChangeHandler()),        // informational
 
     /*
     Startup
      */
-//    Powerplay(new PowerplayHandler()),
+//    Powerplay(new PowerplayHandler()),                        // informational
     EngineerProgress(new EngineerProgressEvent()),
     Commander(new CommanderEvent()),
     Cargo(new CargoEvent()),
     LoadGame(new LoadGameEvent()),
     Materials(new MaterialsEvent()),
-//    SquadronStartup(new SquadronStartupHandler()),
-//    Fileheader(context -> {}),
+//    SquadronStartup(new SquadronStartupHandler()),            // informational
+//    Fileheader(context -> {}),                                // informational
 
     /*
     Status
      */
     Status(new StatusEvent()),
-//    HeatWarning(new HeatWarningHandler()),
-//    HullDamage(new HullDamageHandler()),
-//    ShieldState(new ShieldStateHandler()),
-//    UnderAttack(new UnderAttackHandler()),
-//    LaunchSRV(new LaunchSRVHandler()),
-//    DockSRV(new DockSRVHandler()),
-//    ModuleInfo(new ModuleInfoHandler()),
+//    HeatWarning(new HeatWarningHandler()),                    // informational
+//    HullDamage(new HullDamageHandler()),                      // informational
+//    ShieldState(new ShieldStateHandler()),                    // informational
+//    UnderAttack(new UnderAttackHandler()),                    // informational
+//    LaunchSRV(new LaunchSRVHandler()),                        // informational
+//    DockSRV(new DockSRVHandler()),                            // informational
+//    ModuleInfo(new ModuleInfoHandler()),                      // informational
 
     /*
     Exploration
      */
     SAAScanComplete(new SAAScanCompleteEvent()),
-//    FSSSignalDiscovered(new FSSSignalDiscoveredHandler()),
+//    FSSSignalDiscovered(new FSSSignalDiscoveredHandler()),    // informational
     FSSDiscoveryScan(new FSSDiscoveryScanEvent()),
     FSSAllBodiesFound(new FSSAllBodiesFoundEvent()),
-//    CodexEntry(new CodexEntryHandler()),
+//    CodexEntry(new CodexEntryHandler()),                      // informational
 
     /*
     Travel
      */
-//    DockingRequested(new DockingRequestedHandler()),
-//    DockingGranted(new DockingGrantedHandler()),
-//    DockingDenied(new DockingDeniedHandler()),
+//    DockingRequested(new DockingRequestedHandler()),          // informational
+//    DockingGranted(new DockingGrantedHandler()),              // informational
+//    DockingDenied(new DockingDeniedHandler()),                // informational
     ApproachBody(new ApproachBodyEvent()),
     LeaveBody(new LeaveBodyEvent()),
     ApproachSettlement(new ApproachSettlementEvent()),
-//    Docked(new DockedHandler()),
+//    Docked(new DockedHandler()),                              // location info
     FSDJump(new FSDJumpEvent()),
-//    FSDTarget(new FSDTargetHandler()),
+//    FSDTarget(new FSDTargetHandler()),                        // informational
     Location(new LocationEvent()),
     NavRoute(new NavRouteEvent()),
     Touchdown(new TouchdownEvent()),
-//    StartJump(new StartJumpHandler()),
-//    SupercruiseEntry(new SupercruiseEntryHandler()),
-//    SupercruiseExit(new SupercruiseExitHandler()),
-//    Undocked(new UndockedHandler()),
-//    USSDrop(new USSDropHandler()),
+//    StartJump(new StartJumpHandler()),                        // location info
+//    SupercruiseEntry(new SupercruiseEntryHandler()),          // informational
+//    SupercruiseExit(new SupercruiseExitHandler()),            // location info
+//    Undocked(new UndockedHandler()),                          // location info
+//    USSDrop(new USSDropHandler()),                            // informational
 
     /*
     Bounties
@@ -124,13 +124,13 @@ public enum JournalEventEX
     Commodities
      */
     BuyDrones(new BuyDronesEvent()),
-//    CargoDepot(new CargoDepotHandler()),
-//    CollectCargo(new CollectCargoHandler()),
-//    EjectCargo(new EjectCargoHandler()),
-//    LaunchDrone(new LaunchDroneHandler()),
+    CargoDepot(new CargoDepotEvent()),
+    CollectCargo(new CollectCargoEvent()),
+    EjectCargo(new EjectCargoEvent()),
+    LaunchDrone(new LaunchDroneEvent()),
     MarketBuy(new MarketBuyEvent()),
     MarketSell(new MarketSellEvent()),
-//    MiningRefined(new MiningRefinedHandler()),
+    MiningRefined(new MiningRefinedEvent()),
     SellDrones(new SellDronesEvent()),
     BuyAmmo(new BuyAmmoEvent()),
 
@@ -138,16 +138,16 @@ public enum JournalEventEX
     Engineers
      */
     EngineerContribution(new EngineerContributionEvent()),
-//    EngineerCraft(new EngineerCraftHandler()),
-//    TechnologyBroker(new TechnologyBrokerHandler()),
+    EngineerCraft(new EngineerCraftEvent()),
+    TechnologyBroker(new TechnologyBrokerEvent()),
 
     /*
     Materials
      */
-//    MaterialCollected(new MaterialCollectedHandler()),
-//    MaterialDiscarded(new MaterialDiscardedHandler()),
-//    MaterialTrade(new MaterialTradeHandler()),
-//    Synthesis(new SynthesisHandler()),
+    MaterialCollected(new MaterialCollectedEvent()),
+    MaterialDiscarded(new MaterialDiscardedEvent()),
+    MaterialTrade(new MaterialTradeEvent()),
+    Synthesis(new SynthesisEvent()),
 
     /*
     Missions
@@ -157,9 +157,9 @@ public enum JournalEventEX
     MissionCompleted(new MissionCompletedEvent()),
     MissionFailed(new MissionFailedEvent()),
     MissionAbandoned(new MissionAbandonedEvent()),
-//    ScientificResearch(new ScientificResearchHandler()),
+    ScientificResearch(new ScientificResearchEvent()),
     CommunityGoalReward(new CommunityGoalRewardEvent()),
-//    SearchAndRescue(new SearchAndRescueHandler()),
+    SearchAndRescue(new SearchAndRescueEvent()),
 
     /*
     Modules

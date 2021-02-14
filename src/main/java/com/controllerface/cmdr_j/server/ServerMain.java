@@ -11,7 +11,7 @@ public class ServerMain
 
         JournalServlet journalServlet = new JournalServlet();
 
-        journalSync.submit(new JournalSyncTaskEX(journalServlet));
+        journalSync.submit(new JournalSyncTaskEX(journalServlet.getGameState()));
 
         JournalServer.withServlet(journalServlet).port(9000).start().join();
 

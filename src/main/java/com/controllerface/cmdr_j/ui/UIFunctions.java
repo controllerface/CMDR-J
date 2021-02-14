@@ -21,9 +21,12 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static java.lang.Math.*;
 
@@ -212,6 +215,18 @@ public class UIFunctions
      */
     public static class Data
     {
+        public static final Predicate<File> destroyDirectory =
+            (targetDirectory) -> Optional.ofNullable(targetDirectory)
+                .map(File::listFiles)
+                .map(directoryContents -> Arrays.stream(directoryContents)
+                    .map(file -> file.isDirectory()
+                        ? UIFunctions.Data.destroyDirectory.test(file)
+                        : file.delete())
+                    .reduce((previousResults, nextResult) -> previousResults && nextResult)
+                    .map(contentRemovalResults -> contentRemovalResults && targetDirectory.delete())
+                    .orElse(targetDirectory.delete()))
+                .orElse(false);
+
         static final Callback<TableColumn<TaskDisplay, ProgressBar>, TableCell<TaskDisplay, ProgressBar>>
                 taskProgressCellFactory = (param -> new TableCell<TaskDisplay, ProgressBar>()
             {
