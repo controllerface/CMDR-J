@@ -96,6 +96,7 @@ public class GameStateTest extends TestCase
         gameState.adjustTask("Trade:Manufactured_Materials:Conductive:Conductive Ceramics:Compound Shielding", "add");
         gameState.adjustTask("Trade:Manufactured_Materials:Conductive:Conductive Ceramics:Compound Shielding", "add");
         gameState.adjustTask("Trade:Manufactured_Materials:Conductive:Conductive Ceramics:Compound Shielding", "add");
+        gameState.adjustTask("Purchase:Optional_Internal:int_repairer_size5_class5", "add");
         executorService.submit(new JournalSyncTaskEX(gameState));
 
         Thread.sleep(Duration.ofSeconds(10).toMillis());

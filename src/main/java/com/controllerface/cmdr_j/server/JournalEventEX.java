@@ -51,8 +51,8 @@ public enum JournalEventEX
 //    DiscoveryScan(new DiscoveryScanHandler()),                // informational
     Scan(new ScanEvent()),
 //    Shipyard(new ShipyardHandler()),                          // informational
-//    ShipyardBuy(new ShipyardBuyHandler()),                    // credits
-//    ShipyardSell(new ShipyardSellHandler()),                  // credits
+    ShipyardBuy(new ShipyardBuyEvent()),
+    ShipyardSell(new ShipyardSellEvent()),
 //    ShipyardTransfer(new ShipyardTransferHandler()),          // informational
 //    ShipTargeted(new ShipTargetedHandler()),                  // informational
 //    StoredShips(new StoredShipsHandler()),                    // informational
@@ -164,18 +164,18 @@ public enum JournalEventEX
     /*
     Modules
      */
-//    ModuleBuy(new ModuleBuyHandler()),
-//    ModuleRetrieve(new ModuleRetrieveHandler()),
-//    ModuleSell(new ModuleSellHandler()),
-//    ModuleSellRemote(new ModuleSellRemoteHandler()),
-//    ModuleStore(new ModuleStoreHandler()),
+    ModuleBuy(new ModuleBuyEvent()),
+//    ModuleRetrieve(new ModuleRetrieveHandler()),              // module install
+    ModuleSell(new ModuleSellEvent()),
+    ModuleSellRemote(new ModuleSellRemoteEvent()),
+    ModuleStore(new ModuleStoreEvent()),
 //    StoredModules(new StoredModulesHandler()),
 
     /*
     PowerPlay
      */
-//    PowerplayCollect(new PowerplayCollectHandler()),
-//    PowerplayDeliver(new PowerplayDeliverHandler()),
+    PowerplayCollect(new PowerplayCollectEvent()),
+    PowerplayDeliver(new PowerplayDeliverEvent()),
     PowerplaySalary(new PowerplaySalaryEvent()),
 
     /*
@@ -184,10 +184,10 @@ public enum JournalEventEX
 //    Music(new MusicHandler()),
     Statistics(new StatisticsEvent()),
     RedeemVoucher(new RedeemVoucherEvent()),
-//    Resurrect(new ResurrectHandler()),
+    Resurrect(new ResurrectEvent()),
 //    ReceiveText(new ReceiveTextHandler()),
-//    NpcCrewPaidWage(new NpcCrewPaidWageHandler()),
-//    SellShipOnRebuy(new SellShipOnRebuyHandler()),
+    NpcCrewPaidWage(new NpcCrewPaidWageEvent()),
+    SellShipOnRebuy(new SellShipOnRebuyEvent()),
     DatalinkVoucher(new DatalinkVoucherEvent()),
     SellExplorationData(new SellExplorationDataEvent()),
     MultiSellExplorationData(new MultiSellExplorationDataEvent()),

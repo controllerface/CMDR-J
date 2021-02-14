@@ -108,6 +108,12 @@ public class EngineerCraftEvent implements BiConsumer<GameState, Map<String, Obj
 
         var shipModule = moduleBuilder.build();
         gameState.setShipModule(slot, shipModule);
+
+        gameState.emitLoadoutEvent();
+        gameState.emitCurrentMass();
+        gameState.emitPowerStats();
+        gameState.emitOffenseStats();
+        gameState.emitDefenseStats();
     }
 
     private void adjustMaterial(GameState gameState, Map<String, Object> ingredient)

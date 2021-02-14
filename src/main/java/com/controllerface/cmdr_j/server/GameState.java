@@ -805,6 +805,11 @@ public class GameState
         executeWithLock(() -> globalUpdate.accept("Bearing", "-"));
     }
 
+    public void emptyModuleSlot(Statistic moduleSlot)
+    {
+        shipModules.remove(moduleSlot);
+    }
+
     public void setShipModule(Statistic moduleSlot, ShipModuleData shipModuleData)
     {
         shipModules.put(moduleSlot, shipModuleData);

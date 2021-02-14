@@ -11,6 +11,7 @@ import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.ui.Icon;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -187,5 +188,11 @@ public class ModulePurchaseRecipe implements TaskRecipe
                     && other.product.quantity == this.product.quantity);
         }
         return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(enumName);
     }
 }

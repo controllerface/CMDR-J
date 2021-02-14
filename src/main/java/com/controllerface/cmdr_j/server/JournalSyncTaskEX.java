@@ -211,8 +211,6 @@ public class JournalSyncTaskEX implements Runnable
                     });
             watchKey.reset();
         }
-
-        System.out.println("Done");
     }
 
     private void processEventFile(File file, boolean readAll)
@@ -347,23 +345,13 @@ public class JournalSyncTaskEX implements Runnable
     public static File[] listJournalFiles()
     {
         File journalFolder = new File(JournalSyncTaskEX.journalFolder);
-
-        var test = journalFolder.isDirectory();
-
-        System.out.println(test);
-
         return journalFolder.listFiles((directory, file) ->
             file.startsWith("Journal.") && file.endsWith(".log"));
     }
 
     private void initializeJournalData() throws MalformedURLException, URISyntaxException
     {
-        // todo: maybe this should be configurable
-        journalPath =
-//            testing
-//            ? Paths.get(new URL(journalFolder).toURI())
-//            :
-                new File(journalFolder).toPath();
+        journalPath = new File(journalFolder).toPath();
 
         File[] journalFiles = listJournalFiles();
 
