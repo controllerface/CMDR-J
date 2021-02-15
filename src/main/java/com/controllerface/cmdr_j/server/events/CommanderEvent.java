@@ -12,7 +12,7 @@ public class CommanderEvent implements BiConsumer<GameState, Map<String, Object>
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        String name = Optional.ofNullable(event.get("Name"))
+        var name = Optional.ofNullable(event.get("Name"))
             .map(rawName -> ((String) rawName))
             .orElse("[ERROR]");
 

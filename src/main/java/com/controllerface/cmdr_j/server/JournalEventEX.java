@@ -43,7 +43,10 @@ public enum JournalEventEX
     Ship
      */
     RefuelAll(new RefuelAllEvent()),
+    RefuelPartial(new RefuelPartialEvent()),
     RepairAll(new RepairAllEvent()),
+    Repair(new RepairEvent()),
+    RestockVehicle(new RestockVehicleEvent()),
 //    Outfitting(new OutfittingHandler()),                      // informational
     Loadout(new LoadoutEvent()),
     SetUserShipName(new SetUserShipNameEvent()),
@@ -53,7 +56,7 @@ public enum JournalEventEX
 //    Shipyard(new ShipyardHandler()),                          // informational
     ShipyardBuy(new ShipyardBuyEvent()),
     ShipyardSell(new ShipyardSellEvent()),
-//    ShipyardTransfer(new ShipyardTransferHandler()),          // informational
+    ShipyardTransfer(new ShipyardTransferEvent()),
 //    ShipTargeted(new ShipTargetedHandler()),                  // informational
 //    StoredShips(new StoredShipsHandler()),                    // informational
     CarrierBuy(new CarrierBuyEvent()),

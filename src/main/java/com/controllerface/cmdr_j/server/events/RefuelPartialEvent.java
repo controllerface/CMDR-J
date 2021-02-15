@@ -5,13 +5,14 @@ import com.controllerface.cmdr_j.server.GameState;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class RefuelAllEvent implements BiConsumer<GameState, Map<String, Object>>
+public class RefuelPartialEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
         var cost = ((Number) event.get("Cost")).intValue();
         gameState.adjustCreditBalance(-1 * cost);
-        gameState.refillFuel();
+        // todo: improve fuel tracking and add adjust method
+        //gameState.refillFuel();
     }
 }

@@ -12,11 +12,11 @@ public class CarrierModulePackEvent implements BiConsumer<GameState, Map<String,
     public void accept(GameState gameState, Map<String, Object> event)
     {
         Optional.ofNullable(event.get("Cost"))
-            .map(c -> ((Number) c).longValue())
-            .ifPresent(cost->gameState.adjustCreditBalance(-1 * cost));
+            .map(cost -> ((Number) cost).longValue())
+            .ifPresent(cost -> gameState.adjustCreditBalance(-1 * cost));
 
         Optional.ofNullable(event.get("Refund"))
-            .map(r -> ((Number) r).longValue())
+            .map(refund -> ((Number) refund).longValue())
             .ifPresent(gameState::adjustCreditBalance);
     }
 }

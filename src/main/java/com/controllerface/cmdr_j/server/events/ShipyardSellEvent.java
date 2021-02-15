@@ -10,7 +10,7 @@ public class ShipyardSellEvent implements BiConsumer<GameState, Map<String, Obje
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        int price = ((int) event.get("ShipPrice"));
+        var price = ((Number) event.get("ShipPrice")).intValue();
         gameState.adjustCreditBalance(price);
     }
 }

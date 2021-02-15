@@ -10,7 +10,7 @@ public class RepairAllEvent implements BiConsumer<GameState, Map<String, Object>
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        var cost = ((int) event.get("Cost"));
+        var cost = ((Number) event.get("Cost")).intValue();
         gameState.adjustCreditBalance(-1 * cost);
     }
 }

@@ -25,9 +25,9 @@ public class MaterialsEvent implements BiConsumer<GameState, Map<String, Object>
 
     private void setMaterialCount(GameState gameState, Map<String, Object> item)
     {
-        String name = ((String) item.get("Name"));
-        Material material = Material.valueOf(name.toUpperCase());
-        Integer count = ((Integer) item.get("Count"));
+        var name = ((String) item.get("Name")).toUpperCase();
+        var count = ((Integer) item.get("Count"));
+        var material = Material.valueOf(name);
         gameState.setMaterialCount(material, count);
     }
 }

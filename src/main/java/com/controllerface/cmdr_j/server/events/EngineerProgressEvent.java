@@ -30,7 +30,7 @@ public class EngineerProgressEvent implements BiConsumer<GameState, Map<String, 
     private void setEngineerProgress(GameState gameState, Map<String, Object> engineerData)
     {
         var id = ((Number) engineerData.get("EngineerID")).intValue();
-        Engineer engineer = Engineer.findEngineerById(id);
+        var engineer = Engineer.findEngineerById(id);
         if (engineer == null)
         {
             System.err.println("Unknown Engineer ID: " + id);

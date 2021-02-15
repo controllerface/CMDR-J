@@ -15,13 +15,13 @@ public class ModuleBuyEvent implements BiConsumer<GameState, Map<String, Object>
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        int cost = ((int) event.get("BuyPrice"));
+        var cost = ((Number) event.get("BuyPrice")).intValue();
         gameState.adjustCreditBalance(-1 * cost);
 
         Optional.ofNullable(event.get("SellPrice"))
             .ifPresent(sellPrice ->
             {
-                int sale = (int) sellPrice;
+                var sale = ((Number) sellPrice).intValue();
                 gameState.adjustCreditBalance(sale);
             });
 

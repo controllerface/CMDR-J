@@ -28,14 +28,14 @@ public class CargoEvent implements BiConsumer<GameState, Map<String, Object>>
 
     private void setCargoCount(GameState gameState, Map<String, Object> item)
     {
-        String name = ((String) item.get("Name"));
-        String nameLocalized = ((String) item.get("Name_Localised"));
+        var name = ((String) item.get("Name"));
+        var nameLocalized = ((String) item.get("Name_Localised"));
         if (nameLocalized == null)
         {
             nameLocalized = name;
         }
-        Commodity commodity = Commodity.valueOf(name.toUpperCase());
-        Integer count = ((Integer) item.get("Count"));
+        var commodity = Commodity.valueOf(name.toUpperCase());
+        var count = ((Number) item.get("Count")).intValue();
         gameState.setCargoCount(commodity, nameLocalized, count);
     }
 }

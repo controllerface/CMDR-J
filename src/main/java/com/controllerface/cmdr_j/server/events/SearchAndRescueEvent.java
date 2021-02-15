@@ -11,7 +11,7 @@ public class SearchAndRescueEvent implements BiConsumer<GameState, Map<String, O
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        var type = ((String) event.get("Name"));
+        var type = ((String) event.get("Name")).toUpperCase();
         var count = ((Number) event.get("Count")).intValue();
         var item = Commodity.valueOf(type);
         gameState.adjustCargoCount(item, -1 * count);

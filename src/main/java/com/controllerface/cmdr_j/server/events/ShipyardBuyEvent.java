@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.server.events;
 import com.controllerface.cmdr_j.server.GameState;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class ShipyardBuyEvent implements BiConsumer<GameState, Map<String, Object>>
@@ -10,13 +11,14 @@ public class ShipyardBuyEvent implements BiConsumer<GameState, Map<String, Objec
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        int price = ((int) event.get("ShipPrice"));
+        var price = ((Number) event.get("ShipPrice")).intValue();
         gameState.adjustCreditBalance(-1 * price);
 
-        if (event.get("SellPrice") != null)
-        {
-            int sale = ((int) event.get("SellPrice"));
-            gameState.adjustCreditBalance(sale);
-        }
+        Optional.ofNullable(event.get("SellPrice"))
+            .ifPresent(sellPrice ->
+            {
+                var sale = ((Number) sellPrice).intValue();
+                gameState.adjustCreditBalance(sale);
+            });
     }
 }

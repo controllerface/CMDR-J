@@ -42,28 +42,28 @@ public class MissionCompletedEvent implements BiConsumer<GameState, Map<String, 
 
     private void adjustMaterialCount(GameState gameState, Map<String, Object> item)
     {
-        String name = ((String) item.get("Name"));
-        Material material = Material.valueOf(name.toUpperCase());
-        Integer count = ((Integer) item.get("Count"));
+        var name = ((String) item.get("Name")).toUpperCase();
+        var count = ((Integer) item.get("Count"));
+        var material = Material.valueOf(name);
         gameState.adjustMaterialCount(material, count);
     }
 
     private void adjustCargoCount(GameState gameState, Map<String, Object> item)
     {
-        String name = ((String) item.get("Name"));
-        Commodity commodity = Commodity.valueOf(name.toUpperCase());
-        Integer count = ((Integer) item.get("Count"));
+        var name = ((String) item.get("Name")).toUpperCase();
+        var count = ((Integer) item.get("Count"));
+        var commodity = Commodity.valueOf(name);
         gameState.adjustCargoCount(commodity, count);
     }
 
     private void adjustCommodityCount(GameState gameState, Map<String, Object> item)
     {
-        String name = ((String) item.get("Commodity"))
+        var name = ((String) item.get("Commodity"))
             .replace("$","")
             .replace("_Name;","")
             .toUpperCase();
-        Commodity commodity = Commodity.valueOf(name.toUpperCase());
-        Integer count = ((Integer) item.get("Count"));
+        var count = ((Integer) item.get("Count"));
+        var commodity = Commodity.valueOf(name);
         gameState.adjustCargoCount(commodity, -1 * count);
     }
 }
