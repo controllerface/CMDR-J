@@ -311,6 +311,14 @@
     margin-top: .5em;
 }
 
+.communityGoalRow
+{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin: .2em;
+    margin-top: .5em;
+}
+
 .bodyRow
 {
     display: grid;

@@ -645,12 +645,18 @@ details > summary::-webkit-details-marker
 {
     display: grid;
     grid-template:
-        "missionTab tasksTab"
-        "panel      panel";
-    grid-template-columns: 1fr 1fr;
+        "communityTab missionTab tasksTab"
+        "panel        panel      panel";
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     margin-left: auto;
     margin-right: auto;
+}
+
+#communityTab
+{
+    grid-area: communityTab;
+    border-radius: 5px;
 }
 
 #missionTab

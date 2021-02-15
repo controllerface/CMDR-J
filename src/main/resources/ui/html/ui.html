@@ -10,6 +10,8 @@
     <script src="cargoManifest.js"></script>
     <script src="cartographicData.js"></script>
     <script src="commanderStat.js"></script>
+    <script src="communityGoal.js"></script>
+    <script src="communityGoals.js"></script>
     <script src="conflictData.js"></script>
     <script src="currentMissions.js"></script>
     <script src="defenseResistance.js"></script>
@@ -1237,6 +1239,82 @@
         </slot>
     </template>
 
+    <!-- Community goals container -->
+    <template id="template_CommunityGoals">
+        <link rel="stylesheet" href="statistics.css">
+        <slot>
+            <div class="emptySection">No active community goals</div>
+        </slot>
+    </template>
+
+    <!-- Community goal data -->
+    <template id="template_CommunityGoal">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b id="communityGoal_name"></b>
+            </div>
+        </div>
+
+        <div class="communityGoalRow">
+            <span class="statEntryName">System</span>
+            <span class="statEntryRightCap" id="communityGoal_system"></span>
+        </div>
+
+        <span class="communityGoalRow">
+            <span class="statEntryName">Location</span>
+            <span class="statEntryRightCap" id="communityGoal_location"></span>
+        </span>
+
+
+        <span class="communityGoalRow">
+            <span class="statEntryName">Expiration</span>
+            <span class="statEntryRightCap" id="communityGoal_expiry"></span>
+        </span>
+
+        <hr>
+
+        <span class="communityGoalRow">
+            <span class="statEntryName">Your Current Percentile</span>
+            <span class="statEntryRightCap" id="communityGoal_percentile">none</span>
+        </span>
+
+        <span class="communityGoalRow">
+            <span class="statEntryName">Your Contribution</span>
+            <span class="statEntryRightCap" id="communityGoal_contribution">0</span>
+        </span>
+
+        <span class="communityGoalRow">
+            <span class="statEntryName">Your Current Bonus</span>
+            <span class="statEntryRightCap" id="communityGoal_bonus">0</span>
+        </span>
+
+        <hr>
+
+        <span class="communityGoalRow">
+            <span class="statEntryName">Tier Reached</span>
+            <span class="statEntryRightCap" id="communityGoal_tier">0</span>
+        </span>
+
+        <span class="communityGoalRow">
+            <span class="statEntryName">Total Contributors</span>
+            <span class="statEntryRightCap" id="communityGoal_contributors">0</span>
+        </span>
+
+        <span class="communityGoalRow">
+            <span class="statEntryName">Total Amount Contributed</span>
+            <span class="statEntryRightCap" id="communityGoal_total">0</span>
+        </span>
+
+        <hr>
+
+        <span class="communityGoalRow">
+            <span class="statEntryName">Complete</span>
+            <span class="statEntryRightCap" id="communityGoal_complete">false</span>
+        </span>
+
+    </template>
+
 </head>
 
 <body>
@@ -1667,7 +1745,7 @@
 
             <input name="inventoryTabs" type="radio" id="cargoTabButton" class="tabInput"/>
             <label id="cargoTab" for="cargoTabButton" class="tabLabel">Cargo</label>
-            <div class="tabPanel" id="tradeCargo">
+            <div class="tabPanel">
                 <cargo-manifest id="tradeCargo"></cargo-manifest>
             </div>
 
@@ -1735,6 +1813,12 @@
     <label id="activitiesTab" for="activitiesTabButton" class="tabLabel">Activities</label>
     <div class="tabPanel">
         <div id="activitiesContainer">
+
+            <input name="activitiesTabs" type="radio" id="communityTabButton" class="tabInput"/>
+            <label id="communityTab" for="communityTabButton" class="tabLabel">Community Goals</label>
+            <div class="tabPanel">
+                <community-goals id="communityGoals"></community-goals>
+            </div>
 
             <input name="activitiesTabs" type="radio" id="missionTabButton" class="tabInput"/>
             <label id="missionTab" for="missionTabButton" class="tabLabel">Missions</label>

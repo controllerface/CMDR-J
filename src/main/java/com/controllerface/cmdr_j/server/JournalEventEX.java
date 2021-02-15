@@ -47,7 +47,7 @@ public enum JournalEventEX
 //    Outfitting(new OutfittingHandler()),                      // informational
     Loadout(new LoadoutEvent()),
     SetUserShipName(new SetUserShipNameEvent()),
-//    FuelScoop(new FuelScoopHandler()),                        // fuel
+    FuelScoop(new FuelScoopEvent()),
 //    DiscoveryScan(new DiscoveryScanHandler()),                // informational
     Scan(new ScanEvent()),
 //    Shipyard(new ShipyardHandler()),                          // informational
@@ -56,13 +56,15 @@ public enum JournalEventEX
 //    ShipyardTransfer(new ShipyardTransferHandler()),          // informational
 //    ShipTargeted(new ShipTargetedHandler()),                  // informational
 //    StoredShips(new StoredShipsHandler()),                    // informational
-//    CarrierBuy(new CarrierBuyHandler()),                      // informational
+    CarrierBuy(new CarrierBuyEvent()),
+    CarrierBankTransfer(new CarrierBankTransferEvent()),
+    CarrierShipPack(new CarrierShipPackEvent()),
+    CarrierModulePack(new CarrierModulePackEvent()),
 //    CarrierNameChange(new CarrierNameChangeHandler()),        // informational
 
     /*
     Startup
      */
-//    Powerplay(new PowerplayHandler()),                        // informational
     EngineerProgress(new EngineerProgressEvent()),
     Commander(new CommanderEvent()),
     Cargo(new CargoEvent()),
@@ -158,6 +160,7 @@ public enum JournalEventEX
     MissionFailed(new MissionFailedEvent()),
     MissionAbandoned(new MissionAbandonedEvent()),
     ScientificResearch(new ScientificResearchEvent()),
+    CommunityGoal(new CommunityGoalEvent()),
     CommunityGoalReward(new CommunityGoalRewardEvent()),
     SearchAndRescue(new SearchAndRescueEvent()),
 
@@ -174,9 +177,11 @@ public enum JournalEventEX
     /*
     PowerPlay
      */
+//    Powerplay(new PowerplayHandler()),                        // informational
     PowerplayCollect(new PowerplayCollectEvent()),
     PowerplayDeliver(new PowerplayDeliverEvent()),
     PowerplaySalary(new PowerplaySalaryEvent()),
+    PowerplayFastTrack(new PowerplayFastTrackEvent()),
 
     /*
     Misc
@@ -191,7 +196,7 @@ public enum JournalEventEX
     DatalinkVoucher(new DatalinkVoucherEvent()),
     SellExplorationData(new SellExplorationDataEvent()),
     MultiSellExplorationData(new MultiSellExplorationDataEvent()),
-//    ReservoirReplenished(new ReservoirReplenishedHandler()),
+    ReservoirReplenished(new ReservoirReplenishedEvent()),
 
     ;
 
@@ -242,11 +247,13 @@ public enum JournalEventEX
             .ifPresent((_e) -> setCommanderStat(gameState, event, stat));
     }
 
+    @Deprecated
     public static void setCommanderStat(GameState gameState, Map<String, Object> event, Statistic stat)
     {
         gameState.setCommanderStat(stat, extractStringStat(event, stat));
     }
 
+    @Deprecated
     public static void setShipStat(GameState gameState, Map<String, Object> event, Statistic stat)
     {
         gameState.setShipStat(stat, extractStringStat(event, stat));

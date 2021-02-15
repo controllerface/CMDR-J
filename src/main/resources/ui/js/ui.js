@@ -495,11 +495,7 @@ function handleCargo(e)
     let cargoContainer = document.getElementById('tradeCargo');
     if (e === 'Clear')
     {
-        let existingBins = cargoContainer.querySelectorAll('cargo-bin');
-        for (let i = 0, len = existingBins.length; i < len; i++)
-        {
-            cargoContainer.removeChild(existingBins[i]);
-        }
+        cargoContainer.textContent = "";
     }
     else
     {
@@ -1281,6 +1277,42 @@ function handleTaskData(data)
     }
 }
 
+function handleCommunityGoal(data)
+{
+    console.log(data);
+    let goalContainer = document.getElementById('communityGoals');
+    if (data === 'clear')
+    {
+        // clear
+        goalContainer.textContent = "";
+    }
+    else
+    {
+        let goalData = JSON.parse(data);
+        let newGoal = document.createElement('community-goal');
+        newGoal.name = goalData['Title'];
+        newGoal.system = goalData['SystemName'];
+        newGoal.location = goalData['MarketName'];
+        newGoal.expiry = new Date(goalData['Expiry']).toLocaleString();
+        newGoal.complete = goalData['IsComplete'];
+        newGoal.total = parseInt(goalData['CurrentTotal'], 10).toLocaleString("en-US");
+        newGoal.contribution = parseInt(goalData['PlayerContribution'], 10).toLocaleString("en-US");
+        newGoal.contributors = parseInt(goalData['NumContributors'], 10).toLocaleString("en-US");
+        newGoal.percentile = goalData['PlayerPercentileBand'];
+
+        if (goalData['TierReached'])
+        {
+            newGoal.tier = goalData['TierReached'];
+        }
+        if (goalData['Bonus'])
+        {
+            newGoal.bonus = parseInt(goalData['Bonus'], 10).toLocaleString("en-US");
+        }
+
+        goalContainer.append(newGoal);
+    }
+}
+
 /*
 This object contains event listener functions that will be bound to the local event source
 on page load. For each key listed below, the mapped function is bound to an event with the
@@ -1445,6 +1477,8 @@ const eventListeners =
     Missions: (e) => handleMissions(e.data),
 
     Task: (e) => handleTaskData(e.data),
+
+    CommunityGoal: (e) => handleCommunityGoal(e.data),
 };
 
 window.onload = (e) =>

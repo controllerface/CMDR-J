@@ -31,7 +31,11 @@ public class LoadoutEvent implements BiConsumer<GameState, Map<String, Object>>
 
         Map<String, Object> fuelData = ((Map<String, Object>) event.get("FuelCapacity"));
 
-        JournalEventEX.setShipStat(gameState, fuelData, ShipStat.ReserveCapacity);
+        var reserve = ((Number) fuelData.get("Reserve")).doubleValue();
+        var main = ((Number) fuelData.get("Main")).doubleValue();
+        gameState.setShipStat(ShipStat.ReserveCapacity, String.valueOf(reserve));
+        gameState.setShipStat(ShipStat.Fuel_Capacity, String.valueOf(main));
+
 
         if (event.get("HullValue") != null)
         {

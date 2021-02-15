@@ -620,6 +620,25 @@ public class GameState
         this.marketData.putAll(marketData);
     }
 
+    private final List<Map<String, Object>> communityGoals = new ArrayList<>();
+
+    private void emitCommunityGoals(BiConsumer<String, String> sink)
+    {
+        sink.accept("CommunityGoal", "clear");
+        communityGoals.forEach(goal->
+        {
+            var json = JSONSupport.Write.jsonToString.apply(goal);
+            sink.accept("CommunityGoal", json);
+        });
+    }
+
+    public void setCommunityGoals(List<Map<String, Object>> communityGoals)
+    {
+        this.communityGoals.clear();
+        this.communityGoals.addAll(communityGoals);
+        executeWithLock(() -> emitCommunityGoals(globalUpdate));
+    }
+
     public void setExtendedStats(String category, Map<String, String> stats)
     {
         extendedStats.put(category, stats);
@@ -632,8 +651,17 @@ public class GameState
 
         if (commodityData == null)
         {
-            System.err.println("Error: cargo adjusted but not present: " + commodity);
-            return;
+            if (adjustment > 0)
+            {
+                commodityData = new CommodityData(commodity.getLocalizedName(), adjustment, commodity.getGrade());
+            }
+            else
+            {
+                // most likely case for this is restarting the app, the cargo file is updated as
+                // cargo changes, so re-running teh events will read the current state, not whatever
+                // state was seen when the event occurred.
+                return;
+            }
         }
 
         var jsonData = commodityData.toJson();
@@ -644,6 +672,7 @@ public class GameState
         }
 
         executeWithLock(() -> globalUpdate.accept("Cargo", jsonData));
+        emitAllTaskData(globalUpdate);
     }
 
     public void setCargoCount(Commodity commodity, String name, Integer count)
@@ -652,6 +681,7 @@ public class GameState
         cargo.put(commodity, commodityData);
         var jsonData = commodityData.toJson();
         executeWithLock(() -> globalUpdate.accept("Cargo", jsonData));
+        emitAllTaskData(globalUpdate);
     }
 
     public void setEngineerProgress(Engineer engineer, Map<String, Object> data)
@@ -665,8 +695,19 @@ public class GameState
 
     public void adjustMaterialCount(Material material, Integer count)
     {
-        var newCount = materials.computeIfPresent(material, (k, c) -> c + count);
+        var currentCount = materials.computeIfPresent(material, (k, c) -> c + count);
+        if (currentCount == null)
+        {
+            if (count > 0)
+            {
+                materials.put(material, count);
+                currentCount = count;
+            }
+            else return;
+        }
+        var newCount = currentCount;
         executeWithLock(() -> globalUpdate.accept("Material", writeMaterialEvent(material, newCount)));
+        emitAllTaskData(globalUpdate);
     }
 
     public void setMaterialCount(Material material, Integer count)
@@ -826,6 +867,7 @@ public class GameState
         var balance = String.valueOf(creditBalance);
         commanderStatistics.put(CommanderStat.Credits, balance);
         executeWithLock(() -> globalUpdate.accept(CommanderStat.Credits.getName(), balance));
+        emitAllTaskData(globalUpdate);
     }
 
     public void updateFuelLevels(double main, double reservoir)
@@ -859,6 +901,7 @@ public class GameState
             if (statistic == CommanderStat.Credits)
             {
                 creditBalance = Long.parseLong(value.replace(",",""));
+                emitAllTaskData(globalUpdate);
             }
         }
 
@@ -874,6 +917,11 @@ public class GameState
             if (statistic == ShipStat.Fuel_Level)
             {
                 currentFuel = Double.parseDouble(value.replace(",",""));
+            }
+
+            if (statistic == ShipStat.ReserveCapacity)
+            {
+                // todo: parse value
             }
 
             if (statistic == ShipStat.Fuel_Capacity)
@@ -2101,6 +2149,7 @@ public class GameState
     private void emitConflictData(BiConsumer<String, String> sink)
     {
         String conflictJson;
+        sink.accept("Conflicts", "clear");
         synchronized (localConflicts)
         {
             var conflictData = new HashMap<String, Object>();
@@ -2112,6 +2161,7 @@ public class GameState
 
     private void emitFactionData(BiConsumer<String, String> sink)
     {
+        sink.accept("Faction", "clear");
         synchronized (systemFactions)
         {
             systemFactions.stream()
@@ -2373,6 +2423,8 @@ public class GameState
             emitAllTaskData(directUpdate);
 
             directUpdate.accept("Task", "materials");
+
+            emitCommunityGoals(directUpdate);
         });
     }
 

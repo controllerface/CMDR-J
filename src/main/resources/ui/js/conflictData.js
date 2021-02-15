@@ -50,7 +50,12 @@ class ConflictData extends HTMLElement
 
     set stake1(value)
     {
-        this.setAttribute('stake1', value);
+        let text = value;
+        if (value === '')
+        {
+            text = 'System Control';
+        }
+        this.setAttribute('stake1', text);
     }
 
     get stake1()
@@ -60,7 +65,12 @@ class ConflictData extends HTMLElement
 
     set stake2(value)
     {
-        this.setAttribute('stake2', value);
+        let text = value;
+        if (value === '')
+        {
+            text = 'System Control';
+        }
+        this.setAttribute('stake2', text);
     }
 
     get stake2()

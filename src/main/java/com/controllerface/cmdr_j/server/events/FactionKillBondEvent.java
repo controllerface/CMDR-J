@@ -10,7 +10,8 @@ public class FactionKillBondEvent implements BiConsumer<GameState, Map<String, O
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
+        // credits are not actually awarded until you turn in the bond
         var reward = ((Number) event.get("Reward")).intValue();
-        gameState.adjustCreditBalance(reward);
+//        gameState.adjustCreditBalance(reward);
     }
 }
