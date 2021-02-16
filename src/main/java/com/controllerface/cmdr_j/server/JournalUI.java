@@ -70,8 +70,10 @@ public class JournalUI
         assetMap.put("/offenseStats.js",        StaticAsset.make("/ui/js/offenseStats.js"));
         assetMap.put("/offenseModule.js",       StaticAsset.make("/ui/js/offenseModule.js"));
         assetMap.put("/offenseTurret.js",       StaticAsset.make("/ui/js/offenseTurret.js"));
+        assetMap.put("/pledgedPower.js",        StaticAsset.make("/ui/js/pledgedPower.js"));
         assetMap.put("/poiEntry.js",            StaticAsset.make("/ui/js/poiEntry.js"));
         assetMap.put("/powerModule.js",         StaticAsset.make("/ui/js/powerModule.js"));
+        assetMap.put("/powerPlay.js",           StaticAsset.make("/ui/js/powerPlay.js"));
         assetMap.put("/powerStats.js",          StaticAsset.make("/ui/js/powerStats.js"));
         assetMap.put("/requiredMaterial.js",    StaticAsset.make("/ui/js/requiredMaterial.js"));
         assetMap.put("/routeEntry.js",          StaticAsset.make("/ui/js/routeEntry.js"));

@@ -164,6 +164,24 @@ progress::-webkit-progress-bar
     background: var(--default-background);
 }
 
+
+
+.progressPending
+{
+    appearance: none;
+}
+
+.progressPending::-webkit-progress-value
+{
+    background: var(--default-color);
+}
+
+.progressPending::-webkit-progress-bar
+{
+    background: var(--gps-marker);
+}
+
+
 .progressComplete
 {
     appearance: none;

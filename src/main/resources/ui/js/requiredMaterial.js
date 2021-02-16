@@ -44,6 +44,24 @@ class RequiredMaterial extends HTMLElement
         return this.getAttribute('deficit');
     }
 
+    set pending(value)
+    {
+        let label = this.shadowRoot.getElementById('requiredMaterial_pendinglabel');
+        label.classList.remove('unused');
+        label.classList.add('materialDeficitLabel');
+        let element = this.shadowRoot.getElementById('requiredMaterial_pending');
+        element.classList.remove('unused');
+        element.classList.add('materialDeficit');
+        let progress = this.shadowRoot.getElementById('requiredMaterial_progress');
+        progress.classList.add('progressPending');
+        this.setAttribute('pending', value);
+    }
+
+    get pending()
+    {
+        return this.getAttribute('pending');
+    }
+
     set needed(value)
     {
         this.setAttribute('needed', value);
@@ -71,10 +89,72 @@ class RequiredMaterial extends HTMLElement
         relatedTasks.forEach(task =>
         {
             let next = document.createElement('span');
-            next.textContent = task;
             next.classList.add('materialTask');
+            let count = document.createElement('span');
+            count.classList.add('materialTaskCount');
+            let name = document.createElement('span');
+            count.textContent = task['count'] + 'x - ';
+            name.textContent = task['name'];
+            next.append(count, name);
             details.append(next);
         });
+
+        if (materialData['stockTrade'])
+        {
+            let hr = document.createElement('hr');
+            details.append(hr);
+
+            let label = document.createElement('span');
+            label.classList.add('category');
+            label.textContent = 'Suggested Trades:';
+            details.append(label);
+
+            let row = document.createElement('div');
+            row.classList.add('recommendedTradeRow');
+
+            let typeLabel = document.createElement('span');
+            typeLabel.textContent = 'Available Stock';
+            typeLabel.classList.add('tradeType');
+            let nameLabel = document.createElement('span');
+            nameLabel.classList.add('tradeName');
+            nameLabel.textContent = materialData['stockTrade']['name'];
+            let button = document.createElement('button');
+            button.value = materialData['stockTrade']['key'];
+            button.textContent = 'Plan This Trade';
+            button.classList.add('tradeButton');
+            button.addEventListener('click', (e) =>
+            {
+                adjustTask(e.target.value, 'add');
+            });
+
+            row.append(typeLabel, nameLabel, button);
+
+            details.append(row);
+        }
+
+        if (materialData['yieldTrade'])
+        {
+            let row = document.createElement('div');
+            row.classList.add('recommendedTradeRow');
+
+            let typeLabel = document.createElement('span');
+            typeLabel.textContent = 'Best Yield';
+            typeLabel.classList.add('tradeType');
+            let nameLabel = document.createElement('span');
+            nameLabel.classList.add('tradeName');
+            nameLabel.textContent = materialData['yieldTrade']['name'];
+            let button = document.createElement('button');
+            button.value = materialData['yieldTrade']['key'];
+            button.textContent = 'Plan This Trade';
+            button.classList.add('tradeButton');
+            button.addEventListener('click', (e) =>
+            {
+                adjustTask(e.target.value, 'add');
+            });
+            row.append(typeLabel, nameLabel, button);
+
+            details.append(row);
+        }
     }
 
     deselect()
@@ -87,6 +167,7 @@ class RequiredMaterial extends HTMLElement
     {
         return ['materialname',
                 'deficit',
+                'pending',
                 'needed'];
     }
 

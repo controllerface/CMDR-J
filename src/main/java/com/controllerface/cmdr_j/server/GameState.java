@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.server;
 
 import com.controllerface.cmdr_j.JSONSupport;
+import com.controllerface.cmdr_j.classes.PledgedPower;
 import com.controllerface.cmdr_j.classes.RouteEntry;
 import com.controllerface.cmdr_j.classes.StarSystem;
 import com.controllerface.cmdr_j.classes.StellarBody;
@@ -8,6 +9,7 @@ import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.commander.Statistic;
 import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
 import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.database.EntityKeys;
@@ -47,6 +49,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.DoubleAdder;
@@ -107,6 +110,7 @@ public class GameState
     private ShipType shipType;
     private StarSystem starSystem;
     private StellarBody nearestBody;
+    private PledgedPower pledgedPower;
 
     private double touchdownLatitude = -1;
     private double touchdownLongitude = -1;
@@ -265,6 +269,34 @@ public class GameState
         }
     }
 
+    private static class RelatedTask
+    {
+        public final String name;
+        public final int count;
+        public final boolean isTrade;
+
+        private RelatedTask(String name, int count, boolean isTrade)
+        {
+            this.name = name;
+            this.count = count;
+            this.isTrade = isTrade;
+        }
+
+        private Map<String, Object> toMap()
+        {
+            var map = new HashMap<String, Object>();
+            map.put("name", name);
+            map.put("count", count);
+            return map;
+        }
+    }
+
+    private static class RunningCostData
+    {
+        private final Set<RelatedTask> relatedTasks = new HashSet<>();
+        private final AtomicLong runningCount = new AtomicLong(0);
+    }
+
     public GameState(BiConsumer<String, String> globalUpdate)
     {
         this.globalUpdate = globalUpdate;
@@ -395,6 +427,31 @@ public class GameState
             missionData.storeMissionData(mission);
         });
         executeWithLock(() -> emitMissionData(globalUpdate));
+    }
+
+    private void emitPledgedPower(BiConsumer<String, String> sink)
+    {
+        if (pledgedPower == null) return;
+        var json = JSONSupport.Write.jsonToString.apply(pledgedPower.toMap());
+        sink.accept("PowerPlay", json);
+    }
+
+    public void setPledgedPower(PledgedPower pledgedPower)
+    {
+        this.pledgedPower = pledgedPower;
+        executeWithLock(() -> emitPledgedPower(globalUpdate));
+    }
+
+    public void joinPower(String newPower)
+    {
+        this.pledgedPower = new PledgedPower(newPower, 0, 0, 0, 1);
+        executeWithLock(() -> emitPledgedPower(globalUpdate));
+    }
+
+    public void leavePower()
+    {
+        this.pledgedPower = null;
+        executeWithLock(()-> globalUpdate.accept("PowerPlay", "clear"));
     }
 
     public void clearCargo()
@@ -2425,6 +2482,8 @@ public class GameState
             directUpdate.accept("Task", "materials");
 
             emitCommunityGoals(directUpdate);
+
+            emitPledgedPower(directUpdate);
         });
     }
 
@@ -2760,29 +2819,64 @@ public class GameState
         return rawCatalogJson;
     }
 
-    private static class RunningCostData
+    private static class PotentialTrade
     {
-        private final Set<String> relatedTasks = new HashSet<>();
-        private final AtomicLong runningCount = new AtomicLong(0);
+        public final String key;
+        public final long yield;
+        public final long stock;
+
+        private PotentialTrade(String key, long yield, long stock)
+        {
+            this.key = key;
+            this.yield = yield;
+            this.stock = stock;
+        }
     }
 
     public String writeTaskMaterials()
     {
+        var pendingCosts = new HashMap<Material, Long>();
+        var pendingYields = new HashMap<Material, Long>();
         var summaries = getTaskSummaries();
         var costCounts = new HashMap<TaskCost, RunningCostData>();
         summaries.forEach(summary ->
         {
             var recipe = taskCatalog.keyMap.get(summary.key);
+            var name = determineTaskData(recipe).name;
+            var isTrade = recipe instanceof MaterialTradeRecipe;
+
             recipe.costStream()
                 .filter(costData -> costData.quantity > 0)
                 .forEach(costData ->
                 {
                     var runningData = costCounts.computeIfAbsent(costData.cost, (_k) -> new RunningCostData());
                     runningData.runningCount.addAndGet(costData.quantity * summary.count);
-                    var n = determineTaskData(recipe).name;
-                    runningData.relatedTasks.add(n);
+                    var relatedTask = new RelatedTask(name, summary.count, isTrade);
+                    runningData.relatedTasks.add(relatedTask);
                     costCounts.put(costData.cost, runningData);
+                    if (isTrade)
+                    {
+                        var material = ((Material) costData.cost);
+                        var yield = Math.abs(costData.quantity) * summary.count;
+                        long current = pendingYields.computeIfAbsent(material, (_k) -> 0L);
+                        current += yield;
+                        pendingCosts.put(material, current);
+                    }
                 });
+
+            if (isTrade)
+            {
+                recipe.costStream()
+                    .filter(costData -> costData.quantity < 0)
+                    .forEach(costData ->
+                    {
+                        var material = ((Material) costData.cost);
+                        var yield = Math.abs(costData.quantity) * summary.count;
+                        long current = pendingYields.computeIfAbsent(material, (_k) -> 0L);
+                        current += yield;
+                        pendingYields.put(material, current);
+                    });
+            }
         });
 
         var dataMap = new HashMap<String, Object>();
@@ -2813,11 +2907,117 @@ public class GameState
                 ? 0
                 : count.runningCount.get() - current;
 
+            PotentialTrade bestYieldTrade = null;
+            PotentialTrade bestStockTrade = null;
+
+            if (costDeficit > 0)
+            {
+                if (cost instanceof Material)
+                {
+                    var potentialTrades = new ArrayList<PotentialTrade>();
+
+                    ((Material) cost).getTradeBlueprint()
+                        .map(TaskBlueprint::recipeStream)
+                        .ifPresent(recipes -> recipes.forEach(recipe ->
+                        {
+                            var material = new AtomicReference<Material>();
+                            var isCommitted = new AtomicBoolean();
+                            var yield = recipe.costStream().filter(c -> c.quantity < 0)
+                                .map(c-> c.quantity)
+                                .map(Math::abs)
+                                .findFirst().orElse(0L);
+
+                            long stock = recipe.costStream().filter(c -> c.quantity > 0)
+                                .filter(c -> c.cost instanceof Material)
+                                .filter(c -> materials.get(c.cost) != null)
+                                .peek(c ->
+                                {
+                                    Optional.ofNullable(costCounts.get(c.cost))
+                                        .flatMap(d -> d.relatedTasks.stream()
+                                            .filter(zz -> !zz.isTrade)
+                                            .findFirst())
+                                        .ifPresent(_x -> isCommitted.set(true));
+                                })
+                                .peek(c -> material.set(((Material) c.cost)))
+                                .map(c ->
+                                {
+                                    var currentStock = materials.get(c.cost);
+                                    var pendingStock = pendingCosts.get(c.cost);
+                                    if (pendingStock == null)
+                                    {
+                                        pendingStock = 0L;
+                                    }
+                                    System.out.println("Pending: " + pendingStock);
+                                    return currentStock - pendingStock;
+                                })
+                                .findFirst().orElse(0L);
+
+                            if (!isCommitted.get() && stock > 0)
+                            {
+                                var key = taskCatalog.taskMap.get(recipe);
+                                potentialTrades.add(new PotentialTrade(key, yield, stock));
+                            }
+                        }));
+
+                    if (!potentialTrades.isEmpty())
+                    {
+                        potentialTrades.sort(Comparator
+                            .comparingLong((PotentialTrade v)->v.stock)
+                            .reversed());
+                        var t2 = potentialTrades.get(0);
+                        System.out.println("Best stock: " + t2.key
+                            + " s= " + t2.stock
+                            + " y= " + t2.yield);
+                        bestStockTrade = t2;
+
+                        potentialTrades.sort(Comparator
+                            .comparingLong((PotentialTrade v)->v.yield)
+                            .reversed());
+                        var t1 = potentialTrades.get(0);
+                        System.out.println("Best yield: " + t1.key
+                            + " s= " + t1.stock
+                            + " y= " + t1.yield);
+                        bestYieldTrade = t1;
+                    }
+                }
+            }
+
+
             var costMap = new HashMap<String, Object>();
+
+            var relatedTaskNames = count.relatedTasks.stream()
+                .map(RelatedTask::toMap)
+                .collect(Collectors.toSet());
 
             costMap.put("needed", count.runningCount.get());
             costMap.put("deficit", costDeficit);
-            costMap.put("related", count.relatedTasks);
+            costMap.put("related", relatedTaskNames);
+
+            if (cost instanceof Material && pendingYields.containsKey(cost))
+            {
+                costMap.put("pending", pendingYields.get(cost));
+            }
+
+            if (bestStockTrade != null)
+            {
+                var stockRecipe = taskCatalog.keyMap.get(bestStockTrade.key);
+                var data = determineTaskData(stockRecipe);
+                var stockMap = new HashMap<String, Object>();
+                stockMap.put("key", bestStockTrade.key);
+                stockMap.put("name", data.name);
+                costMap.put("stockTrade", stockMap);
+
+                if (!bestStockTrade.equals(bestYieldTrade))
+                {
+                    var yieldRecipe = taskCatalog.keyMap.get(bestYieldTrade.key);
+                    var yieldData = determineTaskData(yieldRecipe);
+                    var yieldMap = new HashMap<String, Object>();
+                    yieldMap.put("key", bestYieldTrade.key);
+                    yieldMap.put("name", yieldData.name);
+                    costMap.put("yieldTrade", yieldMap);
+                }
+            }
+
             dataMap.put(name, costMap);
         });
         return JSONSupport.Write.jsonToString.apply(dataMap);

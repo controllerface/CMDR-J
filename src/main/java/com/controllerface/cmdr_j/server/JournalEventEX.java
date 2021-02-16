@@ -180,9 +180,12 @@ public enum JournalEventEX
     /*
     PowerPlay
      */
-//    Powerplay(new PowerplayHandler()),                        // informational
+    Powerplay(new PowerPlayEvent()),
     PowerplayCollect(new PowerplayCollectEvent()),
+    PowerplayDefect(new PowerPlayDefectEvent()),
     PowerplayDeliver(new PowerplayDeliverEvent()),
+    PowerplayJoin(new PowerPlayJoinEvent()),
+    PowerplayLeave(new PowerPlayLeaveEvent()),
     PowerplaySalary(new PowerplaySalaryEvent()),
     PowerplayFastTrack(new PowerplayFastTrackEvent()),
 

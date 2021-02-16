@@ -31,8 +31,10 @@
     <script src="offenseStats.js"></script>
     <script src="offenseModule.js"></script>
     <script src="offenseTurret.js"></script>
+    <script src="pledgedPower.js"></script>
     <script src="poiEntry.js"></script>
     <script src="powerModule.js"></script>
+    <script src="powerPlay.js"></script>
     <script src="powerStats.js"></script>
     <script src="requiredMaterial.js"></script>
     <script src="routeEntry.js"></script>
@@ -671,30 +673,12 @@
             <div class="emptySection">No local factions</div>
         </slot>
 
-        <div class="category">Naval Ranks</div>
-        <div class="factionHeader">
-            <span class="statEntryNameHeader">Navy</span>
-            <span class="statEntryLeftHeader">Rank</span>
-            <span class="statEntryRightHeader">Progress</span>
-        </div>
-
-        <div class="factionRow">
-            <span class="statEntryName">Federal</span>
-            <span class="statEntryLeft" id="factionStats_federalnavy">None</span>
-            <div class="statEntryRightCap">
-                <progress max="100" id="factionStats_federalnavyprogress" value="0"></progress>
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Galactic Powers</b>
             </div>
         </div>
 
-        <div class="factionRow">
-            <span class="statEntryName">Imperial</span>
-            <span class="statEntryLeft" id="factionStats_imperialnavy">None</span>
-            <div class="statEntryRightCap">
-                <progress max="100" id="factionStats_imperialnavyprogress" value="0"></progress>
-            </div>
-        </div>
-
-        <div class="category">Galactic Powers</div>
         <div class="factionHeader">
             <span class="statEntryNameHeader">Power</span>
             <span class="statEntryLeftHeader">Status</span>
@@ -754,6 +738,29 @@
                        optimum="100"
                        value="0"
                        id="factionStats_independentprogress"></meter>
+            </div>
+        </div>
+
+        <div class="category">Naval Ranks</div>
+        <div class="factionHeader">
+            <span class="statEntryNameHeader">Navy</span>
+            <span class="statEntryLeftHeader">Rank</span>
+            <span class="statEntryRightHeader">Progress</span>
+        </div>
+
+        <div class="factionRow">
+            <span class="statEntryName">Federal</span>
+            <span class="statEntryLeft" id="factionStats_federalnavy">None</span>
+            <div class="statEntryRightCap">
+                <progress max="100" id="factionStats_federalnavyprogress" value="0"></progress>
+            </div>
+        </div>
+
+        <div class="factionRow">
+            <span class="statEntryName">Imperial</span>
+            <span class="statEntryLeft" id="factionStats_imperialnavy">None</span>
+            <div class="statEntryRightCap">
+                <progress max="100" id="factionStats_imperialnavyprogress" value="0"></progress>
             </div>
         </div>
 
@@ -1004,7 +1011,7 @@
         <link rel="stylesheet" href="statistics.css">
         <div class="singleHeader">
             <div class="headerEntry">
-                <b>local Conflicts</b>
+                <b>Local Conflicts</b>
             </div>
         </div>
         <slot>
@@ -1220,6 +1227,8 @@
                 <progress id="requiredMaterial_progress" class="materialProgress"></progress>
                 <span class="materialDeficitLabel">needed</span>
                 <span id="requiredMaterial_deficit" class="materialDeficit"></span>
+                <span id="requiredMaterial_pendinglabel" class="unused">pending</span>
+                <span id="requiredMaterial_pending" class="unused">0</span>
             </summary>
             <hr>
         </details>
@@ -1315,6 +1324,48 @@
 
     </template>
 
+    <!-- Community goals container -->
+    <template id="template_PowerPlay">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="singleHeader">
+            <div class="headerEntry">
+                <b>Power Play</b>
+            </div>
+        </div>
+        <slot>
+            <div class="emptySection">You are not pledged to any power</div>
+        </slot>
+    </template>
+
+    <template id="template_PledgedPower">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="pledgedPowerRow">
+            <span class="statEntryName">Pledged Power</span>
+            <span class="statEntryRightCap" id="pledgedPower_name"></span>
+        </div>
+
+        <span class="pledgedPowerRow">
+            <span class="statEntryName">Rank</span>
+            <span class="statEntryRightCap" id="pledgedPower_rank"></span>
+        </span>
+
+        <span class="pledgedPowerRow">
+            <span class="statEntryName">Merits</span>
+            <span class="statEntryRightCap" id="pledgedPower_merits"></span>
+        </span>
+
+        <span class="pledgedPowerRow">
+            <span class="statEntryName">Votes</span>
+            <span class="statEntryRightCap" id="pledgedPower_votes"></span>
+        </span>
+
+
+        <span class="pledgedPowerRow">
+            <span class="statEntryName">Time Pledged</span>
+            <span class="statEntryRightCap" id="pledgedPower_time"></span>
+        </span>
+    </template>
+
 </head>
 
 <body>
@@ -1390,8 +1441,6 @@
     <div class="tabPanel">
         <div id="commanderInfo">
 
-            <!-- Stats Tab  -->
-
             <input name="commanderTabs" type="radio" id="statsTabButton" class="tabInput"/>
             <label id="commanderStatsTab" for="statsTabButton" class="tabLabel">Statistics</label>
             <div class="tabPanel">
@@ -1415,6 +1464,7 @@
             <input name="commanderTabs" type="radio" id="politicsTabButton" class="tabInput"/>
             <label id="politicsTab" for="politicsTabButton" class="tabLabel">Politics</label>
             <div class="tabPanel">
+                <power-play id="powerPlay"></power-play>
                 <local-conflict id="localConflicts"></local-conflict>
                 <faction-stats id="factionStats"></faction-stats>
             </div>

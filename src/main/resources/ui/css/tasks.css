@@ -48,6 +48,48 @@
     border: 1px solid var(--default-color);
 }
 
+.recommendedTradeRow
+{
+    display: grid;
+    grid-template-columns: 1fr 4fr auto;
+}
+
+.tradeType
+{
+    margin: .2em;
+    color: var(--default-color);
+}
+
+.tradeName
+{
+    margin: .2em;
+}
+
+.tradeButton
+{
+    display: block;
+    background: transparent;
+    color: var(--default-color);
+    text-align: left;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid var(--default-color);
+    margin: .2em;
+}
+
+.tradeButton:hover,
+.taskButton:hover
+{
+    background: var(--default-text);
+}
+
+.tradeButton:active,
+.taskButton:active
+{
+    background: var(--default-color);
+}
+
+
 .taskAddButton
 {
     display: block;
@@ -102,16 +144,6 @@
 {
     float: right;
     width: 1em;
-}
-
-.taskButton:hover
-{
-    background: var(--default-text);
-}
-
-.taskButton:active
-{
-    background: var(--default-color);
 }
 
 .taskCostData
@@ -181,4 +213,9 @@
     display: block;
     clear: right;
     color: var(--default-color);
+}
+
+.materialTaskCount
+{
+    color: var(--default-text);
 }

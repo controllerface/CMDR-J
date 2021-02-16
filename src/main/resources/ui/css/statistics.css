@@ -1,9 +1,14 @@
 @import "common.css";
 
+.unused
+{
+    display: none;
+}
+
 .singleHeader
 {
     margin: .2em;
-    margin-top: .2em;
+    margin-top: .8em;
     border: 2px solid var(--default-divider);
     border-radius: 3px;
     padding: .5em;
@@ -311,6 +316,7 @@
     margin-top: .5em;
 }
 
+.pledgedPowerRow,
 .communityGoalRow
 {
     display: grid;
@@ -560,11 +566,6 @@
 .missionValue
 {
     color: var(--default-text);
-}
-
-.unused
-{
-    display: none;
 }
 
 hr

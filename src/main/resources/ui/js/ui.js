@@ -557,9 +557,9 @@ function handleShipData(data)
         shipStats.size_2 = optionalSlots['SIZE_2'];
     }
 
-    if (optionalSlots['MILITARY_SIZE_2'])
+    if (optionalSlots['SIZE_2_MILITARY'])
     {
-        shipStats.military_size_2 = optionalSlots['MILITARY_SIZE_2'];
+        shipStats.military_size_2 = optionalSlots['SIZE_2_MILITARY'];
     }
 
     if (optionalSlots['SIZE_3'])
@@ -567,9 +567,9 @@ function handleShipData(data)
         shipStats.size_3 = optionalSlots['SIZE_3'];
     }
 
-    if (optionalSlots['MILITARY_SIZE_3'])
+    if (optionalSlots['SIZE_3_MILITARY'])
     {
-        shipStats.military_size_3 = optionalSlots['MILITARY_SIZE_3'];
+        shipStats.military_size_3 = optionalSlots['SIZE_3_MILITARY'];
     }
 
     if (optionalSlots['SIZE_4'])
@@ -577,9 +577,9 @@ function handleShipData(data)
         shipStats.size_4 = optionalSlots['SIZE_4'];
     }
 
-    if (optionalSlots['MILITARY_SIZE_4'])
+    if (optionalSlots['SIZE_4_MILITARY'])
     {
-        shipStats.military_size_4 = optionalSlots['MILITARY_SIZE_4'];
+        shipStats.military_size_4 = optionalSlots['SIZE_4_MILITARY'];
     }
 
     if (optionalSlots['SIZE_5'])
@@ -587,9 +587,9 @@ function handleShipData(data)
         shipStats.size_5 = optionalSlots['SIZE_5'];
     }
 
-    if (optionalSlots['MILITARY_SIZE_5'])
+    if (optionalSlots['SIZE_5_MILITARY'])
     {
-        shipStats.military_size_5 = optionalSlots['MILITARY_SIZE_5'];
+        shipStats.military_size_5 = optionalSlots['SIZE_5_MILITARY'];
     }
 
     if (optionalSlots['SIZE_6'])
@@ -1235,6 +1235,11 @@ function handleTaskMaterials(materialData)
         nextMaterial.deficit = material['deficit'];
         nextMaterial.needed = material['needed'];
         nextMaterial.loadData(material);
+
+        if (material['pending'])
+        {
+            nextMaterial.pending = material['pending'];
+        }
         taskContainer.append(nextMaterial);
     }
 }
@@ -1279,7 +1284,6 @@ function handleTaskData(data)
 
 function handleCommunityGoal(data)
 {
-    console.log(data);
     let goalContainer = document.getElementById('communityGoals');
     if (data === 'clear')
     {
@@ -1310,6 +1314,33 @@ function handleCommunityGoal(data)
         }
 
         goalContainer.append(newGoal);
+    }
+}
+
+function handlePowerPlay(data)
+{
+    let powerPlayContainer = document.getElementById('powerPlay');
+    if (data === 'clear')
+    {
+        powerPlayContainer.textContent = "";
+    }
+    else
+    {
+        let powerData = JSON.parse(data);
+
+        let power = document.getElementById('pledgedPower');
+        if (!power)
+        {
+            power = document.createElement('pledged-power');
+            power.setAttribute('id', 'pledgedPower')
+        }
+
+        power.name = powerData['name'];
+        power.rank = powerData['rank'];
+        power.merits = powerData['merits'];
+        power.votes = powerData['votes'];
+        power.time = powerData['time'];
+        powerPlayContainer.append(power);
     }
 }
 
@@ -1479,6 +1510,8 @@ const eventListeners =
     Task: (e) => handleTaskData(e.data),
 
     CommunityGoal: (e) => handleCommunityGoal(e.data),
+
+    PowerPlay: (e) => handlePowerPlay(e.data),
 };
 
 window.onload = (e) =>
