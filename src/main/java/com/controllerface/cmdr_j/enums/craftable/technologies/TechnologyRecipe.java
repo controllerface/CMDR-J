@@ -21,9 +21,7 @@ import java.util.stream.Stream;
 public enum TechnologyRecipe implements TaskRecipe
 {
     Corrosion_Resistant_Cargo_Rack(new Corrosion_Resistant_Cargo_Rack(),
-            OptionalInternalModule.int_corrosionproofcargorack_size1_class1,
-            OptionalInternalModule.int_corrosionproofcargorack_size1_class2,
-            OptionalInternalModule.int_corrosionproofcargorack_size4_class1),
+            OptionalInternalModule.int_corrosionproofcargorack_size1_class2),
 
     Enzyme_Missile_Rack_Fixed_Medium(new Enzyme_Missile_Rack_Fixed_Medium(),
             HardpointModule.hpt_causticmissile_fixed_medium),

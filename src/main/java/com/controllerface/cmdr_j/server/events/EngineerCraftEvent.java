@@ -1,10 +1,6 @@
 package com.controllerface.cmdr_j.server.events;
 
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.ModifierData;
-import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
-import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
@@ -99,11 +95,11 @@ public class EngineerCraftEvent implements BiConsumer<GameState, Map<String, Obj
 
         if (applyExperimentalEffect != null)
         {
-            gameState.completeTask(experimentalRecipe);
+            gameState.completeTask(module.experimentalType(), experimentalRecipe);
         }
         else
         {
-            gameState.completeTask(modificationRecipe);
+            gameState.completeTask(module.modificationType(), modificationRecipe);
         }
 
         var shipModule = moduleBuilder.build();

@@ -1,10 +1,5 @@
 @import "common.css";
 
-.unused
-{
-    display: none;
-}
-
 .singleHeader
 {
     margin: .2em;
@@ -302,7 +297,7 @@
 .factionRow
 {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 17.5em;
     margin: .2em;
     margin-top: .5em;
 }
@@ -571,4 +566,9 @@
 hr
 {
   border: 1px dashed var(--default-divider);
+}
+
+.unused
+{
+    display: none;
 }

@@ -47,13 +47,29 @@ class RequiredMaterial extends HTMLElement
     set pending(value)
     {
         let label = this.shadowRoot.getElementById('requiredMaterial_pendinglabel');
-        label.classList.remove('unused');
-        label.classList.add('materialDeficitLabel');
         let element = this.shadowRoot.getElementById('requiredMaterial_pending');
-        element.classList.remove('unused');
-        element.classList.add('materialDeficit');
         let progress = this.shadowRoot.getElementById('requiredMaterial_progress');
-        progress.classList.add('progressPending');
+
+        if (value === '')
+        {
+            label.classList.add('unused');
+            label.classList.remove('materialDeficitLabel');
+
+            element.classList.add('unused');
+            element.classList.remove('materialDeficit');
+
+            progress.classList.remove('progressPending');
+        }
+        else
+        {
+            label.classList.remove('unused');
+            label.classList.add('materialDeficitLabel');
+
+            element.classList.remove('unused');
+            element.classList.add('materialDeficit');
+
+            progress.classList.add('progressPending');
+        }
         this.setAttribute('pending', value);
     }
 
@@ -84,7 +100,8 @@ class RequiredMaterial extends HTMLElement
         }
 
         let relatedTasks = materialData['related'];
-        let details = this.shadowRoot.getElementById('requiredMaterial_details');
+        let details = this.shadowRoot.getElementById('requiredMaterial_info');
+        details.textContent = '';
         relatedTasks.sort();
         relatedTasks.forEach(task =>
         {

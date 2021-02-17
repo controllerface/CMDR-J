@@ -1220,17 +1220,25 @@ function adjustTask(key, type, callback)
 function handleTaskMaterials(materialData)
 {
     let taskContainer = document.getElementById('billOfMaterials');
-    taskContainer.textContent = "";
+    //taskContainer.textContent = "";
     let materials = Object.keys(materialData);
     materials.sort((a, b) =>
     {
         return materialData[b]['deficit'] - materialData[a]['deficit'];
     });
+    let seen = new Set();
     for (let i = 0, len = materials.length; i < len; i++)
     {
         let materialName = materials[i];
         let material = materialData[materialName];
-        let nextMaterial = document.createElement('required-material');
+        seen.add(materialName);
+        let nextMaterial = taskContainer.querySelector('required-material[materialname="' + materialName + '"]');
+        if (!nextMaterial)
+        {
+            nextMaterial = document.createElement('required-material');
+            taskContainer.append(nextMaterial);
+        }
+
         nextMaterial.materialName = materialName;
         nextMaterial.deficit = material['deficit'];
         nextMaterial.needed = material['needed'];
@@ -1240,8 +1248,20 @@ function handleTaskMaterials(materialData)
         {
             nextMaterial.pending = material['pending'];
         }
+        else
+        {
+            nextMaterial.pending = '';
+        }
         taskContainer.append(nextMaterial);
     }
+    let materialElements = taskContainer.querySelectorAll('required-material');
+    materialElements.forEach(material =>
+    {
+        if (!seen.has(material.materialName))
+        {
+            taskContainer.removeChild(material);
+        }
+    });
 }
 
 function handleTaskData(data)

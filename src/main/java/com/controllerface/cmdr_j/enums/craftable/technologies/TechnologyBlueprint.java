@@ -44,13 +44,17 @@ public enum TechnologyBlueprint implements TaskBlueprint
 
     // todo: guardian fighters
 
-    Guardian_FSD_Booster("Guardian FSD Booster", EnumSet.of(TechnologyRecipe.Guardian_FSD_Booster)),
+    Guardian_FSD_Booster("Guardian FSD Booster",
+        EnumSet.of(TechnologyRecipe.Guardian_FSD_Booster)),
 
-    Guardian_Shield_Booster("Guardian Shield Booster", EnumSet.of(TechnologyRecipe.Guardian_Shield_Booster)),
+    Guardian_Shield_Booster("Guardian Shield Booster",
+        EnumSet.of(TechnologyRecipe.Guardian_Shield_Booster)),
 
-    Guardian_Hull_Reinforcement("Guardian Hull Reinforcement", EnumSet.of(TechnologyRecipe.Guardian_Hull_Reinforcement)),
+    Guardian_Hull_Reinforcement("Guardian Hull Reinforcement",
+        EnumSet.of(TechnologyRecipe.Guardian_Hull_Reinforcement)),
 
-    Guardian_Module_Reinforcement("Guardian Module Reinforcement", EnumSet.of(TechnologyRecipe.Guardian_Module_Reinforcement)),
+    Guardian_Module_Reinforcement("Guardian Module Reinforcement",
+        EnumSet.of(TechnologyRecipe.Guardian_Module_Reinforcement)),
 
     Guardian_Gauss_Cannon("Guardian Gauss Cannon",
         EnumSet.of(TechnologyRecipe.Guardian_Gauss_Cannon_Fixed_Small,

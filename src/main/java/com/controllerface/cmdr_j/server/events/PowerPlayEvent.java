@@ -11,7 +11,6 @@ public class PowerPlayEvent implements BiConsumer<GameState, Map<String, Object>
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        System.out.println(event);
         var name = ((String) event.get("Power"));
         var rank = ((Number) event.get("Rank")).intValue();
         var merits = ((Number) event.get("Merits")).intValue();

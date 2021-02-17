@@ -12,6 +12,7 @@ import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
 import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.classes.tasks.TaskType;
 import com.controllerface.cmdr_j.database.EntityKeys;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.data.ShipStatisticData;
@@ -2268,7 +2269,7 @@ public class GameState
         if (count > 0)
         {
             var task = taskCatalog.keyMap.get(taskKey);
-            var taskdata = determineTaskData(task);
+            var taskdata = determineTaskData(task, taskKey);
             data.put("name", taskdata.name);
             data.put("costs", taskdata.costs);
             data.put("effects", taskdata.effects);
@@ -2692,9 +2693,16 @@ public class GameState
         });
     }
 
+    public void completeTask(TaskType taskType, TaskRecipe recipe)
+    {
+        var key = taskCatalog.typedTaskMap.get(taskType).get(recipe);
+        System.out.println("Key: " + key);
+        adjustTask(key, "subtract");
+    }
+
     public void completeTask(TaskRecipe recipe)
     {
-        var key = taskCatalog.taskMap.get(recipe);
+        var key = taskCatalog.singleTaskMap.get(recipe);
         System.out.println("Key: " + key);
         adjustTask(key, "subtract");
     }
@@ -2842,7 +2850,7 @@ public class GameState
         summaries.forEach(summary ->
         {
             var recipe = taskCatalog.keyMap.get(summary.key);
-            var name = determineTaskData(recipe).name;
+            var name = determineTaskData(recipe, summary.key).name;
             var isTrade = recipe instanceof MaterialTradeRecipe;
 
             recipe.costStream()
@@ -2947,14 +2955,13 @@ public class GameState
                                     {
                                         pendingStock = 0L;
                                     }
-                                    System.out.println("Pending: " + pendingStock);
                                     return currentStock - pendingStock;
                                 })
                                 .findFirst().orElse(0L);
 
                             if (!isCommitted.get() && stock > 0)
                             {
-                                var key = taskCatalog.taskMap.get(recipe);
+                                var key = taskCatalog.singleTaskMap.get(recipe);
                                 potentialTrades.add(new PotentialTrade(key, yield, stock));
                             }
                         }));
@@ -2964,20 +2971,12 @@ public class GameState
                         potentialTrades.sort(Comparator
                             .comparingLong((PotentialTrade v)->v.stock)
                             .reversed());
-                        var t2 = potentialTrades.get(0);
-                        System.out.println("Best stock: " + t2.key
-                            + " s= " + t2.stock
-                            + " y= " + t2.yield);
-                        bestStockTrade = t2;
+                        bestStockTrade = potentialTrades.get(0);
 
                         potentialTrades.sort(Comparator
                             .comparingLong((PotentialTrade v)->v.yield)
                             .reversed());
-                        var t1 = potentialTrades.get(0);
-                        System.out.println("Best yield: " + t1.key
-                            + " s= " + t1.stock
-                            + " y= " + t1.yield);
-                        bestYieldTrade = t1;
+                        bestYieldTrade = potentialTrades.get(0);
                     }
                 }
             }
@@ -3001,7 +3000,7 @@ public class GameState
             if (bestStockTrade != null)
             {
                 var stockRecipe = taskCatalog.keyMap.get(bestStockTrade.key);
-                var data = determineTaskData(stockRecipe);
+                var data = determineTaskData(stockRecipe, bestStockTrade.key);
                 var stockMap = new HashMap<String, Object>();
                 stockMap.put("key", bestStockTrade.key);
                 stockMap.put("name", data.name);
@@ -3010,7 +3009,7 @@ public class GameState
                 if (!bestStockTrade.equals(bestYieldTrade))
                 {
                     var yieldRecipe = taskCatalog.keyMap.get(bestYieldTrade.key);
-                    var yieldData = determineTaskData(yieldRecipe);
+                    var yieldData = determineTaskData(yieldRecipe, bestYieldTrade.key);
                     var yieldMap = new HashMap<String, Object>();
                     yieldMap.put("key", bestYieldTrade.key);
                     yieldMap.put("name", yieldData.name);
@@ -3153,9 +3152,9 @@ public class GameState
         return new TaskData(name, shipType, sortRank, effects, costs);
     }
 
-    private TaskData determineModificationTaskData(ModificationRecipe modificationRecipe)
+    private TaskData determineModificationTaskData(ModificationRecipe modificationRecipe, String taskKey)
     {
-        var prefix = taskCatalog.typePrefixes.get(taskCatalog.taskMap.get(modificationRecipe));
+        var prefix = taskCatalog.typePrefixes.get(taskKey);
         var name = prefix
             + " - " + modificationRecipe.getParentBlueprintName()
             + " - " + modificationRecipe.getShortLabel();
@@ -3201,9 +3200,9 @@ public class GameState
         return new TaskData(name, sortRank, effects, costs);
     }
 
-    private TaskData determineExperimentalTaskData(ExperimentalRecipe experimentalRecipe)
+    private TaskData determineExperimentalTaskData(ExperimentalRecipe experimentalRecipe, String taskKey)
     {
-        var prefix = taskCatalog.typePrefixes.get(taskCatalog.taskMap.get(experimentalRecipe));
+        var prefix = taskCatalog.typePrefixes.get(taskKey);
 
         var name = prefix + " - " + experimentalRecipe.getDisplayLabel();
 
@@ -3428,7 +3427,7 @@ public class GameState
         return new TaskData(name, rank, effects, costs);
     }
 
-    private TaskData determineTaskData(TaskRecipe recipe)
+    private TaskData determineTaskData(TaskRecipe recipe, String taskKey)
     {
         if (recipe instanceof ModulePurchaseRecipe)
         {
@@ -3436,11 +3435,11 @@ public class GameState
         }
         if (recipe instanceof ModificationRecipe)
         {
-            return determineModificationTaskData(((ModificationRecipe) recipe));
+            return determineModificationTaskData(((ModificationRecipe) recipe), taskKey);
         }
         if (recipe instanceof ExperimentalRecipe)
         {
-            return determineExperimentalTaskData(((ExperimentalRecipe) recipe));
+            return determineExperimentalTaskData(((ExperimentalRecipe) recipe), taskKey);
         }
         if (recipe instanceof TechnologyRecipe)
         {
@@ -3491,19 +3490,19 @@ public class GameState
                 commodity.setLocationInformation(String.join("\n", locations));
             });
 
-        BiConsumer<String, TaskRecipe> addPair = (key, recipe) ->
-        {
-            var val = taskCatalog.keyMap.get(key);
-            if (val == null)
-            {
-                taskCatalog.keyMap.put(key, recipe);
-                taskCatalog.taskMap.put(recipe, key);
-            }
-            else
-            {
-                System.err.println("ERROR! " + key + " Already exists!");
-            }
-        };
+//        BiConsumer<String, TaskRecipe> addPair = (key, recipe) ->
+//        {
+//            var val = taskCatalog.keyMap.get(key);
+//            if (val == null)
+//            {
+//                taskCatalog.keyMap.put(key, recipe);
+//                //taskCatalog.taskMap.put(recipe, key);
+//            }
+//            else
+//            {
+//                System.err.println("ERROR! " + key + " Already exists!");
+//            }
+//        };
 
         var modules = new HashMap<String, Map<String, Object>>();
         var synthesis = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
@@ -3533,7 +3532,8 @@ public class GameState
                         + ":" + taskBlueprint.toString()
                         + ":" + taskRecipe.getEnumName();
 
-                    addPair.accept(key, taskRecipe);
+                    taskCatalog.keyMap.put(key, taskRecipe);
+                    taskCatalog.singleTaskMap.put(taskRecipe, key);
 
                     var taskData = determineModuleTaskData(taskRecipe);
 
@@ -3576,7 +3576,8 @@ public class GameState
                             + ":" + synthesisBlueprint.name()
                             + ":" + synthesisRecipe.name();
 
-                        addPair.accept(key, synthesisRecipe);
+                        taskCatalog.keyMap.put(key, synthesisRecipe);
+                        taskCatalog.singleTaskMap.put(synthesisRecipe, key);
                         var taskData = determineSynthesisTaskData(synthesisRecipe);
 
                         var dataMap = new HashMap<String, Object>();
@@ -3616,10 +3617,12 @@ public class GameState
                             + ":" + modificationBlueprint.name()
                             + ":" + modificationRecipe.getName();
 
-                        addPair.accept(key, modificationRecipe);
+                        taskCatalog.keyMap.put(key, modificationRecipe);
+                        taskCatalog.typedTaskMap.computeIfAbsent(modificationType, (_k) -> new HashMap<>())
+                            .put(modificationRecipe, key);
                         taskCatalog.typePrefixes.put(key, modificationType.toString());
 
-                        var taskData = determineModificationTaskData(modificationRecipe);
+                        var taskData = determineModificationTaskData(modificationRecipe, key);
 
                         var dataMap = new HashMap<String, Object>();
                         dataMap.put("key", key);
@@ -3654,10 +3657,12 @@ public class GameState
                                 + ":" + experimentalType.getName()
                                 + ":" + experimentalRecipe.getName();
 
-                            addPair.accept(key, experimentalRecipe);
+                            taskCatalog.keyMap.put(key, experimentalRecipe);
+                            taskCatalog.typedTaskMap.computeIfAbsent(experimentalType, (_k) -> new HashMap<>())
+                                .put(experimentalRecipe, key);
                             taskCatalog.typePrefixes.put(key, experimentalType.toString());
 
-                            var taskData = determineExperimentalTaskData(experimentalRecipe);
+                            var taskData = determineExperimentalTaskData(experimentalRecipe, key);
 
                             var dataMap = new HashMap<String, Object>();
                             dataMap.put("key", key);
@@ -3695,7 +3700,8 @@ public class GameState
                             + ":" + technologyBlueprint.name()
                             + ":" + technologyRecipe.getName();
 
-                        addPair.accept(key, technologyRecipe);
+                        taskCatalog.keyMap.put(key, technologyRecipe);
+                        taskCatalog.singleTaskMap.put(technologyRecipe, key);
 
                         var taskData = determineTechBrokerTaskData(technologyRecipe);
 
@@ -3746,7 +3752,8 @@ public class GameState
                                     + ":" + materialTradeBlueprint.toString()
                                     + ":" + materialTradeRecipe.getName();
 
-                                addPair.accept(key, materialTradeRecipe);
+                                taskCatalog.keyMap.put(key, materialTradeRecipe);
+                                taskCatalog.singleTaskMap.put(materialTradeRecipe, key);
 
                                 var taskData = determineTradeTaskData(materialTradeRecipe);
 
