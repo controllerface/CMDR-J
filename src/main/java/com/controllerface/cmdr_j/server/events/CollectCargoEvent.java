@@ -11,7 +11,7 @@ public class CollectCargoEvent implements BiConsumer<GameState, Map<String, Obje
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        var type = ((String) event.get("Type"));
+        var type = ((String) event.get("Type")).toUpperCase();
         var item = Commodity.valueOf(type);
         gameState.adjustCargoCount(item, 1);
     }

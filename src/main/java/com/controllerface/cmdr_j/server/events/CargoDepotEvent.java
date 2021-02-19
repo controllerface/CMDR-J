@@ -12,7 +12,7 @@ public class CargoDepotEvent implements BiConsumer<GameState, Map<String, Object
     public void accept(GameState gameState, Map<String, Object> event)
     {
         var updateType = ((String) event.get("UpdateType"));
-        var type = ((String) event.get("CargoType"));
+        var type = ((String) event.get("CargoType")).toUpperCase();
         var count = ((Number) event.get("Count")).intValue();
         var item = Commodity.valueOf(type);
 

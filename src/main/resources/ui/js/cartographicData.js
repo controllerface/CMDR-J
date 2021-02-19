@@ -6,6 +6,20 @@ class CartographicData extends HTMLElement
         this.attachShadow({mode: 'open'});
         let template = document.getElementById('template_CartographicData');
         this.shadowRoot.append(template.content.cloneNode(true));
+        this.ignoredServices = new Set();
+        this.ignoredServices.add('dock');
+        this.ignoredServices.add('autodock');
+        this.ignoredServices.add('contacts');
+        this.ignoredServices.add('crewlounge');
+        this.ignoredServices.add('tuning');
+        this.ignoredServices.add('missions');
+        this.ignoredServices.add('missionsgenerated');
+        this.ignoredServices.add('flightcontroller');
+        this.ignoredServices.add('stationoperations');
+        this.ignoredServices.add('powerplay');
+        this.ignoredServices.add('stationMenu');
+        this.ignoredServices.add('shop');
+        this.ignoredServices.add('engineer');
     }
 
     set bodyType(value)
@@ -37,7 +51,12 @@ class CartographicData extends HTMLElement
             case 'AtmosphereType': return 'Atmosphere Type';
             case 'AtmosphereComposition': return 'Atmosphere Composition';
             case 'AxialTilt': return 'Axial Tilt';
+            case 'commodities': return 'Commodity Market';
             case 'DistanceFromArrivalLS': return 'Distance From Arrival';
+            case 'DistFromStarLS': return 'Distance From Star';
+            case 'exploration': return 'Universal Cartographics';
+            case 'MarketID': return 'Market ID';
+            case 'materialtrader': return 'Material Trader';
             case 'MassEM': return 'Mass';
             case 'OrbitalInclination': return 'Orbital Inclination';
             case 'OrbitalPeriod': return 'Orbital Period';
@@ -45,8 +64,16 @@ class CartographicData extends HTMLElement
             case 'ReserveLevel': return 'Reserve Level';
             case 'RotationPeriod': return 'Rotation Period';
             case 'ScanType': return 'Scan Type';
+            case 'searchrescue': return 'Search and Rescue';
             case 'SemiMajorAxis': return 'Semi-Major Axis';
             case 'StarType': return 'Star Type';
+            case 'StationEconomy': return 'Primary Economy';
+            case 'StationEconomies' : return 'Economies';
+            case 'StationServices': return 'Station Services';
+            case 'StationFaction': return 'Controlling Faction';
+            case 'StationAllegiance': return 'Station Allegiance';
+            case 'StationGovernment': return 'Government';
+            case 'StationType': return 'Station Type';
             case 'stellar_body_id': return 'Body ID';
             case 'stellar_body_type': return 'Body Type';
             case 'stellar_body_name': return 'Body Name';
@@ -92,6 +119,7 @@ class CartographicData extends HTMLElement
             case 'Age_MY': return 'Million Years';
             case 'AxialTilt': return '&deg;';
             case 'DistanceFromArrivalLS': return 'LS';
+            case 'DistFromStarLS': return 'LS';
             case 'OrbitalInclination': return '&deg;';
             case 'Periapsis': return '&deg;';
             case 'OrbitalPeriod': return 'Days';
@@ -261,6 +289,49 @@ class CartographicData extends HTMLElement
             {
                 let date = new Date(value);
                 statValue.textContent = date.toLocaleString();
+            }
+            else if (stat === 'MarketID')
+            {
+                statValue.textContent = value;
+            }
+            else if (stat === 'StationServices')
+            {
+                let detailData = this.createExpandedStatContainer('Services Offered');
+                for (let i = 0, len = value.length; i < len; i++)
+                {
+                    let nextService = value[i];
+                    if (this.ignoredServices.has(nextService))
+                    {
+                        continue;
+                    }
+                    nextService = this.formatName(nextService);
+
+                    let nextServiceEntry = this.createExpandedStatEntry('', nextService);
+                    detailData[1].append(nextServiceEntry);
+                }
+                statValue.append(detailData[0]);
+            }
+
+            else if (stat === 'StationEconomies')
+            {
+                let detailData = this.createExpandedStatContainer('Economy Data');
+                for (let i = 0, len = value.length; i < len; i++)
+                {
+                    let nextEconomy = value[i];
+                    let economyName = nextEconomy['Name'];
+                    let economyShare = nextEconomy['Proportion'] * 100 + " %";
+                    let nextEconomyEntry = this.createExpandedStatEntry(economyName, economyShare);
+                    detailData[1].append(nextEconomyEntry);
+                }
+                statValue.append(detailData[0]);
+            }
+            else if (stat === 'StationFaction')
+            {
+                let detailData = this.createExpandedStatContainer('Faction Data');
+                let nameEntry = this.createExpandedStatEntry("", value['Name']);
+                let stateEntry = this.createExpandedStatEntry("Current State", value['FactionState']);
+                detailData[1].append(nameEntry, stateEntry);
+                statValue.append(detailData[0]);
             }
             else if (stat === 'Composition')
             {

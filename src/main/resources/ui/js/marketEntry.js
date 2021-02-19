@@ -9,15 +9,15 @@ class MarketEntry extends HTMLElement
         entry.classList.add('marketData');
 
         this.commodityName = document.createElement('span');
-        this.commodityName.classList.add('marketName')
+        this.commodityName.classList.add('marketName');
         this.tradeQuantity = document.createElement('span');
-        this.tradeQuantity.classList.add('marketQuantity')
+        this.tradeQuantity.classList.add('marketQuantity');
         this.marketPrice = document.createElement('span');
-        this.marketPrice.classList.add('marketPrice')
+        this.marketPrice.classList.add('marketPrice');
         this.galacticMean = document.createElement('span');
-        this.galacticMean.classList.add('marketPrice')
+        this.galacticMean.classList.add('marketPrice');
         this.tradeProfit = document.createElement('span');
-        this.tradeProfit.classList.add('marketProfit')
+        this.tradeProfit.classList.add('marketProfit');
 
         entry.append(this.commodityName,
             this.tradeQuantity,
@@ -30,6 +30,16 @@ class MarketEntry extends HTMLElement
         styleSheet.setAttribute('href', 'market.css');
 
         this.shadowRoot.append(styleSheet, entry);
+    }
+
+    set itemId(value)
+    {
+        this.setAttribute('itemid', value);
+    }
+
+    get itemId()
+    {
+        return this.getAttribute('itemid');
     }
 
     set commodity(value)
@@ -85,6 +95,18 @@ class MarketEntry extends HTMLElement
     static get observedAttributes()
     {
         return ['commodity', 'quantity', 'price', 'mean', 'profit'];
+    }
+
+    setRare(isRare)
+    {
+        if (isRare)
+        {
+            this.commodityName.classList.add('rareName');
+        }
+        else
+        {
+            this.commodityName.classList.rare('rareName');
+        }
     }
 
     determineTarget(name)

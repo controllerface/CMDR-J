@@ -93,6 +93,7 @@ class CargoBin extends HTMLElement
                     this.commodityType.title = 'Planetary Ports';
                     break;
 
+                // todo: add remaining types
                 default:
                     console.error('Unknown Type: ' + newValue);
             }

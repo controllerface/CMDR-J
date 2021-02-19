@@ -564,12 +564,6 @@
         ""
       ]
     },
-    "PLATINUMALLOY": {
-      "name": "Platinum Alloy",
-      "locations": [
-        ""
-      ]
-    },
     "PRASEODYMIUM": {
       "name": "Praseodymium",
       "locations": [
@@ -1357,7 +1351,14 @@
         ""
       ]
     },
-    "AEPYORNISEGG": {
+
+    "APAVIETII": {
+      "name": "Apa Vietii",
+      "locations": [
+        ""
+      ]
+    },
+    "CETIAEPYORNISEGG": {
       "name": "Aepyornis Egg",
       "locations": [
         ""
@@ -1387,7 +1388,7 @@
         ""
       ]
     },
-    "ALYABODYSOAP": {
+    "ALYABODILYSOAP": {
       "name": "Alya Body Soap",
       "locations": [
         ""
@@ -1417,8 +1418,14 @@
         ""
       ]
     },
-    "AZUREMILK": {
+    "BLUEMILK": {
       "name": "Azure Milk",
+      "locations": [
+        ""
+      ]
+    },
+    "BAKEDGREEBLES": {
+      "name": "Baked Greebles",
       "locations": [
         ""
       ]
@@ -1465,7 +1472,7 @@
         ""
       ]
     },
-    "CD75KITTENBRANDCOFFEE": {
+    "CD75CATCOFFEE": {
       "name": "CD-75 Kitten Brand Coffee",
       "locations": [
         ""
@@ -1519,7 +1526,7 @@
         ""
       ]
     },
-    "CROMSILVERFESH": {
+    "ANIMALEFFIGIES": {
       "name": "Crom Silver Fesh",
       "locations": [
         ""
@@ -1555,8 +1562,14 @@
         ""
       ]
     },
-    "EDENAPPLESOFAERIAL": {
-      "name": "Edenapplesofaerial",
+    "DURADRIVES": {
+      "name": "Duradrives",
+      "locations": [
+        ""
+      ]
+    },
+    "AERIALEDENAPPLE": {
+      "name": "Eden Apples of Aerial",
       "locations": [
         ""
       ]
@@ -1567,7 +1580,7 @@
         ""
       ]
     },
-    "ERANINPEARLWHISKEY": {
+    "ERANINPEARLWHISKY": {
       "name": "Eranin Pearl Whiskey",
       "locations": [
         ""
@@ -1597,8 +1610,8 @@
         ""
       ]
     },
-    "GALACTICTRAVELGUIDES": {
-      "name": "Galactic Travel Guides",
+    "GALACTICTRAVELGUIDE": {
+      "name": "Galactic Travel Guide",
       "locations": [
         ""
       ]
@@ -1681,8 +1694,8 @@
         ""
       ]
     },
-    "HIPPROTOSQUID": {
-      "name": "Hip Proto-Squid",
+    "HIP41181SQUID": {
+      "name": "HIP Proto-Squid",
       "locations": [
         ""
       ]
@@ -1735,7 +1748,7 @@
         ""
       ]
     },
-    "KACHIRIGINFILTERLEECHES": {
+    "KACHIRIGINLEACHES": {
       "name": "Kachirigin Filter Leeches",
       "locations": [
         ""
@@ -1765,7 +1778,7 @@
         ""
       ]
     },
-    "KINAGOVIOLINS": {
+    "KINAGOINSTRUMENTS": {
       "name": "Kinago Violins",
       "locations": [
         ""
@@ -1777,7 +1790,7 @@
         ""
       ]
     },
-    "KOROKUNGPELLETS": {
+    "KORROKUNGPELLETS": {
       "name": "Koro Kung Pellets",
       "locations": [
         ""
@@ -1813,7 +1826,7 @@
         ""
       ]
     },
-    "LUCANONIONHEAD": {
+    "TRANSGENICONIONHEAD": {
       "name": "Lucan Onionhead",
       "locations": [
         ""
@@ -1873,6 +1886,12 @@
         ""
       ]
     },
+    "NANOMEDICINES": {
+      "name": "Nanomedicines",
+      "locations": [
+        ""
+      ]
+    },
     "NERITUSBERRIES": {
       "name": "Neritus Berries",
       "locations": [
@@ -1915,19 +1934,19 @@
         ""
       ]
     },
-    "ONIONHEADALPHASTRAIN": {
+    "ONIONHEADA": {
       "name": "Onionhead Alpha Strain",
       "locations": [
         ""
       ]
     },
-    "ONIONHEADBETASTRAIN": {
+    "ONIONHEADB": {
       "name": "Onionhead Beta Strain",
       "locations": [
         ""
       ]
     },
-    "OPHIUCHEXINOARTEFACTS": {
+    "OPHIUCHIEXINOARTEFACTS": {
       "name": "Ophiuch Exino Artefacts",
       "locations": [
         ""
@@ -1957,7 +1976,13 @@
         ""
       ]
     },
-    "RAJUKRUMULTISTOVES": {
+    "PLATINUMALOY": {
+      "name": "Platinum Alloy",
+      "locations": [
+        ""
+      ]
+    },
+    "RAJUKRUSTOVES": {
       "name": "Rajukru Multi-Stoves",
       "locations": [
         ""
@@ -1975,7 +2000,7 @@
         ""
       ]
     },
-    "SANUMADECORATIVEMEAT": {
+    "SANUMAMEAT": {
       "name": "Sanuma Decorative Meat",
       "locations": [
         ""
@@ -2011,7 +2036,7 @@
         ""
       ]
     },
-    "TARACHSPICE": {
+    "TARACHTORSPICE": {
       "name": "Tarach Spice",
       "locations": [
         ""
@@ -2041,6 +2066,12 @@
         ""
       ]
     },
+    "TIEGFRIESSYNTHSILK": {
+      "name": "Tiegfries Synth Silk",
+      "locations": [
+        ""
+      ]
+    },
     "TIOLCEWASTE2PASTEUNITS": {
       "name": "Tiolce Waste2paste Units",
       "locations": [
@@ -2053,8 +2084,8 @@
         ""
       ]
     },
-    "ULTRACOMPACTPROCESSOR": {
-      "name": "Ultra-Compact Processor",
+    "ADVERT1": {
+      "name": "Ultra-Compact Processor Prototypes",
       "locations": [
         ""
       ]
@@ -2065,7 +2096,7 @@
         ""
       ]
     },
-    "UTGAROARMILLENNIALEGGS": {
+    "UTGAROARMILLENIALEGGS": {
       "name": "Utgaroar Millennial Eggs",
       "locations": [
         ""
@@ -2083,7 +2114,7 @@
         ""
       ]
     },
-    "VANAYEQUICERATOMORPHAFUR": {
+    "VANAYEQUIRHINOFUR": {
       "name": "Vanayequi Ceratomorpha Fur",
       "locations": [
         ""
@@ -2101,7 +2132,7 @@
         ""
       ]
     },
-    "VOIDEXTRACTCOFFEE": {
+    "LFTVOIDEXTRACTCOFFEE": {
       "name": "Void Extract Coffee",
       "locations": [
         ""
@@ -2131,7 +2162,7 @@
         ""
       ]
     },
-    "WOLFFESH": {
+    "WOLF1301FESH": {
       "name": "Wolf Fesh",
       "locations": [
         ""
@@ -2149,7 +2180,7 @@
         ""
       ]
     },
-    "XIHEBIOMORPHICCOMPANIONS": {
+    "XIHECOMPANIONS": {
       "name": "Xihe Biomorphic Companions",
       "locations": [
         ""
@@ -2161,7 +2192,7 @@
         ""
       ]
     },
-    "ZEESSZEANTGRUBGLUE": {
+    "ZEESSZEANTGLUE": {
       "name": "Zeessze Ant Grub Glue",
       "locations": [
         ""

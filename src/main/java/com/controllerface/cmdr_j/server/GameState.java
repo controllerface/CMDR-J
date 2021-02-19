@@ -676,6 +676,23 @@ public class GameState
     {
         this.marketData.clear();
         this.marketData.putAll(marketData);
+
+        database.executeInTransaction(txn ->
+        {
+            var system = getStarSystemEntity(txn, starSystem.address);
+            if (system == null) return;
+
+            var body = EntityUtilities.entityStream(system.getLinks(EntityKeys.STELLAR_BODY))
+                .filter(stellarBody -> Objects.equals(stellarBody.getProperty("MarketID"), marketData.get("marketId")))
+                .findFirst().orElse(null);
+
+            if (body == null) return;
+
+            // todo: update market data for this body, need to handle planetary ports
+            //  and figure out how to deal with rares that show up in markets just
+            //  because you are carrying them, but that are not sold there.
+            System.out.println(body.getProperty(EntityKeys.STELLAR_BODY_NAME));
+        });
     }
 
     private final List<Map<String, Object>> communityGoals = new ArrayList<>();
@@ -688,6 +705,15 @@ public class GameState
             var json = JSONSupport.Write.jsonToString.apply(goal);
             sink.accept("CommunityGoal", json);
         });
+    }
+
+    public void finishCommunityGoal(int goalId)
+    {
+        var remaining = this.communityGoals.stream()
+            .filter(goal -> ((Number) goal.get("CGID")).intValue() != goalId)
+            .collect(Collectors.toList());
+
+        setCommunityGoals(remaining);
     }
 
     public void setCommunityGoals(List<Map<String, Object>> communityGoals)
@@ -1827,6 +1853,30 @@ public class GameState
         return JSONSupport.Write.jsonToString.apply(data);
     }
 
+    public int findBodyId(String bodyName)
+    {
+        return database.computeInTransaction(txn ->
+        {
+            var currentSystem = getStarSystemEntity(txn, starSystem.address);
+            if (currentSystem == null)
+            {
+                return -1;
+            }
+
+            var stellarBody = EntityUtilities.entityStream(currentSystem.getLinks(EntityKeys.STELLAR_BODY))
+                .filter(entity -> Objects.equals(entity.getProperty(EntityKeys.STELLAR_BODY_NAME), bodyName))
+                .findFirst()
+                .orElse(null);
+
+            if (stellarBody == null)
+            {
+                return -1;
+            }
+            return Optional.ofNullable(stellarBody.getProperty(EntityKeys.STELLAR_BODY_ID))
+                .map(c-> ((int) c)).orElse(-1);
+        });
+    }
+
     public void updateSystemBodyCount(long address, int count)
     {
         database.executeInTransaction(transaction -> Optional.ofNullable(getStarSystemEntity(transaction, address))
@@ -2113,6 +2163,7 @@ public class GameState
                     bodyEntityToMap(systemEntity, data);
                     var bodies = systemEntity.getLinks(EntityKeys.STELLAR_BODY);
                     var poiNotes = systemEntity.getLinks(EntityKeys.POI_NOTE);
+
                     var bodyList = EntityUtilities.entityStream(bodies)
                         .map(bodyEntity ->
                         {
@@ -2123,6 +2174,7 @@ public class GameState
                         .sorted(Comparator.comparingInt(map ->
                             ((Number) map.get(EntityKeys.STELLAR_BODY_ID)).intValue()))
                         .collect(Collectors.toList());
+
                     var poiNoteList = EntityUtilities.entityStream(poiNotes)
                         .map(poiNote->
                         {
@@ -2132,6 +2184,7 @@ public class GameState
                             return poiData;
                         })
                         .collect(Collectors.toList());
+
                     data.put("bodies", bodyList);
                     if (!poiNoteList.isEmpty())
                     {
@@ -3489,20 +3542,6 @@ public class GameState
                 List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
                 commodity.setLocationInformation(String.join("\n", locations));
             });
-
-//        BiConsumer<String, TaskRecipe> addPair = (key, recipe) ->
-//        {
-//            var val = taskCatalog.keyMap.get(key);
-//            if (val == null)
-//            {
-//                taskCatalog.keyMap.put(key, recipe);
-//                //taskCatalog.taskMap.put(recipe, key);
-//            }
-//            else
-//            {
-//                System.err.println("ERROR! " + key + " Already exists!");
-//            }
-//        };
 
         var modules = new HashMap<String, Map<String, Object>>();
         var synthesis = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();

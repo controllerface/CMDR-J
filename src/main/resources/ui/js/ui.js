@@ -391,20 +391,55 @@ function setMarketData(data)
         return
     }
 
+    console.log(data);
+
     let market = document.getElementById('marketInfo');
     market.textContent = "";
     market.station = data['name'];
     market.type = data['type'];
     market.system = data['system'];
 
+    let rares = data['rares'];
     let imports = data['imports'];
     let exports = data['exports'];
 
+    let rareTypes = Object.keys(rares);
     let importTypes = Object.keys(imports);
     let exportTypes = Object.keys(exports);
 
+    rareTypes.sort();
     importTypes.sort();
     exportTypes.sort();
+
+    for (let e = 0, len = rareTypes.length; e < len; e++)
+    {
+        let category = rareTypes[e];
+        let categoryElement = document.createElement('h4');
+        categoryElement.classList.add('binCategoryHeader');
+        categoryElement.setAttribute('slot', 'rares');
+        categoryElement.textContent = category;
+        market.append(categoryElement);
+
+        let items = rares[category];
+        let itemTypes = Object.keys(items);
+        itemTypes.sort();
+
+        for (let it = 0, itLen = itemTypes.length; it < itLen; it++)
+        {
+            let itemName = itemTypes[it];
+            let item = items[itemName];
+            let nextItem = document.createElement('market-entry');
+            nextItem.setAttribute('slot', 'rares');
+            nextItem.commodity = itemName;
+            nextItem.itemId = item['itemId'];
+            nextItem.quantity = item['quantity'];
+            nextItem.price = item['price'];
+            nextItem.mean = item['mean'];
+            nextItem.profit = item['profit'];
+            nextItem.setRare(true);
+            market.append(nextItem);
+        }
+    }
 
     for (let i = 0, len = importTypes.length; i < len; i++)
     {
@@ -426,6 +461,7 @@ function setMarketData(data)
             let nextItem = document.createElement('market-entry');
             nextItem.setAttribute('slot', 'imports');
             nextItem.commodity = itemName;
+            nextItem.itemId = item['itemId'];
             nextItem.quantity = item['quantity'];
             nextItem.price = item['price'];
             nextItem.mean = item['mean'];
@@ -455,6 +491,7 @@ function setMarketData(data)
             let nextItem = document.createElement('market-entry');
             nextItem.setAttribute('slot', 'exports');
             nextItem.commodity = itemName;
+            nextItem.itemId = item['itemId'];
             nextItem.quantity = item['quantity'];
             nextItem.price = item['price'];
             nextItem.mean = item['mean'];
@@ -1022,6 +1059,10 @@ function setCartographyData(data, id)
             let nextEntry = document.createElement('cartographic-data');
             nextEntry.bodyType = body['stellar_body_type'];
             nextEntry.bodyName = body['stellar_body_name'];
+            if (body['stellar_body_type'] === 'Station')
+            {
+                nextEntry.setAttribute('slot', 'stations');
+            }
             nextEntry.loadBodyData(body);
             systemCartography.append(nextEntry);
         }

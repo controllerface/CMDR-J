@@ -20,7 +20,12 @@ class ConflictData extends HTMLElement
 
     set status(value)
     {
-        this.setAttribute('status', value);
+        let text = value;
+        if (value === '')
+        {
+            text = 'Cease Fire';
+        }
+        this.setAttribute('status', text);
     }
 
     get status()

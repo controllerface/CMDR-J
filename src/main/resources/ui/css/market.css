@@ -84,6 +84,12 @@
     color: var(--default-text);
 }
 
+.rareName
+{
+    font-weight: bold;
+    color: var(--experimental-color);
+}
+
 .marketQuantity
 {
     border: solid 1px var(--default-border);

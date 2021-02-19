@@ -109,11 +109,51 @@ class MarketInfo extends HTMLElement
 
         this.exports.append(exportHeader, exportSlot);
 
+        this.rares = document.createElement('div');
+
+        let rareHeader = document.createElement('div');
+        rareHeader.classList.add('marketData');
+
+        let rareName = document.createElement('div');
+        rareName.textContent = 'Rare Commodities';
+        rareName.classList.add('marketNameHeader');
+
+        let rareStock = document.createElement('div');
+        rareStock.textContent = 'Stock';
+        rareStock.setAttribute('title', 'Current stock at this market')
+        rareStock.classList.add('marketQuantityHeader');
+
+        let rareBuy = document.createElement('div');
+        rareBuy.textContent = 'Buy Price';
+        rareBuy.setAttribute('title', 'Cost to purchase the commodity from this market')
+        rareBuy.classList.add('marketPriceHeader');
+
+        let rareMean = document.createElement('div');
+        rareMean.textContent = 'Mean Price';
+        rareMean.setAttribute('title', 'The galactic average price for this commodity')
+        rareMean.classList.add('marketPriceHeader');
+
+        let rareProfit = document.createElement('div');
+        rareProfit.textContent = 'Profit';
+        rareProfit.setAttribute('title', 'Profit estimate, based on galactic average, if this commodity is purchased here, and sold elsewhere. \nActual profit may vary based on market prices at point of sale.');
+        rareProfit.classList.add('marketProfitHeader');
+
+        rareHeader.append(rareName, rareStock, rareBuy, rareMean, rareProfit);
+
+        let rareSlot = document.createElement('slot');
+        rareSlot.setAttribute('name', 'rares');
+        let rarePlaceholder = document.createElement('div');
+        rarePlaceholder.classList.add('marketPlaceholder');
+        rarePlaceholder.textContent = "No rare commodities"
+        rareSlot.append(rarePlaceholder);
+
+        this.rares.append(rareHeader, rareSlot);
+
         let styleSheet = document.createElement('link');
         styleSheet.setAttribute('rel', 'stylesheet');
         styleSheet.setAttribute('href', 'market.css');
 
-        this.shadowRoot.append(styleSheet, header, this.imports, this.exports);
+        this.shadowRoot.append(styleSheet, header, this.rares, this.imports, this.exports);
     }
 
     set station(value)

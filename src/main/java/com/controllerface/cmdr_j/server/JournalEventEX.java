@@ -106,7 +106,7 @@ public enum JournalEventEX
     ApproachBody(new ApproachBodyEvent()),
     LeaveBody(new LeaveBodyEvent()),
     ApproachSettlement(new ApproachSettlementEvent()),
-//    Docked(new DockedHandler()),                              // location info
+    Docked(new DockedEvent()),                              // location info
     FSDJump(new FSDJumpEvent()),
 //    FSDTarget(new FSDTargetHandler()),                        // informational
     Location(new LocationEvent()),
@@ -114,7 +114,7 @@ public enum JournalEventEX
     Touchdown(new TouchdownEvent()),
 //    StartJump(new StartJumpHandler()),                        // location info
 //    SupercruiseEntry(new SupercruiseEntryHandler()),          // informational
-//    SupercruiseExit(new SupercruiseExitHandler()),            // location info
+    SupercruiseExit(new SupercruiseExitEvent()),
 //    Undocked(new UndockedHandler()),                          // location info
 //    USSDrop(new USSDropHandler()),                            // informational
 
@@ -165,6 +165,7 @@ public enum JournalEventEX
     ScientificResearch(new ScientificResearchEvent()),
     CommunityGoal(new CommunityGoalEvent()),
     CommunityGoalReward(new CommunityGoalRewardEvent()),
+    CommunityGoalDiscard(new CommunityGoalDiscardEvent()),
     SearchAndRescue(new SearchAndRescueEvent()),
 
     /*
