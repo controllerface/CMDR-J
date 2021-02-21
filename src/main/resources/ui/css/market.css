@@ -133,3 +133,34 @@
     margin: 4px;
     color: var(--default-text);
 }
+
+.queryButton
+{
+    float: right;
+}
+
+.queryResultRow
+{
+    display: grid;
+    grid-template-columns: 1.75fr 1.75fr 1.5fr 1fr 1fr 1fr 1fr;
+    color: var(--default-text);
+    margin-top: 0em;
+    padding-bottom: .2em;
+}
+
+.queryResultHeader
+{
+    font-weight: bold;
+    color: var(--default-divider);
+    margin-top: .4em;
+}
+
+.queryText
+{
+    text-align: left;
+}
+
+.disabled
+{
+    display: none;
+}

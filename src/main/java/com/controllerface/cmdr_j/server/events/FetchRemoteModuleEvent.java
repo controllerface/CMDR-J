@@ -5,12 +5,12 @@ import com.controllerface.cmdr_j.server.GameState;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class FuelScoopEvent implements BiConsumer<GameState, Map<String, Object>>
+public class FetchRemoteModuleEvent implements BiConsumer<GameState, Map<String, Object>>
 {
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        var fuelTotal = ((Number) event.get("Total")).doubleValue();
-        gameState.updateMainFuelLevel(fuelTotal);
+        var transferCost = ((int) event.get("TransferCost"));
+        gameState.adjustCreditBalance(-1 * transferCost);
     }
 }

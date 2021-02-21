@@ -21,10 +21,12 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -70,6 +72,32 @@ public class UIFunctions
         public static final Color darkYellow = Color.rgb(0xb7, 0x7d, 0x00);
         public static final Color darkRed = Color.rgb(0xb7, 0x00, 0x00);
         public static final Color hotBlue = Color.rgb(0x00, 0x77, 0xcc);
+    }
+
+    public static class Format
+    {
+        public static String secondsToTimeString(long seconds)
+        {
+            var duration = Duration.ofSeconds(seconds).toString();
+            var timeString = duration.replace("PT","")
+                .replace("H", " H ")
+                .replace("M", " M ")
+                .replace("S", " S").trim();
+
+            var hourMarker = timeString.indexOf(" H ");
+            if (hourMarker != -1)
+            {
+                var hours = Long.parseLong(timeString.substring(0, hourMarker));
+                if (hours >= 24)
+                {
+                    var days = TimeUnit.HOURS.toDays(hours);
+                    var newHours = hours - (days * 24);
+                    timeString = timeString.replace(hours + " H ", newHours + " H ");
+                    timeString = days + " D " + timeString;
+                }
+            }
+            return timeString;
+        }
     }
 
     public static class Icons

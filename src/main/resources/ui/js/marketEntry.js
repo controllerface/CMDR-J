@@ -4,32 +4,143 @@ class MarketEntry extends HTMLElement
     {
         super();
         this.attachShadow({mode: 'open'});
+        let template = document.getElementById('template_MarketEntry');
+        this.shadowRoot.append(template.content.cloneNode(true));
 
-        let entry = document.createElement('div');
-        entry.classList.add('marketData');
+        let priceCheckButton = this.shadowRoot.getElementById('marketEntry_pricecheck');
+        priceCheckButton.addEventListener('click', (e) =>
+        {
+            let id = this.getAttribute('itemid');
+            let type = this.getAttribute('type');
+            let price = this.price;
+            let comparison = 'difference';
 
-        this.commodityName = document.createElement('span');
-        this.commodityName.classList.add('marketName');
-        this.tradeQuantity = document.createElement('span');
-        this.tradeQuantity.classList.add('marketQuantity');
-        this.marketPrice = document.createElement('span');
-        this.marketPrice.classList.add('marketPrice');
-        this.galacticMean = document.createElement('span');
-        this.galacticMean.classList.add('marketPrice');
-        this.tradeProfit = document.createElement('span');
-        this.tradeProfit.classList.add('marketProfit');
+            let tokens =
+            {
+                header: type + ' price comparison',
+                transaction: this.determineTransactionType(type),
+                quantity: this.determineQuantityType(type),
+                comparison: comparison,
+            };
 
-        entry.append(this.commodityName,
-            this.tradeQuantity,
-            this.marketPrice,
-            this.galacticMean,
-            this.tradeProfit);
+            makeMarketQuery(id, type, price, comparison, (data) =>
+            {
+                this.handleQuery(data, tokens);
+            });
+        });
 
-        let styleSheet = document.createElement('link');
-        styleSheet.setAttribute('rel', 'stylesheet');
-        styleSheet.setAttribute('href', 'market.css');
+        let marketCheckButton = this.shadowRoot.getElementById('marketEntry_marketcheck');
+        marketCheckButton.addEventListener('click', (e) =>
+        {
+            let id = this.getAttribute('itemid');
+            let type = this.getAttribute('type');
+            let price = this.price;
+            let comparison = 'income';
 
-        this.shadowRoot.append(styleSheet, entry);
+            if (type === 'export')
+            {
+                type = 'import';
+            }
+            else
+            {
+                type = 'export';
+            }
+
+            let tokens =
+            {
+                header: type + ' markets',
+                transaction: this.determineTransactionType(type),
+                quantity: this.determineQuantityType(type),
+                comparison: comparison,
+            };
+
+            makeMarketQuery(id, type, price, comparison, (data) =>
+            {
+                this.handleQuery(data, tokens);
+            });
+        });
+    }
+
+    determineTransactionType(type)
+    {
+        let transactionType = type === 'import'
+            ? 'sell'
+            : 'buy';
+
+        transactionType += ' price';
+
+        return transactionType;
+    }
+
+    determineQuantityType(type)
+    {
+        let quantityType = type === 'import'
+                        ? 'demand'
+                        : 'stock';
+
+        return quantityType;
+    }
+
+    handleQuery(data, tokens)
+    {
+        this.textContent = "";
+        if (data['results'])
+        {
+            console.log(data['results']);
+            let div = document.createElement('div');
+            div.classList.add('queryContainer');
+            if (data['results'].length == 0)
+            {
+                div.textContent = 'No data';
+            }
+            else
+            {
+                let typeHeader =  document.createElement('div');
+                typeHeader.classList.add('queryHeaderType');
+                typeHeader.textContent = tokens['header'];
+                div.append(typeHeader);
+                this.append(typeHeader);
+
+                this.append(div);
+
+                let header = this.createHeader(tokens['quantity'], tokens['transaction'], tokens['comparison']);
+                div.append(header);
+                data['results'].forEach(result =>
+                {
+                    let row = this.createQueryResult(result);
+                    div.append(row);
+                });
+            }
+            this.append(div);
+        }
+    }
+
+    createHeader(quantityType, priceType, comparison)
+    {
+        let queryHeader = document.createElement('market-query');
+        queryHeader.setHeader();
+        queryHeader.system = 'system';
+        queryHeader.market = 'market';
+        queryHeader.age = 'last updated';
+        queryHeader.distance = 'distance';
+        queryHeader.quantity = quantityType;
+        queryHeader.price = priceType;
+        queryHeader.comparison = comparison;
+        return queryHeader;
+    }
+
+    createQueryResult(result)
+    {
+        let queryResult = document.createElement('market-query');
+        queryResult.system = result['system'];
+        queryResult.market = result['market'];
+        queryResult.age = result['age'];
+        queryResult.quantity = result['quantity'];
+        queryResult.price = result['price'];
+        queryResult.distance = result['distance'];
+        queryResult.comparison = result['comparison'];
+        queryResult.impact = result['impact'];
+        return queryResult;
     }
 
     set itemId(value)
@@ -94,40 +205,58 @@ class MarketEntry extends HTMLElement
 
     static get observedAttributes()
     {
-        return ['commodity', 'quantity', 'price', 'mean', 'profit'];
+        return ['commodity',
+                'quantity',
+                'price',
+                'mean',
+                'profit'];
+    }
+
+    set type(value)
+    {
+        if (value === 'export' ||  value === 'import')
+        {
+            let text = 'exporters';
+            if (value === 'export')
+            {
+                text = 'importers';
+            }
+
+            let priceButton = this.shadowRoot.getElementById('marketEntry_pricecheck');
+            let marketButton = this.shadowRoot.getElementById('marketEntry_marketcheck');
+            priceButton.classList.remove('disabled');
+            marketButton.classList.remove('disabled');
+            marketButton.textContent = 'Find ' + text;
+            this.setAttribute('type', value);
+        }
+    }
+
+    get type()
+    {
+        return this.getAttribute('type');
     }
 
     setRare(isRare)
     {
+        this.setAttribute('rare', isRare);
         if (isRare)
         {
-            this.commodityName.classList.add('rareName');
+            this.shadowRoot.getElementById('marketEntry_commodity').classList.add('rareName');
         }
         else
         {
-            this.commodityName.classList.rare('rareName');
-        }
-    }
-
-    determineTarget(name)
-    {
-        switch (name)
-        {
-            case 'commodity': return this.commodityName;
-            case 'quantity': return this.tradeQuantity;
-            case 'price': return this.marketPrice;
-            case 'mean': return this.galacticMean;
-            case 'profit': return this.tradeProfit;
+            this.shadowRoot.getElementById('marketEntry_commodity').classList.remove('rareName');
         }
     }
 
     attributeChangedCallback(name, oldValue, newValue)
     {
-        let target = this.determineTarget(name);
-        if (target)
+        var value = newValue
+        if (!isNaN(value))
         {
-            target.textContent = newValue;
+            value = parseInt(value, 10).toLocaleString("en-US")
         }
+        this.shadowRoot.getElementById('marketEntry_' + name).textContent = value;
     }
 }
 

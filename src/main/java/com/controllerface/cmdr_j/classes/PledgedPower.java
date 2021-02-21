@@ -1,5 +1,7 @@
 package com.controllerface.cmdr_j.classes;
 
+import com.controllerface.cmdr_j.ui.UIFunctions;
+
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,24 +27,7 @@ public class PledgedPower
     public Map<String, Object> toMap()
     {
         var seconds = Long.parseLong(String.valueOf(timePledged));
-        var duration = Duration.ofSeconds(seconds).toString();
-        var pledged = duration.replace("PT","")
-            .replace("H", " H ")
-            .replace("M", " M ")
-            .replace("S", " S").trim();
-
-        var hourMarker = pledged.indexOf(" H ");
-        if (hourMarker != -1)
-        {
-            var hours = Long.parseLong(pledged.substring(0, hourMarker));
-            if (hours >= 24)
-            {
-                var days = TimeUnit.HOURS.toDays(hours);
-                var newHours = hours - (days * 24);
-                pledged = pledged.replace(hours + " H ", newHours + " H ");
-                pledged = days + " D " + pledged;
-            }
-        }
+        var pledged = UIFunctions.Format.secondsToTimeString(seconds);
 
         var map = new HashMap<String, Object>();
         map.put("name", name);

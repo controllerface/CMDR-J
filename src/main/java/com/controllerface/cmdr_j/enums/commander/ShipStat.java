@@ -22,6 +22,7 @@ public enum ShipStat implements Statistic
     HullValue("HullValue","Hull Value", Object::toString),
     ModulesValue("ModulesValue","Modules Value", Object::toString),
     ReserveCapacity("Reserve","Fuel Reserve Capacity", Object::toString),
+    ReserveLevel("ReserveLevel","Fuel Reserve Level", Object::toString),
     MainFuelCapacity("Main","Fuel Capacity", Object::toString),
 
     Fuel_Level("FuelLevel","Fuel Level", (o) ->

@@ -361,6 +361,29 @@ textarea
     resize: none;
 }
 
+
+button
+{
+    display: block;
+    background: transparent;
+    color: var(--default-color);
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid var(--default-color);
+}
+
+button:hover
+{
+    background: var(--default-text);
+}
+
+button:active
+{
+    background: var(--default-color);
+}
+
+
+
 /*
 Some reusable stat classes
 */

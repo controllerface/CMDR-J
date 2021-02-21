@@ -99,6 +99,7 @@ class CartographicData extends HTMLElement
                 case 'AsteroidCluster': return 'Asteroid Cluster';
                 case 'CarbonDioxide': return 'Carbon Dioxide';
                 case 'BlackHole': return 'Black Hole';
+                case 'CraterOutpost': return 'Crater Outpost';
                 default: return value;
             }
         }
@@ -274,7 +275,13 @@ class CartographicData extends HTMLElement
             let stat = statistics[j];
             let value = body[stat];
 
-            if (stat === 'Parents' || stat === 'stellar_body_mapped') continue;
+            if (stat === 'Parents'
+                || stat === 'stellar_body_mapped'
+                || stat === 'stellar_body_name'
+                || stat === 'planetary_settlement_name')
+            {
+                continue;
+            }
 
             let statRow = document.createElement('div');
             statRow.classList.add('infoRow');

@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.server.events;
 
-import com.controllerface.cmdr_j.classes.GenericBody;
 import com.controllerface.cmdr_j.classes.ScannedBody;
 import com.controllerface.cmdr_j.classes.StellarBody;
 import com.controllerface.cmdr_j.server.GameState;
@@ -19,10 +18,6 @@ public class DockedEvent implements BiConsumer<GameState, Map<String, Object>>
     public void accept(GameState gameState, Map<String, Object> event)
     {
         var stationName = ((String) event.get("StationName"));
-        var bodyID = gameState.findBodyId(stationName);
-
-        if (bodyID == -1) return;
-
         var address = ((Number) event.get("SystemAddress")).longValue();
         var bodyType = StellarBody.BodyType.Station;
 
@@ -53,8 +48,24 @@ public class DockedEvent implements BiConsumer<GameState, Map<String, Object>>
                 stationData.put("StationEconomies", stationEconomies);
             });
 
-        var scannedBody = new ScannedBody(bodyType, stationName, bodyID, address, stationData);
-        gameState.discoverStellarBody(scannedBody);
+        var bodyID = gameState.findBodyId(stationName);
+        if (bodyID != -1)
+        {
+            var scannedBody = new ScannedBody(bodyType, stationName, bodyID, address, stationData);
+            gameState.discoverStellarBody(scannedBody);
+        }
+        else
+        {
+            var currentSettlement = gameState.getLocalSettlement(((Long) stationData.get("MarketID")));
+            if (currentSettlement == null)
+            {
+                System.out.println("Ephemeral Market: " + stationData.get("MarketID"));
+                return;
+            }
+            var updatedSettlement = currentSettlement.cloneWithDetails(stationData);
+            gameState.discoverSettlement(updatedSettlement);
+        }
+
         gameState.emitCartographyData();
     }
 }

@@ -38,14 +38,17 @@
 
 .taskButton
 {
-    display: block;
     float: right;
+    text-align: left;
+
+    /*
+    display: block;
     background: transparent;
     color: var(--default-color);
-    text-align: left;
     cursor: pointer;
     border-radius: 3px;
     border: 1px solid var(--default-color);
+    */
 }
 
 .recommendedTradeRow
@@ -67,16 +70,20 @@
 
 .tradeButton
 {
+    text-align: left;
+    margin: .2em;
+
+    /*
     display: block;
     background: transparent;
     color: var(--default-color);
-    text-align: left;
     cursor: pointer;
     border-radius: 3px;
     border: 1px solid var(--default-color);
-    margin: .2em;
+    */
 }
 
+/*
 .tradeButton:hover,
 .taskButton:hover
 {
@@ -88,7 +95,7 @@
 {
     background: var(--default-color);
 }
-
+*/
 
 .taskAddButton
 {

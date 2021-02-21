@@ -13,13 +13,17 @@ public class ApproachSettlementEvent implements BiConsumer<GameState, Map<String
     {
         if (event.get("Latitude") == null)
         {
-            System.out.println("DEBUG: " + event);
             return;
         }
         var latitude = ((Number) event.get("Latitude")).doubleValue();
         var longitude = ((Number) event.get("Longitude")).doubleValue();
         var name = ((String) event.get("Name"));
-        var settlementLocation = new SettlementLocation(latitude, longitude, name);
+        var bodyName = ((String) event.get("BodyName"));
+        var marketId = ((Number) event.get("MarketID")).longValue();
+        var settlementLocation =
+            new SettlementLocation(latitude, longitude, marketId, name, bodyName);
+        gameState.discoverSettlement(settlementLocation);
         gameState.setClosestSettlement(settlementLocation);
+        gameState.emitCartographyData();
     }
 }

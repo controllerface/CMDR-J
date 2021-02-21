@@ -22,8 +22,9 @@
     <script src="factionStats.js"></script>
     <script src="gpsDisplay.js"></script>
     <script src="localConflict.js"></script>
-    <script src="marketEntry.js"></script>
     <script src="market.js"></script>
+    <script src="marketEntry.js"></script>
+    <script src="marketQuery.js"></script>
     <script src="material.js"></script>
     <script src="missionData.js"></script>
     <script src="moduleBay.js"></script>
@@ -1339,6 +1340,7 @@
         </slot>
     </template>
 
+    <!-- Pledged power information -->
     <template id="template_PledgedPower">
         <link rel="stylesheet" href="statistics.css">
         <div class="pledgedPowerRow">
@@ -1368,6 +1370,41 @@
         </span>
     </template>
 
+    <!-- Data about an individual commodity import/export -->
+    <template id="template_MarketEntry">
+        <link rel="stylesheet" href="market.css">
+        <div class="marketData">
+            <div class="marketName">
+                <span id="marketEntry_commodity"></span>
+                <button id="marketEntry_pricecheck" class="queryButton disabled">Compare</button>
+                <button id="marketEntry_marketcheck" class="queryButton disabled"></button>
+            </div>
+            <span class="marketQuantity" id="marketEntry_quantity"></span>
+            <span class="marketPrice" id="marketEntry_price"></span>
+            <span class="marketPrice" id="marketEntry_mean"></span>
+            <span class="marketProfit" id="marketEntry_profit"></span>
+        </div>
+        <slot></slot>
+    </template>
+
+    <!-- Result data from a market query -->
+    <template id="template_MarketQuery">
+        <link rel="stylesheet" href="market.css">
+        <link rel="stylesheet" href="statistics.css">
+        <div id="marketQuery_row" class="queryResultRow">
+            <span id="marketQuery_system" class="queryText"></span>
+            <span id="marketQuery_market" class="queryText"></span>
+            <span id="marketQuery_age"></span>
+            <span id="marketQuery_quantity"></span>
+            <span id="marketQuery_price"></span>
+            <div>
+                <span id="marketQuery_distance"></span>
+                <span id="marketQuery_lylabel" class="valueUnit">LY</span>
+            </div>
+            <span id="marketQuery_comparison"></span>
+        </div>
+    </template>
+
 </head>
 
 <body>
@@ -1383,10 +1420,18 @@
             <span class="dashboardSmallValue" id="Ship_Name"></span>
             <span class="dashboardSmallValueUnpadded" id="Ship_Ident"></span>
             <br />
-            <span class="dashboardTinyValue" id="Ship"></span>
-            <span>fuel</span>
-            <progress class="dashboardFuelMeter" id="Fuel_Capacity"></progress>
-            <br />
+
+            <div class="dashboardShipDetails">
+                <span class="dashboardTinyValue" id="Ship"></span>
+                <span class="dashboardFuelLabel">fuel</span>
+
+                <div class="dashboardFuelGrid">
+                    <progress class="dashboardFuelReservoir" id="Fuel_Reservoir"></progress>
+                    <progress class="dashboardFuelMeter" id="Fuel_Capacity"></progress>
+                </div>
+            </div>
+
+
             <span class="dashboardTinyValue" id="Rebuy">0</span>
             <span>rebuy</span>
 

@@ -4,6 +4,9 @@ import com.controllerface.cmdr_j.database.EntityKeys;
 import com.controllerface.cmdr_j.ui.UIFunctions;
 import jetbrains.exodus.entitystore.Entity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Stephen on 6/13/2018.
  */
@@ -61,5 +64,24 @@ public class StarSystem
         systemEntity.setProperty(EntityKeys.STAR_SYSTEM_X, xPos);
         systemEntity.setProperty(EntityKeys.STAR_SYSTEM_Y, yPos);
         systemEntity.setProperty(EntityKeys.STAR_SYSTEM_Z, zPos);
+    }
+
+    public static StarSystem unstoreSystemData(Entity systemEntity)
+    {
+        try
+        {
+            var s = ((String) systemEntity.getProperty(EntityKeys.STAR_SYSTEM));
+            var a = ((Long) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_ADDRESS));
+            var x = ((Double) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_X));
+            var y = ((Double) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_Y));
+            var z = ((Double) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_Z));
+            return new StarSystem(s, x, y, z, a);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Could not restore system data from entity: " + systemEntity.getId().toString());
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -18,8 +18,6 @@ public class MarketEvent implements BiConsumer<GameState, Map<String, Object>>
         var marketData = JournalSyncTaskEX.readMarketData();
         if (marketData.isEmpty()) return;
 
-        System.out.println(marketData);
-
         var marketId = ((Number) marketData.get("MarketID")).longValue();
         var timestamp = ((String) marketData.get("timestamp"));
         var name = ((String) marketData.get("StationName"));
@@ -31,6 +29,7 @@ public class MarketEvent implements BiConsumer<GameState, Map<String, Object>>
         var rares = new HashMap<String, Map<String, Object>>();
 
         items.stream()
+            .filter(item -> !((Boolean) item.get("Rare")))
             .filter(item -> ((Boolean) item.get("Consumer")))
             .forEach(item ->
             {
@@ -42,6 +41,7 @@ public class MarketEvent implements BiConsumer<GameState, Map<String, Object>>
             });
 
         items.stream()
+            .filter(item -> !((Boolean) item.get("Rare")))
             .filter(item -> ((Boolean) item.get("Producer")))
             .forEach(item ->
             {
@@ -91,9 +91,9 @@ public class MarketEvent implements BiConsumer<GameState, Map<String, Object>>
 
         remappedItem.put("itemId", item.get("id"));
         remappedItem.put("quantity", item.get(quantityKey));
-        remappedItem.put("price", NumberFormat.getInstance().format(price));
-        remappedItem.put("mean", NumberFormat.getInstance().format(meanPrice));
-        remappedItem.put("profit", NumberFormat.getInstance().format(profit));
+        remappedItem.put("price", price); // NumberFormat.getInstance().format(price));
+        remappedItem.put("mean", meanPrice); // NumberFormat.getInstance().format(meanPrice));
+        remappedItem.put("profit", profit); // NumberFormat.getInstance().format(profit));
         remappedItem.put("rare", item.get("Rare"));
         return remappedItem;
     }

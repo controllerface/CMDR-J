@@ -171,6 +171,7 @@ public enum JournalEventEX
     /*
     Modules
      */
+    FetchRemoteModule(new FetchRemoteModuleEvent()),
     ModuleBuy(new ModuleBuyEvent()),
 //    ModuleRetrieve(new ModuleRetrieveHandler()),              // module install
     ModuleSell(new ModuleSellEvent()),
@@ -254,13 +255,11 @@ public enum JournalEventEX
             .ifPresent((_e) -> setCommanderStat(gameState, event, stat));
     }
 
-    @Deprecated
     public static void setCommanderStat(GameState gameState, Map<String, Object> event, Statistic stat)
     {
         gameState.setCommanderStat(stat, extractStringStat(event, stat));
     }
 
-    @Deprecated
     public static void setShipStat(GameState gameState, Map<String, Object> event, Statistic stat)
     {
         gameState.setShipStat(stat, extractStringStat(event, stat));

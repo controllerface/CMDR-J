@@ -31,4 +31,14 @@ public class EntityKeys
     public static final String TASK = "task";
     public static final String TASK_KEY = "task_key";
     public static final String TASK_COUNT = "task_count";
+
+    public static final String PLANETARY_SETTLEMENT = "planetary_settlement";
+    public static final String PLANETARY_SETTLEMENT_NAME = "planetary_settlement_name";
+
+    public static final String LATITUDE = "latitude";
+    public static final String LONGITUDE = "longitude";
+
+    public static final String MARKET = "market";
+    // this matches the Journal format due to convenience
+    public static final String MARKET_ID = "MarketID";
 }

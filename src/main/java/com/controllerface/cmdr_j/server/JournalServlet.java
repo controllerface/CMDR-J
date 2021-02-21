@@ -103,7 +103,44 @@ class JournalServlet extends EventSourceServlet
          */
         MARKET(EndpointType.GET, "/market", (_r, response, playerState) ->
         {
-            writeJsonResponse(response, playerState.writeMarketData());
+            var id = _r.getParameter("id");
+            var type = _r.getParameter("type");
+            var price = _r.getParameter("price");
+            var comparison = _r.getParameter("comparison");
+
+            if (id == null)
+            {
+                writeJsonResponse(response, playerState.writeMarketData());
+            }
+            else if (type == null || price == null || comparison == null)
+            {
+                writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
+            }
+            else
+            {
+                long itemid;
+                long basePrice;
+                boolean difference;
+                try
+                {
+                    itemid = Long.parseLong(id);
+                    basePrice = Long.parseLong(price);
+                    difference = comparison.equalsIgnoreCase("difference");
+                }
+                catch (Exception e)
+                {
+                    writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
+                    return;
+                }
+
+                boolean isExport = false;
+                if (type.equalsIgnoreCase("export"))
+                {
+                    isExport = true;
+                }
+
+                writeJsonResponse(response, playerState.writeMarketQueryData(itemid, basePrice, isExport, difference));
+            }
         }),
 
         /**
@@ -223,8 +260,6 @@ class JournalServlet extends EventSourceServlet
                     System.out.println("delete result: " + address);
                     break;
             }
-
-            System.out.println("DEBUG: " + address);
 
             if (address != -1)
             {

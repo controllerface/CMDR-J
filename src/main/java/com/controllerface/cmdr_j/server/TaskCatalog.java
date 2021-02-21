@@ -9,8 +9,7 @@ import java.util.Map;
 public class TaskCatalog
 {
     public final Map<String, TaskRecipe> keyMap = new HashMap<>();
-    //public final Map<TaskRecipe, String> taskMap = new HashMap<>();
-    public final Map<TaskRecipe, String> singleTaskMap = new HashMap<>();
+    public final Map<TaskRecipe, String> untypedTaskMap = new HashMap<>();
     public final Map<TaskType, Map<TaskRecipe, String>> typedTaskMap = new HashMap<>();
     public final Map<String, String> typePrefixes = new HashMap<>();
 

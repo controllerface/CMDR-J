@@ -43,12 +43,15 @@ import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalS
 import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
 import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacteristic;
 import com.controllerface.cmdr_j.ui.UIFunctions;
+import javafx.beans.binding.ObjectExpression;
 import jetbrains.exodus.entitystore.*;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
@@ -57,6 +60,7 @@ import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -106,6 +110,7 @@ public class GameState
     private String commanderName = "";
     private long creditBalance = 0;
     private double currentFuel = 0;
+    private double currentReserveFuel = 0;
     private int cargoCapacity = 0;
 
     private ShipType shipType;
@@ -672,6 +677,175 @@ public class GameState
         });
     }
 
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> queryMarketData(long itemId, long price, boolean export, boolean difference)
+    {
+        System.out.println("TEST: " + price + " diff: " + difference);
+        return database.computeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return Collections.emptyList();
+
+            var typeKey = export
+                ? "exports"
+                : "imports";
+
+            return EntityUtilities.entityStream(commander.getLinks(EntityKeys.MARKET))
+                .map(mkt ->
+                {
+                    var systemEntity = mkt.getLink(EntityKeys.STAR_SYSTEM);
+                    if (systemEntity == null)
+                    {
+                        System.out.println("no system");
+                        return Collections.emptyMap();
+                    }
+                    var sys = StarSystem.unstoreSystemData(systemEntity);
+                    if (sys == null)
+                    {
+                        System.out.println("bad system");
+                        return Collections.emptyMap();
+                    }
+
+                    var mktMap = e2m(mkt);
+
+                    var current = marketData.get("marketId");
+                    var checking = mktMap.get(EntityKeys.MARKET_ID);
+                    if (current.equals(checking))
+                    {
+                        return Collections.emptyMap();
+                    }
+
+                    var commodities = ((Map<String, Map<String, Object>>) mktMap.get(typeKey));
+
+                    var item = commodities.values().stream()
+                        .flatMap(t -> t.values().stream())
+                        .map(i -> ((Map<String, Object>) i))
+                        .filter(commodity -> ((Number) commodity.get("itemId")).longValue() == itemId)
+                        .findFirst().orElse(Collections.emptyMap());
+
+                    if (item.isEmpty())
+                    {
+                        return Collections.emptyMap();
+                    }
+
+                    var time = Instant.parse(((String) mktMap.get("timestamp")));
+
+                    var age = Duration.between(time, Instant.now());
+                    var ts = UIFunctions.Format.secondsToTimeString(age.toSeconds());
+
+                    var thisPrice = ((Number) item.get("price")).longValue();
+                    var impact = "";
+                    if (difference)
+                    {
+                        var diff = thisPrice - price;
+                        item.put("comparison", diff);
+                        if (export)
+                        {
+                            if (diff < 0 )
+                            {
+                                impact = "positive";
+                            }
+                            else if (diff > 0 )
+                            {
+                                impact = "negative";
+                            }
+                        }
+                        else
+                        {
+                            if (diff > 0 )
+                            {
+                                impact = "positive";
+                            }
+                            else if (diff < 0 )
+                            {
+                                impact = "negative";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var income = 0L;
+                        if (export)
+                        {
+                            income = price - thisPrice;
+                        }
+                        else
+                        {
+                            income = thisPrice - price;
+                        }
+                        item.put("comparison", income);
+                        if (income > 0)
+                        {
+                            impact = "positive";
+                        }
+                        else if (income < 0)
+                        {
+                            impact = "negative";
+                        }
+                    }
+
+                    item.put("impact", impact);
+
+                    item.put("age", ts);
+                    item.put("system", sys.systemName);
+                    item.put("market", mktMap.get("name"));
+                    item.put("distance", starSystem.distanceBetween(sys));
+                    return item;
+                })
+                .filter(m->!m.isEmpty())
+                .map(f -> ((Map<String, Object>) f))
+                .collect(Collectors.toList());
+        });
+    }
+
+    private Map<String, Object> e2m(Entity entity)
+    {
+        var map = new HashMap<String, Object>();
+        entity.getPropertyNames()
+            .forEach(property -> map.put(property, entity.getProperty(property)));
+
+        entity.getBlobNames()
+            .forEach(blobName ->
+            {
+                var json = entity.getBlobString(blobName);
+                var jsonMap =  JSONSupport.Parse.jsonString.apply(json);
+                map.put(blobName, jsonMap.get("json"));
+            });
+        return map;
+    }
+
+    private void m2e(Map<String, Object> mapData, Entity entity)
+    {
+        mapData.forEach((name, value)->
+        {
+            if (value instanceof List)
+            {
+                var json = new HashMap<String, Object>();
+                json.put("json", value);
+                entity.setBlobString(name, JSONSupport.Write.jsonToString.apply(json));
+                return;
+            }
+            if (value instanceof Map)
+            {
+                var json = new HashMap<String, Object>();
+                json.put("json", value);
+                entity.setBlobString(name, JSONSupport.Write.jsonToString.apply(json));
+                return;
+            }
+            if (value instanceof String)
+            {
+                if (((String) value).isEmpty())
+                {
+                    return;
+                }
+            }
+            if (value instanceof Comparable)
+            {
+                entity.setProperty(name, ((Comparable) value));
+            }
+        });
+    }
+
     public void setMarketData(Map<String, Object> marketData)
     {
         this.marketData.clear();
@@ -679,19 +853,23 @@ public class GameState
 
         database.executeInTransaction(txn ->
         {
+            var commander = getCommanderEntity(txn);
             var system = getStarSystemEntity(txn, starSystem.address);
-            if (system == null) return;
+            if (commander == null || system == null) return;
 
-            var body = EntityUtilities.entityStream(system.getLinks(EntityKeys.STELLAR_BODY))
-                .filter(stellarBody -> Objects.equals(stellarBody.getProperty("MarketID"), marketData.get("marketId")))
-                .findFirst().orElse(null);
+            var market = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MARKET))
+                .filter(stellarBody -> Objects.equals(stellarBody.getProperty(EntityKeys.MARKET_ID), marketData.get("marketId")))
+                .findFirst().orElseGet(()->
+                {
+                    var newMarket = txn.newEntity(EntityKeys.MARKET);
+                    newMarket.setLink(EntityKeys.COMMANDER, commander);
+                    newMarket.setLink(EntityKeys.STAR_SYSTEM, system);
+                    newMarket.setProperty(EntityKeys.MARKET_ID, ((Number) marketData.get("marketId")).longValue());
+                    commander.addLink(EntityKeys.MARKET, newMarket);
+                    return newMarket;
+                });
 
-            if (body == null) return;
-
-            // todo: update market data for this body, need to handle planetary ports
-            //  and figure out how to deal with rares that show up in markets just
-            //  because you are carrying them, but that are not sold there.
-            System.out.println(body.getProperty(EntityKeys.STELLAR_BODY_NAME));
+            m2e(marketData, market);
         });
     }
 
@@ -808,6 +986,15 @@ public class GameState
             globalUpdate.accept(statistic.getName(), value);
             updateInternalState(statistic, value);
         });
+    }
+
+    public SettlementLocation getLocalSettlement(Long marketID)
+    {
+        if (localSettlement == null || marketID == null) return null;
+
+        return (localSettlement.marketId == marketID)
+            ? localSettlement
+            : null;
     }
 
     public void setClosestSettlement(SettlementLocation settlementLocation)
@@ -954,20 +1141,32 @@ public class GameState
         emitAllTaskData(globalUpdate);
     }
 
-    public void updateFuelLevels(double main, double reservoir)
+    public void updateMainFuelLevel(double fuelLevel)
     {
-        // todo: maybe track both levels separately if needed?
-        currentFuel = main + reservoir;
+        currentFuel = fuelLevel;
         var fuelString = String.valueOf(currentFuel);
         shipStatistics.put(ShipStat.Fuel_Level, fuelString);
         executeWithLock(() -> globalUpdate.accept(ShipStat.Fuel_Level.getName(), fuelString));
     }
 
+    public void updateFuelLevels(double main, double reservoir)
+    {
+        updateMainFuelLevel(main);
+
+        currentReserveFuel = reservoir;
+        var reservoirString = String.valueOf(currentReserveFuel);
+        shipStatistics.put(ShipStat.ReserveLevel, reservoirString);
+        executeWithLock(() -> globalUpdate.accept(ShipStat.ReserveLevel.getName(), reservoirString));
+    }
+
     public void refillFuel()
     {
         currentFuel = Double.parseDouble(shipStatistics.get(ShipStat.Fuel_Capacity));
+        currentReserveFuel = Double.parseDouble(shipStatistics.get(ShipStat.ReserveCapacity));
         shipStatistics.put(ShipStat.Fuel_Level, shipStatistics.get(ShipStat.Fuel_Capacity));
+        shipStatistics.put(ShipStat.ReserveLevel, shipStatistics.get(ShipStat.ReserveCapacity));
         executeWithLock(() -> globalUpdate.accept(ShipStat.Fuel_Level.getName(), String.valueOf(currentFuel)));
+        executeWithLock(() -> globalUpdate.accept(ShipStat.ReserveLevel.getName(), String.valueOf(currentReserveFuel)));
     }
 
     private void updateInternalState(Statistic statistic, String value)
@@ -1001,6 +1200,11 @@ public class GameState
             if (statistic == ShipStat.Fuel_Level)
             {
                 currentFuel = Double.parseDouble(value.replace(",",""));
+            }
+
+            if (statistic == ShipStat.ReserveLevel)
+            {
+                currentReserveFuel = Double.parseDouble(value.replace(",",""));
             }
 
             if (statistic == ShipStat.ReserveCapacity)
@@ -1901,18 +2105,40 @@ public class GameState
         }
     }
 
+    public void discoverSettlement(SettlementLocation settlementLocation)
+    {
+        database.executeInTransaction(txn ->
+        {
+            var bodyEntity = getStarNearestBodyEntity(txn);
+            if (bodyEntity == null) return;
+
+            var settlements = bodyEntity.getLinks(EntityKeys.PLANETARY_SETTLEMENT);
+            var settlementEntity = EntityUtilities.entityStream(settlements)
+                .filter(settlement ->
+                    Objects.equals(settlement.getProperty(EntityKeys.MARKET_ID), settlementLocation.marketId))
+                .findFirst().orElseGet(() ->
+                {
+                    var newSettlement = txn.newEntity(EntityKeys.PLANETARY_SETTLEMENT);
+                    newSettlement.setLink(EntityKeys.STELLAR_BODY, bodyEntity);
+                    bodyEntity.addLink(EntityKeys.PLANETARY_SETTLEMENT, newSettlement);
+                    return newSettlement;
+                });
+            settlementLocation.storeSettlementData(settlementEntity);
+        });
+    }
+
     public void discoverStellarBody(StellarBody stellarBody)
     {
-        database.executeInTransaction((transaction)->
+        database.executeInTransaction(txn ->
         {
-            var systemEntity = getStarSystemEntity(transaction, stellarBody.address);
+            var systemEntity = getStarSystemEntity(txn, stellarBody.address);
             if (systemEntity == null)
             {
                 System.out.println("Setting data for bodies with no known system is not currently supported");
                 return;
             }
 
-            var bodies = transaction.find(EntityKeys.STELLAR_BODY, EntityKeys.STELLAR_BODY_ID, stellarBody.id);
+            var bodies = txn.find(EntityKeys.STELLAR_BODY, EntityKeys.STELLAR_BODY_ID, stellarBody.id);
             var bodyEntity = EntityUtilities.entityStream(bodies)
                 .filter(body ->
                 {
@@ -1922,7 +2148,7 @@ public class GameState
                 })
                 .findFirst().orElseGet(() ->
                 {
-                    var newBody = transaction.newEntity(EntityKeys.STELLAR_BODY);
+                    var newBody = txn.newEntity(EntityKeys.STELLAR_BODY);
                     newBody.setLink(EntityKeys.STAR_SYSTEM, systemEntity);
                     systemEntity.addLink(EntityKeys.STELLAR_BODY, newBody);
                     return newBody;
@@ -2109,6 +2335,18 @@ public class GameState
             .findFirst().orElse(null);
     }
 
+    private Entity getStarNearestBodyEntity(StoreTransaction transaction)
+    {
+        if (nearestBody == null) return null;
+
+        var systemEntity = getStarSystemEntity(transaction, nearestBody.address);
+        if (systemEntity == null) return null;
+
+        return EntityUtilities.entityStream(systemEntity.getLinks(EntityKeys.STELLAR_BODY))
+            .filter(entity -> Objects.equals(entity.getProperty(EntityKeys.STELLAR_BODY_ID), nearestBody.id))
+            .findFirst().orElse(null);
+    }
+
     private static void bodyEntityToMap(Entity stellarBody, Map<String, Object> map)
     {
         stellarBody.getPropertyNames()
@@ -2175,6 +2413,16 @@ public class GameState
                             ((Number) map.get(EntityKeys.STELLAR_BODY_ID)).intValue()))
                         .collect(Collectors.toList());
 
+                    var settlementList = EntityUtilities.entityStream(bodies)
+                        .flatMap(body -> EntityUtilities.entityStream(body.getLinks(EntityKeys.PLANETARY_SETTLEMENT)))
+                        .map(settlement ->
+                        {
+                            var settlementData = new HashMap<String, Object>();
+                            bodyEntityToMap(settlement, settlementData);
+                            return settlementData;
+                        })
+                        .collect(Collectors.toList());
+
                     var poiNoteList = EntityUtilities.entityStream(poiNotes)
                         .map(poiNote->
                         {
@@ -2186,6 +2434,10 @@ public class GameState
                         .collect(Collectors.toList());
 
                     data.put("bodies", bodyList);
+                    if (!settlementList.isEmpty())
+                    {
+                        data.put("settlements", settlementList);
+                    }
                     if (!poiNoteList.isEmpty())
                     {
                         data.put("poi", poiNoteList);
@@ -2749,14 +3001,12 @@ public class GameState
     public void completeTask(TaskType taskType, TaskRecipe recipe)
     {
         var key = taskCatalog.typedTaskMap.get(taskType).get(recipe);
-        System.out.println("Key: " + key);
         adjustTask(key, "subtract");
     }
 
     public void completeTask(TaskRecipe recipe)
     {
-        var key = taskCatalog.singleTaskMap.get(recipe);
-        System.out.println("Key: " + key);
+        var key = taskCatalog.untypedTaskMap.get(recipe);
         adjustTask(key, "subtract");
     }
 
@@ -2863,6 +3113,14 @@ public class GameState
     public String writeMarketData()
     {
         return JSONSupport.Write.jsonToString.apply(marketData);
+    }
+
+    public String writeMarketQueryData(long id, long price, boolean export, boolean difference)
+    {
+        var queryResults = new HashMap<String, Object>();
+        var r = queryMarketData(id, price, export, difference);
+        queryResults.put("results", r);
+        return JSONSupport.Write.jsonToString.apply(queryResults);
     }
 
     public String writeCartographicData(long systemAddress)
@@ -3014,7 +3272,7 @@ public class GameState
 
                             if (!isCommitted.get() && stock > 0)
                             {
-                                var key = taskCatalog.singleTaskMap.get(recipe);
+                                var key = taskCatalog.untypedTaskMap.get(recipe);
                                 potentialTrades.add(new PotentialTrade(key, yield, stock));
                             }
                         }));
@@ -3572,7 +3830,7 @@ public class GameState
                         + ":" + taskRecipe.getEnumName();
 
                     taskCatalog.keyMap.put(key, taskRecipe);
-                    taskCatalog.singleTaskMap.put(taskRecipe, key);
+                    taskCatalog.untypedTaskMap.put(taskRecipe, key);
 
                     var taskData = determineModuleTaskData(taskRecipe);
 
@@ -3616,7 +3874,7 @@ public class GameState
                             + ":" + synthesisRecipe.name();
 
                         taskCatalog.keyMap.put(key, synthesisRecipe);
-                        taskCatalog.singleTaskMap.put(synthesisRecipe, key);
+                        taskCatalog.untypedTaskMap.put(synthesisRecipe, key);
                         var taskData = determineSynthesisTaskData(synthesisRecipe);
 
                         var dataMap = new HashMap<String, Object>();
@@ -3740,7 +3998,7 @@ public class GameState
                             + ":" + technologyRecipe.getName();
 
                         taskCatalog.keyMap.put(key, technologyRecipe);
-                        taskCatalog.singleTaskMap.put(technologyRecipe, key);
+                        taskCatalog.untypedTaskMap.put(technologyRecipe, key);
 
                         var taskData = determineTechBrokerTaskData(technologyRecipe);
 
@@ -3792,7 +4050,7 @@ public class GameState
                                     + ":" + materialTradeRecipe.getName();
 
                                 taskCatalog.keyMap.put(key, materialTradeRecipe);
-                                taskCatalog.singleTaskMap.put(materialTradeRecipe, key);
+                                taskCatalog.untypedTaskMap.put(materialTradeRecipe, key);
 
                                 var taskData = determineTradeTaskData(materialTradeRecipe);
 

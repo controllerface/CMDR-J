@@ -466,6 +466,7 @@ function setMarketData(data)
             nextItem.price = item['price'];
             nextItem.mean = item['mean'];
             nextItem.profit = item['profit'];
+            nextItem.type = 'import';
             market.append(nextItem);
         }
 
@@ -496,10 +497,24 @@ function setMarketData(data)
             nextItem.price = item['price'];
             nextItem.mean = item['mean'];
             nextItem.profit = item['profit'];
+            nextItem.type = 'export';
             market.append(nextItem);
         }
     }
 
+}
+
+function makeMarketQuery(itemId, type, price, comparison, callback)
+{
+    let url = "/market?id=" + itemId
+        + "&type=" + type
+        + "&price=" + price
+        + '&comparison=' + comparison;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => callback(data))
+      .catch(error => console.error(error));
 }
 
 /*
@@ -1067,6 +1082,22 @@ function setCartographyData(data, id)
             systemCartography.append(nextEntry);
         }
     }
+
+    if (data['settlements'])
+    {
+        let settlements = data['settlements'];
+
+        for (let i = 0, len = settlements.length; i < len; i++)
+        {
+            let settlement = settlements[i];
+            let nextEntry = document.createElement('cartographic-data');
+            nextEntry.bodyType = 'Planetary Port';
+            nextEntry.bodyName = settlement['planetary_settlement_name'] + ' [' + settlement['stellar_body_name'] + ']';
+            nextEntry.setAttribute('slot', 'stations');
+            nextEntry.loadBodyData(settlement);
+            systemCartography.append(nextEntry);
+        }
+    }
 }
 
 function setSystemCartographyData(data)
@@ -1435,13 +1466,21 @@ const eventListeners =
     Fuel_Capacity: (e) =>
     {
         setElementProgressMax("Fuel_Capacity", e.data);
-        handleShipValueData('fuelCapacity', e.data)
+        handleShipValueData('fuelCapacity', e.data);
     },
     Fuel_Level: (e) =>
     {
         setElementProgress("Fuel_Capacity", e.data);
     },
-    ReserveCapacity: (e) => handleShipValueData('resevoirCapacity', e.data),
+    ReserveCapacity: (e) =>
+    {
+        setElementProgressMax("Fuel_Reservoir", e.data);
+        handleShipValueData('resevoirCapacity', e.data);
+    },
+    ReserveLevel: (e) =>
+    {
+        setElementProgress("Fuel_Reservoir", e.data);
+    },
 
     // Monetary info; current balance, insurance costs, and current loan amount if any
     Credits: (e) => setElementText("Credits", parseInt(e.data, 10).toLocaleString("en-US")),
