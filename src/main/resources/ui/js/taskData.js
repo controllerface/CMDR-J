@@ -134,6 +134,46 @@ class TaskData extends HTMLElement
         detailElement.append(container);
     }
 
+    createEngineerRows(detailElement, engineerData)
+    {
+        let existingContainer = detailElement.querySelector('div[class=taskEngineerData');
+        if (existingContainer)
+        {
+            detailElement.removeChild(existingContainer);
+        }
+
+        let container = document.createElement('div');
+        container.classList.add('taskEngineerData');
+        engineerData.forEach(engineer =>
+        {
+            let engineerRow = document.createElement('div');
+            engineerRow.classList.add('taskEngineer');
+
+            let name = document.createElement('span');
+            name.textContent = engineer['name'] + ' - ';
+
+            let system = document.createElement('span');
+            system.classList.add('valueUnit');
+            system.textContent = engineer['system'];
+
+            let location = document.createElement('span');
+            location.textContent = ' - ' + engineer['location'];
+            engineerRow.append(name, system, location);
+            if (engineer['distance'])
+            {
+                let locText = location.textContent;
+                location.textContent = locText + ' - ';
+                let distance = document.createElement('span');
+                distance.classList.add('valueUnit');
+                let formatted = parseFloat(engineer['distance']).toLocaleString("en-US");
+                distance.textContent = formatted + " LY";
+                engineerRow.append(distance);
+            }
+            container.append(engineerRow);
+        });
+        detailElement.append(container);
+    }
+
     loadCostData(costData)
     {
         let d = this.shadowRoot.getElementById('taskData_details');
@@ -144,6 +184,12 @@ class TaskData extends HTMLElement
     {
         let d = this.shadowRoot.getElementById('taskData_details');
         this.createTaskEffects(d, effectData);
+    }
+
+    loadEngineerData(engineerData)
+    {
+        let d = this.shadowRoot.getElementById('taskData_details');
+        this.createEngineerRows(d, engineerData);
     }
 
     static get observedAttributes()

@@ -88,7 +88,7 @@ public enum ExperimentalRecipe implements TaskRecipe
     special_force_shell(new ForceShell()),
     special_high_yield_shell(new HighYieldShell()),
     special_incendiary_rounds(new IncendiaryRounds()),
-    special_inertial_impact(new InertialImpact()),
+    special_distortion_field(new InertialImpact()),
     special_ion_disruptor(new IonDisruptor()),
     special_mass_lock_munition(new MassLockMunition()),
     special_overload_munitions(new OverloadMunitions()),

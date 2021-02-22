@@ -25,7 +25,7 @@ public enum ExperimentalBlueprint implements TaskBlueprint
     Burst_Laser(EnumSet.of(ExperimentalRecipe.special_concordant_sequence,
             ExperimentalRecipe.special_weapon_toughened,
             ExperimentalRecipe.special_weapon_efficient,
-            ExperimentalRecipe.special_inertial_impact,
+            ExperimentalRecipe.special_distortion_field,
             ExperimentalRecipe.special_weapon_rateoffire,
             ExperimentalRecipe.special_weapon_damage,
             ExperimentalRecipe.special_phasing_sequence,

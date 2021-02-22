@@ -366,6 +366,7 @@
     border: solid 1px var(--default-divider);
     border-radius: 3px 3px 3px 3px;
     padding: .2em;
+    background: linear-gradient(226deg, black, black, black, transparent);
 }
 
 .expandedEntry

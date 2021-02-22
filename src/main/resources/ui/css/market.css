@@ -1,6 +1,6 @@
 @import "common.css";
 
-#marketHeader
+.marketHeader
 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -33,6 +33,12 @@
     margin-left: .2em;
 }
 
+.marketAge
+{
+    text-align: right;
+    padding-right: .5em;
+    border-right: 1px dashed var(--default-divider);
+}
 
 .marketData
 {

@@ -120,6 +120,11 @@ public class LoadoutEvent implements BiConsumer<GameState, Map<String, Object>>
             ((List<Map<String, Object>>) engineering.get("Modifiers"))
                 .forEach(modifier ->
                 {
+                    if (modifier.get("ValueStr") != null)
+                    {
+                        System.out.println("Skipping string modifier: " + modifier.get("ValueStr"));
+                        return;
+                    }
                     ItemEffect effect = ItemEffect.valueOf(((String) modifier.get("Label")));
                     double value = ((Double) modifier.get("Value"));
                     double originalValue = ((Double) modifier.get("OriginalValue"));

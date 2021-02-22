@@ -52,10 +52,12 @@ class CartographicData extends HTMLElement
             case 'AtmosphereComposition': return 'Atmosphere Composition';
             case 'AxialTilt': return 'Axial Tilt';
             case 'commodities': return 'Commodity Market';
+            case 'Composition': return 'Basic Composition';
             case 'DistanceFromArrivalLS': return 'Distance From Arrival';
             case 'DistFromStarLS': return 'Distance From Star';
             case 'exploration': return 'Universal Cartographics';
             case 'MarketID': return 'Market ID';
+            case 'Materials': return 'Material Composition';
             case 'materialtrader': return 'Material Trader';
             case 'MassEM': return 'Mass';
             case 'OrbitalInclination': return 'Orbital Inclination';
@@ -276,6 +278,7 @@ class CartographicData extends HTMLElement
             let value = body[stat];
 
             if (stat === 'Parents'
+                || stat === 'AtmosphereType'
                 || stat === 'stellar_body_mapped'
                 || stat === 'stellar_body_name'
                 || stat === 'planetary_settlement_name')
@@ -292,6 +295,23 @@ class CartographicData extends HTMLElement
 
             let statValue = document.createElement('span');
             statValue.classList.add('infoValue');
+
+            if (stat === 'StationType')
+            {
+                let isStation = this.bodyType === 'Station';
+                let isOutpost = value === 'Outpost';
+                let formatted = this.formatValue(value);
+                if (isStation && !isOutpost)
+                {
+                    formatted += ' Station';
+                }
+                else if (isOutpost)
+                {
+                    formatted = 'Orbital ' + formatted;
+                }
+                this.bodyType = this.formatValue(formatted);
+            }
+
             if (stat === 'timestamp')
             {
                 let date = new Date(value);
@@ -300,6 +320,30 @@ class CartographicData extends HTMLElement
             else if (stat === 'MarketID')
             {
                 statValue.textContent = value;
+            }
+            else if (stat === 'SemiMajorAxis')
+            {
+                // convert from meters to astronomical units (AU)
+                let conversion = (value / 1000) / 150000000;
+                statValue.textContent = this.formatValue(conversion);
+            }
+            else if (stat === 'Radius')
+            {
+                // convert from meters to kilometers
+                let conversion = (value / 1000);
+                statValue.textContent = this.formatValue(conversion);
+            }
+            else if (stat === 'OrbitalPeriod' || stat === 'RotationPeriod')
+            {
+                // convert from seconds to days
+                let conversion = (value * parseFloat('1.15741e-5'));
+                statValue.textContent = this.formatValue(conversion);
+            }
+            else if (stat === 'SurfaceGravity')
+            {
+                // convert from 1/10th atmospheres
+                let conversion = value / 10;
+                statValue.textContent = this.formatValue(conversion);
             }
             else if (stat === 'StationServices')
             {
@@ -318,7 +362,6 @@ class CartographicData extends HTMLElement
                 }
                 statValue.append(detailData[0]);
             }
-
             else if (stat === 'StationEconomies')
             {
                 let detailData = this.createExpandedStatContainer('Economy Data');

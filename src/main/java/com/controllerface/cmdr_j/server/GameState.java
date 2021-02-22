@@ -219,6 +219,22 @@ public class GameState
         public final Integer rank;
         public final List<Map<String, Object>> effects;
         public final List<Map<String, Object>> costs;
+        public final List<Map<String, Object>> engineers;
+
+        private TaskData(String name,
+                         String ship,
+                         Integer rank,
+                         List<Map<String, Object>> effects,
+                         List<Map<String, Object>> costs,
+                         List<Map<String, Object>> engineers)
+        {
+            this.name = name;
+            this.ship = ship;
+            this.rank = rank;
+            this.effects = effects;
+            this.costs = costs;
+            this.engineers = engineers;
+        }
 
         private TaskData(String name,
                          String ship,
@@ -226,11 +242,16 @@ public class GameState
                          List<Map<String, Object>> effects,
                          List<Map<String, Object>> costs)
         {
-            this.name = name;
-            this.ship = ship;
-            this.rank = rank;
-            this.effects = effects;
-            this.costs = costs;
+            this(name, ship, rank, effects, costs, Collections.emptyList());
+        }
+
+        private TaskData(String name,
+                         Integer rank,
+                         List<Map<String, Object>> effects,
+                         List<Map<String, Object>> costs,
+                         List<Map<String, Object>> engineers)
+        {
+            this(name, "", rank, effects, costs, engineers);
         }
 
         private TaskData(String name,
@@ -238,12 +259,15 @@ public class GameState
                          List<Map<String, Object>> effects,
                          List<Map<String, Object>> costs)
         {
-            this(name, "", rank, effects, costs);
+            this(name, "", rank, effects, costs, Collections.emptyList());
         }
 
         private TaskData(String name, Integer rank)
         {
-            this(name, "", rank, Collections.emptyList(), Collections.emptyList());
+            this(name, "", rank,
+                Collections.emptyList(),
+                Collections.emptyList(),
+                Collections.emptyList());
         }
     }
 
@@ -309,6 +333,18 @@ public class GameState
 
         this.database = PersistentEntityStores
             .newInstance(UIFunctions.DATA_FOLDER + DATABASE_DIRECTORY);
+
+//        database.executeInTransaction(txn ->
+//        {
+//            EntityUtilities.entityStream(txn.getAll(EntityKeys.TASK))
+//                .forEach(task->
+//                {
+//                    task.getLinkNames().forEach(n-> System.out.println("link" + n));
+//                    var c = task.getLink(EntityKeys.COMMANDER);
+//                    c.deleteLink(EntityKeys.TASK, task);
+//                    task.delete();
+//                });
+//        });
 
         // DEBUG SECTION
 //        database.executeInTransaction(txn ->
@@ -498,6 +534,7 @@ public class GameState
 
         emitSystemCatalog();
         emitEngineerData();
+        emitAllTaskData(globalUpdate);
     }
 
     public void approachBody(StellarBody stellarBody)
@@ -680,7 +717,6 @@ public class GameState
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> queryMarketData(long itemId, long price, boolean export, boolean difference)
     {
-        System.out.println("TEST: " + price + " diff: " + difference);
         return database.computeInTransaction(txn ->
         {
             var commander = getCommanderEntity(txn);
@@ -785,7 +821,6 @@ public class GameState
                     }
 
                     item.put("impact", impact);
-
                     item.put("age", ts);
                     item.put("system", sys.systemName);
                     item.put("market", mktMap.get("name"));
@@ -2578,6 +2613,10 @@ public class GameState
             data.put("name", taskdata.name);
             data.put("costs", taskdata.costs);
             data.put("effects", taskdata.effects);
+            if (!taskdata.engineers.isEmpty())
+            {
+                data.put("engineers", taskdata.engineers);
+            }
         }
         var jsonData = JSONSupport.Write.jsonToString.apply(data);
         executeWithLock(() -> sink.accept("Task", jsonData));
@@ -3489,7 +3528,6 @@ public class GameState
             .map(effect ->
             {
                 Map<String, Object> effectMap = new HashMap<>();
-
                 var value = effect.getDoubleValue();
                 var valueSign = (value > 0) ? "+": "";
                 var valueString = valueSign + value;
@@ -3508,7 +3546,25 @@ public class GameState
                 return effectMap;
             }).collect(Collectors.toList());
 
-        return new TaskData(name, sortRank, effects, costs);
+        var type = taskCatalog.typeMap.get(taskKey);
+        var engineers = Engineer.findSupportedEngineers(type, modificationRecipe.getGrade()).stream()
+            .map(e->
+            {
+                Map<String, Object> engineerMap = new HashMap<>();
+
+                engineerMap.put("name", e.getFullName());
+                engineerMap.put("system", e.getLocation().systemName);
+                engineerMap.put("location", e.getFacility());
+
+                if (starSystem != null)
+                {
+                    var distance = starSystem.distanceBetween(e.getLocation());
+                    engineerMap.put("distance", distance);
+                }
+                return engineerMap;
+            })
+            .collect(Collectors.toList());
+        return new TaskData(name, sortRank, effects, costs, engineers);
     }
 
     private TaskData determineExperimentalTaskData(ExperimentalRecipe experimentalRecipe, String taskKey)
@@ -3563,7 +3619,24 @@ public class GameState
                 return effectMap;
             }).collect(Collectors.toList());
 
-        return new TaskData(name, 0, effects, costs);
+        var type = taskCatalog.typeMap.get(taskKey);
+        var engineers = Engineer.findSupportedEngineers(type, experimentalRecipe.getGrade()).stream()
+            .map(e->
+            {
+                Map<String, Object> engineerMap = new HashMap<>();
+                engineerMap.put("name", e.getFullName());
+                engineerMap.put("system", e.getLocation().systemName);
+                engineerMap.put("location", e.getFacility());
+                if (starSystem != null)
+                {
+                    var distance = starSystem.distanceBetween(e.getLocation());
+                    engineerMap.put("distance", distance);
+                }
+                return engineerMap;
+            })
+            .collect(Collectors.toList());
+
+        return new TaskData(name, 0, effects, costs, engineers);
     }
 
     private TaskData determineTechBrokerTaskData(TechnologyRecipe technologyRecipe)
@@ -3915,6 +3988,7 @@ public class GameState
                             + ":" + modificationRecipe.getName();
 
                         taskCatalog.keyMap.put(key, modificationRecipe);
+                        taskCatalog.typeMap.put(key, modificationType);
                         taskCatalog.typedTaskMap.computeIfAbsent(modificationType, (_k) -> new HashMap<>())
                             .put(modificationRecipe, key);
                         taskCatalog.typePrefixes.put(key, modificationType.toString());
@@ -3955,6 +4029,8 @@ public class GameState
                                 + ":" + experimentalRecipe.getName();
 
                             taskCatalog.keyMap.put(key, experimentalRecipe);
+                            taskCatalog.typeMap.put(key, experimentalType);
+
                             taskCatalog.typedTaskMap.computeIfAbsent(experimentalType, (_k) -> new HashMap<>())
                                 .put(experimentalRecipe, key);
                             taskCatalog.typePrefixes.put(key, experimentalType.toString());

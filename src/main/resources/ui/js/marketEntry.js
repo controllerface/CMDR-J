@@ -15,6 +15,8 @@ class MarketEntry extends HTMLElement
             let price = this.price;
             let comparison = 'difference';
 
+            let isReversed = type === 'import';
+
             let tokens =
             {
                 header: type + ' price comparison',
@@ -25,7 +27,7 @@ class MarketEntry extends HTMLElement
 
             makeMarketQuery(id, type, price, comparison, (data) =>
             {
-                this.handleQuery(data, tokens);
+                this.handleQuery(data, tokens, isReversed);
             });
         });
 
@@ -56,7 +58,7 @@ class MarketEntry extends HTMLElement
 
             makeMarketQuery(id, type, price, comparison, (data) =>
             {
-                this.handleQuery(data, tokens);
+                this.handleQuery(data, tokens, true);
             });
         });
     }
@@ -81,12 +83,11 @@ class MarketEntry extends HTMLElement
         return quantityType;
     }
 
-    handleQuery(data, tokens)
+    handleQuery(data, tokens, reverseSort)
     {
         this.textContent = "";
         if (data['results'])
         {
-            console.log(data['results']);
             let div = document.createElement('div');
             div.classList.add('queryContainer');
             if (data['results'].length == 0)
@@ -105,6 +106,22 @@ class MarketEntry extends HTMLElement
 
                 let header = this.createHeader(tokens['quantity'], tokens['transaction'], tokens['comparison']);
                 div.append(header);
+
+                let results = data['results'];
+                results.sort((a, b)=>
+                {
+                    let aComp = a['comparison'];
+                    let bComp = b['comparison'];
+                    if (reverseSort)
+                    {
+                        return bComp - aComp;
+                    }
+                    else
+                    {
+                        return aComp - bComp;
+                    }
+                })
+
                 data['results'].forEach(result =>
                 {
                     let row = this.createQueryResult(result);

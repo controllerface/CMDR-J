@@ -195,6 +195,7 @@ public enum JournalEventEX
     Misc
      */
 //    Music(new MusicHandler()),
+    BuyExplorationData(new BuyExplorationDataEvent()),
     Statistics(new StatisticsEvent()),
     RedeemVoucher(new RedeemVoucherEvent()),
     Resurrect(new ResurrectEvent()),

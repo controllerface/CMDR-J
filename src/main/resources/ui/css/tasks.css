@@ -153,7 +153,9 @@
     width: 1em;
 }
 
-.taskCostData
+.taskEffectData,
+.taskCostData,
+.taskEngineerData
 {
     display: grid;
     font-weight: normal;
@@ -165,16 +167,16 @@
     grid-template-columns: auto 1fr;
 }
 
-.taskEffectData
-{
-    display: grid;
-    font-weight: normal;
-}
-
 .taskEffect
 {
     display: grid;
     grid-template-columns: 5fr 1fr .5fr;;
+}
+
+.taskEngineer
+{
+    display: grid;
+    grid-template-columns: auto auto auto 1fr;
 }
 
 .taskEffectName

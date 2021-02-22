@@ -1394,7 +1394,7 @@
         <div id="marketQuery_row" class="queryResultRow">
             <span id="marketQuery_system" class="queryText"></span>
             <span id="marketQuery_market" class="queryText"></span>
-            <span id="marketQuery_age"></span>
+            <span id="marketQuery_age" class="marketAge"></span>
             <span id="marketQuery_quantity"></span>
             <span id="marketQuery_price"></span>
             <div>
@@ -1403,6 +1403,63 @@
             </div>
             <span id="marketQuery_comparison"></span>
         </div>
+    </template>
+
+    <!-- Commodity market data container -->
+    <template id="template_MarketInfo">
+        <link rel="stylesheet" href="market.css">
+
+        <div class="marketHeader">
+            <div class="marketHeaderRow">
+                <span class="marketHeaderName">Station</span>
+                <span class="marketHeaderValue" id="marketInfo_station"></span>
+                <span class="marketTypeValue" id="marketInfo_type"></span>
+            </div>
+            <div class="marketHeaderRow">
+                <span class="marketHeaderName">Star System</span>
+                <span class="marketHeaderValue" id="marketInfo_system"></span>
+            </div>
+        </div>
+
+        <div>
+            <div class="marketData">
+                <div class="marketNameHeader">Rare Commodities</div>
+                <div title="Current stock at this market" class="marketQuantityHeader">Stock</div>
+                <div title="Cost to purchase the commodity from this market" class="marketPriceHeader">Buy Price</div>
+                <div title="The galactic average price for this commodity" class="marketPriceHeader">Mean Price</div>
+                <div title="Profit estimate, based on galactic average, if this commodity is purchased here, and sold elsewhere. Actual profit may vary based on market prices at point of sale." class="marketProfitHeader">Profit</div>
+            </div>
+            <slot name="rares">
+                <div class="marketPlaceholder">No rare commodities</div>
+            </slot>
+        </div>
+
+        <div>
+            <div class="marketData">
+                <div class="marketNameHeader">Exports</div>
+                <div title="Current stock at this market" class="marketQuantityHeader">Stock</div>
+                <div title="Cost to purchase the commodity from this market" class="marketPriceHeader">Buy Price</div>
+                <div title="The galactic average price for this commodity" class="marketPriceHeader">Mean Price</div>
+                <div title="Profit estimate, based on galactic average, if this commodity is purchased here, and sold elsewhere. Actual profit may vary based on market prices at point of sale." class="marketProfitHeader">Profit</div>
+            </div>
+            <slot name="exports">
+                <div class="marketPlaceholder">No Exports available</div>
+            </slot>
+        </div>
+
+        <div>
+            <div class="marketData">
+                <div class="marketNameHeader">Imports</div>
+                <div title="Current demand at this market" class="marketQuantityHeader">Demand</div>
+                <div title="Amount the commodity sells for at this market" class="marketPriceHeader">Sell Price</div>
+                <div title="The galactic average price for this commodity" class="marketPriceHeader">Mean Price</div>
+                <div title="Profit estimate, based on galactic average, if this commodity is sold here." class="marketProfitHeader">Profit</div>
+            </div>
+            <slot name="imports">
+                <div class="marketPlaceholder">No imports available</div>
+            </slot>
+        </div>
+
     </template>
 
 </head>

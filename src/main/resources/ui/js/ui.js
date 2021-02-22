@@ -391,8 +391,6 @@ function setMarketData(data)
         return
     }
 
-    console.log(data);
-
     let market = document.getElementById('marketInfo');
     market.textContent = "";
     market.station = data['name'];
@@ -1091,7 +1089,7 @@ function setCartographyData(data, id)
         {
             let settlement = settlements[i];
             let nextEntry = document.createElement('cartographic-data');
-            nextEntry.bodyType = 'Planetary Port';
+            nextEntry.bodyType = 'Settlement';
             nextEntry.bodyName = settlement['planetary_settlement_name'] + ' [' + settlement['stellar_body_name'] + ']';
             nextEntry.setAttribute('slot', 'stations');
             nextEntry.loadBodyData(settlement);
@@ -1292,7 +1290,6 @@ function adjustTask(key, type, callback)
 function handleTaskMaterials(materialData)
 {
     let taskContainer = document.getElementById('billOfMaterials');
-    //taskContainer.textContent = "";
     let materials = Object.keys(materialData);
     materials.sort((a, b) =>
     {
@@ -1360,6 +1357,10 @@ function handleTaskData(data)
         else
         {
             existingTask.count = taskData['count'];
+            if (taskData['engineers'])
+            {
+                existingTask.loadEngineerData(taskData['engineers']);
+            }
         }
     }
     else if(!remove)
@@ -1370,6 +1371,12 @@ function handleTaskData(data)
         newTask.count = taskData['count'];
         newTask.loadCostData(taskData['costs']);
         newTask.loadEffectData(taskData['effects']);
+
+        if (taskData['engineers'])
+        {
+            newTask.loadEngineerData(taskData['engineers']);
+        }
+
         taskContainer.append(newTask);
     }
 }
