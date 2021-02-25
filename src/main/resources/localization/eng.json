@@ -444,6 +444,164 @@
         "Consumed by All Economies except Industrial"
       ]
     },
+
+
+
+
+    "M_TISSUESAMPLE_FLUID": {
+      "name": "Mollusc Fluid",
+      "locations": [
+        ""
+      ]
+    },
+    "M_TISSUESAMPLE_SOFT": {
+      "name": "Mollusc Soft Tissue",
+      "locations": [
+        ""
+      ]
+    },
+    "M_TISSUESAMPLE_NERVES": {
+      "name": "Mollusc Brain Tissue",
+      "locations": [
+        ""
+      ]
+    },
+    "S_TISSUESAMPLE_CELLS": {
+      "name": "Pod Core Tissue",
+      "locations": [
+        ""
+      ]
+    },
+    "S_TISSUESAMPLE_SURFACE": {
+      "name": "Pod Dead Tissue",
+      "locations": [
+        ""
+      ]
+    },
+    "S_TISSUESAMPLE_CORE": {
+      "name": "Pod Surface Tissue",
+      "locations": [
+        ""
+      ]
+    },
+    "P_PARTICULATESAMPLE": {
+      "name": "Anomaly Particles",
+      "locations": [
+        ""
+      ]
+    },
+    "S9_TISSUESAMPLE_SHELL": {
+      "name": "Pod Tissue",
+      "locations": [
+        ""
+      ]
+    },
+    "M3_TISSUESAMPLE_MEMBRANE": {
+      "name": "Mollusc Membrane",
+      "locations": [
+        ""
+      ]
+    },
+    "M3_TISSUESAMPLE_MYCELIUM": {
+      "name": "Mollusc Mycelium",
+      "locations": [
+        ""
+      ]
+    },
+    "M3_TISSUESAMPLE_SPORES": {
+      "name": "Mollusc Spores",
+      "locations": [
+        ""
+      ]
+    },
+    "S6_TISSUESAMPLE_MESOGLEA": {
+      "name": "Pod Mesoglea",
+      "locations": [
+        ""
+      ]
+    },
+    "S6_TISSUESAMPLE_CELLS": {
+      "name": "Pod Outer Tissue",
+      "locations": [
+        ""
+      ]
+    },
+    "S6_TISSUESAMPLE_COENOSARC": {
+      "name": "Pod Shell Tissue",
+      "locations": [
+        ""
+      ]
+    },
+
+
+
+
+    "RHODPLUMSITE": {
+      "name": "Rhodplumsite",
+      "locations": [
+        ""
+      ]
+    },
+    "SERENDIBITE": {
+      "name": "Serendibite",
+      "locations": [
+        ""
+      ]
+    },
+    "MONAZITE": {
+      "name": "Monazite",
+      "locations": [
+        ""
+      ]
+    },
+    "MUSGRAVITE": {
+      "name": "Musgravite",
+      "locations": [
+        ""
+      ]
+    },
+    "BENITOITE": {
+      "name": "Benitoite",
+      "locations": [
+        ""
+      ]
+    },
+    "GRANDIDIERITE": {
+      "name": "Grandidierite",
+      "locations": [
+        ""
+      ]
+    },
+    "ALEXANDRITE": {
+      "name": "Alexandrite",
+      "locations": [
+        ""
+      ]
+    },
+    "OPAL": {
+      "name": "Void Opal",
+      "locations": [
+        ""
+      ]
+    },
+    "TRITIUM": {
+      "name": "Tritium",
+      "locations": [
+        ""
+      ]
+    },
+    "ROCKFORTHFERTILISER": {
+      "name": "Rockforth Fertiliser",
+      "locations": [
+        ""
+      ]
+    },
+    "AGRONOMICTREATMENT": {
+      "name": "Agronomic Treatment",
+      "locations": [
+        ""
+      ]
+    },
     "ADVANCEDMEDICINES": {
       "name": "Advanced Medicines",
       "locations": [
@@ -912,14 +1070,8 @@
         ""
       ]
     },
-    "OCCUPIEDESCAPEPOD": {
-      "name": "Occupied Escape Pod",
-      "locations": [
-        ""
-      ]
-    },
     "OCCUPIEDCRYOPOD": {
-      "name": "Occupied Cryo Pod",
+      "name": "Occupied Escape Pod",
       "locations": [
         ""
       ]
@@ -1008,19 +1160,25 @@
         ""
       ]
     },
-    "THARGOIDBASILISKTISSUESAMPLE": {
+    "THARGOIDTISSUESAMPLETYPE2": {
       "name": "Thargoid Basilisk Tissue Sample",
       "locations": [
         ""
       ]
     },
-    "THARGOIDBIOLOGICALMATTER": {
+    "THARGOIDTISSUESAMPLETYPE4": {
+      "name": "Thargoid Hyrda Tissue Sample",
+      "locations": [
+        ""
+      ]
+    },
+    "UNKNOWNBIOLOGICALMATTER": {
       "name": "Thargoid Biological Matter",
       "locations": [
         ""
       ]
     },
-    "THARGOIDCYCLOPSTISSUESAMPLE": {
+    "THARGOIDTISSUESAMPLETYPE1": {
       "name": "Thargoid Cyclops Tissue Sample",
       "locations": [
         ""
@@ -1032,25 +1190,25 @@
         ""
       ]
     },
-    "THARGOIDLINK": {
+    "UNKNOWNARTIFACT3": {
       "name": "Thargoid Link",
       "locations": [
         ""
       ]
     },
-    "THARGOIDMEDUSATISSUESAMPLE": {
+    "THARGOIDTISSUESAMPLETYPE3": {
       "name": "Thargoid Medusa Tissue Sample",
       "locations": [
         ""
       ]
     },
-    "THARGOIDPROBE": {
+    "UNKNOWNARTIFACT2": {
       "name": "Thargoid Probe",
       "locations": [
         ""
       ]
     },
-    "THARGOIDRESIN": {
+    "UNKNOWNRESIN": {
       "name": "Thargoid Resin",
       "locations": [
         ""
@@ -1062,13 +1220,13 @@
         ""
       ]
     },
-    "THARGOIDSENSOR": {
+    "UNKNOWNARTIFACT": {
       "name": "Thargoid Sensor",
       "locations": [
         ""
       ]
     },
-    "THARGOIDTECHNOLOGYSAMPLES": {
+    "UNKNOWNTECHNOLOGYSAMPLES": {
       "name": "Thargoid Technology Samples",
       "locations": [
         ""
@@ -1086,7 +1244,7 @@
         ""
       ]
     },
-    "TRINKETSOFHIDDENFORTUNE": {
+    "TRINKETSOFFORTUNE": {
       "name": "Trinkets of Hidden Fortune",
       "locations": [
         ""
@@ -1100,43 +1258,6 @@
     },
     "WRECKAGECOMPONENTS": {
       "name": "Wreckage Components",
-      "locations": [
-        ""
-      ]
-    },
-
-    "UNKNOWNARTIFACT": {
-      "name": "UNKNOWN ARTIFACT",
-      "locations": [
-        ""
-      ]
-    },
-    "UNKNOWNARTIFACT2": {
-      "name": "UNKNOWN ARTIFACT 2",
-      "locations": [
-        ""
-      ]
-    },
-    "UNKNOWNARTIFACT3": {
-      "name": "UNKNOWN ARTIFACT 3",
-      "locations": [
-        ""
-      ]
-    },
-    "UNKNOWNRESIN": {
-      "name": "UNKNOWN RESIN",
-      "locations": [
-        ""
-      ]
-    },
-    "UNKNOWNBIOLOGICALMATTER": {
-      "name": "UNKNOWN BIOLOGICAL MATTER",
-      "locations": [
-        ""
-      ]
-    },
-    "UNKNOWNTECHNOLOGYSAMPLES": {
-      "name": "UNKNOWN TECHNOLOGY SAMPLES",
       "locations": [
         ""
       ]
@@ -1225,7 +1346,7 @@
         ""
       ]
     },
-    "MUONIMAGER": {
+    "MUTOMIMAGER": {
       "name": "Muon Imager",
       "locations": [
         ""

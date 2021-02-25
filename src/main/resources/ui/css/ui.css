@@ -250,18 +250,12 @@ details > summary::-webkit-details-marker
 {
     display: grid;
     grid-template:
-        "commanderStatsTab politicsTab engineersRankTab "
-        "panel             panel            panel";
+        "politicsTab engineersRankTab commanderStatsTab"
+        "panel       panel            panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     margin-left: auto;
     margin-right: auto;
-}
-
-#commanderStatsTab
-{
-    grid-area: commanderStatsTab;
-    border-radius: 5px;
 }
 
 #politicsTab
@@ -276,6 +270,11 @@ details > summary::-webkit-details-marker
     border-radius: 5px;
 }
 
+#commanderStatsTab
+{
+    grid-area: commanderStatsTab;
+    border-radius: 5px;
+}
 
 
 
@@ -377,8 +376,8 @@ details > summary::-webkit-details-marker
 {
     display: grid;
     grid-template-areas:
-    "cmdrTab shipTab inventoryTab astrometricsTab activitiesTab"
-    "panel   panel   panel        panel           panel";
+    "cmdrTab shipTab marketTab astrometricsTab activitiesTab"
+    "panel   panel   panel     panel           panel";
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     max-width: 70em;
@@ -398,9 +397,9 @@ details > summary::-webkit-details-marker
     border-radius: 5px;
 }
 
-#inventoryTab
+#marketTab
 {
-    grid-area: inventoryTab;
+    grid-area: marketTab;
     border-radius: 5px;
 }
 
@@ -425,16 +424,10 @@ details > summary::-webkit-details-marker
 {
     display: grid;
     grid-template-areas:
-    "baseStatsTab loadoutTab systemsTab"
-    "panel        panel      panel";
-    grid-template-columns: 1fr 1fr 1fr;
+    "loadoutTab inventoryTab systemsTab baseStatsTab"
+    "panel      panel        panel      panel";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
-}
-
-#baseStatsTab
-{
-    grid-area: baseStatsTab;
-    border-radius: 5px;
 }
 
 #loadoutTab
@@ -443,11 +436,24 @@ details > summary::-webkit-details-marker
     border-radius: 5px;
 }
 
+#inventoryTab
+{
+    grid-area: inventoryTab;
+    border-radius: 5px;
+}
+
 #systemsTab
 {
     grid-area: systemsTab;
     border-radius: 5px;
 }
+
+#baseStatsTab
+{
+    grid-area: baseStatsTab;
+    border-radius: 5px;
+}
+
 
 
 /* Loadout Tabs */
@@ -518,9 +524,9 @@ details > summary::-webkit-details-marker
 {
     display: grid;
     grid-template-areas:
-    "matsTab cargoTab marketTab"
-    "panel   panel    panel";
-    grid-template-columns: 1fr 1fr 1fr;
+    "matsTab cargoTab"
+    "panel   panel";
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
 }
 
@@ -536,9 +542,58 @@ details > summary::-webkit-details-marker
     border-radius: 5px;
 }
 
-#marketTab
+
+
+
+#marketContainer
 {
-    grid-area: marketTab;
+    display: grid;
+    grid-template-areas:
+    "currentMarketTab marketSearchTab"
+    "panel            panel";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2em auto;
+}
+
+#currentMarketTab
+{
+    grid-area: currentMarketTab;
+    border-radius: 5px;
+}
+
+#marketSearchTab
+{
+    grid-area: marketSearchTab;
+    border-radius: 5px;
+}
+
+
+
+#currentMarketContainer
+{
+    display: grid;
+    grid-template-areas:
+    "commodityTab outfittingTab shipyardTab"
+    "panel        panel         panel";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+}
+
+#commodityTab
+{
+    grid-area: commodityTab;
+    border-radius: 5px;
+}
+
+#outfittingTab
+{
+    grid-area: outfittingTab;
+    border-radius: 5px;
+}
+
+#shipyardTab
+{
+    grid-area: shipyardTab;
     border-radius: 5px;
 }
 

@@ -37,7 +37,6 @@ import com.controllerface.cmdr_j.classes.modules.weapons.railgun.AbstractRailGun
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.AbstractSeekerMissileRack;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.AbstractTorpedoPylon;
 import com.controllerface.cmdr_j.classes.data.CostData;
-import com.controllerface.cmdr_j.classes.tasks.Task;
 import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.classes.tasks.TaskCost;
 import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
@@ -58,15 +57,12 @@ import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import javafx.scene.control.TreeItem;
 import javafx.util.Pair;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -79,6 +75,50 @@ import java.util.stream.Stream;
  */
 public class CommanderJTest
 {
+    @Test
+    public void testCommodities() throws IOException
+    {
+        var stream = CommanderJTest.class.getResourceAsStream("/comm.csv");
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+        String line;
+        while ((line = br.readLine()) != null)
+        {
+            String[] values = line.split(",");
+            var id = values[0];
+            var key = values[1];
+            var cat = values[2];
+
+                var code = key.toUpperCase()
+                    + "(" + id + "L, ItemGrade." + cat + "),";
+                System.out.println(code);
+
+        }
+    }
+
+    @Test
+    public void testRares() throws IOException
+    {
+        var stream = CommanderJTest.class.getResourceAsStream("/rares.csv");
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+        String line;
+        while ((line = br.readLine()) != null)
+        {
+            String[] values = line.split(",");
+            var id = values[0];
+            var key = values[1];
+            var market = values[2];
+            var cat = values[3];
+
+            var code = key.toUpperCase()
+                + "(" + id + "L, " + market + "L, ItemGrade." + cat + "),";
+            System.out.println(code);
+
+        }
+    }
+
+
     @Test
     public void testDistance()
     {
@@ -93,42 +133,42 @@ public class CommanderJTest
     public void testDamageTypes()
     {
         Stream.of(HardpointModule.values())
-                .forEach(v->
-                {
-                    Assert.assertTrue(v.displayText() + "failed", v.itemEffects().effectByName(ItemEffect.DamageType).isPresent());
-                });
+            .forEach(v ->
+            {
+                Assert.assertTrue(v.displayText() + "failed", v.itemEffects().effectByName(ItemEffect.DamageType).isPresent());
+            });
     }
 
     @Test
     public void printCurrent()
     {
         Stream.of(CoreInternalModule.values())
-                .filter(m->m.price() == 1)
-                .forEach(System.out::println);
+            .filter(m -> m.price() == 1)
+            .forEach(System.out::println);
 
         Stream.of(OptionalInternalModule.values())
-                .filter(m->m.price() == 1)
-                .forEach(System.out::println);
+            .filter(m -> m.price() == 1)
+            .forEach(System.out::println);
 
         Stream.of(HardpointModule.values())
-                .filter(m->m.price() == 1)
-                .forEach(System.out::println);
+            .filter(m -> m.price() == 1)
+            .forEach(System.out::println);
     }
 
     @Test
     public void getGrades()
     {
         Stream.of(HardpointModule.values())
-                .filter(m -> !m.itemEffects().effectByName(ItemEffect.Class).isPresent())
-                .forEach(System.out::println);
+            .filter(m -> !m.itemEffects().effectByName(ItemEffect.Class).isPresent())
+            .forEach(System.out::println);
 
         Stream.of(OptionalInternalModule.values())
-                .filter(m -> !m.itemEffects().effectByName(ItemEffect.Class).isPresent())
-                .forEach(System.out::println);
+            .filter(m -> !m.itemEffects().effectByName(ItemEffect.Class).isPresent())
+            .forEach(System.out::println);
 
         Stream.of(CoreInternalModule.values())
-                .filter(m -> !m.itemEffects().effectByName(ItemEffect.Class).isPresent())
-                .forEach(System.out::println);
+            .filter(m -> !m.itemEffects().effectByName(ItemEffect.Class).isPresent())
+            .forEach(System.out::println);
     }
 
     @Test
@@ -143,70 +183,70 @@ public class CommanderJTest
         AtomicInteger remaining = new AtomicInteger(0);
 
         ((List<Map<String, Object>>) x.get("modules"))
-                .forEach(a->
-                {
-                    AtomicReference<ShipModule> result = new AtomicReference<>(null);
-                    String symbol = ((String) a.get("ed_symbol"));
-                    Integer price = ((Integer) a.get("price"));
-                    Map<String, Object> group = ((Map<String, Object>) a.get("group"));
-                    int id = ((int) group.get("category_id"));
+            .forEach(a ->
+            {
+                AtomicReference<ShipModule> result = new AtomicReference<>(null);
+                String symbol = ((String) a.get("ed_symbol"));
+                Integer price = ((Integer) a.get("price"));
+                Map<String, Object> group = ((Map<String, Object>) a.get("group"));
+                int id = ((int) group.get("category_id"));
 
 //                    if (name != null)
 //                    {
 //                        System.out.println("name: "+name);
 //                    }
 //                    System.out.println("Getting: " + symbol);
-                    if (symbol == null)
-                    {
-                        //System.out.println("Null symbol: " + a);
-                        return;
-                    }
-                    out.add(symbol.toLowerCase());
-                    switch (id)
-                    {
-                        case 10:
-                        case 20:
-                        case 30:
-                        case 40:
-                        case 50:
+                if (symbol == null)
+                {
+                    //System.out.println("Null symbol: " + a);
+                    return;
+                }
+                out.add(symbol.toLowerCase());
+                switch (id)
+                {
+                    case 10:
+                    case 20:
+                    case 30:
+                    case 40:
+                    case 50:
+                        try
+                        {
+                            result.set(OptionalInternalModule.valueOf(symbol.toLowerCase()));
+                        }
+                        catch (Exception e)
+                        {
                             try
                             {
-                                result.set(OptionalInternalModule.valueOf(symbol.toLowerCase()));
+                                result.set(CoreInternalModule.valueOf(symbol.toLowerCase()));
                             }
-                            catch (Exception e)
+                            catch (Exception e1)
                             {
                                 try
                                 {
-                                    result.set(CoreInternalModule.valueOf(symbol.toLowerCase()));
+                                    result.set(HardpointModule.valueOf(symbol.toLowerCase()));
                                 }
-                                catch (Exception e1)
+                                catch (Exception e2)
                                 {
-                                    try
-                                    {
-                                        result.set(HardpointModule.valueOf(symbol.toLowerCase()));
-                                    }
-                                    catch (Exception e2)
-                                    {
-                                        e2.printStackTrace();
-                                    }
+                                    e2.printStackTrace();
                                 }
-
                             }
-                            break;
 
-                        default:
-                            System.out.println(id + " :: " + symbol);
-                    }
+                        }
+                        break;
 
-                    if (result.get()!=null)
+                    default:
+                        System.out.println(id + " :: " + symbol);
+                }
+
+                if (result.get() != null)
+                {
+                    if (price != null)
                     {
-                        if (price != null)
+                        if (result.get().price() == 1)
                         {
-                            if (result.get().price() == 1)
-                            {
-                                remaining.incrementAndGet();
-                                String output = String.format("%,8d%n", price).trim()
-                                        .replaceAll(",","_");
+                            remaining.incrementAndGet();
+                            String output = String.format("%,8d%n", price).trim()
+                                .replaceAll(",", "_");
 
 //                                String method =
 //                                        "    @Override\n" +
@@ -215,35 +255,35 @@ public class CommanderJTest
 //                                        "        return " + output + ";\n" +
 //                                        "    }";
 
-                                System.out.println(result.get() + " : " + output);
-                            }
+                            System.out.println(result.get() + " : " + output);
                         }
+                    }
 //                        else
 //                        {
 //                            System.out.println("No price: " + symbol);
 //                        }
-                    }
-                });
+                }
+            });
 
         System.out.println("Remaining: " + remaining.get());
 
         Set<String> out2 = new HashSet<>();
 
         Stream<String> v1 = EnumSet.allOf(CoreInternalModule.class).stream()
-                .map(Enum::name)
-                .map(String::toLowerCase);
+            .map(Enum::name)
+            .map(String::toLowerCase);
 
         Stream<String> v2 = EnumSet.allOf(OptionalInternalModule.class).stream()
-                .map(Enum::name)
-                .map(String::toLowerCase);
+            .map(Enum::name)
+            .map(String::toLowerCase);
 
         Stream<String> v3 = EnumSet.allOf(HardpointModule.class).stream()
-                .map(Enum::name)
-                .map(String::toLowerCase);
+            .map(Enum::name)
+            .map(String::toLowerCase);
 
         Stream.concat(v1, Stream.concat(v2, v3))
-                .filter(s->!out.contains(s))
-                .forEach(out2::add);
+            .filter(s -> !out.contains(s))
+            .forEach(out2::add);
 
         //out2.forEach(z-> System.out.println("Missing: " + z));
     }
@@ -258,55 +298,55 @@ public class CommanderJTest
         Set<String> out = new HashSet<>();
 
         ((List<String>) x.get("modules"))
-                .forEach(a->
+            .forEach(a ->
+            {
+                out.add(a.toLowerCase());
+                try
                 {
-                    out.add(a.toLowerCase());
+                    OptionalInternalModule m1 = OptionalInternalModule.valueOf(a.toLowerCase());
+                    System.out.println(m1);
+                }
+                catch (Exception e)
+                {
                     try
                     {
-                        OptionalInternalModule m1 = OptionalInternalModule.valueOf(a.toLowerCase());
-                        System.out.println(m1);
+                        CoreInternalModule m1a = CoreInternalModule.valueOf(a.toLowerCase());
+                        System.out.println(m1a);
                     }
-                    catch (Exception e)
+                    catch (Exception e1)
                     {
                         try
                         {
-                            CoreInternalModule m1a = CoreInternalModule.valueOf(a.toLowerCase());
-                            System.out.println(m1a);
+                            HardpointModule m1b = HardpointModule.valueOf(a.toLowerCase());
+                            System.out.println(m1b);
                         }
-                        catch (Exception e1)
+                        catch (Exception e2)
                         {
-                            try
-                            {
-                                HardpointModule m1b = HardpointModule.valueOf(a.toLowerCase());
-                                System.out.println(m1b);
-                            }
-                            catch (Exception e2)
-                            {
-                                throw e2;
-                            }
+                            throw e2;
                         }
                     }
-                });
+                }
+            });
 
         Set<String> out2 = new HashSet<>();
 
         Stream<String> v1 = EnumSet.allOf(CoreInternalModule.class).stream()
-                .map(Enum::name)
-                .map(String::toLowerCase);
+            .map(Enum::name)
+            .map(String::toLowerCase);
 
         Stream<String> v2 = EnumSet.allOf(OptionalInternalModule.class).stream()
-                .map(Enum::name)
-                .map(String::toLowerCase);
+            .map(Enum::name)
+            .map(String::toLowerCase);
 
         Stream<String> v3 = EnumSet.allOf(HardpointModule.class).stream()
-                .map(Enum::name)
-                .map(String::toLowerCase);
+            .map(Enum::name)
+            .map(String::toLowerCase);
 
         Stream.concat(v1, Stream.concat(v2, v3))
-                .filter(s->!out.contains(s))
-                .forEach(out2::add);
+            .filter(s -> !out.contains(s))
+            .forEach(out2::add);
 
-        out2.forEach(z-> System.out.println("Missing: " + z));
+        out2.forEach(z -> System.out.println("Missing: " + z));
     }
 
     private int determineMaximum(ItemGrade itemGrade)
@@ -366,7 +406,7 @@ public class CommanderJTest
 
             .forEach(materialType ->
             {
-                System.out.println("\n\n" + materialType +"\n\n");
+                System.out.println("\n\n" + materialType + "\n\n");
 
                 StringBuilder buffer = new StringBuilder();
                 buffer.append("<div class=\"tabPanel\">\n")
@@ -418,7 +458,7 @@ public class CommanderJTest
         Arrays.stream(MaterialType.values())
             .flatMap(MaterialType::categories)
             .flatMap(MaterialSubCostCategory::materials)
-            .forEach(m->
+            .forEach(m ->
             {
                 String name = m.name();
                 buffer.append(name)
@@ -470,9 +510,7 @@ public class CommanderJTest
 
 
         Stream.of(MaterialTradeType.values())
-            .forEach(x-> System.out.println("Test: " + x));
-
-
+            .forEach(x -> System.out.println("Test: " + x));
 
 
         TaskCost cost = Material.NIOBIUM;
@@ -484,7 +522,7 @@ public class CommanderJTest
 
                 category.materials()
                     //.peek(x -> System.out.println("Debug x: " + x))
-                    .filter(x->x != cost)
+                    .filter(x -> x != cost)
                     //.peek(y -> System.out.println("Debug y: " + y))
                     .map(material -> material.getTradeBlueprint().orElse(null))
                     //.peek(z -> System.out.println("Debug z: " + z))
@@ -496,7 +534,7 @@ public class CommanderJTest
                     .forEach(recipe ->
                     {
                         recipe.costStream()
-                            .forEach(c-> System.out.println(c.cost + " : " + c.quantity));
+                            .forEach(c -> System.out.println(c.cost + " : " + c.quantity));
                         System.out.println("-----");
                     });
 
@@ -517,7 +555,7 @@ public class CommanderJTest
             case SYNTHESIS_PREMIUM:
                 return new Pair<>(AbstractSynthesisRecipe_Premium.class.getSimpleName(), AbstractSynthesisRecipe_Premium.class.getCanonicalName());
 
-            case Technology:
+            case TechnologyBroker:
                 return new Pair<>(AbstractTechnologyRecipe.class.getSimpleName(), AbstractTechnologyRecipe.class.getCanonicalName());
         }
         System.out.println("Bad: " + recipe);
@@ -555,15 +593,15 @@ public class CommanderJTest
                 return new Pair<>(AbstractPulseWaveScanner.class.getSimpleName(), AbstractPulseWaveScanner.class.getCanonicalName());
             }
             if (displayText.contains("Mining Laser")
-                    || displayText.contains("Mining Lance"))
+                || displayText.contains("Mining Lance"))
             {
                 return new Pair<>(AbstractMiningLaser.class.getSimpleName(), AbstractMiningLaser.class.getCanonicalName());
             }
             if (displayText.contains("Anti-Xeno")
-                    || displayText.contains("Shock Cannon")
-                    || displayText.contains("Flak Launcher")
-                    || displayText.contains("Flechette Launcher")
-                    || displayText.contains("Enzyme Missile"))
+                || displayText.contains("Shock Cannon")
+                || displayText.contains("Flak Launcher")
+                || displayText.contains("Flechette Launcher")
+                || displayText.contains("Enzyme Missile"))
             {
                 return new Pair<>(AbstractExperimentalModule.class.getSimpleName(), AbstractExperimentalModule.class.getCanonicalName());
             }
@@ -613,7 +651,6 @@ public class CommanderJTest
                     return new Pair<>(AbstractRailGun.class.getSimpleName(), AbstractRailGun.class.getCanonicalName());
 
 
-
                 case Frame_Shift_Drive:
                     return new Pair<>(AbstractFSD.class.getSimpleName(), AbstractFSD.class.getCanonicalName());
 
@@ -634,8 +671,6 @@ public class CommanderJTest
 
                 case Bulkheads:
                     return new Pair<>(AbstractBulkheads.class.getSimpleName(), AbstractBulkheads.class.getCanonicalName());
-
-
 
 
                 case Shield_Booster:
@@ -697,8 +732,14 @@ public class CommanderJTest
 
     private String costType(CostData data)
     {
-        if (data.cost instanceof Material) return "Material."+data.toString();
-        if (data.cost instanceof Commodity) return "Commodity."+data.toString();
+        if (data.cost instanceof Material)
+        {
+            return "Material." + data.toString();
+        }
+        if (data.cost instanceof Commodity)
+        {
+            return "Commodity." + data.toString();
+        }
         return "";
     }
 
@@ -723,113 +764,115 @@ public class CommanderJTest
         StringBuilder outerBuilder = new StringBuilder();
 
         Stream.of(TechnologyRecipe.values())
-                .forEach(v->
+            .forEach(v ->
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+
+                String className = v.name()
+                    .replaceAll(" ", "")
+                    .replaceAll("-", "")
+                    .replace("(", "_")
+                    .replace(")", "_");
+
+                switch (className)
                 {
-                    StringBuilder stringBuilder = new StringBuilder();
+                    case "AngledPlating":
+                    case "DeepPlating":
+                    case "DoubleBraced":
+                    case "FlowControl":
+                    case "ForceBlock":
+                    case "LayeredPlating":
+                    case "ReflectivePlating":
+                    case "StrippedDown":
+                    case "ThermalSpread":
+                    case "ThermoBlock":
+                        className = className + v.getName();
+                }
 
-                    String className = v.name()
-                            .replaceAll(" ","")
-                            .replaceAll("-","")
-                            .replace("(","_")
-                            .replace(")","_");
+                if (seen.contains(className))
+                {
+                    System.out.println("Dupe: " + className);
+                }
 
-                    switch (className)
+                seen.add(className);
+
+                String displayText = "\"" + v.getShortLabel() + "\"";
+
+                // item effects
+                String s = v.effects().effectStream()
+                    .map(e ->
                     {
-                        case "AngledPlating":
-                        case "DeepPlating":
-                        case "DoubleBraced":
-                        case "FlowControl":
-                        case "ForceBlock":
-                        case "LayeredPlating":
-                        case "ReflectivePlating":
-                        case "StrippedDown":
-                        case "ThermalSpread":
-                        case "ThermoBlock":
-                            className = className + v.getName();
-                    }
+                        String val = e.isNumerical()
+                            ? String.valueOf(e.getDoubleValue())
+                            : "\"" + e.getValueString() + "\"";
 
-                    if (seen.contains(className))
-                    {
-                        System.out.println("Dupe: " + className);
-                    }
+                        return "                  new ItemEffectData(ItemEffect." + e.effect.name() + ", " + val + ")";
+                    }).collect(Collectors.joining(",\n", "new ItemEffects(\n", "\n    "));
 
-                    seen.add(className);
-
-                    String displayText = "\"" + v.getShortLabel() + "\"";
-
-                    // item effects
-                    String s = v.effects().effectStream()
-                            .map(e->
+                String items =
+                    Stream.of(v.getModules())
+                        .map(m ->
+                        {
+                            if (m instanceof CoreInternalModule)
                             {
-                                String val = e.isNumerical() ? String.valueOf(e.getDoubleValue()) : "\""+e.getValueString()+"\"";
+                                return "        CoreInternalModule." + ((CoreInternalModule) m).name();
+                            }
+                            if (m instanceof OptionalInternalModule)
+                            {
+                                return "        OptionalInternalModule." + ((OptionalInternalModule) m).name();
+                            }
+                            if (m instanceof HardpointModule)
+                            {
+                                return "        HardpointModule." + ((HardpointModule) m).name();
+                            }
+                            return "";
+                        })
+                        .collect(Collectors.joining(",\n"));
 
-                                return  "                  new ItemEffectData(ItemEffect." + e.effect.name() + ", " + val + ")";
-                            }).collect(Collectors.joining(",\n","new ItemEffects(\n","\n    "));
-
-                    String items =
-                            Stream.of(v.getModules())
-                                    .map(m->
-                                    {
-                                        if (m instanceof CoreInternalModule)
-                                        {
-                                            return "        CoreInternalModule."+((CoreInternalModule) m).name();
-                                        }
-                                        if (m instanceof OptionalInternalModule)
-                                        {
-                                            return "        OptionalInternalModule."+((OptionalInternalModule) m).name();
-                                        }
-                                        if (m instanceof HardpointModule)
-                                        {
-                                            return "        HardpointModule."+((HardpointModule) m).name();
-                                        }
-                                        return "";
-                                    })
-                                    .collect(Collectors.joining(",\n"));
-
-                    outerBuilder.append(v.name())
-                            .append("(new ").append(className)
-                            .append("(),\n")
-                            .append(items)
-                            .append("),\n\n");
+                outerBuilder.append(v.name())
+                    .append("(new ").append(className)
+                    .append("(),\n")
+                    .append(items)
+                    .append("),\n\n");
 
 
-                    String costs = v.costStream()
-                            .map(c -> "new CostData(" + costType(c)
-                                    .replaceAll(":",", ")
-                                    .replaceFirst(" ","")
-                                    .replaceFirst("  "," ")
-                                    + ")")
-                            .collect(Collectors.joining(",\n            "));
+                String costs = v.costStream()
+                    .map(c -> "new CostData(" + costType(c)
+                        .replaceAll(":", ", ")
+                        .replaceFirst(" ", "")
+                        .replaceFirst("  ", " ")
+                        + ")")
+                    .collect(Collectors.joining(",\n            "));
 
 
-                    Pair<String, String> c = getAbstractClass(v);
+                Pair<String, String> c = getAbstractClass(v);
 
-                    stringBuilder.append("package com.controllerface.cmdr_j.classes.modules.generated;\n\n");
+                stringBuilder.append("package com.controllerface.cmdr_j.classes.modules.generated;\n\n");
 
-                    stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffects;\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.classes.data.ItemEffectData;\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.classes.data.CostData;\n");
-                    stringBuilder.append("import " + c.getValue() + ";\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.materials.Material;\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;\n");
-                    stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;\n");
-                    stringBuilder.append("\n");
+                stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffects;\n");
+                stringBuilder.append("import com.controllerface.cmdr_j.classes.data.ItemEffectData;\n");
+                stringBuilder.append("import com.controllerface.cmdr_j.classes.data.CostData;\n");
+                stringBuilder.append("import " + c.getValue() + ";\n");
+                stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.materials.Material;\n");
+                stringBuilder.append("import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;\n");
+                stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;\n");
+                stringBuilder.append("import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;\n");
+                stringBuilder.append("\n");
 
-                    stringBuilder.append("public class ").append(className).append(" extends " + c.getKey() + "\n");
+                stringBuilder.append("public class ").append(className).append(" extends " + c.getKey() + "\n");
 
-                    stringBuilder.append("{\n");
-                    stringBuilder.append("    public ").append(className).append("()\n");
-                    stringBuilder.append("    {\n");
-                    stringBuilder.append("        super(")
-                            .append("\"").append(className.replace("_"," ")).append("\"").append(", ")
-                            .append("\n            ")
-                            .append(s).append("        ),\n")
-                            .append("            ").append(costs);
+                stringBuilder.append("{\n");
+                stringBuilder.append("    public ").append(className).append("()\n");
+                stringBuilder.append("    {\n");
+                stringBuilder.append("        super(")
+                    .append("\"").append(className.replace("_", " ")).append("\"").append(", ")
+                    .append("\n            ")
+                    .append(s).append("        ),\n")
+                    .append("            ").append(costs);
 
-                    stringBuilder.append(");\n");
-                    stringBuilder.append("    }\n");
-                    stringBuilder.append("}");
+                stringBuilder.append(");\n");
+                stringBuilder.append("    }\n");
+                stringBuilder.append("}");
 
 //                    System.out.println(stringBuilder.toString());
 //
@@ -847,7 +890,7 @@ public class CommanderJTest
 //                        e.printStackTrace();
 //                    }
 
-                });
+            });
 
         System.out.println("Outer: \n" + outerBuilder.toString());
     }

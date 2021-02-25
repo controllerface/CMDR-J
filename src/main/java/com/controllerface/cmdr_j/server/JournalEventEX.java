@@ -47,13 +47,13 @@ public enum JournalEventEX
     RepairAll(new RepairAllEvent()),
     Repair(new RepairEvent()),
     RestockVehicle(new RestockVehicleEvent()),
-//    Outfitting(new OutfittingHandler()),                      // informational
+    Outfitting(new OutfittingEvent()),
     Loadout(new LoadoutEvent()),
     SetUserShipName(new SetUserShipNameEvent()),
     FuelScoop(new FuelScoopEvent()),
 //    DiscoveryScan(new DiscoveryScanHandler()),                // informational
     Scan(new ScanEvent()),
-//    Shipyard(new ShipyardHandler()),                          // informational
+    Shipyard(new ShipyardEvent()),
     ShipyardBuy(new ShipyardBuyEvent()),
     ShipyardSell(new ShipyardSellEvent()),
     ShipyardTransfer(new ShipyardTransferEvent()),
@@ -106,7 +106,7 @@ public enum JournalEventEX
     ApproachBody(new ApproachBodyEvent()),
     LeaveBody(new LeaveBodyEvent()),
     ApproachSettlement(new ApproachSettlementEvent()),
-    Docked(new DockedEvent()),                              // location info
+    Docked(new DockedEvent()),
     FSDJump(new FSDJumpEvent()),
 //    FSDTarget(new FSDTargetHandler()),                        // informational
     Location(new LocationEvent()),
@@ -115,7 +115,7 @@ public enum JournalEventEX
 //    StartJump(new StartJumpHandler()),                        // location info
 //    SupercruiseEntry(new SupercruiseEntryHandler()),          // informational
     SupercruiseExit(new SupercruiseExitEvent()),
-//    Undocked(new UndockedHandler()),                          // location info
+    Undocked(new UndockedEvent()),
 //    USSDrop(new USSDropHandler()),                            // informational
 
     /*

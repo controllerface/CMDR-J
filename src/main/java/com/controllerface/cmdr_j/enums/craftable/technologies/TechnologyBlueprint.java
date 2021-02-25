@@ -11,6 +11,8 @@ import java.util.stream.Stream;
  */
 public enum TechnologyBlueprint implements TaskBlueprint
 {
+    // todo: double engineered modules
+
     // Human
 
     // todo: bobble head

@@ -42,7 +42,7 @@ public enum ItemGrade
     /*
     Used for items unlocked via Tech Brokers
      */
-    Technology(7, "Tech Broker"),
+    TechnologyBroker(7, "Tech Broker"),
 
     /*
     Synthesis Grades
@@ -62,8 +62,54 @@ public enum ItemGrade
     Mining(1, "Asteroid Mining", "Asteroid and Planetary Ring Mining",
             new Icon(UIFunctions.Icons.mining, 25, 25)),  // attainable by mining only
 
+
+
     Space(2, "Commodity", "Star Port Commodity Markets",
             new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+
+    Metals(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Minerals(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Chemicals(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Foods(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Textiles(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    IndustrialMaterials(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Medicines(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    LegalDrugs(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Machinery(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Technology(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Weapons(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    ConsumerItems(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Slavery(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
+    Waste(2, "Commodity", "Star Port Commodity Markets",
+        new Icon(UIFunctions.Icons.cargo,25,25)),   // standard commodities and salvage
+
 
     Salvage(3, "Salvage", "Combat Wreckage/Unidentified Signal Sources",
             new Icon(UIFunctions.Icons.cargo, 25, 25, UIFunctions.Style.darkOrange)), // salvage

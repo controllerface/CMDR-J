@@ -33,7 +33,7 @@ public class EngineerCraftEvent implements BiConsumer<GameState, Map<String, Obj
 
         if (slot instanceof CosmeticSlot)
         {
-            System.out.println("Ignoring Cosmetic Slot: " + slot);
+            //System.out.println("Ignoring Cosmetic Slot: " + slot);
             return;
         }
 
@@ -82,7 +82,7 @@ public class EngineerCraftEvent implements BiConsumer<GameState, Map<String, Obj
             {
                 if (modifier.get("ValueStr") != null)
                 {
-                    System.out.println("Skipping string modifier: " + modifier.get("ValueStr"));
+                    //System.out.println("Skipping string modifier: " + modifier.get("ValueStr"));
                     return;
                 }
                 ItemEffect effect = ItemEffect.valueOf(((String) modifier.get("Label")));

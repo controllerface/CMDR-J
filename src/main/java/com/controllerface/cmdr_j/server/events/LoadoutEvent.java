@@ -75,7 +75,7 @@ public class LoadoutEvent implements BiConsumer<GameState, Map<String, Object>>
 
         if (slot instanceof CosmeticSlot)
         {
-            System.out.println("Ignoring Cosmetic Slot: " + slot);
+            //System.out.println("Ignoring Cosmetic Slot: " + slot);
             return;
         }
 
@@ -122,7 +122,7 @@ public class LoadoutEvent implements BiConsumer<GameState, Map<String, Object>>
                 {
                     if (modifier.get("ValueStr") != null)
                     {
-                        System.out.println("Skipping string modifier: " + modifier.get("ValueStr"));
+                        //System.out.println("Skipping string modifier: " + modifier.get("ValueStr"));
                         return;
                     }
                     ItemEffect effect = ItemEffect.valueOf(((String) modifier.get("Label")));

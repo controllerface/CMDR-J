@@ -71,6 +71,8 @@ public class JournalUI
         assetMap.put("/offenseStats.js",        StaticAsset.make("/ui/js/offenseStats.js"));
         assetMap.put("/offenseModule.js",       StaticAsset.make("/ui/js/offenseModule.js"));
         assetMap.put("/offenseTurret.js",       StaticAsset.make("/ui/js/offenseTurret.js"));
+        assetMap.put("/outfitting.js",          StaticAsset.make("/ui/js/outfitting.js"));
+        assetMap.put("/outfittingEntry.js",     StaticAsset.make("/ui/js/outfittingEntry.js"));
         assetMap.put("/pledgedPower.js",        StaticAsset.make("/ui/js/pledgedPower.js"));
         assetMap.put("/poiEntry.js",            StaticAsset.make("/ui/js/poiEntry.js"));
         assetMap.put("/powerModule.js",         StaticAsset.make("/ui/js/powerModule.js"));
@@ -81,6 +83,8 @@ public class JournalUI
         assetMap.put("/settlementPoint.js",     StaticAsset.make("/ui/js/settlementPoint.js"));
         assetMap.put("/shipModule.js",          StaticAsset.make("/ui/js/shipModule.js"));
         assetMap.put("/shipStats.js",           StaticAsset.make("/ui/js/shipStats.js"));
+        assetMap.put("/shipyard.js",            StaticAsset.make("/ui/js/shipyard.js"));
+        assetMap.put("/shipyardEntry.js",       StaticAsset.make("/ui/js/shipyardEntry.js"));
         assetMap.put("/statCategory.js",        StaticAsset.make("/ui/js/statCategory.js"));
         assetMap.put("/systemCartography.js",   StaticAsset.make("/ui/js/systemCartography.js"));
         assetMap.put("/systemCatalog.js",       StaticAsset.make("/ui/js/systemCatalog.js"));

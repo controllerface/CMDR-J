@@ -35,7 +35,7 @@ public class ModuleBuyEvent implements BiConsumer<GameState, Map<String, Object>
 
         if (slot instanceof CosmeticSlot)
         {
-            System.out.println("Ignoring Cosmetic Slot: " + slot);
+            //System.out.println("Ignoring Cosmetic Slot: " + slot);
             return;
         }
 

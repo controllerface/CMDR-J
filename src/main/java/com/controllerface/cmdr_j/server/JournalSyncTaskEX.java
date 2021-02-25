@@ -28,6 +28,8 @@ public class JournalSyncTaskEX implements Runnable
     private enum SupplementalDataFile
     {
         MARKET("Market.json"),
+        OUTFITTING("Outfitting.json"),
+        SHIPYARD("Shipyard.json"),
         CARGO("Cargo.json"),
         NAV_ROUTE("NavRoute.json");
 
@@ -331,6 +333,17 @@ public class JournalSyncTaskEX implements Runnable
     {
         return readSupplementalFile(SupplementalDataFile.MARKET);
     }
+
+    public static Map<String, Object> readOutfittingData()
+    {
+        return readSupplementalFile(SupplementalDataFile.OUTFITTING);
+    }
+
+    public static Map<String, Object> readShipyardData()
+    {
+        return readSupplementalFile(SupplementalDataFile.SHIPYARD);
+    }
+
 
     public static Map<String, Object> readCargoData()
     {

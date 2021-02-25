@@ -386,13 +386,17 @@ function setStatistics(data)
 
 function setMarketData(data)
 {
+    let market = document.getElementById('marketInfo');
+    market.textContent = "";
+
     if (Object.keys(data).length === 0)
     {
+        market.station = 'none';
+        market.type = 'none';
+        market.system = 'none';
         return
     }
 
-    let market = document.getElementById('marketInfo');
-    market.textContent = "";
     market.station = data['name'];
     market.type = data['type'];
     market.system = data['system'];
@@ -500,6 +504,131 @@ function setMarketData(data)
         }
     }
 
+}
+
+function setOutfittingData(data)
+{
+    let outfitting = document.getElementById('outfittingInfo');
+    outfitting.textContent = "";
+
+    if (Object.keys(data).length === 0)
+    {
+        outfitting.station = 'none';
+        outfitting.system = 'none';
+        return
+    }
+
+    outfitting.station = data['name'];
+    outfitting.system = data['system'];
+
+    let modules = data['modules'];
+
+    let armour = modules['armour'];
+    let core = modules['core'];
+    let optional = modules['optional'];
+    let hardpoints = modules['hardpoints'];
+
+    if (armour)
+    {
+        let armourTypes = Object.keys(armour);
+        armourTypes.sort();
+        for (let i = 0, len = armourTypes.length; i < len; i++)
+        {
+            let moduleKey = armourTypes[i];
+            let module = armour[moduleKey];
+            let nextModule = document.createElement('outfitting-entry');
+            nextModule.itemId = module['itemId'];
+            nextModule.name = module['name'];
+            nextModule.price = module['price'];
+            nextModule.setAttribute('slot', 'armour');
+            outfitting.append(nextModule);
+        }
+    }
+
+    if (core)
+    {
+        let coreTypes = Object.keys(core);
+        coreTypes.sort();
+        for (let i = 0, len = coreTypes.length; i < len; i++)
+        {
+            let moduleKey = coreTypes[i];
+            let module = core[moduleKey];
+            let nextModule = document.createElement('outfitting-entry');
+            nextModule.itemId = module['itemId'];
+            nextModule.name = module['name'];
+            nextModule.price = module['price'];
+            nextModule.setAttribute('slot', 'core');
+            outfitting.append(nextModule);
+        }
+    }
+
+    if (optional)
+    {
+        let optionalTypes = Object.keys(optional);
+        optionalTypes.sort();
+        for (let i = 0, len = optionalTypes.length; i < len; i++)
+        {
+            let moduleKey = optionalTypes[i];
+            let module = optional[moduleKey];
+            let nextModule = document.createElement('outfitting-entry');
+            nextModule.itemId = module['itemId'];
+            nextModule.name = module['name'];
+            nextModule.price = module['price'];
+            nextModule.setAttribute('slot', 'optional');
+            outfitting.append(nextModule);
+        }
+    }
+
+    if (hardpoints)
+    {
+        let hardpointsTypes = Object.keys(hardpoints);
+        hardpointsTypes.sort();
+        for (let i = 0, len = hardpointsTypes.length; i < len; i++)
+        {
+            let moduleKey = hardpointsTypes[i];
+            let module = hardpoints[moduleKey];
+            let nextModule = document.createElement('outfitting-entry');
+            nextModule.itemId = module['itemId'];
+            nextModule.name = module['name'];
+            nextModule.price = module['price'];
+            nextModule.setAttribute('slot', 'hardpoints');
+            outfitting.append(nextModule);
+        }
+    }
+}
+
+function setShipyardData(data)
+{
+    let shipyard = document.getElementById('shipyardInfo');
+    shipyard.textContent = "";
+
+    if (Object.keys(data).length === 0)
+    {
+        shipyard.station = 'none';
+        shipyard.system = 'none';
+        return
+    }
+
+    shipyard.station = data['name'];
+    shipyard.system = data['system'];
+
+    let ships = data['ships'];
+
+    if (ships)
+    {
+        let shipNames = Object.keys(ships);
+        shipNames.sort();
+        for (let i = 0, len = shipNames.length; i < len; i++)
+        {
+            let shipKey = shipNames[i];
+            let ship = ships[shipKey];
+            let nextShip = document.createElement('shipyard-entry');
+            nextShip.itemId = ship['itemId'];
+            nextShip.name = ship['name'];
+            nextShip.price = ship['price'];
+            shipyard.append(nextShip);
+        }
+    }
 }
 
 function makeMarketQuery(itemId, type, price, comparison, callback)
@@ -1144,6 +1273,7 @@ function handleTouchdown(data)
     let coordinateData = JSON.parse(data);
     let gpsDisplay = document.getElementById('gpsDisplay');
     gpsDisplay.loadTouchdownData(coordinateData);
+    setElementText("Body", '[Landed: ' + data['body'] + ']');
 }
 
 function setTrackedLocation(target, callback)
@@ -1469,6 +1599,11 @@ const eventListeners =
     Ship_Ident: (e) => setElementText("Ship_Ident", '[' + e.data.toUpperCase() + ']'),
     Ship_Data: (e) => handleShipData(e.data),
 
+    Docked: (e) => setElementText("Body", '[Docked: ' + e.data.toUpperCase() + ']'),
+    Undocked: (e) => setElementText("Body", ''),
+    Liftoff: (e) => setElementText("Body", ''),
+
+
     // Current fuel level data; max and current level
     Fuel_Capacity: (e) =>
     {
@@ -1552,6 +1687,11 @@ const eventListeners =
 
     // Information about the most recently visited commodity market
     Market: (e) => requestJsonEndpoint('/market', setMarketData),
+
+    Outfitting: (e) => requestJsonEndpoint('/outfitting', setOutfittingData),
+
+    Shipyard: (e) => requestJsonEndpoint('/shipyard', setShipyardData),
+
 
     // Contains information about current power usage on the player's ship
     PowerStats: (e) => handlePowerData(e.data),

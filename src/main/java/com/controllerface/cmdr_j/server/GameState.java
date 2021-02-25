@@ -101,6 +101,8 @@ public class GameState
     private final Map<Material, Integer> materials = new HashMap<>();
     private final Map<Commodity, CommodityData> cargo = new HashMap<>();
     private final Map<String, Object> marketData = new HashMap<>();
+    private final Map<String, Object> outfittingData = new HashMap<>();
+    private final Map<String, Object> shipyardData = new HashMap<>();
     private final Map<Engineer, Map<String, Object>> engineerProgress = new HashMap<>();
     private final List<RouteEntry> currentRoute = new ArrayList<>();
     private final List<Map<String, Object>> systemFactions = new ArrayList<>();
@@ -108,6 +110,7 @@ public class GameState
     private final AtomicReference<String> trackedLocation = new AtomicReference<>("");
 
     private String commanderName = "";
+    private String dockedLocation = "";
     private long creditBalance = 0;
     private double currentFuel = 0;
     private double currentReserveFuel = 0;
@@ -559,12 +562,7 @@ public class GameState
         this.touchdownLatitude = touchdownLatitude;
         this.touchdownLongitude = touchdownLongitude;
         emitTouchdownData(globalUpdate);
-    }
-
-    public void liftoff()
-    {
-        this.touchdownLatitude = -1;
-        this.touchdownLongitude = -1;
+        executeWithLock(() -> globalUpdate.accept("Land", nearestBody.name));
     }
 
     public int getCargoCapacity()
@@ -752,6 +750,11 @@ public class GameState
                     }
 
                     var commodities = ((Map<String, Map<String, Object>>) mktMap.get(typeKey));
+                    if (commodities == null)
+                    {
+                        System.out.println("no data for type: " + typeKey);
+                        return Collections.emptyMap();
+                    }
 
                     var item = commodities.values().stream()
                         .flatMap(t -> t.values().stream())
@@ -879,6 +882,47 @@ public class GameState
                 entity.setProperty(name, ((Comparable) value));
             }
         });
+    }
+
+    public void dock(String dockedLocation)
+    {
+        this.dockedLocation = dockedLocation;
+        executeWithLock(() -> globalUpdate.accept("Docked", this.dockedLocation));
+    }
+
+    public void undock()
+    {
+        dockedLocation = "";
+        marketData.clear();
+        outfittingData.clear();
+        shipyardData.clear();
+        emitMarketEvent();
+        emitOutfittingEvent();
+        emitShipyardEvent();
+        executeWithLock(() -> globalUpdate.accept("Undocked", "undocked"));
+    }
+
+    public void liftoff()
+    {
+        this.touchdownLatitude = -1;
+        this.touchdownLongitude = -1;
+        executeWithLock(() -> globalUpdate.accept("Liftoff", "liftoff"));
+    }
+
+    public void setOutfittingData(Map<String, Object> outfitting)
+    {
+        this.outfittingData.clear();
+        this.outfittingData.putAll(outfitting);
+
+        // todo: add or update market data
+    }
+
+    public void setShipyardData(Map<String, Object> shipyardData)
+    {
+        this.shipyardData.clear();
+        this.shipyardData.putAll(shipyardData);
+
+        // todo: add or update market data
     }
 
     public void setMarketData(Map<String, Object> marketData)
@@ -1259,14 +1303,14 @@ public class GameState
 
             if (statistic == ShipStat.Ship)
             {
-                try
-                {
-                    shipType = ShipType.findShip(value);
-                    executeWithLock(() -> globalUpdate.accept("Ship_Data", shipType.toJson()));
-                }
-                catch (Exception e)
+                shipType = ShipType.findShip(value).orElse(null);
+                if (shipType == null)
                 {
                     System.err.println("Could not determine ship type: " + value);
+                }
+                else
+                {
+                    executeWithLock(() -> globalUpdate.accept("Ship_Data", shipType.toJson()));
                 }
             }
         }
@@ -2513,6 +2557,16 @@ public class GameState
         executeWithLock(() -> globalUpdate.accept("Market", "updated"));
     }
 
+    public void emitOutfittingEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Outfitting", "updated"));
+    }
+
+    public void emitShipyardEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Shipyard", "updated"));
+    }
+
     public void emitPowerStats()
     {
         var powerStats = calculateCurrentPowerUsage();
@@ -2633,6 +2687,7 @@ public class GameState
         touchdownData.put("latitude", this.touchdownLatitude);
         touchdownData.put("longitude", this.touchdownLongitude);
         touchdownData.put("name", shipStatistics.get(ShipStat.Ship_Name));
+        touchdownData.put("body", nearestBody.name);
 
         var dist = calculateDistance(touchdownLongitude, touchdownLatitude);
         var unit = dist < 1000
@@ -2739,7 +2794,16 @@ public class GameState
 
             directUpdate.accept("Market", "updated");
 
+            directUpdate.accept("Outfitting", "updated");
+
+            directUpdate.accept("Shipyard", "updated");
+
             directUpdate.accept("Catalog", "updated");
+
+            if (!dockedLocation.isEmpty())
+            {
+                executeWithLock(() -> globalUpdate.accept("Docked", dockedLocation));
+            }
 
             if (starSystem != null)
             {
@@ -3152,6 +3216,16 @@ public class GameState
     public String writeMarketData()
     {
         return JSONSupport.Write.jsonToString.apply(marketData);
+    }
+
+    public String writeOutfittingData()
+    {
+        return JSONSupport.Write.jsonToString.apply(outfittingData);
+    }
+
+    public String writeShipyardData()
+    {
+        return JSONSupport.Write.jsonToString.apply(shipyardData);
     }
 
     public String writeMarketQueryData(long id, long price, boolean export, boolean difference)
@@ -3843,37 +3917,6 @@ public class GameState
     @SuppressWarnings("unchecked")
     public String buildTaskCatalog()
     {
-        InputStream jsonStream = null;
-        try
-        {
-            URL localizationData = getClass().getResource("/localization/eng.json");
-            jsonStream = localizationData.openStream();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        Map<String, Object> data = JSONSupport.Parse.jsonStream.apply(jsonStream);
-
-        ((Map<String, Object>) data.get("materials"))
-            .forEach((key, value) ->
-            {
-                TaskCost material = Material.valueOf(key);
-                material.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
-                List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
-                material.setLocationInformation(String.join("\n", locations));
-            });
-
-        ((Map<String, Object>) data.get("commodities"))
-            .forEach((key, value) ->
-            {
-                TaskCost commodity = Commodity.valueOf(key);
-                commodity.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
-                List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
-                commodity.setLocationInformation(String.join("\n", locations));
-            });
-
         var modules = new HashMap<String, Map<String, Object>>();
         var synthesis = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
         var modifications = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();

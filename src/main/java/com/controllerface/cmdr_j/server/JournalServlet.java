@@ -98,15 +98,25 @@ class JournalServlet extends EventSourceServlet
             writeJsonResponse(response, playerState.writeExtendedStatsJson());
         }),
 
+        OUTFITTING(EndpointType.GET, "/outfitting", (_r, response, playerState) ->
+        {
+            writeJsonResponse(response, playerState.writeOutfittingData());
+        }),
+
+        SHIPYARD(EndpointType.GET, "/shipyard", (_r, response, playerState) ->
+        {
+            writeJsonResponse(response, playerState.writeShipyardData());
+        }),
+
         /**
          * Returns the market data from the most recently visited market.
          */
-        MARKET(EndpointType.GET, "/market", (_r, response, playerState) ->
+        MARKET(EndpointType.GET, "/market", (request, response, playerState) ->
         {
-            var id = _r.getParameter("id");
-            var type = _r.getParameter("type");
-            var price = _r.getParameter("price");
-            var comparison = _r.getParameter("comparison");
+            var id = request.getParameter("id");
+            var type = request.getParameter("type");
+            var price = request.getParameter("price");
+            var comparison = request.getParameter("comparison");
 
             if (id == null)
             {

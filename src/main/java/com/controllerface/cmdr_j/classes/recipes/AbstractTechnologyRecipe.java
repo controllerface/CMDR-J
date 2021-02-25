@@ -12,7 +12,7 @@ public abstract class AbstractTechnologyRecipe extends AbstractRecipe
 
     public AbstractTechnologyRecipe(String name, ItemEffects effects, CostData ... cost)
     {
-        super(name, ItemGrade.Technology, effects, cost);
+        super(name, ItemGrade.TechnologyBroker, effects, cost);
     }
 
     @Override

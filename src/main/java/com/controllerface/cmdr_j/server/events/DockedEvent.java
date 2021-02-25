@@ -18,6 +18,8 @@ public class DockedEvent implements BiConsumer<GameState, Map<String, Object>>
     public void accept(GameState gameState, Map<String, Object> event)
     {
         var stationName = ((String) event.get("StationName"));
+        gameState.dock(stationName);
+
         var address = ((Number) event.get("SystemAddress")).longValue();
         var bodyType = StellarBody.BodyType.Station;
 
