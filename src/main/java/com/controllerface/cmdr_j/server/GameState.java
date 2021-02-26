@@ -836,6 +836,67 @@ public class GameState
         });
     }
 
+    public List<Map<String, Object>> queryItemData(long itemId)
+    {
+        return database.computeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return Collections.emptyList();
+
+            return EntityUtilities.entityStream(commander.getLinks(EntityKeys.MARKET))
+                .map(mkt ->
+                {
+                    var systemEntity = mkt.getLink(EntityKeys.STAR_SYSTEM);
+                    if (systemEntity == null)
+                    {
+                        System.out.println("no system");
+                        return Collections.emptyMap();
+                    }
+                    var sys = StarSystem.unstoreSystemData(systemEntity);
+                    if (sys == null)
+                    {
+                        System.out.println("bad system");
+                        return Collections.emptyMap();
+                    }
+
+                    var mktMap = e2m(mkt);
+
+                    var commodities = ((Map<String, Map<String, Object>>) mktMap.get("exports"));
+                    if (commodities == null)
+                    {
+                        System.out.println("no export data for: " + itemId);
+                        return Collections.emptyMap();
+                    }
+
+                    var item = commodities.values().stream()
+                        .flatMap(t -> t.values().stream())
+                        .map(i -> ((Map<String, Object>) i))
+                        .filter(commodity -> ((Number) commodity.get("itemId")).longValue() == itemId)
+                        .findFirst().orElse(Collections.emptyMap());
+
+                    if (item.isEmpty())
+                    {
+                        return Collections.emptyMap();
+                    }
+
+                    var time = Instant.parse(((String) mktMap.get("timestamp")));
+
+                    var age = Duration.between(time, Instant.now());
+                    var ts = UIFunctions.Format.secondsToTimeString(age.toSeconds());
+
+
+                    item.put("age", ts);
+                    item.put("system", sys.systemName);
+                    item.put("market", mktMap.get("name"));
+                    item.put("distance", starSystem.distanceBetween(sys));
+                    return item;
+                })
+                .filter(m->!m.isEmpty())
+                .map(f -> ((Map<String, Object>) f))
+                .collect(Collectors.toList());
+        });
+    }
+
     private Map<String, Object> e2m(Entity entity)
     {
         var map = new HashMap<String, Object>();
@@ -2774,6 +2835,8 @@ public class GameState
             // todo: as more state is tracked, this will need to be updated to make sure
             //  all important data is emitted during this call
 
+            directUpdate.accept("ItemListing", "updated");
+
             commanderStatistics.forEach((statistic, value) ->
                 directUpdate.accept(statistic.getName(), value));
 
@@ -3192,6 +3255,15 @@ public class GameState
         return true;
     }
 
+
+    public String writeItemQueryData(long id)
+    {
+        var results = new HashMap<String, Object>();
+        results.put("results", queryItemData(id));
+        return JSONSupport.Write.jsonToString.apply(results);
+    }
+
+
     //region Complex JSON Object Writers
 
     public String writeLoadoutJson()
@@ -3216,6 +3288,31 @@ public class GameState
     public String writeMarketData()
     {
         return JSONSupport.Write.jsonToString.apply(marketData);
+    }
+
+    public String writeItemListing()
+    {
+        Map<String, Object> itemListing = new HashMap<>();
+
+        Stream.of(Commodity.values())
+            .filter(commodity -> commodity.id != -1L)
+            .forEach(commodity ->
+            {
+                var name = commodity.getLocalizedName()
+                    + " [" + commodity.id + "]";
+                itemListing.put(String.valueOf(commodity.id), name);
+            });
+
+        Stream.of(ShipType.values())
+            .filter(shipType -> shipType.id != -1L)
+            .forEach(shipType ->
+            {
+                var name = shipType.getBaseShipStats().displayName
+                    + " [" + shipType.id + "]";
+                itemListing.put(String.valueOf(shipType.id), name);
+            });
+
+        return JSONSupport.Write.jsonToString.apply(itemListing);
     }
 
     public String writeOutfittingData()

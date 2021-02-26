@@ -1237,6 +1237,51 @@ function setCataloguedSystemData(data)
     setCartographyData(data, 'catalogCartography');
 }
 
+
+function setMarketItemList(data)
+{
+    let marketSearch = document.getElementById('marketSearch');
+    marketSearch.textContent = "";
+    let results = data['results'];
+    if (results.length == 0) return;
+
+    let container = document.createElement('div');
+    container.classList.add('itemQueryContainer');
+
+    let header = document.createElement('item-query');
+    header.setHeader();
+    header.system = 'System';
+    header.market = 'Market';
+    header.age = 'Last Updated';
+    header.quantity = 'Stock';
+    header.price = 'Price';
+    header.distance = 'Distance';
+    container.append(header);
+
+    results.sort((a, b) =>
+    {
+        let aPrice = a['price'];
+        let bPrice = b['price'];
+        return aPrice - bPrice;
+    })
+
+    console.log(results);
+    results.forEach(item =>
+    {
+        let nextItem = document.createElement('item-query');
+        nextItem.system = item['system'];
+        nextItem.market = item['market'];
+        nextItem.age = item['age'];
+        nextItem.quantity = item['quantity'];
+        nextItem.price = item['price'];
+        nextItem.distance = item['distance'];
+        container.append(nextItem);
+    });
+
+    marketSearch.append(container);
+}
+
+
 function setSystemCatalog(data)
 {
     let entries = data['entries'];
@@ -1573,6 +1618,13 @@ function handlePowerPlay(data)
     }
 }
 
+function setMarketItemListing(data)
+{
+    //console.log(data);
+    let marketSearch = document.getElementById('marketSearch');
+    marketSearch.loadListingData(data);
+}
+
 /*
 This object contains event listener functions that will be bound to the local event source
 on page load. For each key listed below, the mapped function is bound to an event with the
@@ -1759,6 +1811,8 @@ const eventListeners =
     CommunityGoal: (e) => handleCommunityGoal(e.data),
 
     PowerPlay: (e) => handlePowerPlay(e.data),
+
+    ItemListing: (e) => requestJsonEndpoint('/market?type=listing', setMarketItemListing)
 };
 
 window.onload = (e) =>

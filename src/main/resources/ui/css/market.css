@@ -161,6 +161,20 @@
     padding-bottom: .2em;
 }
 
+.itemQueryResultRow
+{
+    display: grid;
+    grid-template-columns: 1.75fr 1.75fr 1.5fr 1fr 1fr 1fr;
+    color: var(--default-text);
+    margin-top: 0em;
+    padding-bottom: .2em;
+}
+
+.itemDataColumn
+{
+    text-align: center;
+}
+
 .queryResultHeader
 {
     font-weight: bold;

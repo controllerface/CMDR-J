@@ -821,3 +821,14 @@ details > summary::-webkit-details-marker
     padding: .3em;
     color: var(--default-border);
 }
+
+.itemQueryContainer
+{
+    border: solid 1px var(--default-border);
+    border-radius: 3px 3px 3px 3px;
+    padding: 1em;
+    font-weight: bold;
+    text-align: center;
+    margin: .2em;
+    color: var(--default-text);
+}

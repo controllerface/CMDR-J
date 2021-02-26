@@ -118,7 +118,23 @@ class JournalServlet extends EventSourceServlet
             var price = request.getParameter("price");
             var comparison = request.getParameter("comparison");
 
-            if (id == null)
+            if (type != null && type.equalsIgnoreCase("listing"))
+            {
+                writeJsonResponse(response, playerState.writeItemListing());
+            }
+            if (type != null && type.equalsIgnoreCase("search"))
+            {
+                try
+                {
+                    var itemId = Long.parseLong(id);
+                    writeJsonResponse(response, playerState.writeItemQueryData(itemId));
+                }
+                catch (Exception e)
+                {
+                    writeErrorResponse(response, HttpStatus.Code.BAD_REQUEST);
+                }
+            }
+            else if (id == null)
             {
                 writeJsonResponse(response, playerState.writeMarketData());
             }

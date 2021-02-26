@@ -21,10 +21,12 @@
     <script src="engineerStats.js"></script>
     <script src="factionStats.js"></script>
     <script src="gpsDisplay.js"></script>
+    <script src="itemQuery.js"></script>
     <script src="localConflict.js"></script>
     <script src="market.js"></script>
     <script src="marketEntry.js"></script>
     <script src="marketQuery.js"></script>
+    <script src="marketSearch.js"></script>
     <script src="material.js"></script>
     <script src="missionData.js"></script>
     <script src="moduleBay.js"></script>
@@ -61,7 +63,6 @@
     <script src="waypointLocation.js"></script>
     <script src="landingPoint.js"></script>
     <script src="settlementPoint.js"></script>
-
 
 
     <!-- Ship base stats template -->
@@ -911,7 +912,7 @@
     <!-- Star system catalog selector -->
     <template id="template_SystemCatalog">
         <link rel="stylesheet" href="statistics.css">
-        <div class="emptySection">
+        <div class="genericSection">
             <label for="systemCatalog_systemselector">Known Systems</label>
             <input type="text" class="catalogList" id="systemCatalog_systemselector" list="systemCatalog_datalist" />
             <datalist id="systemCatalog_datalist"></datalist>
@@ -1571,6 +1572,41 @@
             <span class="marketProfit" id="shipyardEntry_price"></span>
         </div>
     </template>
+
+    <!-- Market search utils -->
+    <template id="template_MarketSearch">
+        <link rel="stylesheet" href="market.css">
+        <link rel="stylesheet" href="statistics.css">
+        <div class="genericSection">
+            <label for="marketSearch_itemselector">Commodities/Ships/Modules</label>
+            <input type="text"
+                   class="catalogList"
+                   id="marketSearch_itemselector"
+                   list="marketSearch_datalist">
+            <datalist id="marketSearch_datalist"></datalist>
+        </div>
+        <slot>
+            <div class="emptySection">No Results</div>
+        </slot>
+    </template>
+
+    <!-- Result data from a market query -->
+    <template id="template_ItemQuery">
+        <link rel="stylesheet" href="market.css">
+        <link rel="stylesheet" href="statistics.css">
+        <div id="itemQuery_row" class="itemQueryResultRow">
+            <span id="itemQuery_system" class="queryText"></span>
+            <span id="itemQuery_market" class="queryText"></span>
+            <span id="itemQuery_age" class="marketAge"></span>
+            <span id="itemQuery_quantity" class="itemDataColumn"></span>
+            <span id="itemQuery_price" class="itemDataColumn"></span>
+            <div class="itemDataColumn">
+                <span id="itemQuery_distance"></span>
+                <span id="itemQuery_lylabel" class="valueUnit">LY</span>
+            </div>
+        </div>
+    </template>
+
 </head>
 
 <body>
@@ -2054,7 +2090,7 @@
             <input name="marketTabs" type="radio" id="marketSearchTabButton" class="tabInput"/>
             <label id="marketSearchTab" for="marketSearchTabButton" class="tabLabel">Search</label>
             <div class="tabPanel">
-                TODO: search
+                <market-search id="marketSearch"></market-search>
             </div>
 
         </div>

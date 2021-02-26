@@ -385,7 +385,7 @@
     color: var(--default-color);
     text-align: right;
 }
-
+.genericSection,
 .emptySection
 {
     border: solid 1px var(--default-border);

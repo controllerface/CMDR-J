@@ -59,11 +59,13 @@ public class JournalUI
         assetMap.put("/engineerStats.js",       StaticAsset.make("/ui/js/engineerStats.js"));
         assetMap.put("/factionStats.js",        StaticAsset.make("/ui/js/factionStats.js"));
         assetMap.put("/gpsDisplay.js",          StaticAsset.make("/ui/js/gpsDisplay.js"));
+        assetMap.put("/itemQuery.js",           StaticAsset.make("/ui/js/itemQuery.js"));
         assetMap.put("/landingPoint.js",        StaticAsset.make("/ui/js/landingPoint.js"));
         assetMap.put("/localConflict.js",       StaticAsset.make("/ui/js/localConflict.js"));
         assetMap.put("/market.js",              StaticAsset.make("/ui/js/market.js"));
         assetMap.put("/marketEntry.js",         StaticAsset.make("/ui/js/marketEntry.js"));
         assetMap.put("/marketQuery.js",         StaticAsset.make("/ui/js/marketQuery.js"));
+        assetMap.put("/marketSearch.js",        StaticAsset.make("/ui/js/marketSearch.js"));
         assetMap.put("/material.js",            StaticAsset.make("/ui/js/material.js"));
         assetMap.put("/missionData.js",         StaticAsset.make("/ui/js/missionData.js"));
         assetMap.put("/moduleBay.js",           StaticAsset.make("/ui/js/moduleBay.js"));
