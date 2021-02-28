@@ -434,7 +434,6 @@ public enum Commodity implements TaskCost
     private final ItemGrade grade;
     private String localizedName = name();
     private String locationInformation = "";
-    public boolean set = false;
     private final List<TaskRecipe> associated = new ArrayList<>();
 
     Commodity(ItemGrade grade)
@@ -491,7 +490,6 @@ public enum Commodity implements TaskCost
     @Override
     public void setLocalizedName(String localizedName)
     {
-        set = true;
         this.localizedName = localizedName;
     }
 

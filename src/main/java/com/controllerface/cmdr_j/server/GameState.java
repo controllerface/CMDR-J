@@ -1074,6 +1074,7 @@ public class GameState
         }
 
         executeWithLock(() -> globalUpdate.accept("Cargo", jsonData));
+        executeWithLock(() -> globalUpdate.accept("Task", "materials"));
         emitAllTaskData(globalUpdate);
     }
 
@@ -1109,6 +1110,7 @@ public class GameState
         }
         var newCount = currentCount;
         executeWithLock(() -> globalUpdate.accept("Material", writeMaterialEvent(material, newCount)));
+        executeWithLock(() -> globalUpdate.accept("Task", "materials"));
         emitAllTaskData(globalUpdate);
     }
 
@@ -1278,6 +1280,7 @@ public class GameState
         var balance = String.valueOf(creditBalance);
         commanderStatistics.put(CommanderStat.Credits, balance);
         executeWithLock(() -> globalUpdate.accept(CommanderStat.Credits.getName(), balance));
+        executeWithLock(() -> globalUpdate.accept("Task", "materials"));
         emitAllTaskData(globalUpdate);
     }
 

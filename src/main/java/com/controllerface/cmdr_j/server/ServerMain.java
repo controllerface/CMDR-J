@@ -13,17 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Stream;
 
 public class ServerMain
 {
     public static void main(String[] args)
     {
         initialize();
-
-        Stream.of(Commodity.values())
-            .filter(c->!c.set)
-            .forEach(System.out::println);
 
         ExecutorService journalSync = Executors.newSingleThreadExecutor();
 
