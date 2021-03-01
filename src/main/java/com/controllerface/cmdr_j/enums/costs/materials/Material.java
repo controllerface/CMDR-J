@@ -2,11 +2,12 @@ package com.controllerface.cmdr_j.enums.costs.materials;
 
 import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
-import com.controllerface.cmdr_j.classes.tasks.*;
+import com.controllerface.cmdr_j.classes.tasks.MaterialTradeBlueprint;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskCost;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.ui.Icon;
-import com.controllerface.cmdr_j.ui.UIFunctions;
-import javafx.util.Pair;
+import com.controllerface.cmdr_j.classes.data.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,173 +23,173 @@ public enum Material implements TaskCost
 {
     // RAW
 
-    CARBON(ItemGrade.VERY_COMMON, UIFunctions.Icons.rawTradeIcon),
-    PHOSPHORUS(ItemGrade.VERY_COMMON, UIFunctions.Icons.rawTradeIcon),
-    SULPHUR(ItemGrade.VERY_COMMON, UIFunctions.Icons.rawTradeIcon),
-    IRON(ItemGrade.VERY_COMMON, UIFunctions.Icons.rawTradeIcon),
-    NICKEL(ItemGrade.VERY_COMMON, UIFunctions.Icons.rawTradeIcon),
-    RHENIUM(ItemGrade.VERY_COMMON, UIFunctions.Icons.rawTradeIcon),
-    LEAD(ItemGrade.VERY_COMMON, UIFunctions.Icons.rawTradeIcon),
+    CARBON(ItemGrade.VERY_COMMON),
+    PHOSPHORUS(ItemGrade.VERY_COMMON),
+    SULPHUR(ItemGrade.VERY_COMMON),
+    IRON(ItemGrade.VERY_COMMON),
+    NICKEL(ItemGrade.VERY_COMMON),
+    RHENIUM(ItemGrade.VERY_COMMON),
+    LEAD(ItemGrade.VERY_COMMON),
 
 
-    VANADIUM(ItemGrade.COMMON, UIFunctions.Icons.rawTradeIcon),
-    CHROMIUM(ItemGrade.COMMON, UIFunctions.Icons.rawTradeIcon),
-    MANGANESE(ItemGrade.COMMON, UIFunctions.Icons.rawTradeIcon),
-    ZINC(ItemGrade.COMMON, UIFunctions.Icons.rawTradeIcon),
-    GERMANIUM(ItemGrade.COMMON, UIFunctions.Icons.rawTradeIcon),
-    ARSENIC(ItemGrade.COMMON, UIFunctions.Icons.rawTradeIcon),
-    ZIRCONIUM(ItemGrade.COMMON, UIFunctions.Icons.rawTradeIcon),
+    VANADIUM(ItemGrade.COMMON),
+    CHROMIUM(ItemGrade.COMMON),
+    MANGANESE(ItemGrade.COMMON),
+    ZINC(ItemGrade.COMMON),
+    GERMANIUM(ItemGrade.COMMON),
+    ARSENIC(ItemGrade.COMMON),
+    ZIRCONIUM(ItemGrade.COMMON),
 
-    NIOBIUM(ItemGrade.STANDARD, UIFunctions.Icons.rawTradeIcon),
-    MOLYBDENUM(ItemGrade.STANDARD, UIFunctions.Icons.rawTradeIcon),
-    CADMIUM(ItemGrade.STANDARD, UIFunctions.Icons.rawTradeIcon),
-    TIN(ItemGrade.STANDARD, UIFunctions.Icons.rawTradeIcon),
-    TUNGSTEN(ItemGrade.STANDARD, UIFunctions.Icons.rawTradeIcon),
-    MERCURY(ItemGrade.STANDARD, UIFunctions.Icons.rawTradeIcon),
-    BORON(ItemGrade.STANDARD, UIFunctions.Icons.rawTradeIcon),
+    NIOBIUM(ItemGrade.STANDARD),
+    MOLYBDENUM(ItemGrade.STANDARD),
+    CADMIUM(ItemGrade.STANDARD),
+    TIN(ItemGrade.STANDARD),
+    TUNGSTEN(ItemGrade.STANDARD),
+    MERCURY(ItemGrade.STANDARD),
+    BORON(ItemGrade.STANDARD),
 
-    YTTRIUM(ItemGrade.RARE, UIFunctions.Icons.rawTradeIcon),
-    TECHNETIUM(ItemGrade.RARE, UIFunctions.Icons.rawTradeIcon),
-    RUTHENIUM(ItemGrade.RARE, UIFunctions.Icons.rawTradeIcon),
-    SELENIUM(ItemGrade.RARE, UIFunctions.Icons.rawTradeIcon),
-    TELLURIUM(ItemGrade.RARE, UIFunctions.Icons.rawTradeIcon),
-    POLONIUM(ItemGrade.RARE, UIFunctions.Icons.rawTradeIcon),
-    ANTIMONY(ItemGrade.RARE, UIFunctions.Icons.rawTradeIcon),
+    YTTRIUM(ItemGrade.RARE),
+    TECHNETIUM(ItemGrade.RARE),
+    RUTHENIUM(ItemGrade.RARE),
+    SELENIUM(ItemGrade.RARE),
+    TELLURIUM(ItemGrade.RARE),
+    POLONIUM(ItemGrade.RARE),
+    ANTIMONY(ItemGrade.RARE),
 
 
     // Manufactured
 
-    CHEMICALSTORAGEUNITS(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
-    TEMPEREDALLOYS(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
-    HEATCONDUCTIONWIRING(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
-    BASICCONDUCTORS(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
-    MECHANICALSCRAP(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
-    GRIDRESISTORS(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
-    WORNSHIELDEMITTERS(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
-    COMPACTCOMPOSITES(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
-    CRYSTALSHARDS(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
-    SALVAGEDALLOYS(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
+    CHEMICALSTORAGEUNITS(ItemGrade.VERY_COMMON),
+    TEMPEREDALLOYS(ItemGrade.VERY_COMMON),
+    HEATCONDUCTIONWIRING(ItemGrade.VERY_COMMON),
+    BASICCONDUCTORS(ItemGrade.VERY_COMMON),
+    MECHANICALSCRAP(ItemGrade.VERY_COMMON),
+    GRIDRESISTORS(ItemGrade.VERY_COMMON),
+    WORNSHIELDEMITTERS(ItemGrade.VERY_COMMON),
+    COMPACTCOMPOSITES(ItemGrade.VERY_COMMON),
+    CRYSTALSHARDS(ItemGrade.VERY_COMMON),
+    SALVAGEDALLOYS(ItemGrade.VERY_COMMON),
 
-    CHEMICALPROCESSORS(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
-    HEATRESISTANTCERAMICS(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
-    HEATDISPERSIONPLATE(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
-    CONDUCTIVECOMPONENTS(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
-    MECHANICALEQUIPMENT(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
-    HYBRIDCAPACITORS(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
-    SHIELDEMITTERS(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
-    FILAMENTCOMPOSITES(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
-    UNCUTFOCUSCRYSTALS(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
-    GALVANISINGALLOYS(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
+    CHEMICALPROCESSORS(ItemGrade.COMMON),
+    HEATRESISTANTCERAMICS(ItemGrade.COMMON),
+    HEATDISPERSIONPLATE(ItemGrade.COMMON),
+    CONDUCTIVECOMPONENTS(ItemGrade.COMMON),
+    MECHANICALEQUIPMENT(ItemGrade.COMMON),
+    HYBRIDCAPACITORS(ItemGrade.COMMON),
+    SHIELDEMITTERS(ItemGrade.COMMON),
+    FILAMENTCOMPOSITES(ItemGrade.COMMON),
+    UNCUTFOCUSCRYSTALS(ItemGrade.COMMON),
+    GALVANISINGALLOYS(ItemGrade.COMMON),
 
-    CHEMICALDISTILLERY(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    PRECIPITATEDALLOYS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    HEATEXCHANGERS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    CONDUCTIVECERAMICS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    MECHANICALCOMPONENTS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    ELECTROCHEMICALARRAYS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    SHIELDINGSENSORS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    HIGHDENSITYCOMPOSITES(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    FOCUSCRYSTALS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    PHASEALLOYS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
+    CHEMICALDISTILLERY(ItemGrade.STANDARD),
+    PRECIPITATEDALLOYS(ItemGrade.STANDARD),
+    HEATEXCHANGERS(ItemGrade.STANDARD),
+    CONDUCTIVECERAMICS(ItemGrade.STANDARD),
+    MECHANICALCOMPONENTS(ItemGrade.STANDARD),
+    ELECTROCHEMICALARRAYS(ItemGrade.STANDARD),
+    SHIELDINGSENSORS(ItemGrade.STANDARD),
+    HIGHDENSITYCOMPOSITES(ItemGrade.STANDARD),
+    FOCUSCRYSTALS(ItemGrade.STANDARD),
+    PHASEALLOYS(ItemGrade.STANDARD),
 
-    CHEMICALMANIPULATORS(ItemGrade.RARE, UIFunctions.Icons.mfdTradeIcon),
-    THERMICALLOYS(ItemGrade.RARE, UIFunctions.Icons.mfdTradeIcon),
-    HEATVANES(ItemGrade.RARE, UIFunctions.Icons.mfdTradeIcon),
-    CONDUCTIVEPOLYMERS(ItemGrade.RARE, UIFunctions.Icons.mfdTradeIcon),
-    CONFIGURABLECOMPONENTS(ItemGrade.RARE, UIFunctions.Icons.mfdTradeIcon),
-    POLYMERCAPACITORS(ItemGrade.RARE, UIFunctions.Icons.mfdTradeIcon),
-    COMPOUNDSHIELDING(ItemGrade.RARE, UIFunctions.Icons.mfdTradeIcon),
-    FEDPROPRIETARYCOMPOSITES(ItemGrade.RARE, UIFunctions.Icons.mfdTradeIcon),
-    REFINEDFOCUSCRYSTALS(ItemGrade.RARE, UIFunctions.Icons.mfdTradeIcon),
-    PROTOLIGHTALLOYS(ItemGrade.RARE, UIFunctions.Icons.mfdTradeIcon),
+    CHEMICALMANIPULATORS(ItemGrade.RARE),
+    THERMICALLOYS(ItemGrade.RARE),
+    HEATVANES(ItemGrade.RARE),
+    CONDUCTIVEPOLYMERS(ItemGrade.RARE),
+    CONFIGURABLECOMPONENTS(ItemGrade.RARE),
+    POLYMERCAPACITORS(ItemGrade.RARE),
+    COMPOUNDSHIELDING(ItemGrade.RARE),
+    FEDPROPRIETARYCOMPOSITES(ItemGrade.RARE),
+    REFINEDFOCUSCRYSTALS(ItemGrade.RARE),
+    PROTOLIGHTALLOYS(ItemGrade.RARE),
 
-    PHARMACEUTICALISOLATORS(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
-    MILITARYGRADEALLOYS(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
-    PROTOHEATRADIATORS(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
-    BIOTECHCONDUCTORS(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
-    IMPROVISEDCOMPONENTS(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
-    MILITARYSUPERCAPACITORS(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
-    IMPERIALSHIELDING(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
-    FEDCORECOMPOSITES(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
-    EXQUISITEFOCUSCRYSTALS(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
-    PROTORADIOLICALLOYS(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
+    PHARMACEUTICALISOLATORS(ItemGrade.VERY_RARE),
+    MILITARYGRADEALLOYS(ItemGrade.VERY_RARE),
+    PROTOHEATRADIATORS(ItemGrade.VERY_RARE),
+    BIOTECHCONDUCTORS(ItemGrade.VERY_RARE),
+    IMPROVISEDCOMPONENTS(ItemGrade.VERY_RARE),
+    MILITARYSUPERCAPACITORS(ItemGrade.VERY_RARE),
+    IMPERIALSHIELDING(ItemGrade.VERY_RARE),
+    FEDCORECOMPOSITES(ItemGrade.VERY_RARE),
+    EXQUISITEFOCUSCRYSTALS(ItemGrade.VERY_RARE),
+    PROTORADIOLICALLOYS(ItemGrade.VERY_RARE),
 
 
     // Encoded
 
-    SCRAMBLEDEMISSIONDATA(ItemGrade.VERY_COMMON, UIFunctions.Icons.dataTradeIcon),
-    DISRUPTEDWAKEECHOES(ItemGrade.VERY_COMMON, UIFunctions.Icons.dataTradeIcon),
-    SHIELDCYCLERECORDINGS(ItemGrade.VERY_COMMON, UIFunctions.Icons.dataTradeIcon),
-    ENCRYPTEDFILES(ItemGrade.VERY_COMMON, UIFunctions.Icons.dataTradeIcon),
-    BULKSCANDATA(ItemGrade.VERY_COMMON, UIFunctions.Icons.dataTradeIcon),
-    LEGACYFIRMWARE(ItemGrade.VERY_COMMON, UIFunctions.Icons.dataTradeIcon),
+    SCRAMBLEDEMISSIONDATA(ItemGrade.VERY_COMMON),
+    DISRUPTEDWAKEECHOES(ItemGrade.VERY_COMMON),
+    SHIELDCYCLERECORDINGS(ItemGrade.VERY_COMMON),
+    ENCRYPTEDFILES(ItemGrade.VERY_COMMON),
+    BULKSCANDATA(ItemGrade.VERY_COMMON),
+    LEGACYFIRMWARE(ItemGrade.VERY_COMMON),
 
-    ARCHIVEDEMISSIONDATA(ItemGrade.COMMON, UIFunctions.Icons.dataTradeIcon),
-    FSDTELEMETRY(ItemGrade.COMMON, UIFunctions.Icons.dataTradeIcon),
-    SHIELDSOAKANALYSIS(ItemGrade.COMMON, UIFunctions.Icons.dataTradeIcon),
-    ENCRYPTIONCODES(ItemGrade.COMMON, UIFunctions.Icons.dataTradeIcon),
-    SCANARCHIVES(ItemGrade.COMMON, UIFunctions.Icons.dataTradeIcon),
-    CONSUMERFIRMWARE(ItemGrade.COMMON, UIFunctions.Icons.dataTradeIcon),
+    ARCHIVEDEMISSIONDATA(ItemGrade.COMMON),
+    FSDTELEMETRY(ItemGrade.COMMON),
+    SHIELDSOAKANALYSIS(ItemGrade.COMMON),
+    ENCRYPTIONCODES(ItemGrade.COMMON),
+    SCANARCHIVES(ItemGrade.COMMON),
+    CONSUMERFIRMWARE(ItemGrade.COMMON),
 
-    EMISSIONDATA(ItemGrade.STANDARD, UIFunctions.Icons.dataTradeIcon),
-    WAKESOLUTIONS(ItemGrade.STANDARD, UIFunctions.Icons.dataTradeIcon),
-    SHIELDDENSITYREPORTS(ItemGrade.STANDARD, UIFunctions.Icons.dataTradeIcon),
-    SYMMETRICKEYS(ItemGrade.STANDARD, UIFunctions.Icons.dataTradeIcon),
-    SCANDATABANKS(ItemGrade.STANDARD, UIFunctions.Icons.dataTradeIcon),
-    INDUSTRIALFIRMWARE(ItemGrade.STANDARD, UIFunctions.Icons.dataTradeIcon),
+    EMISSIONDATA(ItemGrade.STANDARD),
+    WAKESOLUTIONS(ItemGrade.STANDARD),
+    SHIELDDENSITYREPORTS(ItemGrade.STANDARD),
+    SYMMETRICKEYS(ItemGrade.STANDARD),
+    SCANDATABANKS(ItemGrade.STANDARD),
+    INDUSTRIALFIRMWARE(ItemGrade.STANDARD),
 
-    DECODEDEMISSIONDATA(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon),
-    HYPERSPACETRAJECTORIES(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon),
-    SHIELDPATTERNANALYSIS(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon),
-    ENCRYPTIONARCHIVES(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon),
-    ENCODEDSCANDATA(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon),
-    SECURITYFIRMWARE(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon),
+    DECODEDEMISSIONDATA(ItemGrade.RARE),
+    HYPERSPACETRAJECTORIES(ItemGrade.RARE),
+    SHIELDPATTERNANALYSIS(ItemGrade.RARE),
+    ENCRYPTIONARCHIVES(ItemGrade.RARE),
+    ENCODEDSCANDATA(ItemGrade.RARE),
+    SECURITYFIRMWARE(ItemGrade.RARE),
 
-    COMPACTEMISSIONSDATA(ItemGrade.VERY_RARE, UIFunctions.Icons.dataTradeIcon),
-    DATAMINEDWAKE(ItemGrade.VERY_RARE, UIFunctions.Icons.dataTradeIcon),
-    SHIELDFREQUENCYDATA(ItemGrade.VERY_RARE, UIFunctions.Icons.dataTradeIcon),
-    ADAPTIVEENCRYPTORS(ItemGrade.VERY_RARE, UIFunctions.Icons.dataTradeIcon),
-    CLASSIFIEDSCANDATA(ItemGrade.VERY_RARE, UIFunctions.Icons.dataTradeIcon),
-    EMBEDDEDFIRMWARE(ItemGrade.VERY_RARE, UIFunctions.Icons.dataTradeIcon),
+    COMPACTEMISSIONSDATA(ItemGrade.VERY_RARE),
+    DATAMINEDWAKE(ItemGrade.VERY_RARE),
+    SHIELDFREQUENCYDATA(ItemGrade.VERY_RARE),
+    ADAPTIVEENCRYPTORS(ItemGrade.VERY_RARE),
+    CLASSIFIEDSCANDATA(ItemGrade.VERY_RARE),
+    EMBEDDEDFIRMWARE(ItemGrade.VERY_RARE),
 
 
     // Alien Manufactured
 
-    GUARDIAN_POWERCELL(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
-    GUARDIAN_SENTINEL_WRECKAGECOMPONENTS(ItemGrade.VERY_COMMON, UIFunctions.Icons.mfdTradeIcon),
-    GUARDIAN_POWERCONDUIT(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
-    GUARDIAN_SENTINEL_WEAPONPARTS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    GUARDIAN_TECHCOMPONENT(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
+    GUARDIAN_POWERCELL(ItemGrade.VERY_COMMON),
+    GUARDIAN_SENTINEL_WRECKAGECOMPONENTS(ItemGrade.VERY_COMMON),
+    GUARDIAN_POWERCONDUIT(ItemGrade.COMMON),
+    GUARDIAN_SENTINEL_WEAPONPARTS(ItemGrade.STANDARD),
+    GUARDIAN_TECHCOMPONENT(ItemGrade.STANDARD),
 
-    UNKNOWNCARAPACE(ItemGrade.COMMON, UIFunctions.Icons.mfdTradeIcon),
-    UNKNOWNENERGYCELL(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    UNKNOWNTECHNOLOGYCOMPONENTS(ItemGrade.RARE, UIFunctions.Icons.mfdTradeIcon),
-    UNKNOWNENERGYSOURCE(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
-    UNKNOWNORGANICCIRCUITRY(ItemGrade.VERY_RARE, UIFunctions.Icons.mfdTradeIcon),
-    TG_BIOMECHANICALCONDUITS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    TG_PROPULSIONELEMENT(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    TG_WEAPONPARTS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
-    TG_WRECKAGECOMPONENTS(ItemGrade.STANDARD, UIFunctions.Icons.mfdTradeIcon),
+    UNKNOWNCARAPACE(ItemGrade.COMMON),
+    UNKNOWNENERGYCELL(ItemGrade.STANDARD),
+    UNKNOWNTECHNOLOGYCOMPONENTS(ItemGrade.RARE),
+    UNKNOWNENERGYSOURCE(ItemGrade.VERY_RARE),
+    UNKNOWNORGANICCIRCUITRY(ItemGrade.VERY_RARE),
+    TG_BIOMECHANICALCONDUITS(ItemGrade.STANDARD),
+    TG_PROPULSIONELEMENT(ItemGrade.STANDARD),
+    TG_WEAPONPARTS(ItemGrade.STANDARD),
+    TG_WRECKAGECOMPONENTS(ItemGrade.STANDARD),
 
 
     // Alien Encoded
 
-    ANCIENTHISTORICALDATA(ItemGrade.VERY_COMMON, UIFunctions.Icons.dataTradeIcon), // gamma
-    ANCIENTCULTURALDATA(ItemGrade.COMMON, UIFunctions.Icons.dataTradeIcon), // beta
-    ANCIENTBIOLOGICALDATA(ItemGrade.STANDARD, UIFunctions.Icons.dataTradeIcon), // alpha
-    ANCIENTLANGUAGEDATA(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon), // delta
-    ANCIENTTECHNOLOGICALDATA(ItemGrade.VERY_RARE, UIFunctions.Icons.dataTradeIcon), // epsilon
-    GUARDIAN_MODULEBLUEPRINT(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon),
-    GUARDIAN_VESSELBLUEPRINT(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon),
-    GUARDIAN_WEAPONBLUEPRINT(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon),
+    ANCIENTHISTORICALDATA(ItemGrade.VERY_COMMON), // gamma
+    ANCIENTCULTURALDATA(ItemGrade.COMMON), // beta
+    ANCIENTBIOLOGICALDATA(ItemGrade.STANDARD), // alpha
+    ANCIENTLANGUAGEDATA(ItemGrade.RARE), // delta
+    ANCIENTTECHNOLOGICALDATA(ItemGrade.VERY_RARE), // epsilon
+    GUARDIAN_MODULEBLUEPRINT(ItemGrade.RARE),
+    GUARDIAN_VESSELBLUEPRINT(ItemGrade.RARE),
+    GUARDIAN_WEAPONBLUEPRINT(ItemGrade.RARE),
 
-    UNKNOWNSHIPSIGNATURE(ItemGrade.STANDARD, UIFunctions.Icons.dataTradeIcon),
-    UNKNOWNWAKEDATA(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon),
-    TG_STRUCTURALDATA(ItemGrade.COMMON, UIFunctions.Icons.dataTradeIcon),
-    TG_SHIPFLIGHTDATA(ItemGrade.STANDARD, UIFunctions.Icons.dataTradeIcon),
-    TG_SHIPSYSTEMSDATA(ItemGrade.STANDARD, UIFunctions.Icons.dataTradeIcon),
-    TG_COMPOSITIONDATA(ItemGrade.STANDARD, UIFunctions.Icons.dataTradeIcon),
-    TG_RESIDUEDATA(ItemGrade.RARE, UIFunctions.Icons.dataTradeIcon);
+    UNKNOWNSHIPSIGNATURE(ItemGrade.STANDARD),
+    UNKNOWNWAKEDATA(ItemGrade.RARE),
+    TG_STRUCTURALDATA(ItemGrade.COMMON),
+    TG_SHIPFLIGHTDATA(ItemGrade.STANDARD),
+    TG_SHIPSYSTEMSDATA(ItemGrade.STANDARD),
+    TG_COMPOSITIONDATA(ItemGrade.STANDARD),
+    TG_RESIDUEDATA(ItemGrade.RARE);
 
     private final ItemGrade grade;
     private String localizedName = toString();
@@ -197,18 +198,10 @@ public enum Material implements TaskCost
 
     private final List<Pair<CostData, Integer>> tradeCosts = new ArrayList<>();
 
-    private final Icon icon;
-
-    Material(ItemGrade grade, Icon icon)
+    Material(ItemGrade grade)
     {
         this.locationInformation = name();
         this.grade = grade;
-        this.icon = icon;
-    }
-
-    public Icon getIcon()
-    {
-        return icon;
     }
 
     // used to add a cost of some other material which can be paid to procure some number of this material in trade

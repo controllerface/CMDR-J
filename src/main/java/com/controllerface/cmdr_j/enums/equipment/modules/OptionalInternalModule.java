@@ -1,8 +1,8 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
-import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size1.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size2.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size3.*;
@@ -126,7 +126,9 @@ import com.controllerface.cmdr_j.classes.modules.optional.shieldreinforcement.si
 import com.controllerface.cmdr_j.classes.modules.optional.shieldreinforcement.size4.GuardianShieldReinforcementPackage_4E;
 import com.controllerface.cmdr_j.classes.modules.optional.shieldreinforcement.size5.GuardianShieldReinforcementPackage_5D;
 import com.controllerface.cmdr_j.classes.modules.optional.shieldreinforcement.size5.GuardianShieldReinforcementPackage_5E;
-import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size1.*;
+import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size1.ShieldGenerator_1A;
+import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size1.ShieldGenerator_1A_Prismatic;
+import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size1.ShieldGenerator_1C_BiWeave;
 import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size2.*;
 import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size3.*;
 import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size4.*;
@@ -150,11 +152,10 @@ import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size6.SRVBay_6G
 import com.controllerface.cmdr_j.classes.modules.optional.srvbay.size6.SRVBay_6H;
 import com.controllerface.cmdr_j.classes.modules.optional.supercruiseassist.SuperCruiseAssist_1E;
 import com.controllerface.cmdr_j.classes.modules.utility.surfacescanner.DetailedSurfaceScanner_1I;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
-import com.controllerface.cmdr_j.classes.tasks.TaskType;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -976,12 +977,6 @@ public enum OptionalInternalModule implements ShipModule
     public ItemGrade getGrade()
     {
         return null;
-    }
-
-    @Override
-    public List<Icon> icons()
-    {
-        return delegate.icons();
     }
 
     @Override

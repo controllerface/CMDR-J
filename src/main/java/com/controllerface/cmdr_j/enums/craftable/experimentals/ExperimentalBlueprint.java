@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.experimentals;
 
-import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 
 import java.util.EnumSet;
 import java.util.stream.Stream;

@@ -1,6 +1,8 @@
 package com.controllerface.cmdr_j;
 
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.data.Pair;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.modules.AbstractExperimentalModule;
 import com.controllerface.cmdr_j.classes.modules.AbstractGuardianModule;
 import com.controllerface.cmdr_j.classes.modules.core.bulkheads.AbstractBulkheads;
@@ -36,14 +38,13 @@ import com.controllerface.cmdr_j.classes.modules.weapons.pulse.AbstractPulseLase
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.AbstractRailGun;
 import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.AbstractSeekerMissileRack;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.AbstractTorpedoPylon;
-import com.controllerface.cmdr_j.classes.data.CostData;
-import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
-import com.controllerface.cmdr_j.classes.tasks.TaskCost;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Basic;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Premium;
 import com.controllerface.cmdr_j.classes.recipes.AbstractSynthesisRecipe_Standard;
 import com.controllerface.cmdr_j.classes.recipes.AbstractTechnologyRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskCost;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialSubCostCategory;
@@ -57,7 +58,7 @@ import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import javafx.util.Pair;
+import com.controllerface.cmdr_j.utilities.JSONSupport;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -73,6 +74,7 @@ import java.util.stream.Stream;
 /**
  * Created by sroebuck on 5/3/2018.
  */
+@Ignore
 public class CommanderJTest
 {
     @Test
@@ -849,7 +851,7 @@ public class CommanderJTest
 
                 stringBuilder.append("package com.controllerface.cmdr_j.classes.modules.generated;\n\n");
 
-                stringBuilder.append("import com.controllerface.cmdr_j.classes.ItemEffects;\n");
+                stringBuilder.append("import com.controllerface.cmdr_j.classes.data.ItemEffects;\n");
                 stringBuilder.append("import com.controllerface.cmdr_j.classes.data.ItemEffectData;\n");
                 stringBuilder.append("import com.controllerface.cmdr_j.classes.data.CostData;\n");
                 stringBuilder.append("import " + c.getValue() + ";\n");

@@ -1,19 +1,18 @@
 package com.controllerface.cmdr_j.enums.equipment.ships;
 
-import com.controllerface.cmdr_j.classes.BaseShipStats;
+import com.controllerface.cmdr_j.classes.data.BaseShipStats;
+import com.controllerface.cmdr_j.classes.data.OptionalModuleLayoutData;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.CoreModuleLayoutData;
 import com.controllerface.cmdr_j.classes.data.HardPointLayoutData;
-import com.controllerface.cmdr_j.classes.OptionalModuleLayoutData;
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.ships.*;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 /**
  * Created by Controllerface on 4/16/2018.
  */
-public enum ShipType implements SpaceCraft
+public enum ShipType
 {
     // zorgon peterson
 

@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.modules.utility.abrasionblaster.FixedAbrasionBlaster_Small;
 import com.controllerface.cmdr_j.classes.modules.utility.abrasionblaster.TurretedAbrasionBlaster_Small;
@@ -23,44 +23,10 @@ import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.Turre
 import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.TurretedSubSurfaceDisplacementMissile_Small;
 import com.controllerface.cmdr_j.classes.modules.utility.wakescanner.*;
 import com.controllerface.cmdr_j.classes.modules.utility.xenoscanner.XenoScanner_0E;
-import com.controllerface.cmdr_j.classes.modules.weapons.beam.*;
-import com.controllerface.cmdr_j.classes.modules.weapons.burst.*;
-import com.controllerface.cmdr_j.classes.modules.weapons.cannon.*;
-import com.controllerface.cmdr_j.classes.modules.weapons.flaklauncher.FixedRemoteReleaseFlakLauncher_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.flaklauncher.TurretedRemoteReleaseFlakLauncher_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.flechecttelauncher.FixedRemoteReleaseFlechetteLauncher_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.flechecttelauncher.TurretedRemoteReleaseFlechetteLauncher_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.fragcannon.*;
-import com.controllerface.cmdr_j.classes.modules.weapons.gausscannon.FixedGuardianGaussCannon_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.gausscannon.FixedGuardianGaussCannon_Small;
-import com.controllerface.cmdr_j.classes.modules.weapons.minelauncher.FixedMineLauncher_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.minelauncher.FixedMineLauncher_Small;
-import com.controllerface.cmdr_j.classes.modules.weapons.minelauncher.FixedShockMineLauncher_Small;
-import com.controllerface.cmdr_j.classes.modules.weapons.missilerack.*;
-import com.controllerface.cmdr_j.classes.modules.weapons.multicannon.*;
-import com.controllerface.cmdr_j.classes.modules.weapons.plasmaaccellerator.FixedPlasmaAcceleratorAdvanced_Large;
-import com.controllerface.cmdr_j.classes.modules.weapons.plasmaaccellerator.FixedPlasmaAccelerator_Huge;
-import com.controllerface.cmdr_j.classes.modules.weapons.plasmaaccellerator.FixedPlasmaAccelerator_Large;
-import com.controllerface.cmdr_j.classes.modules.weapons.plasmaaccellerator.FixedPlasmaAccelerator_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.plasmacharger.*;
-import com.controllerface.cmdr_j.classes.modules.weapons.pulse.*;
-import com.controllerface.cmdr_j.classes.modules.weapons.railgun.FixedImperialHammerRailGun_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.railgun.FixedRailgun_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.railgun.FixedRailgun_Small;
-import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.PackHound_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.SeekerMissileRack_Large;
-import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.SeekerMissileRack_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.seekermissile.SeekerMissileRack_Small;
-import com.controllerface.cmdr_j.classes.modules.weapons.shardcannon.*;
-import com.controllerface.cmdr_j.classes.modules.weapons.shockcannon.*;
-import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Large;
-import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Medium;
-import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Small;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
-import com.controllerface.cmdr_j.classes.tasks.TaskType;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -138,7 +104,7 @@ public enum UtilityModule implements ShipModule
 
     ;
 
-    private ShipModule delegate;
+    private final ShipModule delegate;
 
     UtilityModule(ShipModule delegate)
     {
@@ -247,12 +213,6 @@ public enum UtilityModule implements ShipModule
     public ItemGrade getGrade()
     {
         return null;
-    }
-
-    @Override
-    public List<Icon> icons()
-    {
-        return delegate.icons();
     }
 
     @Override

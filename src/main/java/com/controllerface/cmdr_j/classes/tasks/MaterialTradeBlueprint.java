@@ -1,6 +1,8 @@
 package com.controllerface.cmdr_j.classes.tasks;
 
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 
 import java.util.List;
 import java.util.stream.Stream;

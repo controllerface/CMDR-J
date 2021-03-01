@@ -1,9 +1,9 @@
 package com.controllerface.cmdr_j.classes.modules.weapons.beam;
 
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
-import com.controllerface.cmdr_j.ui.UIFunctions;
+import com.controllerface.cmdr_j.utilities.UIFunctions;
 
 public class FixedBeamLaser_Large extends AbstractBeamLaser
 {

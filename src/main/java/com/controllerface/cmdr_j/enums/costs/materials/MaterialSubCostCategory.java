@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.costs.materials;
 
-import com.controllerface.cmdr_j.classes.tasks.TaskCost;
-import com.controllerface.cmdr_j.classes.tasks.TaskCostCategory;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskCost;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskCostCategory;
 
 import java.util.Arrays;
 import java.util.EnumSet;

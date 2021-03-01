@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.data;
 
-import com.controllerface.cmdr_j.classes.tasks.TaskCost;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskCost;
 
 /**
  * Stores the fixed cost of some task. Objects of this type are intended to represent a specific item and

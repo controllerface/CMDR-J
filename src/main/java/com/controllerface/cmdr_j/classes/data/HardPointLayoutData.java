@@ -33,7 +33,7 @@ public class HardPointLayoutData
 
     public static class Builder
     {
-        private List<HardPointSize> slots = new ArrayList<>();
+        private final List<HardPointSize> slots = new ArrayList<>();
 
         public Builder addHardPoint(HardPointSize size)
         {

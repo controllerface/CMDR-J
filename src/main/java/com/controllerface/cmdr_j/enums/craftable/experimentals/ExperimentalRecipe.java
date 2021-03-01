@@ -1,11 +1,10 @@
 package com.controllerface.cmdr_j.enums.craftable.experimentals;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.CostData;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.experimental.*;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.stream.Stream;
 
@@ -173,11 +172,5 @@ public enum ExperimentalRecipe implements TaskRecipe
     public String getName()
     {
         return name();
-    }
-
-    @Override
-    public Icon getIcon()
-    {
-        return delegate.getIcon();
     }
 }

@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.enums.craftable.technologies;
 
-import com.controllerface.cmdr_j.classes.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 
 import java.util.EnumSet;
 import java.util.Optional;

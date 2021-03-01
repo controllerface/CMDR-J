@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.modules.optional.shields.shieldcells.size5;
 
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.shields.shieldcells.AbstractShieldCellBank;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 

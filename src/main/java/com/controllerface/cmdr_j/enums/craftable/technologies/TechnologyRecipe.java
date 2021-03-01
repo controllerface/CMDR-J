@@ -1,16 +1,14 @@
 package com.controllerface.cmdr_j.enums.craftable.technologies;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.CostData;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.techunlocks.*;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.ui.Icon;
-import com.controllerface.cmdr_j.ui.UIFunctions;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -181,8 +179,6 @@ public enum TechnologyRecipe implements TaskRecipe
     private final TaskRecipe delegate;
     private final ShipModule[] modules;
 
-    private static Icon icon = new Icon(UIFunctions.Icons.techBroker, 25, 25);
-
     TechnologyRecipe(TaskRecipe delegate, ShipModule ... modules)
     {
         this.delegate = delegate;
@@ -252,11 +248,5 @@ public enum TechnologyRecipe implements TaskRecipe
     public String getName()
     {
         return name();
-    }
-
-    @Override
-    public Icon getIcon()
-    {
-        return delegate.getIcon();
     }
 }

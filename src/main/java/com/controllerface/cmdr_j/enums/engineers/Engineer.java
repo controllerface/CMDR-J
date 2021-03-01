@@ -1,11 +1,11 @@
 package com.controllerface.cmdr_j.enums.engineers;
 
-import com.controllerface.cmdr_j.classes.StarSystem;
-import com.controllerface.cmdr_j.classes.tasks.TaskType;
+import com.controllerface.cmdr_j.classes.data.StarSystem;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import javafx.util.Pair;
+import com.controllerface.cmdr_j.classes.data.Pair;
 
 import java.util.*;
 
@@ -279,7 +279,11 @@ public enum Engineer
      * @param tasks tasks(Modifications and Experimental Effects) that this Engineer can perform
      */
     @SafeVarargs
-    Engineer(String fullName, int id, String facility, StarSystem location, Pair<Pair<ModificationType, ExperimentalType>, ItemGrade> ... tasks)
+    Engineer(String fullName,
+             int id,
+             String facility,
+             StarSystem location,
+             Pair<Pair<ModificationType, ExperimentalType>, ItemGrade>... tasks)
     {
         this.fullName = fullName;
         this.id = id;

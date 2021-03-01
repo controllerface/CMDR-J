@@ -1,8 +1,8 @@
 package com.controllerface.cmdr_j.classes.recipes.techunlocks;
 
-import com.controllerface.cmdr_j.classes.data.ItemEffectData;
-import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.CostData;
+import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.recipes.AbstractTechnologyRecipe;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;

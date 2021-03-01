@@ -1,9 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.modifications;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.CostData;
-import com.controllerface.cmdr_j.classes.recipes.interdictor.longrange.*;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.classes.recipes.armour.advanced.*;
 import com.controllerface.cmdr_j.classes.recipes.armour.explosive.*;
 import com.controllerface.cmdr_j.classes.recipes.armour.heavyduty.*;
@@ -25,11 +23,8 @@ import com.controllerface.cmdr_j.classes.recipes.hullreinforcement.explosive.*;
 import com.controllerface.cmdr_j.classes.recipes.hullreinforcement.heavyduty.*;
 import com.controllerface.cmdr_j.classes.recipes.hullreinforcement.kinetic.*;
 import com.controllerface.cmdr_j.classes.recipes.hullreinforcement.thermic.*;
-import com.controllerface.cmdr_j.classes.recipes.interdictor.expanded.FSDinterdictor_Expanded_1;
-import com.controllerface.cmdr_j.classes.recipes.interdictor.expanded.FSDinterdictor_Expanded_2;
-import com.controllerface.cmdr_j.classes.recipes.interdictor.expanded.FSDinterdictor_Expanded_3;
-import com.controllerface.cmdr_j.classes.recipes.interdictor.expanded.FSDinterdictor_Expanded_4;
-import com.controllerface.cmdr_j.classes.recipes.interdictor.expanded.FSDinterdictor_Expanded_5;
+import com.controllerface.cmdr_j.classes.recipes.interdictor.expanded.*;
+import com.controllerface.cmdr_j.classes.recipes.interdictor.longrange.*;
 import com.controllerface.cmdr_j.classes.recipes.misc.fastscan.*;
 import com.controllerface.cmdr_j.classes.recipes.misc.lightweight.*;
 import com.controllerface.cmdr_j.classes.recipes.misc.longrange.*;
@@ -74,8 +69,8 @@ import com.controllerface.cmdr_j.classes.recipes.weapons.overcharged.*;
 import com.controllerface.cmdr_j.classes.recipes.weapons.rapidfire.*;
 import com.controllerface.cmdr_j.classes.recipes.weapons.shortrange.*;
 import com.controllerface.cmdr_j.classes.recipes.weapons.sturdy.*;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.stream.Stream;
 
@@ -587,11 +582,5 @@ public enum ModificationRecipe implements TaskRecipe
     public String getName()
     {
         return delegate.getName();
-    }
-
-    @Override
-    public Icon getIcon()
-    {
-        return delegate.getIcon();
     }
 }

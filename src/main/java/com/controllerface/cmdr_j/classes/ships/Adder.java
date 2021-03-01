@@ -1,9 +1,9 @@
 package com.controllerface.cmdr_j.classes.ships;
 
-import com.controllerface.cmdr_j.classes.BaseShipStats;
+import com.controllerface.cmdr_j.classes.data.BaseShipStats;
+import com.controllerface.cmdr_j.classes.data.OptionalModuleLayoutData;
 import com.controllerface.cmdr_j.classes.data.CoreModuleLayoutData;
 import com.controllerface.cmdr_j.classes.data.HardPointLayoutData;
-import com.controllerface.cmdr_j.classes.OptionalModuleLayoutData;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.HardPointSize;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ModuleSize;

@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.modules.optional.limpets.collectorlimpet.size5;
 
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.limpets.collectorlimpet.AbstractCollectorLimpet;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 

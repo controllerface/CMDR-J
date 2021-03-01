@@ -1,34 +1,21 @@
 package com.controllerface.cmdr_j.enums.journal;
 
-import com.controllerface.cmdr_j.classes.events.handlers.EventProcessingContext;
-import com.controllerface.cmdr_j.classes.events.handlers.JournalEventHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.bounties.BountyHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.bounties.CapShipBondHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.bounties.FactionKillBondHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.commodities.*;
-import com.controllerface.cmdr_j.classes.events.handlers.engineers.EngineerContributionHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.engineers.EngineerCraftHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.engineers.EngineerProgressHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.engineers.TechnologyBrokerHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.exploration.*;
-import com.controllerface.cmdr_j.classes.events.handlers.materials.MaterialCollectedHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.materials.MaterialDiscardedHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.materials.MaterialTradeHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.materials.SynthesisHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.missions.*;
-import com.controllerface.cmdr_j.classes.events.handlers.modules.*;
-import com.controllerface.cmdr_j.classes.events.handlers.powerplay.PowerplayCollectHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.powerplay.PowerplayDeliverHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.powerplay.PowerplayHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.powerplay.PowerplaySalaryHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.factions.ProgressHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.factions.RankHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.factions.ReputationHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.commodities.MarketHandler;
-import com.controllerface.cmdr_j.classes.events.handlers.ship.*;
-import com.controllerface.cmdr_j.classes.events.handlers.startup.*;
-import com.controllerface.cmdr_j.classes.events.handlers.status.*;
-import com.controllerface.cmdr_j.classes.events.handlers.travel.*;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.Statistic;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
+import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
+import com.controllerface.cmdr_j.enums.equipment.modules.*;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CoreInternalSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.CosmeticSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.HardpointSlot;
+import com.controllerface.cmdr_j.enums.equipment.ships.moduleslots.OptionalInternalSlot;
+import com.controllerface.cmdr_j.classes.core.GameState;
+import com.controllerface.cmdr_j.classes.core.events.*;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.BiConsumer;
 
 /**
  * This enum defines all of the Journal API events that are currently supported. By convention, enum value names are
@@ -44,188 +31,308 @@ public enum JournalEvent
     /*
     Factions
      */
-    Progress(new ProgressHandler()),
-    Rank(new RankHandler()),
-    Reputation(new ReputationHandler()),
+    Progress(new ProgressEvent()),
+    Rank(new RankEvent()),
+    Reputation(new ReputationEvent()),
 
     /*
     Market
      */
-    Market(new MarketHandler()),
+    Market(new MarketEvent()),
 
     /*
     Ship
      */
-    RefuelAll(new RefuelAllHandler()),
-    Outfitting(new OutfittingHandler()),
-    Loadout(new LoadoutHandler()),
-    SetUserShipName(new SetUserShipNameHandler()),
-    FuelScoop(new FuelScoopHandler()),
-    DiscoveryScan(new DiscoveryScanHandler()),
-    Scan(new ScanHandler()),
-    Shipyard(new ShipyardHandler()),
-    ShipyardBuy(new ShipyardBuyHandler()),
-    ShipyardSell(new ShipyardSellHandler()),
-    ShipyardTransfer(new ShipyardTransferHandler()),
-    ShipTargeted(new ShipTargetedHandler()),
-    StoredShips(new StoredShipsHandler()),
-    CarrierBuy(new CarrierBuyHandler()),
-    CarrierNameChange(new CarrierNameChangeHandler()),
+    RefuelAll(new RefuelAllEvent()),
+    RefuelPartial(new RefuelPartialEvent()),
+    RepairAll(new RepairAllEvent()),
+    Repair(new RepairEvent()),
+    RestockVehicle(new RestockVehicleEvent()),
+    Outfitting(new OutfittingEvent()),
+    Loadout(new LoadoutEvent()),
+    SetUserShipName(new SetUserShipNameEvent()),
+    FuelScoop(new FuelScoopEvent()),
+//    DiscoveryScan(new DiscoveryScanHandler()),                // informational
+    Scan(new ScanEvent()),
+    Shipyard(new ShipyardEvent()),
+    ShipyardBuy(new ShipyardBuyEvent()),
+    ShipyardSell(new ShipyardSellEvent()),
+    ShipyardTransfer(new ShipyardTransferEvent()),
+//    ShipTargeted(new ShipTargetedHandler()),                  // informational
+//    StoredShips(new StoredShipsHandler()),                    // informational
+    CarrierBuy(new CarrierBuyEvent()),
+    CarrierBankTransfer(new CarrierBankTransferEvent()),
+    CarrierShipPack(new CarrierShipPackEvent()),
+    CarrierModulePack(new CarrierModulePackEvent()),
+//    CarrierNameChange(new CarrierNameChangeHandler()),        // informational
 
     /*
     Startup
      */
-    Missions(new MissionsHandler()),
-    Powerplay(new PowerplayHandler()),
-    EngineerProgress(new EngineerProgressHandler()),
-    Commander(new CommanderHandler()),
-    Cargo(new CargoHandler()),
-    LoadGame(new LoadGameHandler()),
-    Materials(new MaterialsHandler()),
-    SquadronStartup(new SquadronStartupHandler()),
-    Fileheader(context -> {}),
+    EngineerProgress(new EngineerProgressEvent()),
+    Commander(new CommanderEvent()),
+    Cargo(new CargoEvent()),
+    LoadGame(new LoadGameEvent()),
+    Materials(new MaterialsEvent()),
+//    SquadronStartup(new SquadronStartupHandler()),            // informational
+//    Fileheader(context -> {}),                                // informational
 
     /*
     Status
      */
-    Status(new StatusHandler()),
-    HeatWarning(new HeatWarningHandler()),
-    HullDamage(new HullDamageHandler()),
-    ShieldState(new ShieldStateHandler()),
-    UnderAttack(new UnderAttackHandler()),
-    LaunchSRV(new LaunchSRVHandler()),
-    DockSRV(new DockSRVHandler()),
-    ModuleInfo(new ModuleInfoHandler()),
+    Status(new StatusEvent()),
+//    HeatWarning(new HeatWarningHandler()),                    // informational
+//    HullDamage(new HullDamageHandler()),                      // informational
+//    ShieldState(new ShieldStateHandler()),                    // informational
+//    UnderAttack(new UnderAttackHandler()),                    // informational
+//    LaunchSRV(new LaunchSRVHandler()),                        // informational
+//    DockSRV(new DockSRVHandler()),                            // informational
+//    ModuleInfo(new ModuleInfoHandler()),                      // informational
 
     /*
     Exploration
      */
-    SAAScanComplete(new SAAScanCompleteHandler()),
-    FSSSignalDiscovered(new FSSSignalDiscoveredHandler()),
-    FSSDiscoveryScan(new FSSDiscoveryScanHandler()),
-    FSSAllBodiesFound(new FSSAllBodiesFoundHandler()),
-    CodexEntry(new CodexEntryHandler()),
+    SAAScanComplete(new SAAScanCompleteEvent()),
+//    FSSSignalDiscovered(new FSSSignalDiscoveredHandler()),    // informational
+    FSSDiscoveryScan(new FSSDiscoveryScanEvent()),
+    FSSAllBodiesFound(new FSSAllBodiesFoundEvent()),
+//    CodexEntry(new CodexEntryHandler()),                      // informational
 
     /*
     Travel
      */
-    DockingRequested(new DockingRequestedHandler()),
-    DockingGranted(new DockingGrantedHandler()),
-    DockingDenied(new DockingDeniedHandler()),
-    ApproachBody(new ApproachBodyHandler()),
-    ApproachSettlement(new ApproachSettlementHandler()),
-    Docked(new DockedHandler()),
-    FSDJump(new FSDJumpHandler()),
-    FSDTarget(new FSDTargetHandler()),
-    Location(new LocationHandler()),
-    NavRoute(new NavRouteHandler()),
-    StartJump(new StartJumpHandler()),
-    SupercruiseEntry(new SupercruiseEntryHandler()),
-    SupercruiseExit(new SupercruiseExitHandler()),
-    Undocked(new UndockedHandler()),
-    USSDrop(new USSDropHandler()),
+//    DockingRequested(new DockingRequestedHandler()),          // informational
+//    DockingGranted(new DockingGrantedHandler()),              // informational
+//    DockingDenied(new DockingDeniedHandler()),                // informational
+    ApproachBody(new ApproachBodyEvent()),
+    LeaveBody(new LeaveBodyEvent()),
+    ApproachSettlement(new ApproachSettlementEvent()),
+    Docked(new DockedEvent()),
+    FSDJump(new FSDJumpEvent()),
+//    FSDTarget(new FSDTargetHandler()),                        // informational
+    Location(new LocationEvent()),
+    NavRoute(new NavRouteEvent()),
+    Touchdown(new TouchdownEvent()),
+//    StartJump(new StartJumpHandler()),                        // location info
+//    SupercruiseEntry(new SupercruiseEntryHandler()),          // informational
+    SupercruiseExit(new SupercruiseExitEvent()),
+    Undocked(new UndockedEvent()),
+//    USSDrop(new USSDropHandler()),                            // informational
 
     /*
     Bounties
      */
-    Bounty(new BountyHandler()),
-    FactionKillBond(new FactionKillBondHandler()),
-    CapShipBond(new CapShipBondHandler()),
+    Bounty(new BountyEvent()),
+    FactionKillBond(new FactionKillBondEvent()),
+    CapShipBond(new CapShipBondEvent()),
 
     /*
     Commodities
      */
-    BuyDrones(new BuyDronesHandler()),
-    CargoDepot(new CargoDepotHandler()),
-    CollectCargo(new CollectCargoHandler()),
-    EjectCargo(new EjectCargoHandler()),
-    LaunchDrone(new LaunchDroneHandler()),
-    MarketBuy(new MarketBuyHandler()),
-    MarketSell(new MarketSellHandler()),
-    MiningRefined(new MiningRefinedHandler()),
-    SellDrones(new SellDronesHandler()),
-    BuyAmmo(new BuyAmmoHandler()),
+    BuyDrones(new BuyDronesEvent()),
+    CargoDepot(new CargoDepotEvent()),
+    CollectCargo(new CollectCargoEvent()),
+    EjectCargo(new EjectCargoEvent()),
+    LaunchDrone(new LaunchDroneEvent()),
+    MarketBuy(new MarketBuyEvent()),
+    MarketSell(new MarketSellEvent()),
+    MiningRefined(new MiningRefinedEvent()),
+    SellDrones(new SellDronesEvent()),
+    BuyAmmo(new BuyAmmoEvent()),
 
     /*
     Engineers
      */
-    EngineerContribution(new EngineerContributionHandler()),
-    EngineerCraft(new EngineerCraftHandler()),
-    TechnologyBroker(new TechnologyBrokerHandler()),
+    EngineerContribution(new EngineerContributionEvent()),
+    EngineerCraft(new EngineerCraftEvent()),
+    TechnologyBroker(new TechnologyBrokerEvent()),
 
     /*
     Materials
      */
-    MaterialCollected(new MaterialCollectedHandler()),
-    MaterialDiscarded(new MaterialDiscardedHandler()),
-    MaterialTrade(new MaterialTradeHandler()),
-    Synthesis(new SynthesisHandler()),
+    MaterialCollected(new MaterialCollectedEvent()),
+    MaterialDiscarded(new MaterialDiscardedEvent()),
+    MaterialTrade(new MaterialTradeEvent()),
+    Synthesis(new SynthesisEvent()),
 
     /*
     Missions
      */
-    MissionCompleted(new MissionCompletedHandler()),
-    ScientificResearch(new ScientificResearchHandler()),
-    CommunityGoalReward(new CommunityGoalRewardHandler()),
-    SearchAndRescue(new SearchAndRescueHandler()),
+    Missions(new MissionsEvent()),
+    MissionAccepted(new MissionAcceptedEvent()),
+    MissionCompleted(new MissionCompletedEvent()),
+    MissionFailed(new MissionFailedEvent()),
+    MissionAbandoned(new MissionAbandonedEvent()),
+    ScientificResearch(new ScientificResearchEvent()),
+    CommunityGoal(new CommunityGoalEvent()),
+    CommunityGoalReward(new CommunityGoalRewardEvent()),
+    CommunityGoalDiscard(new CommunityGoalDiscardEvent()),
+    SearchAndRescue(new SearchAndRescueEvent()),
 
     /*
     Modules
      */
-    ModuleBuy(new ModuleBuyHandler()),
-    ModuleRetrieve(new ModuleRetrieveHandler()),
-    ModuleSell(new ModuleSellHandler()),
-    ModuleSellRemote(new ModuleSellRemoteHandler()),
-    ModuleStore(new ModuleStoreHandler()),
-    StoredModules(new StoredModulesHandler()),
+    FetchRemoteModule(new FetchRemoteModuleEvent()),
+    ModuleBuy(new ModuleBuyEvent()),
+//    ModuleRetrieve(new ModuleRetrieveHandler()),              // module install
+    ModuleSell(new ModuleSellEvent()),
+    ModuleSellRemote(new ModuleSellRemoteEvent()),
+    ModuleStore(new ModuleStoreEvent()),
+//    StoredModules(new StoredModulesHandler()),
 
     /*
     PowerPlay
      */
-    PowerplayCollect(new PowerplayCollectHandler()),
-    PowerplayDeliver(new PowerplayDeliverHandler()),
-    PowerplaySalary(new PowerplaySalaryHandler()),
+    Powerplay(new PowerPlayEvent()),
+    PowerplayCollect(new PowerplayCollectEvent()),
+    PowerplayDefect(new PowerPlayDefectEvent()),
+    PowerplayDeliver(new PowerplayDeliverEvent()),
+    PowerplayJoin(new PowerPlayJoinEvent()),
+    PowerplayLeave(new PowerPlayLeaveEvent()),
+    PowerplaySalary(new PowerplaySalaryEvent()),
+    PowerplayFastTrack(new PowerplayFastTrackEvent()),
 
     /*
     Misc
      */
-    Music(new MusicHandler()),
-    Statistics(new StatisticsHandler()),
-    Resurrect(new ResurrectHandler()),
-    ReceiveText(new ReceiveTextHandler()),
-    NpcCrewPaidWage(new NpcCrewPaidWageHandler()),
-    SellShipOnRebuy(new SellShipOnRebuyHandler()),
-    DatalinkVoucher(new DatalinkVoucherHandler()),
-    SellExplorationData(new SellExplorationDataHandler()),
-    MultiSellExplorationData(new MultiSellExplorationDataHandler()),
-    ReservoirReplenished(new ReservoirReplenishedHandler()),
+//    Music(new MusicHandler()),
+    BuyExplorationData(new BuyExplorationDataEvent()),
+    Statistics(new StatisticsEvent()),
+    RedeemVoucher(new RedeemVoucherEvent()),
+    Resurrect(new ResurrectEvent()),
+//    ReceiveText(new ReceiveTextHandler()),
+    NpcCrewPaidWage(new NpcCrewPaidWageEvent()),
+    SellShipOnRebuy(new SellShipOnRebuyEvent()),
+    DatalinkVoucher(new DatalinkVoucherEvent()),
+    SellExplorationData(new SellExplorationDataEvent()),
+    MultiSellExplorationData(new MultiSellExplorationDataEvent()),
+    ReservoirReplenished(new ReservoirReplenishedEvent()),
 
     ;
 
     /**
      * Stores the event processing logic for the corresponding event
      */
-    private final JournalEventHandler handler;
+    private final BiConsumer<GameState, Map<String, Object>> handler;
 
-    JournalEvent(JournalEventHandler handler)
+    JournalEvent(BiConsumer<GameState, Map<String, Object>> handler)
     {
         this.handler = handler;
     }
 
-    /**
-     * Executes a specified event consumer function containing the required processing logic for an event
-     *
-     * @param eventProcessingContext the current event processing context
-     */
-    public void process(EventProcessingContext eventProcessingContext)
+    public static Optional<JournalEvent> withName(String eventName)
+    {
+        return Arrays.stream(JournalEvent.values())
+            .filter(eventType -> eventType.name().equals(eventName))
+            .findFirst();
+    }
+
+    public void process(GameState gameState, Map<String, Object> event)
     {
         try
         {
-            handler.handle(eventProcessingContext);
+            handler.accept(gameState, event);
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
     }
+
+    public static String extractString(Map<String, Object> event, String key)
+    {
+        return String.valueOf(event.get(key));
+    }
+
+    public static String extractStringStat(Map<String, Object> event, Statistic stat)
+    {
+        return stat.format(extractString(event, stat.getKey()));
+    }
+
+
+    // todo: maybe convert all calls to use this and make non-safe one private
+    public static void tryCommanderStat(GameState gameState, Map<String, Object> event, Statistic stat)
+    {
+        Optional.ofNullable(event.get(stat.getKey()))
+            .ifPresent((_e) -> setCommanderStat(gameState, event, stat));
+    }
+
+    public static void setCommanderStat(GameState gameState, Map<String, Object> event, Statistic stat)
+    {
+        gameState.setCommanderStat(stat, extractStringStat(event, stat));
+    }
+
+    public static void setShipStat(GameState gameState, Map<String, Object> event, Statistic stat)
+    {
+        gameState.setShipStat(stat, extractStringStat(event, stat));
+    }
+
+
+
+
+    /**
+     * Determines what statistic type is being represented by a given String name, and returns the matching object, or
+     * null if the name is not recognized.
+     *
+     * @param statName the String name of a Statistic enum type
+     * @return the Statistic enum value matching the provided name, or null if the name is not valid
+     */
+    public static Statistic determineStatType(String statName)
+    {
+        Statistic statistic;
+
+        try {statistic = CoreInternalSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        if (statistic != null) return statistic;
+
+        try {statistic = CosmeticSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        if (statistic != null) return statistic;
+
+        try {statistic = HardpointSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        if (statistic != null) return statistic;
+
+        try {statistic = OptionalInternalSlot.valueOf(statName);}
+        catch (Exception e) {statistic = null;}
+        return statistic;
+    }
+
+    public static ShipModule determineModuleType(String moduleName)
+    {
+        ShipModule module;
+
+        try { module = HardpointModule.findModule(moduleName); }
+        catch (Exception e) { module = null; }
+        if (module != null) return module;
+
+        try { module = UtilityModule.findModule(moduleName); }
+        catch (Exception e) { module = null; }
+        if (module != null) return module;
+
+        try { module = CoreInternalModule.findModule(moduleName); }
+        catch (Exception e) { module = null; }
+        if (module != null) return module;
+
+        try { module = OptionalInternalModule.findModule(moduleName); }
+        catch (Exception e) { module = null; }
+        if (module != null) return module;
+
+        try { module = Cosmetic.findCosmetic(moduleName); }
+        catch (Exception e) { module = null; }
+        return module;
+    }
+
+    public static ModificationBlueprint determineModificationBlueprint(String modname)
+    {
+        try { return ModificationBlueprint.valueOf(modname); }
+        catch (Exception e) { return null; }
+    }
+
+    public static ExperimentalRecipe determineExperimentalRecipe(String expname)
+    {
+        try { return ExperimentalRecipe.valueOf(expname); }
+        catch (Exception e) { return null; }
+    }
+
 }

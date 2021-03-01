@@ -1,7 +1,9 @@
 package com.controllerface.cmdr_j.classes.tasks;
 
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 
 import java.util.EnumSet;
 import java.util.List;

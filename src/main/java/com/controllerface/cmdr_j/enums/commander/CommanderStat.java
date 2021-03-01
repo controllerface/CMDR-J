@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.enums.commander;
 
-import com.controllerface.cmdr_j.classes.commander.Statistic;
+import com.controllerface.cmdr_j.interfaces.commander.Statistic;
 
 import java.text.NumberFormat;
 import java.util.function.Function;

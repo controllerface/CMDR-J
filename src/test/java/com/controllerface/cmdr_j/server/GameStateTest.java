@@ -1,9 +1,11 @@
 package com.controllerface.cmdr_j.server;
 
+import com.controllerface.cmdr_j.classes.core.GameState;
+import com.controllerface.cmdr_j.classes.core.JournalSyncTask;
 import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
-import com.controllerface.cmdr_j.ui.UIFunctions;
+import com.controllerface.cmdr_j.utilities.UIFunctions;
 import junit.framework.TestCase;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,14 +15,13 @@ import java.io.*;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GameStateTest extends TestCase
 {
-    private static final String DATABASE_TEST_DIRECTORY = "/test_db";
+    public static final String DATABASE_TEST_DIRECTORY = "/test_db";
 
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -97,7 +98,7 @@ public class GameStateTest extends TestCase
         gameState.adjustTask("Trade:Manufactured_Materials:Conductive:Conductive Ceramics:Compound Shielding", "add");
         gameState.adjustTask("Trade:Manufactured_Materials:Conductive:Conductive Ceramics:Compound Shielding", "add");
         gameState.adjustTask("Purchase:Optional_Internal:int_repairer_size5_class5", "add");
-        executorService.submit(new JournalSyncTaskEX(gameState));
+        executorService.submit(new JournalSyncTask(gameState));
 
         Thread.sleep(Duration.ofSeconds(10).toMillis());
         //f.cancel(true);

@@ -1,13 +1,11 @@
 package com.controllerface.cmdr_j.classes.modules;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
-import com.controllerface.cmdr_j.classes.tasks.TaskType;
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.ui.Icon;
 
-import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractModule implements ShipModule
@@ -36,12 +34,6 @@ public abstract class AbstractModule implements ShipModule
         this.modificationType = modificationType;
         this.experimentalType = experimentalType;
         this.itemEffects = itemEffects;
-    }
-
-    @Override
-    public List<Icon> icons()
-    {
-        return Collections.emptyList();
     }
 
     @Override

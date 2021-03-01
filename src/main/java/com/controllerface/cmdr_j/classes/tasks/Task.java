@@ -1,5 +1,9 @@
 package com.controllerface.cmdr_j.classes.tasks;
 
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
+
 /**
  * Data storage object used in the "task tree" to hold the type and individual recipe of a possible item that
  * a player can craft. This object is used for both leaf and non-leaf nodes in the tree, with non-leaf nodes using a

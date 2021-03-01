@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.enums.equipment.ships.moduleslots;
 
-import com.controllerface.cmdr_j.classes.commander.Statistic;
+import com.controllerface.cmdr_j.interfaces.commander.Statistic;
 
 /**
  * Created by Controllerface on 4/18/2018.

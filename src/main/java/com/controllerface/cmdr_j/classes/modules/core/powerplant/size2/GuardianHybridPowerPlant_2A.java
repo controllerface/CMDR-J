@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.modules.core.powerplant.size2;
 
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.AbstractGuardianModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 

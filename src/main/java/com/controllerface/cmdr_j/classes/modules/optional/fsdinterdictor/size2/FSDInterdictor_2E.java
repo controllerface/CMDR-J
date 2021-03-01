@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.modules.optional.fsdinterdictor.size2;
 
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.fsdinterdictor.AbstractFSDInterdictor;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 

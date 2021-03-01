@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.costs.special;
 
-import com.controllerface.cmdr_j.classes.tasks.TaskCost;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskCost;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
 import java.util.List;

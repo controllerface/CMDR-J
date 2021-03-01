@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.enums.equipment.modules.stats;
 
-import com.controllerface.cmdr_j.ui.UIFunctions;
+import com.controllerface.cmdr_j.utilities.UIFunctions;
 
 /**
  * ALl possible item effects, both modifiable/experimental and base stats are represented. In some cases, an effect IS

@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.modules.weapons.pulse;
 
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
-import com.controllerface.cmdr_j.classes.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
 public class FixedPulseLaser_Medium extends AbstractPulseLaser

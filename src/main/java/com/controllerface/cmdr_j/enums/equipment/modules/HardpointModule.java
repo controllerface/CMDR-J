@@ -1,28 +1,8 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
-import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
-import com.controllerface.cmdr_j.classes.modules.utility.abrasionblaster.FixedAbrasionBlaster_Small;
-import com.controllerface.cmdr_j.classes.modules.utility.abrasionblaster.TurretedAbrasionBlaster_Small;
-import com.controllerface.cmdr_j.classes.modules.utility.chafflauncher.Launcher_Chaff;
-import com.controllerface.cmdr_j.classes.modules.utility.ecm.CounterMeasures_Electronic;
-import com.controllerface.cmdr_j.classes.modules.utility.heatsinklauncher.Launcher_HeatSink;
-import com.controllerface.cmdr_j.classes.modules.utility.killwarrant.*;
-import com.controllerface.cmdr_j.classes.modules.utility.manifestscanner.*;
-import com.controllerface.cmdr_j.classes.modules.utility.mininglaser.*;
-import com.controllerface.cmdr_j.classes.modules.utility.pointdefense.DefenseTurret_Point;
-import com.controllerface.cmdr_j.classes.modules.utility.pulsewave.*;
-import com.controllerface.cmdr_j.classes.modules.utility.seismiccharge.FixedSeismicChargeLauncher_Medium;
-import com.controllerface.cmdr_j.classes.modules.utility.seismiccharge.TurretedSeismicChargeLauncher_Medium;
-import com.controllerface.cmdr_j.classes.modules.utility.shieldbooster.*;
-import com.controllerface.cmdr_j.classes.modules.utility.shutdownneutralizer.AntiShutdownField_0F;
-import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.FixedSubSurfaceDisplacementMissile_Medium;
-import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.FixedSubSurfaceDisplacementMissile_Small;
-import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.TurretedSubSurfaceDisplacementMissile_Medium;
-import com.controllerface.cmdr_j.classes.modules.utility.subsurfacemissile.TurretedSubSurfaceDisplacementMissile_Small;
-import com.controllerface.cmdr_j.classes.modules.utility.wakescanner.*;
-import com.controllerface.cmdr_j.classes.modules.utility.xenoscanner.XenoScanner_0E;
 import com.controllerface.cmdr_j.classes.modules.weapons.beam.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.burst.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.cannon.*;
@@ -56,11 +36,10 @@ import com.controllerface.cmdr_j.classes.modules.weapons.shockcannon.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Large;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Medium;
 import com.controllerface.cmdr_j.classes.modules.weapons.torpedo.FixedTorpedoPylon_Small;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
-import com.controllerface.cmdr_j.classes.tasks.TaskType;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -226,7 +205,7 @@ public enum HardpointModule implements ShipModule
 
     ;
 
-    private ShipModule delegate;
+    private final ShipModule delegate;
 
     HardpointModule(ShipModule delegate)
     {
@@ -335,12 +314,6 @@ public enum HardpointModule implements ShipModule
     public ItemGrade getGrade()
     {
         return null;
-    }
-
-    @Override
-    public List<Icon> icons()
-    {
-        return delegate.icons();
     }
 
     @Override

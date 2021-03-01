@@ -1,15 +1,13 @@
 package com.controllerface.cmdr_j.classes.recipes;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.CostData;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.modules.*;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.ui.Icon;
-import com.controllerface.cmdr_j.ui.UIFunctions;
 
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -25,7 +23,6 @@ public class ModulePurchaseRecipe implements TaskRecipe
     private final String label;
     private final String shortLabel;
     private final String enumName;
-    private final Icon icon;
 
     public ModulePurchaseRecipe(ShipModule product)
     {
@@ -53,10 +50,6 @@ public class ModulePurchaseRecipe implements TaskRecipe
 
         this.price = x;
         this.product = y;
-
-        icon = product.icons().isEmpty()
-                ? UIFunctions.Icons.cargoIcon
-                : product.icons().get(0);
 
         name = product.displayText();
         label = generateDisplayLabel(this.price, this.product);
@@ -120,24 +113,6 @@ public class ModulePurchaseRecipe implements TaskRecipe
         return ItemEffects.EMPTY;
     }
 
-    public static ModulePurchaseRecipe deserializeRecipe(ModulePurchaseType procType, String enumName)
-    {
-        ModulePurchaseRecipe recipe = null;
-        if (procType == ModulePurchaseType.Weapon_Hardpoints)
-        {
-            recipe = new ModulePurchaseRecipe(HardpointModule.valueOf(enumName));
-        }
-        else if (procType == ModulePurchaseType.Optional_Internal)
-        {
-            recipe = new ModulePurchaseRecipe(OptionalInternalModule.valueOf(enumName));
-        }
-        else if (procType == ModulePurchaseType.Core_Internal)
-        {
-            recipe = new ModulePurchaseRecipe(CoreInternalModule.valueOf(enumName));
-        }
-        return recipe;
-    }
-
     @Override
     public String getName()
     {
@@ -166,12 +141,6 @@ public class ModulePurchaseRecipe implements TaskRecipe
     public String getParentBlueprintName()
     {
         return "";
-    }
-
-    @Override
-    public Icon getIcon()
-    {
-        return icon;
     }
 
     @Override

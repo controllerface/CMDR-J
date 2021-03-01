@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.modules.core.bulkheads.*;
 import com.controllerface.cmdr_j.classes.modules.core.cargobay.GenericCargoBay;
 import com.controllerface.cmdr_j.classes.modules.core.cockpit.GenericCockpit;
@@ -29,6 +29,7 @@ import com.controllerface.cmdr_j.classes.modules.core.lifesupport.size5.*;
 import com.controllerface.cmdr_j.classes.modules.core.lifesupport.size6.*;
 import com.controllerface.cmdr_j.classes.modules.core.lifesupport.size7.*;
 import com.controllerface.cmdr_j.classes.modules.core.lifesupport.size8.*;
+import com.controllerface.cmdr_j.classes.modules.core.planetarysuite.size1.PlanetarySuite_1I;
 import com.controllerface.cmdr_j.classes.modules.core.powerplant.size2.*;
 import com.controllerface.cmdr_j.classes.modules.core.powerplant.size3.*;
 import com.controllerface.cmdr_j.classes.modules.core.powerplant.size4.*;
@@ -51,11 +52,9 @@ import com.controllerface.cmdr_j.classes.modules.core.thrusters.size5.*;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.size6.*;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.size7.*;
 import com.controllerface.cmdr_j.classes.modules.core.thrusters.size8.*;
-import com.controllerface.cmdr_j.classes.modules.core.planetarysuite.size1.PlanetarySuite_1I;
-import com.controllerface.cmdr_j.classes.tasks.TaskRecipe;
-import com.controllerface.cmdr_j.classes.tasks.TaskType;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.ui.Icon;
 
 import java.util.Arrays;
 import java.util.List;
@@ -783,12 +782,6 @@ public enum CoreInternalModule implements ShipModule
     public ItemGrade getGrade()
     {
         return null;
-    }
-
-    @Override
-    public List<Icon> icons()
-    {
-        return delegate.icons();
     }
 
     @Override

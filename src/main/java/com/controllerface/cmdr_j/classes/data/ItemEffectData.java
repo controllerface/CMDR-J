@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.data;
 
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
-import com.controllerface.cmdr_j.ui.UIFunctions;
+import com.controllerface.cmdr_j.utilities.UIFunctions;
 
 /**
  * Created by Controllerface on 5/13/2018.

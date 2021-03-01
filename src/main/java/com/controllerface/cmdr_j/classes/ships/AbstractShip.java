@@ -1,13 +1,12 @@
 package com.controllerface.cmdr_j.classes.ships;
 
-import com.controllerface.cmdr_j.JSONSupport;
-import com.controllerface.cmdr_j.classes.BaseShipStats;
+import com.controllerface.cmdr_j.utilities.JSONSupport;
+import com.controllerface.cmdr_j.classes.data.BaseShipStats;
+import com.controllerface.cmdr_j.classes.data.OptionalModuleLayoutData;
+import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.CoreModuleLayoutData;
 import com.controllerface.cmdr_j.classes.data.HardPointLayoutData;
-import com.controllerface.cmdr_j.classes.OptionalModuleLayoutData;
-import com.controllerface.cmdr_j.classes.commander.ShipModule;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 

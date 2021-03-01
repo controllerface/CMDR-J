@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.modules.optional.modulereinforcment;
 
-import com.controllerface.cmdr_j.classes.ItemEffects;
+import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.AbstractModule;
 
 public abstract class AbstractModulePackage extends AbstractModule
