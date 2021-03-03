@@ -39,75 +39,77 @@ import java.util.stream.Stream;
  */
 public enum UtilityModule implements ShipModule
 {
-    hpt_mininglaser_fixed_small(new FixedMiningLaser_Small()),
-    hpt_mininglaser_turret_small(new TurretedMiningLaser_Small()),
-    hpt_mininglaser_fixed_small_advanced(new FixedMiningLance_Small()),
-    hpt_mininglaser_fixed_medium(new FixedMiningLaser_Medium()),
-    hpt_mininglaser_turret_medium(new TurretedMiningLaser_Medium()),
+    hpt_mininglaser_fixed_medium                (128049526L, new FixedMiningLaser_Medium()),
+    hpt_mininglaser_fixed_small                 (128049525L, new FixedMiningLaser_Small()),
+    hpt_mininglaser_fixed_small_advanced        (128671340L, new FixedMiningLance_Small()),
+    hpt_mininglaser_turret_medium               (128740820L, new TurretedMiningLaser_Medium()),
+    hpt_mininglaser_turret_small                (128740819L, new TurretedMiningLaser_Small()),
 
-    hpt_mining_seismchrgwarhd_fixed_medium(new FixedSeismicChargeLauncher_Medium()),
-    hpt_mining_seismchrgwarhd_turret_medium(new TurretedSeismicChargeLauncher_Medium()),
+    hpt_mining_seismchrgwarhd_fixed_medium      (128915460L, new FixedSeismicChargeLauncher_Medium()),
+    hpt_mining_seismchrgwarhd_turret_medium     (128915461L, new TurretedSeismicChargeLauncher_Medium()),
 
-    hpt_mining_subsurfdispmisle_fixed_small(new FixedSubSurfaceDisplacementMissile_Small()),
-    hpt_mining_subsurfdispmisle_turret_small(new TurretedSubSurfaceDisplacementMissile_Small()),
-    hpt_mining_subsurfdispmisle_fixed_medium(new FixedSubSurfaceDisplacementMissile_Medium()),
-    hpt_mining_subsurfdispmisle_turret_medium(new TurretedSubSurfaceDisplacementMissile_Medium()),
+    hpt_mining_subsurfdispmisle_fixed_medium    (128915456L, new FixedSubSurfaceDisplacementMissile_Medium()),
+    hpt_mining_subsurfdispmisle_fixed_small     (128915454L, new FixedSubSurfaceDisplacementMissile_Small()),
+    hpt_mining_subsurfdispmisle_turret_medium   (128915457L, new TurretedSubSurfaceDisplacementMissile_Medium()),
+    hpt_mining_subsurfdispmisle_turret_small    (128915455L, new TurretedSubSurfaceDisplacementMissile_Small()),
 
-    hpt_mining_abrblstr_fixed_small(new FixedAbrasionBlaster_Small()),
-    hpt_mining_abrblstr_turret_small(new TurretedAbrasionBlaster_Small()),
+    hpt_mining_abrblstr_fixed_small             (128915458L, new FixedAbrasionBlaster_Small()),
+    hpt_mining_abrblstr_turret_small            (128915459L, new TurretedAbrasionBlaster_Small()),
 
-    hpt_mrascanner_size0_class1(new PulseWaveAnalyzer_0E()),
-    hpt_mrascanner_size0_class2(new PulseWaveAnalyzer_0D()),
-    hpt_mrascanner_size0_class3(new PulseWaveAnalyzer_0C()),
-    hpt_mrascanner_size0_class4(new PulseWaveAnalyzer_0B()),
-    hpt_mrascanner_size0_class5(new PulseWaveAnalyzer_0A()),
+    hpt_mrascanner_size0_class1                 (128915718L, new PulseWaveAnalyzer_0E()),
+    hpt_mrascanner_size0_class2                 (128915719L, new PulseWaveAnalyzer_0D()),
+    hpt_mrascanner_size0_class3                 (128915720L, new PulseWaveAnalyzer_0C()),
+    hpt_mrascanner_size0_class4                 (128915721L, new PulseWaveAnalyzer_0B()),
+    hpt_mrascanner_size0_class5                 (128915722L, new PulseWaveAnalyzer_0A()),
 
-    hpt_shieldbooster_size0_class1(new ShieldBooster_0E()),
-    hpt_shieldbooster_size0_class2(new ShieldBooster_0D()),
-    hpt_shieldbooster_size0_class3(new ShieldBooster_0C()),
-    hpt_shieldbooster_size0_class4(new ShieldBooster_0B()),
-    hpt_shieldbooster_size0_class5(new ShieldBooster_0A()),
+    hpt_shieldbooster_size0_class1              (128668532L, new ShieldBooster_0E()),
+    hpt_shieldbooster_size0_class2              (128668533L, new ShieldBooster_0D()),
+    hpt_shieldbooster_size0_class3              (128668534L, new ShieldBooster_0C()),
+    hpt_shieldbooster_size0_class4              (128668535L, new ShieldBooster_0B()),
+    hpt_shieldbooster_size0_class5              (128668536L, new ShieldBooster_0A()),
 
-    hpt_cloudscanner_size0_class1(new FSDWakeScanner_0E()),
-    hpt_cloudscanner_size0_class2(new FSDWakeScanner_0D()),
-    hpt_cloudscanner_size0_class3(new FSDWakeScanner_0C()),
-    hpt_cloudscanner_size0_class4(new FSDWakeScanner_0B()),
-    hpt_cloudscanner_size0_class5(new FSDWakeScanner_0A()),
+    hpt_cloudscanner_size0_class1               (128662525L, new FSDWakeScanner_0E()),
+    hpt_cloudscanner_size0_class2               (128662526L, new FSDWakeScanner_0D()),
+    hpt_cloudscanner_size0_class3               (128662527L, new FSDWakeScanner_0C()),
+    hpt_cloudscanner_size0_class4               (128662528L, new FSDWakeScanner_0B()),
+    hpt_cloudscanner_size0_class5               (128662529L, new FSDWakeScanner_0A()),
 
-    hpt_crimescanner_size0_class1(new Kill_warrantScanner_0E()),
-    hpt_crimescanner_size0_class2(new Kill_warrantScanner_0D()),
-    hpt_crimescanner_size0_class3(new Kill_warrantScanner_0C()),
-    hpt_crimescanner_size0_class4(new Kill_warrantScanner_0B()),
-    hpt_crimescanner_size0_class5(new Kill_warrantScanner_0A()),
+    hpt_crimescanner_size0_class1               (128662530L, new Kill_warrantScanner_0E()),
+    hpt_crimescanner_size0_class2               (128662531L, new Kill_warrantScanner_0D()),
+    hpt_crimescanner_size0_class3               (128662532L, new Kill_warrantScanner_0C()),
+    hpt_crimescanner_size0_class4               (128662533L, new Kill_warrantScanner_0B()),
+    hpt_crimescanner_size0_class5               (128662534L, new Kill_warrantScanner_0A()),
 
-    hpt_cargoscanner_size0_class1(new ManifestScanner_0E()),
-    hpt_cargoscanner_size0_class2(new ManifestScanner_0D()),
-    hpt_cargoscanner_size0_class3(new ManifestScanner_0C()),
-    hpt_cargoscanner_size0_class4(new ManifestScanner_0B()),
-    hpt_cargoscanner_size0_class5(new ManifestScanner_0A()),
+    hpt_cargoscanner_size0_class1               (128662520L, new ManifestScanner_0E()),
+    hpt_cargoscanner_size0_class2               (128662521L, new ManifestScanner_0D()),
+    hpt_cargoscanner_size0_class3               (128662522L, new ManifestScanner_0C()),
+    hpt_cargoscanner_size0_class4               (128662523L, new ManifestScanner_0B()),
+    hpt_cargoscanner_size0_class5               (128662524L, new ManifestScanner_0A()),
 
-    hpt_chafflauncher_tiny(new Launcher_Chaff()),
+    hpt_chafflauncher_tiny                      (128049513L, new Launcher_Chaff()),
 
-    hpt_heatsinklauncher_turret_tiny(new Launcher_HeatSink()),
+    hpt_heatsinklauncher_turret_tiny            (128049519L,new Launcher_HeatSink()),
 
-    hpt_plasmapointdefence_turret_tiny(new DefenseTurret_Point()),
+    hpt_plasmapointdefence_turret_tiny          (128049522L, new DefenseTurret_Point()),
 
-    hpt_electroniccountermeasure_tiny(new CounterMeasures_Electronic()),
+    hpt_electroniccountermeasure_tiny           (128049516L, new CounterMeasures_Electronic()),
 
     /**
      * Experimental (AEGIS, Anti-Thargoid) Modules
      */
 
-    hpt_antiunknownshutdown_tiny(new AntiShutdownField_0F()),
+    hpt_antiunknownshutdown_tiny                (128771884L, new AntiShutdownField_0F()),
 
-    hpt_xenoscanner_basic_tiny(new XenoScanner_0E()),
+    hpt_xenoscanner_basic_tiny                  (128793115L, new XenoScanner_0E()),
 
     ;
 
+    public final long id;
     private final ShipModule delegate;
 
-    UtilityModule(ShipModule delegate)
+    UtilityModule(long id, ShipModule delegate)
     {
+        this.id = id;
         this.delegate = delegate;
     }
 
@@ -219,5 +221,13 @@ public enum UtilityModule implements ShipModule
     public long price()
     {
         return delegate.price();
+    }
+
+    public static ShipModule findById(long itemId)
+    {
+        return Stream.of(values())
+            .filter(item -> item.id == itemId)
+            .findFirst()
+            .orElse(null);
     }
 }

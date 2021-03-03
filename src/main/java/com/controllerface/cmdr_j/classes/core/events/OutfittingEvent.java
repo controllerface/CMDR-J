@@ -17,6 +17,7 @@ public class OutfittingEvent implements BiConsumer<GameState, Map<String, Object
     @SuppressWarnings("unchecked")
     public void accept(GameState gameState, Map<String, Object> event)
     {
+        System.out.println("outfitting");
         var outfittingData = JournalSyncTask.readOutfittingData();
         if (outfittingData.isEmpty()) return;
 

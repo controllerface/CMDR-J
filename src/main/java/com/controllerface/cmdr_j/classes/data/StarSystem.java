@@ -9,17 +9,6 @@ import jetbrains.exodus.entitystore.Entity;
  */
 public class StarSystem
 {
-    /**
-     * When rendering galactic points on the galaxy model, the center of the model is actually
-     * Sagittarius A*, not Sol. However, all galactic coordinates are specified relative to SOL.
-     * These offsets can be applied to any galactic co-ordinates to translate them from offset
-     * to Sol to an offset from Sagittarius A*. I.e., the following offsets are the inverse of
-     * the coordinates of Sagittarius A*.
-     */
-    public static final double GALAXY_OFFSET_X = -25.21875;
-    public static final double GALAXY_OFFSET_Y = -25899.96875;
-    public static final double GALAXY_OFFSET_Z = 20.90625;
-
     public final String systemName;
     public final double xPos;
     public final double yPos;
@@ -39,19 +28,8 @@ public class StarSystem
 
     public double distanceBetween(StarSystem otherSystem)
     {
-        // AB = |√((x2−x1)^2+(y2−y1)^2+(z2−z1)^2)|
-
-        double xDiff = otherSystem.xPos - this.xPos;
-        double yDiff = otherSystem.yPos - this.yPos;
-        double zDiff = otherSystem.zPos - this.zPos;
-
-        double xSq = Math.pow((xDiff), 2);
-        double ySq = Math.pow((yDiff), 2);
-        double zSq = Math.pow((zDiff), 2);
-
-        double sum = xSq + ySq + zSq;
-
-        return UIFunctions.Data.round(Math.abs(Math.sqrt(sum)), 2);
+        return UIFunctions.Math.calculate3dDistance(otherSystem.xPos, otherSystem.yPos, otherSystem.zPos,
+            this.xPos, this.yPos, this.zPos);
     }
 
     public void storeSystemData(Entity systemEntity)
@@ -67,12 +45,12 @@ public class StarSystem
     {
         try
         {
-            var s = ((String) systemEntity.getProperty(EntityKeys.STAR_SYSTEM));
-            var a = ((Long) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_ADDRESS));
-            var x = ((Double) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_X));
-            var y = ((Double) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_Y));
-            var z = ((Double) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_Z));
-            return new StarSystem(s, x, y, z, a);
+            var systemName = ((String) systemEntity.getProperty(EntityKeys.STAR_SYSTEM));
+            var systemAddress = ((Long) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_ADDRESS));
+            var xCoordinate = ((Double) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_X));
+            var yCoordinate = ((Double) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_Y));
+            var zCoordinate = ((Double) systemEntity.getProperty(EntityKeys.STAR_SYSTEM_Z));
+            return new StarSystem(systemName, xCoordinate, yCoordinate, zCoordinate, systemAddress);
         }
         catch (Exception e)
         {

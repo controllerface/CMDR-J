@@ -1,6 +1,9 @@
 package com.controllerface.cmdr_j;
 
+import com.controllerface.cmdr_j.classes.core.JournalSyncTask;
 import com.controllerface.cmdr_j.classes.data.Pair;
+import com.controllerface.cmdr_j.enums.equipment.modules.UtilityModule;
+import com.controllerface.cmdr_j.enums.journal.JournalEvent;
 import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.modules.AbstractExperimentalModule;
@@ -74,7 +77,7 @@ import java.util.stream.Stream;
 /**
  * Created by sroebuck on 5/3/2018.
  */
-@Ignore
+//@Ignore
 public class CommanderJTest
 {
     @Test
@@ -118,6 +121,55 @@ public class CommanderJTest
             System.out.println(code);
 
         }
+    }
+
+    @Test
+    public void testModules() throws IOException
+    {
+        var stream = CommanderJTest.class.getResourceAsStream("/items.csv");
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+        String line;
+        Set<String> keys = new HashSet<>();
+        while ((line = br.readLine()) != null)
+        {
+            String[] values = line.split(",");
+            var id = values[0];
+            var key = values[1].toLowerCase();
+            var cat = values[2];
+
+
+            System.out.println(key + "(" + id + "L, ");
+
+//            var x = JournalEvent.determineModuleType(key);
+//            keys.add(key);
+//            if (x == null)
+//            {
+//                System.out.println("Missing: " + key);
+//            }
+
+//            var code = key.toLowerCase()
+//                + "(" + id + "L, ItemGrade." + cat + "),";
+//            System.out.println(code);
+
+        }
+
+//        Arrays.stream(HardpointModule.values())
+//            .filter(v->!keys.contains(v.name()))
+//            .forEach(k-> System.out.println("Missing: " + k));
+//
+//        Arrays.stream(UtilityModule.values())
+//            .filter(v->!keys.contains(v.name()))
+//            .forEach(k-> System.out.println("Missing: " + k));
+//
+//        Arrays.stream(CoreInternalModule.values())
+//            .filter(v->!keys.contains(v.name()))
+//            .forEach(k-> System.out.println("Missing: " + k));
+//
+//        Arrays.stream(OptionalInternalModule.values())
+//            .filter(v->!keys.contains(v.name()))
+//            .forEach(k-> System.out.println("Missing: " + k));
+
     }
 
 

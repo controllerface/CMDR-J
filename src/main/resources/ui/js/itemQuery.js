@@ -115,7 +115,15 @@ class ItemQuery extends HTMLElement
             {
                 value = parseInt(value, 10).toLocaleString("en-US")
             }
-            this.shadowRoot.getElementById('itemQuery_' + name).textContent = value;
+
+            if (name === 'quantity' && isNaN(newValue) && !this.getAttribute('header'))
+            {
+                this.shadowRoot.getElementById('itemQuery_' + name).innerHTML = '&infin;';
+            }
+            else
+            {
+                this.shadowRoot.getElementById('itemQuery_' + name).textContent = value;
+            }
         }
     }
 }

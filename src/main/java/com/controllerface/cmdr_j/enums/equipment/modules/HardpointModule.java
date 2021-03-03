@@ -52,163 +52,235 @@ import java.util.stream.Stream;
  */
 public enum HardpointModule implements ShipModule
 {
-    hpt_beamlaser_fixed_small(new FixedBeamLaser_Small()),
-    hpt_beamlaser_gimbal_small(new GimballedBeamLaser_Small()),
-    hpt_beamlaser_turret_small(new TurretedBeamLaser_Small()),
-    hpt_beamlaser_fixed_small_heat(new FixedRetributorBeamLaser_Small()),
-    hpt_beamlaser_fixed_medium(new FixedBeamLaser_Medium()),
-    hpt_beamlaser_gimbal_medium(new GimballedBeamLaser_Medium()),
-    hpt_beamlaser_turret_medium(new TurretedBeamLaser_Medium()),
-    hpt_beamlaser_fixed_large(new FixedBeamLaser_Large()),
-    hpt_beamlaser_gimbal_large(new GimballedBeamLaser_Large()),
-    hpt_beamlaser_turret_large(new TurretedBeamLaser_Large()),
-    hpt_beamlaser_fixed_huge(new FixedBeamLaser_Huge()),
-    hpt_beamlaser_gimbal_huge(new GimballedBeamLaser_Huge()),
+    // Beam Lasers
 
-    hpt_pulselaserburst_fixed_small(new FixedBurstLaser_Small()),
-    hpt_pulselaserburst_gimbal_small(new GimballedBurstLaser_Small()),
-    hpt_pulselaserburst_turret_small(new TurretedBurstLaser_Small()),
-    hpt_pulselaserburst_fixed_small_scatter(new FixedCytoscramblerBurstLaser_Small()),
-    hpt_pulselaserburst_fixed_medium(new FixedBurstLaser_Medium()),
-    hpt_pulselaserburst_gimbal_medium(new GimballedBurstLaser_Medium()),
-    hpt_pulselaserburst_turret_medium(new TurretedBurstLaser_Medium()),
-    hpt_pulselaserburst_fixed_large(new FixedBurstLaser_Large()),
-    hpt_pulselaserburst_gimbal_large(new GimballedBurstLaser_Large()),
-    hpt_pulselaserburst_turret_large(new TurretedBurstLaser_Large()),
-    hpt_pulselaserburst_fixed_huge(new FixedBurstLaser_Huge()),
-    hpt_pulselaserburst_gimbal_huge(new GimballedBurstLaser_Huge()),
+    hpt_beamlaser_fixed_huge                        (128049431L, new FixedBeamLaser_Huge()),
+    hpt_beamlaser_fixed_large                       (128049430L, new FixedBeamLaser_Large()),
+    hpt_beamlaser_fixed_medium                      (128049429L, new FixedBeamLaser_Medium()),
+    hpt_beamlaser_fixed_small                       (128049428L, new FixedBeamLaser_Small()),
+    hpt_beamlaser_fixed_small_heat                  (128671346L, new FixedRetributorBeamLaser_Small()),
 
-    hpt_pulselaser_fixed_small(new FixedPulseLaser_Small()),
-    hpt_pulselaser_gimbal_small(new GimballedPulseLaser_Small()),
-    hpt_pulselaser_turret_small(new TurretedPulseLaser_Small()),
-    hpt_pulselaser_fixed_medium(new FixedPulseLaser_Medium()),
-    hpt_pulselaser_gimbal_medium(new GimballedPulseLaser_Medium()),
-    hpt_pulselaser_turret_medium(new TurretedPulseLaser_Medium()),
-    hpt_pulselaser_fixed_medium_disruptor(new FixedDisruptorPulseLaser_Medium()),
-    hpt_pulselaser_fixed_large(new FixedPulseLaser_Large()),
-    hpt_pulselaser_gimbal_large(new GimballedPulseLaser_Large()),
-    hpt_pulselaser_turret_large(new TurretedPulseLaser_Large()),
-    hpt_pulselaser_fixed_huge(new FixedPulseLaser_Huge()),
-    hpt_pulselaser_gimbal_huge(new GimballedPulseLaser_Huge()),
+    hpt_beamlaser_gimbal_huge                       (128681994L, new GimballedBeamLaser_Huge()),
+    hpt_beamlaser_gimbal_large                      (128049434L, new GimballedBeamLaser_Large()),
+    hpt_beamlaser_gimbal_medium                     (128049433L, new GimballedBeamLaser_Medium()),
+    hpt_beamlaser_gimbal_small                      (128049432L, new GimballedBeamLaser_Small()),
 
-    hpt_multicannon_fixed_small(new FixedMultiCannon_Small()),
-    hpt_multicannon_gimbal_small(new GimballedMultiCannon_Small()),
-    hpt_multicannon_turret_small(new TurretedMultiCannon_Small()),
-    hpt_multicannon_fixed_small_strong(new FixedEnforcerMultiCannon_Small()),
-    hpt_multicannon_fixed_small_advanced(new FixedAdvancedMultiCannon_Small()),
-    hpt_multicannon_fixed_medium(new FixedMultiCannon_Medium()),
-    hpt_multicannon_gimbal_medium(new GimballedMultiCannon_Medium()),
-    hpt_multicannon_turret_medium(new TurretedMultiCannon_Medium()),
-    hpt_multicannon_fixed_medium_advanced(new FixedAdvancedMultiCannon_Medium()),
-    hpt_multicannon_fixed_large(new FixedMultiCannon_Large()),
-    hpt_multicannon_gimbal_large(new GimballedMultiCannon_Large()),
-    hpt_multicannon_turret_large(new TurretedMultiCannon_Large()),
-    hpt_multicannon_fixed_huge(new FixedMultiCannon_Huge()),
-    hpt_multicannon_gimbal_huge(new GimballedMultiCannon_Huge()),
+    hpt_beamlaser_turret_large                      (128049437L, new TurretedBeamLaser_Large()),
+    hpt_beamlaser_turret_medium                     (128049436L, new TurretedBeamLaser_Medium()),
+    hpt_beamlaser_turret_small                      (128049435L, new TurretedBeamLaser_Small()),
 
-    hpt_cannon_fixed_small(new FixedCannon_Small()),
-    hpt_cannon_gimbal_small(new GimballedCannon_Small()),
-    hpt_cannon_turret_small(new TurretedCannon_Small()),
-    hpt_cannon_fixed_medium(new FixedCannon_Medium()),
-    hpt_cannon_gimbal_medium(new GimballedCannon_Medium()),
-    hpt_cannon_turret_medium(new TurretedCannon_Medium()),
-    hpt_cannon_fixed_large(new FixedCannon_Large()),
-    hpt_cannon_gimbal_large(new GimballedCannon_Large()),
-    hpt_cannon_turret_large(new TurretedCannon_Large()),
-    hpt_cannon_fixed_huge(new FixedCannon_Huge()),
-    hpt_cannon_gimbal_huge(new GimballedCannon_Huge()),
 
-    hpt_slugshot_fixed_small(new FixedFragmentCannon_Small()),
-    hpt_slugshot_gimbal_small(new GimballedFragmentCannon_Small()),
-    hpt_slugshot_turret_small(new TurretedFragmentCannon_Small()),
-    hpt_slugshot_fixed_medium(new FixedFragmentCannon_Medium()),
-    hpt_slugshot_gimbal_medium(new GimballedFragmentCannon_Medium()),
-    hpt_slugshot_turret_medium(new TurretedFragmentCannon_Medium()),
-    hpt_slugshot_fixed_large(new FixedFragmentCannon_Large()),
-    hpt_slugshot_gimbal_large(new GimballedFragmentCannon_Large()),
-    hpt_slugshot_turret_large(new TurretedFragmentCannon_Large()),
-    hpt_slugshot_fixed_large_range(new FixedPacifierFragmentCannon_Large()),
+    // Burst Lasers
 
-    hpt_plasmaaccelerator_fixed_medium(new FixedPlasmaAccelerator_Medium()),
-    hpt_plasmaaccelerator_fixed_large_advanced(new FixedPlasmaAcceleratorAdvanced_Large()),
-    hpt_plasmaaccelerator_fixed_large(new FixedPlasmaAccelerator_Large()),
-    hpt_plasmaaccelerator_fixed_huge(new FixedPlasmaAccelerator_Huge()),
+    hpt_pulselaserburst_fixed_huge                  (128049403L, new FixedBurstLaser_Huge()),
+    hpt_pulselaserburst_fixed_large                 (128049402L, new FixedBurstLaser_Large()),
+    hpt_pulselaserburst_fixed_medium                (128049401L, new FixedBurstLaser_Medium()),
+    hpt_pulselaserburst_fixed_small                 (128049400L, new FixedBurstLaser_Small()),
+    hpt_pulselaserburst_fixed_small_scatter         (128671449L, new FixedCytoscramblerBurstLaser_Small()),
 
-    hpt_railgun_fixed_small(new FixedRailgun_Small()),
-    hpt_railgun_fixed_medium_burst(new FixedImperialHammerRailGun_Medium()),
-    hpt_railgun_fixed_medium(new FixedRailgun_Medium()),
+    hpt_pulselaserburst_gimbal_huge                 (128727920L, new GimballedBurstLaser_Huge()),
+    hpt_pulselaserburst_gimbal_large                (128049406L, new GimballedBurstLaser_Large()),
+    hpt_pulselaserburst_gimbal_medium               (128049405L, new GimballedBurstLaser_Medium()),
+    hpt_pulselaserburst_gimbal_small                (128049404L, new GimballedBurstLaser_Small()),
 
-    hpt_dumbfiremissilerack_fixed_small(new FixedMissileRack_Small()),
-    hpt_dumbfiremissilerack_fixed_small_advanced(new FixedAdvancedMissileRack_Small()),
-    hpt_dumbfiremissilerack_fixed_medium_lasso(new FixedContainmentMissileMissileRack_Medium()),
-    hpt_dumbfiremissilerack_fixed_medium_advanced(new FixedAdvancedMissileRack_Medium()),
-    hpt_dumbfiremissilerack_fixed_medium(new FixedMissileRack_Medium()),
-    hpt_dumbfiremissilerack_fixed_large(new FixedMissileRack_Large()),
+    hpt_pulselaserburst_turret_large                (128049409L, new TurretedBurstLaser_Large()),
+    hpt_pulselaserburst_turret_medium               (128049408L, new TurretedBurstLaser_Medium()),
+    hpt_pulselaserburst_turret_small                (128049407L, new TurretedBurstLaser_Small()),
 
-    hpt_basicmissilerack_fixed_small(new SeekerMissileRack_Small()),
-    hpt_drunkmissilerack_fixed_medium(new PackHound_Medium()),
-    hpt_basicmissilerack_fixed_medium(new SeekerMissileRack_Medium()),
-    hpt_basicmissilerack_fixed_large(new SeekerMissileRack_Large()),
 
-    hpt_minelauncher_fixed_small(new FixedMineLauncher_Small()),
-    hpt_minelauncher_fixed_small_impulse(new FixedShockMineLauncher_Small()),
-    hpt_minelauncher_fixed_medium(new FixedMineLauncher_Medium()),
+    // Pulse Lasers
 
-    hpt_advancedtorppylon_fixed_small(new FixedTorpedoPylon_Small()),
-    hpt_advancedtorppylon_fixed_medium(new FixedTorpedoPylon_Medium()),
-    hpt_advancedtorppylon_fixed_large(new FixedTorpedoPylon_Large()),
+    hpt_pulselaser_fixed_huge                       (128049384L, new FixedPulseLaser_Huge()),
+    hpt_pulselaser_fixed_large                      (128049383L, new FixedPulseLaser_Large()),
+    hpt_pulselaser_fixed_medium                     (128049382L, new FixedPulseLaser_Medium()),
+    hpt_pulselaser_fixed_medium_disruptor           (128671342L, new FixedDisruptorPulseLaser_Medium()),
+    hpt_pulselaser_fixed_small                      (128049381L, new FixedPulseLaser_Small()),
 
-    hpt_atmulticannon_fixed_medium(new FixedAntiThargoidMultiCannon_Medium()),
-    hpt_atmulticannon_turret_medium(new TurretedAntiThargoidMultiCannon_Medium()),
-    hpt_atmulticannon_fixed_large(new FixedAntiThargoidMultiCannon_Large()),
-    hpt_atmulticannon_turret_large(new TurretedAntiThargoidMultiCannon_Large()),
+    hpt_pulselaser_gimbal_huge                      (128681995L, new GimballedPulseLaser_Huge()),
+    hpt_pulselaser_gimbal_large                     (128049387L, new GimballedPulseLaser_Large()),
+    hpt_pulselaser_gimbal_medium                    (128049386L, new GimballedPulseLaser_Medium()),
+    hpt_pulselaser_gimbal_small                     (128049385L, new GimballedPulseLaser_Small()),
 
-    hpt_atdumbfiremissile_fixed_medium(new FixedAntiThargoidMissileRack_Medium()),
-    hpt_atdumbfiremissile_turret_medium(new TurretedAntiThargoidMissileRack_Medium()),
-    hpt_atdumbfiremissile_fixed_large(new FixedAntiThargoidMissileRack_Large()),
-    hpt_atdumbfiremissile_turret_large(new TurretedAntiThargoidMissileRack_Large()),
+    hpt_pulselaser_turret_large                     (128049390L, new TurretedPulseLaser_Large()),
+    hpt_pulselaser_turret_medium                    (128049389L, new TurretedPulseLaser_Medium()),
+    hpt_pulselaser_turret_small                     (128049388L, new TurretedPulseLaser_Small()),
 
-    hpt_flakmortar_fixed_medium(new FixedRemoteReleaseFlakLauncher_Medium()),
-    hpt_flakmortar_turret_medium(new TurretedRemoteReleaseFlakLauncher_Medium()),
 
-    hpt_guardian_shardcannon_fixed_small(new FixedGuardianShardCannon_Small()),
-    hpt_guardian_shardcannon_turret_small(new TurretedGuardianShardCannon_Small()),
-    hpt_guardian_shardcannon_fixed_medium(new FixedGuardianShardCannon_Medium()),
-    hpt_guardian_shardcannon_turret_medium(new TurretedGuardianShardCannon_Medium()),
-    hpt_guardian_shardcannon_fixed_large(new FixedGuardianShardCannon_Large()),
-    hpt_guardian_shardcannon_turret_large(new TurretedGuardianShardCannon_Large()),
+    // Multi-Cannons
 
-    hpt_guardian_gausscannon_fixed_small(new FixedGuardianGaussCannon_Small()),
-    hpt_guardian_gausscannon_fixed_medium(new FixedGuardianGaussCannon_Medium()),
+    hpt_multicannon_fixed_huge                      (128049458L, new FixedMultiCannon_Huge()),
+    hpt_multicannon_fixed_large                     (128049457L, new FixedMultiCannon_Large()),
+    hpt_multicannon_fixed_medium                    (128049456L, new FixedMultiCannon_Medium()),
+    hpt_multicannon_fixed_medium_advanced           (128935980L, new FixedAdvancedMultiCannon_Medium()),
+    hpt_multicannon_fixed_small                     (128049455L, new FixedMultiCannon_Small()),
+    hpt_multicannon_fixed_small_advanced            (128935981L, new FixedAdvancedMultiCannon_Small()),
+    hpt_multicannon_fixed_small_strong              (128671345L, new FixedEnforcerMultiCannon_Small()),
 
-    hpt_guardian_plasmalauncher_fixed_small(new FixedGuardianPlasmaCharger_Small()),
-    hpt_guardian_plasmalauncher_turret_small(new TurretedGuardianPlasmaCharger_Small()),
-    hpt_guardian_plasmalauncher_fixed_medium(new FixedGuardianPlasmaCharger_Medium()),
-    hpt_guardian_plasmalauncher_turret_medium(new TurretedGuardianPlasmaCharger_Medium()),
-    hpt_guardian_plasmalauncher_fixed_large(new FixedGuardianPlasmaCharger_Large()),
-    hpt_guardian_plasmalauncher_turret_large(new TurretedGuardianPlasmaCharger_Large()),
+    hpt_multicannon_gimbal_huge                     (128681996L, new GimballedMultiCannon_Huge()),
+    hpt_multicannon_gimbal_large                    (128049461L, new GimballedMultiCannon_Large()),
+    hpt_multicannon_gimbal_medium                   (128049460L, new GimballedMultiCannon_Medium()),
+    hpt_multicannon_gimbal_small                    (128049459L, new GimballedMultiCannon_Small()),
 
-    hpt_causticmissile_fixed_medium(new FixedEnzymeMissileRack_Medium()),
+    hpt_multicannon_turret_large                    (128049464L, new TurretedMultiCannon_Large()),
+    hpt_multicannon_turret_medium                   (128049463L, new TurretedMultiCannon_Medium()),
+    hpt_multicannon_turret_small                    (128049462L, new TurretedMultiCannon_Small()),
 
-    hpt_flechettelauncher_fixed_medium(new FixedRemoteReleaseFlechetteLauncher_Medium()),
-    hpt_flechettelauncher_turret_medium(new TurretedRemoteReleaseFlechetteLauncher_Medium()),
 
-    hpt_plasmashockcannon_fixed_small(new FixedShockCannon_Small()),
-    hpt_plasmashockcannon_gimbal_small(new GimballedShockCannon_Small()),
-    hpt_plasmashockcannon_turret_small(new TurretedShockCannon_Small()),
-    hpt_plasmashockcannon_fixed_medium(new FixedShockCannon_Medium()),
-    hpt_plasmashockcannon_gimbal_medium(new GimballedShockCannon_Medium()),
-    hpt_plasmashockcannon_turret_medium(new TurretedShockCannon_Medium()),
-    hpt_plasmashockcannon_fixed_large(new FixedShockCannon_Large()),
-    hpt_plasmashockcannon_gimbal_large(new GimballedShockCannon_Large()),
-    hpt_plasmashockcannon_turret_large(new TurretedShockCannon_Large()),
+    // Cannons
+
+    hpt_cannon_fixed_huge                           (128049441L, new FixedCannon_Huge()),
+    hpt_cannon_fixed_large                          (128049440L, new FixedCannon_Large()),
+    hpt_cannon_fixed_medium                         (128049439L, new FixedCannon_Medium()),
+    hpt_cannon_fixed_small                          (128049438L, new FixedCannon_Small()),
+    hpt_cannon_gimbal_huge                          (128049444L, new GimballedCannon_Huge()),
+    hpt_cannon_gimbal_large                         (128671120L, new GimballedCannon_Large()),
+    hpt_cannon_gimbal_medium                        (128049443L, new GimballedCannon_Medium()),
+    hpt_cannon_gimbal_small                         (128049442L, new GimballedCannon_Small()),
+    hpt_cannon_turret_large                         (128049447L, new TurretedCannon_Large()),
+    hpt_cannon_turret_medium                        (128049446L, new TurretedCannon_Medium()),
+    hpt_cannon_turret_small                         (128049445L, new TurretedCannon_Small()),
+
+
+    // Frag Cannons
+
+    hpt_slugshot_fixed_large                        (128049450L, new FixedFragmentCannon_Large()),
+    hpt_slugshot_fixed_large_range                  (128671343L, new FixedPacifierFragmentCannon_Large()),
+    hpt_slugshot_fixed_medium                       (128049449L, new FixedFragmentCannon_Medium()),
+    hpt_slugshot_fixed_small                        (128049448L, new FixedFragmentCannon_Small()),
+    hpt_slugshot_gimbal_large                       (128671321L, new GimballedFragmentCannon_Large()),
+    hpt_slugshot_gimbal_medium                      (128049452L, new GimballedFragmentCannon_Medium()),
+    hpt_slugshot_gimbal_small                       (128049451L, new GimballedFragmentCannon_Small()),
+    hpt_slugshot_turret_large                       (128671322L, new TurretedFragmentCannon_Large()),
+    hpt_slugshot_turret_medium                      (128049454L, new TurretedFragmentCannon_Medium()),
+    hpt_slugshot_turret_small                       (128049453L, new TurretedFragmentCannon_Small()),
+
+
+    // Plasma Accelerators
+
+    hpt_plasmaaccelerator_fixed_huge                (128049467L, new FixedPlasmaAccelerator_Huge()),
+    hpt_plasmaaccelerator_fixed_large               (128049466L, new FixedPlasmaAccelerator_Large()),
+    hpt_plasmaaccelerator_fixed_large_advanced      (128671339L, new FixedPlasmaAcceleratorAdvanced_Large()),
+    hpt_plasmaaccelerator_fixed_medium              (128049465L, new FixedPlasmaAccelerator_Medium()),
+
+
+    // Railguns
+
+    hpt_railgun_fixed_medium                        (128049489L, new FixedRailgun_Medium()),
+    hpt_railgun_fixed_medium_burst                  (128671341L, new FixedImperialHammerRailGun_Medium()),
+    hpt_railgun_fixed_small                         (128049488L, new FixedRailgun_Small()),
+
+
+    // Missile Racks
+
+    hpt_dumbfiremissilerack_fixed_large             (128891602L, new FixedMissileRack_Large()),
+    hpt_dumbfiremissilerack_fixed_medium            (128666725L, new FixedMissileRack_Medium()),
+    hpt_dumbfiremissilerack_fixed_medium_advanced   (128935983L, new FixedAdvancedMissileRack_Medium()),
+    hpt_dumbfiremissilerack_fixed_medium_lasso      (128732552L, new FixedContainmentMissileMissileRack_Medium()),
+    hpt_dumbfiremissilerack_fixed_small             (128666724L, new FixedMissileRack_Small()),
+    hpt_dumbfiremissilerack_fixed_small_advanced    (128935982L, new FixedAdvancedMissileRack_Small()),
+
+
+    // Seeker Missile racks
+
+    hpt_basicmissilerack_fixed_large                (128049494L, new SeekerMissileRack_Large()),
+    hpt_basicmissilerack_fixed_medium               (128049493L, new SeekerMissileRack_Medium()),
+    hpt_basicmissilerack_fixed_small                (128049492L, new SeekerMissileRack_Small()),
+    hpt_drunkmissilerack_fixed_medium               (128671344L, new PackHound_Medium()),
+
+
+    // Mine Launchers
+
+    hpt_minelauncher_fixed_medium                   (128049501L, new FixedMineLauncher_Medium()),
+    hpt_minelauncher_fixed_small                    (128049500L, new FixedMineLauncher_Small()),
+    hpt_minelauncher_fixed_small_impulse            (128671448L, new FixedShockMineLauncher_Small()),
+
+
+    // Torpedo Pylons
+
+    hpt_advancedtorppylon_fixed_large               (128049511L, new FixedTorpedoPylon_Large()),
+    hpt_advancedtorppylon_fixed_medium              (128049510L, new FixedTorpedoPylon_Medium()),
+    hpt_advancedtorppylon_fixed_small               (128049509L, new FixedTorpedoPylon_Small()),
+
+
+    // Anti-Thargoid Multi_Cannons
+
+    hpt_atmulticannon_fixed_large                   (128788702L, new FixedAntiThargoidMultiCannon_Large()),
+    hpt_atmulticannon_fixed_medium                  (128788701L, new FixedAntiThargoidMultiCannon_Medium()),
+    hpt_atmulticannon_turret_large                  (128793060L, new TurretedAntiThargoidMultiCannon_Large()),
+    hpt_atmulticannon_turret_medium                 (128793059L, new TurretedAntiThargoidMultiCannon_Medium()),
+
+
+    // Anti-Thargoid Missile Racks
+
+    hpt_atdumbfiremissile_fixed_large               (128788700L, new FixedAntiThargoidMissileRack_Large()),
+    hpt_atdumbfiremissile_fixed_medium              (128788699L, new FixedAntiThargoidMissileRack_Medium()),
+    hpt_atdumbfiremissile_turret_large              (128788705L, new TurretedAntiThargoidMissileRack_Large()),
+    hpt_atdumbfiremissile_turret_medium             (128788704L, new TurretedAntiThargoidMissileRack_Medium()),
+
+
+    // Remote-Release Flak Launchers
+
+    hpt_flakmortar_fixed_medium                     (128785626L, new FixedRemoteReleaseFlakLauncher_Medium()),
+    hpt_flakmortar_turret_medium                    (128793058L, new TurretedRemoteReleaseFlakLauncher_Medium()),
+
+
+    // Guardian Shard Cannons
+
+    hpt_guardian_shardcannon_fixed_large            (128834778L, new FixedGuardianShardCannon_Large()),
+    hpt_guardian_shardcannon_fixed_medium           (128834000L, new FixedGuardianShardCannon_Medium()),
+    hpt_guardian_shardcannon_fixed_small            (128891609L, new FixedGuardianShardCannon_Small()),
+    hpt_guardian_shardcannon_turret_large           (128834779L, new TurretedGuardianShardCannon_Large()),
+    hpt_guardian_shardcannon_turret_medium          (128834001L, new TurretedGuardianShardCannon_Medium()),
+    hpt_guardian_shardcannon_turret_small           (128891608L, new TurretedGuardianShardCannon_Small()),
+
+
+    // Guardian Gauss Cannons
+
+    hpt_guardian_gausscannon_fixed_medium           (128833687L, new FixedGuardianGaussCannon_Medium()),
+    hpt_guardian_gausscannon_fixed_small            (128891610L, new FixedGuardianGaussCannon_Small()),
+
+
+    // Guardian Plasma Launchers
+
+    hpt_guardian_plasmalauncher_fixed_large         (128834783L, new FixedGuardianPlasmaCharger_Large()),
+    hpt_guardian_plasmalauncher_fixed_medium        (128833998L, new FixedGuardianPlasmaCharger_Medium()),
+    hpt_guardian_plasmalauncher_fixed_small         (128891607L, new FixedGuardianPlasmaCharger_Small()),
+    hpt_guardian_plasmalauncher_turret_large        (128834784L, new TurretedGuardianPlasmaCharger_Large()),
+    hpt_guardian_plasmalauncher_turret_medium       (128833999L, new TurretedGuardianPlasmaCharger_Medium()),
+    hpt_guardian_plasmalauncher_turret_small        (128891606L, new TurretedGuardianPlasmaCharger_Small()),
+
+
+    // Caustic Missile Rack
+
+    hpt_causticmissile_fixed_medium                 (128833995L, new FixedEnzymeMissileRack_Medium()),
+
+
+    // Remote Release Flechette Launcher
+
+    hpt_flechettelauncher_fixed_medium              (128833996L, new FixedRemoteReleaseFlechetteLauncher_Medium()),
+    hpt_flechettelauncher_turret_medium             (128833997L, new TurretedRemoteReleaseFlechetteLauncher_Medium()),
+
+
+    // Shock Cannons
+
+    hpt_plasmashockcannon_fixed_large               (128834780L, new FixedShockCannon_Large()),
+    hpt_plasmashockcannon_fixed_medium              (128834002L, new FixedShockCannon_Medium()),
+    hpt_plasmashockcannon_fixed_small               (128891605L, new FixedShockCannon_Small()),
+    hpt_plasmashockcannon_gimbal_large              (128834781L, new GimballedShockCannon_Large()),
+    hpt_plasmashockcannon_gimbal_medium             (128834003L, new GimballedShockCannon_Medium()),
+    hpt_plasmashockcannon_gimbal_small              (128891604L, new GimballedShockCannon_Small()),
+    hpt_plasmashockcannon_turret_large              (128834782L, new TurretedShockCannon_Large()),
+    hpt_plasmashockcannon_turret_medium             (128834004L, new TurretedShockCannon_Medium()),
+    hpt_plasmashockcannon_turret_small              (128891603L, new TurretedShockCannon_Small()),
 
     ;
 
+    public final long id;
     private final ShipModule delegate;
 
-    HardpointModule(ShipModule delegate)
+    HardpointModule(long id, ShipModule delegate)
     {
+        this.id = id;
         this.delegate = delegate;
     }
 
@@ -320,5 +392,13 @@ public enum HardpointModule implements ShipModule
     public long price()
     {
         return delegate.price();
+    }
+
+    public static ShipModule findById(long itemId)
+    {
+        return Stream.of(values())
+            .filter(item -> item.id == itemId)
+            .findFirst()
+            .orElse(null);
     }
 }

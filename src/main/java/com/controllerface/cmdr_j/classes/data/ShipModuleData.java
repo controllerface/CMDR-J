@@ -68,7 +68,7 @@ public class ShipModuleData
         map.put("name", module.displayText());
         map.put("powered", powered);
         map.put("priority", priority);
-        map.put("health", UIFunctions.Data.round(health * 100, 0));
+        map.put("health", UIFunctions.Math.round(health * 100, 0));
 
         Optional.ofNullable(level)
             .ifPresent(modLevel -> map.put("modLevel", modLevel));

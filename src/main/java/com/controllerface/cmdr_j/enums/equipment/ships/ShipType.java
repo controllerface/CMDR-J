@@ -2,12 +2,14 @@ package com.controllerface.cmdr_j.enums.equipment.ships;
 
 import com.controllerface.cmdr_j.classes.data.BaseShipStats;
 import com.controllerface.cmdr_j.classes.data.OptionalModuleLayoutData;
+import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.CoreModuleLayoutData;
 import com.controllerface.cmdr_j.classes.data.HardPointLayoutData;
 import com.controllerface.cmdr_j.classes.ships.*;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Created by Controllerface on 4/16/2018.
@@ -122,5 +124,13 @@ public enum ShipType
         {
             return Optional.empty();
         }
+    }
+
+    public static ShipType findById(long itemId)
+    {
+        return Stream.of(values())
+            .filter(item -> item.id == itemId)
+            .findFirst()
+            .orElse(null);
     }
 }

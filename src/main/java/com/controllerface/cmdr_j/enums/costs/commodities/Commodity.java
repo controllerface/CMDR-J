@@ -6,6 +6,7 @@ import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by Controllerface on 4/11/2018.
@@ -497,5 +498,13 @@ public enum Commodity implements TaskCost
     public ItemGrade getGrade()
     {
         return grade;
+    }
+
+    public static Commodity findById(long itemId)
+    {
+        return Stream.of(values())
+            .filter(item -> item.id == itemId)
+            .findFirst()
+            .orElse(null);
     }
 }

@@ -72,7 +72,7 @@ public class MarketEvent implements BiConsumer<GameState, Map<String, Object>>
         remappedMarketData.put("exports", exports);
         remappedMarketData.put("rares", rares);
 
-        gameState.setMarketData(remappedMarketData);
+        gameState.setCommodityMarketData(remappedMarketData);
         gameState.emitMarketEvent();
     }
 

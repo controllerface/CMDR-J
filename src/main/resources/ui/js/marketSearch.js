@@ -31,6 +31,8 @@ class MarketSearch extends HTMLElement
     loadListingData(listingData)
     {
         let dataList = this.shadowRoot.getElementById('marketSearch_datalist');
+        dataList.textContent = "";
+
         let itemIds = Object.keys(listingData);
         itemIds.sort((a, b) =>
         {

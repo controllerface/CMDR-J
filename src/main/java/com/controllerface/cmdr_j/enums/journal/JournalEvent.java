@@ -113,6 +113,7 @@ public enum JournalEvent
     Location(new LocationEvent()),
     NavRoute(new NavRouteEvent()),
     Touchdown(new TouchdownEvent()),
+    Liftoff(new LiftoffEvent()),
 //    StartJump(new StartJumpHandler()),                        // location info
 //    SupercruiseEntry(new SupercruiseEntryHandler()),          // informational
     SupercruiseExit(new SupercruiseExitEvent()),

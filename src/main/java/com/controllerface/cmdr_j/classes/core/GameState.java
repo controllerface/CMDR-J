@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.classes.core;
 
 import com.controllerface.cmdr_j.classes.data.*;
+import com.controllerface.cmdr_j.enums.equipment.modules.*;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 import com.controllerface.cmdr_j.interfaces.Procedure;
 import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
@@ -14,7 +15,6 @@ import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.utilities.database.EntityKeys;
 import com.controllerface.cmdr_j.utilities.database.EntityUtilities;
 import com.controllerface.cmdr_j.enums.commander.CommanderStat;
-import com.controllerface.cmdr_j.enums.commander.RankStat;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
@@ -31,7 +31,6 @@ import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
-import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
@@ -70,7 +69,6 @@ public class GameState
      */
     private final PersistentEntityStore database;
 
-
     /**
      * This is an event sink used when state changes must be communicated to listening clients
      */
@@ -91,14 +89,15 @@ public class GameState
     private final Map<String, Map<String, String>> extendedStats = new HashMap<>();
     private final Map<Material, Integer> materials = new HashMap<>();
     private final Map<Commodity, CommodityData> cargo = new HashMap<>();
-    private final Map<String, Object> marketData = new HashMap<>();
-    private final Map<String, Object> outfittingData = new HashMap<>();
-    private final Map<String, Object> shipyardData = new HashMap<>();
+    private final Map<String, Object> commodityMarketData = new HashMap<>();
+    private final Map<String, Object> outfittingMarketData = new HashMap<>();
+    private final Map<String, Object> shipyardMarketData = new HashMap<>();
     private final Map<Engineer, Map<String, Object>> engineerProgress = new HashMap<>();
     private final List<RouteEntry> currentRoute = new ArrayList<>();
     private final List<Map<String, Object>> systemFactions = new ArrayList<>();
     private final List<Map<String, Object>> localConflicts = new ArrayList<>();
     private final AtomicReference<String> trackedLocation = new AtomicReference<>("");
+    private final List<Map<String, Object>> communityGoals = new ArrayList<>();
 
     private String commanderName = "";
     private String dockedLocation = "";
@@ -168,13 +167,13 @@ public class GameState
 
     public static class StatGroup
     {
-        public Double floatStat;
-        public Double rawFloat;
-        public Double diminishCap;
+        public Double calculatedValue;
+        public Double rawValue;
         public Double baseValue;
         public Double boostValue;
         public Double baseMultiplier;
         public Double boostMultiplier;
+        public Double minmax;
     }
 
     private static class GPSLocation
@@ -332,6 +331,20 @@ public class GameState
         private final AtomicLong runningCount = new AtomicLong(0);
     }
 
+    private static class PotentialTrade
+    {
+        public final String key;
+        public final long yield;
+        public final long stock;
+
+        private PotentialTrade(String key, long yield, long stock)
+        {
+            this.key = key;
+            this.yield = yield;
+            this.stock = stock;
+        }
+    }
+
     public GameState(BiConsumer<String, String> globalUpdate)
     {
         this.globalUpdate = globalUpdate;
@@ -402,9 +415,9 @@ public class GameState
     }
 
     /**
-     * this constructor is used o testing purposes only.
+     * this constructor is used for testing purposes only.
      *
-     * @param dbDirectory dirctory to use for DB data used during test
+     * @param dbDirectory directory to use for DB data used during test
      */
     public GameState(String dbDirectory)
     {
@@ -427,6 +440,45 @@ public class GameState
             stateLock.unlock();
         }
     }
+
+
+
+    public void setCommanderStat(Statistic statistic, String value)
+    {
+        executeWithLock(() ->
+        {
+            commanderStatistics.put(statistic, value);
+            globalUpdate.accept(statistic.getName(), value);
+            updateInternalState(statistic, value);
+        });
+    }
+
+    public void setShipStat(Statistic statistic, String value)
+    {
+        executeWithLock(() ->
+        {
+            shipStatistics.put(statistic, value);
+            globalUpdate.accept(statistic.getName(), value);
+            updateInternalState(statistic, value);
+        });
+    }
+
+    public void setExtendedStats(String category, Map<String, String> stats)
+    {
+        extendedStats.put(category, stats);
+    }
+
+    public void setEngineerProgress(Engineer engineer, Map<String, Object> data)
+    {
+        if (starSystem != null)
+        {
+            data.put("distance", engineer.getLocation().distanceBetween(starSystem));
+        }
+        engineerProgress.put(engineer, data);
+    }
+
+
+
 
     public void updateMissionState(MissionData.MissionState state, long missionId)
     {
@@ -481,6 +533,9 @@ public class GameState
         executeWithLock(() -> emitMissionData(globalUpdate));
     }
 
+
+
+
     private void emitPledgedPower(BiConsumer<String, String> sink)
     {
         if (pledgedPower == null) return;
@@ -506,11 +561,69 @@ public class GameState
         executeWithLock(()-> globalUpdate.accept("PowerPlay", "clear"));
     }
 
+
+
+
     public void clearCargo()
     {
         cargo.clear();
         executeWithLock(() -> globalUpdate.accept("Cargo","Clear"));
     }
+
+    public int getCargoCapacity()
+    {
+        return cargoCapacity;
+    }
+
+    public int getCurrentTonnage()
+    {
+        return cargo.values().stream()
+            .mapToInt(c->c.count)
+            .sum();
+    }
+
+    public void adjustCargoCount(Commodity commodity, Integer adjustment)
+    {
+        var commodityData = cargo.computeIfPresent(commodity,
+            (k, data) -> data.adjustAndClone(adjustment));
+
+        if (commodityData == null)
+        {
+            if (adjustment > 0)
+            {
+                commodityData = new CommodityData(commodity.getLocalizedName(), adjustment, commodity.getGrade());
+            }
+            else
+            {
+                // most likely case for this is restarting the app, the cargo file is updated as
+                // cargo changes, so re-running teh events will read the current state, not whatever
+                // state was seen when the event occurred.
+                return;
+            }
+        }
+
+        var jsonData = commodityData.toJson();
+
+        if (commodityData.count < 1)
+        {
+            cargo.remove(commodity);
+        }
+
+        executeWithLock(() -> globalUpdate.accept("Cargo", jsonData));
+        executeWithLock(() -> globalUpdate.accept("Task", "materials"));
+        emitAllTaskData(globalUpdate);
+    }
+
+    public void setCargoCount(Commodity commodity, String name, Integer count)
+    {
+        var commodityData = new CommodityData(name, count, commodity.getGrade());
+        cargo.put(commodity, commodityData);
+        var jsonData = commodityData.toJson();
+        executeWithLock(() -> globalUpdate.accept("Cargo", jsonData));
+        emitAllTaskData(globalUpdate);
+    }
+
+
 
     public void clearShipModules()
     {
@@ -547,6 +660,9 @@ public class GameState
         emitAllTaskData(globalUpdate);
     }
 
+
+
+
     public void approachBody(StellarBody stellarBody)
     {
         nearestBody = stellarBody;
@@ -572,17 +688,15 @@ public class GameState
         executeWithLock(() -> globalUpdate.accept("Land", nearestBody.name));
     }
 
-    public int getCargoCapacity()
+    public void liftoff()
     {
-        return cargoCapacity;
+        this.touchdownLatitude = -1;
+        this.touchdownLongitude = -1;
+        executeWithLock(() -> globalUpdate.accept("Liftoff", "liftoff"));
     }
 
-    public int getCurrentTonnage()
-    {
-        return cargo.values().stream()
-            .mapToInt(c->c.count)
-            .sum();
-    }
+
+
 
     public boolean createWaypoint()
     {
@@ -649,7 +763,7 @@ public class GameState
                 : "km";
             if (unit.equals("km"))
             {
-                dist = UIFunctions.Data.round(dist / 1000d, 1);
+                dist = UIFunctions.Math.round(dist / 1000d, 1);
             }
             waypointMap.put("distance", dist);
             waypointMap.put("unit", unit);
@@ -709,15 +823,7 @@ public class GameState
         });
     }
 
-    public void setCommanderStat(Statistic statistic, String value)
-    {
-        executeWithLock(() ->
-        {
-            commanderStatistics.put(statistic, value);
-            globalUpdate.accept(statistic.getName(), value);
-            updateInternalState(statistic, value);
-        });
-    }
+
 
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> queryMarketData(long itemId, long price, boolean export, boolean difference)
@@ -749,7 +855,7 @@ public class GameState
 
                     var mktMap = e2m(mkt);
 
-                    var current = marketData.get("marketId");
+                    var current = commodityMarketData.get("marketId");
                     var checking = mktMap.get(EntityKeys.MARKET_ID);
                     if (current.equals(checking))
                     {
@@ -842,6 +948,27 @@ public class GameState
         });
     }
 
+    private String determineCategoryKey(long itemId)
+    {
+        if (Commodity.findById(itemId) != null)
+        {
+            return "exports";
+        }
+        else if (ShipType.findById(itemId) != null)
+        {
+            return "ships";
+        }
+        else if (CoreInternalModule.findById(itemId) != null
+            || OptionalInternalModule.findById(itemId) != null
+            || HardpointModule.findById(itemId) != null
+            || UtilityModule.findById(itemId) != null)
+        {
+            return "modules";
+        }
+        return "";
+    }
+
+    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> queryItemData(long itemId)
     {
         return database.computeInTransaction(txn ->
@@ -849,53 +976,86 @@ public class GameState
             var commander = getCommanderEntity(txn);
             if (commander == null) return Collections.emptyList();
 
+            var categoryKey = determineCategoryKey(itemId);
+            if (categoryKey.isEmpty())
+            {
+                return Collections.emptyList();
+            }
+
             return EntityUtilities.entityStream(commander.getLinks(EntityKeys.MARKET))
-                .map(mkt ->
+                .map(market ->
                 {
-                    var systemEntity = mkt.getLink(EntityKeys.STAR_SYSTEM);
+                    var systemEntity = market.getLink(EntityKeys.STAR_SYSTEM);
                     if (systemEntity == null)
                     {
                         return Collections.emptyMap();
                     }
-                    var sys = StarSystem.unstoreSystemData(systemEntity);
-                    if (sys == null)
+
+                    var starSystem = StarSystem.unstoreSystemData(systemEntity);
+                    if (starSystem == null)
                     {
                         return Collections.emptyMap();
                     }
 
-                    var mktMap = e2m(mkt);
+                    var marketMap = e2m(market);
 
-                    var commodities = ((Map<String, Map<String, Object>>) mktMap.get("exports"));
-                    if (commodities == null)
+                    var itemCategory = ((Map<String, Map<String, Object>>) marketMap.get(categoryKey));
+                    if (itemCategory == null)
                     {
                         return Collections.emptyMap();
                     }
 
-                    var item = commodities.values().stream()
-                        .flatMap(t -> t.values().stream())
-                        .map(i -> ((Map<String, Object>) i))
-                        .filter(commodity -> ((Number) commodity.get("itemId")).longValue() == itemId)
-                        .findFirst().orElse(Collections.emptyMap());
+                    Map<String, Object> item;
+
+                    switch (categoryKey)
+                    {
+                        case "exports":
+                            item = itemCategory.values().stream()
+                                .flatMap(commodityType -> commodityType.values().stream())
+                                .map(rawCommodity -> ((Map<String, Object>) rawCommodity))
+                                .filter(commodityMap -> ((Number) commodityMap.get("itemId")).longValue() == itemId)
+                                .findFirst()
+                                .orElse(Collections.emptyMap());
+                            break;
+
+                        case "ships":
+                            item = itemCategory.values().stream()
+                                .filter(x-> ((Number) x.get("itemId")).longValue() == itemId)
+                                .findFirst()
+                                .orElse(Collections.emptyMap());
+                            break;
+
+                        case "modules":
+                            item = itemCategory.values().stream()
+                                .flatMap(type -> type.values().stream())
+                                .map(modules -> ((Map<String, Object>) modules))
+                                .filter(x-> ((Number) x.get("itemId")).longValue() == itemId)
+                                .findFirst()
+                                .orElse(Collections.emptyMap());
+                            break;
+
+                        default:
+                            item = Collections.emptyMap();
+                    }
 
                     if (item.isEmpty())
                     {
                         return Collections.emptyMap();
                     }
 
-                    var time = Instant.parse(((String) mktMap.get("timestamp")));
+                    var time = Instant.parse(((String) marketMap.get("timestamp")));
 
                     var age = Duration.between(time, Instant.now());
-                    var ts = UIFunctions.Format.secondsToTimeString(age.toSeconds());
+                    var timeString = UIFunctions.Format.secondsToTimeString(age.toSeconds());
 
-
-                    item.put("age", ts);
-                    item.put("system", sys.systemName);
-                    item.put("market", mktMap.get("name"));
-                    item.put("distance", starSystem.distanceBetween(sys));
+                    item.put("age", timeString);
+                    item.put("system", starSystem.systemName);
+                    item.put("market", marketMap.get("name"));
+                    item.put("distance", this.starSystem.distanceBetween(starSystem));
                     return item;
                 })
-                .filter(m->!m.isEmpty())
-                .map(f -> ((Map<String, Object>) f))
+                .filter(itemData -> !itemData.isEmpty())
+                .map(itemData -> ((Map<String, Object>) itemData))
                 .collect(Collectors.toList());
         });
     }
@@ -927,13 +1087,14 @@ public class GameState
                 entity.setBlobString(name, JSONSupport.Write.jsonToString.apply(json));
                 return;
             }
-            if (value instanceof Map)
+            else if (value instanceof Map)
             {
                 var json = new HashMap<String, Object>();
                 json.put("json", value);
                 entity.setBlobString(name, JSONSupport.Write.jsonToString.apply(json));
                 return;
             }
+
             if (value instanceof String)
             {
                 if (((String) value).isEmpty())
@@ -941,12 +1102,12 @@ public class GameState
                     return;
                 }
             }
-            if (value instanceof Comparable)
-            {
-                entity.setProperty(name, ((Comparable) value));
-            }
+
+            entity.setProperty(name, ((Comparable<?>) value));
         });
     }
+
+
 
     public void dock(String dockedLocation)
     {
@@ -957,66 +1118,61 @@ public class GameState
     public void undock()
     {
         dockedLocation = "";
-        marketData.clear();
-        outfittingData.clear();
-        shipyardData.clear();
+        commodityMarketData.clear();
+        outfittingMarketData.clear();
+        shipyardMarketData.clear();
         emitMarketEvent();
         emitOutfittingEvent();
         emitShipyardEvent();
         executeWithLock(() -> globalUpdate.accept("Undocked", "undocked"));
     }
 
-    public void liftoff()
-    {
-        this.touchdownLatitude = -1;
-        this.touchdownLongitude = -1;
-        executeWithLock(() -> globalUpdate.accept("Liftoff", "liftoff"));
-    }
 
-    public void setOutfittingData(Map<String, Object> outfitting)
-    {
-        this.outfittingData.clear();
-        this.outfittingData.putAll(outfitting);
 
-        // todo: add or update market data
+
+    public void setOutfittingData(Map<String, Object> outfittingData)
+    {
+        this.outfittingMarketData.clear();
+        this.outfittingMarketData.putAll(outfittingData);
+        database.executeInTransaction(txn -> updateMarketData(txn, outfittingData));
     }
 
     public void setShipyardData(Map<String, Object> shipyardData)
     {
-        this.shipyardData.clear();
-        this.shipyardData.putAll(shipyardData);
-
-        // todo: add or update market data
+        this.shipyardMarketData.clear();
+        this.shipyardMarketData.putAll(shipyardData);
+        database.executeInTransaction(txn -> updateMarketData(txn, shipyardData));
     }
 
-    public void setMarketData(Map<String, Object> marketData)
+    public void setCommodityMarketData(Map<String, Object> commodityData)
     {
-        this.marketData.clear();
-        this.marketData.putAll(marketData);
-
-        database.executeInTransaction(txn ->
-        {
-            var commander = getCommanderEntity(txn);
-            var system = getStarSystemEntity(txn, starSystem.address);
-            if (commander == null || system == null) return;
-
-            var market = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MARKET))
-                .filter(stellarBody -> Objects.equals(stellarBody.getProperty(EntityKeys.MARKET_ID), marketData.get("marketId")))
-                .findFirst().orElseGet(()->
-                {
-                    var newMarket = txn.newEntity(EntityKeys.MARKET);
-                    newMarket.setLink(EntityKeys.COMMANDER, commander);
-                    newMarket.setLink(EntityKeys.STAR_SYSTEM, system);
-                    newMarket.setProperty(EntityKeys.MARKET_ID, ((Number) marketData.get("marketId")).longValue());
-                    commander.addLink(EntityKeys.MARKET, newMarket);
-                    return newMarket;
-                });
-
-            m2e(marketData, market);
-        });
+        this.commodityMarketData.clear();
+        this.commodityMarketData.putAll(commodityData);
+        database.executeInTransaction(txn -> updateMarketData(txn, commodityData));
     }
 
-    private final List<Map<String, Object>> communityGoals = new ArrayList<>();
+    private void updateMarketData(StoreTransaction txn, Map<String, Object> marketData)
+    {
+        var commander = getCommanderEntity(txn);
+        var system = getStarSystemEntity(txn, starSystem.address);
+        if (commander == null || system == null) return;
+
+        var market = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MARKET))
+            .filter(stellarBody -> Objects.equals(stellarBody.getProperty(EntityKeys.MARKET_ID), marketData.get("marketId")))
+            .findFirst().orElseGet(()->
+            {
+                var newMarket = txn.newEntity(EntityKeys.MARKET);
+                newMarket.setLink(EntityKeys.COMMANDER, commander);
+                newMarket.setLink(EntityKeys.STAR_SYSTEM, system);
+                newMarket.setProperty(EntityKeys.MARKET_ID, ((Number) marketData.get("marketId")).longValue());
+                commander.addLink(EntityKeys.MARKET, newMarket);
+                return newMarket;
+            });
+
+        m2e(marketData, market);
+    }
+
+
 
     private void emitCommunityGoals(BiConsumer<String, String> sink)
     {
@@ -1044,60 +1200,12 @@ public class GameState
         executeWithLock(() -> emitCommunityGoals(globalUpdate));
     }
 
-    public void setExtendedStats(String category, Map<String, String> stats)
-    {
-        extendedStats.put(category, stats);
-    }
 
-    public void adjustCargoCount(Commodity commodity, Integer adjustment)
-    {
-        var commodityData = cargo.computeIfPresent(commodity,
-            (k, data) -> data.adjustAndClone(adjustment));
 
-        if (commodityData == null)
-        {
-            if (adjustment > 0)
-            {
-                commodityData = new CommodityData(commodity.getLocalizedName(), adjustment, commodity.getGrade());
-            }
-            else
-            {
-                // most likely case for this is restarting the app, the cargo file is updated as
-                // cargo changes, so re-running teh events will read the current state, not whatever
-                // state was seen when the event occurred.
-                return;
-            }
-        }
 
-        var jsonData = commodityData.toJson();
 
-        if (commodityData.count < 1)
-        {
-            cargo.remove(commodity);
-        }
 
-        executeWithLock(() -> globalUpdate.accept("Cargo", jsonData));
-        executeWithLock(() -> globalUpdate.accept("Task", "materials"));
-        emitAllTaskData(globalUpdate);
-    }
 
-    public void setCargoCount(Commodity commodity, String name, Integer count)
-    {
-        var commodityData = new CommodityData(name, count, commodity.getGrade());
-        cargo.put(commodity, commodityData);
-        var jsonData = commodityData.toJson();
-        executeWithLock(() -> globalUpdate.accept("Cargo", jsonData));
-        emitAllTaskData(globalUpdate);
-    }
-
-    public void setEngineerProgress(Engineer engineer, Map<String, Object> data)
-    {
-        if (starSystem != null)
-        {
-            data.put("distance", engineer.getLocation().distanceBetween(starSystem));
-        }
-        engineerProgress.put(engineer, data);
-    }
 
     public void adjustMaterialCount(Material material, Integer count)
     {
@@ -1123,15 +1231,7 @@ public class GameState
         executeWithLock(() -> globalUpdate.accept("Material", writeMaterialEvent(material, count)));
     }
 
-    public void setShipStat(Statistic statistic, String value)
-    {
-        executeWithLock(() ->
-        {
-            shipStatistics.put(statistic, value);
-            globalUpdate.accept(statistic.getName(), value);
-            updateInternalState(statistic, value);
-        });
-    }
+
 
     public SettlementLocation getLocalSettlement(Long marketID)
     {
@@ -1154,7 +1254,7 @@ public class GameState
             : "km";
         if (unit.equals("km"))
         {
-            dist = UIFunctions.Data.round(dist / 1000d, 1);
+            dist = UIFunctions.Math.round(dist / 1000d, 1);
         }
         map.put("distance", dist);
         map.put("unit", unit);
@@ -1191,7 +1291,7 @@ public class GameState
             {
                 if (localSettlement != null)
                 {
-                    var bearing = calculateBearingAngle(localCoordinates.latitude,
+                    var bearing = UIFunctions.Math.calculateBearingAngle(localCoordinates.latitude,
                         localCoordinates.longitude,
                         localSettlement.latitude,
                         localSettlement.longitude);
@@ -1203,7 +1303,7 @@ public class GameState
             {
                 if (touchdownLongitude != -1 && touchdownLatitude != -1)
                 {
-                    var bearing = calculateBearingAngle(localCoordinates.latitude,
+                    var bearing = UIFunctions.Math.calculateBearingAngle(localCoordinates.latitude,
                         localCoordinates.longitude,
                         touchdownLatitude,
                         touchdownLongitude);
@@ -1215,26 +1315,20 @@ public class GameState
             {
                 var waypointLocation = database.computeInTransaction(txn ->
                 {
-                    try
-                    {
-                        String[] parts = trackedLocation.get().split("-");
-                        var type = Integer.parseInt(parts[0]);
-                        var local = Long.parseLong(parts[1]);
-                        var entityId = new PersistentEntityId(type, local);
-                        var entity = txn.getEntity(entityId);
-                        var lat = ((Double) entity.getProperty(EntityKeys.WAYPOINT_LATITUDE));
-                        var lon = ((Double) entity.getProperty(EntityKeys.WAYPOINT_LONGITUDE));
-                        return new GPSLocation(lat, lon);
-                    }
-                    catch (Exception e)
-                    {
-                        return null;
-                    }
+                    String[] parts = trackedLocation.get().split("-");
+                    var type = Integer.parseInt(parts[0]);
+                    var local = Long.parseLong(parts[1]);
+                    var entityId = new PersistentEntityId(type, local);
+                    var entity = txn.getEntity(entityId);
+                    var latitude = ((Double) entity.getProperty(EntityKeys.WAYPOINT_LATITUDE));
+                    var longitude = ((Double) entity.getProperty(EntityKeys.WAYPOINT_LONGITUDE));
+                    if (latitude == null || longitude == null) return null;
+                    return new GPSLocation(latitude, longitude);
                 });
 
                 if (waypointLocation != null)
                 {
-                    var bearing = calculateBearingAngle(localCoordinates.latitude,
+                    var bearing = UIFunctions.Math.calculateBearingAngle(localCoordinates.latitude,
                         localCoordinates.longitude,
                         waypointLocation.latitude,
                         waypointLocation.longitude);
@@ -1334,10 +1428,10 @@ public class GameState
             }
         }
 
-        if (statistic instanceof RankStat)
-        {
-            // ignore for now
-        }
+//        if (statistic instanceof RankStat)
+//        {
+//            // ignore for now
+//        }
 
         // ship
 
@@ -1353,15 +1447,15 @@ public class GameState
                 currentReserveFuel = Double.parseDouble(value.replace(",",""));
             }
 
-            if (statistic == ShipStat.ReserveCapacity)
-            {
-                // todo: parse value
-            }
-
-            if (statistic == ShipStat.Fuel_Capacity)
-            {
-                // todo: parse value
-            }
+//            if (statistic == ShipStat.ReserveCapacity)
+//            {
+//                // todo: parse value
+//            }
+//
+//            if (statistic == ShipStat.Fuel_Capacity)
+//            {
+//                // todo: parse value
+//            }
 
             if (statistic == ShipStat.CargoCapacity)
             {
@@ -1386,10 +1480,12 @@ public class GameState
     private ShipModuleData findShipModule(ModificationType type)
     {
         return shipModules.values().stream()
-            .filter(m->m.module.modificationType() == type)
+            .filter(moduleData -> moduleData.module.modificationType() == type)
             .findFirst()
             .orElse(null);
     }
+
+
 
     private double calculateEffectValue(ItemEffect effect)
     {
@@ -1398,9 +1494,8 @@ public class GameState
 
     private double calculateModuleEffectValue(ItemEffect effect, Predicate<ShipModuleData> allowedModule)
     {
-        return shipModules.entrySet().stream()
-            .filter(e -> allowedModule.test(e.getValue()))
-            .map(Map.Entry::getValue)
+        return shipModules.values().stream()
+            .filter(allowedModule)
             .map(shipModuleData -> shipModuleData.effectByName(effect))
             .filter(Optional::isPresent)
             .map(Optional::get)
@@ -1435,7 +1530,7 @@ public class GameState
         double totalHullMass = currentFuel + tonnage + hullMass + moduleMass;
 
         // round the result to 1 decimal place to match the in-game UI
-        return UIFunctions.Data.round(totalHullMass, 1);
+        return UIFunctions.Math.round(totalHullMass, 1);
     }
 
     private String calculateCurrentPowerUsage()
@@ -1461,9 +1556,9 @@ public class GameState
                 {
                     return;
                 }
-                var share = UIFunctions.Data.round(((draw / powerCapacity) * 100), 2);
+                var share = UIFunctions.Math.round(((draw / powerCapacity) * 100), 2);
                 var powerData = new HashMap<String, Object>();
-                powerData.put("draw", UIFunctions.Data.round(draw, 2));
+                powerData.put("draw", UIFunctions.Math.round(draw, 2));
                 powerData.put("powered", moduleData.powered ? "on" : "off");
                 powerData.put("priority", moduleData.priority);
                 powerData.put("share", share);
@@ -1471,9 +1566,9 @@ public class GameState
             });
 
         var output = new HashMap<String, Object>();
-        output.put("capacity", UIFunctions.Data.round(powerCapacity, 2));
-        output.put("powerDraw", UIFunctions.Data.round(powerDraw, 2));
-        output.put("retractedDraw", UIFunctions.Data.round(retractedDraw, 2));
+        output.put("capacity", UIFunctions.Math.round(powerCapacity, 2));
+        output.put("powerDraw", UIFunctions.Math.round(powerDraw, 2));
+        output.put("retractedDraw", UIFunctions.Math.round(retractedDraw, 2));
         output.put("modules", moduleMap);
         return JSONSupport.Write.jsonToString.apply(output);
     }
@@ -1644,14 +1739,14 @@ public class GameState
         double calculatedShield = (baseShield * shieldMultiplier * accumulatedBoost) + accumulatedShieldReinforcement;
 
         StatGroup statGroup = new StatGroup();
-        statGroup.floatStat = calculatedShield;
+        statGroup.calculatedValue = calculatedShield;
         statGroup.baseValue = baseShield;
-        statGroup.rawFloat = baseShield * shieldMultiplier * accumulatedBoost;
+        statGroup.rawValue = baseShield * shieldMultiplier * accumulatedBoost;
         statGroup.boostValue = accumulatedShieldReinforcement;
-        statGroup.diminishCap = optimalMass - hullMass;
+        statGroup.minmax = optimalMass - hullMass;
 
-        statGroup.baseMultiplier= 0.0;
-        statGroup.boostMultiplier= 0.0;
+        statGroup.baseMultiplier = 0.0;
+        statGroup.boostMultiplier = 0.0;
 
         // round the result to 1 decimal place to match the in-game UI
         return statGroup;
@@ -1698,14 +1793,14 @@ public class GameState
         double totalHullStrength = hullStrength + hullBoost + hullReinforcement;
 
         StatGroup statGroup = new StatGroup();
-        statGroup.floatStat = totalHullStrength;
+        statGroup.calculatedValue = totalHullStrength;
         statGroup.baseValue = hullStrength;
-        statGroup.rawFloat = hullBoost;
+        statGroup.rawValue = hullBoost;
         statGroup.boostValue = hullReinforcement;
-        statGroup.diminishCap = 0d;
+        statGroup.minmax = 0d;
 
-        statGroup.baseMultiplier= 0.0;
-        statGroup.boostMultiplier= 0.0;
+        statGroup.baseMultiplier = 0.0;
+        statGroup.boostMultiplier = 0.0;
         // round the result to 1 decimal place to match the in-game UI
         return statGroup;
     }
@@ -1726,7 +1821,7 @@ public class GameState
             .mapToDouble(Double::doubleValue)
             .map(next -> 100d - next)
             .map(next -> next / 100d)
-            .map(n-> UIFunctions.Data.round(n, 5))
+            .map(n-> UIFunctions.Math.round(n, 5))
             .forEach(baseResistances::add);
 
         shipModules.values().stream()
@@ -1744,7 +1839,7 @@ public class GameState
             .filter(nonZeroValue)
             .map(next -> 100d - next)
             .map(next -> next / 100d)
-            .map(n -> UIFunctions.Data.round(n, 5))
+            .map(n -> UIFunctions.Math.round(n, 5))
             .forEach(boostResistances::add);
 
         resistances.addAll(baseResistances);
@@ -1772,15 +1867,15 @@ public class GameState
         double raw = (1.0 - (combinedResistance)) * 100d;
 
         StatGroup statGroup = new StatGroup();
-        statGroup.floatStat = UIFunctions.Data.round(actual,1);
-        statGroup.rawFloat = UIFunctions.Data.round(raw, 1);
-        statGroup.diminishCap = UIFunctions.Data.round((combinedResistance - .7) * 100, 2);
+        statGroup.calculatedValue = UIFunctions.Math.round(actual,1);
+        statGroup.rawValue = UIFunctions.Math.round(raw, 1);
+        statGroup.minmax = UIFunctions.Math.round((combinedResistance - .7) * 100, 2);
 
-        statGroup.boostMultiplier = UIFunctions.Data.round(boostResistance, 2);
-        statGroup.baseMultiplier = UIFunctions.Data.round(baseResistance, 2);
+        statGroup.boostMultiplier = UIFunctions.Math.round(boostResistance, 2);
+        statGroup.baseMultiplier = UIFunctions.Math.round(baseResistance, 2);
 
-        statGroup.boostValue = UIFunctions.Data.round((1.0 - (boostResistance)) * 100d, 2);
-        statGroup.baseValue = UIFunctions.Data.round((1.0 - (baseResistance)) * 100d, 2);
+        statGroup.boostValue = UIFunctions.Math.round((1.0 - (boostResistance)) * 100d, 2);
+        statGroup.baseValue = UIFunctions.Math.round((1.0 - (baseResistance)) * 100d, 2);
 
         return statGroup;
     }
@@ -1796,7 +1891,7 @@ public class GameState
                 .filter(nonZeroValue)
                 .map(next -> 100d - next)
                 .map(next -> next / 100d)
-                .map(n->UIFunctions.Data.round(n, 5))
+                .map(n-> UIFunctions.Math.round(n, 5))
                 .findFirst()
                 .orElse(1d);
 
@@ -1808,7 +1903,7 @@ public class GameState
             .filter(nonZeroValue)
             .map(next -> 100d - next)
             .map(next -> next / 100d)
-            .map(n->UIFunctions.Data.round(n, 5))
+            .map(n-> UIFunctions.Math.round(n, 5))
             .forEach(resistances::add);
 
         double boosterResistance = resistances.stream()
@@ -1825,14 +1920,14 @@ public class GameState
         double raw = (1.0 - (boosterResistance * shieldResistence)) * 100d;
 
         StatGroup statGroup = new StatGroup();
-        statGroup.floatStat = UIFunctions.Data.round(actual,1);
-        statGroup.rawFloat = UIFunctions.Data.round(raw, 1);
-        statGroup.diminishCap = UIFunctions.Data.round((boosterResistance - .7) * 100, 2);
+        statGroup.calculatedValue = UIFunctions.Math.round(actual,1);
+        statGroup.rawValue = UIFunctions.Math.round(raw, 1);
+        statGroup.minmax = UIFunctions.Math.round((boosterResistance - .7) * 100, 2);
 
-        statGroup.boostValue = UIFunctions.Data.round((1.0 - (boosterResistance)) * 100d, 2);
-        statGroup.boostMultiplier = UIFunctions.Data.round(boosterResistance, 2);
-        statGroup.baseValue = UIFunctions.Data.round((1.0 - (shieldResistence)) * 100d, 2);
-        statGroup.baseMultiplier = UIFunctions.Data.round(shieldResistence, 2);
+        statGroup.boostValue = UIFunctions.Math.round((1.0 - (boosterResistance)) * 100d, 2);
+        statGroup.boostMultiplier = UIFunctions.Math.round(boosterResistance, 2);
+        statGroup.baseValue = UIFunctions.Math.round((1.0 - (shieldResistence)) * 100d, 2);
+        statGroup.baseMultiplier = UIFunctions.Math.round(shieldResistence, 2);
 
         return statGroup;
     }
@@ -2031,11 +2126,11 @@ public class GameState
                 absoluteDamage.add(damageShares.absoluteShare);
 
                 var damageData = new HashMap<String, Object>();
-                damageData.put("total", UIFunctions.Data.round(dps, 2));
-                damageData.put("thermal", UIFunctions.Data.round(damageShares.thermalShare, 2));
-                damageData.put("kinetic", UIFunctions.Data.round(damageShares.kineticShare, 2));
-                damageData.put("explosive", UIFunctions.Data.round(damageShares.explosiveShare, 2));
-                damageData.put("absolute", UIFunctions.Data.round(damageShares.absoluteShare, 2));
+                damageData.put("total", UIFunctions.Math.round(dps, 2));
+                damageData.put("thermal", UIFunctions.Math.round(damageShares.thermalShare, 2));
+                damageData.put("kinetic", UIFunctions.Math.round(damageShares.kineticShare, 2));
+                damageData.put("explosive", UIFunctions.Math.round(damageShares.explosiveShare, 2));
+                damageData.put("absolute", UIFunctions.Math.round(damageShares.absoluteShare, 2));
 
                 var moduleData = new HashMap<String, Object>();
                 moduleData.put(module.module.displayText(), damageData);
@@ -2067,11 +2162,11 @@ public class GameState
             });
 
         var data = new HashMap<String, Object>();
-        data.put("totalDPS", UIFunctions.Data.round(totalDPS, 2));
-        data.put("totalThermal", UIFunctions.Data.round(thermalDamage.sum(), 2));
-        data.put("totalKinetic", UIFunctions.Data.round(kineticDamage.sum(), 2));
-        data.put("totalExplosive", UIFunctions.Data.round(explosiveDamage.sum(), 2));
-        data.put("totalAbsolute", UIFunctions.Data.round(absoluteDamage.sum(), 2 ));
+        data.put("totalDPS", UIFunctions.Math.round(totalDPS, 2));
+        data.put("totalThermal", UIFunctions.Math.round(thermalDamage.sum(), 2));
+        data.put("totalKinetic", UIFunctions.Math.round(kineticDamage.sum(), 2));
+        data.put("totalExplosive", UIFunctions.Math.round(explosiveDamage.sum(), 2));
+        data.put("totalAbsolute", UIFunctions.Math.round(absoluteDamage.sum(), 2 ));
 
         if (!weaponBreakdown.isEmpty())
         {
@@ -2088,25 +2183,25 @@ public class GameState
 
     private void formatStrength(HashMap<String, Object> dataMap, StatGroup stats, boolean minmax)
     {
-        dataMap.put("value", UIFunctions.Data.round(stats.floatStat,0));
-        dataMap.put("base", UIFunctions.Data.round(stats.baseValue, 1));
-        dataMap.put("reinforcement", UIFunctions.Data.round(stats.boostValue, 1));
-        dataMap.put("raw", UIFunctions.Data.round(stats.rawFloat, 1));
+        dataMap.put("value", UIFunctions.Math.round(stats.calculatedValue,0));
+        dataMap.put("raw", UIFunctions.Math.round(stats.rawValue, 1));
+        dataMap.put("base", UIFunctions.Math.round(stats.baseValue, 1));
+        dataMap.put("reinforcement", UIFunctions.Math.round(stats.boostValue, 1));
         if (minmax)
         {
-            dataMap.put("minmax", UIFunctions.Data.round(stats.diminishCap, 1));
+            dataMap.put("minmax", UIFunctions.Math.round(stats.minmax, 1));
         }
     }
 
     private void formatResistance(HashMap<String, Object> dataMap, StatGroup stats)
     {
-        dataMap.put("value", UIFunctions.Data.round(stats.floatStat, 2));
-        dataMap.put("raw", UIFunctions.Data.round(stats.rawFloat,2));
-        dataMap.put("base", UIFunctions.Data.round(stats.baseValue, 2));
-        dataMap.put("baseMultiplier", UIFunctions.Data.round(stats.baseMultiplier,2));
-        dataMap.put("boost", UIFunctions.Data.round(stats.boostValue, 2));
-        dataMap.put("boostMultiplier", UIFunctions.Data.round(stats.boostMultiplier, 2));
-        dataMap.put("minmax", UIFunctions.Data.round(stats.diminishCap, 2));
+        dataMap.put("value", UIFunctions.Math.round(stats.calculatedValue, 2));
+        dataMap.put("raw", UIFunctions.Math.round(stats.rawValue,2));
+        dataMap.put("base", UIFunctions.Math.round(stats.baseValue, 2));
+        dataMap.put("boost", UIFunctions.Math.round(stats.boostValue, 2));
+        dataMap.put("baseMultiplier", UIFunctions.Math.round(stats.baseMultiplier,2));
+        dataMap.put("boostMultiplier", UIFunctions.Math.round(stats.boostMultiplier, 2));
+        dataMap.put("minmax", UIFunctions.Math.round(stats.minmax, 2));
     }
 
     private String calculateDefenseStats()
@@ -2148,8 +2243,8 @@ public class GameState
         formatResistance(hullCausticData, hullCaustic);
 
         // store formatted data
-        data.put("regen", UIFunctions.Data.round(shieldRegenRate, 2));
-        data.put("brokenRegen", UIFunctions.Data.round(brokenRegenRate, 2));
+        data.put("regen", UIFunctions.Math.round(shieldRegenRate, 2));
+        data.put("brokenRegen", UIFunctions.Math.round(brokenRegenRate, 2));
         data.put("Shield Strength", shieldData);
         data.put("Hull Strength", hullData);
         data.put("Shield Explosive", shieldExplosiveData);
@@ -2304,17 +2399,6 @@ public class GameState
     }
 
     /**
-     * Haversine function: hav(θ) = sin ^ 2 (θ/2)
-     *
-     * @param radAngle input angle in radians
-     * @return haversine distance of the input angle
-     */
-    private double haversine(double radAngle)
-    {
-        return sin(radAngle / 2) * sin(radAngle / 2);
-    }
-
-    /**
      * Calculates a distance between two latitude/longitude pairs, taking into account the radius of the planet and
      * the player's altitude. Waypoints are currently assumed to be on the planet's surface for the purpose of
      * distance calculations. Due to irregularities in planet topology, the distances may be slightly off depending on
@@ -2325,60 +2409,17 @@ public class GameState
      * latitude and longitude points on the planet. This implementation also accounts for altitude when determining the
      * distance to a position.
      *
-     * @param waypointLong the waypoint's longitude
-     * @param waypointLat the waypoint's latitude
+     * @param waypointLongitude the waypoint's longitude
+     * @param waypointLatitude the waypoint's latitude
      * @return the approximate distance between the two points in meters
      */
-    private double calculateDistance(double waypointLong, double waypointLat)
+    private double calculateDistance(double waypointLongitude, double waypointLatitude)
     {
-        double latDistance = toRadians(waypointLat - localCoordinates.latitude);
-        double lonDistance = toRadians(waypointLong - localCoordinates.longitude);
-
-        double a = haversine(latDistance)
-            + cos(toRadians(localCoordinates.latitude))
-            * cos(toRadians(waypointLat))
-            * haversine(lonDistance);
-
-        double c = 2 * atan2(sqrt(a), sqrt(1 - a));
-
-        double adjustedDistance = localCoordinates.radius * c;
-
-        return sqrt(pow(adjustedDistance, 2) + pow(localCoordinates.altitude, 2));
-    }
-
-    /**
-     * Finds the bearing, in degrees, that an observer at a given set of coordinates should travel in order to move
-     * toward a point at a different set of co-ordinates. Coordinates are given as latitude/longitude pairs
-     * representing the current location and the destination. The returned bearing value is converted to the angle
-     * range between 0 and 360 (as opposed to between -180 and 180) and is rounded to 2 decimal places.
-     *
-     * NOTE: uses static import of {@linkplain java.lang.Math}
-     *
-     * @param locationLatitude latitude of the current location
-     * @param locationLongitude longitude of the current location
-     * @param destinationLatitude latitude of the destination
-     * @param destinationLongitude longitude of the destination
-     * @return bearing angle from the current location that will lead to the destination
-     */
-    static double calculateBearingAngle(double locationLatitude,
-                                        double locationLongitude,
-                                        double destinationLatitude,
-                                        double destinationLongitude)
-    {
-        double phiStart = toRadians(locationLatitude);
-        double phiEnd = toRadians(destinationLatitude);
-        double delta = toRadians(destinationLongitude - locationLongitude);
-
-        double ordinate = (sin(delta) * cos(phiEnd));
-        double abscissa = (cos(phiStart) * sin(phiEnd) - sin(phiStart) * cos(phiEnd) * cos(delta));
-        double theta = atan2(ordinate, abscissa);
-
-        double bearing = toDegrees(theta);
-        if (bearing < 0 )
-        {
-            bearing += 360;
-        }
-        return UIFunctions.Data.round(bearing, 2);
+        return UIFunctions.Math.calculateSurfaceDistance(waypointLatitude, waypointLongitude,
+            localCoordinates.latitude,
+            localCoordinates.longitude,
+            localCoordinates.altitude,
+            localCoordinates.radius);
     }
 
     public void clearFactionData()
@@ -2597,237 +2638,6 @@ public class GameState
 
     //region UI Event Emitters
 
-    public void emitEngineerData()
-    {
-        var engineerData = prepareEngineerData();
-        executeWithLock(() -> globalUpdate.accept("Engineers", engineerData));
-    }
-
-    public void emitLoadoutEvent()
-    {
-        executeWithLock(() -> globalUpdate.accept("Loadout", "updated"));
-    }
-
-    public void emitCurrentMass()
-    {
-        var currentMass = calculateCurrentMass();
-        executeWithLock(() -> globalUpdate.accept("CurrentMass", String.valueOf(currentMass)));
-    }
-
-    public void emitExtendedStatsEvent()
-    {
-        executeWithLock(() -> globalUpdate.accept("Statistics", "updated"));
-    }
-
-    public void emitMarketEvent()
-    {
-        executeWithLock(() -> globalUpdate.accept("Market", "updated"));
-    }
-
-    public void emitOutfittingEvent()
-    {
-        executeWithLock(() -> globalUpdate.accept("Outfitting", "updated"));
-    }
-
-    public void emitShipyardEvent()
-    {
-        executeWithLock(() -> globalUpdate.accept("Shipyard", "updated"));
-    }
-
-    public void emitPowerStats()
-    {
-        var powerStats = calculateCurrentPowerUsage();
-        executeWithLock(() -> globalUpdate.accept("PowerStats", powerStats));
-    }
-
-    public void emitOffenseStats()
-    {
-        var offenseStats = calculateOffenseStats();
-        executeWithLock(() -> globalUpdate.accept("OffenseStats", offenseStats));
-    }
-
-    public void emitDefenseStats()
-    {
-        var defenseStats = calculateDefenseStats();
-        executeWithLock(() -> globalUpdate.accept("DefenseStats", defenseStats));
-    }
-
-    public void emitCartographyIfCurrent(long address)
-    {
-        if (starSystem.address == address)
-        {
-            emitCartographyData();
-        }
-    }
-
-    public void emitCartographyData()
-    {
-        executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
-    }
-
-    private void emitConflictData(BiConsumer<String, String> sink)
-    {
-        String conflictJson;
-        sink.accept("Conflicts", "clear");
-        synchronized (localConflicts)
-        {
-            var conflictData = new HashMap<String, Object>();
-            conflictData.put("conflicts", localConflicts);
-            conflictJson = JSONSupport.Write.jsonToString.apply(conflictData);
-        }
-        sink.accept("Conflicts", conflictJson);
-    }
-
-    private void emitFactionData(BiConsumer<String, String> sink)
-    {
-        sink.accept("Faction", "clear");
-        synchronized (systemFactions)
-        {
-            systemFactions.stream()
-                .map(JSONSupport.Write.jsonToString)
-                .forEach(faction -> sink.accept("Faction", faction));
-        }
-    }
-
-    public void emitSystemCatalog()
-    {
-        executeWithLock(() -> globalUpdate.accept("Catalog", "updated"));
-    }
-
-    public void emitMissionData()
-    {
-        emitMissionData(globalUpdate);
-    }
-
-    private void emitMissionData(BiConsumer<String, String> sink)
-    {
-        var json = database.computeInTransaction(txn ->
-        {
-            var commander = getCommanderEntity(txn);
-            if (commander == null) return "";
-            var data = new HashMap<String, Object>();
-            var missionList = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MISSION))
-                .map(MissionData::toMap)
-                .collect(Collectors.toList());
-            data.put("missions", missionList);
-            return JSONSupport.Write.jsonToString.apply(data);
-        });
-
-        sink.accept("Missions", json);
-    }
-
-    private void emitAllTaskData(BiConsumer<String, String> sink)
-    {
-        List<TaskSummary> taskSummaries = getTaskSummaries();
-        taskSummaries.forEach(taskSummary -> emitTaskData(sink, taskSummary.key, taskSummary.count));
-    }
-
-    private void emitTaskData(BiConsumer<String, String> sink, String taskKey, Integer count)
-    {
-        var data = new HashMap<String, Object>();
-        data.put("key", taskKey);
-        data.put("count", count);
-        if (count > 0)
-        {
-            var task = taskCatalog.keyMap.get(taskKey);
-            var taskdata = determineTaskData(task, taskKey);
-            data.put("name", taskdata.name);
-            data.put("costs", taskdata.costs);
-            data.put("effects", taskdata.effects);
-            if (!taskdata.engineers.isEmpty())
-            {
-                data.put("engineers", taskdata.engineers);
-            }
-        }
-        var jsonData = JSONSupport.Write.jsonToString.apply(data);
-        executeWithLock(() -> sink.accept("Task", jsonData));
-    }
-
-    private void emitTouchdownData(BiConsumer<String, String> sink)
-    {
-        if (touchdownLatitude == -1 || touchdownLongitude == -1 || localCoordinates == null)
-        {
-            return;
-        }
-
-        var touchdownData = new HashMap<String, Object>();
-        touchdownData.put("latitude", this.touchdownLatitude);
-        touchdownData.put("longitude", this.touchdownLongitude);
-        touchdownData.put("name", shipStatistics.get(ShipStat.Ship_Name));
-        touchdownData.put("body", nearestBody.name);
-
-        var dist = calculateDistance(touchdownLongitude, touchdownLatitude);
-        var unit = dist < 1000
-            ? "m"
-            : "km";
-        if (unit.equals("km"))
-        {
-            dist = dist / 1000d;
-        }
-        dist = UIFunctions.Data.round(dist, 1);
-        touchdownData.put("distance", dist);
-        touchdownData.put("unit", unit);
-
-        var touchdownJson = JSONSupport.Write.jsonToString.apply(touchdownData);
-        executeWithLock(() -> sink.accept("Touchdown", touchdownJson));
-    }
-
-    public void emitWaypointData(BiConsumer<String, String> sink)
-    {
-        if (starSystem == null || nearestBody == null || localCoordinates == null) return;
-
-        var waypointData = database.computeInTransaction(txn ->
-        {
-            var currentSystem = getStarSystemEntity(txn, starSystem.address);
-            if (currentSystem == null) return null;
-
-            var currentBody = EntityUtilities.entityStream(currentSystem.getLinks(EntityKeys.STELLAR_BODY))
-                .filter(body -> body.getProperty(EntityKeys.STELLAR_BODY_ID).equals(nearestBody.id))
-                .findFirst().orElse(null);
-
-            if (currentBody == null) return null;
-
-            return EntityUtilities.entityStream(currentBody.getLinks(EntityKeys.WAYPOINT))
-                .map(waypointEntity ->
-                {
-                    var waypointMap = new HashMap<String, Object>();
-                    var waypointLatitude = ((Double) waypointEntity.getProperty(EntityKeys.WAYPOINT_LATITUDE));
-                    var waypointLongitude = ((Double) waypointEntity.getProperty(EntityKeys.WAYPOINT_LONGITUDE));
-
-                    if (waypointLatitude == null || waypointLongitude == null) return null;
-
-                    waypointMap.put("waypointId", waypointEntity.getId().toString());
-                    waypointMap.put("name", waypointEntity.getProperty(EntityKeys.WAYPOINT_NAME));
-                    waypointMap.put("latitude", waypointLatitude);
-                    waypointMap.put("longitude", waypointLongitude);
-
-                    var dist = calculateDistance(waypointLongitude, waypointLatitude);
-                    var unit = dist < 1000
-                        ? "m"
-                        : "km";
-                    if (unit.equals("km"))
-                    {
-                        dist = UIFunctions.Data.round(dist / 1000d, 1);
-                    }
-                    waypointMap.put("distance", dist);
-                    waypointMap.put("unit", unit);
-
-                    return waypointMap;
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        });
-
-        if (waypointData != null && !waypointData.isEmpty())
-        {
-            waypointData.forEach(waypoint->
-            {
-                String waypointJson = JSONSupport.Write.jsonToString.apply(waypoint);
-                executeWithLock(() -> sink.accept("Waypoint", waypointJson));
-            });
-        }
-    }
-
     /**
      * When a client connects, this is called to ensure the client gets the current state
      * data. Note that after a client is connected, state data must be emitted as it changes
@@ -2905,7 +2715,7 @@ public class GameState
                     {
                         dist = dist / 1000d;
                     }
-                    dist = UIFunctions.Data.round(dist, 1);
+                    dist = UIFunctions.Math.round(dist, 1);
                     map.put("distance", dist);
                     map.put("unit", unit);
                     directUpdate.accept("Settlement", JSONSupport.Write.jsonToString.apply(map));
@@ -2963,6 +2773,238 @@ public class GameState
 
             emitPledgedPower(directUpdate);
         });
+    }
+
+    public void emitEngineerData()
+    {
+        var engineerData = prepareEngineerData();
+        executeWithLock(() -> globalUpdate.accept("Engineers", engineerData));
+    }
+
+    public void emitCurrentMass()
+    {
+        var currentMass = calculateCurrentMass();
+        executeWithLock(() -> globalUpdate.accept("CurrentMass", String.valueOf(currentMass)));
+    }
+
+    public void emitPowerStats()
+    {
+        var powerStats = calculateCurrentPowerUsage();
+        executeWithLock(() -> globalUpdate.accept("PowerStats", powerStats));
+    }
+
+    public void emitOffenseStats()
+    {
+        var offenseStats = calculateOffenseStats();
+        executeWithLock(() -> globalUpdate.accept("OffenseStats", offenseStats));
+    }
+
+    public void emitDefenseStats()
+    {
+        var defenseStats = calculateDefenseStats();
+        executeWithLock(() -> globalUpdate.accept("DefenseStats", defenseStats));
+    }
+
+    public void emitCartographyIfCurrent(long address)
+    {
+        if (starSystem.address == address)
+        {
+            emitCartographyData();
+        }
+    }
+
+    public void emitCartographyData()
+    {
+        executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
+    }
+
+    public void emitLoadoutEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Loadout", "updated"));
+    }
+
+    public void emitExtendedStatsEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Statistics", "updated"));
+    }
+
+    public void emitMarketEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Market", "updated"));
+    }
+
+    public void emitOutfittingEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Outfitting", "updated"));
+    }
+
+    public void emitShipyardEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Shipyard", "updated"));
+    }
+
+    public void emitSystemCatalog()
+    {
+        executeWithLock(() -> globalUpdate.accept("Catalog", "updated"));
+    }
+
+    public void emitMissionData()
+    {
+        emitMissionData(globalUpdate);
+    }
+
+    private void emitConflictData(BiConsumer<String, String> sink)
+    {
+        String conflictJson;
+        sink.accept("Conflicts", "clear");
+        synchronized (localConflicts)
+        {
+            var conflictData = new HashMap<String, Object>();
+            conflictData.put("conflicts", localConflicts);
+            conflictJson = JSONSupport.Write.jsonToString.apply(conflictData);
+        }
+        sink.accept("Conflicts", conflictJson);
+    }
+
+    private void emitFactionData(BiConsumer<String, String> sink)
+    {
+        sink.accept("Faction", "clear");
+        synchronized (systemFactions)
+        {
+            systemFactions.stream()
+                .map(JSONSupport.Write.jsonToString)
+                .forEach(faction -> sink.accept("Faction", faction));
+        }
+    }
+
+    private void emitMissionData(BiConsumer<String, String> sink)
+    {
+        var json = database.computeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return "";
+            var data = new HashMap<String, Object>();
+            var missionList = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MISSION))
+                .map(MissionData::toMap)
+                .collect(Collectors.toList());
+            data.put("missions", missionList);
+            return JSONSupport.Write.jsonToString.apply(data);
+        });
+
+        sink.accept("Missions", json);
+    }
+
+    private void emitAllTaskData(BiConsumer<String, String> sink)
+    {
+        List<TaskSummary> taskSummaries = getTaskSummaries();
+        taskSummaries.forEach(taskSummary -> emitTaskData(sink, taskSummary.key, taskSummary.count));
+    }
+
+    private void emitTaskData(BiConsumer<String, String> sink, String taskKey, Integer count)
+    {
+        var data = new HashMap<String, Object>();
+        data.put("key", taskKey);
+        data.put("count", count);
+        if (count > 0)
+        {
+            var task = taskCatalog.keyMap.get(taskKey);
+            var taskdata = determineTaskData(task, taskKey);
+            data.put("name", taskdata.name);
+            data.put("costs", taskdata.costs);
+            data.put("effects", taskdata.effects);
+            if (!taskdata.engineers.isEmpty())
+            {
+                data.put("engineers", taskdata.engineers);
+            }
+        }
+        var jsonData = JSONSupport.Write.jsonToString.apply(data);
+        executeWithLock(() -> sink.accept("Task", jsonData));
+    }
+
+    private void emitTouchdownData(BiConsumer<String, String> sink)
+    {
+        if (touchdownLatitude == -1 || touchdownLongitude == -1 || localCoordinates == null)
+        {
+            return;
+        }
+
+        var touchdownData = new HashMap<String, Object>();
+        touchdownData.put("latitude", this.touchdownLatitude);
+        touchdownData.put("longitude", this.touchdownLongitude);
+        touchdownData.put("name", shipStatistics.get(ShipStat.Ship_Name));
+        touchdownData.put("body", nearestBody.name);
+
+        var dist = calculateDistance(touchdownLongitude, touchdownLatitude);
+        var unit = dist < 1000
+            ? "m"
+            : "km";
+        if (unit.equals("km"))
+        {
+            dist = dist / 1000d;
+        }
+        dist = UIFunctions.Math.round(dist, 1);
+        touchdownData.put("distance", dist);
+        touchdownData.put("unit", unit);
+
+        var touchdownJson = JSONSupport.Write.jsonToString.apply(touchdownData);
+        executeWithLock(() -> sink.accept("Touchdown", touchdownJson));
+    }
+
+    private void emitWaypointData(BiConsumer<String, String> sink)
+    {
+        if (starSystem == null || nearestBody == null || localCoordinates == null) return;
+
+        var waypointData = database.computeInTransaction(txn ->
+        {
+            var currentSystem = getStarSystemEntity(txn, starSystem.address);
+            if (currentSystem == null) return null;
+
+            var currentBody = EntityUtilities.entityStream(currentSystem.getLinks(EntityKeys.STELLAR_BODY))
+                .filter(body -> Objects.equals(body.getProperty(EntityKeys.STELLAR_BODY_ID), nearestBody.id))
+                .findFirst()
+                .orElse(null);
+
+            if (currentBody == null) return null;
+
+            return EntityUtilities.entityStream(currentBody.getLinks(EntityKeys.WAYPOINT))
+                .map(waypointEntity ->
+                {
+                    var waypointMap = new HashMap<String, Object>();
+                    var waypointLatitude = ((Double) waypointEntity.getProperty(EntityKeys.WAYPOINT_LATITUDE));
+                    var waypointLongitude = ((Double) waypointEntity.getProperty(EntityKeys.WAYPOINT_LONGITUDE));
+
+                    if (waypointLatitude == null || waypointLongitude == null) return null;
+
+                    waypointMap.put("waypointId", waypointEntity.getId().toString());
+                    waypointMap.put("name", waypointEntity.getProperty(EntityKeys.WAYPOINT_NAME));
+                    waypointMap.put("latitude", waypointLatitude);
+                    waypointMap.put("longitude", waypointLongitude);
+
+                    var dist = calculateDistance(waypointLongitude, waypointLatitude);
+                    var unit = dist < 1000
+                        ? "m"
+                        : "km";
+                    if (unit.equals("km"))
+                    {
+                        dist = UIFunctions.Math.round(dist / 1000d, 1);
+                    }
+                    waypointMap.put("distance", dist);
+                    waypointMap.put("unit", unit);
+
+                    return waypointMap;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        });
+
+        if (waypointData != null && !waypointData.isEmpty())
+        {
+            waypointData.forEach(waypoint->
+            {
+                String waypointJson = JSONSupport.Write.jsonToString.apply(waypoint);
+                executeWithLock(() -> sink.accept("Waypoint", waypointJson));
+            });
+        }
     }
 
     //endregion
@@ -3261,6 +3303,7 @@ public class GameState
         return true;
     }
 
+    //region Complex JSON Object Writers
 
     public String writeItemQueryData(long id)
     {
@@ -3268,9 +3311,6 @@ public class GameState
         results.put("results", queryItemData(id));
         return JSONSupport.Write.jsonToString.apply(results);
     }
-
-
-    //region Complex JSON Object Writers
 
     public String writeLoadoutJson()
     {
@@ -3293,7 +3333,24 @@ public class GameState
 
     public String writeMarketData()
     {
-        return JSONSupport.Write.jsonToString.apply(marketData);
+        return JSONSupport.Write.jsonToString.apply(commodityMarketData);
+    }
+
+    private String determineModuleDisplayText(ShipModule module)
+    {
+        var size = module.itemEffects()
+            .effectByName(ItemEffect.Size)
+            .map(d->d.doubleValue)
+            .map(Double::intValue)
+            .orElse(-1);
+
+        var grade = module.itemEffects()
+            .effectByName(ItemEffect.Class)
+            .map(d->d.stringValue)
+            .orElse("");
+
+        if (grade.isEmpty() || size ==-1) return module.displayText();
+        else return size + grade + " " + module.displayText();
     }
 
     public String writeItemListing()
@@ -3318,17 +3375,53 @@ public class GameState
                 itemListing.put(String.valueOf(shipType.id), name);
             });
 
+        Stream.of(CoreInternalModule.values())
+            .filter(module -> module.id != -1L)
+            .forEach(module ->
+            {
+                var name = determineModuleDisplayText(module)
+                    + " [" + module.id + "]";
+                itemListing.put(String.valueOf(module.id), name);
+            });
+
+        Stream.of(OptionalInternalModule.values())
+            .filter(module -> module.id != -1L)
+            .forEach(module ->
+            {
+                var name = determineModuleDisplayText(module)
+                    + " [" + module.id + "]";
+                itemListing.put(String.valueOf(module.id), name);
+            });
+
+        Stream.of(HardpointModule.values())
+            .filter(module -> module.id != -1L)
+            .forEach(module ->
+            {
+                var name = determineModuleDisplayText(module)
+                    + " [" + module.id + "]";
+                itemListing.put(String.valueOf(module.id), name);
+            });
+
+        Stream.of(UtilityModule.values())
+            .filter(module -> module.id != -1L)
+            .forEach(module ->
+            {
+                var name = determineModuleDisplayText(module)
+                    + " [" + module.id + "]";
+                itemListing.put(String.valueOf(module.id), name);
+            });
+
         return JSONSupport.Write.jsonToString.apply(itemListing);
     }
 
     public String writeOutfittingData()
     {
-        return JSONSupport.Write.jsonToString.apply(outfittingData);
+        return JSONSupport.Write.jsonToString.apply(outfittingMarketData);
     }
 
     public String writeShipyardData()
     {
-        return JSONSupport.Write.jsonToString.apply(shipyardData);
+        return JSONSupport.Write.jsonToString.apply(shipyardMarketData);
     }
 
     public String writeMarketQueryData(long id, long price, boolean export, boolean difference)
@@ -3352,20 +3445,6 @@ public class GameState
     public String writeTaskCatalog()
     {
         return rawCatalogJson;
-    }
-
-    private static class PotentialTrade
-    {
-        public final String key;
-        public final long yield;
-        public final long stock;
-
-        private PotentialTrade(String key, long yield, long stock)
-        {
-            this.key = key;
-            this.yield = yield;
-            this.stock = stock;
-        }
     }
 
     public String writeTaskMaterials()
@@ -3457,27 +3536,27 @@ public class GameState
                         {
                             var material = new AtomicReference<Material>();
                             var isCommitted = new AtomicBoolean();
-                            var yield = recipe.costStream().filter(c -> c.quantity < 0)
-                                .map(c-> c.quantity)
+                            var yield = recipe.costStream()
+                                .map(costData-> costData.quantity)
+                                .filter(quantity -> quantity < 0)
                                 .map(Math::abs)
-                                .findFirst().orElse(0L);
+                                .findFirst()
+                                .orElse(0L);
 
-                            long stock = recipe.costStream().filter(c -> c.quantity > 0)
-                                .filter(c -> c.cost instanceof Material)
-                                .filter(c -> materials.get(c.cost) != null)
-                                .peek(c ->
+                            long stock = recipe.costStream()
+                                .filter(costData -> costData.quantity > 0)
+                                .filter(costData -> costData.cost instanceof Material)
+                                .filter(costData -> materials.get(costData.cost) != null)
+                                .peek(costData -> Optional.ofNullable(costCounts.get(costData.cost))
+                                    .flatMap(runningCostData -> runningCostData.relatedTasks.stream()
+                                        .filter(relatedTask -> !relatedTask.isTrade)
+                                        .findFirst())
+                                    .ifPresent(_x -> isCommitted.set(true)))
+                                .peek(costData -> material.set(((Material) costData.cost)))
+                                .map(costData ->
                                 {
-                                    Optional.ofNullable(costCounts.get(c.cost))
-                                        .flatMap(d -> d.relatedTasks.stream()
-                                            .filter(zz -> !zz.isTrade)
-                                            .findFirst())
-                                        .ifPresent(_x -> isCommitted.set(true));
-                                })
-                                .peek(c -> material.set(((Material) c.cost)))
-                                .map(c ->
-                                {
-                                    var currentStock = materials.get(c.cost);
-                                    var pendingStock = pendingCosts.get(c.cost);
+                                    var currentStock = materials.get(costData.cost);
+                                    var pendingStock = pendingCosts.get(costData.cost);
                                     if (pendingStock == null)
                                     {
                                         pendingStock = 0L;
@@ -4017,7 +4096,6 @@ public class GameState
         return new TaskData(recipe.getDisplayLabel(), 0);
     }
 
-    @SuppressWarnings("unchecked")
     public String buildTaskCatalog()
     {
         var modules = new HashMap<String, Map<String, Object>>();
@@ -4250,7 +4328,6 @@ public class GameState
                     .computeIfAbsent(materialSubCostCategory.name(), (_k)-> new HashMap<>());
 
                 materialSubCostCategory.materials().forEach(material ->
-                {
                     material.getTradeBlueprint().ifPresent(materialTradeBlueprint ->
                     {
                         Map<String, Object> currentBlueprint = currentSubType
@@ -4284,8 +4361,7 @@ public class GameState
                                 dataMap.put("effects", taskData.effects);
                                 currentBlueprint.put(materialTradeRecipe.getName(), dataMap);
                             });
-                    });
-                });
+                    }));
             });
         });
 
