@@ -30,14 +30,21 @@ public class JournalServlet extends EventSourceServlet
 
     private class JournalSource implements EventSource
     {
+        private final String remoteHost;
         private Emitter emitter;
+
+        private JournalSource(String remoteHost)
+        {
+            this.remoteHost = remoteHost;
+        }
+
 
         @Override
         public void onOpen(Emitter emitter)
         {
             this.emitter = emitter;
             sources.add(this);
-            System.out.println("New Emitter: " + emitter);
+            System.out.println("Client Connected: " + remoteHost);
             BiConsumer<String, String> emitterUpdate = makeEmitterUpdate(this);
             gameState.emitCurrentState(emitterUpdate);
         }
@@ -47,7 +54,7 @@ public class JournalServlet extends EventSourceServlet
         {
             try
             {
-                System.out.println("Old Emitter: " + emitter);
+                System.out.println("Client Disconnected: " + remoteHost);
                 emitter.close();
             }
             catch (Exception e)
@@ -688,7 +695,7 @@ public class JournalServlet extends EventSourceServlet
     @Override
     protected EventSource newEventSource(HttpServletRequest request)
     {
-        return new JournalSource();
+        return new JournalSource(request.getRemoteHost());
     }
 
     //endregion

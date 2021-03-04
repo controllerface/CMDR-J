@@ -80,10 +80,9 @@ public class JournalServer
         {
             return new URL("http", "localhost", this.port, "/");
         }
-        catch (MalformedURLException var3)
+        catch (MalformedURLException urlException)
         {
-            var3.printStackTrace();
-            throw new RuntimeException("Unexpected Malformed URL Error", var3);
+            throw new RuntimeException("Unexpected Malformed URL Error", urlException);
         }
     }
 

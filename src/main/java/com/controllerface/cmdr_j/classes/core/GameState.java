@@ -60,8 +60,16 @@ import static java.lang.Math.*;
 
 public class GameState
 {
+    /**
+     * Held when emitting events to ensure data consistency.
+     */
     private final Lock stateLock = new ReentrantLock(true);
 
+    /**
+     * Name of the directory where the database will be written. If not already present, it
+     * will be created. The path is relative to the current user's home directory and will be
+     * written within the program's CMDR_J directory.
+     */
     private static final String DATABASE_DIRECTORY = "/db";
 
     /**
@@ -75,28 +83,107 @@ public class GameState
     private final BiConsumer<String, String> globalUpdate;
 
     /**
+     * Catalog of all possible tasks that a user can plan and track progress towards in the UI.
+     */
+    private final TaskCatalog taskCatalog = new TaskCatalog();
+
+    /**
      * The task catalog is built at construction time, as the buildTaskCatalog() method
      * is called, but the return value is actually the raw JSON representation of that
      * catalog. This is done for efficiency as the catalog itself is quite large and
      * may be requested multiple times, so serializing it more than once is just wasteful.
      */
-    private final TaskCatalog taskCatalog = new TaskCatalog();
     private final String rawCatalogJson = buildTaskCatalog();
 
-    private final Map<Statistic, String> commanderStatistics = new HashMap<>();
-    private final Map<Statistic, String> shipStatistics = new HashMap<>();
-    private final Map<Statistic, ShipModuleData> shipModules = new HashMap<>();
+    /**
+     * Base stats about the currently loaded commander, including the commander's name, credits
+     * and other game stats. Updated frequently during gameplay.
+     */
+    private final Map<Statistic, String> commanderStats = new HashMap<>();
+
+    /**
+     * Extended stats about the currently loaded commander, includes information like total play time,
+     * amount spent on various items or income from various activities. Updated only on startup.
+     */
     private final Map<String, Map<String, String>> extendedStats = new HashMap<>();
-    private final Map<Material, Integer> materials = new HashMap<>();
-    private final Map<Commodity, CommodityData> cargo = new HashMap<>();
-    private final Map<String, Object> commodityMarketData = new HashMap<>();
-    private final Map<String, Object> outfittingMarketData = new HashMap<>();
-    private final Map<String, Object> shipyardMarketData = new HashMap<>();
+
+    /**
+     * Describes the current commander's status with all known engineers. Current status with all engineers
+     * is summarized on startup, but data for an individual engineer may be update during gameplay.
+     */
     private final Map<Engineer, Map<String, Object>> engineerProgress = new HashMap<>();
+
+    /**
+     * Base stats about the current commander's current ship, includes information like ship name, make,
+     * and model. Updated during gameplay when player changes ships.
+     */
+    private final Map<Statistic, String> shipStats = new HashMap<>();
+
+    /**
+     * Data describing the loadout of the player's current ship, including weapons and core/optional modules.
+     */
+    private final Map<Statistic, ShipModuleData> shipModules = new HashMap<>();
+
+    /**
+     * Player's crafting material inventory.
+     */
+    private final Map<Material, Integer> materials = new HashMap<>();
+
+    /**
+     * Player's current cargo inventory, stored in their current ship.
+     */
+    private final Map<Commodity, CommodityData> cargo = new HashMap<>();
+
+    /**
+     * Information about the commodity market at the currently docked station or outpost, if available.
+     * Data is cleared when undocking.
+     */
+    private final Map<String, Object> commodityMarketData = new HashMap<>();
+
+    /**
+     * Information about the modules for sale in the outfitting menu at the currently docked station or outpost,
+     * if available. Data is cleared when undocking.
+     */
+    private final Map<String, Object> outfittingMarketData = new HashMap<>();
+
+    /**
+     * Information about the ships for sale in the shipyard menu at the currently docked station or outpost,
+     * if available. Data is cleared when undocking.
+     */
+    private final Map<String, Object> shipyardMarketData = new HashMap<>();
+
+    /**
+     * When a route has been plotted on the galaxy map, contains the route as a series of ordered route entries.
+     */
     private final List<RouteEntry> currentRoute = new ArrayList<>();
+
+    /**
+     * When in a populated star system, this contains information on the local factions. Updates up exit from
+     * hyperspace and on game load.
+     */
     private final List<Map<String, Object>> systemFactions = new ArrayList<>();
+
+    /**
+     * When in a populated star system, this contains information on any ongoing conflicts that may be active.
+     * Updates up exit from hyperspace and on game load.
+     */
     private final List<Map<String, Object>> localConflicts = new ArrayList<>();
+
+    /**
+     * If the player is on the surface of a planet and has selected a waypoint or other surface point to
+     * track, this will contain the opaque, unique ID referencing that location within the DB. If the
+     * tracked location is the player's last known ship location or a settlement, the value will not be
+     * a database ID but some other string describing the tracked location.
+     */
     private final AtomicReference<String> trackedLocation = new AtomicReference<>("");
+
+    /**
+     * If the player is currently participating in any community goals, this will contain information
+     * describing those goals. In general, this data updates whenever teh player checks the CG status
+     * from a station mission board. However, the game is not always consistent in this behavior and
+     * will sometimes not emit the required event when doing this. Also, sometimes the game will just
+     * randomly update the data and emit the event.
+     */
     private final List<Map<String, Object>> communityGoals = new ArrayList<>();
 
     private String commanderName = "";
@@ -116,6 +203,8 @@ public class GameState
 
     private LocalCoordinates localCoordinates;
     private SettlementLocation localSettlement;
+
+    //region Filters and Comparators
 
     /**
      * Filter function for numeric effect values that allows only non-zero values.
@@ -164,6 +253,10 @@ public class GameState
     private static final Comparator<Map<String, Object>> highestInfluence =
         Comparator.comparingDouble((Map<String, Object> f) -> (Double) f.get("Influence"))
             .reversed();
+
+    //endregion
+
+    //region Internal Classes
 
     public static class StatGroup
     {
@@ -345,6 +438,8 @@ public class GameState
         }
     }
 
+    //endregion
+
     public GameState(BiConsumer<String, String> globalUpdate)
     {
         this.globalUpdate = globalUpdate;
@@ -428,6 +523,11 @@ public class GameState
             .newInstance(UIFunctions.DATA_FOLDER + dbDirectory);
     }
 
+    /**
+     * Used to guard event emission for thread safety.
+     *
+     * @param procedure event emission procedure to execute
+     */
     private void executeWithLock(Procedure procedure)
     {
         stateLock.lock();
@@ -441,23 +541,23 @@ public class GameState
         }
     }
 
+    //region Commander Stats
 
+    public void adjustCreditBalance(long adjustment)
+    {
+        creditBalance += adjustment;
+        var balance = String.valueOf(creditBalance);
+        commanderStats.put(CommanderStat.Credits, balance);
+        executeWithLock(() -> globalUpdate.accept(CommanderStat.Credits.getName(), balance));
+        executeWithLock(() -> globalUpdate.accept("Task", "materials"));
+        emitAllTaskData(globalUpdate);
+    }
 
     public void setCommanderStat(Statistic statistic, String value)
     {
         executeWithLock(() ->
         {
-            commanderStatistics.put(statistic, value);
-            globalUpdate.accept(statistic.getName(), value);
-            updateInternalState(statistic, value);
-        });
-    }
-
-    public void setShipStat(Statistic statistic, String value)
-    {
-        executeWithLock(() ->
-        {
-            shipStatistics.put(statistic, value);
+            commanderStats.put(statistic, value);
             globalUpdate.accept(statistic.getName(), value);
             updateInternalState(statistic, value);
         });
@@ -477,8 +577,147 @@ public class GameState
         engineerProgress.put(engineer, data);
     }
 
+    private void updateInternalState(Statistic statistic, String value)
+    {
+        // player
 
+        if (statistic instanceof CommanderStat)
+        {
+            if (statistic == CommanderStat.Commander)
+            {
+                commanderName = commanderStats.get(CommanderStat.Commander);
+                database.executeInTransaction(this::ensureCommanderExists);
+            }
 
+            if (statistic == CommanderStat.Credits)
+            {
+                creditBalance = Long.parseLong(value.replace(",",""));
+                emitAllTaskData(globalUpdate);
+            }
+        }
+
+//        if (statistic instanceof RankStat)
+//        {
+//            // ignore for now
+//        }
+
+        // ship
+
+        if (statistic instanceof ShipStat)
+        {
+            if (statistic == ShipStat.Fuel_Level)
+            {
+                currentFuel = Double.parseDouble(value.replace(",",""));
+            }
+
+            if (statistic == ShipStat.ReserveLevel)
+            {
+                currentReserveFuel = Double.parseDouble(value.replace(",",""));
+            }
+
+//            if (statistic == ShipStat.ReserveCapacity)
+//            {
+//                // todo: parse value
+//            }
+//
+//            if (statistic == ShipStat.Fuel_Capacity)
+//            {
+//                // todo: parse value
+//            }
+
+            if (statistic == ShipStat.CargoCapacity)
+            {
+                cargoCapacity = Integer.parseInt(value.replace(",",""));
+            }
+
+            if (statistic == ShipStat.Ship)
+            {
+                shipType = ShipType.findShip(value).orElse(null);
+                if (shipType == null)
+                {
+                    System.err.println("Could not determine ship type: " + value);
+                }
+                else
+                {
+                    executeWithLock(() -> globalUpdate.accept("Ship_Data", shipType.toJson()));
+                }
+            }
+        }
+    }
+
+    //endregion
+
+    //region Ship Stats and Loadout
+
+    public void setShipStat(Statistic statistic, String value)
+    {
+        executeWithLock(() ->
+        {
+            shipStats.put(statistic, value);
+            globalUpdate.accept(statistic.getName(), value);
+            updateInternalState(statistic, value);
+        });
+    }
+
+    public void updateMainFuelLevel(double fuelLevel)
+    {
+        currentFuel = fuelLevel;
+        var fuelString = String.valueOf(currentFuel);
+        shipStats.put(ShipStat.Fuel_Level, fuelString);
+        executeWithLock(() -> globalUpdate.accept(ShipStat.Fuel_Level.getName(), fuelString));
+    }
+
+    public void updateFuelLevels(double main, double reservoir)
+    {
+        updateMainFuelLevel(main);
+
+        currentReserveFuel = reservoir;
+        var reservoirString = String.valueOf(currentReserveFuel);
+        shipStats.put(ShipStat.ReserveLevel, reservoirString);
+        executeWithLock(() -> globalUpdate.accept(ShipStat.ReserveLevel.getName(), reservoirString));
+    }
+
+    public void refillFuel()
+    {
+        currentFuel = Double.parseDouble(shipStats.get(ShipStat.Fuel_Capacity));
+        currentReserveFuel = Double.parseDouble(shipStats.get(ShipStat.ReserveCapacity));
+        shipStats.put(ShipStat.Fuel_Level, shipStats.get(ShipStat.Fuel_Capacity));
+        shipStats.put(ShipStat.ReserveLevel, shipStats.get(ShipStat.ReserveCapacity));
+        executeWithLock(() -> globalUpdate.accept(ShipStat.Fuel_Level.getName(), String.valueOf(currentFuel)));
+        executeWithLock(() -> globalUpdate.accept(ShipStat.ReserveLevel.getName(), String.valueOf(currentReserveFuel)));
+    }
+
+    public void clearShipModules()
+    {
+        shipModules.clear();
+    }
+
+    public void emptyModuleSlot(Statistic moduleSlot)
+    {
+        shipModules.remove(moduleSlot);
+    }
+
+    public void setShipModule(Statistic moduleSlot, ShipModuleData shipModuleData)
+    {
+        shipModules.put(moduleSlot, shipModuleData);
+    }
+
+    public ShipModuleData getShipModule(Statistic moduleSlot)
+    {
+        return shipModules.get(moduleSlot);
+    }
+
+    private ShipModuleData findShieldGenerator()
+    {
+        return shipModules.values().stream()
+            .filter(moduleData -> moduleData.module.modificationType() == ModificationType.Shield_Generator)
+            .findFirst()
+            .orElse(null);
+    }
+
+    //endregion
+
+    //region Missions
 
     public void updateMissionState(MissionData.MissionState state, long missionId)
     {
@@ -533,15 +772,9 @@ public class GameState
         executeWithLock(() -> emitMissionData(globalUpdate));
     }
 
+    //endregion
 
-
-
-    private void emitPledgedPower(BiConsumer<String, String> sink)
-    {
-        if (pledgedPower == null) return;
-        var json = JSONSupport.Write.jsonToString.apply(pledgedPower.toMap());
-        sink.accept("PowerPlay", json);
-    }
+    //region Powerplay Status
 
     public void setPledgedPower(PledgedPower pledgedPower)
     {
@@ -561,8 +794,9 @@ public class GameState
         executeWithLock(()-> globalUpdate.accept("PowerPlay", "clear"));
     }
 
+    //endregion
 
-
+    //region Cargo Methods
 
     public void clearCargo()
     {
@@ -623,12 +857,9 @@ public class GameState
         emitAllTaskData(globalUpdate);
     }
 
+    //endregion
 
-
-    public void clearShipModules()
-    {
-        shipModules.clear();
-    }
+    //region Galactic and System Location Information
 
     public void setCurrentRoute(List<RouteEntry> route)
     {
@@ -660,155 +891,12 @@ public class GameState
         emitAllTaskData(globalUpdate);
     }
 
-
-
-
     public void approachBody(StellarBody stellarBody)
     {
         nearestBody = stellarBody;
         String bodyData = JSONSupport.Write.jsonToString.apply(nearestBody.toMap());
         executeWithLock(() -> globalUpdate.accept("ApproachBody", bodyData));
         emitWaypointData(globalUpdate);
-    }
-
-    public void leaveBody()
-    {
-        nearestBody = null;
-        localSettlement = null;
-        touchdownLatitude = -1;
-        touchdownLongitude = -1;
-        executeWithLock(() -> globalUpdate.accept("LeaveBody", "leave"));
-    }
-
-    public void touchDown(double touchdownLatitude, double touchdownLongitude)
-    {
-        this.touchdownLatitude = touchdownLatitude;
-        this.touchdownLongitude = touchdownLongitude;
-        emitTouchdownData(globalUpdate);
-        executeWithLock(() -> globalUpdate.accept("Land", nearestBody.name));
-    }
-
-    public void liftoff()
-    {
-        this.touchdownLatitude = -1;
-        this.touchdownLongitude = -1;
-        executeWithLock(() -> globalUpdate.accept("Liftoff", "liftoff"));
-    }
-
-
-
-
-    public boolean createWaypoint()
-    {
-        if (localCoordinates == null || nearestBody == null)
-        {
-            return false;
-        }
-        var created = database.computeInTransaction(txn ->
-        {
-            var currentSystem = getStarSystemEntity(txn, starSystem.address);
-            if (currentSystem == null) return false;
-
-            var currentBody = EntityUtilities.entityStream(currentSystem.getLinks(EntityKeys.STELLAR_BODY))
-                .filter(body -> body.getProperty(EntityKeys.STELLAR_BODY_ID).equals(nearestBody.id))
-                .findFirst().orElse(null);
-
-            if (currentBody == null) return false;
-
-            var newWaypoint = txn.newEntity(EntityKeys.WAYPOINT);
-            newWaypoint.setLink(EntityKeys.STELLAR_BODY, currentBody);
-            currentBody.addLink(EntityKeys.WAYPOINT, newWaypoint);
-            var name = "Waypoint-"+ System.currentTimeMillis();
-            newWaypoint.setProperty(EntityKeys.WAYPOINT_NAME, name);
-            newWaypoint.setProperty(EntityKeys.WAYPOINT_LATITUDE, localCoordinates.latitude);
-            newWaypoint.setProperty(EntityKeys.WAYPOINT_LONGITUDE, localCoordinates.longitude);
-            return true;
-        });
-
-        if (created)
-        {
-            emitWaypointData(globalUpdate);
-        }
-
-        return created;
-    }
-
-    public boolean renameWaypoint(String waypointId, String newName)
-    {
-        if (waypointId == null || newName == null) return false;
-
-        var renamed = database.computeInTransaction(txn ->
-        {
-            String[] parts = waypointId.split("-");
-            var type = Integer.parseInt(parts[0]);
-            var local = Long.parseLong(parts[1]);
-            var entityId = new PersistentEntityId(type, local);
-            var toRename = txn.getEntity(entityId);
-            toRename.setProperty(EntityKeys.WAYPOINT_NAME, newName);
-
-            var waypointMap = new HashMap<String, Object>();
-            var waypointLatitude = ((Double) toRename.getProperty(EntityKeys.WAYPOINT_LATITUDE));
-            var waypointLongitude = ((Double) toRename.getProperty(EntityKeys.WAYPOINT_LONGITUDE));
-
-            if (waypointLatitude == null || waypointLongitude == null) return null;
-
-            waypointMap.put("waypointId", toRename.getId().toString());
-            waypointMap.put("name", toRename.getProperty(EntityKeys.WAYPOINT_NAME));
-            waypointMap.put("latitude", waypointLatitude);
-            waypointMap.put("longitude", waypointLongitude);
-
-            var dist = calculateDistance(waypointLongitude, waypointLatitude);
-            var unit = dist < 1000
-                ? "m"
-                : "km";
-            if (unit.equals("km"))
-            {
-                dist = UIFunctions.Math.round(dist / 1000d, 1);
-            }
-            waypointMap.put("distance", dist);
-            waypointMap.put("unit", unit);
-
-            return waypointMap;
-        });
-
-        if (renamed != null)
-        {
-            String waypointJson = JSONSupport.Write.jsonToString.apply(renamed);
-            executeWithLock(() -> globalUpdate.accept("Waypoint", waypointJson));
-        }
-
-        return renamed != null;
-    }
-
-    public boolean deleteWaypoint(String waypointId)
-    {
-        if (localCoordinates == null || nearestBody == null)
-        {
-            return false;
-        }
-        var removed = database.computeInTransaction(txn ->
-        {
-            String[] parts = waypointId.split("-");
-            var type = Integer.parseInt(parts[0]);
-            var local = Long.parseLong(parts[1]);
-            var entityId = new PersistentEntityId(type, local);
-            var toRemove = txn.getEntity(entityId);
-            var linkedBody = toRemove.getLink(EntityKeys.STELLAR_BODY);
-            if (linkedBody == null) return false;
-            linkedBody.deleteLink(EntityKeys.WAYPOINT, toRemove);
-            return toRemove.delete();
-        });
-
-        if (removed)
-        {
-            var removeData = new HashMap<String, Object>();
-            removeData.put("remove", true);
-            removeData.put("waypointId", waypointId);
-            String waypointJson = JSONSupport.Write.jsonToString.apply(removeData);
-            executeWithLock(() -> globalUpdate.accept("Waypoint", waypointJson));
-        }
-
-        return removed;
     }
 
     public void discoverLocation(StarSystem starSystem)
@@ -823,7 +911,185 @@ public class GameState
         });
     }
 
+    public void dock(String dockedLocation)
+    {
+        this.dockedLocation = dockedLocation;
+        executeWithLock(() -> globalUpdate.accept("Docked", this.dockedLocation));
+    }
 
+    public void undock()
+    {
+        dockedLocation = "";
+        commodityMarketData.clear();
+        outfittingMarketData.clear();
+        shipyardMarketData.clear();
+        emitMarketEvent();
+        emitOutfittingEvent();
+        emitShipyardEvent();
+        executeWithLock(() -> globalUpdate.accept("Undocked", "undocked"));
+    }
+
+    public int findBodyId(String bodyName)
+    {
+        return database.computeInTransaction(txn ->
+        {
+            var currentSystem = getStarSystemEntity(txn, starSystem.address);
+            if (currentSystem == null)
+            {
+                return -1;
+            }
+
+            var stellarBody = EntityUtilities.entityStream(currentSystem.getLinks(EntityKeys.STELLAR_BODY))
+                .filter(entity -> Objects.equals(entity.getProperty(EntityKeys.STELLAR_BODY_NAME), bodyName))
+                .findFirst()
+                .orElse(null);
+
+            if (stellarBody == null)
+            {
+                return -1;
+            }
+            return Optional.ofNullable(stellarBody.getProperty(EntityKeys.STELLAR_BODY_ID))
+                .map(c-> ((int) c)).orElse(-1);
+        });
+    }
+
+    public void updateSystemBodyCount(long address, int count)
+    {
+        database.executeInTransaction(transaction -> Optional.ofNullable(getStarSystemEntity(transaction, address))
+            .ifPresent(systemEntity -> systemEntity.setProperty(EntityKeys.STAR_SYSTEM_BODY_COUNT, count)));
+
+        if (address == starSystem.address)
+        {
+            executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
+        }
+    }
+
+    public void updateBodyMapped(long address, int body)
+    {
+        database.executeInTransaction(transaction -> Optional.ofNullable(getStarSystemEntity(transaction, address))
+            .flatMap(systemEntity -> EntityUtilities.entityStream(systemEntity.getLinks(EntityKeys.STELLAR_BODY))
+                .filter(systemBody -> Objects.equals(systemBody.getProperty(EntityKeys.STELLAR_BODY_ID), body))
+                .findFirst()).ifPresent(foundBody -> foundBody.setProperty(EntityKeys.STELLAR_BODY_MAPPED, true)));
+
+        if (address == starSystem.address)
+        {
+            executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
+        }
+    }
+
+    public void discoverStellarBody(StellarBody stellarBody)
+    {
+        database.executeInTransaction(txn ->
+        {
+            var systemEntity = getStarSystemEntity(txn, stellarBody.address);
+            if (systemEntity == null)
+            {
+                // todo: log an error: unexpected missing system during scan
+                return;
+            }
+
+            var bodies = txn.find(EntityKeys.STELLAR_BODY, EntityKeys.STELLAR_BODY_ID, stellarBody.id);
+            var bodyEntity = EntityUtilities.entityStream(bodies)
+                .filter(body ->
+                {
+                    var linkedSystem = body.getLink(EntityKeys.STAR_SYSTEM);
+                    if (linkedSystem == null) return false;
+                    return linkedSystem.getId().compareTo(systemEntity.getId()) == 0;
+                })
+                .findFirst().orElseGet(() ->
+                {
+                    var newBody = txn.newEntity(EntityKeys.STELLAR_BODY);
+                    newBody.setLink(EntityKeys.STAR_SYSTEM, systemEntity);
+                    systemEntity.addLink(EntityKeys.STELLAR_BODY, newBody);
+                    return newBody;
+                });
+            stellarBody.storeBodyData(bodyEntity);
+        });
+    }
+
+    public boolean savePoiData(long systemAddress, String poiText)
+    {
+        return database.computeInTransaction(transaction ->
+        {
+            var system = getStarSystemEntity(transaction, systemAddress);
+            if (system == null) return false;
+            var newPoi = transaction.newEntity(EntityKeys.POI_NOTE);
+            newPoi.setLink(EntityKeys.STAR_SYSTEM, system);
+            system.addLink(EntityKeys.POI_NOTE, newPoi);
+            newPoi.setBlobString(EntityKeys.POI_TEXT, poiText);
+            return true;
+        });
+    }
+
+    public boolean deletePoiData(long systemAddress, String poiId)
+    {
+        return database.computeInTransaction(transaction ->
+        {
+            var system = getStarSystemEntity(transaction, systemAddress);
+            if (system == null) return false;
+
+            String[] parts = poiId.split("-");
+            var type = Integer.parseInt(parts[0]);
+            var local = Long.parseLong(parts[1]);
+            var entityId = new PersistentEntityId(type, local);
+            var note = transaction.getEntity(entityId);
+            var parent = note.getLink(EntityKeys.STAR_SYSTEM);
+            if (parent == null) return false;
+
+            if (parent.getId().equals(system.getId()))
+            {
+                return system.deleteLink(EntityKeys.POI_NOTE, note)
+                    && note.delete();
+            }
+            return false;
+        });
+    }
+
+    //endregion
+
+    //region Market Info (Commodities, Outfitting, Shipyard)
+
+    public void setOutfittingData(Map<String, Object> outfittingData)
+    {
+        this.outfittingMarketData.clear();
+        this.outfittingMarketData.putAll(outfittingData);
+        database.executeInTransaction(txn -> updateMarketData(txn, outfittingData));
+    }
+
+    public void setShipyardData(Map<String, Object> shipyardData)
+    {
+        this.shipyardMarketData.clear();
+        this.shipyardMarketData.putAll(shipyardData);
+        database.executeInTransaction(txn -> updateMarketData(txn, shipyardData));
+    }
+
+    public void setCommodityMarketData(Map<String, Object> commodityData)
+    {
+        this.commodityMarketData.clear();
+        this.commodityMarketData.putAll(commodityData);
+        database.executeInTransaction(txn -> updateMarketData(txn, commodityData));
+    }
+
+    private void updateMarketData(StoreTransaction txn, Map<String, Object> marketData)
+    {
+        var commander = getCommanderEntity(txn);
+        var system = getStarSystemEntity(txn, starSystem.address);
+        if (commander == null || system == null) return;
+
+        var market = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MARKET))
+            .filter(stellarBody -> Objects.equals(stellarBody.getProperty(EntityKeys.MARKET_ID), marketData.get("marketId")))
+            .findFirst().orElseGet(()->
+            {
+                var newMarket = txn.newEntity(EntityKeys.MARKET);
+                newMarket.setLink(EntityKeys.COMMANDER, commander);
+                newMarket.setLink(EntityKeys.STAR_SYSTEM, system);
+                newMarket.setProperty(EntityKeys.MARKET_ID, ((Number) marketData.get("marketId")).longValue());
+                commander.addLink(EntityKeys.MARKET, newMarket);
+                return newMarket;
+            });
+
+        mapToEntity(marketData, market);
+    }
 
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> queryMarketData(long itemId, long price, boolean export, boolean difference)
@@ -853,7 +1119,7 @@ public class GameState
                         return Collections.emptyMap();
                     }
 
-                    var mktMap = e2m(mkt);
+                    var mktMap = entityToMap(mkt);
 
                     var current = commodityMarketData.get("marketId");
                     var checking = mktMap.get(EntityKeys.MARKET_ID);
@@ -948,26 +1214,6 @@ public class GameState
         });
     }
 
-    private String determineCategoryKey(long itemId)
-    {
-        if (Commodity.findById(itemId) != null)
-        {
-            return "exports";
-        }
-        else if (ShipType.findById(itemId) != null)
-        {
-            return "ships";
-        }
-        else if (CoreInternalModule.findById(itemId) != null
-            || OptionalInternalModule.findById(itemId) != null
-            || HardpointModule.findById(itemId) != null
-            || UtilityModule.findById(itemId) != null)
-        {
-            return "modules";
-        }
-        return "";
-    }
-
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> queryItemData(long itemId)
     {
@@ -997,7 +1243,7 @@ public class GameState
                         return Collections.emptyMap();
                     }
 
-                    var marketMap = e2m(market);
+                    var marketMap = entityToMap(market);
 
                     var itemCategory = ((Map<String, Map<String, Object>>) marketMap.get(categoryKey));
                     if (itemCategory == null)
@@ -1060,119 +1306,9 @@ public class GameState
         });
     }
 
-    private Map<String, Object> e2m(Entity entity)
-    {
-        var map = new HashMap<String, Object>();
-        entity.getPropertyNames()
-            .forEach(property -> map.put(property, entity.getProperty(property)));
+    //endregion
 
-        entity.getBlobNames()
-            .forEach(blobName ->
-            {
-                var json = entity.getBlobString(blobName);
-                var jsonMap =  JSONSupport.Parse.jsonString.apply(json);
-                map.put(blobName, jsonMap.get("json"));
-            });
-        return map;
-    }
-
-    private void m2e(Map<String, Object> mapData, Entity entity)
-    {
-        mapData.forEach((name, value)->
-        {
-            if (value instanceof List)
-            {
-                var json = new HashMap<String, Object>();
-                json.put("json", value);
-                entity.setBlobString(name, JSONSupport.Write.jsonToString.apply(json));
-                return;
-            }
-            else if (value instanceof Map)
-            {
-                var json = new HashMap<String, Object>();
-                json.put("json", value);
-                entity.setBlobString(name, JSONSupport.Write.jsonToString.apply(json));
-                return;
-            }
-
-            if (value instanceof String)
-            {
-                if (((String) value).isEmpty())
-                {
-                    return;
-                }
-            }
-
-            entity.setProperty(name, ((Comparable<?>) value));
-        });
-    }
-
-
-
-    public void dock(String dockedLocation)
-    {
-        this.dockedLocation = dockedLocation;
-        executeWithLock(() -> globalUpdate.accept("Docked", this.dockedLocation));
-    }
-
-    public void undock()
-    {
-        dockedLocation = "";
-        commodityMarketData.clear();
-        outfittingMarketData.clear();
-        shipyardMarketData.clear();
-        emitMarketEvent();
-        emitOutfittingEvent();
-        emitShipyardEvent();
-        executeWithLock(() -> globalUpdate.accept("Undocked", "undocked"));
-    }
-
-
-
-
-    public void setOutfittingData(Map<String, Object> outfittingData)
-    {
-        this.outfittingMarketData.clear();
-        this.outfittingMarketData.putAll(outfittingData);
-        database.executeInTransaction(txn -> updateMarketData(txn, outfittingData));
-    }
-
-    public void setShipyardData(Map<String, Object> shipyardData)
-    {
-        this.shipyardMarketData.clear();
-        this.shipyardMarketData.putAll(shipyardData);
-        database.executeInTransaction(txn -> updateMarketData(txn, shipyardData));
-    }
-
-    public void setCommodityMarketData(Map<String, Object> commodityData)
-    {
-        this.commodityMarketData.clear();
-        this.commodityMarketData.putAll(commodityData);
-        database.executeInTransaction(txn -> updateMarketData(txn, commodityData));
-    }
-
-    private void updateMarketData(StoreTransaction txn, Map<String, Object> marketData)
-    {
-        var commander = getCommanderEntity(txn);
-        var system = getStarSystemEntity(txn, starSystem.address);
-        if (commander == null || system == null) return;
-
-        var market = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MARKET))
-            .filter(stellarBody -> Objects.equals(stellarBody.getProperty(EntityKeys.MARKET_ID), marketData.get("marketId")))
-            .findFirst().orElseGet(()->
-            {
-                var newMarket = txn.newEntity(EntityKeys.MARKET);
-                newMarket.setLink(EntityKeys.COMMANDER, commander);
-                newMarket.setLink(EntityKeys.STAR_SYSTEM, system);
-                newMarket.setProperty(EntityKeys.MARKET_ID, ((Number) marketData.get("marketId")).longValue());
-                commander.addLink(EntityKeys.MARKET, newMarket);
-                return newMarket;
-            });
-
-        m2e(marketData, market);
-    }
-
-
+    //region Community Goals
 
     private void emitCommunityGoals(BiConsumer<String, String> sink)
     {
@@ -1200,12 +1336,9 @@ public class GameState
         executeWithLock(() -> emitCommunityGoals(globalUpdate));
     }
 
+    //endregion
 
-
-
-
-
-
+    //region Crafting Materials
 
     public void adjustMaterialCount(Material material, Integer count)
     {
@@ -1231,7 +1364,55 @@ public class GameState
         executeWithLock(() -> globalUpdate.accept("Material", writeMaterialEvent(material, count)));
     }
 
+    //endregion
 
+    //region Planetary Surface, GPS Methods
+
+    public void leaveBody()
+    {
+        nearestBody = null;
+        localSettlement = null;
+        touchdownLatitude = -1;
+        touchdownLongitude = -1;
+        executeWithLock(() -> globalUpdate.accept("LeaveBody", "leave"));
+    }
+
+    public void touchDown(double touchdownLatitude, double touchdownLongitude)
+    {
+        this.touchdownLatitude = touchdownLatitude;
+        this.touchdownLongitude = touchdownLongitude;
+        emitTouchdownData(globalUpdate);
+        executeWithLock(() -> globalUpdate.accept("Land", nearestBody.name));
+    }
+
+    public void liftoff()
+    {
+        this.touchdownLatitude = -1;
+        this.touchdownLongitude = -1;
+        executeWithLock(() -> globalUpdate.accept("Liftoff", "liftoff"));
+    }
+
+    public void discoverSettlement(SettlementLocation settlementLocation)
+    {
+        database.executeInTransaction(txn ->
+        {
+            var bodyEntity = getStarNearestBodyEntity(txn);
+            if (bodyEntity == null) return;
+
+            var settlements = bodyEntity.getLinks(EntityKeys.PLANETARY_SETTLEMENT);
+            var settlementEntity = EntityUtilities.entityStream(settlements)
+                .filter(settlement ->
+                    Objects.equals(settlement.getProperty(EntityKeys.MARKET_ID), settlementLocation.marketId))
+                .findFirst().orElseGet(() ->
+                {
+                    var newSettlement = txn.newEntity(EntityKeys.PLANETARY_SETTLEMENT);
+                    newSettlement.setLink(EntityKeys.STELLAR_BODY, bodyEntity);
+                    bodyEntity.addLink(EntityKeys.PLANETARY_SETTLEMENT, newSettlement);
+                    return newSettlement;
+                });
+            settlementLocation.storeSettlementData(settlementEntity);
+        });
+    }
 
     public SettlementLocation getLocalSettlement(Long marketID)
     {
@@ -1248,7 +1429,7 @@ public class GameState
         if (localCoordinates == null) return;
 
         var map = this.localSettlement.toMap();
-        var dist = calculateDistance(this.localSettlement.longitude, this.localSettlement.latitude);
+        var dist = calculateWaypointDistance(this.localSettlement.longitude, this.localSettlement.latitude);
         var unit = dist < 1000
             ? "m"
             : "km";
@@ -1282,6 +1463,182 @@ public class GameState
             executeWithLock(() -> globalUpdate.accept("Bearing", bearing));
         }
     }
+
+    public void setTrackedLocation(String trackedLocation)
+    {
+        this.trackedLocation.set(trackedLocation);
+        var bearing = getBearing();
+        if (!bearing.isEmpty())
+        {
+            executeWithLock(() -> globalUpdate.accept("Bearing", bearing));
+        }
+    }
+
+    public void clearTrackedLocation()
+    {
+        this.trackedLocation.set("");
+        executeWithLock(() -> globalUpdate.accept("Bearing", "-"));
+    }
+
+    public boolean createWaypoint()
+    {
+        if (localCoordinates == null || nearestBody == null)
+        {
+            return false;
+        }
+        var created = database.computeInTransaction(txn ->
+        {
+            var currentSystem = getStarSystemEntity(txn, starSystem.address);
+            if (currentSystem == null) return false;
+
+            var currentBody = EntityUtilities.entityStream(currentSystem.getLinks(EntityKeys.STELLAR_BODY))
+                .filter(body -> Objects.equals(body.getProperty(EntityKeys.STELLAR_BODY_ID), nearestBody.id))
+                .findFirst().orElse(null);
+
+            if (currentBody == null) return false;
+
+            var newWaypoint = txn.newEntity(EntityKeys.WAYPOINT);
+            newWaypoint.setLink(EntityKeys.STELLAR_BODY, currentBody);
+            currentBody.addLink(EntityKeys.WAYPOINT, newWaypoint);
+            var name = "Waypoint-"+ System.currentTimeMillis();
+            newWaypoint.setProperty(EntityKeys.WAYPOINT_NAME, name);
+            newWaypoint.setProperty(EntityKeys.WAYPOINT_LATITUDE, localCoordinates.latitude);
+            newWaypoint.setProperty(EntityKeys.WAYPOINT_LONGITUDE, localCoordinates.longitude);
+            return true;
+        });
+
+        if (created)
+        {
+            emitWaypointData(globalUpdate);
+        }
+
+        return created;
+    }
+
+    public boolean renameWaypoint(String waypointId, String newName)
+    {
+        if (waypointId == null || newName == null) return false;
+
+        var renamed = database.computeInTransaction(txn ->
+        {
+            String[] parts = waypointId.split("-");
+            var type = Integer.parseInt(parts[0]);
+            var local = Long.parseLong(parts[1]);
+            var entityId = new PersistentEntityId(type, local);
+            var toRename = txn.getEntity(entityId);
+            toRename.setProperty(EntityKeys.WAYPOINT_NAME, newName);
+
+            var waypointMap = new HashMap<String, Object>();
+            var waypointLatitude = ((Double) toRename.getProperty(EntityKeys.WAYPOINT_LATITUDE));
+            var waypointLongitude = ((Double) toRename.getProperty(EntityKeys.WAYPOINT_LONGITUDE));
+
+            if (waypointLatitude == null || waypointLongitude == null) return null;
+
+            waypointMap.put("waypointId", toRename.getId().toString());
+            waypointMap.put("name", toRename.getProperty(EntityKeys.WAYPOINT_NAME));
+            waypointMap.put("latitude", waypointLatitude);
+            waypointMap.put("longitude", waypointLongitude);
+
+            var dist = calculateWaypointDistance(waypointLongitude, waypointLatitude);
+            var unit = dist < 1000
+                ? "m"
+                : "km";
+            if (unit.equals("km"))
+            {
+                dist = UIFunctions.Math.round(dist / 1000d, 1);
+            }
+            waypointMap.put("distance", dist);
+            waypointMap.put("unit", unit);
+
+            return waypointMap;
+        });
+
+        if (renamed != null)
+        {
+            String waypointJson = JSONSupport.Write.jsonToString.apply(renamed);
+            executeWithLock(() -> globalUpdate.accept("Waypoint", waypointJson));
+        }
+
+        return renamed != null;
+    }
+
+    public boolean deleteWaypoint(String waypointId)
+    {
+        if (localCoordinates == null || nearestBody == null)
+        {
+            return false;
+        }
+        var removed = database.computeInTransaction(txn ->
+        {
+            String[] parts = waypointId.split("-");
+            var type = Integer.parseInt(parts[0]);
+            var local = Long.parseLong(parts[1]);
+            var entityId = new PersistentEntityId(type, local);
+            var toRemove = txn.getEntity(entityId);
+            var linkedBody = toRemove.getLink(EntityKeys.STELLAR_BODY);
+            if (linkedBody == null) return false;
+            linkedBody.deleteLink(EntityKeys.WAYPOINT, toRemove);
+            return toRemove.delete();
+        });
+
+        if (removed)
+        {
+            var removeData = new HashMap<String, Object>();
+            removeData.put("remove", true);
+            removeData.put("waypointId", waypointId);
+            String waypointJson = JSONSupport.Write.jsonToString.apply(removeData);
+            executeWithLock(() -> globalUpdate.accept("Waypoint", waypointJson));
+        }
+
+        return removed;
+    }
+
+    //endregion
+
+    //region Factions and Conflicts
+
+    public void clearFactionData()
+    {
+        synchronized (systemFactions)
+        {
+            systemFactions.clear();
+        }
+        executeWithLock(() -> globalUpdate.accept("Faction", "clear"));
+    }
+
+    public void acceptFactionData(List<Map<String, Object>> factionData)
+    {
+        synchronized (systemFactions)
+        {
+            systemFactions.clear();
+            systemFactions.addAll(factionData);
+            systemFactions.sort(highestInfluence);
+        }
+        executeWithLock(() -> emitFactionData(globalUpdate));
+    }
+
+    public void clearConflictData()
+    {
+        synchronized (localConflicts)
+        {
+            localConflicts.clear();
+        }
+        executeWithLock(() -> globalUpdate.accept("Conflicts", "clear"));
+    }
+
+    public void acceptConflictData(List<Map<String, Object>> conflictData)
+    {
+        synchronized (localConflicts)
+        {
+            localConflicts.clear();
+            localConflicts.addAll(conflictData);
+        }
+        executeWithLock(() -> emitConflictData(globalUpdate));
+    }
+
+    //endregion
+
+    //region Data Calculation Methods
 
     private String getBearing()
     {
@@ -1340,163 +1697,91 @@ public class GameState
         return "";
     }
 
-    public void setTrackedLocation(String trackedLocation)
+    private int getMilitarySize()
     {
-        this.trackedLocation.set(trackedLocation);
-        var bearing = getBearing();
-        if (!bearing.isEmpty())
-        {
-            executeWithLock(() -> globalUpdate.accept("Bearing", bearing));
-        }
+        return Arrays.stream(shipType.getInternals().getSlots())
+            .filter(moduleSize -> moduleSize.name().contains("MILITARY"))
+            .map(moduleSize -> moduleSize.intValue)
+            .findFirst().orElseThrow();
     }
 
-    public void clearTrackedLocation()
+    private String prepareEngineerData()
     {
-        this.trackedLocation.set("");
-        executeWithLock(() -> globalUpdate.accept("Bearing", "-"));
-    }
-
-    public void emptyModuleSlot(Statistic moduleSlot)
-    {
-        shipModules.remove(moduleSlot);
-    }
-
-    public void setShipModule(Statistic moduleSlot, ShipModuleData shipModuleData)
-    {
-        shipModules.put(moduleSlot, shipModuleData);
-    }
-
-    public ShipModuleData getShipModule(Statistic moduleSlot)
-    {
-        return shipModules.get(moduleSlot);
-    }
-
-    public void adjustCreditBalance(long adjustment)
-    {
-        creditBalance += adjustment;
-        var balance = String.valueOf(creditBalance);
-        commanderStatistics.put(CommanderStat.Credits, balance);
-        executeWithLock(() -> globalUpdate.accept(CommanderStat.Credits.getName(), balance));
-        executeWithLock(() -> globalUpdate.accept("Task", "materials"));
-        emitAllTaskData(globalUpdate);
-    }
-
-    public void updateMainFuelLevel(double fuelLevel)
-    {
-        currentFuel = fuelLevel;
-        var fuelString = String.valueOf(currentFuel);
-        shipStatistics.put(ShipStat.Fuel_Level, fuelString);
-        executeWithLock(() -> globalUpdate.accept(ShipStat.Fuel_Level.getName(), fuelString));
-    }
-
-    public void updateFuelLevels(double main, double reservoir)
-    {
-        updateMainFuelLevel(main);
-
-        currentReserveFuel = reservoir;
-        var reservoirString = String.valueOf(currentReserveFuel);
-        shipStatistics.put(ShipStat.ReserveLevel, reservoirString);
-        executeWithLock(() -> globalUpdate.accept(ShipStat.ReserveLevel.getName(), reservoirString));
-    }
-
-    public void refillFuel()
-    {
-        currentFuel = Double.parseDouble(shipStatistics.get(ShipStat.Fuel_Capacity));
-        currentReserveFuel = Double.parseDouble(shipStatistics.get(ShipStat.ReserveCapacity));
-        shipStatistics.put(ShipStat.Fuel_Level, shipStatistics.get(ShipStat.Fuel_Capacity));
-        shipStatistics.put(ShipStat.ReserveLevel, shipStatistics.get(ShipStat.ReserveCapacity));
-        executeWithLock(() -> globalUpdate.accept(ShipStat.Fuel_Level.getName(), String.valueOf(currentFuel)));
-        executeWithLock(() -> globalUpdate.accept(ShipStat.ReserveLevel.getName(), String.valueOf(currentReserveFuel)));
-    }
-
-    private void updateInternalState(Statistic statistic, String value)
-    {
-        // player
-
-        if (statistic instanceof CommanderStat)
-        {
-            if (statistic == CommanderStat.Commander)
+        Arrays.stream(Engineer.values())
+            .filter(e->!engineerProgress.containsKey(e))
+            .forEach(engineer ->
             {
-                commanderName = commanderStatistics.get(CommanderStat.Commander);
-                database.executeInTransaction(this::ensureCommanderExists);
-            }
+                var unknownEngineer = new HashMap<String, Object>();
+                unknownEngineer.put("status", "Unknown");
+                unknownEngineer.put("rank", 0);
+                unknownEngineer.put("progress", 0);
+                unknownEngineer.put("location", "Unknown");
+                unknownEngineer.put("system", "Unknown");
+                unknownEngineer.put("distance", -1);
+                unknownEngineer.put("name", engineer.getFullName());
+                engineerProgress.put(engineer, unknownEngineer);
+            });
 
-            if (statistic == CommanderStat.Credits)
-            {
-                creditBalance = Long.parseLong(value.replace(",",""));
-                emitAllTaskData(globalUpdate);
-            }
-        }
+        var formattedData = new HashMap<String, Object>();
+        engineerProgress.forEach(((engineer, data) -> formattedData.put(engineer.name(), data)));
 
-//        if (statistic instanceof RankStat)
-//        {
-//            // ignore for now
-//        }
-
-        // ship
-
-        if (statistic instanceof ShipStat)
-        {
-            if (statistic == ShipStat.Fuel_Level)
-            {
-                currentFuel = Double.parseDouble(value.replace(",",""));
-            }
-
-            if (statistic == ShipStat.ReserveLevel)
-            {
-                currentReserveFuel = Double.parseDouble(value.replace(",",""));
-            }
-
-//            if (statistic == ShipStat.ReserveCapacity)
-//            {
-//                // todo: parse value
-//            }
-//
-//            if (statistic == ShipStat.Fuel_Capacity)
-//            {
-//                // todo: parse value
-//            }
-
-            if (statistic == ShipStat.CargoCapacity)
-            {
-                cargoCapacity = Integer.parseInt(value.replace(",",""));
-            }
-
-            if (statistic == ShipStat.Ship)
-            {
-                shipType = ShipType.findShip(value).orElse(null);
-                if (shipType == null)
-                {
-                    System.err.println("Could not determine ship type: " + value);
-                }
-                else
-                {
-                    executeWithLock(() -> globalUpdate.accept("Ship_Data", shipType.toJson()));
-                }
-            }
-        }
+        return JSONSupport.Write.jsonToString.apply(formattedData);
     }
 
-    private ShipModuleData findShipModule(ModificationType type)
+    private String prepareNavRouteData()
     {
-        return shipModules.values().stream()
-            .filter(moduleData -> moduleData.module.modificationType() == type)
-            .findFirst()
-            .orElse(null);
+        var data = new HashMap<String, Object>();
+
+        var routePoints = currentRoute.stream()
+            .map(routeEntry ->
+            {
+                var formattedData = new HashMap<String, Object>();
+                formattedData.put("name", routeEntry.starSystem.systemName);
+                formattedData.put("distance", this.starSystem.distanceBetween(routeEntry.starSystem));
+                formattedData.put("starClass", routeEntry.starClass);
+                return formattedData;
+            })
+            .collect(Collectors.toList());
+
+        data.put("route", routePoints);
+        data.put("jumps", currentRoute.size() - 1);
+        return JSONSupport.Write.jsonToString.apply(data);
     }
 
-
+    /**
+     * Calculates a distance between two latitude/longitude pairs, taking into account the radius of the planet and
+     * the player's altitude. Waypoints are currently assumed to be on the planet's surface for the purpose of
+     * distance calculations. Due to irregularities in planet topology, the distances may be slightly off depending on
+     * the planet. For use as a general guide though, the values and relative positions in the map should be correct.
+     * The unit of measurement for this function is meters.
+     *
+     * This method uses the old trigonometric Haversine function to determine the "Great circle distance" between two
+     * latitude and longitude points on the planet. This implementation also accounts for altitude when determining the
+     * distance to a position.
+     *
+     * @param waypointLongitude the waypoint's longitude
+     * @param waypointLatitude the waypoint's latitude
+     * @return the approximate distance between the two points in meters
+     */
+    private double calculateWaypointDistance(double waypointLongitude, double waypointLatitude)
+    {
+        return UIFunctions.Math.calculateSurfaceDistance(waypointLatitude, waypointLongitude,
+            localCoordinates.latitude,
+            localCoordinates.longitude,
+            localCoordinates.altitude,
+            localCoordinates.radius);
+    }
 
     private double calculateEffectValue(ItemEffect effect)
     {
         return calculateFilteredEffectValue(effect, (_s) -> true);
     }
 
-    private double calculateModuleEffectValue(ItemEffect effect, Predicate<ShipModuleData> allowedModule)
+    private double calculateShieldBoosterEffect()
     {
         return shipModules.values().stream()
-            .filter(allowedModule)
-            .map(shipModuleData -> shipModuleData.effectByName(effect))
+            .filter((m) -> m.module.modificationType() == ModificationType.Shield_Booster)
+            .map(shipModuleData -> shipModuleData.effectByName(ItemEffect.DefenceModifierShieldMultiplier))
             .filter(Optional::isPresent)
             .map(Optional::get)
             .mapToDouble(e->e.doubleValue)
@@ -1597,7 +1882,7 @@ public class GameState
 
         // first check for an actual shield generator. The game ensures there will only ever be one generator
         // equipped, so there should only be one or none.
-        ShipModuleData shieldGenerator = findShipModule(ModificationType.Shield_Generator);
+        ShipModuleData shieldGenerator = findShieldGenerator();
 
         // no generator means no shields, so just return zero
         if (shieldGenerator == null) return new StatGroup();
@@ -1730,8 +2015,7 @@ public class GameState
         double shieldMultiplier = (minimumStrength + strengthPower * strengthRangeDifference) / 100d;
 
         // calculate the sum of 1 + all shield booster values, and divide by 100 for use as a percentage increase
-        double accumulatedBoost = 1 + calculateModuleEffectValue(ItemEffect.DefenceModifierShieldMultiplier,
-            (m) -> m.module.modificationType() == ModificationType.Shield_Booster) / 100d;
+        double accumulatedBoost = 1 + calculateShieldBoosterEffect() / 100d;
 
         double accumulatedShieldReinforcement = calculateEffectValue(ItemEffect.DefenceModifierShieldAddition);
 
@@ -1805,7 +2089,7 @@ public class GameState
         return statGroup;
     }
 
-    private StatGroup getArmorResistanceTotal(ItemEffect resistanceEffect)
+    private StatGroup calculateArmorResistance(ItemEffect resistanceEffect)
     {
         List<Double> resistances = new ArrayList<>();
 
@@ -1880,20 +2164,20 @@ public class GameState
         return statGroup;
     }
 
-    private StatGroup getShieldResistanceTotal(ItemEffect resistanceEffect)
+    private StatGroup calculateShieldResistance(ItemEffect resistanceEffect)
     {
         List<Double> resistances = new ArrayList<>();
         double shieldResistence = shipModules.values().stream()
-                .filter(shipModuleData -> shipModuleData.module.modificationType() == ModificationType.Shield_Generator)
-                .map(shipModuleData -> shipModuleData.effectByName(resistanceEffect).map(e -> e.doubleValue))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .filter(nonZeroValue)
-                .map(next -> 100d - next)
-                .map(next -> next / 100d)
-                .map(n-> UIFunctions.Math.round(n, 5))
-                .findFirst()
-                .orElse(1d);
+            .filter(shipModuleData -> shipModuleData.module.modificationType() == ModificationType.Shield_Generator)
+            .map(shipModuleData -> shipModuleData.effectByName(resistanceEffect).map(e -> e.doubleValue))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .filter(nonZeroValue)
+            .map(next -> 100d - next)
+            .map(next -> next / 100d)
+            .map(n-> UIFunctions.Math.round(n, 5))
+            .findFirst()
+            .orElse(1d);
 
         shipModules.values().stream()
             .filter(shipModuleData -> shipModuleData.module.modificationType() == ModificationType.Shield_Booster)
@@ -1938,31 +2222,31 @@ public class GameState
         switch (resistanceType)
         {
             case Armour_Caustic:
-                calculatedResistance = getArmorResistanceTotal(ItemEffect.CausticResistance);
+                calculatedResistance = calculateArmorResistance(ItemEffect.CausticResistance);
                 break;
 
             case Armour_Explosive:
-                calculatedResistance = getArmorResistanceTotal(ItemEffect.ExplosiveResistance);
+                calculatedResistance = calculateArmorResistance(ItemEffect.ExplosiveResistance);
                 break;
 
             case Armour_Kinetic:
-                calculatedResistance = getArmorResistanceTotal(ItemEffect.KineticResistance);
+                calculatedResistance = calculateArmorResistance(ItemEffect.KineticResistance);
                 break;
 
             case Armour_Thermal:
-                calculatedResistance = getArmorResistanceTotal(ItemEffect.ThermicResistance);
+                calculatedResistance = calculateArmorResistance(ItemEffect.ThermicResistance);
                 break;
 
             case Shield_Explosive:
-                calculatedResistance = getShieldResistanceTotal(ItemEffect.ExplosiveResistance);
+                calculatedResistance = calculateShieldResistance(ItemEffect.ExplosiveResistance);
                 break;
 
             case Shield_Kinetic:
-                calculatedResistance = getShieldResistanceTotal(ItemEffect.KineticResistance);
+                calculatedResistance = calculateShieldResistance(ItemEffect.KineticResistance);
                 break;
 
             case Shield_Thermal:
-                calculatedResistance = getShieldResistanceTotal(ItemEffect.ThermicResistance);
+                calculatedResistance = calculateShieldResistance(ItemEffect.ThermicResistance);
                 break;
 
             default: calculatedResistance = new StatGroup();
@@ -2181,29 +2465,6 @@ public class GameState
         return JSONSupport.Write.jsonToString.apply(data);
     }
 
-    private void formatStrength(HashMap<String, Object> dataMap, StatGroup stats, boolean minmax)
-    {
-        dataMap.put("value", UIFunctions.Math.round(stats.calculatedValue,0));
-        dataMap.put("raw", UIFunctions.Math.round(stats.rawValue, 1));
-        dataMap.put("base", UIFunctions.Math.round(stats.baseValue, 1));
-        dataMap.put("reinforcement", UIFunctions.Math.round(stats.boostValue, 1));
-        if (minmax)
-        {
-            dataMap.put("minmax", UIFunctions.Math.round(stats.minmax, 1));
-        }
-    }
-
-    private void formatResistance(HashMap<String, Object> dataMap, StatGroup stats)
-    {
-        dataMap.put("value", UIFunctions.Math.round(stats.calculatedValue, 2));
-        dataMap.put("raw", UIFunctions.Math.round(stats.rawValue,2));
-        dataMap.put("base", UIFunctions.Math.round(stats.baseValue, 2));
-        dataMap.put("boost", UIFunctions.Math.round(stats.boostValue, 2));
-        dataMap.put("baseMultiplier", UIFunctions.Math.round(stats.baseMultiplier,2));
-        dataMap.put("boostMultiplier", UIFunctions.Math.round(stats.boostMultiplier, 2));
-        dataMap.put("minmax", UIFunctions.Math.round(stats.minmax, 2));
-    }
-
     private String calculateDefenseStats()
     {
         // create dat containers
@@ -2258,209 +2519,7 @@ public class GameState
         return JSONSupport.Write.jsonToString.apply(data);
     }
 
-    private String prepareEngineerData()
-    {
-        Arrays.stream(Engineer.values())
-            .filter(e->!engineerProgress.containsKey(e))
-            .forEach(engineer ->
-            {
-                var unknownEngineer = new HashMap<String, Object>();
-                unknownEngineer.put("status", "Unknown");
-                unknownEngineer.put("rank", 0);
-                unknownEngineer.put("progress", 0);
-                unknownEngineer.put("location", "Unknown");
-                unknownEngineer.put("system", "Unknown");
-                unknownEngineer.put("distance", -1);
-                unknownEngineer.put("name", engineer.getFullName());
-                engineerProgress.put(engineer, unknownEngineer);
-            });
-
-        var formattedData = new HashMap<String, Object>();
-        engineerProgress.forEach(((engineer, data) ->
-            formattedData.put(engineer.name(), data)));
-
-        return JSONSupport.Write.jsonToString.apply(formattedData);
-    }
-
-    private String prepareNavRouteData()
-    {
-        var data = new HashMap<String, Object>();
-        var routePoints = currentRoute.stream().map(routeEntry ->
-        {
-            var formattedData = new HashMap<String, Object>();
-            formattedData.put("name", routeEntry.starSystem.systemName);
-            formattedData.put("distance", this.starSystem.distanceBetween(routeEntry.starSystem));
-            formattedData.put("starClass", routeEntry.starClass);
-            return formattedData;
-        }).collect(Collectors.toList());
-        data.put("route", routePoints);
-        data.put("jumps", currentRoute.size() - 1);
-        return JSONSupport.Write.jsonToString.apply(data);
-    }
-
-    public int findBodyId(String bodyName)
-    {
-        return database.computeInTransaction(txn ->
-        {
-            var currentSystem = getStarSystemEntity(txn, starSystem.address);
-            if (currentSystem == null)
-            {
-                return -1;
-            }
-
-            var stellarBody = EntityUtilities.entityStream(currentSystem.getLinks(EntityKeys.STELLAR_BODY))
-                .filter(entity -> Objects.equals(entity.getProperty(EntityKeys.STELLAR_BODY_NAME), bodyName))
-                .findFirst()
-                .orElse(null);
-
-            if (stellarBody == null)
-            {
-                return -1;
-            }
-            return Optional.ofNullable(stellarBody.getProperty(EntityKeys.STELLAR_BODY_ID))
-                .map(c-> ((int) c)).orElse(-1);
-        });
-    }
-
-    public void updateSystemBodyCount(long address, int count)
-    {
-        database.executeInTransaction(transaction -> Optional.ofNullable(getStarSystemEntity(transaction, address))
-            .ifPresent(systemEntity -> systemEntity.setProperty(EntityKeys.STAR_SYSTEM_BODY_COUNT, count)));
-
-        if (address == starSystem.address)
-        {
-            executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
-        }
-    }
-
-    public void updateBodyMapped(long address, int body)
-    {
-        database.executeInTransaction(transaction -> Optional.ofNullable(getStarSystemEntity(transaction, address))
-            .flatMap(systemEntity -> EntityUtilities.entityStream(systemEntity.getLinks(EntityKeys.STELLAR_BODY))
-            .filter(systemBody -> Objects.equals(systemBody.getProperty(EntityKeys.STELLAR_BODY_ID), body))
-            .findFirst()).ifPresent(foundBody -> foundBody.setProperty(EntityKeys.STELLAR_BODY_MAPPED, true)));
-
-        if (address == starSystem.address)
-        {
-            executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
-        }
-    }
-
-    public void discoverSettlement(SettlementLocation settlementLocation)
-    {
-        database.executeInTransaction(txn ->
-        {
-            var bodyEntity = getStarNearestBodyEntity(txn);
-            if (bodyEntity == null) return;
-
-            var settlements = bodyEntity.getLinks(EntityKeys.PLANETARY_SETTLEMENT);
-            var settlementEntity = EntityUtilities.entityStream(settlements)
-                .filter(settlement ->
-                    Objects.equals(settlement.getProperty(EntityKeys.MARKET_ID), settlementLocation.marketId))
-                .findFirst().orElseGet(() ->
-                {
-                    var newSettlement = txn.newEntity(EntityKeys.PLANETARY_SETTLEMENT);
-                    newSettlement.setLink(EntityKeys.STELLAR_BODY, bodyEntity);
-                    bodyEntity.addLink(EntityKeys.PLANETARY_SETTLEMENT, newSettlement);
-                    return newSettlement;
-                });
-            settlementLocation.storeSettlementData(settlementEntity);
-        });
-    }
-
-    public void discoverStellarBody(StellarBody stellarBody)
-    {
-        database.executeInTransaction(txn ->
-        {
-            var systemEntity = getStarSystemEntity(txn, stellarBody.address);
-            if (systemEntity == null)
-            {
-                // todo: log an error: unexpected missing system during scan
-                return;
-            }
-
-            var bodies = txn.find(EntityKeys.STELLAR_BODY, EntityKeys.STELLAR_BODY_ID, stellarBody.id);
-            var bodyEntity = EntityUtilities.entityStream(bodies)
-                .filter(body ->
-                {
-                    var linkedSystem = body.getLink(EntityKeys.STAR_SYSTEM);
-                    if (linkedSystem == null) return false;
-                    return linkedSystem.getId().compareTo(systemEntity.getId()) == 0;
-                })
-                .findFirst().orElseGet(() ->
-                {
-                    var newBody = txn.newEntity(EntityKeys.STELLAR_BODY);
-                    newBody.setLink(EntityKeys.STAR_SYSTEM, systemEntity);
-                    systemEntity.addLink(EntityKeys.STELLAR_BODY, newBody);
-                    return newBody;
-                });
-            stellarBody.storeBodyData(bodyEntity);
-        });
-    }
-
-    /**
-     * Calculates a distance between two latitude/longitude pairs, taking into account the radius of the planet and
-     * the player's altitude. Waypoints are currently assumed to be on the planet's surface for the purpose of
-     * distance calculations. Due to irregularities in planet topology, the distances may be slightly off depending on
-     * the planet. For use as a general guide though, the values and relative positions in the map should be correct.
-     * The unit of measurement for this function is meters.
-     *
-     * This method uses the old trigonometric Haversine function to determine the "Great circle distance" between two
-     * latitude and longitude points on the planet. This implementation also accounts for altitude when determining the
-     * distance to a position.
-     *
-     * @param waypointLongitude the waypoint's longitude
-     * @param waypointLatitude the waypoint's latitude
-     * @return the approximate distance between the two points in meters
-     */
-    private double calculateDistance(double waypointLongitude, double waypointLatitude)
-    {
-        return UIFunctions.Math.calculateSurfaceDistance(waypointLatitude, waypointLongitude,
-            localCoordinates.latitude,
-            localCoordinates.longitude,
-            localCoordinates.altitude,
-            localCoordinates.radius);
-    }
-
-    public void clearFactionData()
-    {
-        synchronized (systemFactions)
-        {
-            systemFactions.clear();
-        }
-        executeWithLock(() -> globalUpdate.accept("Faction", "clear"));
-    }
-
-    public void acceptFactionData(List<Map<String, Object>> factionData)
-    {
-        synchronized (systemFactions)
-        {
-            systemFactions.clear();
-            systemFactions.addAll(factionData);
-            systemFactions.sort(highestInfluence);
-        }
-        executeWithLock(() -> emitFactionData(globalUpdate));
-    }
-
-    public void clearConflictData()
-    {
-        synchronized (localConflicts)
-        {
-            localConflicts.clear();
-        }
-        executeWithLock(() -> globalUpdate.accept("Conflicts", "clear"));
-    }
-
-    public void acceptConflictData(List<Map<String, Object>> conflictData)
-    {
-        synchronized (localConflicts)
-        {
-            localConflicts.clear();
-            localConflicts.addAll(conflictData);
-        }
-        executeWithLock(() -> emitConflictData(globalUpdate));
-    }
-
+    //endregion
 
     //region Database Access Functions
 
@@ -2653,10 +2712,10 @@ public class GameState
 
             directUpdate.accept("ItemListing", "updated");
 
-            commanderStatistics.forEach((statistic, value) ->
+            commanderStats.forEach((statistic, value) ->
                 directUpdate.accept(statistic.getName(), value));
 
-            shipStatistics.forEach((statistic, value) ->
+            shipStats.forEach((statistic, value) ->
                 directUpdate.accept(statistic.getName(), value));
 
             materials.forEach((material, value) ->
@@ -2707,7 +2766,7 @@ public class GameState
                 if (localSettlement != null)
                 {
                     var map = this.localSettlement.toMap();
-                    var dist = calculateDistance(this.localSettlement.longitude, this.localSettlement.latitude);
+                    var dist = calculateWaypointDistance(this.localSettlement.longitude, this.localSettlement.latitude);
                     var unit = dist < 1000
                         ? "m"
                         : "km";
@@ -2931,10 +2990,10 @@ public class GameState
         var touchdownData = new HashMap<String, Object>();
         touchdownData.put("latitude", this.touchdownLatitude);
         touchdownData.put("longitude", this.touchdownLongitude);
-        touchdownData.put("name", shipStatistics.get(ShipStat.Ship_Name));
+        touchdownData.put("name", shipStats.get(ShipStat.Ship_Name));
         touchdownData.put("body", nearestBody.name);
 
-        var dist = calculateDistance(touchdownLongitude, touchdownLatitude);
+        var dist = calculateWaypointDistance(touchdownLongitude, touchdownLatitude);
         var unit = dist < 1000
             ? "m"
             : "km";
@@ -2980,7 +3039,7 @@ public class GameState
                     waypointMap.put("latitude", waypointLatitude);
                     waypointMap.put("longitude", waypointLongitude);
 
-                    var dist = calculateDistance(waypointLongitude, waypointLatitude);
+                    var dist = calculateWaypointDistance(waypointLongitude, waypointLatitude);
                     var unit = dist < 1000
                         ? "m"
                         : "km";
@@ -3007,57 +3066,16 @@ public class GameState
         }
     }
 
+    private void emitPledgedPower(BiConsumer<String, String> sink)
+    {
+        if (pledgedPower == null) return;
+        var json = JSONSupport.Write.jsonToString.apply(pledgedPower.toMap());
+        sink.accept("PowerPlay", json);
+    }
+
     //endregion
 
-    //region Formatting Utils
-
-    private int getMilitarySize()
-    {
-        return Arrays.stream(shipType.getInternals().getSlots())
-            .filter(moduleSize -> moduleSize.name().contains("MILITARY"))
-            .map(moduleSize -> moduleSize.intValue)
-            .findFirst().orElseThrow();
-    }
-
-    private String formatSlotKey(Statistic statistic)
-    {
-        var rawKey = statistic.getKey();
-
-        if (statistic == CoreInternalSlot.FrameShiftDrive)
-        {
-            rawKey += "_" + shipType.getCoreModules().frameShiftDrive.intValue;
-        }
-        else if (statistic == CoreInternalSlot.FuelTank)
-        {
-            rawKey += "_" + shipType.getCoreModules().fuelTank.intValue;
-        }
-        else if (statistic == CoreInternalSlot.LifeSupport)
-        {
-            rawKey += "_" + shipType.getCoreModules().lifeSupport.intValue;
-        }
-        else if (statistic == CoreInternalSlot.MainEngines)
-        {
-            rawKey += "_" + shipType.getCoreModules().thrusters.intValue;
-        }
-        else if (statistic == CoreInternalSlot.PowerDistributor)
-        {
-            rawKey += "_" + shipType.getCoreModules().powerDistributor.intValue;
-        }
-        else if (statistic == CoreInternalSlot.PowerPlant)
-        {
-            rawKey += "_" + shipType.getCoreModules().powerPlant.intValue;
-        }
-        else if (statistic == CoreInternalSlot.Radar)
-        {
-            rawKey += "_" + shipType.getCoreModules().sensors.intValue;
-        }
-        else if (rawKey.startsWith("Military"))
-        {
-            rawKey += "_Size" + getMilitarySize();
-        }
-
-        return rawKey;
-    }
+    //region Formatting Functions
 
     private void addEmptySlots(Map<String, Object> map)
     {
@@ -3145,195 +3163,134 @@ public class GameState
             }));
     }
 
-    //endregion
-
-    public boolean savePoiData(long systemAddress, String poiText)
+    private String formatSlotKey(Statistic statistic)
     {
-        return database.computeInTransaction(transaction ->
+        var rawKey = statistic.getKey();
+
+        if (statistic == CoreInternalSlot.FrameShiftDrive)
         {
-            var system = getStarSystemEntity(transaction, systemAddress);
-            if (system == null) return false;
-            var newPoi = transaction.newEntity(EntityKeys.POI_NOTE);
-            newPoi.setLink(EntityKeys.STAR_SYSTEM, system);
-            system.addLink(EntityKeys.POI_NOTE, newPoi);
-            newPoi.setBlobString(EntityKeys.POI_TEXT, poiText);
-            return true;
-        });
-    }
-
-    public boolean deletePoiData(long systemAddress, String poiId)
-    {
-        return database.computeInTransaction(transaction ->
+            rawKey += "_" + shipType.getCoreModules().frameShiftDrive.intValue;
+        }
+        else if (statistic == CoreInternalSlot.FuelTank)
         {
-            var system = getStarSystemEntity(transaction, systemAddress);
-            if (system == null) return false;
-
-            String[] parts = poiId.split("-");
-            var type = Integer.parseInt(parts[0]);
-            var local = Long.parseLong(parts[1]);
-            var entityId = new PersistentEntityId(type, local);
-            var note = transaction.getEntity(entityId);
-            var parent = note.getLink(EntityKeys.STAR_SYSTEM);
-            if (parent == null) return false;
-
-            if (parent.getId().equals(system.getId()))
-            {
-                return system.deleteLink(EntityKeys.POI_NOTE, note)
-                    && note.delete();
-            }
-            return false;
-        });
-    }
-
-    private List<TaskSummary> getTaskSummaries()
-    {
-        return database.computeInTransaction(txn ->
+            rawKey += "_" + shipType.getCoreModules().fuelTank.intValue;
+        }
+        else if (statistic == CoreInternalSlot.LifeSupport)
         {
-            var commander = getCommanderEntity(txn);
-            if (commander == null) return Collections.emptyList();
-
-            return EntityUtilities.entityStream(commander.getLinks(EntityKeys.TASK))
-                .map(entity ->
-                {
-                    try
-                    {
-                        var key = ((String) entity.getProperty(EntityKeys.TASK_KEY));
-                        int count = ((Integer) Objects.requireNonNull(entity.getProperty(EntityKeys.TASK_COUNT)));
-                        return new TaskSummary(key, count);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-                    return null;
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        });
-    }
-
-    public void completeTask(TaskType taskType, TaskRecipe recipe)
-    {
-        var key = taskCatalog.typedTaskMap.get(taskType).get(recipe);
-        adjustTask(key, "subtract");
-    }
-
-    public void completeTask(TaskRecipe recipe)
-    {
-        var key = taskCatalog.untypedTaskMap.get(recipe);
-        adjustTask(key, "subtract");
-    }
-
-    public boolean adjustTask(String taskKey, String type)
-    {
-        TaskCatalog.AdjustmentType adjustmentType =
-            TaskCatalog.AdjustmentType.fromString(type);
-
-        if (adjustmentType == null)
+            rawKey += "_" + shipType.getCoreModules().lifeSupport.intValue;
+        }
+        else if (statistic == CoreInternalSlot.MainEngines)
         {
-            return false;
+            rawKey += "_" + shipType.getCoreModules().thrusters.intValue;
+        }
+        else if (statistic == CoreInternalSlot.PowerDistributor)
+        {
+            rawKey += "_" + shipType.getCoreModules().powerDistributor.intValue;
+        }
+        else if (statistic == CoreInternalSlot.PowerPlant)
+        {
+            rawKey += "_" + shipType.getCoreModules().powerPlant.intValue;
+        }
+        else if (statistic == CoreInternalSlot.Radar)
+        {
+            rawKey += "_" + shipType.getCoreModules().sensors.intValue;
+        }
+        else if (rawKey.startsWith("Military"))
+        {
+            rawKey += "_Size" + getMilitarySize();
         }
 
-        if (!taskCatalog.keyMap.containsKey(taskKey))
+        return rawKey;
+    }
+
+    private void formatStrength(HashMap<String, Object> dataMap, StatGroup stats, boolean minmax)
+    {
+        dataMap.put("value", UIFunctions.Math.round(stats.calculatedValue,0));
+        dataMap.put("raw", UIFunctions.Math.round(stats.rawValue, 1));
+        dataMap.put("base", UIFunctions.Math.round(stats.baseValue, 1));
+        dataMap.put("reinforcement", UIFunctions.Math.round(stats.boostValue, 1));
+        if (minmax)
         {
-            return false;
+            dataMap.put("minmax", UIFunctions.Math.round(stats.minmax, 1));
         }
+    }
 
-        var resultCount = database.computeInTransaction(txn ->
+    private void formatResistance(HashMap<String, Object> dataMap, StatGroup stats)
+    {
+        dataMap.put("value", UIFunctions.Math.round(stats.calculatedValue, 2));
+        dataMap.put("raw", UIFunctions.Math.round(stats.rawValue,2));
+        dataMap.put("base", UIFunctions.Math.round(stats.baseValue, 2));
+        dataMap.put("boost", UIFunctions.Math.round(stats.boostValue, 2));
+        dataMap.put("baseMultiplier", UIFunctions.Math.round(stats.baseMultiplier,2));
+        dataMap.put("boostMultiplier", UIFunctions.Math.round(stats.boostMultiplier, 2));
+        dataMap.put("minmax", UIFunctions.Math.round(stats.minmax, 2));
+    }
+
+    private Map<String, Object> entityToMap(Entity entity)
+    {
+        var map = new HashMap<String, Object>();
+        entity.getPropertyNames()
+            .forEach(property -> map.put(property, entity.getProperty(property)));
+
+        entity.getBlobNames()
+            .forEach(blobName ->
+            {
+                var json = entity.getBlobString(blobName);
+                var jsonMap =  JSONSupport.Parse.jsonString.apply(json);
+                map.put(blobName, jsonMap.get("json"));
+            });
+        return map;
+    }
+
+    private void mapToEntity(Map<String, Object> mapData, Entity entity)
+    {
+        mapData.forEach((name, value)->
         {
-            var commander = getCommanderEntity(txn);
-            if (commander == null) return null;
+            if (value instanceof List)
+            {
+                var json = new HashMap<String, Object>();
+                json.put("json", value);
+                entity.setBlobString(name, JSONSupport.Write.jsonToString.apply(json));
+                return;
+            }
+            else if (value instanceof Map)
+            {
+                var json = new HashMap<String, Object>();
+                json.put("json", value);
+                entity.setBlobString(name, JSONSupport.Write.jsonToString.apply(json));
+                return;
+            }
 
-            var taskEntity = EntityUtilities.entityStream(commander.getLinks(EntityKeys.TASK))
-                .filter(task -> Objects.equals(task.getProperty(EntityKeys.TASK_KEY), taskKey))
-                .findFirst().orElseGet(() ->
+            if (value instanceof String)
+            {
+                if (((String) value).isEmpty())
                 {
-                    if (adjustmentType == TaskCatalog.AdjustmentType.SUBTRACT)
-                    {
-                        return null;
-                    }
-
-                    var newTask = txn.newEntity(EntityKeys.TASK);
-                    newTask.setLink(EntityKeys.COMMANDER, commander);
-                    commander.addLink(EntityKeys.TASK, newTask);
-                    newTask.setProperty(EntityKeys.TASK_KEY, taskKey);
-                    newTask.setProperty(EntityKeys.TASK_COUNT, 0);
-                    return newTask;
-                });
-
-            if (taskEntity == null) return null;
-
-            var currentCount = ((Integer) taskEntity.getProperty(EntityKeys.TASK_COUNT));
-            if (currentCount == null) return null;
-
-            switch (adjustmentType)
-            {
-                case ADD:
-                    currentCount++;
-                    break;
-
-                case SUBTRACT:
-                    currentCount--;
-                    break;
-
-                case DELETE:
-                    currentCount = -1;
-                    break;
+                    return;
+                }
             }
 
-            if (currentCount < 1)
-            {
-                commander.deleteLink(EntityKeys.TASK, taskEntity);
-                taskEntity.delete();
-                return 0;
-            }
-            else
-            {
-                taskEntity.setProperty(EntityKeys.TASK_COUNT, currentCount);
-                return currentCount;
-            }
+            entity.setProperty(name, ((Comparable<?>) value));
         });
-
-        if (resultCount == null) return false;
-
-        emitTaskData(globalUpdate, taskKey, resultCount);
-
-        executeWithLock(() -> globalUpdate.accept("Task", "materials"));
-
-        return true;
     }
 
-    //region Complex JSON Object Writers
-
-    public String writeItemQueryData(long id)
+    private String determineCategoryKey(long itemId)
     {
-        var results = new HashMap<String, Object>();
-        results.put("results", queryItemData(id));
-        return JSONSupport.Write.jsonToString.apply(results);
-    }
-
-    public String writeLoadoutJson()
-    {
-        var map = new HashMap<String, Object>();
-
-        shipModules.forEach((statistic, moduleData) ->
-            map.put(formatSlotKey(statistic), moduleData.toJson()));
-
-        addEmptySlots(map);
-
-        return JSONSupport.Write.jsonToString.apply(map);
-    }
-
-    public String writeExtendedStatsJson()
-    {
-        var map = new HashMap<String, Object>();
-        map.put("statistics", extendedStats);
-        return JSONSupport.Write.jsonToString.apply(map);
-    }
-
-    public String writeMarketData()
-    {
-        return JSONSupport.Write.jsonToString.apply(commodityMarketData);
+        if (Commodity.findById(itemId) != null)
+        {
+            return "exports";
+        }
+        else if (ShipType.findById(itemId) != null)
+        {
+            return "ships";
+        }
+        else if (CoreInternalModule.findById(itemId) != null
+            || OptionalInternalModule.findById(itemId) != null
+            || HardpointModule.findById(itemId) != null
+            || UtilityModule.findById(itemId) != null)
+        {
+            return "modules";
+        }
+        return "";
     }
 
     private String determineModuleDisplayText(ShipModule module)
@@ -3352,291 +3309,6 @@ public class GameState
         if (grade.isEmpty() || size ==-1) return module.displayText();
         else return size + grade + " " + module.displayText();
     }
-
-    public String writeItemListing()
-    {
-        Map<String, Object> itemListing = new HashMap<>();
-
-        Stream.of(Commodity.values())
-            .filter(commodity -> commodity.id != -1L)
-            .forEach(commodity ->
-            {
-                var name = commodity.getLocalizedName()
-                    + " [" + commodity.id + "]";
-                itemListing.put(String.valueOf(commodity.id), name);
-            });
-
-        Stream.of(ShipType.values())
-            .filter(shipType -> shipType.id != -1L)
-            .forEach(shipType ->
-            {
-                var name = shipType.getBaseShipStats().displayName
-                    + " [" + shipType.id + "]";
-                itemListing.put(String.valueOf(shipType.id), name);
-            });
-
-        Stream.of(CoreInternalModule.values())
-            .filter(module -> module.id != -1L)
-            .forEach(module ->
-            {
-                var name = determineModuleDisplayText(module)
-                    + " [" + module.id + "]";
-                itemListing.put(String.valueOf(module.id), name);
-            });
-
-        Stream.of(OptionalInternalModule.values())
-            .filter(module -> module.id != -1L)
-            .forEach(module ->
-            {
-                var name = determineModuleDisplayText(module)
-                    + " [" + module.id + "]";
-                itemListing.put(String.valueOf(module.id), name);
-            });
-
-        Stream.of(HardpointModule.values())
-            .filter(module -> module.id != -1L)
-            .forEach(module ->
-            {
-                var name = determineModuleDisplayText(module)
-                    + " [" + module.id + "]";
-                itemListing.put(String.valueOf(module.id), name);
-            });
-
-        Stream.of(UtilityModule.values())
-            .filter(module -> module.id != -1L)
-            .forEach(module ->
-            {
-                var name = determineModuleDisplayText(module)
-                    + " [" + module.id + "]";
-                itemListing.put(String.valueOf(module.id), name);
-            });
-
-        return JSONSupport.Write.jsonToString.apply(itemListing);
-    }
-
-    public String writeOutfittingData()
-    {
-        return JSONSupport.Write.jsonToString.apply(outfittingMarketData);
-    }
-
-    public String writeShipyardData()
-    {
-        return JSONSupport.Write.jsonToString.apply(shipyardMarketData);
-    }
-
-    public String writeMarketQueryData(long id, long price, boolean export, boolean difference)
-    {
-        var queryResults = new HashMap<String, Object>();
-        var r = queryMarketData(id, price, export, difference);
-        queryResults.put("results", r);
-        return JSONSupport.Write.jsonToString.apply(queryResults);
-    }
-
-    public String writeCartographicData(long systemAddress)
-    {
-        return JSONSupport.Write.jsonToString.apply(prepareCartographicData(systemAddress));
-    }
-
-    public String writeCatalogList()
-    {
-        return JSONSupport.Write.jsonToString.apply(prepareCatalogList());
-    }
-
-    public String writeTaskCatalog()
-    {
-        return rawCatalogJson;
-    }
-
-    public String writeTaskMaterials()
-    {
-        var pendingCosts = new HashMap<Material, Long>();
-        var pendingYields = new HashMap<Material, Long>();
-        var summaries = getTaskSummaries();
-        var costCounts = new HashMap<TaskCost, RunningCostData>();
-        summaries.forEach(summary ->
-        {
-            var recipe = taskCatalog.keyMap.get(summary.key);
-            var name = determineTaskData(recipe, summary.key).name;
-            var isTrade = recipe instanceof MaterialTradeRecipe;
-
-            recipe.costStream()
-                .filter(costData -> costData.quantity > 0)
-                .forEach(costData ->
-                {
-                    var runningData = costCounts.computeIfAbsent(costData.cost, (_k) -> new RunningCostData());
-                    runningData.runningCount.addAndGet(costData.quantity * summary.count);
-                    var relatedTask = new RelatedTask(name, summary.count, isTrade);
-                    runningData.relatedTasks.add(relatedTask);
-                    costCounts.put(costData.cost, runningData);
-                    if (isTrade)
-                    {
-                        var material = ((Material) costData.cost);
-                        var yield = Math.abs(costData.quantity) * summary.count;
-                        long current = pendingYields.computeIfAbsent(material, (_k) -> 0L);
-                        current += yield;
-                        pendingCosts.put(material, current);
-                    }
-                });
-
-            if (isTrade)
-            {
-                recipe.costStream()
-                    .filter(costData -> costData.quantity < 0)
-                    .forEach(costData ->
-                    {
-                        var material = ((Material) costData.cost);
-                        var yield = Math.abs(costData.quantity) * summary.count;
-                        long current = pendingYields.computeIfAbsent(material, (_k) -> 0L);
-                        current += yield;
-                        pendingYields.put(material, current);
-                    });
-            }
-        });
-
-        var dataMap = new HashMap<String, Object>();
-        costCounts.forEach((cost, count) ->
-        {
-            long current = 0L;
-            var name = cost.getLocalizedName();
-            if (cost instanceof Material)
-            {
-                current = Optional.ofNullable(materials.get(cost))
-                    .map(Long::valueOf)
-                    .orElse(0L);
-            }
-            else if (cost instanceof Commodity)
-            {
-                current = Optional.ofNullable(cargo.get(cost))
-                    .map(commodity -> commodity.count)
-                    .map(Long::valueOf)
-                    .orElse(0L);
-            }
-            else if (cost instanceof CreditCost)
-            {
-                current = creditBalance;
-                name = "Credits";
-            }
-
-            var costDeficit = current >= count.runningCount.get()
-                ? 0
-                : count.runningCount.get() - current;
-
-            PotentialTrade bestYieldTrade = null;
-            PotentialTrade bestStockTrade = null;
-
-            if (costDeficit > 0)
-            {
-                if (cost instanceof Material)
-                {
-                    var potentialTrades = new ArrayList<PotentialTrade>();
-
-                    ((Material) cost).getTradeBlueprint()
-                        .map(TaskBlueprint::recipeStream)
-                        .ifPresent(recipes -> recipes.forEach(recipe ->
-                        {
-                            var material = new AtomicReference<Material>();
-                            var isCommitted = new AtomicBoolean();
-                            var yield = recipe.costStream()
-                                .map(costData-> costData.quantity)
-                                .filter(quantity -> quantity < 0)
-                                .map(Math::abs)
-                                .findFirst()
-                                .orElse(0L);
-
-                            long stock = recipe.costStream()
-                                .filter(costData -> costData.quantity > 0)
-                                .filter(costData -> costData.cost instanceof Material)
-                                .filter(costData -> materials.get(costData.cost) != null)
-                                .peek(costData -> Optional.ofNullable(costCounts.get(costData.cost))
-                                    .flatMap(runningCostData -> runningCostData.relatedTasks.stream()
-                                        .filter(relatedTask -> !relatedTask.isTrade)
-                                        .findFirst())
-                                    .ifPresent(_x -> isCommitted.set(true)))
-                                .peek(costData -> material.set(((Material) costData.cost)))
-                                .map(costData ->
-                                {
-                                    var currentStock = materials.get(costData.cost);
-                                    var pendingStock = pendingCosts.get(costData.cost);
-                                    if (pendingStock == null)
-                                    {
-                                        pendingStock = 0L;
-                                    }
-                                    return currentStock - pendingStock;
-                                })
-                                .findFirst().orElse(0L);
-
-                            if (!isCommitted.get() && stock > 0)
-                            {
-                                var key = taskCatalog.untypedTaskMap.get(recipe);
-                                potentialTrades.add(new PotentialTrade(key, yield, stock));
-                            }
-                        }));
-
-                    if (!potentialTrades.isEmpty())
-                    {
-                        potentialTrades.sort(Comparator
-                            .comparingLong((PotentialTrade v)->v.stock)
-                            .reversed());
-                        bestStockTrade = potentialTrades.get(0);
-
-                        potentialTrades.sort(Comparator
-                            .comparingLong((PotentialTrade v)->v.yield)
-                            .reversed());
-                        bestYieldTrade = potentialTrades.get(0);
-                    }
-                }
-            }
-
-
-            var costMap = new HashMap<String, Object>();
-
-            var relatedTaskNames = count.relatedTasks.stream()
-                .map(RelatedTask::toMap)
-                .collect(Collectors.toSet());
-
-            costMap.put("needed", count.runningCount.get());
-            costMap.put("deficit", costDeficit);
-            costMap.put("related", relatedTaskNames);
-
-            if (cost instanceof Material && pendingYields.containsKey(cost))
-            {
-                costMap.put("pending", pendingYields.get(cost));
-            }
-
-            if (bestStockTrade != null)
-            {
-                var stockRecipe = taskCatalog.keyMap.get(bestStockTrade.key);
-                var data = determineTaskData(stockRecipe, bestStockTrade.key);
-                var stockMap = new HashMap<String, Object>();
-                stockMap.put("key", bestStockTrade.key);
-                stockMap.put("name", data.name);
-                costMap.put("stockTrade", stockMap);
-
-                if (!bestStockTrade.equals(bestYieldTrade))
-                {
-                    var yieldRecipe = taskCatalog.keyMap.get(bestYieldTrade.key);
-                    var yieldData = determineTaskData(yieldRecipe, bestYieldTrade.key);
-                    var yieldMap = new HashMap<String, Object>();
-                    yieldMap.put("key", bestYieldTrade.key);
-                    yieldMap.put("name", yieldData.name);
-                    costMap.put("yieldTrade", yieldMap);
-                }
-            }
-
-            dataMap.put(name, costMap);
-        });
-        return JSONSupport.Write.jsonToString.apply(dataMap);
-    }
-
-    private String writeMaterialEvent(Material material, Integer count)
-    {
-        var event = new HashMap<String, Object>();
-        event.put("name", material.name());
-        event.put("count", count.toString());
-        return JSONSupport.Write.jsonToString.apply(event);
-    }
-
-    //endregion
 
     private TaskData determineModuleTaskData(ModulePurchaseRecipe taskRecipe)
     {
@@ -3789,8 +3461,8 @@ public class GameState
                 var valueString = valueSign + value;
                 var impact = effect.effect.moreIsGood
                     ? value > 0
-                        ? "positive"
-                        : "negative"
+                    ? "positive"
+                    : "negative"
                     : value > 0
                         ? "negative"
                         : "positive";
@@ -4096,6 +3768,10 @@ public class GameState
         return new TaskData(recipe.getDisplayLabel(), 0);
     }
 
+    //endregion
+
+    //region Task Tracking Methods
+
     public String buildTaskCatalog()
     {
         var modules = new HashMap<String, Map<String, Object>>();
@@ -4367,4 +4043,443 @@ public class GameState
 
         return JSONSupport.Write.jsonToString.apply(jsonMap);
     }
+
+    private List<TaskSummary> getTaskSummaries()
+    {
+        return database.computeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return Collections.emptyList();
+
+            return EntityUtilities.entityStream(commander.getLinks(EntityKeys.TASK))
+                .map(entity ->
+                {
+                    try
+                    {
+                        var key = ((String) entity.getProperty(EntityKeys.TASK_KEY));
+                        int count = ((Integer) Objects.requireNonNull(entity.getProperty(EntityKeys.TASK_COUNT)));
+                        return new TaskSummary(key, count);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        });
+    }
+
+    public void completeTask(TaskType taskType, TaskRecipe recipe)
+    {
+        var key = taskCatalog.typedTaskMap.get(taskType).get(recipe);
+        adjustTask(key, "subtract");
+    }
+
+    public void completeTask(TaskRecipe recipe)
+    {
+        var key = taskCatalog.untypedTaskMap.get(recipe);
+        adjustTask(key, "subtract");
+    }
+
+    public boolean adjustTask(String taskKey, String type)
+    {
+        TaskCatalog.AdjustmentType adjustmentType =
+            TaskCatalog.AdjustmentType.fromString(type);
+
+        if (adjustmentType == null)
+        {
+            return false;
+        }
+
+        if (!taskCatalog.keyMap.containsKey(taskKey))
+        {
+            return false;
+        }
+
+        var resultCount = database.computeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return null;
+
+            var taskEntity = EntityUtilities.entityStream(commander.getLinks(EntityKeys.TASK))
+                .filter(task -> Objects.equals(task.getProperty(EntityKeys.TASK_KEY), taskKey))
+                .findFirst().orElseGet(() ->
+                {
+                    if (adjustmentType == TaskCatalog.AdjustmentType.SUBTRACT)
+                    {
+                        return null;
+                    }
+
+                    var newTask = txn.newEntity(EntityKeys.TASK);
+                    newTask.setLink(EntityKeys.COMMANDER, commander);
+                    commander.addLink(EntityKeys.TASK, newTask);
+                    newTask.setProperty(EntityKeys.TASK_KEY, taskKey);
+                    newTask.setProperty(EntityKeys.TASK_COUNT, 0);
+                    return newTask;
+                });
+
+            if (taskEntity == null) return null;
+
+            var currentCount = ((Integer) taskEntity.getProperty(EntityKeys.TASK_COUNT));
+            if (currentCount == null) return null;
+
+            switch (adjustmentType)
+            {
+                case ADD:
+                    currentCount++;
+                    break;
+
+                case SUBTRACT:
+                    currentCount--;
+                    break;
+
+                case DELETE:
+                    currentCount = -1;
+                    break;
+            }
+
+            if (currentCount < 1)
+            {
+                commander.deleteLink(EntityKeys.TASK, taskEntity);
+                taskEntity.delete();
+                return 0;
+            }
+            else
+            {
+                taskEntity.setProperty(EntityKeys.TASK_COUNT, currentCount);
+                return currentCount;
+            }
+        });
+
+        if (resultCount == null) return false;
+
+        emitTaskData(globalUpdate, taskKey, resultCount);
+
+        executeWithLock(() -> globalUpdate.accept("Task", "materials"));
+
+        return true;
+    }
+
+    //endregion
+
+    //region Complex JSON Object Writers
+
+    public String writeItemQueryData(long id)
+    {
+        var results = new HashMap<String, Object>();
+        results.put("results", queryItemData(id));
+        return JSONSupport.Write.jsonToString.apply(results);
+    }
+
+    public String writeLoadoutJson()
+    {
+        var map = new HashMap<String, Object>();
+
+        shipModules.forEach((statistic, moduleData) ->
+            map.put(formatSlotKey(statistic), moduleData.toJson()));
+
+        addEmptySlots(map);
+
+        return JSONSupport.Write.jsonToString.apply(map);
+    }
+
+    public String writeExtendedStatsJson()
+    {
+        var map = new HashMap<String, Object>();
+        map.put("statistics", extendedStats);
+        return JSONSupport.Write.jsonToString.apply(map);
+    }
+
+    public String writeMarketData()
+    {
+        return JSONSupport.Write.jsonToString.apply(commodityMarketData);
+    }
+
+
+    public String writeItemListing()
+    {
+        Map<String, Object> itemListing = new HashMap<>();
+
+        Stream.of(Commodity.values())
+            .filter(commodity -> commodity.id != -1L)
+            .forEach(commodity ->
+            {
+                var name = commodity.getLocalizedName()
+                    + " [" + commodity.id + "]";
+                itemListing.put(String.valueOf(commodity.id), name);
+            });
+
+        Stream.of(ShipType.values())
+            .filter(shipType -> shipType.id != -1L)
+            .forEach(shipType ->
+            {
+                var name = shipType.getBaseShipStats().displayName
+                    + " [" + shipType.id + "]";
+                itemListing.put(String.valueOf(shipType.id), name);
+            });
+
+        Stream.of(CoreInternalModule.values())
+            .filter(module -> module.id != -1L)
+            .forEach(module ->
+            {
+                var name = determineModuleDisplayText(module)
+                    + " [" + module.id + "]";
+                itemListing.put(String.valueOf(module.id), name);
+            });
+
+        Stream.of(OptionalInternalModule.values())
+            .filter(module -> module.id != -1L)
+            .forEach(module ->
+            {
+                var name = determineModuleDisplayText(module)
+                    + " [" + module.id + "]";
+                itemListing.put(String.valueOf(module.id), name);
+            });
+
+        Stream.of(HardpointModule.values())
+            .filter(module -> module.id != -1L)
+            .forEach(module ->
+            {
+                var name = determineModuleDisplayText(module)
+                    + " [" + module.id + "]";
+                itemListing.put(String.valueOf(module.id), name);
+            });
+
+        Stream.of(UtilityModule.values())
+            .filter(module -> module.id != -1L)
+            .forEach(module ->
+            {
+                var name = determineModuleDisplayText(module)
+                    + " [" + module.id + "]";
+                itemListing.put(String.valueOf(module.id), name);
+            });
+
+        return JSONSupport.Write.jsonToString.apply(itemListing);
+    }
+
+    public String writeOutfittingData()
+    {
+        return JSONSupport.Write.jsonToString.apply(outfittingMarketData);
+    }
+
+    public String writeShipyardData()
+    {
+        return JSONSupport.Write.jsonToString.apply(shipyardMarketData);
+    }
+
+    public String writeMarketQueryData(long id, long price, boolean export, boolean difference)
+    {
+        var queryResults = new HashMap<String, Object>();
+        var r = queryMarketData(id, price, export, difference);
+        queryResults.put("results", r);
+        return JSONSupport.Write.jsonToString.apply(queryResults);
+    }
+
+    public String writeCartographicData(long systemAddress)
+    {
+        return JSONSupport.Write.jsonToString.apply(prepareCartographicData(systemAddress));
+    }
+
+    public String writeCatalogList()
+    {
+        return JSONSupport.Write.jsonToString.apply(prepareCatalogList());
+    }
+
+    public String writeTaskCatalog()
+    {
+        return rawCatalogJson;
+    }
+
+    public String writeTaskMaterials()
+    {
+        var pendingCosts = new HashMap<Material, Long>();
+        var pendingYields = new HashMap<Material, Long>();
+        var summaries = getTaskSummaries();
+        var costCounts = new HashMap<TaskCost, RunningCostData>();
+        summaries.forEach(summary ->
+        {
+            var recipe = taskCatalog.keyMap.get(summary.key);
+            var name = determineTaskData(recipe, summary.key).name;
+            var isTrade = recipe instanceof MaterialTradeRecipe;
+
+            recipe.costStream()
+                .filter(costData -> costData.quantity > 0)
+                .forEach(costData ->
+                {
+                    var runningData = costCounts.computeIfAbsent(costData.cost, (_k) -> new RunningCostData());
+                    runningData.runningCount.addAndGet(costData.quantity * summary.count);
+                    var relatedTask = new RelatedTask(name, summary.count, isTrade);
+                    runningData.relatedTasks.add(relatedTask);
+                    costCounts.put(costData.cost, runningData);
+                    if (isTrade)
+                    {
+                        var material = ((Material) costData.cost);
+                        var yield = Math.abs(costData.quantity) * summary.count;
+                        long current = pendingYields.computeIfAbsent(material, (_k) -> 0L);
+                        current += yield;
+                        pendingCosts.put(material, current);
+                    }
+                });
+
+            if (isTrade)
+            {
+                recipe.costStream()
+                    .filter(costData -> costData.quantity < 0)
+                    .forEach(costData ->
+                    {
+                        var material = ((Material) costData.cost);
+                        var yield = Math.abs(costData.quantity) * summary.count;
+                        long current = pendingYields.computeIfAbsent(material, (_k) -> 0L);
+                        current += yield;
+                        pendingYields.put(material, current);
+                    });
+            }
+        });
+
+        var dataMap = new HashMap<String, Object>();
+        costCounts.forEach((cost, count) ->
+        {
+            long current = 0L;
+            var name = cost.getLocalizedName();
+            if (cost instanceof Material)
+            {
+                current = Optional.ofNullable(materials.get(cost))
+                    .map(Long::valueOf)
+                    .orElse(0L);
+            }
+            else if (cost instanceof Commodity)
+            {
+                current = Optional.ofNullable(cargo.get(cost))
+                    .map(commodity -> commodity.count)
+                    .map(Long::valueOf)
+                    .orElse(0L);
+            }
+            else if (cost instanceof CreditCost)
+            {
+                current = creditBalance;
+                name = "Credits";
+            }
+
+            var costDeficit = current >= count.runningCount.get()
+                ? 0
+                : count.runningCount.get() - current;
+
+            PotentialTrade bestYieldTrade = null;
+            PotentialTrade bestStockTrade = null;
+
+            if (costDeficit > 0)
+            {
+                if (cost instanceof Material)
+                {
+                    var potentialTrades = new ArrayList<PotentialTrade>();
+
+                    ((Material) cost).getTradeBlueprint()
+                        .map(TaskBlueprint::recipeStream)
+                        .ifPresent(recipes -> recipes.forEach(recipe ->
+                        {
+                            var material = new AtomicReference<Material>();
+                            var isCommitted = new AtomicBoolean();
+                            var yield = recipe.costStream()
+                                .map(costData-> costData.quantity)
+                                .filter(quantity -> quantity < 0)
+                                .map(Math::abs)
+                                .findFirst()
+                                .orElse(0L);
+
+                            long stock = recipe.costStream()
+                                .filter(costData -> costData.quantity > 0)
+                                .filter(costData -> costData.cost instanceof Material)
+                                .filter(costData -> materials.get(costData.cost) != null)
+                                .peek(costData -> Optional.ofNullable(costCounts.get(costData.cost))
+                                    .flatMap(runningCostData -> runningCostData.relatedTasks.stream()
+                                        .filter(relatedTask -> !relatedTask.isTrade)
+                                        .findFirst())
+                                    .ifPresent(_x -> isCommitted.set(true)))
+                                .peek(costData -> material.set(((Material) costData.cost)))
+                                .map(costData ->
+                                {
+                                    var currentStock = materials.get(costData.cost);
+                                    var pendingStock = pendingCosts.get(costData.cost);
+                                    if (pendingStock == null)
+                                    {
+                                        pendingStock = 0L;
+                                    }
+                                    return currentStock - pendingStock;
+                                })
+                                .findFirst().orElse(0L);
+
+                            if (!isCommitted.get() && stock > 0)
+                            {
+                                var key = taskCatalog.untypedTaskMap.get(recipe);
+                                potentialTrades.add(new PotentialTrade(key, yield, stock));
+                            }
+                        }));
+
+                    if (!potentialTrades.isEmpty())
+                    {
+                        potentialTrades.sort(Comparator
+                            .comparingLong((PotentialTrade v)->v.stock)
+                            .reversed());
+                        bestStockTrade = potentialTrades.get(0);
+
+                        potentialTrades.sort(Comparator
+                            .comparingLong((PotentialTrade v)->v.yield)
+                            .reversed());
+                        bestYieldTrade = potentialTrades.get(0);
+                    }
+                }
+            }
+
+
+            var costMap = new HashMap<String, Object>();
+
+            var relatedTaskNames = count.relatedTasks.stream()
+                .map(RelatedTask::toMap)
+                .collect(Collectors.toSet());
+
+            costMap.put("needed", count.runningCount.get());
+            costMap.put("deficit", costDeficit);
+            costMap.put("related", relatedTaskNames);
+
+            if (cost instanceof Material && pendingYields.containsKey(cost))
+            {
+                costMap.put("pending", pendingYields.get(cost));
+            }
+
+            if (bestStockTrade != null)
+            {
+                var stockRecipe = taskCatalog.keyMap.get(bestStockTrade.key);
+                var data = determineTaskData(stockRecipe, bestStockTrade.key);
+                var stockMap = new HashMap<String, Object>();
+                stockMap.put("key", bestStockTrade.key);
+                stockMap.put("name", data.name);
+                costMap.put("stockTrade", stockMap);
+
+                if (!bestStockTrade.equals(bestYieldTrade))
+                {
+                    var yieldRecipe = taskCatalog.keyMap.get(bestYieldTrade.key);
+                    var yieldData = determineTaskData(yieldRecipe, bestYieldTrade.key);
+                    var yieldMap = new HashMap<String, Object>();
+                    yieldMap.put("key", bestYieldTrade.key);
+                    yieldMap.put("name", yieldData.name);
+                    costMap.put("yieldTrade", yieldMap);
+                }
+            }
+
+            dataMap.put(name, costMap);
+        });
+        return JSONSupport.Write.jsonToString.apply(dataMap);
+    }
+
+    private String writeMaterialEvent(Material material, Integer count)
+    {
+        var event = new HashMap<String, Object>();
+        event.put("name", material.name());
+        event.put("count", count.toString());
+        return JSONSupport.Write.jsonToString.apply(event);
+    }
+
+    //endregion
 }
