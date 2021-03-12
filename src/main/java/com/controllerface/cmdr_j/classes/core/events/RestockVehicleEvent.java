@@ -11,6 +11,7 @@ public class RestockVehicleEvent implements BiConsumer<GameState, Map<String, Ob
     public void accept(GameState gameState, Map<String, Object> event)
     {
         var cost = ((Number) event.get("Cost")).intValue();
-        gameState.adjustCreditBalance(-1 * cost);
+        var count = ((Number) event.get("Count")).intValue();
+        gameState.adjustCreditBalance(-1 * (cost * count));
     }
 }

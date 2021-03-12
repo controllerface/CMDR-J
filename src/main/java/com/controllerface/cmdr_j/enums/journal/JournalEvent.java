@@ -201,6 +201,8 @@ public enum JournalEvent
     Statistics(new StatisticsEvent()),
     RedeemVoucher(new RedeemVoucherEvent()),
     Resurrect(new ResurrectEvent()),
+    PayBounties(new PayBountiesEvent()),
+    PayFines(new PayFinesEvent()),
 //    ReceiveText(new ReceiveTextHandler()),
     NpcCrewPaidWage(new NpcCrewPaidWageEvent()),
     CrewHire(new CrewHireEvent()),

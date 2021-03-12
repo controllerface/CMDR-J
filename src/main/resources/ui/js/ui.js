@@ -1265,7 +1265,6 @@ function setMarketItemList(data)
         return aPrice - bPrice;
     })
 
-    console.log(results);
     results.forEach(item =>
     {
         let nextItem = document.createElement('item-query');
@@ -1620,7 +1619,6 @@ function handlePowerPlay(data)
 
 function setMarketItemListing(data)
 {
-    //console.log(data);
     let marketSearch = document.getElementById('marketSearch');
     marketSearch.loadListingData(data);
 }

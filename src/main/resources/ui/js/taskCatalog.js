@@ -1830,12 +1830,11 @@ class TaskCatalog extends HTMLElement
 
     loadEngineerTechModules(techBrokerData, categoryElement)
     {
-        console.log(techBrokerData);
         this.loadSubcategoryData('Engineered FSD V1',
                                  techBrokerData['Engineered_FSD_V1'],
                                  this.loadModificationGrades,
                                  categoryElement);
-//
+
         this.loadSubcategoryData('Engineered Seeker Missile Rack V1',
                                  techBrokerData['Engineered_Seeker_Missile_Rack_V1'],
                                  this.loadModificationGrades,
@@ -1852,8 +1851,6 @@ class TaskCatalog extends HTMLElement
 
     loadHumanOptionalModules(techBrokerData, categoryElement)
     {
-        console.log(techBrokerData);
-
         this.loadSubcategoryData('Corrosion Resistant Cargo Rack',
                                  techBrokerData['Corrosion_Resistant_Cargo_Rack'],
                                  this.loadModificationGrades,
@@ -1977,7 +1974,6 @@ class TaskCatalog extends HTMLElement
         material.sort();
         material.forEach(type =>
         {
-            //console.log(tradeData[type]['grade'] + " : " + type);
             this.loadSubcategoryData(type,
                                      tradeData[type],
                                      this.loadModificationGrades,

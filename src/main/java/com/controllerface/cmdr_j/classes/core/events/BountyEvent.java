@@ -11,8 +11,9 @@ public class BountyEvent implements BiConsumer<GameState, Map<String, Object>>
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        var reward = ((Number) Optional.ofNullable(event.get("TotalReward"))
-            .orElseGet(() -> event.get("Reward"))).intValue();
-        gameState.adjustCreditBalance(reward);
+        // this is an informational event only, the bounty is not awarded until turned in
+//        var reward = ((Number) Optional.ofNullable(event.get("TotalReward"))
+//            .orElseGet(() -> event.get("Reward"))).intValue();
+
     }
 }
