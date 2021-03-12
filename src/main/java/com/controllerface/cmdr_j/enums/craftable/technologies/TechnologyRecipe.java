@@ -174,6 +174,12 @@ public enum TechnologyRecipe implements TaskRecipe
     Guardian_Shard_Cannon_Turreted_Small(new Guardian_Shard_Cannon_Turreted_Small(),
         HardpointModule.hpt_guardian_shardcannon_turret_small),
 
+    Double_Engineered_5A_FSD(new Double_Engineered_5A_FSD(),
+        CoreInternalModule.int_hyperdrive_size5_class5),
+
+    Double_Engineered_Medium_Seeker_Missile(new Double_Engineered_Medium_Seeker_Missile(),
+        HardpointModule.hpt_basicmissilerack_fixed_medium),
+
     ;
 
     private final TaskRecipe delegate;

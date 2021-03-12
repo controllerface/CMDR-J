@@ -8,6 +8,8 @@ import java.util.stream.Stream;
  */
 public enum TechnologyCategory
 {
+    Engineer(EnumSet.of(TechnologyType.Engineered_Modules)),
+
     Human(EnumSet.of(TechnologyType.Human_Weapons,
             TechnologyType.Human_Optional_Internal)),
 

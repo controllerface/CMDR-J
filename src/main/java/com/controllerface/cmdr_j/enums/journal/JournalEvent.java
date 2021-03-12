@@ -203,6 +203,7 @@ public enum JournalEvent
     Resurrect(new ResurrectEvent()),
 //    ReceiveText(new ReceiveTextHandler()),
     NpcCrewPaidWage(new NpcCrewPaidWageEvent()),
+    CrewHire(new CrewHireEvent()),
     SellShipOnRebuy(new SellShipOnRebuyEvent()),
     DatalinkVoucher(new DatalinkVoucherEvent()),
     SellExplorationData(new SellExplorationDataEvent()),

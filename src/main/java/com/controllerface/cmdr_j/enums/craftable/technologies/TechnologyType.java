@@ -14,6 +14,9 @@ import java.util.stream.Stream;
  */
 public enum TechnologyType implements TaskType
 {
+    Engineered_Modules(EnumSet.of(TechnologyBlueprint.Engineered_FSD_V1,
+        TechnologyBlueprint.Engineered_Seeker_Missile_Rack_V1)),
+
     Human_Weapons(EnumSet.of(TechnologyBlueprint.Enzyme_Missile_Rack,
             TechnologyBlueprint.Remote_Release_Flechette_Launcher,
             TechnologyBlueprint.Shock_Cannon)),

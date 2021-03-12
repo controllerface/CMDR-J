@@ -658,8 +658,8 @@ public enum OptionalInternalModule implements ShipModule
      * Docking Computer
      */
 
-    int_dockingcomputer_advanced                    (128935155L, new DockingComputer_1E_Standard()),
-    int_dockingcomputer_standard                    (128049549L, new DockingComputer_1E_Advanced()),
+    int_dockingcomputer_advanced                    (128935155L, new DockingComputer_1E_Advanced()),
+    int_dockingcomputer_standard                    (128049549L, new DockingComputer_1E_Standard()),
 
     /**
      * Supercurise Assist

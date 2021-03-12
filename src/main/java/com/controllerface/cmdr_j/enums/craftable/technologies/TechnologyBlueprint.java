@@ -11,7 +11,12 @@ import java.util.stream.Stream;
  */
 public enum TechnologyBlueprint implements TaskBlueprint
 {
-    // todo: double engineered modules
+    // Double Engineered Modules
+    Engineered_FSD_V1("Engineered FSD V1",
+        EnumSet.of(TechnologyRecipe.Double_Engineered_5A_FSD)),
+
+    Engineered_Seeker_Missile_Rack_V1("Engineered Seeker Missile Rack V1",
+        EnumSet.of(TechnologyRecipe.Double_Engineered_Medium_Seeker_Missile)),
 
     // Human
 

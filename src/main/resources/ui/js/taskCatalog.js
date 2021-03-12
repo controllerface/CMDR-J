@@ -1826,8 +1826,34 @@ class TaskCatalog extends HTMLElement
 
     /* Tech Broker Unlocks */
 
+
+
+    loadEngineerTechModules(techBrokerData, categoryElement)
+    {
+        console.log(techBrokerData);
+        this.loadSubcategoryData('Engineered FSD V1',
+                                 techBrokerData['Engineered_FSD_V1'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+//
+        this.loadSubcategoryData('Engineered Seeker Missile Rack V1',
+                                 techBrokerData['Engineered_Seeker_Missile_Rack_V1'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+    }
+
+    loadEngineerTechBroker(techBrokerData, categoryElement)
+    {
+        this.loadSubcategoryData('Engineered Modules',
+                                 techBrokerData['Engineered_Modules'],
+                                 this.loadEngineerTechModules,
+                                 categoryElement);
+    }
+
     loadHumanOptionalModules(techBrokerData, categoryElement)
     {
+        console.log(techBrokerData);
+
         this.loadSubcategoryData('Corrosion Resistant Cargo Rack',
                                  techBrokerData['Corrosion_Resistant_Cargo_Rack'],
                                  this.loadModificationGrades,
@@ -2114,6 +2140,11 @@ class TaskCatalog extends HTMLElement
         this.loadCategoryData('Guardian',
                               techBrokerData['Guardian'],
                               this.loadGuardianTechBroker,
+                              techBrokerContainer);
+
+        this.loadCategoryData('Engineer',
+                              techBrokerData['Engineer'],
+                              this.loadEngineerTechBroker,
                               techBrokerContainer);
     }
 
