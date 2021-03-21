@@ -1,5 +1,6 @@
 package com.controllerface.cmdr_j.enums.journal;
 
+import com.controllerface.cmdr_j.classes.data.StellarBody;
 import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.interfaces.commander.Statistic;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
@@ -13,6 +14,7 @@ import com.controllerface.cmdr_j.classes.core.GameState;
 import com.controllerface.cmdr_j.classes.core.events.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
@@ -93,6 +95,7 @@ public enum JournalEvent
     Exploration
      */
     SAAScanComplete(new SAAScanCompleteEvent()),
+    SAASignalsFound(new SAASignalsFoundEvent()),
 //    FSSSignalDiscovered(new FSSSignalDiscoveredHandler()),    // informational
     FSSDiscoveryScan(new FSSDiscoveryScanEvent()),
     FSSAllBodiesFound(new FSSAllBodiesFoundEvent()),
@@ -161,6 +164,7 @@ public enum JournalEvent
      */
     Missions(new MissionsEvent()),
     MissionAccepted(new MissionAcceptedEvent()),
+    MissionRedirected(new MissionRedirectedEvent()),
     MissionCompleted(new MissionCompletedEvent()),
     MissionFailed(new MissionFailedEvent()),
     MissionAbandoned(new MissionAbandonedEvent()),
@@ -337,6 +341,65 @@ public enum JournalEvent
     {
         try { return ExperimentalRecipe.valueOf(expname); }
         catch (Exception e) { return null; }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static StellarBody.BodyType determineBodyType(Map<String, Object> event)
+    {
+        // star type is the simplest
+        if (event.get("StarType") != null)
+        {
+            if (event.get("StarType").equals("H"))
+            {
+                return StellarBody.BodyType.BlackHole;
+            }
+            else return StellarBody.BodyType.Star;
+        }
+
+        var parents = ((List<Map<String, Object>>) event.get("Parents"));
+
+//        // this is a guess for sure, have not see a rogue planet in game, may not actually exist
+//        if (parents == null)
+//        {
+//            return StellarBody.BodyType.RoguePlanet;
+//        }
+
+        var bodyName = ((String) event.get("BodyName"));
+        var systemName = ((String) event.get("StarSystem"));
+        if (event.get("PlanetClass") != null)
+        {
+            if (parents.get(0).get("Planet") != null)
+            {
+                return StellarBody.BodyType.Moon;
+            }
+            else
+            {
+                return StellarBody.BodyType.Planet;
+            }
+        }
+        else
+        {
+            if (bodyName.contains("Cluster"))
+            {
+                return StellarBody.BodyType.AsteroidCluster;
+            }
+            else if (bodyName.contains(systemName) && bodyName.contains("Ring"))
+            {
+                if (parents.get(0).get("Planet") != null)
+                {
+                    return StellarBody.BodyType.PlanetaryRing;
+                }
+                else
+                {
+                    return StellarBody.BodyType.StellarRing;
+                }
+            }
+            else
+            {
+                // todo: might be others to account for (Null/barycentre, Station)
+                return StellarBody.BodyType.Unknown;
+            }
+        }
     }
 
 }

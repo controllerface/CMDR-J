@@ -77,8 +77,8 @@ class MissionData extends HTMLElement
             case 'KillCount': return 'Kill Count';
             case 'DestinationSystem': return 'Destination System';
             case 'DestinationStation': return 'Destination Station';
-            case 'NewDestinationSystem': return 'New Destination System';
-            case 'NewDestinationStation': return 'New Destination Station';
+            case 'NewDestinationSystem': return 'Redirected System';
+            case 'NewDestinationStation': return 'Redirected Station';
             case 'PassengerCount': return 'Passenger Count';
             case 'PassengerVIPs': return 'Passenger VIPs';
             case 'PassengerWanted': return 'Passenger Wanted';

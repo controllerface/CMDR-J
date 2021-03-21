@@ -683,6 +683,7 @@ function handleCargo(e)
         cargoBin.commodity = cargoData['name'];
         cargoBin.stock = cargoData['count'];
         cargoBin.type = cargoData['type'];
+        cargoBin.marketId = cargoData['id'];
         cargoContainer.append(cargoBin);
     }
 }
@@ -1425,7 +1426,7 @@ function handleMissions(data)
     let missionContainer = document.getElementById('currentMissions');
     if (data === 'clear')
     {
-        missionData.textContent = '';
+        missionContainer.textContent = '';
     }
     else
     {

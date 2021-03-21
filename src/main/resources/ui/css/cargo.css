@@ -63,3 +63,8 @@ summary:hover
 {
     background: #555;
 }
+
+.queryButton
+{
+    float: right;
+}

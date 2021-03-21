@@ -1607,6 +1607,27 @@
         </div>
     </template>
 
+    <!-- Cargo bin -->
+    <template id="template_CargoBin">
+        <link rel="stylesheet" href="cargo.css">
+
+
+        <div class="binCategory">
+
+            <div class="binName">
+                <span id="cargoBin_commodity"></span>
+                <button class="queryButton" id="cargoBin_pricecheck">Find importers</button>
+            </div>
+
+            <div class="binType">
+                <img src="//:0" class="typeIcon" id="cargoBin_type">
+            </div>
+            <div class="binCount" id="cargoBin_stock">14</div>
+        </div>
+        <slot name="priceCheck" id="cargoBin_queryresults"></slot>
+
+    </template>
+
 </head>
 
 <body>

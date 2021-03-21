@@ -53,89 +53,40 @@ public enum ItemGrade
     in the inventory tab easier
      */
 
-    Drone(0, "Limpet Drone", "Star Port Restock Services"
-    ),   // standard commodities and salvage
+    /* currently unused */
+    Mining(1, "Asteroid Mining", "Asteroid and Planetary Ring Mining"),
+    RareCommodity(4, "Rare Commodity", "Exclusive to Specific Star Port Markets"),
+    // only available as mission rewards
+    Mission(5, "Mission Reward", "Mission Rewards"),
+    // only available at planetary ports
+    Planet(6, "Planetary Port", "Planetary Port Commodity Markets"),
+    // must be found at planetary POI
+    POI(7, "Planetary POI", "Planetary Points of Interest"),
+    Thargoid(8, "Thargoid Salvage", "Thargoid Combat/Planetary Sites"),
+    Guardian(9, "Guardian Salvage", "Ancient Ruins"),
+    /* end unused */
 
-    Mining(1, "Asteroid Mining", "Asteroid and Planetary Ring Mining"
-    ),  // attainable by mining only
+    Drone(0, "Limpet Drone", "Star Port Restock Services"),
+    Metals(2, "Commodity", "Star Port Commodity Markets"),
+    Minerals(2, "Commodity", "Star Port Commodity Markets"),
+    Chemicals(2, "Commodity", "Star Port Commodity Markets"),
+    Foods(2, "Commodity", "Star Port Commodity Markets"),
+    Textiles(2, "Commodity", "Star Port Commodity Markets"),
+    IndustrialMaterials(2, "Commodity", "Star Port Commodity Markets"),
+    Medicines(2, "Commodity", "Star Port Commodity Markets"),
+    LegalDrugs(2, "Commodity", "Star Port Commodity Markets"),
+    Machinery(2, "Commodity", "Star Port Commodity Markets"),
+    Technology(2, "Commodity", "Star Port Commodity Markets"),
+    Weapons(2, "Commodity", "Star Port Commodity Markets"),
+    ConsumerItems(2, "Commodity", "Star Port Commodity Markets"),
+    Slavery(2, "Commodity", "Star Port Commodity Markets"),
+    Waste(2, "Commodity", "Star Port Commodity Markets"),
+    Salvage(3, "Salvage", "Combat Wreckage/Unidentified Signal Sources"),
+    Faction(10, "Faction Item", "Power Play Faction Contact"),
 
-
-
-    Space(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-
-    Metals(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    Minerals(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    Chemicals(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    Foods(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    Textiles(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    IndustrialMaterials(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    Medicines(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    LegalDrugs(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    Machinery(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    Technology(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    Weapons(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    ConsumerItems(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    Slavery(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-    Waste(2, "Commodity", "Star Port Commodity Markets"
-    ),   // standard commodities and salvage
-
-
-    Salvage(3, "Salvage", "Combat Wreckage/Unidentified Signal Sources"
-    ), // salvage
-
-    RareCommodity(4, "Rare Commodity", "Exclusive to Specific Star Port Markets"
-    ),    // rare commodities, from specific star ports
-
-    Mission(5, "Mission Reward", "Mission Rewards"
-    ), // mission reward exclusive
-
-    Planet(6, "Planetary Port", "Planetary Port Commodity Markets"
-    ),  // only available at planetary ports
-
-    POI(7, "Planetary POI", "Planetary Points of Interest"
-    ),     // must be found at planetary POI
-
-    Thargoid(8, "Thargoid Salvage", "Thargoid Combat/Planetary Sites"
-    ),   // salvage
-
-    Guardian(9, "Guardian Salvage", "Ancient Ruins"
-    ),   // salvage
-
-    Faction(10, "Faction Item", "Power Play Faction Contact"
-    ), // power play specific items
-
+    // special case types used in tasks
     MaterialTrade(0, -1, "Trade"),
-
     Credits(0,-1,"CR"),
-
     Any(0,-1,"Any"),
 
     ;

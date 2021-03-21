@@ -476,6 +476,11 @@ public class JournalServlet extends EventSourceServlet
                         if (event.get("BodyID") == null) return;
                         JournalEvent.SAAScanComplete.process(gameState, event);
                     }
+                    else if (eventName.equalsIgnoreCase("SAASignalsFound"))
+                    {
+                        if (event.get("BodyID") == null) return;
+                        JournalEvent.SAASignalsFound.process(gameState, event);
+                    }
                     else if (eventName.equalsIgnoreCase("FSSAllBodiesFound"))
                     {
                         JournalEvent.FSSAllBodiesFound.process(gameState, event);

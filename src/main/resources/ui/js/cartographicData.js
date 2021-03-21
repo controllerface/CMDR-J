@@ -362,6 +362,30 @@ class CartographicData extends HTMLElement
                 }
                 statValue.append(detailData[0]);
             }
+            else if (stat === 'Signals')
+            {
+                let bodyType = body['stellar_body_type'];
+                let text = 'Notable Signals';
+                if (bodyType === 'PlanetaryRing')
+                {
+                    text = 'Material Hotspots'
+                }
+                let detailData = this.createExpandedStatContainer(text);
+                for (let i = 0, len = value.length; i < len; i++)
+                {
+                    console.log(value[i]);
+                    let nextSignal = value[i];
+                    let signalType = nextSignal['Type'];
+                    if (nextSignal['Type_Localised'])
+                    {
+                        signalType = nextSignal['Type_Localised'];
+                    }
+                    let signalCount = nextSignal['Count'];
+                    let nextSignalEntry = this.createExpandedStatEntry(signalType, signalCount);
+                    detailData[1].append(nextSignalEntry);
+                }
+                statValue.append(detailData[0]);
+            }
             else if (stat === 'StationEconomies')
             {
                 let detailData = this.createExpandedStatContainer('Economy Data');

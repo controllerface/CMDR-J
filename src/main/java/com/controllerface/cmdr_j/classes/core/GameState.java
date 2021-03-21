@@ -286,23 +286,26 @@ public class GameState
         final String name;
         final Integer count;
         final ItemGrade grade;
+        final long id;
 
-        private CommodityData(String name, Integer count, ItemGrade grade)
+        private CommodityData(String name, Integer count, ItemGrade grade, long id)
         {
             this.name = name;
             this.count = count;
             this.grade = grade;
+            this.id = id;
         }
 
         private CommodityData adjustAndClone(Integer adjustment)
         {
-            return new CommodityData(name, count + adjustment, grade);
+            return new CommodityData(name, count + adjustment, grade, id);
         }
 
         String toJson()
         {
             Map<String, Object> data = new HashMap<>();
             data.put("name", name);
+            data.put("id", id);
             data.put("count", count);
             data.put("type", grade.name().toLowerCase());
             return JSONSupport.Write.jsonToString.apply(data);
@@ -747,6 +750,7 @@ public class GameState
                     mission.delete();
                 });
         });
+        executeWithLock(() -> globalUpdate.accept("Missions", "clear"));
         executeWithLock(() -> emitMissionData(globalUpdate));
     }
 
@@ -769,6 +773,33 @@ public class GameState
 
             missionData.storeMissionData(mission);
         });
+        executeWithLock(() -> emitMissionData(globalUpdate));
+    }
+
+    public void redirectMission(long missionID, String newSystem, String newStation)
+    {
+        database.executeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return;
+
+            var mission = EntityUtilities.entityStream(commander.getLinks(EntityKeys.MISSION))
+                .filter(entity -> Objects.equals(entity.getProperty("missionID"), missionID))
+                .findFirst().orElse(null);
+
+            if (mission == null)
+            {
+                // can happen if the mission has been completed and the the app reloads
+                return;
+            }
+
+            var details = JSONSupport.Parse.jsonString.apply(mission.getBlobString("details"));
+            details.put("NewDestinationSystem", newSystem);
+            details.put("NewDestinationStation", newStation);
+            var detailJson = JSONSupport.Write.jsonToString.apply(details);
+            mission.setBlobString("details", detailJson);
+        });
+
         executeWithLock(() -> emitMissionData(globalUpdate));
     }
 
@@ -825,7 +856,10 @@ public class GameState
         {
             if (adjustment > 0)
             {
-                commodityData = new CommodityData(commodity.getLocalizedName(), adjustment, commodity.getGrade());
+                commodityData = new CommodityData(commodity.getLocalizedName(),
+                    adjustment,
+                    commodity.getGrade(),
+                    commodity.id);
             }
             else
             {
@@ -850,7 +884,7 @@ public class GameState
 
     public void setCargoCount(Commodity commodity, String name, Integer count)
     {
-        var commodityData = new CommodityData(name, count, commodity.getGrade());
+        var commodityData = new CommodityData(name, count, commodity.getGrade(), commodity.id);
         cargo.put(commodity, commodityData);
         var jsonData = commodityData.toJson();
         executeWithLock(() -> globalUpdate.accept("Cargo", jsonData));
@@ -1121,7 +1155,8 @@ public class GameState
 
                     var mktMap = entityToMap(mkt);
 
-                    var current = commodityMarketData.get("marketId");
+                    var current = Optional.ofNullable(commodityMarketData.get("marketId"))
+                        .orElse(-1);
                     var checking = mktMap.get(EntityKeys.MARKET_ID);
                     if (current.equals(checking))
                     {
@@ -2822,6 +2857,7 @@ public class GameState
 
             directUpdate.accept("DefenseStats", calculateDefenseStats());
 
+            directUpdate.accept("Missions", "clear");
             emitMissionData(directUpdate);
 
             emitAllTaskData(directUpdate);
