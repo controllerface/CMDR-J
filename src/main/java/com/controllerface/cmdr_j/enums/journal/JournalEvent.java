@@ -366,6 +366,15 @@ public enum JournalEvent
 
         var bodyName = ((String) event.get("BodyName"));
         var systemName = ((String) event.get("StarSystem"));
+        if (systemName == null)
+        {
+            if (bodyName.contains("Ring"))
+            {
+                return StellarBody.BodyType.PlanetaryRing;
+            }
+            else return StellarBody.BodyType.Planet;
+        }
+
         if (event.get("PlanetClass") != null)
         {
             if (parents.get(0).get("Planet") != null)

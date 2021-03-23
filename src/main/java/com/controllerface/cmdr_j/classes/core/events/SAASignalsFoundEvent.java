@@ -16,6 +16,8 @@ public class SAASignalsFoundEvent implements BiConsumer<GameState, Map<String, O
         var systemAddress = ((Number) event.get("SystemAddress")).longValue();
         var bodyID = ((Number) event.get("BodyID")).intValue();
         var bodyName = ((String) event.get("BodyName"));
+
+        // todo: if already exists, get body type from stored data
         var bodyType = JournalEvent.determineBodyType(event);
         var body = new ScannedBody(bodyType, bodyName, bodyID, systemAddress, event);
         gameState.discoverStellarBody(body);

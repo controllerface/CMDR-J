@@ -260,13 +260,13 @@ public class GameState
 
     public static class StatGroup
     {
-        public Double calculatedValue;
-        public Double rawValue;
-        public Double baseValue;
-        public Double boostValue;
-        public Double baseMultiplier;
-        public Double boostMultiplier;
-        public Double minmax;
+        public Double calculatedValue = 0.0;
+        public Double rawValue = 0.0;
+        public Double baseValue = 0.0;
+        public Double boostValue = 0.0;
+        public Double baseMultiplier = 0.0;
+        public Double boostMultiplier = 0.0;
+        public Double minmax = 0.0;
     }
 
     private static class GPSLocation
