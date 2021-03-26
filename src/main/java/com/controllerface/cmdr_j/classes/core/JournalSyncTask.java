@@ -174,7 +174,7 @@ public class JournalSyncTask implements Runnable
 
                 if (lastFileSize != check.length())
                 {
-                    System.out.println("File size changed: " + lastFileSize + " to: " + check.length());
+                    //System.out.println("File size changed: " + lastFileSize + " to: " + check.length());
                     lastFileSize = check.length();
                     sawChange.set(true);
                 }
