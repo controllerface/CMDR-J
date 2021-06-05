@@ -63,7 +63,7 @@ public class MissionCompletedEvent implements BiConsumer<GameState, Map<String, 
             .replace("_Name;","")
             .toUpperCase();
         var count = ((Integer) item.get("Count"));
-        var commodity = Commodity.valueOf(name);
-        gameState.adjustCargoCount(commodity, -1 * count);
+        Commodity.findByName(name).ifPresent(commodity ->
+            gameState.adjustCargoCount(commodity, -1 * count));
     }
 }

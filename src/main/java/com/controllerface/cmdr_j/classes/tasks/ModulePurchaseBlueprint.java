@@ -22,7 +22,7 @@ public class ModulePurchaseBlueprint implements TaskBlueprint
     {
         this.ss = ss;
         recipes = x.stream()
-            .filter(y->!y.name().equals("int_planetapproachsuite"))
+            .filter(y->!y.name().startsWith("int_planetapproachsuite"))
             .filter(y->!y.name().equals("modularcargobaydoor"))
             .filter(y->!y.name().endsWith("_cockpit"))
             .filter(y->!y.name().endsWith("_free"))

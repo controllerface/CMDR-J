@@ -444,10 +444,6 @@
         "Consumed by All Economies except Industrial"
       ]
     },
-
-
-
-
     "M_TISSUESAMPLE_FLUID": {
       "name": "Mollusc Fluid",
       "locations": [
@@ -532,10 +528,6 @@
         ""
       ]
     },
-
-
-
-
     "RHODPLUMSITE": {
       "name": "Rhodplumsite",
       "locations": [
@@ -1472,7 +1464,6 @@
         ""
       ]
     },
-
     "APAVIETII": {
       "name": "Apa Vietii",
       "locations": [
@@ -3489,6 +3480,1140 @@
       "locations": [
         "Surface prospecting",
         "Mining"
+      ]
+    },
+    "HUSH": {
+      "name": "Hush",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SUITSCHEMATIC": {
+      "name": "Suit Schematic",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SCRAMBLER": {
+      "name": "Scrambler",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MICROTHRUSTERS": {
+      "name": "Micro Thrusters",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CAMPAIGNPLANS": {
+      "name": "Campaign Plans",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PERSONALDOCUMENTS": {
+      "name": "Personal Documents",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "VIRUS": {
+      "name": "Virus",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "BLOODTESTRESULTS": {
+      "name": "Blood Test Results",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "TAXRECORDS": {
+      "name": "Tax Records",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SYNTHETICPATHOGEN": {
+      "name": "Synthetic Pathogen",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SETTLEMENTDEFENCEPLANS": {
+      "name": "Settlement Defence Plans",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CENSUSDATA": {
+      "name": "Census Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "IONISEDGAS": {
+      "name": "Ionised Gas",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "REFINEMENTPROCESSSAMPLE": {
+      "name": "Refinement Process Sample",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "TOPOGRAPHICALSURVEYS": {
+      "name": "Topographical Surveys",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "INSIGHT": {
+      "name": "Insight",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "EMPLOYEEGENETICDATA": {
+      "name": "Employee Genetic Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "FACTIONNEWS": {
+      "name": "Faction News",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PHOTOALBUMS": {
+      "name": "Photo Albums",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "RECYCLINGLOGS": {
+      "name": "Recycling Logs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "REACTOROUTPUTREVIEW": {
+      "name": "Reactor Output Review",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SHAREHOLDERINFORMATION": {
+      "name": "Shareholder Information",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "ELECTRICALWIRING": {
+      "name": "Electrical Wiring",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MININGANALYTICS": {
+      "name": "Mining Analytics",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PRODUCTIONSCHEDULE": {
+      "name": "Production Schedule",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "VIPSECURITYDETAIL": {
+      "name": "VIP Security Detail",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SECURITYEXPENSES": {
+      "name": "Security Expenses",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "WEAPONINVENTORY": {
+      "name": "Weapon Inventory",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SPECTRALANALYSISDATA": {
+      "name": "Spectral Analysis Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CROPYIELDANALYSIS": {
+      "name": "Crop Yield Analysis",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CARBONFIBREPLATING": {
+      "name": "Carbon Fibre Plating",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SPYWARE": {
+      "name": "Spyware",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CIRCUITBOARD": {
+      "name": "Circuit Board",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "ENHANCEDINTERROGATIONRECORDINGS": {
+      "name": "Enhanced Interrogation Recordings",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MAINTENANCELOGS": {
+      "name": "Maintenance Logs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MEETINGMINUTES": {
+      "name": "Meeting Minutes",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "EMPLOYEEDIRECTORY": {
+      "name": "Employee Directory",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MOTOR": {
+      "name": "Motor",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "RADIOACTIVITYDATA": {
+      "name": "Radioactivity Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CRIMINALRECORDS": {
+      "name": "Criminal Records",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "FINANCIALPROJECTIONS": {
+      "name": "Financial Projections",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PETRIFIEDFOSSIL": {
+      "name": "Petrified Fossil",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "AUDIOLOGS": {
+      "name": "Audio Logs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PUSH": {
+      "name": "Push",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "WEAPONTESTDATA": {
+      "name": "Weapon Test Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PATIENTHISTORY": {
+      "name": "Patient History",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CIRCUITSWITCH": {
+      "name": "Circuit Switch",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "EVACUATIONPROTOCOLS": {
+      "name": "Evacuation Protocols",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PATROLROUTES": {
+      "name": "Patrol Routes",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "ELECTRICALFUSE": {
+      "name": "Electrical Fuse",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "EXPLORATIONJOURNALS": {
+      "name": "Exploration Journals",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CHEMICALPATENTS": {
+      "name": "Chemical Patents",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CULINARYRECIPES": {
+      "name": "Culinary Recipes",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "INCIDENTLOGS": {
+      "name": "Incident Logs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PERSONALLOGS": {
+      "name": "Personal Logs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "ACCIDENTLOGS": {
+      "name": "Accident Logs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "VACCINATIONRECORDS": {
+      "name": "Vaccination Records",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "DEGRADEDPOWERREGULATOR": {
+      "name": "Degraded Power Regulator",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "INTERVIEWRECORDINGS": {
+      "name": "Interview Recordings",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "TROOPDEPLOYMENTRECORDS": {
+      "name": "Troop Deployment Records",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MICROHYDRAULICS": {
+      "name": "Micro Hydraulics",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SURVEILLANCEEQUIPMENT": {
+      "name": "Surveillance Equipment",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "COMBATTRAININGMATERIAL": {
+      "name": "Combat Training Material",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "RDX": {
+      "name": "RDX",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "GRAPHENE": {
+      "name": "Graphene",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CLINICALTRAILRECORDS": {
+      "name": "Clinical Trail Records",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CONFLICTHISTORY": {
+      "name": "Conflict History",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MICROBIALINHIBITOR": {
+      "name": "Microbial Inhibitor",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MANUFACTURINGINSTRUCTIONS": {
+      "name": "Manufacturing Instructions",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "BIOLOGICALWEAPONDATA": {
+      "name": "Biological Weapon Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "COCKTAILRECIPES": {
+      "name": "Cocktail Recipes",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PYROLYTICCATALYST": {
+      "name": "Pyrolytic Catalyst",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CALIFORNIUM": {
+      "name": "Californium",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "INSIGHTENTERTAINMENTSUITE": {
+      "name": "Insight Entertainment Suite",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CHEMICALCATALYST": {
+      "name": "Chemical Catalyst",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "ENCRYPTEDMEMORYCHIP": {
+      "name": "Encrypted Memory Chip",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CHEMICALSAMPLE": {
+      "name": "Chemical Sample",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "TRAVELPERMITS": {
+      "name": "Travel Permits",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "OPTICALLENS": {
+      "name": "Optical Lens",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CHEMICALEXPERIMENTDATA": {
+      "name": "Chemical Experiment Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CHEMICALPROCESSSAMPLE": {
+      "name": "Chemical Process Sample",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "TRUEFORMFOSSIL": {
+      "name": "True Form Fossil",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "INSIGHTDATABANK": {
+      "name": "Insight Data Bank",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "EPOXYADHESIVE": {
+      "name": "Epoxy Adhesive",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PHNEUTRALISER": {
+      "name": "pH Neutraliser",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "HEALTHMONITOR": {
+      "name": "Health Monitor",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "NETWORKACCESSHISTORY": {
+      "name": "Network Access History",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PURCHASEREQUESTS": {
+      "name": "Purchase Requests",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "BALLISTICDATA": {
+      "name": "Ballistic Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "NOCDATA": {
+      "name": "NOC Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "COMPRESSIONLIQUEFIEDGAS": {
+      "name": "Compression-Liquefied Gas",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SALESRECORDS": {
+      "name": "Sales Records",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CHEMICALSUPERBASE": {
+      "name": "Chemical Superbase",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "OPTICALFIBRE": {
+      "name": "Optical Fibre",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PLANTGROWTHCHARTS": {
+      "name": "Plant Growth Charts",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "AGRICULTURALPROCESSSAMPLE": {
+      "name": "Agricultural Process Sample",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MEMORYCHIP": {
+      "name": "Memory Chip",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "TRANSMITTER": {
+      "name": "Transmitter",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "HYDROPONICDATA": {
+      "name": "Hydroponic Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PAYROLLINFORMATION": {
+      "name": "Payroll Information",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "VIROLOGYDATA": {
+      "name": "Virology Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "XENODEFENCEPROTOCOLS": {
+      "name": "Xeno-Defence Protocols",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "BIOLOGICALSAMPLE": {
+      "name": "Biological Sample",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "TUNGSTENCARBIDE": {
+      "name": "Tungsten Carbide",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "UNIONMEMBERSHIP": {
+      "name": "Union Membership",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "TITANIUMPLATING": {
+      "name": "Titanium Plating",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "BLACKLISTDATA": {
+      "name": "Blacklist Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "DEEPMANTLESAMPLE": {
+      "name": "Deep Mantle Sample",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "COMBATANTPERFORMANCE": {
+      "name": "Combatant Performance",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "WEAPONSCHEMATIC": {
+      "name": "Weapon Schematic",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "GEOLOGICALDATA": {
+      "name": "Geological Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MEDICALRECORDS": {
+      "name": "Medical Records",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "VACCINERESEARCH": {
+      "name": "Vaccine Research",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "EMPLOYMENTHISTORY": {
+      "name": "Employment History",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "EMPLOYEEEXPENSES": {
+      "name": "Employee Expenses",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "LITERARYFICTION": {
+      "name": "Literary Fiction",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "VEHICLESCHEMATIC": {
+      "name": "Vehicle Schematic",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CHEMICALFORMULAE": {
+      "name": "Chemical Formulae",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SLUSHFUNDLOGS": {
+      "name": "Slush Fund Logs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "POLITICALAFFILIATIONS": {
+      "name": "Political Affiliations",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "STELLARACTIVITYLOGS": {
+      "name": "Stellar Activity Logs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "OPINIONPOLLS": {
+      "name": "Opinion Polls",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "GEOGRAPHICALDATA": {
+      "name": "Geographical Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SMEARCAMPAIGNPLANS": {
+      "name": "Smear Campaign Plans",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CLASSICENTERTAINMENT": {
+      "name": "Classic Entertainment",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MICROELECTRODE": {
+      "name": "Microelectrode",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SURVEILLEANCELOGS": {
+      "name": "Surveillance Logs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "GENETICREPAIRMEDS": {
+      "name": "Genetic Repair Meds",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SECURITYPLANS": {
+      "name": "Security Plans",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MULTIMEDIAENTERTAINMENT": {
+      "name": "Multimedia Entertainment",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "IONBATTERY": {
+      "name": "Ion Battery",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "LARGECAPACITYPOWERREGULATOR": {
+      "name": "Power Regulator",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MICROTRANSFORMER": {
+      "name": "Micro Transformer",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "COMPACTLIBRARY": {
+      "name": "Compact Library",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SETTLEMENTASSAULTPLANS": {
+      "name": "Settlement Assault Plans",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "LAZARUS": {
+      "name": "Lazarus",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "INORGANICCONTAMINANT": {
+      "name": "Inorganic Contaminant",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MUTAGENICCATALYST": {
+      "name": "Mutagenic Catalyst",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "VISITORREGISTER": {
+      "name": "Visitor Register",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "AXCOMBATLOGS": {
+      "name": "AX Combat Logs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "KOMPROMAT": {
+      "name": "Kompromat",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PRISONERLOGS": {
+      "name": "Prisoner Logs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SYNTHETICGENOME": {
+      "name": "Synthetic Genome",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "OXYGENICBACTERIA": {
+      "name": "Oxygenic Bacteria",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "BIOCHEMICALAGENT": {
+      "name": "Biochemical Agent",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "BIOMETRICDATA": {
+      "name": "Biometric Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "ESPIONAGEMATERIAL": {
+      "name": "Espionage Material",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "NUTRITIONALCONCENTRATE": {
+      "name": "Nutritional Concentrate",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "NETWORKSECURITYPROTOCOLS": {
+      "name": "Network Security Protocols",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "INFINITY": {
+      "name": "Infinity",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MICROSUPERCAPACITOR": {
+      "name": "Micro Supercapacitor",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CASTFOSSIL": {
+      "name": "Cast Fossil",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CHEMICALWEAPONDATA": {
+      "name": "Chemical Weapon Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SEEDGENEAOLOGY": {
+      "name": "Seed Geneaology",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CATMEDIA": {
+      "name": "Cat Media",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PURCHASERECORDS": {
+      "name": "Purchase Records",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "RISKASSESSMENTS": {
+      "name": "Risk Assessments",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "MINERALSURVEY": {
+      "name": "Mineral Survey",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "VISCOELASTICPOLYMER": {
+      "name": "Viscoelastic Polymer",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "RESIDENTIALDIRECTORY": {
+      "name": "Residential Directory",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "CHEMICALINVENTORY": {
+      "name": "Chemical Inventory",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "NEXTOFKINRECORDS": {
+      "name": "Next of Kin Records",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "JOBAPPLICATIONS": {
+      "name": "Job Applications",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "GMEDS": {
+      "name": "G-Meds",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "INERTIACANISTER": {
+      "name": "Inertia Canister",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "UNIVERSALTRANSLATOR": {
+      "name": "Universal Translator",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "INFLUENCEPROJECTIONS": {
+      "name": "Influence Projections",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "OPERATIONALMANUAL": {
+      "name": "Operational Manual",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "SHIPSCHEMATIC": {
+      "name": "Ship Schematic",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "DUTYROTA": {
+      "name": "Duty Rota",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "ATMOSPHERICDATA": {
+      "name": "Atmospheric Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "BUILDINGSCHEMATIC": {
+      "name": "Building Schematic",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "TACTICALPLANS": {
+      "name": "Tactical Plans",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PRODUCTIONREPORTS": {
+      "name": "Production Reports",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "FACTIONDONATORLIST": {
+      "name": "Faction Donator List",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "AIRQUALITYREPORTS": {
+      "name": "Air Quality Reports",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "ELECTROMAGNET": {
+      "name": "Electromagnet",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "HEALTHCANISTER": {
+      "name": "Health Canister",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "INTERROGATIONRECORDINGS": {
+      "name": "Interrogation Recordings",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "DIGITALDESIGNS": {
+      "name": "Digital Designs",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PROPAGANDA": {
+      "name": "Propaganda",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "AEROGEL": {
+      "name": "Aerogel",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "FACTIONASSOCIATES": {
+      "name": "Faction Associates",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "INTERNALCORRESPONDENCE": {
+      "name": "Internal Correspondence",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "WEAPONCOMPONENT": {
+      "name": "Weapon Component",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "METALCOIL": {
+      "name": "Metal Coil",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PHARMACEUTICALPATENTS": {
+      "name": "Pharmaceutical Patents",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "EPINEPHRINE": {
+      "name": "Epinephrine",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "PERSONALCOMPUTER": {
+      "name": "Personal Computer",
+      "locations": [
+        "Planetary Settlement"
       ]
     }
   }

@@ -83,6 +83,7 @@ public class LoadoutEvent implements BiConsumer<GameState, Map<String, Object>>
         {
             if (slot == null) System.err.println("Ignoring Slot: " + slotKey);
             if (module == null) System.err.println("Ignoring Module: " + moduleKey);
+            System.out.println(moduleData);
             return;
         }
 

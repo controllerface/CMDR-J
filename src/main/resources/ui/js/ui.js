@@ -688,6 +688,23 @@ function handleCargo(e)
     }
 }
 
+function handleConsumable(e)
+{
+    let cargoContainer = document.getElementById('consumables');
+    if (e === 'Clear')
+    {
+        cargoContainer.textContent = "";
+    }
+    else
+    {
+        let cargoData = JSON.parse(e);
+        let cargoBin = document.createElement('cargo-bin');
+        cargoBin.commodity = cargoData['name'];
+        cargoBin.stock = cargoData['count'];
+        cargoContainer.append(cargoBin);
+    }
+}
+
 function handleShipData(data)
 {
     let layout = JSON.parse(data);
@@ -1758,6 +1775,8 @@ const eventListeners =
 
     // Called when the player's cargo manifest changes, contains info about each item
     Cargo: (e) => handleCargo(e.data),
+
+    Consumable: (e) => handleConsumable(e.data),
 
     // Called when the player's crafting material counts change
     Material: (e) => handleMaterial(e.data),

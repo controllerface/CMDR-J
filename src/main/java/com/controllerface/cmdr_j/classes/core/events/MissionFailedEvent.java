@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.classes.core.events;
 import com.controllerface.cmdr_j.classes.core.GameState;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class MissionFailedEvent implements BiConsumer<GameState, Map<String, Object>>
@@ -10,10 +11,11 @@ public class MissionFailedEvent implements BiConsumer<GameState, Map<String, Obj
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        var fine = ((Number) event.get("Fine")).longValue();
+        System.out.println(event);
+        Optional.ofNullable(((Number) event.get("Fine")))
+            .map(Number::longValue)
+            .ifPresent(fine -> gameState.adjustCreditBalance(-1 * fine));
         var missionID = ((Number) event.get("MissionID")).longValue();
-
-        gameState.adjustCreditBalance(-1 * fine);
         gameState.completeMission(missionID);
     }
 }

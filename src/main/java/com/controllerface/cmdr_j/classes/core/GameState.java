@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.classes.core;
 
 import com.controllerface.cmdr_j.classes.data.*;
+import com.controllerface.cmdr_j.enums.costs.consumables.Consumable;
 import com.controllerface.cmdr_j.enums.equipment.modules.*;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 import com.controllerface.cmdr_j.interfaces.Procedure;
@@ -128,6 +129,8 @@ public class GameState
      * Player's crafting material inventory.
      */
     private final Map<Material, Integer> materials = new HashMap<>();
+
+    private final Map<Consumable, Integer> consumables = new HashMap<>();
 
     /**
      * Player's current cargo inventory, stored in their current ship.
@@ -891,6 +894,12 @@ public class GameState
         emitAllTaskData(globalUpdate);
     }
 
+    public void setConsumableCount(Consumable consumable, Integer count)
+    {
+        consumables.put(consumable, count);
+        executeWithLock(() -> globalUpdate.accept("Consumable", writeConsumableEvent(consumable, count)));
+    }
+
     //endregion
 
     //region Galactic and System Location Information
@@ -905,6 +914,7 @@ public class GameState
 
     public void setLocation(StarSystem starSystem)
     {
+        this.nearestBody = null;
         this.starSystem = starSystem;
 
         engineerProgress.forEach((engineer, data) ->
@@ -2735,7 +2745,9 @@ public class GameState
     /**
      * When a client connects, this is called to ensure the client gets the current state
      * data. Note that after a client is connected, state data must be emitted as it changes
-     * in individual events.
+     * in individual events. IMPORTANT NOTE: this method must be updated whenever new state
+     * events are added elsewhere. This method must provide a complete update of all possible
+     * events, reflecting the entire game state.
      * @param directUpdate the event sink for the newly connected client
      */
     public void emitCurrentState(BiConsumer<String, String> directUpdate)
@@ -2755,6 +2767,9 @@ public class GameState
 
             materials.forEach((material, value) ->
                 directUpdate.accept("Material", writeMaterialEvent(material, value)));
+
+            consumables.forEach((consumable, value) ->
+                directUpdate.accept("Consumable", writeConsumableEvent(consumable, value)));
 
             directUpdate.accept("Cargo", "Clear");
 
@@ -4513,6 +4528,14 @@ public class GameState
     {
         var event = new HashMap<String, Object>();
         event.put("name", material.name());
+        event.put("count", count.toString());
+        return JSONSupport.Write.jsonToString.apply(event);
+    }
+
+    private String writeConsumableEvent(Consumable consumable, Integer count)
+    {
+        var event = new HashMap<String, Object>();
+        event.put("name", consumable.name());
         event.put("count", count.toString());
         return JSONSupport.Write.jsonToString.apply(event);
     }

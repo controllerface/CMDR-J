@@ -80,6 +80,44 @@ import java.util.stream.Stream;
 //@Ignore
 public class CommanderJTest
 {
+
+    @Test
+    public void readMicroMats() throws Exception
+    {
+        var jsonStream = CommanderJTest.class.getResourceAsStream("/scratch.json");
+        var jsonData = JSONSupport.Parse.jsonStream.apply(jsonStream);
+        System.out.println(jsonData);
+        @SuppressWarnings("unchecked")
+        var entries = ((List<Map<String, Object>>) jsonData.get("entries"));
+        Map<String, Object> locMap = new HashMap<>();
+        Map<String, List<String>> catMap = new HashMap<>();
+        entries.forEach(en->
+        {
+            @SuppressWarnings("unchecked")
+            var locations = ((List<String>) en.get("OriginDetails"));
+            var name = ((String) en.get("Name"));
+            Map<String, Object> data = new HashMap<>();
+            data.put("name", name);
+            data.put("locations", locations);
+            var enumName = ((String) en.get("FormattedName")).toUpperCase();
+            locMap.put(enumName, data);
+
+            var group = ((String) en.get("Group"));
+
+            catMap.computeIfAbsent(group, _k -> new ArrayList<>())
+                .add(enumName+"(ItemGrade.MicroMaterial),");
+        });
+
+        System.out.println(JSONSupport.Write.jsonToString.apply(locMap));
+
+        catMap.forEach((k, v) ->
+        {
+            System.out.println(k + "\n");
+            v.forEach(System.out::println);
+            System.out.println("----------\n");
+        });
+    }
+
     @Test
     public void testCommodities() throws IOException
     {

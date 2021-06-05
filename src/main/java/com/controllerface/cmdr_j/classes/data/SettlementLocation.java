@@ -14,6 +14,7 @@ public class SettlementLocation
     public final double latitude;
     public final double longitude;
     public final long marketId;
+    public final long systemAddress;
     public final String name;
     public final String bodyName;
     public final Map<String, Object> details;
@@ -21,6 +22,7 @@ public class SettlementLocation
     public SettlementLocation(double latitude,
                               double longitude,
                               long marketId,
+                              long systemAddress,
                               String name,
                               String bodyName,
                               Map<String, Object> details)
@@ -28,6 +30,7 @@ public class SettlementLocation
         this.latitude = latitude;
         this.longitude = longitude;
         this.marketId = marketId;
+        this.systemAddress = systemAddress;
         this.name = name;
         this.bodyName = bodyName;
         this.details = details;
@@ -36,15 +39,16 @@ public class SettlementLocation
     public SettlementLocation(double latitude,
                               double longitude,
                               long marketId,
+                              long systemAddress,
                               String name,
                               String bodyName)
     {
-        this(latitude, longitude, marketId, name, bodyName, Collections.emptyMap());
+        this(latitude, longitude, marketId, systemAddress, name, bodyName, Collections.emptyMap());
     }
 
     public SettlementLocation cloneWithDetails(Map<String, Object> details)
     {
-        return new SettlementLocation(latitude, longitude, marketId, name, bodyName, details);
+        return new SettlementLocation(latitude, longitude, marketId, systemAddress, name, bodyName, details);
     }
 
     public Map<String, Object> toMap()

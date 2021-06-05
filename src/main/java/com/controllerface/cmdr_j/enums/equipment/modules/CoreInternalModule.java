@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
+import com.controllerface.cmdr_j.classes.modules.core.planetarysuite.size1.AdvancedPlanetarySuite_1I;
 import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.modules.core.bulkheads.*;
 import com.controllerface.cmdr_j.classes.modules.core.cargobay.GenericCargoBay;
@@ -686,7 +687,8 @@ public enum CoreInternalModule implements ShipModule
      * Planetary Approach Suite (Horizons)
      */
 
-    int_planetapproachsuite                     (128672317L,new PlanetarySuite_1I()),
+    int_planetapproachsuite                     (128672317L, new PlanetarySuite_1I()),
+    int_planetapproachsuite_advanced            (0L, new AdvancedPlanetarySuite_1I()),
 
     ;
 

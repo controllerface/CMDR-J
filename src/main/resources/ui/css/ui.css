@@ -250,12 +250,18 @@ details > summary::-webkit-details-marker
 {
     display: grid;
     grid-template:
-        "politicsTab engineersRankTab commanderStatsTab"
-        "panel       panel            panel";
-    grid-template-columns: 1fr 1fr 1fr;
+        "inventoryTab politicsTab engineersRankTab commanderStatsTab"
+        "panel        panel       panel            panel";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     margin-left: auto;
     margin-right: auto;
+}
+
+#inventoryTab
+{
+    grid-area: inventoryTab;
+    border-radius: 5px;
 }
 
 #politicsTab
@@ -424,7 +430,7 @@ details > summary::-webkit-details-marker
 {
     display: grid;
     grid-template-areas:
-    "loadoutTab inventoryTab systemsTab baseStatsTab"
+    "loadoutTab cargoTab systemsTab baseStatsTab"
     "panel      panel        panel      panel";
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
@@ -436,11 +442,19 @@ details > summary::-webkit-details-marker
     border-radius: 5px;
 }
 
+#cargoTab
+{
+    grid-area: cargoTab;
+    border-radius: 5px;
+}
+
+/*
 #inventoryTab
 {
     grid-area: inventoryTab;
     border-radius: 5px;
 }
+*/
 
 #systemsTab
 {
@@ -524,7 +538,7 @@ details > summary::-webkit-details-marker
 {
     display: grid;
     grid-template-areas:
-    "matsTab cargoTab"
+    "matsTab microMatsTab"
     "panel   panel";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
@@ -536,12 +550,19 @@ details > summary::-webkit-details-marker
     border-radius: 5px;
 }
 
+#microMatsTab
+{
+    grid-area: microMatsTab;
+    border-radius: 5px;
+}
+
+/*
 #cargoTab
 {
     grid-area: cargoTab;
     border-radius: 5px;
 }
-
+*/
 
 
 
@@ -598,6 +619,12 @@ details > summary::-webkit-details-marker
 }
 
 
+
+
+
+
+
+
 /* Material Inventory */
 
 #materialsContainer
@@ -627,7 +654,49 @@ details > summary::-webkit-details-marker
 }
 
 
-/* Material Inventory */
+
+/* Micro-Material Inventory */
+
+#microMaterialsContainer
+{
+    display: grid;
+    grid-template-areas:
+    "assetsTab goodsTab dataTab consumablesTab"
+    "panel     panel    panel   panel";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 2em auto;
+}
+
+#assetsTab
+{
+    grid-area: assetsTab;
+    border-radius: 5px;
+}
+
+#goodsTab
+{
+    grid-area: goodsTab;
+    border-radius: 5px;
+}
+
+#dataTab
+{
+    grid-area: dataTab;
+    border-radius: 5px;
+}
+
+#consumablesTab
+{
+    grid-area: consumablesTab;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+/* Astrometrics */
 
 #astrometricsContainer
 {

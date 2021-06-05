@@ -342,7 +342,8 @@ public enum ItemEffect
     empty("-","Empty Compartment", true), // used for the "empty" module so it doesn't look odd
     cockpit("","Starship Canopy", true),          // cockpit
     cargo_door("","Cargo Scoop", true),     // cargo bay door
-    planetary_approach("","Landing Capabilities", true), // planetary approach suite
+    planetary_approach("","Landing Capability", true), // planetary approach suite
+    planetary_disembark("","Disembark Capability", true), // planetary approach suite
     guardian("", "", true),              // is a guardian module
     human("", "", true),                 // is a experimental human tech broker module
     experimental("", "", true),          // is a experimental human (Aegis) module

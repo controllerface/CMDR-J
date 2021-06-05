@@ -20,8 +20,9 @@ public class ApproachSettlementEvent implements BiConsumer<GameState, Map<String
         var name = ((String) event.get("Name"));
         var bodyName = ((String) event.get("BodyName"));
         var marketId = ((Number) event.get("MarketID")).longValue();
+        var systemAddress = ((Number) event.get("SystemAddress")).longValue();
         var settlementLocation =
-            new SettlementLocation(latitude, longitude, marketId, name, bodyName);
+            new SettlementLocation(latitude, longitude, marketId, systemAddress, name, bodyName);
         gameState.discoverSettlement(settlementLocation);
         gameState.setClosestSettlement(settlementLocation);
         gameState.emitCartographyData();

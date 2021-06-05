@@ -6,6 +6,7 @@ import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -428,7 +429,14 @@ public enum Commodity implements TaskCost
     OUTOFDATEGOODS                      (ItemGrade.Faction),
     UNDERGROUNDSUPPORT                  (ItemGrade.Faction),
     GROMCOUNTERINTELLIGENCE             (ItemGrade.Faction),
-    GROMWARTROPHIES                     (ItemGrade.Faction);
+    GROMWARTROPHIES                     (ItemGrade.Faction),
+
+    HEALTHPACK(ItemGrade.MicroMaterial),
+    ENERGYCELL(ItemGrade.MicroMaterial),
+    AMM_GRENADE_FRAG(ItemGrade.MicroMaterial),
+    AMM_GRENADE_EMP(ItemGrade.MicroMaterial),
+    AMM_GRENADE_SHIELD(ItemGrade.MicroMaterial),
+    ;
 
     public final long id;
     public final long homeMarket;
@@ -506,5 +514,17 @@ public enum Commodity implements TaskCost
             .filter(item -> item.id == itemId)
             .findFirst()
             .orElse(null);
+    }
+
+    public static Optional<Commodity> findByName(String name)
+    {
+        try
+        {
+            return Optional.of(Commodity.valueOf(name));
+        }
+        catch (Exception e)
+        {
+            return Optional.empty();
+        }
     }
 }

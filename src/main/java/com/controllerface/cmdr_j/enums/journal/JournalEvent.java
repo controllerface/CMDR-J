@@ -76,6 +76,7 @@ public enum JournalEvent
     Cargo(new CargoEvent()),
     LoadGame(new LoadGameEvent()),
     Materials(new MaterialsEvent()),
+    ShipLockerMaterials(new ShipLockerMaterialsEvent()),
 //    SquadronStartup(new SquadronStartupHandler()),            // informational
 //    Fileheader(context -> {}),                                // informational
 

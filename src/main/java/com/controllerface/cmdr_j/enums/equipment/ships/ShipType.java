@@ -72,6 +72,9 @@ public enum ShipType
     empire_courier              (128671223L, new ICourier()),
     cutter                      (128049375L, new ICutter()),
 
+
+    flightsuit                  (0, new FlightSuit()),
+
     ;
 
     public final long id;

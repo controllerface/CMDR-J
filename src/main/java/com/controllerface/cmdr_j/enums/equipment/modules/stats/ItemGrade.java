@@ -84,6 +84,8 @@ public enum ItemGrade
     Salvage(3, "Salvage", "Combat Wreckage/Unidentified Signal Sources"),
     Faction(10, "Faction Item", "Power Play Faction Contact"),
 
+    MicroMaterial(1, "Micro-Material","Stuff"),
+
     // special case types used in tasks
     MaterialTrade(0, -1, "Trade"),
     Credits(0,-1,"CR"),

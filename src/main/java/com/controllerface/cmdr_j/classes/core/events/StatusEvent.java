@@ -5,6 +5,7 @@ import com.controllerface.cmdr_j.classes.data.LocalCoordinates;
 import com.controllerface.cmdr_j.enums.journal.StatusFlag;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
@@ -19,8 +20,18 @@ public class StatusEvent implements BiConsumer<GameState, Map<String, Object>>
         if (flags == 0L) return;
 
         var fuel = ((Map<String, Object>) event.get("Fuel"));
-        var mainFuel = ((Number) fuel.get("FuelMain")).doubleValue();
-        var reservoirFuel = ((Number) fuel.get("FuelReservoir")).doubleValue();
+
+        var mainFuel = Optional.ofNullable(fuel)
+            .map(f -> f.get("FuelMain"))
+            .map(n-> ((Number) n))
+            .map(Number::longValue)
+            .orElse(0L);
+
+        var reservoirFuel = Optional.ofNullable(fuel)
+            .map(f -> f.get("FuelReservoir"))
+            .map(n-> ((Number) n))
+            .map(Number::longValue)
+            .orElse(0L);
 
         gameState.updateFuelLevels(mainFuel, reservoirFuel);
 
@@ -38,9 +49,16 @@ public class StatusEvent implements BiConsumer<GameState, Map<String, Object>>
         {
             latitude = ((Number) event.get("Latitude")).doubleValue();
             longitude = ((Number) event.get("Longitude")).doubleValue();
-            altitude = ((Number) event.get("Altitude")).doubleValue();
+
+            altitude = Optional.ofNullable(event.get("Altitude"))
+                .map(n-> ((Number) n).doubleValue())
+                .orElse(0d);
+
             heading = ((Number) event.get("Heading")).doubleValue();
-            radius = ((Number) event.get("PlanetRadius")).doubleValue();
+
+            radius = Optional.ofNullable(event.get("PlanetRadius"))
+                .map(n-> ((Number) n).doubleValue())
+                .orElse(0d);
         }
 
         var localCoordinates = new LocalCoordinates(nearPlanet, latitude, longitude, altitude, heading, radius);
