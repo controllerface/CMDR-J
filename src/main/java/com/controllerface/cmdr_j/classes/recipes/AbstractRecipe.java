@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.classes.recipes;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.CostData;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
@@ -10,7 +11,7 @@ import java.util.stream.Stream;
 
 public abstract class AbstractRecipe implements TaskRecipe
 {
-    private String parentBlueprintName = "";
+    private TaskBlueprint parentBlueprintName = null;
     private final ItemGrade grade;
     private final CostData[] cost;
     private final ItemEffects effects;
@@ -61,13 +62,13 @@ public abstract class AbstractRecipe implements TaskRecipe
     }
 
     @Override
-    public void setParentBlueprintName(String blueprintName)
+    public void setParentBlueprintName(TaskBlueprint blueprintName)
     {
         this.parentBlueprintName = blueprintName;
     }
 
     @Override
-    public String getParentBlueprintName()
+    public TaskBlueprint getParentBlueprint()
     {
         return parentBlueprintName;
     }

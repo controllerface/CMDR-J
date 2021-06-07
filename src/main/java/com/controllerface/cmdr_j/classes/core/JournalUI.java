@@ -51,6 +51,7 @@ public class JournalUI
         assetMap.put("/communityGoal.js",       StaticAsset.make("/ui/js/communityGoal.js"));
         assetMap.put("/communityGoals.js",      StaticAsset.make("/ui/js/communityGoals.js"));
         assetMap.put("/conflictData.js",        StaticAsset.make("/ui/js/conflictData.js"));
+        assetMap.put("/consumableManifest.js",  StaticAsset.make("/ui/js/consumableManifest.js"));
         assetMap.put("/currentMissions.js",     StaticAsset.make("/ui/js/currentMissions.js"));
         assetMap.put("/defenseResistance.js",   StaticAsset.make("/ui/js/defenseResistance.js"));
         assetMap.put("/defenseStats.js",        StaticAsset.make("/ui/js/defenseStats.js"));
@@ -67,6 +68,7 @@ public class JournalUI
         assetMap.put("/marketQuery.js",         StaticAsset.make("/ui/js/marketQuery.js"));
         assetMap.put("/marketSearch.js",        StaticAsset.make("/ui/js/marketSearch.js"));
         assetMap.put("/material.js",            StaticAsset.make("/ui/js/material.js"));
+        assetMap.put("/microMaterial.js",       StaticAsset.make("/ui/js/microMaterial.js"));
         assetMap.put("/missionData.js",         StaticAsset.make("/ui/js/missionData.js"));
         assetMap.put("/moduleBay.js",           StaticAsset.make("/ui/js/moduleBay.js"));
         assetMap.put("/navigationRoute.js",     StaticAsset.make("/ui/js/navigationRoute.js"));
@@ -88,6 +90,7 @@ public class JournalUI
         assetMap.put("/shipyard.js",            StaticAsset.make("/ui/js/shipyard.js"));
         assetMap.put("/shipyardEntry.js",       StaticAsset.make("/ui/js/shipyardEntry.js"));
         assetMap.put("/statCategory.js",        StaticAsset.make("/ui/js/statCategory.js"));
+        assetMap.put("/storageBin.js",          StaticAsset.make("/ui/js/storageBin.js"));
         assetMap.put("/systemCartography.js",   StaticAsset.make("/ui/js/systemCartography.js"));
         assetMap.put("/systemCatalog.js",       StaticAsset.make("/ui/js/systemCatalog.js"));
         assetMap.put("/systemFaction.js",       StaticAsset.make("/ui/js/systemFaction.js"));

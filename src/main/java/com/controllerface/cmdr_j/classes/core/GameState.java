@@ -315,7 +315,7 @@ public class GameState
         }
     }
 
-    private static class TaskData
+    public static class TaskData
     {
         public final String name;
         public final String ship;
@@ -324,7 +324,7 @@ public class GameState
         public final List<Map<String, Object>> costs;
         public final List<Map<String, Object>> engineers;
 
-        private TaskData(String name,
+        public TaskData(String name,
                          String ship,
                          Integer rank,
                          List<Map<String, Object>> effects,
@@ -339,7 +339,7 @@ public class GameState
             this.engineers = engineers;
         }
 
-        private TaskData(String name,
+        public TaskData(String name,
                          String ship,
                          Integer rank,
                          List<Map<String, Object>> effects,
@@ -348,7 +348,7 @@ public class GameState
             this(name, ship, rank, effects, costs, Collections.emptyList());
         }
 
-        private TaskData(String name,
+        public TaskData(String name,
                          Integer rank,
                          List<Map<String, Object>> effects,
                          List<Map<String, Object>> costs,
@@ -357,7 +357,7 @@ public class GameState
             this(name, "", rank, effects, costs, engineers);
         }
 
-        private TaskData(String name,
+        public TaskData(String name,
                          Integer rank,
                          List<Map<String, Object>> effects,
                          List<Map<String, Object>> costs)
@@ -365,7 +365,7 @@ public class GameState
             this(name, "", rank, effects, costs, Collections.emptyList());
         }
 
-        private TaskData(String name, Integer rank)
+        public TaskData(String name, Integer rank)
         {
             this(name, "", rank,
                 Collections.emptyList(),
@@ -3485,7 +3485,7 @@ public class GameState
     {
         var prefix = taskCatalog.typePrefixes.get(taskKey);
         var name = prefix
-            + " - " + modificationRecipe.getParentBlueprintName()
+            + " - " + modificationRecipe.getParentBlueprint()
             + " - " + modificationRecipe.getShortLabel();
         var sortRank = 0;
         var enumName = modificationRecipe.getName();
@@ -4134,6 +4134,11 @@ public class GameState
         adjustTask(key, "subtract");
     }
 
+    public String getTaskKey(TaskRecipe recipe)
+    {
+        return taskCatalog.untypedTaskMap.get(recipe);
+    }
+
     public boolean adjustTask(String taskKey, String type)
     {
         TaskCatalog.AdjustmentType adjustmentType =
@@ -4535,7 +4540,7 @@ public class GameState
     private String writeConsumableEvent(Consumable consumable, Integer count)
     {
         var event = new HashMap<String, Object>();
-        event.put("name", consumable.name());
+        event.put("name", consumable.getLocalizedName());
         event.put("count", count.toString());
         return JSONSupport.Write.jsonToString.apply(event);
     }

@@ -8,6 +8,14 @@
     padding: 0.3em;
 }
 
+.microBinCategory
+{
+    display: grid;
+    grid-template-columns: 5fr 15em;
+    grid-area: inven;
+    padding: 0.3em;
+}
+
 .gradeIcon
 {
     height: 1.6em;
@@ -50,6 +58,7 @@
     border-left: dotted 1px var(--default-divider);
     text-align: center;
     padding-top: .35em;
+    color: var(--default-text);
     border-radius: 0px 3px 3px 0px;
 }
 

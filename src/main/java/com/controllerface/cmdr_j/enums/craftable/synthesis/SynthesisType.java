@@ -46,6 +46,7 @@ public enum SynthesisType implements TaskType
     SynthesisType(EnumSet<SynthesisBlueprint> blueprints)
     {
         this.blueprints = blueprints;
+        this.blueprints.forEach(bp -> bp.setParentType(this));
     }
 
     public Stream<SynthesisBlueprint> blueprintStream()

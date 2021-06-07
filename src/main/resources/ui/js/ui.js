@@ -698,7 +698,7 @@ function handleConsumable(e)
     else
     {
         let cargoData = JSON.parse(e);
-        let cargoBin = document.createElement('cargo-bin');
+        let cargoBin = document.createElement('storage-bin');
         cargoBin.commodity = cargoData['name'];
         cargoBin.stock = cargoData['count'];
         cargoContainer.append(cargoBin);

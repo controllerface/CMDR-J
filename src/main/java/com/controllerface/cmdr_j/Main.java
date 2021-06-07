@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j;
 import com.controllerface.cmdr_j.classes.core.JournalServer;
 import com.controllerface.cmdr_j.classes.core.JournalServlet;
 import com.controllerface.cmdr_j.classes.core.JournalSyncTask;
+import com.controllerface.cmdr_j.enums.costs.consumables.Consumable;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskCost;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
@@ -65,6 +66,15 @@ public class Main
                 commodity.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
                 List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
                 commodity.setLocationInformation(String.join("\n", locations));
+            });
+
+        ((Map<String, Object>) data.get("consumables"))
+            .forEach((key, value) ->
+            {
+                TaskCost consumable = Consumable.valueOf(key);
+                consumable.setLocalizedName(((String) ((Map<String, Object>) value).get("name")));
+                List<String> locations = ((List<String>) ((Map<String, Object>) value).get("locations"));
+                consumable.setLocationInformation(String.join("\n", locations));
             });
     }
 }

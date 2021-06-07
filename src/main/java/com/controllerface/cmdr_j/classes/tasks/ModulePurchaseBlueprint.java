@@ -4,6 +4,7 @@ import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -40,5 +41,17 @@ public class ModulePurchaseBlueprint implements TaskBlueprint
     public String toString()
     {
         return ss;
+    }
+
+    @Override
+    public void setParentType(TaskType type)
+    {
+        //taskType = type;
+    }
+
+    @Override
+    public TaskType getParentType()
+    {
+        return null;
     }
 }

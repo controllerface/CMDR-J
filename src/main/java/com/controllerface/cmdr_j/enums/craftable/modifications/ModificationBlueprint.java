@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.enums.craftable.modifications;
 
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -471,23 +472,63 @@ public enum ModificationBlueprint implements TaskBlueprint
             ModificationRecipe.Weapon_Sturdy_4,
             ModificationRecipe.Weapon_Sturdy_5),
 
+    // todo: implement ground gear
+
+    Added_Melee_Damage("Added Melee Damage", ModificationRecipe.Added_Melee_Damage),
+    Combat_Movement_Speed("Combat Movement Speed", ModificationRecipe.Combat_Movement_Speed),
+    Damage_Resistance("Damage Resistance", ModificationRecipe.Damage_Resistance),
+    Enhanced_Tracking("Enhanced Tracking", ModificationRecipe.Enhanced_Tracking),
+    Extra_Ammo_Capacity("Extra Ammo Capacity", ModificationRecipe.Extra_Ammo_Capacity),
+    Extra_Backpack_Capacity("Extra Backpack Capacity", ModificationRecipe.Extra_Backpack_Capacity),
+    Faster_Shield_Regen("Faster Shield Regen", ModificationRecipe.Faster_Shield_Regen),
+    Improved_Battery_Capacity("Improved Battery Capacity", ModificationRecipe.Improved_Battery_Capacity),
+    Improved_Jump_Assist("Improved Jump Assist", ModificationRecipe.Improved_Jump_Assist),
+    Increased_Air_Reserves("Increased Air Reserves", ModificationRecipe.Increased_Air_Reserves),
+    Increased_Sprint_Duration("Increased Sprint Duration", ModificationRecipe.Increased_Sprint_Duration),
+    Night_Vision("Night Vision", ModificationRecipe.Night_Vision),
+    Reduced_Tool_Battery_Consumption("Reduced Tool Battery Consumption", ModificationRecipe.Reduced_Tool_Battery_Consumption),
+
+    Faster_Handling("Faster Handling", ModificationRecipe.Faster_Handling),
+    Greater_Range("Greater Range", ModificationRecipe.Greater_Range),
+    Head_Shot_Damage("Head Shot Damage", ModificationRecipe.Head_Shot_Damage),
+    Improved_Hip_Fire_Accuracy("Improved Hip Fire Accuracy", ModificationRecipe.Improved_Hip_Fire_Accuracy),
+    Magazine_Size("Magazine Size", ModificationRecipe.Magazine_Size),
+    Noise_Suppressor("Noise Suppressor", ModificationRecipe.Noise_Suppressor),
+    Reload_Speed("Reload Speed", ModificationRecipe.Reload_Speed),
+    Scope("Scope", ModificationRecipe.Scope),
+    Stability("Stability", ModificationRecipe.Stability),
+    Stowed_Reloading("Stowed Reloading", ModificationRecipe.Stowed_Reloading),
+
     Unknown("Unknown")
 
     ;
 
     private final TaskRecipe[] recipes;
     private final String text;
+    private TaskType taskType = null;
 
     ModificationBlueprint(String text, TaskRecipe... recipes)
     {
         this.text = text;
         this.recipes = recipes;
-        recipeStream().forEach(recipe -> recipe.setParentBlueprintName(text));
+        recipeStream().forEach(recipe -> recipe.setParentBlueprintName(this));
     }
 
     public Stream<TaskRecipe> recipeStream()
     {
         return Arrays.stream(recipes);
+    }
+
+    @Override
+    public void setParentType(TaskType type)
+    {
+        taskType = type;
+    }
+
+    @Override
+    public TaskType getParentType()
+    {
+        return taskType;
     }
 
     public Optional<TaskRecipe> byLevel(int level)

@@ -21,6 +21,6 @@ public interface TaskRecipe
     ItemEffects effects();
     String getName();
     ItemGrade getGrade();
-    void setParentBlueprintName(String blueprintName);
-    String getParentBlueprintName();
+    void setParentBlueprintName(TaskBlueprint blueprintName);
+    TaskBlueprint getParentBlueprint();
 }

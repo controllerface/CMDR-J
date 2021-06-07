@@ -221,6 +221,31 @@ public enum ModificationType implements TaskType
             ModificationBlueprint.Armour_Kinetic,
             ModificationBlueprint.Armour_Thermic)),
 
+    // TODO: actually implement the different types
+    Added_Melee_Damage(EnumSet.of(ModificationBlueprint.Added_Melee_Damage)),
+    Combat_Movement_Speed(EnumSet.of(ModificationBlueprint.Combat_Movement_Speed)),
+    Damage_Resistance(EnumSet.of(ModificationBlueprint.Damage_Resistance)),
+    Enhanced_Tracking(EnumSet.of(ModificationBlueprint.Enhanced_Tracking)),
+    Extra_Ammo_Capacity(EnumSet.of(ModificationBlueprint.Extra_Ammo_Capacity)),
+    Extra_Backpack_Capacity(EnumSet.of(ModificationBlueprint.Extra_Backpack_Capacity)),
+    Faster_Shield_Regen(EnumSet.of(ModificationBlueprint.Faster_Shield_Regen)),
+    Improved_Battery_Capacity(EnumSet.of(ModificationBlueprint.Improved_Battery_Capacity)),
+    Improved_Jump_Assist(EnumSet.of(ModificationBlueprint.Improved_Jump_Assist)),
+    Increased_Air_Reserves(EnumSet.of(ModificationBlueprint.Increased_Air_Reserves)),
+    Increased_Sprint_Duration(EnumSet.of(ModificationBlueprint.Increased_Sprint_Duration)),
+    Night_Vision(EnumSet.of(ModificationBlueprint.Night_Vision)),
+    Reduced_Tool_Battery_Consumption(EnumSet.of(ModificationBlueprint.Reduced_Tool_Battery_Consumption)),
+    Faster_Handling(EnumSet.of(ModificationBlueprint.Faster_Handling)),
+    Greater_Range(EnumSet.of(ModificationBlueprint.Greater_Range)),
+    Head_Shot_Damage(EnumSet.of(ModificationBlueprint.Head_Shot_Damage)),
+    Improved_Hip_Fire_Accuracy(EnumSet.of(ModificationBlueprint.Improved_Hip_Fire_Accuracy)),
+    Magazine_Size(EnumSet.of(ModificationBlueprint.Magazine_Size)),
+    Noise_Suppressor(EnumSet.of(ModificationBlueprint.Noise_Suppressor)),
+    Reload_Speed(EnumSet.of(ModificationBlueprint.Reload_Speed)),
+    Scope(EnumSet.of(ModificationBlueprint.Scope)),
+    Stability(EnumSet.of(ModificationBlueprint.Stability)),
+    Stowed_Reloading(EnumSet.of(ModificationBlueprint.Stowed_Reloading)),
+
     ;
 
     private final EnumSet<ModificationBlueprint> blueprints;
@@ -228,6 +253,7 @@ public enum ModificationType implements TaskType
     ModificationType(EnumSet<ModificationBlueprint> blueprints)
     {
         this.blueprints = blueprints;
+        blueprints.forEach(bp->bp.setParentType(this));
     }
 
     public Stream<ModificationBlueprint> blueprintStream()

@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.classes.recipes;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.CostData;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
@@ -76,15 +77,15 @@ public class MaterialTradeRecipe implements TaskRecipe
     }
 
     @Override
-    public void setParentBlueprintName(String blueprintName)
+    public void setParentBlueprintName(TaskBlueprint blueprintName)
     {
 
     }
 
     @Override
-    public String getParentBlueprintName()
+    public TaskBlueprint getParentBlueprint()
     {
-        return "";
+        return null;
     }
 
     @Override

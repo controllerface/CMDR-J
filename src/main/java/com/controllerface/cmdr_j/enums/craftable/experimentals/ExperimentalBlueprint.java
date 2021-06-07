@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.enums.craftable.experimentals;
 
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 
 import java.util.EnumSet;
 import java.util.stream.Stream;
@@ -191,6 +192,7 @@ public enum ExperimentalBlueprint implements TaskBlueprint
 
     private final EnumSet<ExperimentalRecipe> recipes;
     private final String text;
+    private TaskType taskType = null;
 
     ExperimentalBlueprint(EnumSet<ExperimentalRecipe> recipes)
     {
@@ -207,5 +209,17 @@ public enum ExperimentalBlueprint implements TaskBlueprint
     public String toString()
     {
         return text;
+    }
+
+    @Override
+    public void setParentType(TaskType type)
+    {
+        taskType = type;
+    }
+
+    @Override
+    public TaskType getParentType()
+    {
+        return taskType;
     }
 }

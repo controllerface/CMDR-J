@@ -247,6 +247,39 @@ public enum Engineer
             new StarSystem("Shenve",351.96875, -711.09375, -373.46875, 594676730147L),
             new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_5),
             new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_3)),
+
+
+    /*
+    Personal Equipment Engineers (Odyssey)
+     */
+
+    JUDE_NAVARRO("Jude Navarro", 400001, "Marshall's Drift",
+        new StarSystem("Aurai",0.9375, 46.28125, -47.8125, -1),
+        new Pair<>(new Pair<>(ModificationType.Reload_Speed, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Magazine_Size, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Extra_Ammo_Capacity, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Damage_Resistance, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Added_Melee_Damage, null), ItemGrade.MicroMaterial)),
+
+    DOMINO_GREEN("Domino Green", 400002, "The Jackrabbit",
+        new StarSystem("Orishis",-31, -3.5625, 93.96875, -1),
+        new Pair<>(new Pair<>(ModificationType.Greater_Range, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Stability, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Enhanced_Tracking, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Extra_Backpack_Capacity, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Reduced_Tool_Battery_Consumption, null), ItemGrade.MicroMaterial)),
+
+    HERO_FERRARI("Hero Ferrari", 400003, "Nevermore Terrace",
+        new StarSystem("Siris",131.0625, -11.25, -73.59375, -1),
+        new Pair<>(new Pair<>(ModificationType.Faster_Handling, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Noise_Suppressor, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Increased_Sprint_Duration, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Improved_Jump_Assist, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Increased_Air_Reserves, null), ItemGrade.MicroMaterial)),
+
+    // todo: finish list and fill in actual mods
+
+
     ;
 
     private final String fullName;

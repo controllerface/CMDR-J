@@ -4616,5 +4616,41 @@
         "Planetary Settlement"
       ]
     }
+  },
+  "consumables": {
+    "HEALTHPACK": {
+      "name": "Medkit",
+      "locations": [
+        "Planetary Settlements",
+        "Pioneer Supplies"
+      ]
+    },
+    "ENERGYCELL": {
+      "name": "Energy Cell",
+      "locations": [
+        "Ancient/Guardian ruins"
+      ]
+    },
+    "AMM_GRENADE_FRAG": {
+      "name": "Frag Grenade",
+      "locations": [
+        "Planetary Settlements",
+        "Pioneer Supplies"
+      ]
+    },
+    "AMM_GRENADE_EMP": {
+      "name": "Shield Disruptor",
+      "locations": [
+        "Planetary Settlements",
+        "Pioneer Supplies"
+      ]
+    },
+    "AMM_GRENADE_SHIELD": {
+      "name": "Shield Projector",
+      "locations": [
+        "Planetary Settlements",
+        "Pioneer Supplies"
+      ]
+    }
   }
 }

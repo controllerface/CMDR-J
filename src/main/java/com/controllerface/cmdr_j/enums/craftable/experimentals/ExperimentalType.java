@@ -46,6 +46,7 @@ public enum ExperimentalType implements TaskType
     ExperimentalType(ExperimentalBlueprint blueprint)
     {
         this.blueprint = blueprint;
+        blueprint.setParentType(this);
     }
 
     public Stream<ExperimentalBlueprint> blueprintStream()

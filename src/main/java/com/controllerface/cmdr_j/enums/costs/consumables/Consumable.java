@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Controllerface on 4/11/2018.
+ * Created by Controllerface on 6/6/2021.
  */
 public enum Consumable implements TaskCost
 {

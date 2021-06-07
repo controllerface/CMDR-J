@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.synthesis;
 
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 
 import java.util.EnumSet;
 import java.util.stream.Stream;
@@ -112,6 +113,18 @@ public enum SynthesisBlueprint implements TaskBlueprint
     public Stream<SynthesisRecipe> recipeStream()
     {
         return recipes.stream();
+    }
+
+    @Override
+    public void setParentType(TaskType type)
+    {
+
+    }
+
+    @Override
+    public TaskType getParentType()
+    {
+        return null;
     }
 
     @Override

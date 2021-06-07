@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.classes.tasks;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -25,6 +26,18 @@ public class MaterialTradeBlueprint implements TaskBlueprint
     public Stream<TaskRecipe> recipeStream()
     {
         return recipes.stream();
+    }
+
+    @Override
+    public void setParentType(TaskType type)
+    {
+
+    }
+
+    @Override
+    public TaskType getParentType()
+    {
+        return null;
     }
 
     @Override

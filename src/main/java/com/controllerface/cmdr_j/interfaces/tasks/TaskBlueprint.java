@@ -18,4 +18,6 @@ import java.util.stream.Stream;
 public interface TaskBlueprint
 {
     Stream<? extends TaskRecipe> recipeStream();
+    void setParentType(TaskType type);
+    TaskType getParentType();
 }

@@ -314,6 +314,16 @@ public enum ItemEffect
     Disruption_Barrier_Cooldown("", "Barrier Cool Down", false, EffectType.ANTI_XENO),
     Disruption_Barrier_Range("", "Barrier Range", true, EffectType.ANTI_XENO),
 
+
+
+    // TODO: add ground gear modification effects
+    Ground_Gear("", "Placeholder", true, EffectType.STANDARD),
+
+
+
+
+
+
     /*
     As-yet-unknown stats
     todo: find out what these are for

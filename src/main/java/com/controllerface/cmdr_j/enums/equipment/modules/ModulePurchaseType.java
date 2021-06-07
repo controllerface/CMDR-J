@@ -26,6 +26,7 @@ public enum ModulePurchaseType implements TaskType
     {
         this.shipModules = shipModules;
         blueprints = Collections.singletonList(new ModulePurchaseBlueprint(name(), shipModules));
+        blueprints.forEach(bp -> bp.setParentType(this));
     }
 
     @Override

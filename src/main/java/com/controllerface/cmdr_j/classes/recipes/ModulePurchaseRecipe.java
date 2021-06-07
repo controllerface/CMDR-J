@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.classes.recipes;
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.CostData;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.modules.*;
@@ -126,7 +127,7 @@ public class ModulePurchaseRecipe implements TaskRecipe
     }
 
     @Override
-    public void setParentBlueprintName(String blueprintName)
+    public void setParentBlueprintName(TaskBlueprint blueprint)
     {
 
     }
@@ -138,9 +139,9 @@ public class ModulePurchaseRecipe implements TaskRecipe
     }
 
     @Override
-    public String getParentBlueprintName()
+    public TaskBlueprint getParentBlueprint()
     {
-        return "";
+        return null;
     }
 
     @Override

@@ -34,6 +34,7 @@ public class EngineerProgressEvent implements BiConsumer<GameState, Map<String, 
         if (engineer == null)
         {
             System.err.println("Unknown Engineer ID: " + id);
+            System.out.println(engineerData);
             return;
         }
         var formattedData = new HashMap<String, Object>();

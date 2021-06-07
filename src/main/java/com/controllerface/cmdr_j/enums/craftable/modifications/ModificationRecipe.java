@@ -31,6 +31,8 @@ import com.controllerface.cmdr_j.classes.recipes.misc.longrange.*;
 import com.controllerface.cmdr_j.classes.recipes.misc.reinforced.*;
 import com.controllerface.cmdr_j.classes.recipes.misc.shielded.*;
 import com.controllerface.cmdr_j.classes.recipes.misc.wideangle.*;
+import com.controllerface.cmdr_j.classes.recipes.personal.suit.*;
+import com.controllerface.cmdr_j.classes.recipes.personal.weapons.*;
 import com.controllerface.cmdr_j.classes.recipes.pointdefense.capacity.PointDefence_PointDefenseCapacity_1;
 import com.controllerface.cmdr_j.classes.recipes.powerplant.armoured.*;
 import com.controllerface.cmdr_j.classes.recipes.powerplant.boosted.*;
@@ -69,6 +71,7 @@ import com.controllerface.cmdr_j.classes.recipes.weapons.overcharged.*;
 import com.controllerface.cmdr_j.classes.recipes.weapons.rapidfire.*;
 import com.controllerface.cmdr_j.classes.recipes.weapons.shortrange.*;
 import com.controllerface.cmdr_j.classes.recipes.weapons.sturdy.*;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
@@ -459,7 +462,7 @@ public enum ModificationRecipe implements TaskRecipe
 
 
     /*
-    Weapons
+    Ship Weapons
      */
 
     Weapon_DoubleShot_1(new Weapon_DoubleShot_1()),
@@ -522,6 +525,41 @@ public enum ModificationRecipe implements TaskRecipe
     Weapon_Sturdy_4(new Weapon_Sturdy_4()),
     Weapon_Sturdy_5(new Weapon_Sturdy_5()),
 
+
+    /*
+    Suits
+     */
+
+    Added_Melee_Damage(new AddedMeleeDamage()),
+    Combat_Movement_Speed(new CombatMovementSpeed()),
+    Damage_Resistance(new DamageResistance()),
+    Enhanced_Tracking(new EnhancedTracking()),
+    Extra_Ammo_Capacity(new ExtraAmmoCapacity()),
+    Extra_Backpack_Capacity(new ExtraBackpackCapacity()),
+    Faster_Shield_Regen(new FasterShieldRegen()),
+    Improved_Battery_Capacity(new ImprovedBatteryCapacity()),
+    Improved_Jump_Assist(new ImprovedJumpAssist()),
+    Increased_Air_Reserves(new IncreasedAirReserves()),
+    Increased_Sprint_Duration(new IncreasedSprintDuration()),
+    Night_Vision(new NightVision()),
+    Reduced_Tool_Battery_Consumption(new ReducedToolBatteryConsumption()),
+
+
+    /*
+    Personal Weapons
+     */
+
+    Faster_Handling(new FasterHandling()),
+    Greater_Range(new GreaterRange()),
+    Head_Shot_Damage(new HeadShotDamage()),
+    Improved_Hip_Fire_Accuracy(new ImprovedHipFireAccuracy()),
+    Magazine_Size(new MagazineSize()),
+    Noise_Suppressor(new NoiseSuppressor()),
+    Reload_Speed(new ReloadSpeed()),
+    Scope(new Scope()),
+    Stability(new Stability()),
+    Stowed_Reloading(new StowedReloading()),
+
     ;
 
     private final TaskRecipe delegate;
@@ -549,15 +587,15 @@ public enum ModificationRecipe implements TaskRecipe
     }
 
     @Override
-    public void setParentBlueprintName(String parentBlueprintName)
+    public void setParentBlueprintName(TaskBlueprint blueprint)
     {
-        delegate.setParentBlueprintName(parentBlueprintName);
+        delegate.setParentBlueprintName(blueprint);
     }
 
     @Override
-    public String getParentBlueprintName()
+    public TaskBlueprint getParentBlueprint()
     {
-        return delegate.getParentBlueprintName();
+        return delegate.getParentBlueprint();
     }
 
     @Override

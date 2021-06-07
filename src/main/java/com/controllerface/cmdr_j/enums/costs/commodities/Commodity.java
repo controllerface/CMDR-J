@@ -431,11 +431,6 @@ public enum Commodity implements TaskCost
     GROMCOUNTERINTELLIGENCE             (ItemGrade.Faction),
     GROMWARTROPHIES                     (ItemGrade.Faction),
 
-    HEALTHPACK(ItemGrade.MicroMaterial),
-    ENERGYCELL(ItemGrade.MicroMaterial),
-    AMM_GRENADE_FRAG(ItemGrade.MicroMaterial),
-    AMM_GRENADE_EMP(ItemGrade.MicroMaterial),
-    AMM_GRENADE_SHIELD(ItemGrade.MicroMaterial),
     ;
 
     public final long id;

@@ -1,7 +1,11 @@
 package com.controllerface.cmdr_j;
 
+import com.controllerface.cmdr_j.classes.core.GameState;
 import com.controllerface.cmdr_j.classes.core.JournalSyncTask;
 import com.controllerface.cmdr_j.classes.data.Pair;
+import com.controllerface.cmdr_j.classes.data.TaskCatalog;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
+import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.UtilityModule;
 import com.controllerface.cmdr_j.enums.journal.JournalEvent;
 import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
@@ -61,6 +65,7 @@ import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -80,6 +85,71 @@ import java.util.stream.Stream;
 //@Ignore
 public class CommanderJTest
 {
+    public static final String DATABASE_TEST_DIRECTORY = "/test_db";
+
+    @Test
+    public void emitAssociations()
+    {
+//        System.out.println("mods: ");
+//
+//        Stream.of(ModificationRecipe.values())
+//            .forEach(System.out::println);
+//
+//        System.out.println("exp: ");
+//
+//        Stream.of(ExperimentalRecipe.values())
+//            .forEach(System.out::println);
+//
+//        System.out.println("mats: ");
+
+        Stream.of(Material.values())
+            .forEach(v->
+            {
+                var tk = new TaskCatalog();
+                tk.buildTaskCatalog();
+
+                System.out.println(v);
+
+                v.getAssociated().stream()
+                    .filter(a -> a.getParentBlueprint() != null)
+                    .filter(a -> a.getParentBlueprint().getParentType() != null)
+                    .filter(a -> tk.typedTaskMap.get(a.getParentBlueprint().getParentType()) != null)
+                    .map(a -> tk.typedTaskMap.get(a.getParentBlueprint().getParentType()).get(a))
+                    .filter(Objects::nonNull)
+                    .forEach(System.out::println);
+
+                v.getAssociated().stream()
+                    .map(tk.untypedTaskMap::get)
+                    .filter(Objects::nonNull)
+                    .forEach(System.out::println);
+
+                System.out.println("----");
+            });
+
+        Stream.of(Commodity.values())
+            .forEach(v->
+            {
+                var tk = new TaskCatalog();
+                tk.buildTaskCatalog();
+
+                System.out.println(v);
+
+                v.getAssociated().stream()
+                    .filter(a -> a.getParentBlueprint() != null)
+                    .filter(a -> a.getParentBlueprint().getParentType() != null)
+                    .filter(a -> tk.typedTaskMap.get(a.getParentBlueprint().getParentType()) != null)
+                    .map(a -> tk.typedTaskMap.get(a.getParentBlueprint().getParentType()).get(a))
+                    .filter(Objects::nonNull)
+                    .forEach(System.out::println);
+
+                v.getAssociated().stream()
+                    .map(tk.untypedTaskMap::get)
+                    .filter(Objects::nonNull)
+                    .forEach(System.out::println);
+
+                System.out.println("----");
+            });
+    }
 
     @Test
     public void readMicroMats() throws Exception

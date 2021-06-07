@@ -4,6 +4,7 @@ import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.recipes.techunlocks.*;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
@@ -221,15 +222,15 @@ public enum TechnologyRecipe implements TaskRecipe
     }
 
     @Override
-    public void setParentBlueprintName(String blueprintName)
+    public void setParentBlueprintName(TaskBlueprint blueprint)
     {
-        delegate.setParentBlueprintName(blueprintName);
+        delegate.setParentBlueprintName(blueprint);
     }
 
     @Override
-    public String getParentBlueprintName()
+    public TaskBlueprint getParentBlueprint()
     {
-        return delegate.getParentBlueprintName();
+        return delegate.getParentBlueprint();
     }
 
     @Override
