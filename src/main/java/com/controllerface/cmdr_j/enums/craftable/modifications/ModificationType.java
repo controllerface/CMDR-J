@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.modifications;
 
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskCategory;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 
 import java.util.ArrayList;
@@ -221,7 +222,7 @@ public enum ModificationType implements TaskType
             ModificationBlueprint.Armour_Kinetic,
             ModificationBlueprint.Armour_Thermic)),
 
-    // TODO: actually implement the different types
+    // suits
     Added_Melee_Damage(EnumSet.of(ModificationBlueprint.Added_Melee_Damage)),
     Combat_Movement_Speed(EnumSet.of(ModificationBlueprint.Combat_Movement_Speed)),
     Damage_Resistance(EnumSet.of(ModificationBlueprint.Damage_Resistance)),
@@ -235,6 +236,8 @@ public enum ModificationType implements TaskType
     Increased_Sprint_Duration(EnumSet.of(ModificationBlueprint.Increased_Sprint_Duration)),
     Night_Vision(EnumSet.of(ModificationBlueprint.Night_Vision)),
     Reduced_Tool_Battery_Consumption(EnumSet.of(ModificationBlueprint.Reduced_Tool_Battery_Consumption)),
+
+    // personal weapons
     Faster_Handling(EnumSet.of(ModificationBlueprint.Faster_Handling)),
     Greater_Range(EnumSet.of(ModificationBlueprint.Greater_Range)),
     Head_Shot_Damage(EnumSet.of(ModificationBlueprint.Head_Shot_Damage)),
@@ -249,6 +252,7 @@ public enum ModificationType implements TaskType
     ;
 
     private final EnumSet<ModificationBlueprint> blueprints;
+    private TaskCategory taskCategory = null;
 
     ModificationType(EnumSet<ModificationBlueprint> blueprints)
     {
@@ -277,5 +281,17 @@ public enum ModificationType implements TaskType
     public List<TaskBlueprint> getBluePrints()
     {
         return new ArrayList<>(blueprints) ;
+    }
+
+    @Override
+    public void setParentCategory(TaskCategory taskCategory)
+    {
+        this.taskCategory = taskCategory;
+    }
+
+    @Override
+    public TaskCategory getParentCategory()
+    {
+        return taskCategory;
     }
 }

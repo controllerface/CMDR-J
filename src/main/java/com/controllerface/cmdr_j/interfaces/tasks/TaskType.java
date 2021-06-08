@@ -13,4 +13,6 @@ public interface TaskType
 {
     String getName();
     List<TaskBlueprint> getBluePrints();
+    void setParentCategory(TaskCategory type);
+    TaskCategory getParentCategory();
 }

@@ -16,6 +16,7 @@ import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
@@ -57,7 +58,7 @@ public class TaskCatalog
 
 
 
-    private GameState.TaskData determineModuleTaskData(ModulePurchaseRecipe taskRecipe)
+    public GameState.TaskData determineModuleTaskData(ModulePurchaseRecipe taskRecipe)
     {
         var baseName = taskRecipe.product.cost.getLocalizedName();
 
@@ -177,7 +178,7 @@ public class TaskCatalog
         return new GameState.TaskData(name, shipType, sortRank, effects, costs);
     }
 
-    private GameState.TaskData determineSynthesisTaskData(SynthesisRecipe synthesisRecipe)
+    public GameState.TaskData determineSynthesisTaskData(SynthesisRecipe synthesisRecipe)
     {
         var costs = synthesisRecipe.costStream()
             .filter(costData -> costData.quantity > 0)
@@ -218,17 +219,41 @@ public class TaskCatalog
         return new GameState.TaskData(name, rank, effects, costs);
     }
 
-    private GameState.TaskData determineModificationTaskData(ModificationRecipe modificationRecipe, String taskKey)
+    public GameState.TaskData determineModificationTaskData(ModificationRecipe modificationRecipe, String taskKey)
     {
+        boolean micro = modificationRecipe.getGrade() == ItemGrade.MicroMaterial;
+
         var prefix = typePrefixes.get(taskKey);
-        var name = prefix
+        String name;
+
+        if (micro)
+        {
+            var cat = modificationRecipe.getParentBlueprint()
+                .getParentType()
+                .getParentCategory();
+            name = cat
+                + " - " + modificationRecipe.getParentBlueprint();
+        }
+        else
+        {
+            name = prefix
             + " - " + modificationRecipe.getParentBlueprint()
             + " - " + modificationRecipe.getShortLabel();
+        }
+
         var sortRank = 0;
         var enumName = modificationRecipe.getName();
         var token = enumName.lastIndexOf("_");
         var grade = enumName.substring(token + 1);
-        sortRank = Integer.parseInt(grade);
+
+        try
+        {
+            sortRank = Integer.parseInt(grade);
+        }
+        catch (NumberFormatException nfe)
+        {
+            sortRank = 0;
+        }
 
         var costs = modificationRecipe.costStream()
             .map(costData ->
@@ -278,14 +303,14 @@ public class TaskCatalog
 //                    var distance = starSystem.distanceBetween(e.getLocation());
 //                    engineerMap.put("distance", distance);
 //                }
-                engineerMap.put("distance", 0);
+                //engineerMap.put("distance", 0);
                 return engineerMap;
             })
             .collect(Collectors.toList());
         return new GameState.TaskData(name, sortRank, effects, costs, engineers);
     }
 
-    private GameState.TaskData determineExperimentalTaskData(ExperimentalRecipe experimentalRecipe, String taskKey)
+    public GameState.TaskData determineExperimentalTaskData(ExperimentalRecipe experimentalRecipe, String taskKey)
     {
         var prefix = typePrefixes.get(taskKey);
 
@@ -353,7 +378,7 @@ public class TaskCatalog
 //                    engineerMap.put("distance", distance);
 //                }
 
-                engineerMap.put("distance", 0);
+                //engineerMap.put("distance", 0);
                 return engineerMap;
             })
             .collect(Collectors.toList());
@@ -361,7 +386,7 @@ public class TaskCatalog
         return new GameState.TaskData(name, 0, effects, costs, engineers);
     }
 
-    private GameState.TaskData determineTechBrokerTaskData(TechnologyRecipe technologyRecipe)
+    public GameState.TaskData determineTechBrokerTaskData(TechnologyRecipe technologyRecipe)
     {
         var name = "Unlock " + technologyRecipe.getShortLabel();
 
@@ -442,7 +467,7 @@ public class TaskCatalog
         return new GameState.TaskData(name, rank, effects, costs);
     }
 
-    private GameState.TaskData determineTradeTaskData(MaterialTradeRecipe tradeRecipe)
+    public GameState.TaskData determineTradeTaskData(MaterialTradeRecipe tradeRecipe)
     {
         var qty = new AtomicLong(0);
         var priceType = new AtomicReference<MaterialSubCostCategory>(null);
@@ -493,6 +518,35 @@ public class TaskCatalog
     }
 
 
+    public GameState.TaskData determineTaskData(TaskRecipe recipe, String taskKey)
+    {
+        if (recipe instanceof ModulePurchaseRecipe)
+        {
+            return determineModuleTaskData(((ModulePurchaseRecipe) recipe));
+        }
+        if (recipe instanceof ModificationRecipe)
+        {
+            return determineModificationTaskData(((ModificationRecipe) recipe), taskKey);
+        }
+        if (recipe instanceof ExperimentalRecipe)
+        {
+            return determineExperimentalTaskData(((ExperimentalRecipe) recipe), taskKey);
+        }
+        if (recipe instanceof TechnologyRecipe)
+        {
+            return determineTechBrokerTaskData(((TechnologyRecipe) recipe));
+        }
+        if (recipe instanceof MaterialTradeRecipe)
+        {
+            return determineTradeTaskData(((MaterialTradeRecipe) recipe));
+        }
+        if (recipe instanceof SynthesisRecipe)
+        {
+            return determineSynthesisTaskData(((SynthesisRecipe) recipe));
+        }
+        return new GameState.TaskData(recipe.getDisplayLabel(), 0);
+    }
+
     public String buildTaskCatalog()
     {
         var modules = new HashMap<String, Map<String, Object>>();
@@ -502,7 +556,7 @@ public class TaskCatalog
         var technology = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
         var trades = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
 
-        var jsonMap  = new HashMap<String, Object>();
+        Map<String, Object> jsonMap  = new HashMap<>();
         jsonMap.put("modules", modules);
         jsonMap.put("synthesis", synthesis);
         jsonMap.put("modifications", modifications);
@@ -602,11 +656,23 @@ public class TaskCatalog
 
                     modificationBlueprint.recipeStream().map(r-> ((ModificationRecipe) r)).forEach(modificationRecipe ->
                     {
-                        var key = "Modification"
+                        boolean micro = modificationRecipe.getGrade() == ItemGrade.MicroMaterial;
+                        String key;
+
+                        if (micro)
+                        {
+                            key = "Modification"
+                                + ":" + modificationCategory.name()
+                                + ":" + modificationType.getName();
+                        }
+                        else
+                        {
+                            key = "Modification"
                             + ":" + modificationCategory.name()
                             + ":" + modificationType.getName()
                             + ":" + modificationBlueprint.name()
                             + ":" + modificationRecipe.getName();
+                        }
 
                         keyMap.put(key, modificationRecipe);
                         typeMap.put(key, modificationType);

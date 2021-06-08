@@ -1,6 +1,8 @@
 package com.controllerface.cmdr_j.enums.craftable.technologies;
 
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskCategory;
+import com.controllerface.cmdr_j.interfaces.tasks.TaskCostCategory;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 
 import java.util.ArrayList;
@@ -72,5 +74,19 @@ public enum TechnologyType implements TaskType
     public List<TaskBlueprint> getBluePrints()
     {
         return new ArrayList<>(blueprints);
+    }
+
+    private TaskCategory taskCategory = null;
+
+    @Override
+    public void setParentCategory(TaskCategory taskCategory)
+    {
+        this.taskCategory = taskCategory;
+    }
+
+    @Override
+    public TaskCategory getParentCategory()
+    {
+        return taskCategory;
     }
 }

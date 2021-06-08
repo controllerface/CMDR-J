@@ -472,8 +472,6 @@ public enum ModificationBlueprint implements TaskBlueprint
             ModificationRecipe.Weapon_Sturdy_4,
             ModificationRecipe.Weapon_Sturdy_5),
 
-    // todo: implement ground gear
-
     Added_Melee_Damage("Added Melee Damage", ModificationRecipe.Added_Melee_Damage),
     Combat_Movement_Speed("Combat Movement Speed", ModificationRecipe.Combat_Movement_Speed),
     Damage_Resistance("Damage Resistance", ModificationRecipe.Damage_Resistance),

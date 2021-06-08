@@ -66,7 +66,6 @@ class MicroMaterialBin extends HTMLElement
         else if (name === 'stock')
         {
             this.materialStock.textContent = newValue;
-            this.capacity.value = newValue;
         }
     }
 }
