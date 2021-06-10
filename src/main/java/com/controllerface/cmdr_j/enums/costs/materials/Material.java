@@ -325,6 +325,8 @@ public enum Material implements TaskCost
     FACTIONDONATORLIST(ItemGrade.MicroMaterial),
     FACTIONNEWS(ItemGrade.MicroMaterial),
     FINANCIALPROJECTIONS(ItemGrade.MicroMaterial),
+    GENESEQUENCINGDATA(ItemGrade.MicroMaterial),
+    GENETICRESEARCH(ItemGrade.MicroMaterial),
     GEOGRAPHICALDATA(ItemGrade.MicroMaterial),
     GEOLOGICALDATA(ItemGrade.MicroMaterial),
     HYDROPONICDATA(ItemGrade.MicroMaterial),

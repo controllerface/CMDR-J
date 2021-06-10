@@ -1712,62 +1712,62 @@ class TaskCatalog extends HTMLElement
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Combat Movement Speed',
                                  modificationData['Combat_Movement_Speed']['Combat_Movement_Speed'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Damage Resistance',
                                  modificationData['Damage_Resistance']['Damage_Resistance'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Enhanced Tracking',
                                  modificationData['Enhanced_Tracking']['Enhanced_Tracking'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Extra Ammo Capacity',
                                  modificationData['Extra_Ammo_Capacity']['Extra_Ammo_Capacity'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Extra Backpack Capacity',
                                  modificationData['Extra_Backpack_Capacity']['Extra_Backpack_Capacity'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Faster Shield Regen',
                                  modificationData['Faster_Shield_Regen']['Faster_Shield_Regen'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Improved Battery Capacity',
                                  modificationData['Improved_Battery_Capacity']['Improved_Battery_Capacity'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Improved Jump Assist',
                                  modificationData['Improved_Jump_Assist']['Improved_Jump_Assist'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Increased Air Reserves',
                                  modificationData['Increased_Air_Reserves']['Increased_Air_Reserves'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Increased Sprint Duration',
                                  modificationData['Increased_Sprint_Duration']['Increased_Sprint_Duration'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Night Vision',
                                  modificationData['Night_Vision']['Night_Vision'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
-        this.loadSubcategoryData('Added Melee Damage',
+        this.loadSubcategoryData('Reduced Tool Battery Consumption',
                                  modificationData['Reduced_Tool_Battery_Consumption']['Reduced_Tool_Battery_Consumption'],
                                  this.loadModificationGrades,
                                  categoryElement);
@@ -1777,6 +1777,51 @@ class TaskCatalog extends HTMLElement
     {
         this.loadSubcategoryData('Faster Handling',
                                  modificationData['Faster_Handling']['Faster_Handling'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Greater Range',
+                                 modificationData['Greater_Range']['Greater_Range'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Head Shot Damage',
+                                 modificationData['Head_Shot_Damage']['Head_Shot_Damage'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Improved Hip Fire Accuracy',
+                                 modificationData['Improved_Hip_Fire_Accuracy']['Improved_Hip_Fire_Accuracy'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Magazine Size',
+                                 modificationData['Magazine_Size']['Magazine_Size'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Noise Suppressor',
+                                 modificationData['Noise_Suppressor']['Noise_Suppressor'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Reload Speed',
+                                 modificationData['Reload_Speed']['Reload_Speed'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Scope',
+                                 modificationData['Scope']['Scope'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Stability',
+                                 modificationData['Stability']['Stability'],
+                                 this.loadModificationGrades,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Stowed Reloading',
+                                 modificationData['Stowed_Reloading']['Stowed_Reloading'],
                                  this.loadModificationGrades,
                                  categoryElement);
     }

@@ -319,8 +319,47 @@ public enum ItemEffect
     // TODO: add ground gear modification effects
     Ground_Gear("", "Placeholder", true, EffectType.STANDARD),
 
+    Air_Capacity("%", "Air Capacity", true, EffectType.STANDARD),
+    Ammo_Capacity("%", "Ammo Capacity", true, EffectType.STANDARD),
 
+    Weapon_Stability("%", "Weapon Stability", true, EffectType.STANDARD),
+    Improved_Weapon_Handling("", "Improved Weapon Handling", true, EffectType.STANDARD),
+    Improved_Weapon_Reload("", "Improved Weapon Reload", true, EffectType.STANDARD),
+    Improved_Weapon_Range("", "Improved Weapon Range", true, EffectType.STANDARD),
+    Improved_Weapon_Magazine("", "Improved Weapon Magazine", true, EffectType.STANDARD),
+    Improved_Headshot_Damage("", "Improved Headshot Damage", true, EffectType.STANDARD),
+    Improved_Hip_Fire_Accuracy("%", "Improved Hip Fire Accuracy", true, EffectType.STANDARD),
 
+    Noise_Suppressor("", "Noise_Suppressor", true, EffectType.STANDARD),
+
+    Stowed_Reloading("", "Stowed Reloading", true, EffectType.STANDARD),
+
+    Negate_Movement_Penalty("", "Combat Movement Speed", true, EffectType.STANDARD),
+
+    Enhanced_Scope("", "Enhanced Scope", true, EffectType.STANDARD),
+    Night_Vision("", "Night Vision", true, EffectType.STANDARD),
+    Jump_Assist("", "Jump Assist", true, EffectType.STANDARD),
+    Sprint_Assist("", "Sprint Assist", true, EffectType.STANDARD),
+
+    Shield_Health_Regen("%", "Shield Health Regen", true, EffectType.STANDARD),
+
+    Backpack_Data_Capacity("%", "Backpack Data Capacity", true, EffectType.STANDARD),
+    Backpack_Component_Capacity("%", "Backpack Component Capacity", true, EffectType.STANDARD),
+    Backpack_Item_Capacity("%", "Backpack Item Capacity", true, EffectType.STANDARD),
+
+    Battery_Energy_Capacity("%", "Battery Energy Capacity", true, EffectType.STANDARD),
+    Battery_Efficiency("%", "Increased Battery Efficiency", true, EffectType.STANDARD),
+
+    Increased_Tracking_Range("%", "Analysis Range", true, EffectType.STANDARD),
+    Increased_Tracking_Time("%", "Analysis Time", true, EffectType.STANDARD),
+
+    Weapon_Melee_Damage_Multiplier("%", "Weapon Melee Damage", true, EffectType.STANDARD),
+    Fists_Melee_Damage_Multiplier("%", "Fists Melee Damage", true, EffectType.STANDARD),
+
+    Explosive_Damage_Resistance("%", "Explosive Resistance", true, EffectType.STANDARD),
+    Plasma_Damage_Resistance("%", "Plasma Resistance", true, EffectType.STANDARD),
+    Thermic_Damage_Resistance("%", "Thermic Resistance", true, EffectType.STANDARD),
+    Kinetic_Damage_Resistance("%", "Kinetic Resistance", true, EffectType.STANDARD),
 
 
 

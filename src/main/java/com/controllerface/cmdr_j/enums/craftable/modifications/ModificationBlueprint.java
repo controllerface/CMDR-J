@@ -472,6 +472,10 @@ public enum ModificationBlueprint implements TaskBlueprint
             ModificationRecipe.Weapon_Sturdy_4,
             ModificationRecipe.Weapon_Sturdy_5),
 
+
+    /*
+    Suits
+    */
     Added_Melee_Damage("Added Melee Damage", ModificationRecipe.Added_Melee_Damage),
     Combat_Movement_Speed("Combat Movement Speed", ModificationRecipe.Combat_Movement_Speed),
     Damage_Resistance("Damage Resistance", ModificationRecipe.Damage_Resistance),
@@ -486,6 +490,10 @@ public enum ModificationBlueprint implements TaskBlueprint
     Night_Vision("Night Vision", ModificationRecipe.Night_Vision),
     Reduced_Tool_Battery_Consumption("Reduced Tool Battery Consumption", ModificationRecipe.Reduced_Tool_Battery_Consumption),
 
+
+    /*
+    Personal Weapons
+    */
     Faster_Handling("Faster Handling", ModificationRecipe.Faster_Handling),
     Greater_Range("Greater Range", ModificationRecipe.Greater_Range),
     Head_Shot_Damage("Head Shot Damage", ModificationRecipe.Head_Shot_Damage),

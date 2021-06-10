@@ -254,7 +254,7 @@ public enum Engineer
      */
 
     JUDE_NAVARRO("Jude Navarro", 400001, "Marshall's Drift",
-        new StarSystem("Aurai",0.9375, 46.28125, -47.8125, -1),
+        new StarSystem("Aurai",0.9375, 46.28125, -47.8125, 7268024067513L),
         new Pair<>(new Pair<>(ModificationType.Reload_Speed, null), ItemGrade.MicroMaterial),
         new Pair<>(new Pair<>(ModificationType.Magazine_Size, null), ItemGrade.MicroMaterial),
         new Pair<>(new Pair<>(ModificationType.Extra_Ammo_Capacity, null), ItemGrade.MicroMaterial),
@@ -262,7 +262,7 @@ public enum Engineer
         new Pair<>(new Pair<>(ModificationType.Added_Melee_Damage, null), ItemGrade.MicroMaterial)),
 
     DOMINO_GREEN("Domino Green", 400002, "The Jackrabbit",
-        new StarSystem("Orishis",-31, -3.5625, 93.96875, -1),
+        new StarSystem("Orishis",-31, -3.5625, 93.96875, 5068464399785L),
         new Pair<>(new Pair<>(ModificationType.Greater_Range, null), ItemGrade.MicroMaterial),
         new Pair<>(new Pair<>(ModificationType.Stability, null), ItemGrade.MicroMaterial),
         new Pair<>(new Pair<>(ModificationType.Enhanced_Tracking, null), ItemGrade.MicroMaterial),
@@ -270,15 +270,57 @@ public enum Engineer
         new Pair<>(new Pair<>(ModificationType.Reduced_Tool_Battery_Consumption, null), ItemGrade.MicroMaterial)),
 
     HERO_FERRARI("Hero Ferrari", 400003, "Nevermore Terrace",
-        new StarSystem("Siris",131.0625, -11.25, -73.59375, -1),
+        new StarSystem("Siris",131.0625, -11.25, -73.59375, 7269634614689L),
         new Pair<>(new Pair<>(ModificationType.Faster_Handling, null), ItemGrade.MicroMaterial),
         new Pair<>(new Pair<>(ModificationType.Noise_Suppressor, null), ItemGrade.MicroMaterial),
         new Pair<>(new Pair<>(ModificationType.Increased_Sprint_Duration, null), ItemGrade.MicroMaterial),
         new Pair<>(new Pair<>(ModificationType.Improved_Jump_Assist, null), ItemGrade.MicroMaterial),
         new Pair<>(new Pair<>(ModificationType.Increased_Air_Reserves, null), ItemGrade.MicroMaterial)),
 
-    // todo: finish list and fill in actual mods
 
+
+    // todo: need engineer IDs for all below
+    //  also need to get data for engineer YARDEN BOND
+
+    KIT_FOWLER("Kit Fowler", -1, "The Last Call",
+        new StarSystem("Capoya",-60.65625, -45.0625, 82.4375, 2827975936355L),
+        new Pair<>(new Pair<>(ModificationType.Stowed_Reloading, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Magazine_Size, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Added_Melee_Damage, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Faster_Shield_Regen, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Extra_Ammo_Capacity, null), ItemGrade.MicroMaterial)),
+
+    TERRA_VELASQUEZ("Terra Velasquez", -1, "Rascal's Choice",
+        new StarSystem("Shou Xing",-16.28125, 94.375, -44.53125, 3721329101171L),
+        new Pair<>(new Pair<>(ModificationType.Improved_Hip_Fire_Accuracy, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Noise_Suppressor, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Increased_Sprint_Duration, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Combat_Movement_Speed, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Increased_Air_Reserves, null), ItemGrade.MicroMaterial)),
+
+    WELLINGTON_BECK("Wellington Beck", -1, "Beck Facility",
+        new StarSystem("Jolapa",100.1875, -78, -41.34375, 2832832893634L),
+        new Pair<>(new Pair<>(ModificationType.Greater_Range, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Scope, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Reduced_Tool_Battery_Consumption, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Improved_Battery_Capacity, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Extra_Backpack_Capacity, null), ItemGrade.MicroMaterial)),
+
+    UMA_LASZLO("Uma Laszlo", -1, "Laszlo's Resolve",
+        new StarSystem("Xuane",93.875, -32.53125, -9.25, 16065190962585L),
+        new Pair<>(new Pair<>(ModificationType.Reload_Speed, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Stowed_Reloading, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Head_Shot_Damage, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Damage_Resistance, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Faster_Shield_Regen, null), ItemGrade.MicroMaterial)),
+
+    ODEN_GEIGER("Oden Geiger", -1, "Ankh's Promise",
+        new StarSystem("Candiaei",-113.5, 66.84375, -4.9375, 8879744226018L),
+        new Pair<>(new Pair<>(ModificationType.Stability, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Scope, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Enhanced_Tracking, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Improved_Battery_Capacity, null), ItemGrade.MicroMaterial),
+        new Pair<>(new Pair<>(ModificationType.Night_Vision, null), ItemGrade.MicroMaterial)),
 
     ;
 

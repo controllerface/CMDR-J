@@ -4214,6 +4214,18 @@
         "Planetary Settlement"
       ]
     },
+    "GENESEQUENCINGDATA": {
+      "name": "Gene Sequencing Data",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
+    "GENETICRESEARCH": {
+      "name": "Genetic Research",
+      "locations": [
+        "Planetary Settlement"
+      ]
+    },
     "GEOGRAPHICALDATA": {
       "name": "Geographical Data",
       "locations": [

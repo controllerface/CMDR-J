@@ -530,35 +530,53 @@ public enum ModificationRecipe implements TaskRecipe
     Suits
      */
 
+    // offense
     Added_Melee_Damage(new AddedMeleeDamage()),
     Combat_Movement_Speed(new CombatMovementSpeed()),
-    Damage_Resistance(new DamageResistance()),
-    Enhanced_Tracking(new EnhancedTracking()),
     Extra_Ammo_Capacity(new ExtraAmmoCapacity()),
-    Extra_Backpack_Capacity(new ExtraBackpackCapacity()),
+
+    // defense
+    Damage_Resistance(new DamageResistance()),
     Faster_Shield_Regen(new FasterShieldRegen()),
-    Improved_Battery_Capacity(new ImprovedBatteryCapacity()),
+
+    // movement
     Improved_Jump_Assist(new ImprovedJumpAssist()),
-    Increased_Air_Reserves(new IncreasedAirReserves()),
     Increased_Sprint_Duration(new IncreasedSprintDuration()),
-    Night_Vision(new NightVision()),
+
+    // battery
+    Improved_Battery_Capacity(new ImprovedBatteryCapacity()),
     Reduced_Tool_Battery_Consumption(new ReducedToolBatteryConsumption()),
+
+    // tactical
+    Enhanced_Tracking(new EnhancedTracking()),
+    Night_Vision(new NightVision()),
+
+    // storage
+    Extra_Backpack_Capacity(new ExtraBackpackCapacity()),
+    Increased_Air_Reserves(new IncreasedAirReserves()),
 
 
     /*
     Personal Weapons
      */
 
+    // handling
     Faster_Handling(new FasterHandling()),
+    Stability(new Stability()),
+    Reload_Speed(new ReloadSpeed()),
+
+    // distance
+    Scope(new Scope()),
     Greater_Range(new GreaterRange()),
+
+    // ammunition
+    Magazine_Size(new MagazineSize()),
+    Stowed_Reloading(new StowedReloading()),
+
+    // precision
     Head_Shot_Damage(new HeadShotDamage()),
     Improved_Hip_Fire_Accuracy(new ImprovedHipFireAccuracy()),
-    Magazine_Size(new MagazineSize()),
     Noise_Suppressor(new NoiseSuppressor()),
-    Reload_Speed(new ReloadSpeed()),
-    Scope(new Scope()),
-    Stability(new Stability()),
-    Stowed_Reloading(new StowedReloading()),
 
     ;
 
