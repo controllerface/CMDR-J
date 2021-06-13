@@ -26,6 +26,6 @@ public class TK_Zenith_Pistol extends AbstractGear
     @Override
     public long price()
     {
-        return 75_000;
+        return 50_000;
     }
 }

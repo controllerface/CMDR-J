@@ -4,18 +4,18 @@ import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class Manticore_Executioner_Rifle extends AbstractGear
+public class Manticore_Tormentor_Pistol extends AbstractGear
 {
-    public Manticore_Executioner_Rifle()
+    public Manticore_Tormentor_Pistol()
     {
-        super("Manticore Executioner",
+        super("Manticore Tormentor",
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Damage, 19.6d),
-                    new ItemEffectData(ItemEffect.RateOfFire, 0.8d),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 3d),
-                    new ItemEffectData(ItemEffect.Weapon_Headshot_Damage, 3.0d),
-                    new ItemEffectData(ItemEffect.Weapon_Effective_Range, 100.0d),
+                    new ItemEffectData(ItemEffect.Damage, 7.5d),
+                    new ItemEffectData(ItemEffect.RateOfFire, 1.7d),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 6d),
+                    new ItemEffectData(ItemEffect.Weapon_Headshot_Damage, 2.0d),
+                    new ItemEffectData(ItemEffect.Weapon_Effective_Range, 15.0d),
                     new ItemEffectData(ItemEffect.DamageType, "Plasma"),
                     new ItemEffectData(ItemEffect.Weapon_Fire_Mode, "Semi-Automatic")
                 ));
@@ -24,6 +24,6 @@ public class Manticore_Executioner_Rifle extends AbstractGear
     @Override
     public long price()
     {
-        return 175_000;
+        return 50_000;
     }
 }

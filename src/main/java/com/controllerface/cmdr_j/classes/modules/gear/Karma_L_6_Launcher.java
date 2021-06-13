@@ -4,19 +4,19 @@ import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class TK_Eclipse_SMG extends AbstractGear
+public class Karma_L_6_Launcher extends AbstractGear
 {
-    public TK_Eclipse_SMG()
+    public Karma_L_6_Launcher()
     {
-        super("TK Eclipse",
+        super("Karma P-15",
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Damage, 0d),
-                    new ItemEffectData(ItemEffect.RateOfFire, 0d),
-                    new ItemEffectData(ItemEffect.AmmoClipSize, 40d),
+                    new ItemEffectData(ItemEffect.Damage, 52.4d),
+                    new ItemEffectData(ItemEffect.RateOfFire, 1.0d),
+                    new ItemEffectData(ItemEffect.AmmoClipSize, 2d),
                     new ItemEffectData(ItemEffect.Weapon_Headshot_Damage, 1.0d),
-                    new ItemEffectData(ItemEffect.Weapon_Effective_Range, 25.0d),
-                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
+                    new ItemEffectData(ItemEffect.Weapon_Effective_Range, 300d),
+                    new ItemEffectData(ItemEffect.DamageType, "Explosive"),
                     new ItemEffectData(ItemEffect.Weapon_Fire_Mode, "Automatic")
                 ));
     }
@@ -24,6 +24,6 @@ public class TK_Eclipse_SMG extends AbstractGear
     @Override
     public long price()
     {
-        return 50_000;
+        return 175_000;
     }
 }

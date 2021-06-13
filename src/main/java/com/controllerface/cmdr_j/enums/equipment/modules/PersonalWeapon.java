@@ -18,29 +18,55 @@ import java.util.stream.Stream;
 
 public enum PersonalWeapon implements OwnableModule
 {
-    // Todo: remaining weapons and data
-
     wpn_s_pistol_laser_sauto (1700227813017625L,
         new TK_Zenith_Pistol(),
         UpgradeBlueprint.TK_Zenith),
 
-    wpn_m_assaultrifle_laser_fauto(0L,
+    wpn_m_assaultrifle_laser_fauto(1700227791929932L,
         new TK_Aphelion_Rifle(),
         UpgradeBlueprint.TK_Aphelion),
+
+    wpn_m_submachinegun_laser_fauto(1702463472822902L,
+        new TK_Eclipse_Carbine(),
+        UpgradeBlueprint.TK_Eclipse),
+
+
 
 
     wpn_m_sniper_plasma_charged(1700306882307992L,
         new Manticore_Executioner_Rifle(),
         UpgradeBlueprint.Manticore_Executioner),
 
+    wpn_s_pistol_plasma_charged(1700216299641411L,
+        new Manticore_Tormentor_Pistol(),
+        UpgradeBlueprint.Manticore_Tormentor),
+
+    wpn_m_shotgun_plasma_doublebarrel(1702463504411780L,
+        new Manticore_Intimidator_Shotgun(),
+        UpgradeBlueprint.Manticore_Intimidator),
+
+    wpn_m_assaultrifle_plasma_fauto(1702463497067339L,
+        new Manticore_Oppressor_Rifle(),
+        UpgradeBlueprint.Manticore_Oppressor),
+
+
 
     wpn_m_assaultrifle_kinetic_fauto(1700216304969517L,
         new Karma_AR_50_Rifle(),
         UpgradeBlueprint.Karma_AR_50),
 
-    wpn_s_pistol_kinetic_sauto(0L,
+    wpn_s_pistol_kinetic_sauto(1700214271783878L,
         new Karma_P_15_Pistol(),
         UpgradeBlueprint.Karma_P_15),
+
+    wpn_m_submachinegun_kinetic_fauto(1702463482170316L,
+        new Karma_C_44_Carbine(),
+        UpgradeBlueprint.Karma_C_44),
+
+    wpn_m_launcher_rocket_sauto(1701208574845643L,
+        new Karma_L_6_Launcher(),
+        UpgradeBlueprint.Karma_L_6),
+
     ;
 
     public final long id;

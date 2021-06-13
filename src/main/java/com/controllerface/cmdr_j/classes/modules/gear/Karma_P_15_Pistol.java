@@ -11,8 +11,8 @@ public class Karma_P_15_Pistol extends AbstractGear
         super("Karma P-15",
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Damage, 0d),
-                    new ItemEffectData(ItemEffect.RateOfFire, 0d),
+                    new ItemEffectData(ItemEffect.Damage, 1.4d),
+                    new ItemEffectData(ItemEffect.RateOfFire, 10.0d),
                     new ItemEffectData(ItemEffect.AmmoClipSize, 24d),
                     new ItemEffectData(ItemEffect.Weapon_Headshot_Damage, 2.0d),
                     new ItemEffectData(ItemEffect.Weapon_Effective_Range, 25d),
@@ -24,6 +24,6 @@ public class Karma_P_15_Pistol extends AbstractGear
     @Override
     public long price()
     {
-        return 75_000;
+        return 50_000;
     }
 }

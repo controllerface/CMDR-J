@@ -4,19 +4,19 @@ import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class Karma_AR_50_Rifle extends AbstractGear
+public class TK_Eclipse_Carbine extends AbstractGear
 {
-    public Karma_AR_50_Rifle()
+    public TK_Eclipse_Carbine()
     {
-        super("Karma AR-50",
+        super("TK Eclipse",
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Damage, 1.2d),
+                    new ItemEffectData(ItemEffect.Damage, 0.9d),
                     new ItemEffectData(ItemEffect.RateOfFire, 10.0d),
                     new ItemEffectData(ItemEffect.AmmoClipSize, 40d),
-                    new ItemEffectData(ItemEffect.Weapon_Headshot_Damage, 2.0d),
-                    new ItemEffectData(ItemEffect.Weapon_Effective_Range, 50d),
-                    new ItemEffectData(ItemEffect.DamageType, "Kinetic"),
+                    new ItemEffectData(ItemEffect.Weapon_Headshot_Damage, 1.0d),
+                    new ItemEffectData(ItemEffect.Weapon_Effective_Range, 25.0d),
+                    new ItemEffectData(ItemEffect.DamageType, "Thermal"),
                     new ItemEffectData(ItemEffect.Weapon_Fire_Mode, "Automatic")
                 ));
     }
@@ -24,6 +24,6 @@ public class Karma_AR_50_Rifle extends AbstractGear
     @Override
     public long price()
     {
-        return 125_000;
+        return 75_000;
     }
 }

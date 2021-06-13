@@ -11,19 +11,19 @@ public class TK_Aphelion_Rifle extends AbstractGear
         super("TK Aphelion",
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Damage, 0d),
-                    new ItemEffectData(ItemEffect.RateOfFire, 0d),
+                    new ItemEffectData(ItemEffect.Damage, 1.6d),
+                    new ItemEffectData(ItemEffect.RateOfFire, 5.7d),
                     new ItemEffectData(ItemEffect.AmmoClipSize, 25d),
                     new ItemEffectData(ItemEffect.Weapon_Headshot_Damage, 1.0d),
                     new ItemEffectData(ItemEffect.Weapon_Effective_Range, 70.0d),
                     new ItemEffectData(ItemEffect.DamageType, "Thermal"),
-                    new ItemEffectData(ItemEffect.Weapon_Fire_Mode, "Burst")
+                    new ItemEffectData(ItemEffect.Weapon_Fire_Mode, "Automatic")
                 ));
     }
 
     @Override
     public long price()
     {
-        return 50_000;
+        return 125_000;
     }
 }
