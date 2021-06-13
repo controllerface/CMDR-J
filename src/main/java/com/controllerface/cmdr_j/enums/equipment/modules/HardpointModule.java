@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.modules.weapons.beam.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.burst.*;
@@ -50,7 +50,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 4/24/2018.
  */
-public enum HardpointModule implements ShipModule
+public enum HardpointModule implements OwnableModule
 {
     // Beam Lasers
 
@@ -276,9 +276,9 @@ public enum HardpointModule implements ShipModule
     ;
 
     public final long id;
-    private final ShipModule delegate;
+    private final OwnableModule delegate;
 
-    HardpointModule(long id, ShipModule delegate)
+    HardpointModule(long id, OwnableModule delegate)
     {
         this.id = id;
         this.delegate = delegate;
@@ -308,7 +308,7 @@ public enum HardpointModule implements ShipModule
         return delegate.itemEffects();
     }
 
-    public static List<ShipModule> findModulesBySize(int size)
+    public static List<OwnableModule> findModulesBySize(int size)
     {
         return Stream.of(values())
                 .filter(module ->
@@ -328,7 +328,7 @@ public enum HardpointModule implements ShipModule
                 .collect(Collectors.toList());
     }
 
-    public static ShipModule findModule(String moduleName) throws Exception
+    public static OwnableModule findModule(String moduleName) throws Exception
     {
         final Exception exception;
         try
@@ -394,7 +394,7 @@ public enum HardpointModule implements ShipModule
         return delegate.price();
     }
 
-    public static ShipModule findById(long itemId)
+    public static OwnableModule findById(long itemId)
     {
         return Stream.of(values())
             .filter(item -> item.id == itemId)

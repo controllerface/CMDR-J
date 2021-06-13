@@ -10,7 +10,7 @@ import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
  *
  * Created by Controllerface on 4/25/2018.
  */
-public interface ShipModule extends TaskCost
+public interface OwnableModule extends TaskCost
 {
     String displayText();
     TaskType experimentalType();

@@ -1,14 +1,14 @@
 package com.controllerface.cmdr_j.classes.modules;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
 import java.util.List;
 
-public abstract class AbstractModule implements ShipModule
+public abstract class AbstractModule implements OwnableModule
 {
     private final String displayText;
     private final TaskType modificationType;

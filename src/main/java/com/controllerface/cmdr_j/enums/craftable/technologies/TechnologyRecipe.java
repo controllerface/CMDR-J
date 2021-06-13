@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.craftable.technologies;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.recipes.techunlocks.*;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
@@ -184,23 +184,23 @@ public enum TechnologyRecipe implements TaskRecipe
     ;
 
     private final TaskRecipe delegate;
-    private final ShipModule[] modules;
+    private final OwnableModule[] modules;
 
-    TechnologyRecipe(TaskRecipe delegate, ShipModule ... modules)
+    TechnologyRecipe(TaskRecipe delegate, OwnableModule... modules)
     {
         this.delegate = delegate;
         this.modules = modules;
         delegate.costStream().forEach(c->c.cost.associate(this));
     }
 
-    public static Optional<TechnologyRecipe> findRecipeForModule(ShipModule module)
+    public static Optional<TechnologyRecipe> findRecipeForModule(OwnableModule module)
     {
         return Stream.of(TechnologyRecipe.values())
                 .filter(recipe -> Stream.of(recipe.modules).anyMatch(mod -> mod == module))
                 .findFirst();
     }
 
-    public ShipModule[] getModules()
+    public OwnableModule[] getModules()
     {
         return modules;
     }

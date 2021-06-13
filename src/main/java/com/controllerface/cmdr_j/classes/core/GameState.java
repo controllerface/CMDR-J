@@ -5,10 +5,9 @@ import com.controllerface.cmdr_j.enums.costs.consumables.Consumable;
 import com.controllerface.cmdr_j.enums.equipment.modules.*;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 import com.controllerface.cmdr_j.interfaces.Procedure;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.interfaces.commander.Statistic;
 import com.controllerface.cmdr_j.classes.recipes.MaterialTradeRecipe;
-import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskCost;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
@@ -19,18 +18,8 @@ import com.controllerface.cmdr_j.enums.commander.CommanderStat;
 import com.controllerface.cmdr_j.enums.commander.ShipStat;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
-import com.controllerface.cmdr_j.enums.costs.materials.MaterialSubCostCategory;
-import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
-import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalCategory;
-import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
-import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationCategory;
-import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
-import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisCategory;
-import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
-import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
-import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
@@ -41,7 +30,6 @@ import com.controllerface.cmdr_j.enums.equipment.ships.shipdata.ShipCharacterist
 import com.controllerface.cmdr_j.utilities.UIFunctions;
 import jetbrains.exodus.entitystore.*;
 
-import java.text.NumberFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
@@ -898,6 +886,22 @@ public class GameState
     {
         consumables.put(consumable, count);
         executeWithLock(() -> globalUpdate.accept("Consumable", writeConsumableEvent(consumable, count)));
+    }
+
+    public void adjustConsumableCount(Consumable consumable, Integer count)
+    {
+        var currentCount = consumables.computeIfPresent(consumable, (k, c) -> c + count);
+        if (currentCount == null)
+        {
+            if (count > 0)
+            {
+                consumables.put(consumable, count);
+                currentCount = count;
+            }
+            else return;
+        }
+        var newCount = currentCount;
+        executeWithLock(() -> globalUpdate.accept("Consumable", writeConsumableEvent(consumable, newCount)));
     }
 
     //endregion
@@ -3344,7 +3348,7 @@ public class GameState
         return "";
     }
 
-    private String determineModuleDisplayText(ShipModule module)
+    private String determineModuleDisplayText(OwnableModule module)
     {
         var size = module.itemEffects()
             .effectByName(ItemEffect.Size)
@@ -3796,7 +3800,8 @@ public class GameState
 
             dataMap.put(name, costMap);
         });
-        return JSONSupport.Write.jsonToString.apply(dataMap);
+        String apply = JSONSupport.Write.jsonToString.apply(dataMap);
+        return apply;
     }
 
     private String writeMaterialEvent(Material material, Integer count)

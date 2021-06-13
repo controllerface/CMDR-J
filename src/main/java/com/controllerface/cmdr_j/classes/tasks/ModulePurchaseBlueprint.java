@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.tasks;
 
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.recipes.ModulePurchaseRecipe;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
@@ -19,7 +19,7 @@ public class ModulePurchaseBlueprint implements TaskBlueprint
     private final List<TaskRecipe> recipes;
     private final String ss;
 
-    public ModulePurchaseBlueprint(String ss, EnumSet<? extends ShipModule> x)
+    public ModulePurchaseBlueprint(String ss, EnumSet<? extends OwnableModule> x)
     {
         this.ss = ss;
         recipes = x.stream()

@@ -2,7 +2,7 @@ package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.core.planetarysuite.size1.AdvancedPlanetarySuite_1I;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.modules.core.bulkheads.*;
 import com.controllerface.cmdr_j.classes.modules.core.cargobay.GenericCargoBay;
 import com.controllerface.cmdr_j.classes.modules.core.cockpit.GenericCockpit;
@@ -64,7 +64,7 @@ import java.util.stream.Stream;
 /**
  * Created by Controllerface on 4/25/2018.
  */
-public enum CoreInternalModule implements ShipModule
+public enum CoreInternalModule implements OwnableModule
 {
     /**
      * Generic Cargo Bay
@@ -693,15 +693,15 @@ public enum CoreInternalModule implements ShipModule
     ;
 
     public final long id;
-    private final ShipModule delegate;
+    private final OwnableModule delegate;
 
-    CoreInternalModule(ShipModule delegate)
+    CoreInternalModule(OwnableModule delegate)
     {
         this.id = -1;
         this.delegate = delegate;
     }
 
-    CoreInternalModule(long id, ShipModule delegate)
+    CoreInternalModule(long id, OwnableModule delegate)
     {
         this.id = id;
         this.delegate = delegate;
@@ -729,7 +729,7 @@ public enum CoreInternalModule implements ShipModule
         return delegate.displayText();
     }
 
-    public static ShipModule findModule(String moduleName) throws Exception
+    public static OwnableModule findModule(String moduleName) throws Exception
     {
         final Exception exception;
         try
@@ -795,7 +795,7 @@ public enum CoreInternalModule implements ShipModule
         return delegate.price();
     }
 
-    public static ShipModule findById(long itemId)
+    public static OwnableModule findById(long itemId)
     {
         return Stream.of(values())
             .filter(item -> item.id == itemId)

@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.enums.equipment.ships.moduleslots;
 
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.interfaces.commander.Statistic;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
@@ -475,9 +475,9 @@ public enum CoreInternalSlot implements Statistic
     ;
 
     private final String text;
-    private final ShipModule[] compatibleModules;
+    private final OwnableModule[] compatibleModules;
 
-    CoreInternalSlot(String text, ShipModule... compatibleModules)
+    CoreInternalSlot(String text, OwnableModule... compatibleModules)
     {
         this.text = text;
         this.compatibleModules = compatibleModules;
@@ -512,7 +512,7 @@ public enum CoreInternalSlot implements Statistic
         return Arrays.stream(CoreInternalSlot.values()).anyMatch(v -> v.equals(statistic));
     }
 
-    public List<ShipModule> findModulesBySize(int size)
+    public List<OwnableModule> findModulesBySize(int size)
     {
         return Stream.of(compatibleModules)
             .filter(module -> module.itemEffects().effectByName(ItemEffect.Size)
@@ -523,7 +523,7 @@ public enum CoreInternalSlot implements Statistic
             .collect(Collectors.toList());
     }
 
-    public List<ShipModule> findModulesByExactSize(int size)
+    public List<OwnableModule> findModulesByExactSize(int size)
     {
         return Stream.of(compatibleModules)
             .filter(module -> module.itemEffects().effectByName(ItemEffect.Size)

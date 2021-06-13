@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.journal;
 
 import com.controllerface.cmdr_j.classes.data.StellarBody;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.interfaces.commander.Statistic;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
@@ -77,6 +77,8 @@ public enum JournalEvent
     LoadGame(new LoadGameEvent()),
     Materials(new MaterialsEvent()),
     ShipLockerMaterials(new ShipLockerMaterialsEvent()),
+    ShipLocker(new ShipLockerMaterialsEvent()),
+
 //    SquadronStartup(new SquadronStartupHandler()),            // informational
 //    Fileheader(context -> {}),                                // informational
 
@@ -158,6 +160,8 @@ public enum JournalEvent
     MaterialCollected(new MaterialCollectedEvent()),
     MaterialDiscarded(new MaterialDiscardedEvent()),
     MaterialTrade(new MaterialTradeEvent()),
+    SellMicroResources(new SellMicroResourcesEvent()),
+    TradeMicroResources(new TradeMicroResourcesEvent()),
     Synthesis(new SynthesisEvent()),
 
     /*
@@ -216,6 +220,8 @@ public enum JournalEvent
     SellExplorationData(new SellExplorationDataEvent()),
     MultiSellExplorationData(new MultiSellExplorationDataEvent()),
     ReservoirReplenished(new ReservoirReplenishedEvent()),
+    UpgradeWeapon(new UpgradeWeaponEvent()),
+
 
     ;
 
@@ -307,9 +313,9 @@ public enum JournalEvent
         return statistic;
     }
 
-    public static ShipModule determineModuleType(String moduleName)
+    public static OwnableModule determineModuleType(String moduleName)
     {
-        ShipModule module;
+        OwnableModule module;
 
         try { module = HardpointModule.findModule(moduleName); }
         catch (Exception e) { module = null; }

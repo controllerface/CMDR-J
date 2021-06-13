@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.data;
 
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationBlueprint;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
@@ -10,7 +10,7 @@ import java.util.*;
 
 public class ShipModuleData
 {
-    public final ShipModule module;
+    public final OwnableModule module;
     public final ModificationBlueprint modificationBlueprint;
     public final ExperimentalRecipe experimentalEffectRecipe;
     public final List<ModifierData> modifiers;
@@ -173,7 +173,7 @@ public class ShipModuleData
 
     public static class Builder
     {
-        private final ShipModule module;
+        private final OwnableModule module;
         private List<ModifierData> modifiers;
         private ModificationBlueprint modificationBlueprint;
         private ExperimentalRecipe experimentalEffectRecipe;
@@ -185,7 +185,7 @@ public class ShipModuleData
         private Integer level;
         private Double quality;
 
-        public Builder(ShipModule module)
+        public Builder(OwnableModule module)
         {
             this.module = module;
         }

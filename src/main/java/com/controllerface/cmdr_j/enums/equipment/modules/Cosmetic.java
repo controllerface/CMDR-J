@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Controllerface on 4/25/2018.
  */
-public enum Cosmetic implements ShipModule
+public enum Cosmetic implements OwnableModule
 {
     /**
      * Paint Jobs
@@ -96,7 +96,7 @@ public enum Cosmetic implements ShipModule
         return ItemEffects.EMPTY;
     }
 
-    public static ShipModule findCosmetic(String cosmeticName) throws Exception
+    public static OwnableModule findCosmetic(String cosmeticName) throws Exception
     {
         final Exception exception;
         try

@@ -322,6 +322,11 @@ public enum ItemEffect
     Air_Capacity("%", "Air Capacity", true, EffectType.STANDARD),
     Ammo_Capacity("%", "Ammo Capacity", true, EffectType.STANDARD),
 
+    Weapon_Mod_Slots("", "Modification Slots", true, EffectType.STANDARD),
+    Weapon_Headshot_Damage("x", "Headshot Damage", true, EffectType.STANDARD),
+    Weapon_Effective_Range("M", "Effective Range", true, EffectType.STANDARD),
+    Weapon_Fire_Mode("", "Firing Mode", true, EffectType.STANDARD),
+
     Weapon_Stability("%", "Weapon Stability", true, EffectType.STANDARD),
     Improved_Weapon_Handling("", "Improved Weapon Handling", true, EffectType.STANDARD),
     Improved_Weapon_Reload("", "Improved Weapon Reload", true, EffectType.STANDARD),
@@ -361,7 +366,9 @@ public enum ItemEffect
     Thermic_Damage_Resistance("%", "Thermic Resistance", true, EffectType.STANDARD),
     Kinetic_Damage_Resistance("%", "Kinetic Resistance", true, EffectType.STANDARD),
 
-
+    Suit_Shield_Regen("MJ/S", "Shield Regeneration Rate", true, EffectType.STANDARD),
+    Suit_Shield_Capacity("MJ", "Shield Capacity", true, EffectType.STANDARD),
+    Suit_Mod_Slots("", "Modification Slots", true, EffectType.STANDARD),
 
     /*
     As-yet-unknown stats

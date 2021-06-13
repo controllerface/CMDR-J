@@ -13,11 +13,13 @@ import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisCategory;
 import com.controllerface.cmdr_j.enums.craftable.synthesis.SynthesisRecipe;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
+import com.controllerface.cmdr_j.enums.craftable.upgrades.UpgradeCategory;
+import com.controllerface.cmdr_j.enums.craftable.upgrades.UpgradeRecipe;
 import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
@@ -62,18 +64,18 @@ public class TaskCatalog
     {
         var baseName = taskRecipe.product.cost.getLocalizedName();
 
-        var size = ((ShipModule) taskRecipe.product.cost).itemEffects()
+        var size = ((OwnableModule) taskRecipe.product.cost).itemEffects()
             .effectByName(ItemEffect.Size)
             .map(d->d.doubleValue)
             .map(Double::intValue)
             .orElse(-1);
 
-        var grade = ((ShipModule) taskRecipe.product.cost).itemEffects()
+        var grade = ((OwnableModule) taskRecipe.product.cost).itemEffects()
             .effectByName(ItemEffect.Class)
             .map(d->d.stringValue)
             .orElse("");
 
-        var mount = ((ShipModule) taskRecipe.product.cost).itemEffects()
+        var mount = ((OwnableModule) taskRecipe.product.cost).itemEffects()
             .effectByName(ItemEffect.WeaponMode)
             .map(d->d.stringValue)
             .orElse("");
@@ -164,7 +166,7 @@ public class TaskCatalog
         costMap.put("unit", "Credits");
         costs.add(costMap);
 
-        var effects = ((ShipModule) taskRecipe.product.cost).itemEffects()
+        var effects = ((OwnableModule) taskRecipe.product.cost).itemEffects()
             .effectStream()
             .map(effect ->
             {
@@ -215,6 +217,52 @@ public class TaskCatalog
         else if (name.contains("Premium"))
         {
             rank = 3;
+        }
+        return new GameState.TaskData(name, rank, effects, costs);
+    }
+
+    public GameState.TaskData determineUpgradeTaskData(UpgradeRecipe upgradeRecipe)
+    {
+        var costs = upgradeRecipe.costStream()
+            .filter(costData -> costData.quantity > 0)
+            .map(costData ->
+            {
+                Map<String, Object> costMap = new HashMap<>();
+                costMap.put("amount", costData.quantity);
+                costMap.put("unit", costData.cost.getLocalizedName());
+                costMap.put("grade", costData.cost.getGrade().name());
+                return costMap;
+            }).collect(Collectors.toList());
+
+        var effects = upgradeRecipe.effects().effectStream()
+            .map(effect ->
+            {
+                Map<String, Object> effectMap = new HashMap<>();
+                effectMap.put("effect", effect.effect.toString());
+                effectMap.put("value", effect.getValueString());
+                effectMap.put("unit", effect.effect.unit);
+                effectMap.put("impact", "positive");
+                return effectMap;
+            }).collect(Collectors.toList());
+
+        var name = "Upgrade - " + upgradeRecipe.getDisplayLabel();
+        var rank = 0;
+
+        if (name.contains("Grade 2"))
+        {
+            rank = 2;
+        }
+        else if (name.contains("Grade 3"))
+        {
+            rank = 3;
+        }
+        else if (name.contains("Grade 4"))
+        {
+            rank = 4;
+        }
+        else if (name.contains("Grade 5"))
+        {
+            rank = 5;
         }
         return new GameState.TaskData(name, rank, effects, costs);
     }
@@ -517,7 +565,6 @@ public class TaskCatalog
         return new GameState.TaskData(tradeRecipe.getDisplayLabel(), rank, effects, costs);
     }
 
-
     public GameState.TaskData determineTaskData(TaskRecipe recipe, String taskKey)
     {
         if (recipe instanceof ModulePurchaseRecipe)
@@ -544,6 +591,10 @@ public class TaskCatalog
         {
             return determineSynthesisTaskData(((SynthesisRecipe) recipe));
         }
+        if (recipe instanceof UpgradeRecipe)
+        {
+            return determineUpgradeTaskData(((UpgradeRecipe) recipe));
+        }
         return new GameState.TaskData(recipe.getDisplayLabel(), 0);
     }
 
@@ -551,6 +602,7 @@ public class TaskCatalog
     {
         var modules = new HashMap<String, Map<String, Object>>();
         var synthesis = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
+        var upgrades = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
         var modifications = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
         var experimental = new HashMap<String, Map<String, Map<String, Object>>>();
         var technology = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
@@ -559,6 +611,7 @@ public class TaskCatalog
         Map<String, Object> jsonMap  = new HashMap<>();
         jsonMap.put("modules", modules);
         jsonMap.put("synthesis", synthesis);
+        jsonMap.put("upgrades", upgrades);
         jsonMap.put("modifications", modifications);
         jsonMap.put("experimental", experimental);
         jsonMap.put("technology", technology);
@@ -637,6 +690,61 @@ public class TaskCatalog
                 });
             });
         });
+
+
+
+
+
+
+
+        // upgrades
+        Stream.of(UpgradeCategory.values()).forEach(upgradeCategory ->
+        {
+            Map<String, Map<String, Map<String, Object>>> currentCategory = upgrades
+                .computeIfAbsent(upgradeCategory.name(), (_k)-> new HashMap<>());
+
+            upgradeCategory.typeStream().forEach(upgradeType ->
+            {
+                Map<String, Map<String, Object>> currentType = currentCategory
+                    .computeIfAbsent(upgradeType.name(), (_k)-> new HashMap<>());
+
+                upgradeType.blueprintStream().forEach(upgradeBlueprint ->
+                {
+                    Map<String, Object> currentBlueprint = currentType
+                        .computeIfAbsent(upgradeBlueprint.name(), (_k)-> new HashMap<>());
+
+                    upgradeBlueprint.recipeStream().forEach(upgradeRecipe ->
+                    {
+                        var key = upgradeCategory.name()
+                            + ":" + upgradeType.name()
+                            + ":" + upgradeBlueprint.name()
+                            + ":" + upgradeRecipe.name();
+
+                        keyMap.put(key, upgradeRecipe);
+                        untypedTaskMap.put(upgradeRecipe, key);
+                        var taskData = determineUpgradeTaskData(upgradeRecipe);
+
+                        var dataMap = new HashMap<String, Object>();
+                        dataMap.put("key", key);
+                        dataMap.put("name", taskData.name);
+                        dataMap.put("sort", taskData.rank);
+                        dataMap.put("costs", taskData.costs);
+                        dataMap.put("effects", taskData.effects);
+
+                        currentBlueprint.put(upgradeRecipe.name(), dataMap);
+                    });
+                });
+            });
+        });
+
+
+
+
+
+
+
+
+
 
         // modifications
         Stream.of(ModificationCategory.values()).forEach(modificationCategory ->

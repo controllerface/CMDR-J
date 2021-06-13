@@ -1,14 +1,8 @@
 package com.controllerface.cmdr_j;
 
-import com.controllerface.cmdr_j.classes.core.GameState;
-import com.controllerface.cmdr_j.classes.core.JournalSyncTask;
 import com.controllerface.cmdr_j.classes.data.Pair;
 import com.controllerface.cmdr_j.classes.data.TaskCatalog;
-import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
-import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
-import com.controllerface.cmdr_j.enums.equipment.modules.UtilityModule;
-import com.controllerface.cmdr_j.enums.journal.JournalEvent;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.modules.AbstractExperimentalModule;
 import com.controllerface.cmdr_j.classes.modules.AbstractGuardianModule;
@@ -65,7 +59,6 @@ import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
-import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -347,7 +340,7 @@ public class CommanderJTest
         ((List<Map<String, Object>>) x.get("modules"))
             .forEach(a ->
             {
-                AtomicReference<ShipModule> result = new AtomicReference<>(null);
+                AtomicReference<OwnableModule> result = new AtomicReference<>(null);
                 String symbol = ((String) a.get("ed_symbol"));
                 Integer price = ((Integer) a.get("price"));
                 Map<String, Object> group = ((Map<String, Object>) a.get("group"));
@@ -725,7 +718,7 @@ public class CommanderJTest
     }
 
 
-    private Pair<String, String> getAbstractClass(ShipModule module)
+    private Pair<String, String> getAbstractClass(OwnableModule module)
     {
         if (module.modificationType() == null)
         {

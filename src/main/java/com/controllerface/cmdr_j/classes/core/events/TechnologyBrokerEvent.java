@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.core.events;
 
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
@@ -36,7 +36,7 @@ public class TechnologyBrokerEvent implements BiConsumer<GameState, Map<String, 
                 .map(unlockedItem ->
                 {
                     String name = ((String) unlockedItem.get("Name")).toLowerCase();
-                    ShipModule module = JournalEvent.determineModuleType(name);
+                    OwnableModule module = JournalEvent.determineModuleType(name);
                     if (module != null)
                     {
                         return TechnologyRecipe.findRecipeForModule(module).orElse(null);

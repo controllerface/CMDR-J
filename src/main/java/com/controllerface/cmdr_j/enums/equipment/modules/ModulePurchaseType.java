@@ -1,10 +1,9 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.tasks.ModulePurchaseBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskCategory;
-import com.controllerface.cmdr_j.interfaces.tasks.TaskCostCategory;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 
 import java.util.Collections;
@@ -20,11 +19,11 @@ public enum ModulePurchaseType implements TaskType
 
     ;
 
-    private final EnumSet<? extends ShipModule> shipModules;
+    private final EnumSet<? extends OwnableModule> shipModules;
 
     List<TaskBlueprint> blueprints;
 
-    ModulePurchaseType(EnumSet<? extends ShipModule> shipModules)
+    ModulePurchaseType(EnumSet<? extends OwnableModule> shipModules)
     {
         this.shipModules = shipModules;
         blueprints = Collections.singletonList(new ModulePurchaseBlueprint(name(), shipModules));

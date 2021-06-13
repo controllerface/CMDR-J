@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Stephen on 5/27/2018.
  */
-public enum EmptyModule implements ShipModule
+public enum EmptyModule implements OwnableModule
 {
     EMPTY_MODULE;
 

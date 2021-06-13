@@ -1705,8 +1705,6 @@ class TaskCatalog extends HTMLElement
 
     loadSuitModifications(modificationData, categoryElement)
     {
-        console.log(modificationData);
-
         this.loadSubcategoryData('Added Melee Damage',
                                  modificationData['Added_Melee_Damage']['Added_Melee_Damage'],
                                  this.loadModificationGrades,
@@ -2170,6 +2168,54 @@ class TaskCatalog extends HTMLElement
     }
 
 
+
+
+
+
+
+
+
+    loadUpgradeCategories(upgradeData, categoryElement)
+    {
+        let subTypes = Object.keys(upgradeData);
+        subTypes.sort();
+        subTypes.forEach(type =>
+        {
+            this.loadSubcategoryData(type.replaceAll('_', ' '),
+                                     upgradeData[type],
+                                     this.loadModificationGrades,
+                                     categoryElement);
+        });
+    }
+
+    loadSuitUpgrades(upgradeData, categoryElement)
+    {
+        this.loadCategoryData('Suits',
+                            upgradeData['Suits'],
+                            this.loadUpgradeCategories,
+                            categoryElement);
+    }
+
+    loadWeaponUpgrades(upgradeData, categoryElement)
+    {
+        this.loadCategoryData('Kinetic Weapons',
+                            upgradeData['Kinetic_Weapons'],
+                            this.loadUpgradeCategories,
+                            categoryElement);
+
+        this.loadCategoryData('Laser Weapons',
+                            upgradeData['Laser_Weapons'],
+                            this.loadUpgradeCategories,
+                            categoryElement);
+
+        this.loadCategoryData('Plasma Weapons',
+                            upgradeData['Plasma_Weapons'],
+                            this.loadUpgradeCategories,
+                            categoryElement);
+    }
+
+
+
     /* Main Category Loading Methods */
 
     loadModulePurchases(moduleData)
@@ -2200,8 +2246,6 @@ class TaskCatalog extends HTMLElement
     loadModifications(modificationData)
     {
         let modificationContainer = this.shadowRoot.getElementById('taskCatalog_modifications');
-
-        console.log(modificationData);
 
         this.loadCategoryData('Core Internals',
                               modificationData['Core_Internal'],
@@ -2314,14 +2358,42 @@ class TaskCatalog extends HTMLElement
                               synthesisContainer);
     }
 
+    loadUpgrades(upgradeData)
+    {
+        let upgradeContainer = this.shadowRoot.getElementById('taskCatalog_upgrades');
+
+
+
+        this.loadCategoryData('Suits',
+                            upgradeData['Suits']['Suits'],
+                            this.loadUpgradeCategories,
+                            upgradeContainer);
+
+
+
+//        this.loadCategoryData('Suits',
+//                              upgradeData['Suits'],
+//                              this.loadSuitUpgrades,
+//                              upgradeContainer);
+
+        this.loadCategoryData('Weapons',
+                              upgradeData['Weapons'],
+                              this.loadWeaponUpgrades,
+                              upgradeContainer);
+    }
+
+
     loadTaskCatalog(catalogData)
     {
+        //console.log(catalogData);
+
         this.loadModulePurchases(catalogData['modules']);
         this.loadModifications(catalogData['modifications']);
         this.loadExperimentals(catalogData['experimental']);
         this.loadTechBrokers(catalogData['technology']);
         this.loadTrades(catalogData['trades']);
         this.loadSynthesis(catalogData['synthesis']);
+        this.loadUpgrades(catalogData['upgrades']);
     }
 
     connectedCallback()

@@ -1,7 +1,7 @@
 package com.controllerface.cmdr_j.classes.recipes;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
@@ -25,7 +25,7 @@ public class ModulePurchaseRecipe implements TaskRecipe
     private final String shortLabel;
     private final String enumName;
 
-    public ModulePurchaseRecipe(ShipModule product)
+    public ModulePurchaseRecipe(OwnableModule product)
     {
 
         if (product instanceof HardpointModule)
@@ -68,13 +68,13 @@ public class ModulePurchaseRecipe implements TaskRecipe
 
         double yieldCost_ = Math.abs(product.quantity);
 
-        var size = ((ShipModule) product.cost).itemEffects()
+        var size = ((OwnableModule) product.cost).itemEffects()
             .effectByName(ItemEffect.Size)
             .map(d->d.doubleValue)
             .map(Double::intValue)
             .orElse(-1);
 
-        var grade = ((ShipModule) product.cost).itemEffects()
+        var grade = ((OwnableModule) product.cost).itemEffects()
             .effectByName(ItemEffect.Class)
             .map(d->d.stringValue)
             .orElse("");

@@ -2,8 +2,7 @@ package com.controllerface.cmdr_j.enums.equipment.ships;
 
 import com.controllerface.cmdr_j.classes.data.BaseShipStats;
 import com.controllerface.cmdr_j.classes.data.OptionalModuleLayoutData;
-import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.data.CoreModuleLayoutData;
 import com.controllerface.cmdr_j.classes.data.HardPointLayoutData;
 import com.controllerface.cmdr_j.classes.ships.*;
@@ -106,7 +105,7 @@ public enum ShipType
         return delegate.internals;
     }
 
-    public ShipModule[] getArmorModules()
+    public OwnableModule[] getArmorModules()
     {
         return delegate.armorModules;
     }

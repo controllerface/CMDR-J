@@ -2,8 +2,7 @@ package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size1.*;
-import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size1.*;
 import com.controllerface.cmdr_j.classes.modules.optional.afmu.size2.*;
@@ -169,7 +168,7 @@ import java.util.stream.Stream;
  *
  * Created by Controllerface on 4/25/2018.
  */
-public enum OptionalInternalModule implements ShipModule
+public enum OptionalInternalModule implements OwnableModule
 {
     /**
      * Automated Field Maintenance Unit
@@ -836,9 +835,9 @@ public enum OptionalInternalModule implements ShipModule
     ;
 
     public final long id;
-    private final ShipModule delegate;
+    private final OwnableModule delegate;
 
-    OptionalInternalModule(long id, ShipModule delegate)
+    OptionalInternalModule(long id, OwnableModule delegate)
     {
         this.id = id;
         this.delegate = delegate;
@@ -869,7 +868,7 @@ public enum OptionalInternalModule implements ShipModule
         return delegate.itemEffects();
     }
 
-    public static List<ShipModule> findModulesBySize(int size)
+    public static List<OwnableModule> findModulesBySize(int size)
     {
         return Stream.of(values())
                 .filter(module -> module.itemEffects().effectByName(ItemEffect.Size)
@@ -883,7 +882,7 @@ public enum OptionalInternalModule implements ShipModule
                 .collect(Collectors.toList());
     }
 
-    public static ShipModule findModule(String moduleName) throws Exception
+    public static OwnableModule findModule(String moduleName) throws Exception
     {
         final Exception exception;
         try
@@ -949,7 +948,7 @@ public enum OptionalInternalModule implements ShipModule
         return delegate.price();
     }
 
-    public static ShipModule findById(long itemId)
+    public static OwnableModule findById(long itemId)
     {
         return Stream.of(values())
             .filter(item -> item.id == itemId)

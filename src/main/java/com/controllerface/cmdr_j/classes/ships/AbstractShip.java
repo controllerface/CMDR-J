@@ -1,9 +1,9 @@
 package com.controllerface.cmdr_j.classes.ships;
 
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 import com.controllerface.cmdr_j.classes.data.BaseShipStats;
 import com.controllerface.cmdr_j.classes.data.OptionalModuleLayoutData;
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
 import com.controllerface.cmdr_j.classes.data.CoreModuleLayoutData;
 import com.controllerface.cmdr_j.classes.data.HardPointLayoutData;
 
@@ -16,13 +16,13 @@ public abstract class AbstractShip
     public final CoreModuleLayoutData coreModules;
     public final HardPointLayoutData hardpoints;
     public final OptionalModuleLayoutData internals;
-    public final ShipModule[] armorModules;
+    public final OwnableModule[] armorModules;
 
     AbstractShip(BaseShipStats baseShipStats,
                  CoreModuleLayoutData coreModules,
                  HardPointLayoutData hardpoints,
                  OptionalModuleLayoutData internals,
-                 ShipModule... armorModules)
+                 OwnableModule... armorModules)
     {
         this.baseShipStats = baseShipStats;
         this.coreModules = coreModules;

@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.core.events;
 
-import com.controllerface.cmdr_j.interfaces.commander.ShipModule;
+import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.classes.core.GameState;
 import com.controllerface.cmdr_j.enums.journal.JournalEvent;
@@ -87,9 +87,9 @@ public class OutfittingEvent implements BiConsumer<GameState, Map<String, Object
         return remappedItem;
     }
 
-    private String formatName(ShipModule shipModule)
+    private String formatName(OwnableModule ownableModule)
     {
-        var baseName = shipModule.getLocalizedName();
+        var baseName = ownableModule.getLocalizedName();
 
         var isArmour = baseName.endsWith("Armour");
 
@@ -97,18 +97,18 @@ public class OutfittingEvent implements BiConsumer<GameState, Map<String, Object
 
         if (!isArmour)
         {
-            var size = shipModule.itemEffects()
+            var size = ownableModule.itemEffects()
                 .effectByName(ItemEffect.Size)
                 .map(sizeData -> sizeData.doubleValue)
                 .map(Double::intValue)
                 .orElse(0);
 
-            var grade = shipModule.itemEffects()
+            var grade = ownableModule.itemEffects()
                 .effectByName(ItemEffect.Class)
                 .map(classData -> classData.stringValue)
                 .orElse("");
 
-            var mount = shipModule.itemEffects()
+            var mount = ownableModule.itemEffects()
                 .effectByName(ItemEffect.WeaponMode)
                 .map(modeData -> modeData.stringValue)
                 .orElse("");

@@ -31,6 +31,7 @@ public class JournalSyncTask implements Runnable
         OUTFITTING("Outfitting.json"),
         SHIPYARD("Shipyard.json"),
         CARGO("Cargo.json"),
+        SHIP_LOCKER("ShipLocker.json"),
         NAV_ROUTE("NavRoute.json");
 
         private final String fileName;
@@ -341,6 +342,11 @@ public class JournalSyncTask implements Runnable
     public static Map<String, Object> readCargoData()
     {
         return readSupplementalFile(SupplementalDataFile.CARGO);
+    }
+
+    public static Map<String, Object> readLockerData()
+    {
+        return readSupplementalFile(SupplementalDataFile.SHIP_LOCKER);
     }
 
     public static Map<String, Object> readNavRouteData()
