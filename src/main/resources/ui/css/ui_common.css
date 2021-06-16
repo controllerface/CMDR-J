@@ -1,0 +1,105 @@
+*
+{
+    font-family: Helvetica, Arial, sans-serif;
+    line-height: 1.50em;
+}
+
+*
+{
+    --severity-very-high:     #A90533;
+    --severity-high:          #DD3B35;
+    --severity-medium:        #FF7D00;
+    --severity-low:           #FFBE00;
+    --severity-very-low:      #33ADD2;
+    --severity-informational: #0270D3;
+}
+
+#debugSection
+{
+    position: absolute;
+    right: 5px;
+    top: 20px;
+    opacity: 50%;
+    background: lightblue;
+    padding: .5em;
+    border: 1px solid red;
+    border-radius: 3px;
+    color: brown;
+    margin-top: -1em;
+}
+
+#manual_db
+{
+    width: 21em;
+}
+
+main
+{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+}
+
+@keyframes fadeIn
+{
+    0% { opacity:0; }
+    100% { opacity:1; }
+}
+
+@keyframes fadeOut
+{
+    0% { opacity:1 }
+    100% { opacity:0; }
+}
+
+@keyframes fadeOut
+{
+    0% { opacity:1 }
+    100% { opacity:0; }
+}
+
+@keyframes textFadeIn
+{
+      0% { color: var(--default-background); }
+    100% { color:       var(--default-text); }
+}
+
+@keyframes highlight
+{
+      0% { background:  var(--default-hover-start); }
+     50% { background: var(--default-hover-middle); }
+    100% { background:    var(--default-hover-end); }
+}
+
+html, body
+{
+    color: var(--default-text);
+    background: var(--default-background);
+    height: 98%;
+}
+
+.tableHeader
+{
+    border: 1px solid var(--default-border);
+    border-bottom: 1px solid var(--default-border);
+    border-radius: 3px 3px 0px 0px;
+    padding: .5em;
+    text-align: left;
+    font-size: 1em;
+    font-weight: bold;
+    background: var(--default-table-background);
+    animation: fadeIn 0.5s ease;
+}
+
+.emptySection
+{
+    border: 1px solid var(--default-border);
+    border-radius: 0px 0px 3px 3px;
+    font-weight: bold;
+    font-size: 1.4em;
+    padding: 2em;
+    text-align: center;
+    background: var(--default-table-background);
+    animation: fadeIn 0.5s ease;
+}

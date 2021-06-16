@@ -1,0 +1,119 @@
+@import "../ui_common.css";
+
+::slotted(*)
+{
+    display: none;
+}
+
+.nameOuterContainer
+{
+    display: inline-grid;
+    grid-template-columns: 1fr auto;
+    /* not entirely sure why there is horizontal space between name
+    elements without this negative margin */
+    margin-left: -.3em;
+}
+
+.nameContainer
+{
+    display: inline-grid;
+}
+
+.panelName
+{
+    display: inline-block;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    border: 1px solid gray;
+    border-radius: 3px;
+    margin: .25em;
+    margin-bottom: 0em;
+    margin-left: .35em;
+    text-align: center;
+}
+
+.panelName.selected
+{
+    background: var(--selected-yellow);
+}
+
+.panelName[horizontal]
+{
+    margin-top: .3em;
+}
+
+.horizontalIndicator
+{
+    height: .2em;
+    margin-bottom: .5em;
+    background: var(--default-background);
+    /* border-bottom: .1em solid var(--default-text); */
+}
+
+.verticalIndicator
+{
+    width: .2em;
+    height: 100%;
+    background: var(--default-background);
+    border-right: .1em solid var(--default-color);
+    margin-right: .5em;
+}
+
+.panelNameSmall
+{
+    font-size: 1em;
+}
+
+.horizontalIndicatorSmall
+{
+    height: .1em;
+}
+
+.verticalIndicatorSmall
+{
+    width: .1em;
+}
+
+
+@keyframes selectIn
+{
+      0% { background:  var(--default-background); }
+    100% { background:    var(--default-text); }
+}
+
+@keyframes selectOut
+{
+      0% { background:  var(--default-text); }
+    100% { background:    var(--default-background); }
+}
+
+.panelName:hover
+{
+    animation: highlight 0.2s ease;
+    background: var(--default-hover-end);
+}
+
+.selected
+{
+    animation: selectIn 0.3s ease;
+    background: var(--experimental-color);
+}
+
+.deselected
+{
+    animation: selectOut 0.3s ease;
+    background: var(--default-background);
+}
+
+.disabled
+{
+    display: none;
+    width: 0em;
+    height: 0em;
+}
+

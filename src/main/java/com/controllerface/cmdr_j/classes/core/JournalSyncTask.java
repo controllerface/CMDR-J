@@ -398,6 +398,8 @@ public class JournalSyncTask implements Runnable
         }
     }
 
+    boolean debug = false;
+
     private void processEvent(String rawEvent)
     {
         Map<String, Object> eventData = JSONSupport.Parse.jsonString.apply(rawEvent);
@@ -405,8 +407,11 @@ public class JournalSyncTask implements Runnable
             .ifPresentOrElse(handler -> handler.process(gameState, eventData),
                 () ->
                 {
-                    System.out.println("unknown event: " + eventData.get("event"));
-                    System.out.println(eventData);
+                    if (debug)
+                    {
+                        System.out.println("unknown event: " + eventData.get("event"));
+                        System.out.println(eventData);
+                    }
                 });
     }
 }

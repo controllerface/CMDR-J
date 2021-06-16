@@ -13,8 +13,8 @@ public class Manticore_Executioner_Grade_5 extends AbstractUpgradeRecipe
 {
     public Manticore_Executioner_Grade_5()
     {
-        super("Manticore Executioner - Grade 4",
-            ItemGrade.GRADE_4,
+        super("Manticore Executioner - Grade 5",
+            ItemGrade.GRADE_5,
             new ItemEffects(
                 new ItemEffectData(ItemEffect.DamagePerSecond, 0d),
                 new ItemEffectData(ItemEffect.Weapon_Mod_Slots, 4d)

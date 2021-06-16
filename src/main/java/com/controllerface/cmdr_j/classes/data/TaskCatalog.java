@@ -691,12 +691,6 @@ public class TaskCatalog
             });
         });
 
-
-
-
-
-
-
         // upgrades
         Stream.of(UpgradeCategory.values()).forEach(upgradeCategory ->
         {
@@ -736,15 +730,6 @@ public class TaskCatalog
                 });
             });
         });
-
-
-
-
-
-
-
-
-
 
         // modifications
         Stream.of(ModificationCategory.values()).forEach(modificationCategory ->

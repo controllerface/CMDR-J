@@ -3772,6 +3772,7 @@ public class GameState
             costMap.put("needed", count.runningCount.get());
             costMap.put("deficit", costDeficit);
             costMap.put("related", relatedTaskNames);
+            costMap.put("grade", cost.getGrade());
 
             if (cost instanceof Material && pendingYields.containsKey(cost))
             {

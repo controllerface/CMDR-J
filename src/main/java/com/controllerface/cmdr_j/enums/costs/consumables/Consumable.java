@@ -12,11 +12,11 @@ import java.util.List;
  */
 public enum Consumable implements TaskCost
 {
-    HEALTHPACK(ItemGrade.MicroMaterial),
-    ENERGYCELL(ItemGrade.MicroMaterial),
-    AMM_GRENADE_FRAG(ItemGrade.MicroMaterial),
-    AMM_GRENADE_EMP(ItemGrade.MicroMaterial),
-    AMM_GRENADE_SHIELD(ItemGrade.MicroMaterial),
+    HEALTHPACK(ItemGrade.Consumables),
+    ENERGYCELL(ItemGrade.Consumables),
+    AMM_GRENADE_FRAG(ItemGrade.Consumables),
+    AMM_GRENADE_EMP(ItemGrade.Consumables),
+    AMM_GRENADE_SHIELD(ItemGrade.Consumables),
     ;
 
     public final long id;
@@ -72,6 +72,6 @@ public enum Consumable implements TaskCost
     @Override
     public ItemGrade getGrade()
     {
-        return ItemGrade.MicroMaterial;
+        return ItemGrade.Consumables;
     }
 }

@@ -3,7 +3,11 @@
 <head>
     <link rel="stylesheet" href="ui.css">
 
-    <title>CMDR J - v2.2 (Alpha)</title>
+    <title>CMDR J - v1.3 (Alpha)</title>
+
+    <script src="./js/components/baseComponent.js"></script>
+    <script src="./js/components/tabControl.js"></script>
+    <script src="./js/components/tabPanel.js"></script>
 
     <script src="ui.js"></script>
     <script src="billOfMaterials.js"></script>
@@ -1682,6 +1686,35 @@
 
     </template>
 
+
+    <!-- Tab control container -->
+    <template id="t_TabControl">
+        <link rel="stylesheet" type="text/css" href="./css/components/tabControl.css">
+        <div id="TabControl_container" class="container">
+            <div>
+                <slot id="TabControl_tabs"></slot>
+            </div>
+            <div class="divider" id="TabControl_divider"></div>
+            <div class="contents">
+                <slot id="TabControl_contents" name="active"></slot>
+            </div>
+        </div>
+    </template>
+
+    <!-- Tab control content element -->
+    <template id="t_TabPanel">
+        <link rel="stylesheet" type="text/css" href="./css/components/tabPanel.css">
+
+        <div class="nameOuterContainer">
+            <div class="nameContainer">
+                <span class="panelName" id="TabPanel_name"></span>
+                <span class="horizontalIndicator indicator" id="TabPanel_horizontalIndicator"></span>
+            </div>
+            <div class="verticalIndicator indicator disabled" id="TabPanel_verticalIndicator"></div>
+        </div>
+        <slot id="TabPanel_contents"></slot>
+    </template>
+
 </head>
 
 <body>
@@ -1762,839 +1795,698 @@
 
 <main id="sections">
 
-    <!-- Commander Tab  -->
-    <input name="categoryTabs" type="radio" id="cmdrTabButton" class="tabInput"/>
-    <label id="cmdrTab" for="cmdrTabButton" class="tabLabel">Commander</label>
-    <div class="tabPanel">
-        <div id="commanderInfo">
+    <tab-control vertical="vertical">
+        <tab-panel vertical="vertical" name="Commander" id="commanderInfo">
+            <tab-control>
+                <tab-panel small="small" name="Inventory" id="inventoryContainer">
+                        <tab-control>
+                            <tab-panel small="small" name="Materials" id="materialsContainer">
+                                <tab-control>
+                                    <tab-panel small="small" name="Raw">
+                                        <div class="inventoryBin">
 
-            <input name="commanderTabs" type="radio" id="inventoryTabButton" class="tabInput"/>
-            <label id="inventoryTab" for="inventoryTabButton" class="tabLabel">Inventory</label>
-            <div class="tabPanel">
-                <div id="inventoryContainer">
+                                            <div class="binHeader">
+                                                <span class="binHeaderName">Material Name</span>
+                                                <span class="binHeaderGrade">Grade</span>
+                                                <span class="binHeaderCount">Stock</span>
+                                                <span class="binHeaderCapacity">Capacity</span>
+                                            </div>
 
-                    <input name="inventoryTabs" type="radio" id="matsTabButton" class="tabInput"/>
-                    <label id="matsTab" for="matsTabButton" class="tabLabel">Materials</label>
-                    <div class="tabPanel">
-                        <div id="materialsContainer">
+                                            <h4 class="binCategoryHeader">Raw Elements 1</h4>
+                                            <material-bin id="CARBON" material="Carbon" grade="1"></material-bin>
+                                            <material-bin id="VANADIUM" material="Vanadium" grade="2"></material-bin>
+                                            <material-bin id="NIOBIUM" material="Niobium" grade="3"></material-bin>
+                                            <material-bin id="YTTRIUM" material="Yttrium" grade="4"></material-bin>
 
-                            <input name="materialsTabs" type="radio" id="rawTabButton" class="tabInput"/>
-                            <label id="rawTab" for="rawTabButton" class="tabLabel">Raw</label>
-                            <div class="tabPanel">
-                                <div class="inventoryBin">
+                                            <h4 class="binCategoryHeader">Raw Elements 2</h4>
+                                            <material-bin id="PHOSPHORUS" material="Phosphorus" grade="1"></material-bin>
+                                            <material-bin id="CHROMIUM" material="Chromium" grade="2"></material-bin>
+                                            <material-bin id="MOLYBDENUM" material="Molybdenum" grade="3"></material-bin>
+                                            <material-bin id="TECHNETIUM" material="Technetium" grade="4"></material-bin>
 
-                                    <div class="binHeader">
-                                        <span class="binHeaderName">Material Name</span>
-                                        <span class="binHeaderGrade">Grade</span>
-                                        <span class="binHeaderCount">Stock</span>
-                                        <span class="binHeaderCapacity">Capacity</span>
-                                    </div>
+                                            <h4 class="binCategoryHeader">Raw Elements 3</h4>
+                                            <material-bin id="SULPHUR" material="Sulphur" grade="1"></material-bin>
+                                            <material-bin id="MANGANESE" material="Manganese" grade="2"></material-bin>
+                                            <material-bin id="CADMIUM" material="Cadmium" grade="3"></material-bin>
+                                            <material-bin id="RUTHENIUM" material="Ruthenium" grade="4"></material-bin>
 
-                                    <h4 class="binCategoryHeader">Raw Elements 1</h4>
-                                    <material-bin id="CARBON" material="Carbon" grade="1"></material-bin>
-                                    <material-bin id="VANADIUM" material="Vanadium" grade="2"></material-bin>
-                                    <material-bin id="NIOBIUM" material="Niobium" grade="3"></material-bin>
-                                    <material-bin id="YTTRIUM" material="Yttrium" grade="4"></material-bin>
+                                            <h4 class="binCategoryHeader">Raw Elements 4</h4>
+                                            <material-bin id="IRON" material="Iron" grade="1"></material-bin>
+                                            <material-bin id="ZINC" material="Zinc" grade="2"></material-bin>
+                                            <material-bin id="TIN" material="Tin" grade="3"></material-bin>
+                                            <material-bin id="SELENIUM" material="Selenium" grade="4"></material-bin>
 
-                                    <h4 class="binCategoryHeader">Raw Elements 2</h4>
-                                    <material-bin id="PHOSPHORUS" material="Phosphorus" grade="1"></material-bin>
-                                    <material-bin id="CHROMIUM" material="Chromium" grade="2"></material-bin>
-                                    <material-bin id="MOLYBDENUM" material="Molybdenum" grade="3"></material-bin>
-                                    <material-bin id="TECHNETIUM" material="Technetium" grade="4"></material-bin>
+                                            <h4 class="binCategoryHeader">Raw Elements 5</h4>
+                                            <material-bin id="NICKEL" material="Nickel" grade="1"></material-bin>
+                                            <material-bin id="GERMANIUM" material="Germanium" grade="2"></material-bin>
+                                            <material-bin id="TUNGSTEN" material="Tungsten" grade="3"></material-bin>
+                                            <material-bin id="TELLURIUM" material="Tellurium" grade="4"></material-bin>
 
-                                    <h4 class="binCategoryHeader">Raw Elements 3</h4>
-                                    <material-bin id="SULPHUR" material="Sulphur" grade="1"></material-bin>
-                                    <material-bin id="MANGANESE" material="Manganese" grade="2"></material-bin>
-                                    <material-bin id="CADMIUM" material="Cadmium" grade="3"></material-bin>
-                                    <material-bin id="RUTHENIUM" material="Ruthenium" grade="4"></material-bin>
+                                            <h4 class="binCategoryHeader">Raw Elements 6</h4>
+                                            <material-bin id="RHENIUM" material="Rhenium" grade="1"></material-bin>
+                                            <material-bin id="ARSENIC" material="Arsenic" grade="2"></material-bin>
+                                            <material-bin id="MERCURY" material="Mercury" grade="3"></material-bin>
+                                            <material-bin id="POLONIUM" material="Polonium" grade="4"></material-bin>
 
-                                    <h4 class="binCategoryHeader">Raw Elements 4</h4>
-                                    <material-bin id="IRON" material="Iron" grade="1"></material-bin>
-                                    <material-bin id="ZINC" material="Zinc" grade="2"></material-bin>
-                                    <material-bin id="TIN" material="Tin" grade="3"></material-bin>
-                                    <material-bin id="SELENIUM" material="Selenium" grade="4"></material-bin>
+                                            <h4 class="binCategoryHeader">Raw Elements 7</h4>
+                                            <material-bin id="LEAD" material="Lead" grade="1"></material-bin>
+                                            <material-bin id="ZIRCONIUM" material="Zirconium" grade="2"></material-bin>
+                                            <material-bin id="BORON" material="Boron" grade="3"></material-bin>
+                                            <material-bin id="ANTIMONY" material="Antimony" grade="4"></material-bin>
+                                        </div>
+                                    </tab-panel>
+                                    <tab-panel small="small" name="Encoded">
+                                        <div class="inventoryBin">
 
-                                    <h4 class="binCategoryHeader">Raw Elements 5</h4>
-                                    <material-bin id="NICKEL" material="Nickel" grade="1"></material-bin>
-                                    <material-bin id="GERMANIUM" material="Germanium" grade="2"></material-bin>
-                                    <material-bin id="TUNGSTEN" material="Tungsten" grade="3"></material-bin>
-                                    <material-bin id="TELLURIUM" material="Tellurium" grade="4"></material-bin>
+                                            <div class="binHeader">
+                                                <span class="binHeaderName">Material Name</span>
+                                                <span class="binHeaderGrade">Grade</span>
+                                                <span class="binHeaderCount">Stock</span>
+                                                <span class="binHeaderCapacity">Capacity</span>
+                                            </div>
 
-                                    <h4 class="binCategoryHeader">Raw Elements 6</h4>
-                                    <material-bin id="RHENIUM" material="Rhenium" grade="1"></material-bin>
-                                    <material-bin id="ARSENIC" material="Arsenic" grade="2"></material-bin>
-                                    <material-bin id="MERCURY" material="Mercury" grade="3"></material-bin>
-                                    <material-bin id="POLONIUM" material="Polonium" grade="4"></material-bin>
+                                            <h4 class="binCategoryHeader">Data Archives</h4>
+                                            <material-bin id="BULKSCANDATA" material="Anomalous Bulk Scan Data" grade="1"></material-bin>
+                                            <material-bin id="SCANARCHIVES" material="Unidentified Scan Archives" grade="2"></material-bin>
+                                            <material-bin id="SCANDATABANKS" material="Classified Scan Databanks" grade="3"></material-bin>
+                                            <material-bin id="ENCODEDSCANDATA" material="Divergent Scan Data" grade="4"></material-bin>
+                                            <material-bin id="CLASSIFIEDSCANDATA" material="Classified Scan Fragment" grade="5"></material-bin>
 
-                                    <h4 class="binCategoryHeader">Raw Elements 7</h4>
-                                    <material-bin id="LEAD" material="Lead" grade="1"></material-bin>
-                                    <material-bin id="ZIRCONIUM" material="Zirconium" grade="2"></material-bin>
-                                    <material-bin id="BORON" material="Boron" grade="3"></material-bin>
-                                    <material-bin id="ANTIMONY" material="Antimony" grade="4"></material-bin>
-                                </div>
+                                            <h4 class="binCategoryHeader">Emission Data</h4>
+                                            <material-bin id="SCRAMBLEDEMISSIONDATA" material="Exceptional Scrambled Emission Data" grade="1"></material-bin>
+                                            <material-bin id="ARCHIVEDEMISSIONDATA" material="Irregular Emission Data" grade="2"></material-bin>
+                                            <material-bin id="EMISSIONDATA" material="Unexpected Emission Data" grade="3"></material-bin>
+                                            <material-bin id="DECODEDEMISSIONDATA" material="Decoded Emission Data" grade="4"></material-bin>
+                                            <material-bin id="COMPACTEMISSIONSDATA" material="Abnormal Compact Emissions Data" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Encoded Firmware</h4>
+                                            <material-bin id="LEGACYFIRMWARE" material="Specialised Legacy Firmware" grade="1"></material-bin>
+                                            <material-bin id="CONSUMERFIRMWARE" material="Modified Consumer Firmware" grade="2"></material-bin>
+                                            <material-bin id="INDUSTRIALFIRMWARE" material="Cracked Industrial Firmware" grade="3"></material-bin>
+                                            <material-bin id="SECURITYFIRMWARE" material="Security Firmware Patch" grade="4"></material-bin>
+                                            <material-bin id="EMBEDDEDFIRMWARE" material="Modified Embedded Firmware" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Encryption Files</h4>
+                                            <material-bin id="ENCRYPTEDFILES" material="Unusual Encrypted Files" grade="1"></material-bin>
+                                            <material-bin id="ENCRYPTIONCODES" material="Tagged Encryption Codes" grade="2"></material-bin>
+                                            <material-bin id="SYMMETRICKEYS" material="Open Symmetric Keys" grade="3"></material-bin>
+                                            <material-bin id="ENCRYPTIONARCHIVES" material="Atypical Encryption Archives" grade="4"></material-bin>
+                                            <material-bin id="ADAPTIVEENCRYPTORS" material="Adaptive Encryptors Capture" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Shield Data</h4>
+                                            <material-bin id="SHIELDCYCLERECORDINGS" material="Distorted Shield Cycle Recordings" grade="1"></material-bin>
+                                            <material-bin id="SHIELDSOAKANALYSIS" material="Inconsistent Shield Soak Analysis" grade="2"></material-bin>
+                                            <material-bin id="SHIELDDENSITYREPORTS" material="Untypical Shield Scans" grade="3"></material-bin>
+                                            <material-bin id="SHIELDPATTERNANALYSIS" material="Aberrant Shield Pattern Analysis" grade="4"></material-bin>
+                                            <material-bin id="SHIELDFREQUENCYDATA" material="Peculiar Shield Frequency Data" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Wake Scans</h4>
+                                            <material-bin id="DISRUPTEDWAKEECHOES" material="Atypical Disrupted Wake Echoes" grade="1"></material-bin>
+                                            <material-bin id="FSDTELEMETRY" material="Anomalous FSD Telemetry" grade="2"></material-bin>
+                                            <material-bin id="WAKESOLUTIONS" material="Strange Wake Solutions" grade="3"></material-bin>
+                                            <material-bin id="HYPERSPACETRAJECTORIES" material="Eccentric Hyperspace Trajectories" grade="4"></material-bin>
+                                            <material-bin id="DATAMINEDWAKE" material="Datamined Wake Exceptions" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Thargoid Data</h4>
+                                            <material-bin id="TG_STRUCTURALDATA" material="Thargoid Structural Data" grade="2"></material-bin>
+                                            <material-bin id="UNKNOWNSHIPSIGNATURE" material="Thargoid Ship Signature" grade="3"></material-bin>
+                                            <material-bin id="TG_SHIPFLIGHTDATA" material="Ship Flight Data" grade="3"></material-bin>
+                                            <material-bin id="TG_SHIPSYSTEMSDATA" material="Ship Systems Data" grade="3"></material-bin>
+                                            <material-bin id="TG_COMPOSITIONDATA" material="Thargoid Material Composition Data" grade="3"></material-bin>
+                                            <material-bin id="UNKNOWNWAKEDATA" material="Thargoid Wake Data" grade="4"></material-bin>
+                                            <material-bin id="TG_RESIDUEDATA" material="Thargoid Residue Data" grade="4"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Guardian Blueprint Data</h4>
+                                            <material-bin id="GUARDIAN_MODULEBLUEPRINT" material="Guardian Module Blueprint Segment" grade="4"></material-bin>
+                                            <material-bin id="GUARDIAN_VESSELBLUEPRINT" material="Guardian Vessel Blueprint Segment" grade="4"></material-bin>
+                                            <material-bin id="GUARDIAN_WEAPONBLUEPRINT" material="Guardian Weapon Blueprint Segment" grade="4"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Guardian Obelisk Data</h4>
+                                            <material-bin id="ANCIENTHISTORICALDATA" material="Pattern Gamma Obelisk Data" grade="1"></material-bin>
+                                            <material-bin id="ANCIENTCULTURALDATA" material="Pattern Beta Obelisk Data" grade="2"></material-bin>
+                                            <material-bin id="ANCIENTBIOLOGICALDATA" material="Pattern Alpha Obelisk Data" grade="3"></material-bin>
+                                            <material-bin id="ANCIENTLANGUAGEDATA" material="Pattern Delta Obelisk Data" grade="4"></material-bin>
+                                            <material-bin id="ANCIENTTECHNOLOGICALDATA" material="Pattern Epsilon Obelisk Data" grade="5"></material-bin>
+                                        </div>
+                                    </tab-panel>
+                                    <tab-panel small="small" name="Manufactured">
+                                        <div class="inventoryBin">
+
+                                            <div class="binHeader">
+                                                <span class="binHeaderName">Material Name</span>
+                                                <span class="binHeaderGrade">Grade</span>
+                                                <span class="binHeaderCount">Stock</span>
+                                                <span class="binHeaderCapacity">Capacity</span>
+                                            </div>
+
+                                            <h4 class="binCategoryHeader">Alloys</h4>
+                                            <material-bin id="SALVAGEDALLOYS" material="Salvaged Alloys" grade="1"></material-bin>
+                                            <material-bin id="GALVANISINGALLOYS" material="Galvanising Alloys" grade="2"></material-bin>
+                                            <material-bin id="PHASEALLOYS" material="Phase Alloys" grade="3"></material-bin>
+                                            <material-bin id="PROTOLIGHTALLOYS" material="Proto Light Alloys" grade="4"></material-bin>
+                                            <material-bin id="PROTORADIOLICALLOYS" material="Proto Radiolic Alloys" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Capacitors</h4>
+                                            <material-bin id="GRIDRESISTORS" material="Grid Resistors" grade="1"></material-bin>
+                                            <material-bin id="HYBRIDCAPACITORS" material="Hybrid Capacitors" grade="2"></material-bin>
+                                            <material-bin id="ELECTROCHEMICALARRAYS" material="Electrochemical Arrays" grade="3"></material-bin>
+                                            <material-bin id="POLYMERCAPACITORS" material="Polymer Capacitors" grade="4"></material-bin>
+                                            <material-bin id="MILITARYSUPERCAPACITORS" material="Military Supercapacitors" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Chemical</h4>
+                                            <material-bin id="CHEMICALSTORAGEUNITS" material="Chemical Storage Units" grade="1"></material-bin>
+                                            <material-bin id="CHEMICALPROCESSORS" material="Chemical Processors" grade="2"></material-bin>
+                                            <material-bin id="CHEMICALDISTILLERY" material="Chemical Distillery" grade="3"></material-bin>
+                                            <material-bin id="CHEMICALMANIPULATORS" material="Chemical Manipulators" grade="4"></material-bin>
+                                            <material-bin id="PHARMACEUTICALISOLATORS" material="Pharmaceutical Isolators" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Composite</h4>
+                                            <material-bin id="COMPACTCOMPOSITES" material="Compact Composites" grade="1"></material-bin>
+                                            <material-bin id="FILAMENTCOMPOSITES" material="Filament Composites" grade="2"></material-bin>
+                                            <material-bin id="HIGHDENSITYCOMPOSITES" material="High Density Composites" grade="3"></material-bin>
+                                            <material-bin id="FEDPROPRIETARYCOMPOSITES" material="Proprietary Composites" grade="4"></material-bin>
+                                            <material-bin id="FEDCORECOMPOSITES" material="Core Dynamics Composites" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Conductive</h4>
+                                            <material-bin id="BASICCONDUCTORS" material="Basic Conductors" grade="1"></material-bin>
+                                            <material-bin id="CONDUCTIVECOMPONENTS" material="Conductive Components" grade="2"></material-bin>
+                                            <material-bin id="CONDUCTIVECERAMICS" material="Conductive Ceramics" grade="3"></material-bin>
+                                            <material-bin id="CONDUCTIVEPOLYMERS" material="Conductive Polymers" grade="4"></material-bin>
+                                            <material-bin id="BIOTECHCONDUCTORS" material="Biotech Conductors" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Crystals</h4>
+                                            <material-bin id="CRYSTALSHARDS" material="Crystal Shards" grade="1"></material-bin>
+                                            <material-bin id="UNCUTFOCUSCRYSTALS" material="Flawed Focus Crystals" grade="2"></material-bin>
+                                            <material-bin id="FOCUSCRYSTALS" material="Focus Crystals" grade="3"></material-bin>
+                                            <material-bin id="REFINEDFOCUSCRYSTALS" material="Refined Focus Crystals" grade="4"></material-bin>
+                                            <material-bin id="EXQUISITEFOCUSCRYSTALS" material="Exquisite Focus Crystals" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Heat</h4>
+                                            <material-bin id="HEATCONDUCTIONWIRING" material="Heat Conduction Wiring" grade="1"></material-bin>
+                                            <material-bin id="HEATDISPERSIONPLATE" material="Heat Dispersion Plate" grade="2"></material-bin>
+                                            <material-bin id="HEATEXCHANGERS" material="Heat Exchangers" grade="3"></material-bin>
+                                            <material-bin id="HEATVANES" material="Heat Vanes" grade="4"></material-bin>
+                                            <material-bin id="PROTOHEATRADIATORS" material="Proto Heat Radiators" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Mechanical Components</h4>
+                                            <material-bin id="MECHANICALSCRAP" material="Mechanical Scrap" grade="1"></material-bin>
+                                            <material-bin id="MECHANICALEQUIPMENT" material="Mechanical Equipment" grade="2"></material-bin>
+                                            <material-bin id="MECHANICALCOMPONENTS" material="Mechanical Components" grade="3"></material-bin>
+                                            <material-bin id="CONFIGURABLECOMPONENTS" material="Configurable Components" grade="4"></material-bin>
+                                            <material-bin id="IMPROVISEDCOMPONENTS" material="Improvised Components" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Shielding</h4>
+                                            <material-bin id="WORNSHIELDEMITTERS" material="Worn Shield Emitters" grade="1"></material-bin>
+                                            <material-bin id="SHIELDEMITTERS" material="Shield Emitters" grade="2"></material-bin>
+                                            <material-bin id="SHIELDINGSENSORS" material="Shielding Sensors" grade="3"></material-bin>
+                                            <material-bin id="COMPOUNDSHIELDING" material="Compound Shielding" grade="4"></material-bin>
+                                            <material-bin id="IMPERIALSHIELDING" material="Imperial Shielding" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Thermic</h4>
+                                            <material-bin id="TEMPEREDALLOYS" material="Tempered Alloys" grade="1"></material-bin>
+                                            <material-bin id="HEATRESISTANTCERAMICS" material="Heat Resistant Ceramics" grade="2"></material-bin>
+                                            <material-bin id="PRECIPITATEDALLOYS" material="Precipitated Alloys" grade="3"></material-bin>
+                                            <material-bin id="THERMICALLOYS" material="Thermic Alloys" grade="4"></material-bin>
+                                            <material-bin id="MILITARYGRADEALLOYS" material="Military Grade Alloys" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Thargoid Technology</h4>
+                                            <material-bin id="UNKNOWNCARAPACE" material="Thargoid Carapace" grade="2"></material-bin>
+                                            <material-bin id="UNKNOWNENERGYCELL" material="Thargoid Energy Cell" grade="3"></material-bin>
+                                            <material-bin id="TG_BIOMECHANICALCONDUITS" material="Bio Mechanical Conduits" grade="3"></material-bin>
+                                            <material-bin id="TG_PROPULSIONELEMENT" material="Propulsion Elements" grade="3"></material-bin>
+                                            <material-bin id="TG_WEAPONPARTS" material="Weapon Parts" grade="3"></material-bin>
+                                            <material-bin id="TG_WRECKAGECOMPONENTS" material="Wreckage Components" grade="3"></material-bin>
+                                            <material-bin id="UNKNOWNTECHNOLOGYCOMPONENTS" material="Thargoid Technological Components" grade="4"></material-bin>
+                                            <material-bin id="UNKNOWNENERGYSOURCE" material="Sensor Fragment" grade="5"></material-bin>
+                                            <material-bin id="UNKNOWNORGANICCIRCUITRY" material="Thargoid Organic Circuitry" grade="5"></material-bin>
+
+                                            <h4 class="binCategoryHeader">Guardian Technology</h4>
+                                            <material-bin id="GUARDIAN_POWERCELL" material="Guardian Power Cell" grade="1"></material-bin>
+                                            <material-bin id="GUARDIAN_SENTINEL_WRECKAGECOMPONENTS" material="Guardian Sentinel Wreckage Components" grade="1"></material-bin>
+                                            <material-bin id="GUARDIAN_POWERCONDUIT" material="Guardian Power Conduit" grade="2"></material-bin>
+                                            <material-bin id="GUARDIAN_SENTINEL_WEAPONPARTS" material="Guardian Sentinel Weapon Parts" grade="3"></material-bin>
+                                            <material-bin id="GUARDIAN_TECHCOMPONENT" material="Guardian Technology Component" grade="3"></material-bin>
+                                        </div>
+                                    </tab-panel>
+                                </tab-control>
+                            </tab-panel>
+                            <tab-panel small="small" name="Storage" id="microMaterialsContainer">
+                                <tab-control>
+                                    <tab-panel small="small" name="Assets">
+
+                                        <div class="inventoryBin">
+                                            <div class="microBinHeader">
+                                                <span class="binHeaderName">Component Name</span>
+                                                <span class="binHeaderCount">Stock</span>
+                                            </div>
+
+                                            <h4 class="binCategoryHeader">Chemicals</h4>
+                                            <micro-material-bin id="AEROGEL" material="Aerogel" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CHEMICALCATALYST" material="Chemical Catalyst" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CHEMICALSUPERBASE" material="Chemical Superbase" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="EPINEPHRINE" material="Epinephrine" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="EPOXYADHESIVE" material="Epoxy Adhesive" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="GRAPHENE" material="Graphene" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="OXYGENICBACTERIA" material="Oxygenic Bacteria" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PHNEUTRALISER" material="PH Neutraliser" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="RDX" material="RDX" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="VISCOELASTICPOLYMER" material="Visco-elastic Polymer" grade="1"></micro-material-bin>
+
+
+                                            <h4 class="binCategoryHeader">Tech</h4>
+                                            <micro-material-bin id="CARBONFIBREPLATING" material="Carbon Fibre Plating" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="ENCRYPTEDMEMORYCHIP" material="Encrypted Memory Chip" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MEMORYCHIP" material="Memory Chip" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MICROHYDRAULICS" material="Micro-Hydraulics" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MICROTHRUSTERS" material="Micro-Thrusters" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="OPTICALLENS" material="Optical Lens" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SCRAMBLER" material="Scrambler" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="TITANIUMPLATING" material="Titanium Plating" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="TRANSMITTER" material="Transmitter" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="TUNGSTENCARBIDE" material="Tungsten Carbide" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="WEAPONCOMPONENT" material="Weapon Component" grade="1"></micro-material-bin>
+
+
+                                            <h4 class="binCategoryHeader">Circuits</h4>
+                                            <micro-material-bin id="CIRCUITBOARD" material="Circuit Board" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CIRCUITSWITCH" material="Circuit Switch" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="ELECTRICALFUSE" material="Electrical Fuse" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="ELECTRICALWIRING" material="Electrical Wiring" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="ELECTROMAGNET" material="Electromagnet" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="IONBATTERY" material="Ion Battery" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="METALCOIL" material="Metal Coil" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MICROSUPERCAPACITOR" material="Micro-Supercapacitor" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MICROTRANSFORMER" material="Micro-Transformer" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MICROELECTRODE" material="Micro-Electrode" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MOTOR" material="Motor" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="OPTICALFIBRE" material="Optical Fibre" grade="1"></micro-material-bin>
+                                        </div>
+                                    </tab-panel>
+                                    <tab-panel small="small" name="Goods">
+                                        <div class="inventoryBin">
+                                            <div class="microBinHeader">
+                                                <span class="binHeaderName">Item Name</span>
+                                                <span class="binHeaderCount">Stock</span>
+                                            </div>
+
+                                            <h4 class="binCategoryHeader">A</h4>
+                                            <micro-material-bin id="AGRICULTURALPROCESSSAMPLE" material="Agricultural Process Sample" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">B</h4>
+                                            <micro-material-bin id="BIOCHEMICALAGENT" material="Biochemical Agent" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="BIOLOGICALSAMPLE" material="Biological Sample" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="BUILDINGSCHEMATIC" material="Building Schematic" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">C</h4>
+                                            <micro-material-bin id="CALIFORNIUM" material="Californium" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CASTFOSSIL" material="Cast Fossil" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CHEMICALPROCESSSAMPLE" material="Chemical Process Sample" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CHEMICALSAMPLE" material="Chemical Sample" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="COMPACTLIBRARY" material="Compact Library" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="COMPRESSIONLIQUEFIEDGAS" material="Compression Liquefied Gas" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">D</h4>
+                                            <micro-material-bin id="DEEPMANTLESAMPLE" material="Deep Mantle Sample" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="DEGRADEDPOWERREGULATOR" material="Degraded Power Regulator" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">G</h4>
+                                            <micro-material-bin id="GMEDS" material="G Meds" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="GENETICREPAIRMEDS" material="Genetic Repair Meds" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">H</h4>
+                                            <micro-material-bin id="HEALTHCANISTER" material="Health Canister" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="HEALTHMONITOR" material="Health Monitor" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="HUSH" material="Hush" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">I</h4>
+                                            <micro-material-bin id="INERTIACANISTER" material="Inertia Canister" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="INFINITY" material="Infinity" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="INORGANICCONTAMINANT" material="Inorganic Contaminant" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="INSIGHT" material="Insight" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="INSIGHTDATABANK" material="Insight Databank" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="INSIGHTENTERTAINMENTSUITE" material="Insight Entertainment Suite" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="IONISEDGAS" material="Ionised Gas" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">L</h4>
+                                            <micro-material-bin id="LAZARUS" material="Lazarus" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">M</h4>
+                                            <micro-material-bin id="MICROBIALINHIBITOR" material="Microbial Inhibitor" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MUTAGENICCATALYST" material="Mutagenic Catalyst" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">N</h4>
+                                            <micro-material-bin id="NUTRITIONALCONCENTRATE" material="Nutritional Concentrate" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">P</h4>
+                                            <micro-material-bin id="PERSONALCOMPUTER" material="Personal Computer" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PERSONALDOCUMENTS" material="Personal Documents" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PETRIFIEDFOSSIL" material="Petrified Fossil" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="LARGECAPACITYPOWERREGULATOR" material="Power Regulator" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PUSH" material="Push" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PYROLYTICCATALYST" material="Pyrolytic Catalyst" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">R</h4>
+                                            <micro-material-bin id="REFINEMENTPROCESSSAMPLE" material="Refinement Process Sample" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">S</h4>
+                                            <micro-material-bin id="SHIPSCHEMATIC" material="Ship Schematic" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SUITSCHEMATIC" material="Suit Schematic" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SURVEILLANCEEQUIPMENT" material="Surveillance Equipment" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SYNTHETICGENOME" material="Synthetic Genome" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SYNTHETICPATHOGEN" material="Synthetic Pathogen" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">T</h4>
+                                            <micro-material-bin id="TRUEFORMFOSSIL" material="True Form Fossil" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">U</h4>
+                                            <micro-material-bin id="UNIVERSALTRANSLATOR" material="Universal Translator" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">V</h4>
+                                            <micro-material-bin id="VEHICLESCHEMATIC" material="Vehicle Schematic" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">W</h4>
+                                            <micro-material-bin id="WEAPONSCHEMATIC" material="Weapon Schematic" grade="1"></micro-material-bin>
+                                        </div>
+                                    </tab-panel>
+                                    <tab-panel small="small" name="Data">
+
+                                        <div class="inventoryBin">
+
+                                            <div class="microBinHeader">
+                                                <span class="binHeaderName">Data Type</span>
+                                                <span class="binHeaderCount">Stock</span>
+                                            </div>
+
+                                            <h4 class="binCategoryHeader">A</h4>
+                                            <micro-material-bin id="ACCIDENTLOGS" material="Accident Logs" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="AIRQUALITYREPORTS" material="Air Quality Reports" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="ATMOSPHERICDATA" material="Atmospheric Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="AUDIOLOGS" material="Audio Logs" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="AXCOMBATLOGS" material="AX Combat Logs" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">B</h4>
+                                            <micro-material-bin id="BALLISTICDATA" material="Ballistic Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="BIOLOGICALWEAPONDATA" material="Biological Weapon Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="BIOMETRICDATA" material="Biometric Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="BLACKLISTDATA" material="Blacklist Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="BLOODTESTRESULTS" material="Blood Test Results" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">C</h4>
+                                            <micro-material-bin id="CAMPAIGNPLANS" material="Campaign Plans" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CATMEDIA" material="Cat Media" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CENSUSDATA" material="Census Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CHEMICALEXPERIMENTDATA" material="Chemical Experiment Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CHEMICALFORMULAE" material="Chemical Formulae" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CHEMICALINVENTORY" material="Chemical Inventory" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CHEMICALPATENTS" material="Chemical Patents" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CHEMICALWEAPONDATA" material="Chemical Weapon Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CLASSICENTERTAINMENT" material="Classic Entertainment" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CLINICALTRAILRECORDS" material="Clinical Trail Records" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="COCKTAILRECIPES" material="Cocktail Recipes" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="COMBATTRAININGMATERIAL" material="Combat Training Material" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="COMBATANTPERFORMANCE" material="Combatant Performance" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CONFLICTHISTORY" material="Conflict History" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CRIMINALRECORDS" material="Criminal Records" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CROPYIELDANALYSIS" material="Crop Yield Analysis" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="CULINARYRECIPES" material="Culinary Recipes" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">D</h4>
+                                            <micro-material-bin id="DIGITALDESIGNS" material="Digital Designs" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="DUTYROTA" material="Duty Rota" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">E</h4>
+                                            <micro-material-bin id="EMPLOYEEDIRECTORY" material="Employee Directory" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="EMPLOYEEEXPENSES" material="Employee Expenses" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="EMPLOYEEGENETICDATA" material="Employee Genetic Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="EMPLOYMENTHISTORY" material="Employment History" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="ENHANCEDINTERROGATIONRECORDINGS" material="Enhanced Interrogation Recordings" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="ESPIONAGEMATERIAL" material="Espionage Material" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="EVACUATIONPROTOCOLS" material="Evacuation Protocols" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="EXPLORATIONJOURNALS" material="Exploration Journals" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="EXTRACTIONYIELDDATA" material="Extraction Yield Data" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">F</h4>
+                                            <micro-material-bin id="FACTIONASSOCIATES" material="Faction Associates" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="FACTIONDONATORLIST" material="Faction Donator List" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="FACTIONNEWS" material="Faction News" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="FINANCIALPROJECTIONS" material="Financial Projections" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">G</h4>
+                                            <micro-material-bin id="GENESEQUENCINGDATA" material="Gene Sequencing Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="GENETICRESEARCH" material="Genetic Research" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="GEOGRAPHICALDATA" material="Geographical Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="GEOLOGICALDATA" material="Geological Data" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">H</h4>
+                                            <micro-material-bin id="HYDROPONICDATA" material="Hydroponic DatA" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">I</h4>
+                                            <micro-material-bin id="INCIDENTLOGS" material="Incident Logs" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="INFLUENCEPROJECTIONS" material="Influence Projections" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="INTERNALCORRESPONDENCE" material="Internal Correspondence" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="INTERROGATIONRECORDINGS" material="Interrogation Recordings" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="INTERVIEWRECORDINGS" material="Interview Recordings" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">J</h4>
+                                            <micro-material-bin id="JOBAPPLICATIONS" material="Job Applications" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">K</h4>
+                                            <micro-material-bin id="KOMPROMAT" material="Kompromat" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">L</h4>
+                                            <micro-material-bin id="LITERARYFICTION" material="Literary Fiction" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">M</h4>
+                                            <micro-material-bin id="MAINTENANCELOGS" material="Maintenance Logs" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MANUFACTURINGINSTRUCTIONS" material="Manufacturing Instructions" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MEDICALRECORDS" material="Medical Records" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MEETINGMINUTES" material="Meeting Minutes" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MINERALSURVEY" material="Mineral Survey" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MININGANALYTICS" material="Mining Analytics" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="MULTIMEDIAENTERTAINMENT" material="Multimedia Entertainment" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">N</h4>
+                                            <micro-material-bin id="NETWORKACCESSHISTORY" material="Network Access History" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="NETWORKSECURITYPROTOCOLS" material="Network Security Protocols" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="NEXTOFKINRECORDS" material="Next of Kin Records" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="NOCDATA" material="NOC Data" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">O</h4>
+                                            <micro-material-bin id="OPERATIONALMANUAL" material="Operational Manual" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="OPINIONPOLLS" material="Opinion Polls" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">P</h4>
+                                            <micro-material-bin id="PATIENTHISTORY" material="Patient History" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PATROLROUTES" material="Patrol Routes" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PAYROLLINFORMATION" material="Payroll Information" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PERSONALLOGS" material="Personal Logs" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PHARMACEUTICALPATENTS" material="Pharmaceutical Patents" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PHOTOALBUMS" material="Photo Albums" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PLANTGROWTHCHARTS" material="Plant Growth Charts" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="POLITICALAFFILIATIONS" material="Political Affiliations" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PRISONERLOGS" material="Prisoner Logs" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PRODUCTIONREPORTS" material="Production Reports" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PRODUCTIONSCHEDULE" material="Production Schedule" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PROPAGANDA" material="Propaganda" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PURCHASERECORDS" material="Purchase Records" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="PURCHASEREQUESTS" material="Purchase Requests" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">R</h4>
+                                            <micro-material-bin id="RADIOACTIVITYDATA" material="Radioactivity Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="REACTOROUTPUTREVIEW" material="Reactor Output Review" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="RECYCLINGLOGS" material="Recycling Logs" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="RESIDENTIALDIRECTORY" material="Residential Directory" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="RISKASSESSMENTS" material="Risk Assessments" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">S</h4>
+                                            <micro-material-bin id="SALESRECORDS" material="Sales Records" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SECURITYEXPENSES" material="Security Expenses" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SECURITYPLANS" material="Security Plans" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SEEDGENEAOLOGY" material="Seed Geneaology" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SETTLEMENTASSAULTPLANS" material="Settlement Assault Plans" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SETTLEMENTDEFENCEPLANS" material="Settlement Defence Plans" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SHAREHOLDERINFORMATION" material="Shareholder Information" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SLUSHFUNDLOGS" material="Slush Fund Logs" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SMEARCAMPAIGNPLANS" material="Smear Campaign Plans" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SPECTRALANALYSISDATA" material="Spectral Analysis Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SPYWARE" material="Spyware" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="STELLARACTIVITYLOGS" material="Stellar Activity Logs" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="SURVEILLEANCELOGS" material="Surveilleance Logs" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">T</h4>
+                                            <micro-material-bin id="TACTICALPLANS" material="Tactical Plans" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="TAXRECORDS" material="Tax Records" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="TOPOGRAPHICALSURVEYS" material="Topographical Surveys" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="TRAVELPERMITS" material="Travel Permits" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="TROOPDEPLOYMENTRECORDS" material="Troop Deployment Records" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">U</h4>
+                                            <micro-material-bin id="UNIONMEMBERSHIP" material="Union Membership" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">V</h4>
+                                            <micro-material-bin id="VACCINATIONRECORDS" material="Vaccination Records" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="VACCINERESEARCH" material="Vaccine Research" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="VIPSECURITYDETAIL" material="VIP Security Detail" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="VIROLOGYDATA" material="Virology Data" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="VIRUS" material="Virus" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="VISITORREGISTER" material="Visitor Register" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">W</h4>
+                                            <micro-material-bin id="WEAPONINVENTORY" material="Weapon Inventory" grade="1"></micro-material-bin>
+                                            <micro-material-bin id="WEAPONTESTDATA" material="Weapon Test Data" grade="1"></micro-material-bin>
+
+                                            <h4 class="binCategoryHeader">X</h4>
+                                            <micro-material-bin id="XENODEFENCEPROTOCOLS" material="Xeno Defence Protocols" grade="1"></micro-material-bin>
+
+                                        </div>
+                                    </tab-panel>
+                                    <tab-panel small="small" name="Consumables">
+                                        <consumable-manifest id="consumables"></consumable-manifest>
+
+                                    </tab-panel>
+                                </tab-control>
+                            </tab-panel>
+                        </tab-control>
+                    </tab-panel>
+                <tab-panel small="small" name="Politics">
+                        <local-conflict id="localConflicts"></local-conflict>
+                        <faction-stats id="factionStats"></faction-stats>
+                        <power-play id="powerPlay"></power-play>
+                    </tab-panel>
+                <tab-panel small="small" name="Engineers">
+                        <engineer-stats id="engineerStats"></engineer-stats>
+                    </tab-panel>
+                <tab-panel small="small" name="Statistics">
+                    <div>
+                        <div id="gameMode">
+                            <div class="modeType">
+                                <b>Game Mode</b>
+                                <span class="modeStat" id="Game_Mode"></span>
                             </div>
-
-                            <input name="materialsTabs" type="radio" id="encTabButton" class="tabInput"/>
-                            <label id="encTab" for="encTabButton" class="tabLabel">Encoded</label>
-                            <div class="tabPanel">
-                                <div class="inventoryBin">
-
-                                    <div class="binHeader">
-                                        <span class="binHeaderName">Material Name</span>
-                                        <span class="binHeaderGrade">Grade</span>
-                                        <span class="binHeaderCount">Stock</span>
-                                        <span class="binHeaderCapacity">Capacity</span>
-                                    </div>
-
-                                    <h4 class="binCategoryHeader">Data Archives</h4>
-                                    <material-bin id="BULKSCANDATA" material="Anomalous Bulk Scan Data" grade="1"></material-bin>
-                                    <material-bin id="SCANARCHIVES" material="Unidentified Scan Archives" grade="2"></material-bin>
-                                    <material-bin id="SCANDATABANKS" material="Classified Scan Databanks" grade="3"></material-bin>
-                                    <material-bin id="ENCODEDSCANDATA" material="Divergent Scan Data" grade="4"></material-bin>
-                                    <material-bin id="CLASSIFIEDSCANDATA" material="Classified Scan Fragment" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Emission Data</h4>
-                                    <material-bin id="SCRAMBLEDEMISSIONDATA" material="Exceptional Scrambled Emission Data" grade="1"></material-bin>
-                                    <material-bin id="ARCHIVEDEMISSIONDATA" material="Irregular Emission Data" grade="2"></material-bin>
-                                    <material-bin id="EMISSIONDATA" material="Unexpected Emission Data" grade="3"></material-bin>
-                                    <material-bin id="DECODEDEMISSIONDATA" material="Decoded Emission Data" grade="4"></material-bin>
-                                    <material-bin id="COMPACTEMISSIONSDATA" material="Abnormal Compact Emissions Data" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Encoded Firmware</h4>
-                                    <material-bin id="LEGACYFIRMWARE" material="Specialised Legacy Firmware" grade="1"></material-bin>
-                                    <material-bin id="CONSUMERFIRMWARE" material="Modified Consumer Firmware" grade="2"></material-bin>
-                                    <material-bin id="INDUSTRIALFIRMWARE" material="Cracked Industrial Firmware" grade="3"></material-bin>
-                                    <material-bin id="SECURITYFIRMWARE" material="Security Firmware Patch" grade="4"></material-bin>
-                                    <material-bin id="EMBEDDEDFIRMWARE" material="Modified Embedded Firmware" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Encryption Files</h4>
-                                    <material-bin id="ENCRYPTEDFILES" material="Unusual Encrypted Files" grade="1"></material-bin>
-                                    <material-bin id="ENCRYPTIONCODES" material="Tagged Encryption Codes" grade="2"></material-bin>
-                                    <material-bin id="SYMMETRICKEYS" material="Open Symmetric Keys" grade="3"></material-bin>
-                                    <material-bin id="ENCRYPTIONARCHIVES" material="Atypical Encryption Archives" grade="4"></material-bin>
-                                    <material-bin id="ADAPTIVEENCRYPTORS" material="Adaptive Encryptors Capture" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Shield Data</h4>
-                                    <material-bin id="SHIELDCYCLERECORDINGS" material="Distorted Shield Cycle Recordings" grade="1"></material-bin>
-                                    <material-bin id="SHIELDSOAKANALYSIS" material="Inconsistent Shield Soak Analysis" grade="2"></material-bin>
-                                    <material-bin id="SHIELDDENSITYREPORTS" material="Untypical Shield Scans" grade="3"></material-bin>
-                                    <material-bin id="SHIELDPATTERNANALYSIS" material="Aberrant Shield Pattern Analysis" grade="4"></material-bin>
-                                    <material-bin id="SHIELDFREQUENCYDATA" material="Peculiar Shield Frequency Data" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Wake Scans</h4>
-                                    <material-bin id="DISRUPTEDWAKEECHOES" material="Atypical Disrupted Wake Echoes" grade="1"></material-bin>
-                                    <material-bin id="FSDTELEMETRY" material="Anomalous FSD Telemetry" grade="2"></material-bin>
-                                    <material-bin id="WAKESOLUTIONS" material="Strange Wake Solutions" grade="3"></material-bin>
-                                    <material-bin id="HYPERSPACETRAJECTORIES" material="Eccentric Hyperspace Trajectories" grade="4"></material-bin>
-                                    <material-bin id="DATAMINEDWAKE" material="Datamined Wake Exceptions" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Thargoid Data</h4>
-                                    <material-bin id="TG_STRUCTURALDATA" material="Thargoid Structural Data" grade="2"></material-bin>
-                                    <material-bin id="UNKNOWNSHIPSIGNATURE" material="Thargoid Ship Signature" grade="3"></material-bin>
-                                    <material-bin id="TG_SHIPFLIGHTDATA" material="Ship Flight Data" grade="3"></material-bin>
-                                    <material-bin id="TG_SHIPSYSTEMSDATA" material="Ship Systems Data" grade="3"></material-bin>
-                                    <material-bin id="TG_COMPOSITIONDATA" material="Thargoid Material Composition Data" grade="3"></material-bin>
-                                    <material-bin id="UNKNOWNWAKEDATA" material="Thargoid Wake Data" grade="4"></material-bin>
-                                    <material-bin id="TG_RESIDUEDATA" material="Thargoid Residue Data" grade="4"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Guardian Blueprint Data</h4>
-                                    <material-bin id="GUARDIAN_MODULEBLUEPRINT" material="Guardian Module Blueprint Segment" grade="4"></material-bin>
-                                    <material-bin id="GUARDIAN_VESSELBLUEPRINT" material="Guardian Vessel Blueprint Segment" grade="4"></material-bin>
-                                    <material-bin id="GUARDIAN_WEAPONBLUEPRINT" material="Guardian Weapon Blueprint Segment" grade="4"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Guardian Obelisk Data</h4>
-                                    <material-bin id="ANCIENTHISTORICALDATA" material="Pattern Gamma Obelisk Data" grade="1"></material-bin>
-                                    <material-bin id="ANCIENTCULTURALDATA" material="Pattern Beta Obelisk Data" grade="2"></material-bin>
-                                    <material-bin id="ANCIENTBIOLOGICALDATA" material="Pattern Alpha Obelisk Data" grade="3"></material-bin>
-                                    <material-bin id="ANCIENTLANGUAGEDATA" material="Pattern Delta Obelisk Data" grade="4"></material-bin>
-                                    <material-bin id="ANCIENTTECHNOLOGICALDATA" material="Pattern Epsilon Obelisk Data" grade="5"></material-bin>
-                                </div>
+                            <div class="modeType">
+                                <b>Private Group</b>
+                                <span class="modeStat" id="Private_Group"></span>
                             </div>
-
-                            <input name="materialsTabs" type="radio" id="manufacturedTabButton" class="tabInput"/>
-                            <label id="manufacturedTab" for="manufacturedTabButton" class="tabLabel">Manufactured</label>
-                            <div class="tabPanel">
-                                <div class="inventoryBin">
-
-                                    <div class="binHeader">
-                                        <span class="binHeaderName">Material Name</span>
-                                        <span class="binHeaderGrade">Grade</span>
-                                        <span class="binHeaderCount">Stock</span>
-                                        <span class="binHeaderCapacity">Capacity</span>
-                                    </div>
-
-                                    <h4 class="binCategoryHeader">Alloys</h4>
-                                    <material-bin id="SALVAGEDALLOYS" material="Salvaged Alloys" grade="1"></material-bin>
-                                    <material-bin id="GALVANISINGALLOYS" material="Galvanising Alloys" grade="2"></material-bin>
-                                    <material-bin id="PHASEALLOYS" material="Phase Alloys" grade="3"></material-bin>
-                                    <material-bin id="PROTOLIGHTALLOYS" material="Proto Light Alloys" grade="4"></material-bin>
-                                    <material-bin id="PROTORADIOLICALLOYS" material="Proto Radiolic Alloys" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Capacitors</h4>
-                                    <material-bin id="GRIDRESISTORS" material="Grid Resistors" grade="1"></material-bin>
-                                    <material-bin id="HYBRIDCAPACITORS" material="Hybrid Capacitors" grade="2"></material-bin>
-                                    <material-bin id="ELECTROCHEMICALARRAYS" material="Electrochemical Arrays" grade="3"></material-bin>
-                                    <material-bin id="POLYMERCAPACITORS" material="Polymer Capacitors" grade="4"></material-bin>
-                                    <material-bin id="MILITARYSUPERCAPACITORS" material="Military Supercapacitors" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Chemical</h4>
-                                    <material-bin id="CHEMICALSTORAGEUNITS" material="Chemical Storage Units" grade="1"></material-bin>
-                                    <material-bin id="CHEMICALPROCESSORS" material="Chemical Processors" grade="2"></material-bin>
-                                    <material-bin id="CHEMICALDISTILLERY" material="Chemical Distillery" grade="3"></material-bin>
-                                    <material-bin id="CHEMICALMANIPULATORS" material="Chemical Manipulators" grade="4"></material-bin>
-                                    <material-bin id="PHARMACEUTICALISOLATORS" material="Pharmaceutical Isolators" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Composite</h4>
-                                    <material-bin id="COMPACTCOMPOSITES" material="Compact Composites" grade="1"></material-bin>
-                                    <material-bin id="FILAMENTCOMPOSITES" material="Filament Composites" grade="2"></material-bin>
-                                    <material-bin id="HIGHDENSITYCOMPOSITES" material="High Density Composites" grade="3"></material-bin>
-                                    <material-bin id="FEDPROPRIETARYCOMPOSITES" material="Proprietary Composites" grade="4"></material-bin>
-                                    <material-bin id="FEDCORECOMPOSITES" material="Core Dynamics Composites" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Conductive</h4>
-                                    <material-bin id="BASICCONDUCTORS" material="Basic Conductors" grade="1"></material-bin>
-                                    <material-bin id="CONDUCTIVECOMPONENTS" material="Conductive Components" grade="2"></material-bin>
-                                    <material-bin id="CONDUCTIVECERAMICS" material="Conductive Ceramics" grade="3"></material-bin>
-                                    <material-bin id="CONDUCTIVEPOLYMERS" material="Conductive Polymers" grade="4"></material-bin>
-                                    <material-bin id="BIOTECHCONDUCTORS" material="Biotech Conductors" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Crystals</h4>
-                                    <material-bin id="CRYSTALSHARDS" material="Crystal Shards" grade="1"></material-bin>
-                                    <material-bin id="UNCUTFOCUSCRYSTALS" material="Flawed Focus Crystals" grade="2"></material-bin>
-                                    <material-bin id="FOCUSCRYSTALS" material="Focus Crystals" grade="3"></material-bin>
-                                    <material-bin id="REFINEDFOCUSCRYSTALS" material="Refined Focus Crystals" grade="4"></material-bin>
-                                    <material-bin id="EXQUISITEFOCUSCRYSTALS" material="Exquisite Focus Crystals" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Heat</h4>
-                                    <material-bin id="HEATCONDUCTIONWIRING" material="Heat Conduction Wiring" grade="1"></material-bin>
-                                    <material-bin id="HEATDISPERSIONPLATE" material="Heat Dispersion Plate" grade="2"></material-bin>
-                                    <material-bin id="HEATEXCHANGERS" material="Heat Exchangers" grade="3"></material-bin>
-                                    <material-bin id="HEATVANES" material="Heat Vanes" grade="4"></material-bin>
-                                    <material-bin id="PROTOHEATRADIATORS" material="Proto Heat Radiators" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Mechanical Components</h4>
-                                    <material-bin id="MECHANICALSCRAP" material="Mechanical Scrap" grade="1"></material-bin>
-                                    <material-bin id="MECHANICALEQUIPMENT" material="Mechanical Equipment" grade="2"></material-bin>
-                                    <material-bin id="MECHANICALCOMPONENTS" material="Mechanical Components" grade="3"></material-bin>
-                                    <material-bin id="CONFIGURABLECOMPONENTS" material="Configurable Components" grade="4"></material-bin>
-                                    <material-bin id="IMPROVISEDCOMPONENTS" material="Improvised Components" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Shielding</h4>
-                                    <material-bin id="WORNSHIELDEMITTERS" material="Worn Shield Emitters" grade="1"></material-bin>
-                                    <material-bin id="SHIELDEMITTERS" material="Shield Emitters" grade="2"></material-bin>
-                                    <material-bin id="SHIELDINGSENSORS" material="Shielding Sensors" grade="3"></material-bin>
-                                    <material-bin id="COMPOUNDSHIELDING" material="Compound Shielding" grade="4"></material-bin>
-                                    <material-bin id="IMPERIALSHIELDING" material="Imperial Shielding" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Thermic</h4>
-                                    <material-bin id="TEMPEREDALLOYS" material="Tempered Alloys" grade="1"></material-bin>
-                                    <material-bin id="HEATRESISTANTCERAMICS" material="Heat Resistant Ceramics" grade="2"></material-bin>
-                                    <material-bin id="PRECIPITATEDALLOYS" material="Precipitated Alloys" grade="3"></material-bin>
-                                    <material-bin id="THERMICALLOYS" material="Thermic Alloys" grade="4"></material-bin>
-                                    <material-bin id="MILITARYGRADEALLOYS" material="Military Grade Alloys" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Thargoid Technology</h4>
-                                    <material-bin id="UNKNOWNCARAPACE" material="Thargoid Carapace" grade="2"></material-bin>
-                                    <material-bin id="UNKNOWNENERGYCELL" material="Thargoid Energy Cell" grade="3"></material-bin>
-                                    <material-bin id="TG_BIOMECHANICALCONDUITS" material="Bio Mechanical Conduits" grade="3"></material-bin>
-                                    <material-bin id="TG_PROPULSIONELEMENT" material="Propulsion Elements" grade="3"></material-bin>
-                                    <material-bin id="TG_WEAPONPARTS" material="Weapon Parts" grade="3"></material-bin>
-                                    <material-bin id="TG_WRECKAGECOMPONENTS" material="Wreckage Components" grade="3"></material-bin>
-                                    <material-bin id="UNKNOWNTECHNOLOGYCOMPONENTS" material="Thargoid Technological Components" grade="4"></material-bin>
-                                    <material-bin id="UNKNOWNENERGYSOURCE" material="Sensor Fragment" grade="5"></material-bin>
-                                    <material-bin id="UNKNOWNORGANICCIRCUITRY" material="Thargoid Organic Circuitry" grade="5"></material-bin>
-
-                                    <h4 class="binCategoryHeader">Guardian Technology</h4>
-                                    <material-bin id="GUARDIAN_POWERCELL" material="Guardian Power Cell" grade="1"></material-bin>
-                                    <material-bin id="GUARDIAN_SENTINEL_WRECKAGECOMPONENTS" material="Guardian Sentinel Wreckage Components" grade="1"></material-bin>
-                                    <material-bin id="GUARDIAN_POWERCONDUIT" material="Guardian Power Conduit" grade="2"></material-bin>
-                                    <material-bin id="GUARDIAN_SENTINEL_WEAPONPARTS" material="Guardian Sentinel Weapon Parts" grade="3"></material-bin>
-                                    <material-bin id="GUARDIAN_TECHCOMPONENT" material="Guardian Technology Component" grade="3"></material-bin>
-                                </div>
+                            <div class="modeType">
+                                <b>Loan</b>
+                                <span class="modeStat" id="Loan"></span><span> CR</span>
                             </div>
-
                         </div>
+                        <div id="extendedStatistics"></div>
                     </div>
-
-                    <input name="inventoryTabs" type="radio" id="microMatsTabButton" class="tabInput"/>
-                    <label id="microMatsTab" for="microMatsTabButton" class="tabLabel">Storage</label>
-                    <div class="tabPanel">
-                        <div id="microMaterialsContainer">
-
-                            <input name="microMaterialsTabs" type="radio" id="assetsTabButton" class="tabInput"/>
-                            <label id="assetsTab" for="assetsTabButton" class="tabLabel">Assets</label>
-                            <div class="tabPanel">
-
-                                <div class="microBinHeader">
-                                    <span class="binHeaderName">Component Name</span>
-                                    <span class="binHeaderCount">Stock</span>
-                                </div>
-
-                                <h4 class="binCategoryHeader">Chemicals</h4>
-                                <micro-material-bin id="AEROGEL" material="Aerogel" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CHEMICALCATALYST" material="Chemical Catalyst" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CHEMICALSUPERBASE" material="Chemical Superbase" grade="1"></micro-material-bin>
-                                <micro-material-bin id="EPINEPHRINE" material="Epinephrine" grade="1"></micro-material-bin>
-                                <micro-material-bin id="EPOXYADHESIVE" material="Epoxy Adhesive" grade="1"></micro-material-bin>
-                                <micro-material-bin id="GRAPHENE" material="Graphene" grade="1"></micro-material-bin>
-                                <micro-material-bin id="OXYGENICBACTERIA" material="Oxygenic Bacteria" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PHNEUTRALISER" material="PH Neutraliser" grade="1"></micro-material-bin>
-                                <micro-material-bin id="RDX" material="RDX" grade="1"></micro-material-bin>
-                                <micro-material-bin id="VISCOELASTICPOLYMER" material="Visco-elastic Polymer" grade="1"></micro-material-bin>
-
-
-                                <h4 class="binCategoryHeader">Tech</h4>
-                                <micro-material-bin id="CARBONFIBREPLATING" material="Carbon Fibre Plating" grade="1"></micro-material-bin>
-                                <micro-material-bin id="ENCRYPTEDMEMORYCHIP" material="Encrypted Memory Chip" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MEMORYCHIP" material="Memory Chip" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MICROHYDRAULICS" material="Micro-Hydraulics" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MICROTHRUSTERS" material="Micro-Thrusters" grade="1"></micro-material-bin>
-                                <micro-material-bin id="OPTICALLENS" material="Optical Lens" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SCRAMBLER" material="Scrambler" grade="1"></micro-material-bin>
-                                <micro-material-bin id="TITANIUMPLATING" material="Titanium Plating" grade="1"></micro-material-bin>
-                                <micro-material-bin id="TRANSMITTER" material="Transmitter" grade="1"></micro-material-bin>
-                                <micro-material-bin id="TUNGSTENCARBIDE" material="Tungsten Carbide" grade="1"></micro-material-bin>
-                                <micro-material-bin id="WEAPONCOMPONENT" material="Weapon Component" grade="1"></micro-material-bin>
-
-
-                                <h4 class="binCategoryHeader">Circuits</h4>
-                                <micro-material-bin id="CIRCUITBOARD" material="Circuit Board" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CIRCUITSWITCH" material="Circuit Switch" grade="1"></micro-material-bin>
-                                <micro-material-bin id="ELECTRICALFUSE" material="Electrical Fuse" grade="1"></micro-material-bin>
-                                <micro-material-bin id="ELECTRICALWIRING" material="Electrical Wiring" grade="1"></micro-material-bin>
-                                <micro-material-bin id="ELECTROMAGNET" material="Electromagnet" grade="1"></micro-material-bin>
-                                <micro-material-bin id="IONBATTERY" material="Ion Battery" grade="1"></micro-material-bin>
-                                <micro-material-bin id="METALCOIL" material="Metal Coil" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MICROSUPERCAPACITOR" material="Micro-Supercapacitor" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MICROTRANSFORMER" material="Micro-Transformer" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MICROELECTRODE" material="Micro-Electrode" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MOTOR" material="Motor" grade="1"></micro-material-bin>
-                                <micro-material-bin id="OPTICALFIBRE" material="Optical Fibre" grade="1"></micro-material-bin>
-
-                            </div>
-
-                            <input name="microMaterialsTabs" type="radio" id="goodsTabButton" class="tabInput"/>
-                            <label id="goodsTab" for="goodsTabButton" class="tabLabel">Goods</label>
-                            <div class="tabPanel">
-
-                                <div class="microBinHeader">
-                                    <span class="binHeaderName">Item Name</span>
-                                    <span class="binHeaderCount">Stock</span>
-                                </div>
-
-                                <h4 class="binCategoryHeader">A</h4>
-                                <micro-material-bin id="AGRICULTURALPROCESSSAMPLE" material="Agricultural Process Sample" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">B</h4>
-                                <micro-material-bin id="BIOCHEMICALAGENT" material="Biochemical Agent" grade="1"></micro-material-bin>
-                                <micro-material-bin id="BIOLOGICALSAMPLE" material="Biological Sample" grade="1"></micro-material-bin>
-                                <micro-material-bin id="BUILDINGSCHEMATIC" material="Building Schematic" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">C</h4>
-                                <micro-material-bin id="CALIFORNIUM" material="Californium" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CASTFOSSIL" material="Cast Fossil" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CHEMICALPROCESSSAMPLE" material="Chemical Process Sample" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CHEMICALSAMPLE" material="Chemical Sample" grade="1"></micro-material-bin>
-                                <micro-material-bin id="COMPACTLIBRARY" material="Compact Library" grade="1"></micro-material-bin>
-                                <micro-material-bin id="COMPRESSIONLIQUEFIEDGAS" material="Compression Liquefied Gas" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">D</h4>
-                                <micro-material-bin id="DEEPMANTLESAMPLE" material="Deep Mantle Sample" grade="1"></micro-material-bin>
-                                <micro-material-bin id="DEGRADEDPOWERREGULATOR" material="Degraded Power Regulator" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">G</h4>
-                                <micro-material-bin id="GMEDS" material="G Meds" grade="1"></micro-material-bin>
-                                <micro-material-bin id="GENETICREPAIRMEDS" material="Genetic Repair Meds" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">H</h4>
-                                <micro-material-bin id="HEALTHCANISTER" material="Health Canister" grade="1"></micro-material-bin>
-                                <micro-material-bin id="HEALTHMONITOR" material="Health Monitor" grade="1"></micro-material-bin>
-                                <micro-material-bin id="HUSH" material="Hush" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">I</h4>
-                                <micro-material-bin id="INERTIACANISTER" material="Inertia Canister" grade="1"></micro-material-bin>
-                                <micro-material-bin id="INFINITY" material="Infinity" grade="1"></micro-material-bin>
-                                <micro-material-bin id="INORGANICCONTAMINANT" material="Inorganic Contaminant" grade="1"></micro-material-bin>
-                                <micro-material-bin id="INSIGHT" material="Insight" grade="1"></micro-material-bin>
-                                <micro-material-bin id="INSIGHTDATABANK" material="Insight Databank" grade="1"></micro-material-bin>
-                                <micro-material-bin id="INSIGHTENTERTAINMENTSUITE" material="Insight Entertainment Suite" grade="1"></micro-material-bin>
-                                <micro-material-bin id="IONISEDGAS" material="Ionised Gas" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">L</h4>
-                                <micro-material-bin id="LAZARUS" material="Lazarus" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">M</h4>
-                                <micro-material-bin id="MICROBIALINHIBITOR" material="Microbial Inhibitor" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MUTAGENICCATALYST" material="Mutagenic Catalyst" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">N</h4>
-                                <micro-material-bin id="NUTRITIONALCONCENTRATE" material="Nutritional Concentrate" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">P</h4>
-                                <micro-material-bin id="PERSONALCOMPUTER" material="Personal Computer" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PERSONALDOCUMENTS" material="Personal Documents" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PETRIFIEDFOSSIL" material="Petrified Fossil" grade="1"></micro-material-bin>
-                                <micro-material-bin id="LARGECAPACITYPOWERREGULATOR" material="Power Regulator" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PUSH" material="Push" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PYROLYTICCATALYST" material="Pyrolytic Catalyst" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">R</h4>
-                                <micro-material-bin id="REFINEMENTPROCESSSAMPLE" material="Refinement Process Sample" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">S</h4>
-                                <micro-material-bin id="SHIPSCHEMATIC" material="Ship Schematic" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SUITSCHEMATIC" material="Suit Schematic" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SURVEILLANCEEQUIPMENT" material="Surveillance Equipment" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SYNTHETICGENOME" material="Synthetic Genome" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SYNTHETICPATHOGEN" material="Synthetic Pathogen" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">T</h4>
-                                <micro-material-bin id="TRUEFORMFOSSIL" material="True Form Fossil" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">U</h4>
-                                <micro-material-bin id="UNIVERSALTRANSLATOR" material="Universal Translator" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">V</h4>
-                                <micro-material-bin id="VEHICLESCHEMATIC" material="Vehicle Schematic" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">W</h4>
-                                <micro-material-bin id="WEAPONSCHEMATIC" material="Weapon Schematic" grade="1"></micro-material-bin>
-
-                            </div>
-
-                            <input name="microMaterialsTabs" type="radio" id="dataTabButton" class="tabInput"/>
-                            <label id="dataTab" for="dataTabButton" class="tabLabel">Data</label>
-                            <div class="tabPanel">
-
-                                <div class="microBinHeader">
-                                    <span class="binHeaderName">Data Type</span>
-                                    <span class="binHeaderCount">Stock</span>
-                                </div>
-
-                                <h4 class="binCategoryHeader">A</h4>
-                                <micro-material-bin id="ACCIDENTLOGS" material="Accident Logs" grade="1"></micro-material-bin>
-                                <micro-material-bin id="AIRQUALITYREPORTS" material="Air Quality Reports" grade="1"></micro-material-bin>
-                                <micro-material-bin id="ATMOSPHERICDATA" material="Atmospheric Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="AUDIOLOGS" material="Audio Logs" grade="1"></micro-material-bin>
-                                <micro-material-bin id="AXCOMBATLOGS" material="AX Combat Logs" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">B</h4>
-                                <micro-material-bin id="BALLISTICDATA" material="Ballistic Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="BIOLOGICALWEAPONDATA" material="Biological Weapon Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="BIOMETRICDATA" material="Biometric Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="BLACKLISTDATA" material="Blacklist Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="BLOODTESTRESULTS" material="Blood Test Results" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">C</h4>
-                                <micro-material-bin id="CAMPAIGNPLANS" material="Campaign Plans" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CATMEDIA" material="Cat Media" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CENSUSDATA" material="Census Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CHEMICALEXPERIMENTDATA" material="Chemical Experiment Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CHEMICALFORMULAE" material="Chemical Formulae" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CHEMICALINVENTORY" material="Chemical Inventory" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CHEMICALPATENTS" material="Chemical Patents" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CHEMICALWEAPONDATA" material="Chemical Weapon Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CLASSICENTERTAINMENT" material="Classic Entertainment" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CLINICALTRAILRECORDS" material="Clinical Trail Records" grade="1"></micro-material-bin>
-                                <micro-material-bin id="COCKTAILRECIPES" material="Cocktail Recipes" grade="1"></micro-material-bin>
-                                <micro-material-bin id="COMBATTRAININGMATERIAL" material="Combat Training Material" grade="1"></micro-material-bin>
-                                <micro-material-bin id="COMBATANTPERFORMANCE" material="Combatant Performance" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CONFLICTHISTORY" material="Conflict History" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CRIMINALRECORDS" material="Criminal Records" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CROPYIELDANALYSIS" material="Crop Yield Analysis" grade="1"></micro-material-bin>
-                                <micro-material-bin id="CULINARYRECIPES" material="Culinary Recipes" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">D</h4>
-                                <micro-material-bin id="DIGITALDESIGNS" material="Digital Designs" grade="1"></micro-material-bin>
-                                <micro-material-bin id="DUTYROTA" material="Duty Rota" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">E</h4>
-                                <micro-material-bin id="EMPLOYEEDIRECTORY" material="Employee Directory" grade="1"></micro-material-bin>
-                                <micro-material-bin id="EMPLOYEEEXPENSES" material="Employee Expenses" grade="1"></micro-material-bin>
-                                <micro-material-bin id="EMPLOYEEGENETICDATA" material="Employee Genetic Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="EMPLOYMENTHISTORY" material="Employment History" grade="1"></micro-material-bin>
-                                <micro-material-bin id="ENHANCEDINTERROGATIONRECORDINGS" material="Enhanced Interrogation Recordings" grade="1"></micro-material-bin>
-                                <micro-material-bin id="ESPIONAGEMATERIAL" material="Espionage Material" grade="1"></micro-material-bin>
-                                <micro-material-bin id="EVACUATIONPROTOCOLS" material="Evacuation Protocols" grade="1"></micro-material-bin>
-                                <micro-material-bin id="EXPLORATIONJOURNALS" material="Exploration Journals" grade="1"></micro-material-bin>
-                                <micro-material-bin id="EXTRACTIONYIELDDATA" material="Extraction Yield Data" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">F</h4>
-                                <micro-material-bin id="FACTIONASSOCIATES" material="Faction Associates" grade="1"></micro-material-bin>
-                                <micro-material-bin id="FACTIONDONATORLIST" material="Faction Donator List" grade="1"></micro-material-bin>
-                                <micro-material-bin id="FACTIONNEWS" material="Faction News" grade="1"></micro-material-bin>
-                                <micro-material-bin id="FINANCIALPROJECTIONS" material="Financial Projections" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">G</h4>
-                                <micro-material-bin id="GENESEQUENCINGDATA" material="Gene Sequencing Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="GENETICRESEARCH" material="Genetic Research" grade="1"></micro-material-bin>
-                                <micro-material-bin id="GEOGRAPHICALDATA" material="Geographical Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="GEOLOGICALDATA" material="Geological Data" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">H</h4>
-                                <micro-material-bin id="HYDROPONICDATA" material="Hydroponic DatA" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">I</h4>
-                                <micro-material-bin id="INCIDENTLOGS" material="Incident Logs" grade="1"></micro-material-bin>
-                                <micro-material-bin id="INFLUENCEPROJECTIONS" material="Influence Projections" grade="1"></micro-material-bin>
-                                <micro-material-bin id="INTERNALCORRESPONDENCE" material="Internal Correspondence" grade="1"></micro-material-bin>
-                                <micro-material-bin id="INTERROGATIONRECORDINGS" material="Interrogation Recordings" grade="1"></micro-material-bin>
-                                <micro-material-bin id="INTERVIEWRECORDINGS" material="Interview Recordings" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">J</h4>
-                                <micro-material-bin id="JOBAPPLICATIONS" material="Job Applications" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">K</h4>
-                                <micro-material-bin id="KOMPROMAT" material="Kompromat" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">L</h4>
-                                <micro-material-bin id="LITERARYFICTION" material="Literary Fiction" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">M</h4>
-                                <micro-material-bin id="MAINTENANCELOGS" material="Maintenance Logs" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MANUFACTURINGINSTRUCTIONS" material="Manufacturing Instructions" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MEDICALRECORDS" material="Medical Records" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MEETINGMINUTES" material="Meeting Minutes" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MINERALSURVEY" material="Mineral Survey" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MININGANALYTICS" material="Mining Analytics" grade="1"></micro-material-bin>
-                                <micro-material-bin id="MULTIMEDIAENTERTAINMENT" material="Multimedia Entertainment" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">N</h4>
-                                <micro-material-bin id="NETWORKACCESSHISTORY" material="Network Access History" grade="1"></micro-material-bin>
-                                <micro-material-bin id="NETWORKSECURITYPROTOCOLS" material="Network Security Protocols" grade="1"></micro-material-bin>
-                                <micro-material-bin id="NEXTOFKINRECORDS" material="Next of Kin Records" grade="1"></micro-material-bin>
-                                <micro-material-bin id="NOCDATA" material="NOC Data" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">O</h4>
-                                <micro-material-bin id="OPERATIONALMANUAL" material="Operational Manual" grade="1"></micro-material-bin>
-                                <micro-material-bin id="OPINIONPOLLS" material="Opinion Polls" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">P</h4>
-                                <micro-material-bin id="PATIENTHISTORY" material="Patient History" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PATROLROUTES" material="Patrol Routes" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PAYROLLINFORMATION" material="Payroll Information" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PERSONALLOGS" material="Personal Logs" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PHARMACEUTICALPATENTS" material="Pharmaceutical Patents" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PHOTOALBUMS" material="Photo Albums" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PLANTGROWTHCHARTS" material="Plant Growth Charts" grade="1"></micro-material-bin>
-                                <micro-material-bin id="POLITICALAFFILIATIONS" material="Political Affiliations" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PRISONERLOGS" material="Prisoner Logs" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PRODUCTIONREPORTS" material="Production Reports" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PRODUCTIONSCHEDULE" material="Production Schedule" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PROPAGANDA" material="Propaganda" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PURCHASERECORDS" material="Purchase Records" grade="1"></micro-material-bin>
-                                <micro-material-bin id="PURCHASEREQUESTS" material="Purchase Requests" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">R</h4>
-                                <micro-material-bin id="RADIOACTIVITYDATA" material="Radioactivity Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="REACTOROUTPUTREVIEW" material="Reactor Output Review" grade="1"></micro-material-bin>
-                                <micro-material-bin id="RECYCLINGLOGS" material="Recycling Logs" grade="1"></micro-material-bin>
-                                <micro-material-bin id="RESIDENTIALDIRECTORY" material="Residential Directory" grade="1"></micro-material-bin>
-                                <micro-material-bin id="RISKASSESSMENTS" material="Risk Assessments" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">S</h4>
-                                <micro-material-bin id="SALESRECORDS" material="Sales Records" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SECURITYEXPENSES" material="Security Expenses" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SECURITYPLANS" material="Security Plans" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SEEDGENEAOLOGY" material="Seed Geneaology" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SETTLEMENTASSAULTPLANS" material="Settlement Assault Plans" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SETTLEMENTDEFENCEPLANS" material="Settlement Defence Plans" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SHAREHOLDERINFORMATION" material="Shareholder Information" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SLUSHFUNDLOGS" material="Slush Fund Logs" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SMEARCAMPAIGNPLANS" material="Smear Campaign Plans" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SPECTRALANALYSISDATA" material="Spectral Analysis Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SPYWARE" material="Spyware" grade="1"></micro-material-bin>
-                                <micro-material-bin id="STELLARACTIVITYLOGS" material="Stellar Activity Logs" grade="1"></micro-material-bin>
-                                <micro-material-bin id="SURVEILLEANCELOGS" material="Surveilleance Logs" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">T</h4>
-                                <micro-material-bin id="TACTICALPLANS" material="Tactical Plans" grade="1"></micro-material-bin>
-                                <micro-material-bin id="TAXRECORDS" material="Tax Records" grade="1"></micro-material-bin>
-                                <micro-material-bin id="TOPOGRAPHICALSURVEYS" material="Topographical Surveys" grade="1"></micro-material-bin>
-                                <micro-material-bin id="TRAVELPERMITS" material="Travel Permits" grade="1"></micro-material-bin>
-                                <micro-material-bin id="TROOPDEPLOYMENTRECORDS" material="Troop Deployment Records" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">U</h4>
-                                <micro-material-bin id="UNIONMEMBERSHIP" material="Union Membership" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">V</h4>
-                                <micro-material-bin id="VACCINATIONRECORDS" material="Vaccination Records" grade="1"></micro-material-bin>
-                                <micro-material-bin id="VACCINERESEARCH" material="Vaccine Research" grade="1"></micro-material-bin>
-                                <micro-material-bin id="VIPSECURITYDETAIL" material="VIP Security Detail" grade="1"></micro-material-bin>
-                                <micro-material-bin id="VIROLOGYDATA" material="Virology Data" grade="1"></micro-material-bin>
-                                <micro-material-bin id="VIRUS" material="Virus" grade="1"></micro-material-bin>
-                                <micro-material-bin id="VISITORREGISTER" material="Visitor Register" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">W</h4>
-                                <micro-material-bin id="WEAPONINVENTORY" material="Weapon Inventory" grade="1"></micro-material-bin>
-                                <micro-material-bin id="WEAPONTESTDATA" material="Weapon Test Data" grade="1"></micro-material-bin>
-
-                                <h4 class="binCategoryHeader">X</h4>
-                                <micro-material-bin id="XENODEFENCEPROTOCOLS" material="Xeno Defence Protocols" grade="1"></micro-material-bin>
-
-                            </div>
-
-                            <input name="microMaterialsTabs" type="radio" id="consumablesTabButton" class="tabInput"/>
-                            <label id="consumablesTab" for="consumablesTabButton" class="tabLabel">Consumables</label>
-                            <div class="tabPanel">
-                                <consumable-manifest id="consumables"></consumable-manifest>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <input name="commanderTabs" type="radio" id="statsTabButton" class="tabInput"/>
-            <label id="commanderStatsTab" for="statsTabButton" class="tabLabel">Statistics</label>
-            <div class="tabPanel">
-                <div id="gameMode">
-                    <div class="modeType">
-                        <b>Game Mode</b>
-                        <span class="modeStat" id="Game_Mode"></span>
-                    </div>
-                    <div class="modeType">
-                        <b>Private Group</b>
-                        <span class="modeStat" id="Private_Group"></span>
-                    </div>
-                    <div class="modeType">
-                        <b>Loan</b>
-                        <span class="modeStat" id="Loan"></span><span> CR</span>
-                    </div>
-                </div>
-                <div id="extendedStatistics"></div>
-            </div>
-
-            <input name="commanderTabs" type="radio" id="politicsTabButton" class="tabInput"/>
-            <label id="politicsTab" for="politicsTabButton" class="tabLabel">Politics</label>
-            <div class="tabPanel">
-                <local-conflict id="localConflicts"></local-conflict>
-                <faction-stats id="factionStats"></faction-stats>
-                <power-play id="powerPlay"></power-play>
-            </div>
-
-            <input name="commanderTabs" type="radio" id="engineersTabButton" class="tabInput"/>
-            <label id="engineersRankTab" for="engineersTabButton" class="tabLabel">Engineers</label>
-            <div class="tabPanel">
-                <engineer-stats id="engineerStats"></engineer-stats>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Starship Tab  -->
-    <input name="categoryTabs" type="radio" id="shipTabButton" class="tabInput"/>
-    <label id="shipTab" for="shipTabButton" class="tabLabel">Starship</label>
-    <div class="tabPanel">
-        <div id="shipContainer">
-
-            <input name="shipTabs" type="radio" id="loadoutTabButton" class="tabInput"/>
-            <label id="loadoutTab" for="loadoutTabButton" class="tabLabel">Loadout</label>
-            <div class="tabPanel">
-                <div id="loadoutContainer">
-
-                    <input name="loadoutTabs" type="radio" id="coreInternalsTabButton" class="tabInput"/>
-                    <label id="coreInternalsTab" for="coreInternalsTabButton" class="tabLabel">Core Internals</label>
-                    <div class="tabPanel">
-                        <module-bay id="coreInternals"></module-bay>
-                    </div>
-
-                    <input name="loadoutTabs" type="radio" id="optionalInternalsTabButton" class="tabInput"/>
-                    <label id="optionalInternalsTab" for="optionalInternalsTabButton" class="tabLabel">Optional Internals</label>
-                    <div class="tabPanel">
-                        <module-bay id="optionalInternals"></module-bay>
-                    </div>
-
-                    <input name="loadoutTabs" type="radio" id="hardpointsTabButton" class="tabInput"/>
-                    <label id="hardpointsTab" for="hardpointsTabButton" class="tabLabel">Hardpoints</label>
-                    <div class="tabPanel">
-                        <module-bay id="hardpoints"></module-bay>
-                    </div>
-
-                </div>
-            </div>
-
-            <input name="shipTabs" type="radio" id="cargoTabButton" class="tabInput"/>
-            <label id="cargoTab" for="cargoTabButton" class="tabLabel">Cargo</label>
-            <div class="tabPanel">
-                <cargo-manifest id="tradeCargo"></cargo-manifest>
-            </div>
-
-            <input name="shipTabs" type="radio" id="systemsTabButton" class="tabInput"/>
-            <label id="systemsTab" for="systemsTabButton" class="tabLabel">Systems Analysis</label>
-            <div class="tabPanel">
-                <div id="systemsContainer">
-
-                    <input name="systemsTabs" type="radio" id="offenseTabButton" class="tabInput"/>
-                    <label id="offenseTab" for="offenseTabButton" class="tabLabel">Offense</label>
-                    <div class="tabPanel">
-                        <offense-stats id="offenseStats"></offense-stats>
-                    </div>
-
-                    <input name="systemsTabs" type="radio" id="defenseTabButton" class="tabInput"/>
-                    <label id="defenseTab" for="defenseTabButton" class="tabLabel">Defense</label>
-                    <div class="tabPanel">
-                        <defense-stats id="defenseStats"></defense-stats>
-                    </div>
-
-                    <input name="systemsTabs" type="radio" id="powerTabButton" class="tabInput"/>
-                    <label id="powerTab" for="powerTabButton" class="tabLabel">Power Usage</label>
-                    <div class="tabPanel">
-                        <power-stats id="powerStats"></power-stats>
-                    </div>
-
-                </div>
-            </div>
-
-            <input name="shipTabs" type="radio" id="baseStatsTabButton" class="tabInput"/>
-            <label id="baseStatsTab" for="baseStatsTabButton" class="tabLabel">Statistics</label>
-            <div class="tabPanel">
-                <ship-stats id="shipStats"></ship-stats>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Markets Tab  -->
-    <input name="categoryTabs" type="radio" id="marketTabButton" class="tabInput"/>
-    <label id="marketTab" for="marketTabButton" class="tabLabel">Markets</label>
-    <div class="tabPanel">
-        <div id="marketContainer">
-
-            <input name="marketTabs" type="radio" id="currentMarketTabButton" class="tabInput"/>
-            <label id="currentMarketTab" for="currentMarketTabButton" class="tabLabel">Current</label>
-            <div class="tabPanel">
-
-                <div id="currentMarketContainer">
-
-                    <input name="currentMarketTabs" type="radio" id="commodityTabButton" class="tabInput"/>
-                    <label id="commodityTab" for="commodityTabButton" class="tabLabel">Commodities</label>
-                    <div class="tabPanel" id="tradeMarket">
-                        <market-info id="marketInfo" station="None" system="None"></market-info>
-                    </div>
-
-                    <input name="currentMarketTabs" type="radio" id="outfittingTabButton" class="tabInput"/>
-                    <label id="outfittingTab" for="outfittingTabButton" class="tabLabel">Outfitting</label>
-                    <div class="tabPanel">
-                        <outfitting-info id="outfittingInfo"></outfitting-info>
-                    </div>
-
-                    <input name="currentMarketTabs" type="radio" id="shipyardTabButton" class="tabInput"/>
-                    <label id="shipyardTab" for="shipyardTabButton" class="tabLabel">Shipyard</label>
-                    <div class="tabPanel">
-                        <shipyard-info id="shipyardInfo"></shipyard-info>
-                    </div>
-
-                </div>
-            </div>
-
-            <input name="marketTabs" type="radio" id="marketSearchTabButton" class="tabInput"/>
-            <label id="marketSearchTab" for="marketSearchTabButton" class="tabLabel">Search</label>
-            <div class="tabPanel">
-                <market-search id="marketSearch"></market-search>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Astrometrics Tab  -->
-    <input name="categoryTabs" type="radio" id="astrometricsTabButton" class="tabInput"/>
-    <label id="astrometricsTab" for="astrometricsTabButton" class="tabLabel">Astrometrics</label>
-    <div class="tabPanel">
-        <div id="astrometricsContainer">
-
-            <input name="astrometricsTabs" type="radio" id="navigationTabButton" class="tabInput"/>
-            <label id="navigationTab" for="navigationTabButton" class="tabLabel">Navigation</label>
-            <div class="tabPanel">
-                <div id="navigationContainer">
-
-                    <input name="navigationTabs" type="radio" id="routeTabButton" class="tabInput"/>
-                    <label id="routeTab" for="routeTabButton" class="tabLabel">Hyperspace Route</label>
-                    <div class="tabPanel">
-                        <navigation-route id="navigationRoute"></navigation-route>
-                    </div>
-
-                    <input name="navigationTabs" type="radio" id="gpsTabButton" class="tabInput"/>
-                    <label id="gpsTab" for="gpsTabButton" class="tabLabel">Planetary GPS</label>
-                    <div class="tabPanel">
-                        <gps-display id="gpsDisplay"></gps-display>
-                    </div>
-
-                </div>
-            </div>
-
-            <input name="astrometricsTabs" type="radio" id="cartographicsTabButton" class="tabInput"/>
-            <label id="cartographicsTab" for="cartographicsTabButton" class="tabLabel">Cartographics</label>
-            <div class="tabPanel">
-                <div id="cartographicsContainer">
-
-                    <input name="cartographicsTabs" type="radio" id="currentTabButton" class="tabInput"/>
-                    <label id="currentTab" for="currentTabButton" class="tabLabel">Current System</label>
-                    <div class="tabPanel">
-                        <system-cartography id="systemCartography"></system-cartography>
-                    </div>
-
-                    <input name="cartographicsTabs" type="radio" id="catalogTabButton" class="tabInput"/>
-                    <label id="catalogTab" for="catalogTabButton" class="tabLabel">System Catalog</label>
-                    <div class="tabPanel">
-                        <system-catalog id="systemCatalog">
-                            <system-cartography id="catalogCartography"></system-cartography>
-                        </system-catalog>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Activities Tab  -->
-    <input name="categoryTabs" type="radio" id="activitiesTabButton" class="tabInput"/>
-    <label id="activitiesTab" for="activitiesTabButton" class="tabLabel">Activities</label>
-    <div class="tabPanel">
-        <div id="activitiesContainer">
-
-            <input name="activitiesTabs" type="radio" id="communityTabButton" class="tabInput"/>
-            <label id="communityTab" for="communityTabButton" class="tabLabel">Community Goals</label>
-            <div class="tabPanel">
-                <community-goals id="communityGoals"></community-goals>
-            </div>
-
-            <input name="activitiesTabs" type="radio" id="missionTabButton" class="tabInput"/>
-            <label id="missionTab" for="missionTabButton" class="tabLabel">Missions</label>
-            <div class="tabPanel">
-                <current-missions id="currentMissions"></current-missions>
-            </div>
-
-            <input name="activitiesTabs" type="radio" id="tasksTabButton" class="tabInput"/>
-            <label id="tasksTab" for="tasksTabButton" class="tabLabel">Tasks</label>
-            <div class="tabPanel">
-                <div id="taskContainer">
-
-                    <input name="taskTabs" type="radio" id="plannedTabButton" class="tabInput"/>
-                    <label id="plannedTab" for="plannedTabButton" class="tabLabel">In Progress</label>
-                    <div class="tabPanel">
-                        <tracked-tasks id="trackedTasks"></tracked-tasks>
-                    </div>
-
-                    <input name="taskTabs" type="radio" id="requiredTabButton" class="tabInput"/>
-                    <label id="requiredTab" for="requiredTabButton" class="tabLabel">Bill of Materials</label>
-                    <div class="tabPanel">
-                        <bill-of-materials id="billOfMaterials"></bill-of-materials>
-                    </div>
-
-                    <input name="taskTabs" type="radio" id="taskListTabButton" class="tabInput"/>
-                    <label id="taskListTab" for="taskListTabButton" class="tabLabel">Task Catalog</label>
-                    <div class="tabPanel">
-                        <task-catalog></task-catalog>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
+                </tab-panel>
+            </tab-control>
+        </tab-panel>
+        <tab-panel vertical="vertical" name="Spacesuit" id="suitInfo">
+            <tab-control>
+                <tab-panel small="small" name="Loadout">
+                    <span>TODO: Add this</span>
+                </tab-panel>
+            </tab-control>
+        </tab-panel>
+        <tab-panel vertical="vertical" name="Starship" id="shipContainer">
+            <tab-control>
+                <tab-panel small="small" name="Loadout" id="loadoutContainer">
+                    <tab-control>
+                        <tab-panel small="small" name="Core Internals">
+                            <module-bay id="coreInternals"></module-bay>
+                        </tab-panel>
+                        <tab-panel small="small" name="Optional Internals">
+                            <module-bay id="optionalInternals"></module-bay>
+                        </tab-panel>
+                        <tab-panel small="small" name="Hardpoints">
+                            <module-bay id="hardpoints"></module-bay>
+                        </tab-panel>
+                    </tab-control>
+                </tab-panel>
+                <tab-panel small="small" name="Cargo">
+                    <cargo-manifest id="tradeCargo"></cargo-manifest>
+                </tab-panel>
+                <tab-panel small="small" name="Systems Analysis" id="systemsContainer">
+                    <tab-control>
+                        <tab-panel small="small" name="Offense">
+                            <offense-stats id="offenseStats"></offense-stats>
+
+                        </tab-panel>
+                        <tab-panel small="small" name="Defense">
+                            <defense-stats id="defenseStats"></defense-stats>
+
+                        </tab-panel>
+                        <tab-panel small="small" name="Power Usage">
+                            <power-stats id="powerStats"></power-stats>
+                        </tab-panel>
+                    </tab-control>
+                </tab-panel>
+                <tab-panel small="small" name="Statistics">
+                    <ship-stats id="shipStats"></ship-stats>
+                </tab-panel>
+            </tab-control>
+        </tab-panel>
+        <tab-panel vertical="vertical" name="Markets" id="marketContainer">
+            <tab-control>
+                <tab-panel small="small" name="Current" id="currentMarketContainer">
+                    <tab-control>
+                        <tab-panel small="small" name="Commodities">
+                            <market-info id="marketInfo" station="None" system="None"></market-info>
+                        </tab-panel>
+                        <tab-panel small="small" name="Outfitting">
+                            <outfitting-info id="outfittingInfo"></outfitting-info>
+                        </tab-panel>
+                        <tab-panel small="small" name="Shipyard">
+                            <shipyard-info id="shipyardInfo"></shipyard-info>
+                        </tab-panel>
+                    </tab-control>
+                </tab-panel>
+                <tab-panel small="small" name="Search">
+                    <market-search id="marketSearch"></market-search>
+                </tab-panel>
+            </tab-control>
+        </tab-panel>
+        <tab-panel vertical="vertical" name="Navigation" id="astrometricsContainer">
+            <tab-control>
+                <tab-panel small="small" name="Current System">
+                    <system-cartography id="systemCartography"></system-cartography>
+                </tab-panel>
+                <tab-panel small="small" name="Hyperspace Route">
+                    <navigation-route id="navigationRoute"></navigation-route>
+                </tab-panel>
+                <tab-panel small="small" name="System Catalog">
+                    <system-catalog id="systemCatalog">
+                        <system-cartography id="catalogCartography"></system-cartography>
+                    </system-catalog>
+                </tab-panel>
+                <tab-panel small="small" name="Planetary GPS">
+                    <gps-display id="gpsDisplay"></gps-display>
+                </tab-panel>
+            </tab-control>
+        </tab-panel>
+        <tab-panel vertical="vertical" name="Activities" id="activitiesContainer">
+            <tab-control>
+                <tab-panel small="small" name="Tasks" id="taskContainer">
+                    <tab-control>
+                        <tab-panel small="small" name="In Progress">
+                            <tracked-tasks id="trackedTasks"></tracked-tasks>
+
+                        </tab-panel>
+                        <tab-panel small="small" name="Bill of Materials">
+                            <bill-of-materials id="billOfMaterials"></bill-of-materials>
+
+                        </tab-panel>
+                        <tab-panel small="small" name="Task Catalog">
+                            <task-catalog></task-catalog>
+
+                        </tab-panel>
+                    </tab-control>
+                </tab-panel>
+                <tab-panel small="small" name="Missions">
+                    <current-missions id="currentMissions"></current-missions>
+                </tab-panel>
+                <tab-panel small="small" name="Community Goals">
+                    <community-goals id="communityGoals"></community-goals>
+                </tab-panel>
+            </tab-control>
+        </tab-panel>
+    </tab-control>
 
 </main>
 

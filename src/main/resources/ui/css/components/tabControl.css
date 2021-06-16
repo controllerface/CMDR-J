@@ -1,0 +1,47 @@
+::slotted(tab-panel)
+{
+    user-select: none;
+}
+
+::slotted(*)
+{
+    animation: fadeIn 0.5s ease;
+}
+
+::slotted(*[vertical])
+{
+    display: grid;
+}
+
+.container
+{
+    height: 95%;
+}
+
+.vertical
+{
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.divider
+{
+    border-top: 1px solid var(--default-color);
+    width: 100%;
+    position: relative;
+    top: -.5em;
+    left: -.3em;
+    margin-bottom: -.5em;
+}
+
+.contents
+{
+    /*margin: 1em;*/
+    /*margin-top: .5em;*/
+    height: 80%;
+}
+
+*[vertical] .contents
+{
+    margin: 1em;
+}

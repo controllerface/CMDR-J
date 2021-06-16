@@ -100,6 +100,17 @@ public class JournalUI
         assetMap.put("/ui.js",                  StaticAsset.make("/ui/js/ui.js"));
         assetMap.put("/waypointLocation.js",    StaticAsset.make("/ui/js/waypointLocation.js"));
 
+
+        /* Components */
+        assetMap.put("/js/components/baseComponent.js", StaticAsset.make("/ui/js/components/baseComponent.js"));
+        assetMap.put("/css/ui_common.css",              StaticAsset.make("/ui/css/common.css"));
+
+        assetMap.put("/js/components/tabControl.js",    StaticAsset.make("/ui/js/components/tabControl.js"));
+        assetMap.put("/css/components/tabControl.css",  StaticAsset.make("/ui/css/components/tabControl.css"));
+
+        assetMap.put("/js/components/tabPanel.js",      StaticAsset.make("/ui/js/components/tabPanel.js"));
+        assetMap.put("/css/components/tabPanel.css",    StaticAsset.make("/ui/css/components/tabPanel.css"));
+
         /* Images */
         assetMap.put("/grade-1.svg",            StaticAsset.make("/ui/img/grade-1.svg"));
         assetMap.put("/grade-2.svg",            StaticAsset.make("/ui/img/grade-2.svg"));

@@ -2237,7 +2237,7 @@ class TaskCatalog extends HTMLElement
                               this.loadUtilityPurchases,
                               moduleContainer);
 
-        this.loadCategoryData('Weapons',
+        this.loadCategoryData('Ship Weapons',
                               moduleData['Weapon_Hardpoints'],
                               this.loadWeaponPurchases,
                               moduleContainer);
@@ -2297,7 +2297,7 @@ class TaskCatalog extends HTMLElement
                               this.loadUtilityExperimental,
                               experimentalContainer);
 
-        this.loadCategoryData('Weapons',
+        this.loadCategoryData('Ship Weapons',
                               experimentalData['Weapon_Hardpoints'],
                               this.loadWeaponExperimental,
                               experimentalContainer);
@@ -2376,7 +2376,7 @@ class TaskCatalog extends HTMLElement
 //                              this.loadSuitUpgrades,
 //                              upgradeContainer);
 
-        this.loadCategoryData('Weapons',
+        this.loadCategoryData('Personal Weapons',
                               upgradeData['Weapons'],
                               this.loadWeaponUpgrades,
                               upgradeContainer);
@@ -2385,7 +2385,8 @@ class TaskCatalog extends HTMLElement
 
     loadTaskCatalog(catalogData)
     {
-        //console.log(catalogData);
+        console.log(catalogData);
+        this.innerHtml = "";
 
         this.loadModulePurchases(catalogData['modules']);
         this.loadModifications(catalogData['modifications']);
@@ -2398,10 +2399,14 @@ class TaskCatalog extends HTMLElement
 
     connectedCallback()
     {
+        if (this.initialized) return;
+
         fetch("/tasks?type=catalog")
           .then(response => response.json())
           .then(data => this.loadTaskCatalog(data))
           .catch(error => console.error(error));
+
+        this.initialized = true;
     }
 }
 

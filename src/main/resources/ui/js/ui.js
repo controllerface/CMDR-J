@@ -1839,3 +1839,8 @@ window.onload = (e) =>
     Object.keys(eventListeners)
         .forEach(event => eventSource.addEventListener(event, eventListeners[event]));
 };
+
+function locate(id)
+{
+    return document.getElementById(id);
+}

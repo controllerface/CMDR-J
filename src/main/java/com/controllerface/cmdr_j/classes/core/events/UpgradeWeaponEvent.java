@@ -52,7 +52,7 @@ public class UpgradeWeaponEvent implements BiConsumer<GameState, Map<String, Obj
                 gameState.adjustMaterialCount(((Material) c), (int) (costData.quantity * -1));
             }
             if (c instanceof Commodity)
-            {
+            { // commodities aren't expected, but added here to be defensive
                 gameState.adjustCargoCount(((Commodity) c), (int) (costData.quantity * -1));
             }
             if (c instanceof Consumable)
@@ -61,7 +61,8 @@ public class UpgradeWeaponEvent implements BiConsumer<GameState, Map<String, Obj
             }
         });
 
-        // todo: get the task to remove from the tracked task list
-
+        ((PersonalWeapon) weapon).upgradeBlueprint.recipeStream()
+            .filter(r -> r.getGrade().getNumericalValue() == grade)
+            .findFirst().ifPresent(gameState::completeTask);
     }
 }

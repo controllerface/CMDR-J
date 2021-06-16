@@ -256,6 +256,7 @@ details > summary::-webkit-details-marker
 
 #commanderInfo
 {
+/*
     display: grid;
     grid-template:
         "inventoryTab politicsTab engineersRankTab commanderStatsTab"
@@ -264,6 +265,7 @@ details > summary::-webkit-details-marker
     grid-template-rows: 2em auto;
     margin-left: auto;
     margin-right: auto;
+    */
 }
 
 #inventoryTab
@@ -295,6 +297,7 @@ details > summary::-webkit-details-marker
 
 #gameMode
 {
+
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin: .2em;
@@ -302,6 +305,7 @@ details > summary::-webkit-details-marker
     border: 2px solid var(--default-divider);
     border-radius: 3px;
     padding: .5em;
+
 }
 
 .modeType
@@ -388,12 +392,14 @@ details > summary::-webkit-details-marker
 
 #sections
 {
+/*
     display: grid;
     grid-template-areas:
     "cmdrTab shipTab marketTab astrometricsTab activitiesTab"
     "panel   panel   panel     panel           panel";
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
     max-width: 70em;
     margin-left: auto;
     margin-right: auto;
@@ -436,12 +442,14 @@ details > summary::-webkit-details-marker
 
 #shipContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "loadoutTab cargoTab systemsTab baseStatsTab"
     "panel      panel        panel      panel";
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #loadoutTab
@@ -482,12 +490,14 @@ details > summary::-webkit-details-marker
 
 #loadoutContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "coreInternalsTab optionalInternalsTab hardpointsTab"
     "panel            panel                panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #coreInternalsTab
@@ -513,12 +523,14 @@ details > summary::-webkit-details-marker
 
 #systemsContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "offenseTab defenseTab powerTab"
     "panel      panel      panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #offenseTab
@@ -544,12 +556,14 @@ details > summary::-webkit-details-marker
 
 #inventoryContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "matsTab microMatsTab"
     "panel   panel";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #matsTab
@@ -576,12 +590,14 @@ details > summary::-webkit-details-marker
 
 #marketContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "currentMarketTab marketSearchTab"
     "panel            panel";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #currentMarketTab
@@ -600,12 +616,14 @@ details > summary::-webkit-details-marker
 
 #currentMarketContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "commodityTab outfittingTab shipyardTab"
     "panel        panel         panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #commodityTab
@@ -637,12 +655,14 @@ details > summary::-webkit-details-marker
 
 #materialsContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "rawTab encTab manufacturedTab"
     "panel  panel  panel";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #rawTab
@@ -667,12 +687,14 @@ details > summary::-webkit-details-marker
 
 #microMaterialsContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "assetsTab goodsTab dataTab consumablesTab"
     "panel     panel    panel   panel";
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #assetsTab
@@ -708,12 +730,14 @@ details > summary::-webkit-details-marker
 
 #astrometricsContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "navigationTab cartographicsTab"
     "panel    panel";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #navigationTab
@@ -730,12 +754,14 @@ details > summary::-webkit-details-marker
 
 #navigationContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "routeTab gpsTab"
     "panel    panel";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #routeTab
@@ -755,12 +781,14 @@ details > summary::-webkit-details-marker
 
 #cartographicsContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "currentTab catalogTab"
     "panel    panel";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #currentTab
@@ -780,12 +808,14 @@ details > summary::-webkit-details-marker
 
 #poiContainer
 {
+/*
     display: grid;
     grid-template-areas:
     "currentPoiTab galaxyPoiTab"
     "panel         panel";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2em auto;
+    */
 }
 
 #currentPoiTab
@@ -803,6 +833,7 @@ details > summary::-webkit-details-marker
 
 #activitiesContainer
 {
+/*
     display: grid;
     grid-template:
         "communityTab missionTab tasksTab"
@@ -811,6 +842,7 @@ details > summary::-webkit-details-marker
     grid-template-rows: 2em auto;
     margin-left: auto;
     margin-right: auto;
+    */
 }
 
 #communityTab
@@ -835,6 +867,7 @@ details > summary::-webkit-details-marker
 
 #taskContainer
 {
+/*
     display: grid;
     grid-template:
         "plannedTab requiredTab taskListTab"
@@ -843,6 +876,7 @@ details > summary::-webkit-details-marker
     grid-template-rows: 2em auto;
     margin-left: auto;
     margin-right: auto;
+    */
 }
 
 #plannedTab

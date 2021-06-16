@@ -86,6 +86,13 @@ public enum ItemGrade
 
     MicroMaterial(1, "Micro-Material","Stuff"),
 
+    Chemical_Asset(1, "Chemicals", "Everywhere"),
+    Tech_Asset(1, "Tech", "Everywhere"),
+    Circuit_Asset(1, "Circuits", "Everywhere"),
+    Goods(1, "Goods", "Everywhere"),
+    Data(1, "Data", "Everywhere"),
+    Consumables(1, "Consumables", "Everywhere"),
+
     // special case types used in tasks
     MaterialTrade(0, -1, "Trade"),
     Credits(0,-1,"CR"),

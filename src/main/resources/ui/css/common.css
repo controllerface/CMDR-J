@@ -52,6 +52,24 @@
 
     /* GPS marker */
     --gps-marker: rgba(240, 123, 5, 0.5);
+
+    --selected-yellow: hsla(60, 100%, 50%, .2);
+
+
+        --default-text: #ddd;
+        --default-background: rgb(37, 37, 37);
+        --default-border: hsla(0, 0%, 59%, 1);
+        --default-table-background: rgb(49, 49, 49);
+        --default-table-header: hsla(0, 0%, 0%, 0.06);
+        --default-table-highlight: hsla(45, 100%, 94%, 1);
+        --default-hover-start: #444;
+        --default-hover-middle: #666;
+        --default-hover-end: #888;
+        --default-selected: darkblue;
+        --flaw-background: darkred;
+        --flaw-text: hsla(352, 74%, 47%, 1);
+        --help-background: hsla(198, 100%, 41%, 1);
+        --help-icon-text: hsla(0, 0%, 100%, 1);
 }
 
 /*

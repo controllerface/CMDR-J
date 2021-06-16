@@ -17,8 +17,6 @@ public class ShipLockerMaterialsEvent implements BiConsumer<GameState, Map<Strin
     @SuppressWarnings("unchecked")
     public void accept(GameState gameState, Map<String, Object> event)
     {
-        System.out.println(JSONSupport.Write.jsonToString.apply(event));
-
         var lockerData = event;
 
         if (event.get("Components") == null

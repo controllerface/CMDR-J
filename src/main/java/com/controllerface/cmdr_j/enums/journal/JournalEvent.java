@@ -189,6 +189,9 @@ public enum JournalEvent
     ModuleSellRemote(new ModuleSellRemoteEvent()),
     ModuleStore(new ModuleStoreEvent()),
 //    StoredModules(new StoredModulesHandler()),
+    BuyWeapon(new BuyWeaponEvent()),
+
+    SuitLoadout(new SuitLoadoutEvent()),
 
     /*
     PowerPlay
