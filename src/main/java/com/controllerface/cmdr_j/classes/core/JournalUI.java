@@ -91,6 +91,7 @@ public class JournalUI
         assetMap.put("/shipyardEntry.js",       StaticAsset.make("/ui/js/shipyardEntry.js"));
         assetMap.put("/statCategory.js",        StaticAsset.make("/ui/js/statCategory.js"));
         assetMap.put("/storageBin.js",          StaticAsset.make("/ui/js/storageBin.js"));
+        assetMap.put("/suitModule.js",          StaticAsset.make("/ui/js/suitModule.js"));
         assetMap.put("/systemCartography.js",   StaticAsset.make("/ui/js/systemCartography.js"));
         assetMap.put("/systemCatalog.js",       StaticAsset.make("/ui/js/systemCatalog.js"));
         assetMap.put("/systemFaction.js",       StaticAsset.make("/ui/js/systemFaction.js"));

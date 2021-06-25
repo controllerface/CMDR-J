@@ -114,6 +114,12 @@ public class GameState
     private final Map<Statistic, ShipModuleData> shipModules = new HashMap<>();
 
     /**
+     * Data describing the loadout of the player's current suit, including weapons and optionally their modifications.
+     */
+    private final Map<Statistic, SuitModuleData> suitModules = new HashMap<>();
+
+
+    /**
      * Player's crafting material inventory.
      */
     private final Map<Material, Integer> materials = new HashMap<>();
@@ -700,6 +706,20 @@ public class GameState
     {
         return shipModules.get(moduleSlot);
     }
+
+
+
+    public void clearSuitModules()
+    {
+        suitModules.clear();
+    }
+
+    public void setSuitModule(Statistic moduleSlot, SuitModuleData suitModuleData)
+    {
+        suitModules.put(moduleSlot, suitModuleData);
+    }
+
+
 
     private ShipModuleData findShieldGenerator()
     {
@@ -2782,6 +2802,8 @@ public class GameState
 
             directUpdate.accept("Loadout", "updated");
 
+            directUpdate.accept("Suit", "updated");
+
             directUpdate.accept("Statistics", "updated");
 
             directUpdate.accept("Market", "updated");
@@ -2930,6 +2952,11 @@ public class GameState
     public void emitCartographyData()
     {
         executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
+    }
+
+    public void emitSuitLoadoutEvent()
+    {
+        executeWithLock(() -> globalUpdate.accept("Suit", "updated"));
     }
 
     public void emitLoadoutEvent()
@@ -3511,6 +3538,18 @@ public class GameState
             map.put(formatSlotKey(statistic), moduleData.toJson()));
 
         addEmptySlots(map);
+
+        return JSONSupport.Write.jsonToString.apply(map);
+    }
+
+    public String writeSuitLoadoutJson()
+    {
+        var map = new HashMap<String, Object>();
+
+        suitModules.forEach((statistic, moduleData) ->
+            map.put(formatSlotKey(statistic), moduleData.toJson()));
+
+        //addEmptySlots(map);
 
         return JSONSupport.Write.jsonToString.apply(map);
     }

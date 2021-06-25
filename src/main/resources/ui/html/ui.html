@@ -51,6 +51,8 @@
     <script src="requiredMaterial.js"></script>
     <script src="routeEntry.js"></script>
     <script src="shipModule.js"></script>
+    <script src="suitModule.js"></script>
+
     <script src="shipStats.js"></script>
     <script src="shipyard.js"></script>
     <script src="shipyardEntry.js"></script>
@@ -2380,7 +2382,14 @@
         <tab-panel vertical="vertical" name="Spacesuit" id="suitInfo">
             <tab-control>
                 <tab-panel small="small" name="Loadout">
-                    <span>TODO: Add this</span>
+                    <tab-control>
+                        <tab-panel small="small" name="Suit">
+                            <module-bay id="suitGear"></module-bay>
+                        </tab-panel>
+                        <tab-panel small="small" name="Weapons">
+                            <module-bay id="suitWeapons"></module-bay>
+                        </tab-panel>
+                    </tab-control>
                 </tab-panel>
             </tab-control>
         </tab-panel>

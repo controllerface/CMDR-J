@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 
 public enum PersonalWeapon implements OwnableModule
 {
-    wpn_s_pistol_laser_sauto (1700227813017625L,
+    wpn_s_pistol_laser_sauto(1700227813017625L,
         new TK_Zenith_Pistol(),
         UpgradeBlueprint.TK_Zenith),
 
@@ -124,22 +124,11 @@ public enum PersonalWeapon implements OwnableModule
                 .collect(Collectors.toList());
     }
 
-    public static OwnableModule findModule(String moduleName) throws Exception
+    public static OwnableModule findModule(String moduleName)
     {
-        final Exception exception;
-        try
-        {
-            return valueOf(moduleName);
-        }
-        catch (Exception e)
-        {
-            exception = e;
-            if (moduleName == null || moduleName.isEmpty()) throw e;
-        }
-
         return Arrays.stream(PersonalWeapon.values())
-                .filter(v->v.name().toLowerCase().equals(moduleName.toLowerCase()))
-                .findFirst().orElseThrow(() -> exception);
+            .filter(v -> v.name().toLowerCase().equals(moduleName.toLowerCase()))
+            .findFirst().orElse(null);
     }
 
     @Override

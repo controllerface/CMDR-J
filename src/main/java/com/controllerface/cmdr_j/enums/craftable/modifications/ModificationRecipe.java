@@ -526,6 +526,10 @@ public enum ModificationRecipe implements TaskRecipe
     Weapon_Sturdy_5(new Weapon_Sturdy_5()),
 
 
+    // todo: below enum names do not all match the journal item names
+    //  this will need to be fixed over time as the journal name for
+    //  each mod is learned.
+
     /*
     Suits
      */
@@ -553,7 +557,7 @@ public enum ModificationRecipe implements TaskRecipe
 
     // storage
     Extra_Backpack_Capacity(new ExtraBackpackCapacity()),
-    Increased_Air_Reserves(new IncreasedAirReserves()),
+    suit_increasedo2capacity(new IncreasedAirReserves()),
 
 
     /*

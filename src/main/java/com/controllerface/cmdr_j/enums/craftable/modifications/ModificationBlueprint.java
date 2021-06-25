@@ -485,7 +485,7 @@ public enum ModificationBlueprint implements TaskBlueprint
     Faster_Shield_Regen("Faster Shield Regen", ModificationRecipe.Faster_Shield_Regen),
     Improved_Battery_Capacity("Improved Battery Capacity", ModificationRecipe.Improved_Battery_Capacity),
     Improved_Jump_Assist("Improved Jump Assist", ModificationRecipe.Improved_Jump_Assist),
-    Increased_Air_Reserves("Increased Air Reserves", ModificationRecipe.Increased_Air_Reserves),
+    Increased_Air_Reserves("Increased Air Reserves", ModificationRecipe.suit_increasedo2capacity),
     Increased_Sprint_Duration("Increased Sprint Duration", ModificationRecipe.Increased_Sprint_Duration),
     Night_Vision("Night Vision", ModificationRecipe.Night_Vision),
     Reduced_Tool_Battery_Consumption("Reduced Tool Battery Consumption", ModificationRecipe.Reduced_Tool_Battery_Consumption),

@@ -99,6 +99,14 @@ public class JournalServlet extends EventSourceServlet
         }),
 
         /**
+         * Returns the player's current loadout information.
+         */
+        SUIT(EndpointType.GET, "/suit", (_r, response, playerState) ->
+        {
+            writeJsonResponse(response, playerState.writeSuitLoadoutJson());
+        }),
+
+        /**
          * Returns the player's current extended stats information.
          */
         STATISTICS(EndpointType.GET, "/statistics", (_r, response, playerState) ->
@@ -128,7 +136,9 @@ public class JournalServlet extends EventSourceServlet
 
             if (type != null && type.equalsIgnoreCase("listing"))
             {
-                writeJsonResponse(response, playerState.writeItemListing());
+                var x = playerState.writeItemListing();
+                writeJsonResponse(response, x);
+                System.out.println(x);
             }
             if (type != null && type.equalsIgnoreCase("search"))
             {

@@ -351,6 +351,12 @@ function setLoadout(data)
     updateModules('hardpoints', hardPoints);
 }
 
+
+function setSuitLoadout(data)
+{
+    console.log(data);
+}
+
 function setStatistics(data)
 {
     let statData = data['statistics'];
@@ -653,7 +659,11 @@ function requestJsonEndpoint(endpoint, callback)
     fetch(endpoint)
       .then(response => response.json())
       .then(data => callback(data))
-      .catch(error => console.error(error));
+      .catch(error =>
+      {
+        console.log("endpoint: " + endpoint + " failed");
+        console.error(error);
+      });
 }
 
 function handleMaterial(e)
@@ -1749,6 +1759,9 @@ const eventListeners =
 
     // Signals the player's ship loadout has changed
     Loadout: (e) => requestJsonEndpoint('/loadout', setLoadout),
+
+    // Signals the player's suit loadout has changed
+    Suit: (e) => requestJsonEndpoint('/suit', setSuitLoadout),
 
     // Extended player stats (total time played, etc.)
     Statistics: (e) => requestJsonEndpoint('/statistics', setStatistics),
