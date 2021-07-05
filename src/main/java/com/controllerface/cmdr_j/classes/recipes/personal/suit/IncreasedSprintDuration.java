@@ -20,7 +20,7 @@ public class IncreasedSprintDuration extends AbstractModificationRecipe
                 ),
             new CostData(Material.TROOPDEPLOYMENTRECORDS, 5),
             new CostData(Material.GENESEQUENCINGDATA, 5),
-            new CostData(Material.CLINICALTRAILRECORDS, 5),
+            new CostData(Material.MEDICALTRIALRECORDS, 5),
             new CostData(Material.OXYGENICBACTERIA, 10),
             new CostData(Material.CHEMICALCATALYST, 10),
             new CostData(CreditCost.CREDIT_COST, 750_000));

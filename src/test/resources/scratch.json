@@ -1689,7 +1689,7 @@
   {
     "Name": "Biological Sample",
     "ValueCr": 35000,
-    "FormattedName": "biologicalsample",
+    "FormattedName": "GENETICSAMPLE",
     "Kind": "OdysseyIngredient",
     "OriginDetails": ["Planetary Settlement"],
     "Group": "Item",

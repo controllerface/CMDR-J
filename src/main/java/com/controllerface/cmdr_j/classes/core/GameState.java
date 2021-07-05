@@ -84,6 +84,8 @@ public class GameState
      */
     private final String rawCatalogJson = taskCatalog.buildTaskCatalog();
 
+    private final String rawCostAssociations = calculateRawCostAssociations(taskCatalog);
+
     /**
      * Base stats about the currently loaded commander, including the commander's name, credits
      * and other game stats. Updated frequently during gameplay.
@@ -2588,6 +2590,102 @@ public class GameState
         return JSONSupport.Write.jsonToString.apply(data);
     }
 
+    private String calculateRawCostAssociations(TaskCatalog taskCatalog)
+    {
+        Map<String, Object> costAssociations = new HashMap<>();
+
+        Stream.of(Material.values())
+            .forEach(v->
+            {
+                var x = new HashMap<String, Object>();
+                //System.out.println("-------\n"+v);
+                v.getAssociated().stream()
+                    .filter(recipe -> recipe.getParentBlueprint() != null)
+                    .filter(recipe -> recipe.getParentBlueprint().getParentType() != null)
+                    .filter(recipe -> taskCatalog.typedTaskMap.get(recipe.getParentBlueprint().getParentType()) != null)
+                    .map(recipe -> taskCatalog.typedTaskMap.get(recipe.getParentBlueprint().getParentType()).get(recipe))
+                    .filter(Objects::nonNull)
+                    .forEach(recipeKey ->
+                    {
+                        var taskRecipe = taskCatalog.keyMap.get(recipeKey);
+                        var displayLabel = taskRecipe.getDisplayLabel();
+                        if (taskRecipe.getGrade() == ItemGrade.MicroMaterial)
+                        {
+                            var parentCategory = taskRecipe.getParentBlueprint().getParentType().getParentCategory();
+                            displayLabel = displayLabel.replace("Micro-Material", parentCategory.toString());
+                        }
+                        else
+                        {
+                            var parentType = taskRecipe.getParentBlueprint().getParentType();
+                            displayLabel = parentType + " :: " + taskRecipe.getParentBlueprint().toString()
+                                + " :: " + taskRecipe.getShortLabel();
+                        }
+
+                        //System.out.println(recipeKey);
+                        //System.out.println(displayLabel);
+
+                        x.put(recipeKey, displayLabel);
+                    });
+                    //.forEach(System.out::println);
+
+                v.getAssociated().stream()
+                    .map(taskCatalog.untypedTaskMap::get)
+                    .filter(Objects::nonNull)
+                    .forEach(recipeKey ->
+                    {
+                        var taskRecipe = taskCatalog.keyMap.get(recipeKey);
+                        var displayLabel = taskRecipe.getDisplayLabel();
+                        if (taskRecipe.getGrade() == ItemGrade.MicroMaterial)
+                        {
+                            var parentCategory = taskRecipe.getParentBlueprint().getParentType().getParentCategory();
+                            displayLabel = displayLabel.replace("Micro-Material", parentCategory.toString());
+                        }
+                        else if (taskRecipe.getGrade() == ItemGrade.SYNTHESIS_BASIC
+                            || taskRecipe.getGrade() == ItemGrade.SYNTHESIS_STANDARD
+                            || taskRecipe.getGrade() == ItemGrade.SYNTHESIS_PREMIUM)
+                        {
+                            displayLabel = "Synthesis :: " + displayLabel;
+                        }
+                        else if (taskRecipe.getGrade() == ItemGrade.TechnologyBroker)
+                        {
+                            displayLabel = "Unlock :: " + displayLabel;
+                        }
+                        else
+                        {
+                            displayLabel = taskRecipe.getGrade() + " :: " + taskRecipe.getShortLabel();
+                        }
+
+                        //System.out.println(recipeKey);
+                        //System.out.println(displayLabel);
+
+                        x.put(recipeKey, displayLabel);
+                    });
+
+                costAssociations.put(v.name(), x);
+            });
+
+//        Stream.of(Commodity.values())
+//            .forEach(v->
+//            {
+//                v.getAssociated().stream()
+//                    .filter(a -> a.getParentBlueprint() != null)
+//                    .filter(a -> a.getParentBlueprint().getParentType() != null)
+//                    .filter(a -> taskCatalog.typedTaskMap.get(a.getParentBlueprint().getParentType()) != null)
+//                    .map(a -> taskCatalog.typedTaskMap.get(a.getParentBlueprint().getParentType()).get(a))
+//                    .filter(Objects::nonNull)
+//                    .forEach(System.out::println);
+//
+//                v.getAssociated().stream()
+//                    .map(taskCatalog.untypedTaskMap::get)
+//                    .filter(Objects::nonNull)
+//                    .forEach(System.out::println);
+//            });
+
+        var o = JSONSupport.Write.jsonToString.apply(costAssociations);
+        System.out.println(o);
+        return o;
+    }
+
     //endregion
 
     //region Database Access Functions
@@ -3659,6 +3757,11 @@ public class GameState
     public String writeTaskCatalog()
     {
         return rawCatalogJson;
+    }
+
+    public String writeCostAssociations()
+    {
+        return rawCostAssociations;
     }
 
     public String writeTaskMaterials()

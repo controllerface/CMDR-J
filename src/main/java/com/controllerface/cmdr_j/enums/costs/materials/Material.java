@@ -238,7 +238,7 @@ public enum Material implements TaskCost
     //Item
     AGRICULTURALPROCESSSAMPLE(ItemGrade.Goods),
     BIOCHEMICALAGENT(ItemGrade.Goods),
-    BIOLOGICALSAMPLE(ItemGrade.Goods),
+    GENETICSAMPLE(ItemGrade.Goods),
     BUILDINGSCHEMATIC(ItemGrade.Goods),
     CALIFORNIUM(ItemGrade.Goods),
     CASTFOSSIL(ItemGrade.Goods),
@@ -302,7 +302,7 @@ public enum Material implements TaskCost
     CHEMICALPATENTS(ItemGrade.Data),
     CHEMICALWEAPONDATA(ItemGrade.Data),
     CLASSICENTERTAINMENT(ItemGrade.Data),
-    CLINICALTRAILRECORDS(ItemGrade.Data),
+    MEDICALTRIALRECORDS(ItemGrade.Data),
     COCKTAILRECIPES(ItemGrade.Data),
     COMBATTRAININGMATERIAL(ItemGrade.Data),
     COMBATANTPERFORMANCE(ItemGrade.Data),

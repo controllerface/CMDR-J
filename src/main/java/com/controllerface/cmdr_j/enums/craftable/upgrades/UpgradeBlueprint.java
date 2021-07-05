@@ -88,10 +88,12 @@ public enum UpgradeBlueprint implements TaskBlueprint
     ;
 
     private final EnumSet<UpgradeRecipe> recipes;
+    private TaskType taskType = null;
 
     UpgradeBlueprint(EnumSet<UpgradeRecipe> recipes)
     {
         this.recipes = recipes;
+        this.recipeStream().forEach(r->r.setParentBlueprintName(this));
     }
 
     public Stream<UpgradeRecipe> recipeStream()
@@ -102,13 +104,13 @@ public enum UpgradeBlueprint implements TaskBlueprint
     @Override
     public void setParentType(TaskType type)
     {
-
+        taskType = type;
     }
 
     @Override
     public TaskType getParentType()
     {
-        return null;
+        return taskType;
     }
 
     @Override

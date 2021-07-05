@@ -17,6 +17,7 @@ public enum Consumable implements TaskCost
     AMM_GRENADE_FRAG(ItemGrade.Consumables),
     AMM_GRENADE_EMP(ItemGrade.Consumables),
     AMM_GRENADE_SHIELD(ItemGrade.Consumables),
+    BYPASS(ItemGrade.Consumables),
     ;
 
     public final long id;

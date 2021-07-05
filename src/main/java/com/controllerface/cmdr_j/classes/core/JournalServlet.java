@@ -332,6 +332,10 @@ public class JournalServlet extends EventSourceServlet
                     {
                         writeJsonResponse(response, playerState.writeTaskCatalog());
                     }
+                    else if (type.equalsIgnoreCase("associations"))
+                    {
+                        writeJsonResponse(response, playerState.writeCostAssociations());
+                    }
                     else if (type.equalsIgnoreCase("materials"))
                     {
                         writeJsonResponse(response, playerState.writeTaskMaterials());

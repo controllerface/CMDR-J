@@ -2385,7 +2385,6 @@ class TaskCatalog extends HTMLElement
 
     loadTaskCatalog(catalogData)
     {
-        console.log(catalogData);
         this.innerHtml = "";
 
         this.loadModulePurchases(catalogData['modules']);
@@ -2397,6 +2396,23 @@ class TaskCatalog extends HTMLElement
         this.loadUpgrades(catalogData['upgrades']);
     }
 
+    loadCostAssociations(costData)
+    {
+        //console.log(costData);
+        let materials = Object.keys(costData);
+        for (let i = 0, len = materials.length; i < len; i++)
+        {
+            let next = document.getElementById(materials[i]);
+            if (!next)
+            {
+                console.log("unknown: " + materials[i]);
+                continue;
+            }
+            //console.log(next);
+            next.loadAssociated(costData[materials[i]]);
+        }
+    }
+
     connectedCallback()
     {
         if (this.initialized) return;
@@ -2404,6 +2420,11 @@ class TaskCatalog extends HTMLElement
         fetch("/tasks?type=catalog")
           .then(response => response.json())
           .then(data => this.loadTaskCatalog(data))
+          .catch(error => console.error(error));
+
+        fetch("/tasks?type=associations")
+          .then(response => response.json())
+          .then(data => this.loadCostAssociations(data))
           .catch(error => console.error(error));
 
         this.initialized = true;

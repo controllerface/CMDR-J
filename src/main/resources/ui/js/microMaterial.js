@@ -11,7 +11,12 @@ class MicroMaterialBin extends HTMLElement
         // material name and trade info drop down
         this.dropDown = document.createElement('details');
         this.dropDown.classList.add('binName');
-        this.dropDown.textContent = "TODO: add trade data here";
+
+        this.associatedTasks = document.createElement('span');
+        this.associatedTasks.textContent = "No known Tasks";
+
+        this.dropDown.append(this.associatedTasks);
+
         this.materialName = document.createElement('summary');
         this.dropDown.appendChild(this.materialName);
 
@@ -67,6 +72,17 @@ class MicroMaterialBin extends HTMLElement
         {
             this.materialStock.textContent = newValue;
         }
+    }
+
+    loadAssociated(taskData)
+    {
+        let tasks = Object.keys(taskData);
+        console.log(tasks);
+        if (tasks.length == 0)
+        {
+            return;
+        }
+        this.associatedTasks.textContent = tasks.length;
     }
 }
 

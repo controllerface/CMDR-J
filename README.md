@@ -2,45 +2,114 @@ Usage Guide: https://github.com/controllerface/CMDR-J/wiki/Usage-Guide
 
 # CMDR J
 
-Commander J (CMDR_J) is a companion app for the video game `Elite : Dangerous`. Initially I started working on this app as an exercise to expand my development chops from just back-end code to something more front-end (with a GUI). Being aware of the Journal API from several other similar apps, and the Frontier forums I chose this project as it seemed like a good fit for a weekend hobby.
-
-My main goal with this app is to make an attempt and addressing some shortcomings of the game when it comes to task planning, and specifically engineering and upgrading your ship. To this end I created a **Tasks** panel that contains various activities you have "planned" to do by adding tasks in other parts fo the app, primarily the **Loadout** and **Inventory** tabs. When building out this capacity, I was mostly focused on engineering and as such the individual material controls contain "Trade" tasks that can be used to plan trades of materials you are full of, for those you don't have enough of.  
-
-Secondarily, I wanted to make working with guardian sites and other ground-based activities a little easier. For this I added a mini-map in the **Navigation** panel. This map is active only when on the surface of a planet. The map is centered on the player, with a rotating arrow indicating the player's current heading. The map has a "Waypoint" feature, which can be used to set a marker at your current location. The marker can be named, for ease of use when travelling between points. Most notably, this is useful at guardian sites as you can mark the towers. As long as the app is still running, the waypoints will remain through a re-log if needed.
-
-Over time I also added a few bits to the UI like some **Market** data, and a **Log** panel which shows the last 500 or so journal messages that have been processed by the app. 
-
-I will probably continue to add and flesh out things as I find time and energy.
+Commander J (CMDR_J) is a companion app for the video game `Elite : Dangerous`. I work on it mainly for myself and few friends in my spare time. 
 
 ##### Current Status
 
-While I still consider the app more or less "late alpha" most major bugs have been ironed out as I have tested the app by using it to engineer several ships. There may still be a handful of copy-paste or similar error with some stats on modules, but any such issues are easy to fix when spotted. Initially developed in Java 8/JavaFX8, the app has been ported to JDK 11, and is built and developed with `GraalVM` and the `Gluon Substrate` native binary tools.
+Currently, the project is in what I consider an **alpha** state, which despite being several years old, I still consider correct for the following reasons:
 
-As I do still have some basic features I want to add but have not done so yet, I will add `todo:` notes to point some out for my own reference :-) 
+- I do not consider it feature-complete, I tend to add things to the app on a whim and still have things I want to add.
 
+- I Will sometimes change how the internal data structure works in the database as I add features, and this may require wiping all data and starting over, and I am not yet ready to commit to migration strategy when doing changes like this. 
+
+- I don't take this project _too_ seriously. And if it never gets "done" I'm OK with that.
+ 
+That said, I use it for myself, and will make every attempt to ensure it at least functions within the scope of features I have implemented. I will generally make releases only once I've finished up a new feature or at least cleaned up and added placeholder code where necessary to avoid issues. So the binary releases should function properly. Just fair warning, I will push to main all the time so pulling might get you unfinished code.
+
+Anyway, I find it useful, so if you do too, then that' s awesome!
 
 ### Overview
 
-The UI consists of several tabbed panels, with categories of functionality grouped together, below is a general outline of how each tab is currently functioning. Each tab generally has one or more sub-tabs which further breakdown the tab's relevant information.
+The UI consists of several tabbed panels, with categories of functionality grouped together, below is a general outline of how each tab is currently laid out. Each tab generally has one or more sub-tabs which further breakdown the tab's relevant information.
 
-* **Loadout**
-This tab contains information about your current ship's installed modules, as well as some helpful information about your overall defensive capabilities. `todo: add offensive and mass/speed sub-tabs`. For the installed modules, you can see the currents stats of the module, and where applicable, see what other modules you _could_ have in that slot instead. You can also check out all the mods and experimental effects that may be available for the module. Should you decide you want to get a new module, or add a mod/experimental effect, you can add those as tasks and they will show up in the "Task" tab. `note: there are still a few in-development sub-tabs in the section`  
-
-* **Inventory**
-If you have cargo in your ship, or are carrying any materials, they will be listed here. For materials, you can expand any items and see what trades can be made. If you find yourself with a surplus of some very common material, this can be helpful for planning out a mat-trading run where you can see ahead of time what exactly you can get without needed to go all the way to the mat trader, or calculating the numbers by hand. `todo: cargo items need location data fleshed out` 
-
-* **Market**
-When you have docked at a station and loaded the commodities market, this tab will show you two lists, imports and exports. The imports list (top) shows you the commodities that this station will buy from you along with the price per unit and some stats about how much above/below galactic average the price is. `todo: query a datasource for more competitive analysis`  
-
-* **Navigation**
-Useful primarily when prospecting or otherwise navigating around on planets. This tab contains a mini-map and simple "Waypoint" interface that allows you to mark your current location with a name, making it easy to return later. Note that waypoints are not persistent across reloads of the app. `todo: expand the waypoint system to be persistent and unique to each planetary body`
-
-* **Tasks**
-Consisting of two sections, this tab shows you the tasks you have planned, as well as the items required to carry them out. The upper list is the "Task list", the lower is the "Items list". When you add a task, (like a trade or a module purchase) from a different tab in the app, it will show up in the upper list. All tasks that are added to this list contain one or more "costs" required to actually perform the task. For a module purchase, the cost will be some number of credits, for a modification it will be materials. The sum total of all costs from the upper list is displayed in the lower list. 
+* **Commander:** Information about your Commander including stats, inventory, and reputation.
+  
+  * **Inventory:** Materials and Goods you own.
     
-    When you are short a material in the Items list, the gauge in the right most column will be red, and a number will be shown in the "need" column indicating how many more of this item you need to be able to complete the associated tasks. Once you have ensured that all of the items in the item list have been procured, you can perform all the tasks in the upper task list. 
+    * **Materials:** Ship-based materials.
+    
+      * **Raw**
+      
+      * **Encoded**
+      
+      * **Manufactured**
+    
+    * **Storage:** On-Foot materials.
+      
+      * **Assets**
+      
+      * **Goods**
+      
+      * **Data**
+      
+      * **Consumables**
+  
+  * **Politics:** Local and Galaxy-wide faction standings. Will display information on conflicts in the current system if there are any ongoing.
+  
+  * **Engineers:** Your reputation and progress with all known engineers.
+  
+  * **Statistics:** Historical data about your game play activity.
 
-    As you perform the tasks, the app will keep track of your commander journal events and remove the tasks from list automatically. `todo: this may have some bugs still`  
+* **Spacesuit:** Data about your currently quipped space suit and gear.
+  
+  * **Suit:** Information about your suit.
+  
+  * **Weapons:** Information about your equipped weapons.
 
-* **Log**
-Finally, more or less just for debugging/informational purposes, we have the "Log" tab, which shows the last 500 journal messages that have been processed. Note that some events will result in more than one message line in the log, the 500 cap is per line, so there may be fewer than 500 events worth of history. `todo: some journal events do not result in log messages at the moment, mostly due to them being very "noisy". Should add a verbostiy level as well as perhaps expose the maximum message history cap`   
+* **Starship:** Detailed information about your current ship, if you own one and are currently on board.
+  
+  * **Loadout:** Details about all currently equipped modules.
+    
+    * **Core Internals**
+    
+    * **Optional Internals**
+    
+    * **Hardpoints:** Includes weapon and utility mounts.
+  
+  * **Cargo:** Manifest of any cargo you have on board.
+  
+  * **Systems Analysis:** Useful statistics about your current ship configuration.
+    
+    * **Offense:** Shows your overall DPS as well as a breakdown of damage types
+    
+    * **Defense:** Includes calculated resistance values taking into account diminishing returns, provides some guidance for min-maxing. 
+    
+    * **Power Usage:** List of power draw by modules, sorted by highest draw first.
+  
+  * **Statistics:** The stock stats of your ships hull as well as come calculated stats provided by the game.
+
+* **Markets:** Shows the current market information if you are docked and have loaded the commodities list, but also allows you to search your own personal history for markets that sell specific commodities, modules, or ships.
+  
+  * **Current:** Data about the market at the currently docked station, if you are docked. Information about a specific station or settlement is stored and updated automatically as the game is played. Simply load the commodity market, outfitting, and shipyard menus at your current station to ensure the latest data is always saved.
+    
+    * **Commodities**
+    
+    * **Outfitting**
+    
+    * **Shipyard** 
+ 
+ * **Search:** Provides a simple search box that can be used to locate items. Note that you will need to have docked somewhere that sells and item before your search will ever return results.  
+ 
+* **Navigation:** Tools for viewing and recording data about places you have been or are currently.
+  
+  * **Current System:** If you have scanned any bodies in a system, this will show them. When exploring, using FSS and DSS will add more information to this display. If you have saved any manual points of interest notes, they will be displayed in a drop-down menu.
+  
+  * **Hyperspace Route:** If you have a route currently plotted on the galaxy map, it will be displayed here, and will include the star types and relative distance of each system in the route.
+  
+  * **System Catalog:** Provides a simple search box that can be used to search your personal exploration history for a specific system. All systems you have ever visited (while the app was running) are listed in alphabetical order in a filterable drop-down menu for ease of use.
+  
+  * **Planetary GPS:** While on the surface of a planet, either landed, in an SRV or on foot, this tab will give you a crude local map that tracks your location. Some notable points are automatically marked, like the closest settlement, or the last known location of your ship if you have disembarked. In addition, you can click a "mark location" button in the UI to set a waypoint at your current location. Waypoints can be renamed to make them more useful. Once set, waypoints will persist across play sessions and are saved even after you leave the planet. In this sense, they function as crude planetary bookmarks.  
+  
+* **Activities:** If you have any missions or are participating in any community goals, their details will be displayed within sub-tabs. In addition, there is a categorized list of tasks that require credits and/or resources that can be planned and tracked.
+  
+  * **Tasks:** Self-selected tasks are displayed as well as cumulative "shopping list" that tracks the amount of each item you need to perform tracked tasks. 
+    
+    * **In Progress:** Lists all currently tracked tasks. Each task has an adjustable counter in case you want to perform a task more than once, which is common for module engineering, where you must perform higher grade mods multiple times to max them out.
+    
+    * **Bill of Materials:** Lists all materials required to perform all tasks listed as in progress. A gauge and number showing how many more are needed to fulfill all task requirements is shown. If relevant, and individual required cost may contain recommended trades which can be planned as tasks. When recommending trades, the application will consider all planned tasks and will not recommend a trade if it would conflict with another task.   
+    
+    * **Task Catalog:** A categorized list of all known tasks. 
+  
+  * **Missions:** Details of any ongoing missions are displayed here
+  
+  * **Community Goals:** Details of any community goals you have signed up for are displayed here

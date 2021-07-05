@@ -3872,7 +3872,7 @@
         "Planetary Settlement"
       ]
     },
-    "CLINICALTRAILRECORDS": {
+    "MEDICALTRIALRECORDS": {
       "name": "Clinical Trail Records",
       "locations": [
         "Planetary Settlement"
@@ -4094,7 +4094,7 @@
         "Planetary Settlement"
       ]
     },
-    "BIOLOGICALSAMPLE": {
+    "GENETICSAMPLE": {
       "name": "Biological Sample",
       "locations": [
         "Planetary Settlement"
@@ -4660,6 +4660,13 @@
     },
     "AMM_GRENADE_SHIELD": {
       "name": "Shield Projector",
+      "locations": [
+        "Planetary Settlements",
+        "Pioneer Supplies"
+      ]
+    },
+    "BYPASS": {
+      "name": "E-Breach",
       "locations": [
         "Planetary Settlements",
         "Pioneer Supplies"
