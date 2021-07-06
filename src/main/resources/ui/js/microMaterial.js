@@ -13,12 +13,17 @@ class MicroMaterialBin extends HTMLElement
         this.dropDown.classList.add('binName');
 
         this.associatedTasks = document.createElement('span');
-        this.associatedTasks.textContent = "No known Tasks";
+        this.associatedTasks.textContent = "No Known Uses";
 
         this.dropDown.append(this.associatedTasks);
 
         this.materialName = document.createElement('summary');
         this.dropDown.appendChild(this.materialName);
+
+        // material use count
+        this.useCount = document.createElement('div');
+        this.useCount.classList.add('binCount');
+        this.useCount.textContent = '0';
 
         // material stock count
         this.materialStock = document.createElement('div');
@@ -26,7 +31,7 @@ class MicroMaterialBin extends HTMLElement
         this.materialStock.textContent = '0';
 
         // add the sections
-        container.append(this.dropDown, this.materialStock);
+        container.append(this.dropDown, this.useCount, this.materialStock);
 
         // stylesheet
         let styleSheet = document.createElement('link');
@@ -71,18 +76,51 @@ class MicroMaterialBin extends HTMLElement
         else if (name === 'stock')
         {
             this.materialStock.textContent = newValue;
+            if (newValue < 1)
+            {
+                this.style = 'display: none';
+            }
+            else
+            {
+                this.style = 'display: initial';
+            }
         }
+    }
+
+    connectedCallback()
+    {
+       if (this.materialStock.textContent == '0')
+       {
+           this.style = 'display: none';
+       }
     }
 
     loadAssociated(taskData)
     {
+        this.associatedTasks.textContent = "";
+
         let tasks = Object.keys(taskData);
-        console.log(tasks);
         if (tasks.length == 0)
         {
+            this.useCount.textContent = 0;
+            this.associatedTasks.textContent = "No Known Tasks";
             return;
         }
-        this.associatedTasks.textContent = tasks.length;
+
+        tasks.sort((a, b) =>
+        {
+            let aName = taskData[a];
+            let bName = taskData[b];
+            return aName.localeCompare(bName);
+        });
+
+        this.useCount.textContent = tasks.length;
+        for (let i = 0, len = tasks.length; i < len; i++)
+        {
+            let n = document.createElement('div');
+            n.textContent = taskData[tasks[i]];
+            this.associatedTasks.append(n);
+        }
     }
 }
 

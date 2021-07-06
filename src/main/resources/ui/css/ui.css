@@ -167,7 +167,7 @@ details > summary::-webkit-details-marker
 .binHeader
 {
     display: grid;
-    grid-template-columns: 5fr .5fr .5fr 15em;
+    grid-template-columns: 5fr .8fr .8fr .8fr 15em;
     grid-area: inven;
     padding: 0.3em;
 }
@@ -175,7 +175,7 @@ details > summary::-webkit-details-marker
 .microBinHeader
 {
     display: grid;
-    grid-template-columns: 5fr 15em;
+    grid-template-columns: 5fr .8fr .8fr;
     grid-area: inven;
     padding: 0.3em;
 }

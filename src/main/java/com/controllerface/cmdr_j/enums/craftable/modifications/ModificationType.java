@@ -222,7 +222,10 @@ public enum ModificationType implements TaskType
             ModificationBlueprint.Armour_Kinetic,
             ModificationBlueprint.Armour_Thermic)),
 
+    // todo: refactor so suits and weapons have make/model enums
+
     // suits
+
     Added_Melee_Damage(EnumSet.of(ModificationBlueprint.Added_Melee_Damage)),
     Combat_Movement_Speed(EnumSet.of(ModificationBlueprint.Combat_Movement_Speed)),
     Damage_Resistance(EnumSet.of(ModificationBlueprint.Damage_Resistance)),

@@ -19,6 +19,9 @@ import java.util.*;
  */
 public enum Engineer
 {
+    // TODO: engineers need concrete classes and a bit more flexibility for task types. Ship Engineers need
+    //  to have mod types and experimental types but ground engineers need blueprint types.
+
     /*
     The Bubble
      */

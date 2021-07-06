@@ -4,7 +4,7 @@ Usage Guide: https://github.com/controllerface/CMDR-J/wiki/Usage-Guide
 
 Commander J (CMDR_J) is a companion app for the video game `Elite : Dangerous`. I work on it mainly for myself and few friends in my spare time. 
 
-##### Current Status
+### Current Status
 
 Currently, the project is in what I consider an **alpha** state, which despite being several years old, I still consider correct for the following reasons:
 
@@ -18,7 +18,20 @@ That said, I use it for myself, and will make every attempt to ensure it at leas
 
 Anyway, I find it useful, so if you do too, then that' s awesome!
 
-### Overview
+
+### Key Features
+* Task Tracking
+  * You can select tasks that you can track. A task is more or less something you can do in-game. For example there are tasks for purchasing modules, modifying them, upgrading personal weapons and suits, synthesis, etc.
+  * All tasks have associated costs. When a task is tracked, it's associated costs are also tracked. The cumulative costs of all tracked tasks are listed together.  
+* Planetary GPS
+  * When on a planet, a small map is rendered in the appropriate tab. This map has a mixture of automatically set and manually set waypoints. The waypoints are listed, and a single waypoint can be marked for tracking. When tracked, the bearing you should be headed is present in the UI. 
+* Galactic Tracking and Custom POIs
+  * When travelling to new systems, your exploration data is automatically cataloged and searchable. In the catalog UI, you can write text notes and attach them to star systems.
+* Web App Implementation
+  * The UI is a standard Web App, and loads from `localhost:9000` in your browser. This makes it possible to serve on your local network and access from a tablet or other device.
+  * Local network access must be enabled manually by setting and inbound rule in your windows firewall settings.
+
+### UI Overview
 
 The UI consists of several tabbed panels, with categories of functionality grouped together, below is a general outline of how each tab is currently laid out. Each tab generally has one or more sub-tabs which further breakdown the tab's relevant information.
 
