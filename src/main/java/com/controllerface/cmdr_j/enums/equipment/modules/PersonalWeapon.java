@@ -29,9 +29,7 @@ public enum PersonalWeapon implements OwnableModule
     wpn_m_submachinegun_laser_fauto(1702463472822902L,
         new TK_Eclipse_Carbine(),
         UpgradeBlueprint.TK_Eclipse),
-
-
-
+    
 
     wpn_m_sniper_plasma_charged(1700306882307992L,
         new Manticore_Executioner_Rifle(),
@@ -48,7 +46,6 @@ public enum PersonalWeapon implements OwnableModule
     wpn_m_assaultrifle_plasma_fauto(1702463497067339L,
         new Manticore_Oppressor_Rifle(),
         UpgradeBlueprint.Manticore_Oppressor),
-
 
 
     wpn_m_assaultrifle_kinetic_fauto(1700216304969517L,

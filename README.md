@@ -59,7 +59,7 @@ The UI consists of several tabbed panels, with categories of functionality group
   
   * **Politics:** Local and Galaxy-wide faction standings. Will display information on conflicts in the current system if there are any ongoing.
   
-  * **Engineers:** Your reputation and progress with all known engineers.
+  * **Engineers:** Your reputation and progress with all known knownEngineers.
   
   * **Statistics:** Historical data about your game play activity.
 

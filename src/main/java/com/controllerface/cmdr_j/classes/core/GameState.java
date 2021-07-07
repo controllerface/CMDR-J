@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j.classes.core;
 
 import com.controllerface.cmdr_j.classes.data.*;
 import com.controllerface.cmdr_j.enums.costs.consumables.Consumable;
+import com.controllerface.cmdr_j.enums.engineers.KnownEngineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.*;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 import com.controllerface.cmdr_j.interfaces.Procedure;
@@ -20,7 +21,6 @@ import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
-import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.enums.equipment.ships.ShipType;
@@ -102,7 +102,7 @@ public class GameState
      * Describes the current commander's status with all known engineers. Current status with all engineers
      * is summarized on startup, but data for an individual engineer may be update during gameplay.
      */
-    private final Map<Engineer, Map<String, Object>> engineerProgress = new HashMap<>();
+    private final Map<KnownEngineer, Map<String, Object>> engineerProgress = new HashMap<>();
 
     /**
      * Base stats about the current commander's current ship, includes information like ship name, make,
@@ -570,13 +570,13 @@ public class GameState
         extendedStats.put(category, stats);
     }
 
-    public void setEngineerProgress(Engineer engineer, Map<String, Object> data)
+    public void setEngineerProgress(KnownEngineer knownEngineer, Map<String, Object> data)
     {
         if (starSystem != null)
         {
-            data.put("distance", engineer.getLocation().distanceBetween(starSystem));
+            data.put("distance", knownEngineer.getLocation().distanceBetween(starSystem));
         }
-        engineerProgress.put(engineer, data);
+        engineerProgress.put(knownEngineer, data);
     }
 
     private void updateInternalState(Statistic statistic, String value)
@@ -745,6 +745,24 @@ public class GameState
                 .filter(entity -> Objects.equals(entity.getProperty("missionID"), missionId))
                 .findFirst()
                 .ifPresent(mission -> mission.setProperty("state", state.name().toLowerCase()));
+        });
+    }
+
+    public void expireOldMissions(Set<Long> retain)
+    {
+        database.executeInTransaction(txn ->
+        {
+            var commander = getCommanderEntity(txn);
+            if (commander == null) return;
+
+            //noinspection SuspiciousMethodCalls
+            EntityUtilities.entityStream(commander.getLinks(EntityKeys.MISSION))
+                .filter(entity -> !retain.contains(entity.getProperty("missionID")))
+                .forEach(mission ->
+            {
+                commander.deleteLink(EntityKeys.MISSION, mission);
+                mission.delete();
+            });
         });
     }
 
@@ -1778,7 +1796,7 @@ public class GameState
 
     private String prepareEngineerData()
     {
-        Arrays.stream(Engineer.values())
+        Arrays.stream(KnownEngineer.values())
             .filter(e->!engineerProgress.containsKey(e))
             .forEach(engineer ->
             {

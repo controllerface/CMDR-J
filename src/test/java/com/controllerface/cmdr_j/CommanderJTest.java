@@ -2,6 +2,7 @@ package com.controllerface.cmdr_j;
 
 import com.controllerface.cmdr_j.classes.data.Pair;
 import com.controllerface.cmdr_j.classes.data.TaskCatalog;
+import com.controllerface.cmdr_j.enums.engineers.KnownEngineer;
 import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.data.CostData;
 import com.controllerface.cmdr_j.classes.modules.AbstractExperimentalModule;
@@ -53,7 +54,6 @@ import com.controllerface.cmdr_j.enums.costs.materials.MaterialTradeType;
 import com.controllerface.cmdr_j.enums.costs.materials.MaterialType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
-import com.controllerface.cmdr_j.enums.engineers.Engineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.CoreInternalModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.HardpointModule;
 import com.controllerface.cmdr_j.enums.equipment.modules.OptionalInternalModule;
@@ -277,7 +277,7 @@ public class CommanderJTest
     @Test
     public void testDistance()
     {
-        double distance = Engineer.TIANA_FORTUNE.getLocation().distanceBetween(Engineer.BILL_TURNER.getLocation());
+        double distance = KnownEngineer.TIANA_FORTUNE.getLocation().distanceBetween(KnownEngineer.BILL_TURNER.getLocation());
 
         // this distance is known to be 221.68 Light years.
         Assert.assertEquals(221.68, distance, 0);

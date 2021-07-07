@@ -13,7 +13,7 @@ public class IncreasedAirReserves extends AbstractModificationRecipe
 {
     public IncreasedAirReserves()
     {
-        super(IncreasedAirReserves.class.getSimpleName(), ItemGrade.MicroMaterial,
+        super("Increased Air Reserves", ItemGrade.MicroMaterial,
             new ItemEffects
                 (
                     new ItemEffectData(ItemEffect.Air_Capacity, 100d)

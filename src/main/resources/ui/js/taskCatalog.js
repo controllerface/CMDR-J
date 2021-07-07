@@ -86,7 +86,6 @@ class TaskCatalog extends HTMLElement
             {
                 Array.from(parent.children).forEach(child =>
                 {
-
                     if (child !== e.target)
                     {
                         child.removeAttribute('open');
@@ -1703,125 +1702,208 @@ class TaskCatalog extends HTMLElement
     }
 
 
-    loadSuitModifications(modificationData, categoryElement)
+    loadSuitModificationTypes(modificationData, categoryElement)
     {
+        console.log(modificationData);
         this.loadSubcategoryData('Added Melee Damage',
-                                 modificationData['Added_Melee_Damage']['Added_Melee_Damage'],
+                                 modificationData['Added_Melee_Damage'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Combat Movement Speed',
-                                 modificationData['Combat_Movement_Speed']['Combat_Movement_Speed'],
+                                 modificationData['Combat_Movement_Speed'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Damage Resistance',
-                                 modificationData['Damage_Resistance']['Damage_Resistance'],
+                                 modificationData['Damage_Resistance'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Enhanced Tracking',
-                                 modificationData['Enhanced_Tracking']['Enhanced_Tracking'],
+                                 modificationData['Enhanced_Tracking'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Extra Ammo Capacity',
-                                 modificationData['Extra_Ammo_Capacity']['Extra_Ammo_Capacity'],
+                                 modificationData['Extra_Ammo_Capacity'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Extra Backpack Capacity',
-                                 modificationData['Extra_Backpack_Capacity']['Extra_Backpack_Capacity'],
+                                 modificationData['Extra_Backpack_Capacity'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Faster Shield Regen',
-                                 modificationData['Faster_Shield_Regen']['Faster_Shield_Regen'],
+                                 modificationData['Faster_Shield_Regen'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Improved Battery Capacity',
-                                 modificationData['Improved_Battery_Capacity']['Improved_Battery_Capacity'],
+                                 modificationData['Improved_Battery_Capacity'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Improved Jump Assist',
-                                 modificationData['Improved_Jump_Assist']['Improved_Jump_Assist'],
+                                 modificationData['Improved_Jump_Assist'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Increased Air Reserves',
-                                 modificationData['Increased_Air_Reserves']['Increased_Air_Reserves'],
+                                 modificationData['Increased_Air_Reserves'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Increased Sprint Duration',
-                                 modificationData['Increased_Sprint_Duration']['Increased_Sprint_Duration'],
+                                 modificationData['Increased_Sprint_Duration'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Night Vision',
-                                 modificationData['Night_Vision']['Night_Vision'],
+                                 modificationData['Night_Vision'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Reduced Tool Battery Consumption',
-                                 modificationData['Reduced_Tool_Battery_Consumption']['Reduced_Tool_Battery_Consumption'],
+                                 modificationData['Reduced_Tool_Battery_Consumption'],
                                  this.loadModificationGrades,
                                  categoryElement);
     }
 
+    loadSuitModifications(modificationData, categoryElement)
+    {
+        this.loadSubcategoryData('Artemis',
+                                 modificationData['Artemis_Suit'],
+                                 this.loadSuitModificationTypes,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Dominator',
+                                 modificationData['Dominator_Suit'],
+                                 this.loadSuitModificationTypes,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Maverick',
+                                 modificationData['Maverick_Suit'],
+                                 this.loadSuitModificationTypes,
+                                 categoryElement);
+    }
+
+
+
     loadPersonalWeaponModifications(modificationData, categoryElement)
     {
         this.loadSubcategoryData('Faster Handling',
-                                 modificationData['Faster_Handling']['Faster_Handling'],
+                                 modificationData['Faster_Handling'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Greater Range',
-                                 modificationData['Greater_Range']['Greater_Range'],
+                                 modificationData['Greater_Range'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Head Shot Damage',
-                                 modificationData['Head_Shot_Damage']['Head_Shot_Damage'],
+                                 modificationData['Head_Shot_Damage'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Improved Hip Fire Accuracy',
-                                 modificationData['Improved_Hip_Fire_Accuracy']['Improved_Hip_Fire_Accuracy'],
+                                 modificationData['Improved_Hip_Fire_Accuracy'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Magazine Size',
-                                 modificationData['Magazine_Size']['Magazine_Size'],
+                                 modificationData['Magazine_Size'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Noise Suppressor',
-                                 modificationData['Noise_Suppressor']['Noise_Suppressor'],
+                                 modificationData['Noise_Suppressor'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Reload Speed',
-                                 modificationData['Reload_Speed']['Reload_Speed'],
+                                 modificationData['Reload_Speed'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Scope',
-                                 modificationData['Scope']['Scope'],
+                                 modificationData['Scope'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Stability',
-                                 modificationData['Stability']['Stability'],
+                                 modificationData['Stability'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Stowed Reloading',
-                                 modificationData['Stowed_Reloading']['Stowed_Reloading'],
+                                 modificationData['Stowed_Reloading'],
                                  this.loadModificationGrades,
                                  categoryElement);
+    }
+
+    loadPersonalWeaponModificationsA(modificationData, categoryElement)
+    {
+        console.log(modificationData);
+
+        this.loadSubcategoryData('Karma AR-50',
+                                 modificationData['Karma_AR_50'],
+                                 this.loadPersonalWeaponModifications,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Karma C-44',
+                                 modificationData['Karma_C_44'],
+                                 this.loadPersonalWeaponModifications,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Karma L-6',
+                                 modificationData['Karma_L_6'],
+                                 this.loadPersonalWeaponModifications,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Karma P-15',
+                                 modificationData['Karma_P_15'],
+                                 this.loadPersonalWeaponModifications,
+                                 categoryElement);
+
+
+        this.loadSubcategoryData('TK Aphelion',
+                                 modificationData['TK_Aphelion'],
+                                 this.loadPersonalWeaponModifications,
+                                 categoryElement);
+
+        this.loadSubcategoryData('TK Eclipse',
+                                 modificationData['TK_Eclipse'],
+                                 this.loadPersonalWeaponModifications,
+                                 categoryElement);
+
+        this.loadSubcategoryData('TK Zenith',
+                                 modificationData['TK_Zenith'],
+                                 this.loadPersonalWeaponModifications,
+                                 categoryElement);
+
+
+        this.loadSubcategoryData('Manticore Executioner',
+                                 modificationData['Manticore_Executioner'],
+                                 this.loadPersonalWeaponModifications,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Manticore Intimidator',
+                                 modificationData['Manticore_Intimidator'],
+                                 this.loadPersonalWeaponModifications,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Manticore Oppressor',
+                                 modificationData['Manticore_Oppressor'],
+                                 this.loadPersonalWeaponModifications,
+                                 categoryElement);
+
+        this.loadSubcategoryData('Manticore Tormentor',
+                                modificationData['Manticore_Tormentor'],
+                                this.loadPersonalWeaponModifications,
+                                categoryElement);
     }
 
     /* Experimental Effect Methods */
@@ -2274,7 +2356,7 @@ class TaskCatalog extends HTMLElement
 
         this.loadCategoryData('Personal Weapons',
                               modificationData['Personal_Weapons'],
-                              this.loadPersonalWeaponModifications,
+                              this.loadPersonalWeaponModificationsA,
                               modificationContainer);
     }
 
@@ -2362,19 +2444,10 @@ class TaskCatalog extends HTMLElement
     {
         let upgradeContainer = this.shadowRoot.getElementById('taskCatalog_upgrades');
 
-
-
         this.loadCategoryData('Suits',
                             upgradeData['Suits']['Suits'],
                             this.loadUpgradeCategories,
                             upgradeContainer);
-
-
-
-//        this.loadCategoryData('Suits',
-//                              upgradeData['Suits'],
-//                              this.loadSuitUpgrades,
-//                              upgradeContainer);
 
         this.loadCategoryData('Personal Weapons',
                               upgradeData['Weapons'],

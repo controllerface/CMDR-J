@@ -15,7 +15,7 @@ import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.craftable.upgrades.UpgradeCategory;
 import com.controllerface.cmdr_j.enums.craftable.upgrades.UpgradeRecipe;
-import com.controllerface.cmdr_j.enums.engineers.Engineer;
+import com.controllerface.cmdr_j.enums.engineers.KnownEngineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
@@ -279,7 +279,8 @@ public class TaskCatalog
             var cat = modificationRecipe.getParentBlueprint()
                 .getParentType()
                 .getParentCategory();
-            name = cat
+            name = cat + " - "
+                + prefix
                 + " - " + modificationRecipe.getParentBlueprint();
         }
         else
@@ -336,7 +337,12 @@ public class TaskCatalog
             }).collect(Collectors.toList());
 
         var type = typeMap.get(taskKey);
-        var engineers = Engineer.findSupportedEngineers(type, modificationRecipe.getGrade()).stream()
+
+        var supportedEngineers = micro
+            ? KnownEngineer.findSupportedEngineers(modificationRecipe)
+            : KnownEngineer.findSupportedEngineers(type, modificationRecipe.getGrade());
+
+        var engineers = supportedEngineers.stream()
             .map(e->
             {
                 Map<String, Object> engineerMap = new HashMap<>();
@@ -411,7 +417,7 @@ public class TaskCatalog
             }).collect(Collectors.toList());
 
         var type = typeMap.get(taskKey);
-        var engineers = Engineer.findSupportedEngineers(type, experimentalRecipe.getGrade()).stream()
+        var engineers = KnownEngineer.findSupportedEngineers(type, experimentalRecipe.getGrade()).stream()
             .map(e->
             {
                 Map<String, Object> engineerMap = new HashMap<>();
@@ -756,7 +762,8 @@ public class TaskCatalog
                         {
                             key = "Modification"
                                 + ":" + modificationCategory.name()
-                                + ":" + modificationType.getName();
+                                + ":" + modificationType.getName()
+                                + ":" + modificationBlueprint.name();
                         }
                         else
                         {

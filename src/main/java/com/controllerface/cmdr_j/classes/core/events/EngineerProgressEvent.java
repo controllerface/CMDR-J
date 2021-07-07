@@ -1,6 +1,6 @@
 package com.controllerface.cmdr_j.classes.core.events;
 
-import com.controllerface.cmdr_j.enums.engineers.Engineer;
+import com.controllerface.cmdr_j.enums.engineers.KnownEngineer;
 import com.controllerface.cmdr_j.classes.core.GameState;
 
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class EngineerProgressEvent implements BiConsumer<GameState, Map<String, 
     private void setEngineerProgress(GameState gameState, Map<String, Object> engineerData)
     {
         var id = ((Number) engineerData.get("EngineerID")).intValue();
-        var engineer = Engineer.findEngineerById(id);
+        var engineer = KnownEngineer.findEngineerById(id);
         if (engineer == null)
         {
             System.err.println("Unknown Engineer ID: " + id);
