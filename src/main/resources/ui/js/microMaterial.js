@@ -22,7 +22,7 @@ class MicroMaterialBin extends HTMLElement
 
         // material use count
         this.useCount = document.createElement('div');
-        this.useCount.classList.add('binCount');
+        this.useCount.classList.add('binUses');
         this.useCount.textContent = '0';
 
         // material stock count
@@ -103,7 +103,7 @@ class MicroMaterialBin extends HTMLElement
         if (tasks.length == 0)
         {
             this.useCount.textContent = 0;
-            this.associatedTasks.textContent = "No Known Tasks";
+            this.associatedTasks.textContent = "No Known Uses";
             return;
         }
 
@@ -115,6 +115,12 @@ class MicroMaterialBin extends HTMLElement
         });
 
         this.useCount.textContent = tasks.length;
+
+        let L = document.createElement('div');
+        L.textContent = "Associated Tasks";
+        L.classList.add('usesHeader');
+        this.associatedTasks.append(L);
+
         for (let i = 0, len = tasks.length; i < len; i++)
         {
             let n = document.createElement('div');

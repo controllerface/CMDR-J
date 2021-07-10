@@ -52,6 +52,17 @@
     font-weight: bold;
 }
 
+.binUses
+{
+    border: solid 1px var(--default-border);
+    border-left: dotted 1px var(--default-divider);
+    border-right: 0px;
+    text-align: center;
+    padding-top: .35em;
+    color: var(--default-text);
+    font-weight: bold;
+}
+
 .binCapacity
 {
     border: solid 1px var(--default-border);
@@ -81,4 +92,12 @@ summary
 summary:hover
 {
     background: #555;
+}
+
+.usesHeader
+{
+    border-top: 1px dotted var(--default-divider);
+    font-weight: bold;
+    color: var(--default-color);
+    padding-top: .5em;
 }
