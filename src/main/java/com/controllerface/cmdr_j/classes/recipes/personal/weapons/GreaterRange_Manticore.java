@@ -9,23 +9,20 @@ import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
-public class ImprovedHipFireAccuracy extends AbstractModificationRecipe
+public class GreaterRange_Manticore extends AbstractModificationRecipe
 {
-    public ImprovedHipFireAccuracy()
+    public GreaterRange_Manticore()
     {
-        super(ImprovedHipFireAccuracy.class.getSimpleName(), ItemGrade.MicroMaterial,
+        super(GreaterRange_Manticore.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Improved_Hip_Fire_Accuracy, 10d)
+                    new ItemEffectData(ItemEffect.Improved_Weapon_Range, "enabled")
                 ),
-            new CostData(Material.EXTRACTIONYIELDDATA, 10),
-            new CostData(Material.BIOMETRICDATA, 5),
-            new CostData(Material.COMBATANTPERFORMANCE, 10),
-            new CostData(Material.WEAPONCOMPONENT, 5),
-            new CostData(Material.ELECTROMAGNET, 20),
-            new CostData(Material.METALCOIL, 20),
-            new CostData(Material.VISCOELASTICPOLYMER, 10),
-            new CostData(Material.RDX, 10),
+            new CostData(Material.CHEMICALFORMULAE, 10),
+            new CostData(Material.MINERALSURVEY, 15),
+            new CostData(Material.MOTOR, 5),
+            new CostData(Material.ELECTROMAGNET, 10),
+            new CostData(Material.ELECTRICALFUSE, 5),
             new CostData(CreditCost.CREDIT_COST, 500_000));
     }
 }

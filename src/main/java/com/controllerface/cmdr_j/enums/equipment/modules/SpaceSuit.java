@@ -13,6 +13,7 @@ import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -104,23 +105,26 @@ public enum SpaceSuit implements OwnableModule
         return delegate.itemEffects();
     }
 
-
-    public static OwnableModule findModule(String moduleName) throws Exception
+    public String getName()
     {
-        final Exception exception;
+        return name();
+    }
+
+    public static Optional<SpaceSuit> findModule(String moduleName)
+    {
         try
         {
-            return valueOf(moduleName);
+            return Optional.of(valueOf(moduleName.toLowerCase()));
         }
         catch (Exception e)
         {
-            exception = e;
-            if (moduleName == null || moduleName.isEmpty()) throw e;
+            e.printStackTrace();
+            if (moduleName == null || moduleName.isEmpty()) return Optional.empty();
         }
 
         return Arrays.stream(SpaceSuit.values())
-                .filter(v->v.name().toLowerCase().equals(moduleName.toLowerCase()))
-                .findFirst().orElseThrow(() -> exception);
+            .filter(spaceSuit -> spaceSuit.name().toLowerCase().equals(moduleName.toLowerCase()))
+            .findFirst();
     }
 
     @Override

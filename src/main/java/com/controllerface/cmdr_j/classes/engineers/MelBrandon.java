@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.classes.engineers;
 
-import com.controllerface.cmdr_j.classes.data.Pair;
 import com.controllerface.cmdr_j.classes.data.StarSystem;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
@@ -14,15 +13,25 @@ public class MelBrandon extends AbstractEngineer
         super("Mel Brandon",
             300280,
             "The Brig",
-            new StarSystem("Luchtaine",-9523.3125, 19825.90625, -914.46875, 66038577537618L),
-            new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Shield_Generator, ExperimentalType.Shield_Generator), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Pulse_Laser, ExperimentalType.Pulse_Laser), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Beam_Laser, ExperimentalType.Beam_Laser), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Shield_Booster, ExperimentalType.Shield_Booster), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Shield_Cell_Bank, ExperimentalType.Shield_Cell_Bank), ItemGrade.GRADE_4),
-            new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_4),
-            new Pair<>(new Pair<>(ModificationType.Burst_Laser, ExperimentalType.Burst_Laser), ItemGrade.GRADE_4),
-            new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive_Interdictor, null), ItemGrade.GRADE_5));
+            new StarSystem("Luchtaine",-9523.3125, 19825.90625, -914.46875, 66038577537618L));
+
+        addModification(ModificationType.Thrusters, ItemGrade.GRADE_5);
+        addModification(ModificationType.Shield_Generator, ItemGrade.GRADE_5);
+        addModification(ModificationType.Pulse_Laser, ItemGrade.GRADE_5);
+        addModification(ModificationType.Beam_Laser, ItemGrade.GRADE_5);
+        addModification(ModificationType.Shield_Booster, ItemGrade.GRADE_5);
+        addModification(ModificationType.Shield_Cell_Bank, ItemGrade.GRADE_4);
+        addModification(ModificationType.Frame_Shift_Drive, ItemGrade.GRADE_4);
+        addModification(ModificationType.Burst_Laser, ItemGrade.GRADE_4);
+        addModification(ModificationType.Frame_Shift_Drive_Interdictor, ItemGrade.GRADE_5);
+
+        addExperimental(ExperimentalType.Thrusters);
+        addExperimental(ExperimentalType.Shield_Generator);
+        addExperimental(ExperimentalType.Pulse_Laser);
+        addExperimental(ExperimentalType.Beam_Laser);
+        addExperimental(ExperimentalType.Shield_Booster);
+        addExperimental(ExperimentalType.Shield_Cell_Bank);
+        addExperimental(ExperimentalType.Frame_Shift_Drive);
+        addExperimental(ExperimentalType.Burst_Laser);
     }
 }

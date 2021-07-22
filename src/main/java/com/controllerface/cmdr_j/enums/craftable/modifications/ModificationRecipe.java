@@ -571,16 +571,28 @@ public enum ModificationRecipe implements TaskRecipe
 
     // distance
     Scope(new Scope()),
-    Greater_Range(new GreaterRange()),
+
+    Greater_Range_Kinematic(new GreaterRange_Kinematic()),
+    Greater_Range_Manticore(new GreaterRange_Manticore()),
+    Greater_Range_Takada(new GreaterRange_Takada()),
 
     // ammunition
     Magazine_Size(new MagazineSize()),
     Stowed_Reloading(new StowedReloading()),
 
     // precision
-    Head_Shot_Damage(new HeadShotDamage()),
-    Improved_Hip_Fire_Accuracy(new ImprovedHipFireAccuracy()),
+    Head_Shot_Damage_Kinematic(new HeadShotDamage_Kinematic()),
+    Head_Shot_Damage_Manticore(new HeadShotDamage_Manticore()),
+    Head_Shot_Damage_Takada(new HeadShotDamage_Takada()),
+
+
+    Improved_Hip_Fire_Accuracy_Kinematic(new ImprovedHipFireAccuracy_Kinematic()),
+    Improved_Hip_Fire_Accuracy_Manticore(new ImprovedHipFireAccuracy_Manticore()),
+    Improved_Hip_Fire_Accuracy_Takada(new ImprovedHipFireAccuracy_Takada()),
+
     Noise_Suppressor(new NoiseSuppressor()),
+    Audio_Masking(new AudioMasking()),
+    Quieter_Footsteps(new QuieterFootsteps()),
 
     ;
 

@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.classes.engineers;
 
-import com.controllerface.cmdr_j.classes.data.Pair;
 import com.controllerface.cmdr_j.classes.data.StarSystem;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
@@ -24,22 +23,12 @@ public abstract class AbstractEngineer implements Engineer
     AbstractEngineer(String fullName,
                      int id,
                      String facility,
-                     StarSystem location,
-                     Pair<Pair<ModificationType, ExperimentalType>, ItemGrade>... tasks)
+                     StarSystem location)
     {
         this.fullName = fullName;
         this.id = id;
         this.facility = facility;
         this.location = location;
-
-        for (Pair<Pair<ModificationType, ExperimentalType>, ItemGrade> task : tasks)
-        {
-            ModificationType modificationType = task.getKey().getKey();
-            ExperimentalType experimentalType = task.getKey().getValue();
-            ItemGrade itemGrade = task.getValue();
-            modifications.put(modificationType, itemGrade);
-            if (experimentalType != null) experimentals.add(experimentalType);
-        }
     }
 
     protected void addModification(ModificationType modificationType, ItemGrade itemGrade)

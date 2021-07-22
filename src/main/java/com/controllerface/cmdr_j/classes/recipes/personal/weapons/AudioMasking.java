@@ -9,19 +9,20 @@ import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
-public class FasterHandling extends AbstractModificationRecipe
+public class AudioMasking extends AbstractModificationRecipe
 {
-    public FasterHandling()
+    public AudioMasking()
     {
-        super(FasterHandling.class.getSimpleName(), ItemGrade.MicroMaterial,
+        super(AudioMasking.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Improved_Weapon_Handling, "enabled")
+                    new ItemEffectData(ItemEffect.Noise_Suppressor, "enabled")
                 ),
-            new CostData(Material.OPERATIONALMANUAL, 10),
-            new CostData(Material.COMBATANTPERFORMANCE, 10),
-            new CostData(Material.COMBATTRAININGMATERIAL, 10),
-            new CostData(Material.VISCOELASTICPOLYMER, 5),
-            new CostData(CreditCost.CREDIT_COST, 500_000));
+            new CostData(Material.AUDIOLOGS, 5),
+            new CostData(Material.PATROLROUTES, 10),
+            new CostData(Material.SCRAMBLER, 10),
+            new CostData(Material.TRANSMITTER, 15),
+            new CostData(Material.CIRCUITBOARD, 5),
+            new CostData(CreditCost.CREDIT_COST, 1_000_000));
     }
 }

@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.classes.engineers;
 
-import com.controllerface.cmdr_j.classes.data.Pair;
 import com.controllerface.cmdr_j.classes.data.StarSystem;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
@@ -14,15 +13,21 @@ public class JuriIshmaak extends AbstractEngineer
         super("Juri Ishmaak",
             300250,
             "Pater's Memorial",
-            new StarSystem("Giryak", 14.6875, 108.65625, 27.65625, 4481899074282L),
-            new Pair<>(new Pair<>(ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Sensors, null), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Detailed_Surface_Scanner, null), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Torpedo_Pylon, ExperimentalType.Torpedo_Pylon), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Frame_Shift_Wake_Scanner, null), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Kill_Warrant_Scanner, null), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Manifest_Scanner, null), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Missile_Rack, ExperimentalType.Missile_Rack), ItemGrade.GRADE_3));
+            new StarSystem("Giryak", 14.6875, 108.65625, 27.65625, 4481899074282L));
+
+        addModification(ModificationType.Mine_Launcher, ItemGrade.GRADE_5);
+        addModification(ModificationType.Sensors, ItemGrade.GRADE_5);
+        addModification(ModificationType.Detailed_Surface_Scanner, ItemGrade.GRADE_5);
+        addModification(ModificationType.Torpedo_Pylon, ItemGrade.GRADE_3);
+        addModification(ModificationType.Seeker_Missile_Rack, ItemGrade.GRADE_3);
+        addModification(ModificationType.Frame_Shift_Wake_Scanner, ItemGrade.GRADE_3);
+        addModification(ModificationType.Kill_Warrant_Scanner, ItemGrade.GRADE_3);
+        addModification(ModificationType.Manifest_Scanner, ItemGrade.GRADE_3);
+        addModification(ModificationType.Missile_Rack, ItemGrade.GRADE_3);
+
+        addExperimental(ExperimentalType.Mine_Launcher);
+        addExperimental(ExperimentalType.Torpedo_Pylon);
+        addExperimental(ExperimentalType.Seeker_Missile_Rack);
+        addExperimental(ExperimentalType.Missile_Rack);
     }
 }

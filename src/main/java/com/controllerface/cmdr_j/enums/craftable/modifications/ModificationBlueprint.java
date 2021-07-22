@@ -495,9 +495,22 @@ public enum ModificationBlueprint implements TaskBlueprint
     Personal Weapons
     */
     Faster_Handling("Faster Handling", ModificationRecipe.Faster_Handling),
-    Greater_Range("Greater Range", ModificationRecipe.Greater_Range),
-    Head_Shot_Damage("Head Shot Damage", ModificationRecipe.Head_Shot_Damage),
-    Improved_Hip_Fire_Accuracy("Improved Hip Fire Accuracy", ModificationRecipe.Improved_Hip_Fire_Accuracy),
+
+    Greater_Range_Kinematic("Greater Range", ModificationRecipe.Greater_Range_Kinematic),
+    Greater_Range_Manticore("Greater Range", ModificationRecipe.Greater_Range_Manticore),
+    Greater_Range_Takada("Greater Range", ModificationRecipe.Greater_Range_Takada),
+
+    Head_Shot_Damage_Kinematic("Head Shot Damage", ModificationRecipe.Head_Shot_Damage_Kinematic),
+    Head_Shot_Damage_Manticore("Head Shot Damage", ModificationRecipe.Head_Shot_Damage_Manticore),
+    Head_Shot_Damage_Takada("Head Shot Damage", ModificationRecipe.Head_Shot_Damage_Takada),
+
+    Improved_Hip_Fire_Accuracy_Kinematic("Improved Hip Fire Accuracy",
+        ModificationRecipe.Improved_Hip_Fire_Accuracy_Kinematic),
+    Improved_Hip_Fire_Accuracy_Manticore("Improved Hip Fire Accuracy",
+        ModificationRecipe.Improved_Hip_Fire_Accuracy_Manticore),
+    Improved_Hip_Fire_Accuracy_Takada("Improved Hip Fire Accuracy",
+        ModificationRecipe.Improved_Hip_Fire_Accuracy_Takada),
+
     Magazine_Size("Magazine Size", ModificationRecipe.Magazine_Size),
     Noise_Suppressor("Noise Suppressor", ModificationRecipe.Noise_Suppressor),
     Reload_Speed("Reload Speed", ModificationRecipe.Reload_Speed),

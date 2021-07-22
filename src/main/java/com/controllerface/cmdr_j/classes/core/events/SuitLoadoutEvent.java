@@ -24,13 +24,11 @@ public class SuitLoadoutEvent implements BiConsumer<GameState, Map<String, Objec
         // 1 get suit
         var suitName = ((String) event.get("SuitName")).toLowerCase();
         SpaceSuit suit;
-        try
+        suit = SpaceSuit.findModule(suitName).orElse(null);
+
+        if (suit == null)
         {
-            suit = ((SpaceSuit) SpaceSuit.findModule(suitName));
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+            System.out.println("suit is null: " + suitName);
             return;
         }
 

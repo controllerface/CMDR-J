@@ -4,6 +4,7 @@ import com.controllerface.cmdr_j.classes.data.*;
 import com.controllerface.cmdr_j.enums.costs.consumables.Consumable;
 import com.controllerface.cmdr_j.enums.engineers.KnownEngineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.*;
+import com.controllerface.cmdr_j.enums.equipment.suits.SuitType;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 import com.controllerface.cmdr_j.interfaces.Procedure;
 import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
@@ -192,6 +193,7 @@ public class GameState
     private double currentReserveFuel = 0;
     private int cargoCapacity = 0;
 
+    private String suitType;
     private ShipType shipType;
     private StarSystem starSystem;
     private StellarBody nearestBody;
@@ -637,7 +639,18 @@ public class GameState
                 shipType = ShipType.findShip(value).orElse(null);
                 if (shipType == null)
                 {
-                    System.err.println("Could not determine ship type: " + value);
+                    suitType = SpaceSuit.findModule(value)
+                        .map(SpaceSuit::getName)
+                        .orElse(null);
+
+                    if (suitType == null)
+                    {
+                        System.err.println("Could not determine ship or suit type: " + value);
+                    }
+                    else
+                    {
+                        executeWithLock(() -> globalUpdate.accept("Suit_Data", suitType));
+                    }
                 }
                 else
                 {
@@ -2613,7 +2626,7 @@ public class GameState
         Map<String, Object> costAssociations = new HashMap<>();
 
         Stream.of(Material.values())
-            .forEach(v->
+            .forEach(v ->
             {
                 var x = new HashMap<String, Object>();
                 //System.out.println("-------\n"+v);
@@ -2944,6 +2957,11 @@ public class GameState
             if (shipType != null)
             {
                 directUpdate.accept("Ship_Data", shipType.toJson());
+            }
+
+            if (suitType != null)
+            {
+                directUpdate.accept("Suit_Data", suitType);
             }
 
             if (!currentRoute.isEmpty())

@@ -1704,7 +1704,6 @@ class TaskCatalog extends HTMLElement
 
     loadSuitModificationTypes(modificationData, categoryElement)
     {
-        console.log(modificationData);
         this.loadSubcategoryData('Added Melee Damage',
                                  modificationData['Added_Melee_Damage'],
                                  this.loadModificationGrades,
@@ -1790,26 +1789,37 @@ class TaskCatalog extends HTMLElement
     }
 
 
-
     loadPersonalWeaponModifications(modificationData, categoryElement)
     {
+        let rangeMod = modificationData['Greater_Range_Kinematic'];
+        if (!rangeMod) rangeMod = modificationData['Greater_Range_Manticore'];
+        if (!rangeMod) rangeMod = modificationData['Greater_Range_Takada'];
+
+        let headShotMod = modificationData['Head_Shot_Damage_Kinematic'];
+        if (!headShotMod) headShotMod = modificationData['Head_Shot_Damage_Manticore'];
+        if (!headShotMod) headShotMod = modificationData['Head_Shot_Damage_Takada'];
+
+        let hipFireMod = modificationData['Improved_Hip_Fire_Accuracy_Kinematic'];
+        if (!hipFireMod) hipFireMod = modificationData['Improved_Hip_Fire_Accuracy_Manticore'];
+        if (!hipFireMod) hipFireMod = modificationData['Improved_Hip_Fire_Accuracy_Takada'];
+
         this.loadSubcategoryData('Faster Handling',
                                  modificationData['Faster_Handling'],
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Greater Range',
-                                 modificationData['Greater_Range'],
+                                 rangeMod,
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Head Shot Damage',
-                                 modificationData['Head_Shot_Damage'],
+                                 headShotMod,
                                  this.loadModificationGrades,
                                  categoryElement);
 
         this.loadSubcategoryData('Improved Hip Fire Accuracy',
-                                 modificationData['Improved_Hip_Fire_Accuracy'],
+                                 hipFireMod,
                                  this.loadModificationGrades,
                                  categoryElement);
 
@@ -2029,8 +2039,6 @@ class TaskCatalog extends HTMLElement
 
     /* Tech Broker Unlocks */
 
-
-
     loadEngineerTechModules(techBrokerData, categoryElement)
     {
         this.loadSubcategoryData('Engineered FSD V1',
@@ -2249,14 +2257,6 @@ class TaskCatalog extends HTMLElement
                               categoryElement);
     }
 
-
-
-
-
-
-
-
-
     loadUpgradeCategories(upgradeData, categoryElement)
     {
         let subTypes = Object.keys(upgradeData);
@@ -2471,17 +2471,15 @@ class TaskCatalog extends HTMLElement
 
     loadCostAssociations(costData)
     {
-        //console.log(costData);
         let materials = Object.keys(costData);
         for (let i = 0, len = materials.length; i < len; i++)
         {
             let next = document.getElementById(materials[i]);
             if (!next)
             {
-                console.log("unknown: " + materials[i]);
+                console.err("unknown: " + materials[i]);
                 continue;
             }
-            //console.log(next);
             next.loadAssociated(costData[materials[i]]);
         }
     }

@@ -9,19 +9,20 @@ import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
-public class FasterHandling extends AbstractModificationRecipe
+public class ImprovedHipFireAccuracy_Kinematic extends AbstractModificationRecipe
 {
-    public FasterHandling()
+    public ImprovedHipFireAccuracy_Kinematic()
     {
-        super(FasterHandling.class.getSimpleName(), ItemGrade.MicroMaterial,
+        super(ImprovedHipFireAccuracy_Kinematic.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Improved_Weapon_Handling, "enabled")
+                    new ItemEffectData(ItemEffect.Improved_Hip_Fire_Accuracy, 10d)
                 ),
-            new CostData(Material.OPERATIONALMANUAL, 10),
+            new CostData(Material.EXTRACTIONYIELDDATA, 10),
+            new CostData(Material.BIOMETRICDATA, 5),
             new CostData(Material.COMBATANTPERFORMANCE, 10),
-            new CostData(Material.COMBATTRAININGMATERIAL, 10),
-            new CostData(Material.VISCOELASTICPOLYMER, 5),
+            new CostData(Material.VISCOELASTICPOLYMER, 10),
+            new CostData(Material.RDX, 10),
             new CostData(CreditCost.CREDIT_COST, 500_000));
     }
 }

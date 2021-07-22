@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.classes.engineers;
 
-import com.controllerface.cmdr_j.classes.data.Pair;
 import com.controllerface.cmdr_j.classes.data.StarSystem;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
@@ -11,18 +10,28 @@ public class PetraOlmanova extends AbstractEngineer
 {
     public PetraOlmanova()
     {
-        super("Petra Olmanova", 300130, "Sanctuary",
-            new StarSystem("Asura",-9550.28125, 19816.1875, -916.65625, 12274907287851L),
-            new Pair<>(new Pair<>(ModificationType.Hull_Reinforcement_Package, ExperimentalType.Hull_Reinforcement_Package), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Bulkheads, ExperimentalType.Bulkheads), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Heat_Sink_Launcher, null), ItemGrade.GRADE_4),
-            new Pair<>(new Pair<>(ModificationType.Seeker_Missile_Rack, ExperimentalType.Seeker_Missile_Rack), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Missile_Rack, ExperimentalType.Missile_Rack), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Chaff_Launcher, null), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Point_Defense, null), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Auto_Field_Maintenence_Unit, null), ItemGrade.GRADE_2),
-            new Pair<>(new Pair<>(ModificationType.Mine_Launcher, ExperimentalType.Mine_Launcher), ItemGrade.GRADE_1),
-            new Pair<>(new Pair<>(ModificationType.Torpedo_Pylon, ExperimentalType.Torpedo_Pylon), ItemGrade.GRADE_1),
-            new Pair<>(new Pair<>(ModificationType.Electronic_Countermeasures, null), ItemGrade.GRADE_1));
+        super("Petra Olmanova",
+            300130,
+            "Sanctuary",
+            new StarSystem("Asura",-9550.28125, 19816.1875, -916.65625, 12274907287851L));
+
+        addModification(ModificationType.Hull_Reinforcement_Package, ItemGrade.GRADE_5);
+        addModification(ModificationType.Bulkheads, ItemGrade.GRADE_5);
+        addModification(ModificationType.Heat_Sink_Launcher, ItemGrade.GRADE_4);
+        addModification(ModificationType.Seeker_Missile_Rack, ItemGrade.GRADE_3);
+        addModification(ModificationType.Missile_Rack, ItemGrade.GRADE_3);
+        addModification(ModificationType.Chaff_Launcher, ItemGrade.GRADE_3);
+        addModification(ModificationType.Point_Defense, ItemGrade.GRADE_3);
+        addModification(ModificationType.Auto_Field_Maintenence_Unit, ItemGrade.GRADE_2);
+        addModification(ModificationType.Mine_Launcher, ItemGrade.GRADE_1);
+        addModification(ModificationType.Torpedo_Pylon, ItemGrade.GRADE_1);
+        addModification(ModificationType.Electronic_Countermeasures, ItemGrade.GRADE_1);
+
+        addExperimental(ExperimentalType.Hull_Reinforcement_Package);
+        addExperimental(ExperimentalType.Bulkheads);
+        addExperimental(ExperimentalType.Seeker_Missile_Rack);
+        addExperimental(ExperimentalType.Missile_Rack);
+        addExperimental(ExperimentalType.Mine_Launcher);
+        addExperimental(ExperimentalType.Torpedo_Pylon);
     }
 }

@@ -9,19 +9,20 @@ import com.controllerface.cmdr_j.enums.costs.special.CreditCost;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
-public class FasterHandling extends AbstractModificationRecipe
+public class ImprovedHipFireAccuracy_Takada extends AbstractModificationRecipe
 {
-    public FasterHandling()
+    public ImprovedHipFireAccuracy_Takada()
     {
-        super(FasterHandling.class.getSimpleName(), ItemGrade.MicroMaterial,
+        super(ImprovedHipFireAccuracy_Takada.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Improved_Weapon_Handling, "enabled")
+                    new ItemEffectData(ItemEffect.Improved_Hip_Fire_Accuracy, 10d)
                 ),
-            new CostData(Material.OPERATIONALMANUAL, 10),
+            new CostData(Material.RADIOACTIVITYDATA, 5),
             new CostData(Material.COMBATANTPERFORMANCE, 10),
-            new CostData(Material.COMBATTRAININGMATERIAL, 10),
-            new CostData(Material.VISCOELASTICPOLYMER, 5),
+            new CostData(Material.METALCOIL, 10),
+            new CostData(Material.OPTICALLENS, 5),
+            new CostData(Material.ELECTRICALWIRING, 15),
             new CostData(CreditCost.CREDIT_COST, 500_000));
     }
 }

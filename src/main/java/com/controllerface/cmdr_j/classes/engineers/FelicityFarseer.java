@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.classes.engineers;
 
-import com.controllerface.cmdr_j.classes.data.Pair;
 import com.controllerface.cmdr_j.classes.data.StarSystem;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
@@ -11,14 +10,22 @@ public class FelicityFarseer extends AbstractEngineer
 {
     public FelicityFarseer()
     {
-        super("Felicity Farseer", 300100, "Farseer Inc.",
-            new StarSystem("Deciat", 122.625, -47.28125, -0.8125, 6681123623626L),
-            new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Sensors, null), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Detailed_Surface_Scanner, null), ItemGrade.GRADE_3),
-            new Pair<>(new Pair<>(ModificationType.Shield_Booster, ExperimentalType.Shield_Booster), ItemGrade.GRADE_1),
-            new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive_Interdictor, null), ItemGrade.GRADE_1),
-            new Pair<>(new Pair<>(ModificationType.Power_Plant, ExperimentalType.Power_Plant), ItemGrade.GRADE_1));
+        super("Felicity Farseer",
+            300100,
+            "Farseer Inc.",
+            new StarSystem("Deciat", 122.625, -47.28125, -0.8125, 6681123623626L));
+
+        addModification(ModificationType.Frame_Shift_Drive, ItemGrade.GRADE_5);
+        addModification(ModificationType.Thrusters, ItemGrade.GRADE_3);
+        addModification(ModificationType.Sensors, ItemGrade.GRADE_3);
+        addModification(ModificationType.Detailed_Surface_Scanner, ItemGrade.GRADE_3);
+        addModification(ModificationType.Shield_Booster, ItemGrade.GRADE_1);
+        addModification(ModificationType.Frame_Shift_Drive_Interdictor, ItemGrade.GRADE_1);
+        addModification(ModificationType.Power_Plant, ItemGrade.GRADE_1);
+
+        addExperimental(ExperimentalType.Frame_Shift_Drive);
+        addExperimental(ExperimentalType.Thrusters);
+        addExperimental(ExperimentalType.Shield_Booster);
+        addExperimental(ExperimentalType.Power_Plant);
     }
 }

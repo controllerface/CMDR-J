@@ -1,6 +1,5 @@
 package com.controllerface.cmdr_j.classes.engineers;
 
-import com.controllerface.cmdr_j.classes.data.Pair;
 import com.controllerface.cmdr_j.classes.data.StarSystem;
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationType;
@@ -14,8 +13,12 @@ public class ProfessorPalin extends AbstractEngineer
         super("Professor Palin",
             300220,
             "Abel Laboratory",
-            new StarSystem("Arque", 66.5, 61.125, 38.0625, 113573366131L),
-            new Pair<>(new Pair<>(ModificationType.Thrusters, ExperimentalType.Thrusters), ItemGrade.GRADE_5),
-            new Pair<>(new Pair<>(ModificationType.Frame_Shift_Drive, ExperimentalType.Frame_Shift_Drive), ItemGrade.GRADE_3));
+            new StarSystem("Arque", 66.5, 61.125, 38.0625, 113573366131L));
+
+        addModification(ModificationType.Thrusters, ItemGrade.GRADE_5);
+        addModification(ModificationType.Frame_Shift_Drive, ItemGrade.GRADE_3);
+
+        addExperimental(ExperimentalType.Thrusters);
+        addExperimental(ExperimentalType.Frame_Shift_Drive);
     }
 }
