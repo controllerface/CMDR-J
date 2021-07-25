@@ -113,7 +113,7 @@ The UI consists of several tabbed panels, with categories of functionality group
   
   * **System Catalog:** Provides a simple search box that can be used to search your personal exploration history for a specific system. All systems you have ever visited (while the app was running) are listed in alphabetical order in a filterable drop-down menu for ease of use.
   
-  * **Planetary GPS:** While on the surface of a planet, either landed, in an SRV or on foot, this tab will give you a crude local map that tracks your location. Some notable points are automatically marked, like the closest settlement, or the last known location of your ship if you have disembarked. In addition, you can click a "mark location" button in the UI to set a waypoint at your current location. Waypoints can be renamed to make them more useful. Once set, waypoints will persist across play sessions and are saved even after you leave the planet. In this sense, they function as crude planetary bookmarks.  
+  * **Planetary GPS:** While on the surface of a planet, either landed, in an SRV or on foot, this tab will give you a crude local map that tracks your location. Some notable points are automatically marked, like the closest settlement, or the last known location of your ship if you have disembarked. In addition, you can click a "mark location" button in the UI to set a waypoint at your current location. Waypoints can be renamed to make them more useful. Once set, waypoints will persist across play sessions and are saved even after you leave the planet. In this sense, they function as a form of planetary bookmark.  
   
 * **Activities:** If you have any missions or are participating in any community goals, their details will be displayed within sub-tabs. In addition, there is a categorized list of tasks that require credits and/or resources that can be planned and tracked.
   
@@ -131,6 +131,8 @@ The UI consists of several tabbed panels, with categories of functionality group
   
   
   #### Known Issues
+- On-foot loadout tabs do not currently work. The back end structure is mostly in place, but I have not written the front end portion just yet. Some Odyssey specific data may also be missing or partially missing. I am adding data like engineer IDs, gear mod enum names, etc. as I am able to find examples from other player journal files, or unlock engineers and mods on my own.
+  
 - Some tasks don't automatically become marked complete in the UI, in particular material trades may not always work, and synthesis trades do not currently auto-decrement when completed. The material costs and rewards from tasks are still be accounted for in the inventory tabs.
     
 - Trade recommendations in the bill of materials lists are not always ideal, you should make your own judgement when choosing to trade materials or not. The old JavaFX UI had a better algorithm that I have not ported, It too had some issues. I will need to think about how I want to attack this to hopefully avoid the mistakes of the past.
@@ -139,4 +141,13 @@ The UI consists of several tabbed panels, with categories of functionality group
   
 - \* **New in Odyssey** \* Occasionally, the journal file stops getting written to. When this happens, the app may not function correctly. If you observe this please vote here for this bug in the Frontier issue tracker: https://issues.frontierstore.net/issue-detail/35645
     
-- \* **New in Odyssey** \* The planetary GPS currently reports distances incorrectly. This worked before Odyssey, so I probably have an assumption about the status.json file baked into my code that I need to fix, but have not had the time to do yet. Direction does not appear to be affected and the map functions when in-ship, SRV, and on-foot.
+- \* **New in Odyssey** \* The planetary GPS currently reports distances incorrectly. This worked before Odyssey, so I probably have an assumption about the status.json file baked into my code that I need to fix, but have not had the time to do yet. Direction does not appear to be affected, and the map functions when in-ship, SRV, or on-foot.
+
+#### Planned features
+In addition to trying to fix issues when I have time, there are also a number of new features I want to add or bring forward from my original implementation before I switched to a web app front end. Here's a few: 
+
+- The old UI had some integrated task buttons to help assist with planning of improvements to your current build. I plan to re-implement these buttons. There were also trade tasks available in the storage tabs, within the drop down lists of crafting materials. I also plan to pull these into the current UI.
+
+- Trade task types to accommodate the new micro-materials need to be implemented. The new barter system is different enough compared to the ship material trade system, so I will not be able to re-use the same approach for it. This will require some changes to the task tab to accommodate the barter system.  
+
+- Engineer unlocks and requirements for meeting associated engineers should be made into tasks that can be tracked just like anything else. I would like this feature mostly for completeness, but I do think it should be easy enough to do.
