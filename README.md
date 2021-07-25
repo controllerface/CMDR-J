@@ -2,9 +2,11 @@ Usage Guide: https://github.com/controllerface/CMDR-J/wiki/Usage-Guide
 
 # CMDR J
 
-Commander J (CMDR_J) is a companion app for the video game `Elite : Dangerous`. I work on it mainly for myself and few friends in my spare time. 
+Commander J (CMDR_J) is a companion app for the video game `Elite : Dangerous`. I work on it mainly for myself and a few friends in my spare time. 
 
-### Current Status
+### Current Status: Alpha
+
+There is a **known issues** section at the bottom of this document listing the things I am aware of and will work on when I get time. 
 
 Currently, the project is in what I consider an **alpha** state, which despite being several years old, I still consider correct for the following reasons:
 
@@ -14,15 +16,15 @@ Currently, the project is in what I consider an **alpha** state, which despite b
 
 - I don't take this project _too_ seriously. And if it never gets "done" I'm OK with that.
  
-That said, I use it for myself, and will make every attempt to ensure it at least functions within the scope of features I have implemented. I will generally make releases only once I've finished up a new feature or at least cleaned up and added placeholder code where necessary to avoid issues. So the binary releases should function properly. Just fair warning, I will push to main all the time so pulling might get you unfinished code.
+That said, I use it for myself, and will make every attempt to ensure it at least functions within the scope of features I have implemented. I will generally make releases only once I've finished up a new feature or at least cleaned up and added placeholder code where necessary to avoid issues with in-development features. So the binary releases should function properly.
 
-Anyway, I find it useful, so if you do too, then that' s awesome!
+Anyway, I find it useful, so if you do too, awesome!
 
 
 ### Key Features
 * Task Tracking
   * You can select tasks that you can track. A task is more or less something you can do in-game. For example there are tasks for purchasing modules, modifying them, upgrading personal weapons and suits, synthesis, etc.
-  * All tasks have associated costs. When a task is tracked, it's associated costs are also tracked. The cumulative costs of all tracked tasks are listed together.  
+  * All tasks have associated costs. When a task is tracked, its associated costs are also tracked. The cumulative costs of all tracked tasks are listed together.  
 * Planetary GPS
   * When on a planet, a small map is rendered in the appropriate tab. This map has a mixture of automatically set and manually set waypoints. The waypoints are listed, and a single waypoint can be marked for tracking. When tracked, the bearing you should be headed is present in the UI. 
 * Galactic Tracking and Custom POIs
@@ -119,10 +121,22 @@ The UI consists of several tabbed panels, with categories of functionality group
     
     * **In Progress:** Lists all currently tracked tasks. Each task has an adjustable counter in case you want to perform a task more than once, which is common for module engineering, where you must perform higher grade mods multiple times to max them out.
     
-    * **Bill of Materials:** Lists all materials required to perform all tasks listed as in progress. A gauge and number showing how many more are needed to fulfill all task requirements is shown. If relevant, and individual required cost may contain recommended trades which can be planned as tasks. When recommending trades, the application will consider all planned tasks and will not recommend a trade if it would conflict with another task.   
+    * **Bill of Materials:** Lists all materials required to perform all tasks listed as in progress. A gauge and number showing how many more are needed to fulfill all task requirements is shown. If relevant, an individual required cost may contain recommended trades which can be planned as tasks. When recommending trades, the application will consider all planned tasks and will not recommend a trade if it would conflict with another task.   
     
     * **Task Catalog:** A categorized list of all known tasks. 
   
   * **Missions:** Details of any ongoing missions are displayed here
   
   * **Community Goals:** Details of any community goals you have signed up for are displayed here
+  
+  ####Known Issues
+  
+  - \* **New in Odyssey** \* Occasionally, the journal file stops getting written to. When this happens, the app may not function correctly. If you observe this please vote here for this bug in the Frontier issue tracker: https://issues.frontierstore.net/issue-detail/35645
+  
+  - Some tasks don't automatically become marked complete in the UI, in particular material trades may not always work, and synthesis trades do not currently auto-decrement when completed. The material costs and rewards from tasks are still be accounted for in the inventory tabs.
+  
+  - The planetary GPS currently reports distances incorrectly. This worked before Odyssey, so I probably have an assumption about the status.json file baked into my code that I need to fix, but have not had the time to do yet. Direction does not appear to be affected and the map functions when in-ship, SRV, and on-foot.
+  
+  - Trade recommendations in the bill of materials lists are not always ideal, you should make your own judgement when choosing to trade materials or not. The old JavaFX UI had a better algorithm that I have not ported, It too had some issues. I will need to think about how I want to attack this to hopefully avoid the mistakes of the past.
+  
+  - The Web App code is currently only tested in Chromium based browsers (Chrome, Chromium, Edge). For the most part, the application doesn't have any browser specific features, but some fo the CSS responsible for building the UI is Webkit or Chrome specific. I do hope to test and fully support FireFox at some point, but it isn't the highest priority. 

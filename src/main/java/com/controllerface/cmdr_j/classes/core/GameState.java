@@ -3085,7 +3085,10 @@ public class GameState
 
     public void emitCartographyData()
     {
-        executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
+        if (starSystem != null)
+        {
+            executeWithLock(() -> globalUpdate.accept("Cartography", String.valueOf(starSystem.address)));
+        }
     }
 
     public void emitSuitLoadoutEvent()
