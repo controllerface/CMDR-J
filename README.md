@@ -129,13 +129,14 @@ The UI consists of several tabbed panels, with categories of functionality group
   
   * **Community Goals:** Details of any community goals you have signed up for are displayed here
   
+  
   #### Known Issues
-  - Some tasks don't automatically become marked complete in the UI, in particular material trades may not always work, and synthesis trades do not currently auto-decrement when completed. The material costs and rewards from tasks are still be accounted for in the inventory tabs.
+- Some tasks don't automatically become marked complete in the UI, in particular material trades may not always work, and synthesis trades do not currently auto-decrement when completed. The material costs and rewards from tasks are still be accounted for in the inventory tabs.
     
-  - Trade recommendations in the bill of materials lists are not always ideal, you should make your own judgement when choosing to trade materials or not. The old JavaFX UI had a better algorithm that I have not ported, It too had some issues. I will need to think about how I want to attack this to hopefully avoid the mistakes of the past.
+- Trade recommendations in the bill of materials lists are not always ideal, you should make your own judgement when choosing to trade materials or not. The old JavaFX UI had a better algorithm that I have not ported, It too had some issues. I will need to think about how I want to attack this to hopefully avoid the mistakes of the past.
   
-  - The Web App code is currently only tested in Chromium based browsers (Chrome, Chromium, Edge). For the most part, the application doesn't have any browser specific features, but some of the CSS responsible for building the UI is Webkit or Chrome specific. I do hope to test and fully support FireFox at some point, but it isn't the highest priority. 
+- The Web App code is currently only tested in Chromium based browsers (Chrome, Chromium, Edge). For the most part, the application doesn't have any browser specific features, but some of the CSS responsible for building the UI is Webkit or Chrome specific. I do hope to test and fully support FireFox at some point, but it isn't the highest priority. 
   
-  - \* **New in Odyssey** \* Occasionally, the journal file stops getting written to. When this happens, the app may not function correctly. If you observe this please vote here for this bug in the Frontier issue tracker: https://issues.frontierstore.net/issue-detail/35645
+- \* **New in Odyssey** \* Occasionally, the journal file stops getting written to. When this happens, the app may not function correctly. If you observe this please vote here for this bug in the Frontier issue tracker: https://issues.frontierstore.net/issue-detail/35645
     
-  - \* **New in Odyssey** \* The planetary GPS currently reports distances incorrectly. This worked before Odyssey, so I probably have an assumption about the status.json file baked into my code that I need to fix, but have not had the time to do yet. Direction does not appear to be affected and the map functions when in-ship, SRV, and on-foot.
+- \* **New in Odyssey** \* The planetary GPS currently reports distances incorrectly. This worked before Odyssey, so I probably have an assumption about the status.json file baked into my code that I need to fix, but have not had the time to do yet. Direction does not appear to be affected and the map functions when in-ship, SRV, and on-foot.
