@@ -129,7 +129,7 @@ The UI consists of several tabbed panels, with categories of functionality group
   
   * **Community Goals:** Details of any community goals you have signed up for are displayed here
   
-  ####Known Issues
+  #### Known Issues
   
   - \* **New in Odyssey** \* Occasionally, the journal file stops getting written to. When this happens, the app may not function correctly. If you observe this please vote here for this bug in the Frontier issue tracker: https://issues.frontierstore.net/issue-detail/35645
   
