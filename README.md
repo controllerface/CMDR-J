@@ -30,8 +30,9 @@ Anyway, I find it useful, so if you do too, awesome!
 * Galactic Tracking and Custom POIs
   * When travelling to new systems, your exploration data is automatically cataloged and searchable. In the catalog UI, you can write text notes and attach them to star systems.
 * Web App Implementation
-  * The UI is a standard Web App, and loads from `localhost:9000` in your browser. This makes it possible to serve on your local network and access from a tablet or other device.
-  * Local network access must be enabled manually by setting and inbound rule in your windows firewall settings.
+  * The UI is a standard Web App, and loads from `localhost:9000` in your browser. 
+  * This makes it possible to optionally serve on your LAN/Wi-Fi and access from a tablet or other device on your home network.
+    * Local network access must be enabled manually by setting an inbound rule in your windows firewall settings, but you do not need to open your computer to the wider internet.
 
 ### UI Overview
 
