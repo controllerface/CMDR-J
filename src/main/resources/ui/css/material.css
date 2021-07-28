@@ -32,6 +32,11 @@
     color: var(--default-text);
 }
 
+.binDetails
+{
+    color: var(--default-text);
+}
+
 .binGrade
 {
     border: solid 1px var(--default-border);

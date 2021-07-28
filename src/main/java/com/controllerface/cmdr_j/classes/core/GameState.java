@@ -2,9 +2,10 @@ package com.controllerface.cmdr_j.classes.core;
 
 import com.controllerface.cmdr_j.classes.data.*;
 import com.controllerface.cmdr_j.enums.costs.consumables.Consumable;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecipe;
+import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.engineers.KnownEngineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.*;
-import com.controllerface.cmdr_j.enums.equipment.suits.SuitType;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 import com.controllerface.cmdr_j.interfaces.Procedure;
 import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
@@ -2626,11 +2627,12 @@ public class GameState
         Map<String, Object> costAssociations = new HashMap<>();
 
         Stream.of(Material.values())
-            .forEach(v ->
+            .forEach(material ->
             {
-                var x = new HashMap<String, Object>();
-                //System.out.println("-------\n"+v);
-                v.getAssociated().stream()
+                var recipeMap = new HashMap<String, Object>();
+
+                // get recipes with parent chains
+                material.getAssociated().stream()
                     .filter(recipe -> recipe.getParentBlueprint() != null)
                     .filter(recipe -> recipe.getParentBlueprint().getParentType() != null)
                     .filter(recipe -> taskCatalog.typedTaskMap.get(recipe.getParentBlueprint().getParentType()) != null)
@@ -2655,11 +2657,26 @@ public class GameState
                         //System.out.println(recipeKey);
                         //System.out.println(displayLabel);
 
-                        x.put(recipeKey, displayLabel);
+                        recipeMap.put(recipeKey, displayLabel);
                     });
-                    //.forEach(System.out::println);
 
-                v.getAssociated().stream()
+                // get recipes without parent chains
+                material.getAssociated().stream()
+                    .filter(recipe -> recipe instanceof ExperimentalRecipe)
+                    .map(recipe -> ((ExperimentalRecipe) recipe))
+                    .forEach(recipe -> ExperimentalType.associatedTypes(recipe)
+                        .forEach(type ->
+                        {
+                            var recipeKey = taskCatalog.typedTaskMap.get(type).get(recipe);
+                            var displayLabel = type + " :: " + recipe.getShortLabel();
+
+                            //System.out.println(recipeKey);
+                            //System.out.println(displayLabel);
+
+                            recipeMap.put(recipeKey, displayLabel);
+                        }));
+
+                material.getAssociated().stream()
                     .map(taskCatalog.untypedTaskMap::get)
                     .filter(Objects::nonNull)
                     .forEach(recipeKey ->
@@ -2689,10 +2706,10 @@ public class GameState
                         //System.out.println(recipeKey);
                         //System.out.println(displayLabel);
 
-                        x.put(recipeKey, displayLabel);
+                        recipeMap.put(recipeKey, displayLabel);
                     });
 
-                costAssociations.put(v.name(), x);
+                costAssociations.put(material.name(), recipeMap);
             });
 
 //        Stream.of(Commodity.values())
@@ -2712,9 +2729,7 @@ public class GameState
 //                    .forEach(System.out::println);
 //            });
 
-        var o = JSONSupport.Write.jsonToString.apply(costAssociations);
-        System.out.println(o);
-        return o;
+        return JSONSupport.Write.jsonToString.apply(costAssociations);
     }
 
     //endregion

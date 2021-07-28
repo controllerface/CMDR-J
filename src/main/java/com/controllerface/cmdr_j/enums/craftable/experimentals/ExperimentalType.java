@@ -5,8 +5,10 @@ import com.controllerface.cmdr_j.interfaces.tasks.TaskCategory;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskCostCategory;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskType;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -86,5 +88,14 @@ public enum ExperimentalType implements TaskType
     public TaskCategory getParentCategory()
     {
         return taskCategory;
+    }
+
+    public static List<ExperimentalType> associatedTypes(ExperimentalRecipe recipe)
+    {
+        return Arrays.stream(values())
+            .filter(experimentalType -> experimentalType.blueprintStream()
+                .anyMatch(experimentalBlueprint -> experimentalBlueprint.recipeStream()
+                    .anyMatch(experimentalRecipe -> experimentalRecipe.equals(recipe))))
+            .collect(Collectors.toList());
     }
 }

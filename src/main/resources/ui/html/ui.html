@@ -75,6 +75,26 @@
     <script src="settlementPoint.js"></script>
 
 
+    <template id="template_MaterialBin">
+        <link rel="stylesheet" href="material.css">
+        <details id="materialBin_name" class="binDetails">
+            <div id="materialBin_tasks">No Known Uses</div>
+            <summary>
+                <div class="binCategory">
+                    <span id="materialBin_summary" class="binName"></span>
+                    <div id="materialBin_uses" class="binUses">0</div>
+                    <div class="binGrade">
+                        <img id="materialBin_grade" class="gradeIcon" src="">
+                    </div>
+                    <div id="materialBin_stock" class="binCount"></div>
+                    <div class="binCapacity">
+                        <progress id="materialBin_capacity"></progress>
+                    </div>
+                </div>
+            </summary>
+        </details>
+    </template>
+
     <!-- Ship base stats template -->
     <template id="template_ShipStats">
         <link rel="stylesheet" href="statistics.css">

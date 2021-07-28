@@ -5,53 +5,16 @@ class MaterialBin extends HTMLElement
         super();
         this.attachShadow({mode: 'open'});
 
-        let container = document.createElement('div');
-        container.classList.add('binCategory');
+        let template = document.getElementById('template_MaterialBin');
+        this.shadowRoot.append(template.content.cloneNode(true));
 
-        // material name and trade info drop down
-        this.dropDown = document.createElement('details');
-        this.dropDown.classList.add('binName');
-
-        this.associatedTasks = document.createElement('span');
-        this.associatedTasks.textContent = "No Known Uses";
-
-        this.dropDown.append(this.associatedTasks);
-
-        this.materialName = document.createElement('summary');
-        this.dropDown.appendChild(this.materialName);
-
-        // material use count
-        this.useCount = document.createElement('div');
-        this.useCount.classList.add('binUses');
-        this.useCount.textContent = '0';
-
-        // material grade icon
-        let gradeContainer = document.createElement('div');
-        gradeContainer.classList.add('binGrade');
-        this.materialGrade = document.createElement('img');
-        this.materialGrade.classList.add('gradeIcon');
-        gradeContainer.appendChild(this.materialGrade);
-
-        // material stock count
-        this.materialStock = document.createElement('div');
-        this.materialStock.classList.add('binCount');
-        this.materialStock.textContent = '0';
-
-        // capacity gauge
-        let capacityContainer = document.createElement('div');
-        capacityContainer.classList.add('binCapacity');
-        this.capacity = document.createElement('progress');
-        capacityContainer.appendChild(this.capacity);
-
-        // add the sections
-        container.append(this.dropDown, this.useCount, gradeContainer, this.materialStock, capacityContainer);
-
-        // stylesheet
-        let styleSheet = document.createElement('link');
-        styleSheet.setAttribute('rel', 'stylesheet');
-        styleSheet.setAttribute('href', 'material.css');
-
-        this.shadowRoot.append(styleSheet, container);
+        this.dropDown = this.shadowRoot.getElementById("materialBin_name");
+        this.associatedTasks = this.shadowRoot.getElementById("materialBin_tasks");
+        this.materialName = this.shadowRoot.getElementById("materialBin_summary");
+        this.useCount = this.shadowRoot.getElementById("materialBin_uses");
+        this.materialGrade = this.shadowRoot.getElementById("materialBin_grade");
+        this.materialStock = this.shadowRoot.getElementById("materialBin_stock");
+        this.capacity = this.shadowRoot.getElementById("materialBin_capacity");
     }
 
     get material()
