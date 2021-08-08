@@ -8,6 +8,8 @@
 {
     font-family: EUROCAPS;
 
+    text-transform: lowercase;
+
     /* Main UI color, used in most places where no other color is specified */
     --default-color: #f07b05;
 

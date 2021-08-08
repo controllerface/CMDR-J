@@ -27,7 +27,7 @@ class MicroMaterialBin extends HTMLElement
 
         // material stock count
         this.materialStock = document.createElement('div');
-        this.materialStock.classList.add('binCapacity');
+        this.materialStock.classList.add('binCount_end');
         this.materialStock.textContent = '0';
 
         // add the sections

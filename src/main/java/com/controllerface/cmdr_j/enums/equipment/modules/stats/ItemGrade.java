@@ -91,7 +91,11 @@ public enum ItemGrade
     Circuit_Asset(1, "Circuits", "Everywhere"),
     Goods(1, "Goods", "Everywhere"),
     Data(1, "Data", "Everywhere"),
-    Consumables(1, "Consumables", "Everywhere"),
+
+    MedKit(1, "Med-Kit", "Everywhere"),
+    Battery(1, "Energy Cell", "Everywhere"),
+    E_Breach(1, "E-Breach", "Everywhere"),
+    Throwable(1, "Grenade", "Everywhere"),
 
     // special case types used in tasks
     MaterialTrade(0, -1, "Trade"),
