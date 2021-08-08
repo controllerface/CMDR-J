@@ -1,4 +1,4 @@
-Usage Guide: https://github.com/controllerface/CMDR-J/wiki/Usage-Guide
+Usage Guide: https://github.com/controllerface/CMDR-J/wiki/Installation-Instructions
 
 # CMDR J
 
