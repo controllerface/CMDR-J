@@ -351,10 +351,33 @@ function setLoadout(data)
     updateModules('hardpoints', hardPoints);
 }
 
-
 function setSuitLoadout(data)
 {
     console.log(data);
+    let weapons = {};
+    let suit = {};
+    let slots = Object.keys(data);
+
+    for (let i = 0, len = slots.length; i < len; i++)
+    {
+        let slot = slots[i];
+        if (slot.includes('Weapon'))
+        {
+            weapons[slot] = data[slot];
+        }
+        else if (slot.includes('SpaceSuit'))
+        {
+            suit[slot] = data[slot];
+        }
+        else
+        {
+            console.error("unknown item: not suit or module");
+            console.error(data[slot]);
+        }
+    }
+
+    updateModules('suitGear', suit);
+    updateModules('suitWeapons', weapons);
 }
 
 function setStatistics(data)

@@ -5,14 +5,14 @@ import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.modules.optional.fighterbay.AbstractFighterBay;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class FighterBay_5E extends AbstractFighterBay
+public class FighterBay_5D extends AbstractFighterBay
 {
-    public FighterBay_5E()
+    public FighterBay_5D()
     {
-        super("5E Fighter Hangar",
+        super("5D Fighter Hangar",
                 new ItemEffects(
                         new ItemEffectData(ItemEffect.Size, 5.0),
-                        new ItemEffectData(ItemEffect.Class, "E"),
+                        new ItemEffectData(ItemEffect.Class, "D"),
                         new ItemEffectData(ItemEffect.Mass, 20d),
                         new ItemEffectData(ItemEffect.Integrity, 60d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.25d),

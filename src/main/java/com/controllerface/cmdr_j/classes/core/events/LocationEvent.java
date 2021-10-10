@@ -7,6 +7,7 @@ import com.controllerface.cmdr_j.classes.core.GameState;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class LocationEvent implements BiConsumer<GameState, Map<String, Object>>
@@ -15,6 +16,27 @@ public class LocationEvent implements BiConsumer<GameState, Map<String, Object>>
     @SuppressWarnings("unchecked")
     public void accept(GameState gameState, Map<String, Object> event)
     {
+        boolean inSrv = Optional.ofNullable(event.get("InSRV"))
+            .map(v-> ((Boolean) v))
+            .orElse(false);
+
+        boolean onFoot = Optional.ofNullable(event.get("OnFoot"))
+            .map(v-> ((Boolean) v))
+            .orElse(false);
+
+        if (inSrv)
+        {
+            gameState.setVehicleState(GameState.VehicleState.SRV);
+        }
+        else if (onFoot)
+        {
+            gameState.setVehicleState(GameState.VehicleState.SPACESUIT);
+        }
+        else
+        {
+            gameState.setVehicleState(GameState.VehicleState.STARSHIP);
+        }
+
         var name = ((String) event.get("StarSystem"));
         var address = ((Number) event.get("SystemAddress")).longValue();
         var coordinates = ((List<Double>) event.get("StarPos"));

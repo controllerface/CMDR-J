@@ -25,9 +25,9 @@ import com.controllerface.cmdr_j.classes.modules.optional.cargorack.size7.CargoR
 import com.controllerface.cmdr_j.classes.modules.optional.cargorack.size8.CargoRack_8E;
 import com.controllerface.cmdr_j.classes.modules.optional.dockingcomputer.advanced.DockingComputer_1E_Advanced;
 import com.controllerface.cmdr_j.classes.modules.optional.dockingcomputer.standard.DockingComputer_1E_Standard;
-import com.controllerface.cmdr_j.classes.modules.optional.fighterbay.size5.FighterBay_5E;
-import com.controllerface.cmdr_j.classes.modules.optional.fighterbay.size6.FighterBay_6E;
-import com.controllerface.cmdr_j.classes.modules.optional.fighterbay.size7.FighterBay_7E;
+import com.controllerface.cmdr_j.classes.modules.optional.fighterbay.size5.FighterBay_5D;
+import com.controllerface.cmdr_j.classes.modules.optional.fighterbay.size6.FighterBay_6D;
+import com.controllerface.cmdr_j.classes.modules.optional.fighterbay.size7.FighterBay_7D;
 import com.controllerface.cmdr_j.classes.modules.optional.fsdbooster.size1.GuardianFSDBooster_1H;
 import com.controllerface.cmdr_j.classes.modules.optional.fsdbooster.size2.GuardianFSDBooster_2H;
 import com.controllerface.cmdr_j.classes.modules.optional.fsdbooster.size3.GuardianFSDBooster_3H;
@@ -641,9 +641,9 @@ public enum OptionalInternalModule implements OwnableModule
      * todo: determine if ammo clip size is the right stat for the vehicle count
      */
 
-    int_fighterbay_size5_class1                     (128727930L, new FighterBay_5E()),
-    int_fighterbay_size6_class1                     (128727931L, new FighterBay_6E()),
-    int_fighterbay_size7_class1                     (128727932L, new FighterBay_7E()),
+    int_fighterbay_size5_class1                     (128727930L, new FighterBay_5D()),
+    int_fighterbay_size6_class1                     (128727931L, new FighterBay_6D()),
+    int_fighterbay_size7_class1                     (128727932L, new FighterBay_7D()),
 
 
     /**

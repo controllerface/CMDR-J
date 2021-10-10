@@ -206,6 +206,8 @@ public class GameState
     private LocalCoordinates localCoordinates;
     private SettlementLocation localSettlement;
 
+    private VehicleState vehicleState = VehicleState.UNKNOWN;
+
     //region Filters and Comparators
 
     /**
@@ -259,6 +261,15 @@ public class GameState
     //endregion
 
     //region Internal Classes
+
+    public enum VehicleState
+    {
+        STARSHIP,
+        SRV,
+        SPACESUIT,
+        UNKNOWN,
+        ;
+    }
 
     public static class StatGroup
     {
@@ -659,6 +670,11 @@ public class GameState
                 }
             }
         }
+    }
+
+    public void setVehicleState(VehicleState vehicleState)
+    {
+        this.vehicleState = vehicleState;
     }
 
     //endregion
@@ -2944,8 +2960,6 @@ public class GameState
             cargo.forEach((commodity, value) ->
                 directUpdate.accept("Cargo", value.toJson()));
 
-            directUpdate.accept("Loadout", "updated");
-
             directUpdate.accept("Suit", "updated");
 
             directUpdate.accept("Statistics", "updated");
@@ -3039,13 +3053,17 @@ public class GameState
 
             directUpdate.accept("Engineers", prepareEngineerData());
 
-            directUpdate.accept("CurrentMass", String.valueOf(calculateCurrentMass()));
 
-            directUpdate.accept("PowerStats", calculateCurrentPowerUsage());
+            // todo: these should both gate on isinShip flag, which needs to be added
 
-            directUpdate.accept("OffenseStats", calculateOffenseStats());
-
-            directUpdate.accept("DefenseStats", calculateDefenseStats());
+            if (vehicleState == VehicleState.STARSHIP)
+            {
+                directUpdate.accept("Loadout", "updated");
+                directUpdate.accept("OffenseStats", calculateOffenseStats());
+                directUpdate.accept("DefenseStats", calculateDefenseStats());
+                directUpdate.accept("PowerStats", calculateCurrentPowerUsage());
+                directUpdate.accept("CurrentMass", String.valueOf(calculateCurrentMass()));
+            }
 
             directUpdate.accept("Missions", "clear");
             emitMissionData(directUpdate);

@@ -1,30 +1,30 @@
-package com.controllerface.cmdr_j.classes.modules.optional.fighterbay.size7;
+package com.controllerface.cmdr_j.classes.modules.optional.fighterbay.size6;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.modules.optional.fighterbay.AbstractFighterBay;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class FighterBay_7E extends AbstractFighterBay
+public class FighterBay_6D extends AbstractFighterBay
 {
-    public FighterBay_7E()
+    public FighterBay_6D()
     {
-        super("7E Fighter Hangar",
+        super("6D Fighter Hangar",
                 new ItemEffects(
-                        new ItemEffectData(ItemEffect.Size, 7.0),
-                        new ItemEffectData(ItemEffect.Class, "E"),
-                        new ItemEffectData(ItemEffect.Mass, 60d),
-                        new ItemEffectData(ItemEffect.Integrity, 120d),
+                        new ItemEffectData(ItemEffect.Size, 6.0),
+                        new ItemEffectData(ItemEffect.Class, "D"),
+                        new ItemEffectData(ItemEffect.Mass, 40d),
+                        new ItemEffectData(ItemEffect.Integrity, 80d),
                         new ItemEffectData(ItemEffect.PowerDraw, 0.35d),
                         new ItemEffectData(ItemEffect.BootTime, 5d),
                         new ItemEffectData(ItemEffect.NumBuggySlots, 2d),
-                        new ItemEffectData(ItemEffect.AmmoClipSize, 15d)
+                        new ItemEffectData(ItemEffect.AmmoClipSize, 8d)
                 ));
     }
 
     @Override
     public long price()
     {
-        return 2_369_330;
+        return 1_869_350;
     }
 }

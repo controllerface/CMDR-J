@@ -13,6 +13,9 @@ public class LoadGameEvent implements BiConsumer<GameState, Map<String, Object>>
     @Override
     public void accept(GameState gameState, Map<String, Object> event)
     {
+        // todo: check if in ship/SRV and set this accordingly, right now just assume in-ship
+        gameState.setVehicleState(GameState.VehicleState.STARSHIP);
+
         JournalEvent.setCommanderStat(gameState, event, CommanderStat.Commander);
         JournalEvent.setCommanderStat(gameState, event, CommanderStat.Credits);
         JournalEvent.setCommanderStat(gameState, event, CommanderStat.Game_Mode);
