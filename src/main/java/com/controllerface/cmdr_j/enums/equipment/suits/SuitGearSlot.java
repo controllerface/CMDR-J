@@ -9,11 +9,10 @@ import java.util.Arrays;
  */
 public enum SuitGearSlot implements Statistic
 {
-    SpaceSuit("Size 1", 1),
-
-    PrimaryWeapon1("Size 1", 1),
-    PrimaryWeapon2("Size 2", 2),
-    SecondaryWeapon("Size 3", 3),
+    SpaceSuit("Space Suit", 0),
+    PrimaryWeapon1("Primary Weapon 1", 0),
+    PrimaryWeapon2("Primary Weapon 2", 0),
+    SecondaryWeapon("Secondary Weapon", 0),
 
     ;
 

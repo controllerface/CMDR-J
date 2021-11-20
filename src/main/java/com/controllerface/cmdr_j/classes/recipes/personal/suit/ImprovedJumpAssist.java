@@ -16,7 +16,7 @@ public class ImprovedJumpAssist extends AbstractModificationRecipe
         super(ImprovedJumpAssist.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Jump_Assist, "enabled")
+                    new ItemEffectData(ItemEffect.Jump_Assist, "installed")
                 ),
             new CostData(Material.GMEDS, 10),
             new CostData(Material.TOPOGRAPHICALSURVEYS, 10),

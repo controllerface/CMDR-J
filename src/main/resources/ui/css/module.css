@@ -17,6 +17,7 @@
     margin-right: 4px;
     border-radius: 0px 3px 3px 0px;
     color: var(--default-text);
+    font-size: 1.1em;
 }
 
 .slotName
@@ -31,6 +32,7 @@
     margin-left: 4px;
     text-align: right;
     font-weight: bold;
+    font-size: 1.1em;
 }
 
 
@@ -78,6 +80,14 @@ progress::-webkit-progress-bar
 .powerPlayClass
 {
     text-decoration: underline;
+}
+
+.moduleSlots
+{
+    float: right;
+    margin-bottom: -6px;
+    font-size: 1.6em;
+    margin-top: -.3em;
 }
 
 .moduleHealth

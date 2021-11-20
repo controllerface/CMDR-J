@@ -6,6 +6,7 @@ import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalRecip
 import com.controllerface.cmdr_j.enums.craftable.experimentals.ExperimentalType;
 import com.controllerface.cmdr_j.enums.engineers.KnownEngineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.*;
+import com.controllerface.cmdr_j.enums.equipment.suits.SuitGearSlot;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 import com.controllerface.cmdr_j.interfaces.Procedure;
 import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
@@ -3450,6 +3451,13 @@ public class GameState
         else if (rawKey.startsWith("Military"))
         {
             rawKey += "_Size" + getMilitarySize();
+        }
+        else if (statistic == SuitGearSlot.SpaceSuit
+            || statistic == SuitGearSlot.PrimaryWeapon1
+            || statistic == SuitGearSlot.PrimaryWeapon2
+            || statistic == SuitGearSlot.SecondaryWeapon)
+        {
+            rawKey = statistic.getText();
         }
 
         return rawKey;

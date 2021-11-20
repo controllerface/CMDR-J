@@ -16,7 +16,7 @@ public class QuieterFootsteps extends AbstractModificationRecipe
         super(QuieterFootsteps.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Noise_Suppressor, "enabled")
+                    new ItemEffectData(ItemEffect.Quieter_Footsteps, "installed")
                 ),
             new CostData(Material.SETTLEMENTASSAULTPLANS, 5),
             new CostData(Material.TACTICALPLANS, 10),

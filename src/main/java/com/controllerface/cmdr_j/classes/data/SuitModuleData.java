@@ -53,9 +53,6 @@ public class SuitModuleData
         Optional.ofNullable(level)
             .ifPresent(modLevel -> map.put("modLevel", modLevel));
 
-//        Optional.ofNullable(ammoInClip)
-//            .ifPresent(ammo -> map.put("ammoInClip", ammo));
-
         Map<String, Object> effects = new HashMap<>();
 
         module.itemEffects().effectStream()
@@ -86,26 +83,24 @@ public class SuitModuleData
                 effects.put(name, values);
             });
 
-//        modifiers.forEach(modifierData ->
-//        {
-//            if (modifierData.value == modifierData.originalValue)
-//            {
-//                // the journal sometimes glitches listing a value as
-//                // modified from 0 to 0. In that case just bail out.
-//                return;
-//            }
-//            var name = modifierData.effect.toString();
-//            var values = (Map<String, Object>) effects.computeIfAbsent(name,
-//                (_k) -> new HashMap<String, Object>());
-//            values.put("value", modifierData.value);
-//            values.put("originalValue", modifierData.originalValue);
-//            boolean positive = modifierData.lessIsGood
-//                ? modifierData.value < modifierData.originalValue
-//                : modifierData.value > modifierData.originalValue;
-//            values.put("impact", positive ? "positive" : "negative");
-//        });
+        modifiers.forEach(modifierData ->
+        {
+            if (modifierData.stringValue == null || modifierData.stringValue.isEmpty())
+            {
+                // the journal sometimes glitches listing a value as
+                // modified from 0 to 0. In that case just bail out.
+                return;
+            }
+            var name = modifierData.effect.toString();
+            var values = (Map<String, Object>) effects.computeIfAbsent(name,
+                (_k) -> new HashMap<String, Object>());
+            values.put("value", modifierData.stringValue);
+            values.put("effectType", "modification");
+            values.put("impact", "positive");
+        });
 
         map.put("effects", effects);
+        map.put("modCount", modifiers.size());
         return map;
     }
 

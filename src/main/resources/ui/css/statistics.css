@@ -64,6 +64,8 @@
     border-radius: 3px 0px 0px 3px;
     margin: .2em;
     margin-right: 0px;
+    font-weight: bold;
+    font-size: 1.1em;
 }
 
 .statValue
@@ -77,6 +79,8 @@
     text-align: center;
     margin: .2em;
     margin-left: 0px;
+    font-weight: bold;
+    font-size: 1.1em;
 }
 
 
@@ -170,6 +174,8 @@
     border-radius: 3px 0px 0px 3px;
     padding: 5px;
     color: var(--default-text);
+    font-weight: bold;
+    font-size: 1.1em;
 }
 
 .statEntryLeftCap
@@ -338,6 +344,8 @@
     margin-left: 4px;
     text-align: right;
     font-weight: bold;
+    font-weight: bold;
+    font-size: 1.1em;
 }
 
 .bodyData
@@ -351,6 +359,8 @@
     margin-right: 4px;
     border-radius: 0px 3px 3px 0px;
     color: var(--default-text);
+    font-weight: bold;
+    font-size: 1.1em;
 }
 
 .expandedSummary

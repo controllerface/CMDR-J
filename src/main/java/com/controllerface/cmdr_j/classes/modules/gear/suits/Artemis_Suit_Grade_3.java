@@ -5,15 +5,17 @@ import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.gear.AbstractGear;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class Maverick_Suit_Class_5 extends AbstractGear
+public class Artemis_Suit_Grade_3 extends AbstractGear
 {
-    // todo: add data
-    public Maverick_Suit_Class_5()
+    public Artemis_Suit_Grade_3()
     {
-        super("Maverick Suit - Class 5",
+        super("Artemis Suit - Grade 3",
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Ground_Gear, "Suit")
+                    new ItemEffectData(ItemEffect.Suit_Shield_Regen, 1.32),
+                    new ItemEffectData(ItemEffect.Suit_Shield_Capacity, 18.0),
+                    new ItemEffectData(ItemEffect.Suit_Mod_Slots, 2.0),
+                    new ItemEffectData(ItemEffect.Suit_Exobiology_Scanner, "Suit Standard")
                 ));
     }
 

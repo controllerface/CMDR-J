@@ -23,9 +23,9 @@ public class Main
     {
         initialize();
 
-        ExecutorService journalSync = Executors.newSingleThreadExecutor();
+        var journalSync = Executors.newSingleThreadExecutor();
 
-        JournalServlet journalServlet = new JournalServlet();
+        var journalServlet = new JournalServlet();
 
         journalSync.submit(new JournalSyncTask(journalServlet.getGameState()));
 
@@ -40,7 +40,7 @@ public class Main
         InputStream jsonStream = null;
         try
         {
-            URL localizationData = Main.class.getResource("/localization/eng.json");
+            var localizationData = Main.class.getResource("/localization/eng.json");
             jsonStream = localizationData.openStream();
         }
         catch (IOException e)

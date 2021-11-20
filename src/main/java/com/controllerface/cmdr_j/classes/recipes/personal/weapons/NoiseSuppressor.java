@@ -16,7 +16,7 @@ public class NoiseSuppressor extends AbstractModificationRecipe
         super(NoiseSuppressor.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Noise_Suppressor, "enabled")
+                    new ItemEffectData(ItemEffect.Noise_Suppressor, "installed")
                 ),
             new CostData(Material.ATMOSPHERICDATA, 10),
             new CostData(Material.MININGANALYTICS, 10),

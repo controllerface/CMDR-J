@@ -75,6 +75,8 @@ import com.controllerface.cmdr_j.interfaces.tasks.TaskBlueprint;
 import com.controllerface.cmdr_j.interfaces.tasks.TaskRecipe;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -591,7 +593,7 @@ public enum ModificationRecipe implements TaskRecipe
     Improved_Hip_Fire_Accuracy_Takada(new ImprovedHipFireAccuracy_Takada()),
 
     Noise_Suppressor(new NoiseSuppressor()),
-    Audio_Masking(new AudioMasking()),
+    weapon_suppression_unpressurised(new AudioMasking()),
     Quieter_Footsteps(new QuieterFootsteps()),
 
     ;
@@ -654,5 +656,12 @@ public enum ModificationRecipe implements TaskRecipe
     public String getName()
     {
         return delegate.getName();
+    }
+
+    public static Optional<ModificationRecipe> byName(String name)
+    {
+        return Arrays.stream(values())
+            .filter(v->v.name().equals(name))
+            .findFirst();
     }
 }

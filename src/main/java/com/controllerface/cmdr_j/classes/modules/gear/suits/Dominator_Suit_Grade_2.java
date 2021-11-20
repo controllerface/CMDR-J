@@ -5,15 +5,17 @@ import com.controllerface.cmdr_j.classes.data.ItemEffects;
 import com.controllerface.cmdr_j.classes.modules.gear.AbstractGear;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
-public class Dominator_Suit_Class_1 extends AbstractGear
+public class Dominator_Suit_Grade_2 extends AbstractGear
 {
-    // todo: add data
-    public Dominator_Suit_Class_1()
+    public Dominator_Suit_Grade_2()
     {
-        super("Dominator Suit - Class 1",
+        super("Dominator Suit - Grade 2",
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Ground_Gear, "Suit")
+                    new ItemEffectData(ItemEffect.Suit_Shield_Regen, 1.34),
+                    new ItemEffectData(ItemEffect.Suit_Shield_Capacity, 18.3),
+                    new ItemEffectData(ItemEffect.Suit_Mod_Slots, 1.0),
+                    new ItemEffectData(ItemEffect.Suit_Dual_Primary_Slots, "Suit Standard")
                 ));
     }
 

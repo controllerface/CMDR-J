@@ -17,7 +17,7 @@ body
     border: 2px solid var(--default-color);
     height: 12em;
     border-radius: 3px;
-    max-width: 69.5em;
+    max-width: 78.5em;
     margin: auto;
     display: grid;
     grid-template-columns: auto 17em;
@@ -230,7 +230,7 @@ details > summary::-webkit-details-marker
 .cargoBinHeader
 {
     display: grid;
-    grid-template-columns: 5fr .5fr .5fr;
+    grid-template-columns: 5fr .8fr .8fr;
     grid-area: inven;
     padding: 0.3em;
 }
@@ -240,6 +240,7 @@ details > summary::-webkit-details-marker
     border: solid 1px var(--default-divider);
     text-align: center;
     font-weight: bold;
+    font-size: 1.1em;
     padding: 3px;
 }
 
@@ -401,7 +402,7 @@ details > summary::-webkit-details-marker
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 2em auto;
     */
-    max-width: 70em;
+    max-width: 79em;
     margin-left: auto;
     margin-right: auto;
 }

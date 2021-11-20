@@ -16,7 +16,7 @@ public class AudioMasking extends AbstractModificationRecipe
         super(AudioMasking.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Noise_Suppressor, "enabled")
+                    new ItemEffectData(ItemEffect.Audio_Mask, "installed")
                 ),
             new CostData(Material.AUDIOLOGS, 5),
             new CostData(Material.PATROLROUTES, 10),

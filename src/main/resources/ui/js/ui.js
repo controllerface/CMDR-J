@@ -263,7 +263,7 @@ function setMaterialCount(id, data)
 From the provided module data, updates the corresponding section of the UI to display the
 information for each module.
 */
-function updateModules(containerId, moduleData)
+function updateModules(containerId, moduleData, moduleType)
 {
     // get the UI tab for the appropriate module category
     let moduleTab = document.getElementById(containerId);
@@ -310,7 +310,7 @@ function updateModules(containerId, moduleData)
         let slot = slots[i];
         let module = moduleData[slot];
 
-        let shipModule = document.createElement('ship-module');
+        let shipModule = document.createElement(moduleType);
         shipModule.slotName = slot;
         shipModule.loadModuleData(module);
         moduleTab.appendChild(shipModule);
@@ -346,9 +346,9 @@ function setLoadout(data)
         }
     }
 
-    updateModules('coreInternals', coreModules);
-    updateModules('optionalInternals', optionalModules);
-    updateModules('hardpoints', hardPoints);
+    updateModules('coreInternals', coreModules, 'ship-module');
+    updateModules('optionalInternals', optionalModules, 'ship-module');
+    updateModules('hardpoints', hardPoints, 'ship-module');
 }
 
 function setSuitLoadout(data)
@@ -365,7 +365,7 @@ function setSuitLoadout(data)
         {
             weapons[slot] = data[slot];
         }
-        else if (slot.includes('SpaceSuit'))
+        else if (slot.includes('Suit'))
         {
             suit[slot] = data[slot];
         }
@@ -376,8 +376,8 @@ function setSuitLoadout(data)
         }
     }
 
-    updateModules('suitGear', suit);
-    updateModules('suitWeapons', weapons);
+    updateModules('suitGear', suit, 'suit-module');
+    updateModules('suitWeapons', weapons, 'suit-module');
 }
 
 function setStatistics(data)

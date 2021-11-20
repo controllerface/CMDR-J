@@ -14,7 +14,7 @@ public class YardenBond extends AbstractEngineer
             new StarSystem("Bayan",-19.96875, -90.46875, 117.625, 670686455169L));
 
         // todo: quieter footsteps
-        addGroundGearModification(ModificationRecipe.Audio_Masking);
+        addGroundGearModification(ModificationRecipe.weapon_suppression_unpressurised);
         addGroundGearModification(ModificationRecipe.Combat_Movement_Speed);
         addGroundGearModification(ModificationRecipe.Faster_Handling);
         addGroundGearModification(ModificationRecipe.Improved_Jump_Assist);

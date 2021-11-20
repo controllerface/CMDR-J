@@ -16,7 +16,7 @@ public class IncreasedSprintDuration extends AbstractModificationRecipe
         super(IncreasedSprintDuration.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Sprint_Assist, "enabled")
+                    new ItemEffectData(ItemEffect.Sprint_Assist, "installed")
                 ),
             new CostData(Material.TROOPDEPLOYMENTRECORDS, 5),
             new CostData(Material.GENESEQUENCINGDATA, 5),

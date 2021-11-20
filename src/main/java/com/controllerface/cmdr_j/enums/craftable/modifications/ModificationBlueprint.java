@@ -513,7 +513,7 @@ public enum ModificationBlueprint implements TaskBlueprint
 
     Magazine_Size("Magazine Size", ModificationRecipe.Magazine_Size),
     Noise_Suppressor("Noise Suppressor", ModificationRecipe.Noise_Suppressor),
-    Audio_Masking("Audio Masking", ModificationRecipe.Audio_Masking),
+    Audio_Masking("Audio Masking", ModificationRecipe.weapon_suppression_unpressurised),
     Reload_Speed("Reload Speed", ModificationRecipe.Reload_Speed),
     Scope("Scope", ModificationRecipe.Scope),
     Stability("Stability", ModificationRecipe.Stability),

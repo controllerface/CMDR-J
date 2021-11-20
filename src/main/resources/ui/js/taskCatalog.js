@@ -1856,8 +1856,6 @@ class TaskCatalog extends HTMLElement
 
     loadPersonalWeaponModificationsA(modificationData, categoryElement)
     {
-        console.log(modificationData);
-
         this.loadSubcategoryData('Karma AR-50',
                                  modificationData['Karma_AR_50'],
                                  this.loadPersonalWeaponModifications,

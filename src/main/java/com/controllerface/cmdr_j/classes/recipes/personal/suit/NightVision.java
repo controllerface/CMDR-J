@@ -16,7 +16,7 @@ public class NightVision extends AbstractModificationRecipe
         super(NightVision.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Night_Vision, "enabled")
+                    new ItemEffectData(ItemEffect.Night_Vision, "installed")
                 ),
             new CostData(Material.SURVEILLANCEEQUIPMENT, 10),
             new CostData(Material.SURVEILLEANCELOGS, 5),

@@ -16,7 +16,7 @@ public class CombatMovementSpeed extends AbstractModificationRecipe
         super(CombatMovementSpeed.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Negate_Movement_Penalty, "enabled")
+                    new ItemEffectData(ItemEffect.Negate_Movement_Penalty, "enhanced")
                 ),
             new CostData(Material.EVACUATIONPROTOCOLS, 10),
             new CostData(Material.GENETICRESEARCH, 5),

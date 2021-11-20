@@ -3,7 +3,7 @@
 .binCategory
 {
     display: grid;
-    grid-template-columns: 5fr .5fr .5fr;
+    grid-template-columns: 5fr .8fr .8fr;
     padding: 0.3em;
 }
 
@@ -21,6 +21,8 @@
     border-radius: 3px 0px 0px 3px;
     padding: 5px;
     color: var(--default-text);
+    font-weight: bold;
+    font-size: 1.1em;
 }
 
 .binType
