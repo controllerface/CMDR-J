@@ -42,7 +42,13 @@ public class JournalSyncTask implements Runnable
         }
     }
 
-    private static final String DEFAULT_JOURNAL_FOLDER = System.getProperty("user.home")
+    private static String getUserHome() 
+    {
+        String home = System.getenv("CMDRJ_HOME");
+        return home != null ? home : System.getProperty("user.home");
+    }
+
+    private static final String DEFAULT_JOURNAL_FOLDER = getUserHome()
         + File.separator + "Saved Games"
         + File.separator + "Frontier Developments"
         + File.separator + "Elite Dangerous";
