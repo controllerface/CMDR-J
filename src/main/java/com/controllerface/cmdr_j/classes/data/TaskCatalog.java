@@ -632,6 +632,7 @@ public class TaskCatalog
 
                 taskBlueprint.recipeStream().map(r -> ((ModulePurchaseRecipe) r)).forEach(taskRecipe ->
                 {
+                    System.out.println(taskRecipe.getEnumName());
                     var key = "Purchase"
                         + ":" + taskBlueprint.toString()
                         + ":" + taskRecipe.getEnumName();

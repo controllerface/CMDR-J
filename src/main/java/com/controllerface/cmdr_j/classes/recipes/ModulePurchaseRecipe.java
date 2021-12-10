@@ -27,7 +27,6 @@ public class ModulePurchaseRecipe implements TaskRecipe
 
     public ModulePurchaseRecipe(OwnableModule product)
     {
-
         if (product instanceof HardpointModule)
         {
             enumName = ((HardpointModule) product).name();

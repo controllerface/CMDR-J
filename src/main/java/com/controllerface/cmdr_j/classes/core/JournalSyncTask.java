@@ -44,8 +44,8 @@ public class JournalSyncTask implements Runnable
 
     private static String getUserHome() 
     {
-        String home = System.getenv("CMDRJ_HOME");
-        return home != null ? home : System.getProperty("user.home");
+        return Optional.ofNullable(System.getenv("CMDRJ_HOME"))
+            .orElseGet(() -> System.getProperty("user.home"));
     }
 
     private static final String DEFAULT_JOURNAL_FOLDER = getUserHome()

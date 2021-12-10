@@ -80,6 +80,12 @@ public class OutfittingEvent implements BiConsumer<GameState, Map<String, Object
     {
         var price = ((Number) item.get("BuyPrice"));
         var module = JournalEvent.determineModuleType(moduleName);
+
+        if (module == null)
+        {
+            System.err.println("unknown module: " + moduleName + " id: " + item.get("id"));
+        }
+
         var remappedItem = new HashMap<String, Object>();
         remappedItem.put("name", formatName(module));
         remappedItem.put("itemId", item.get("id"));

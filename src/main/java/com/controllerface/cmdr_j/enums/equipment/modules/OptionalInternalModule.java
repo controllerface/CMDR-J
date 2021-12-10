@@ -1,6 +1,9 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
+import com.controllerface.cmdr_j.classes.modules.optional.limpets.multifunction.size3.*;
+import com.controllerface.cmdr_j.classes.modules.optional.limpets.multifunction.size7.UniversalLimpet_7A;
+import com.controllerface.cmdr_j.classes.modules.optional.limpets.multifunction.size7.UniversalLimpet_7C;
 import com.controllerface.cmdr_j.classes.modules.optional.shields.generators.size1.*;
 import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
@@ -618,6 +621,26 @@ public enum OptionalInternalModule implements OwnableModule
      */
 
     int_dronecontrol_unkvesselresearch              (128793116L, new ResearchLimpet_1E()),
+
+
+    /**
+     * Multi-Function Limpet Controllers
+     */
+
+    int_multidronecontrol_operations_size3_class3   (129001923, new OperationsLimpet_3F()),
+    int_multidronecontrol_operations_size3_class4   (129001924, new OperationsLimpet_3B()),
+
+    int_multidronecontrol_mining_size3_class1       (129001921, new MiningLimpet_3E()),
+    int_multidronecontrol_mining_size3_class3       (129001922, new MiningLimpet_3C()),
+
+    int_multidronecontrol_rescue_size3_class2       (129001925, new RescueLimpet_3D()),
+    int_multidronecontrol_rescue_size3_class3       (129001926, new RescueLimpet_3C()),
+
+    int_multidronecontrol_xeno_size3_class3         (129001927, new XenoLimpet_3C()),
+    int_multidronecontrol_xeno_size3_class4         (129001928, new XenoLimpet_3B()),
+
+    int_multidronecontrol_universal_size7_class3    (129001929, new UniversalLimpet_7C()),
+    int_multidronecontrol_universal_size7_class5    (129001930, new UniversalLimpet_7A()),
 
 
     /**

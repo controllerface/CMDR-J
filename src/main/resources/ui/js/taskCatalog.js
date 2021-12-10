@@ -268,6 +268,11 @@ class TaskCatalog extends HTMLElement
         containers['Prospector Limpet Controller'] = [];
         containers['Recon Limpet Controller'] = [];
         containers['Repair Limpet Controller'] = [];
+        containers['Operations Limpet Controller'] = [];
+        containers['Mining Limpet Controller'] = [];
+        containers['Rescue Limpet Controller'] = [];
+        containers['Xeno Limpet Controller'] = [];
+        containers['Universal Limpet Controller'] = [];
 
         this.sortModulesArray(containers, limpetData);
         this.createModuleTasks(containers, categoryElement);
