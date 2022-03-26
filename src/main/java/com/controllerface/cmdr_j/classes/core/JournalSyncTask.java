@@ -64,25 +64,39 @@ public class JournalSyncTask implements Runnable
     private static final Comparator<File> newestJournalFile =
             (file1, file2) ->
             {
-                String name1 = file1.toPath().getFileName().toString();
-                String[] n1a = name1.split("\\.");
-
-                String name2 = file2.toPath().getFileName().toString();
-                String[] n2a = name2.split("\\.");
-
-                if (n1a.length < 2 || n2a.length < 2)
-                {
-                    if (n1a.length < 2 && n2a.length < 2) return 0;
-                    else return n1a.length < 2 ? 1 : -1;
-                }
-
                 try
                 {
-                    long timestamp1 = Long.parseLong(n1a[1]);
-                    long timestamp2 = Long.parseLong(n2a[1]);
-                    return (int) (timestamp2 - timestamp1);
+                    String name1 = file1.toPath().getFileName().toString();
+                    String[] n1a = name1.split("\\.");
+
+                    String name2 = file2.toPath().getFileName().toString();
+                    String[] n2a = name2.split("\\.");
+
+                    if (n1a.length < 2 || n2a.length < 2)
+                    {
+                        if (n1a.length < 2 && n2a.length < 2) return 0;
+                        else return n1a.length < 2 ? 1 : -1;
+                    }
+
+                    var ts1 = n1a[1].contains("T")
+                        ? n1a[1].replace("-","").replace("T","")
+                        : "20" + n1a[1];
+
+                    var ts2 = n2a[1].contains("T")
+                        ? n2a[1].replace("-","").replace("T","")
+                        : "20" + n2a[1];
+
+                    long timestamp1 = Long.parseLong(ts1);
+                    long timestamp2 = Long.parseLong(ts2);
+                    if (timestamp1 == timestamp2)
+                    {
+                        return 0;
+                    }
+                    return timestamp2 > timestamp1
+                        ? 1
+                        : -1;
                 }
-                catch (NumberFormatException e)
+                catch (Exception e)
                 {
                     e.printStackTrace();
                     throw e;
@@ -377,9 +391,11 @@ public class JournalSyncTask implements Runnable
         if (journalFiles == null) return;
 
         Arrays.stream(journalFiles)
-                .sorted(newestJournalFile)
-                .limit(1).flatMap(this::readJournalLines)
-                .forEach(this::processEvent);
+            .sorted(newestJournalFile)
+            .limit(1)
+            .peek(file -> System.out.println("DEBUG:" + file.getName()))
+            .flatMap(this::readJournalLines)
+            .forEach(this::processEvent);
     }
 
     private void reInitializeJournalData()
