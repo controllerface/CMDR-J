@@ -20,6 +20,7 @@ public enum KnownEngineer implements Engineer
     COLONEL_BRIS_DEKKER(new ColonelBrisDekker()),   // The Bubble
     DIDI_VATERMANN(new DidiVatermann()),            // The Bubble
     DOMINO_GREEN(new DominoGreen()),                // The Bubble (Odyssey)
+    ELEANOR_BRESA(new EleanorBresa()),              // Colonia (Odyssey)
     ELVIRA_MARTUUK(new ElviraMartuuk()),            // The Bubble
     ETIENNE_DORN(new EtienneDorn()),                // Colonia
     FELICITY_FARSEER(new FelicityFarseer()),        // The Bubble

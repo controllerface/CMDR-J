@@ -393,7 +393,6 @@ public class JournalSyncTask implements Runnable
         Arrays.stream(journalFiles)
             .sorted(newestJournalFile)
             .limit(1)
-            .peek(file -> System.out.println("DEBUG:" + file.getName()))
             .flatMap(this::readJournalLines)
             .forEach(this::processEvent);
     }

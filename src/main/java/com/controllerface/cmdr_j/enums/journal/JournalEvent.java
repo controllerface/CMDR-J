@@ -224,7 +224,7 @@ public enum JournalEvent
     MultiSellExplorationData(new MultiSellExplorationDataEvent()),
     ReservoirReplenished(new ReservoirReplenishedEvent()),
     UpgradeWeapon(new UpgradeWeaponEvent()),
-
+    UpgradeSuit(new UpgradeSuitEvent()),
 
     ;
 
