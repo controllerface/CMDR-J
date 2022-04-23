@@ -731,10 +731,14 @@ function handleConsumable(e)
     else
     {
         let cargoData = JSON.parse(e);
-        let cargoBin = document.createElement('storage-bin');
+        let cargoBin = cargoContainer.querySelector('storage-bin[commodity="' + cargoData['name'] + '"]')
+        if (!cargoBin)
+        {
+            cargoBin = document.createElement('storage-bin');
+            cargoContainer.append(cargoBin);
+        }
         cargoBin.commodity = cargoData['name'];
         cargoBin.stock = cargoData['count'];
-        cargoContainer.append(cargoBin);
     }
 }
 

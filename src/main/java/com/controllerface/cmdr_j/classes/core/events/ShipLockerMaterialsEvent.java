@@ -4,12 +4,10 @@ import com.controllerface.cmdr_j.classes.core.GameState;
 import com.controllerface.cmdr_j.classes.core.JournalSyncTask;
 import com.controllerface.cmdr_j.enums.costs.consumables.Consumable;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
+import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemGrade;
 import com.controllerface.cmdr_j.utilities.JSONSupport;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 public class ShipLockerMaterialsEvent implements BiConsumer<GameState, Map<String, Object>>
@@ -65,6 +63,21 @@ public class ShipLockerMaterialsEvent implements BiConsumer<GameState, Map<Strin
                     cumulativeTotals.put(name, total + count);
                     //setMaterialCount(gameState, item);
                 }));
+
+        // need to reset all backpack item counts before reloading them
+        Arrays.stream(Material.values())
+            .filter(x->x.getGrade() == ItemGrade.Chemical_Asset
+                || x.getGrade() == ItemGrade.Tech_Asset
+                || x.getGrade() == ItemGrade.Circuit_Asset
+                || x.getGrade() == ItemGrade.Goods
+                || x.getGrade() == ItemGrade.Data)
+            .forEach(x->
+            {
+                var x2 = new HashMap<String, Object>();
+                x2.put("Name", x.name());
+                x2.put("Count", 0);
+                setMaterialCount(gameState, x2);
+            });
 
         cumulativeTotals.forEach((k, v) ->
         {
