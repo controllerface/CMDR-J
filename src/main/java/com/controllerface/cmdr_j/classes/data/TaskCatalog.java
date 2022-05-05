@@ -15,6 +15,8 @@ import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyCategory
 import com.controllerface.cmdr_j.enums.craftable.technologies.TechnologyRecipe;
 import com.controllerface.cmdr_j.enums.craftable.upgrades.UpgradeCategory;
 import com.controllerface.cmdr_j.enums.craftable.upgrades.UpgradeRecipe;
+import com.controllerface.cmdr_j.enums.engineer.EngineerAccessRecipe;
+import com.controllerface.cmdr_j.enums.engineer.EngineerAccessBlueprint;
 import com.controllerface.cmdr_j.enums.engineers.KnownEngineer;
 import com.controllerface.cmdr_j.enums.equipment.modules.ModulePurchaseType;
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
@@ -571,6 +573,54 @@ public class TaskCatalog
         return new GameState.TaskData(tradeRecipe.getDisplayLabel(), rank, effects, costs);
     }
 
+    public GameState.TaskData determineEngineerTaskData(EngineerAccessRecipe engineerRecipe)
+    {
+        var costs = engineerRecipe.costStream()
+            .filter(costData -> costData.quantity > 0)
+            .map(costData ->
+            {
+                Map<String, Object> costMap = new HashMap<>();
+                costMap.put("amount", costData.quantity);
+                costMap.put("unit", costData.cost.getLocalizedName());
+                costMap.put("grade", costData.cost.getGrade().name());
+                return costMap;
+            }).collect(Collectors.toList());
+
+        var effects = engineerRecipe.effects().effectStream()
+            .map(effect ->
+            {
+                Map<String, Object> effectMap = new HashMap<>();
+                effectMap.put("effect", effect.effect.toString());
+                effectMap.put("value", effect.getValueString());
+                effectMap.put("unit", effect.effect.unit);
+                effectMap.put("impact", "positive");
+                return effectMap;
+            }).collect(Collectors.toList());
+
+        var name = engineerRecipe.getDisplayLabel();
+
+        var s = engineerRecipe.effects().effectStream()
+            .filter(e->e.effect == ItemEffect.engineer_unlock)
+            .findFirst().map(x -> " :: " + x.stringValue)
+            .orElse("");
+
+        name += s;
+        var rank = 0;
+//        if (name.contains("Basic"))
+//        {
+//            rank = 1;
+//        }
+//        else if (name.contains("Standard"))
+//        {
+//            rank = 2;
+//        }
+//        else if (name.contains("Premium"))
+//        {
+//            rank = 3;
+//        }
+        return new GameState.TaskData(name, rank, effects, costs);
+    }
+
     public GameState.TaskData determineTaskData(TaskRecipe recipe, String taskKey)
     {
         if (recipe instanceof ModulePurchaseRecipe)
@@ -601,6 +651,10 @@ public class TaskCatalog
         {
             return determineUpgradeTaskData(((UpgradeRecipe) recipe));
         }
+        if (recipe instanceof EngineerAccessRecipe)
+        {
+            return determineEngineerTaskData(((EngineerAccessRecipe) recipe));
+        }
         return new GameState.TaskData(recipe.getDisplayLabel(), 0);
     }
 
@@ -613,6 +667,7 @@ public class TaskCatalog
         var experimental = new HashMap<String, Map<String, Map<String, Object>>>();
         var technology = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
         var trades = new HashMap<String, Map<String, Map<String, Map<String, Object>>>>();
+        var engineers = new HashMap<String, Map<String, Map<String, Object>>>();
 
         Map<String, Object> jsonMap  = new HashMap<>();
         jsonMap.put("modules", modules);
@@ -622,6 +677,7 @@ public class TaskCatalog
         jsonMap.put("experimental", experimental);
         jsonMap.put("technology", technology);
         jsonMap.put("trades", trades);
+        jsonMap.put("engineers", engineers);
 
         // module purchases
         Stream.of(ModulePurchaseType.values()).forEach(modulePurchaseType ->
@@ -632,7 +688,7 @@ public class TaskCatalog
 
                 taskBlueprint.recipeStream().map(r -> ((ModulePurchaseRecipe) r)).forEach(taskRecipe ->
                 {
-                    System.out.println(taskRecipe.getEnumName());
+                    //System.out.println(taskRecipe.getEnumName());
                     var key = "Purchase"
                         + ":" + taskBlueprint.toString()
                         + ":" + taskRecipe.getEnumName();
@@ -878,7 +934,35 @@ public class TaskCatalog
             });
         });
 
-        // todo: engineer unlocks
+        // engineer access
+        Stream.of(EngineerAccessBlueprint.values())
+            .forEach(engineerProgressRecipe ->
+            {
+                Map<String, Map<String, Object>> currentCategory = engineers
+                    .computeIfAbsent(engineerProgressRecipe.name(), (_k)-> new HashMap<>());
+
+                engineerProgressRecipe.recipeStream().forEach(unlockRecipe ->
+                {
+                    Map<String, Object> currentRecipe = currentCategory
+                        .computeIfAbsent(engineerProgressRecipe.name(), (_k)-> new HashMap<>());
+
+                    var key = engineerProgressRecipe.name()
+                        + ":" + unlockRecipe.name();
+
+                    keyMap.put(key, unlockRecipe);
+                    untypedTaskMap.put(unlockRecipe, key);
+                    var taskData = determineEngineerTaskData(unlockRecipe);
+
+                    var dataMap = new HashMap<String, Object>();
+                    dataMap.put("key", key);
+                    dataMap.put("name", taskData.name);
+                    dataMap.put("sort", taskData.rank);
+                    dataMap.put("costs", taskData.costs);
+                    dataMap.put("effects", taskData.effects);
+
+                    currentRecipe.put(unlockRecipe.name(), dataMap);
+                });
+            });
 
         // trades
         Stream.of(MaterialTradeType.values()).forEach(materialTradeType ->

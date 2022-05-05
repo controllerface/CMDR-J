@@ -18,7 +18,7 @@ public class DominoGreen extends AbstractEngineer
         addGroundGearModification(ModificationRecipe.Greater_Range_Takada);
         addGroundGearModification(ModificationRecipe.Stability);
         addGroundGearModification(ModificationRecipe.Enhanced_Tracking);
-        addGroundGearModification(ModificationRecipe.Extra_Backpack_Capacity);
+        addGroundGearModification(ModificationRecipe.suit_backpackcapacity);
         addGroundGearModification(ModificationRecipe.Reduced_Tool_Battery_Consumption);
     }
 }

@@ -25,7 +25,7 @@ class CargoBin extends HTMLElement
 
             makeMarketQuery(id, type, price, comparison, (data) =>
             {
-                console.log(data);
+                //console.log(data);
                 this.handleQuery(data, tokens, true);
             });
         });

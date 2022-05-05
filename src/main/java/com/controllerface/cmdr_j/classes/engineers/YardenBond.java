@@ -17,7 +17,7 @@ public class YardenBond extends AbstractEngineer
         addGroundGearModification(ModificationRecipe.weapon_suppression_unpressurised);
         addGroundGearModification(ModificationRecipe.Combat_Movement_Speed);
         addGroundGearModification(ModificationRecipe.Faster_Handling);
-        addGroundGearModification(ModificationRecipe.Improved_Jump_Assist);
+        addGroundGearModification(ModificationRecipe.suit_improvedjumpassist);
         addGroundGearModification(ModificationRecipe.Improved_Hip_Fire_Accuracy_Kinematic);
         addGroundGearModification(ModificationRecipe.Improved_Hip_Fire_Accuracy_Manticore);
         addGroundGearModification(ModificationRecipe.Improved_Hip_Fire_Accuracy_Takada);

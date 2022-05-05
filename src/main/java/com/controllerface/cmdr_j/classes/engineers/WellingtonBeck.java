@@ -19,6 +19,6 @@ public class WellingtonBeck extends AbstractEngineer
         addGroundGearModification(ModificationRecipe.Scope);
         addGroundGearModification(ModificationRecipe.Reduced_Tool_Battery_Consumption);
         addGroundGearModification(ModificationRecipe.Improved_Battery_Capacity);
-        addGroundGearModification(ModificationRecipe.Extra_Backpack_Capacity);
+        addGroundGearModification(ModificationRecipe.suit_backpackcapacity);
     }
 }

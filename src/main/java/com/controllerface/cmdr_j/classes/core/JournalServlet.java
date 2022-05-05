@@ -138,7 +138,6 @@ public class JournalServlet extends EventSourceServlet
             {
                 var x = playerState.writeItemListing();
                 writeJsonResponse(response, x);
-                System.out.println(x);
             }
             if (type != null && type.equalsIgnoreCase("search"))
             {

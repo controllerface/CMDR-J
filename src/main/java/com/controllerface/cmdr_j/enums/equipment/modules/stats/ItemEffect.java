@@ -365,6 +365,8 @@ public enum ItemEffect
     Backpack_Component_Capacity("%", "Backpack Component Capacity", true, EffectType.MODIFICATION),
     Backpack_Item_Capacity("%", "Backpack Item Capacity", true, EffectType.MODIFICATION),
 
+    Backpack_Capacity("%", "Backpack Data Capacity", true, EffectType.MODIFICATION),
+
     Battery_Energy_Capacity("%", "Battery Energy Capacity", true, EffectType.MODIFICATION),
     Battery_Efficiency("%", "Increased Battery Efficiency", true, EffectType.MODIFICATION),
 
@@ -417,6 +419,7 @@ public enum ItemEffect
     experimental("", "", true),          // is a experimental human (Aegis) module
     power_play("", "", true),            // is a power play unlocked module
     tech_unlock("", "Unlock Technology", true),           // used for tech broker unlock recipes
+    engineer_unlock("", "Engineer Unlock", true),           // used for engineer progress
 
     // synthetic effects, used for synthesis recipes
     Rearm("", "", true),                       // ammunition replenishment

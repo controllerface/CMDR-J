@@ -546,7 +546,7 @@ public enum ModificationRecipe implements TaskRecipe
     Faster_Shield_Regen(new FasterShieldRegen()),
 
     // movement
-    Improved_Jump_Assist(new ImprovedJumpAssist()),
+    suit_improvedjumpassist(new ImprovedJumpAssist()),
     Increased_Sprint_Duration(new IncreasedSprintDuration()),
 
     // battery
@@ -558,7 +558,7 @@ public enum ModificationRecipe implements TaskRecipe
     Night_Vision(new NightVision()),
 
     // storage
-    Extra_Backpack_Capacity(new ExtraBackpackCapacity()),
+    suit_backpackcapacity(new ExtraBackpackCapacity()),
     suit_increasedo2capacity(new IncreasedAirReserves()),
 
 

@@ -58,7 +58,7 @@ class SuitModule extends HTMLElement
         let moduleSize;
         let moduleClass;
 
-        console.log(module);
+        //console.log(module);
 
 //        if (this.getAttribute('slotname') !== 'Armour'
 //            && this.getAttribute('slotname') !== 'ShipCockpit'

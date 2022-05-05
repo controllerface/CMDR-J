@@ -53,7 +53,7 @@ class SystemCatalog extends HTMLElement
             let callback = (e) =>
             {
                 // todo: only update if successful
-                console.log(e);
+                //console.log(e);
                 let list = this.shadowRoot.getElementById('systemCatalog_datalist');
                 let option = list.querySelector('option[id="' + address + '"]');
                 selector.value = option.value;

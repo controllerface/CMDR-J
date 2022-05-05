@@ -353,7 +353,7 @@ function setLoadout(data)
 
 function setSuitLoadout(data)
 {
-    console.log(data);
+    //console.log(data);
     let weapons = {};
     let suit = {};
     let slots = Object.keys(data);

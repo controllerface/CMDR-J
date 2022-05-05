@@ -1809,114 +1809,114 @@ class TaskCatalog extends HTMLElement
         if (!hipFireMod) hipFireMod = modificationData['Improved_Hip_Fire_Accuracy_Takada'];
 
         this.loadSubcategoryData('Faster Handling',
-                                 modificationData['Faster_Handling'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    modificationData['Faster_Handling'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Greater Range',
-                                 rangeMod,
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    rangeMod,
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Head Shot Damage',
-                                 headShotMod,
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    headShotMod,
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Improved Hip Fire Accuracy',
-                                 hipFireMod,
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    hipFireMod,
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Magazine Size',
-                                 modificationData['Magazine_Size'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    modificationData['Magazine_Size'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Noise Suppressor',
-                                 modificationData['Noise_Suppressor'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    modificationData['Noise_Suppressor'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Reload Speed',
-                                 modificationData['Reload_Speed'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    modificationData['Reload_Speed'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Scope',
-                                 modificationData['Scope'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    modificationData['Scope'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Stability',
-                                 modificationData['Stability'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    modificationData['Stability'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Stowed Reloading',
-                                 modificationData['Stowed_Reloading'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    modificationData['Stowed_Reloading'],
+                    this.loadModificationGrades,
+                    categoryElement);
     }
 
     loadPersonalWeaponModificationsA(modificationData, categoryElement)
     {
         this.loadSubcategoryData('Karma AR-50',
-                                 modificationData['Karma_AR_50'],
-                                 this.loadPersonalWeaponModifications,
-                                 categoryElement);
+                    modificationData['Karma_AR_50'],
+                    this.loadPersonalWeaponModifications,
+                    categoryElement);
 
         this.loadSubcategoryData('Karma C-44',
-                                 modificationData['Karma_C_44'],
-                                 this.loadPersonalWeaponModifications,
-                                 categoryElement);
+                    modificationData['Karma_C_44'],
+                    this.loadPersonalWeaponModifications,
+                    categoryElement);
 
         this.loadSubcategoryData('Karma L-6',
-                                 modificationData['Karma_L_6'],
-                                 this.loadPersonalWeaponModifications,
-                                 categoryElement);
+                    modificationData['Karma_L_6'],
+                    this.loadPersonalWeaponModifications,
+                    categoryElement);
 
         this.loadSubcategoryData('Karma P-15',
-                                 modificationData['Karma_P_15'],
-                                 this.loadPersonalWeaponModifications,
-                                 categoryElement);
+                    modificationData['Karma_P_15'],
+                    this.loadPersonalWeaponModifications,
+                    categoryElement);
 
 
         this.loadSubcategoryData('TK Aphelion',
-                                 modificationData['TK_Aphelion'],
-                                 this.loadPersonalWeaponModifications,
-                                 categoryElement);
+                    modificationData['TK_Aphelion'],
+                    this.loadPersonalWeaponModifications,
+                    categoryElement);
 
         this.loadSubcategoryData('TK Eclipse',
-                                 modificationData['TK_Eclipse'],
-                                 this.loadPersonalWeaponModifications,
-                                 categoryElement);
+                    modificationData['TK_Eclipse'],
+                    this.loadPersonalWeaponModifications,
+                    categoryElement);
 
         this.loadSubcategoryData('TK Zenith',
-                                 modificationData['TK_Zenith'],
-                                 this.loadPersonalWeaponModifications,
-                                 categoryElement);
+                    modificationData['TK_Zenith'],
+                    this.loadPersonalWeaponModifications,
+                    categoryElement);
 
 
         this.loadSubcategoryData('Manticore Executioner',
-                                 modificationData['Manticore_Executioner'],
-                                 this.loadPersonalWeaponModifications,
-                                 categoryElement);
+                    modificationData['Manticore_Executioner'],
+                    this.loadPersonalWeaponModifications,
+                    categoryElement);
 
         this.loadSubcategoryData('Manticore Intimidator',
-                                 modificationData['Manticore_Intimidator'],
-                                 this.loadPersonalWeaponModifications,
-                                 categoryElement);
+                    modificationData['Manticore_Intimidator'],
+                    this.loadPersonalWeaponModifications,
+                    categoryElement);
 
         this.loadSubcategoryData('Manticore Oppressor',
-                                 modificationData['Manticore_Oppressor'],
-                                 this.loadPersonalWeaponModifications,
-                                 categoryElement);
+                    modificationData['Manticore_Oppressor'],
+                    this.loadPersonalWeaponModifications,
+                    categoryElement);
 
         this.loadSubcategoryData('Manticore Tormentor',
-                                modificationData['Manticore_Tormentor'],
-                                this.loadPersonalWeaponModifications,
-                                categoryElement);
+                    modificationData['Manticore_Tormentor'],
+                    this.loadPersonalWeaponModifications,
+                    categoryElement);
     }
 
     /* Experimental Effect Methods */
@@ -1925,118 +1925,118 @@ class TaskCatalog extends HTMLElement
     {
 
         this.loadSubcategoryData('Bulkheads',
-                                 experimentalData['Bulkheads'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Bulkheads'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Frame Shift Drives',
-                                 experimentalData['Frame_Shift_Drive'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Frame_Shift_Drive'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Power Distributors',
-                                 experimentalData['Power_Distributor'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Power_Distributor'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Power Plants',
-                                 experimentalData['Power_Plant'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Power_Plant'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Thrusters',
-                                 experimentalData['Thrusters'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Thrusters'],
+                    this.loadModificationGrades,
+                    categoryElement);
     }
 
     loadOptionalExperimental(experimentalData, categoryElement)
     {
         this.loadSubcategoryData('Hull Reinforcement Packages',
-                                 experimentalData['Hull_Reinforcement_Package'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Hull_Reinforcement_Package'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Shield Cell Banks',
-                                 experimentalData['Shield_Cell_Bank'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Shield_Cell_Bank'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Shield Generators',
-                                 experimentalData['Shield_Generator'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Shield_Generator'],
+                    this.loadModificationGrades,
+                    categoryElement);
     }
 
     loadUtilityExperimental(experimentalData, categoryElement)
     {
         this.loadSubcategoryData('Shield Boosters',
-                                 experimentalData['Shield_Booster'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Shield_Booster'],
+                    this.loadModificationGrades,
+                    categoryElement);
     }
 
     loadWeaponExperimental(experimentalData, categoryElement)
     {
         this.loadSubcategoryData('Beam Lasers',
-                                 experimentalData['Beam_Laser'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Beam_Laser'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Burst Lasers',
-                                 experimentalData['Burst_Laser'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Burst_Laser'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Cannon',
-                                 experimentalData['Cannon'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Cannon'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Fragment Cannons',
-                                 experimentalData['Fragment_Cannon'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Fragment_Cannon'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Mine Launchers',
-                                 experimentalData['Mine_Launcher'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Mine_Launcher'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Missile Racks',
-                                 experimentalData['Missile_Rack'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Missile_Rack'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Multi-Cannons',
-                                 experimentalData['Multi_Cannon'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Multi_Cannon'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Plasma Accelerators',
-                                 experimentalData['Plasma_Accelerator'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Plasma_Accelerator'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Pulse Lasers',
-                                 experimentalData['Pulse_Laser'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Pulse_Laser'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Rail Guns',
-                                 experimentalData['Rail_Gun'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Rail_Gun'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Seeker Missile Racks',
-                                 experimentalData['Seeker_Missile_Rack'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Seeker_Missile_Rack'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Torpedo Pylons',
-                                 experimentalData['Torpedo_Pylon'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    experimentalData['Torpedo_Pylon'],
+                    this.loadModificationGrades,
+                    categoryElement);
     }
 
 
@@ -2045,138 +2045,138 @@ class TaskCatalog extends HTMLElement
     loadEngineerTechModules(techBrokerData, categoryElement)
     {
         this.loadSubcategoryData('Engineered FSD V1',
-                                 techBrokerData['Engineered_FSD_V1'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Engineered_FSD_V1'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Engineered Seeker Missile Rack V1',
-                                 techBrokerData['Engineered_Seeker_Missile_Rack_V1'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Engineered_Seeker_Missile_Rack_V1'],
+                    this.loadModificationGrades,
+                    categoryElement);
     }
 
     loadEngineerTechBroker(techBrokerData, categoryElement)
     {
         this.loadSubcategoryData('Engineered Modules',
-                                 techBrokerData['Engineered_Modules'],
-                                 this.loadEngineerTechModules,
-                                 categoryElement);
+                    techBrokerData['Engineered_Modules'],
+                    this.loadEngineerTechModules,
+                    categoryElement);
     }
 
     loadHumanOptionalModules(techBrokerData, categoryElement)
     {
         this.loadSubcategoryData('Corrosion Resistant Cargo Rack',
-                                 techBrokerData['Corrosion_Resistant_Cargo_Rack'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Corrosion_Resistant_Cargo_Rack'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Meta Alloy Hull Reinforcement',
-                                 techBrokerData['Meta_Alloy_Hull_Reinforcement'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Meta_Alloy_Hull_Reinforcement'],
+                    this.loadModificationGrades,
+                    categoryElement);
     }
 
     loadHumanWeapons(techBrokerData, categoryElement)
     {
         this.loadSubcategoryData('Enzyme Missile Rack',
-                                 techBrokerData['Enzyme_Missile_Rack'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Enzyme_Missile_Rack'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Remote Release Flechette Launcher',
-                                 techBrokerData['Remote_Release_Flechette_Launcher'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Remote_Release_Flechette_Launcher'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Shock Cannon',
-                                 techBrokerData['Shock_Cannon'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Shock_Cannon'],
+                    this.loadModificationGrades,
+                    categoryElement);
     }
 
     loadHumanTechBroker(techBrokerData, categoryElement)
     {
         this.loadSubcategoryData('Optional Internal Modules',
-                                 techBrokerData['Human_Optional_Internal'],
-                                 this.loadHumanOptionalModules,
-                                 categoryElement);
+                    techBrokerData['Human_Optional_Internal'],
+                    this.loadHumanOptionalModules,
+                    categoryElement);
 
         this.loadSubcategoryData('Weapons',
-                                 techBrokerData['Human_Weapons'],
-                                 this.loadHumanWeapons,
-                                 categoryElement);
+                    techBrokerData['Human_Weapons'],
+                    this.loadHumanWeapons,
+                    categoryElement);
     }
 
     loadGuardianCoreModules(techBrokerData, categoryElement)
     {
         this.loadSubcategoryData('Hybrid Power Distributor',
-                                 techBrokerData['Guardian_Hybrid_Power_Distributor'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Guardian_Hybrid_Power_Distributor'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Power Plant',
-                                 techBrokerData['Guardian_Power_Plant'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Guardian_Power_Plant'],
+                    this.loadModificationGrades,
+                    categoryElement);
     }
 
     loadGuardianOptionalModules(techBrokerData, categoryElement)
     {
         this.loadSubcategoryData('FSD Booster',
-                                 techBrokerData['Guardian_FSD_Booster'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Guardian_FSD_Booster'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Hull Reinforcement',
-                                 techBrokerData['Guardian_Hull_Reinforcement'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Guardian_Hull_Reinforcement'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Module Reinforcement',
-                                 techBrokerData['Guardian_Module_Reinforcement'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Guardian_Module_Reinforcement'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Shield Reinforcement',
-                                 techBrokerData['Guardian_Shield_Booster'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Guardian_Shield_Booster'],
+                    this.loadModificationGrades,
+                    categoryElement);
     }
 
     loadGuardianWeapons(techBrokerData, categoryElement)
     {
         this.loadSubcategoryData('Gauss Cannon',
-                                 techBrokerData['Guardian_Gauss_Cannon'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Guardian_Gauss_Cannon'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Plasma Charger',
-                                 techBrokerData['Guardian_Plasma_Charger'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Guardian_Plasma_Charger'],
+                    this.loadModificationGrades,
+                    categoryElement);
 
         this.loadSubcategoryData('Shard Cannon',
-                                 techBrokerData['Guardian_Shard_Cannon'],
-                                 this.loadModificationGrades,
-                                 categoryElement);
+                    techBrokerData['Guardian_Shard_Cannon'],
+                    this.loadModificationGrades,
+                    categoryElement);
     }
 
     loadGuardianTechBroker(techBrokerData, categoryElement)
     {
         this.loadSubcategoryData('Core Internal Modules',
-                                 techBrokerData['Guardian_Core_Internal'],
-                                 this.loadGuardianCoreModules,
-                                 categoryElement);
+                    techBrokerData['Guardian_Core_Internal'],
+                    this.loadGuardianCoreModules,
+                    categoryElement);
 
         this.loadSubcategoryData('Optional Internal Modules',
-                                 techBrokerData['Guardian_Optional_Internal'],
-                                 this.loadGuardianOptionalModules,
-                                 categoryElement);
+                    techBrokerData['Guardian_Optional_Internal'],
+                    this.loadGuardianOptionalModules,
+                    categoryElement);
 
         this.loadSubcategoryData('Weapons',
-                                 techBrokerData['Guardian_Weapons'],
-                                 this.loadGuardianWeapons,
-                                 categoryElement);
+                    techBrokerData['Guardian_Weapons'],
+                    this.loadGuardianWeapons,
+                    categoryElement);
     }
 
 
@@ -2189,9 +2189,9 @@ class TaskCatalog extends HTMLElement
         material.forEach(type =>
         {
             this.loadSubcategoryData(type,
-                                     tradeData[type],
-                                     this.loadModificationGrades,
-                                     categoryElement);
+                    tradeData[type],
+                    this.loadModificationGrades,
+                    categoryElement);
         });
     }
 
@@ -2202,9 +2202,9 @@ class TaskCatalog extends HTMLElement
         subTypes.forEach(type =>
         {
             this.loadSubcategoryData(type.replaceAll('_', ' '),
-                                     tradeData[type],
-                                     this.loadMaterialTrades,
-                                     categoryElement);
+                    tradeData[type],
+                    this.loadMaterialTrades,
+                    categoryElement);
         });
     }
 
@@ -2218,46 +2218,46 @@ class TaskCatalog extends HTMLElement
         subTypes.forEach(type =>
         {
             this.loadSubcategoryData(type.replaceAll('_', ' '),
-                                     synthesisData[type],
-                                     this.loadModificationGrades,
-                                     categoryElement);
+                    synthesisData[type],
+                    this.loadModificationGrades,
+                    categoryElement);
         });
     }
 
     loadMunitionsSynthesis(synthesisData, categoryElement)
     {
         this.loadCategoryData('Ammunition',
-                              synthesisData['Ammunition'],
-                              this.loadSynthesisCategories,
-                              categoryElement);
+                    synthesisData['Ammunition'],
+                    this.loadSynthesisCategories,
+                    categoryElement);
 
         this.loadCategoryData('Anti-Xeno',
-                              synthesisData['Anti_Xeno'],
-                              this.loadSynthesisCategories,
-                              categoryElement);
+                    synthesisData['Anti_Xeno'],
+                    this.loadSynthesisCategories,
+                    categoryElement);
 
         this.loadCategoryData('Guardian Tech',
-                              synthesisData['Guardian_Tech'],
-                              this.loadSynthesisCategories,
-                              categoryElement);
+                    synthesisData['Guardian_Tech'],
+                    this.loadSynthesisCategories,
+                    categoryElement);
 
         this.loadCategoryData('Human Tech',
-                              synthesisData['Human_Tech'],
-                              this.loadSynthesisCategories,
-                              categoryElement);
+                    synthesisData['Human_Tech'],
+                    this.loadSynthesisCategories,
+                    categoryElement);
     }
 
     loadUtilitySynthesis(synthesisData, categoryElement)
     {
         this.loadCategoryData('SRV',
-                              synthesisData['SRV'],
-                              this.loadSynthesisCategories,
-                              categoryElement);
+                    synthesisData['SRV'],
+                    this.loadSynthesisCategories,
+                    categoryElement);
 
         this.loadCategoryData('Ship',
-                              synthesisData['Ship'],
-                              this.loadSynthesisCategories,
-                              categoryElement);
+                    synthesisData['Ship'],
+                    this.loadSynthesisCategories,
+                    categoryElement);
     }
 
     loadUpgradeCategories(upgradeData, categoryElement)
@@ -2267,36 +2267,36 @@ class TaskCatalog extends HTMLElement
         subTypes.forEach(type =>
         {
             this.loadSubcategoryData(type.replaceAll('_', ' '),
-                                     upgradeData[type],
-                                     this.loadModificationGrades,
-                                     categoryElement);
+                    upgradeData[type],
+                    this.loadModificationGrades,
+                    categoryElement);
         });
     }
 
     loadSuitUpgrades(upgradeData, categoryElement)
     {
         this.loadCategoryData('Suits',
-                            upgradeData['Suits'],
-                            this.loadUpgradeCategories,
-                            categoryElement);
+                    upgradeData['Suits'],
+                    this.loadUpgradeCategories,
+                    categoryElement);
     }
 
     loadWeaponUpgrades(upgradeData, categoryElement)
     {
         this.loadCategoryData('Kinetic Weapons',
-                            upgradeData['Kinetic_Weapons'],
-                            this.loadUpgradeCategories,
-                            categoryElement);
+                    upgradeData['Kinetic_Weapons'],
+                    this.loadUpgradeCategories,
+                    categoryElement);
 
         this.loadCategoryData('Laser Weapons',
-                            upgradeData['Laser_Weapons'],
-                            this.loadUpgradeCategories,
-                            categoryElement);
+                    upgradeData['Laser_Weapons'],
+                    this.loadUpgradeCategories,
+                    categoryElement);
 
         this.loadCategoryData('Plasma Weapons',
-                            upgradeData['Plasma_Weapons'],
-                            this.loadUpgradeCategories,
-                            categoryElement);
+                    upgradeData['Plasma_Weapons'],
+                    this.loadUpgradeCategories,
+                    categoryElement);
     }
 
 
@@ -2308,24 +2308,24 @@ class TaskCatalog extends HTMLElement
         let moduleContainer = this.shadowRoot.getElementById('taskCatalog_modules');
 
         this.loadCategoryData('Core Internals',
-                              moduleData['Core_Internal'],
-                              this.loadCorePurchases,
-                              moduleContainer);
+                    moduleData['Core_Internal'],
+                    this.loadCorePurchases,
+                    moduleContainer);
 
         this.loadCategoryData('Optional Internals',
-                              moduleData['Optional_Internal'],
-                              this.loadOptionalPurchases,
-                              moduleContainer);
+                    moduleData['Optional_Internal'],
+                    this.loadOptionalPurchases,
+                    moduleContainer);
 
         this.loadCategoryData('Utility Modules',
-                              moduleData['Utility_Mounts'],
-                              this.loadUtilityPurchases,
-                              moduleContainer);
+                    moduleData['Utility_Mounts'],
+                    this.loadUtilityPurchases,
+                    moduleContainer);
 
         this.loadCategoryData('Ship Weapons',
-                              moduleData['Weapon_Hardpoints'],
-                              this.loadWeaponPurchases,
-                              moduleContainer);
+                    moduleData['Weapon_Hardpoints'],
+                    this.loadWeaponPurchases,
+                    moduleContainer);
     }
 
     loadModifications(modificationData)
@@ -2333,34 +2333,34 @@ class TaskCatalog extends HTMLElement
         let modificationContainer = this.shadowRoot.getElementById('taskCatalog_modifications');
 
         this.loadCategoryData('Core Internals',
-                              modificationData['Core_Internal'],
-                              this.loadCoreModifications,
-                              modificationContainer);
+                    modificationData['Core_Internal'],
+                    this.loadCoreModifications,
+                    modificationContainer);
 
         this.loadCategoryData('Optional Internals',
-                              modificationData['Optional_Internal'],
-                              this.loadOptionalModifications,
-                              modificationContainer);
+                    modificationData['Optional_Internal'],
+                    this.loadOptionalModifications,
+                    modificationContainer);
 
         this.loadCategoryData('Utility Modules',
-                              modificationData['Utility_Mounts'],
-                              this.loadUtilityModifications,
-                              modificationContainer);
+                    modificationData['Utility_Mounts'],
+                    this.loadUtilityModifications,
+                    modificationContainer);
 
         this.loadCategoryData('Ship Weapons',
-                              modificationData['Weapon_Hardpoints'],
-                              this.loadWeaponModifications,
-                              modificationContainer);
+                    modificationData['Weapon_Hardpoints'],
+                    this.loadWeaponModifications,
+                    modificationContainer);
 
         this.loadCategoryData('Suits',
-                              modificationData['Suits'],
-                              this.loadSuitModifications,
-                              modificationContainer);
+                    modificationData['Suits'],
+                    this.loadSuitModifications,
+                    modificationContainer);
 
         this.loadCategoryData('Personal Weapons',
-                              modificationData['Personal_Weapons'],
-                              this.loadPersonalWeaponModificationsA,
-                              modificationContainer);
+                    modificationData['Personal_Weapons'],
+                    this.loadPersonalWeaponModificationsA,
+                    modificationContainer);
     }
 
     loadExperimentals(experimentalData)
@@ -2368,24 +2368,24 @@ class TaskCatalog extends HTMLElement
         let experimentalContainer = this.shadowRoot.getElementById('taskCatalog_experimentals');
 
         this.loadCategoryData('Core Internals',
-                              experimentalData['Core_Internal'],
-                              this.loadCoreExperimental,
-                              experimentalContainer);
+                    experimentalData['Core_Internal'],
+                    this.loadCoreExperimental,
+                    experimentalContainer);
 
         this.loadCategoryData('Optional Internals',
-                              experimentalData['Optional_Internal'],
-                              this.loadOptionalExperimental,
-                              experimentalContainer);
+                    experimentalData['Optional_Internal'],
+                    this.loadOptionalExperimental,
+                    experimentalContainer);
 
         this.loadCategoryData('Utility Modules',
-                              experimentalData['Utility_Mounts'],
-                              this.loadUtilityExperimental,
-                              experimentalContainer);
+                    experimentalData['Utility_Mounts'],
+                    this.loadUtilityExperimental,
+                    experimentalContainer);
 
         this.loadCategoryData('Ship Weapons',
-                              experimentalData['Weapon_Hardpoints'],
-                              this.loadWeaponExperimental,
-                              experimentalContainer);
+                    experimentalData['Weapon_Hardpoints'],
+                    this.loadWeaponExperimental,
+                    experimentalContainer);
     }
 
     loadTechBrokers(techBrokerData)
@@ -2393,19 +2393,19 @@ class TaskCatalog extends HTMLElement
         let techBrokerContainer = this.shadowRoot.getElementById('taskCatalog_techbrokers');
 
         this.loadCategoryData('Human',
-                              techBrokerData['Human'],
-                              this.loadHumanTechBroker,
-                              techBrokerContainer);
+                    techBrokerData['Human'],
+                    this.loadHumanTechBroker,
+                    techBrokerContainer);
 
         this.loadCategoryData('Guardian',
-                              techBrokerData['Guardian'],
-                              this.loadGuardianTechBroker,
-                              techBrokerContainer);
+                    techBrokerData['Guardian'],
+                    this.loadGuardianTechBroker,
+                    techBrokerContainer);
 
         this.loadCategoryData('Engineer',
-                              techBrokerData['Engineer'],
-                              this.loadEngineerTechBroker,
-                              techBrokerContainer);
+                    techBrokerData['Engineer'],
+                    this.loadEngineerTechBroker,
+                    techBrokerContainer);
     }
 
     loadTrades(tradeData)
@@ -2413,19 +2413,19 @@ class TaskCatalog extends HTMLElement
         let tradeContainer = this.shadowRoot.getElementById('taskCatalog_trades');
 
         this.loadCategoryData('Encoded Data',
-                              tradeData['Encoded_Data'],
-                              this.loadTradeCategories,
-                              tradeContainer);
+                    tradeData['Encoded_Data'],
+                    this.loadTradeCategories,
+                    tradeContainer);
 
         this.loadCategoryData('Manufactured Materials',
-                              tradeData['Manufactured_Materials'],
-                              this.loadTradeCategories,
-                              tradeContainer);
+                    tradeData['Manufactured_Materials'],
+                    this.loadTradeCategories,
+                    tradeContainer);
 
         this.loadCategoryData('Raw Elements',
-                              tradeData['Raw_Elements'],
-                              this.loadTradeCategories,
-                              tradeContainer);
+                    tradeData['Raw_Elements'],
+                    this.loadTradeCategories,
+                    tradeContainer);
     }
 
     loadSynthesis(synthesisData)
@@ -2433,14 +2433,14 @@ class TaskCatalog extends HTMLElement
         let synthesisContainer = this.shadowRoot.getElementById('taskCatalog_synthesis');
 
         this.loadCategoryData('Munitions',
-                              synthesisData['Munitions'],
-                              this.loadMunitionsSynthesis,
-                              synthesisContainer);
+                    synthesisData['Munitions'],
+                    this.loadMunitionsSynthesis,
+                    synthesisContainer);
 
         this.loadCategoryData('Utility',
-                              synthesisData['Utility'],
-                              this.loadUtilitySynthesis,
-                              synthesisContainer);
+                    synthesisData['Utility'],
+                    this.loadUtilitySynthesis,
+                    synthesisContainer);
     }
 
     loadUpgrades(upgradeData)
@@ -2448,14 +2448,14 @@ class TaskCatalog extends HTMLElement
         let upgradeContainer = this.shadowRoot.getElementById('taskCatalog_upgrades');
 
         this.loadCategoryData('Suits',
-                            upgradeData['Suits']['Suits'],
-                            this.loadUpgradeCategories,
-                            upgradeContainer);
+                    upgradeData['Suits']['Suits'],
+                    this.loadUpgradeCategories,
+                    upgradeContainer);
 
         this.loadCategoryData('Personal Weapons',
-                              upgradeData['Weapons'],
-                              this.loadWeaponUpgrades,
-                              upgradeContainer);
+                    upgradeData['Weapons'],
+                    this.loadWeaponUpgrades,
+                    upgradeContainer);
     }
 
 
@@ -2470,6 +2470,8 @@ class TaskCatalog extends HTMLElement
         this.loadTrades(catalogData['trades']);
         this.loadSynthesis(catalogData['synthesis']);
         this.loadUpgrades(catalogData['upgrades']);
+        // todo: load engineer progress unlocks
+        console.log(catalogData);
     }
 
     loadCostAssociations(costData)

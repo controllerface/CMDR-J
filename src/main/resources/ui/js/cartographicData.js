@@ -373,7 +373,7 @@ class CartographicData extends HTMLElement
                 let detailData = this.createExpandedStatContainer(text);
                 for (let i = 0, len = value.length; i < len; i++)
                 {
-                    console.log(value[i]);
+                    //console.log(value[i]);
                     let nextSignal = value[i];
                     let signalType = nextSignal['Type'];
                     if (nextSignal['Type_Localised'])

@@ -16,20 +16,11 @@ public enum ItemGrade
     GRADE_4(4, "Grade 4"),
     GRADE_5(5, "Grade 5"),
 
-    VERY_COMMON(1, 300, "Very Common"
-    ),
-
-    COMMON     (2, 250, "Common"
-    ),
-
-    STANDARD   (3, 200, "Standard"
-    ),
-
-    RARE       (4, 150, "Rare"
-    ),
-
-    VERY_RARE  (5, 100, "Very Rare"
-    ),
+    VERY_COMMON(1, 300, "Very Common"),
+    COMMON     (2, 250, "Common"),
+    STANDARD   (3, 200, "Standard"),
+    RARE       (4, 150, "Rare"),
+    VERY_RARE  (5, 100, "Very Rare"),
 
     /*
     Used for Engineer experimental effects
@@ -100,6 +91,8 @@ public enum ItemGrade
     // special case types used in tasks
     MaterialTrade(0, -1, "Trade"),
     Credits(0,-1,"CR"),
+    EngineerAccess(0, -1, "Access"),
+
     Any(0,-1,"Any"),
 
     ;

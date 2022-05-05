@@ -87,6 +87,10 @@ public class GameState
      */
     private final String rawCatalogJson = taskCatalog.buildTaskCatalog();
 
+    /**
+     * In addition to the catalog itself, cost associations (i.e. the list of things each item can be used
+     * for) are also pre-calculated. These values are static and do not change so are best to calculate once.
+     */
     private final String rawCostAssociations = calculateRawCostAssociations(taskCatalog);
 
     /**
