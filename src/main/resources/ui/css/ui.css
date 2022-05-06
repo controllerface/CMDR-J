@@ -33,7 +33,7 @@ body
 .dashboardInfo
 {
     display: grid;
-    grid-template-columns: 9em auto;
+    grid-template-columns: 6em auto;
     margin: .5em;
 }
 
@@ -90,6 +90,7 @@ body
 {
     width: 95%;
     height: .5em;
+    display: block;
 }
 
 

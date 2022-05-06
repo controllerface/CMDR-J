@@ -199,6 +199,16 @@ class TaskCatalog extends HTMLElement
         categoryElement.append(moduleElement);
     }
 
+    createEngineerTask(engineerData, categoryElement)
+    {
+        let taskType = categoryElement.getAttribute('taskType');
+        let engineerElement = this.createTaskElement(engineerData['name'], engineerData['key'], 'Plan This ' + taskType);
+        engineerElement.setAttribute('taskType', categoryElement.getAttribute('taskType'));
+        this.createTaskCosts(engineerElement, engineerData['costs']);
+        this.createTaskEffects(engineerElement, engineerData['effects']);
+        categoryElement.append(engineerElement);
+    }
+
 
     /* Sorting Methods */
 
@@ -2300,6 +2310,31 @@ class TaskCatalog extends HTMLElement
     }
 
 
+    /* Engineer Invites and Referrals */
+
+    loadEngineerUnlocks(modificationData, categoryElement)
+    {
+        let tasks = Object.keys(modificationData);
+        tasks.sort((a, b) => modificationData[a]['sort'] - modificationData[b]['sort']);
+        tasks.forEach(task => this.createEngineerTask(modificationData[task], categoryElement));
+    }
+
+    loadEngineer(engineerData, categoryElement)
+    {
+        let subTypes = Object.keys(engineerData);
+        subTypes.sort();
+        subTypes.forEach(type =>
+        {
+            let x = engineerData[type];
+            let y = x[Object.keys(x)[0]];
+            this.loadSubcategoryData(type.replaceAll('_', ' '),
+                    y,
+                    this.loadEngineerUnlocks,
+                    categoryElement);
+        });
+    }
+
+
 
     /* Main Category Loading Methods */
 
@@ -2458,51 +2493,12 @@ class TaskCatalog extends HTMLElement
                     upgradeContainer);
     }
 
-
-
-
-
-    loadEngineer5(moduleData, categoryElement)
-    {
-        console.log(moduleData);
-        let taskType = categoryElement.getAttribute('taskType');
-        let moduleElement = this.createTaskElement(moduleData['name'], moduleData['key'], 'Plan This ' + taskType);
-        moduleElement.setAttribute('taskType', categoryElement.getAttribute('taskType'));
-        this.createTaskCosts(moduleElement, moduleData['costs']);
-        this.createTaskEffects(moduleElement, moduleData['effects']);
-        categoryElement.append(moduleElement);
-    }
-
-    loadEngineer4(modificationData, categoryElement)
-    {
-        let grades = Object.keys(modificationData);
-        grades.sort((a, b) => modificationData[a]['sort'] - modificationData[b]['sort']);
-        grades.forEach(grade => this.loadEngineer5(modificationData[grade], categoryElement));
-    }
-
-    loadEngineer2(engineerData, categoryElement)
-    {
-        let subTypes = Object.keys(engineerData);
-        subTypes.sort();
-        subTypes.forEach(type =>
-        {
-            let x = engineerData[type];
-            let y = x[Object.keys(x)[0]];
-            this.loadSubcategoryData(type.replaceAll('_', ' '),
-                    y,
-                    this.loadEngineer4,
-                    categoryElement);
-        });
-    }
-
     loadEngineers(engineerData)
     {
         let engineerContainer = this.shadowRoot.getElementById('taskCatalog_engineers');
-        //console.log(engineerData);
-
         this.loadCategoryData('Unlocks',
                     engineerData,
-                    this.loadEngineer2,
+                    this.loadEngineer,
                     engineerContainer);
     }
 

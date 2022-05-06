@@ -1743,14 +1743,18 @@ const eventListeners =
 
     // Current career ranks
     Rank_Combat: (e) => setElementText("Rank_Combat", combatRanks[e.data]),
+    Rank_Soldier: (e) => setElementText("Rank_Soldier", combatRanks[e.data]),
     Rank_Trade: (e) => setElementText("Rank_Trade", tradeRanks[e.data]),
     Rank_Explore: (e) => setElementText("Rank_Explore", exploreRanks[e.data]),
+    Rank_Exobiologist: (e) => setElementText("Rank_Exobiologist", exploreRanks[e.data]),
     Rank_CQC: (e) => setElementText("Rank_CQC", cqcRanks[e.data]),
 
     // Career rank progress
     Progress_Combat: (e) => setElementProgress("Progress_Combat", e.data),
+    Progress_Soldier: (e) => setElementProgress("Progress_Soldier", e.data),
     Progress_Trade: (e) => setElementProgress("Progress_Trade", e.data),
     Progress_Explore: (e) => setElementProgress("Progress_Explore", e.data),
+    Progress_Exobiologist: (e) => setElementProgress("Progress_Exobiologist", e.data),
     Progress_CQC: (e) => setElementProgress("Progress_CQC", e.data),
 
     // Naval ranks

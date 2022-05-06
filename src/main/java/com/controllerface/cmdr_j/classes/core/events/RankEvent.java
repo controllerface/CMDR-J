@@ -15,6 +15,8 @@ public class RankEvent implements BiConsumer<GameState, Map<String, Object>>
         JournalEvent.setCommanderStat(gameState, event, RankStat.Rank_Combat);
         JournalEvent.setCommanderStat(gameState, event, RankStat.Rank_Trade);
         JournalEvent.setCommanderStat(gameState, event, RankStat.Rank_Explore);
+        JournalEvent.setCommanderStat(gameState, event, RankStat.Rank_Soldier);
+        JournalEvent.setCommanderStat(gameState, event, RankStat.Rank_Exobiologist);
         JournalEvent.setCommanderStat(gameState, event, RankStat.Rank_Empire);
         JournalEvent.setCommanderStat(gameState, event, RankStat.Rank_Federation);
         JournalEvent.setCommanderStat(gameState, event, RankStat.Rank_CQC);

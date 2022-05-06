@@ -15,6 +15,8 @@ public class ProgressEvent implements BiConsumer<GameState, Map<String, Object>>
         JournalEvent.setCommanderStat(gameState, event, RankStat.Progress_Combat);
         JournalEvent.setCommanderStat(gameState, event, RankStat.Progress_Trade);
         JournalEvent.setCommanderStat(gameState, event, RankStat.Progress_Explore);
+        JournalEvent.setCommanderStat(gameState, event, RankStat.Progress_Soldier);
+        JournalEvent.setCommanderStat(gameState, event, RankStat.Progress_Exobiologist);
         JournalEvent.setCommanderStat(gameState, event, RankStat.Progress_Empire);
         JournalEvent.setCommanderStat(gameState, event, RankStat.Progress_Federation);
         JournalEvent.setCommanderStat(gameState, event, RankStat.Progress_CQC);
