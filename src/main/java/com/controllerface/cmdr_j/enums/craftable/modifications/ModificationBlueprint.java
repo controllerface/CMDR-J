@@ -480,6 +480,8 @@ public enum ModificationBlueprint implements TaskBlueprint
     Combat_Movement_Speed("Combat Movement Speed", ModificationRecipe.Combat_Movement_Speed),
     Damage_Resistance("Damage Resistance", ModificationRecipe.Damage_Resistance),
     Enhanced_Tracking("Enhanced Tracking", ModificationRecipe.Enhanced_Tracking),
+    Quieter_Footsteps("Quieter Footsteps", ModificationRecipe.Quieter_Footsteps),
+
     Extra_Ammo_Capacity("Extra Ammo Capacity", ModificationRecipe.Extra_Ammo_Capacity),
     Extra_Backpack_Capacity("Extra Backpack Capacity", ModificationRecipe.suit_backpackcapacity),
     Faster_Shield_Regen("Faster Shield Regen", ModificationRecipe.Faster_Shield_Regen),

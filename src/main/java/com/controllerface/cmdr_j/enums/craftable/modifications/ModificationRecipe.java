@@ -556,6 +556,7 @@ public enum ModificationRecipe implements TaskRecipe
     // tactical
     Enhanced_Tracking(new EnhancedTracking()),
     Night_Vision(new NightVision()),
+    Quieter_Footsteps(new QuieterFootsteps()),
 
     // storage
     suit_backpackcapacity(new ExtraBackpackCapacity()),
@@ -587,14 +588,13 @@ public enum ModificationRecipe implements TaskRecipe
     Head_Shot_Damage_Manticore(new HeadShotDamage_Manticore()),
     Head_Shot_Damage_Takada(new HeadShotDamage_Takada()),
 
-
     Improved_Hip_Fire_Accuracy_Kinematic(new ImprovedHipFireAccuracy_Kinematic()),
     Improved_Hip_Fire_Accuracy_Manticore(new ImprovedHipFireAccuracy_Manticore()),
     Improved_Hip_Fire_Accuracy_Takada(new ImprovedHipFireAccuracy_Takada()),
 
     Noise_Suppressor(new NoiseSuppressor()),
     weapon_suppression_unpressurised(new AudioMasking()),
-    Quieter_Footsteps(new QuieterFootsteps()),
+
 
     ;
 

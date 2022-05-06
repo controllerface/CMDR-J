@@ -14,6 +14,7 @@ import java.util.*;
 
 public enum KnownEngineer implements Engineer
 {
+    BALTANOS(new Baltanos()),                       // Colonia (Odyssey)
     BILL_TURNER(new BillTurner()),                  // The Bubble
     BROO_TARQUIN(new BrooTarquin()),                // The Bubble
     CHLOE_SEDESI(new ChloeSedesi()),                // Witch Head Sector
@@ -39,6 +40,7 @@ public enum KnownEngineer implements Engineer
     PETRA_OLMANOVA(new PetraOlmanova()),            // Colonia
     PROFESSOR_PALIN(new ProfessorPalin()),          // The Bubble
     RAM_TAH(new RamTah()),                          // The Bubble
+    ROSA_DAYETTE(new RosaDayette()),                // Colonia (Odyssey)
     SELENE_JEAN(new SeleneJean()),                  // The Bubble
     TERRA_VELASQUEZ(new TerraVelasquez()),          // The Bubble (Odyssey)
     THE_DWELLER(new TheDweller()),                  // The Bubble
@@ -47,6 +49,8 @@ public enum KnownEngineer implements Engineer
     TOD_MCQUINN(new TodMcQuinn()),                  // The Bubble
     UMA_LASZLO(new UmaLaszlo()),                    // The Bubble (Odyssey)
     WELLINGTON_BECK(new WellingtonBeck()),          // The Bubble (Odyssey)
+    YARDEN_BOND(new YardenBond()),                  // The Bubble (Odyssey)
+    YI_SHEN(new YiShen()),                          // Colonia (Odyssey)
     ZACARIAH_NEMO(new ZacariahNemo()),              // The Bubble
 
     ;
