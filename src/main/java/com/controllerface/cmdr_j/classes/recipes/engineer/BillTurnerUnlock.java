@@ -14,7 +14,7 @@ public class BillTurnerUnlock extends AbstractEngineerProgressRecipe
     {
         super("Bill Turner :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Bill Turner")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Bill Turner")),
             new CostData(Commodity.BROMELLITE, 50));
     }
 }

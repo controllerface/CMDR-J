@@ -600,7 +600,7 @@ public class TaskCatalog
         var name = engineerRecipe.getDisplayLabel();
 
         var s = engineerRecipe.effects().effectStream()
-            .filter(e->e.effect == ItemEffect.engineer_unlock)
+            .filter(e->e.effect == ItemEffect.engineer_referral)
             .findFirst().map(x -> " :: " + x.stringValue)
             .orElse("");
 

@@ -14,7 +14,7 @@ public class OdenGeigerInvite extends AbstractEngineerProgressRecipe
     {
         super("Oden Geiger :: Invite",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Oden Geiger")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Oden Geiger")),
             new CostData(Material.GENETICSAMPLE, 7),
             new CostData(Material.EMPLOYEEGENETICDATA, 7),
             new CostData(Material.GENETICRESEARCH, 6));

@@ -14,7 +14,7 @@ public class DidiVatermannUnlock extends AbstractEngineerProgressRecipe
     {
         super("Didi Vatermann :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Didi Vatermann")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Didi Vatermann")),
             new CostData(Commodity.LAVIANBRANDY, 50));
     }
 }

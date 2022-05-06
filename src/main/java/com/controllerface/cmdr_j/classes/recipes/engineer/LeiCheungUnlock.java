@@ -14,7 +14,7 @@ public class LeiCheungUnlock extends AbstractEngineerProgressRecipe
     {
         super("Lei Cheung :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Lei Cheung")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Lei Cheung")),
             new CostData(Commodity.GOLD, 200));
     }
 }

@@ -419,7 +419,9 @@ public enum ItemEffect
     experimental("", "", true),          // is a experimental human (Aegis) module
     power_play("", "", true),            // is a power play unlocked module
     tech_unlock("", "Unlock Technology", true),           // used for tech broker unlock recipes
-    engineer_unlock("", "Engineer Unlock", true),           // used for engineer progress
+    engineer_referral("", "Engineer Referral", true),           // used for engineer progress
+    engineer_access("", "Engineer Invite", true),           // used for engineer progress
+
 
     // synthetic effects, used for synthesis recipes
     Rearm("", "", true),                       // ammunition replenishment

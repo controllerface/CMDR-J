@@ -14,7 +14,7 @@ public class ZacariahNemoUnlock extends AbstractEngineerProgressRecipe
     {
         super("Zacariah Nemo :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Zacariah Nemo")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Zacariah Nemo")),
             new CostData(Commodity.XIHECOMPANIONS, 25));
     }
 }

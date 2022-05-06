@@ -12,9 +12,9 @@ public class RosaDayetteReferral extends AbstractEngineerProgressRecipe
 {
     public RosaDayetteReferral()
     {
-        super("Rosa Dayette :: Referral to Yi Shen",
+        super("Rosa Dayette :: Referral",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Yi Shen")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_referral, "Yi Shen")),
             new CostData(Material.MANUFACTURINGINSTRUCTIONS, 10));
     }
 }

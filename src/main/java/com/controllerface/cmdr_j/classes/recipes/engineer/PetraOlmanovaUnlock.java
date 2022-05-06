@@ -14,7 +14,7 @@ public class PetraOlmanovaUnlock extends AbstractEngineerProgressRecipe
     {
         super("Petra Olmanova :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Petra Olmanova")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Petra Olmanova")),
             new CostData(Commodity.PROGENITORCELLS, 200));
     }
 }

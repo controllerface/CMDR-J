@@ -14,7 +14,7 @@ public class ElviraMartuukUnlock extends AbstractEngineerProgressRecipe
     {
         super("Elvira Martuuk :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Elvira Martuuk")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Elvira Martuuk")),
             new CostData(Commodity.SOONTILLRELICS, 3));
     }
 }

@@ -14,7 +14,7 @@ public class HeraTaniUnlock extends AbstractEngineerProgressRecipe
     {
         super("Hera Tani :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Hera Tani")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Hera Tani")),
             new CostData(Commodity.KAMITRACIGARS, 50));
     }
 }

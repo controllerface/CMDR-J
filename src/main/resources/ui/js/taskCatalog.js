@@ -2459,6 +2459,53 @@ class TaskCatalog extends HTMLElement
     }
 
 
+
+
+
+    loadEngineer5(moduleData, categoryElement)
+    {
+        console.log(moduleData);
+        let taskType = categoryElement.getAttribute('taskType');
+        let moduleElement = this.createTaskElement(moduleData['name'], moduleData['key'], 'Plan This ' + taskType);
+        moduleElement.setAttribute('taskType', categoryElement.getAttribute('taskType'));
+        this.createTaskCosts(moduleElement, moduleData['costs']);
+        this.createTaskEffects(moduleElement, moduleData['effects']);
+        categoryElement.append(moduleElement);
+    }
+
+    loadEngineer4(modificationData, categoryElement)
+    {
+        let grades = Object.keys(modificationData);
+        grades.sort((a, b) => modificationData[a]['sort'] - modificationData[b]['sort']);
+        grades.forEach(grade => this.loadEngineer5(modificationData[grade], categoryElement));
+    }
+
+    loadEngineer2(engineerData, categoryElement)
+    {
+        let subTypes = Object.keys(engineerData);
+        subTypes.sort();
+        subTypes.forEach(type =>
+        {
+            let x = engineerData[type];
+            let y = x[Object.keys(x)[0]];
+            this.loadSubcategoryData(type.replaceAll('_', ' '),
+                    y,
+                    this.loadEngineer4,
+                    categoryElement);
+        });
+    }
+
+    loadEngineers(engineerData)
+    {
+        let engineerContainer = this.shadowRoot.getElementById('taskCatalog_engineers');
+        //console.log(engineerData);
+
+        this.loadCategoryData('Unlocks',
+                    engineerData,
+                    this.loadEngineer2,
+                    engineerContainer);
+    }
+
     loadTaskCatalog(catalogData)
     {
         this.innerHtml = "";
@@ -2470,8 +2517,7 @@ class TaskCatalog extends HTMLElement
         this.loadTrades(catalogData['trades']);
         this.loadSynthesis(catalogData['synthesis']);
         this.loadUpgrades(catalogData['upgrades']);
-        // todo: load engineer progress unlocks
-        console.log(catalogData);
+        this.loadEngineers(catalogData['engineers']);
     }
 
     loadCostAssociations(costData)

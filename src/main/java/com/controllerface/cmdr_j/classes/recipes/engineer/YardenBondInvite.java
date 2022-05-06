@@ -14,7 +14,7 @@ public class YardenBondInvite extends AbstractEngineerProgressRecipe
     {
         super("Yarden Bond :: Invite",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Yarden Bond")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Yarden Bond")),
             new CostData(Material.SMEARCAMPAIGNPLANS, 8));
     }
 }

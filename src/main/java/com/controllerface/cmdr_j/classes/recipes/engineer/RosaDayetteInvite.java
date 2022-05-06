@@ -14,7 +14,7 @@ public class RosaDayetteInvite extends AbstractEngineerProgressRecipe
     {
         super("Rosa Dayette :: Invite",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Rosa Dayette")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Rosa Dayette")),
             new CostData(Material.CULINARYRECIPES, 5),
             new CostData(Material.COCKTAILRECIPES, 5));
     }

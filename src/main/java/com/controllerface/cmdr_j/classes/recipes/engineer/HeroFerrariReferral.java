@@ -12,9 +12,9 @@ public class HeroFerrariReferral extends AbstractEngineerProgressRecipe
 {
     public HeroFerrariReferral()
     {
-        super("Hero Ferrari :: Referral to Wellington Beck",
+        super("Hero Ferrari :: Referral",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Wellington Beck")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_referral, "Wellington Beck")),
             new CostData(Material.SETTLEMENTDEFENCEPLANS, 15));
     }
 }

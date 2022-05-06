@@ -14,7 +14,7 @@ public class EtienneDornUnlock extends AbstractEngineerProgressRecipe
     {
         super("Etienne Dorn :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Etienne Dorn")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Etienne Dorn")),
             new CostData(Commodity.OCCUPIEDCRYOPOD, 25));
     }
 }

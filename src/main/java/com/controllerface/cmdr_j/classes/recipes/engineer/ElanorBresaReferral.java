@@ -12,9 +12,9 @@ public class ElanorBresaReferral extends AbstractEngineerProgressRecipe
 {
     public ElanorBresaReferral()
     {
-        super("Elanor Bresa :: Referral to Yi Shen",
+        super("Elanor Bresa :: Referral",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Yi Shen")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_referral, "Yi Shen")),
             new CostData(Material.DIGITALDESIGNS, 10));
     }
 }

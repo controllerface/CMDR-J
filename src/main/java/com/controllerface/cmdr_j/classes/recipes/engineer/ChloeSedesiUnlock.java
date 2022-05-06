@@ -14,7 +14,7 @@ public class ChloeSedesiUnlock extends AbstractEngineerProgressRecipe
     {
         super("Chloe Sedesi :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Chloe Sedesi")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Chloe Sedesi")),
             new CostData(Material.UNKNOWNENERGYSOURCE, 25));
     }
 }

@@ -12,9 +12,9 @@ public class DominoGreenReferral extends AbstractEngineerProgressRecipe
 {
     public DominoGreenReferral()
     {
-        super("Domino Green :: Referral to Kit Fowler",
+        super("Domino Green :: Referral",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Kit Fowler")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_referral, "Kit Fowler")),
             new CostData(Material.PUSH, 5));
     }
 }

@@ -14,7 +14,7 @@ public class LoriJamesonUnlock extends AbstractEngineerProgressRecipe
     {
         super("Lori Jameson :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Lori Jameson")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Lori Jameson")),
             new CostData(Commodity.KONGGAALE, 25));
     }
 }

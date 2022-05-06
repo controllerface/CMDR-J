@@ -14,7 +14,7 @@ public class KitFowlerInvite extends AbstractEngineerProgressRecipe
     {
         super("Kit Fowler :: Invite",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Kit Fowler")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Kit Fowler")),
             new CostData(Material.OPINIONPOLLS, 10));
     }
 }

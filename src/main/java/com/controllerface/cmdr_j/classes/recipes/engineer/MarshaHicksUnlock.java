@@ -14,7 +14,7 @@ public class MarshaHicksUnlock extends AbstractEngineerProgressRecipe
     {
         super("Marsha Hicks :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Marsha Hicks")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Marsha Hicks")),
             new CostData(Commodity.OSMIUM, 10));
     }
 }

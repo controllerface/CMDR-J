@@ -14,7 +14,7 @@ public class WellingtonBeckInvite extends AbstractEngineerProgressRecipe
     {
         super("Wellington Beck :: Invite",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Wellington Beck")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Wellington Beck")),
             new CostData(Material.CLASSICENTERTAINMENT, 7),
             new CostData(Material.MULTIMEDIAENTERTAINMENT, 7),
             new CostData(Material.CATMEDIA, 6));

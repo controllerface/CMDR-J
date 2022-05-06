@@ -14,7 +14,7 @@ public class LizRyderUnlock extends AbstractEngineerProgressRecipe
     {
         super("Liz Ryder :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Liz Ryder")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Liz Ryder")),
             new CostData(Commodity.LANDMINES, 200));
     }
 }

@@ -12,9 +12,9 @@ public class BaltanosReferral extends AbstractEngineerProgressRecipe
 {
     public BaltanosReferral()
     {
-        super("Baltanos :: Referral to Yi Shen",
+        super("Baltanos :: Referral",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Yi Shen")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_referral, "Yi Shen")),
             new CostData(Material.FACTIONASSOCIATES, 10));
     }
 }

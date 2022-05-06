@@ -14,7 +14,7 @@ public class MarcoQwentUnlock extends AbstractEngineerProgressRecipe
     {
         super("Marco Qwent :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Marco Qwent")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Marco Qwent")),
             new CostData(Commodity.MODULARTERMINALS, 25));
     }
 }

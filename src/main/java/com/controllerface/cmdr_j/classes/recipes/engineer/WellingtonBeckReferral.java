@@ -12,9 +12,9 @@ public class WellingtonBeckReferral extends AbstractEngineerProgressRecipe
 {
     public WellingtonBeckReferral()
     {
-        super("Wellington Beck :: Referral to Uma Laszlo",
+        super("Wellington Beck :: Referral",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Uma Laszlo")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_referral, "Uma Laszlo")),
             new CostData(Material.INSIGHTENTERTAINMENTSUITE, 5));
     }
 }

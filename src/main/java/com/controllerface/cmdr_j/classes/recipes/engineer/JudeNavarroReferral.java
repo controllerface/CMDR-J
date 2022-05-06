@@ -12,9 +12,9 @@ public class JudeNavarroReferral extends AbstractEngineerProgressRecipe
 {
     public JudeNavarroReferral()
     {
-        super("Jude Navarro :: Referral to Terra Velasquez",
+        super("Jude Navarro :: Referral",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Terra Velasquez")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_referral, "Terra Velasquez")),
             new CostData(Material.GENETICREPAIRMEDS, 5));
     }
 }

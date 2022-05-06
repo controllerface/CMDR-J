@@ -12,9 +12,9 @@ public class TerraVelasquezReferral extends AbstractEngineerProgressRecipe
 {
     public TerraVelasquezReferral()
     {
-        super("Terra Velasquez :: Referral to Oden Geiger",
+        super("Terra Velasquez :: Referral",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Oden Geiger")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_referral, "Oden Geiger")),
             new CostData(Material.FINANCIALPROJECTIONS, 15));
     }
 }

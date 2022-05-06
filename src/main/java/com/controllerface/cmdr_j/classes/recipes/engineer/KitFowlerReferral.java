@@ -12,9 +12,9 @@ public class KitFowlerReferral extends AbstractEngineerProgressRecipe
 {
     public KitFowlerReferral()
     {
-        super("Kit Fowler :: Referral to Yarden Bond",
+        super("Kit Fowler :: Referral",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Invite from Yarden Bond")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_referral, "Yarden Bond")),
             new CostData(Material.SURVEILLANCEEQUIPMENT, 5));
     }
 }

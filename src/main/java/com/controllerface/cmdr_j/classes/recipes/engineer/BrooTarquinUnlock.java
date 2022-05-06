@@ -14,7 +14,7 @@ public class BrooTarquinUnlock extends AbstractEngineerProgressRecipe
     {
         super("Broo Tarquin :: Unlock",
             ItemGrade.EngineerAccess,
-            new ItemEffects(new ItemEffectData(ItemEffect.engineer_unlock, "Access to Broo Tarquin")),
+            new ItemEffects(new ItemEffectData(ItemEffect.engineer_access, "Broo Tarquin")),
             new CostData(Commodity.FUJINTEA, 50));
     }
 }
