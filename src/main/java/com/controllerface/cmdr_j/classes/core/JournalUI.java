@@ -119,6 +119,8 @@ public class JournalUI
         assetMap.put("/grade-4.svg",            StaticAsset.make("/ui/img/grade-4.svg"));
         assetMap.put("/grade-5.svg",            StaticAsset.make("/ui/img/grade-5.svg"));
         assetMap.put("/planet.svg",             StaticAsset.make("/ui/img/planet.svg"));
+        assetMap.put("/cargo.svg",              StaticAsset.make("/ui/img/cargo.svg"));
+
 
         return assetMap;
     }

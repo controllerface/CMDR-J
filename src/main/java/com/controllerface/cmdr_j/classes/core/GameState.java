@@ -4044,6 +4044,7 @@ public class GameState
         var event = new HashMap<String, Object>();
         event.put("name", consumable.getLocalizedName());
         event.put("count", count.toString());
+        event.put("type", consumable.getGrade().name());
         return JSONSupport.Write.jsonToString.apply(event);
     }
 

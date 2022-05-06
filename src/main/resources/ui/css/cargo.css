@@ -42,7 +42,7 @@
     border-radius: 0px 3px 3px 0px;
     text-align: center;
     padding-top: .35em;
-    color: var(--default-text);
+    color: var(--default-color);
 }
 
 details > summary

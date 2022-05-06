@@ -59,7 +59,7 @@
     border-left: 0px;
     text-align: center;
     padding-top: .35em;
-    color: var(--default-text);
+    color: var(--default-color);
     font-weight: bold;
     font-size: 1.1em;
 }
@@ -81,7 +81,7 @@
     border-left: dotted 1px var(--default-divider);
     text-align: center;
     padding-top: .35em;
-    color: var(--default-text);
+    color: var(--default-color);
     border-radius: 0px 3px 3px 0px;
     font-weight: bold;
     font-size: 1.1em;

@@ -739,6 +739,8 @@ function handleConsumable(e)
         }
         cargoBin.commodity = cargoData['name'];
         cargoBin.stock = cargoData['count'];
+        cargoBin.type = cargoData['type'];
+        console.log(cargoData);
     }
 }
 

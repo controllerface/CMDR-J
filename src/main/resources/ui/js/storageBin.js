@@ -79,7 +79,9 @@ class StorageBin extends HTMLElement
 
                 // todo: add remaining types
                 default:
-                    console.log('Type: ' + newValue + ' has no icon yet');
+                    typeIcon.src = 'cargo.svg';
+                    typeIcon.title = newValue;
+                    //console.log('Type: ' + newValue + ' has no icon yet');
             }
         }
     }
