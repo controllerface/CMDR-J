@@ -61,6 +61,11 @@ public class StatusEvent implements BiConsumer<GameState, Map<String, Object>>
                 .orElse(0d);
         }
 
+        if (radius <= 0.0d)
+        {
+            radius = gameState.getNearestBodyRadius();
+        }
+
         var localCoordinates = new LocalCoordinates(nearPlanet, latitude, longitude, altitude, heading, radius);
         gameState.setLocalCoordinates(localCoordinates);
 

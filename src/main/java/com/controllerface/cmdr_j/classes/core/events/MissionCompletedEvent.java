@@ -3,6 +3,7 @@ package com.controllerface.cmdr_j.classes.core.events;
 import com.controllerface.cmdr_j.enums.costs.commodities.Commodity;
 import com.controllerface.cmdr_j.enums.costs.materials.Material;
 import com.controllerface.cmdr_j.classes.core.GameState;
+import com.controllerface.cmdr_j.enums.journal.JournalEvent;
 
 import java.util.List;
 import java.util.Map;
@@ -19,22 +20,26 @@ public class MissionCompletedEvent implements BiConsumer<GameState, Map<String, 
         var name = (String) event.get("Name");
         var wingMission = name != null && name.toLowerCase().contains("wing");
 
-        if (event.get("MaterialsReward") != null)
-        {
-            ((List<Map<String, Object>>) event.get("MaterialsReward"))
-                .forEach(materialReward -> adjustMaterialCount(gameState, materialReward));
-        }
+        JournalEvent.Cargo.process(gameState, event);
+        JournalEvent.ShipLocker.process(gameState, event);
 
-        if (event.get("CommodityReward") != null)
-        {
-            ((List<Map<String, Object>>) event.get("CommodityReward"))
-                .forEach(commodityReward -> adjustCargoCount(gameState, commodityReward));
-        }
-
-        if (event.get("Commodity") != null && !wingMission)
-        {
-            adjustCommodityCount(gameState, event);
-        }
+// the amounts int he event data should only be used for a logging mechanism, not to adjust counts
+//        if (event.get("MaterialsReward") != null)
+//        {
+//            ((List<Map<String, Object>>) event.get("MaterialsReward"))
+//                .forEach(materialReward -> adjustMaterialCount(gameState, materialReward));
+//        }
+//
+//        if (event.get("CommodityReward") != null)
+//        {
+//            ((List<Map<String, Object>>) event.get("CommodityReward"))
+//                .forEach(commodityReward -> adjustCargoCount(gameState, commodityReward));
+//        }
+//
+//        if (event.get("Commodity") != null && !wingMission)
+//        {
+//            adjustCommodityCount(gameState, event);
+//        }
 
         gameState.adjustCreditBalance(reward);
         gameState.completeMission(missionID);

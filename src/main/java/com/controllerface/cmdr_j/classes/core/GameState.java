@@ -1567,6 +1567,27 @@ public class GameState
         executeWithLock(() -> globalUpdate.accept("Settlement", locationData));
     }
 
+    public double getNearestBodyRadius()
+    {
+        return database.computeInTransaction(txn ->
+        {
+            var bodyEntity = getStarNearestBodyEntity(txn);
+            if (bodyEntity == null) return 0.0d;
+            var r = ((Double) bodyEntity.getProperty(EntityKeys.RADIUS));
+            return r == null ? 0.0d : r;
+        });
+    }
+
+    private void updateBodyRadius(double radius)
+    {
+        database.executeInTransaction(txn ->
+        {
+            var bodyEntity = getStarNearestBodyEntity(txn);
+            if (bodyEntity == null) return;
+            bodyEntity.setProperty(EntityKeys.RADIUS, radius);
+        });
+    }
+
     public void setLocalCoordinates(LocalCoordinates localCoordinates)
     {
         this.localCoordinates = localCoordinates;
@@ -1576,6 +1597,11 @@ public class GameState
         if (localSettlement != null)
         {
             setClosestSettlement(localSettlement);
+        }
+
+        if (localCoordinates.radius > 0.0d)
+        {
+            updateBodyRadius(localCoordinates.radius);
         }
 
         emitWaypointData(globalUpdate);

@@ -151,26 +151,31 @@ public class UIFunctions
          * @param planetRadius radius of the planet
          * @return the approximate distance between the two points in meters
          */
-        public static double calculateSurfaceDistance(double targetLongitude,
-                                                      double targetLatitude,
+        public static double calculateSurfaceDistance(double targetLatitude,
+                                                      double targetLongitude,
                                                       double originLatitude,
                                                       double originLongitude,
                                                       double originAltitude,
                                                       double planetRadius)
         {
-            double latDistance = toRadians(targetLatitude - originLatitude);
-            double lonDistance = toRadians(targetLongitude - originLongitude);
+            double p1 = toRadians(originLatitude);
+            double p2 = toRadians(targetLatitude);
+            double Dp = toRadians(targetLatitude - originLatitude);
+            double Dd = toRadians(targetLongitude - originLongitude);
 
-            double a = haversine(latDistance)
-                + cos(toRadians(originLatitude))
-                * cos(toRadians(targetLatitude))
-                * haversine(lonDistance);
+            double a = haversine(Dp)
+                + cos(p1) * cos(p2)
+                * haversine(Dd);
 
             double c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
             double adjustedDistance = planetRadius * c;
 
-            return sqrt(pow(adjustedDistance, 2) + pow(originAltitude, 2));
+            var x = sqrt(pow(adjustedDistance, 2) + pow(originAltitude, 2));
+
+            System.out.println(x);
+
+            return x;
         }
 
         /**
