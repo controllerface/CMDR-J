@@ -75,7 +75,7 @@ import java.util.stream.Stream;
 /**
  * Created by sroebuck on 5/3/2018.
  */
-//@Ignore
+@Ignore
 public class CommanderJTest
 {
     public static final String DATABASE_TEST_DIRECTORY = "/test_db";
