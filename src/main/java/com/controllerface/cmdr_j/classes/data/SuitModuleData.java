@@ -23,12 +23,12 @@ public class SuitModuleData
     public Optional<ItemEffectData> effectByName(ItemEffect effect)
     {
         Optional<ModifierData> modified = modifiers.stream()
-            .filter(modifierData -> modifierData.effect == effect)
+            .filter(modifierData -> modifierData.shipStat().effect == effect)
             .findFirst();
 
         if (modified.isPresent())
         {
-            return modified.map(mod -> new ItemEffectData(mod.effect, mod.value));
+            return modified.map(mod -> new ItemEffectData(mod.shipStat().effect, mod.shipStat().value));
         }
 
         return module.itemEffects().effectStream()
@@ -80,23 +80,40 @@ public class SuitModuleData
                     .filter(unit -> !unit.isEmpty())
                     .ifPresent(unit -> values.put("unit", unit));
 
+                System.out.println("effect: " + name + " values: " + values);
                 effects.put(name, values);
             });
 
         modifiers.forEach(modifierData ->
         {
-            if (modifierData.stringValue == null || modifierData.stringValue.isEmpty())
+            // todo: this needs to be removed, all stats need to be forwarded
+//            if (modifierData.firstStat().stringValue == null || modifierData.firstStat().stringValue.isEmpty())
+//            {
+//                // the journal sometimes glitches listing a value as
+//                // modified from 0 to 0. In that case just bail out.
+//                return;
+//            }
+
+            for (ModifiedStat stat : modifierData.stats)
             {
-                // the journal sometimes glitches listing a value as
-                // modified from 0 to 0. In that case just bail out.
-                return;
+                var name = stat.effect.toString();
+                var values = (Map<String, Object>) effects.computeIfAbsent(name,
+                    (_k) -> new HashMap<String, Object>());
+
+                System.out.println("mod: " + name + " values: " + values);
+
+                var value = stat.stringValue.isEmpty()
+                    ? stat.value
+                    : stat.stringValue;
+
+                Optional.of(stat.effect.unit)
+                    .filter(unit -> !unit.isEmpty())
+                    .ifPresent(unit -> values.put("unit", unit));
+
+                values.put("value", value);
+                values.put("effectType", "modification");
+                values.put("impact", "positive");
             }
-            var name = modifierData.effect.toString();
-            var values = (Map<String, Object>) effects.computeIfAbsent(name,
-                (_k) -> new HashMap<String, Object>());
-            values.put("value", modifierData.stringValue);
-            values.put("effectType", "modification");
-            values.put("impact", "positive");
         });
 
         map.put("effects", effects);

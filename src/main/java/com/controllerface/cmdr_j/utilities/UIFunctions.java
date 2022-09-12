@@ -158,24 +158,24 @@ public class UIFunctions
                                                       double originAltitude,
                                                       double planetRadius)
         {
-            double p1 = toRadians(originLatitude);
-            double p2 = toRadians(targetLatitude);
-            double Dp = toRadians(targetLatitude - originLatitude);
-            double Dd = toRadians(targetLongitude - originLongitude);
+            double originRadians = toRadians(originLatitude);
+            double targetRadians = toRadians(targetLatitude);
+            double deltaLatitude = toRadians(targetLatitude - originLatitude);
+            double deltaLongitude = toRadians(targetLongitude - originLongitude);
 
-            double a = haversine(Dp)
-                + cos(p1) * cos(p2)
-                * haversine(Dd);
+            double chordLength = haversine(deltaLatitude)
+                + cos(originRadians) * cos(targetRadians)
+                * haversine(deltaLongitude);
 
-            double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+            double angularDistance = 2 * atan2(sqrt(chordLength), sqrt(1 - chordLength));
 
-            double adjustedDistance = planetRadius * c;
+            double surfaceDistance = planetRadius * angularDistance;
 
-            var x = sqrt(pow(adjustedDistance, 2) + pow(originAltitude, 2));
+            double altitudeAdjustedDistance = sqrt(pow(surfaceDistance, 2) + pow(originAltitude, 2));
 
-            System.out.println(x);
+            System.out.println(altitudeAdjustedDistance);
 
-            return x;
+            return altitudeAdjustedDistance;
         }
 
         /**

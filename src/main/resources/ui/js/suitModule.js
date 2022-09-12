@@ -50,6 +50,9 @@ class SuitModule extends HTMLElement
         let moduleName = document.createElement('span');
         moduleName.textContent = module['name'];
 
+console.log(module);
+
+
         if (!module['name'].includes('- Grade'))
         {
             moduleName.textContent = module['name'] + ' - Grade ' + module['modLevel'];

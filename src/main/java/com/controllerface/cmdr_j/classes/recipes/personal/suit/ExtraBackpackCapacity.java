@@ -16,7 +16,9 @@ public class ExtraBackpackCapacity extends AbstractModificationRecipe
         super(ExtraBackpackCapacity.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Backpack_Capacity, 100d)
+                    new ItemEffectData(ItemEffect.Backpack_Data_Capacity, 100d),
+                    new ItemEffectData(ItemEffect.Backpack_Item_Capacity, 100d),
+                    new ItemEffectData(ItemEffect.Backpack_Component_Capacity, 100d)
                 ),
             new CostData(Material.WEAPONINVENTORY, 10),
             new CostData(Material.CHEMICALINVENTORY, 10),

@@ -40,12 +40,12 @@ public class ShipModuleData
     public Optional<ItemEffectData> effectByName(ItemEffect effect)
     {
         Optional<ModifierData> modified = modifiers.stream()
-            .filter(modifierData -> modifierData.effect == effect)
+            .filter(modifierData -> modifierData.shipStat().effect == effect)
             .findFirst();
 
         if (modified.isPresent())
         {
-            return modified.map(mod -> new ItemEffectData(mod.effect, mod.value));
+            return modified.map(mod -> new ItemEffectData(mod.shipStat().effect, mod.shipStat().value));
         }
 
         return module.itemEffects().effectStream()
@@ -150,20 +150,20 @@ public class ShipModuleData
 
         modifiers.forEach(modifierData ->
         {
-            if (modifierData.value == modifierData.originalValue)
+            if (modifierData.shipStat().value == modifierData.shipStat().originalValue)
             {
                 // the journal sometimes glitches listing a value as
                 // modified from 0 to 0. In that case just bail out.
                 return;
             }
-            var name = modifierData.effect.toString();
+            var name = modifierData.shipStat().effect.toString();
             var values = (Map<String, Object>) effects.computeIfAbsent(name,
                 (_k) -> new HashMap<String, Object>());
-            values.put("value", modifierData.value);
-            values.put("originalValue", modifierData.originalValue);
-            boolean positive = modifierData.lessIsGood
-                ? modifierData.value < modifierData.originalValue
-                : modifierData.value > modifierData.originalValue;
+            values.put("value", modifierData.shipStat().value);
+            values.put("originalValue", modifierData.shipStat().originalValue);
+            boolean positive = modifierData.shipStat().lessIsGood
+                ? modifierData.shipStat().value < modifierData.shipStat().originalValue
+                : modifierData.shipStat().value > modifierData.shipStat().originalValue;
             values.put("impact", positive ? "positive" : "negative");
         });
 

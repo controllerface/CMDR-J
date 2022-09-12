@@ -328,23 +328,21 @@ public enum ItemEffect
     Suit_Shield_Capacity("MJ", "Shield Capacity", true, EffectType.STANDARD),
     Suit_Mod_Slots("", "Modification Slots", true, EffectType.STANDARD),
 
-
     Suit_Dual_Primary_Slots("", "Dual Primary Weapons", true, EffectType.EXPERIMENTAL),
     Suit_Exobiology_Scanner("", "Exobiology Scanner", true, EffectType.EXPERIMENTAL),
     Suit_Arc_Cutter("", "Arc Cutter", true, EffectType.EXPERIMENTAL),
 
+    Air_Capacity("% +", "Air Capacity", true, EffectType.MODIFICATION),
 
+    Ammo_Capacity("% +", "Ammo Capacity", true, EffectType.MODIFICATION),
 
-    Air_Capacity("%", "Air Capacity", true, EffectType.MODIFICATION),
-    Ammo_Capacity("%", "Ammo Capacity", true, EffectType.MODIFICATION),
-
-    Weapon_Stability("%", "Weapon Stability", true, EffectType.MODIFICATION),
+    Weapon_Stability("% +", "Weapon Stability", true, EffectType.MODIFICATION),
     Improved_Weapon_Handling("", "Improved Weapon Handling", true, EffectType.MODIFICATION),
     Improved_Weapon_Reload("", "Improved Weapon Reload", true, EffectType.MODIFICATION),
     Improved_Weapon_Range("", "Improved Weapon Range", true, EffectType.MODIFICATION),
     Improved_Weapon_Magazine("", "Improved Weapon Magazine", true, EffectType.MODIFICATION),
     Improved_Headshot_Damage("", "Improved Headshot Damage", true, EffectType.MODIFICATION),
-    Improved_Hip_Fire_Accuracy("%", "Improved Hip Fire Accuracy", true, EffectType.MODIFICATION),
+    Improved_Hip_Fire_Accuracy("% +", "Hip Fire Accuracy", true, EffectType.MODIFICATION),
 
     Noise_Suppressor("", "Sound Suppressor (Pressurized)", true, EffectType.MODIFICATION),
     Audio_Mask("", "Sound Suppressor (Unpressurized)", true, EffectType.MODIFICATION),
@@ -359,29 +357,25 @@ public enum ItemEffect
     Jump_Assist("", "Jump Assist", true, EffectType.MODIFICATION),
     Sprint_Assist("", "Sprint Assist", true, EffectType.MODIFICATION),
 
-    Shield_Health_Regen("%", "Shield Health Regen", true, EffectType.MODIFICATION),
+    Shield_Health_Regen("% +", "Shield Health Regen", true, EffectType.MODIFICATION),
 
-    Backpack_Data_Capacity("%", "Backpack Data Capacity", true, EffectType.MODIFICATION),
-    Backpack_Component_Capacity("%", "Backpack Component Capacity", true, EffectType.MODIFICATION),
-    Backpack_Item_Capacity("%", "Backpack Item Capacity", true, EffectType.MODIFICATION),
+    Backpack_Data_Capacity("% +", "Backpack Data Capacity", true, EffectType.MODIFICATION),
+    Backpack_Component_Capacity("% +", "Backpack Component Capacity", true, EffectType.MODIFICATION),
+    Backpack_Item_Capacity("% +", "Backpack Item Capacity", true, EffectType.MODIFICATION),
 
-    Backpack_Capacity("%", "Backpack Data Capacity", true, EffectType.MODIFICATION),
+    Battery_Energy_Capacity("% +", "Battery Energy Capacity", true, EffectType.MODIFICATION),
+    Battery_Efficiency("% +", "Increased Battery Efficiency", true, EffectType.MODIFICATION),
 
-    Battery_Energy_Capacity("%", "Battery Energy Capacity", true, EffectType.MODIFICATION),
-    Battery_Efficiency("%", "Increased Battery Efficiency", true, EffectType.MODIFICATION),
+    Increased_Tracking_Range("% +", "Analysis Range", true, EffectType.MODIFICATION),
+    Increased_Tracking_Time("% +", "Analysis Time", true, EffectType.MODIFICATION),
 
-    Increased_Tracking_Range("%", "Analysis Range", true, EffectType.MODIFICATION),
-    Increased_Tracking_Time("%", "Analysis Time", true, EffectType.MODIFICATION),
+    Weapon_Melee_Damage_Multiplier("% +", "Weapon Melee Damage", true, EffectType.MODIFICATION),
+    Fists_Melee_Damage_Multiplier("% +", "Fists Melee Damage", true, EffectType.MODIFICATION),
 
-    Weapon_Melee_Damage_Multiplier("%", "Weapon Melee Damage", true, EffectType.MODIFICATION),
-    Fists_Melee_Damage_Multiplier("%", "Fists Melee Damage", true, EffectType.MODIFICATION),
-
-    Explosive_Damage_Resistance("%", "Explosive Resistance", true, EffectType.MODIFICATION),
-    Plasma_Damage_Resistance("%", "Plasma Resistance", true, EffectType.MODIFICATION),
-    Thermic_Damage_Resistance("%", "Thermic Resistance", true, EffectType.MODIFICATION),
-    Kinetic_Damage_Resistance("%", "Kinetic Resistance", true, EffectType.MODIFICATION),
-
-
+    Explosive_Damage_Resistance("% +", "Explosive Resistance", true, EffectType.MODIFICATION),
+    Plasma_Damage_Resistance("% +", "Plasma Resistance", true, EffectType.MODIFICATION),
+    Thermic_Damage_Resistance("% +", "Thermic Resistance", true, EffectType.MODIFICATION),
+    Kinetic_Damage_Resistance("% +", "Kinetic Resistance", true, EffectType.MODIFICATION),
 
 
     /*
@@ -421,6 +415,7 @@ public enum ItemEffect
     tech_unlock("", "Unlock Technology", true),           // used for tech broker unlock recipes
     engineer_referral("", "Engineer Referral", true),           // used for engineer progress
     engineer_access("", "Engineer Invite", true),           // used for engineer progress
+    upgrade("", "Upgrade", true),
 
 
     // synthetic effects, used for synthesis recipes

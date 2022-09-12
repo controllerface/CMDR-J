@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.classes.core.events;
 
 import com.controllerface.cmdr_j.classes.core.GameState;
+import com.controllerface.cmdr_j.classes.data.ModifiedStat;
 import com.controllerface.cmdr_j.classes.data.ModifierData;
 import com.controllerface.cmdr_j.classes.data.SuitModuleData;
 import com.controllerface.cmdr_j.enums.craftable.modifications.ModificationRecipe;
@@ -57,9 +58,29 @@ public class SuitLoadoutEvent implements BiConsumer<GameState, Map<String, Objec
             var recipe = ModificationRecipe.byName(modName);
             if (recipe.isPresent())
             {
+                var recipeData = new ModifierData();
+
+
                 recipe.get().effects().effectStream()
-                    .map(e -> new ModifierData(e.effect, e.stringValue))
-                    .forEach(modRecipes::add);
+                    .map(e ->
+                    {
+                        if (e.isNumerical())
+                        {
+                            return new ModifiedStat(e.effect, e.doubleValue);
+                        }
+                        else
+                        {
+                            return new ModifiedStat(e.effect, e.stringValue);
+                        }
+                    })
+                    .forEach(recipeData.stats::add);
+
+                // todo: need to check for non string values
+//                recipe.get().effects().effectStream()
+//                    .map(e -> new ModifiedStat(e.effect, e.stringValue))
+//                    .forEach(recipeData.stats::add);
+
+                modRecipes.add(recipeData);
             }
             else
             {
@@ -118,9 +139,22 @@ public class SuitLoadoutEvent implements BiConsumer<GameState, Map<String, Objec
 
                 if (recipe.isPresent())
                 {
+                    var recipeData = new ModifierData();
                     recipe.get().effects().effectStream()
-                        .map(e -> new ModifierData(e.effect, e.stringValue))
-                        .forEach(modRecipes::add);
+                        .map(e ->
+                        {
+                            if (e.isNumerical())
+                            {
+                                return new ModifiedStat(e.effect, e.doubleValue);
+                            }
+                            else
+                            {
+                                return new ModifiedStat(e.effect, e.stringValue);
+                            }
+                        })
+                        .forEach(recipeData.stats::add);
+
+                    modRecipes.add(recipeData);
                 }
                 else
                 {

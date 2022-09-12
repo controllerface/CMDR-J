@@ -16,7 +16,7 @@ public class ImprovedHipFireAccuracy_Manticore extends AbstractModificationRecip
         super(ImprovedHipFireAccuracy_Manticore.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Improved_Hip_Fire_Accuracy, 10d)
+                    new ItemEffectData(ItemEffect.Improved_Hip_Fire_Accuracy, 45d)
                 ),
             new CostData(Material.CHEMICALPATENTS, 5),
             new CostData(Material.COMBATANTPERFORMANCE, 10),

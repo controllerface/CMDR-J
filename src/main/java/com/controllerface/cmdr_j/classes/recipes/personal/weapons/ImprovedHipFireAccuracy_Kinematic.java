@@ -16,7 +16,7 @@ public class ImprovedHipFireAccuracy_Kinematic extends AbstractModificationRecip
         super(ImprovedHipFireAccuracy_Kinematic.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Improved_Hip_Fire_Accuracy, 10d)
+                    new ItemEffectData(ItemEffect.Improved_Hip_Fire_Accuracy, 45d)
                 ),
             new CostData(Material.EXTRACTIONYIELDDATA, 10),
             new CostData(Material.BIOMETRICDATA, 5),

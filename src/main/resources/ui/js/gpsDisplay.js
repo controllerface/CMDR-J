@@ -68,7 +68,7 @@ class GPSDisplay extends HTMLElement
             this.currentWidth = gpsRect.width;
         }
 
-        // there's 20px of margin on teh sides of the container, so 40 px is subtracted from the computed width
+        // there's 20px of margin on the sides of the container, so 40 px is subtracted from the computed width
         let w = gpsRect.width - 40;
 
         // This effectively sets a 4:3 aspect ratio
@@ -87,7 +87,66 @@ class GPSDisplay extends HTMLElement
         this.ctx.fillRect(0, 0, this.viewport.width, this.viewport.height);
         this.ctx.strokeStyle = this.color_line;
         this.ctx.lineWidth = 5;
-        this.ctx.strokeRect(0, 0, this.viewport.width, this.viewport.height)
+        this.ctx.strokeRect(0, 0, this.viewport.width, this.viewport.height);
+
+
+        // todo: draw grid relative to player in fixed pixel lengths in meters, use
+        //  offsets to calculate a scale, and render it in a separate element below
+        //  the viewport
+
+        if (this.coordinateData)
+        {
+            //console.log(this.coordinateData['xOffset'] + " : " + this.coordinateData['yOffset']);
+
+            let xOffset = this.coordinateData['xOffset'];
+            let yOffset = this.coordinateData['yOffset'];
+
+            this.ctx.save();
+
+            this.ctx.strokeWidth = 1;
+
+            let x = (xOffset * 1.33 * 10) * this.scale.value;
+            let x2 = (xOffset * 1.33 * 100) * this.scale.value;
+            let x3 = (xOffset * 1.33 * 1000) * this.scale.value;
+
+            let y = (yOffset * 10) * this.scale.value;
+            let y2 = (yOffset * 100) * this.scale.value;
+            let y3 = (yOffset * 1000) * this.scale.value;
+
+// scaling circle
+            this.ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)';
+            this.ctx.fillStyle = 'rgba(0, 75, 0, 0.1)';
+            this.ctx.beginPath();
+            this.ctx.ellipse(this.centerX, this.centerY, x3, y3, 0, 0, 2 * Math.PI);
+            this.ctx.fill();
+
+            this.ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)';
+            this.ctx.fillStyle = 'rgba(0, 175, 0, 0.1)';
+            this.ctx.beginPath();
+            this.ctx.ellipse(this.centerX, this.centerY, x2, y2, 0, 0, 2 * Math.PI);
+            this.ctx.fill();
+
+            this.ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
+            this.ctx.fillStyle = 'rgba(0, 0, 255, 0.1)';
+            this.ctx.beginPath();
+            this.ctx.ellipse(this.centerX, this.centerY, x, y, 0, 0, 2 * Math.PI);
+            this.ctx.fill();
+
+
+
+// horizontal scaling line
+//            this.ctx.strokeStyle = 'green';
+//            this.ctx.beginPath();
+//            this.ctx.moveTo(this.centerX, this.centerY);
+//            this.ctx.lineTo(this.centerX - x, this.centerY);
+//            this.ctx.moveTo(this.centerX, this.centerY);
+//            this.ctx.lineTo(this.centerX + x, this.centerY);
+//            this.ctx.stroke();
+
+            this.ctx.restore();
+//console.log("Val: " + x);
+        }
+
     }
 
     /* When off-planet, this simply renders some text saying so */
@@ -102,7 +161,7 @@ class GPSDisplay extends HTMLElement
     }
 
     /* The GPS indicator for the player is a basic "arrow head" style icon, which points the direction the player
-     is facing. This indicator is always rendered in the center of the screen, and all other points are positioned
+     is facing. This indicator is always rendered in the center of the screen, and all other points are calculated
      relative to the player's position. */
     renderPlayer()
     {
@@ -153,8 +212,8 @@ class GPSDisplay extends HTMLElement
         let latOffset = this.coordinateData['latitude'] - pointData['latitude'];
         let lonOffset = this.coordinateData['longitude'] - pointData['longitude'];
 
-        /* Scaling the values up or down effectively zooms the map in or out. It si worth noting that in general,
-         even larger distances of several hundred KM equate to only a very small different in latitude/longitude
+        /* Scaling the values up or down effectively zooms the map in or out. It is worth noting that in general,
+         even larger distances of several hundred KM equate to only a very small difference in latitude/longitude
          from the player. Because of this, the scale defaults to 1000 to make the distances noticeable at all.
          if unscaled (i.e. scale factor of 1) the map isn't very useful */
         latOffset = latOffset * this.scale.value;

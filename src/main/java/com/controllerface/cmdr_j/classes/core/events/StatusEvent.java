@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class StatusEvent implements BiConsumer<GameState, Map<String, Object>>
 {
-
     @Override
     @SuppressWarnings("unchecked")
     public void accept(GameState gameState, Map<String, Object> event)
@@ -66,16 +65,23 @@ public class StatusEvent implements BiConsumer<GameState, Map<String, Object>>
             radius = gameState.getNearestBodyRadius();
         }
 
-        var localCoordinates = new LocalCoordinates(nearPlanet, latitude, longitude, altitude, heading, radius);
+        // This logic calculates the absolute value of 1 meter offsets from zero for the
+        // X and Y axes. These values can be used in the UI to draw a scale or other map
+        // markings that can be helpful for getting rough measurements of distances
+        var xOffset = (180/ Math.PI) * (1 / radius);
+        var yOffset = (180/ Math.PI) * (1 / radius) / Math.cos(xOffset);
+
+        var localCoordinates = new LocalCoordinates.Builder()
+            .setNearPlanet(nearPlanet)
+            .setLatitude(latitude)
+            .setLongitude(longitude)
+            .setAltitude(altitude)
+            .setHeading(heading)
+            .setRadius(radius)
+            .setxOffset(xOffset)
+            .setyOffset(yOffset)
+            .build();
+
         gameState.setLocalCoordinates(localCoordinates);
-
-        // todo: use these?
-//        var cargoTonnage = ((Number) event.get("Cargo")).doubleValue();
-//        var fireGroup = ((Number) event.get("FireGroup")).intValue();
-//        var guiFocus = ((Number) event.get("GuiFocus")).intValue();
-//        var legalState = ((String) event.get("LegalState"));
-//        var pips = ((List<Integer>) event.get("Fuel"));
-
-
     }
 }

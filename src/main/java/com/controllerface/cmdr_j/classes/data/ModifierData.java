@@ -2,32 +2,30 @@ package com.controllerface.cmdr_j.classes.data;
 
 import com.controllerface.cmdr_j.enums.equipment.modules.stats.ItemEffect;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Controllerface on 5/2/2018.
  */
 public class ModifierData
 {
-    public final ItemEffect effect;
-    public final double value;
-    public final double originalValue;
-    public final boolean lessIsGood;
-    public final String stringValue;
+    public final List<ModifiedStat> stats;
+
+    public ModifierData()
+    {
+        stats = new ArrayList<>();
+    }
 
     public ModifierData(ItemEffect effect, double value, double originalValue, boolean lessIsGood)
     {
-        this.effect = effect;
-        this.value = value;
-        this.originalValue = originalValue;
-        this.lessIsGood = lessIsGood;
-        this.stringValue = "";
+        var x = new ModifiedStat(effect, value, originalValue, lessIsGood);
+        stats = new ArrayList<>();
+        stats.add(x);
     }
 
-    public ModifierData(ItemEffect effect, String stringValue)
+    public ModifiedStat shipStat()
     {
-        this.effect = effect;
-        this.value = 1;
-        this.originalValue = 0;
-        this.lessIsGood = false;
-        this.stringValue = stringValue;
+        return stats.get(0);
     }
 }

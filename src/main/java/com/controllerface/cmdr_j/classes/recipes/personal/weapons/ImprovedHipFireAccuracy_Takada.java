@@ -16,7 +16,7 @@ public class ImprovedHipFireAccuracy_Takada extends AbstractModificationRecipe
         super(ImprovedHipFireAccuracy_Takada.class.getSimpleName(), ItemGrade.MicroMaterial,
             new ItemEffects
                 (
-                    new ItemEffectData(ItemEffect.Improved_Hip_Fire_Accuracy, 10d)
+                    new ItemEffectData(ItemEffect.Improved_Hip_Fire_Accuracy, 45d)
                 ),
             new CostData(Material.RADIOACTIVITYDATA, 5),
             new CostData(Material.COMBATANTPERFORMANCE, 10),
