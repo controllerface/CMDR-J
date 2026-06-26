@@ -1,6 +1,7 @@
 package com.controllerface.cmdr_j.enums.equipment.modules;
 
 import com.controllerface.cmdr_j.classes.data.ItemEffects;
+import com.controllerface.cmdr_j.classes.modules.weapons.plasmaaccellerator.*;
 import com.controllerface.cmdr_j.interfaces.commander.OwnableModule;
 import com.controllerface.cmdr_j.classes.data.ItemEffectData;
 import com.controllerface.cmdr_j.classes.modules.weapons.beam.*;
@@ -18,10 +19,6 @@ import com.controllerface.cmdr_j.classes.modules.weapons.minelauncher.FixedMineL
 import com.controllerface.cmdr_j.classes.modules.weapons.minelauncher.FixedShockMineLauncher_Small;
 import com.controllerface.cmdr_j.classes.modules.weapons.missilerack.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.multicannon.*;
-import com.controllerface.cmdr_j.classes.modules.weapons.plasmaaccellerator.FixedPlasmaAcceleratorAdvanced_Large;
-import com.controllerface.cmdr_j.classes.modules.weapons.plasmaaccellerator.FixedPlasmaAccelerator_Huge;
-import com.controllerface.cmdr_j.classes.modules.weapons.plasmaaccellerator.FixedPlasmaAccelerator_Large;
-import com.controllerface.cmdr_j.classes.modules.weapons.plasmaaccellerator.FixedPlasmaAccelerator_Medium;
 import com.controllerface.cmdr_j.classes.modules.weapons.plasmacharger.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.pulse.*;
 import com.controllerface.cmdr_j.classes.modules.weapons.railgun.FixedImperialHammerRailGun_Medium;
@@ -160,6 +157,7 @@ public enum HardpointModule implements OwnableModule
     hpt_plasmaaccelerator_fixed_huge                (128049467L, new FixedPlasmaAccelerator_Huge()),
     hpt_plasmaaccelerator_fixed_large               (128049466L, new FixedPlasmaAccelerator_Large()),
     hpt_plasmaaccelerator_fixed_large_advanced      (128671339L, new FixedPlasmaAcceleratorAdvanced_Large()),
+    hpt_mkiiplasmashockautocannon_fixed_large       (129040538L, new FixedPlasmaShockAcceleratorMKII_Large()),
     hpt_plasmaaccelerator_fixed_medium              (128049465L, new FixedPlasmaAccelerator_Medium()),
 
 

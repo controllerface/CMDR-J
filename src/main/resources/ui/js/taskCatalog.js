@@ -475,6 +475,7 @@ class TaskCatalog extends HTMLElement
         let multiCannons = [];
         let plasmaAccelerator = [];
         let plasmaCharger = [];
+        let plasmaShockAccelerator = [];
         let pulseLaser = [];
         let railguns = [];
         let flak = [];
@@ -496,6 +497,7 @@ class TaskCatalog extends HTMLElement
             causticmissile: missiles,
             multicannon: multiCannons,
             plasmaaccelerator: plasmaAccelerator,
+            mkiiplasmashockautocannon: plasmaShockAccelerator,
             plasmalauncher: plasmaCharger,
             pulselaser: pulseLaser,
             railgun: railguns,
@@ -520,6 +522,7 @@ class TaskCatalog extends HTMLElement
         typeContainers['Missile Racks'] = missiles;
         typeContainers['Multi-Cannons'] = multiCannons;
         typeContainers['Plasma Accelerators'] = plasmaAccelerator;
+        typeContainers['Plasma Shock Accelerators'] = plasmaShockAccelerator;
         typeContainers['Plasma Chargers'] = plasmaCharger;
         typeContainers['Pulse Lasers'] = pulseLaser;
         typeContainers['Railguns'] = railguns;

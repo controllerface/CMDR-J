@@ -919,7 +919,7 @@
         <details>
             <summary class="poiInfoDropdown">Points of interest</summary>
             <div class="poiList">
-                <slot name="poiData"><span class="poiPlaceholder">No known points of interest</span></slot>
+                <slot name="poiData"><span class="poiPlaceholder">-</span></slot>
             </div>
         </details>
         <slot name="stations"></slot>
@@ -2407,7 +2407,7 @@
                         <power-play id="powerPlay"></power-play>
                     </tab-panel>
                 <tab-panel small="small" name="Engineers">
-                        <knownEngineer-stats id="engineerStats"></knownEngineer-stats>
+                        <div id="engineerStats"></div>
                     </tab-panel>
                 <tab-panel small="small" name="Statistics">
                     <div>

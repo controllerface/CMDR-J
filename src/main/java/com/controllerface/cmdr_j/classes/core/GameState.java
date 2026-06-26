@@ -552,14 +552,8 @@ public class GameState
     private void executeWithLock(Procedure procedure)
     {
         stateLock.lock();
-        try
-        {
-            procedure.call();
-        }
-        finally
-        {
-            stateLock.unlock();
-        }
+        try { procedure.call(); }
+        finally { stateLock.unlock(); }
     }
 
     //region Commander Stats
@@ -660,19 +654,10 @@ public class GameState
                         .map(SpaceSuit::getName)
                         .orElse(null);
 
-                    if (suitType == null)
-                    {
-                        System.err.println("Could not determine ship or suit type: " + value);
-                    }
-                    else
-                    {
-                        executeWithLock(() -> globalUpdate.accept("Suit_Data", suitType));
-                    }
+                    if (suitType == null) { System.err.println("Could not determine ship or suit type: " + value); }
+                    else { executeWithLock(() -> globalUpdate.accept("Suit_Data", suitType)); }
                 }
-                else
-                {
-                    executeWithLock(() -> globalUpdate.accept("Ship_Data", shipType.toJson()));
-                }
+                else { executeWithLock(() -> globalUpdate.accept("Ship_Data", shipType.toJson())); }
             }
         }
     }

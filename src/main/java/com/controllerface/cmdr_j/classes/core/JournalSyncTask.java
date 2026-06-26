@@ -425,7 +425,11 @@ public class JournalSyncTask implements Runnable
     {
         Map<String, Object> eventData = JSONSupport.Parse.jsonString.apply(rawEvent);
         JournalEvent.withName((String) eventData.get("event"))
-            .ifPresentOrElse(handler -> handler.process(gameState, eventData),
+            .ifPresentOrElse(handler ->
+                {
+                    System.out.println(eventData);
+                    handler.process(gameState, eventData);
+                },
                 () ->
                 {
                     if (debug)
